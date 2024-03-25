@@ -52,7 +52,7 @@
 		belt_image.color = I.color
 		. += belt_image
 
-/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/belt/handle_item_insertion(obj/item/I, mob/user, prevent_warning)
 	. = ..()
 	update_weight()
 
@@ -754,7 +754,7 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
-/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, prevent_warning)
+/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, mob/user, prevent_warning)
 	if(!..())
 		return
 	playsound(src, 'sound/weapons/blade_sheath.ogg', 20)
