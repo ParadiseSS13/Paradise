@@ -82,7 +82,8 @@
 	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [M] and hold down the trigger.</span>")
 	to_chat(C, "<span class='danger'>You feel a lot of pain as [user] drills into your [drilled_organ]!</span>")
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
-	C.apply_damage(15, BRUTE, drilled_organ)
+	if(!advanced)
+		C.apply_damage(15, BRUTE, drilled_organ)
 	if(!do_after_once(user, insert_time, target = C))// Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something
 		to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
 		in_use = FALSE
@@ -120,16 +121,12 @@
 	if(!advanced)
 		C.apply_damage(5, BRUTE, drilled_organ)
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)
-	if(user_is_target)
-		if(!do_after_once(C, self_insert_time, target = C))
-			to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
-			in_use = FALSE
-			return
-	else
-		if(!do_after_once(C, insert_time, target = C))
-			to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
-			in_use = FALSE
-			return
+
+	if(!do_after_once(C, (user_is_target ? self_insert_time : insert_time), target = C))
+		to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
+		in_use = FALSE
+		return
+
 	if(!advanced)
 		C.apply_damage(10, BRUTE, drilled_organ)
 	var/obj/item/organ/internal/replaced = C.get_organ_slot(storedorgan.slot)
