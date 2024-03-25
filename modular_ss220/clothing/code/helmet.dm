@@ -36,3 +36,4 @@
 /obj/item/clothing/head/helmet/bike_helmet/replica
 	desc = "Крутой шлем. На вид хлипкий..."
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+

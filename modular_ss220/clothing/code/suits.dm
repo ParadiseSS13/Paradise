@@ -210,3 +210,36 @@
 					/obj/item/clothing/suit/storage/soundhand_brown_jacket)
 	cost = 600
 	containername = "soundhand fan crate"
+
+/* Space Battle */
+/obj/item/clothing/suit/space/hardsuit/syndi/damaged
+	name = "damged blood-red hardsuit"
+	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
+	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 30, "rad" = 50, "fire" = 50, "acid" = 90)
+	w_class = WEIGHT_CLASS_NORMAL
+	on = 1
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
+	actions_types = list(/datum/action/item_action/toggle_helmet)
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/attack_self(mob/user) //Toggle Helmet
+	if(!on)
+		to_chat(user, "<span class='notice'>You cant switch your hardsuit to combat mode.</span>")
+		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 1)
+	.=..()
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
+	actions_types = list()
+	on = 1
+	icon_state = "hardsuit1-syndi"
+	item_state = "syndie_helm"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+
+/obj/item/clothing/suit/space/hardsuit/security
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "hardsuit-sec-old"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+
+/obj/item/clothing/head/helmet/space/hardsuit/security
+	icon = 'modular_ss220/clothing/icons/object/helmet.dmi'
+	icon_state = "hardsuit0-sec"
+	icon_override = 'modular_ss220/clothing/icons/mob/helmet.dmi'

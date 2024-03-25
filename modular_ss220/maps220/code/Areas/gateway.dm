@@ -634,3 +634,168 @@
 /area/awaymission/black_mesa/xen/nihilanth_arena
 	name = "Black Mesa Xen Nihilanth Chamber"
 	icon_state = "awaycontent19"
+
+/*Space Battle*/
+/area/awaymission/space_battle
+	name = "\improper Space Battle"
+	icon_state = "awaycontent1"
+	requires_power = TRUE
+	report_alerts = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+
+/area/awaymission/space_battle/cruiser
+	name = "\improper Nanotrasen Cruiser"
+	icon_state = "awaycontent2"
+
+/area/awaymission/space_battle/prhallway1
+	name = "\improper Port Primary Hallway"
+	icon_state = "awaycontent10"
+
+/area/awaymission/space_battle/prhallway2
+	name = "\improper Central Primary Hallway"
+	icon_state = "awaycontent11"
+
+/area/awaymission/space_battle/prhallway3
+	name = "\improper Starboard Primary Hallway"
+	icon_state = "awaycontent12"
+
+/area/awaymission/space_battle/kitchen
+	name = "\improper Kitchen"
+	icon_state = "awaycontent13"
+
+/area/awaymission/space_battle/medbay
+	name = "\improper MedBay"
+	icon_state = "awaycontent14"
+
+/area/awaymission/space_battle/server
+	name = "\improper Server Room"
+	icon_state = "awaycontent15"
+
+/area/awaymission/space_battle/bridge
+	name = "\improper Bridge"
+	icon_state = "awaycontent16"
+
+/area/awaymission/space_battle/hallway1
+	name = "\improper Hallway"
+	icon_state = "awaycontent17"
+
+/area/awaymission/space_battle/hallway2
+	name = "\improper Hallway"
+	icon_state = "awaycontent18"
+
+/area/awaymission/space_battle/hallway3
+	name = "\improper Hallway"
+	icon_state = "awaycontent19"
+
+/area/awaymission/space_battle/hallway4
+	name = "\improper Hallway"
+	icon_state = "awaycontent20"
+
+/area/awaymission/space_battle/hallway5
+	name = "\improper Hallway"
+	icon_state = "awaycontent21"
+
+/area/awaymission/space_battle/hallway6
+	name = "\improper Hallway"
+	icon_state = "awaycontent22"
+
+/area/awaymission/space_battle/hallway7
+	name = "\improper Hallway"
+	icon_state = "awaycontent23"
+
+/area/awaymission/space_battle/hallway8
+	name = "\improper Hallway"
+	icon_state = "awaycontent24"
+
+/area/awaymission/space_battle/hallway9
+	name = "\improper Hallway"
+	icon_state = "awaycontent25"
+
+/area/awaymission/space_battle/hallway10
+	name = "\improper Hallway"
+	icon_state = "awaycontent26"
+
+/area/awaymission/space_battle/hallway11
+	name = "\improper Hallway"
+	icon_state = "awaycontent27"
+
+/area/awaymission/space_battle/engine
+	name = "\improper Engine Room"
+	icon_state = "awaycontent28"
+
+/area/awaymission/space_battle/engineering
+	name = "\improper Engineering"
+	icon_state = "awaycontent29"
+
+/area/awaymission/space_battle/storage
+	name = "\improper Storage"
+	icon_state = "awaycontent30"
+
+/area/awaymission/space_battle/living
+	name = "\improper Living Room"
+	icon_state = "awaycontent1"
+
+/area/awaymission/space_battle/turret1
+	name = "\improper Turret Room"
+	icon_state = "awaycontent2"
+
+/area/awaymission/space_battle/turret2
+	name = "\improper Turret Room"
+	icon_state = "awaycontent3"
+
+/area/awaymission/space_battle/turret3
+	name = "\improper Turret Room"
+	icon_state = "awaycontent4"
+
+/area/awaymission/space_battle/turret4
+	name = "\improper Turret Room"
+	icon_state = "awaycontent5"
+
+/area/awaymission/space_battle/turret5
+	name = "\improper Turret Room"
+	icon_state = "awaycontent6"
+
+/area/awaymission/space_battle/turret6
+	name = "\improper Turret Room"
+	icon_state = "awaycontent7"
+
+/area/awaymission/space_battle/turret7
+	name = "\improper Turret Room"
+	icon_state = "awaycontent8"
+
+/area/awaymission/space_battle/turret8
+	name = "\improper Turret Room"
+	icon_state = "awaycontent9"
+
+/area/awaymission/space_battle/syndicate
+	name = "\improper Syndicate Assault Ship 1"
+	icon_state = "awaycontent3"
+	requires_power = FALSE
+
+/area/awaymission/space_battle/syndicate/syndicate1
+	name = "\improper Syndicate Assault Ship 2"
+	icon_state = "awaycontent4"
+
+/area/awaymission/space_battle/syndicate/syndicate2
+	name = "\improper Syndicate Assault Ship 3"
+	icon_state = "awaycontent5"
+
+/area/awaymission/space_battle/syndicate/syndicate3
+	name = "\improper Syndicate War Sphere 1"
+	icon_state = "awaycontent6"
+
+/area/awaymission/space_battle/syndicate/syndicate4
+	name = "\improper Syndicate War Sphere 2"
+	icon_state = "awaycontent7"
+
+/area/awaymission/space_battle/syndicate/syndicate5
+	name = "\improper Syndicate War Sphere 3"
+	icon_state = "awaycontent8"
+
+/area/awaymission/space_battle/syndicate/syndicate6
+	name = "\improper Syndicate Fighter"
+	icon_state = "awaycontent9"
+
+/area/awaymission/space_battle/sec_storage
+	name = "\improper Turret Room"
+	icon_state = "awaycontent10"
