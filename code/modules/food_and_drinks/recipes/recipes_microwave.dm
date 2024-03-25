@@ -61,7 +61,7 @@
 		/obj/item/food/snacks/bun,
 		/obj/item/food/snacks/meat/chicken
 	)
-	result = /obj/item/food/snacks/burger/chickenburger
+	result = /obj/item/food/snacks/burger/chicken
 
 /datum/recipe/microwave/plainburger
 	items = list(

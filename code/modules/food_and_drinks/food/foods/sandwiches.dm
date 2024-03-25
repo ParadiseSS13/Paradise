@@ -299,7 +299,7 @@
 	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
 	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
 
-/obj/item/food/snacks/burger/chickenburger
+/obj/item/food/snacks/burger/chicken
 	name = "chicken burger"
 	desc = "May I mayo?"
 	icon_state = "chickenburger"
