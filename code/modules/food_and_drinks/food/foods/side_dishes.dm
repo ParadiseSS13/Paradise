@@ -127,7 +127,7 @@
 
 /obj/item/food/snacks/onigiri
 	name = "onigiri"
-	desc = "Rice and seaweed"
+	desc = "Rice and seaweed."
 	icon_state = "onigiri"
 	list_reagents = list("nutriment" = 5, "vitamin" = 2)
 	tastes = list("rice" = 3, "seaweed" = 2)
