@@ -969,14 +969,12 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
-		var/sharpness = I.sharp
-		if(sharpness)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
-				harvest(user)
-			return 1
+	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
+		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+		if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+			harvest(user)
+		return TRUE
 
 /mob/living/proc/harvest(mob/living/user)
 	if(QDELETED(src))
