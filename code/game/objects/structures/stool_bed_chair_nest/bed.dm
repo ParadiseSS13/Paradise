@@ -37,14 +37,23 @@
 
 /obj/structure/bed/antihobo
 	desc = "This is a comfy bed placed by the company for this special day. Maybe they want their beloved employees to take a nap?"
+	var/captured = FALSE
 
 /obj/structure/bed/antihobo/buckle_mob(mob/living/M, force, check_loc)
 	. = ..()
+	captured = TRUE
 	playsound(loc, 'sound/machines/switch.ogg', 30)
 	atom_say("A hobo has been detected and restrained, nearby authorities should dismantle this bed and take them to work")
 
 /obj/structure/bed/antihobo/unbuckle_mob(mob/living/buckled_mob, force)
-	to_chat(buckled_mob, "<span class='warning'>You can't manage to unbuckle yourself, call for help!</span>")
+	if(captured)
+		to_chat(buckled_mob, "<span class='warning'>You can't manage to unbuckle yourself, call for help!</span>")
+		return
+	return ..()
+
+/obj/structure/bed/antihobo/Destroy()
+	captured = FALSE
+	return ..()
 
 /obj/structure/bed/psych
 	name = "psych bed"
