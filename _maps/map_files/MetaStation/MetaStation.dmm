@@ -14663,6 +14663,8 @@
 /area/station/maintenance/apmaint)
 "bfU" = (
 /obj/machinery/hologram/holopad,
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/black,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "bfV" = (
@@ -58770,6 +58772,14 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"iYy" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/red,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "iYA" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -60124,6 +60134,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -66306,6 +66318,14 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
+"mey" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "meL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -69143,6 +69163,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"njH" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "njV" = (
 /obj/structure/closet/l3closet/scientist,
 /obj/structure/sign/securearea{
@@ -71278,6 +71305,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -80717,6 +80746,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"sds" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "sdJ" = (
 /obj/machinery/door/airlock/freezer,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -86225,6 +86261,14 @@
 	icon_state = "greenfull"
 	},
 /area/station/service/hydroponics)
+"uBy" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/centcom,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "uBK" = (
 /obj/item/kirbyplants,
 /obj/machinery/light/small{
@@ -91292,6 +91336,13 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
+"wPZ" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "wQe" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/structure/table/wood,
@@ -121070,7 +121121,7 @@ sPp
 bbn
 bbr
 bwn
-jmL
+wPZ
 jMy
 abq
 aBY
@@ -121584,7 +121635,7 @@ aMf
 bbp
 fJp
 jtg
-jmL
+sds
 jMy
 abq
 bkW
@@ -121841,7 +121892,7 @@ aZP
 bbq
 pzV
 ber
-jmL
+njH
 jMy
 abq
 aEh
@@ -122355,7 +122406,7 @@ aZR
 bbs
 dEM
 tyF
-wkn
+iYy
 jMy
 abq
 aDK
@@ -122612,7 +122663,7 @@ aMk
 bZi
 lDm
 fHQ
-wkn
+mey
 jMy
 abq
 bkW
@@ -123126,7 +123177,7 @@ aMk
 beD
 nGC
 xuG
-wkn
+uBy
 jMy
 abq
 boe
