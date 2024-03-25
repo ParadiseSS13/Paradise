@@ -129,9 +129,10 @@
 		return FALSE
 
 // Don't drop what we're posessing.
-/mob/living/simple_animal/possessed_object/unEquip(obj/item/I)
+/mob/living/simple_animal/possessed_object/unEquip(obj/item/I, force, silent = FALSE)
+	. = TRUE
 	if(I != possessed_item)
-		..()
+		. = ..()
 	if(I == l_hand)
 		l_hand = null
 	if(I == r_hand)
