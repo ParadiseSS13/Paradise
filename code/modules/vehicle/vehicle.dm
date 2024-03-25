@@ -128,6 +128,17 @@
 	icon_state = "key"
 	w_class = WEIGHT_CLASS_TINY
 
+/obj/item/key/mime
+	name = "mime car key"
+	desc = "A key that leads to the mime invisible car. Activate and try to locate it, good luck."
+	icon_state = "mimekey"
+	COOLDOWN_DECLARE(alarm_cooldown)
+
+/obj/item/key/mime/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, alarm_cooldown))
+		return
+	playsound(user, 'sound/misc/mime_key.ogg', 20)
+	COOLDOWN_START(src, alarm_cooldown, 2 SECONDS)
 
 //BUCKLE HOOKS
 /obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)

@@ -46,6 +46,7 @@
 	new /obj/item/toy/crayon/mime(src)
 	new /obj/item/reagent_containers/drinks/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)
+	new /obj/item/key/mime(src)
 
 /obj/structure/closet/secure_closet/syndicate_officer
 	name = "officer's locker"
