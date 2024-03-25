@@ -36,7 +36,6 @@
 	return ..()
 
 /obj/structure/bed/antihobo
-	name = "bed (TOTALLY NOT A TRAP)"
 	desc = "This is a comfy bed placed by the company for this special day. Maybe they want their beloved employees to take a nap?"
 
 /obj/structure/bed/antihobo/buckle_mob(mob/living/M, force, check_loc)
