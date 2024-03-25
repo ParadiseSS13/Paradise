@@ -814,7 +814,7 @@
 	level = 3
 	glass_amount = 2
 
-/obj/structure/window/full/reinforced/wallwindow
+/obj/structure/window/full/wallwindow
 	name = "wall window"
 	desc = "It looks strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/windows/wall_window.dmi'
@@ -823,18 +823,22 @@
 	max_integrity = 500
 	reinf = TRUE
 	heat_resistance = 1600
+	layer = ABOVE_PLATING_LAYER
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
+	glass_amount = 4
 	glass_type = /obj/item/stack/sheet/rglass
 
-/obj/structure/window/full/reinforced/wallwindow/tinted
+/obj/structure/window/full/wallwindow/tinted
+	name = "tinted wall window"
 	icon = 'icons/obj/smooth_structures/windows/wall_window_tinted.dmi'
 	icon_state = "wall_window_tinted-0"
 	base_icon_state = "wall_window_tinted"
+	glass_amount = 6
 	opacity = TRUE
 
-/obj/structure/window/full/reinforced/reinforcedwallwindow
+/obj/structure/window/full/reinforcedwallwindow
 	name = "reinforced wall window"
 	desc = "It looks very strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/windows/reinforced_wall_window.dmi'
@@ -843,13 +847,17 @@
 	max_integrity = 1000
 	reinf = TRUE
 	heat_resistance = 1600
+	layer = ABOVE_PLATING_LAYER
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
+	glass_amount = 8
 	glass_type = /obj/item/stack/sheet/rglass
 
-/obj/structure/window/full/reinforced/reinforcedwallwindow/tinted
+/obj/structure/window/full/reinforcedwallwindow/tinted
+	name = "reinforced tinted wall window"
 	icon = 'icons/obj/smooth_structures/windows/reinforced_wall_window_tinted.dmi'
 	icon_state = "reinforced_wall_window_tinted-0"
 	base_icon_state = "reinforced_wall_window_tinted"
+	glass_amount = 10
 	opacity = TRUE

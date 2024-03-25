@@ -104,7 +104,12 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	new /datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/reinforced, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	null,
 	new /datum/stack_recipe/window("directional electrochromic window", /obj/structure/window/reinforced/polarized, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile electrochromic window", /obj/structure/window/full/reinforced/polarized, 4, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("fulltile electrochromic window", /obj/structure/window/full/reinforced/polarized, 4, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	null,
+	new /datum/stack_recipe/window("wall window", /obj/structure/window/full/wallwindow, 4, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("tinted wall window", /obj/structure/window/full/wallwindow/tinted, 6, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("reinforced wall window", /obj/structure/window/full/reinforcedwallwindow, 8, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("reinforced tinted wall window", /obj/structure/window/full/reinforcedwallwindow/tinted, 10, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))
 
 /obj/item/stack/sheet/rglass
