@@ -131,15 +131,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
-"fh" = (
-/obj/item/storage/surgical_tray,
-/obj/item/stack/nanopaste,
-/obj/structure/table/glass/reinforced/plastitanium,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/shuttle/escape)
 "fi" = (
 /obj/machinery/recharger,
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -252,6 +243,15 @@
 /area/shuttle/escape)
 "kU" = (
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"kY" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/surgical_tray,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
 /area/shuttle/escape)
 "ll" = (
 /obj/machinery/computer/security,
@@ -613,7 +613,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Bm" = (
-/obj/machinery/economy/vending/medical,
+/obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -1048,6 +1048,7 @@
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1203,6 +1204,13 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
+/area/shuttle/escape)
+"YD" = (
+/obj/machinery/economy/vending/medical,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
 /area/shuttle/escape)
 "YP" = (
 /obj/effect/turf_decal/delivery/blue/partial{
@@ -1674,9 +1682,9 @@ Jw
 Ux
 vU
 Zc
+kY
 mw
-fh
-mw
+YD
 Bm
 vU
 IR
