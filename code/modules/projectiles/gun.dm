@@ -146,7 +146,7 @@
 		return
 	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
 		return
-	if(SEND_SIGNAL(src, COMSIG_MOB_FIRED_GUN, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
+	if(SEND_SIGNAL(src, COMSIG_MOB_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
 		return
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.

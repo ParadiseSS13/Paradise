@@ -3,7 +3,7 @@
 	/// How far the view can be moved from the player. At 1, it can be moved by the player's view distance; other values scale linearly.
 	var/range_modifier = 1
 	/// Fullscreen object we use for tracking.
-	var/obj/screen/fullscreen/cursor_catcher/scope/tracker
+	var/atom/movable/screen/fullscreen/cursor_catcher/scope/tracker
 	/// The owner of the tracker's ckey. For comparing with the current owner mob, in case the client has left it (e.g. ghosted).
 	var/tracker_owner_ckey
 	/// The method which we zoom in and out
@@ -80,7 +80,7 @@
 	SIGNAL_HANDLER
 	var/obj/item/item = source.target
 	var/mob/living/user = item.loc
-	if(is_int_organ(item))
+	if(is_internal_organ(item))
 		var/obj/item/organ/internal/O = item
 		user = O.owner
 	if(tracker)
@@ -154,7 +154,7 @@
 /datum/component/scope/proc/zoom(mob/user)
 	if(isnull(user.client))
 		return
-	if(HAS_TRAIT(user, TRAIT_USER_SCOPED))
+	if(HAS_TRAIT(user, TRAIT_SCOPED))
 		to_chat(user, "<span class='warning'>You are already zoomed in!</span>")
 		return
 	if(attempting_to_scope)
@@ -167,7 +167,7 @@
 			return
 		attempting_to_scope = FALSE
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
-	tracker = user.overlay_fullscreen("scope", /obj/screen/fullscreen/cursor_catcher/scope, istype(parent, /obj/item/gun))
+	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
 	if(allow_middle_click)
 		RegisterSignal(tracker, COMSIG_CLICK, PROC_REF(generic_click))
@@ -182,7 +182,7 @@
 		)
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
-	ADD_TRAIT(user, TRAIT_USER_SCOPED, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_success(user)
@@ -207,7 +207,7 @@
 /datum/component/scope/proc/stop_zooming(mob/user)
 	SIGNAL_HANDLER
 
-	if(!HAS_TRAIT(user, TRAIT_USER_SCOPED))
+	if(!HAS_TRAIT(user, TRAIT_SCOPED))
 		return
 
 	STOP_PROCESSING(SSprojectiles, src)
@@ -217,7 +217,7 @@
 		COMSIG_CARBON_SWAP_HANDS,
 		COMSIG_PARENT_QDELETING,
 	))
-	REMOVE_TRAIT(user, TRAIT_USER_SCOPED, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)
 	user.clear_fullscreen("scope")
@@ -238,24 +238,24 @@
 		var/obj/item/gun/G = parent
 		G.on_scope_end(user)
 
-/obj/screen/fullscreen/cursor_catcher/scope
+/atom/movable/screen/fullscreen/cursor_catcher/scope
 	icon = 'icons/mob/screen_scope.dmi'
 	icon_state = "scope"
 	/// Multiplier for given_X an given_y.
 	var/range_modifier = 1
 
-/obj/screen/fullscreen/cursor_catcher/scope/assign_to_mob(mob/new_owner, range_modifier)
+/atom/movable/screen/fullscreen/cursor_catcher/scope/assign_to_mob(mob/new_owner, range_modifier)
 	src.range_modifier = range_modifier
 	return ..()
 
-/obj/screen/fullscreen/cursor_catcher/scope/Click(location, control, params)
+/atom/movable/screen/fullscreen/cursor_catcher/scope/Click(location, control, params)
 	if(usr == owner)
 		calculate_params()
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params)
 
 	return ..()
 
-/obj/screen/fullscreen/cursor_catcher/scope/calculate_params()
+/atom/movable/screen/fullscreen/cursor_catcher/scope/calculate_params()
 	var/list/modifiers = params2list(mouse_params)
 	var/icon_x = text2num(LAZYACCESS(modifiers, "vis-x"))
 	if(isnull(icon_x))

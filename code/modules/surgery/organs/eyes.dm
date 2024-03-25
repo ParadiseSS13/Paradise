@@ -173,12 +173,12 @@
 	eye_color = "#6f00ff"
 	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
-	var/scope_range = 0.8 //Only used in initialize
+	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
 	var/active = FALSE
 
 /obj/item/organ/internal/eyes/cybernetic/scope/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, allow_middle_click = TRUE) //Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
+	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, allow_middle_click = TRUE)
 
 /obj/item/organ/internal/eyes/cybernetic/scope/insert(mob/living/carbon/human/M, special)
 	. = ..()
@@ -193,7 +193,7 @@
 
 /obj/item/organ/internal/eyes/cybernetic/scope/hardened
 	name = "\improper Hardened Kaleido Optics eyes"
-	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active. This pair has been hardened for special operations personnel."
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active. This pair has been hardened for special operations personnel, and has enhanced zoom functionality."
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
 	scope_range = 1.25

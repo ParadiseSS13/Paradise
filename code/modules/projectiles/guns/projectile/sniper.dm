@@ -26,7 +26,7 @@
 		AddComponent(/datum/component/scope, range_modifier = 2)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
-	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_USER_SCOPED))
+	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_SCOPED))
 		var/obj/item/projectile/bullet/sniper/S = chambered.BB
 		if(S.non_zoom_spread)
 			to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")

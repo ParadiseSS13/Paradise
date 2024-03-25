@@ -221,7 +221,7 @@
 
 /datum/status_effect/lwap_scope/tick()
 	locks = 0
-	for(var/obj/screen/fullscreen/cursor_catcher/scope/our_scope in owner.client.screen)
+	for(var/atom/movable/screen/fullscreen/cursor_catcher/scope/our_scope in owner.client.screen)
 		for(var/mob/living/L in range(10, our_scope.given_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
