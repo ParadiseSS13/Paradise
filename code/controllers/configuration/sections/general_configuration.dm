@@ -140,5 +140,5 @@
 	switch(var_name)
 		if("restart_timeout")
 			return FALSE
-	. = ..()
+	return ..()
 	
