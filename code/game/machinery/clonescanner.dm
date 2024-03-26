@@ -59,6 +59,8 @@
 /obj/machinery/clonescanner/Destroy()
 	if(console)
 		console.scanner = null
+	if(occupant)
+		remove_mob(occupant)
 	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)

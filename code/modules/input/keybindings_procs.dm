@@ -14,9 +14,10 @@
 				active_keybindings[key] += list(KB)
 	if(!mob) // Clients can join before world/new is setup, so we gotta mob check em
 		return active_keybindings
-	for(var/datum/action/action as anything in mob.actions)
-		if(action.button?.linked_keybind?.binded_to)
-			var/datum/keybinding/mob/trigger_action_button/linked_bind = action.button.linked_keybind
+	for(var/atom/movable/screen/movable/action_button/button as anything in mob.hud_used.get_all_action_buttons())
+		// TODO VERIFY THIS (AND KEYBINDS) WORK PROPERLY
+		if(button.linked_keybind?.binded_to)
+			var/datum/keybinding/mob/trigger_action_button/linked_bind = button.linked_keybind
 			active_keybindings[linked_bind.binded_to] += list(linked_bind)
 
 	return active_keybindings
