@@ -153,7 +153,7 @@
 				C = H.get_idcard(TRUE)
 				if(istype(C))
 					var/datum/money_account/A = C.get_card_account()
-					if(A.try_withdraw_credits(2))
+					if(A?.try_withdraw_credits(2))
 						to_chat(user, "<span class='info'>DOOR FEE: 2 credits have been deducted from your account.</span>")
 					else
 						to_chat(user, "<span class='info'>Hobo detected, door fee is bypassed.</span>")
