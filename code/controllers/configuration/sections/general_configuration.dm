@@ -8,9 +8,9 @@
 	var/server_features = "Medium RP, varied species/jobs"
 	/// Allow character OOC notes
 	var/allow_character_metadata = TRUE
-	/// Time in seconds for the pregame lobby
+	/// Time in seconds for the pregame lobby. Measured in seconds
 	var/lobby_time = 240
-	/// Default timeout for world reboot
+	/// Default timeout for world reboot. Measured in seconds
 	var/restart_timeout = 75
 	/// Ban all Guest BYOND accounts
 	var/guest_ban = TRUE
