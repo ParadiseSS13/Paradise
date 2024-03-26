@@ -125,6 +125,10 @@
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
@@ -255,6 +259,15 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
+
+/obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	if(!do_after(user, 0.5 SECONDS, target = user)) // touch/looking doesn't take that long, but still probably good for a delay to exist for shoving and whatnot
+		return SHAME
+	user.dust()
+	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
+	return OBLITERATION
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
