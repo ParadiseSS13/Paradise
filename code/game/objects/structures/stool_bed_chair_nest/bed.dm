@@ -36,6 +36,7 @@
 	return ..()
 
 /obj/structure/bed/antihobo
+	name = "unsuspicious bed"
 	desc = "This is a comfy bed placed by the company for this special day. Maybe they want their beloved employees to take a nap?"
 	var/captured = FALSE
 
