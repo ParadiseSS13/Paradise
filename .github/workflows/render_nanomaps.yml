@@ -20,6 +20,12 @@ jobs:
     name: 'Generate NanoMaps'
     runs-on: ubuntu-22.04
     steps:
+    - id: create_token
+      uses: tibdex/github-app-token@v2
+      with:
+        app_id: ${{ secrets.APP_ID }}
+        private_key: ${{ secrets.PRIVATE_KEY }}
+
     - name: 'Update Branch'
       uses: actions/checkout@v4
 
@@ -33,6 +39,8 @@ jobs:
       run: './tools/github-actions/nanomap-renderer-invoker.sh'
 
     - name: 'Commit Maps'
+      env:
+        GH_TOKEN: ${{ steps.create_token.outputs.token }}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "NanoMap Generation"
