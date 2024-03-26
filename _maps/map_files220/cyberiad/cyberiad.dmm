@@ -90,7 +90,8 @@
 	id = "whiteship_cyberiad";
 	name = "North of Cyberiad";
 	dwidth = 8;
-	height = 31
+	height = 31;
+	width = 21
 	},
 /turf/space,
 /area/space)
