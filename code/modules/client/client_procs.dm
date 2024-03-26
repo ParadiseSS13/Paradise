@@ -105,7 +105,7 @@
 	if(href_list["priv_msg"])
 		var/ckey_txt = href_list["priv_msg"]
 
-		cmd_admin_pm(ckey_txt, null, href_list["type"])
+		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
 		return
 
 	if(href_list["discord_msg"])
