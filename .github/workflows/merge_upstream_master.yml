@@ -1,7 +1,7 @@
 name: Merge Upstream Master
 on:
   issue_comment:
-    types: [created]
+    types: created
 
 jobs:
   merge-upstream:
@@ -15,9 +15,15 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - id: create_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
       - name: PR Data
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.create_token.outputs.token }}
         run: |
           pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
           if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
@@ -84,7 +90,4 @@ jobs:
 
       - name: Notify Failure
         if: failure()
-        run: |
-          curl -s -H "Authorization: token ${{ github.token }}" \
-            -X POST -d '{"body": "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
+        run: gh pr comment ${{ github.event.issue.html_url }} -b "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
