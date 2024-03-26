@@ -228,6 +228,44 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/brig/temp
+	desc = "A locker connected to the cell's timer system, used to store prisoner belongings. It unlocks automatically once the sentence has been served."
+
+/obj/structure/closet/secure_closet/brig/temp/populate_contents()
+	return
+
+/obj/structure/closet/secure_closet/brig/temp/cell_1
+	name = "Cell 1 Locker"
+	id = "Cell 1"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_2
+	name = "Cell 2 Locker"
+	id = "Cell 2"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_3
+	name = "Cell 3 Locker"
+	id = "Cell 3"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_4
+	name = "Cell 4 Locker"
+	id = "Cell 4"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_5
+	name = "Cell 5 Locker"
+	id = "Cell 5"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_6
+	name = "Cell 6 Locker"
+	id = "Cell 6"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_7
+	name = "Cell 7 Locker"
+	id = "Cell 7"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_8
+	name = "Cell 8 Locker"
+	id = "Cell 8"
+
 /obj/structure/closet/secure_closet/brig/gulag
 	name = "labor camp locker"
 	desc = "A special locker designed to store prisoner belongings, allows access when prisoners meet their point quota."
