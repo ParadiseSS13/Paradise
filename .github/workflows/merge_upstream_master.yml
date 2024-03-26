@@ -40,6 +40,7 @@ jobs:
         with:
           repository: ${{ env.PR_REPO }}
           ref: ${{ env.PR_BRANCH }}
+          token: ${{ steps.create_token.outputs.token }}
 
       - uses: actions/setup-node@v4
         env:
