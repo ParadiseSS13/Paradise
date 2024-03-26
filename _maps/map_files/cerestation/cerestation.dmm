@@ -18091,9 +18091,6 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "bRZ" = (
-/obj/machinery/computer/supplycomp/public{
-	dir = 8
-	},
 /obj/structure/railing{
 	dir = 6
 	},
@@ -18101,6 +18098,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/computer/supplycomp{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
