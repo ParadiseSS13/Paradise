@@ -68,7 +68,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/turn_off()
 	..()
-	icon_state = "cleanbot[on]"
+	icon_state = "cleanbot0"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
