@@ -13,7 +13,7 @@
 	table = find_spawned_test_object(get_step(run_loc_bottom_left, EAST), /obj/structure/table)
 
 /datum/unit_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
-	for (var/content in location.contents)
+	for(var/content in location.contents)
 		if(istype(content, test_object_type))
 			return content
 	Fail("Couldn't find spawned test object of type: [test_object_type].")
