@@ -235,7 +235,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("department")
 			if(send_requests_console_message(message, department, recipient, msgStamped, msgVerified, priority, Radio))
 				screen = RCS_SENTPASS
-				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
 			else
 				screen = RCS_SENTFAIL
 				atom_say("No server detected!")

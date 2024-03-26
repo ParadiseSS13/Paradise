@@ -158,7 +158,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			item.credits = 0
 			item.reason = "Virus [D.name] has too few symptoms for [name] ([length(D.symptoms)] is less than [required_symptoms])."
 			manifest.line_items += item
-			send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		var/properties = D.GenerateProperties()
 		var/property = properties[goal_property]
@@ -170,7 +169,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			item.credits = 0
 			item.reason = "Virus [D.name] has the wrong [goal_property] for [name] ([property] is not [goal_property_value])."
 			manifest.line_items += item
-			send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		for(var/datum/symptom/S in D.symptoms)
 			if(!goal_symptom)
@@ -198,7 +196,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		item.credits = 0
 		item.reason = "Virus [D.name] is missing the required symptom [initial(goal_symptom.name)] for [name]."
 		manifest.line_items += item
-		send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -265,7 +262,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			item.credits = 0
 			item.reason = "Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)])."
 			manifest.line_items += item
-			send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		for(var/S in goal_symptoms)
 			var/datum/symptom/SY = locate(S) in D.symptoms
@@ -277,7 +273,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				item.credits = 0
 				item.reason = "Virus [D.name] is missing symptom [initial(SY.name)] for [name]."
 				manifest.line_items += item
-				send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 				return
 			if(simulate)
 				return TRUE
