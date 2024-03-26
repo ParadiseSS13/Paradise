@@ -1,7 +1,6 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
-#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
@@ -620,7 +619,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 40
 
-
+/datum/uplink_item/device_tools/organ_extractor
+	name = "Organ Extractor"
+	desc = "A device that can remove organs or cybernetic implants from a target, and stores them inside. \
+	Stored organs can be implanted into the user, or into other targets. Synthesizes chemicals to keep the organs fresh."
+	reference = "OREX"
+	item = /obj/item/organ_extractor
+	cost = 20
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -839,7 +844,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	reference = "RZR"
 	item = /obj/item/autosurgeon/organ/syndicate/razorwire
-	cost = 15
+	cost = 20
 
 // POINTLESS BADASSERY
 

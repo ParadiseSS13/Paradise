@@ -5,10 +5,11 @@
 	input_focus = null
 	if(s_active)
 		s_active.close(src)
-	QDEL_NULL(hud_used)
+	if(!QDELETED(hud_used))
+		QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
-		spellremove(src)
-	mobspellremove(src)
+		spellremove()
+	mobspellremove()
 	QDEL_LIST_CONTENTS(viruses)
 	QDEL_LIST_CONTENTS(actions)
 	for(var/alert in alerts)
@@ -271,7 +272,7 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot, initial = FALSE)
-	if(W.mob_can_equip(src, slot, 1))
+	if(W.mob_can_equip(src, slot, TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot, initial)
 	else
@@ -279,12 +280,12 @@
 		if(isstorage(back))
 			var/obj/item/storage/S = back
 			//Now, S represents a container we can insert W into.
-			S.handle_item_insertion(W, TRUE, TRUE)
+			S.handle_item_insertion(W, src, TRUE, TRUE)
 			return S
 		if(ismodcontrol(back))
 			var/obj/item/mod/control/C = back
 			if(C.bag)
-				C.bag.handle_item_insertion(W, TRUE, TRUE)
+				C.bag.handle_item_insertion(W, src, TRUE, TRUE)
 			return C.bag
 
 		var/turf/T = get_turf(src)
@@ -783,9 +784,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-/mob/proc/is_dead()
-	return stat == DEAD
-
 // Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
 /*
 /mob/verb/abandon_mob()
@@ -903,6 +901,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
+	..()
 	if(href_list["mach_close"])
 		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
@@ -929,7 +928,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
-		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), "window=[name];size=500x200")
+		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
@@ -1002,114 +1001,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/is_muzzled()
 	return FALSE
 
-/mob/Stat()
-	show_stat_turf_contents()
-
-	if(statpanel("Status"))
-		stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-		stat(null, "Map: [SSmapping.map_datum.fluff_name]")
-		if(SSmapping.next_map)
-			stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
-		if(SSticker)
-			show_stat_station_time()
-		stat(null, "Players Connected: [length(GLOB.clients)]")
-
-	if(length(mob_spell_list))
-		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
-			add_spell_to_statpanel(S)
-	if(length(mind.spell_list))
-		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
-			add_spell_to_statpanel(S)
-
-	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
-		// Below are checks to see which MC panel you are looking at
-
-		// Shows MC Metadata
-		if(statpanel("MC|M"))
-			stat("Info", "Showing MC metadata")
-			var/turf/T = get_turf(client.eye)
-			stat("Location:", COORD(T))
-			stat("CPU:", "[Master.formatcpu(world.cpu)]")
-			stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-			stat("Instances:", "[num2text(world.contents.len, 10)]")
-			GLOB.stat_entry()
-			stat("Server Time:", time_stamp())
-			if(Master)
-				Master.stat_entry()
-			else
-				stat("Master Controller:", "ERROR")
-			if(Failsafe)
-				Failsafe.stat_entry()
-			else
-				stat("Failsafe Controller:", "ERROR")
-
-		// Shows subsystems with SS_NO_FIRE
-		if(statpanel("MC|N"))
-			stat("Info", "Showing subsystems that do not fire")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if(SS.flags & SS_NO_FIRE)
-						SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_LOW flag
-		if(statpanel("MC|L"))
-			stat("Info", "Showing subsystems marked as low intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
-		if(statpanel("MC|D"))
-			stat("Info", "Showing subsystems marked as default intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
-		if(statpanel("MC|H"))
-			stat("Info", "Showing subsystems marked as high intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
-
-// this function displays the station time in the status panel
-/mob/proc/show_stat_station_time()
-	stat(null, "Server Uptime: [worldtime2text()]")
-	stat(null, "Round Time: [ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : "N/A"]")
-	stat(null, "Station Time: [station_time_timestamp()]")
-	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
-				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
-				"[round(SStime_track.time_dilation_avg,1)]%, " + \
-				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
-
-// this function displays the shuttles ETA in the status panel if the shuttle has been called
-/mob/proc/show_stat_emergency_shuttle_eta()
-	var/ETA = SSshuttle.emergency.getModeStr()
-	if(ETA)
-		stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
-
-/mob/proc/show_stat_turf_contents()
-	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
-		else
-			statpanel(listed_turf.name, null, listed_turf)
-			var/list/statpanel_things = list()
-			for(var/foo in listed_turf)
-				var/atom/A = foo
-				if(A.invisibility > see_invisible)
-					continue
-				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
-					continue
-				statpanel_things += A
-			statpanel(listed_turf.name, null, statpanel_things)
-
-/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
+/mob/proc/get_status_tab_items()
+	SHOULD_CALL_PARENT(TRUE)
+	var/list/status_tab_data = list()
+	return status_tab_data
 
 // facing verbs
 /mob/proc/canface()
@@ -1225,7 +1120,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/obj/vent_found = pick(found_vents)
 	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
-	to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+	to_chat(host, "<span class='info'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
 	host.forceMove(vent_found)
 	host.add_ventcrawl(vent_found)
 	return TRUE
@@ -1493,6 +1388,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if(L)
 			L.alpha = lighting_alpha
+		var/atom/movable/screen/plane_master/smoke/S = hud_used.plane_masters["[SMOKE_PLANE]"]
+		if(S)
+			S.alpha = 255
+			if(sight & SEE_MOBS)
+				S.alpha = 200
+			if((sight & SEE_TURFS|SEE_MOBS|SEE_OBJS) == (SEE_TURFS|SEE_MOBS|SEE_OBJS))
+				S.alpha = 128
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
@@ -1582,12 +1484,11 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return FALSE
 
 	//Allows cult to bypass holy areas once they summon
-	var/datum/game_mode/gamemode = SSticker.mode
-	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+	if(mind.has_antag_datum(/datum/antagonist/cultist) && SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
 		return FALSE
 
 	//Execption for Holy Constructs
-	if(isconstruct(src) && !iscultist(src))
+	if(isconstruct(src) && !mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")

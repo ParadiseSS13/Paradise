@@ -35,6 +35,7 @@
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "nettle"
 	damtype = "fire"
 	force = 15
@@ -47,7 +48,7 @@
 	attack_verb = list("stung")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)

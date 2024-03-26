@@ -433,3 +433,5 @@
 	canSmoothWith = list(SMOOTH_GROUP_ASTEROID_WALLS)
 	mineral = /obj/item/stack/ore/glass/basalt/ancient
 	walltype = /turf/simulated/mineral/ancient
+
+#undef FALSEDOOR_MAX_PRESSURE_DIFF

@@ -32,9 +32,9 @@
 //Some mob defines below
 #define AI_CAMERA_LUMINOSITY 6
 
-#define BORGMESON 1
-#define BORGTHERM 2
-#define BORGXRAY  4
+#define BORGMESON (1<<0)
+#define BORGTHERM (1<<1)
+#define BORGXRAY  (1<<2)
 
 #define SECHUD 1
 #define MEDHUD 2

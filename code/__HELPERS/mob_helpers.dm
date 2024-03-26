@@ -1,15 +1,3 @@
-/proc/GetOppositeDir(dir)
-	switch(dir)
-		if(NORTH)     return SOUTH
-		if(SOUTH)     return NORTH
-		if(EAST)      return WEST
-		if(WEST)      return EAST
-		if(SOUTHWEST) return NORTHEAST
-		if(NORTHWEST) return SOUTHEAST
-		if(NORTHEAST) return SOUTHWEST
-		if(SOUTHEAST) return NORTHWEST
-	return 0
-
 /proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
@@ -552,7 +540,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	else
 		health_description = "This mob type has no health to speak of."
 
-	//Gener
+	//Gender
 	switch(M.gender)
 		if(MALE, FEMALE)
 			gender_description = "[M.gender]"
@@ -593,14 +581,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
+
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
 	LogMouseMacro(".click", params)
+
 /mob/verb/DblClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"
@@ -618,10 +609,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/totalviewrange = 1 + 2 * view
 		viewX = totalviewrange
 		viewY = totalviewrange
-	else
+	else if(istext(view))
 		var/list/viewrangelist = splittext(view, "x")
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
+	else if(islist(view) && length(view) == 2 && isnum(view[1]) && isnum(view[2]))
+		// better be a list of nums!
+		viewX = view[1]
+		viewY = view[2]
+	else
+		CRASH("Invalid view type parameter passed to getviewsize: [view]")
+
 	return list(viewX, viewY)
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.

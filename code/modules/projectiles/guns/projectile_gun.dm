@@ -196,7 +196,7 @@
 
 /obj/item/gun/projectile/suicide_act(mob/user)
 	if(chambered && chambered.BB && !chambered.BB.nodamage)
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")

@@ -4,6 +4,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
+	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
 	universal_speak = FALSE
@@ -151,7 +152,7 @@
 		real_name = name
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
-	verbs -= /mob/verb/observe
+	remove_verb(src, /mob/verb/observe)
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
@@ -370,11 +371,10 @@
 		. += DIRECTION_LOCK_SLOWDOWN
 	. += GLOB.configuration.movement.animal_delay
 
-/mob/living/simple_animal/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Health: [round((health / maxHealth) * 100)]%")
-		return TRUE
+/mob/living/simple_animal/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Health:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(length(loot))
@@ -639,7 +639,8 @@
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
 	..()
 	if(AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
+		var/list/idle_mobs_on_old_z = LAZYACCESS(SSidlenpcpool.idle_mobs_by_zlevel, old_z)
+		LAZYREMOVE(idle_mobs_on_old_z, src)
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
