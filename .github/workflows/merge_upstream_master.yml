@@ -54,7 +54,6 @@ jobs:
         env:
           BASE_BRANCH: ${{ github.event.repository.default_branch }}
           BASE_REPOSITORY: ${{ github.repository }}
-          GH_TOKEN: ${{ steps.create_token.outputs.token }}
 
         run: |
           # Compare head branch and base branch
@@ -92,7 +91,4 @@ jobs:
 
       - name: Notify Failure
         if: failure()
-        env:
-          GH_TOKEN: ${{ steps.create_token.outputs.token }}
-        run: |
-          gh pr comment ${{ github.event.issue.html_url }} --body 'Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        run: gh pr comment ${{ github.event.issue.html_url }} -b "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
