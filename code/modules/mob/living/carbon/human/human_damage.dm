@@ -110,7 +110,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists=FALSE, updating_health=updating_health)
+			O.receive_damage(amount, 0, sharp = (damage_source ? damage_source.sharp : null), used_weapon = damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
@@ -124,7 +124,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
+			O.receive_damage(0, amount, sharp = damage_source.sharp, used_weapon = damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
@@ -324,7 +324,7 @@ This function restores all organs.
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)
-	if(isorgan(E))
+	if(is_external_organ(E))
 		if(E.heal_damage(brute, burn))
 			UpdateDamageIcon()
 	else

@@ -841,6 +841,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stack/cable_coil = 2,)
 
+/obj/item/circuitboard/dna_scanner
+	board_name = "DNA Modifier"
+	icon_state = "medical"
+	build_path = /obj/machinery/dna_scannernew
+	board_type = "machine"
+	origin_tech = "programming=2;biotech=2"
+	req_components = list(/obj/item/stock_parts/scanning_module = 1,
+						/obj/item/stock_parts/manipulator = 1,
+						/obj/item/stock_parts/micro_laser = 1,
+						/obj/item/stack/sheet/glass = 1,
+						/obj/item/stack/cable_coil = 2)
+
 /obj/item/circuitboard/mech_recharger
 	board_name = "Mech Bay Recharger"
 	icon_state = "science"
