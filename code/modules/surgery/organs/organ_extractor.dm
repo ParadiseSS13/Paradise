@@ -170,7 +170,6 @@
 /// Advanced abductor version. Is a lot faster with implanting into others
 /obj/item/organ_extractor/abductor
 	name = "alien organ extractor"
-	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=6;materials=5;alien=4"
 	color = "#1280da"
 	insert_time = 3 SECONDS
