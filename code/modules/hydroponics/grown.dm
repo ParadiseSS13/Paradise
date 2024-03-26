@@ -217,3 +217,13 @@
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
 	set_light(0)
+
+/obj/item/food/snacks/grown/fire_act()
+	if(!..()) //Checks for if its unburnable
+		return
+	if(!reagents)
+		return
+	var/datum/effect_system/smoke_spread/smoke = new
+	var/smokes_to_make = round(reagents.total_volume/10)
+	smoke.set_up(smokes_to_make, FALSE, src, null, reagents)
+	smoke.start()

@@ -31,7 +31,7 @@
 			set_opacity(0)
 		stoplag()
 
-/obj/effect/particle_effect/smoke/New(chemicals = null)
+/obj/effect/particle_effect/smoke/New(datum/reagents/chemicals = null)
 	..()
 	START_PROCESSING(SSobj, src)
 	lifetime += rand(-1,1)
@@ -75,8 +75,8 @@
 		return FALSE
 	C.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
-		if(reagents)
-			reagents.trans_to(C)
+	if(reagents)
+		reagents.trans_to(C)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
@@ -88,7 +88,7 @@
 	var/datum/reagents/chemicals_to_add = new/datum/reagents(1000)
 	var/direction
 
-/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, chemicals = null)
+/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, datum/reagents/chemicals = null)
 	number = clamp(amount, amount, 20)
 	cardinals = only_cardinals
 	location = get_turf(source)

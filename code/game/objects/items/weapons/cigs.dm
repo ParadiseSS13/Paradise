@@ -226,7 +226,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/smoke()
 	var/turf/location = get_turf(src)
 	var/is_being_smoked = FALSE
-	var/datum/effect_system/smoke_spread = new
+	var/datum/effect_system/smoke_spread/smoke = new
 
 	// Check whether this is actually in a mouth, being smoked
 	if(iscarbon(loc))
