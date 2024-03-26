@@ -5,6 +5,7 @@
 	open_door_sprite = "hydro_door"
 
 /obj/structure/closet/secure_closet/hydroponics/populate_contents()
+	new /obj/machinery/chem_dispenser(src)
 	switch(rand(1,2))
 		if(1)
 			new /obj/item/clothing/suit/apron(src)

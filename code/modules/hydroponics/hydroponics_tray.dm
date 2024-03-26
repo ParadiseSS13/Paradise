@@ -141,6 +141,7 @@
 		myseed.forceMove(src)
 
 	if(self_sustaining)
+		yieldmod = 3
 		adjustNutri(1)
 		adjustWater(rand(3,5))
 		adjustWeeds(-2)
@@ -663,15 +664,18 @@
 		adjustHealth(round(reagents.get_reagent_amount("ammonia") * 0.5))
 		adjustNutri(round(reagents.get_reagent_amount("ammonia") * 1))
 		if(myseed)
-			myseed.adjust_yield(round(reagents.get_reagent_amount("ammonia") * 0.01))
+			var/amount = round(reagents.get_reagent_amount("ammonia") * 0.01)
+			myseed.adjust_yield(rand(-amount, amount))
 
 	// Saltpetre is used for gardening IRL, to simplify highly, it speeds up growth and strengthens plants
 	if(reagents.has_reagent("saltpetre", 1))
 		var/salt = reagents.get_reagent_amount("saltpetre")
 		adjustHealth(round(salt * 0.25))
 		if(myseed)
-			myseed.adjust_production(-round(salt/100)-prob(salt%100))
-			myseed.adjust_potency(round(salt*0.50))
+			var/production_amount = round(salt/100)-prob(salt%100)
+			myseed.adjust_production(rand(-production_amount, production_amount))
+			var/potency_amount = round(salt*0.50)
+			myseed.adjust_potency(rand(-potency_amount, potency_amount))
 	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
 	if(reagents.has_reagent("ash", 1))
 		adjustHealth(round(reagents.get_reagent_amount("ash") * 0.25))
@@ -683,7 +687,8 @@
 		adjustHealth(round(reagents.get_reagent_amount("diethylamine") * 1))
 		adjustNutri(round(reagents.get_reagent_amount("diethylamine") * 2))
 		if(myseed)
-			myseed.adjust_yield(round(reagents.get_reagent_amount("diethylamine") * 0.02))
+			var/amount = round(reagents.get_reagent_amount("diethylamine") * 0.02)
+			myseed.adjust_yield(rand(-amount, amount))
 		adjustPests(-rand(1,2))
 
 	// Compost, effectively

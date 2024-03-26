@@ -104,13 +104,13 @@
 		reagents_add[R.reagent_id] = R.rate
 
 /obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
-	adjust_lifespan(rand(-lifemut,lifemut))
-	adjust_endurance(rand(-endmut,endmut))
-	adjust_production(rand(-productmut,productmut))
-	adjust_yield(rand(-yieldmut,yieldmut))
-	adjust_potency(rand(-potmut,potmut))
-	adjust_weed_rate(rand(-wrmut, wrmut))
-	adjust_weed_chance(rand(-wcmut, wcmut))
+	adjust_lifespan(lifemut)
+	adjust_endurance(endmut)
+	adjust_production(-productmut)
+	adjust_yield(yieldmut)
+	adjust_potency(potmut)
+	adjust_weed_rate(-wrmut)
+	adjust_weed_chance(-wcmut)
 	if(prob(traitmut))
 		add_random_traits(1, 1)
 
@@ -122,9 +122,9 @@
 			rating = H.rating
 
 		if(yield == 0) // Oh god don't divide by zero you'll doom us all.
-			adjust_yield(1 * rating)
+			adjust_yield(rand(-rating, rating))
 		else if(prob(1/(yield * yield) * 100)) // This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
-			adjust_yield(1 * rating)
+			adjust_yield(rand(-rating, rating))
 	else
 		return ..()
 
