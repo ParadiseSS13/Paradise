@@ -77,6 +77,8 @@
 /obj/item/Adjacent(atom/neighbor, recurse = 1)
 	if(neighbor == loc)
 		return TRUE
+	if(!istype(neighbor))
+		return ..()
 	if(HAS_TRAIT(loc, TRAIT_ADJACENCY_TRANSPARENT))
 		// Transparent parent, don't decrease recurse.
 		return loc.Adjacent(neighbor, recurse)
