@@ -45,7 +45,7 @@
 	hood.forceMove(src)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/hooded/dropped()
 	..()
@@ -67,7 +67,7 @@
 				H.update_inv_wear_suit()
 				for(var/X in actions)
 					var/datum/action/A = X
-					A.UpdateButtonIcon()
+					A.UpdateButtons()
 	else
 		if((hood?.flags & NODROP) && respects_nodrop)
 			if(ishuman(loc))

@@ -105,7 +105,7 @@
 	if(href_list["priv_msg"])
 		var/ckey_txt = href_list["priv_msg"]
 
-		cmd_admin_pm(ckey_txt, null, href_list["type"])
+		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
 		return
 
 	if(href_list["discord_msg"])
@@ -532,7 +532,8 @@
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
 			var/mentor_count = mentorcounter[1]
-			mentor_count-- // Exclude ourself
+			if(!(holder.fakekey || is_afk()))
+				mentor_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -544,7 +545,8 @@
 		if(SSredis.connected)
 			var/list/admincounter = staff_countup(R_BAN)
 			var/admin_count = admincounter[1]
-			admin_count-- // Exclude ourself
+			if(!(holder.fakekey || is_afk()))
+				admin_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -1175,6 +1177,11 @@
 /client/proc/maxview()
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
+
+/client/Click(object, location, control, params)
+	. = ..()
+	// please yell at me if this is Too Much
+	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
 
 /// Compiles a full list of verbs and sends it to the browser
 /client/proc/init_verbs()

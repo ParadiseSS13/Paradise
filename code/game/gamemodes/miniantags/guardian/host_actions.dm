@@ -82,7 +82,7 @@
 
 	// Do this immediately, so the user can't spam a bunch of polls.
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
@@ -181,7 +181,7 @@
  */
 /datum/action/guardian/reset_guardian/proc/reset_cooldown()
 	cooldown_timer = null
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /**
  * Grants all existing `/datum/action/guardian` type actions to the src mob.

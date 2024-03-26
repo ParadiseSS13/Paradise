@@ -76,7 +76,7 @@
 	if(mind)
 		for(var/S in mind.spell_list)
 			var/datum/spell/spell = S
-			spell.updateButtonIcon()
+			spell.UpdateButtons()
 
 	return TRUE
 

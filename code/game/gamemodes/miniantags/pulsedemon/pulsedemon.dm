@@ -322,7 +322,7 @@
 		if(!S.action || S.locked)
 			continue
 		if(S.requires_area)
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 
 // can enter an apc at all?
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -435,7 +435,7 @@
 		var/dist = S.cast_cost - orig
 		// only update icon if the amount is actually enough to change a spell's availability
 		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 	return realdelta
 
 // logarithmic scale for glow strength, see table:

@@ -14,6 +14,7 @@
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	var/temperature_resistance = T0C+75
 	pass_flags = PASSTABLE
+	hud_type = /datum/hud/alien
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/Initialize(mapload)
@@ -32,9 +33,9 @@
 	return FALSE
 
 /mob/living/carbon/alien/humanoid/emp_act(severity)
-	if(r_store) 
+	if(r_store)
 		r_store.emp_act(severity)
-	if(l_store) 
+	if(l_store)
 		l_store.emp_act(severity)
 	..()
 
