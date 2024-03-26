@@ -54,7 +54,6 @@ jobs:
         env:
           BASE_BRANCH: ${{ github.event.repository.default_branch }}
           BASE_REPOSITORY: ${{ github.repository }}
-
         run: |
           # Compare head branch and base branch
           compare_result=$(curl -L -s --fail-with-body \
