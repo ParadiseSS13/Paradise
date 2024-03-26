@@ -13,6 +13,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	hud_type = /datum/hud/robot
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -497,7 +498,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			can_be_hatted = TRUE
 			hat_alpha = 0
 			hat_offset_y = 2
-		if("syndi-medi", "surgeon", "toiletbot")
+		if("syndi-medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 1
@@ -529,6 +530,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("mopgearrex")
 			can_be_hatted = TRUE
 			hat_offset_y = -6
+		if("qualified_doctor")
+			can_be_hatted = TRUE
+			hat_offset_y = 3
+		if("squatminer")
+			can_be_hatted = TRUE
+		if("coffinMiner")
+			can_be_hatted = TRUE
+			hat_offset_y = 3
+		if("heavySec")
+			can_be_hatted = TRUE
+			can_wear_restricted_hats = TRUE
 
 	if(silicon_hat)
 		if(!can_be_hatted)
