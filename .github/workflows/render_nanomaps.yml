@@ -26,15 +26,21 @@ jobs:
         GH_TOKEN: ${{ steps.create_token.outputs.token }}
 
     - name: Branch
+      env:
+        GH_TOKEN: ${{ steps.create_token.outputs.token }}
       run: |
         git branch -f nanomap-render
         git checkout nanomap-render
         git reset --hard origin/master
 
     - name: 'Generate Maps'
+      env:
+        GH_TOKEN: ${{ steps.create_token.outputs.token }}
       run: './tools/github-actions/nanomap-renderer-invoker.sh'
 
     - name: 'Commit Maps and open PR'
+      env:
+        GH_TOKEN: ${{ steps.create_token.outputs.token }}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "NanoMap Generation"
