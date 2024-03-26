@@ -19,7 +19,7 @@
 				item_in_slot.attack_hand(src)
 		return
 	if(thing && equipped_item.can_be_inserted(thing))
-		equipped_item.handle_item_insertion(thing)
+		equipped_item.handle_item_insertion(thing, src)
 		playsound(loc, "rustle", 50, 1, -5)
 		return
 	if(thing)
