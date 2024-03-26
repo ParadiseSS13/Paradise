@@ -481,6 +481,7 @@
 		for(var/obj/item/I in contents)
 			remove_from_storage(I)
 			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
+			I.forceMove(target.loc)
 			dropped_something = TRUE
 			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
