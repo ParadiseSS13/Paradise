@@ -49,6 +49,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
+	preloadTemplates(path = "code/modules/unit_tests/atmos/")
 
 	// Load the station
 	loadStation()
