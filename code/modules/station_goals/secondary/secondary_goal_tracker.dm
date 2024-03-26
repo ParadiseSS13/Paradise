@@ -51,6 +51,7 @@
 	var/personal_account
 
 /datum/secondary_goal_progress/proc/configure(datum/station_goal/secondary/goal)
+	SHOULD_CALL_PARENT(TRUE)
 	personal_account = goal.personal_account
 
 /datum/secondary_goal_progress/proc/Copy()

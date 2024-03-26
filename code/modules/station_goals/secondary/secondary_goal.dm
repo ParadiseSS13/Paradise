@@ -11,6 +11,7 @@
 	var/abstract = TRUE
 
 /datum/station_goal/secondary/proc/Initialize(requester_account)
+	SHOULD_CALL_PARENT(TRUE)
 	personal_account = requester_account
 	randomize_params()
 	progress = new progress_type
