@@ -44,14 +44,10 @@
 		if(tag == O.organ_tag)
 			return O
 
-/proc/is_int_organ(atom/A)
-	return istype(A, /obj/item/organ/internal)
-
 /mob/living/carbon/human/proc/get_limb_by_name(limb_name) //Look for a limb with the given limb name in the source mob, and return it if found.
 	for(var/obj/item/organ/external/O in bodyparts)
 		if(limb_name == O.limb_name)
 			return O
-
 
 /mob/proc/has_left_hand()
 	return TRUE

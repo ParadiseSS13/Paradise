@@ -73,3 +73,30 @@
 #define EXAMINE_HUD_MEDICAL_READ "medical_read"
 #define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
+
+/proc/ui_hand_position(i)
+	// values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
+	var/x_off = i % 2 ? 0 : -1
+	var/y_off = round((i-1) / 2)
+	return"CENTER+[x_off]:16,SOUTH+[y_off]:5"
+
+/proc/ui_equip_position(mob/M)
+	// values based on old equip ui position (CENTER: +/-16,SOUTH+1:5)
+	var/y_off = round(1 / 2)
+	return "CENTER:-16,SOUTH+[y_off+1]:5"
+
+/proc/ui_swaphand_position(mob/M, which = 1)
+	// values based on old swaphand ui positions (CENTER: +/-16,SOUTH+1:5)
+	var/x_off = which == 1 ? -1 : 0
+	var/y_off = round(1 / 2)
+	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
+
+
+/// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
+/proc/view_to_pixels(view)
+	if(!view)
+		return list(0, 0)
+	var/list/view_info = getviewsize(view)
+	view_info[1] *= world.icon_size
+	view_info[2] *= world.icon_size
+	return view_info

@@ -705,11 +705,11 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tank <br>- 4 breathing masks <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator has sent you to planet SN-856B in the Jansev4 system to perform terraforming. <br>To assist you in your task, we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tanks <br>- 4 breathing masks <br>- 4 bee starter kits <br>- A fully functional botanical setup <br><br>You will find an Introduction for Experimental Terraforming inside the cockpit."
 
-/obj/item/paper/seed_vault/terraformation
+/obj/item/paper/seed_vault/terraforming_introduction
 	name = "Terraformation Experiment for SN-856B"
-	info = "Thanks to genetic engineering, we modified this grass to be able grow on a rocky, waterless environment. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass; after you place them down, anchor it down to the terrain so they will start to spread roots deep inside. After all steps are done, repeat it until you cover as much ground as possible. After a certain amount of time it will start producing oxygen, with will begin to increase the density of the atmosphere."
+	info = "Thanks to genetic engineering, we modified this grass to be able grow in rocky, waterless environments. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass. Cover as much ground with these patches as you can, and with time it will start producing oxygen, which will begin to increase the density of the atmosphere."
 
 /obj/item/paper/seed_vault/autopilot_logs
 	name = "Automatical Logs Printout"
