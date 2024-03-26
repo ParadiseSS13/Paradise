@@ -47922,9 +47922,6 @@
 "ddr" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"dds" = (
-/turf/simulated/wall,
-/area/station/service/janitor)
 "ddt" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 0;
@@ -126993,8 +126990,8 @@ ryV
 tyQ
 tDd
 xbn
-dds
-dds
+chc
+chc
 aTi
 qcN
 dwV
