@@ -40,6 +40,9 @@
 
 /datum/component/construct_held_body/proc/drop_body()
 	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(_drop_body))
+
+/datum/component/construct_held_body/proc/_drop_body() // random name so no one ever calls this :)
 	if(!held_body) // Null check for empty bodies
 		return
 	var/mob/living/parent_mob = parent
