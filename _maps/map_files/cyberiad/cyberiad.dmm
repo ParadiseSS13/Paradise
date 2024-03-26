@@ -14016,8 +14016,9 @@
 	},
 /area/station/hallway/primary/fore)
 "aSV" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 2
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
@@ -23108,11 +23109,11 @@
 "brK" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 11;
-	height = 18;
+	dwidth = 15;
+	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 29
+	width = 33
 	},
 /turf/space,
 /area/space)
@@ -41262,13 +41263,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/misc_lab)
-"cFW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard/east)
 "cFX" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -47924,10 +47918,6 @@
 "ddr" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"dds" = (
-/mob/living/carbon/human/monkey/punpun,
-/turf/simulated/wall,
-/area/station/service/janitor)
 "ddt" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 0;
@@ -62063,9 +62053,6 @@
 	},
 /area/station/service/barber)
 "hUX" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -62073,6 +62060,7 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -64559,6 +64547,12 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"jlQ" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/east)
 "jlW" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -85696,12 +85690,6 @@
 /obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
-"tze" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/station/command/office/captain)
 "tzm" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
@@ -120864,7 +120852,7 @@ bxv
 bxv
 bxv
 bxv
-tze
+bxv
 bSi
 bSi
 xQV
@@ -127000,8 +126988,8 @@ ryV
 tyQ
 tDd
 xbn
-dds
-dds
+chc
+chc
 aTi
 qcN
 dwV
@@ -138071,7 +138059,7 @@ aGY
 bte
 aSI
 bwv
-aSV
+jlQ
 xWq
 anx
 qlS
@@ -138330,7 +138318,7 @@ bve
 bwv
 bwv
 aSI
-cFW
+aSV
 vbR
 gSC
 bWj

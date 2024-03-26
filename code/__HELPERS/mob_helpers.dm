@@ -609,10 +609,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/totalviewrange = 1 + 2 * view
 		viewX = totalviewrange
 		viewY = totalviewrange
-	else
+	else if(istext(view))
 		var/list/viewrangelist = splittext(view, "x")
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
+	else if(islist(view) && length(view) == 2 && isnum(view[1]) && isnum(view[2]))
+		// better be a list of nums!
+		viewX = view[1]
+		viewY = view[2]
+	else
+		CRASH("Invalid view type parameter passed to getviewsize: [view]")
+
 	return list(viewX, viewY)
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.

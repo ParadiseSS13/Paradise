@@ -28,6 +28,7 @@
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
