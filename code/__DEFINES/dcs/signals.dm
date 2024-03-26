@@ -219,6 +219,9 @@
 
 /////////////////
 
+///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+#define COMSIG_CLIENT_CLICK "atom_client_click"
+
 ///from base of area/Entered(): (/area)
 #define COMSIG_ENTER_AREA "enter_area"
 ///from base of area/Exited(): (/area)
@@ -924,6 +927,10 @@
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
 
+// Note that this is only defined for actions because this could be a good bit expensive otherwise
+/// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
+#define COMSIG_ACTION_SCROLLED "action_scrolled"
+
 //Xenobio hotkeys
 
 ///from slime CtrlClickOn(): (/mob)
@@ -1010,7 +1017,6 @@
 
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
-
 
 // Signal types for the cargo shuttle
 
