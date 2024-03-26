@@ -74,6 +74,7 @@
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
+	hud_type = /datum/hud/corgi
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/shaved = FALSE
