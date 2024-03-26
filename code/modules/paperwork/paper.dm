@@ -843,6 +843,15 @@
 			contact_poison = null
 	. = ..()
 
+/obj/item/paper/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	if(contact_poison && ishuman(receiver))
+		var/mob/living/carbon/human/H = receiver
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(!istype(G) || !G.safe_from_poison)
+			H.reagents.add_reagent(contact_poison, contact_poison_volume)
+			add_attack_logs(src, receiver, "[giver] gave [src] to [receiver], coated with [contact_poison] by [contact_poison_poisoner]")
+			contact_poison = null
+
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
 	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
