@@ -154,18 +154,18 @@ Do not compare boolean values to TRUE or FALSE. For TRUE you should just check i
 // Bad
 var/thing = pick(list(TRUE, FALSE))
 if(thing == TRUE)
-	return "bleh"
+    return "bleh"
 var/other_thing = pick(list(TRUE, FALSE))
 if(other_thing == FALSE)
-	return "meh"
+    return "meh"
 
 // Good
 var/thing = pick(list(TRUE, FALSE))
 if(thing)
-	return "bleh"
+    return "bleh"
 var/other_thing = pick(list(TRUE, FALSE))
 if(!other_thing)
-	return "meh"
+    return "meh"
 ```
 
 ### User Interfaces
@@ -437,6 +437,32 @@ Look for code examples on how to properly use it.
 //Good
 /datum/datum1/proc/proc1(target)
     addtimer(CALLBACK(target, PROC_REF(dothing), arg1, arg2, arg3), 5 SECONDS)
+```
+
+### Signals
+
+Signals are a slightly more advanced topic, but are often useful for attaching external behavior to objects that should be triggered when a specific event occurs.
+
+When defining procs that should be called by signals, you must include `SIGNAL_HANDLER` after the proc header. This ensures that no sleeping code can be called from within a signal handler, as that can cause problems with the signal system.
+
+Since callbacks can be connected to many signals with `RegisterSignal`, it can be difficult to pin down the source that a callback is invoked from. Any new `SIGNAL_HANDLER` should be followed by a comment listing the signals that the proc is expected to be invoked for. If there are multiple signals to be handled, separate them with a `+`.
+
+```dm
+/atom/movable/proc/when_moved(atom/movable/A)
+    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+    do_something()
+
+/datum/component/foo/proc/on_enter(datum/source, atom/enterer)
+    SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_INITIALIZED_ON
+    do_something_else()
+```
+
+If your proc does have something that needs to sleep (such as a `do_after()`), do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with `INVOKE_ASYNC` from within the signal handling function.
+
+```dm
+/atom/movable/proc/when_moved(atom/movable/A)
+    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+    INVOKE_ASYNC(src, PROC_REF(thing_that_sleeps), arg1)
 ```
 
 ### Operators
@@ -794,7 +820,6 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 ---
 
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
-
 
 * [AffectedArc07](https://github.com/AffectedArc07)
 * [Charliminator](https://github.com/hal9000PR)
