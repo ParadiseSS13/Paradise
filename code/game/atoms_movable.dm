@@ -205,53 +205,30 @@
 	if(loc != newloc)
 		if(movetime > 0)
 			glide_for(movetime)
-		if(!(direct & (direct - 1))) //Cardinal move
+		if(IS_DIR_CARDINAL(direct))
 			. = ..(newloc, direct) // don't pass up movetime
 			setDir(direct)
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
-			var/first_step_dir
+			var/first_step_dir = 0
 			// For each diagonal direction, we try moving NORTH/SOUTH first, and if it fails, we try moving EAST/WEST first.
 			// As long as either succeeds, we try the other.
-			if(direct & NORTH)
-				if(direct & EAST)
-					if(Move(get_step(src,  NORTH),  NORTH))
-						first_step_dir = NORTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  EAST),  EAST)
-					else if(Move(get_step(src,  EAST),  EAST))
-						first_step_dir = EAST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  NORTH),  NORTH)
-				else if(direct & WEST)
-					if(Move(get_step(src,  NORTH),  NORTH))
-						first_step_dir = NORTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  WEST),  WEST)
-					else if(Move(get_step(src,  WEST),  WEST))
-						first_step_dir = WEST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  NORTH),  NORTH)
-			else if(direct & SOUTH)
-				if(direct & EAST)
-					if(Move(get_step(src,  SOUTH),  SOUTH))
-						first_step_dir = SOUTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  EAST),  EAST)
-					else if(Move(get_step(src,  EAST),  EAST))
-						first_step_dir = EAST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  SOUTH),  SOUTH)
-				else if(direct & WEST)
-					if(Move(get_step(src,  SOUTH),  SOUTH))
-						first_step_dir = SOUTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  WEST),  WEST)
-					else if(Move(get_step(src,  WEST),  WEST))
-						first_step_dir = WEST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  SOUTH),  SOUTH)
-			if(moving_diagonally == SECOND_DIAG_STEP)
+			var/direct_NS = direct & (NORTH | SOUTH)
+			var/direct_EW = direct & (EAST | WEST)
+			var/first_step_target = get_step(src, direct_NS)
+			Move(first_step_target, direct_NS)
+			if(loc == first_step_target)
+				first_step_dir = direct_NS
+				moving_diagonally = SECOND_DIAG_STEP
+				. = Move(get_step(src, direct_EW), direct_EW)
+			else if(loc == oldloc)
+				first_step_target = get_step(src, direct_EW)
+				Move(first_step_target, direct_EW)
+				if(loc == first_step_target)
+					first_step_dir = direct_EW
+					moving_diagonally = SECOND_DIAG_STEP
+					. = Move(get_step(src, direct_NS), direct_NS)
+			if(first_step_dir != 0)
 				if(!.)
 					setDir(first_step_dir)
 					Moved(oldloc, first_step_dir)
@@ -273,7 +250,7 @@
 	l_move_time = world.time
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
-		. = 0
+		. = FALSE
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)

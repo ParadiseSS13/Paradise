@@ -485,7 +485,7 @@
 	return ..()
 
 /obj/item/mod/control/update_icon_state()
-	if(current_disguise)
+	if(current_disguise || isnull(chameleon_action) || active)
 		icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 

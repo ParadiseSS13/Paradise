@@ -1671,7 +1671,7 @@
 	if(prob(50))
 		var/list/mob/living/targets = list()
 		for(var/mob/living/L in orange(14, M))
-			if(L.is_dead() || !L.client) //we don't care about dead mobs
+			if(L.stat == DEAD || !L.client) //we don't care about dead mobs
 				continue
 			targets += L
 		if(length(targets))

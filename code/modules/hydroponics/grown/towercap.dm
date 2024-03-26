@@ -51,7 +51,7 @@
 	/obj/item/food/snacks/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(is_sharp(W))
+	if(W.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
 			return

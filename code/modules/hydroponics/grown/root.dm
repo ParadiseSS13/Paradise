@@ -32,7 +32,7 @@
 	bitesize_mod = 2
 
 /obj/item/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
 		var/obj/item/kitchen/knife/shiv/carrot/Shiv = new ()
 		if(!remove_item_from_storage(user))

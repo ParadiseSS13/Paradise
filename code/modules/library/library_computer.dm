@@ -18,12 +18,12 @@
   */
 /obj/machinery/computer/library
 	name = "Library Computer"
-	anchored = TRUE
-	density = TRUE
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "library"
 	icon_keyboard = null
-	icon_screen = "computer_on"
-	icon = 'icons/obj/library.dmi'
-	icon_state = "computer"
+	density = TRUE
+	anchored = TRUE
 
 	//We define a required access only to lock library specific actions like ordering/managing books to librarian access+
 	req_one_access = list(ACCESS_LIBRARY)

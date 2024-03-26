@@ -5,19 +5,22 @@
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
-	desc = "You could insert it into a MOD shell."
+	desc = "A standardized helmet frame for use in constructing MOD suits. Useless without a MOD shell."
 	icon_state = "helmet"
 
 /obj/item/mod/construction/chestplate
 	name = "MOD chestplate"
+	desc = "A heavy metal chestpiece for use in constructing MOD suits. Useless without a MOD shell."
 	icon_state = "chestplate"
 
 /obj/item/mod/construction/gauntlets
 	name = "MOD gauntlets"
+	desc = "Bare powered gauntlets for use in constructing MOD suits. Useless without a MOD shell."
 	icon_state = "gauntlets"
 
 /obj/item/mod/construction/boots
 	name = "MOD boots"
+	desc = "Powered boots for use in MOD suit construction. Useless without a MOD shell."
 	icon_state = "boots"
 
 /obj/item/mod/construction/broken_core
@@ -91,7 +94,7 @@
 
 /obj/item/mod/construction/shell
 	name = "MOD shell"
-	desc = "A MOD shell."
+	desc = "The core housing and support structure for a MOD suit, with numerous plugs and connectors for attaching additional components."
 	icon_state = "mod-construction_start"
 	var/obj/item/core
 	var/obj/item/helmet

@@ -14,16 +14,16 @@
 	return ..()
 
 /obj/item/clothing/suit/storage/attack_hand(mob/user as mob)
-	if(pockets.handle_attack_hand(user))
+	if(pockets?.handle_attack_hand(user))
 		..(user)
 
 /obj/item/clothing/suit/storage/MouseDrop(obj/over_object as obj)
-	if(pockets.handle_mousedrop(usr, over_object))
+	if(pockets?.handle_mousedrop(usr, over_object))
 		..(over_object)
 
 /obj/item/clothing/suit/storage/equipped(mob/user, slot)
 	..()
-	pockets.update_viewers()
+	pockets?.update_viewers()
 
 /obj/item/clothing/suit/storage/forceMove(atom/destination)
 	. = ..()
@@ -37,26 +37,26 @@
 
 /obj/item/clothing/suit/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
-		pockets.open(user)
+		pockets?.open(user)
 		add_fingerprint(user)
 		return
 	if(isobserver(user))
-		pockets.show_to(user)
+		pockets?.show_to(user)
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	return pockets.attackby(W, user, params)
+	return pockets?.attackby(W, user, params)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()
-	pockets.emp_act(severity)
+	pockets?.emp_act(severity)
 
 /obj/item/clothing/suit/storage/hear_talk(mob/M, list/message_pieces)
-	pockets.hear_talk(M, message_pieces)
+	pockets?.hear_talk(M, message_pieces)
 	..()
 
 /obj/item/clothing/suit/storage/hear_message(mob/M, msg)
-	pockets.hear_message(M, msg)
+	pockets?.hear_message(M, msg)
 	..()
 
 /obj/item/clothing/suit/storage/proc/return_inv()
@@ -75,7 +75,7 @@
 
 /obj/item/clothing/suit/storage/serialize()
 	var/list/data = ..()
-	data["pockets"] = pockets.serialize()
+	data["pockets"] = pockets?.serialize()
 	return data
 
 /obj/item/clothing/suit/storage/deserialize(list/data)

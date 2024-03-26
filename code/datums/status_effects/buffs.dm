@@ -735,6 +735,10 @@
 	SIGNAL_HANDLER
 	if(!(attacker.a_intent in list(INTENT_DISARM, INTENT_HARM)))
 		return
+	if(!victim.AmountParalyzed())
+		stack_trace("/datum/status_effect/rev_protection was on [victim] despite them not being paralyzed. This status effect should last the same amount of time as them being paralyzed.")
+		qdel(src)
+		return
 	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
 		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
 		attacker.changeNext_move(CLICK_CD_MELEE)

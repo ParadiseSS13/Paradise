@@ -30,8 +30,8 @@
 	return ..()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	name = "syndicate sniper rifle"
-	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
+	name = "\improper SR-31C (S) Sniper Rifle"
+	desc = "A powerful anti-materiel rifle by Aussec Armory, chambered in devastating .50 BMG. This model is engraved with superficial Syndicate iconography."
 	origin_tech = "combat=7;syndicate=6"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()

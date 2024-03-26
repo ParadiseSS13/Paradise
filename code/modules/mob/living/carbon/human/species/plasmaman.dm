@@ -48,11 +48,6 @@
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
 
-/datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
-	if(copytext(message, 1, 2) != "*")
-		message = replacetext(message, "s", stutter("ss"))
-	return message
-
 /datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/current_job = J.title
 	var/datum/outfit/plasmaman/O = new /datum/outfit/plasmaman

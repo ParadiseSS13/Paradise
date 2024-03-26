@@ -196,6 +196,8 @@ Difficulty: Medium
 	. = ..()
 	if(QDELETED(src))
 		return
+	if(GLOB.necropolis_gate && !GLOB.necropolis_gate.open)
+		GLOB.necropolis_gate.toggle_the_gate(src)
 	if(.)
 		var/matrix/M = new
 		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
