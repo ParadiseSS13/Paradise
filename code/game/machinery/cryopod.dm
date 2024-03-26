@@ -329,11 +329,6 @@
 		I.forceMove(src)
 		handle_contents(I)
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/dna2/record/R in cloner.records)
-			if(occupant.mind == locate(R.mind))
-				cloner.records.Remove(R)
-
 	//Delete all items not on the preservation list.
 	var/list/items = contents
 	items -= occupant // Don't delete the occupant
@@ -359,9 +354,8 @@
 			I.forceMove(loc)
 
 	// Find a new sacrifice target if needed, if unable allow summoning
-	if(is_sacrifice_target(occupant.mind))
-		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
-			SSticker.mode.cult_objs.ready_to_summon()
+	if(IS_SACRIFICE_TARGET(occupant.mind))
+		SSticker.mode.cult_team.find_new_sacrifice_target()
 
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)

@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", null, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE

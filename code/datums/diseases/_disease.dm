@@ -11,13 +11,13 @@
 #define CAN_RESIST	(1<<2)
 
 //Spread Flags
-#define SPECIAL 		(1<<0)
-#define NON_CONTAGIOUS 	(1<<1)
-#define BLOOD 			(1<<2)
-#define CONTACT_FEET 	(1<<3)
-#define CONTACT_HANDS 	(1<<4)
-#define CONTACT_GENERAL (1<<5)
-#define AIRBORNE 		(1<<6)
+#define SPECIAL			(1<<0)
+#define NON_CONTAGIOUS	(1<<1)
+#define BLOOD			(1<<2)
+#define CONTACT_FEET	(1<<3)
+#define CONTACT_HANDS	(1<<4)
+#define CONTACT_GENERAL	(1<<5)
+#define AIRBORNE		(1<<6)
 
 
 //Severity Defines
