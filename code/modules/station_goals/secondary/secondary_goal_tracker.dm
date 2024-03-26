@@ -54,14 +54,12 @@
 	personal_account = goal.personal_account
 
 /datum/secondary_goal_progress/proc/Copy()
-	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL
 	return new type
 
 // Override for custom shipment start behavior
 // (e.g. ampount-per-shipment tracking)
 // Only called on the real progress tracker.
 /datum/secondary_goal_progress/proc/start_shipment()
-	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL
 	return
 
 // Check the item to see if it belongs to this goal.
@@ -69,14 +67,12 @@
 // Return values from code/__DEFINES/supply_defines.dm.
 // Use COMSIG_CARGO_SELL_PRIORITY, not COMSIG_CARGO_SELL_NORMAL.
 /datum/secondary_goal_progress/proc/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_CHECK_SELL, COMSIG_CARGO_DO_PRIORITY_SELL, COMSIG_CARGO_DO_SELL, COMSIG_CARGO_SEND_ERROR
 	return
 
 // Check to see if this goal has been completed.
 // Update the manifest accordingly.
 // Returns whether the goal was completed.
 /datum/secondary_goal_progress/proc/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_END_SELL
 	return FALSE
 
 /datum/secondary_goal_progress/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
