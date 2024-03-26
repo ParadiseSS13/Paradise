@@ -26,6 +26,7 @@
 	var/sent_this_shipment = 0
 
 /datum/secondary_goal_progress/random_kudzu/configure(datum/station_goal/secondary/random_kudzu/goal)
+	..()
 	traits = goal.traits
 	needed = goal.amount
 

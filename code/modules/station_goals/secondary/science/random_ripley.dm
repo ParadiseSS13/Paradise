@@ -40,8 +40,8 @@
 	var/sent = FALSE
 
 /datum/secondary_goal_progress/random_ripley/configure(datum/station_goal/secondary/random_ripley/goal)
+	..()
 	modules = goal.modules
-	personal_account = goal.personal_account
 
 /datum/secondary_goal_progress/random_ripley/Copy()
 	var/datum/secondary_goal_progress/random_ripley/copy = new

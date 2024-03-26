@@ -43,10 +43,10 @@
 	var/reward
 
 /datum/secondary_goal_progress/random_bulk_food/configure(datum/station_goal/secondary/random_bulk_food/goal)
+	..()
 	food_type = goal.food_type
 	needed = goal.amount
 	reward = goal.reward
-	personal_account = goal.personal_account
 
 /datum/secondary_goal_progress/random_bulk_food/Copy()
 	var/datum/secondary_goal_progress/random_bulk_food/copy = new
