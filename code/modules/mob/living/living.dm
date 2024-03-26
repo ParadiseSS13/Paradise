@@ -354,6 +354,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_stamina_hud()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually

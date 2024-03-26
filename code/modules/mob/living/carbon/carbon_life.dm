@@ -253,6 +253,7 @@
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
 			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
+			update_stamina_hud()
 			update_health_hud()
 
 	// Keep SSD people asleep
@@ -284,6 +285,27 @@
 				healths.icon_state = "health6"
 		else
 			healths.icon_state = "health7"
+
+/mob/living/carbon/update_stamina_hud()
+	if(!client)
+		return
+	if(staminas)
+		var/perceived_stamina = staminaloss - shock_reduction()
+		switch(perceived_stamina)
+			if(100 to INFINITY)
+				staminas.icon_state = "stamina6"
+			if(80 to 100)
+				staminas.icon_state = "stamina5"
+			if(60 to 80)
+				staminas.icon_state = "stamina4"
+			if(40 to 60)
+				staminas.icon_state = "stamina3"
+			if(20 to 40)
+				staminas.icon_state = "stamina2"
+			if(1 to 20)
+				staminas.icon_state = "stamina1"
+			else
+				staminas.icon_state = "stamina0"
 
 /mob/living/carbon/update_damage_hud()
 	if(!client)

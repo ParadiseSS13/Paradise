@@ -329,6 +329,9 @@
 	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
+	mymob.staminas = new /atom/movable/screen/healths/stamina()
+	infodisplay += mymob.staminas
+
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 

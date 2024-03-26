@@ -286,7 +286,7 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	if(updating)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 
 /mob/living/proc/setStaminaLoss(amount, updating = TRUE)
@@ -302,7 +302,7 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	if(updating)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 
 /mob/living/proc/getMaxHealth()

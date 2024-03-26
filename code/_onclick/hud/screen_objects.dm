@@ -562,3 +562,7 @@
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/healths/stamina
+	icon_state = "stamina_0"
+	screen_loc = ui_stamina
