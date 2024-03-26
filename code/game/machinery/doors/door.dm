@@ -147,6 +147,18 @@
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
 				cmag_switch(FALSE, user)
 				return
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				var/obj/item/card/id/C
+				C = H.get_idcard(TRUE)
+				if(istype(C))
+					var/datum/money_account/A = C.get_card_account()
+					if(A.try_withdraw_credits(2))
+						to_chat(user, "<span class='info'>DOOR FEE: 2 credits have been deducted from your account.</span>")
+					else
+						to_chat(user, "<span class='info'>Hobo detected, door fee is bypassed.</span>")
+				else
+					to_chat(user, "<span class='info'>Hobo detected, door fee is bypassed.</span>")
 			open()
 			if(isbot(user))
 				var/mob/living/simple_animal/bot/B = user
@@ -528,9 +540,9 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-	
+
 	QDEL_LIST_CONTENTS(fillers)
-	
+
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
