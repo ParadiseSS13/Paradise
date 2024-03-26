@@ -466,3 +466,7 @@
 		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
 		return
 	..()
+
+/mob/living/simple_animal/slime/unit_test_dummy
+	unit_test_dummy = TRUE
+	stop_automated_movement = TRUE

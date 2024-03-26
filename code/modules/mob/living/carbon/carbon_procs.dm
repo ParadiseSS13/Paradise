@@ -500,10 +500,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-	if(!do_after(src, 4.5 SECONDS, target = src))
+	var/ventcrawl_delay = (unit_test_dummy ? 0 SECONDS : 4.5 SECONDS)
+	if(!do_after(src, ventcrawl_delay, target = src))
 		return
 
-	if(!client)
+	if(!client && !unit_test_dummy)
 		return
 
 	if(!vent_found.can_crawl_through())
@@ -537,6 +538,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, "ventcrawling")
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
@@ -545,9 +547,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
+		if(client)
+			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, "ventcrawling")
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image

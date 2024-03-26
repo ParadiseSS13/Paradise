@@ -2,6 +2,7 @@
 //Keep this sorted alphabetically
 
 #ifdef UNIT_TESTS
+#include "atmos\test_ventcrawl.dm"
 #include "aicard_icons.dm"
 #include "announcements.dm"
 #include "areas_apcs.dm"
