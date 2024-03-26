@@ -3095,7 +3095,9 @@
 /area/ruin/space/spacehotelv1/barber)
 "wj" = (
 /obj/structure/table/holotable/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	pixel_y = 8
+	},
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},

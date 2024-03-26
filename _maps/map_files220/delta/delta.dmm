@@ -25849,9 +25849,8 @@
 "bZS" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library{
-	pixel_y = 3
+	pixel_y = 8
 	},
-/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/library)
 "bZV" = (
@@ -29641,7 +29640,10 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 4;
+	pixel_y = 6
+	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood/parquet/tile,
 /area/station/service/library)
@@ -56424,7 +56426,10 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 4;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood/parquet/tile,
 /area/station/service/library)
 "gFX" = (
@@ -87048,6 +87053,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "qjP" = (

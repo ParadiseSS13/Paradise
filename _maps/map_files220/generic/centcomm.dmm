@@ -1062,7 +1062,9 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "aIZ" = (
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	pixel_y = 8
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood/oak,
 /area/wizard_station)
@@ -6216,7 +6218,8 @@
 	color = "#996633"
 	},
 /obj/machinery/computer/library{
-	pixel_y = 6
+	pixel_y = 6;
+	dir = 1
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/library)
@@ -9490,7 +9493,7 @@
 	color = "#996633"
 	},
 /obj/machinery/computer/library{
-	pixel_y = 6
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -26487,7 +26490,10 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 8;
+	pixel_y = 6
+	},
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/general)
 "smo" = (

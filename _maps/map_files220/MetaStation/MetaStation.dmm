@@ -26532,7 +26532,10 @@
 	name = "requests board";
 	pixel_x = 32
 	},
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 8;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bRi" = (
@@ -49188,7 +49191,10 @@
 /area/station/hallway/secondary/exit)
 "fwi" = (
 /obj/structure/table,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	pixel_y = 8;
+	layer = 3.21
+	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
