@@ -270,10 +270,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
-///An /obj that should not increase the "depth" of the search for adjacency,
-///e.g. a storage container or a modsuit.
-#define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
-
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
@@ -372,6 +368,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
-//***** EFFECT TRAITS *****//
+//***** TURF TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
