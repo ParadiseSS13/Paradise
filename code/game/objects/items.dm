@@ -179,7 +179,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	QDEL_LIST_CONTENTS(actions)
+	// actions clear themselves from the list on cut
+	if(islist(actions))
+		for(var/datum/action/A as anything in actions)
+			qdel(A)
+		if(!isnull(actions))
+			actions.Cut()
+
 	master = null
 	return ..()
 
@@ -362,7 +368,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 							failure = 1
 							continue
 						success = 1
-						S.handle_item_insertion(IT, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
+						S.handle_item_insertion(IT, user, TRUE)	//The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
 						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
 					else if(success)
@@ -371,7 +377,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
 
 			else if(S.can_be_inserted(src))
-				S.handle_item_insertion(src)
+				S.handle_item_insertion(src, user)
 	else if(istype(I, /obj/item/stack/tape_roll))
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
@@ -910,3 +916,20 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/get_heat()
 	return
+
+/obj/item/proc/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+	if(!HAS_TRAIT(src, TRAIT_CAN_POINT_WITH) || target_atom == src)
+		return FALSE
+
+	var/pointed_object = "\the [target_atom]"
+	if(target_atom.loc in pointer_mob)
+		pointed_object += " inside [target_atom.loc]"
+
+	if(pointer_mob.a_intent == INTENT_HELP || !ismob(target_atom))
+		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src]")
+		return TRUE
+
+	target_atom.visible_message("<span class='danger'>[pointer_mob] points [src] at [pointed_object]!</span>",
+									"<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
+	SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
+	return TRUE
