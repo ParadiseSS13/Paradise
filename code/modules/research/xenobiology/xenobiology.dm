@@ -461,6 +461,8 @@
 	if(!proximity_flag)
 		return
 	..()
+	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+		return
 	if(!isitem(O))
 		if(!istype(O, /obj/structure/table))
 			to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")

@@ -28,10 +28,20 @@
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
+
 /// Check if an item is in one of our hands
 /mob/proc/is_holding(obj/item/I)
 	return istype(I) && (I == r_hand || I == l_hand)
 
+//Checks if we're holding an item of type: typepath
+/mob/proc/is_holding_item_of_type(typepath)
+	var/list/held_items = list()
+	held_items += l_hand
+	held_items += r_hand
+	for(var/obj/item/I in held_items)
+		if(istype(I, typepath))
+			return I
+	return FALSE
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()

@@ -381,6 +381,9 @@
 	if(pulledby && !pulledby.pulling)
 		return 1
 
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
+
 	if(throwing)
 		return 1
 
@@ -495,6 +498,12 @@
 	TT.tick()
 
 	return TRUE
+
+/atom/movable/proc/set_glide_size(target = 8)
+	glide_size = target
+
+	for(var/mob/buckled_mob as anything in buckled_mobs)
+		buckled_mob.set_glide_size(target)
 
 //Overlays
 /atom/movable/overlay

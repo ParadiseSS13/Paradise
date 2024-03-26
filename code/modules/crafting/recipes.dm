@@ -477,6 +477,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/skateboard
+	name = "Camera Obscura"
+	result = list(/obj/tgvehicle/scooter/skateboard/improvised)
+	time = 15
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/rods = 10)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	category = CAT_MISC
+
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"
 	result = list(/obj/item/camera/spooky)
