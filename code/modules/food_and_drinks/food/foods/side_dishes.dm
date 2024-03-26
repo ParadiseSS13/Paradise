@@ -110,8 +110,9 @@
 /obj/item/food/snacks/boiledrice/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/seaweed))
 		var/obj/item/stack/seaweed/S = I
-		new /obj/item/food/snacks/onigiri(get_turf(src))
+		var/obj/item/food/snacks/onigiri/O = new(get_turf(src))
 		S.use(1)
+		reagents.trans_to(O, reagents.total_volume)
 		qdel(src)
 		return
 	return ..()
