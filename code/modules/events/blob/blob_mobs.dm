@@ -20,6 +20,14 @@
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
+/mob/living/simple_animal/hostile/blob/Initialize(mapload)
+	. = ..()
+	GLOB.blob_minions |= src
+
+/mob/living/simple_animal/hostile/blob/Destroy()
+	GLOB.blob_minions -= src
+	return ..()
+
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
