@@ -75,7 +75,7 @@
 /datum/secondary_goal_progress/proc/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	return FALSE
 
-/datum/secondary_goal_progress/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
+/datum/secondary_goal_progress/proc/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
 	var/datum/economy/line_item/supply_item = new
 	supply_item.account = SSeconomy.cargo_account
 	supply_item.credits = reward / 3
