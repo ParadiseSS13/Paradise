@@ -285,8 +285,8 @@
 	name = "personal crate"
 	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it. This one has not been configured by CC, and the first card swiped gains control."
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
+	/// The name of the person this crate is registered to.
 	var/registered_name = null
-	var/registered_account = null
 	// Unlike most secure crates, personal crates are easily obtained.
 	crate_value = DEFAULT_CRATE_VALUE
 
@@ -324,7 +324,6 @@
 
 	if(!registered_name)
 		registered_name = id.registered_name
-		registered_account = id.associated_account_number
 		desc = "Owned by [id.registered_name]."
 		to_chat(user, "<span class='notice'>Crate reserved</span>")
 		return TRUE

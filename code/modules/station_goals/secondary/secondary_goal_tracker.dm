@@ -49,9 +49,11 @@
 
 /datum/secondary_goal_progress
 	var/personal_account
+	var/goal_requester
 
 /datum/secondary_goal_progress/proc/configure(datum/station_goal/secondary/goal)
 	SHOULD_CALL_PARENT(TRUE)
+	goal_requester = goal.requester_name
 	personal_account = goal.personal_account
 
 /datum/secondary_goal_progress/proc/Copy()
@@ -80,7 +82,7 @@
 	var/obj/structure/closet/crate/secure/personal/PC = get_atom_on_turf(AM, /obj/structure/closet/crate/secure/personal)
 	if(!istype(PC))
 		return FALSE
-	if(personal_account && PC.registered_account != personal_account)
+	if(goal_requester && PC.registered_name != goal_requester)
 		return FALSE
 	return TRUE
 

@@ -40,13 +40,11 @@
 /datum/secondary_goal_progress/random_ripley
 	var/obj/item/food/snacks/food_type
 	var/list/modules
-	var/goal_requester
 	var/sent = FALSE
 
 /datum/secondary_goal_progress/random_ripley/configure(datum/station_goal/secondary/random_ripley/goal)
 	..()
 	modules = goal.modules
-	goal_requester = goal.requester_name
 
 /datum/secondary_goal_progress/random_ripley/Copy()
 	var/datum/secondary_goal_progress/random_ripley/copy = new
@@ -55,7 +53,6 @@
 	// These ones aren't really needed in the intended use case, they're
 	// just here in case someone uses this method somewhere else.
 	copy.personal_account = personal_account
-	copy.goal_requester = goal_requester
 	return copy
 
 /datum/secondary_goal_progress/random_ripley/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
