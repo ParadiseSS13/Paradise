@@ -81,6 +81,7 @@
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
+// This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
 #define PREFTOGGLE_CATEGORY_GENERAL		1
 #define PREFTOGGLE_CATEGORY_LIVING		2
 #define PREFTOGGLE_CATEGORY_GHOST		3
