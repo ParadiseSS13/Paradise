@@ -105,17 +105,22 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		if(property != goal_property_value)
 			send_requests_console_message("Virus [D.name] has the wrong [goal_property] for [name] ([property] is not [goal_property_value]).", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
+		var/found_goal_symptom = FALSE
 		for(var/datum/symptom/S in D.symptoms)
 			if(!goal_symptom)
 				return
 			if(S.type != goal_symptom)
 				continue
-			delivered_amount += BL.volume
-			if(delivered_amount >= delivery_goal)
-				completed = TRUE
-				check_total_virology_goals_completion()
-				return TRUE
-		send_requests_console_message("Virus [D.name] is missing the required symptom [initial(goal_symptom.name)] for [name].", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
+			found_goal_symptom = TRUE
+			break
+		if(!found_goal_symptom)
+			return
+		delivered_amount += BL.volume
+		if(delivered_amount >= delivery_goal)
+			completed = TRUE
+			check_total_virology_goals_completion()
+			send_requests_console_message("Virus [D.name] is missing the required symptom [initial(goal_symptom.name)] for [name].", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
+			return TRUE
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -181,11 +186,11 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			if(!SY)
 				send_requests_console_message("Virus [D.name] is missing symptom [initial(SY.name)] for [name].", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 				return
-			delivered_amount += BL.volume
-			if(delivered_amount >= delivery_goal)
-				completed = TRUE
-				check_total_virology_goals_completion()
-				return TRUE
+		delivered_amount += BL.volume
+		if(delivered_amount >= delivery_goal)
+			completed = TRUE
+			check_total_virology_goals_completion()
+			return TRUE
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
