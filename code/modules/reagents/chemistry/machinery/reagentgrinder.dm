@@ -55,7 +55,7 @@
 		/obj/item/food = list(),
 		/obj/item/reagent_containers/pill = list(),
 		/obj/item/reagent_containers/patch = list(),
-		/obj.item/clothing/mask/cigarette = list()
+		/obj/item/clothing/mask/cigarette = list()
 	)
 
 	var/list/juice_items = list (
