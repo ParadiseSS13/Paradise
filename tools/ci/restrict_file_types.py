@@ -1,6 +1,6 @@
 import glob
-import re
 import os
+import re
 import sys
 import time
 from collections import namedtuple
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     dm_files = glob.glob("**/*.dm", recursive=True)
 
     if len(sys.argv) > 1:
-        dm_files = [sys.argv[1]]
+        dm_files = sys.argv[1:]
 
     all_failures = []
 
