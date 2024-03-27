@@ -29,8 +29,7 @@ jobs:
           pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
           if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
             gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
-            echo "FAIL_NOTIFIED=true" >> $GITHUB_ENV
-            exit 1
+            exit 0
           fi
           echo "PR_REPO=`jq -r '.head.repo.full_name' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
@@ -89,18 +88,17 @@ jobs:
           git fetch origin "$PR_BRANCH" --depth=$((ahead_by + 1))
           git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
 
-          # Check if a workflow file would be modified by the merge
+          # Check if a workflow file would be modified by the merge (permissions prevent pushes if so)
           latest_workflow_commit=$(git log -n 1 --pretty=format:"%H" upstream/$BASE_BRANCH -- .github/workflows)
           if ! git branch --contains $latest_workflow_commit | grep -q "$(git rev-parse --abbrev-ref HEAD)"; then
             gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not push to this branch as workflow files have been changed since your branch was last updated. Please update your branch past https://github.com/ParadiseSS13/Paradise/commit/$latest_workflow_commit before using this command again."
-            echo "FAIL_NOTIFIED=true" >> $GITHUB_ENV
-            exit 1
+            exit 0
           fi
 
           git merge FETCH_HEAD
           git push origin
 
       - name: Notify Failure
-        if: failure() && ${{ !env.FAIL_NOTIFIED == 'true' }}
+        if: failure()
         run: |
           gh pr comment ${{ github.event.issue.html_url }} -b "Merging upstream failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
