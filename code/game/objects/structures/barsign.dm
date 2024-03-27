@@ -306,44 +306,44 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	if(!(flags & NODECONSTRUCT))
+	if(flags & NODECONSTRUCT)
+		return
 		// Removing the electronics
-		if(build_stage == BARSIGN_CIRCUIT)
-			var/obj/item/barsign_electronics/electronic
-			electronic = new /obj/item/barsign_electronics
-			if(!emagged)
-				to_chat(user, "<span class='notice'>You pull the electronics out from [src].</span>")
-			else
-				// Give fried electronics if the sign is emagged
-				to_chat(user, "<span class='notice'>You pull the fried electronics out from [src].</span>")
-				electronic.destroyed = TRUE
-				electronic.icon_state = "door_electronics_smoked"
-			if(!length(req_access))
-				electronic.restricts_access = FALSE
-			electronic.forceMove(get_turf(user))
-			build_stage = BARSIGN_FRAME
-			update_icon()
-			add_fingerprint(user)
-		// Removing the glass screen
-		else if(build_stage == BARSIGN_COMPLETE)
-			if(panel_open)
-				// Drop a shard if the glass is broken
-				if(stat & BROKEN)
-					to_chat(user, "<span class='notice'>You remove the broken screen from [src].</span>")
-					new /obj/item/shard(get_turf(user))
-				else
-					to_chat(user, "<span class='notice'>You pull the glass screen out from [src].</span>")
-					var/obj/item/stack/sheet/glass/G
-					G = new /obj/item/stack/sheet/glass
-					G.amount = 2
-					G.forceMove(get_turf(user))
-				build_stage = BARSIGN_WIRED
-				update_icon()
-				add_fingerprint(user)
-			else
-				to_chat(user, "<span class='warning'>Open the maintenance panel first!</span>")
-				return
-		I.play_tool_sound(user, I.tool_volume)
+	if(build_stage == BARSIGN_CIRCUIT)
+		var/obj/item/barsign_electronics/electronic
+		electronic = new /obj/item/barsign_electronics
+		if(!emagged)
+			to_chat(user, "<span class='notice'>You pull the electronics out from [src].</span>")
+		else
+			// Give fried electronics if the sign is emagged
+			to_chat(user, "<span class='notice'>You pull the fried electronics out from [src].</span>")
+			electronic.destroyed = TRUE
+			electronic.icon_state = "door_electronics_smoked"
+		if(!length(req_access))
+			electronic.restricts_access = FALSE
+		electronic.forceMove(get_turf(user))
+		build_stage = BARSIGN_FRAME
+		update_icon()
+		add_fingerprint(user)
+	// Removing the glass screen
+	else if(build_stage == BARSIGN_COMPLETE)
+		if(!panel_open)
+			to_chat(user, "<span class='warning'>Open the maintenance panel first!</span>")
+			return
+			// Drop a shard if the glass is broken
+		if(stat & BROKEN)
+			to_chat(user, "<span class='notice'>You remove the broken screen from [src].</span>")
+			new /obj/item/shard(get_turf(user))
+		else
+			to_chat(user, "<span class='notice'>You pull the glass screen out from [src].</span>")
+			var/obj/item/stack/sheet/glass/G
+			G = new /obj/item/stack/sheet/glass
+			G.amount = 2
+			G.forceMove(get_turf(user))
+		build_stage = BARSIGN_WIRED
+		update_icon()
+		add_fingerprint(user)
+	I.play_tool_sound(user, I.tool_volume)
 
 /obj/machinery/barsign/wirecutter_act(mob/living/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
