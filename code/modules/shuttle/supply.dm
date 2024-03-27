@@ -178,7 +178,9 @@
 	if(istype(AM, /obj/structure/closet/crate/secure))
 		var/obj/structure/closet/crate/secure/SC = AM
 		if(SC.locked)
-			blocking_item = "locked crates ([AM])"
+			return CARGO_REQUIRE_PRIORITY
+		else if(istype(SC, /obj/structure/closet/crate/secure/personal))
+			blocking_item = "unlocked personal crates ([AM])"
 			return CARGO_PREVENT_SHUTTLE
 
 	if(istype(AM, /obj/item/storage/lockbox))
