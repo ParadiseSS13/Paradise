@@ -35,6 +35,7 @@
 		user.visible_message("<span class='notice'>[user] labels [A] as part of a secondary goal for [label].</span>", \
 							"<span class='notice'>You label [A] as part of a secondary goal for [label].</span>")
 		A.AddComponent(/datum/component/label/goal, label)
+		return
 
 	if(length(A.name) + length(label) > 64)
 		to_chat(user, "<span class='warning'>Label too big!</span>")
