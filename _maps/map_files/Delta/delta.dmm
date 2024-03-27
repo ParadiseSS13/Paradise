@@ -23131,7 +23131,8 @@
 	dir = 4
 	},
 /obj/structure/chair/office{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -50607,7 +50608,9 @@
 	},
 /area/station/medical/medbay)
 "cKP" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -51371,7 +51374,8 @@
 /area/station/medical/reception)
 "cNW" = (
 /obj/structure/chair/office{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51385,7 +51389,8 @@
 	icon_state = "0-4"
 	},
 /obj/structure/chair/office{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /obj/effect/landmark/start/paramedic,
 /turf/simulated/floor/plasteel{
@@ -59957,7 +59962,8 @@
 	pixel_x = -4
 	},
 /obj/structure/chair/office{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -66697,7 +66703,8 @@
 	pixel_x = -4
 	},
 /obj/structure/chair/office{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -70707,7 +70714,8 @@
 	dir = 4
 	},
 /obj/structure/chair/office{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -86702,7 +86710,8 @@
 /area/station/public/sleep)
 "qqT" = (
 /obj/structure/chair/office{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -88486,7 +88495,9 @@
 	},
 /area/station/public/sleep)
 "rrv" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office{
+	anchored = 1
+	},
 /obj/effect/landmark/start/coroner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
@@ -89738,7 +89749,8 @@
 	pixel_x = -4
 	},
 /obj/structure/chair/office{
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91198,7 +91210,8 @@
 	dir = 4
 	},
 /obj/structure/chair/office{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
