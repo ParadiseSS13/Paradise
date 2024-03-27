@@ -120,7 +120,7 @@ SUBSYSTEM_DEF(mapping)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_MESSY))
 		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
-	else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
 
 // Do not confuse with seedRuins()
