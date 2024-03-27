@@ -481,7 +481,7 @@
 
 /obj/effect/proc_holder/spell/corpse_explosion
 	name = "Corpse Explosion"
-	desc = "Fills a corpse with energy causing it to explode violently"
+	desc = "Fills a corpse with energy, causing it to explode violently."
 	school = "evocation"
 	base_cooldown = 5 SECONDS
 	clothes_req = TRUE
