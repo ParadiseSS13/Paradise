@@ -245,24 +245,29 @@
 
 	SEND_SIGNAL(src, COMSIG_CARGO_END_SELL, manifest)
 
+	SSblackbox.record_feedback("amount", "cargo shipments", 1)
+
 	if(manifest.loose_cargo)
 		var/datum/economy/line_item/item = new
 		item.account = SSeconomy.cargo_account
 		item.credits = SSeconomy.fine_for_loose_cargo
 		item.reason = "Please remember to secure all items in crates."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo fines", 1, "loose cargo")
 	if(manifest.messy_shuttle)
 		var/datum/economy/line_item/item = new
 		item.account = SSeconomy.cargo_account
 		item.credits = SSeconomy.fine_for_messy_shuttle
 		item.reason = "Shuttle cleaning fee."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo fines", 1, "messy shuttle")
 	if(manifest.sent_trash)
 		var/datum/economy/line_item/item = new
 		item.account = SSeconomy.cargo_account
 		item.credits = SSeconomy.fine_for_selling_trash
 		item.reason = "Don't send us random junk."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo fines", 1, "sent trash")
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 
@@ -279,7 +284,12 @@
 		else
 			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
 
-	for(var/account in credit_changes)
+	for(var/datum/money_account/account in credit_changes)
+		if(account.account_type == ACCOUNT_TYPE_DEPARTMENT)
+			SSblackbox.record_feedback("tally", "cargo profits", credit_changes[account], "[account]")
+		else
+			SSblackbox.record_feedback("tally", "cargo profits", credit_changes[account], "All personal accounts")
+
 		if(credit_changes[account] > 0)
 			GLOB.station_money_database.credit_account(account, credit_changes[account], "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 		else
@@ -362,6 +372,8 @@
 	item.credits = credits
 	item.reason = "Returned [crates] crate(s)."
 	manifest.line_items += item
+	SSblackbox.record_feedback("tally", "cargo crates sold", crates, "amount")
+	SSblackbox.record_feedback("tally", "cargo crates sold", item.credits, "credits")
 
 
 /datum/economy/simple_seller/plasma
@@ -389,6 +401,8 @@
 	item.credits = plasma * SSeconomy.credits_per_plasma
 	item.reason = "Received [plasma] unit(s) of exotic material."
 	manifest.line_items += item
+	SSblackbox.record_feedback("tally", "cargo plasma sold", plasma, "amount")
+	SSblackbox.record_feedback("tally", "cargo plasma sold", item.credits, "credits")
 
 
 /datum/economy/simple_seller/intel
@@ -415,6 +429,8 @@
 	item.credits = intel * SSeconomy.credits_per_intel
 	item.reason = "Received [intel] article(s) of enemy intelligence."
 	manifest.line_items += item
+	SSblackbox.record_feedback("tally", "cargo intel sold", intel, "amount")
+	SSblackbox.record_feedback("tally", "cargo intel sold", item.credits, "credits")
 
 
 /datum/economy/simple_seller/alien_organs
@@ -433,6 +449,8 @@
 	item.credits = organ.cargo_profit
 	item.reason = "Received a sample of exotic biological tissue."
 	manifest.line_items += item
+	SSblackbox.record_feedback("tally", "cargo alien organs sold", 1, "amount")
+	SSblackbox.record_feedback("tally", "cargo alien organs sold", item.credits, "credits")
 
 
 /datum/economy/simple_seller/shipping_manifests
@@ -452,6 +470,8 @@
 	item.credits = SSeconomy.credits_per_manifest
 	item.reason = "Package [slip.ordernumber] accorded."
 	manifest.line_items += item
+	SSblackbox.record_feedback("tally", "cargo manifests sold", 1, "amount")
+	SSblackbox.record_feedback("tally", "cargo manifests sold", item.credits, "credits")
 
 
 /datum/economy/simple_seller/tech_levels
@@ -490,6 +510,8 @@
 		return
 
 	SSeconomy.tech_levels[tech.id] = tech.level
+	SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "amount")
+	SSblackbox.record_feedback("tally", "cargo tech disks sold", cost, "credits")
 
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account
@@ -515,6 +537,7 @@
 	if(!disk.stored)
 		item.reason = "Blank tech disk."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "blank")
 		return
 
 	var/datum/tech/tech = disk.stored
@@ -522,6 +545,7 @@
 	if(!cost)
 		item.reason = "[tech.name] - no new data."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "repeat")
 
 
 /datum/economy/simple_seller/designs
@@ -555,6 +579,8 @@
 	if(design.id in SSeconomy.research_designs)
 		return
 	SSeconomy.research_designs += design.id
+	SSblackbox.record_feedback("tally", "cargo design disks sold", 1, "amount")
+	SSblackbox.record_feedback("tally", "cargo design disks sold", SSeconomy.credits_per_design, "credits")
 
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account
@@ -580,11 +606,13 @@
 	if(!disk.blueprint)
 		item.reason = "Blank design disk."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo design disks sold", 1, "blank")
 		return
 	var/datum/design/design = disk.blueprint
 	if(design.id in SSeconomy.research_designs)
 		item.reason = "Duplicate design for [design.name]."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo design disks sold", 1, "repeat")
 		return
 
 
@@ -624,14 +652,19 @@
 			SSeconomy.discovered_plants[seed.type] = seed.potency
 			credits = potDiff
 			msg = "New sample of \"[capitalize(seed.species)]\" is superior. Good work."
+			SSblackbox.record_feedback("tally", "cargo seeds sold", 1, "improved")
 	else
 		// This is a new discovery!
 		SSeconomy.discovered_plants[seed.type] = seed.potency
 		credits = seed.rarity + seed.potency
 		msg = "New species discovered: \"[capitalize(seed.species)]\". Excellent work."
+		SSblackbox.record_feedback("tally", "cargo seeds sold", 1, "new")
 
 	if(credits == 0)
 		return
+
+	SSblackbox.record_feedback("tally", "cargo seeds sold", 1, "amount")
+	SSblackbox.record_feedback("tally", "cargo seeds sold", credits, "credits")
 
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account
@@ -657,9 +690,11 @@
 	if(seed.rarity == 0)
 		item.reason = "We don't need samples of mundane species \"[capitalize(seed.species)]\"."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo seeds sold", 1, "boring")
 	else if(SSeconomy.discovered_plants[seed.type] && SSeconomy.discovered_plants[seed.type] < seed.potency)
 		item.reason = "New sample of \"[capitalize(seed.species)]\" is not more potent than existing sample ([SSeconomy.discovered_plants[seed.type]] potency)."
 		manifest.line_items += item
+		SSblackbox.record_feedback("tally", "cargo seeds sold", 1, "repeat")
 	// If neither succeeds, this seed was declared wrong by a different
 	// seller, so we should be quiet.
 
@@ -679,12 +714,19 @@
 	if(istype(AM, /obj/item/storage))
 		return COMSIG_CARGO_SELL_NORMAL
 
+/datum/economy/simple_seller/mechs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!..())
+		return
+	SSblackbox.record_feedback("amount", "cargo containers sold", 1)
+
 
 /datum/economy/simple_seller/mechs
 
 /datum/economy/simple_seller/mechs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
 	if(!..())
 		return
+	SSblackbox.record_feedback("tally", "cargo basic mechs sold", 1, "amount")
+	SSblackbox.record_feedback("tally", "cargo basic mechs sold", SSeconomy.credits_per_mech, "credits")
 
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account

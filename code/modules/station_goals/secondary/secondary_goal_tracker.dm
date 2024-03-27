@@ -38,23 +38,28 @@
 // Update real goal progress when selling a cargo item.
 /datum/secondary_goal_tracker/proc/update_progress(obj/docking_port/mobile/supply/shuttle, atom/movable/thing, datum/economy/cargo_shuttle_manifest/manifest)
 	SIGNAL_HANDLER  // COMSIG_CARGO_DO_PRIORITY_SELL, COMSIG_CARGO_DO_SELL, COMSIG_CARGO_SEND_ERROR
-	real_progress.update(thing, manifest)
+	. = real_progress.update(thing, manifest)
+	if(. & COMSIG_CARGO_SELL_PRIORITY)
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal.name, "items sold"))
 
 /datum/secondary_goal_tracker/proc/check_for_completion(obj/docking_port/mobile/supply/shuttle, datum/economy/cargo_shuttle_manifest/manifest)
 	SIGNAL_HANDLER  // COMSIG_CARGO_END_SELL
 	if(real_progress.check_complete(manifest))
 		goal.completed = TRUE
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal.name, "times completed"))
 		unregister(SSshuttle.supply)
 
 
 /datum/secondary_goal_progress
 	var/personal_account
 	var/goal_requester
+	var/goal_name
 
 /datum/secondary_goal_progress/proc/configure(datum/station_goal/secondary/goal)
 	SHOULD_CALL_PARENT(TRUE)
 	goal_requester = goal.requester_name
 	personal_account = goal.personal_account
+	goal_name = goal.name
 
 /datum/secondary_goal_progress/proc/Copy()
 	return new type
@@ -87,6 +92,9 @@
 	return TRUE
 
 /datum/secondary_goal_progress/proc/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "payments made"))
+	SSblackbox.record_feedback("nested tally", "secondary goals", reward, list(goal_name, "credits"))
+
 	var/datum/economy/line_item/supply_item = new
 	supply_item.account = SSeconomy.cargo_account
 	supply_item.credits = reward / 3

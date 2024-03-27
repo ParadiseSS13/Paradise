@@ -76,6 +76,8 @@
 
 /datum/secondary_goal_progress/random_bulk_food/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	if(sent_this_shipment > 0)
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "food shipments", initial(food_type.name)))
+		SSblackbox.record_feedback("nested tally", "secondary goals", sent_this_shipment, list(goal_name, "food servings", initial(food_type.name)))
 		var/datum/economy/line_item/update_item = new
 		update_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
 		update_item.credits = 0

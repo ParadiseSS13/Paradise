@@ -65,6 +65,7 @@
 	if(!manifest)
 		return COMSIG_CARGO_SELL_PRIORITY
 	if(sent)
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "extra mech"))
 		var/datum/economy/line_item/extra_item = new
 		extra_item.account = SSeconomy.cargo_account
 		extra_item.credits = SSeconomy.credits_per_mech
@@ -82,18 +83,21 @@
 		// We sell or skip all of these, so we can delete it.
 		qdel(component)
 	if(length(remaining_needs))
-		var/datum/economy/line_item/wrong_item = new
-		wrong_item.account = SSeconomy.cargo_account
-		wrong_item.credits = SSeconomy.credits_per_mech
-		wrong_item.reason = "That's not the equipment we needed, but it's still a mech"
-		manifest.line_items += wrong_item
-		send_requests_console_message(wrong_item.reason + ", so we sent the usual amount to your supply account.", "Central Command", "Robotics", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
-		return COMSIG_CARGO_SELL_PRIORITY
+		if(manifest)
+			SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "incorrect mech"))
+			var/datum/economy/line_item/wrong_item = new
+			wrong_item.account = SSeconomy.cargo_account
+			wrong_item.credits = SSeconomy.credits_per_mech
+			wrong_item.reason = "That's not the equipment we needed, but it's still a mech"
+			manifest.line_items += wrong_item
+			send_requests_console_message(wrong_item.reason + ", so we sent the usual amount to your supply account.", "Central Command", "Robotics", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
+		return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 
 	sent = TRUE
-	return COMSIG_CARGO_SELL_PRIORITY
+	return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 
 /datum/secondary_goal_progress/random_ripley/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	if(sent)
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "correct mech"))
 		three_way_reward(manifest, "Robotics", GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), SSeconomy.credits_per_ripley_goal, "Secondary goal complete: Customized Ripley.")
 	return sent

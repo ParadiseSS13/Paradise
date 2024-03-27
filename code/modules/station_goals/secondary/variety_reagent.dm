@@ -68,6 +68,7 @@
 	if(length(container.reagents.reagent_list) != 1)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "mixed reagents"))
 		var/datum/economy/line_item/item = new
 		item.account = department_account
 		item.credits = 0
@@ -80,6 +81,7 @@
 	if(reagent.goal_difficulty == REAGENT_GOAL_SKIP)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "boring reagents"))
 		var/datum/economy/line_item/item = new
 		item.account = department_account
 		item.credits = 0
@@ -92,6 +94,7 @@
 	if(reagent.volume < amount_per)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "insufficient quantity of reagents"))
 		var/datum/economy/line_item/item = new
 		item.account = department_account
 		item.credits = 0
@@ -103,6 +106,7 @@
 	if(reagents_sent[reagent.id])
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
+		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "repeat reagents"))
 		var/datum/economy/line_item/item = new
 		item.account = department_account
 		item.credits = 0
@@ -115,6 +119,8 @@
 
 	if(!manifest)
 		return COMSIG_CARGO_SELL_PRIORITY
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "valid reagents"))
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "reagents", reagent.id))
 	var/datum/economy/line_item/item = new
 	item.account = department_account
 	item.credits = 0

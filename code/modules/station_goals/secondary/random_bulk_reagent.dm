@@ -80,6 +80,8 @@
 	if(!manifest)
 		return COMSIG_CARGO_SELL_PRIORITY
 
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "reagents", initial(reagent_type.id), "containers"))
+	SSblackbox.record_feedback("nested tally", "secondary goals", amount, list(goal_name, "reagents", initial(reagent_type.id), "units"))
 	var/datum/economy/line_item/item = new
 	item.account = department_account
 	item.credits = 0
