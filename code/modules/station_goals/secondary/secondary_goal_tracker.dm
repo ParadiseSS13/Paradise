@@ -76,6 +76,14 @@
 /datum/secondary_goal_progress/proc/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	return FALSE
 
+/datum/secondary_goal_progress/proc/check_personal_crate(atom/movable/AM)
+	var/obj/structure/closet/crate/secure/personal/PC = get_atom_on_turf(AM, /obj/structure/closet/crate/secure/personal)
+	if(!istype(PC))
+		return FALSE
+	if(personal_account && PC.registered_account != personal_account)
+		return FALSE
+	return TRUE
+
 /datum/secondary_goal_progress/proc/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
 	var/datum/economy/line_item/supply_item = new
 	supply_item.account = SSeconomy.cargo_account

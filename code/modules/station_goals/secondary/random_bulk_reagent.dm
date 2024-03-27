@@ -64,7 +64,12 @@
 	return copy
 
 /datum/secondary_goal_progress/random_bulk_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
+	// Not a reagent container? Ignore.
 	if(!istype(AM, /obj/item/reagent_containers))
+		return
+
+	// Not in a matching personal crate? Ignore.
+	if(!check_personal_crate(AM))
 		return
 
 	var/obj/item/reagent_containers/container = AM
