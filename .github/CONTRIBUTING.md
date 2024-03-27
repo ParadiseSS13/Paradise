@@ -470,7 +470,7 @@ Look for code examples on how to properly use it.
 
 #### Bitflags
 
-* We prefer using bitshift operators instead of directly typing out the value. I.E:
+* Bitshift operators are mandatory, opposed to directly typing out the value. I.E:
 
 ```dm
     #define MACRO_ONE (1<<0)
@@ -478,7 +478,7 @@ Look for code examples on how to properly use it.
     #define MACRO_THREE (1<<2)
 ```
 
-Is preferable to:
+Is accepted, whereas the following is not:
 
 ```dm
     #define MACRO_ONE 1
@@ -798,6 +798,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 * [AffectedArc07](https://github.com/AffectedArc07)
 * [Charliminator](https://github.com/hal9000PR)
+* [Contrabang](https://github.com/Contrabang)
 * [lewcc](https://github.com/lewcc)
 
 ---

@@ -1,3 +1,6 @@
+/**
+ * Contractors
+ */
 // Contract Statuses
 /// The contract is invalid for some reason and cannot be taken. It may be made valid later.
 #define CONTRACT_STATUS_INVALID -1
@@ -27,3 +30,34 @@
 
 GLOBAL_DATUM(prisoner_belongings, /obj/structure/closet/secure_closet/contractor)
 GLOBAL_LIST(contractors)
+
+/**
+ * Traitors
+ */
+#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
+
+/**
+ * Changelings
+ */
+// Defines below to be used with the changeling action's `power_type` var.
+/// Denotes that this power is free and should be given to all changelings by default.
+#define CHANGELING_INNATE_POWER			1
+/// Denotes that this power can only be obtained by purchasing it.
+#define CHANGELING_PURCHASABLE_POWER	2
+/// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
+#define CHANGELING_UNOBTAINABLE_POWER	3
+
+#define CHANGELING_FAKEDEATH_TIME					50 SECONDS
+#define CHANGELING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
+
+/**
+ * Abductors
+ */
+
+#define ABDUCTOR_VEST_STEALTH 1
+#define ABDUCTOR_VEST_COMBAT 2
+
+/**
+ * Pulse Demon
+ */
+#define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)

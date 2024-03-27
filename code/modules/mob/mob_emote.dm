@@ -150,16 +150,20 @@
 				var/turf/newloc = G.affecting.loc
 				if(isturf(oldloc) && isturf(newloc))
 					user.SpinAnimation(5, 1)
-					user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
 					var/old_pass = user.pass_flags
-					user.pass_flags |= (PASSMOB | PASSTABLE)
+					user.pass_flags |= (PASSTABLE)
 					step(user, get_dir(oldloc, newloc))
 					user.pass_flags = old_pass
-					G.glide_for(0.6 SECONDS)
 					message = "flips over [G.affecting]!"
 					return ..()
 
 	user.SpinAnimation(5, 1)
+
+	if(isrobot(user))
+		var/mob/living/silicon/robot/borg = user
+		if(borg.drop_hat())
+			borg.visible_message("<span class='warning'><span class='name'>[user]</span> drops their hat!</span>",
+							"<span class='warning'>As you flip your hat falls off!</span>")
 
 	if(prob(5) && ishuman(user))
 		message = "attempts a flip and crashes to the floor!"
