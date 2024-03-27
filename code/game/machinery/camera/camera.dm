@@ -70,7 +70,7 @@
 	QDEL_NULL(wires)
 	GLOB.cameranet.cameras -= src
 	var/area/our_area = get_area(src)
-	if(our_area) // We should probably send out the warning alarms if this ever happens, because this should always have an area!
+	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
 		LAZYREMOVE(our_area.cameras, UID())
 	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
