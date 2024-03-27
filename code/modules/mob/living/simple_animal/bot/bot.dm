@@ -1171,7 +1171,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	. = list(list(
 	"name" = name ? name : model, // Turns out, bot_name is not used but name is
 	"model" = model,
-	"status" = mode_name[mode] ? mode_name[mode] : "Bot Idle" , // BOT_IDLE is 0
+	"status" = mode, // BOT_IDLE is 0
 	"location" = get_area(src),
 	"on" = on,
 	"UID" = UID(),
