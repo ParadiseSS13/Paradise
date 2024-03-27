@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
-const bot_type = 'Securitron';
+let bot_type;
 // export const BotClean = (props, context) => {
 //   const { act, data } = useBackend(context);
 //   const {
@@ -61,16 +61,10 @@ export const BotCall = (props, context) => {
     switch (index) {
       case 0:
         return <BotView />;
-      //      case 1:
-      //        return <MedibotView />;
-      //      case 2:
-      //        return <CleanbotView />;
-      //      case 3:
-      //        return <FloorbotView />;
-      //      case 4:
-      //        return <MuleView />;
+      case 1:
+        return <BotView />;
       default:
-        return "WE SHOULDN'T BE HERE!"; // Blatant copy past from atmos UI
+        return 'This should not happen. Report on Paradise Github'; // Blatant copy past from atmos UI
     }
   };
 
@@ -120,7 +114,7 @@ export const BotCall = (props, context) => {
               Mule
             </Tabs.Tab>
             <Tabs.Tab
-              bot_type="Misc"
+              bot_type="Honkbot"
               key="Misc"
               selected={tabIndex === 5}
               onClick={() => setTabIndex(5)}
@@ -150,18 +144,18 @@ const BotView = (_properties, context) => {
           <Table.Cell>Interface</Table.Cell>
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
-        {bots.Securitron.map((bot) => (
-          <Table.Row key={bot.model}>
-            <TableCell>{bot.name}</TableCell>
+        {bots[bot_type].map((bot) => (
+          <Table.Row key={bot.UID}>
+            <TableCell>{bot.model}</TableCell>
             <TableCell>{bot.model}</TableCell>
             <TableCell>{BotStatus(bot.status)}</TableCell>
-            <TableCell>{bot.location}</TableCell>
+            <TableCell>{bot.location !== undefined && (bot.location)}</TableCell>
             <TableCell>
               <Button
                 content="Interface"
                 onClick={() =>
                   act('interface', {
-                    botref: bot.UID,
+                    UID: bot.UID,
                   })
                 }
               />
@@ -171,7 +165,7 @@ const BotView = (_properties, context) => {
                 content="Call"
                 onClick={() =>
                   act('call', {
-                    botref: bot.UID,
+                    UID: bot.UID,
                   })
                 }
               />
