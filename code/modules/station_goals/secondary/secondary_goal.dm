@@ -3,7 +3,9 @@
 	required_crew = 1
 	// Should match the values used for requests consoles.
 	var/department = "Unknown"
+	var/requester_name
 	var/personal_account
+	var/should_send_crate = TRUE
 	var/progress_type = /datum/secondary_goal_progress
 	var/datum/secondary_goal_progress/progress
 	var/datum/secondary_goal_tracker/tracker
@@ -26,8 +28,10 @@
 
 /datum/station_goal/secondary/send_report(requester)
 	var/list/message_parts = list()
-	message_parts += "Received secondary goal request from [requester] for [department].\nQuerying master task list....\nSuitable task found. Task details:\n\n"
+	message_parts += "Received secondary goal request from [requester] for [department].<br>Querying master task list....<br>Suitable task found. Task details:<br>"
 	message_parts += report_message
+	if(should_send_crate)
+		message_parts += "<br>You must submit this in your own personal crate. One will be sent to your Cargo department. More can be ordered if needed."
 	var/combined_message = message_parts.Join("")
 	send_requests_console_message(combined_message, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
 	send_requests_console_message(combined_message, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)

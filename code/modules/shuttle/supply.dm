@@ -127,6 +127,21 @@
 
 	SSeconomy.delivery_list.Cut()
 
+	for(var/datum/station_goal/secondary/SG in SSticker.mode.secondary_goals)
+		if(!SG.should_send_crate)
+			continue
+
+		var/turf/T = pick_n_take(emptyTurfs)		//turf we will place it in
+		if(!T)
+			break
+
+		var/obj/structure/closet/crate/secure/personal/PC = new(T)
+		PC.name = "goal crate ([SG.requester_name] in [SG.department])"
+		PC.desc = "This personal crate has been configured by CC for [SG.requester_name]'s use in completing the secondary goal [SG.name]."
+		PC.locked = FALSE
+
+		SG.should_send_crate = FALSE
+
 /obj/docking_port/mobile/supply/proc/scan_cargo()
 	manifest = new
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SCAN)

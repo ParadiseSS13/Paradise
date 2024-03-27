@@ -2,6 +2,7 @@
 	name = "Random Ripley"
 	department = "Robotics"
 	progress_type = /datum/secondary_goal_progress/random_ripley
+	should_send_crate = FALSE
 	abstract = FALSE
 	var/list/modules = list()
 	var/static/list/general_modules = list(
