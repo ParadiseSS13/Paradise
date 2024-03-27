@@ -468,5 +468,5 @@
 	..()
 
 /mob/living/simple_animal/slime/unit_test_dummy
-	unit_test_dummy = TRUE
+	wander = FALSE
 	stop_automated_movement = TRUE

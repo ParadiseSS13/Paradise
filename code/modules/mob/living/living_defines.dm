@@ -86,8 +86,6 @@
 	var/frozen = null
 	/// Used for keeping track of previous sleeping value with admin freeze.
 	var/admin_prev_sleeping = 0
-	/// Whether or not animal is only spawned/used for unit-test purposes
-	var/unit_test_dummy = FALSE
 
 	/// the type of holder that will be created when a mob gets scooped up
 	var/holder_type

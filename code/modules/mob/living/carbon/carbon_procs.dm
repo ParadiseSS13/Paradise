@@ -500,11 +500,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-	var/ventcrawl_delay = (unit_test_dummy ? 0 SECONDS : 4.5 SECONDS)
-	if(!do_after(src, ventcrawl_delay, target = src))
+#ifdef UNIT_TESTS
+	var/ventcrawl_delay = 0 SECONDS
+#else
+	var/ventcrawl_delay = 4.5 SECONDS
+	if(!client)
 		return
-
-	if(!client && !unit_test_dummy)
+#endif
+	if(!do_after(src, ventcrawl_delay, target = src))
 		return
 
 	if(!vent_found.can_crawl_through())
