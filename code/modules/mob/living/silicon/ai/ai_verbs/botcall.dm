@@ -38,10 +38,8 @@
 				return
 			bot.attack_ai(usr)
 		if("call")
-			to_chat(AI, "test")
 			bot = locateUID(selected_UID)
 			if(!bot || bot.remote_disabled || AI.control_disabled) // TODO: This shit aint working
 				return
-			to_chat(world, "2x")
 			AI.waypoint_mode = TRUE
 			to_chat(AI, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
