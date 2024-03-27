@@ -174,7 +174,7 @@ const MapBot = (_properties, context) => {
                 content="Call"
                 onClick={() =>
                   act('call', {
-                    UID: bot.UID,
+                    botref: bot.UID,
                   })
                 }
               />
