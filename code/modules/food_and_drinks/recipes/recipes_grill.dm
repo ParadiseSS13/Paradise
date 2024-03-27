@@ -171,6 +171,7 @@
 	items = list(
 		/obj/item/food/snacks/egg,
 		/obj/item/food/snacks/boiledrice,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Tamago
 
@@ -179,6 +180,7 @@
 	items = list(
 		/obj/item/fish/electric_eel,
 		/obj/item/food/snacks/boiledrice,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Unagi
 
@@ -186,6 +188,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/food/snacks/boiled_shrimp,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Ebi
 
@@ -193,6 +196,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/fish_eggs/salmon,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Ikura
 
@@ -200,6 +204,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/food/snacks/fried_tofu,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Inari
 
@@ -207,6 +212,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/food/snacks/salmonmeat,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Sake
 
@@ -214,6 +220,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/food/snacks/salmonsteak,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_SmokedSalmon
 
@@ -221,6 +228,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/fish_eggs/goldfish,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Masago
 
@@ -228,6 +236,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/fish_eggs/shark,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Tobiko
 
@@ -235,6 +244,7 @@
 	items = list(
 		/obj/item/food/snacks/sushi_Tobiko,
 		/obj/item/food/snacks/egg,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_TobikoEgg
 
@@ -242,6 +252,7 @@
 	items = list(
 		/obj/item/food/snacks/boiledrice,
 		/obj/item/food/snacks/catfishmeat,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Tai
 
