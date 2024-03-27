@@ -3,13 +3,7 @@
 
 	var/mob/living/simple_animal/bot/bot
 	var/mob/living/silicon/ai/AI
-
-	var/list/secbot = list()
-	var/list/medbot = list()
-	var/list/cleanbot = list()
-	var/list/floorbot = list()
-	var/list/mule = list()
-	var/list/misc = list()
+	var/mob/living/silicon/ai/active_AI
 
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
@@ -23,7 +17,7 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	AI = user
+	active_AI = user.UID()
 
 	data["bots"] = list()
 	for(bot in GLOB.bots_list)
@@ -47,8 +41,16 @@
 			bot.attack_ai(usr)
 		if("call")
 			to_chat(world, "call")
+			to_chat(world, "[usr]")
+			to_chat(world, "[src]")
+			to_chat(world, "[active_AI]")
 			bot = locateUID(selected_UID)
 			if(!bot || bot.remote_disabled || AI.control_disabled)
 				return
-			AI.waypoint_mode = TRUE
-			to_chat(usr, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
+			to_chat(world, "call")
+			to_chat(world, "[usr]")
+			to_chat(world, "[src]")
+			to_chat(world, "[active_AI]")
+			to_chat(world, "2x")
+			active_AI.waypoint_mode = TRUE
+			to_chat(active_AI, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
