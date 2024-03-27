@@ -149,17 +149,17 @@
 			found_priority = TRUE
 
 	if(handling != CARGO_SKIP_ATOM)
+		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
+			blocking_item = "locked containers that don't contain goal items ([AM])"
+			return CARGO_PREVENT_SHUTTLE
 		var/sellable = SEND_SIGNAL(src, COMSIG_CARGO_CHECK_SELL, AM)
 		manifest.items_to_sell[AM] = sellable
 		if(top_level && !(sellable & COMSIG_CARGO_IS_SECURED))
 			manifest.loose_cargo = TRUE
-		if(top_level)
-			return CARGO_OK
 		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
+			if(top_level)
+				return CARGO_OK
 			return CARGO_HAS_PRIORITY
-		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
-			blocking_item = "locked containers that don't contain goal items ([AM])"
-			return CARGO_PREVENT_SHUTTLE
 
 	return CARGO_OK
 
