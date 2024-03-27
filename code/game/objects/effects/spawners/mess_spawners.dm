@@ -200,5 +200,5 @@
 			if(!istype(T, /turf/simulated/floor/plasteel))
 				continue
 			var/spawner_type = pick(themed_mess_types)
-			new spawner_type(T, rand(10, 30))
+			new spawner_type(T, rand(10, 20))
 			break
