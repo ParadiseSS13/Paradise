@@ -79,6 +79,7 @@
 		label = id.registered_name
 		mode = LABEL_MODE_GOAL
 		to_chat(user, "<span class='notice'>You configure the hand labeler with [I].</span>")
+		icon_state = "labeler1"
 
 
 /obj/item/hand_labeler_refill

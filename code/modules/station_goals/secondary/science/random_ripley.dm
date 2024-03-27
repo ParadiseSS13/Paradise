@@ -63,7 +63,7 @@
 	if(!istype(AM, /obj/mecha/working/ripley))
 		return
 	if(!manifest)
-		return COMSIG_CARGO_SELL_PRIORITY
+		return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 	if(sent)
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "extra mech"))
 		var/datum/economy/line_item/extra_item = new
@@ -72,7 +72,7 @@
 		extra_item.reason = "We already got the mech we needed, but we'll take this one at the usual price."
 		manifest.line_items += extra_item
 		send_requests_console_message(extra_item.reason, "Central Command", "Robotics", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
-		return COMSIG_CARGO_SELL_PRIORITY
+		return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 
 	var/remaining_needs = modules.Copy()
 	for(var/component in AM)

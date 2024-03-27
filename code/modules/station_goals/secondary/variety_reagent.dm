@@ -115,7 +115,7 @@
 		send_requests_console_message(item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_WRONG
 
-	reagents_sent += reagent.id
+	reagents_sent[reagent.id] = TRUE
 
 	if(!manifest)
 		return COMSIG_CARGO_SELL_PRIORITY
