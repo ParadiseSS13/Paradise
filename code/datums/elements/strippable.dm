@@ -52,6 +52,7 @@
 
 /// Gets the item from the given source.
 /datum/strippable_item/proc/get_item(atom/source)
+	return
 
 /// Tries to equip the item onto the given source.
 /// Returns TRUE/FALSE depending on if it is allowed.
@@ -90,6 +91,7 @@
 /// The proc that places the item on the source. This should not yield.
 /datum/strippable_item/proc/finish_equip(atom/source, obj/item/equipping, mob/user)
 	SHOULD_NOT_SLEEP(TRUE)
+	return
 
 /// Tries to unequip the item from the given source.
 /// Returns TRUE/FALSE depending on if it is allowed.
