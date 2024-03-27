@@ -46,6 +46,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
+<<<<<<< HEAD:code/modules/mob/living/silicon/ai/!ai_mob.dm
+=======
+	can_strip = FALSE
+	hud_type = /datum/hud/ai
+>>>>>>> master:code/modules/mob/living/silicon/ai/ai_mob.dm
 	hat_offset_y = 3
 	is_centered = TRUE
 	can_be_hatted = TRUE

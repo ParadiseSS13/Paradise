@@ -12,6 +12,7 @@
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	var/temperature_resistance = T0C+75
 	pass_flags = PASSTABLE
+	hud_type = /datum/hud/alien
 
 GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	/datum/strippable_item/hand/left,
