@@ -983,6 +983,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "hypernobilium weave shoes"
 	desc = "They're surprisingly comfortable and designed to fit under an Oblivion Enforcer's robes."
 	magical = TRUE
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/white/enforcer/Initialize(mapload)
 	. = ..()

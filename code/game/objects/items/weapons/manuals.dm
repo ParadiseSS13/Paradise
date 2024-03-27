@@ -842,6 +842,72 @@
 	title = "Science Standard Operating Procedures"
 	wiki_article_title = "Standard_Operating_Procedure_(Science)"
 
+/obj/item/book/manual/shoelace_history
+	name = "The Exciting History of Shoelaces"
+	desc = "A thick compendium of information on shoelaces. Reading this will teach you how to tie together people's shoelaces together."
+	icon_state = "bookmime"
+	author = "Nanotrasen"
+	title = "The Exciting History of Shoelaces"
+	copyright = TRUE
+	protected = TRUE
+	pages = FALSE
+
+/obj/item/book/manual/shoelace_history/read_book(mob/user)
+	if(!can_read(user))
+		return
+	if(isliving(user))
+		var/mob/living/L = user
+		if(!L.has_status_effect(STATUS_BOOKWYRM) && COOLDOWN_FINISHED(src, brain_damage_cooldown))
+			if(prob(10))
+				to_chat(L, "<span class='notice'>You feel a bit smarter!</span>")
+			L.adjustBrainLoss(-1)
+			COOLDOWN_START(src, brain_damage_cooldown, BRAIN_DAMAGE_BOOK_TIME)
+			L.apply_status_effect(STATUS_BOOKWYRM)
+	if(!ishuman(user))
+		return
+	// TODO: idk add a timer here I guess
+	if(HAS_TRAIT(user, "can_tie_together_laces"))
+		to_chat(user, "You already know how to tie people's shoelaces together! Click on someone while in grab intent and targeting their feet to do so.")
+		return
+	to_chat(user, "You learn a new skill! Click on someone while in grab intent and targeting their feet to tie their shoelaces together. This will take a few seconds, but once done will cause them to trip and fall upon moving.")
+	ADD_TRAIT(user, "can_tie_together_laces", "learnt")
+
+/obj/item/book/shoelace_dynamics
+	name = "Advanced Shoelace Dynamics"
+	// TODO: custom desc
+	desc = "A textbook on the oft-forgotten branch of physics known as 'Shoelace Dynamics'. Reading this will teach you how to tie together people's shoelaces together efficiently and subtly."
+	icon_state = "bookshoelacedynamics"
+	author = "Greytider Supreme"
+	title = "Advanced Shoelace Dynamics"
+	copyright = TRUE
+	protected = TRUE
+	pages = FALSE
+	origin_tech = "engineering=3"
+
+/obj/item/book/shoelace_dynamics/read_book(mob/user)
+	if(!can_read(user))
+		return
+	if(isliving(user))
+		var/mob/living/L = user
+		if(!L.has_status_effect(STATUS_BOOKWYRM) && COOLDOWN_FINISHED(src, brain_damage_cooldown))
+			if(prob(10))
+				to_chat(L, "<span class='notice'>You feel a bit smarter!</span>")
+			L.adjustBrainLoss(-1)
+			COOLDOWN_START(src, brain_damage_cooldown, BRAIN_DAMAGE_BOOK_TIME)
+			L.apply_status_effect(STATUS_BOOKWYRM)
+	if(!ishuman(user))
+		return
+	// TODO: idk add a timer here I guess
+	if(HAS_TRAIT(user, "lace_tying_expert"))
+		to_chat(user, "You already know how to tie people's shoelaces together! Click on someone while in grab intent and targeting their feet to do so.")
+		return
+	if(HAS_TRAIT(user, "can_tie_together_laces"))
+		to_chat(user, "You are now more efficient and subtle at tying people's shoelaces together!")
+	else
+		to_chat(user, "You learn a new skill! Click on someone while in grab intent and targeting their feet to tie their shoelaces together. This will take a few seconds, but once done will cause them to trip and fall.")
+	ADD_TRAIT(user, "can_tie_together_laces", "learnt")
+	ADD_TRAIT(user, "lace_tying_expert", "learnt")
+
  //* MANUAL SPAWNERS *// (and space Law)
 
 /obj/item/book/manual/random

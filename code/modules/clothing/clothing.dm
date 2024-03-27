@@ -577,44 +577,58 @@
 	. = ..()
 	shoelace_prank(user)
 
-// TODO: Condition for if the shoes are worn by /prankster
 /obj/item/clothing/shoes/proc/shoelace_prank(mob/living/carbon/human/prankster)
 	if(!istype(prankster))
-		return
-	if(!has_laces)
-		to_chat(prankster, "<span class='warning'>[src] do not have any laces.</span>")
 		return
 	var/is_wearing_the_shoes = FALSE
 	if(prankster.shoes == src)
 		is_wearing_the_shoes = TRUE
-	var/expert_tying = 1
+	var/tying_skill = 0
 	var/obj/item/clothing/gloves/G = prankster.gloves
-	if(istype(G) && G.pickpocket)
-		expert_tying += 1
-	// TODO: Add trait to expert_tying counter here
+	if(HAS_TRAIT(prankster, "can_tie_together_laces"))
+		tying_skill += 1
+		if(HAS_TRAIT(prankster, "lace_tying_expert"))
+			tying_skill += 1
+		if(istype(G) && G.pickpocket)
+			tying_skill += 1
 	add_fingerprint(prankster)
+	// Don't show an error message if they can't tie stuff anyways
+	if(!has_laces && tying_skill)
+		to_chat(prankster, "<span class='warning'>[src] do not have any laces.</span>")
+		return
+	// Untying
 	if(laces_tied_together)
-		if(is_wearing_the_shoes)
-			visible_message("[prankster] begins to untie the laces between [prankster.p_their(FALSE)] [src].", "You begin to untie the laces between your [src].")
+		// People should be able to untie shoes even without the skill
+		if(!tying_skill)
+			tying_skill = 1
+		if(is_wearing_the_shoes && tying_skill < 2)
+			visible_message("[prankster] begins to untie the laces between [prankster.p_their(FALSE)] [name].", "You begin to untie the laces between your [name].")
 		else
-			to_chat(prankster, "You begin to untie the laces between [src].")
-		if(do_after(prankster, 8 SECONDS / expert_tying, src))
+			to_chat(prankster, "You begin to untie the laces between the [name].")
+		if(do_after(prankster, 8 SECONDS / tying_skill, src))
 			laces_tied_together = FALSE
-			if(is_wearing_the_shoes)
-				visible_message("[prankster] successfully unties the laces between [prankster.p_their(FALSE)] [src].", "You successfully untie the laces between your [src].")
+			if(is_wearing_the_shoes && tying_skill < 2)
+				visible_message("[prankster] successfully unties the laces between [prankster.p_their(FALSE)] [name].", "You successfully untie the laces between your [name].")
 			else
-				to_chat(prankster, "You successfully untie the laces between [src].")
-	else
-		if(is_wearing_the_shoes)
-			visible_message("[prankster] begins to tie together the laces on [prankster.p_their(FALSE)] [src].", "You begin to tie together the laces on your [src].")
+				to_chat(prankster, "You successfully untie the laces between the [name].")
 		else
-			to_chat(prankster, "You begin to tie together the laces on [src].")
-		if(do_after(prankster, 8 SECONDS / expert_tying, src))
+			to_chat(prankster, "<span class='warning'>You fail to untie the knot!</span>")
+	// Tying
+	else
+		if(!tying_skill)
+			return
+		if(is_wearing_the_shoes && tying_skill < 2)
+			visible_message("[prankster] begins to tie together the laces on [prankster.p_their(FALSE)] [name].", "You begin to tie together the laces on your [name].")
+		else
+			to_chat(prankster, "You begin to tie together the laces on the [name].")
+		if(do_after(prankster, 8 SECONDS / tying_skill, src))
 			laces_tied_together = TRUE
-			if(is_wearing_the_shoes)
-				visible_message("[prankster] successfully ties together the laces on [prankster.p_their(FALSE)] [src].", "You successfully tie together the laces on your [src].")
+			if(is_wearing_the_shoes && tying_skill < 2)
+				visible_message("[prankster] successfully ties together the laces on [prankster.p_their(FALSE)] [name].", "You successfully tie together the laces on your [name].")
 			else
-				to_chat(prankster, "You successfully tie together the laces on [src].")
+				to_chat(prankster, "You successfully tie together the laces on the [name].")
+		else
+			to_chat(prankster, "<span class='warning'>You fail to tie the knot!</span>")
 	return
 
 /obj/item/clothing/shoes/examine(mob/user)
@@ -627,7 +641,10 @@
 		if(laces_tied_together)
 			. += "<span class='warning'>The laces are tied together, you can <b>Alt-Shift-Click</b> [src] to undo the knot.</span>"
 		else
-			. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to tie the shoelaces together.</span>"
+			if(HAS_TRAIT(user, "can_tie_together_laces"))
+				. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to tie the shoelaces together.</span>"
+			else
+				. += "<span class='notice'>[src] have laces.</span>"
 	else
 		. += "<span class='notice'>[src] do not have any laces."
 

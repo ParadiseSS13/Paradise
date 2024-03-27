@@ -31,6 +31,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/sandal/marisa
 	name = "magic shoes"
@@ -54,6 +55,7 @@
 	put_on_delay = 50
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 35, ACID = 150)
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -189,6 +191,7 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/jackboots/noisy
 	name = "heavy jackboots"
@@ -237,17 +240,20 @@
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	magical = TRUE
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
 	desc = "Shoes for a cyborg costume"
 	icon_state = "boots"
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/slippers
 	name = "bunny slippers"
 	desc = "Fluffy!"
 	icon_state = "slippers"
 	item_state = "slippers"
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/slippers_worn
 	name = "worn bunny slippers"
@@ -268,6 +274,7 @@
 	item_state = "roman"
 	strip_delay = 100
 	put_on_delay = 100
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/centcom
 	name = "dress shoes"
@@ -279,6 +286,7 @@
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
+	has_laces = FALSE
 
 
 /obj/item/clothing/shoes/fluff/noble_boot
@@ -293,6 +301,7 @@
 	desc = "Warm, furry boots."
 	icon_state = "furboots"
 	item_state = "furboots"
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/sandal/white
 	name = "white sandals"
@@ -350,6 +359,7 @@
 	desc = "A pair a' brown boots."
 	icon_state = "cowboy_brown"
 	item_color = "cowboy_brown"
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
@@ -402,6 +412,7 @@
 	item_state = "clothwrap"
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
@@ -418,6 +429,7 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_SHOES)
@@ -448,6 +460,7 @@
 	desc = "These shoes are made for quacking, and that's just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/ducky/Initialize(mapload)
 	. = ..()

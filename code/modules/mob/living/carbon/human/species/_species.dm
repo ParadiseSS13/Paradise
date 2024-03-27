@@ -677,7 +677,15 @@
 		attacker_style = M.mind.martial_art
 
 	// Shoe Tying Mechanics
-	if((M.zone_selected == BODY_ZONE_PRECISE_L_FOOT || M.zone_selected == BODY_ZONE_PRECISE_R_FOOT) && IS_HORIZONTAL(M) && M.a_intent == INTENT_GRAB)
+	var/tying_skill = 0
+	var/obj/item/clothing/gloves/G = M.gloves
+	if(HAS_TRAIT(M, "can_tie_together_laces"))
+		tying_skill += 1
+		if(HAS_TRAIT(M, "lace_tying_expert"))
+			tying_skill += 1
+		if(istype(G) && G.pickpocket)
+			tying_skill += 1
+	if(tying_skill && (M.zone_selected == BODY_ZONE_PRECISE_L_FOOT || M.zone_selected == BODY_ZONE_PRECISE_R_FOOT) && M.a_intent == INTENT_GRAB)
 		if(!H.has_organ_for_slot(SLOT_HUD_SHOES))
 			if(!H.has_organ("r_foot"))
 				if(!H.has_organ("l_foot"))
@@ -695,38 +703,36 @@
 		if(!the_shoes.has_laces)
 			to_chat(M, "<span class='warning'>[H]'s [the_shoes] do not have any laces!</span>")
 			return
-		var/expert_tying = 1
-		// The gloves also aren't typed to gloves specifically...
-		var/obj/item/clothing/gloves/G = M.gloves
-		if(istype(G) && G.pickpocket)
-			expert_tying += 1
-		// TODO: Add trait to expert_tying counter here
 		the_shoes.add_fingerprint(M)
 		// Untying
 		if(the_shoes.laces_tied_together)
-			if(expert_tying > 1)
-				to_chat(M, "You begin to expertly untie the laces between [H]'s [the_shoes].")
+			if(tying_skill > 1)
+				to_chat(M, "You begin to subtly untie the laces between [H]'s [the_shoes.name].")
 			else
-				M.visible_message("[M] begins to untie the laces between [H]'s [the_shoes].", "You begin to untie the laces between [H]'s [the_shoes].")
-			if(do_after(M, 8 SECONDS / expert_tying, target = H))
+				M.visible_message("[M] begins to untie the laces between [H]'s [the_shoes.name].", "You begin to untie the laces between [H]'s [the_shoes.name].")
+			if(do_after(M, 8 SECONDS / tying_skill, target = H))
 				the_shoes.laces_tied_together = FALSE
-				if(expert_tying > 1)
-					to_chat(M, "You successfully untie the laces between [H]'s [the_shoes].")
+				if(tying_skill > 1)
+					to_chat(M, "You successfully untie the laces between [H]'s [the_shoes.name].")
 				else
-					M.visible_message("<span class='danger'>[M] successfully unties the laces between [H]'s [the_shoes].</span>", "You successfully untie the laces between [H]'s [the_shoes].")
+					M.visible_message("<span class='danger'>[M] successfully unties the laces between [H]'s [the_shoes.name].</span>", "You successfully untie the laces between [H]'s [the_shoes.name].")
+			else
+				to_chat(M, "<span class='warning'>You fail to untie the knot!</span>")
 		// Tying
 		else
-			if(expert_tying > 1)
-				to_chat(M, "You begin to expertly tie together the laces on [H]'s [the_shoes].")
+			if(tying_skill > 1)
+				to_chat(M, "You begin to subtly tie together the laces on [H]'s [the_shoes.name].")
 			else
-				M.visible_message("<span class='danger'>[M] begins to tie together the laces on [H]'s [the_shoes].</span>", "You begin to tie together the laces on [H]'s [the_shoes].")
-			if(do_after(M, 8 SECONDS / expert_tying, target = H))
+				M.visible_message("<span class='danger'>[M] begins to tie together the laces on [H]'s [the_shoes.name].</span>", "You begin to tie together the laces on [H]'s [the_shoes.name].")
+			if(do_after(M, 8 SECONDS / tying_skill, target = H))
 				the_shoes.laces_tied_together = TRUE
 				add_attack_logs(M, H, "Tied laces together")
-				if(expert_tying > 1)
-					to_chat(M, "You successfully tie together the laces on [H]'s [the_shoes].")
+				if(tying_skill > 1)
+					to_chat(M, "You successfully tie together the laces on [H]'s [the_shoes.name].")
 				else
-					M.visible_message("<span class='danger'>[M] successfully ties together the laces on [H]'s [the_shoes].</span>", "You successfully tie together the laces on [H]'s [the_shoes].")
+					M.visible_message("<span class='danger'>[M] successfully ties together the laces on [H]'s [the_shoes.name].</span>", "You successfully tie together the laces on [H]'s [the_shoes.name].")
+			else
+				to_chat(M, "<span class='warning'>You fail to tie the knot!</span>")
 		return
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
