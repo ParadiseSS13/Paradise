@@ -1,6 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 let bot_type = 'Securitron';
 
@@ -155,12 +154,12 @@ const MapBot = (_properties, context) => {
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
         {bots[bot_type].map((bot) => (
-          <Table.Row key={bot.model}>
-            <TableCell>{bot.model}</TableCell>
-            <TableCell>{bot.model}</TableCell>
-            <TableCell>{BotStatus(bot.status)}</TableCell>
-            <TableCell>{bot.location}</TableCell>
-            <TableCell>
+          <Table.Row key={bot.UID}>
+            <Table.Cell>{bot.name}</Table.Cell>
+            <Table.Cell>{bot.model}</Table.Cell>
+            <Table.Cell>{BotStatus(bot.status)}</Table.Cell>
+            <Table.Cell>{bot.location}</Table.Cell>
+            <Table.Cell>
               <Button
                 content="Interface"
                 onClick={() =>
@@ -169,8 +168,8 @@ const MapBot = (_properties, context) => {
                   })
                 }
               />
-            </TableCell>
-            <TableCell>
+            </Table.Cell>
+            <Table.Cell>
               <Button
                 content="Call"
                 onClick={() =>
@@ -179,7 +178,7 @@ const MapBot = (_properties, context) => {
                   })
                 }
               />
-            </TableCell>
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table>
