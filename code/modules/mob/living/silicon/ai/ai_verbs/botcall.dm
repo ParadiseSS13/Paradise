@@ -2,7 +2,6 @@
 	name = "Access Robot Control"
 
 	var/mob/living/simple_animal/bot/bot
-	var/mob/living/silicon/ai/active_AI
 	var/mob/living/silicon/ai/AI
 
 	var/list/secbot = list()
@@ -24,12 +23,14 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	active_AI = user
+	AI = user
+
 	data["bots"] = list()
 	for(bot in GLOB.bots_list)
-		if(!(bot.model in data["bots"]))
-			data["bots"][bot.model] = list()
-		data["bots"][bot.model] += bot.get_bot_data()
+		if(is_ai_allowed(bot.z) && !bot.remote_disabled)
+			if(!(bot.model in data["bots"]))
+				data["bots"][bot.model] = list()
+			data["bots"][bot.model] += bot.get_bot_data()
 
 	return data
 
@@ -40,12 +41,12 @@
 	switch(action)
 		if("interface")
 			bot = locateUID(selected_UID)
-			if(!bot || bot.remote_disabled || !active_AI.control_disabled)
+			if(!bot || bot.remote_disabled || !AI.control_disabled)
 				return
 			bot.attack_ai(src)
 		if("call")
 			bot = locateUID(selected_UID)
-			if(!bot || bot.remote_disabled || !active_AI.control_disabled)
+			if(!bot || bot.remote_disabled || !AI.control_disabled)
 				return
 			AI.waypoint_mode = TRUE
 			to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
