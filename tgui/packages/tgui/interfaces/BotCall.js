@@ -14,20 +14,20 @@ const BotActive = (on) => {
 const BotStatus = (mode) => {
   if (mode === 0) {
     // Idle
-    return 'Idle';
+    return <Box color="green">Idle</Box>;
   }
   if (mode >= 1 && mode <= 3) {
     // Secbot Arrest
-    return 'Arresting';
+    return <Box color="yellow">Arresting</Box>;
   }
   if (mode === 4 || mode === 5) {
-    return 'Patrolling';
+    return <Box color="average">Patrolling</Box>;
   }
   if (mode === 6) {
-    return 'Responding';
+    return <Box color="green">Responding</Box>;
   }
   if (mode >= 7 && mode <= 19) {
-    return 'Working';
+    return <Box color="blue">Working</Box>;
   }
 };
 
@@ -157,7 +157,7 @@ const MapBot = (_properties, context) => {
           <Table.Row key={bot.UID}>
             <Table.Cell>{bot.name}</Table.Cell>
             <Table.Cell>{bot.model}</Table.Cell>
-            <Table.Cell>{BotStatus(bot.status)}</Table.Cell>
+            <Table.Cell>{BotStatus(bot.status)} </Table.Cell>
             <Table.Cell>{bot.location}</Table.Cell>
             <Table.Cell>
               <Button
