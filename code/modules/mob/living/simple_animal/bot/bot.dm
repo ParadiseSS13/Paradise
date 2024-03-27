@@ -1172,7 +1172,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	"name" = bot_name ? bot_name : model,
 	"model" = model,
 	"status" = mode,
-	"location" = get_area(),
+	"location" = get_area(src),
 	"on" = on,
 	"UID" = UID(),
 	))
