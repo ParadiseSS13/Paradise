@@ -1386,8 +1386,8 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/syndicate/Initialize()
-	switch(rand(1,33))
-		// 3%
+	switch(rand(1,100))
+		// 1%
 		if(1)
 			SynSpace = /obj/item/clothing/suit/space/hardsuit/syndi
 		else
@@ -1428,9 +1428,11 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
-	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	damage_coeff = list("brute" = 1, "fire" = 0.6, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
+	maxHealth = 160
+	health = 160
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize()
 	. = ..()
@@ -1438,11 +1440,11 @@
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
-	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0)
+	damage_coeff = list("brute" = 1, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
-	maxHealth = 130
-	health = 130
+	maxHealth = 200
+	health = 200
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
 	. = ..()
@@ -1450,7 +1452,9 @@
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	damage_coeff = list("brute" = 1, "fire" = 0.6, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	maxHealth = 150
+	health = 150
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
 	. = ..()
@@ -1458,8 +1462,8 @@
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
-	maxHealth = 130
-	health = 130
+	maxHealth = 180
+	health = 180
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
 	. = ..()

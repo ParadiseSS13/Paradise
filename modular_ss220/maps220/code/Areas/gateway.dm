@@ -641,7 +641,7 @@
 	icon_state = "awaycontent1"
 	requires_power = TRUE
 	report_alerts = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/space_battle/cruiser
 	name = "\improper Nanotrasen Cruiser"

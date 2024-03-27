@@ -119,17 +119,11 @@
 	},
 /area/awaymission/space_battle/hallway6)
 "av" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory{
-	armour_penetration_flat = 20;
-	armour_penetration_percentage = 80;
-	loot = list(/obj/effect/decal/cleanable/ash,/obj/item/documents/syndicate/blue);
-	speed = 2;
-	health = 450;
-	maxHealth = 450;
-	name = "Syndicate Commander"
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/space_battle/bridge)
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/awaymission/space_battle/syndicate/syndicate5)
 "aw" = (
 /obj/structure/window/plasmareinforced{
 	color = "red";
@@ -795,7 +789,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/space_battle/storage)
 "cv" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral,
 /area/awaymission)
 "cw" = (
 /obj/item/stack/ore/glass,
@@ -1188,7 +1182,9 @@
 /obj/machinery/field/containment{
 	layer = 1
 	},
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /turf/simulated/floor/fakespace,
 /area/awaymission/space_battle/sec_storage)
 "dL" = (
@@ -1473,6 +1469,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/space_battle/cruiser)
+"eN" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/awaymission/space_battle/syndicate/syndicate5)
 "eO" = (
 /obj/machinery/door/airlock/titanium,
 /obj/effect/landmark/damageturf,
@@ -1765,7 +1765,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -2058,7 +2059,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RightTurret"
@@ -4230,6 +4232,19 @@
 	icon_state = "blue"
 	},
 /area/awaymission/space_battle/bridge)
+"nb" = (
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory{
+	armour_penetration_flat = 20;
+	armour_penetration_percentage = 80;
+	loot = list(/obj/effect/decal/cleanable/ash,/obj/item/documents/syndicate/blue);
+	speed = 2;
+	health = 600;
+	maxHealth = 450;
+	name = "Syndicate Commander"
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/space_battle/bridge)
 "nc" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
@@ -4998,7 +5013,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -5331,9 +5347,17 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "qH" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/off_station/empty_charge/north,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "yellow";
+	dir = 1
+	},
+/area/awaymission/space_battle/engineering)
 "qI" = (
 /obj/structure/shuttle/engine/huge{
 	dir = 1
@@ -6032,7 +6056,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RightTurret"
@@ -6114,7 +6139,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/hallway11)
 "tn" = (
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /obj/item/kirbyplants,
 /turf/space,
 /area/space)
@@ -6170,7 +6197,9 @@
 /turf/space,
 /area/awaymission/space_battle/prhallway2)
 "tu" = (
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /turf/space,
 /area/awaymission/space_battle/engineering)
 "tv" = (
@@ -7354,7 +7383,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RightTurret"
@@ -7533,7 +7563,9 @@
 /obj/machinery/field/containment{
 	layer = 1
 	},
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /turf/simulated/floor/fakespace,
 /area/awaymission/space_battle/sec_storage)
 "xM" = (
@@ -9591,7 +9623,9 @@
 	},
 /area/awaymission/space_battle/hallway2)
 "Ea" = (
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/ranged_space{
 	id = "hangar"
 	},
@@ -9832,7 +9866,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RightTurret"
@@ -9929,7 +9964,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -9939,7 +9975,7 @@
 /area/awaymission/space_battle/turret6)
 "EY" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/mineral/random,
+/turf/simulated/mineral,
 /area/awaymission)
 "EZ" = (
 /obj/structure/closet/crate/can,
@@ -9965,7 +10001,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "Fd" = (
@@ -10084,7 +10120,9 @@
 	},
 /area/awaymission/space_battle/server)
 "Fx" = (
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /obj/item/stack/cable_coil,
 /turf/space,
 /area/space)
@@ -10562,6 +10600,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/off_station/empty_charge/south,
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/turret7)
 "GR" = (
@@ -11850,10 +11889,12 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "KW" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral,
 /area/space)
 "KX" = (
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /turf/space,
 /area/space)
 "KY" = (
@@ -11880,15 +11921,16 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/turret5)
 "La" = (
-/obj/item/powersink{
-	mode = 1;
-	in_use = 1;
-	anchored = 1;
-	origin_tech = "powerstorage=5;syndicate=1"
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/structure{
+	icon = 'icons/goonstation/objects/powersink.dmi';
+	icon_state = "powersink0";
+	name = "power sink";
+	desc = "A nulling power sink which drains energy from electrical systems.";
+	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/engineering)
@@ -13180,7 +13222,9 @@
 	layer = 1;
 	dir = 4
 	},
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /turf/simulated/floor/fakespace,
 /area/awaymission/space_battle/sec_storage)
 "OX" = (
@@ -13732,6 +13776,10 @@
 	dir = 8
 	},
 /area/awaymission/space_battle/hallway4)
+"QF" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/awaymission/space_battle/syndicate/syndicate5)
 "QG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
@@ -14558,10 +14606,7 @@
 /area/awaymission/space_battle/syndicate/syndicate6)
 "Tq" = (
 /obj/effect/spawner/window/plastitanium,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/machinery/door/poddoor,
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "Tr" = (
@@ -15974,7 +16019,7 @@
 /area/awaymission/space_battle/cruiser)
 "XH" = (
 /obj/mecha/combat/marauder/mauler{
-	max_integrity = 400
+	max_integrity = 250
 	},
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -16055,7 +16100,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -16183,7 +16229,8 @@
 /obj/machinery/porta_turret{
 	lethal = 1;
 	name = "ship defense turret";
-	attacked = 1
+	attacked = 1;
+	faction = "hostile"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "LeftTurret"
@@ -16270,7 +16317,9 @@
 /area/awaymission/space_battle/engine)
 "Yz" = (
 /obj/machinery/gateway,
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	density = 0
+	},
 /turf/simulated/floor/fakespace,
 /area/awaymission/space_battle/sec_storage)
 "YA" = (
@@ -16440,6 +16489,11 @@
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
+"YZ" = (
+/obj/item/stack/ore/glass,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission)
 "Za" = (
 /obj/item/shard{
 	icon_state = "medium";
@@ -19660,7 +19714,7 @@ cv
 cv
 cv
 cv
-TX
+YB
 yG
 yG
 cv
@@ -19917,8 +19971,8 @@ cv
 cv
 cv
 cv
-TX
-TX
+YB
+YB
 yG
 YB
 cv
@@ -20176,7 +20230,7 @@ cv
 cv
 YB
 YB
-TX
+YB
 YB
 cv
 cv
@@ -21461,9 +21515,9 @@ cv
 cv
 cv
 YB
-TX
-TX
-TX
+YB
+YB
+YB
 cv
 cv
 cv
@@ -21718,9 +21772,9 @@ cv
 cv
 cv
 cv
-TX
+YB
 yG
-TX
+YB
 cv
 cv
 cv
@@ -21975,7 +22029,7 @@ cv
 cv
 cv
 cv
-TX
+YB
 yG
 yG
 cv
@@ -35633,7 +35687,7 @@ yG
 Mn
 ex
 VC
-il
+qH
 Lw
 BL
 Lw
@@ -50807,10 +50861,10 @@ jt
 by
 ek
 JE
-by
+nb
 JE
-av
 JE
+mb
 JE
 na
 VC
@@ -54404,9 +54458,9 @@ VC
 Mn
 jN
 Mn
-VC
+cf
 VE
-VC
+cf
 Mn
 bH
 Mn
@@ -58375,7 +58429,7 @@ yG
 yG
 yG
 yG
-Hc
+YO
 cv
 cv
 cv
@@ -58627,12 +58681,12 @@ yG
 yG
 yG
 yG
-yG
 yV
 yG
 yG
 yG
-cw
+yG
+YZ
 jQ
 cv
 cv
@@ -58883,10 +58937,10 @@ yG
 KW
 yG
 yG
-yG
 KW
 KW
 Hc
+yG
 yG
 cv
 cv
@@ -59141,8 +59195,8 @@ yG
 yG
 yG
 yG
-yG
 KW
+yG
 yG
 cv
 cv
@@ -59285,7 +59339,7 @@ cf
 Oj
 kH
 po
-qH
+Mn
 yG
 Dg
 yG
@@ -59542,7 +59596,7 @@ VF
 Lu
 or
 po
-qH
+Mn
 yG
 Dg
 yG
@@ -59799,7 +59853,7 @@ cf
 IZ
 kH
 po
-qH
+Mn
 yG
 Dg
 yG
@@ -67025,7 +67079,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -68805,7 +68859,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -69603,7 +69657,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -71616,7 +71670,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -73651,6 +73705,7 @@ yG
 yG
 yG
 yG
+ol
 yG
 yG
 yG
@@ -73714,8 +73769,7 @@ yG
 yG
 yG
 yG
-yG
-yG
+ol
 yG
 yG
 yG
@@ -75467,7 +75521,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -75999,13 +76053,13 @@ yG
 yG
 ps
 Nu
-RU
+QF
 ks
 ks
 dj
 ks
 ks
-Jt
+av
 Nu
 ps
 yG
@@ -76513,13 +76567,13 @@ yG
 yG
 Nu
 Nu
-ks
+eN
 ks
 UJ
 XH
 IT
 ks
-ks
+eN
 Nu
 Nu
 yG
@@ -77057,7 +77111,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -77256,7 +77310,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -77821,7 +77875,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
@@ -80090,7 +80144,7 @@ yG
 yG
 yG
 yG
-yG
+ol
 yG
 yG
 yG
