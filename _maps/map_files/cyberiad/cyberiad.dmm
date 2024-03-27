@@ -25398,7 +25398,7 @@
 /area/station/hallway/primary/central/west)
 "bzN" = (
 /obj/effect/spawner/airlock/w_to_e/long{
-	req_access_txt = 11
+	req_access_txt = 32
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/ai_transit_tube)
@@ -65815,7 +65815,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jRo" = (
-/obj/effect/spawner/airlock/s_to_n/long/square/engineer,
+/obj/effect/spawner/airlock/s_to_n/long/square/engineer{
+	req_access_txt = null
+	},
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "jRx" = (
@@ -75554,7 +75556,9 @@
 /area/station/maintenance/asmaint)
 "oBF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n/long/engineer,
+/obj/effect/spawner/airlock/s_to_n/long/engineer{
+	req_access_txt = null
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "oBJ" = (
