@@ -1,4 +1,4 @@
-# Updating DB from 53-54 - lewc
+# Updating DB from 54-55 - lewc
 # Adds a new `body_type` (gender sprite) column to the `characters` table
 
 # Add the new column next to the existing `gender` one

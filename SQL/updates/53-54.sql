@@ -1,4 +1,3 @@
-
 #Updating SQL from 53 to 54 -Wilk
 #Add a choice for what type of brain borgs want to have
 
