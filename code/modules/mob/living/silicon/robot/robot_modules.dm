@@ -234,9 +234,8 @@
  * * coeff - a coefficient which can be used to modify the recharge rate of consumables.
  */
 /obj/item/robot_module/proc/recharge_consumables(mob/living/silicon/robot/R, coeff = 1)
-	for(var/e_storage in storages)
-		var/datum/robot_storage/energy/E = e_storage
-		E.add_charge(max(1, coeff * E.recharge_rate))
+	for(var/datum/robot_storage/energy/e_storage in storages)
+		e_storage.add_charge(max(1, coeff * e_storage.recharge_rate))
 	for(var/item in special_rechargables)
 		var/obj/item/I = item
 		I.cyborg_recharge(coeff, R.emagged)
