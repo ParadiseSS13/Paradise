@@ -521,20 +521,20 @@
 		if(beaker.reagents.holder_full())
 			return
 
-	// Cigarettes - Transfers reagents from it into beaker
+	// Cigarettes
 	for(var/obj/item/clothing/mask/cigarette/O in holdingitems)
-		O.reagents.trans_to(beaker, O.reagents.total_volume)
-
-		if(!O.reagents.total_volume)
-			remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(reagent_container_grind(O))
 			return
 
-	// Everything else - Transfers reagents from it into beaker
+	// Pills and Patches
 	for(var/obj/item/reagent_containers/O in holdingitems)
-		O.reagents.trans_to(beaker, O.reagents.total_volume)
-
-		if(!O.reagents.total_volume)
-			remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(reagent_container_grind(O))
 			return
+
+// Helper proc handles reagent trasnsfer from patches, pills, and cigarettes.
+/obj/machinery/reagentgrinder/proc/reagent_container_grind(obj/machinery/reagentgrinder/O)
+	O.reagents.trans_to(beaker, O.reagents.total_volume)
+	if(!O.reagents.total_volume)
+		remove_object(O)
+	if(beaker.reagents.holder_full())
+		return TRUE
