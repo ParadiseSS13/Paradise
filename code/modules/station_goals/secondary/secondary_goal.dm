@@ -35,15 +35,18 @@
 
 /proc/generate_secondary_goal(department, requester = null, mob/user = null)
 	var/list/possible = list()
+	var/list/departments = list()
 	for(var/T in subtypesof(/datum/station_goal/secondary))
 		var/datum/station_goal/secondary/G = T
+		if(!initial(G.abstract) && !departments[initial(G.department)])
+			departments[initial(G.department)] = TRUE
 		if(initial(G.department) != department || initial(G.abstract))
 			continue
 		possible += G
 
 	if(!length(possible))
 		if(user)
-			to_chat(user, "<span class='info'>No goals available for [department].</span>")
+			to_chat(user, "<span class='info'>No goals available for [department]. Goals are currently available for [english_list(departments)].</span>")
 		return
 
 	var/datum/station_goal/secondary/picked = pick(possible)
