@@ -12,8 +12,9 @@
 	// Abstract goals can't be used directly.
 	var/abstract = TRUE
 
-/datum/station_goal/secondary/proc/Initialize(requester_account)
+/datum/station_goal/secondary/proc/Initialize(requester_name_in, requester_account)
 	SHOULD_CALL_PARENT(TRUE)
+	requester_name = requester_name_in
 	personal_account = requester_account
 	randomize_params()
 	progress = new progress_type
@@ -58,11 +59,13 @@
 	var/datum/station_goal/secondary/picked = pick(possible)
 	var/datum/station_goal/secondary/built = new picked
 
+	var/requester_name = null
 	var/requester_account = null
 	var/obj/item/card/id/ID = requester
 	if(ID)
+		requester_name = ID.registered_name
 		requester_account = GLOB.station_money_database.find_user_account(ID.associated_account_number)
-	built.Initialize(requester_account)
+	built.Initialize(requester_name, requester_account)
 	if(!ID)
 		built.send_report("CentCom")
 	else

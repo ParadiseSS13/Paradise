@@ -93,9 +93,6 @@
 		SSeconomy.delivery_list += order
 		SSeconomy.shopping_list -= order
 
-	if(!length(SSeconomy.delivery_list))
-		return 2
-
 	var/list/emptyTurfs = list()
 	for(var/turf/simulated/T in areaInstance)
 		if(T.density)
@@ -136,9 +133,14 @@
 			break
 
 		var/obj/structure/closet/crate/secure/personal/PC = new(T)
-		PC.name = "goal crate ([SG.requester_name] in [SG.department])"
-		PC.desc = "This personal crate has been configured by CC for [SG.requester_name]'s use in completing the secondary goal [SG.name]."
+		if(SG.requester_name)
+			PC.name = "goal crate ([SG.requester_name] in [SG.department])"
+			PC.desc = "This personal crate has been configured by CC for [SG.requester_name]'s use in completing the secondary goal [SG.name]."
+			PC.registered_name = SG.requester_name
+		else
+			PC.name = "goal crate (Unknown in [SG.department])"
 		PC.locked = FALSE
+		PC.update_icon()
 
 		SG.should_send_crate = FALSE
 
