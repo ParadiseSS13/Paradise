@@ -488,7 +488,7 @@
 	invocation = "JAH ITH BER"
 	invocation_type = "whisper"
 	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the spelll.</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the spell.</span>"
 	action_icon_state = "corpse_explosion"
 
 /obj/effect/proc_holder/spell/corpse_explosion/create_new_targeting()
