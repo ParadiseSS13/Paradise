@@ -7,7 +7,7 @@
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
 
-/datum/ui_module/botcall/ui_interact(mob/user, datum/tgui/ui)
+/datum/ui_module/botcall/ui_interact(mob/user, datum/tgui/ui) // Unable check at ai_mob.dm
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BotCall")
@@ -27,7 +27,7 @@
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
+		return
 	var/selected_UID = params["botref"]
 	AI = usr
 	switch(action)
@@ -35,11 +35,11 @@
 			to_chat(world, "interface")
 			bot = locateUID(selected_UID)
 			if(!bot || bot.remote_disabled || AI.control_disabled)
-				return
+				return // If there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 			bot.attack_ai(usr)
 		if("call")
-			bot = locateUID(selected_UID)
-			if(!bot || bot.remote_disabled || AI.control_disabled) // TODO: This shit aint working
-				return
+			AI.Bot = locateUID(selected_UID) // Hacky, set waypoint etc. are on ai_mob
+			if(!AI.Bot || AI.Bot.remote_disabled || AI.control_disabled)
+				return // If there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 			AI.waypoint_mode = TRUE
 			to_chat(AI, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
