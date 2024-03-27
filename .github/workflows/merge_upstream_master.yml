@@ -99,5 +99,4 @@ jobs:
 
       - name: Notify Failure
         if: failure()
-        run: |
-          gh pr comment ${{ github.event.issue.html_url }} -b "Merging upstream failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: gh pr comment ${{ github.event.issue.html_url }} -b "Merging upstream failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
