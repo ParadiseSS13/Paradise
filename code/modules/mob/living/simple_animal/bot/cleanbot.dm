@@ -63,7 +63,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/turn_on()
 	..()
-	icon_state = "cleanbot_1[area_locked ? "r" : null]"
+	icon_state = "cleanbot1[area_locked ? "r" : null]"
 
 
 /mob/living/simple_animal/bot/cleanbot/turn_off()
@@ -187,7 +187,7 @@
 		anchored = FALSE
 	mode = BOT_IDLE
 	if(on)
-		icon_state = "cleanbot_1[area_locked ? "r" : null]"
+		icon_state = "cleanbot1[area_locked ? "r" : null]"
 	else
 		icon_state = "cleanbot0"
 
