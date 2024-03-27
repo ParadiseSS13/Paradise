@@ -351,9 +351,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log.Add(list(list("High Priority - From: [linkedSender]", message, verified, stamped))) // List in a list for passing into TGUI
+			message_log.Add(list(list("High Priority - From: [linkedSender]") + message + list(verified, stamped))) // List in a list for passing into TGUI
 		else // Normal
-			message_log.Add(list(list("From: [linkedSender]", message, verified, stamped))) // List in a list for passing into TGUI
+			message_log.Add(list(list("From: [linkedSender]") + message + list(verified, stamped))) // List in a list for passing into TGUI
 	set_light(2)
 
 /obj/machinery/requests_console/proc/remind_unread_messages()
@@ -394,13 +394,12 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /proc/send_requests_console_message(message, sender, recipient, stamped, verified, priority, obj/item/radio/radio)
 	if(!message)
 		return
-	var/log_msg = message
 	var/found_message_server = FALSE
 	for(var/M in GLOB.message_servers)
 		var/obj/machinery/message_server/MS = M
 		if(!MS.active)
 			continue
-		MS.send_rc_message(ckey(recipient), sender, log_msg, stamped, verified, priority)
+		MS.send_rc_message(ckey(recipient), sender, message, stamped, verified, priority)
 		found_message_server = TRUE
 
 	if(!found_message_server)

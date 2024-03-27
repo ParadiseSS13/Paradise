@@ -82,9 +82,10 @@ GLOBAL_LIST_EMPTY(message_servers)
 /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
 
-/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = "", stamp = "Not stamped", id_auth = "Not verified", priority = 1)
+/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = list(), stamp = "Not stamped", id_auth = "Not verified", priority = 1)
+	if(!islist(message))
+		message = list(message)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
-	var/authmsg = "[message]"
 	for(var/C in GLOB.allRequestConsoles)
 		var/obj/machinery/requests_console/RC = C
 		if(ckey(RC.department) == ckey(recipient))
@@ -94,7 +95,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 					title = "PRIORITY Alert from [sender]"
 				else
 					title = "Message from [sender]"
-			RC.createMessage(sender, title, authmsg, priority, verified = id_auth, stamped = stamp)
+			RC.createMessage(sender, title, message, priority, verified = id_auth, stamped = stamp)
 
 /obj/machinery/message_server/attack_hand(user as mob)
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
