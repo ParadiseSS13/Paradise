@@ -72,7 +72,7 @@
 		pickup_target.adjustStaminaLoss(-10)
 		pickup_target.resting = FALSE
 		pickup_target.stand_up()
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		user.visible_message( \
 			"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
 			"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
