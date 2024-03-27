@@ -459,7 +459,7 @@
 		check_break(M)
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
-	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
+	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL && !istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction)

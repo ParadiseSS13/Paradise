@@ -41,8 +41,9 @@
 /// Someone is buckling to this movable, which is literally the only thing we care about (other than speed potions)
 /datum/element/ridable/proc/check_mounting(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
 	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(check_mounting_async_edition), target_movable, potential_rider, force, ride_check_flags)
 
-
+/datum/element/ridable/proc/check_mounting_async_edition(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
 	var/arms_needed = 0
 	if(ride_check_flags & RIDER_NEEDS_ARMS)
 		arms_needed = 2
@@ -92,7 +93,7 @@
 
 		// this would be put_in_hands() if it didn't have the chance to sleep, since this proc gets called from a signal handler that relies on what this returns
 		var/inserted_successfully = FALSE
-		if(user.put_in_active_hand(inhand))
+		if(user.put_in_inactive_hand(inhand))
 			inserted_successfully = TRUE
 		else
 			if(user.put_in_active_hand(inhand))
@@ -153,7 +154,7 @@
 	// If we're dead, don't let anyone buckle onto us
 	if(source.stat == DEAD)
 		source.can_buckle = FALSE
-		source.unbuckle_all_mobs()
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, unbuckle_all_mobs), source)
 
 	// If we're alive, back to being buckle-able
 	else

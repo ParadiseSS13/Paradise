@@ -22,7 +22,7 @@
 
 	if(user.incapacitated())
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
-			vehicle_parent.unbuckle_mob(user, TRUE)
+			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
 			user.visible_message("<span class='danger'>[user] falls off \the [vehicle_parent].</span>",\
 			"<span class='danger'>You slip off \the [vehicle_parent] as your body slumps!</span>")
 			user.Stun(3 SECONDS)
@@ -34,7 +34,7 @@
 
 	if(ride_check_flags & RIDER_NEEDS_LEGS && HAS_TRAIT(user, TRAIT_FLOORED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
-			vehicle_parent.unbuckle_mob(user, TRUE)
+			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
 			user.visible_message("<span class='danger'>[user] falls off \the [vehicle_parent].</span>",\
 			"<span class='danger'>You fall off \the [vehicle_parent] while trying to operate it while unable to stand!</span>")
 			user.Stun(3 SECONDS)
@@ -46,7 +46,7 @@
 
 	if(ride_check_flags & RIDER_NEEDS_ARMS && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
-			vehicle_parent.unbuckle_mob(user, TRUE)
+			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
 			user.visible_message("<span class='danger'>[user] falls off \the [vehicle_parent].</span>",\
 			"<span class='danger'>You fall off \the [vehicle_parent] while trying to operate it without being able to hold on!</span>")
 			user.Stun(3 SECONDS)
@@ -169,7 +169,7 @@
 ///Makes sure that the hoverboard can move in zero-g in (open) space but only there's a ground turf on the z-level below.
 /datum/component/riding/vehicle/scooter/skateboard/hover/proc/hover_check(is_moving = FALSE)
 	var/atom/movable/movable = parent
-	if(!isspaceturf(movable.loc))
+	if(!isspaceturf(movable.loc) || locate(/obj/structure/railing) in range(1, movable.loc)) //If you can't grind the faragus rails, why live?
 		override_allow_spacemove = TRUE
 		return
 	override_allow_spacemove = FALSE

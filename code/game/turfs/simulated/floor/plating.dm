@@ -245,8 +245,10 @@
 			return
 
 	if(!. && isliving(A))
-		sleep(2 DECISECONDS)
-		new /obj/effect/temp_visual/cult/turf/open/floor(src)
+		addtimer(CALLBACK(src, PROC_REF(timers_over_sleep)), 2 DECISECONDS)
+
+/turf/simulated/floor/engine/cult/proc/timers_over_sleep()
+	new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return

@@ -67,7 +67,7 @@
 	return ..()
 
 /obj/tgvehicle/scooter/skateboard/relaymove(mob/living/user, direction)
-	if (grinding || world.time < next_crash)
+	if(grinding || world.time < next_crash)
 		return FALSE
 	return ..()
 
@@ -123,6 +123,7 @@
 			var/grinding_mulitipler = 1
 			if(grinding)
 				grinding_mulitipler = 2
+			victim.Weaken(2 * grinding_mulitipler SECONDS)
 			victim.KnockDown(4 * grinding_mulitipler SECONDS)
 	else
 		var/backdir = REVERSE_DIR(dir)
@@ -131,13 +132,22 @@
 
 ///Moves the vehicle forward and if it lands on a table, repeats
 /obj/tgvehicle/scooter/skateboard/proc/grind()
-	step(src, dir)
-	if(!has_buckled_mobs() || !(locate(/obj/structure/table) in loc.contents))
+	if(!has_buckled_mobs())
 		grinding = FALSE
 		icon_state = "[initial(icon_state)]"
 		return
-
 	var/mob/living/skater = buckled_mobs[1]
+	var/old_pass = skater.pass_flags //Re-do this, so railings don't fuck with the grinder
+	var/old_v_pass = pass_flags
+	skater.pass_flags |= PASSTABLE | PASSFENCE
+	pass_flags |= PASSTABLE | PASSFENCE
+	step(src, dir)
+	skater.pass_flags = old_pass
+	pass_flags = old_v_pass
+	if(!(locate(/obj/structure/table) in loc.contents) && !(locate(/obj/structure/railing) in loc.contents))
+		grinding = FALSE
+		icon_state = "[initial(icon_state)]"
+		return
 	skater.adjustStaminaLoss(instability*0.3)
 	if(skater.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
@@ -153,7 +163,7 @@
 	var/turf/location = get_turf(src)
 
 	if(location)
-		if(prob(25))
+		if(prob(33))
 			location.hotspot_expose(1000,1000)
 			sparks.start() //the most radical way to start plasma fires
 	for(var/mob/living/carbon/victim in location)
@@ -170,7 +180,7 @@
 	var/mob/living/carbon/skater = usr
 	if(!istype(skater))
 		return
-	if (over_object == skater)
+	if(over_object == skater)
 		pick_up_board(skater)
 
 /obj/tgvehicle/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
@@ -198,7 +208,7 @@
 	board_item_type = /obj/item/melee/skateboard/hoverboard
 	instability = 3
 	icon_state = "hoverboard_red"
-	resistance_flags = LAVA_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)

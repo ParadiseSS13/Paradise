@@ -200,11 +200,11 @@
 
 /datum/action/vehicle/scooter/skateboard/ollie
 	name = "Ollie"
-	desc = "Get some air! Land on a table to do a gnarly grind."
+	desc = "Get some air! Land on a table or fence to do a gnarly grind."
 	button_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/scooter/skateboard/ollie/Trigger(trigger_flags)
+/datum/action/vehicle/scooter/skateboard/ollie/Trigger(left_click)
 	. = ..()
 	if(!.)
 		return
@@ -221,7 +221,7 @@
 		rider.Weaken(5 SECONDS)
 		vehicle.visible_message("<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>")
 		return
-	if((locate(/obj/structure/table) in landing_turf))
+	if((locate(/obj/structure/table) in landing_turf) || (locate(/obj/structure/railing) in landing_turf))
 		vehicle.grinding = TRUE
 		vehicle.icon_state = "[initial(vehicle.icon_state)]-grind"
 		addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, grind)), 2)
@@ -231,8 +231,8 @@
 	playsound(vehicle, 'sound/effects/skateboard_ollie.ogg', 50, TRUE)
 	var/old_pass = rider.pass_flags
 	var/old_v_pass = vehicle.pass_flags
-	rider.pass_flags |= PASSTABLE
-	vehicle.pass_flags |= PASSTABLE
+	rider.pass_flags |= PASSTABLE | PASSFENCE
+	vehicle.pass_flags |= PASSTABLE | PASSFENCE
 
 	rider.Move(landing_turf, vehicle_target.dir)
 	rider.pass_flags = old_pass
@@ -244,7 +244,7 @@
 	button_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/scooter/skateboard/kickflip/Trigger(trigger_flags)
+/datum/action/vehicle/scooter/skateboard/kickflip/Trigger(left_click)
 	var/obj/tgvehicle/scooter/skateboard/board = vehicle_target
 	var/mob/living/rider = owner
 

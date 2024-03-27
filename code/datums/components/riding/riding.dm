@@ -129,9 +129,9 @@
 	SIGNAL_HANDLER
 
 	var/atom/movable/movable_parent = parent
-	if (isnull(dir))
+	if(isnull(dir))
 		dir = movable_parent.dir
-	for (var/m in movable_parent.buckled_mobs)
+	for(var/m in movable_parent.buckled_mobs)
 		var/mob/buckled_mob = m
 		ride_check(buckled_mob)
 	if(QDELETED(src))
