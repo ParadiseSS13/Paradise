@@ -532,7 +532,7 @@
 			return
 
 // Helper proc handles reagent trasnsfer from patches, pills, and cigarettes.
-/obj/machinery/reagentgrinder/proc/reagent_container_grind(obj/machinery/reagentgrinder/O)
+/obj/machinery/reagentgrinder/proc/reagent_container_grind(obj/O)
 	O.reagents.trans_to(beaker, O.reagents.total_volume)
 	if(!O.reagents.total_volume)
 		remove_object(O)
