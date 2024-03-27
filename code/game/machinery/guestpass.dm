@@ -232,7 +232,7 @@
 
 /obj/machinery/computer/guestpass/hop
 	name = "\improper HoP guest pass terminal"
-	desc = "The Head of Personnel's guest pass terminal allows the HoP to give out any temporary access."
+	desc = "The Head of Personnel's guest pass terminal allows the HoP to temporarily allow anyone into places they probably shouldn't be."
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()

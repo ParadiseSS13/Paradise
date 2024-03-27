@@ -296,7 +296,7 @@
 
 /obj/item/radio/intercom/locked/prison
 	name = "prison intercom"
-	desc = "A reliable form of communication even during local communication blackouts. It looks like it has been modified to not broadcast. Not so reliable I guess..."
+	desc = "A reliable form of communication even during local communication blackouts. It looks like it has been modified to not broadcast. Not so reliable, I guess..."
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()
