@@ -10,11 +10,11 @@
 	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
-	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?",,"Yes","No")=="No")
+	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?", null,"Yes","No")=="No")
 		return
 	var/turf/T = get_turf(mob)
 	var/pick_manually = 0
-	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
+	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.", null,"Yes","No")=="Yes")
 		pick_manually = 1
 	var/list/teamsizeoptions = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	var/teamsize = input(src, "How many team members?") as null|anything in teamsizeoptions
@@ -36,7 +36,7 @@
 	if(isnull(dresscode))
 		return
 	var/is_syndicate = FALSE
-	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
+	if(alert("Do you want these characters automatically classified as antagonists?", null,"Yes","No")=="Yes")
 		is_syndicate = TRUE
 
 	var/datum/outfit/O = outfit_list[dresscode]

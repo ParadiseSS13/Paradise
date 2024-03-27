@@ -34,12 +34,9 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/cult/Initialize(mapload)
-	. = ..()
-	icon_state = SSticker.cultdat?.shade_icon_state
-
 /mob/living/simple_animal/shade/Destroy()
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
 	return ..()
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
@@ -56,6 +53,12 @@
 	holy = TRUE
 	icon_state = "shade_angelic"
 
+/mob/living/simple_animal/shade/cult
+
+/mob/living/simple_animal/shade/cult/Initialize(mapload)
+	. = ..()
+	icon_state = GET_CULT_DATA(shade_icon_state, initial(icon_state))
+
 /mob/living/simple_animal/shade/sword
 	faction = list("neutral")
 	a_intent = INTENT_HARM // scuffed sword mechanics bad
@@ -63,6 +66,7 @@
 	health = 100
 	maxHealth = 100
 	weather_immunities = list("ash")
+	hud_type = /datum/hud/sword
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()

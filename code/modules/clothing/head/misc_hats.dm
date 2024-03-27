@@ -247,6 +247,12 @@
 	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
+
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
 	icon_state = "cowboyhat_tan"
@@ -271,28 +277,40 @@
 	item_state = "cowboyhat_pink"
 	desc = "For those buckle bunnies wanta' become a real buckaroo."
 
+/obj/item/clothing/head/cowboyhat/sec
+	name = "security cowboy hat"
+	desc = "Secway is your horse."
+	icon_state = "cowboyhat_sec"
+	item_state = "cowboyhat_sec"
+
 /obj/item/clothing/head/fedora
 	name = "fedora"
+	desc = "A great hat ruined by being within fifty yards of you."
 	icon_state = "fedora"
 	item_state = "fedora"
-	desc = "A great hat ruined by being within fifty yards of you."
 	actions_types = list(/datum/action/item_action/tip_fedora)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_HEAD)
-		return 1
+		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
+	user.visible_message("<span class='notice'>[user] tips [user.p_their()] fedora.</span>", "<span class='notice'>You tip your fedora.</span>")
 
+/obj/item/clothing/head/fedora/whitefedora
+	name = "white fedora"
+	icon_state = "wfedora"
+
+/obj/item/clothing/head/fedora/brownfedora
+	name = "brown fedora"
+	icon_state = "bfedora"
 
 /obj/item/clothing/head/fez
 	name = "fez"
@@ -349,7 +367,7 @@
 	icon_state = "enhead"
 
 /obj/item/clothing/head/bearpelt
-	name = "bear pelt hat"
+	name = "space bear pelt hat"
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
@@ -359,6 +377,22 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
+/obj/item/clothing/head/bearpelt/black
+	name = "black bear pelt hat"
+	icon_state = "black_bearpelt"
+	item_state = "black_bearpelt"
+
+/obj/item/clothing/head/bearpelt/brown
+	name = "brown bear pelt hat"
+	icon_state = "brown_bearpelt"
+	item_state = "brown_bearpelt"
+
+/obj/item/clothing/head/bearpelt/polar
+	name = "polar bear pelt hat"
+	desc = "Fuzzy, and also stained with blood."
+	icon_state = "polar_bearpelt"
+	item_state = "polar_bearpelt"
+
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"
 	desc = "A helmet made out of chitinous alien hide."
@@ -366,31 +400,6 @@
 	item_state = "xenos_helm"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
-/obj/item/clothing/head/fedora
-	name = "fedora"
-	desc = "Someone wearing this definitely makes them cool"
-	icon_state = "fedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/fedora/whitefedora
-	name = "white fedora"
-	icon_state = "wfedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/fedora/brownfedora
-	name = "brown fedora"
-	icon_state = "bfedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
 
 /// Why do these exist - Because they aren't specifically Nazi Germany
 /obj/item/clothing/head/stalhelm

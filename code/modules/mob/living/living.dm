@@ -268,34 +268,35 @@
 /mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
+
+	var/obj/item/hand_item = get_active_hand()
+	if(istype(hand_item) && hand_item.run_pointed_on_item(src, A))
+		return TRUE
 	var/pointed_object = "\the [A]"
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
-
-	var/obj/item/hand_item = get_active_hand()
-	if(!QDELETED(hand_item) && istype(hand_item) && HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
-		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
-			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [pointed_object]!</span>",
-											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
-		return TRUE
-	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && A != hand_item)
-		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message("<span class='danger'>[src] points [trick] at- and [trick] goes off in their hand!</span>")
-		trick.shoot_gun(src)
 
 	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
+	// if you use the verb you better mean it
+	do_succumb(FALSE)
+
+/mob/living/proc/do_succumb(cancel_on_no_words)
+	if(stat == DEAD)
+		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
+		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
 	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+
+	if(isnull(last_words) && cancel_on_no_words)
+		to_chat(src, "<span class='notice'>You decide you aren't quite ready to die.</span>")
+		return
 
 	if(stat == DEAD)
 		// cancel em out if they died while they had the message box up
@@ -303,6 +304,7 @@
 
 	if(!isnull(last_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
+		src.last_words = last_words  // sorry
 		whisper(last_words)
 
 	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
@@ -381,6 +383,7 @@
 
 
 /mob/proc/get_contents()
+	return
 
 
 //Recursive function to find everything a mob is holding.
@@ -470,11 +473,6 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
-		if(iscultist(src))
-			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(src)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(src)
 
 		QDEL_LIST_CONTENTS(C.processing_patches)
 
@@ -839,6 +837,7 @@
 	return 0
 
 /mob/living/proc/check_ear_prot()
+	return
 
 /**
  * Returns the name override, if any, for the slot somebody is trying to strip
@@ -960,14 +959,12 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
-		var/sharpness = is_sharp(I)
-		if(sharpness)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
-				harvest(user)
-			return 1
+	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
+		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+		if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+			harvest(user)
+		return TRUE
 
 /mob/living/proc/harvest(mob/living/user)
 	if(QDELETED(src))
