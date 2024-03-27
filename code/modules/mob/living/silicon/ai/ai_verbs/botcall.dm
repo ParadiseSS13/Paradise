@@ -30,16 +30,13 @@
 		return
 	var/selected_UID = params["botref"]
 	AI = usr
+	bot = locateUID(selected_UID)
+	if(!bot || bot.remote_disabled || AI.control_disabled)
+		return // If there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 	switch(action)
 		if("interface")
-			to_chat(world, "interface")
-			bot = locateUID(selected_UID)
-			if(!bot || bot.remote_disabled || AI.control_disabled)
-				return // If there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 			bot.attack_ai(usr)
 		if("call")
-			AI.Bot = locateUID(selected_UID) // Hacky, set waypoint etc. are on ai_mob
-			if(!AI.Bot || AI.Bot.remote_disabled || AI.control_disabled)
-				return // If there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
+			AI.Bot = bot
 			AI.waypoint_mode = TRUE
 			to_chat(AI, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
