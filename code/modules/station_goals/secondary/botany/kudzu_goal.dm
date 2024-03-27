@@ -9,7 +9,6 @@
 /datum/station_goal/secondary/random_kudzu/randomize_params()
 	var/list/valid_traits = subtypesof(/datum/spacevine_mutation)
 	
-	traits += pick_n_take(valid_traits)
 	traits += pick(valid_traits)
 
 	var/list/trait_names = list()
