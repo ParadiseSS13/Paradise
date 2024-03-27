@@ -513,7 +513,7 @@
 		range = max(1, range)
 		M.apply_damage(100 / range, BRUTE)
 		if(issilicon(M))
-			to_chat(M, "<span class='userdanger'>Your sensors are disabled and carapace ripped apart by the violent dark magic!</span>")
+			to_chat(M, "<span class='userdanger'>Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!</span>")
 			M.Weaken(6 SECONDS / range)
 			continue
 
