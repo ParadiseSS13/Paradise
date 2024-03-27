@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			reset_message(TRUE)
 
 		if("requestSecondaryGoal")
-			has_active_secondary_goal = check_for_active_secondary_goal()
+			has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
 			if(has_active_secondary_goal || !secondaryGoalAuth)
 				return
 			generate_secondary_goal(department, goalRequester, usr)
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			if(tempScreen == RCS_SECONDARY)
-				has_active_secondary_goal = check_for_active_secondary_goal()
+				has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
 			screen = tempScreen
 
 		if("shipSelect")
@@ -300,6 +300,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(ID)
 				secondaryGoalAuth = TRUE
 				goalRequester = ID
+				has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
 		if(screen == RCS_SHIPPING)
 			var/obj/item/card/id/T = I
 			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
@@ -382,9 +383,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				deltimer(reminder_timer_id)
 				reminder_timer_id = TIMER_ID_NULL
 
-/obj/machinery/requests_console/proc/check_for_active_secondary_goal()
+/obj/machinery/requests_console/proc/check_for_active_secondary_goal(obj/item/card/id/id)
+	if(!istype(id))
+		return FALSE
 	for(var/datum/station_goal/secondary/goal in SSticker.mode.secondary_goals)
-		if(goal.department == department && !goal.completed)
+		if(goal.requester_name == id.registered_name && !goal.completed)
 			return TRUE
 	return FALSE
 
