@@ -40,13 +40,15 @@
 	var/selected_UID = params["botref"]
 	switch(action)
 		if("interface")
+			to_chat(world, "interface")
 			bot = locateUID(selected_UID)
-			if(!bot || bot.remote_disabled || !AI.control_disabled)
+			if(!bot || bot.remote_disabled || AI.control_disabled)
 				return
-			bot.attack_ai(src)
+			bot.attack_ai(usr)
 		if("call")
+			to_chat(world, "call")
 			bot = locateUID(selected_UID)
-			if(!bot || bot.remote_disabled || !AI.control_disabled)
+			if(!bot || bot.remote_disabled || AI.control_disabled)
 				return
 			AI.waypoint_mode = TRUE
-			to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
+			to_chat(usr, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
