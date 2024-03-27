@@ -193,8 +193,9 @@
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
-	. += "The plasma cutter is an old and reliable Althland Mining Co. design made for rapid tunnelling, excavation, and ore extraction. It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. \
-	These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance. It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
+	. += "The plasma cutter is an old and reliable design mining tool designed by the now-defunct Althland mining company for rapid tunnelling, excavation, and ore extraction. \
+	It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance. \
+	It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
 	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
@@ -237,8 +238,8 @@
 
 /obj/item/gun/energy/plasmacutter/adv/examine_more(mob/user)
 	. = ..()
-	. += "Progression in technology has allowed Nanotrasen to refine the original Althland Plasma Cutter into a superior design. \
-	This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well. \
+	. += "Once Althland was acquired by Nanotrasen, they gained access to all of the company's technologies and patents, most notably, the Plasma Cutter. \
+	NT R&D has been hard at work refining it into a superior design. This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well. \
 	These new plasma cutters are not yet in common use, but the massive efficiency gains over their predecessors all but guarantees that they will sell like wildfire."
 
 // Wormhole Projectors //

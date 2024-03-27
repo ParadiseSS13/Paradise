@@ -12,6 +12,15 @@
 	shaded_charge = TRUE
 	execution_speed = 5 SECONDS
 
+/obj/item/gun/energy/gun/examine_more(mob/user)
+	. = ..()
+	. += "A hybrid fire laser gun designed and patentend by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser functions without the need for switching during active threats. \
+	This would cause the company to experiment and produce a weapon to fit between Shellguard's own disabler, and LG series weapons. This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons. \
+	Its design is an evolution of the disabler pistol frame, featuring a rotating lens within its firing chamber to toggle between non-lethal and lethal shots. \
+	Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon composites for a sleeker, modern look. \
+	This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons. \
+	In modern times, the EG-3 is staple weapon among corporate security forces. Due to its cheapness in price, dual fire modes, and modability for customization, despite Shellguard's disclaimer that tampering with the weapon void's its warranty and can potentially damage the gun itself."
+
 /obj/item/gun/energy/gun/cyborg
 	desc = "A frame mounted EG series laser gun that draws power from the cyborg's internal energy cell directly. This probably voids the gun's warranty."
 
@@ -22,18 +31,9 @@
 /obj/item/gun/energy/gun/cyborg/emp_act()
 	return
 
-/obj/item/gun/energy/gun/examine_more(mob/user)
-	. = ..()
-	. += "A hybrid fire laser gun designed and patentend by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser functions without the need for switching during active threats. \
-	This would cause the company to experiment and produce a weapon to fit between Shellguard's own disabler, and LG series weapons. This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons. \
-	Its design is an evolution of the disabler pistol frame, featuring a rotating lens within its firing chamber to toggle between non-lethal and lethal shots. \
-	Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon composites for a sleeker, modern look. \
-	This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons. \
-	In modern times, the EG-3 is staple weapon among corporate security forces. Due to its cheapness in price, dual fire modes, and modability for customization, despite Shellguard's disclaimer that tampering with the weapon void's its warranty and can potentially damage the gun itself."
-
 /obj/item/gun/energy/gun/mini
 	name = "miniature energy gun"
-	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
+	desc = "A pistol-sized energy gun with a built-in flashlight. The power cell is smaller too. Issued for self-defence purposes. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
@@ -44,6 +44,13 @@
 	shaded_charge = FALSE
 	can_holster = TRUE  // Pistol sized, so it should fit into a holster
 	execution_speed = 4 SECONDS
+
+/obj/item/gun/energy/gun/mini/examine_more(mob/user)
+	. = ..()
+	. += "The EG-8 is a compacted version of Shellguard Munitions' EG-7 Energy Gun, specifically designed as an easily concealable personal defence weapon. \
+	It is is commonly found in the pockets of private individuals and corporate management alike. \
+	It packs the same punch as its bigger brother, but the compact form factor has come at the cost of a smaller power cell, making it less suitable for extended engagements. \
+	Despite this, it is responsible for thwarting many attempted muggings, kidnappings, and assassinations."
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -83,8 +90,8 @@
 	Heads of Security throughout the Epsilon Eridani sector have been issued the various X-01 prototypes for field testing, and are to issue a report on their findings after any shift in which they employ the weapon."
 
 /obj/item/gun/energy/gun/blueshield
-	name = "advanced energy revolver"
-	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."
+	name = "EG-14 advanced energy revolver"
+	desc = "An advanced, pistol sized energy gun. It looks stylish and the design makes it slightly better at bludgeoning. It has two settings: disable and kill."
 	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
 	item_state = null
@@ -95,11 +102,24 @@
 	can_holster = TRUE
 	execution_speed = 5 SECONDS
 
+/obj/item/gun/energy/gun/blueshield/examine_more(mob/user)
+	. = ..()
+	. += "The EG-14 is Shellguard Munitions' premium offering in the energy weapons market. \
+	Is equal to or superior to the EG-7 in every way, boasting the same fire rate, stopping power, and cell capacity, whilst also being better suited as an improvised melee weapon thanks to superior ergonomics and weight distribution - all offered in a pistol-sized form factor. \
+	The revolver's cylinder does indeed rotate with every shot, and it can be spun just like the cylinder of a ballistic revolver - although this has no bearing on the actual functionality of the weapon, and is included purely as a stylistic embellishment. \
+	The price of the EG-14 puts it out of reach of a large portion of the market, but it sells very well among bodyguards and bountyhunters."
+
 /obj/item/gun/energy/gun/blueshield/pdw9
 	name = "\improper PDW-9 energy pistol"
-	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
+	desc = "A military-grade energy pistol favoured by mercenaries and militia forces. It has two settings: disable and kill."
 	icon_state = "pdw9pistol"
 	item_state = "gun"
+
+/obj/item/gun/energy/gun/blueshield/pdw9/examine_more(mob/user)
+	. = ..()
+	.+= "The PDW-9 is a ruggedized energy pistol made by Shellguard Munitions as a sidearm for military customers. \
+	It utilizes much of the same technology as the EG-14, and is indeed just as effective, but the frills and embellishments have been discarded in favour of a more utilitarian design. \
+	Whilst it can occasionally be found in civilian settings, it's most likely to be seen in the holster of a soldier, mercenary, or elite corporate security."
 
 /obj/item/gun/energy/gun/turret
 	name = "AG(H)-22 hybrid turret gun"
