@@ -118,7 +118,7 @@
 
 /obj/item/gun/energy/gun/turret/examine_more(mob/user)
 	. = ..()
-	. += "The AG(H)-22 is part of a long line of developments in automated weapon emplacement technology, manufactured Shellguard Munitions for static area defence.\
+	. += "The AG(H)-22 is part of a long line of developments in automated weapon emplacement technology, manufactured by Shellguard Munitions for static area defence.\
 	 A high-powered laser with an electrode gun bolted onto it to allow a choice of lethal or less-than-lethal response to unauthorised access. \
 	 Freed from the requirement to be mobile, this weapon and others like it offload many of their operational requirements such as cooling or power to external hardware, dramatically increasing reliability and reducing the technical know-how to make a functioning unit. \
 	 Just don't expect to pick one up and be able to shoot it in your hands."
