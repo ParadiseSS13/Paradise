@@ -31,7 +31,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please ask for help again, stating you have already done these steps.",
 		"Experiment!" = "Experiment! Part of the joy of this game is trying out various things, and dealing with the consequences if/when they go horribly wrong.",
 		"How to Objectives" = "There are lots of ways to accomplish your objectives as an antagonist. A direct frontal assault may work, provided you can get in and out before backup arrives. Sneaking in can work, too, as long as you're quick and avoid prying eyes. But don't forget roleplaying methods!  Tricking your target into a maze of bear traps is much more interesting than just shooting them with a gun. Even if it fails, you and your target (or its guardians) are likely to have more fun this way, and that's the most important part.",
-		"MHelp was in Russian" = "Привет! Ты попал на английский Paradise сервер. Возможно, ты ошибся. Русский имеет такое название: \[RU] SS220."
+		"MHelp was in Russian" = "Привет! Ты попал на английский Paradise сервер. Возможно, ты ошибся. Русский имеет такое название: SS220\[RU]."
 	)
 
 	if(GLOB.configuration.url.github_url)
