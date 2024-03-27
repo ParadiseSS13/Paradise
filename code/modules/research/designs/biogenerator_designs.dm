@@ -220,7 +220,7 @@
 	category = list("initial","Leather and Cloth")
 
 /datum/design/seasweed
-	name = "seaweed sheet"
+	name = "Seaweed Sheet"
 	id = "seaweed"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
