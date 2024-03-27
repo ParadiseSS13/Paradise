@@ -169,6 +169,10 @@
 			blocking_item = "[reason] ([AM])"
 			return CARGO_PREVENT_SHUTTLE
 
+	if(istype(AM, /obj/structure/largecrate))
+		blocking_item = "unopened large crates ([AM])"
+		return CARGO_PREVENT_SHUTTLE
+
 	if(istype(AM, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/C = AM
 		if(C.manifest)
