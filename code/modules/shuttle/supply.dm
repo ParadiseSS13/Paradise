@@ -296,7 +296,7 @@
 
 	for(var/datum/money_account/account in credit_changes)
 		if(account.account_type == ACCOUNT_TYPE_DEPARTMENT)
-			SSblackbox.record_feedback("tally", "cargo profits", credit_changes[account], "[account]")
+			SSblackbox.record_feedback("tally", "cargo profits", credit_changes[account], "[account.account_name]")
 		else
 			SSblackbox.record_feedback("tally", "cargo profits", credit_changes[account], "All personal accounts")
 
