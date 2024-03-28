@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/mindslave)
 
 // For Mindslaves and Zealots
 /datum/antagonist/mindslave
@@ -87,7 +88,3 @@
 	slaved.serv -= owner
 	slaved.leave_serv_hud(owner)
 	owner.som = null
-
-// Helper proc that determines if a mob is a mindslave.
-/proc/ismindslave(mob/living/carbon/human/H)
-	return istype(H) && H.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE)

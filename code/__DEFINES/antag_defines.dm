@@ -61,3 +61,10 @@ GLOBAL_LIST(contractors)
  * Pulse Demon
  */
 #define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
+
+/proc/ischangeling(mob/M) // TODO: Someone please convert these to proper defines some day.
+	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
+
+// Helper proc that determines if a mob is a mindslave.
+/proc/ismindslave(mob/living/carbon/human/H)
+	return istype(H) && H.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE)

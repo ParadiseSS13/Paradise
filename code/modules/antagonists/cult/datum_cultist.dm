@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/cultist)
+
 /datum/antagonist/cultist
 	name = "Cultist"
 	job_rank = ROLE_CULTIST
