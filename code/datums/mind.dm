@@ -1510,8 +1510,8 @@
  * * datum/team/team - the antag team that the src mind should join, if any
  */
 /datum/mind/proc/add_antag_datum(datum/antagonist/antag_datum, datum/team/team)
-//	if(!istype(antag_datum))
-//		antag_datum = new()
+	if(!istype(antag_datum))
+		antag_datum = new()
 
 	if(!antag_datum.can_be_owned(src))
 		qdel(antag_datum)
