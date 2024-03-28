@@ -910,9 +910,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	var/mob/target = locateUID(mob_observed)
 	mob_observed = null
+	reset_perspective(null)
 	client?.perspective = initial(client.perspective)
 	set_sight(initial(sight))
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+
 	if(istype(target))
 		hide_other_mob_action_buttons(target)
 		target.observers -= src

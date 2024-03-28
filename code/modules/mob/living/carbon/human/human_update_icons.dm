@@ -1028,6 +1028,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(R_HAND_LAYER)
 	if(r_hand)
+		show_hand_to_observers(r_hand, left = FALSE)
 		var/t_state = r_hand.item_state
 		if(!t_state)
 			t_state = r_hand.icon_state
@@ -1047,6 +1048,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(L_HAND_LAYER)
 	if(l_hand)
+		show_hand_to_observers(l_hand, left = TRUE)
 		var/t_state = l_hand.item_state
 		if(!t_state)
 			t_state = l_hand.icon_state
@@ -1062,6 +1064,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(L_HAND_LAYER)
 
 //human HUD updates for items in our inventory
+
+/mob/living/carbon/human/proc/show_hand_to_observers(obj/item/worn_item, left = TRUE)
+	if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
+		worn_item.screen_loc = ui_hand_position(left ? 1 : 2)
+		client.screen += worn_item
+		if(length(observers))
+			for(var/M in observers)
+				var/mob/dead/observe = M
+				if(observe.client && observe.client.eye == src)
+					observe.client.screen += worn_item
+				else
+					observers -= observe
+					if(!length(observers))
+						observers = null
+						break
 
 
 /mob/living/carbon/human/update_hud_wear_mask(obj/item/worn_item)

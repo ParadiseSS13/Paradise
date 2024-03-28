@@ -11,7 +11,7 @@
 	var/hud_shown = TRUE
 	/// Current displayed version of the HUD
 	var/hud_version = 1
-	/// Whether or not their toggleable inventory
+	/// Whether or not their toggleable inventory (generally their contents on the left) is expanded
 	var/inventory_shown = TRUE
 	/// This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 	var/hotkey_ui_hidden = FALSE
