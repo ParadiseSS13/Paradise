@@ -35,7 +35,7 @@
 	message_parts += ""
 	message_parts += report_message
 	if(should_send_crate)
-		message_parts += "You must submit this in your own personal crate. One will be sent to your Cargo department. More can be ordered if needed."
+		message_parts += "You must submit this in a locked personal crate. One will be sent to your Cargo department. More can be ordered if needed."
 	send_requests_console_message(message_parts, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
 	send_requests_console_message(message_parts, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 	send_requests_console_message(message_parts, "Central Command", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
