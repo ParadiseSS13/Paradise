@@ -159,30 +159,22 @@
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
 // being unable to hear people due to being in a box within a bag.
 
-/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = 1, sight_check = 1, include_radio = 1)
-
-	//GLOB.debug_mob += O.contents.len
+/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = TRUE, sight_check = TRUE)
 	if(!recursion_limit)
 		return L
 	for(var/atom/A in O.contents)
-
 		if(ismob(A))
 			var/mob/M = A
 			if(client_check && !M.client)
-				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
 				continue
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= M
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && isradio(A))
-			if(sight_check && !isInSight(A, O))
-				continue
-			L |= A
-
 		if(isobj(A) || ismob(A))
-			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
 	return L
 
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
@@ -197,22 +189,16 @@
 	if(!T)
 		return hear
 
-	var/list/range = hear(R, T)
-
-	for(var/atom/A in range)
+	for(var/atom/A in hear(R, T))
 		if(ismob(A))
 			var/mob/M = A
 			if(M.client || include_clientless)
 				hear += M
-			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(isradio(A))
-			hear += A
 
 		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
+			hear |= recursive_mob_check(A, hear, 3, TRUE, FALSE)
 
 	return hear
-
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
@@ -234,7 +220,6 @@
 			if(speaker)
 				for(var/turf/T in hear(R.canhear_range,speaker))
 					speaker_coverage[T] = T
-
 
 	// Try to find all the players who can hear the message
 	for(var/A in GLOB.player_list + GLOB.hear_radio_list)

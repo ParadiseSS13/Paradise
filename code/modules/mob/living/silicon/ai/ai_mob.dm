@@ -135,6 +135,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		/mob/living/silicon/proc/subsystem_law_manager,
 		/mob/living/silicon/proc/subsystem_power_monitor)
 
+	/// The cached AI annoucement help menu.
+	var/ai_announcement_string_menu
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
 	add_verb(src, silicon_subsystems)
@@ -1544,6 +1547,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isobserver(.))
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+/mob/living/silicon/ai/can_vv_get(var_name)
+	if(!..())
+		return FALSE
+	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
+		return FALSE
+	return TRUE
 
 /mob/living/silicon/ai/proc/blurb_it()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_ai_blurb)), 1 SECONDS)
