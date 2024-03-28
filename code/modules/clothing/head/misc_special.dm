@@ -216,7 +216,7 @@
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(
