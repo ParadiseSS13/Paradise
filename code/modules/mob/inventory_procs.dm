@@ -316,3 +316,6 @@
 	for(var/obj/B in L)
 		if(B.type == path)
 			return B
+
+/mob/proc/get_held_index_of_item(obj/item/I)
+	return list(l_hand, r_hand).Find(I)

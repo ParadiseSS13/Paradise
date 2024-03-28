@@ -27,6 +27,10 @@
 		viewing_alternate_appearances = null
 	LAssailant = null
 	runechat_msg_location = null
+	if(length(observers))
+		for(var/mob/dead/observe as anything in observers)
+			observe.reset_perspective(null)
+
 	return ..()
 
 /mob/Initialize(mapload)
