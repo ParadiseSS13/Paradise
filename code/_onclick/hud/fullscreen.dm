@@ -13,6 +13,7 @@
 	if(client && screen.should_show_to(src))
 		if(animated)
 			spawn(0)
+				screen.alpha = 0
 				animate(screen, alpha = 255, time = animated)
 		screen.update_for_view(client.view)
 		client.screen += screen
