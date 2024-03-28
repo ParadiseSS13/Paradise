@@ -34,7 +34,7 @@
 	modules += engineering_module
 
 	report_message = list("One of our rapid-response teams lost a mech, and needs a replacement Ripley with \a [initial(general_module.name)] and \a [initial(engineering_module.name)].",
-						  "You must label the mech properly. Use your ID card on a hand labeller to configure it.")
+						"You must label the mech properly. Use your ID card on a hand labeller to configure it.")
 
 
 /datum/secondary_goal_progress/random_ripley
