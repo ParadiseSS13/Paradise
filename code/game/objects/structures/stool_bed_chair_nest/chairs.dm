@@ -129,7 +129,7 @@
 	handle_rotation(newdir)
 
 /obj/structure/chair/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || is_ventcrawling(user))
 		return
 
 	rotate()

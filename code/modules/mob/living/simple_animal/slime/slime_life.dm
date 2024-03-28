@@ -209,7 +209,6 @@
 	adjustBruteLoss(-3)
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
-
 	if(docile) //God as my witness, I will never go hungry again
 		set_nutrition(700) //fuck you for using the base nutrition var
 		return
@@ -244,9 +243,6 @@
 			if(prob(25-powerlevel*5))
 				powerlevel++
 
-
-
-
 /mob/living/simple_animal/slime/proc/handle_targets()
 	if(Tempstun)
 		if(!buckled) // not while they're eating!
@@ -269,7 +265,7 @@
 		if(prob(10))
 			Discipline--
 
-	if(!client)
+	if(!client && !stop_automated_movement)
 		if(!(mobility_flags & MOBILITY_MOVE))
 			return
 
