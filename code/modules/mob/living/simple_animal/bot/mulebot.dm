@@ -298,6 +298,11 @@
 /mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
 	return GLOB.default_state
 
+/mob/living/simple_animal/bot/mulebot/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/crates)
+	)
+
 /mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
