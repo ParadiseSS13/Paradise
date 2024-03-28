@@ -246,7 +246,7 @@
 		if(ACCESS_CAPTAIN)
 			return "Captain"
 		if(ACCESS_ALL_PERSONAL_LOCKERS)
-			return "Personal Lockers"
+			return "Personal Lockers/Crates"
 		if(ACCESS_CHAPEL_OFFICE)
 			return "Chapel Office"
 		if(ACCESS_TECH_STORAGE)
