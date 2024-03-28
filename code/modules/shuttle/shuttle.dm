@@ -508,6 +508,8 @@
 
 			//move mobile to new location
 			for(var/atom/movable/AM in T0)
+				if(AM.loc != T0) //fix for multi-tile objects
+					continue
 				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
 			if(rotation)
