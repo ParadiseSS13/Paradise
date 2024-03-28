@@ -259,7 +259,7 @@
 			continue
 		var/obj/item/radio/R = speaker_coverage[ear]
 		if(!istype(R) || R.canhear_range > 0)
-			. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
+			. |= M
 			continue
 		if(is_same_root_atom(M, speaker_coverage[ear]))
 			. |= M
