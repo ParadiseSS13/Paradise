@@ -158,6 +158,7 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/Destroy()
 	if(active)
@@ -256,7 +257,7 @@
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
 		var/mob/M = usr
-		if(get_dist(usr, src) > 1) //1 as we want to access it if beside the user
+		if(!Adjacent(usr, src))
 			return
 
 		if(!over_object)
@@ -277,9 +278,8 @@
 				if(!M.unEquip(src, silent = TRUE))
 					return
 				M.put_in_active_hand(src)
-			else if(bag)
-				bag.forceMove(usr)
-				bag.show_to(usr)
+			else
+				bag?.open(usr)
 
 			add_fingerprint(M)
 
@@ -400,7 +400,6 @@
 	else if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
 	else if(bag && istype(attacking_item))
-		bag.forceMove(user)
 		bag.attackby(attacking_item, user, params)
 
 	return ..()
@@ -409,18 +408,22 @@
 	if(!iscarbon(user))
 		return
 	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.forceMove(user)
-			bag.show_to(user)
+		bag?.open(user)
 	else
 		..()
 
 /obj/item/mod/control/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
-		bag.forceMove(user)
-		bag.show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		bag?.open(user)
 		add_fingerprint(user)
+	else if(isobserver(user))
+		bag?.show_to(user)
+
+/obj/item/mod/control/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		bag?.show_to(user)
+	return ..()
 
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
 	if(bag)
@@ -774,3 +777,7 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
+
+/obj/item/mod/control/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	bag?.update_viewers()
