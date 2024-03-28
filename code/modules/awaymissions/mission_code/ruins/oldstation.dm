@@ -299,7 +299,17 @@
 	desc = "A very large bluespace engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
+
+/obj/structure/shuttle/engine/huge
+	name = "engine"
+	icon = 'icons/obj/3x3.dmi'
+	icon_state = "huge_engine"
+	desc = "An extremely large bluespace engine used to propel extremely large ships."
+	opacity = TRUE
+	bound_width = 96
+	bound_height = 96
+	appearance_flags = LONG_GLIDE
 
 // areas
 //Ruin of ancient Space Station
