@@ -124,3 +124,18 @@
 
 /mob/camera/blob/proc/can_attack()
 	return (world.time > (last_attack + CLICK_CD_RANGE))
+
+/mob/camera/blob/verb/ghost()
+	set category = "OOC"
+	set name = "Ghost"
+	set desc = "Relinquish your control of the blob overmind."
+
+	// Confirm the user's decision to ghost
+	if(alert("Are you -sure- you want to ghost? (You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)", "Confirm Ghost", "Yes", "No") != "Yes")
+		return
+
+	// Create a ghost from the blob overmind
+	ghostize(FALSE)
+
+	// Notify admins
+	message_admins("[key_name_admin(usr)]  has ghosted from a blob overmind.")
