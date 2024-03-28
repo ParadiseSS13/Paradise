@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
-	desc = "A gas flow meter"
+	desc = "A meter used by experienced atmospheric technicians to determine pressure and temperature in a pipe."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET

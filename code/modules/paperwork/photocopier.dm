@@ -4,6 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
+	desc = "For making copies of important documents, or more likely, your ass."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 
@@ -579,6 +580,7 @@
 
 /obj/item/toner
 	name = "toner cartridge"
+	desc = "Has 140 papers worth of ink in it! Shame you can only use 30 before it runs out of cyan..."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30

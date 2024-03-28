@@ -1,6 +1,7 @@
 /*****************Pickaxes & Drills & Shovels****************/
 /obj/item/pickaxe
 	name = "pickaxe"
+	desc = "A tool for digging rock and stone. Better get to work."
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT

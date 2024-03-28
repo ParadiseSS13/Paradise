@@ -1,5 +1,6 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
+	desc = "A chef's 9th most powerful weapon, right after the grill. Used for grinding items into reagents."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9

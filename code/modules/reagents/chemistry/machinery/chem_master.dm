@@ -18,6 +18,7 @@
 
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
+	desc = "Used to turn reagents into pills, patches, and store them in bottles."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -608,6 +609,7 @@
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
+	desc = "Used to remove reagents from that single beaker you're using, or create condiment packs and bottles; your choice."
 	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
