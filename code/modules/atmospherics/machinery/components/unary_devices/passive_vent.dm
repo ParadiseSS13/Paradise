@@ -15,13 +15,25 @@
 	name = "large passive vent"
 	volume = 1000
 
+/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow
+	on = FALSE
+
+/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow/onTransitZ(old_z, new_z)
+	. = ..()
+	if(is_station_level(new_z))
+		on = TRUE
+
+/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow/process_atmos()
+	if(!on)
+		return
+	..()
+
 /obj/machinery/atmospherics/unary/passive_vent/Initialize(mapload)
 	. = ..()
 	air_contents.volume = volume
 
 /obj/machinery/atmospherics/unary/passive_vent/process_atmos()
 	..()
-
 	if(!node)
 		return 0
 

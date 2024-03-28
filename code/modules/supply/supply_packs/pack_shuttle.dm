@@ -93,6 +93,11 @@
 	cost = 4500 //I do wonder about shuttle prices, especially considering how many guns you could get for this price. Perhaps a lowering in the future.
 	template = /datum/map_template/shuttle/emergency/raven
 
+/datum/supply_packs/abstract/shuttle/shadow
+	cost = 3250
+	template = /datum/map_template/shuttle/emergency/shadow
+	speed_factor = 2 //Fast enough that it probably won't burn down entirely after the crew looses the plasma
+
 // these, otoh, have some pretty silly features, and are hidden behind emag
 
 /datum/supply_packs/abstract/shuttle/clown
