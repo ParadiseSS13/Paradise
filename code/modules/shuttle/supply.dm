@@ -3,8 +3,8 @@
 #define CARGO_OK 0
 #define CARGO_PREVENT_SHUTTLE 1
 #define CARGO_SKIP_ATOM 2
-#define CARGO_REQUIRE_PRIORITY 2
-#define CARGO_HAS_PRIORITY 2
+#define CARGO_REQUIRE_PRIORITY 3
+#define CARGO_HAS_PRIORITY 4
 
 
 /obj/docking_port/mobile/supply
@@ -75,18 +75,24 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock()
+/obj/docking_port/mobile/supply/dock(port)
 	. = ..()
 	if(.)
 		return
 
-	buy()
-	sell()
+	if(istype(port, /obj/docking_port/stationary/transit))
+		// Ignore transit ports.
+		return
+
+	if(is_station_level(z))
+		// Buy when arriving at the station.
+		buy()
+
+	if(z == level_name_to_num(CENTCOMM))
+		// Sell when arriving at CentComm.
+		sell()
 
 /obj/docking_port/mobile/supply/proc/buy()
-	if(!is_station_level(z))		//we only buy when we are -at- the station
-		return 1
-
 	for(var/datum/supply_order/order as anything in SSeconomy.shopping_list)
 		if(length(SSeconomy.delivery_list) >= MAX_CRATE_DELIVERY)
 			break
@@ -166,17 +172,17 @@
 			found_priority = TRUE
 
 	if(handling != CARGO_SKIP_ATOM)
+		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
+			blocking_item = "locked containers that don't contain goal items ([AM])"
+			return CARGO_PREVENT_SHUTTLE
 		var/sellable = SEND_SIGNAL(src, COMSIG_CARGO_CHECK_SELL, AM)
 		manifest.items_to_sell[AM] = sellable
 		if(top_level && !(sellable & COMSIG_CARGO_IS_SECURED))
 			manifest.loose_cargo = TRUE
-		if(top_level)
-			return CARGO_OK
 		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
+			if(top_level)
+				return CARGO_OK
 			return CARGO_HAS_PRIORITY
-		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
-			blocking_item = "locked containers that don't contain goal items ([AM])"
-			return CARGO_PREVENT_SHUTTLE
 
 	return CARGO_OK
 
@@ -185,6 +191,10 @@
 		if(is_type_in_list(AM, blacklist[reason]))
 			blocking_item = "[reason] ([AM])"
 			return CARGO_PREVENT_SHUTTLE
+
+	if(istype(AM, /obj/structure/largecrate))
+		blocking_item = "unopened large crates ([AM])"
+		return CARGO_PREVENT_SHUTTLE
 
 	if(istype(AM, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/C = AM
@@ -217,9 +227,6 @@
 
 
 /obj/docking_port/mobile/supply/proc/sell()
-	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
-		return 1
-
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SELL)
 	SSeconomy.sold_atoms = list()
 	for(var/atom/movable/AM in manifest.items_to_sell)

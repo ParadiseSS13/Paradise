@@ -11,4 +11,4 @@
 
 // Functional markers
 // Marks the item as safe for the shuttle floor (e.g. crates)
-#define COMSIG_CARGO_IS_SECURED		(1<<4)
+#define COMSIG_CARGO_IS_SECURED		(1<<5)
