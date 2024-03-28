@@ -131,6 +131,61 @@
 	GLOB.rcd_list -= src
 	return ..()
 
+/obj/item/rcd/suicide_act(mob/living/user)
+	user.Immobilize(10 SECONDS) // You cannot move.
+	flags |= NODROP				// You cannot drop. You commit to die.
+	var/turf/suicide_tile = get_turf(src)
+	if(mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
+		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+		to_chat(user, "<span class='notice'>Deconstructing user...</span>")
+		var/obj/effect/temp_visual/rcd_effect/reverse/suicide_A = new(suicide_tile)
+		if(!do_after(user, 5 SECONDS))					// Deconstruction of most structures takes 5 seconds, wait for the animation to finish.
+			QDEL_NULL(suicide_A)
+			return
+		if(!(user.l_hand == src) && !(user.r_hand == src))	// Do not commit die if the RCD isn't in your hands.
+			return SHAME								// If this triggers, someone probably chopped off your hand mid-suicide for some reason.
+		useResource(5, user)	// Consume ammo.
+		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_they()]self with [src]!</span>")
+		playsound(loc, usesound, 50, TRUE)
+		for(var/obj/item/W in user)	// Do not delete all their stuff.
+			user.unEquip(W)			// Dump everything on the floor instead.
+		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff (held items fall to the floor when dusting).
+		user.dust()
+		return OBLITERATION
+
+	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(mode == MODE_TURF && checkResource(3, user))		// Check you can afford to build this.
+		mode_turf(suicide_tile, user)					// Sart building the structure.
+		if(!user.l_hand == src && !user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
+			return SHAME								// Go into stamcrit instead.
+		user.visible_message("<span class='suicide'>[src] creates a wall inside [user], causing [user.p_them()] to explode!</span>")
+		user.gib()
+		return OBLITERATION
+
+	if(mode == MODE_WINDOW && checkResource(2, user))
+		mode_window(suicide_tile, user)
+		if(!user.l_hand == src && !user.r_hand == src)
+			return SHAME
+		user.visible_message("<span class='suicide'>[src] creates a window inside [user], causing [user.p_them()] to explode!</span>")
+		user.gib()
+		return OBLITERATION
+
+	if(mode == MODE_AIRLOCK && checkResource(10, user))
+		mode_airlock(suicide_tile, user)
+		if(!user.l_hand == src && !user.r_hand == src)
+			return SHAME
+		user.visible_message("<span class='suicide'>[src] creates an airlock inside [user], causing [user.p_them()] to explode!</span>")
+		user.gib()
+		return OBLITERATION
+
+	// Very shameful to end up here... Not enough ammo to use on self.
+	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)	// Pulling the trigger on the empty RCD.
+	sleep(1 SECONDS)										// Time for it to sink in.
+	user.visible_message("<span class='suicide'>The \'Low Ammo\' light on [src] blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! [user] drops to the floor in SHAME.</span>", \
+	"<span class='suicide'>You pull the trigger on [src]. The \'Low Ammo\' light on the device blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! A wave of SHAME washes over you...</span>")
+	return SHAME
+
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *
@@ -536,7 +591,7 @@
 /**
  * Called in `afterattack()` if `mode` is set to `MODE_WINDOW`.
  *
- * Constructs a grille and 4 reinforced window panes at the given location `A`.
+ * Constructs a grille a fulltile reinforced window at the given location `A`.
  *
  * Arguments:
  * * A - the location we're trying to build at.
