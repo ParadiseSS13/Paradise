@@ -271,3 +271,4 @@
 	amount_per_transfer_from_this = 50
 	volume = 50
 	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
+
