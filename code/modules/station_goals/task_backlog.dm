@@ -1,6 +1,6 @@
 /datum/station_goal/clear_task_backlog
 	name = "Clear Task Backlog"
-	var/goal = 15
+	var/goal = 10
 
 /datum/station_goal/clear_task_backlog/get_report()
 	return {"<b>Clear Task Backlog</b><br>
