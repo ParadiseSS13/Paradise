@@ -126,7 +126,7 @@
 			victim.Weaken(2 * grinding_mulitipler SECONDS)
 			victim.KnockDown(4 * grinding_mulitipler SECONDS)
 	else
-		var/backdir = REVERSE_DIR(dir)
+		var/backdir = reverse_direction(dir)
 		step(src, backdir)
 		rider.spin(4, 1)
 
@@ -144,7 +144,12 @@
 	step(src, dir)
 	skater.pass_flags = old_pass
 	pass_flags = old_v_pass
-	if(!(locate(/obj/structure/table) in loc.contents) && !(locate(/obj/structure/railing) in loc.contents))
+	var/piping_hot = FALSE
+	for(var/obj/machinery/atmospherics/pipe/P in loc.contents)
+		if(P.invisibility == 0 && (loc.layer == 1.7 || P.layer == 2.47))
+			piping_hot = TRUE
+			break
+	if(!(locate(/obj/structure/table) in loc.contents) && !(locate(/obj/structure/railing) in loc.contents) && !piping_hot)
 		grinding = FALSE
 		icon_state = "[initial(icon_state)]"
 		return

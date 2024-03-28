@@ -225,6 +225,12 @@
 		vehicle.grinding = TRUE
 		vehicle.icon_state = "[initial(vehicle.icon_state)]-grind"
 		addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, grind)), 2)
+	for(var/obj/machinery/atmospherics/pipe/P in landing_turf.contents)
+		if(P.invisibility == 0 && (landing_turf.layer == 1.7 || P.layer == 2.47))
+			vehicle.grinding = TRUE
+			vehicle.icon_state = "[initial(vehicle.icon_state)]-grind"
+			addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, grind)), 2)
+			break
 	rider.spin(spintime = 4, speed = 1)
 	animate(rider, pixel_y = -6, time = 4)
 	animate(vehicle, pixel_y = -6, time = 3)
