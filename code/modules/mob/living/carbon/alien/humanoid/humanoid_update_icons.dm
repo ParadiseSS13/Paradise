@@ -114,15 +114,6 @@
 		overlays_standing[X_HEAD_LAYER]	= null
 	update_icons()
 
-
-/mob/living/carbon/alien/humanoid/update_inv_pockets()
-	if(l_store)
-		l_store.screen_loc = ui_storage1
-	if(r_store)
-		r_store.screen_loc = ui_storage2
-	update_icons()
-
-
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()
 	..()
 	if(r_hand)

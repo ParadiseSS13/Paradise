@@ -26,7 +26,7 @@
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
-				M.can_collar = TRUE
+				M.set_can_collar(TRUE)
 				if(ishostile(target))
 					var/mob/living/simple_animal/hostile/H = M
 					if(isretaliate(target))

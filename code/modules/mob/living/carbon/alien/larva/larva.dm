@@ -83,8 +83,5 @@
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
 
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-	return
-
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
