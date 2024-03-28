@@ -69,6 +69,11 @@
 	update_action_buttons_icon()
 	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT) // immobilized is superfluous as moving when dead ghosts you.
+	if(HAS_TRAIT_FROM(src, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT))
+		REMOVE_TRAIT(src, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
+		to_chat(src, "<span class='notice'>As you fall into stasis, your body goes rigid once more.</span>")
+		if(IS_HORIZONTAL(src))
+			src.layer = initial(src.layer)
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
