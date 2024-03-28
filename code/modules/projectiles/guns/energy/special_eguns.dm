@@ -125,6 +125,10 @@
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."

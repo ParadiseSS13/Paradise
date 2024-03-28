@@ -1,6 +1,3 @@
-/mob/living/simple_animal/create_mob_hud()
-	hud_used = new /datum/hud/simple_animal(src)
-
 /datum/hud/simple_animal/New(mob/user)
 	..()
 
@@ -14,11 +11,6 @@
 	action_intent = using
 
 	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
-
-
-/mob/living/simple_animal/pet/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/corgi(src)
 
 /datum/hud/corgi/New(mob/user)
 	..()

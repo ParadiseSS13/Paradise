@@ -35162,6 +35162,11 @@
 /area/station/medical/storage)
 "ctZ" = (
 /obj/structure/table/glass,
+/obj/item/storage/box/patch_packs,
+/obj/item/storage/box/pillbottles{
+	pixel_x = 5;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
