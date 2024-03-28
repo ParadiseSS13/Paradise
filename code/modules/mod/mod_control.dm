@@ -427,9 +427,9 @@
 		return bag.can_be_inserted(I, stop_messages)
 	return FALSE
 
-/obj/item/mod/control/proc/handle_item_insertion(I, prevent_warning)
+/obj/item/mod/control/proc/handle_item_insertion(I, mob/user, prevent_warning)
 	if(bag)
-		bag.handle_item_insertion(I, prevent_warning)
+		bag.handle_item_insertion(I, user, prevent_warning)
 
 /obj/item/mod/control/get_cell()
 	if(!open)
@@ -485,7 +485,7 @@
 	return ..()
 
 /obj/item/mod/control/update_icon_state()
-	if(current_disguise)
+	if(current_disguise || isnull(chameleon_action) || active)
 		icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 

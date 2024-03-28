@@ -162,7 +162,7 @@ emp_act
 	var/organnum = 0
 
 	if(def_zone)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			return getarmor_organ(def_zone, type)
 		var/obj/item/organ/external/affecting = get_organ(def_zone)
 		if(affecting)
