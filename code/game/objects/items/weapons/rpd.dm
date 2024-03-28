@@ -330,8 +330,14 @@
 	T.rpd_act(user, src)
 
 /obj/item/rpd/attack_obj(obj/O, mob/living/user)
-	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
-		return
+	if(user.a_intent != INTENT_HARM)
+		if(istype(O, /obj/machinery/atmospherics/pipe))
+			return
+		else if(istype(O, /obj/structure/disposalconstruct))
+			return
+		else if(istype(O, /obj/structure/transit_tube_construction))
+			return
+
 	return ..()
 
 #undef RPD_COOLDOWN_TIME

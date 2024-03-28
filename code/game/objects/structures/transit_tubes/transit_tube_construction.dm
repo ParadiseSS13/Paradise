@@ -64,6 +64,17 @@
 		user.visible_message("<span class='notice'>[user] disassembles [src].</span>")
 		qdel(src)
 
+/obj/structure/transit_tube_construction/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	. = TRUE
+	if(our_rpd.mode == RPD_ROTATE_MODE)
+		rotate()
+	else if(our_rpd.mode == RPD_FLIP_MODE)
+		flip()
+	else if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		return ..()
+
 /obj/structure/transit_tube_construction/pod
 	name = "uninstalled transit pod"
 	layer = 3.2 // Necessary to be able to install them if on the same tile as tube/construction
@@ -89,20 +100,10 @@
 	base_icon_state = "transit_straight"
 	icon_state = "transit_straight"
 
-/obj/structure/transit_tube_construction/straight/crossing
-	installed_type = /obj/structure/transit_tube/crossing
-	base_icon_state = "transit_straight_crossing"
-	icon_state = "transit_straight_crossing"
-
 /obj/structure/transit_tube_construction/diagonal
 	installed_type = /obj/structure/transit_tube/diagonal
 	base_icon_state = "transit_diagonal"
 	icon_state = "transit_diagonal"
-
-/obj/structure/transit_tube_construction/diagonal/crossing
-	installed_type = /obj/structure/transit_tube/diagonal/crossing
-	base_icon_state = "transit_diagonal_crossing"
-	icon_state = "transit_diagonal_crossing"
 
 /obj/structure/transit_tube_construction/curved
 	installed_type = /obj/structure/transit_tube/curved
@@ -115,12 +116,6 @@
 	installed_type_flipped = /obj/structure/transit_tube/junction/flipped
 	base_icon_state = "transit_junction"
 	icon_state = "transit_junction"
-
-/obj/structure/transit_tube_construction/terminus
-	installed_type = /obj/structure/transit_tube/station/reverse
-	installed_type_flipped = /obj/structure/transit_tube/station/reverse/flipped
-	base_icon_state = "transit_terminus"
-	icon_state = "transit_terminus"
 
 /obj/structure/transit_tube_construction/station
 	installed_type = /obj/structure/transit_tube/station
