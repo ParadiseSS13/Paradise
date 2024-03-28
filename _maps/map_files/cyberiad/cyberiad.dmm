@@ -40611,7 +40611,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cDA" = (
-/obj/machinery/drone_fabricator,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -40686,12 +40685,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"cDI" = (
-/obj/machinery/computer/drone_control{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "cDJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -126544,7 +126537,7 @@ cAg
 cvB
 cDa
 cBU
-cDI
+ctY
 csD
 bWT
 cHv
