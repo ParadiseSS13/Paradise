@@ -141,8 +141,8 @@
 		to_chat(user, "<span class='notice'>Deconstructing user...</span>")
 		var/obj/effect/temp_visual/rcd_effect/reverse/suicide_A = new(suicide_tile)
 		if(!do_after(user, 5 SECONDS))					// Deconstruction of most structures takes 5 seconds, wait for the animation to finish.
+			QDEL_NULL(suicide_A)
 			return
-		QDEL_NULL(suicide_A)
 		if(!(user.l_hand == src) && !(user.r_hand == src))	// Do not commit die if the RCD isn't in your hands.
 			return SHAME								// If this triggers, someone probably chopped off your hand mid-suicide for some reason.
 		useResource(5, user)	// Consume ammo.
@@ -179,12 +179,12 @@
 		user.gib()
 		return OBLITERATION
 
-	else														// Very shameful to end up here... Not enough ammo to use on self.
-		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)	// Pulling the trigger on the empty RCD.
-		sleep(1 SECONDS)										// Time for it to sink in.
-		user.visible_message("<span class='suicide'>The \'Low Ammo\' light on [src] blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! [user] drops to the floor in SHAME.</span>", \
-		"<span class='suicide'>You pull the trigger on [src]. The \'Low Ammo\' light on the device blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! A wave of SHAME washes over you...</span>")
-		return SHAME
+	// Very shameful to end up here... Not enough ammo to use on self.
+	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)	// Pulling the trigger on the empty RCD.
+	sleep(1 SECONDS)										// Time for it to sink in.
+	user.visible_message("<span class='suicide'>The \'Low Ammo\' light on [src] blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! [user] drops to the floor in SHAME.</span>", \
+	"<span class='suicide'>You pull the trigger on [src]. The \'Low Ammo\' light on the device blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! A wave of SHAME washes over you...</span>")
+	return SHAME
 
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
