@@ -3,9 +3,8 @@
 #define BARSIGN_WIRED		2
 #define BARSIGN_COMPLETE	3
 
-
-
-/obj/machinery/barsign // All Signs are 64 by 32 pixels, they take two tiles
+// All Signs are 64 by 32 pixels, they take two tiles
+/obj/machinery/barsign
 	name = "Bar Sign"
 	desc = "A bar sign with no writing on it."
 	icon = 'icons/obj/barsigns.dmi'
@@ -95,7 +94,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(power_state < ACTIVE_POWER_USE || stat & (BROKEN|NOPOWER) || !current_sign || build_stage < BARSIGN_COMPLETE)
+	if(!is_on() || stat & (BROKEN|NOPOWER) || !current_sign || build_stage < BARSIGN_COMPLETE)
 		return
 
 	underlays |= emissive_appearance(icon, current_sign.icon)
@@ -136,7 +135,7 @@
 	return TRUE
 
 /obj/machinery/barsign/proc/turn_on()
-	if((stat & (BROKEN|NOPOWER|MAINT)) || build_stage < BARSIGN_COMPLETE)
+	if((stat & (BROKEN|NOPOWER|MAINT)) || is_on() || build_stage < BARSIGN_COMPLETE)
 		return FALSE
 	if(panel_open)
 		return FALSE
@@ -217,7 +216,7 @@
 		set_sign(new /datum/barsign/hiddensigns/signoff)
 		add_fingerprint(user)
 		return
-	. = ..()
+	return ..()
 
 /obj/machinery/barsign/proc/pick_sign()
 	var/picked_name
@@ -298,9 +297,9 @@
 
 /obj/machinery/barsign/crowbar_act(mob/living/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
-		return
+		return FALSE
 	if(build_stage != BARSIGN_CIRCUIT && build_stage != BARSIGN_COMPLETE)
-		return
+		return FALSE
 	. = TRUE
 	if(I.tool_behaviour != TOOL_CROWBAR)
 		return
@@ -336,10 +335,7 @@
 			new /obj/item/shard(get_turf(user))
 		else
 			to_chat(user, "<span class='notice'>You pull the glass screen out from [src].</span>")
-			var/obj/item/stack/sheet/glass/G
-			G = new /obj/item/stack/sheet/glass
-			G.amount = 2
-			G.forceMove(get_turf(user))
+			new /obj/item/stack/sheet/glass(get_turf(user), 2)
 		build_stage = BARSIGN_WIRED
 		update_icon()
 		add_fingerprint(user)
@@ -360,10 +356,7 @@
 			to_chat(user, "<span class='notice'>You remove the burnt wires out from [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>You cut the wires out from [src].</span>")
-			var/obj/item/stack/cable_coil/C
-			C = new /obj/item/stack/cable_coil
-			C.amount = 5
-			C.forceMove(get_turf(user))
+			new /obj/item/stack/cable_coil(get_turf(user), 5)
 		build_stage = BARSIGN_CIRCUIT
 		update_icon()
 		power_state = NO_POWER_USE
