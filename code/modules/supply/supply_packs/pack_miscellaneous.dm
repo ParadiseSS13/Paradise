@@ -82,6 +82,18 @@
 	contains = list(/obj/item/stack/tile/carpet/twenty)
 	containername = "carpet crate"
 
+/datum/supply_packs/misc/personal_crates
+	name = "Personal Crates Pack"
+	cost = 100
+	containertype = /obj/structure/largecrate
+	contains = list(/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal)
+	containername = "personal crates pack"
+
 
 ///////////// Paper Work
 

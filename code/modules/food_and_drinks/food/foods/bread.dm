@@ -20,6 +20,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "meatbreadslice"
 	filling_color = "#FF7575"
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/snacks/sliceable/xenomeatbread
 	name = "xenomeatbread loaf"
@@ -75,6 +76,7 @@
 	icon_state = "bananabreadslice"
 	filling_color = "#EDE5AD"
 	tastes = list("bread" = 10, "banana" = 5)
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/snacks/sliceable/tofubread
 	name = "tofubread"
@@ -93,6 +95,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "tofubreadslice"
 	filling_color = "#F7FFE0"
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/snacks/sliceable/bread
 	name = "bread"
@@ -113,6 +116,7 @@
 	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5)
 	tastes = list("bread" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/snacks/sliceable/creamcheesebread
 	name = "cream cheese bread"
@@ -133,6 +137,7 @@
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("bread" = 10, "cheese" = 10)
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/snacks/sliceable/banarnarbread
 	name = "banarnarbread loaf"
@@ -153,6 +158,7 @@
 	filling_color = "#6F0000"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("heresy" = 10, "banana" = 10)
+	goal_difficulty = FOOD_GOAL_EASY
 
 
 //////////////////////
@@ -166,6 +172,7 @@
 	icon_state = "bun"
 	list_reagents = list("nutriment" = 1)
 	tastes = list("bun" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 /obj/item/food/snacks/flatbread
@@ -175,6 +182,7 @@
 	icon_state = "flatbread"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/baguette
 	name = "baguette"
@@ -187,6 +195,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/baguette/combat
 	sharp = TRUE
@@ -205,6 +214,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "vitamin" = 2)
 	tastes = list("bread" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/toast
 	name = "toast"
@@ -227,9 +237,11 @@
 
 /obj/item/food/snacks/jelliedtoast/cherry
 	list_reagents = list("nutriment" = 1, "cherryjelly" = 5, "vitamin" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/jelliedtoast/slime
 	list_reagents = list("nutriment" = 1, "slimejelly" = 5, "vitamin" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/rofflewaffles
 	name = "roffle waffles"
@@ -241,6 +253,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "psilocybin" = 2, "vitamin" = 2)
 	tastes = list("waffle" = 1, "mushrooms" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/waffles
 	name = "waffles"
@@ -250,3 +263,4 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL

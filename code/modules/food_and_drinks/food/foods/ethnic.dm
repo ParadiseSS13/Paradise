@@ -10,6 +10,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 7, "vitamin" = 1)
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burrito
 	name = "burrito"
@@ -19,6 +20,7 @@
 	filling_color = "#A36A1F"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("torilla" = 2, "meat" = 3)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 /obj/item/food/snacks/chimichanga
@@ -28,6 +30,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#A36A1F"
 	list_reagents = list("omnizine" = 4, "cheese" = 2) //Deadpool reference. Deal with it.
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/enchiladas
 	name = "enchiladas"
@@ -38,6 +41,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "capsaicin" = 6)
 	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/cornchips
 	name = "corn chips"
@@ -47,6 +51,7 @@
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
 	list_reagents = list("nutriment" = 3)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////
@@ -113,6 +118,7 @@
 	filling_color = "#F0F2E4"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("custard" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/yakiimo
 	name = "yaki imo"
@@ -122,6 +128,7 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 4)
 	filling_color = "#8B1105"
 	tastes = list("sweet potato" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////
@@ -143,6 +150,7 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/tofukabob
 	name = "tofu-kabob"
@@ -151,6 +159,7 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/picoss_kabob
 	name = "picoss-kabob"
@@ -160,3 +169,4 @@
 	list_reagents = list("protein" = 8, "vitamin" = 4, "vinegar" = 1, "capsaicin" = 1)
 	filling_color = "#A85340"
 	tastes = list("fish" = 4, "acid" = 1, "onion" = 1, "heat" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
