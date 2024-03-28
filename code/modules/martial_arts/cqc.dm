@@ -14,10 +14,14 @@
 
 /datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
 	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(kitchen_check))
+	ADD_TRAIT(H.mind, TRAIT_EXPERT_CHEF, ROUNDSTART_TRAIT) // cqc makes it a lot easier to track if someone REALLY is a chef :)
+	H.verbs |= /mob/living/carbon/human/proc/expert_chef_knowledge
 	return ..()
 
 /datum/martial_art/cqc/under_siege/remove(mob/living/carbon/human/H)
 	UnregisterSignal(H, COMSIG_AREA_ENTERED)
+	REMOVE_TRAIT(H.mind, TRAIT_EXPERT_CHEF, ROUNDSTART_TRAIT)
+	H.verbs -= /mob/living/carbon/human/proc/expert_chef_knowledge
 	. = ..()
 
 /datum/martial_art/cqc/under_siege/proc/kitchen_check(mob/living/carbon/human/H, area/entered_area)
