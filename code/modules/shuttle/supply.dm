@@ -254,6 +254,7 @@
 		item.reason = "Please remember to secure all items in crates."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo fines", 1, "loose cargo")
+		SSblackbox.record_feedback("tally", "cargo fine amounts", SSeconomy.fine_for_loose_cargo, "loose cargo")
 	if(manifest.messy_shuttle)
 		var/datum/economy/line_item/item = new
 		item.account = SSeconomy.cargo_account
@@ -261,6 +262,7 @@
 		item.reason = "Shuttle cleaning fee."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo fines", 1, "messy shuttle")
+		SSblackbox.record_feedback("tally", "cargo fine amounts", SSeconomy.fine_for_messy_shuttle, "messy shuttle")
 	if(manifest.sent_trash)
 		var/datum/economy/line_item/item = new
 		item.account = SSeconomy.cargo_account
@@ -268,6 +270,7 @@
 		item.reason = "Don't send us random junk."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo fines", 1, "sent trash")
+		SSblackbox.record_feedback("tally", "cargo fine amounts", SSeconomy.fine_for_selling_trash, "sent trash")
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 
