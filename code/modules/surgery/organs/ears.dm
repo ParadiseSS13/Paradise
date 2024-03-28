@@ -4,7 +4,7 @@
 	gender = PLURAL
 	organ_tag = "ears"
 	parent_organ = "head"
-	slot = "eyes"
+	slot = "ears"
 
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
