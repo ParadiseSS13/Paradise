@@ -172,41 +172,6 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-/obj/item/clothing/glasses/hud/security/tajblind
-	name = "sleek veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
-	icon_state = "tajblind_sec"
-	item_state = "tajblind_sec"
-	flash_protect = FLASH_PROTECTION_FLASH
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-	up = FALSE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/security/tajblind/attack_self()
-	toggle_veil()
-
-/obj/item/clothing/glasses/hud/health/tajblind
-	name = "lightweight veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
-	icon_state = "tajblind_med"
-	item_state = "tajblind_med"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-	up = FALSE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/health/tajblind/attack_self()
-	toggle_veil()
-
 /obj/item/clothing/glasses/hud/skills
 	name = "skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
