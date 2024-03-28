@@ -230,7 +230,6 @@ SUBSYSTEM_DEF(ticker)
 	//Configure mode and assign player to special mode stuff
 
 	var/can_continue = FALSE
-	message_admins(mode)
 	can_continue = mode.pre_pre_setup() //Setup special modes. This also does the antag fishing checks.
 	if(!can_continue)
 		timer_till_handout = addtimer(CALLBACK(src, PROC_REF(handle_late_handout)), 1 MINUTES)

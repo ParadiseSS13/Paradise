@@ -31,7 +31,7 @@
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
-	var/list/possible_traitors = get_alive_players_for_role(ROLE_TRAITOR)
+	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	for(var/datum/mind/candidate in possible_traitors)
 		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
@@ -43,10 +43,7 @@
 
 	var/num_traitors = 1
 
-	if(GLOB.configuration.gamemode.traitor_scaling)
-		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff)))
-	else
-		num_traitors = max(1, min(num_players(), traitors_possible))
+	num_traitors = traitors_to_add()
 
 	for(var/i in 1 to num_traitors)
 		if(!length(possible_traitors))
@@ -58,15 +55,52 @@
 
 	if(!length(pre_traitors))
 		return FALSE
+
+	for(var/datum/mind/traitor as anything in pre_traitors)
+		var/datum/antagonist/traitor/traitor_datum = new()
+		traitor_datum.give_objectives = FALSE
+		traitor.add_antag_datum(traitor_datum)
+		traitors += src
+
 	return TRUE
 
+/datum/game_mode/traitor/proc/traitors_to_add()
+	if(GLOB.configuration.gamemode.traitor_scaling)
+		. = max(1, round((num_players())/(traitor_scaling_coeff)))
+	else
+		. = max(1, min(num_players(), traitors_possible))
 
 /datum/game_mode/traitor/post_setup()
-	for(var/t in pre_traitors)
-		var/datum/mind/traitor = t
-		traitor.add_antag_datum(/datum/antagonist/traitor)
+	var/traitors_to_add = 0
+
+	for(var/datum/mind/traitor as anything in traitors)
+		if(QDELETED(traitor) || !traitor.current)
+			traitors_to_add++
+			traitors -= traitor
+			continue
+		for(var/datum/antagonist/traitor/traitor_datum in traitor.antag_datums)
+			traitor_datum.give_objectives()
+
+	if(length(traitors) < traitors_to_add())
+		traitors_to_add += (traitors_to_add() - length(traitors))
+
+	if(traitors_to_add)
+		var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
+		for(var/datum/mind/candidate as anything in potential_recruits)
+			if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
+				potential_recruits.Remove(candidate)
+
+		if(!length(potential_recruits))
+			return ..()
+
+		for(var/i in 1 to traitors_to_add)
+			var/datum/mind/traitor = pick_n_take(potential_recruits)
+			traitor.special_role = SPECIAL_ROLE_TRAITOR
+			traitor.restricted_roles = restricted_jobs
+			traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
 	..()
 
+/datum/game_mode/traitor/proc/add_extra_traitors()
 
 /datum/game_mode/traitor/declare_completion()
 	..()

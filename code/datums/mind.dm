@@ -1511,6 +1511,7 @@
  */
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
 	var/datum/antagonist/A
+	message_admins("[ispath(datum_type_or_instance)] - Path")
 	if(!ispath(datum_type_or_instance))
 		A = datum_type_or_instance
 		if(!istype(A))

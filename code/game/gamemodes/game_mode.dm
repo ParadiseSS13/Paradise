@@ -52,12 +52,12 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready))
+		if((player.client) && (player.ready))
 			playerC++
 
 	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //pre_pre_setup() For when you really don't want certain jobs ingame.
 /datum/game_mode/proc/pre_pre_setup()
@@ -83,12 +83,12 @@
 
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
-	return 1
+	return TRUE
 
 ///process()
 ///Called by the gameticker
 /datum/game_mode/process()
-	return 0
+	return FALSE
 
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
