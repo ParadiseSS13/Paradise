@@ -1096,13 +1096,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_hud_id(obj/item/worn_item)
 	worn_item.screen_loc = ui_id
-	if((client && hud_used?.hud_shown))
+	if(client && hud_used?.hud_shown)
 		client.screen += worn_item
 	update_observer_view(worn_item)
 
 /mob/living/carbon/human/proc/update_hud_wear_pda(obj/item/worn_item)
 	worn_item.screen_loc = ui_pda
-	if((client && hud_used?.hud_shown))
+	if(client && hud_used?.hud_shown)
 		client.screen += worn_item
 	update_observer_view(worn_item)
 
