@@ -110,10 +110,12 @@
 /obj/item/food/snacks/boiledrice/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/seaweed))
 		var/obj/item/stack/seaweed/S = I
-		var/obj/item/food/snacks/onigiri/O = new(get_turf(src))
+		var/obj/item/food/snacks/onigiri/O = new
 		S.use(1)
 		reagents.trans_to(O, reagents.total_volume)
 		qdel(src)
+		if(!user.put_in_active_hand(O))
+			O.forceMove(get_turf(user))
 		return
 	return ..()
 

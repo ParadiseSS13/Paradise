@@ -1,13 +1,19 @@
 /obj/item/stack/seaweed
 	name = "seaweed sheet"
-	desc = "A sheet of seaweed."
+	desc = "Weed.. from the Sea!"
 	singular_name = "seaweed sheet"
 	icon = 'icons/obj/stacks/seaweed.dmi'
 	icon_state = "seaweed"
 	item_state = "seaweed"
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = "slapped"
+	attack_verb = list("slapped")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/seaweed
+
+/obj/item/stack/seaweed/attack_self(mob/user)
+	return
+
+/obj/item/stack/seaweed/attack_self_tk()
+	return
 
