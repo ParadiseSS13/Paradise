@@ -15,14 +15,6 @@
 	name = "large passive vent"
 	volume = 1000
 
-/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow
-	on = FALSE
-
-/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow/onTransitZ(old_z, new_z)
-	. = ..()
-	if(is_station_level(new_z))
-		on = TRUE
-
 /obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow/process_atmos()
 	if(!on)
 		return

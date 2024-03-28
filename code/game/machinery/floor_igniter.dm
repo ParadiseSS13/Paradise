@@ -15,15 +15,6 @@
 	/// Are we on?
 	var/on = FALSE
 
-/obj/machinery/igniter/shadow
-
-/obj/machinery/igniter/shadow/onTransitZ(old_z, new_z)
-	. = ..()
-	if(is_station_level(new_z))
-		on = TRUE
-		update_icon()
-
-
 /obj/machinery/igniter/on
 	on = TRUE
 
