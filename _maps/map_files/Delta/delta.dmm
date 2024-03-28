@@ -29839,14 +29839,6 @@
 	pixel_y = -24;
 	req_one_access_txt = "75"
 	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_x = -30;
-	pixel_y = -30
-	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bHt" = (
@@ -82503,6 +82495,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
+"nRs" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = -30;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/station/command/bridge)
 "nRv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -141696,7 +141701,7 @@ bwf
 bAC
 bCl
 byU
-bFy
+nRs
 bWX
 bWX
 iDU
