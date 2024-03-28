@@ -171,6 +171,14 @@
 	build_path = /obj/item/intercom_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/barsign_electronics
+	name = "Bar Sign Electronics"
+	id = "barsign_electronics"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/barsign_electronics
+	category = list("initial", "Electronics")
+
 /datum/design/earmuffs
 	name = "Earmuffs"
 	id = "earmuffs"
