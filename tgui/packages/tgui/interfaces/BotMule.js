@@ -102,7 +102,7 @@ const MuleStatus = (props, context) => {
     set_home,
   } = data;
   return (
-    <Section fill scrollable backgroundColor="transparent">
+    <Section fill scrollable>
       <BotStatus />
       <Section title="Delivery Settings">
         <Button.Checkbox
@@ -137,7 +137,7 @@ const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
   const { noaccess, mode, load, destination } = data;
   return (
-    <Section fill scrollable backgroundColor="transparent">
+    <Section fill scrollable>
       <Section title="Delivery Settings">
         <Button
           content={destination ? destination : 'Select Destination'}
