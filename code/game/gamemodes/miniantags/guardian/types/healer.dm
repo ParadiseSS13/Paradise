@@ -36,7 +36,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/summon_guardian_beacon(null))
+	AddSpell(new /datum/spell/summon_guardian_beacon(null))
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	QDEL_NULL(beacon)

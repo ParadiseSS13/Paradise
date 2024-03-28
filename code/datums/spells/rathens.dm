@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/rathens
+/datum/spell/rathens
 	name = "Rathen's Secret"
 	desc = "Summons a powerful shockwave around you that tears the appendix out of enemies, and occasionally removes their limbs."
 	base_cooldown = 50 SECONDS
@@ -8,12 +8,12 @@
 	cooldown_min = 20 SECONDS
 	action_icon_state = "lungpunch"
 
-/obj/effect/proc_holder/spell/rathens/create_new_targeting()
+/datum/spell/rathens/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.max_targets = INFINITY
 	return T
 
-/obj/effect/proc_holder/spell/rathens/cast(list/targets, mob/user = usr)
+/datum/spell/rathens/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
 		var/datum/effect_system/smoke_spread/s = new
 		s.set_up(5, FALSE, H)

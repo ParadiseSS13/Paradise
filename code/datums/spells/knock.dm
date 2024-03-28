@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/aoe/knock
+/datum/spell/aoe/knock
 	name = "Knock"
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
@@ -13,31 +13,31 @@
 	sound = 'sound/magic/knock.ogg'
 	aoe_range = 3
 
-/obj/effect/proc_holder/spell/aoe/knock/create_new_targeting()
+/datum/spell/aoe/knock/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
-/obj/effect/proc_holder/spell/aoe/knock/cast(list/targets, mob/user = usr)
+/datum/spell/aoe/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
 			INVOKE_ASYNC(src, PROC_REF(try_open_airlock), door)
 		for(var/obj/structure/closet/C in T.contents)
 			INVOKE_ASYNC(src, PROC_REF(try_open_closet), C)
 
-/obj/effect/proc_holder/spell/aoe/knock/proc/try_open_airlock(obj/machinery/door/door)
+/datum/spell/aoe/knock/proc/try_open_airlock(obj/machinery/door/door)
 	if(istype(door, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = door
 		A.unlock(TRUE)	//forced because it's magic!
 	door.open()
 
-/obj/effect/proc_holder/spell/aoe/knock/proc/try_open_closet(obj/structure/closet/C)
+/datum/spell/aoe/knock/proc/try_open_closet(obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
 		SC.locked = FALSE
 	C.open()
 
-/obj/effect/proc_holder/spell/aoe/knock/greater
+/datum/spell/aoe/knock/greater
 	name = "Greater Knock"
 	desc = "On first cast, will remove access restrictions on all airlocks on the station, and announce this spell's use to the station. On any further cast, will open all doors in sight. Cannot be refunded once bought!"
 
@@ -50,7 +50,7 @@
 
 	action_icon_state = "greater_knock"
 
-/obj/effect/proc_holder/spell/aoe/knock/greater/cast(list/targets, mob/user = usr)
+/datum/spell/aoe/knock/greater/cast(list/targets, mob/user = usr)
 	if(!used)
 		used = TRUE
 		for(var/obj/machinery/door/airlock/A in GLOB.airlocks)

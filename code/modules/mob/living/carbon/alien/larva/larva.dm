@@ -25,7 +25,7 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+	AddSpell(new /datum/spell/alien_spell/evolve_larva)
 	var/datum/action/innate/hide/alien_larva_hide/hide = new()
 	hide.Grant(src)
 

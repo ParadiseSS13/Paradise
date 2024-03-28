@@ -12,7 +12,7 @@
 
 /mob/living/simple_animal/hostile/guardian/punch/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/choose_battlecry(null))
+	AddSpell(new /datum/spell/choose_battlecry(null))
 
 /mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
 	. = ..()

@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(pai_emotions, list(
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 
-/obj/effect/proc_holder/spell/access_software_pai
+/datum/spell/access_software_pai
 	name = "Software interface"
 	desc = "Allows you to access your downloaded software."
 	clothes_req = FALSE
@@ -20,10 +20,10 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 	action_icon_state = "choose_module"
 	action_background_icon_state = "bg_tech_blue"
 
-/obj/effect/proc_holder/spell/access_software_pai/create_new_targeting()
+/datum/spell/access_software_pai/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/access_software_pai/cast(list/targets, mob/living/user = usr)
+/datum/spell/access_software_pai/cast(list/targets, mob/living/user = usr)
 	var/mob/living/silicon/pai/pai_user = user
 
 	pai_user.ui_interact(pai_user)

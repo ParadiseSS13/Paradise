@@ -1,17 +1,17 @@
-/obj/effect/proc_holder/spell/morph_spell/open_vent
+/datum/spell/morph_spell/open_vent
 	name = "Open Vents"
 	desc = "Spit out acidic puke on nearby vents or scrubbers. Will take a little while for the acid to take effect. Not usable from inside a vent."
 	action_icon_state = "acid_vent"
 	base_cooldown = 10 SECONDS
 	hunger_cost = 10
 
-/obj/effect/proc_holder/spell/morph_spell/open_vent/create_new_targeting()
+/datum/spell/morph_spell/open_vent/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.range = 1
 	T.allowed_type = /obj/machinery/atmospherics/unary
 	return T
 
-/obj/effect/proc_holder/spell/morph_spell/open_vent/valid_target(target, user)
+/datum/spell/morph_spell/open_vent/valid_target(target, user)
 	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/S = target
 		return S.welded
@@ -20,7 +20,7 @@
 		return V.welded
 	return FALSE
 
-/obj/effect/proc_holder/spell/morph_spell/open_vent/cast(list/targets, mob/user)
+/datum/spell/morph_spell/open_vent/cast(list/targets, mob/user)
 	if(!length(targets))
 		to_chat(user, "<span class='warning'>No nearby welded vents found!</span>")
 		revert_cast(user)
@@ -36,7 +36,7 @@
 		addtimer(CALLBACK(src, PROC_REF(unweld_vent), U), 2 SECONDS)
 		playsound(U, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/U)
+/datum/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/U)
 	if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/S = U
 		S.welded = FALSE

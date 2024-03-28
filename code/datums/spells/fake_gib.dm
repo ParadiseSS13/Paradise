@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/fake_disintegrate
+/datum/spell/touch/fake_disintegrate
 	name = "Disintegrate"
 	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
 	hand_path = "/obj/item/melee/touch_attack/fake_disintegrate"

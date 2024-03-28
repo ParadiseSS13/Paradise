@@ -27,7 +27,7 @@
 
 /mob/living/simple_animal/hostile/guardian/ranged/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/surveillance_snare(null))
+	AddSpell(new /datum/spell/surveillance_snare(null))
 
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleMode()
 	if(loc == summoner)

@@ -1,17 +1,11 @@
-/obj/effect/proc_holder/spell/vampire/self/cloak
+/datum/spell/vampire/self/cloak
 	name = "Cloak of Darkness"
 	desc = "Toggles whether you are currently cloaking yourself in darkness. When in darkness and toggled on, you move at increased speeds."
 	gain_desc = "You have gained the Cloak of Darkness ability, which when toggled makes you nearly invisible and highly agile in the shroud of darkness."
 	action_icon_state = "vampire_cloak"
 	base_cooldown = 2 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/self/cloak/New()
-	..()
-	update_name()
-
-/obj/effect/proc_holder/spell/vampire/self/cloak/update_name()
-	. = ..()
-	var/mob/living/user = loc
+/datum/spell/vampire/self/cloak/proc/update_spell_name(mob/living/user)
 	if(!ishuman(user) || !user.mind)
 		return
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -19,9 +13,10 @@
 		return
 
 	action.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME)
 	UpdateButtons()
 
-/obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
+/datum/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	V.iscloaking = !V.iscloaking
 	if(ishuman(user))
@@ -32,7 +27,7 @@
 		else
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
 			H.physiology.burn_mod /= 1.1
-	update_name()
+	update_spell_name(user)
 	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /mob/living/proc/update_vampire_cloak()
@@ -40,7 +35,7 @@
 	var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 	V.handle_vampire_cloak()
 
-/obj/effect/proc_holder/spell/vampire/shadow_snare
+/datum/spell/vampire/shadow_snare
 	name = "Shadow Snare (20)"
 	desc = "You summon a trap on the ground. When crossed it will blind the target, extinguish any lights they may have, and ensnare them."
 	gain_desc = "You have gained the ability to summon a trap that will blind, ensnare, and turn off the lights of anyone who crosses it."
@@ -48,13 +43,13 @@
 	required_blood = 20
 	action_icon_state = "shadow_snare"
 
-/obj/effect/proc_holder/spell/vampire/shadow_snare/create_new_targeting()
+/datum/spell/vampire/shadow_snare/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.allowed_type = /turf/simulated
 	T.click_radius = -1
 	return T
 
-/obj/effect/proc_holder/spell/vampire/shadow_snare/cast(list/targets, mob/user)
+/datum/spell/vampire/shadow_snare/cast(list/targets, mob/user)
 	var/turf/target = targets[1]
 	new /obj/item/restraints/legcuffs/beartrap/shadow_snare(target)
 
@@ -116,7 +111,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/proc_holder/spell/vampire/soul_anchor
+/datum/spell/vampire/soul_anchor
 	name = "Soul Anchor (30)"
 	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
 	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you will fake a recall."
@@ -132,10 +127,10 @@
 	/// Holds a reference to the timer until the caster fake recalls
 	var/timer
 
-/obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()
+/datum/spell/vampire/soul_anchor/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
+/datum/spell/vampire/soul_anchor/cast(list/targets, mob/user)
 	if(making_anchor) // second cast, but we are impatient
 		to_chat(user, "<span class='notice'>Your anchor isn't ready yet!</span>")
 		return
@@ -152,11 +147,11 @@
 		recall(user)
 
 
-/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
+/datum/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
 	timer = addtimer(CALLBACK(src, PROC_REF(recall), user, TRUE), 2 MINUTES, TIMER_STOPPABLE)
 
-/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user, fake = FALSE)
+/datum/spell/vampire/soul_anchor/proc/recall(mob/user, fake = FALSE)
 	cooldown_handler.start_recharge()
 	if(timer)
 		deltimer(timer)
@@ -214,7 +209,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
-/obj/effect/proc_holder/spell/vampire/dark_passage
+/datum/spell/vampire/dark_passage
 	name = "Dark Passage (30)"
 	desc = "You teleport to a targeted turf."
 	gain_desc = "You have gained the ability to blink a short distance towards a targeted turf."
@@ -223,13 +218,13 @@
 	centcom_cancast = FALSE
 	action_icon_state = "dark_passage"
 
-/obj/effect/proc_holder/spell/vampire/dark_passage/create_new_targeting()
+/datum/spell/vampire/dark_passage/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.click_radius = 0
 	T.allowed_type = /turf/simulated
 	return T
 
-/obj/effect/proc_holder/spell/vampire/dark_passage/cast(list/targets, mob/user)
+/datum/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
 
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
@@ -241,7 +236,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "mist"
 
-/obj/effect/proc_holder/spell/vampire/vamp_extinguish
+/datum/spell/vampire/vamp_extinguish
 	name = "Extinguish"
 	desc = "You extinguish any light source in an area around you."
 	gain_desc = "You have gained the ability to extinguish nearby light sources."
@@ -250,17 +245,17 @@
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 
-/obj/effect/proc_holder/spell/vampire/vamp_extinguish/create_new_targeting()
+/datum/spell/vampire/vamp_extinguish/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new
 	return T
 
-/obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
+/datum/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
 
-/obj/effect/proc_holder/spell/vampire/shadow_boxing
+/datum/spell/vampire/shadow_boxing
 	name = "Shadow Boxing (50)"
 	desc = "Target someone to have your shadow beat them up. You must stay within 2 tiles for this to work."
 	gain_desc = "You have gained the ability to make your shadow fight for you."
@@ -269,18 +264,18 @@
 	required_blood = 50
 	var/target_UID
 
-/obj/effect/proc_holder/spell/vampire/shadow_boxing/create_new_targeting()
+/datum/spell/vampire/shadow_boxing/create_new_targeting()
 	var/datum/spell_targeting/click/C = new
 	C.allowed_type = /mob/living
 	C.range = 2
 	C.try_auto_target = FALSE
 	return C
 
-/obj/effect/proc_holder/spell/vampire/shadow_boxing/cast(list/targets, mob/user)
+/datum/spell/vampire/shadow_boxing/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
 	target.apply_status_effect(STATUS_EFFECT_SHADOW_BOXING, user)
 
-/obj/effect/proc_holder/spell/vampire/self/eternal_darkness
+/datum/spell/vampire/self/eternal_darkness
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby. Energy projectiles will dim in its radius."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
@@ -289,7 +284,7 @@
 	required_blood = 5
 	var/shroud_power = -6
 
-/obj/effect/proc_holder/spell/vampire/self/eternal_darkness/cast(list/targets, mob/user)
+/datum/spell/vampire/self/eternal_darkness/cast(list/targets, mob/user)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/target = targets[1]
 	if(!V.get_ability(/datum/vampire_passive/eternal_darkness))

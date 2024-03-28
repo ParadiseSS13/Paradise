@@ -3,7 +3,7 @@
 	desc = "Wonderful! Time for a celebration... Cheese for everyone!"
 	icon_state = "cheese_book"
 	spell_name = "summon cheese"
-	granted_spell = /obj/effect/proc_holder/spell/aoe/conjure/summon_cheese
+	granted_spell = /datum/spell/aoe/conjure/summon_cheese
 	remarks = list(
 		"Always forward, never back...",
 		"Are these pages... cheese slices?..",
@@ -27,7 +27,7 @@
 	user.put_in_hands(book_cheese)
 	qdel(src)
 
-/obj/effect/proc_holder/spell/aoe/conjure/summon_cheese
+/datum/spell/aoe/conjure/summon_cheese
 	name = "Summon Cheese"
 	desc = "Summon cheesy goodness around you!"
 	base_cooldown = 1 MINUTES

@@ -103,8 +103,8 @@
 	add_language("Gutter")
 	add_language("Trinary")
 
-	AddSpell(new /obj/effect/proc_holder/spell/access_software_pai)
-	AddSpell(new /obj/effect/proc_holder/spell/unfold_chassis_pai)
+	AddSpell(new /datum/spell/access_software_pai)
+	AddSpell(new /datum/spell/unfold_chassis_pai)
 
 	//PDA
 	pda = new(src)
@@ -241,7 +241,7 @@
 // mobile pai mob. This also includes handling some of the general shit that can occur
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
-/obj/effect/proc_holder/spell/unfold_chassis_pai
+/datum/spell/unfold_chassis_pai
 	name = "Unfold/Fold Chassis"
 	desc = "Allows you to fold in/out of your mobile form."
 	clothes_req = FALSE
@@ -249,10 +249,10 @@
 	action_icon_state = "repairbot"
 	action_background_icon_state = "bg_tech_blue"
 
-/obj/effect/proc_holder/spell/unfold_chassis_pai/create_new_targeting()
+/datum/spell/unfold_chassis_pai/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/unfold_chassis_pai/cast(list/targets, mob/living/user = usr)
+/datum/spell/unfold_chassis_pai/cast(list/targets, mob/living/user = usr)
 	var/mob/living/silicon/pai/pai_user = user
 
 	if(pai_user.loc != pai_user.card)

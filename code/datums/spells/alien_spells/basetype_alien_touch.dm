@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/alien_spell
+/datum/spell/touch/alien_spell
 	name = "Basetype Alien spell"
 	desc = "You should not see this in game, if you do file a github report!"
 	hand_path = "/obj/item/melee/touch_attack/alien"
@@ -15,20 +15,20 @@
 	var/plasma_cost = 0
 	action_icon_state = "gib"
 
-/obj/effect/proc_holder/spell/touch/alien_spell/Initialize(mapload)
-	. = ..()
+/datum/spell/touch/alien_spell/New()
+	..()
 	if(plasma_cost)
 		name = "[name] ([plasma_cost])"
 
-/obj/effect/proc_holder/spell/touch/alien_spell/Click(mob/user = usr)
+/datum/spell/touch/alien_spell/Click(mob/user = usr)
 	if(attached_hand)
 		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
 	..()
 
-/obj/effect/proc_holder/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)
+/datum/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)
 	user.create_log(ATTACK_LOG, "Cast the spell [name]")
 
-/obj/effect/proc_holder/spell/touch/alien_spell/create_new_handler()
+/datum/spell/touch/alien_spell/create_new_handler()
 	var/datum/spell_handler/alien/H = new
 	H.plasma_cost = plasma_cost
 	return H

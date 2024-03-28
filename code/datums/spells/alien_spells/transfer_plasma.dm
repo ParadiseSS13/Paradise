@@ -1,13 +1,13 @@
-/obj/effect/proc_holder/spell/alien_spell/transfer_plasma
+/datum/spell/alien_spell/transfer_plasma
 	name = "Transfer Plasma"
 	desc = "Transfers 50 plasma to a nearby alien"
 	action_icon_state = "alien_transfer"
 	plasma_cost = 50
 
-/obj/effect/proc_holder/spell/alien_spell/transfer_plasma/create_new_targeting()
+/datum/spell/alien_spell/transfer_plasma/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/obj/effect/proc_holder/spell/alien_spell/transfer_plasma/cast(list/targets, mob/living/carbon/user)
+/datum/spell/alien_spell/transfer_plasma/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/carbon/alien/target = targets[1]
 	var/turf/T = user.loc
 	if(!istype(T) || !istype(target))
@@ -20,17 +20,17 @@
 	to_chat(target, "<span class='noticealien'>[user] has transfered 50 plasma to you!</span>")
 	return TRUE
 
-/obj/effect/proc_holder/spell/alien_spell/syphon_plasma
+/datum/spell/alien_spell/syphon_plasma
 	name = "Syphon plasma"
 	desc = "Syphons 150 plasma from a nearby alien."
 	action_icon_state = "alien_transfer"
 	plasma_cost = 0
 	base_cooldown = 10 SECONDS
 
-/obj/effect/proc_holder/spell/alien_spell/syphon_plasma/create_new_targeting()
+/datum/spell/alien_spell/syphon_plasma/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/obj/effect/proc_holder/spell/alien_spell/syphon_plasma/cast(list/targets, mob/living/carbon/user)
+/datum/spell/alien_spell/syphon_plasma/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/carbon/alien/target = targets[1]
 	var/turf/T = user.loc
 	if(!istype(T) || !istype(target))

@@ -3,7 +3,7 @@
 	desc = "High Five?"
 	var/catchphrase = "High Five!"
 	var/on_use_sound = null
-	var/obj/effect/proc_holder/spell/touch/attached_spell
+	var/datum/spell/touch/attached_spell
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "disintegrate"
 	item_state = null

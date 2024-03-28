@@ -4,7 +4,7 @@
 /datum/spell_targeting/alive_mob_list
 	allowed_type = /mob/living
 
-/datum/spell_targeting/alive_mob_list/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/alive_mob_list/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	var/list/possible_targets = list()
 	for(var/mob/living/possible_target as anything in GLOB.alive_mob_list)
 		if(valid_target(possible_target, user, spell, FALSE))

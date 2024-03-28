@@ -1,5 +1,5 @@
 // This could probably be an aoe spell but it's a little cursed, so I'm not touching it
-/obj/effect/proc_holder/spell/spacetime_dist
+/datum/spell/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
 		randomizing the layout and making proper movement impossible. The strings vibrate... \
@@ -25,23 +25,23 @@
 	/// A lazylist of all scramble effects this spell has created.
 	var/list/effects
 
-/obj/effect/proc_holder/spell/spacetime_dist/Destroy()
+/datum/spell/spacetime_dist/Destroy()
 	QDEL_LIST_CONTENTS(effects)
 	return ..()
 
-/obj/effect/proc_holder/spell/spacetime_dist/create_new_targeting()
+/datum/spell/spacetime_dist/create_new_targeting()
 	var/datum/spell_targeting/spiral/targeting = new()
 	targeting.range = scramble_radius + 3 * spell_level
 	return targeting
 
-/obj/effect/proc_holder/spell/spacetime_dist/on_purchase_upgrade()
+/datum/spell/spacetime_dist/on_purchase_upgrade()
 	. = ..()
 	targeting = create_new_targeting()
 
-/obj/effect/proc_holder/spell/spacetime_dist/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
+/datum/spell/spacetime_dist/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
 	return ..() && ready
 
-/obj/effect/proc_holder/spell/spacetime_dist/cast(list/targets, mob/user = usr)
+/datum/spell/spacetime_dist/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/list/turf/to_switcharoo = targets
 	if(!length(to_switcharoo))
@@ -64,12 +64,12 @@
 		effects += effect_b
 
 
-/obj/effect/proc_holder/spell/spacetime_dist/after_cast(list/targets, mob/user)
+/datum/spell/spacetime_dist/after_cast(list/targets, mob/user)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(clean_turfs)), duration)
 
 /// Callback which cleans up our effects list after the duration expires.
-/obj/effect/proc_holder/spell/spacetime_dist/proc/clean_turfs()
+/datum/spell/spacetime_dist/proc/clean_turfs()
 	QDEL_LIST_CONTENTS(effects)
 	ready = TRUE
 

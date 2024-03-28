@@ -23,95 +23,95 @@
 
 /datum/vampire_subclass/umbrae
 	name = "umbrae"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
-							/obj/effect/proc_holder/spell/vampire/shadow_snare = 250,
-							/obj/effect/proc_holder/spell/vampire/soul_anchor = 250,
-							/obj/effect/proc_holder/spell/vampire/dark_passage = 400,
-							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 600,
-							/obj/effect/proc_holder/spell/vampire/shadow_boxing = 800)
+	standard_powers = list(/datum/spell/vampire/self/cloak = 150,
+							/datum/spell/vampire/shadow_snare = 250,
+							/datum/spell/vampire/soul_anchor = 250,
+							/datum/spell/vampire/dark_passage = 400,
+							/datum/spell/vampire/vamp_extinguish = 600,
+							/datum/spell/vampire/shadow_boxing = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/datum/vampire_passive/vision/full,
-								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
+								/datum/spell/vampire/self/eternal_darkness,
 								/datum/vampire_passive/vision/xray)
 
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws = 150,
-							/obj/effect/proc_holder/spell/vampire/blood_tendrils = 250,
-							/obj/effect/proc_holder/spell/vampire/blood_barrier = 250,
-							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool = 400,
-							/obj/effect/proc_holder/spell/vampire/predator_senses = 600,
-							/obj/effect/proc_holder/spell/vampire/blood_eruption = 800)
+	standard_powers = list(/datum/spell/vampire/self/vamp_claws = 150,
+							/datum/spell/vampire/blood_tendrils = 250,
+							/datum/spell/vampire/blood_barrier = 250,
+							/datum/spell/ethereal_jaunt/blood_pool = 400,
+							/datum/spell/vampire/predator_senses = 600,
+							/datum/spell/vampire/blood_eruption = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/datum/vampire_passive/vision/full,
-								/obj/effect/proc_holder/spell/vampire/self/blood_spill)
+								/datum/spell/vampire/self/blood_spill)
 
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/blood_swell = 150,
-							/obj/effect/proc_holder/spell/vampire/self/blood_rush = 250,
-							/obj/effect/proc_holder/spell/vampire/self/stomp = 250,
+	standard_powers = list(/datum/spell/vampire/self/blood_swell = 150,
+							/datum/spell/vampire/self/blood_rush = 250,
+							/datum/spell/vampire/self/stomp = 250,
 							/datum/vampire_passive/blood_swell_upgrade = 400,
-							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600,
-							/obj/effect/proc_holder/spell/vampire/charge = 800,
-							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 800)
+							/datum/spell/vampire/self/overwhelming_force = 600,
+							/datum/spell/vampire/charge = 800,
+							/datum/spell/fireball/demonic_grasp = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/datum/vampire_passive/vision/full,
-								/obj/effect/proc_holder/spell/vampire/arena)
+								/datum/spell/vampire/arena)
 	improved_rejuv_healing = TRUE
 
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 150,
-							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,
-							/obj/effect/proc_holder/spell/vampire/pacify = 250,
-							/obj/effect/proc_holder/spell/vampire/switch_places = 250,
-							/obj/effect/proc_holder/spell/vampire/self/decoy = 400,
+	standard_powers = list(/datum/spell/vampire/enthrall = 150,
+							/datum/spell/vampire/thrall_commune = 150,
+							/datum/spell/vampire/pacify = 250,
+							/datum/spell/vampire/switch_places = 250,
+							/datum/spell/vampire/self/decoy = 400,
 							/datum/vampire_passive/increment_thrall_cap = 400,
-							/obj/effect/proc_holder/spell/vampire/rally_thralls = 600,
+							/datum/spell/vampire/rally_thralls = 600,
 							/datum/vampire_passive/increment_thrall_cap/two = 600,
-							/obj/effect/proc_holder/spell/vampire/self/share_damage = 800)
+							/datum/spell/vampire/self/share_damage = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/hysteria,
+								/datum/spell/vampire/hysteria,
 								/datum/vampire_passive/vision/full,
 								/datum/vampire_passive/increment_thrall_cap/three)
 
 
 /datum/vampire_subclass/ancient
 	name = "ancient"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
-							/obj/effect/proc_holder/spell/vampire/self/blood_swell,
-							/obj/effect/proc_holder/spell/vampire/self/cloak,
-							/obj/effect/proc_holder/spell/vampire/enthrall,
-							/obj/effect/proc_holder/spell/vampire/thrall_commune,
-							/obj/effect/proc_holder/spell/vampire/blood_tendrils,
-							/obj/effect/proc_holder/spell/vampire/blood_barrier,
-							/obj/effect/proc_holder/spell/vampire/self/blood_rush,
-							/obj/effect/proc_holder/spell/vampire/self/stomp,
-							/obj/effect/proc_holder/spell/vampire/charge,
-							/obj/effect/proc_holder/spell/vampire/shadow_snare,
-							/obj/effect/proc_holder/spell/vampire/soul_anchor,
-							/obj/effect/proc_holder/spell/vampire/pacify,
-							/obj/effect/proc_holder/spell/vampire/switch_places,
-							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool,
+	standard_powers = list(/datum/spell/vampire/self/vamp_claws,
+							/datum/spell/vampire/self/blood_swell,
+							/datum/spell/vampire/self/cloak,
+							/datum/spell/vampire/enthrall,
+							/datum/spell/vampire/thrall_commune,
+							/datum/spell/vampire/blood_tendrils,
+							/datum/spell/vampire/blood_barrier,
+							/datum/spell/vampire/self/blood_rush,
+							/datum/spell/vampire/self/stomp,
+							/datum/spell/vampire/charge,
+							/datum/spell/vampire/shadow_snare,
+							/datum/spell/vampire/soul_anchor,
+							/datum/spell/vampire/pacify,
+							/datum/spell/vampire/switch_places,
+							/datum/spell/ethereal_jaunt/blood_pool,
 							/datum/vampire_passive/blood_swell_upgrade,
-							/obj/effect/proc_holder/spell/vampire/dark_passage,
-							/obj/effect/proc_holder/spell/vampire/self/decoy,
-							/obj/effect/proc_holder/spell/vampire/blood_eruption,
-							/obj/effect/proc_holder/spell/vampire/predator_senses,
-							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force,
-							/obj/effect/proc_holder/spell/vampire/vamp_extinguish,
-							/obj/effect/proc_holder/spell/vampire/rally_thralls,
-							/obj/effect/proc_holder/spell/vampire/self/share_damage,
-							/obj/effect/proc_holder/spell/fireball/demonic_grasp,
-							/obj/effect/proc_holder/spell/vampire/shadow_boxing,
+							/datum/spell/vampire/dark_passage,
+							/datum/spell/vampire/self/decoy,
+							/datum/spell/vampire/blood_eruption,
+							/datum/spell/vampire/predator_senses,
+							/datum/spell/vampire/self/overwhelming_force,
+							/datum/spell/vampire/vamp_extinguish,
+							/datum/spell/vampire/rally_thralls,
+							/datum/spell/vampire/self/share_damage,
+							/datum/spell/fireball/demonic_grasp,
+							/datum/spell/vampire/shadow_boxing,
 							/datum/vampire_passive/full,
 							/datum/vampire_passive/vision/full,
-							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
-							/obj/effect/proc_holder/spell/vampire/arena,
-							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
-							/obj/effect/proc_holder/spell/vampire/hysteria,
-							/obj/effect/proc_holder/spell/vampire/raise_vampires,
+							/datum/spell/vampire/self/blood_spill,
+							/datum/spell/vampire/arena,
+							/datum/spell/vampire/self/eternal_darkness,
+							/datum/spell/vampire/hysteria,
+							/datum/spell/vampire/raise_vampires,
 							/datum/vampire_passive/vision/xray)
 	improved_rejuv_healing = TRUE
 	thrall_cap = 150 // can thrall high pop
