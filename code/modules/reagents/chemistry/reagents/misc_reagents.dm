@@ -608,15 +608,23 @@
 /datum/reagent/plantnutriment/eznutriment
 	name = "E-Z-Nutrient"
 	id = "eznutriment"
-	description = "Cheap and extremely common type of plant nutriment."
+	description = "Cheap and boring nutrition for plants."
+	color = "#504700" // RBG: 80, 70, 0
+	tox_prob = 5
+	taste_description = "obscurity and toil"
+
+/datum/reagent/plantnutriment/mut
+	name = "Mutriment"
+	id = "mutriment"
+	description = "Plant nutriment designed to trigger mild genetic drift."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
-	taste_description = "obscurity and toil"
+	taste_description = "change"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
 	id = "left4zednutriment"
-	description = "Unstable nutriment that makes plants mutate more often than usual."
+	description = "Unstable nutriment that makes plants mutate strongly at the cost of minimal yield."
 	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
 	taste_description = "evolution"
@@ -624,7 +632,7 @@
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
 	id = "robustharvestnutriment"
-	description = "Very potent nutriment that prevents plants from mutating."
+	description = "Very potent nutriment that increases yield."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
 	taste_description = "bountifulness"

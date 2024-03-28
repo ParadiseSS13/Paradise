@@ -12,7 +12,7 @@
 	var/pestlevel = 0		//The amount of pests in the tray (max 10)
 	var/weedlevel = 0		//The amount of weeds in the tray (max 10)
 	var/yieldmod = 1		//Nutriment's effect on yield
-	var/mutmod = 1			//Nutriment's effect on mutations
+	var/mutmod = 0			//Nutriment's effect on mutations
 	var/toxic = 0			//Toxicity in the tray?
 	var/age = 0				//Current age
 	var/dead = FALSE		//Is it dead?
@@ -141,6 +141,11 @@
 		myseed.forceMove(src)
 
 	if(self_sustaining)
+		// Always use EZ for self-sustaining trays.
+		// Want mutations or increased yield? Take care of your trays.
+		yieldmod = 1
+		mutmod = 0
+
 		adjustNutri(1)
 		adjustWater(rand(3,5))
 		adjustWeeds(-2)
@@ -497,11 +502,7 @@
 				to_chat(user, "<span class='warning'>The plant shrivels and burns.</span>")
 			if(81 to 90)
 				mutatespecie()
-			if(66 to 80)
-				hardmutate()
-			if(41 to 65)
-				mutate()
-			if(21 to 41)
+			if(21 to 80)
 				to_chat(user, "<span class='notice'>The plants don't seem to react...</span>")
 			if(11 to 20)
 				mutateweed()
@@ -509,12 +510,6 @@
 				mutatepest(user)
 			else
 				to_chat(user, "<span class='notice'>Nothing happens...</span>")
-
-	// 2 or 1 units is enough to change the yield and other stats.// Can change the yield and other stats, but requires more than mutagen
-	else if(reagents.has_reagent("mutagen", 2) || reagents.has_reagent("radium", 5) || reagents.has_reagent("uranium", 5))
-		hardmutate()
-	else if(reagents.has_reagent("mutagen", 1) || reagents.has_reagent("radium", 2) || reagents.has_reagent("uranium", 2))
-		mutate()
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(reagents.has_reagent("uranium", 1))
@@ -527,8 +522,13 @@
 	// Nutriments
 	if(reagents.has_reagent("eznutriment", 1))
 		yieldmod = 1
-		mutmod = 1
+		mutmod = 0
 		adjustNutri(round(reagents.get_reagent_amount("eznutriment") * 1))
+
+	if(reagents.has_reagent("mutriment", 1))
+		yieldmod = 1
+		mutmod = 1
+		adjustNutri(round(reagents.get_reagent_amount("mutriment") * 1))
 
 	if(reagents.has_reagent("left4zednutriment", 1))
 		yieldmod = 0
@@ -658,20 +658,17 @@
 		adjustHealth(round(reagents.get_reagent_amount("cryoxadone") * 3))
 		adjustToxic(-round(reagents.get_reagent_amount("cryoxadone") * 3))
 
-	// Ammonia is bad ass.
+	// Ammonia heals and feeds plants
 	if(reagents.has_reagent("ammonia", 1))
 		adjustHealth(round(reagents.get_reagent_amount("ammonia") * 0.5))
 		adjustNutri(round(reagents.get_reagent_amount("ammonia") * 1))
-		if(myseed)
-			myseed.adjust_yield(round(reagents.get_reagent_amount("ammonia") * 0.01))
 
-	// Saltpetre is used for gardening IRL, to simplify highly, it speeds up growth and strengthens plants
+	// Saltpetre is used for gardening IRL, but for us, it's just another
+	// way to heal plants
 	if(reagents.has_reagent("saltpetre", 1))
 		var/salt = reagents.get_reagent_amount("saltpetre")
 		adjustHealth(round(salt * 0.25))
-		if(myseed)
-			myseed.adjust_production(-round(salt/100)-prob(salt%100))
-			myseed.adjust_potency(round(salt*0.50))
+
 	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
 	if(reagents.has_reagent("ash", 1))
 		adjustHealth(round(reagents.get_reagent_amount("ash") * 0.25))
@@ -682,8 +679,6 @@
 	if(reagents.has_reagent("diethylamine", 1))
 		adjustHealth(round(reagents.get_reagent_amount("diethylamine") * 1))
 		adjustNutri(round(reagents.get_reagent_amount("diethylamine") * 2))
-		if(myseed)
-			myseed.adjust_yield(round(reagents.get_reagent_amount("diethylamine") * 0.02))
 		adjustPests(-rand(1,2))
 
 	// Compost, effectively

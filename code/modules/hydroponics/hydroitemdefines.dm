@@ -288,10 +288,16 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
-	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	desc = "Contains a basic fertilizer with no special traits."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/mut
+	name = "jug of Mutrient"
+	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	icon_state = "plastic_jug_mut"
+	list_reagents = list("mutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
