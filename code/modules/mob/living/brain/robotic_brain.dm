@@ -110,7 +110,7 @@
 	if(!validity_checks(user))
 		to_chat(user, "<span class='warning'>You cannot be \a [src].</span>")
 		return
-	if(tgui_alert(user, "Are you sure you want to join as a robotic brain?", "Join as robobrain", list("Yes", "No")) == "No")
+	if(tgui_alert(user, "Are you sure you want to join as a robotic brain?", "Join as robobrain", list("Yes", "No")) != "Yes")
 		return
 	if(!searching)
 		return
