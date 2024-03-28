@@ -75,18 +75,24 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock()
+/obj/docking_port/mobile/supply/dock(port)
 	. = ..()
 	if(.)
 		return
 
-	buy()
-	sell()
+	if(istype(port, /obj/docking_port/stationary/transit))
+		// Ignore transit ports.
+		return
+
+	if(is_station_level(z))
+		// Buy when arriving at the station.
+		buy()
+
+	if(z == level_name_to_num(CENTCOMM))
+		// Sell when arriving at CentComm.
+		sell()
 
 /obj/docking_port/mobile/supply/proc/buy()
-	if(!is_station_level(z))		//we only buy when we are -at- the station
-		return 1
-
 	for(var/datum/supply_order/order as anything in SSeconomy.shopping_list)
 		if(length(SSeconomy.delivery_list) >= MAX_CRATE_DELIVERY)
 			break
@@ -202,9 +208,6 @@
 
 
 /obj/docking_port/mobile/supply/proc/sell()
-	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
-		return 1
-
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SELL)
 	SSeconomy.sold_atoms = list()
 	for(var/atom/movable/AM in manifest.items_to_sell)
