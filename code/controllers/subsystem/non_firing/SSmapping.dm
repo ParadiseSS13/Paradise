@@ -76,6 +76,7 @@ SUBSYSTEM_DEF(mapping)
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		if(lavaland_theme)
 			lavaland_theme.setup()
+			lavaland_theme.setup_caves()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
