@@ -1316,7 +1316,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforcedclose.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlockforcedclose.ogg', 30, TRUE)
 	else
 		playsound(loc, doorClose, 30, 1)
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
