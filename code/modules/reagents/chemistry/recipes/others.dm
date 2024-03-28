@@ -492,3 +492,27 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Devolve()
+
+/datum/chemical_reaction/babel
+	name = "Extract of babel"
+	id = "babel"
+	required_reagents = list("tonguedog" = 1, "weird_cheese" = 1, "vinegar" = 1) // Vinegar is a staple of fish and chips or smt, and I find the bri'ish incomprehensible
+	result = "babel_ex"
+
+/datum/chemical_reaction/philo_stone
+	name = "Philosopher's Stone"
+	id = "philostone"
+	required_reagents = list("babel_ex" = 1, "tinlux" = 1, "mugwort" = 5,
+							"triplepiss" = 1, "toefrog" = 1, "liquid_glass" = 1
+								)
+	result = null
+
+/datum/chemical_reaction/philo_stone/on_reaction(datum/reagents/holder, created_volume)
+	var/turf/reaction_turf = get_turf(holder.my_atom)
+	new /obj/item/philo_stone(reaction_turf)
+
+/datum/chemical_reaction/liquid_glass
+	name = "liquid glass"
+	id = "liquid_glass"
+	required_reagents = list("glass" = 1, "eyenewt" = 1)
+	result = "liquid_glass"

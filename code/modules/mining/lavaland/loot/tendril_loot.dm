@@ -422,3 +422,29 @@
 		return QDEL_HINT_LETMELIVE
 	else
 		. = ..()
+
+/obj/item/philo_stone
+	name = "Philosopher's Stone"
+	desc = "The fabled stone, said to be impossible to create ... until now!"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "telecrystal"
+	item_state = "telecrystal"
+
+/obj/item/philo_stone/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	if(!istype(M))
+		return
+	if(M.color == "#e6d67b") // Don't stun them again if they're already gold
+		return
+
+	M.color = "#e6d67b"
+	M.Stun(10 SECONDS)
+
+/obj/item/philo_stone/attack_obj(obj/O, mob/living/user, params)
+	. = ..()
+	O.color = "#FFD700"
+
+	if(isitem(O))
+		var/obj/item/item = O
+		if(MAT_METAL in item.materials)
+			item.materials = list(MAT_GOLD = 2000)

@@ -768,4 +768,19 @@
 			continue
 		languages |= new_language
 
+/datum/language/gibberish
+	name = "Gibberish"
+	desc = "Apererbacks ocolog brewtine mendward downhipprocks kerz gewshaw sementa pendussiting."
+	speech_verb = "enunciates"
+	colour = "say_quote"
+	key = "2"
+	space_chance = 100
+	syllables = list("Hu", "woatud", "fer", "thu", "step", "sagn", "te", "tirn",
+					"te", "o", "ge", "sagn.", "Hu", "umbrocud", "has", "nuw",
+					"lafu", "os", "on", "uggplont.", "Twan", "menth-elds",
+					"slupt", "an", "thu", "shodu", "ef", "thu", "polm", "truu",
+					"whalu", "thu", "methur", "tonnud", "an", "thu", "sin.",
+					"A'vu", "olwoys", "wontud", "te", "ge", "te", "Tojakaston",
+					"bit", "my", "cot", "weild", "mass", "mu")
+
 #undef SCRAMBLE_CACHE_LEN
