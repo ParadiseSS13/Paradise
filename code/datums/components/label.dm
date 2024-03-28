@@ -97,7 +97,7 @@
 
 /// Adds detailed information to the examine text.
 /datum/component/label/goal/Examine(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>It has a label on it, marking it as part of a secondary goal item for [label_name]. Use a hand labeler to remove it.</span>"
+	examine_list += "<span class='notice'>It has a label on it, marking it as part of a secondary goal for [label_name]. Use a hand labeler to remove it.</span>"
 
 /// Applies a static label to the parent's name.
 /// We do this instead of using label_name so it's easier to identify goal objects at a glance.
