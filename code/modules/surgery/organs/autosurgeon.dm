@@ -141,6 +141,9 @@
 /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 
+/obj/item/autosurgeon/organ/syndicate/scope_eyes
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/scope/hardened
+
 /obj/item/autosurgeon/organ/syndicate/anti_stam
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 

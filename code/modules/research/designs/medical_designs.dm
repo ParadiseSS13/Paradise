@@ -502,6 +502,17 @@
 	build_path = /obj/item/organ/internal/eyes/cybernetic/thermals
 	category = list("Medical")
 
+/datum/design/cyberimp_scope
+	name = "Kaleido Optics Implant"
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active."
+	id = "ci-scope"
+	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 7, "magnets" = 5,"plasmatech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/eyes/cybernetic/scope
+	category = list("Medical")
+
 /datum/design/cyberimp_antidrop
 	name = "Anti-Drop Implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
