@@ -276,6 +276,44 @@
 		T.color = null
 		T.maptext = ""
 
+/**
+ * Creates an explosion of shrapnel at a turf.
+ * - /turf/epicenter - where the explosion occurs
+ * - shrapnel_number - the amount of shrapnel to create
+ * - /obj/item/projectile/shrapnel_type - the type of shrapnel bullets to shoot
+ * - chance_to_hit_same_turf - the probability to hit someone on the same turf, doubled for someone lying down
+ */
+/proc/create_shrapnel(turf/epicenter, shrapnel_number = 10, obj/item/projectile/shrapnel_type = /obj/item/projectile/bullet/shrapnel, chance_to_hit_same_turf = 50)
+	epicenter = get_turf(epicenter)
+	if(!epicenter || !shrapnel_number || !shrapnel_type)
+		return
+	shrapnel_number = min(shrapnel_number, 200) // calm down badmins, no crashing the server
+
+	var/angle_increment = 360 / shrapnel_number
+	var/mob/living/mob_standing_on_turf
+	var/mob/living/mob_lying_on_turf
+
+	for(var/mob/living/M in epicenter) //find a mob at the epicenter. Non-prone mobs take priority
+		if(!IS_HORIZONTAL(M) && !mob_standing_on_turf)
+			mob_standing_on_turf = M
+		else if(!mob_lying_on_turf)
+			mob_lying_on_turf = M
+
+	for(var/i in 1 to shrapnel_number)
+		var/obj/item/projectile/Shrapnel = new shrapnel_type(epicenter)
+
+		// You can't just stand over a shrapnel explosion to avoid it
+		if(mob_standing_on_turf && prob(chance_to_hit_same_turf))
+			Shrapnel.Bump(mob_standing_on_turf, TRUE)
+			continue
+		// If you dive on it, you're even more likely to get hit
+		if(mob_lying_on_turf && prob(2 * chance_to_hit_same_turf))
+			Shrapnel.Bump(mob_lying_on_turf, TRUE)
+			continue
+
+		var/angle = i * angle_increment + rand(-angle_increment / 2, angle_increment / 2)
+		Shrapnel.fire(angle)
+
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB
 #undef HEAVY_IMPACT_PROB
