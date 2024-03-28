@@ -29,7 +29,7 @@
 
 /obj/item/projectile/bullet/shrapnel/on_hit(atom/target, blocked)
 	. = ..()
-	var/obj/item/epic_embed_fail = new embedded_type(get_turf(src)) // drop it on the floor if we hit somethig non-living
+	var/obj/item/new_possible_embed = new embedded_type(get_turf(src)) // drop it on the floor if we hit somethig non-living
 	if(!.)
 		return
 	if(!ishuman(target))
@@ -39,7 +39,7 @@
 	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(H.getarmor(null, BOMB))))
 		to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
 		return
-	H.try_embed_object(epic_embed_fail)
+	H.try_embed_object(new_possible_embed)
 
 /obj/item/projectile/bullet/shrapnel/on_range()
 	var/obj/item/we_missed = new embedded_type(get_turf(src)) // we missed, lets toss the shrapnel
