@@ -47,7 +47,7 @@
 	modules = goal.modules
 
 /datum/secondary_goal_progress/random_ripley/Copy()
-	var/datum/secondary_goal_progress/random_ripley/copy = new
+	var/datum/secondary_goal_progress/random_ripley/copy = ..()
 	copy.modules = modules
 	copy.sent = sent
 	// These ones aren't really needed in the intended use case, they're
@@ -66,6 +66,7 @@
 		return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 	if(sent)
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "extra mech"))
+		SSblackbox.record_feedback("nested tally", "secondary goals", SSeconomy.credits_per_mech, list(goal_name, "extra mech credits"))
 		var/datum/economy/line_item/extra_item = new
 		extra_item.account = SSeconomy.cargo_account
 		extra_item.credits = SSeconomy.credits_per_mech
@@ -85,6 +86,7 @@
 	if(length(remaining_needs))
 		if(manifest)
 			SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "incorrect mech"))
+			SSblackbox.record_feedback("nested tally", "secondary goals", SSeconomy.credits_per_mech, list(goal_name, "incorrect mech credits"))
 			var/datum/economy/line_item/wrong_item = new
 			wrong_item.account = SSeconomy.cargo_account
 			wrong_item.credits = SSeconomy.credits_per_mech

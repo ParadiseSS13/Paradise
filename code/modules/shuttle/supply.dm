@@ -714,7 +714,7 @@
 	if(istype(AM, /obj/item/storage))
 		return COMSIG_CARGO_SELL_NORMAL
 
-/datum/economy/simple_seller/mechs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+/datum/economy/simple_seller/containers/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
 	if(!..())
 		return
 	SSblackbox.record_feedback("amount", "cargo containers sold", 1)

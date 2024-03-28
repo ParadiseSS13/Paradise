@@ -62,7 +62,12 @@
 	goal_name = goal.name
 
 /datum/secondary_goal_progress/proc/Copy()
-	return new type
+	SHOULD_CALL_PARENT(TRUE)
+	var/datum/secondary_goal_progress/copy = new type
+	copy.personal_account = personal_account
+	copy.goal_requester = goal_requester
+	copy.goal_name = goal_name
+	return copy
 
 // Override for custom shipment start behavior
 // (e.g. ampount-per-shipment tracking)

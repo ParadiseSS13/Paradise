@@ -49,14 +49,13 @@
 	reward = goal.reward
 
 /datum/secondary_goal_progress/random_bulk_food/Copy()
-	var/datum/secondary_goal_progress/random_bulk_food/copy = new
+	var/datum/secondary_goal_progress/random_bulk_food/copy = ..()
 	copy.food_type = food_type
 	copy.needed = needed
 	copy.sent = sent
 	// These ones aren't really needed in the intended use case, they're
 	// just here in case someone uses this method somewhere else.
 	copy.reward = reward
-	copy.personal_account = personal_account
 	return copy
 
 /datum/secondary_goal_progress/random_bulk_food/start_shipment()

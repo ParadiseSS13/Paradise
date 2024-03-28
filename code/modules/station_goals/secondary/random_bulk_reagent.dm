@@ -51,7 +51,7 @@
 	reward = goal.reward
 
 /datum/secondary_goal_progress/random_bulk_reagent/Copy()
-	var/datum/secondary_goal_progress/random_bulk_reagent/copy = new
+	var/datum/secondary_goal_progress/random_bulk_reagent/copy = ..()
 	copy.reagent_type = reagent_type
 	copy.needed = needed
 	copy.sent = sent
@@ -59,7 +59,6 @@
 	// just here in case someone uses this method somewhere else.
 	copy.department = department
 	copy.department_account = department_account
-	copy.personal_account = personal_account
 	copy.reward = reward
 	return copy
 

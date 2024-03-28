@@ -31,7 +31,7 @@
 	generic_name_plural = goal.generic_name_plural
 
 /datum/secondary_goal_progress/variety_reagent/Copy()
-	var/datum/secondary_goal_progress/variety_reagent/copy = new
+	var/datum/secondary_goal_progress/variety_reagent/copy = ..()
 	copy.reagents_sent = reagents_sent.Copy()
 	copy.department = department
 	copy.needed = needed
@@ -39,7 +39,6 @@
 	// These ones aren't really needed in the intended use case, they're
 	// just here in case someone uses this method somewhere else.
 	copy.department_account = department_account
-	copy.personal_account = personal_account
 	copy.reward = reward
 	copy.generic_name_plural = generic_name_plural
 	return copy

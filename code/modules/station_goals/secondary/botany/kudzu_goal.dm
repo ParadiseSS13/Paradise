@@ -30,7 +30,7 @@
 	needed = goal.amount
 
 /datum/secondary_goal_progress/random_kudzu/Copy()
-	var/datum/secondary_goal_progress/random_kudzu/copy = new
+	var/datum/secondary_goal_progress/random_kudzu/copy = ..()
 	copy.traits = traits
 	copy.needed = needed
 	copy.sent = sent
