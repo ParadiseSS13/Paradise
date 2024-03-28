@@ -43,8 +43,6 @@
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
 			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
-			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
@@ -71,8 +69,6 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
-			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
@@ -171,10 +167,13 @@
 		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
-		if(gender==FEMALE)
-			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else
-			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		switch(gender)
+			if(FEMALE)
+				return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
+			if(MALE)
+				return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+			else
+				return capitalize(pick(GLOB.first_names_male + GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 	else
 		return current_species.get_random_name(gender)
 

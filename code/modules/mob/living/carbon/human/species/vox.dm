@@ -30,7 +30,6 @@
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
 	default_hair = "Short Vox Quills"
-	has_gender = FALSE
 	default_hair_colour = "#614f19" //R: 97, G: 79, B: 25
 	butt_sprite = "vox"
 
