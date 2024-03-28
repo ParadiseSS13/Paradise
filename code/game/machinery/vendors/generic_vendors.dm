@@ -1197,7 +1197,8 @@
 					/obj/item/lighter/random = 4,
 					/obj/item/lighter/zippo = 2)
 
-	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
+	contraband = list(/obj/item/storage/cigcase = 2,
+					/obj/item/storage/fancy/rollingpapers = 5)
 
 	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
@@ -1210,7 +1211,8 @@
 				/obj/item/lighter/random = 40,
 				/obj/item/lighter/zippo = 80,
 				/obj/item/storage/fancy/rollingpapers = 30,
-				/obj/item/clothing/mask/cigarette/cigar/havana = 80)
+				/obj/item/clothing/mask/cigarette/cigar/havana = 80,
+				/obj/item/storage/cigcase = 100)
 
 	refill_canister = /obj/item/vending_refill/cigarette
 
@@ -1226,7 +1228,8 @@
 				/obj/item/storage/fancy/matches = 10,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list(/obj/item/lighter/zippo = 4)
+	contraband = list(/obj/item/lighter/zippo = 4,
+					/obj/item/storage/cigcase = 4)
 
 /obj/machinery/economy/vending/cigarette/syndicate/free
 	prices = list()
@@ -1253,6 +1256,7 @@
 				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 4,
+				/obj/item/storage/cigcase = 4,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
 	contraband = list()
