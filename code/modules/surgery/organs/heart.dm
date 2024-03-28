@@ -292,7 +292,7 @@
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/shock_heart(mob/living/carbon/human/source, intensity)
-	SIGNAL_HANDLER_DOES_SLEEP
+	SIGNAL_HANDLER  // COMSIG_LIVING_MINOR_SHOCK + COMSIG_LIVING_ELECTROCUTE_ACT
 
 	if(!ishuman(owner))
 		return
@@ -305,10 +305,11 @@
 	if(emagged && !(status & ORGAN_DEAD))
 		if(prob(numHigh))
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
-			owner.adjustBruteLoss(numHigh)
+			// invoke asyncs here because this sleeps
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustBruteLoss), numHigh)
 		if(prob(numHigh))
 			to_chat(owner, "<span class='warning'>Your [name] shocks you painfully!</span>")
-			owner.adjustFireLoss(numHigh)
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustFireLoss), numHigh)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
@@ -318,14 +319,14 @@
 			heart_datum.change_beating(FALSE) // Rambunctious Crew - Stop My Fucking Heart
 		if(prob(numLow))
 			to_chat(owner, "<span class='danger'>Your [name] shuts down!</span>")
-			necrotize()
+			INVOKE_ASYNC(src, PROC_REF(necrotize))
 	else if(!emagged && !(status & ORGAN_DEAD))
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
-			owner.adjustBruteLoss(numMid)
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustBruteLoss), numMid)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] shocks you painfully!</span>")
-			owner.adjustFireLoss(numMid)
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustFireLoss), numMid)
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
