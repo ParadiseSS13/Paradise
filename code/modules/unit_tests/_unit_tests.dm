@@ -2,6 +2,7 @@
 //Keep this sorted alphabetically
 
 #ifdef UNIT_TESTS
+#include "games\test_cards.dm"
 #include "jobs\test_job_globals.dm"
 #include "aicard_icons.dm"
 #include "announcements.dm"
