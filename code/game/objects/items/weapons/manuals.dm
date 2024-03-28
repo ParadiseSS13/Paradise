@@ -865,7 +865,6 @@
 			L.apply_status_effect(STATUS_BOOKWYRM)
 	if(!ishuman(user))
 		return
-	// TODO: idk add a timer here I guess
 	if(HAS_TRAIT(user, "can_tie_together_laces"))
 		to_chat(user, "You already know how to tie people's shoelaces together! Click on someone while in grab intent and targeting their feet to do so.")
 		return
@@ -874,7 +873,6 @@
 
 /obj/item/book/shoelace_dynamics
 	name = "Advanced Shoelace Dynamics"
-	// TODO: custom desc
 	desc = "A textbook on the oft-forgotten branch of physics known as 'Shoelace Dynamics'. Reading this will teach you how to tie together people's shoelaces together efficiently and subtly."
 	icon_state = "bookshoelacedynamics"
 	author = "Greytider Supreme"
@@ -897,7 +895,6 @@
 			L.apply_status_effect(STATUS_BOOKWYRM)
 	if(!ishuman(user))
 		return
-	// TODO: idk add a timer here I guess
 	if(HAS_TRAIT(user, "lace_tying_expert"))
 		to_chat(user, "You already know how to tie people's shoelaces together! Click on someone while in grab intent and targeting their feet to do so.")
 		return
