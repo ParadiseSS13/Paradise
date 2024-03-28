@@ -166,23 +166,42 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-
-	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span>")
-	to_chat(C, recieve_message)
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? " (<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
-	to_chat(src, "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>: [emoji_msg]</span> [ping_link] [window_link][alert_link]", message_type)
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	if(ticket_id != -1)
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			window_link = "(<a href='?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
+		else
+			window_link = "(<a href='?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
-	/*if(holder && !C.holder)
-		C.last_pm_recieved = world.time
-		C.ckey_last_pm = ckey*/
+	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [window_link] [alert_link]" : ""]</span>"
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		recieve_message = chat_box_mhelp(recieve_message)
+	else
+		recieve_message = chat_box_ahelp(recieve_message)
+	to_chat(C, recieve_message)
+	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [window_link] [alert_link]"
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		send_message = chat_box_mhelp(send_message)
+	else
+		send_message = chat_box_ahelp(send_message)
+	to_chat(src, send_message)
+
+	var/third_party_message
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
+	else
+		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
 	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
-		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
+		else
+			SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
@@ -193,10 +212,10 @@
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
 				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]: [emoji_msg]</span>", type = message_type)
+					to_chat(X, third_party_message)
 			else
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-					to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]: [emoji_msg]</span>", type = message_type)
+					to_chat(X, third_party_message)
 
 	//Check if the mob being PM'd has any open tickets.
 	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)

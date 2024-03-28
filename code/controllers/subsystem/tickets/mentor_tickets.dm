@@ -27,7 +27,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)
-	message_mentorTicket(msg, important)
+	message_mentorTicket(chat_box_mhelp(msg), important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
 	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.title)

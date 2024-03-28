@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(tickets)
  * msg - The raw message
  * ticketNum - Which ticket number the ticket has
  */
-/datum/controller/subsystem/tickets/proc/makeUrlMessage(target, msg, ticketNum)
+/datum/controller/subsystem/tickets/proc/makeUrlMessage(target, msg, ticketNum, one_line = FALSE)
 	var/mob/M
 	var/key_and_name
 	if(istype(target, /datum/ticket))
@@ -136,13 +136,13 @@ SUBSYSTEM_DEF(tickets)
 		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
-	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name] "
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name][one_line ? " " : "<br>"]"
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
 	L += "(<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
 	L += "[isAI(M) ? "(<a href='?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
-	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[msg]</span>"
+	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
 	return L.Join()
 
 //Open a new ticket and populate details then add to the list of open tickets
@@ -484,7 +484,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket)]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</td></tr>"
 			else
 				continue
 	else  if(tab == TICKET_RESOLVED)
@@ -492,7 +492,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_RESOLVED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket)]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</td></tr>"
 			else
 				continue
 	else if(tab == TICKET_CLOSED)
@@ -500,7 +500,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_CLOSED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket)]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</td></tr>"
 			else
 				continue
 
@@ -533,7 +533,7 @@ UI STUFF
 	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.ingame_time_opened] at location [T.locationSent]</h3>"
 	dat += "<h4>Ticket Status: [status]"
 	dat += "<table style='width:950px; border: 3px solid;'>"
-	dat += "<tr><td>[makeUrlMessage(T)]</td></tr>"
+	dat += "<tr><td>[makeUrlMessage(T, one_line = TRUE)]</td></tr>"
 
 	if(length(T.ticket_responses) > 1)
 		for(var/i in 2 to length(T.ticket_responses))
@@ -604,7 +604,7 @@ UI STUFF
 			msg = "<span class='admin_channel'>ADMIN TICKET: [msg]</span>"
 		if(TICKET_STAFF_MESSAGE_PREFIX)
 			msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
-	message_adminTicket(msg, important)
+	message_adminTicket(chat_box_ahelp(msg), important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
 

@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
+					SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
 				window_flash(C)
 
 /proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
