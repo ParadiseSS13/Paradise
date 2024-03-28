@@ -174,6 +174,7 @@
 	receiver.put_in_hands(I)
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
+	I.pickup(receiver)
 	receiver.visible_message("<span class='notice'>[giver] handed [I] to [receiver].</span>")
 	receiver.clear_alert("take item [item_UID]")
 
