@@ -395,7 +395,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "The PDA softly beeps.")
 		close(user)
 		return TRUE
-
 	ttone = new_tone
 	return TRUE
 

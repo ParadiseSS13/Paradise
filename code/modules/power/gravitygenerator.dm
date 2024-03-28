@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	density = TRUE
 	power_state = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags_2 = NO_MALF_EFFECT_2
 
 /obj/machinery/gravity_generator/ex_act(severity)
 	if(severity == 1) // Very sturdy.
@@ -77,7 +78,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	active_power_consumption = 3000
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	power_state = IDLE_POWER_USE
-	interact_offline = TRUE
 	/// Is the generator producing gravity
 	var/on = TRUE
 	/// Is the breaker switch turned on

@@ -15,7 +15,12 @@
 
 /obj/machinery/computer/pandemic/Initialize(mapload)
 	. = ..()
+	GLOB.pandemics |= src
 	update_icon()
+
+/obj/machinery/computer/pandemic/Destroy()
+	GLOB.pandemics -= src
+	return ..()
 
 /obj/machinery/computer/pandemic/set_broken()
 	stat |= BROKEN
@@ -215,6 +220,26 @@
 		P.updateinfolinks()
 		P.name = "Releasing Virus - [D.name]"
 		printing = null
+
+/obj/machinery/computer/pandemic/proc/print_goal_orders()
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	var/obj/item/paper/P = new /obj/item/paper(loc)
+	P.name = "paper - 'Viral Samples Request'"
+
+	var/list/info_text = list("<div style='text-align:center;'><img src='ntlogo.png'>")
+	info_text += "<h3>Viral Sample Orders</h3></div><hr>"
+	info_text += "<b>Viral Sample Orders for [station_name()]'s Virologist:</b><br><br>"
+
+	for(var/datum/virology_goal/G in GLOB.virology_goals)
+		info_text += G.get_report()
+		info_text += "<hr>"
+	info_text += "-Nanotrasen Virology Research"
+
+	P.info = info_text.Join("")
+	P.update_icon()
 
 /obj/machinery/computer/pandemic/attack_hand(mob/user)
 	if(..())

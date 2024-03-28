@@ -44,6 +44,9 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
+	// When (re)built, try to connect to the powernet under us.
+	connect_to_network()
+
 	dir_loop:
 		for(var/d in GLOB.cardinal)
 			var/turf/T = get_step(src, d)
@@ -275,7 +278,7 @@
 		inputting = FALSE
 
 	//outputting
-	if(output_attempt)
+	if(output_attempt && powernet)
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
 			if(produce_direct_power(output_used))				// add output to powernet if it exists (smes side)
@@ -361,6 +364,7 @@
 		"inputLevel_text" = DisplayPower(input_level),
 		"inputLevelMax" = input_level_max,
 		"inputAvailable" = input_available,
+		"outputPowernet" = !isnull(powernet),
 		"outputAttempt" = output_attempt,
 		"outputting" = outputting,
 		"outputLevel" = output_level,
@@ -482,3 +486,6 @@
 	..()
 
 #undef SMESRATE
+
+#undef SMESMAXCHARGELEVEL
+#undef SMESMAXOUTPUT

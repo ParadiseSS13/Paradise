@@ -1,5 +1,6 @@
 /obj/machinery/chem_heater
 	name = "chemical heater"
+	desc = "A simple machine that uses a heat exchanger to adjust the temperature of a mixture. Despite the name, it's also capable of cooling. This feature is unpopular with hipsters, as they preferred the chemicals before they were cool."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'

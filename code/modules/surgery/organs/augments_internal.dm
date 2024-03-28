@@ -363,11 +363,16 @@
 	return our_MA
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
-	if(COOLDOWN_FINISHED(src, sensory_enhancer_cooldown)) //Not on cooldown? Drug them up. Heavily. We don't want people self emping to bypass cooldown.
-		if(prob(100 / severity) && owner)
-			for(var/datum/action/item_action/organ_action/toggle/sensory_enhancer/SE in owner.actions)
-				SE.Trigger(FALSE, TRUE, TRUE)
 	. = ..()
+	if(!.)
+		return
+	if(!COOLDOWN_FINISHED(src, sensory_enhancer_cooldown)) //Not on cooldown? Drug them up. Heavily. We don't want people self emping to bypass cooldown.
+		return
+	if(!prob(100 / severity) || !owner)
+		return
+
+	for(var/datum/action/item_action/organ_action/toggle/sensory_enhancer/SE in owner.actions)
+		SE.Trigger(FALSE, TRUE, TRUE)
 
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
@@ -412,7 +417,7 @@
 	playsound(human_owner, 'sound/goonstation/items/hypo.ogg', 80, TRUE)
 
 	var/obj/item/telegraph_vial = new /obj/item/qani_laaca_telegraph(get_turf(owner))
-	var/turf/turf_we_throw_at = get_edge_target_turf(owner, REVERSE_DIR(owner.dir))
+	var/turf/turf_we_throw_at = get_edge_target_turf(owner, reverse_direction(owner.dir))
 	telegraph_vial.throw_at(turf_we_throw_at, 5, 1)
 
 	// Safety net in case the injection amount doesn't get reset. Apparently it happened to someone in a round.

@@ -503,3 +503,6 @@
 		if(T)
 			T.Click(location, control, params)
 	. = 1
+
+#undef MAX_SAFE_BYOND_ICON_SCALE_TILES
+#undef MAX_SAFE_BYOND_ICON_SCALE_PX

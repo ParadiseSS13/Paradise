@@ -5,10 +5,11 @@
 	input_focus = null
 	if(s_active)
 		s_active.close(src)
-	QDEL_NULL(hud_used)
+	if(!QDELETED(hud_used))
+		QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
-		spellremove(src)
-	mobspellremove(src)
+		spellremove()
+	mobspellremove()
 	QDEL_LIST_CONTENTS(viruses)
 	QDEL_LIST_CONTENTS(actions)
 	for(var/alert in alerts)
@@ -271,7 +272,7 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot, initial = FALSE)
-	if(W.mob_can_equip(src, slot, 1))
+	if(W.mob_can_equip(src, slot, TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot, initial)
 	else
@@ -279,12 +280,12 @@
 		if(isstorage(back))
 			var/obj/item/storage/S = back
 			//Now, S represents a container we can insert W into.
-			S.handle_item_insertion(W, TRUE, TRUE)
+			S.handle_item_insertion(W, src, TRUE, TRUE)
 			return S
 		if(ismodcontrol(back))
 			var/obj/item/mod/control/C = back
 			if(C.bag)
-				C.bag.handle_item_insertion(W, TRUE, TRUE)
+				C.bag.handle_item_insertion(W, src, TRUE, TRUE)
 			return C.bag
 
 		var/turf/T = get_turf(src)
@@ -783,9 +784,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-/mob/proc/is_dead()
-	return stat == DEAD
-
 // Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
 /*
 /mob/verb/abandon_mob()
@@ -930,7 +928,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
-		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), "window=[name];size=500x200")
+		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
@@ -1122,7 +1120,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/obj/vent_found = pick(found_vents)
 	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
-	to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+	to_chat(host, "<span class='info'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
 	host.forceMove(vent_found)
 	host.add_ventcrawl(vent_found)
 	return TRUE
@@ -1390,6 +1388,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if(L)
 			L.alpha = lighting_alpha
+		var/atom/movable/screen/plane_master/smoke/S = hud_used.plane_masters["[SMOKE_PLANE]"]
+		if(S)
+			S.alpha = 255
+			if(sight & SEE_MOBS)
+				S.alpha = 200
+			if((sight & SEE_TURFS|SEE_MOBS|SEE_OBJS) == (SEE_TURFS|SEE_MOBS|SEE_OBJS))
+				S.alpha = 128
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
@@ -1479,12 +1484,11 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return FALSE
 
 	//Allows cult to bypass holy areas once they summon
-	var/datum/game_mode/gamemode = SSticker.mode
-	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+	if(mind.has_antag_datum(/datum/antagonist/cultist) && SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
 		return FALSE
 
 	//Execption for Holy Constructs
-	if(isconstruct(src) && !iscultist(src))
+	if(isconstruct(src) && !mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")

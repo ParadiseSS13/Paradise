@@ -203,6 +203,7 @@
 	travelDir = 0
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
+
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	///State of the emergency shuttles hijack status.
 	var/hijack_status = NOT_BEGUN
@@ -228,17 +229,17 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(SSshuttle.emergencyCallTime/divisor, 1)
+		return round((SSshuttle.emergencyCallTime / shuttle_speed_factor) / divisor, 1)
 
 	var/dtime = world.time - timer
 	switch(mode)
 		if(SHUTTLE_ESCAPE)
-			dtime = max(SSshuttle.emergencyEscapeTime - dtime, 0)
+			dtime = max((SSshuttle.emergencyEscapeTime / shuttle_speed_factor) - dtime, 0)
 		if(SHUTTLE_DOCKED)
 			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
 		else
 
-			dtime = max(SSshuttle.emergencyCallTime - dtime, 0)
+			dtime = max((SSshuttle.emergencyCallTime / shuttle_speed_factor) - dtime, 0)
 	return round(dtime/divisor, 1)
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
@@ -273,7 +274,7 @@
 			new_sound = sound('sound/AI/cshuttle.ogg')
 		)
 
-/obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
+/obj/docking_port/mobile/emergency/cancel(area/signalOrigin, byCC = FALSE)
 	if(!canRecall)
 		return
 
@@ -288,7 +289,7 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 	GLOB.major_announcement.Announce(
-		"The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]",
+		"The emergency shuttle has been recalled[byCC ? " by Central Command." : SSshuttle.emergencyLastCallLoc ? ". Recall signal traced. Results can be viewed on any communications console." : "." ]",
 		new_title = "Priority Announcement",
 		new_sound = sound('sound/AI/eshuttle_recall.ogg')
 	)
@@ -373,14 +374,6 @@
 						new_title = "Priority Announcement",
 						new_sound = sound('sound/AI/cshuttle_dock.ogg')
 					)
-/*
-				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
-				for(var/datum/gang/G in ticker.mode.gangs)
-					if(isnum(G.dom_timer))
-						G.dom_attempts = 0
-					else
-						G.dom_attempts = min(1,G.dom_attempts)
-*/
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && length(SSshuttle.hostile_environments))
