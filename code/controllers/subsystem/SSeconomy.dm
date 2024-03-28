@@ -48,14 +48,22 @@ SUBSYSTEM_DEF(economy)
 	///Current Order number
 	var/ordernum = 1
 
-	/// points gained per slip returned
+	/// credits gained per slip returned
 	var/credits_per_manifest = 5
-	/// points gained per intel returned
+	/// credits gained per intel returned
 	var/credits_per_intel = 750
-	/// points gained per plasma returned
+	/// credits gained per plasma returned
 	var/credits_per_plasma = 10
-	/// points gained per research design returned
+	/// credits gained per research design returned
 	var/credits_per_design = 20
+	/// credits gained per working mech sold
+	var/credits_per_mech = 100
+	/// credits lost for sending unsecured cargo
+	var/fine_for_loose_cargo = -100
+	/// credits lost for sending a messy shuttle
+	var/fine_for_messy_shuttle = -100
+	/// credits lost for sending unwanted items
+	var/fine_for_selling_trash = -100
 	/// points gained per virology goal
 	var/credits_per_virology_goal = 200
 
@@ -150,8 +158,7 @@ SUBSYSTEM_DEF(economy)
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
 
-	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
-		P.print_goal_orders()
+	check_total_virology_goals_completion()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
