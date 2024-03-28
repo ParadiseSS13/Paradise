@@ -402,8 +402,21 @@
 						component_parts += B
 						B.loc = null
 						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-						shouldplaysound = 1
+						shouldplaysound = TRUE
 						break
+			for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
+				for(var/obj/item/reagent_containers/glass/beaker/B in W.contents)
+					// If it's not better -> next content
+					if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
+						continue
+					W.remove_from_storage(B, src)
+					W.handle_item_insertion(A, TRUE)
+					component_parts -= A
+					component_parts += B
+					B.loc = null
+					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+					shouldplaysound = TRUE
+					break
 			RefreshParts()
 		else
 			to_chat(user, display_parts(user))
