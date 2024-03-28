@@ -105,8 +105,6 @@
 			traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
 	..()
 
-/datum/game_mode/traitor/proc/add_extra_traitors()
-
 /datum/game_mode/traitor/declare_completion()
 	..()
 	return//Traitors will be checked as part of check_extra_completion. Leaving this here as a reminder.
