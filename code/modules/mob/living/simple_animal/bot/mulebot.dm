@@ -98,22 +98,14 @@
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
-		if(!user.drop_item())
-			return
-		var/obj/item/stock_parts/cell/C = I
-		C.forceMove(src)
-		cell = C
-		visible_message("[user] inserts a cell into [src].",
-						"<span class='notice'>You insert the new cell into [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/wrench))
+		cell_insert(I, user)
+		return
+
+	if(istype(I, /obj/item/crowbar) && open && cell)
+		cell_remove(I, user)
+		return
+
+	if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
@@ -137,6 +129,33 @@
 		..()
 	update_icon()
 	return
+
+/mob/living/simple_animal/bot/mulebot/proc/cell_insert(obj/item/I, mob/user)
+	if(!user.drop_item())
+		return
+	var/obj/item/stock_parts/cell/C = I
+	C.forceMove(src)
+	cell = C
+	visible_message("[user] inserts a cell into [src].",
+					"<span class='notice'>You insert the new cell into [src].</span>")
+	return
+
+/mob/living/simple_animal/bot/mulebot/proc/cell_remove(obj/item/I, mob/user)
+	cell.add_fingerprint(user)
+	cell.forceMove(user.loc)
+	cell = null
+	visible_message("[user] crowbars out the power cell from [src].",
+					"<span class='notice'>You pry the powercell out of [src].</span>")
+	return
+
+/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
+	if(allowed(user))
+		locked = !locked
+		update_controls()
+		return TRUE
+	else
+		to_chat(user, "<span class='danger'>Access denied.</span>")
+		return FALSE
 
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -193,6 +212,8 @@
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
 			wires.cut_random()
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
 		return 1
@@ -262,15 +283,106 @@
 		if("report")
 			report_delivery = !report_delivery
 	update_controls()
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
-	if(allowed(user))
-		locked = !locked
-		update_controls()
-		return 1
+
+/mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
+	if(!open)
+		ui_interact(user)
+	else if(isAI(user))
+		to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled.</span>")
 	else
-		to_chat(user, "<span class='danger'>Access denied.</span>")
-		return 0
+		wires.Interact(user)
+
+/mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/mulebot/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/crates)
+	)
+
+/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BotMule", name)
+		ui.open()
+
+/mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
+	var/list/data = ..()
+	data["mode"] = mode
+	data["load"] = load ? load.name : "None"
+	data["cell"] = cell ? 1 : 0
+	data["auto_pickup"]  = auto_pickup
+	data["auto_return"] = auto_return
+	data["report"] = report_delivery
+	data["destination"] = new_destination
+	data["bot_suffix"] = suffix
+	data["set_home"] = home_destination
+//	data[""] =
+	return data
+
+/mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else if(cell && !open)
+				if(turn_on())
+					visible_message("[usr] switches [on ? "on" : "off"] [src].")
+				else
+					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("auto_pickup")
+			auto_pickup = !auto_pickup
+		if("auto_return")
+			auto_return = !auto_return
+		if("report")
+			report_delivery = !report_delivery
+		if("stop")
+			if(mode >= BOT_DELIVER)
+				bot_reset()
+		if("go")
+			if(mode == BOT_IDLE)
+				start()
+		if("home")
+			if(mode == BOT_IDLE || mode == BOT_DELIVER)
+				start_home()
+		if("destination")
+			var/new_dest = tgui_input_list(usr, "Enter Destination:", name, GLOB.deliverybeacontags)
+			if(new_dest)
+				set_destination(new_dest)
+		if("setid")
+			var/new_id = tgui_input_text(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
+			if(new_id)
+				set_suffix(new_id)
+		if("sethome")
+			var/new_home = tgui_input_list(usr, "Enter Home:", name, GLOB.deliverybeacontags)
+			if(new_home)
+				home_destination = new_home
+		if("unload")
+			if(load && mode != BOT_HUNT)
+				if(loc == target)
+					unload(loaddir)
+				else
+					unload(0)
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
@@ -337,6 +449,7 @@
 
 	return dat
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // returns true if the bot has power
 /mob/living/simple_animal/bot/mulebot/proc/has_power()
