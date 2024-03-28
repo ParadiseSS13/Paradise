@@ -15,7 +15,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/setup()
-	impact_area = findEventArea()
+	impact_area = pick(GLOB.event_safe_station_areas)
 
 /datum/event/tear/start()
 	var/list/area_turfs = get_area_turfs(impact_area)
@@ -44,7 +44,7 @@
 	var/area/target_area = impact_area
 	if(!target_area)
 		if(false_alarm)
-			target_area = findEventArea()
+			target_area = pick(GLOB.event_safe_station_areas)
 		else
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()

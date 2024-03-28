@@ -1,3 +1,15 @@
+/// A list of station areas that are generally safe for spawning random events
+/// in. Excludes areas like the SM, holodeck, shuttles, toxins test area, AI sat, etc.
+/// "Safe" here means that things spawned here will not have disproportionately adverse
+/// effects on the round, like spawning something directly onto the supermatter.
+GLOBAL_LIST_EMPTY(event_safe_station_areas)
+
+/// A list of station areas that are used for spawning random events. Unlike
+/// event_safe_station_areas, it includes maintenance and the AI sat. Useful for
+/// events that you know are going to be chaotic, such as destinations of a
+/// tesloose.
+GLOBAL_LIST_EMPTY(event_unrestricted_station_areas)
+
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING // 9
@@ -111,6 +123,9 @@ SUBSYSTEM_DEF(mapping)
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR
+
+	GLOB.event_safe_station_areas = list_event_safe_station_areas()
+	GLOB.event_unrestricted_station_areas = list_event_unrestricted_station_areas()
 
 	// World name
 	if(GLOB.configuration.general.server_name)

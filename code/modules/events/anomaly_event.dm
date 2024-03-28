@@ -16,7 +16,7 @@
 
 /datum/event/anomaly/proc/find_targets(warn_on_fail = FALSE)
 	for(var/tries in 0 to TURF_FIND_TRIES)
-		impact_area = findEventArea()
+		impact_area = pick(GLOB.event_safe_station_areas)
 		if(!impact_area)
 			if(warn_on_fail)
 				stack_trace("No valid areas for anomaly found.")
@@ -38,7 +38,7 @@
 	return target_turf
 
 /datum/event/anomaly/announce(false_alarm)
-	var/area/target = false_alarm ? findEventArea() : impact_area
+	var/area/target = false_alarm ? pick(GLOB.event_safe_station_areas) : impact_area
 	if(false_alarm && !target)
 		log_debug("Failed to find a valid area when trying to make a false alarm anomaly!")
 		return
