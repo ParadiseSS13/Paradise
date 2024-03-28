@@ -504,7 +504,7 @@
 	if(length(cards) <= 2)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	..()
 
 /obj/item/cardhand/update_name()

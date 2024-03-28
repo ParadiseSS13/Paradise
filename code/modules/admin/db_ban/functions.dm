@@ -160,10 +160,10 @@
 		"rounds" = (rounds ? "[rounds]" : "0"), // And here
 		"ckey" = ckey,
 		"computerid" = computerid,
-		"ip" = ip,
+		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"a_ckey" = a_ckey,
 		"a_computerid" = a_computerid,
-		"a_ip" = a_ip,
+		"a_ip" = "[a_ip ? a_ip : ""]",
 		"who" = who,
 		"adminwho" = adminwho,
 		"roundid" = GLOB.round_id,
@@ -490,7 +490,7 @@
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in GLOB.other_roles)
 		output += "<option value='[j]'>[j]</option>"
-	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","servicedept","nonhumandept"))
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("Syndicate") + GLOB.antag_roles)
 		output += "<option value='[j]'>[j]</option>"
