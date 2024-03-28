@@ -138,6 +138,9 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
+/// Grabs the area of a supplied object. Passing an area in to this will result in an error
+#define get_area(T) ((get_step(T, 0).loc))
+
 //check_target_facings() return defines
 #define FACING_FAILED											0
 #define FACING_SAME_DIR											1

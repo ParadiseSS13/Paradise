@@ -245,9 +245,9 @@
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
-	var/area/current_area = get_area(src)
-	if(!current_area)
+	if(!loc) // We init a few radios in nullspace to prevent them from needing power. 
 		return
+	var/area/current_area = get_area(src)
 	if(on)
 		RegisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(local_powernet_check))
 	else

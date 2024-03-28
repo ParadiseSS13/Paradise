@@ -31,7 +31,8 @@
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 		return
-	icon_state = "light[get_area(src).lightswitch]"
+	var/area/our_area = get_area(src)
+	icon_state = "light[our_area.lightswitch]"
 
 /obj/machinery/light_switch/update_overlays()
 	. = ..()
@@ -39,13 +40,14 @@
 
 	if(stat & NOPOWER)
 		return
-
-	. += "light[get_area(src).lightswitch]"
+	var/area/our_area = get_area(src)
+	. += "light[our_area.lightswitch]"
 	underlays += emissive_appearance(icon, "light_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += "A light switch. It is [get_area(src).lightswitch ? "on" : "off"]."
+	var/area/our_area = get_area(src)
+	. += "A light switch. It is [our_area.lightswitch ? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
