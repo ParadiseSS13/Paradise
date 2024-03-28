@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
@@ -274,10 +274,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	if(!connection)
 		return
-	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
-	A.name = from
-	A.role = role
-	A.message = message
 	var/jammed = FALSE
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
@@ -290,7 +286,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.connection = connection
-	tcm.sender = A
+	tcm.sender = src
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
@@ -312,29 +308,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
-	qdel(A)
-
-// Just a dummy mob used for making announcements, so we don't create AIs to do this
-// I'm not sure who thought that was a good idea. -- Crazylemon
-/mob/living/automatedannouncer
-	var/role = ""
-	var/lifetime_timer
-	var/message = ""
-	universal_speak = TRUE
-
-/mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
-	..()
-
-/mob/living/automatedannouncer/Destroy()
-	if(lifetime_timer)
-		deltimer(lifetime_timer)
-		lifetime_timer = null
-	return ..()
-
-/mob/living/automatedannouncer/proc/autocleanup()
-	stack_trace("An announcer somehow managed to outlive the radio! Deleting! (Message: [message])")
-	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)

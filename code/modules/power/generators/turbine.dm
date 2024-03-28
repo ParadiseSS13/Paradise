@@ -174,7 +174,7 @@
 	starter = FALSE
 	last_overheat = world.time
 	overheat -= 50
-	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering", list(z))
+	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering")
 	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 /obj/machinery/power/compressor/proc/time_until_overheat_done()

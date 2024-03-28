@@ -3,7 +3,7 @@
  */
 
 
-/mob/living/silicon/ai/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/living/silicon/ai/handle_track(message, verb = "says", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	if(hard_to_hear)
 		return
 
@@ -34,9 +34,8 @@
 		jobname = "Cyborg"
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
-	else if(isAutoAnnouncer(speaker))
-		var/mob/living/automatedannouncer/AA = speaker
-		jobname = AA.role
+	else if(isradio(speaker))
+		jobname = "Automated Announcement"
 	else
 		jobname = "Unknown"
 
