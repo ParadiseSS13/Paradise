@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item.html#var">Var Details</a> - <a href="obj/item.html#proc">Proc Details</a></header>
+<main>
+<h1>item <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 4"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/item.html#var/armour_penetration_flat">armour_penetration_flat</a></th><td>Flat armour reduction, occurs after percentage armour penetration.</td></tr>
+            <tr><th><a href="obj/item.html#var/armour_penetration_percentage">armour_penetration_percentage</a></th><td>Percentage armour reduction, happens before flat armour reduction.</td></tr>
+            <tr><th><a href="obj/item.html#var/attack_effect_override">attack_effect_override</a></th><td>Allows you to override the attack animation with an attack effect</td></tr>
+            <tr><th><a href="obj/item.html#var/drop_sound">drop_sound</a></th><td>Sound uses when dropping the item, or when its thrown.</td></tr>
+            <tr><th><a href="obj/item.html#var/equip_sound">equip_sound</a></th><td>Sound used when equipping the item into a valid slot</td></tr>
+            <tr><th><a href="obj/item.html#var/hit_reaction_chance">hit_reaction_chance</a></th><td>Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.</td></tr>
+            <tr><th><a href="obj/item.html#var/hitsound">hitsound</a></th><td>Sound played when you hit something with the item</td></tr>
+            <tr><th><a href="obj/item.html#var/in_storage">in_storage</a></th><td>Is this item inside a storage object?</td></tr>
+            <tr><th><a href="obj/item.html#var/item_state">item_state</a></th><td>The icon state used to display the item in your inventory. If null then the icon_state value itself will be used</td></tr>
+            <tr><th><a href="obj/item.html#var/mob_throw_hit_sound">mob_throw_hit_sound</a></th><td>Used when yate into a mob</td></tr>
+            <tr><th><a href="obj/item.html#var/outline_filter">outline_filter</a></th><td>Holder var for the item outline filter, null when no outline filter on the item.</td></tr>
+            <tr><th><a href="obj/item.html#var/pickup_sound">pickup_sound</a></th><td>Sound uses when picking the item up (into your hands)</td></tr>
+            <tr><th><a href="obj/item.html#var/reach">reach</a></th><td>In tiles, how far this weapon can reach; 1 for adjacent, which is default</td></tr>
+            <tr><th><a href="obj/item.html#var/stealthy_audio">stealthy_audio</a></th><td>Whether or not we use stealthy audio levels for this item's attack sounds</td></tr>
+            <tr><th><a href="obj/item.html#var/thrownby">thrownby</a></th><td>UID of a /mob</td></tr>
+            <tr><th><a href="obj/item.html#var/usesound">usesound</a></th><td>Played when the item is used, for example tools</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/item.html#proc/can_enter_storage">can_enter_storage</a></th><td>Called to check if this item can be put into a storage item.</td></tr>
+            <tr><th><a href="obj/item.html#proc/cyborg_recharge">cyborg_recharge</a></th><td>Called on cyborg items that need special charging behavior. Override as needed for specific items.</td></tr>
+            <tr><th><a href="obj/item.html#proc/dropped">dropped</a></th><td>Called when a mob drops an item.</td></tr>
+            <tr><th><a href="obj/item.html#proc/is_robot_module">is_robot_module</a></th><td>Checks whether this item is a module of the robot it is located in.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/armour_penetration_flat"><aside class="declaration">var </aside>armour_penetration_flat
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 72"/></a></h3>
+        <p>Flat armour reduction, occurs after percentage armour penetration.</p><h3 id="var/armour_penetration_percentage"><aside class="declaration">var </aside>armour_penetration_percentage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 74"/></a></h3>
+        <p>Percentage armour reduction, happens before flat armour reduction.</p><h3 id="var/attack_effect_override"><aside class="declaration">var </aside>attack_effect_override
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 42"/></a></h3>
+        <p>Allows you to override the attack animation with an attack effect</p><h3 id="var/drop_sound"><aside class="declaration">var </aside>drop_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 38"/></a></h3>
+        <p>Sound uses when dropping the item, or when its thrown.</p><h3 id="var/equip_sound"><aside class="declaration">var </aside>equip_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 34"/></a></h3>
+        <p>Sound used when equipping the item into a valid slot</p><h3 id="var/hit_reaction_chance"><aside class="declaration">var </aside>hit_reaction_chance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 86"/></a></h3>
+        <p>Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.</p><h3 id="var/hitsound"><aside class="declaration">var </aside>hitsound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 28"/></a></h3>
+        <p>Sound played when you hit something with the item</p><h3 id="var/in_storage"><aside class="declaration">var </aside>in_storage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L130">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 130"/></a></h3>
+        <p>Is this item inside a storage object?</p><h3 id="var/item_state"><aside class="declaration">var </aside>item_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 13"/></a></h3>
+        <p>The icon state used to display the item in your inventory. If null then the icon_state value itself will be used</p><h3 id="var/mob_throw_hit_sound"><aside class="declaration">var </aside>mob_throw_hit_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 32"/></a></h3>
+        <p>Used when yate into a mob</p><h3 id="var/outline_filter"><aside class="declaration">var </aside>outline_filter
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L134">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 134"/></a></h3>
+        <p>Holder var for the item outline filter, null when no outline filter on the item.</p><h3 id="var/pickup_sound"><aside class="declaration">var </aside>pickup_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 36"/></a></h3>
+        <p>Sound uses when picking the item up (into your hands)</p><h3 id="var/reach"><aside class="declaration">var </aside>reach
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L136">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 136"/></a></h3>
+        <p>In tiles, how far this weapon can reach; 1 for adjacent, which is default</p><h3 id="var/stealthy_audio"><aside class="declaration">var </aside>stealthy_audio
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 40"/></a></h3>
+        <p>Whether or not we use stealthy audio levels for this item's attack sounds</p><h3 id="var/thrownby"><aside class="declaration">var </aside>thrownby
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L93">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 93"/></a></h3>
+        <p>UID of a /mob</p><h3 id="var/usesound"><aside class="declaration">var </aside>usesound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 30"/></a></h3>
+        <p>Played when the item is used, for example tools</p><h2 id="proc">Proc Details</h2><h3 id="proc/can_enter_storage"><aside class="declaration">proc </aside>can_enter_storage<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/storage.html">storage</a>/S, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L464">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 464"/></a></aside>
+        </h3>
+        <p>Called to check if this item can be put into a storage item.</p>
+<p>Return <code>FALSE</code> if <code>src</code> can't be inserted, and <code>TRUE</code> if it can.
+Arguments:</p>
+<ul>
+<li>S - The <a href="obj/item/storage.html" title="/obj/item/storage">/obj/item/storage</a> that <code>src</code> is being inserted into.</li>
+<li>user - The mob trying to insert the item.</li>
+</ul><h3 id="proc/cyborg_recharge"><aside class="declaration">proc </aside>cyborg_recharge<aside>(coeff, emagged) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L835">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 835"/></a></aside>
+        </h3>
+        <p>Called on cyborg items that need special charging behavior. Override as needed for specific items.</p><h3 id="proc/dropped"><aside class="declaration">proc </aside>dropped<aside>(/<a href="mob.html">mob</a>/user, silent) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/game/objects/items.dm#L425">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items.dm 425"/></a></aside>
+        </h3>
+        <p>Called when a mob drops an item.</p><h3 id="proc/is_robot_module"><aside class="declaration">proc </aside>is_robot_module<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_modules.dm#L820">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_modules.dm 820"/></a></aside>
+        </h3>
+        <p>Checks whether this item is a module of the robot it is located in.</p></main>
+<footer>
+    paradise.dme
+    <a href="https://github.com/ParadiseSS13/Paradise/tree/06969b4da1524771f8a023bea840ec73776b3818">06969b4</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>

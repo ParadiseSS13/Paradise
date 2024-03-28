@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;antagonist&#x2F;vampire - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/antagonist/vampire.html#var">Var Details</a> - <a href="datum/antagonist/vampire.html#proc">Proc Details</a></header>
+<main>
+<h1>vampire <aside>/<a href="datum.html">datum</a>/<a href="datum/antagonist.html">antagonist</a>/<a href="datum/antagonist/vampire.html">vampire</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/drained_humans">drained_humans</a></th><td>list of the peoples UIDs that we have drained, and how much blood from each one</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/draining">draining</a></th><td>who the vampire is draining of blood</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/iscloaking">iscloaking</a></th><td>handles the vampire cloak toggle</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/nullified">nullified</a></th><td>Nullrods and holywater make their abilities cost more</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/powers">powers</a></th><td>list of available powers and passives</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/subclass">subclass</a></th><td>what vampire subclass the vampire is.</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#var/upgrade_tiers">upgrade_tiers</a></th><td>a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#proc/change_subclass">change_subclass</a></th><td>Remove the vampire's current subclass and add the specified one.</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#proc/clear_subclass">clear_subclass</a></th><td>Remove and delete the vampire's current subclass and all associated abilities.</td></tr>
+            <tr><th><a href="datum/antagonist/vampire.html#proc/remove_all_powers">remove_all_powers</a></th><td>Removes all of the vampire's current powers.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/drained_humans"><aside class="declaration">var </aside>drained_humans
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 28"/></a></h3>
+        <p>list of the peoples UIDs that we have drained, and how much blood from each one</p><h3 id="var/draining"><aside class="declaration">var </aside>draining
+            <aside>&ndash; /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 16"/></a></h3>
+        <p>who the vampire is draining of blood</p><h3 id="var/iscloaking"><aside class="declaration">var </aside>iscloaking
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 12"/></a></h3>
+        <p>handles the vampire cloak toggle</p><h3 id="var/nullified"><aside class="declaration">var </aside>nullified
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 18"/></a></h3>
+        <p>Nullrods and holywater make their abilities cost more</p><h3 id="var/powers"><aside class="declaration">var </aside>powers
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 14"/></a></h3>
+        <p>list of available powers and passives</p><h3 id="var/subclass"><aside class="declaration">var </aside>subclass
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/vampire_subclass.html">vampire_subclass</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 10"/></a></h3>
+        <p>what vampire subclass the vampire is.</p><h3 id="var/upgrade_tiers"><aside class="declaration">var </aside>upgrade_tiers
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 20"/></a></h3>
+        <p>a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum</p><h2 id="proc">Proc Details</h2><h3 id="proc/change_subclass"><aside class="declaration">proc </aside>change_subclass<aside>(new_subclass_type) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L170">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 170"/></a></aside>
+        </h3>
+        <p>Remove the vampire's current subclass and add the specified one.</p>
+<p>Arguments:</p>
+<ul>
+<li>new_subclass_type - a <a href="datum/vampire_subclass.html" title="/datum/vampire_subclass">/datum/vampire_subclass</a> typepath</li>
+</ul><h3 id="proc/clear_subclass"><aside class="declaration">proc </aside>clear_subclass<aside>(give_specialize_power) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L182">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 182"/></a></aside>
+        </h3>
+        <p>Remove and delete the vampire's current subclass and all associated abilities.</p>
+<p>Arguments:</p>
+<ul>
+<li>give_specialize_power - if the <a href="obj/effect/proc_holder/spell/vampire.html" title="/obj/effect/proc_holder/spell/vampire">specialize</a> power should be given back or not</li>
+</ul><h3 id="proc/remove_all_powers"><aside class="declaration">proc </aside>remove_all_powers<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/antagonists/vampire/vamp_datum.dm#L193">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;vampire&#x2F;vamp_datum.dm 193"/></a></aside>
+        </h3>
+        <p>Removes all of the vampire's current powers.</p></main>
+<footer>
+    paradise.dme
+    <a href="https://github.com/ParadiseSS13/Paradise/tree/06969b4da1524771f8a023bea840ec73776b3818">06969b4</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>

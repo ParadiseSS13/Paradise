@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item&#x2F;projectile - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item/projectile.html#var">Var Details</a></header>
+<main>
+<h1>projectile <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/projectile.html">projectile</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 6"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/chain">chain</a></th><td>For when you want your projectile to have a chain coming out of the gun</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/forcedodge">forcedodge</a></th><td>Number of times an object can pass through an object. -1 is infinite</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/has_been_fired">has_been_fired</a></th><td>Has the projectile been fired?</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/immolate">immolate</a></th><td>Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/last_angle_set_hitscan_store">last_angle_set_hitscan_store</a></th><td>Last turf an angle was changed in for hitscan projectiles.</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/last_projectile_move">last_projectile_move</a></th><td>Last world.time the projectile proper moved</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/reflectability">reflectability</a></th><td>Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/shield_buster">shield_buster</a></th><td>Does this projectile do extra damage to / break shields?</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/time_offset">time_offset</a></th><td>Left over ticks in movement calculation</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/trajectory">trajectory</a></th><td>The projectile's trajectory</td></tr>
+            <tr><th><a href="obj/item/projectile.html#var/trajectory_ignore_forcemove">trajectory_ignore_forcemove</a></th><td>Instructs forceMove to NOT reset our trajectory to the new location!</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/chain"><aside class="declaration">var </aside>chain
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 76"/></a></h3>
+        <p>For when you want your projectile to have a chain coming out of the gun</p><h3 id="var/forcedodge"><aside class="declaration">var </aside>forcedodge
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 64"/></a></h3>
+        <p>Number of times an object can pass through an object. -1 is infinite</p><h3 id="var/has_been_fired"><aside class="declaration">var </aside>has_been_fired
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 92"/></a></h3>
+        <p>Has the projectile been fired?</p><h3 id="var/immolate"><aside class="declaration">var </aside>immolate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 66"/></a></h3>
+        <p>Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.</p><h3 id="var/last_angle_set_hitscan_store"><aside class="declaration">var </aside>last_angle_set_hitscan_store
+            <aside>&ndash; /<a href="turf.html">turf</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 98"/></a></h3>
+        <p>Last turf an angle was changed in for hitscan projectiles.</p><h3 id="var/last_projectile_move"><aside class="declaration">var </aside>last_projectile_move
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 79"/></a></h3>
+        <p>Last world.time the projectile proper moved</p><h3 id="var/reflectability"><aside class="declaration">var </aside>reflectability
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 49"/></a></h3>
+        <p>Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.</p><h3 id="var/shield_buster"><aside class="declaration">var </aside>shield_buster
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 88"/></a></h3>
+        <p>Does this projectile do extra damage to / break shields?</p><h3 id="var/time_offset"><aside class="declaration">var </aside>time_offset
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 81"/></a></h3>
+        <p>Left over ticks in movement calculation</p><h3 id="var/trajectory"><aside class="declaration">var </aside>trajectory
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/point_precise.html">point_precise</a>/<a href="datum/point_precise/vector.html">vector</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 83"/></a></h3>
+        <p>The projectile's trajectory</p><h3 id="var/trajectory_ignore_forcemove"><aside class="declaration">var </aside>trajectory_ignore_forcemove
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/projectiles/projectile_base.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;projectile_base.dm 85"/></a></h3>
+        <p>Instructs forceMove to NOT reset our trajectory to the new location!</p></main>
+<footer>
+    paradise.dme
+    <a href="https://github.com/ParadiseSS13/Paradise/tree/06969b4da1524771f8a023bea840ec73776b3818">06969b4</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>

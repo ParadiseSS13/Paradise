@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="mob/living/silicon/robot.html#var">Var Details</a> - <a href="mob/living/silicon/robot.html#proc">Proc Details</a></header>
+<main>
+<h1>robot <aside>/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/silicon.html">silicon</a>/<a href="mob/living/silicon/robot.html">robot</a></aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 5"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#var/brute_mod">brute_mod</a></th><td>Value incoming brute damage to borgs is mutiplied by.</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#var/burn_mod">burn_mod</a></th><td>Value incoming burn damage to borgs is multiplied by.</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#var/floorbuffer">floorbuffer</a></th><td>Does it clean the tile under it?</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#var/last_camera_update">last_camera_update</a></th><td>When the camera moved signal was send last. Avoid overdoing it</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#var/mail_destination">mail_destination</a></th><td>Integer used to determine self-mailing location, used only by drones and saboteur borgs</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/get_module_sprites">get_module_sprites</a></th><td>Returns an associative list of possible borg sprites based on the <code>selected_module</code>.</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/get_module_types">get_module_types</a></th><td>Returns a list of choosable module types, associated with the module icon for the radial menu.</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/initialize_module">initialize_module</a></th><td>Sets up the module items and sprites for the cyborg module chosen in <code>pick_module()</code>.</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/on_drop_hotkey_press">on_drop_hotkey_press</a></th><td>Used in <code>robot.dm</code> when the user presses &quot;Q&quot; by default.</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/robot_module_hat_offset">robot_module_hat_offset</a></th><td>Sets the offset for a cyborg's hats based on their module icon.
+Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/set_mail_tag">set_mail_tag</a></th><td>Set Mail Tag</td></tr>
+            <tr><th><a href="mob/living/silicon/robot.html#proc/spill_upgrades">spill_upgrades</a></th><td>Take the borg's upgrades and spill them on the floor</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/brute_mod"><aside class="declaration">var </aside>brute_mod
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 66"/></a></h3>
+        <p>Value incoming brute damage to borgs is mutiplied by.</p><h3 id="var/burn_mod"><aside class="declaration">var </aside>burn_mod
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 68"/></a></h3>
+        <p>Value incoming burn damage to borgs is multiplied by.</p><h3 id="var/floorbuffer"><aside class="declaration">var </aside>floorbuffer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L112">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 112"/></a></h3>
+        <p>Does it clean the tile under it?</p><h3 id="var/last_camera_update"><aside class="declaration">var </aside>last_camera_update
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 104"/></a></h3>
+        <p>When the camera moved signal was send last. Avoid overdoing it</p><h3 id="var/mail_destination"><aside class="declaration">var </aside>mail_destination
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L120">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 120"/></a></h3>
+        <p>Integer used to determine self-mailing location, used only by drones and saboteur borgs</p><h2 id="proc">Proc Details</h2><h3 id="proc/get_module_sprites"><aside class="declaration">proc </aside>get_module_sprites<aside>(selected_module) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L378">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 378"/></a></aside>
+        </h3>
+        <p>Returns an associative list of possible borg sprites based on the <code>selected_module</code>.</p>
+<p>Key: Sprite name | Value: Sprite icon</p>
+<p>Arguments:</p>
+<ul>
+<li>selected_module - The chosen cyborg module to get the sprites for.</li>
+</ul><h3 id="proc/get_module_types"><aside class="declaration">proc </aside>get_module_types<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L347">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 347"/></a></aside>
+        </h3>
+        <p>Returns a list of choosable module types, associated with the module icon for the radial menu.</p>
+<p>Key: Module name | Value: Module 'icon'</p>
+<p>By default this returns the Engineering, Janitor, Medical, Mining, and Service modules.
+If there are any [/mob/living/silicon/robot/var/force_modules] set, then they are returned instead.
+If the MMI has a xenomorph brain in it ([/obj/item/mmi/var/alien]), then only the &quot;Hunter&quot; and standard modules is returned.</p><h3 id="proc/initialize_module"><aside class="declaration">proc </aside>initialize_module<aside>(selected_module, selected_sprite, /list/module_sprites) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L561">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 561"/></a></aside>
+        </h3>
+        <p>Sets up the module items and sprites for the cyborg module chosen in <code>pick_module()</code>.</p>
+<p>Arguments:</p>
+<ul>
+<li>selected_module - The name of the module chosen by the player in the previous procs.</li>
+<li>selected_sprite - The name of the sprite chosen by the player in the previous procs.</li>
+<li>module_sprites - The list of sprites possible for the given module. Used to transfer the <code>icon</code> and <code>icon_state</code> variables to the player.</li>
+</ul><h3 id="proc/on_drop_hotkey_press"><aside class="declaration">proc </aside>on_drop_hotkey_press<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L1664">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 1664"/></a></aside>
+        </h3>
+        <p>Used in <code>robot.dm</code> when the user presses &quot;Q&quot; by default.</p><h3 id="proc/robot_module_hat_offset"><aside class="declaration">proc </aside>robot_module_hat_offset<aside>(module) 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L470">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 470"/></a></aside>
+        </h3>
+        <p>Sets the offset for a cyborg's hats based on their module icon.
+Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)</p>
+<p>Arguments:</p>
+<ul>
+<li>module - An <code>icon_state</code> for which the offset needs to be calculated.</li>
+</ul><h3 id="proc/set_mail_tag"><aside class="declaration">proc </aside>set_mail_tag<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/silicon_subsystems.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;silicon_subsystems.dm 60"/></a></aside>
+        </h3>
+        <p>Set Mail Tag</p><h3 id="proc/spill_upgrades"><aside class="declaration">proc </aside>spill_upgrades<aside>() 
+        
+    
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/modules/mob/living/silicon/robot/robot_mob.dm#L623">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;silicon&#x2F;robot&#x2F;robot_mob.dm 623"/></a></aside>
+        </h3>
+        <p>Take the borg's upgrades and spill them on the floor</p></main>
+<footer>
+    paradise.dme
+    <a href="https://github.com/ParadiseSS13/Paradise/tree/06969b4da1524771f8a023bea840ec73776b3818">06969b4</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>

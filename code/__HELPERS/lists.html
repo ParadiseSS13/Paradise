@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__HELPERS&#x2F;lists.dm - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__HELPERS/lists.html#define">Define Details</a></header>
+<main>
+<h1>code/__HELPERS/lists.dm 
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__HELPERS/lists.html#define/COMPARE_KEY">COMPARE_KEY</a></th><td>Passed into BINARY_INSERT to compare keys</td></tr>
+        <tr><th><a href="code/__HELPERS/lists.html#define/COMPARE_VALUE">COMPARE_VALUE</a></th><td>Passed into BINARY_INSERT to compare values</td></tr>
+        <tr><th><a href="code/__HELPERS/lists.html#define/BINARY_INSERT_TG">BINARY_INSERT_TG</a></th><td>Binary search sorted insert from TG
+INPUT: Object to be inserted
+LIST: List to insert object into
+TYPECONT: The typepath of the contents of the list
+COMPARE: The object to compare against, usualy the same as INPUT
+COMPARISON: The variable on the objects to compare
+COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/pickweight">pickweight</a></th>
+                <td>Picks an element based on its weight.
+L - The input list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/pick_multiple_unique">pick_multiple_unique</a></th>
+                <td>Picks multiple unique elements from the suplied list.
+If the given list has a length less than the amount given then it will return a list with an equal amount</td></tr>
+        <tr><th><a href="code/__HELPERS/lists.html#define/LAZYDISTINCTADD">LAZYDISTINCTADD</a></th><td>Adds I to L, initializing L if necessary, if I is not already in L</td></tr>
+        <tr><th><a href="code/__HELPERS/lists.html#define/ISINDEXSAFE">ISINDEXSAFE</a></th><td>Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).</td></tr>
+        <tr><th><a href="code/__HELPERS/lists.html#define/LAZYIN">LAZYIN</a></th><td>If the lazy list is currently initialized find item I in list L</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/make_associative">make_associative</a></th>
+                <td>A proc for turning a list into an associative list.</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/compare_list">compare_list</a></th>
+                <td>compare two lists, returns TRUE if they are the same</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/avoid_assoc_duplicate_keys">avoid_assoc_duplicate_keys</a></th>
+                <td>takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of &quot;[input_key] ([number_of_duplicates])&quot; if it finds a duplicate
+use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/BINARY_INSERT_TG"><aside class="declaration">#define </aside>BINARY_INSERT_TG
+            <aside>(INPUT, LIST, TYPECONT, COMPARE, COMPARISON, COMPTYPE)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 54"/></a>
+    </h3>
+    <p>Binary search sorted insert from TG
+INPUT: Object to be inserted
+LIST: List to insert object into
+TYPECONT: The typepath of the contents of the list
+COMPARE: The object to compare against, usualy the same as INPUT
+COMPARISON: The variable on the objects to compare
+COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.</p><h3 id="define/COMPARE_KEY"><aside class="declaration">#define </aside>COMPARE_KEY
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 41"/></a>
+    </h3>
+    <p>Passed into BINARY_INSERT to compare keys</p><h3 id="define/COMPARE_VALUE"><aside class="declaration">#define </aside>COMPARE_VALUE
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 43"/></a>
+    </h3>
+    <p>Passed into BINARY_INSERT to compare values</p><h3 id="define/ISINDEXSAFE"><aside class="declaration">#define </aside>ISINDEXSAFE
+            <aside>(L, I)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm#L696">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 696"/></a>
+    </h3>
+    <p>Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).</p><h3 id="define/LAZYDISTINCTADD"><aside class="declaration">#define </aside>LAZYDISTINCTADD
+            <aside>(L, I)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm#L681">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 681"/></a>
+    </h3>
+    <p>Adds I to L, initializing L if necessary, if I is not already in L</p><h3 id="define/LAZYIN"><aside class="declaration">#define </aside>LAZYIN
+            <aside>(L, I)</aside>
+            <a href="https://github.com/ParadiseSS13/Paradise/blob/06969b4da1524771f8a023bea840ec73776b3818/code/__HELPERS/lists.dm#L698">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;lists.dm 698"/></a>
+    </h3>
+    <p>If the lazy list is currently initialized find item I in list L</p></main>
+<footer>
+    paradise.dme
+    <a href="https://github.com/ParadiseSS13/Paradise/tree/06969b4da1524771f8a023bea840ec73776b3818">06969b4</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>
