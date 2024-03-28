@@ -1064,19 +1064,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 //human HUD updates for items in our inventory
 
 
-//update whether our mask item appears on our hud.
-/mob/living/carbon/human/update_hud_wear_mask(obj/item/I)
-	if(client && hud_used && hud_used.hud_shown)
-		if(hud_used.inventory_shown)
-			I.screen_loc = ui_mask
-		client.screen += I
-
-//update whether our back item appears on our hud.
-/mob/living/carbon/human/update_hud_back(obj/item/I)
-	if(client && hud_used && hud_used.hud_shown)
-		I.screen_loc = ui_back
-		client.screen += I
-
 /mob/living/carbon/human/update_hud_wear_mask(obj/item/worn_item)
 	worn_item.screen_loc = ui_mask
 	if((client && hud_used) && (hud_used.inventory_shown && hud_used.hud_shown))

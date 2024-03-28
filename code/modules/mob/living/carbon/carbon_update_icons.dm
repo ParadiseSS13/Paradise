@@ -102,5 +102,5 @@
 		else
 			observers -= observe
 			if(!length(observers))
-				observers = null
+				observers.Cut()
 				break

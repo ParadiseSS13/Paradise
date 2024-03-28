@@ -804,8 +804,8 @@ so as to remain in compliance with the most up-to-date laws."
 		alert.screen_loc = .
 		screenmob.client.screen |= alert
 	if(!viewmob)
-		for(var/M in mymob.observers)
-			reorganize_alerts(M)
+		for(var/viewer in mymob.observers)
+			reorganize_alerts(viewer)
 	return TRUE
 
 /atom/movable/screen/alert/Click(location, control, params)

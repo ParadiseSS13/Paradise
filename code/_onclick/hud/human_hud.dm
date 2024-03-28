@@ -402,8 +402,7 @@
 	var/mob/living/carbon/human/H = mymob
 
 	var/mob/screenmob = viewer || H
-
-	if(inventory_shown && hud_shown)
+	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown)
 		if(H.shoes)
 			H.shoes.screen_loc = ui_shoes
 			screenmob.client.screen += H.shoes
@@ -508,8 +507,10 @@
 	else
 		if(H.r_hand)
 			screenmob.r_hand.screen_loc = null
+			screenmob.client.screen -= H.r_hand
 		if(H.l_hand)
 			screenmob.l_hand.screen_loc = null
+			screenmob.client.screen -= H.l_hand
 
 
 /mob/living/carbon/human/verb/toggle_hotkey_verbs()

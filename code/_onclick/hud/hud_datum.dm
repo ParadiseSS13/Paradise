@@ -219,7 +219,7 @@
 				screenmob.client.screen -= infodisplay
 
 	hud_version = display_hud_version
-	persistent_inventory_update()
+	persistent_inventory_update(screenmob)
 	screenmob.update_action_buttons(TRUE)
 	reorganize_alerts(screenmob)
 	screenmob.reload_fullscreen()

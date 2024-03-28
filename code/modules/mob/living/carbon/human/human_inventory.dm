@@ -185,6 +185,7 @@
 		src.r_hand = null
 		update_inv_r_hand()
 
+	I.screen_loc = null
 	if(client)
 		client.screen -= I
 	if(length(observers))
@@ -192,7 +193,7 @@
 			if(observe.client)
 				observe.client.screen -= I
 
-	I.screen_loc = null
+
 	I.forceMove(src)
 	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER

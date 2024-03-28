@@ -896,15 +896,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(client && mob_eye && istype(mob_eye))
 		client.set_eye(mob_eye)
 		client.perspective = EYE_PERSPECTIVE
-		// if(is_secret_level(mob_eye.z) && !client?.holder)
-		// 	set_sight(null) //we dont want ghosts to see through walls in secret areas
-		// RegisterSignal(mob_eye, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_observing_z_changed))
 		if(mob_eye.hud_used)
 			client.clear_screen()
 			LAZYOR(mob_eye.observers, src)
 			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 			mob_observed = mob_eye.UID()
-			// client.mob.sight
 
 		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_observer_move))
 
@@ -912,12 +908,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/cleanup_observe()
 	if(isnull(mob_observed))
 		return
-	var/mob/target = mob_observed
+	var/mob/target = locateUID(mob_observed)
 	mob_observed = null
 	client?.perspective = initial(client.perspective)
 	set_sight(initial(sight))
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
-	if(target)
+	if(istype(target))
 		hide_other_mob_action_buttons(target)
 		target.observers -= src
 		// LAZYREMOVE(target.observers, src)

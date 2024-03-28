@@ -249,4 +249,4 @@
 
 	// TODO replace this with something that doesn't actually track mobs
 	/// List of mobs currently observing us.
-	var/mob/dead/observer/observers = list()
+	var/list/mob/dead/observer/observers = list()

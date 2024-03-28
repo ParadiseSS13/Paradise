@@ -597,7 +597,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /// Signal proc for [COMSIG_MOB_GRANTED_ACTION] - If we're viewing another mob's action buttons,
 /// we need to update with any newly added buttons granted to the mob.
 /mob/proc/on_observing_action_granted(mob/living/source, datum/action/action)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOB_GRANTED_ACTION
 
 	if(!action.show_to_observers)
 		return
@@ -606,7 +606,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /// Signal proc for [COMSIG_MOB_REMOVED_ACTION] - If we're viewing another mob's action buttons,
 /// we need to update with any removed buttons from the mob.
 /mob/proc/on_observing_action_removed(mob/living/source, datum/action/action)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOB_REMOVED_ACTION
 
 	action.HideFrom(src)
 
