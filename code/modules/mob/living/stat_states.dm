@@ -23,7 +23,6 @@
 		set_typing_indicator(FALSE)
 		if(hud_used && client)
 			hud_used.show_hud(HUD_STYLE_ACTIONHUD)
-		show_blurb(src, 2 SECONDS, "You are asleep!", null, "center", "center", LIGHT_COLOR_RED, null, null, 1)
 
 	return TRUE
 

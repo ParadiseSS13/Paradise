@@ -2,6 +2,7 @@
 	if(!has_vision(information_only=TRUE))
 		if(sleeping)
 			overlay_fullscreen("sleepblind", /atom/movable/screen/fullscreen/blind/sleeping)
+			overlay_fullscreen("disky", /atom/movable/screen/fullscreen/blind/disky, animated = 7 SECONDS)
 			throw_alert("blind", /atom/movable/screen/alert/blind)
 			return TRUE
 		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
@@ -10,6 +11,7 @@
 	else
 		clear_fullscreen("blind")
 		clear_fullscreen("sleepblind")
+		clear_fullscreen("disky")
 		clear_alert("blind")
 		return FALSE
 

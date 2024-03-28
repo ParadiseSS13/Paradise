@@ -1,4 +1,4 @@
-/mob/proc/overlay_fullscreen(category, type, severity)
+/mob/proc/overlay_fullscreen(category, type, severity, animated = 0)
 	var/atom/movable/screen/fullscreen/screen = screens[category]
 	if(!screen || screen.type != type)
 		// needs to be recreated
@@ -11,6 +11,9 @@
 	screen.icon_state = "[initial(screen.icon_state)][severity]"
 	screen.severity = severity
 	if(client && screen.should_show_to(src))
+		if(animated)
+			spawn(0)
+				animate(screen, alpha = 255, time = animated)
 		screen.update_for_view(client.view)
 		client.screen += screen
 
@@ -96,6 +99,10 @@
 /atom/movable/screen/fullscreen/blind/sleeping
 	icon = 'icons/mob/screen_sleeping.dmi'
 	icon_state = "sleepblind"
+
+/atom/movable/screen/fullscreen/blind/disky
+	icon = 'icons/mob/screen_tight.dmi'
+	icon_state = "disky"
 
 /atom/movable/screen/fullscreen/impaired
 	icon_state = "impairedoverlay"
