@@ -274,7 +274,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
-	message_admins(give_objectives)
 	if(give_objectives)
 		give_objectives()
 	var/list/messages = list()

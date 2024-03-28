@@ -230,12 +230,10 @@ SUBSYSTEM_DEF(ticker)
 	//Configure mode and assign player to special mode stuff
 
 	var/can_continue = FALSE
-	can_continue = mode.pre_pre_setup() //Setup special modes. This also does the antag fishing checks.
-	if(!can_continue)
+	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
+	if(can_continue == LATE_HANDOUT)
 		timer_till_handout = addtimer(CALLBACK(src, PROC_REF(handle_late_handout)), 1 MINUTES)
 		can_continue = TRUE
-	else
-		can_continue = mode.pre_setup()
 
 	if(!can_continue)
 		QDEL_NULL(mode)
@@ -877,5 +875,4 @@ SUBSYSTEM_DEF(ticker)
 							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
 
 /datum/controller/subsystem/ticker/proc/handle_late_handout()
-	mode.pre_setup()
-	mode.post_setup()
+	mode.late_handout()

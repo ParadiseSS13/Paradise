@@ -59,10 +59,6 @@
 		return TRUE
 	return FALSE
 
-//pre_pre_setup() For when you really don't want certain jobs ingame.
-/datum/game_mode/proc/pre_pre_setup()
-	return TRUE
-
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
@@ -278,6 +274,9 @@
 		rev_team.update_team_objectives()
 		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
 
+// The proc that is called whenever a gamemode hands out things like objectives later
+/datum/game_mode/proc/late_handout()
+	return
 
 /*
 /datum/game_mode/proc/check_player_role_pref(role, mob/player)

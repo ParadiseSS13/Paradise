@@ -23,9 +23,6 @@
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
 
-/datum/game_mode/traitor/pre_pre_setup()
-	return FALSE // We handle this later
-
 /datum/game_mode/traitor/pre_setup()
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
@@ -55,14 +52,17 @@
 
 	if(!length(pre_traitors))
 		return FALSE
+	return LATE_HANDOUT
 
-	for(var/datum/mind/traitor as anything in pre_traitors)
-		var/datum/antagonist/traitor/traitor_datum = new()
+/datum/game_mode/traitor/post_setup()
+	. = ..()
+
+	for(var/datum/mind/traitor in pre_traitors)
+		var/datum/antagonist/traitor/traitor_datum = new(src)
 		traitor_datum.give_objectives = FALSE
+		traitor_datum.add_antag_objective(/datum/objective/traitor_wait)
 		traitor.add_antag_datum(traitor_datum)
 		traitors += src
-
-	return TRUE
 
 /datum/game_mode/traitor/proc/traitors_to_add()
 	if(GLOB.configuration.gamemode.traitor_scaling)
@@ -70,16 +70,21 @@
 	else
 		. = max(1, min(num_players(), traitors_possible))
 
-/datum/game_mode/traitor/post_setup()
+/datum/game_mode/traitor/late_handout()
 	var/traitors_to_add = 0
 
 	for(var/datum/mind/traitor as anything in traitors)
-		if(QDELETED(traitor) || !traitor.current)
+		if(QDELETED(traitor) || !traitor.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
 			traitors_to_add++
 			traitors -= traitor
 			continue
 		for(var/datum/antagonist/traitor/traitor_datum in traitor.antag_datums)
+			for(var/datum/objective/traitor_wait/objective in traitor_datum.objective_holder.objectives)
+				traitor_datum.remove_antag_objective(objective)
 			traitor_datum.give_objectives()
+
+		var/list/messages = traitor.prepare_announce_objectives()
+		to_chat(traitor.current, chat_box_red(messages.Join("<br>")))
 
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))
@@ -87,7 +92,7 @@
 	if(traitors_to_add)
 		var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
 		for(var/datum/mind/candidate as anything in potential_recruits)
-			if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
+			if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
 				potential_recruits.Remove(candidate)
 
 		if(!length(potential_recruits))

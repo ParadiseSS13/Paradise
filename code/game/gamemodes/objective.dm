@@ -816,3 +816,5 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 // Objective for traitors to make sure they don't panick when they get no objectives
 /datum/objective/traitor_wait
 	explanation_text = "Wait for further instructions."
+	needs_target = FALSE
+	completed = TRUE // Technically not necessary, but you never know

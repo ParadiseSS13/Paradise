@@ -1506,30 +1506,25 @@
  * Create and/or add the `datum_type_or_instance` antag datum to the src mind.
  *
  * Arguments:
- * * datum_type - an antag datum typepath or instance
+ * * antag_datum - an antag datum typepath or instance. If it's a typepath, it will create a new antag datum
  * * datum/team/team - the antag team that the src mind should join, if any
  */
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
-	var/datum/antagonist/A
-	message_admins("[ispath(datum_type_or_instance)] - Path")
-	if(!ispath(datum_type_or_instance))
-		A = datum_type_or_instance
-		if(!istype(A))
-			return
-	else
-		A = new datum_type_or_instance()
-	if(!A.can_be_owned(src))
-		qdel(A)
+/datum/mind/proc/add_antag_datum(datum/antagonist/antag_datum, datum/team/team)
+//	if(!istype(antag_datum))
+//		antag_datum = new()
+
+	if(!antag_datum.can_be_owned(src))
+		qdel(antag_datum)
 		return
-	A.owner = src
-	LAZYADD(antag_datums, A)
-	A.create_team(team)
-	var/datum/team/antag_team = A.get_team()
+	antag_datum.owner = src
+	LAZYADD(antag_datums, antag_datum)
+	antag_datum.create_team(team)
+	var/datum/team/antag_team = antag_datum.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
-	ASSERT(A.owner && A.owner.current)
-	A.on_gain()
-	return A
+	ASSERT(antag_datum.owner && antag_datum.owner.current)
+	antag_datum.on_gain()
+	return antag_datum
 
 /**
  * Remove the specified `datum_type` antag datum from the src mind.
