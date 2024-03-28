@@ -474,9 +474,11 @@ emp_act
 			return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
+
+	// if the targeted limb doesn't exist, pick a new one at random so you don't have to swap target zone
 	if(!affecting)
-		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-		return FALSE
+		affecting = pick(bodyparts)
+
 	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
