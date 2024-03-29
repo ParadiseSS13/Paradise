@@ -93,7 +93,7 @@
 		to_chat(C, "<span class='userdanger'>You are knocked down by the power of the mining charge!</span>")
 	qdel(src)
 
-/obj/item/grenade/plastic/miningcharge/proc/explode() //c4 code
+/obj/item/grenade/plastic/miningcharge/proc/explode()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))

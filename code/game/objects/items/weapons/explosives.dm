@@ -81,7 +81,7 @@
 		loc = null
 
 		if(notify_admins)
-			message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse",0,1)
+			message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse", 0, 1)
 			log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
 		AddComponent(/datum/component/persistent_overlay, image_overlay, target)
