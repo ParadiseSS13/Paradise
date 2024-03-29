@@ -116,7 +116,8 @@
 	boom_sizes[2] = round(boom_sizes[2] / 3)	//lesser - 0, normal - 1, mega - 2; c4 - 0
 	boom_sizes[3] = round(boom_sizes[3] / 1.5)	//lesser - 2, normal - 3, mega - 5; c4 - 3
 
-/obj/item/grenade/plastic/miningcharge/deconstruct(disassembled = TRUE) //no gibbing a miner with pda bombs
+/// Overriding to avoid the chargers from exploding because of received damage
+/obj/item/grenade/plastic/miningcharge/deconstruct(disassembled = TRUE)
 	if(!QDELETED(src))
 		qdel(src)
 
