@@ -31,6 +31,16 @@
 	. = ..()
 	can_hold[/obj/item/reagent_containers/glass/beaker] = TRUE
 
+/obj/item/storage/part_replacer/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
+		return ..()
+	var/obj/item/reagent_containers/glass/beaker/B = I
+	if(B.reagents?.total_volume)
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>[src] cannot hold [I] while it contains liquid.</span>")
+		return FALSE
+	return ..()
+
 /obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
 	if(!flag && works_from_distance && istype(M))
 		// Make sure its in range
