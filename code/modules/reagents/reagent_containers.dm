@@ -19,10 +19,7 @@
 	if(!Adjacent(user) || !length(possible_transfer_amounts) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/default = null
-	if(amount_per_transfer_from_this in possible_transfer_amounts)
-		default = amount_per_transfer_from_this
-	var/new_transfer_rate = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	var/new_transfer_rate = tgui_input_list(user, "Amount per transfer from this:", "[src]", possible_transfer_amounts, "[amount_per_transfer_from_this]")
 	if(!new_transfer_rate)
 		return
 
@@ -42,7 +39,7 @@
 		create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
-		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
+		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808", "blood_type" = BLOOD_TYPE_FAKE_BLOOD)
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 

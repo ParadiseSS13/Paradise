@@ -1,7 +1,3 @@
-/mob/living/carbon
-	var/last_pain_message = ""
-	var/next_pain_time = 0
-
 /**
  * Whether or not a mob can feel pain.
  *

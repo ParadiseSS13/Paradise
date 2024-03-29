@@ -30,6 +30,7 @@
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/rcd/preloaded(src)
 	new /obj/item/organ/internal/cyberimp/brain/wire_interface(src)
+	new /obj/item/storage/bag/construction(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -92,6 +93,7 @@
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/cartridge/engineering(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/storage/bag/construction(src)
 
 
 /obj/structure/closet/secure_closet/atmos_personal

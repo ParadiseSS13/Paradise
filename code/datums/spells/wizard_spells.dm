@@ -359,7 +359,7 @@
 	centcom_cancast = FALSE
 
 /obj/effect/proc_holder/spell/fireball/create_new_targeting()
-	var/datum/spell_targeting/clicked_atom/C = new()
+	var/datum/spell_targeting/clicked_atom/external/C = new()
 	C.range = 20
 	return C
 
@@ -367,7 +367,7 @@
 	if(!action)
 		return
 	action.button_icon_state = "fireball[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball

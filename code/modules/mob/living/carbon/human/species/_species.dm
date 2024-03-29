@@ -284,7 +284,7 @@
 
 	if(!has_gravity(H))
 		return
-	if(!IS_HORIZONTAL(H))
+	if(!IS_HORIZONTAL(H) || (HAS_TRAIT(H, TRAIT_NOKNOCKDOWNSLOWDOWN) && !H.resting)) //You are slowed if crawling without noknockdownslowdown. However, if you are self crawling, you don't ignore it, so no self crawling to not drop items
 		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
 		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
@@ -425,7 +425,7 @@
 
 	var/obj/item/organ/external/organ = null
 	if(!spread_damage)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			organ = def_zone
 		else
 			if(!def_zone)
@@ -486,7 +486,7 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)//adminfu only...
 		return TRUE
 	if(target.on_fire)
 		user.pat_out(target)
@@ -500,7 +500,10 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
+	if(!attacker_style && target.buckled)
+		target.buckled.user_unbuckle_mob(target, user)
+		return TRUE
+	if(attacker_style && attacker_style.grab_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -532,7 +535,7 @@
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -587,7 +590,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.disarm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	if(target.move_resist > user.pull_force)
@@ -690,9 +693,6 @@
 
 		if(INTENT_DISARM)
 			disarm(M, H, attacker_style)
-
-/datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
-	return message
 
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
@@ -1031,17 +1031,16 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
+	return
 
-/proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
+/// Returns a list of names of non-blacklisted or hazardous species.
+/proc/get_safe_species()
 	var/static/list/random_species = list()
-	if(!random_species.len)
-		for(var/thing  in subtypesof(/datum/species))
-			var/datum/species/S = thing
+	if(!length(random_species))
+		for(var/datum/species/S as anything in subtypesof(/datum/species))
 			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
 				random_species += initial(S.name)
-	var/picked_species = pick(random_species)
-	var/datum/species/selected_species = GLOB.all_species[picked_species]
-	return species_name ? picked_species : selected_species.type
+	return random_species
 
 /datum/species/proc/can_hear(mob/living/carbon/human/H)
 	. = FALSE

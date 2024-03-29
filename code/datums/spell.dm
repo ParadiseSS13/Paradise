@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	custom_handler?.spend_spell_cost(user, src)
 
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/proc/invocation(mob/user) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
@@ -362,7 +362,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	cast(targets, user = user)
 	after_cast(targets, user)
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
@@ -435,11 +435,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	custom_handler?.revert_cast(user, src)
 
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
-/obj/effect/proc_holder/spell/proc/updateButtonIcon()
+/obj/effect/proc_holder/spell/proc/UpdateButtons()
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	switch(type)
@@ -460,6 +460,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
+
+///This proc is ran when a mind is transfered to a new mob. Tells it if the action should be transfered on return true, and tells it not to remove it on false
+/obj/effect/proc_holder/spell/proc/on_mind_transfer(mob/living/L)
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe
 	name = "Spell"

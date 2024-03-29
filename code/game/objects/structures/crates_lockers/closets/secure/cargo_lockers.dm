@@ -33,7 +33,8 @@
 	new /obj/item/storage/bag/mail(src)
 	new /obj/item/melee/knuckleduster/nanotrasen(src)
 
-/obj/structure/closet/secure_closet/quartermaster/lavaland //used in mining outpost
+/// used in mining outpost
+/obj/structure/closet/secure_closet/quartermaster/lavaland
 	name = "quartermaster's secondary locker"
 
 /obj/structure/closet/secure_closet/quartermaster/lavaland/populate_contents()

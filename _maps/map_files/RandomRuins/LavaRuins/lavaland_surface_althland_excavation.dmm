@@ -817,9 +817,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "pI" = (
@@ -1131,7 +1129,6 @@
 /area/lavaland/surface/outdoors)
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/ladder/unusable,
 /turf/simulated/floor/chasm,
@@ -1368,7 +1365,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Rf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0
@@ -1513,6 +1510,10 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
+"XS" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
 "Ya" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -1809,10 +1810,10 @@ aB
 aB
 aA
 TD
-TN
+XS
 Ei
 zp
-TN
+XS
 BW
 aB
 Ei
@@ -1972,7 +1973,7 @@ aB
 aB
 aL
 or
-TN
+XS
 Ei
 Ei
 TN
@@ -2001,7 +2002,7 @@ aB
 aB
 aB
 aB
-TN
+XS
 eC
 Ei
 Ei

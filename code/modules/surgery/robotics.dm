@@ -346,7 +346,7 @@
 	)
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -368,7 +368,7 @@
 
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
@@ -693,7 +693,7 @@
 
 /datum/surgery_step/robotics/edit_serial/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
-	var/new_name = copytext(reject_bad_text(input(user, "Choose a name for this machine.", "Set Name", "[target.real_name]") as null|text), 1, MAX_NAME_LEN)
+	var/new_name = reject_bad_text(tgui_input_text(user, "Choose a name for this machine.", "Set Name", "[target.real_name]", MAX_NAME_LEN, 1))
 	if(!new_name)
 		to_chat(user, "<span class='warning'>Invalid name! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE

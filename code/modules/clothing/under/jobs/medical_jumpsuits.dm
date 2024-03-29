@@ -149,7 +149,8 @@
 	item_state = "psychturtle"
 	item_color = "psychturtle"
 
-/obj/item/clothing/under/rank/medical/gown //Seems like it should be here for organisational purposes
+/// Seems like it should be here for organisational purposes
+/obj/item/clothing/under/rank/medical/gown
 	name = "medical gown"
 	desc = "a flimsy examination gown, the back ties never close."
 	icon_state = "medicalgown"

@@ -133,7 +133,7 @@
 /obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
-			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
+			var/msg = tgui_input_text(user, "What do you wish to tell [M]?", "Transmit")
 			if(!msg)
 				cooldown_handler.revert_cast()
 				return
@@ -200,7 +200,7 @@
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 	return TRUE
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.

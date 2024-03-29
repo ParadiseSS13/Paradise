@@ -54,8 +54,9 @@ emp_act
 
 			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			if(mind.martial_art.reroute_deflection)
+				var/refl_angle = get_angle(loc, get_step(src, dir))
 				P.firer = src
-				P.set_angle(rand(0, 360))
+				P.set_angle(rand(refl_angle - 30, refl_angle + 30))
 				return -1
 			else
 				return FALSE
@@ -161,7 +162,7 @@ emp_act
 	var/organnum = 0
 
 	if(def_zone)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			return getarmor_organ(def_zone, type)
 		var/obj/item/organ/external/affecting = get_organ(def_zone)
 		if(affecting)
@@ -496,11 +497,15 @@ emp_act
 		return FALSE //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
-	var/weapon_sharp = is_sharp(I)
-	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
-		weapon_sharp = 0
 	if(armor == INFINITY)
-		return 0
+		return FALSE
+
+	var/weapon_sharp = I.sharp
+	// do not roll for random blunt if the target mob is dead for the ease of decaps
+	if(stat != DEAD)
+		if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
+			weapon_sharp = FALSE
+
 	var/bonus_damage = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -508,11 +513,11 @@ emp_act
 
 	apply_damage(I.force + bonus_damage , I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
-	var/bloody = 0
+	var/bloody = FALSE
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
 		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 		if(prob(I.force * 2)) //blood spatter!
-			bloody = 1
+			bloody = TRUE
 			var/turf/location = loc
 			if(issimulatedturf(location))
 				add_splatter_floor(location, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
@@ -577,6 +582,16 @@ emp_act
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
+
+	else if(mind?.martial_art?.try_deflect(src))
+		var/obj/item/TT = AM
+		var/direction = pick(GLOB.alldirs)
+		var/turf/target = get_turf(src)
+		for(var/i in 1 to rand(6, 10))
+			target = get_step(target, direction)
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), target, 10, 4, src), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finishes the throwing to prevent double embeds
+		return TRUE
+
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
@@ -666,12 +681,10 @@ emp_act
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				return FALSE
-			var/obj/item/I = get_active_hand()
-			if(I)
-				unEquip(I)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+			M.changeNext_move(1.6 SECONDS)
 			apply_damage(M.alien_disarm_damage, STAMINA)
 			add_attack_logs(M, src, "Alien tackled")
 			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
@@ -791,5 +804,5 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return HAS_TRAIT(src, TRAIT_FLOORED) && !density // hit mobs that are intentionally lying down to prevent combat crawling.
+	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density // hit mobs that are intentionally lying down to prevent combat crawling.
 

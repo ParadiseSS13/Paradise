@@ -179,7 +179,7 @@
 /// Setter procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
-		yield = clamp(yield + adjustamt, 0, 10)
+		yield = clamp(yield + adjustamt, 0, 5)
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
@@ -327,7 +327,7 @@
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
-	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+	var/V = tgui_input_text(user, "Choose variant name:", "Plant Variant Naming", variant, encode = FALSE)
 	if(isnull(V)) // Did the user cancel?
 		return
 	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?

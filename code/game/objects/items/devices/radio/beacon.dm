@@ -21,6 +21,7 @@
 		emagged = TRUE
 		syndicate = TRUE
 		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		return TRUE
 
 /obj/item/radio/beacon/hear_talk()
 	return
@@ -29,7 +30,8 @@
 /obj/item/radio/beacon/send_hear()
 	return null
 
-/obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
+/// Probably a better way of doing this, I'm lazy.
+/obj/item/radio/beacon/bacon
 
 /obj/item/radio/beacon/bacon/proc/digest_delay()
 	QDEL_IN(src, 600)

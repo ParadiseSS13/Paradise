@@ -12,6 +12,7 @@
 	var/target_name = null
 	var/target_UID = null
 	var/timeofdeath = null
+	var/target_rank = null
 
 /obj/item/autopsy_scanner/Destroy()
 	QDEL_LIST_ASSOC_VAL(wdata)
@@ -66,22 +67,27 @@
 			if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
 				chemtraces += V
 
+/obj/item/autopsy_scanner/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can use a pen on it to quickly write a coroner's report.</span>"
+
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(is_pen(P))
-		var/dead_name = input("Insert name of deceased individual")
-		var/dead_rank = input("Insert rank of deceased individual")
-		var/dead_tod = input("Insert time of death")
-		var/dead_cause = input("Insert cause of death")
-		var/dead_chems = input("Insert any chemical traces")
-		var/dead_notes = input("Insert any relevant notes")
-		var/obj/item/paper/R = new(user.loc)
-		R.name = "Official Coroner's Report - [dead_name]"
-		R.info = "<b>[SSmapping.map_datum.fluff_name] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-		sleep(10)
-		user.put_in_hands(R)
-	else
+	if(!is_pen(P))
 		return ..()
+
+	var/dead_name = tgui_input_text(user, "Insert name of deceased individual", default = target_name, title = "Coroner's Report", max_length = 60)
+	var/rank = tgui_input_text(user, "Insert rank of deceased individual", default = target_rank, title = "Coroner's Report", max_length = 60)
+	var/tod = tgui_input_text(user, "Insert time of death", default = station_time_timestamp("hh:mm", timeofdeath), title = "Coroner's Report", max_length = 60)
+	var/cause = tgui_input_text(user, "Insert cause of death", title = "Coroner's Report", max_length = 60)
+	var/chems = tgui_input_text(user, "Insert any chemical traces", multiline = TRUE, title = "Coroner's Report")
+	var/notes = tgui_input_text(user, "Insert any relevant notes", multiline = TRUE, title = "Coroner's Report")
+	var/obj/item/paper/R = new(user.loc)
+	R.name = "Official Coroner's Report - [dead_name]"
+	R.info = "<b><center>[station_name()] - Coroner's Report</b></center><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [rank]<br><br><b>Time of Death:</b> [tod]<br><br><b>Cause of Death:</b> [cause]<br><br><b>Trace Chemicals:</b> [chems]<br><br><b>Additional Coroner's Notes:</b> [notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	sleep(1 SECONDS)
+	user.put_in_hands(R)
 
 /obj/item/autopsy_scanner/attack_self(mob/user)
 	var/scan_data = ""
@@ -161,6 +167,7 @@
 	if(target_UID != M.UID())
 		target_UID = M.UID()
 		target_name = M.name
+		target_rank = M.get_assignment(if_no_id = "Unknown", if_no_job = null)
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null

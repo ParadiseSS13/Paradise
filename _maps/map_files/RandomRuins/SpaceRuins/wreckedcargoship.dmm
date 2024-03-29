@@ -409,9 +409,7 @@
 /area/ruin/space/wreck_cargoship)
 "nH" = (
 /obj/machinery/light/small,
-/obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "oE" = (
@@ -1114,7 +1112,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/structure/railing,
@@ -1208,7 +1206,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "VF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

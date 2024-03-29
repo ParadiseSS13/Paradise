@@ -12,9 +12,9 @@
 		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
+	if(stat != DEAD && bleed_rate && bleedsuppress)
 		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+	bleedsuppress = FALSE
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -234,26 +234,26 @@
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
-	. = list()
+	. = list(BLOOD_TYPE_FAKE_BLOOD)
 	if(!bloodtype)
 		return
 	switch(bloodtype)
 		if("A-")
-			return list("A-", "O-")
+			. += list("A-", "O-")
 		if("A+")
-			return list("A-", "A+", "O-", "O+")
+			. += list("A-", "A+", "O-", "O+")
 		if("B-")
-			return list("B-", "O-")
+			. += list("B-", "O-")
 		if("B+")
-			return list("B-", "B+", "O-", "O+")
+			. += list("B-", "B+", "O-", "O+")
 		if("AB-")
-			return list("A-", "B-", "O-", "AB-")
+			. += list("A-", "B-", "O-", "AB-")
 		if("AB+")
-			return list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+")
+			. += list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+")
 		if("O-")
-			return list("O-")
+			. += list("O-")
 		if("O+")
-			return list("O-", "O+")
+			. += list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
@@ -362,3 +362,5 @@
 	var/id = get_blood_id()
 	if(id)
 		reagents.del_reagent(get_blood_id())
+
+#undef EXOTIC_BLEED_MULTIPLIER

@@ -18,16 +18,37 @@
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 
-/obj/item/reagent_containers/pill/proc/apply(mob/living/carbon/M, mob/user, def_zone)
-	if(!istype(M))
+/obj/item/reagent_containers/pill/proc/apply(mob/living/carbon/C, mob/user)
+	if(!istype(C))
 		return FALSE
-	if(M.eat(src, user))
+
+	if(!reagents.total_volume)
 		qdel(src)
 		return TRUE
-	return FALSE
 
-/obj/item/reagent_containers/pill/attack(mob/living/carbon/M, mob/user, def_zone)
-	return apply(M, user)
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		if(!H.check_has_mouth())
+			to_chat(user, "<span class='warning'>[user == H ? "You" : H] can't ingest [src]!</span>")
+			return FALSE
+
+	if(user == C)
+		to_chat(user, "<span class='notice'>You swallow [src].</span>")
+	else
+		C.visible_message("<span class='warning'>[user] attempts to force [C] to swallow [src].</span>")
+		if(!do_after(user, 3 SECONDS, TRUE, C, TRUE))
+			return FALSE
+
+		C.forceFedAttackLog(src, user)
+		C.visible_message("<span class='warning'>[user] forces [C] to swallow [src].</span>")
+
+	reagents.reaction(C, REAGENT_INGEST)
+	reagents.trans_to(C, reagents.total_volume)
+	qdel(src)
+	return TRUE
+
+/obj/item/reagent_containers/pill/attack(mob/living/carbon/C, mob/user)
+	return apply(C, user)
 
 /obj/item/reagent_containers/pill/attack_self(mob/user)
 	return apply(user, user)

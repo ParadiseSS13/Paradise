@@ -14,8 +14,9 @@ SUBSYSTEM_DEF(ping)
 	/// List used each time SS fires to track which clients have been processed so far
 	var/list/current_run = list()
 
-/datum/controller/subsystem/ping/stat_entry()
-	..("P:[length(GLOB.clients)]")
+/datum/controller/subsystem/ping/stat_entry(msg)
+	msg = "P:[length(GLOB.clients)]"
+	return ..()
 
 /datum/controller/subsystem/ping/fire(resumed = FALSE)
 	// Prepare the new batch of clients

@@ -138,6 +138,7 @@
 	safety = !safety
 	..()
 	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -158,7 +159,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
@@ -342,7 +343,7 @@
 		icon_state = "[base_icon_state][wielded]_cooldown"
 
 /obj/item/shockpaddles/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
@@ -358,6 +359,12 @@
 
 /obj/item/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
+		if(!isturf(user.loc))
+			// You went inside something. It blocks the cable.
+			// (This also means we don't have to listen for the
+			//  surrounding object's movements.)
+			defib.remove_paddles(user)
+
 		var/turf/t = get_turf(defib)
 		if(!t.Adjacent(user))
 			defib.remove_paddles(user)

@@ -511,6 +511,7 @@
 	do_sparks(5, FALSE, src)
 	if(user)
 		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

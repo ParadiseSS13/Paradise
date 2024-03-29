@@ -102,6 +102,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>[user] shorts out the lock on [src].</span>",
 				"<span class='warning'>You short out the lock on [src].</span>")
+		return TRUE
 
 /obj/machinery/power/emitter/attack_hand(mob/user)
 	add_fingerprint(user)

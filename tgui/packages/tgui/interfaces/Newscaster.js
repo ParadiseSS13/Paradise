@@ -291,7 +291,7 @@ const NewscasterFeed = (properties, context) => {
                   }
                 : story
             )
-            .map((story) => <Story key={story} story={story} />)
+            .map((story, index) => <Story key={index} story={story} />)
         ) : (
           <Box className="Newscaster__emptyNotice">
             <Icon name="times" size="3" />
@@ -520,8 +520,8 @@ const Story = (properties, context) => {
                 ml="0.5rem"
               />
             )}
-            {(story.body_short || story.body).split('\n').map((p) => (
-              <Box key={p}>{p || <br />}</Box>
+            {(story.body_short || story.body).split('\n').map((p, index) => (
+              <Box key={index}>{p || <br />}</Box>
             ))}
             {story.body_short && (
               <Button
@@ -816,8 +816,8 @@ const createStoryModalBodyOverride = (modal, context) => {
                     float="right"
                   />
                 )}
-                {body.split('\n').map((p) => (
-                  <Box key={p}>{p || <br />}</Box>
+                {body.split('\n').map((p, index) => (
+                  <Box key={index}>{p || <br />}</Box>
                 ))}
                 <Box clear="right" />
               </Box>

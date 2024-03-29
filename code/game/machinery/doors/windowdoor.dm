@@ -135,7 +135,7 @@
 /obj/machinery/door/window/unrestricted_side(mob/M)
 	var/mob_dir = get_dir(src, M)
 	if(mob_dir == 0) // If the mob is inside the tile
-		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+		mob_dir = reverse_direction(dir) // Set it to the inside direction of the windoor
 
 	return mob_dir & unres_sides
 
@@ -290,7 +290,7 @@
 		sleep(6)
 		operating = NONE
 		open(2)
-		return 1
+		return TRUE
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))

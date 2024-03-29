@@ -5,21 +5,19 @@
 
 #define MUTCHK_FORCED        1
 
-// mob/var/list/mutations
-
 // Used in preferences.
-#define DISABILITY_FLAG_NEARSIGHTED 1
-#define DISABILITY_FLAG_FAT         2
-#define DISABILITY_FLAG_BLIND       4
-#define DISABILITY_FLAG_MUTE        8
-#define DISABILITY_FLAG_COLOURBLIND 16
-#define DISABILITY_FLAG_WINGDINGS   32
-#define DISABILITY_FLAG_NERVOUS     64
-#define DISABILITY_FLAG_SWEDISH     128
-#define DISABILITY_FLAG_LISP        256
-#define DISABILITY_FLAG_DIZZY       512
-#define DISABILITY_FLAG_CHAV        1024
-#define DISABILITY_FLAG_DEAF        2048
+#define DISABILITY_FLAG_NEARSIGHTED (1<<0)
+#define DISABILITY_FLAG_FAT         (1<<1)
+#define DISABILITY_FLAG_BLIND       (1<<2)
+#define DISABILITY_FLAG_MUTE        (1<<3)
+#define DISABILITY_FLAG_COLOURBLIND (1<<4)
+#define DISABILITY_FLAG_WINGDINGS   (1<<5)
+#define DISABILITY_FLAG_NERVOUS     (1<<6)
+#define DISABILITY_FLAG_SWEDISH     (1<<7)
+#define DISABILITY_FLAG_LISP        (1<<8)
+#define DISABILITY_FLAG_DIZZY       (1<<9)
+#define DISABILITY_FLAG_CHAV        (1<<10)
+#define DISABILITY_FLAG_DEAF        (1<<11)
 
 ///////////////////////////////////////
 // MUTATIONS

@@ -30,9 +30,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "gU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
@@ -60,10 +59,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "mA" = (
-/obj/machinery/power/apc/syndicate/off{
-	pixel_x = 24;
-	dir = 4
-	},
+/obj/machinery/power/apc/syndicate/off/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "mO" = (
@@ -183,9 +179,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
@@ -318,9 +313,8 @@
 /area/ruin/space/syndicate_druglab)
 "II" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
@@ -339,9 +333,8 @@
 /area/ruin/space/syndicate_druglab)
 "LQ" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)

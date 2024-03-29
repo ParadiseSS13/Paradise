@@ -18,7 +18,7 @@
 	},
 /area/ruin/space/unpowered)
 "ae" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/unpowered)
 "af" = (
 /obj/structure/computerframe,
@@ -429,7 +429,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/plasmareinforced,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/space/unpowered)
 "bC" = (
@@ -468,14 +468,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bH" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/space/nearstation)
 "bI" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/plasmareinforced,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/space/unpowered)
 "bJ" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plasma,
@@ -485,15 +485,14 @@
 /turf/space,
 /area/ruin/space/unpowered)
 "bL" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/space/unpowered)
 "bM" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/space/unpowered)

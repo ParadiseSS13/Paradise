@@ -156,6 +156,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+		return TRUE
 
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker

@@ -107,8 +107,8 @@
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(GESTALT_ALERT, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-			M.throw_alert(NYMPH_ALERT, /obj/screen/alert/gestalt, new_master = src)
+			throw_alert(GESTALT_ALERT, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+			M.throw_alert(NYMPH_ALERT, /atom/movable/screen/alert/gestalt, new_master = src)
 			forceMove(M)
 		else if(isrobot(M))
 			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
@@ -127,11 +127,11 @@
 			continue
 		choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
 		return FALSE
 
-	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to merge with?", "Nymph Merging", choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
@@ -141,8 +141,8 @@
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert(GESTALT_ALERT, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-		M.throw_alert(NYMPH_ALERT, /obj/screen/alert/gestalt, new_master = src)
+		throw_alert(GESTALT_ALERT, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		M.throw_alert(NYMPH_ALERT, /atom/movable/screen/alert/gestalt, new_master = src)
 		return TRUE
 	else
 		return FALSE
@@ -232,11 +232,11 @@
 		if(Adjacent(H) && H.dna && !(NO_BLOOD in H.dna.species.species_traits))
 			choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
 		return FALSE
 
-	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
+	var/mob/living/carbon/human/M = tgui_input_list(src, "Who do you wish to take a sample from?", "Blood Sampling", choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
