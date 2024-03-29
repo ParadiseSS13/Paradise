@@ -508,6 +508,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Unable to start the game as it is not set up.")
 		return
 
+	if(!SSticker.ticker_going)
+		alert("Remove the round-start delay first.")
+		return
+
 	if(GLOB.configuration.general.start_now_confirmation)
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
@@ -588,7 +592,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
+	if(SSblackbox)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+	if(!SSticker)
+		alert("Slow down a moment, let the ticker start first!")
+		return
+		
+	if(!SSticker || SSticker.current_state > GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
@@ -604,7 +615,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
