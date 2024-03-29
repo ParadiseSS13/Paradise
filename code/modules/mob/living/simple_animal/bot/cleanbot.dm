@@ -64,7 +64,7 @@
 /mob/living/simple_animal/bot/cleanbot/update_icon_state()
 	return
 
-/mob/living/simple_animal/bot/cleanbot/update_overlays() // Using ``clean_`` before remaking other bot. each bot sprite is offset, overlays would get mixed up
+/mob/living/simple_animal/bot/cleanbot/update_overlays()
 	. = ..()
 	if(!on)
 		. += "clean_off"
