@@ -142,6 +142,21 @@
 /turf/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_animal(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_alien(mob/living/carbon/alien/user)
+	user.Move_Pulled(src)
+
+/turf/attack_larva(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_slime(mob/user)
+	user.Move_Pulled(src)
+
 /turf/ex_act(severity)
 	return FALSE
 

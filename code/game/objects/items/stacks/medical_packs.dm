@@ -155,20 +155,20 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+		for(var/obj/item/organ/external/E in H.bodyparts)
+			if(E.open == ORGAN_ORGANIC_OPEN)
+				to_chat(user, "<span class='warning'>[E] is cut open, you'll need more than a bandage!</span>")
+				return
+		affecting.germ_level = 0
 
-		if(affecting.open == ORGAN_CLOSED)
-			affecting.germ_level = 0
+		if(stop_bleeding)
+			if(!H.bleedsuppress) //so you can't stack bleed suppression
+				H.suppress_bloodloss(stop_bleeding)
 
-			if(stop_bleeding)
-				if(!H.bleedsuppress) //so you can't stack bleed suppression
-					H.suppress_bloodloss(stop_bleeding)
+		heal(H, user)
 
-			heal(H, user)
-
-			H.UpdateDamageIcon()
-			use(1)
-		else
-			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
+		H.UpdateDamageIcon()
+		use(1)
 
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
