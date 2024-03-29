@@ -172,8 +172,10 @@
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/storage/belt/military/assault,
-					/obj/item/storage/belt/military/assault)
-	cost = 800
+					/obj/item/storage/belt/military/assault,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat)
+	cost = 900
 	containername = "assault armor crate"
 
 /datum/supply_packs/security/armory/laserarmor
