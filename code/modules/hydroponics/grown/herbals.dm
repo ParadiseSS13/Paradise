@@ -1,8 +1,8 @@
 /obj/item/seeds/comfrey
 	name = "pack of comfrey seeds"
 	desc = "These seeds grow into comfrey."
-	icon_state = "seed-cabbage"
-	species = "cabbage"
+	icon_state = "seed-lettuce"
+	species = "lettuce"
 	plantname = "Comfrey"
 	product = /obj/item/food/snacks/grown/comfrey
 	yield = 2

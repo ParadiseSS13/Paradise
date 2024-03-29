@@ -27,14 +27,14 @@
 
 	parent.update_tray()
 
-// Cabbage
-/obj/item/seeds/cabbage
-	name = "pack of cabbage seeds"
-	desc = "These seeds grow into cabbages."
-	icon_state = "seed-cabbage"
-	species = "cabbage"
-	plantname = "Cabbages"
-	product = /obj/item/food/snacks/grown/cabbage
+// Lettuce
+/obj/item/seeds/lettuce
+	name = "pack of lettuce seeds"
+	desc = "These seeds grow into lettuces."
+	icon_state = "seed-lettuce"
+	species = "lettuce"
+	plantname = "Lettuces"
+	product = /obj/item/food/snacks/grown/lettuce
 	lifespan = 50
 	endurance = 25
 	maturation = 3
@@ -46,14 +46,14 @@
 	mutatelist = list(/obj/item/seeds/replicapod)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
-/obj/item/food/snacks/grown/cabbage
-	seed = /obj/item/seeds/cabbage
-	name = "cabbage"
-	desc = "Ewwwwwwwwww. Cabbage."
-	icon_state = "cabbage"
+/obj/item/food/snacks/grown/lettuce
+	seed = /obj/item/seeds/lettuce
+	name = "lettuce"
+	desc = "Ewwwwwwwwww. Lettuce."
+	icon_state = "lettuce"
 	filling_color = "#90EE90"
 	bitesize_mod = 2
-	tastes = list("cabbage" = 1)
+	tastes = list("lettuce" = 1)
 	wine_power = 0.2
 
 
