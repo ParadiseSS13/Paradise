@@ -1,26 +1,40 @@
-/obj/item/tarot_generator//Qwertodo: Cooldown between uses, prob 20 seconds?
+/obj/item/tarot_generator
 	name = "Enchanted tarot card deck"
 	desc = "This tarot card box has quite the aray of runes and artwork on it."
-	icon = 'icons/obj/playing_cards.dmi'//Qwertodo: Uplink, wizard
+	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "card_holder"
 	w_class = WEIGHT_CLASS_SMALL
 	/// What is the maximum number of cards the tarot generator can have in the world at a time?
 	var/maximum_cards = 3
 	/// List of cards we have created, to check against maximum, and so we can purge them from the pack.
 	var/list/our_card_list = list()
+	///How long the cooldown is each time we draw a card before we can draw another?
+	var/our_card_cooldown_time = 25 SECONDS
+	COOLDOWN_DECLARE(card_cooldown)
+
+/obj/item/tarot_generator/wizard
+	maximum_cards = 5
+	our_card_cooldown_time = 12 SECONDS// A minute for a full hand of 5 cards
 
 /obj/item/tarot_generator/attack_self(mob/user)
-	if(length(our_card_list) >= 3)
+	if(!COOLDOWN_FINISHED(src, card_cooldown))
+		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown)/10)] more seconds!</span>")
+		return
+	if(length(our_card_list) >= maximum_cards)
 		to_chat(user, "<span class='warning'>[src]'s magic can only support up to [maximum_cards] in the world at once, use or destroy some!</span>")
 		return
 	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), src)
 	our_card_list += MTC
 	user.put_in_hands(MTC)
 	to_chat(user, "<span class='hierophant'>You draw [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+	COOLDOWN_START(src, card_cooldown, our_card_cooldown_time)
 
 /obj/item/tarot_generator/examine(mob/user)
 	. = ..()
 	. += "<span class='hierophant'>Alt-Shift-Click to destroy all cards it has produced.</span>"
+	. += "<span class='hierophant'>It has [length(our_card_list)] cards in the world right now.</span>"
+	if(!COOLDOWN_FINISHED(src, card_cooldown))
+		. += "<span class='hierophant'>You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown)/10)] seconds.</span>"
 
 /obj/item/tarot_generator/AltShiftClick(mob/user)
 	for(var/obj/item/magic_tarot_card/MTC in our_card_list)
@@ -30,7 +44,7 @@
 // Booster packs filled with 3, 5, or 7 playing cards! Used by the wizard space ruin, or rarely in lavaland tendril chests.
 /obj/item/tarot_card_pack
 	name = "\improper Enchanted Arcana Pack"
-	desc = "A pack of Enchanted tarot cards. Collect them all!"
+	desc = "A pack of 3 Enchanted tarot cards. Collect them all!"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "card_holder"
 	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
@@ -328,7 +342,7 @@
 	var/turf/target_turf = get_turf(target)
 	new /obj/item/storage/firstaid/regular(target_turf)
 	new /obj/item/grenade/chem_grenade/waterpotassium(target_turf)
-	new /obj/item/card/emag/one_use(target_turf)
+	new /obj/item/card/emag/magic_key(target_turf)
 	new /obj/item/stack/spacecash/c100(target_turf)
 
 /datum/tarot/the_hermit
@@ -349,7 +363,6 @@
 
 	target.forceMove(get_turf(pick(viable_vendors)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-
 
 /datum/tarot/wheel_of_fortune
 	name = "X - Wheel of Fortune"
@@ -389,7 +402,7 @@
 	desc = "Lay waste to all that oppose you."
 	card_icon = "death"
 
-/datum/tarot/death/activate(mob/living/target) //qwertodo: to_chat? visable effect? unsure
+/datum/tarot/death/activate(mob/living/target)
 	for(var/mob/living/L in oview(9, target))
 		L.adjustBruteLoss(20)
 		L.adjustFireLoss(20)
@@ -518,6 +531,9 @@
 	card_icon = "the_world"
 
 /datum/tarot/the_world/activate(mob/living/target)
+	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	smoke.set_up(10, FALSE, target)
+	smoke.start()
 	target.apply_status_effect(STATUS_EFFECT_XRAY)
 
 ////////////////////////////////
@@ -818,9 +834,9 @@
 
 /datum/tarot/reversed/judgement/activate(mob/living/target)
 	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
-	var/decrease = 2.5 MINUTES
+	var/decrease = 5 MINUTES
 	EC.next_event_time -= decrease
-	log_and_message_admins("decreased timer for [GLOB.severity_to_string[EC.severity]] events by 2.5 minutes by use of a [src].")
+	log_and_message_admins("decreased timer for [GLOB.severity_to_string[EC.severity]] events by 5 minutes by use of a [src].")
 
 /datum/tarot/reversed/the_world
 	name = "XXI - The World?"

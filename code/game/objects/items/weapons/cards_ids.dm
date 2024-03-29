@@ -47,12 +47,18 @@
 		return
 	A.emag_act(user)
 
-/obj/item/card/emag/one_use
-	desc = "It's a card with a magic strip attached to some circuitry. Looks delicate!"
-	name = "magic cryptographic sequencer"
+/obj/item/card/emag/magic_key
+	name = "magic key"
+	desc = "It's a magic key, that will open one door!"
+	icon_state = "magic_key"
 	origin_tech = "magnets=2"
 
-/obj/item/card/emag/one_use/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+	if(!istype(target, /obj/machinery/door))
+		return
+	var/obj/machinery/door/D = target
+	D.locked = FALSE
+	update_icon()
 	. = ..()
 	qdel(src)
 
