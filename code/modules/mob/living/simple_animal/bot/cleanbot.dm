@@ -70,15 +70,10 @@
 		. += "clean_off"
 		return
 	if(mode != BOT_CLEANING)
-		if(area_locked)
-			. += "clean_restrict"
-		else
-			. += "clean_on"
-	else if(area_locked)
-		. += "clean_restrict_work"
+		. += "clean_[area_locked ? "restrict" : "on"]"
 	else
-		. += "clean_work"
 		. += "clean_brush"
+		. += "clean[area_locked ? "_restrict" : ""]_work"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
