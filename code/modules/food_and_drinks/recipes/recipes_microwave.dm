@@ -64,7 +64,7 @@
 	items = list(
 		/obj/item/food/snacks/bun,
 		/obj/item/food/snacks/grown/lettuce,
-		/obj/item/food/snacks/meat //do not place this recipe before /datum/recipe/microwave/humanburger
+		/obj/item/food/snacks/meat //do not place this recipe before /datum/recipe/microwave/human/burger
 	)
 	result = /obj/item/food/snacks/burger/plain
 
