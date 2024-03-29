@@ -200,7 +200,7 @@
 		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
 
 		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
-			process_fire(target,user,1,params, null, bonus_spread)
+			process_fire(target, user, 1, params, null, bonus_spread)
 			return
 		if(GUN_2.can_trigger_gun(user))
 			if(!HAS_TRAIT(user, TRAIT_BADASS))

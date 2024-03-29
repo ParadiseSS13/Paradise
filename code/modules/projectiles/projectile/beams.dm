@@ -347,4 +347,3 @@
 	new /obj/effect/particle_effect/sparks(get_turf(src))
 	return ..()
 
-

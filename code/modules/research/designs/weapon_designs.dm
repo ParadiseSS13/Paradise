@@ -147,7 +147,7 @@
 
 /datum/design/sparker
 	name = "SPRK-12 Pistol Parts Kit"
-	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficent, though it's beams are weaker. Good at dual wielding, however"
+	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though it's beams are weaker. Good at dual wielding, however."
 	id = "sparker"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
 	build_type = PROTOLATHE

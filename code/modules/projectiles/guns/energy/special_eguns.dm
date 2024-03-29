@@ -976,11 +976,10 @@
 
 /obj/item/gun/energy/sparker
 	name = "\improper SPRK-12"
-	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficent, though it's beams are weaker. Good at dual wielding, however."
+	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though it's beams are weaker. Good at dual wielding, however."
 	icon_state = "dueling_pistol"
 	item_state = "dueling_pistol"
 	w_class = WEIGHT_CLASS_SMALL
-	can_flashlight = FALSE
 	can_holster = TRUE
 	execution_speed = 4 SECONDS
 	weapon_weight = WEAPON_DUAL_WIELD
