@@ -215,10 +215,10 @@
 			production_mode = new_production_mode
 
 		if("set_sprite_style")
-			var/production_mode = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode))
+			var/production_mode_index = text2num(params["production_mode"])
+			if(ISINDEXSAFE(production_modes, production_mode_index))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode]
+			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			if(!M.sprites)
 				return
 			var/new_style = text2num(params["style"])
@@ -226,19 +226,19 @@
 				return
 			M.set_sprite = new_style
 		if("set_items_amount")
-			var/production_mode = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode))
+			var/production_mode_index = text2num(params["production_mode"])
+			if(ISINDEXSAFE(production_modes, production_mode_index))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode]
+			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			var/new_amount = text2num(params["amount"])
 			if(isnull(new_amount) || new_amount < 1 || new_amount > M.max_items_amount)
 				return
 			M.set_items_amount = new_amount
 		if("set_items_name")
-			var/production_mode = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode))
+			var/production_mode_index = text2num(params["production_mode"])
+			if(ISINDEXSAFE(production_modes, production_mode_index))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode]
+			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			if(M.set_name == CUSTOM_NAME_DISABLED)
 				return
 			var/new_name = sanitize(params["name"])
@@ -296,10 +296,10 @@
 		if("create_items")
 			if(!reagents.total_volume)
 				return
-			var/production_mode = text2num(params["production_mode"])
-			if(isnull(production_mode) || production_mode < 1 || production_mode > length(production_modes))
+			var/production_mode_index = text2num(params["production_mode"])
+			if(ISINDEXSAFE(production_modes, production_mode_index))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode]
+			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
 		else
 			return FALSE
