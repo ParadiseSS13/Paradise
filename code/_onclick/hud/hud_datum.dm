@@ -225,6 +225,7 @@
 	screenmob.reload_fullscreen()
 	update_parallax_pref(screenmob)
 	if(!viewmob)
+		// working off of mymob
 		plane_masters_update()
 		for(var/M in mymob.observers)
 			show_hud(hud_version, M)
@@ -238,7 +239,7 @@
 	for(var/thing in plane_masters)
 		var/atom/movable/screen/plane_master/PM = plane_masters[thing]
 		PM.backdrop(mymob)
-		mymob.client.screen += PM
+		mymob.client?.screen += PM
 
 /datum/hud/human/show_hud(version = 0, mob/viewmob)
 	. = ..()

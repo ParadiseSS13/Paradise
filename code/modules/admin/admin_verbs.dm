@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/admin_observe,			/*allows us to freely observe mobs */
+	/client/proc/admin_observe_target,  /*and gives it to us on right click*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -218,6 +219,7 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/toggleMentorTicketLogs,
 	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
+	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
@@ -360,10 +362,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Admin"
 	set name = "Aghost"
 
-	if(!check_rights(R_ADMIN|R_MOD))  // todo verify this logic checks out
-		return
+	var/is_mentor = check_rights(R_MENTOR)
+	var/is_full_admin = check_rights(R_ADMIN|R_MOD)
 
-	if(!check_rights(R_ADMIN|R_MOD) && check_rights(R_MENTOR) && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE))
+	// mentors are allowed only if they have the observe trait, which is given on observe.
+	// they should also not be given this proc.
+	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE) || !is_mentor))
 		return
 
 	if(isobserver(mob))
@@ -393,15 +397,39 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/client/proc/admin_observe(mob/target)
-	set category = "Admin"
+/// Allow an admin to observe someone.
+/// mentors are allowed to use this verb while living, but with some stipulations:
+/// if they attempt to do anything that would stop their orbit, they will immediately be returned to their body.
+/client/proc/admin_observe()
 	set name = "Aobserve"
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+		return
+
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	var/mob/target
+
+	target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
+	if(isnull(target))
+		return
+	if(target == src)
+		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	admin_observe_target(target)
+
+/// targeted form of admin_observe: this should only appear in the right-click menu.
+/client/proc/admin_observe_target(mob/target in view())
+	set name = "\[Admin\] Aobserve"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 
-	var/actually_admin = check_rights(R_ADMIN|R_MOD)
-
+	var/full_admin = check_rights(R_ADMIN|R_MOD)
 
 	// todo what happens if a user we're observing logs out?
 
@@ -409,43 +437,59 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
-
-	if(isnull(target))
-		// choose a target
-		target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
-		if(isnull(target))
-			return
-
-	if(target == src)
-		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+	if(isnull(target) || target == src)
+		// let the default one find the target
+		admin_observe()
 		return
 
+	// observers don't need to ghost, so we don't need to worry about addinhg
 	if(isobserver(mob))
 		var/mob/dead/observer/ghost = mob
 		if(ghost.mob_observed)
 			// un-follow them
 			ghost.cleanup_observe()
-			if(!actually_admin)
-				REMOVE_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(target))
+			// if it's a mentor, make sure they go back to their body.
+			if(HAS_TRAIT(mob.mind, TRAIT_MOBSERVE))
+				// handler will handle removing the trait
+				mob.stop_orbit()
 			log_admin("[key_name(src)] has de-activated Aobserve")
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
 		else
-			if(!actually_admin)
-				ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(target))
 			log_admin("[key_name(src)] has activated Aobserve to follow [target]")
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
 			ghost.do_observe(target)
 		return
 
 
 	// the person is a living mob: we need to ghostize.
-	if(!actually_admin)
-		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(target))
+	if(!full_admin)
+		// if they're a mentor and they're alive, add the mobserving trait to ensure that they can only go back to their body.
+		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
+		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
 	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
 
-	// admins can just ghost for free
 	admin_ghost()
 	var/mob/dead/observer/ghost = mob
+	// make the ghost orbit them so they can see their visible messages and whatnot
 	ghost.do_observe(target)
 
+/client/proc/on_mentor_observe_end(atom/movable/us, atom/movable/orbited)
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBITER_STOP
+	if(!isobserver(mob))
+		log_and_message_admins("A mentor somehow managed to end observing while not being a ghost. Please investigate and notify coders.")
+		return
+	var/mob/dead/observer/ghost = mob
+
+	// just to be safe
+	ghost.cleanup_observe()
+
+	REMOVE_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
+	UnregisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
+
+	if(!ghost.reenter_corpse())
+		log_debug("Mentor [key_name(src)] was unable to re-enter their body after mentor observing")
+		log_and_message_admins("[key_name(src)] was unable to re-enter their body after mentor observing.")
+		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, otherwise you may wish to ahelp.</span>")
 
 /client/proc/invisimin()
 	set name = "Invisimin"

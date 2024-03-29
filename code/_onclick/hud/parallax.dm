@@ -3,7 +3,7 @@
 	if(!screenmob.client)
 		return
 	var/client/C = screenmob.client
-	if(!apply_parallax_pref())
+	if(!apply_parallax_pref(screenmob))
 		return
 	// this is needed so it blends properly with the space plane and blackness plane.
 	var/atom/movable/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
@@ -46,8 +46,11 @@
 	S.color = null
 	S.appearance_flags &= ~NO_CLIENT_COLOR
 
-/datum/hud/proc/apply_parallax_pref()
-	var/client/C = mymob.client
+/datum/hud/proc/apply_parallax_pref(mob/viewmob)
+	var/mob/screen_mob = viewmob || mymob
+	var/client/C = screen_mob.client
+	if(!istype(C))
+		return FALSE
 	if(C.prefs)
 		var/pref = C.prefs.parallax
 		if(isnull(pref))
@@ -86,9 +89,12 @@
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
 // Well, it would if our shuttle code had dynamic areas
-/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
+/datum/hud/proc/set_parallax_movedir(mob/viewmob, new_parallax_movedir, skip_windups)
 	. = FALSE
-	var/client/C = mymob.client
+	var/mob/screen_mob = viewmob || mymob
+	var/client/C = screen_mob.client
+	if(!istype(C))
+		return
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
@@ -175,9 +181,9 @@
 	// Update the movement direction of the parallax if necessary (for shuttles)
 	var/area/shuttle/SA = areaobj
 	if(!SA || !SA.moving)
-		set_parallax_movedir(0)
+		set_parallax_movedir(screenmob, 0)
 	else
-		set_parallax_movedir(SA.parallax_move_direction)
+		set_parallax_movedir(screenmob, SA.parallax_move_direction)
 
 	var/force
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))

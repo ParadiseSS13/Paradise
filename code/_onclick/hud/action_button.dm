@@ -38,6 +38,8 @@
 			return FALSE
 	if(!linked_action)
 		return TRUE
+	if(linked_action.owner != user)
+		return FALSE
 	return !isnull(linked_action.viewers[user.hud_used])
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it

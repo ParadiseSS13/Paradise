@@ -874,7 +874,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	set name = "\[Observer\] Observe"
-	set desc = "Observe the target atom."
+	set desc = "Observe the target mob."
 	set category = "Ghost"
 
 	if(isnewplayer(mob_eye))
@@ -893,7 +893,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	//Istype so we filter out points of interest that are not mobs
-	if(client && mob_eye && istype(mob_eye))
+	if(client && ismob(mob_eye))
+		ManualFollow(mob_eye)
 		client.set_eye(mob_eye)
 		client.perspective = EYE_PERSPECTIVE
 		if(mob_eye.hud_used)
@@ -902,7 +903,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 			mob_observed = mob_eye.UID()
 
-		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_observer_move))
+		// follow the mob so they're technically right there
+		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
+			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end))
 
 /// Clean up observing
 /mob/dead/observer/proc/cleanup_observe()
@@ -913,21 +916,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	reset_perspective(null)
 	client?.perspective = initial(client.perspective)
 	set_sight(initial(sight))
-	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(src, COMSIG_ATOM_ORBITER_STOP)
 
 	if(istype(target))
 		hide_other_mob_action_buttons(target)
 		target.observers -= src
 		// LAZYREMOVE(target.observers, src)
 
-/mob/dead/observer/proc/on_observer_move(mob/follower, atom/oldloc, direction)
-	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
+/mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom/oldloc, direction)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBITER_STOP
+	cleanup_observe()
 
-	if(get_turf(src) == get_turf(oldloc) || get_turf(src) == oldloc || loc == oldloc)
-		return
-
-	if(!isnull(mob_observed))
-		cleanup_observe()
 
 
 
