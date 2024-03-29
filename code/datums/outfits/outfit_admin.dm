@@ -922,7 +922,7 @@
 	uniform = /obj/item/clothing/under/suit/really_black
 	suit = /obj/item/clothing/suit/pimpcoat
 	shoes = /obj/item/clothing/shoes/fluff/noble_boot
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/melee/classic_baton/ntcane
 
 /datum/outfit/admin/trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
