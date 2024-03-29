@@ -59,17 +59,26 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		EC.next_event_time = world.time + (60 * 10)
 		return
 
+	//Get the list of spawn locations for traders
 	var/list/spawnlocs = list()
 	for(var/obj/effect/landmark/spawner/soltrader/S in GLOB.landmarks_list)
 		spawnlocs += get_turf(S)
+
 	if(!spawnlocs.len)
 		return
+	//Get the list of spawn locations for company specific items
+	var/list/minorspawnlocs = list()
+	for (var/obj/effect/landmark/spawner/tradergearminor/A in GLOB.landmarks_list)
+		minorspawnlocs += get_turf(A)
+	var/list/majorspawnlocs = list()
+	for (var/obj/effect/landmark/spawner/tradergearmajor/B in GLOB.landmarks_list)
+		majorspawnlocs += get_turf(B)
 
 	trader_objectives = forge_trader_objectives()
 
-	INVOKE_ASYNC(src, PROC_REF(spawn_traders), spawnlocs, T)
+	INVOKE_ASYNC(src, PROC_REF(spawn_traders), spawnlocs, minorspawnlocs, majorspawnlocs, T)
 
-/datum/event/traders/proc/spawn_traders(list/spawnlocs, datum/event/traders/T)
+/datum/event/traders/proc/spawn_traders(list/spawnlocs, list/minorspawnlocs, list/majorspawnlocs, datum/event/traders/T)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [T.trader_type] Trader?", ROLE_TRADER, TRUE)
 	var/index = 1
 	while(spawn_count > 0 && length(candidates))
@@ -111,7 +120,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 	return objs
 
-//Datums that handle the various announcements and similar values.
+//Datums that handle the various announcements, species, outfits, and item lists.
 /datum/event/traders/sol
 	trader_type = "Trans-Solar Federation"
 	trader_location = "Kayani Station"

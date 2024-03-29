@@ -851,7 +851,7 @@
 	)
 
 /datum/outfit/admin/trader/sol
-	name = "Sol Trader"
+	name = "Trans-Solar Federation Trader"
 	suit = /obj/item/clothing/suit/jacket/cargobomber
 	head = /obj/item/clothing/head/soft
 

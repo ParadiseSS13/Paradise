@@ -40,6 +40,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "traderstart_sol"
 	icon_state = "Trader"
 
+/obj/effect/landmark/spawner/tradergearminor
+	name = "traderstart_specificgear_minor"
+	icon_state = "questionmark"
+
+/obj/effect/landmark/spawner/tradergearmajor
+	name = "traderstart_specificgear_major"
+	icon_state = "questionmark"
+
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
 	icon_state = "ERT"
