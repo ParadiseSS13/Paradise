@@ -210,26 +210,41 @@
 /obj/docking_port/mobile/supply/proc/sell()
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SELL)
 	SSeconomy.sold_atoms = list()
+	var/list/qdel_atoms = list()
+	var/list/rescue_atoms = list()
 	for(var/atom/movable/AM in manifest.items_to_sell)
 		var/sellable = manifest.items_to_sell[AM]
 		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
 			SEND_SIGNAL(src, COMSIG_CARGO_DO_PRIORITY_SELL, AM, manifest)
 			SSeconomy.sold_atoms += "[AM.name](priority)"
-			qdel(AM)
+			qdel_atoms += AM
+			continue
 		else if(sellable & COMSIG_CARGO_SELL_NORMAL)
 			SEND_SIGNAL(src, COMSIG_CARGO_DO_SELL, AM, manifest)
 			SSeconomy.sold_atoms += "[AM.name](normal)"
-			qdel(AM)
+			qdel_atoms += AM
+			continue
 		else if(sellable & COMSIG_CARGO_SELL_WRONG)
 			SEND_SIGNAL(src, COMSIG_CARGO_SEND_ERROR, AM, manifest)
 			SSeconomy.sold_atoms += "[AM.name](error)"
-			qdel(AM)
+			qdel_atoms += AM
+			continue
 		else if(sellable & COMSIG_CARGO_MESS)
 			manifest.messy_shuttle = TRUE
 			SSeconomy.sold_atoms += "[AM.name](mess)"
-			qdel(AM)
+			qdel_atoms += AM
+			continue
 		else if(!(sellable & COMSIG_CARGO_SELL_SKIP))
 			manifest.sent_trash = TRUE
+
+		rescue_atoms += AM
+
+	for(var/atom/movable/AM in rescue_atoms)
+		if(AM.loc in qdel_atoms)
+			AM.forceMove(get_turf(AM))
+
+	for(var/AM in qdel_atoms)
+		qdel(AM)
 
 	SEND_SIGNAL(src, COMSIG_CARGO_END_SELL, manifest)
 
