@@ -75,9 +75,10 @@
 		else
 			. += "clean_on"
 	else if(area_locked)
-		. += "clean_restrict-work"
+		. += "clean_restrict_work"
 	else
 		. += "clean_work"
+		. += "clean_brush"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
