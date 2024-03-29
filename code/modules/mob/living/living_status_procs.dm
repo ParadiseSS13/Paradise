@@ -409,7 +409,7 @@ STATUS EFFECTS
 		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
 	return P
 
-/mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
+/mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = 5 MINUTES, ignore_canstun = FALSE)
 	return SetParalysis(directional_bounded_sum(AmountParalyzed(), amount, bound_lower, bound_upper), ignore_canstun)
 
 // SILENT
