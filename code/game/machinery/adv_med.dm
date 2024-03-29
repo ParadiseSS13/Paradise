@@ -146,7 +146,7 @@
 	if(H == user)
 		visible_message("[user] climbs into [src].")
 	else
-		visible_message("[user] puts [H] into the body scanner.")
+		visible_message("[user] puts [H] into [src].")
 
 	QDEL_LIST_CONTENTS(H.grabbed_by)
 	H.forceMove(src)
@@ -551,3 +551,77 @@
 		dat += "[src] is empty."
 
 	return dat
+
+/obj/machinery/bodyscanner/brain
+	name = "brainalyzer"
+	desc = "A child of Nanotrasen's best minds, designed to both swiftly analyze and determine the mental status of a patient, while also removing the need for a company doctor to be on site and save the company money. Ain't progress grand?"
+	icon_state = "brainscanner-open"
+	/// One of the results the scanner can give you
+	var/list/brain_scan_sounds = list('sound/machines/brain_scan_1.ogg',
+									'sound/machines/brain_scan_2.ogg',
+									)
+	// Keep the patient stuck inside the scanner while the sound plays
+	COOLDOWN_DECLARE(scan_time)
+	// To stop people from keeping others stuck in it by repeating scans
+	COOLDOWN_DECLARE(spam_protection)
+
+/obj/machinery/bodyscanner/brain/RefreshParts()
+	return
+
+/obj/machinery/bodyscanner/brain/update_icon_state()
+	if(occupant)
+		icon_state = "brainscanner"
+	else
+		icon_state = "brainscanner-open"
+
+/obj/machinery/bodyscanner/brain/attack_ghost(user)
+	return
+
+/obj/machinery/bodyscanner/brain/attack_hand(user)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!occupant)
+		to_chat(user, "<span class='notice'>Insert the patient before initiating a brain scan.</span>")
+		return
+
+	if(occupant == user)
+		return // you cant reach that
+
+	if(!COOLDOWN_FINISHED(src, spam_protection))
+		to_chat(user, "<span class='notice'>The brain scanner electronics are too hot, please wait.</span>")
+		return
+
+	psych_scan()
+
+/obj/machinery/bodyscanner/brain/proc/psych_scan()
+	playsound(src, pick(brain_scan_sounds), 30)
+	COOLDOWN_START(src, spam_protection, 20 SECONDS)
+	COOLDOWN_START(src, scan_time, 8 SECONDS)
+
+/obj/machinery/bodyscanner/brain/go_out()
+	if(!COOLDOWN_FINISHED(src, scan_time))
+		atom_say("Wait until the scan is over to leave.")
+		return
+	return ..()
+
+/obj/machinery/bodyscanner/brain/crowbar_act(mob/user, obj/item/I)
+	return // come on, its special, dont destroy it!
+
+/obj/machinery/bodyscanner/brain/screwdriver_act(mob/user, obj/item/I)
+	return // come on, its special, dont destroy it!
+
+/obj/machinery/bodyscanner/brain/ui_state(mob/user)
+	return
+
+/obj/machinery/bodyscanner/brain/ui_interact(mob/user, datum/tgui/ui)
+	return
+
+/obj/machinery/bodyscanner/brain/ui_data(mob/user)
+	return
+
+/obj/machinery/bodyscanner/brain/ui_act(action, params)
+	return
+
+/obj/machinery/bodyscanner/brain/generate_printing_text()
+	return
