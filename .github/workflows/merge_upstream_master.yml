@@ -91,6 +91,8 @@ jobs:
           chmod +x tools/hooks/*.merge tgui/bin/tgui
 
           # Actual Merge
+          git config user.name paradisess13bot[bot]
+          git config user.email "165046124+paradisess13bot[bot]@users.noreply.github.com"
           git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
 
           git fetch origin "$PR_BRANCH" --depth=$((ahead_by + 1))
