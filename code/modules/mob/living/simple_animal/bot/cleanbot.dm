@@ -172,6 +172,7 @@
 		area_locked = null
 	else
 		area_locked = get_area(loc)
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
