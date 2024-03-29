@@ -4,7 +4,7 @@
 	dir = 6
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "ab" = (
 /obj/structure/closet/crate/can,
@@ -45,7 +45,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "ar" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "as" = (
 /obj/item/trash/tastybread,
@@ -60,7 +60,7 @@
 "az" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "aC" = (
 /obj/machinery/washing_machine,
@@ -92,7 +92,7 @@
 	pixel_x = 10;
 	pixel_y = 9
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "aK" = (
 /obj/item/seeds/carrot,
@@ -114,7 +114,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "aZ" = (
 /turf/simulated/floor{
@@ -158,9 +158,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "bB" = (
 /obj/machinery/light/small/directional/south,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/melee,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "bH" = (
@@ -168,7 +166,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "bJ" = (
 /obj/structure/chair/stool/bar,
@@ -183,7 +181,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "bR" = (
 /obj/item/stack/rods,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "bW" = (
 /obj/structure/extinguisher_cabinet/directional/east,
@@ -198,10 +196,10 @@
 	},
 /obj/effect/landmark/damageturf,
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "cd" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "ch" = (
 /obj/machinery/economy/vending/cigarette/free,
@@ -320,7 +318,7 @@
 "dk" = (
 /obj/structure/girder,
 /obj/item/stack/sheet/mineral/sandstone,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "dn" = (
 /obj/effect/mine/gas/plasma,
@@ -331,7 +329,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "dt" = (
 /obj/effect/decal/cleanable/blood/writing,
@@ -340,7 +338,7 @@
 "dC" = (
 /obj/structure/shuttle/engine/router,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "dG" = (
 /obj/machinery/light/small/directional/east,
@@ -373,7 +371,7 @@
 "dS" = (
 /obj/structure/girder/displaced,
 /obj/item/stack/sheet/plasteel,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "dY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -437,8 +435,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "ey" = (
-/mob/living/simple_animal/hostile/syndicate/ranged,
-/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "eB" = (
@@ -457,7 +454,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "eK" = (
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "eL" = (
 /obj/structure/table,
@@ -563,7 +560,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/east,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "fz" = (
 /obj/item/shard,
@@ -590,7 +587,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "fP" = (
 /obj/structure/flora/ash/tall_shroom,
-/mob/living/simple_animal/hostile/syndicate/ranged,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "fQ" = (
@@ -624,7 +621,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "gk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "go" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
@@ -658,7 +655,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "gB" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "gE" = (
 /obj/effect/turf_decal/caution{
@@ -731,7 +728,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "hi" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "hk" = (
 /turf/simulated/wall/mineral/sandstone,
@@ -741,7 +738,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "hp" = (
 /obj/structure/closet/cabinet,
@@ -852,7 +849,7 @@
 /obj/machinery/door_control/shutter/north{
 	id = "ww_door_ext"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iB" = (
 /obj/structure/closet,
@@ -874,10 +871,10 @@
 	dir = 4
 	},
 /obj/machinery/light_construct/small/east,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iG" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iI" = (
 /obj/structure/filingcabinet,
@@ -889,7 +886,7 @@
 	dir = 2
 	},
 /obj/machinery/light/small/directional/south,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iL" = (
 /turf/simulated/floor/plasteel{
@@ -911,7 +908,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iY" = (
 /obj/structure/chair/comfy/black{
@@ -948,7 +945,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "jg" = (
 /obj/structure/closet/walllocker/emerglocker/east,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "ji" = (
 /obj/effect/decal/cleanable/dirt,
@@ -959,7 +956,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "jj" = (
 /obj/item/stack/tile/plasteel,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "jl" = (
 /obj/effect/mine/dnascramble,
@@ -999,7 +996,7 @@
 	color = "#FF0000";
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "jC" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -1052,7 +1049,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "ki" = (
 /obj/item/stack/tile/wood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "kk" = (
 /obj/machinery/power/port_gen/pacman,
@@ -1081,7 +1078,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "kA" = (
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "kE" = (
 /obj/structure/closet/secure_closet/engineering_welding,
@@ -1091,7 +1088,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "kL" = (
 /turf/simulated/wall/indestructible/opsglass,
@@ -1108,9 +1105,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "kR" = (
 /obj/structure/flora/rock,
-/mob/living/simple_animal/hostile/syndicate/ranged/orion{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "kS" = (
@@ -1253,7 +1248,7 @@
 /obj/machinery/door/poddoor/multi_tile/three_tile_ver{
 	id_tag = "ww_pod"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "lM" = (
 /obj/structure/table_frame/wood,
@@ -1300,7 +1295,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "mn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1380,7 +1375,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "nf" = (
-/mob/living/simple_animal/hostile/syndicate/ranged,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1654,7 +1649,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "pF" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "pG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1683,7 +1678,7 @@
 "pO" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "pQ" = (
 /obj/machinery/computer/nonfunctional{
@@ -1718,7 +1713,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "qi" = (
 /obj/structure/chair/comfy/black{
@@ -1759,7 +1754,7 @@
 	icon_state = "mining"
 	},
 /obj/item/mining_scanner,
-/obj/item/clothing/under/plasmaman/mining,
+/obj/item/clothing/suit/hooded/explorer,
 /obj/item/clothing/suit/jacket/miningbomber,
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/wood/oak,
@@ -1767,7 +1762,7 @@
 "qE" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "qH" = (
 /obj/effect/turf_decal/delivery/white,
@@ -1867,7 +1862,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "rx" = (
 /obj/machinery/constructable_frame,
@@ -1894,7 +1889,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "rN" = (
 /obj/structure/bed,
@@ -2035,7 +2030,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "tv" = (
 /turf/simulated/wall/indestructible/rock/mineral,
@@ -2092,7 +2087,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "tX" = (
 /obj/machinery/light/small/directional/east,
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)
 "tZ" = (
@@ -2228,12 +2223,6 @@
 /obj/structure/curtain/medical,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
-"vi" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/orion{
-	name = "Syndicate Operative"
-	},
-/turf/simulated/floor/wood/oak,
-/area/awaymission/wildwest/wildwest_mines)
 "vk" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/asteroid,
@@ -2331,9 +2320,7 @@
 /area/awaymission/wildwest/wildwest_vault)
 "wB" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2385,7 +2372,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "xb" = (
 /obj/effect/spawner/window/plastitanium,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "xc" = (
 /obj/structure/table/wood,
@@ -2409,7 +2396,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "xj" = (
 /obj/machinery/light/small/directional/west,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "xk" = (
 /obj/machinery/light/small/directional/west,
@@ -2462,7 +2449,7 @@
 "xB" = (
 /obj/effect/landmark/damageturf,
 /obj/item/stack/tile/plasteel,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "xE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2506,7 +2493,7 @@
 "yi" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "yt" = (
 /turf/simulated/floor/plating/asteroid{
@@ -2661,7 +2648,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Au" = (
 /obj/effect/turf_decal/loading_area{
@@ -2700,7 +2687,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "AJ" = (
 /obj/machinery/light/small/directional/south,
@@ -2827,7 +2814,7 @@
 	},
 /obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "Br" = (
 /obj/structure/table/holotable/wood,
@@ -2951,7 +2938,7 @@
 	pixel_x = 10;
 	pixel_y = 9
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "De" = (
 /turf/simulated/floor{
@@ -3010,7 +2997,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "DB" = (
-/mob/living/simple_animal/hostile/syndicate/ranged,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "DF" = (
@@ -3116,7 +3103,7 @@
 /obj/structure/closet{
 	icon_state = "mining"
 	},
-/obj/item/clothing/under/plasmaman/mining,
+/obj/item/clothing/suit/hooded/explorer,
 /obj/item/mod/control/pre_equipped/mining/asteroid,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3283,11 +3270,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Gf" = (
 /obj/structure/girder,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "Go" = (
 /obj/effect/turf_decal/delivery,
@@ -3363,7 +3350,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "GQ" = (
 /obj/item/kirbyplants,
@@ -3458,16 +3445,12 @@
 /area/awaymission/wildwest/wildwest_mines)
 "HS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/mob/living/simple_animal/hostile/syndicate/ranged/orion{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "HT" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -3516,7 +3499,7 @@
 /obj/item/stack/rods{
 	amount = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Ix" = (
 /obj/structure/table/wood/fancy/red,
@@ -3549,7 +3532,7 @@
 "IH" = (
 /obj/structure/shuttle/engine/router,
 /obj/structure/shuttle/engine/router,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "IL" = (
 /obj/structure/flora/rock/pile,
@@ -3645,7 +3628,7 @@
 /area/space)
 "JV" = (
 /obj/machinery/light/small/directional/west,
-/mob/living/simple_animal/hostile/syndicate/ranged,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/wildwest/wildwest_mines)
 "Kb" = (
@@ -3700,7 +3683,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "KO" = (
 /obj/structure/table/holotable/wood,
@@ -3828,7 +3811,7 @@
 	dir = 9
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Mi" = (
 /obj/structure/railing{
@@ -3840,8 +3823,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "Mk" = (
 /obj/effect/decal/cleanable/blood/old,
-/mob/living/simple_animal/hostile/syndicate/ranged,
-/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Mq" = (
@@ -3856,7 +3838,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Mv" = (
 /obj/structure/shuttle/engine/router,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "MD" = (
 /obj/structure/computerframe{
@@ -3906,7 +3888,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/awaymission/wildwest/wildwest_refine)
 "MO" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3963,7 +3945,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Ns" = (
 /obj/structure/rack,
@@ -3982,7 +3964,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Nz" = (
 /obj/machinery/gateway{
@@ -4026,7 +4008,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "NY" = (
 /obj/effect/decal/cleanable/blood/gibs,
@@ -4079,14 +4061,14 @@
 	dir = 2;
 	id_tag = "ww_hang1"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "OL" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "ww_hang2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "ON" = (
 /obj/effect/landmark/damageturf,
@@ -4182,7 +4164,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "PL" = (
 /obj/machinery/light/small/directional/west,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "PM" = (
 /obj/effect/turf_decal/delivery/white,
@@ -4267,7 +4249,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidplating"
 	},
@@ -4324,7 +4306,7 @@
 "QQ" = (
 /obj/effect/landmark/damageturf,
 /obj/machinery/light/small/directional/west,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "QU" = (
 /obj/structure/closet/cabinet,
@@ -4368,7 +4350,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "RL" = (
 /obj/structure/fans/tiny,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "RO" = (
 /obj/structure/chair/sofa/right{
@@ -4412,7 +4394,7 @@
 	icon_state = "mining"
 	},
 /obj/item/mining_voucher,
-/obj/item/clothing/under/plasmaman/mining,
+/obj/item/clothing/suit/hooded/explorer,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood/oak,
@@ -4426,7 +4408,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Sr" = (
-/mob/living/simple_animal/hostile/syndicate/ranged,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/wildwest/wildwest_refine)
 "Sw" = (
@@ -4474,7 +4456,7 @@
 "Tc" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery/white/hollow,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Tg" = (
 /obj/effect/mine/dnascramble,
@@ -4521,7 +4503,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "Tx" = (
 /obj/effect/mine/gas/plasma,
@@ -4531,14 +4513,14 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "TG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "TH" = (
 /turf/simulated/floor{
@@ -4569,7 +4551,7 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/north,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "TS" = (
 /obj/machinery/mineral/ore_redemption,
@@ -4597,7 +4579,7 @@
 /obj/structure/closet{
 	icon_state = "mining"
 	},
-/obj/item/clothing/under/plasmaman/mining,
+/obj/item/clothing/suit/hooded/explorer,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/wood/oak,
@@ -4663,12 +4645,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "UH" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/syndicate/ranged,
-/turf/simulated/floor,
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "UN" = (
 /obj/structure/window/plasmareinforced{
@@ -4690,7 +4672,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "UW" = (
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "UX" = (
 /obj/structure/toilet{
@@ -4728,7 +4710,7 @@
 /area/awaymission/wildwest/wildwest_vault)
 "VF" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "VG" = (
 /obj/structure/table/holotable/wood,
@@ -4797,7 +4779,7 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Wq" = (
 /obj/effect/decal/cleanable/blood/drip{
@@ -4813,7 +4795,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "WH" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "WI" = (
 /turf/simulated/floor/plating/ironsand{
@@ -4855,7 +4837,7 @@
 "WY" = (
 /obj/machinery/light/small/directional/north,
 /obj/item/stack/tile/wood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "Xe" = (
 /obj/structure/flora/rock/pile,
@@ -4929,7 +4911,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Yc" = (
 /obj/item/stack/sheet/plasteel,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Ye" = (
 /obj/structure/table/holotable/wood,
@@ -4950,7 +4932,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "Ym" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -4962,7 +4944,7 @@
 	},
 /obj/effect/mob_spawn/human/corpse/miner,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "YC" = (
 /turf/simulated/floor/carpet,
@@ -4972,9 +4954,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "YI" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/orion{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "YJ" = (
@@ -5025,7 +5005,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "YY" = (
 /obj/effect/turf_decal/arrows,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Za" = (
 /turf/simulated/floor/plasteel{
@@ -5033,9 +5013,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "Zi" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib{
-	name = "Syndicate Operative"
-	},
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Zj" = (
@@ -5078,13 +5056,13 @@
 	pixel_y = 9
 	},
 /obj/structure/grille/broken,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "Zr" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "Zu" = (
 /obj/effect/decal/cleanable/blood/writing{
@@ -10773,7 +10751,7 @@ JS
 wK
 hk
 WY
-XR
+ey
 JS
 kO
 ec
@@ -12601,7 +12579,7 @@ JS
 JS
 JS
 JS
-vi
+ey
 JS
 JS
 JS
