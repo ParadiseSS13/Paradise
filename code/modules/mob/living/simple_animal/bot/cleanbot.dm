@@ -61,6 +61,9 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
+/mob/living/simple_animal/bot/cleanbot/update_icon_state()
+	return
+
 /mob/living/simple_animal/bot/cleanbot/update_overlays() // Using ``clean_`` before remaking other bot. each bot sprite is offset, overlays would get mixed up
 	. = ..()
 	if(!on)
@@ -178,7 +181,7 @@
 		area_locked = null
 	else
 		area_locked = get_area(loc)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
