@@ -49,20 +49,15 @@ $bg-map: colors.$bg-map !default;
 .ImageButton__horizontal {
   display: -ms-flexbox;
   width: 100%;
-  margin-top: 0.5em;
   align-items: center;
-
-  &:first-child {
-    margin-top: 0;
-  }
 }
 
 .ImageButton--horizontal {
   display: -ms-flexbox;
-  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 
-  &:first-child {
-    margin-top: 0;
+  &:last-child {
+    margin-bottom: 0.4em;
   }
 }
 
