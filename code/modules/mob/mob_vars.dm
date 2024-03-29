@@ -246,3 +246,7 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
+
+	/// Does this mob speak OOC?
+	/// Controls whether they can say some symbols.
+	var/speaks_ooc = FALSE
