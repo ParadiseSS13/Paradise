@@ -3,6 +3,7 @@ import { InfernoNode } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Button,
+  Flex,
   LabeledList,
   Section,
   Stack,
@@ -225,7 +226,7 @@ const StrainInformationSection = (
   );
 
   return (
-    <Stack.Item>
+    <Flex.Item>
       <Section
         title={props.sectionTitle ?? 'Strain Information'}
         buttons={appliedSectionButtons}
@@ -235,7 +236,7 @@ const StrainInformationSection = (
           strainIndex={props.strainIndex}
         />
       </Section>
-    </Stack.Item>
+    </Flex.Item>
   );
 };
 
@@ -264,19 +265,21 @@ const CultureInformationSection = (props, context) => {
   return (
     <Stack.Item grow>
       <Section title="Culture Information" fill buttons={sectionButtons}>
-        <Stack vertical fill compressed>
-          <Tabs>
-            {strains.map((strain, i) => (
-              <Tabs.Tab
-                key={i}
-                icon="virus"
-                selected={selectedStrainIndex - 1 === i}
-                onClick={() => act('switch_strain', { strain_index: i + 1 })}
-              >
-                {strain.commonName ?? 'Unknown'}
-              </Tabs.Tab>
-            ))}
-          </Tabs>
+        <Flex direction="column" style={{ 'height': '100%' }}>
+          <Flex.Item>
+            <Tabs>
+              {strains.map((strain, i) => (
+                <Tabs.Tab
+                  key={i}
+                  icon="virus"
+                  selected={selectedStrainIndex - 1 === i}
+                  onClick={() => act('switch_strain', { strain_index: i + 1 })}
+                >
+                  {strain.commonName ?? 'Unknown'}
+                </Tabs.Tab>
+              ))}
+            </Tabs>
+          </Flex.Item>
           <StrainInformationSection
             strain={selectedStrain}
             strainIndex={selectedStrainIndex}
@@ -287,7 +290,7 @@ const CultureInformationSection = (props, context) => {
               strain={selectedStrain}
             />
           )}
-        </Stack>
+        </Flex>
       </Section>
     </Stack.Item>
   );
@@ -303,7 +306,7 @@ const StrainSymptomsSection = (props: {
 }) => {
   const { symptoms } = props.strain;
   return (
-    <Stack.Item grow>
+    <Flex.Item grow>
       <Section title="Infection Symptoms" fill className={props.className}>
         <Table className="symptoms-table">
           <Table.Row>
@@ -334,7 +337,7 @@ const StrainSymptomsSection = (props: {
           </Table.Row>
         </Table>
       </Section>
-    </Stack.Item>
+    </Flex.Item>
   );
 };
 
