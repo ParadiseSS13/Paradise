@@ -137,8 +137,12 @@
 /obj/item/key/mime/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, alarm_cooldown))
 		return
+	if(prob(10))
+		to_chat(user, "<span class='warning'>The key vibrates, looks like you are close to it!</span>")
+	else
+		to_chat(user, "<span class='info'>The key does nothing, seems like the car is too far away.</span>")
 	playsound(user, 'sound/misc/mime_key.ogg', 20)
-	COOLDOWN_START(src, alarm_cooldown, 2 SECONDS)
+	COOLDOWN_START(src, alarm_cooldown, 4 SECONDS)
 
 //BUCKLE HOOKS
 /obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
