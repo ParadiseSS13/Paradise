@@ -377,6 +377,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
+"bA" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -12729,6 +12734,11 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"SU" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -48790,9 +48800,9 @@ vG
 of
 oI
 pc
-rK
+bA
 pc
-uP
+SU
 pc
 vY
 of
@@ -49304,9 +49314,9 @@ vG
 of
 oS
 pc
-pa
+rK
 pc
-pa
+uP
 pc
 wa
 of
