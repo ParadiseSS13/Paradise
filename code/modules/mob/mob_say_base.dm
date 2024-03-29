@@ -216,5 +216,3 @@
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		. += S.message + " "
 	. = trim_right(.)
-
-#undef ILLEGAL_CHARACTERS_LIST
