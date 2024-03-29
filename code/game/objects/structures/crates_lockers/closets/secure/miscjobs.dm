@@ -21,6 +21,7 @@
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/seeds/banana(src)
 	new /obj/item/restraints/handcuffs/toy(src)
+	new /obj/item/toy/joy_buzzer(src)
 
 
 

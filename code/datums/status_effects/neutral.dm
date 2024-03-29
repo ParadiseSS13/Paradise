@@ -94,6 +94,24 @@
 		playsound(user, sound_effect, 80)
 		if(!both_wiz)
 			user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
+
+			var/user_has_buzz = FALSE
+			var/c_has_buzz = FALSE
+			var/obj/item/toy/joy_buzzer/buzz = user.get_active_hand()
+			if(!istype(buzz))
+				buzz = user.get_inactive_hand()
+			if(istype(buzz))
+				user_has_buzz = TRUE
+			var/obj/item/toy/joy_buzzer/c_buzz = user.get_active_hand()
+			if(!istype(c_buzz))
+				c_buzz = C.get_inactive_hand()
+			if(istype(c_buzz))
+				c_has_buzz = TRUE
+			if(user_has_buzz)
+				buzz.electrocute(user, C)
+			if(c_has_buzz)
+				c_buzz.electrocute(C, user)
+
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
 			return FALSE

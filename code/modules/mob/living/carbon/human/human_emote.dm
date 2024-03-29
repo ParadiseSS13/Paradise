@@ -61,6 +61,12 @@
 			user.visible_message("[user] makes the sound of one hand clapping.")
 		return TRUE
 
+	var/obj/item/toy/joy_buzzer/buzz = H.get_active_hand()
+	if(!istype(buzz))
+		buzz = H.get_inactive_hand()
+	if(istype(buzz))
+		buzz.electrocute(H, H)
+
 	return ..()
 
 /datum/emote/living/carbon/human/clap/get_sound(mob/living/user)
