@@ -557,8 +557,17 @@
 	desc = "A child of Nanotrasen's best minds, designed to both swiftly analyze and determine the mental status of a patient, while also removing the need for a company doctor to be on site and save the company money. Ain't progress grand?"
 	icon_state = "brainscanner-open"
 	/// One of the results the scanner can give you
-	var/list/brain_scan_sounds = list('sound/machines/brain_scan_1.ogg',
-									'sound/machines/brain_scan_2.ogg',
+	var/list/brain_scan_sounds = list('sound/machines/Brainalyzer_01.ogg',
+									'sound/machines/Brainalyzer_02.ogg',
+									'sound/machines/Brainalyzer_03.ogg',
+									'sound/machines/Brainalyzer_04.ogg',
+									'sound/machines/Brainalyzer_05.ogg',
+									'sound/machines/Brainalyzer_06.ogg',
+									'sound/machines/Brainalyzer_07.ogg',
+									'sound/machines/Brainalyzer_08.ogg',
+									'sound/machines/Brainalyzer_09.ogg',
+									'sound/machines/Brainalyzer_10.ogg',
+									'sound/machines/Brainalyzer_11.ogg'
 									)
 	// Keep the patient stuck inside the scanner while the sound plays
 	COOLDOWN_DECLARE(scan_time)
