@@ -108,7 +108,7 @@ jobs:
           git push origin
 
       - name: Approve Workflows
-        if: success() && env.FAIL_NOTIFIED != 'true'
+        if: success() && env.FAIL_NOTIFIED != 'false'
         run: |
           # Get the list of pending workflow runs for paradisess13bot
           runs=$(gh api \
