@@ -274,7 +274,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	. = ..()
 	if(.)
 		return
-	targeting.InterceptClickOn(user, params, A, src)
+	if(targeting)
+		targeting.InterceptClickOn(user, params, A, src)
 
 ///Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
 /datum/spell/proc/on_purchase_upgrade()
