@@ -1712,6 +1712,7 @@
 	desc = "A device that straps to the hand and gives a small, harmless electric shock to anybody who shakes hands with the user."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "buzzer"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/toy/joy_buzzer/examine(mob/user)
 	. = ..()
@@ -1724,16 +1725,16 @@
 		victim.visible_message("<span class='warning'>[victim] is shocked by [prankster]'s [name]!</span>", "<span class='warning'>You are shocked by [prankster]'s [name]!</span>")
 	playsound(src, 'sound/effects/sparks1.ogg', 20)
 	if(emagged)
-		victim.Jitter(10 SECONDS)
-		victim.Stun(8 SECONDS)
-		victim.Stuttering(20 SECONDS)
-		victim.KnockDown(5 SECONDS)
+		victim.AdjustJitter(10 SECONDS)
+		victim.AdjustStunned(8 SECONDS)
+		victim.AdjustStuttering(20 SECONDS)
+		victim.AdjustKnockDown(5 SECONDS)
 		victim.apply_damage(rand(20, 40), BURN, victim.hand ? "l_hand" : "r_hand", used_weapon = "Electrocution")
 		add_attack_logs(prankster, victim, "Zapped with an emagged joy buzzer")
 	else
-		victim.Jitter(5 SECONDS)
-		victim.Stun(4 SECONDS)
-		victim.Stuttering(10 SECONDS)
+		victim.AdjustJitter(5 SECONDS)
+		victim.AdjustStunned(4 SECONDS)
+		victim.AdjustStuttering(10 SECONDS)
 		add_attack_logs(prankster, victim, "Stunned with a joy buzzer")
 
 /obj/item/toy/joy_buzzer/emag_act(mob/user)
@@ -1746,3 +1747,11 @@
 /obj/item/toy/joy_buzzer/cmag_act(mob/user)
 	. = ..()
 	emag_act(user)
+
+/obj/item/toy/joy_buzzer/suicide_act(mob/living/user)
+	to_chat(viewers(user), "<span class='suicide'>[user] is strapping [src] to [user.p_their()] [ismachineperson(user) ? "charging port" : "tongue"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.AdjustStunned(8 SECONDS)
+	sleep(25)
+	playsound(src, 'sound/effects/sparks3.ogg', 20)
+	user.AdjustJitter(10 SECONDS)
+	return FIRELOSS
