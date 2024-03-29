@@ -3,7 +3,7 @@
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "cleanbot0"
+	icon_state = "cleanbot"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -52,7 +52,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
-	icon_state = "cleanbot[on]"
+	update_icon(UPDATE_OVERLAYS)
 
 	clean_dirt = typecacheof(clean_dirt)
 	clean_blood = typecacheof(clean_blood)
@@ -61,14 +61,20 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/cleanbot/turn_on()
-	..()
-	icon_state = "cleanbot1[area_locked ? "r" : null]"
-
-
-/mob/living/simple_animal/bot/cleanbot/turn_off()
-	..()
-	icon_state = "cleanbot0"
+/mob/living/simple_animal/bot/cleanbot/update_overlays() // Using ``clean_`` before remaking other bot. each bot sprite is offset, overlays would get mixed up
+	. = ..()
+	if(!on)
+		. += "clean_off"
+		return
+	if(mode != BOT_CLEANING)
+		if(area_locked)
+			. += "clean_restrict"
+		else
+			. += "clean_on"
+	else if(area_locked)
+		. += "clean_restrict-work"
+	else
+		. += "clean_work"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
@@ -176,9 +182,9 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
-	icon_state = "cleanbot-[area_locked ? "r" : null]c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
@@ -187,10 +193,7 @@
 		QDEL_NULL(target)
 		anchored = FALSE
 	mode = BOT_IDLE
-	if(on)
-		icon_state = "cleanbot1[area_locked ? "r" : null]"
-	else
-		icon_state = "cleanbot0"
+	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
