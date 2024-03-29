@@ -109,26 +109,6 @@ jobs:
           git merge FETCH_HEAD
           git push origin
 
-      - name: Approve Workflows
-        if: success()
-        run: |
-          # Get the list of pending workflow runs for paradisess13bot
-          runs=$(gh api \
-                  --method POST \
-                  -H "Accept: application/vnd.github+json" \
-                  -H "X-GitHub-Api-Version: 2022-11-28" \
-                  /repos/ParadiseSS13/Paradise/actions/runs?actor=paradisess13bot&status=action_required)
-          run_ids=$(echo $runs | jq -r '.workflow_runs[]?.id')
-
-          # Iterate over the run IDs (if any), approving each one
-          for run_id in $run_ids; do
-              gh api \
-                --method POST \
-                -H "Accept: application/vnd.github+json" \
-                -H "X-GitHub-Api-Version: 2022-11-28" \
-                /repos/ParadiseSS13/Paradise/actions/runs/$run_id/approve
-          done
-
       - name: Notify Failure
         if: failure() && env.FAIL_NOTIFIED != 'true'
         run: |
