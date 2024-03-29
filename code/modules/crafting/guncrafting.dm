@@ -94,7 +94,7 @@
 	outcome = /obj/item/gun/energy/plasma_pistol
 
 /obj/item/weaponcrafting/gunkit/sparker
-	name = "SPRK-12 pistol parts kit"
+	name = "\improper SPRK-12 pistol parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a mini energy gun into a SPRK-12 pistol. Double or nothing!"
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	outcome = /obj/item/gun/energy/sparker
