@@ -21,7 +21,7 @@
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
 	if(hacked)
-		. += "Its wiring is haphazardly changed."
+		. += "<span class='warning'>Its wiring is haphazardly changed.</span>"
 	if(timer_off)
 		. += "<span class='notice'>The mining charge is connected to a detonator.</span>"
 
@@ -150,7 +150,7 @@
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/examine(mob/user)
 	. = ..()
-	. += "This scanner has an extra port for overriding mining charge safeties."
+	. += "<span class='notice'>This scanner has an extra port for overriding mining charge safeties.</span>"
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
