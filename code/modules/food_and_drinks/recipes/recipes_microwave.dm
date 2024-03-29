@@ -1094,7 +1094,7 @@
 	items = list(
 		/obj/item/food/snacks/friedegg,
 		/obj/item/food/snacks/grown/lettuce
-		)
+	)
 	result = /obj/item/food/snacks/wrap
 
 /datum/recipe/microwave/beans
