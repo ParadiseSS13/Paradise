@@ -194,17 +194,21 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	var/loop_counter = 0
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
-		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
-				continue
-			else if(G.can_trigger_gun(user))
-				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					bonus_spread += 24 * G.weapon_weight
-				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+		var/obj/item/gun/GUN_1 = H.get_active_hand()
+		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
+
+		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
+			process_fire(target,user,1,params, null, bonus_spread)
+			return
+		if(GUN_2.can_trigger_gun(user))
+			if(!HAS_TRAIT(user, TRAIT_BADASS))
+				var/temporary_weapon_weight = GUN_2.weapon_weight
+				if(GUN_1.type != GUN_2.type)
+					temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
+				bonus_spread += 24 * temporary_weapon_weight
+			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), 1)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 

@@ -42,6 +42,11 @@
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
+/obj/item/ammo_casing/energy/laser/sparker
+	projectile_type = /obj/item/projectile/beam/laser/sparker
+	select_name = "spark"
+	e_cost = (100 / 3) * 2 // 15 * 12.5 damage = 187.5 damage. Almost as much as a base laser gun, but takes longer to get all the shots out.
+
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse/hitscan
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
