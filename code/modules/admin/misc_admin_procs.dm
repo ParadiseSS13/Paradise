@@ -599,7 +599,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Slow down a moment, let the ticker start first!")
 		return
 		
-	if(!SSticker || SSticker.current_state > GAME_STATE_PREGAME)
+	if(SSticker.current_state > GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
