@@ -2518,9 +2518,6 @@
 /area/station/hallway/secondary/entry)
 "aqe" = (
 /obj/structure/table/wood,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/hallway/secondary/entry)
 "aqg" = (
@@ -2966,9 +2963,6 @@
 /obj/item/poster/random_contraband{
 	pixel_x = 2;
 	pixel_y = 2
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/electrical_shop)
@@ -4184,12 +4178,12 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/controlroom)
 "auH" = (
-/obj/structure/table/wood,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/grimy,
-/area/station/hallway/secondary/entry)
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/chapel/office)
 "auJ" = (
 /obj/machinery/alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -13731,9 +13725,6 @@
 /area/station/medical/storage/secondary)
 "bhH" = (
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/item/food/snacks/dough,
 /obj/item/food/snacks/dough{
 	pixel_x = 2;
@@ -24585,9 +24576,6 @@
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky/captainducky,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/captain/bedroom)
 "bVc" = (
@@ -40527,9 +40515,6 @@
 /area/station/maintenance/port)
 "dlV" = (
 /obj/item/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42970,9 +42955,6 @@
 	},
 /obj/item/cartridge/signal/toxins{
 	pixel_y = 6
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -81738,7 +81720,9 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
 "ozO" = (
@@ -82712,7 +82696,6 @@
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/captain)
 "oSD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 6;
@@ -90296,9 +90279,6 @@
 /obj/item/trash/snack_bowl,
 /obj/item/trash/snack_bowl,
 /obj/item/seeds/ambrosia,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -144606,7 +144586,7 @@ dJx
 dKm
 dIx
 dTq
-upq
+auH
 dUN
 dIx
 abj
@@ -148834,7 +148814,7 @@ aqa
 aqV
 arO
 aqV
-auH
+aqe
 wIK
 avc
 lmo
