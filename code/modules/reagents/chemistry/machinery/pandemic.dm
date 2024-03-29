@@ -234,10 +234,10 @@
 				break
 
 	var/list/data = list(
-		"synthesisCooldown" = !!wait,
-		"beakerLoaded" = !!beaker,
-		"beakerContainsBlood" = !!Blood,
-		"beakerContainsVirus" = !!length(Blood?.data["viruses"]),
+		"synthesisCooldown" = wait ? TRUE : FALSE,
+		"beakerLoaded" = beaker ? TRUE : FALSE,
+		"beakerContainsBlood" = Blood ? TRUE : FALSE,
+		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
 		"selectedStrainIndex" = selected_strain_index,
 	)
 
