@@ -523,16 +523,16 @@
 
 	// Cigarettes
 	for(var/obj/item/clothing/mask/cigarette/O in holdingitems)
-		if(reagent_container_grind(O))
+		if(grind_up_the_container(O))
 			return
 
-	// Pills and Patches
+	// Everything else
 	for(var/obj/item/reagent_containers/O in holdingitems)
-		if(reagent_container_grind(O))
+		if(grind_up_the_container(O))
 			return
 
-// Helper proc handles reagent trasnsfer from patches, pills, and cigarettes.
-/obj/machinery/reagentgrinder/proc/reagent_container_grind(obj/O)
+// Helper proc to handle grinding funny reagent holding items
+/obj/machinery/reagentgrinder/proc/grind_up_the_container(obj/O)
 	O.reagents.trans_to(beaker, O.reagents.total_volume)
 	if(!O.reagents.total_volume)
 		remove_object(O)
