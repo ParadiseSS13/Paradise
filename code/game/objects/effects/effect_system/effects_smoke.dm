@@ -30,10 +30,12 @@
 		if(alpha < 160)
 			set_opacity(0)
 		stoplag()
+	GLOB.smokes_active--
 
 /obj/effect/particle_effect/smoke/New(loc, contains_chemicals = FALSE)
 	..()
 	START_PROCESSING(SSobj, src)
+	GLOB.smokes_active++
 	lifetime += rand(-1,1)
 	if(contains_chemicals)
 		create_reagents(10)
@@ -98,6 +100,9 @@
 		units_per_smoke = clamp((chemicals_to_add.total_volume / number), 0, 10)
 
 /datum/effect_system/smoke_spread/start()
+	var/smoke_budget = GLOBAL_SMOKE_LIMIT - GLOB.smokes_active
+	if(smoke_budget < number) //Dream blunt rotation scenario
+		return
 	for(var/i=0, i<number, i++)
 		if(holder)
 			location = get_turf(holder)

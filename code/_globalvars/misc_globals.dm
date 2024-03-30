@@ -60,3 +60,7 @@ GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height"
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks
 GLOBAL_VAR_INIT(sparks_active, 0)
+
+#define GLOBAL_SMOKE_LIMIT 200
+///Counter for the current amount of smoke
+GLOBAL_VAR_INIT(smokes_active, 0)
