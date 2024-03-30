@@ -65,7 +65,6 @@
 
 		traitor_datum.delayed_objectives = TRUE
 		traitor.add_antag_datum(traitor_datum)
-		traitors += src
 
 /datum/game_mode/traitor/proc/traitors_to_add()
 	if(GLOB.configuration.gamemode.traitor_scaling)
