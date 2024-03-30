@@ -115,7 +115,7 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <B>Left-click to cast at a target area!</B></span>"
+	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <b>Left-click to cast at a target area!</b></span>"
 	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 /datum/spell/vampire/blood_tendrils/create_new_targeting()
