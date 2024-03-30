@@ -478,6 +478,7 @@
 
 /obj/effect/spawner/lootdrop/trade_sol/ussp_minor
 	name = "11. USSP small gear"
+	lootcount = 8 //Mostly flavor items
 	loot = list(
 				/obj/item/clothing/under/new_soviet = 50,
 				/obj/item/clothing/suit/sovietcoat = 50,
@@ -485,7 +486,9 @@
 				/obj/item/food/snacks/grown/potato = 50,
 				/obj/item/reagent_containers/drinks/bottle/vodka/badminka = 50,
 				/obj/item/clothing/head/sovietsidecap = 50,
-				/obj/item/flag/ussp = 30
+				/obj/item/flag/ussp = 30,
+				/obj/item/ammo_box/magazine/apsm10mm = 15, //Spare mags for APS pistol. Sometimes you don't get the APS, in which case, soviet logistics.
+				/obj/item/ammo_box/a762 = 15
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/ussp_major //Lots of things to write permits for. Gives officers something to do on a shift quiet enough to spawn traders.
@@ -497,9 +500,7 @@
 				/obj/item/gun/projectile/shotgun/boltaction = 50,
 				/obj/item/clothing/suit/space/hardsuit/soviet = 40,
 				/obj/item/clothing/glasses/thermal/eyepatch = 50,
-				/obj/item/clothing/mask/holo_cigar = 10,
-				/obj/item/ammo_box/magazine/apsm10mm = 15, //Spare mags for APS pistol. Sometimes you don't get the APS, in which case, soviet logistics.
-				/obj/item/ammo_box/a762 = 15
+				/obj/item/clothing/mask/holo_cigar = 10
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/glintscale_minor
