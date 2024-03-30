@@ -19,7 +19,7 @@
 
 /datum/spell/turf_teleport/cast(list/targets,mob/living/user = usr)
 	if(sound1)
-		playsound(get_turf(user), sound1, 50,1)
+		playsound(get_turf(user), sound1, 50, TRUE)
 
 	for(var/mob/living/target in targets)
 		var/list/turfs = new/list()
