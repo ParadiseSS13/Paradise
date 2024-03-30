@@ -1,3 +1,5 @@
+#define COIN_COST MINERAL_MATERIAL_AMOUNT * 0.2
+
 /obj/machinery/mineral/mint
 	name = "coin press"
 	icon = 'icons/obj/economy.dmi'
@@ -9,13 +11,22 @@
 	/// Is it creating coins now?
 	var/active = FALSE
 	/// Which material will be used to make coins.
-	var/chosen_material = MAT_METAL
+	var/chosen_material
 	/// Inserted money bag.
 	var/obj/item/storage/bag/money/money_bag
 
 /obj/machinery/mineral/mint/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_URANIUM, MAT_DIAMOND, MAT_BANANIUM, MAT_TRANQUILLITE), MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack)
+	var/static/list/coin_materials = list()
+	if(!length(coin_materials))
+		for(var/datum/material/coin_mat as anything in subtypesof(/datum/material))
+			var/obj/item/coin/coin_type = coin_mat.coin_type
+			if(!coin_type)
+				continue
+			coin_materials += coin_mat.id
+
+	AddComponent(/datum/component/material_container, coin_materials, MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack)
+	chosen_material = pick(coin_materials[1])
 
 /obj/machinery/mineral/mint/wrench_act(mob/user, obj/item/I)
 	default_unfasten_wrench(user, I, time = 4 SECONDS)
@@ -28,6 +39,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CoinMint", name)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/machinery/mineral/mint/ui_assets(mob/user)
@@ -47,13 +59,16 @@
 		data["moneyBagContent"] = length(money_bag.contents)
 		data["moneyBagMaxContent"] = money_bag.storage_slots
 
-	var/list/material_list = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	data["totalMaterials"] = materials.total_amount
+	data["maxMaterials"] = materials.max_amount
+
+	var/list/material_list = list()
 	for(var/mat_id in materials.materials)
 		var/datum/material/material = materials.materials[mat_id]
 		material_list += list(list(
 			"name" = material.name,
-			"amount" = material.amount,
+			"amount" = material.amount / MINERAL_MATERIAL_AMOUNT,
 			"id" = material.id
 		))
 	data["materials"] = material_list
@@ -77,6 +92,15 @@
 			else
 				try_make_coins()
 			update_icon(UPDATE_ICON_STATE)
+		if("ejectMat")
+			var/datum/material/material = materials.materials[chosen_material]
+			if(material.amount < MINERAL_MATERIAL_AMOUNT)
+				to_chat(usr, "<span class='warning'>Not enough [material.name] to eject!</span>")
+				return
+			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [material.name]", material.amount, round(material.amount / MINERAL_MATERIAL_AMOUNT), 1)
+			if(isnull(num_sheets))
+				return
+			materials.retrieve_sheets(num_sheets, chosen_material)
 		if("ejectBag")
 			eject_bag(usr)
 
@@ -118,32 +142,35 @@
 
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/datum/material/material = materials.materials[chosen_material]
-	var/coin_mat = MINERAL_MATERIAL_AMOUNT * 0.2
-	if(!materials.can_use_amount(coin_mat, chosen_material))
+	if(!materials.can_use_amount(COIN_COST, chosen_material))
 		active = FALSE
+		visible_message("<span class='notice'>[src] ceased production due to a lack of material.</span>")
+		update_icon(UPDATE_ICON_STATE)
 		return
 
-	materials.use_amount_type(coin_mat, chosen_material)
+	materials.use_amount_type(COIN_COST, chosen_material)
 	new material.coin_type(money_bag)
 	total_coins++
 	SStgui.update_uis(src)
 
 /obj/machinery/mineral/mint/proc/try_make_coins(mob/user)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	var/datum/material/material = materials.materials[chosen_material]
-	if(!material || !material.coin_type)
+	if(!materials.can_use_amount(COIN_COST, chosen_material))
+		visible_message("<span class='warning'>Lack of selected material for production!</span>")
 		return
 	if(!money_bag)
 		visible_message("<span class='warning'>[src] cannot work without a money bag!</span>")
 		return
 	if(length(money_bag.contents) == money_bag.storage_slots)
-		visible_message("<span class='notice'>[money_bag.name] is full!</span>")
+		visible_message("<span class='warning'>[money_bag.name] is full!</span>")
 		return
 	active = TRUE
 
 /obj/machinery/mineral/mint/proc/eject_bag(mob/user)
 	if(!money_bag || !(user && iscarbon(user) && user.Adjacent(src)))
 		return
+	if(active)
+		active = FALSE
 	if(user.put_in_hands(money_bag))
 		to_chat(user, "<span class='notice'>You take a [money_bag.name] out of [src].</span>")
 	else
@@ -151,3 +178,5 @@
 		money_bag.forceMove(T)
 	money_bag = null
 	SStgui.update_uis(src)
+
+#undef COIN_COST
