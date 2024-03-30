@@ -480,7 +480,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
 				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
 			else
-				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]<br>"
+				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
