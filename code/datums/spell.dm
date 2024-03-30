@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 
 /datum/spell/proc/InterceptClickOn(mob/user, params, atom/A)
 	if(user.ranged_ability != src)
-		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
+		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.</span>")
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE //TRUE for failed, FALSE for passed.
 	user.face_atom(A)
