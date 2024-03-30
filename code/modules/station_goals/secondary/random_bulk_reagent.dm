@@ -95,7 +95,7 @@
 	return COMSIG_CARGO_SELL_PRIORITY
 
 /datum/secondary_goal_progress/random_bulk_reagent/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
-	if(sent < needed)
+	if(sent < needed - REAGENT_GOAL_FORGIVENESS)
 		return
 
 	three_way_reward(manifest, department, department_account, reward, "Secondary goal complete: [needed] units of [initial(reagent_type.name)].")

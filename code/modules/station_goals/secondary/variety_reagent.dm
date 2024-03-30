@@ -91,7 +91,7 @@
 		return COMSIG_CARGO_SELL_WRONG
 		
 	// Make sure there's enough.
-	if(reagent.volume < amount_per)
+	if(reagent.volume < amount_per - REAGENT_GOAL_FORGIVENESS)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "insufficient quantity of reagents"))
