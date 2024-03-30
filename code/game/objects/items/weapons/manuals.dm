@@ -869,6 +869,7 @@
 		to_chat(user, "You already know how to tie people's shoelaces together! Click on someone while in grab intent and targeting their feet to do so.")
 		return
 	to_chat(user, "You learn a new skill! Click on someone while in grab intent and targeting their feet to tie their shoelaces together. This will take a few seconds, but once done will cause them to trip and fall upon moving.")
+	playsound(src, 'sound/items/handling/paper_drop.ogg', 10)
 	ADD_TRAIT(user, "can_tie_together_laces", "learnt")
 
 /obj/item/book/shoelace_dynamics
@@ -902,6 +903,7 @@
 		to_chat(user, "You are now more efficient and subtle at tying people's shoelaces together!")
 	else
 		to_chat(user, "You learn a new skill! Click on someone while in grab intent and targeting their feet to tie their shoelaces together. This will take a few seconds, but once done will cause them to trip and fall.")
+	playsound(src, 'sound/items/handling/paper_drop.ogg', 10)
 	ADD_TRAIT(user, "can_tie_together_laces", "learnt")
 	ADD_TRAIT(user, "lace_tying_expert", "learnt")
 
