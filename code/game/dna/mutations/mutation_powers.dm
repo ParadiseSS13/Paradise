@@ -617,7 +617,7 @@
 /datum/spell/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
-	base_cooldown = 180
+	base_cooldown = 18 SECONDS
 	clothes_req = FALSE
 	human_req = TRUE
 	stat_allowed = CONSCIOUS
