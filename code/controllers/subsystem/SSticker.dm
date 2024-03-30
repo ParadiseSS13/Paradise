@@ -233,7 +233,6 @@ SUBSYSTEM_DEF(ticker)
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 	if(can_continue == LATE_HANDOUT)
 		var/random_time = rand(300 SECONDS, 900 SECONDS)
-		random_time = 60 SECONDS
 		timer_till_handout = addtimer(CALLBACK(src, PROC_REF(handle_late_handout)), random_time)
 		can_continue = TRUE
 
