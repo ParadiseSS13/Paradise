@@ -19,14 +19,17 @@ SUBSYSTEM_DEF(chat)
 
 	/// Associates a ckey with their next sequence number.
 	var/list/client_to_sequence_number = list()
+	var/misdeliver_count = 0
 
-/datum/controller/subsystem/chat/proc/generate_payload(client/target, message_data)
+/datum/controller/subsystem/chat/proc/generate_payload(client/target, message_data, mob_target, list/targets)
 	var/sequence = client_to_sequence_number[target.ckey]
 	client_to_sequence_number[target.ckey] += 1
 
 	var/datum/chat_payload/payload = new
 	payload.sequence = sequence
 	payload.content = message_data
+	payload.target = mob_target
+	payload.targets = targets
 
 	if(!(target.ckey in client_to_reliability_history))
 		client_to_reliability_history[target.ckey] = list()
@@ -43,8 +46,24 @@ SUBSYSTEM_DEF(chat)
 	return payload
 
 /datum/controller/subsystem/chat/proc/send_payload_to_client(client/target, datum/chat_payload/payload)
+	payload.delivery_attempt++
 	target.tgui_panel.window.send_message("chat/message", payload.into_message())
 	SEND_TEXT(target, payload.get_content_as_html())
+	if(!payload.target)
+		return
+	var/client/original_client = CLIENT_FROM_VAR(payload.target)
+	if(target == original_client)
+		return
+
+	// GOT YOU!
+	misdeliver_count++
+	if(misdeliver_count > 5)
+		return
+
+	log_debug("Misdelivered chat payload found, please send this to FunnyMan in Discord!")
+	log_debug("Payload sent to mob [target.mob], ckey [target.ckey] on delivery attempt [payload.delivery_attempt]")
+	log_debug("Originally set to mob [payload.target], ckey [original_client?.ckey]")
+	log_debug("[length(payload.targets)] initial targets")
 
 /datum/controller/subsystem/chat/fire()
 	for(var/ckey in client_to_payloads)
@@ -66,7 +85,7 @@ SUBSYSTEM_DEF(chat)
 		var/client/client = CLIENT_FROM_VAR(target)
 		if(isnull(client))
 			continue
-		LAZYADDASSOC(client_to_payloads, client.ckey, generate_payload(client, message_data))
+		LAZYADDASSOC(client_to_payloads, client.ckey, generate_payload(client, message_data, target, targets))
 
 /datum/controller/subsystem/chat/proc/send_immediate(send_target, list/message_data)
 	var/list/targets = islist(send_target) ? send_target : list(send_target)
@@ -74,7 +93,7 @@ SUBSYSTEM_DEF(chat)
 		var/client/client = CLIENT_FROM_VAR(target)
 		if(isnull(client))
 			continue
-		send_payload_to_client(client, generate_payload(client, message_data))
+		send_payload_to_client(client, generate_payload(client, message_data, target, targets))
 
 /datum/controller/subsystem/chat/proc/handle_resend(client/client, sequence)
 	var/list/client_history = client_to_reliability_history[client.ckey]

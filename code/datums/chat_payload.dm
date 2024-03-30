@@ -6,6 +6,9 @@
 	var/list/content
 	/// Resend count
 	var/resends = 0
+	var/target
+	var/list/targets
+	var/delivery_attempt = 0
 
 /// Converts the chat payload into a JSON string
 /datum/chat_payload/proc/into_message()
