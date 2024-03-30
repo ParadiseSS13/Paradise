@@ -337,7 +337,7 @@
 				// Ranged weapons
 				/obj/item/storage/box/enforcer_rubber = 50, //Lethal ammo can be printed at an autolathe, so no need for the lethal subtype
 				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100, // cycler shotgun, not normally available to crew
-
+				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 20
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
