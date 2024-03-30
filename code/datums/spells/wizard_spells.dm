@@ -399,7 +399,7 @@
 /datum/spell/aoe/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
-	base_cooldown = 400
+	base_cooldown = 40 SECONDS
 	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
