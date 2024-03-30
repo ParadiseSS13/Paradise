@@ -28,7 +28,7 @@
 	reagent_type = pick(valid_reagents)
 	switch(initial(reagent_type.goal_difficulty))
 		if(REAGENT_GOAL_EASY)
-			amount = 1000
+			amount = 600
 			reward = SSeconomy.credits_per_easy_reagent_goal
 		if(REAGENT_GOAL_NORMAL)
 			amount = 300
