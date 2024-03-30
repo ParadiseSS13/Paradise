@@ -1031,7 +1031,7 @@
 /datum/spell/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
-	base_cooldown = 100
+	base_cooldown = 10 SECONDS
 
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
