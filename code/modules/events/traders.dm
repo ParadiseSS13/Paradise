@@ -8,13 +8,6 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/station = null
 	var/spawn_count = 2
 	var/list/trader_objectives = list()
-	var/trader_type
-	var/trader_location
-	var/dock_site
-	var/trader_species
-	var/trader_outfit
-	var/trader_minor_special
-	var/trader_major_special
 
 /datum/event/traders/setup()
 	if(GLOB.unused_trade_stations.len)
@@ -22,16 +15,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/fake_announce()
 	. = TRUE
-	var/datum/event/traders/T = pick(/datum/event/traders/sol,
-								/datum/event/traders/cyber,
-								/datum/event/traders/commie,
-								/datum/event/traders/unathi,
-								/datum/event/traders/vulp,
-								/datum/event/traders/ipc,
-								/datum/event/traders/vox,
-								/datum/event/traders/skrell,
-								/datum/event/traders/grey,
-								/datum/event/traders/nian)
+	var/datum/traders/T = pick(/datum/traders/sol,
+								/datum/traders/cyber,
+								/datum/traders/commie,
+								/datum/traders/unathi,
+								/datum/traders/vulp,
+								/datum/traders/ipc,
+								/datum/traders/vox,
+								/datum/traders/skrell,
+								/datum/traders/grey,
+								/datum/traders/nian)
 
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
@@ -43,16 +36,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(!station) // If there are no unused stations, just no.
 		return
 
-	var/datum/event/traders/T = pick(/datum/event/traders/sol,
-								/datum/event/traders/cyber,
-								/datum/event/traders/commie,
-								/datum/event/traders/unathi,
-								/datum/event/traders/vulp,
-								/datum/event/traders/ipc,
-								/datum/event/traders/vox,
-								/datum/event/traders/skrell,
-								/datum/event/traders/grey,
-								/datum/event/traders/nian)
+	var/datum/traders/T = pick(/datum/traders/sol,
+								/datum/traders/cyber,
+								/datum/traders/commie,
+								/datum/traders/unathi,
+								/datum/traders/vulp,
+								/datum/traders/ipc,
+								/datum/traders/vox,
+								/datum/traders/skrell,
+								/datum/traders/grey,
+								/datum/traders/nian)
 
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
@@ -73,7 +66,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 	INVOKE_ASYNC(src, PROC_REF(spawn_traders), spawnlocs, T)
 
-/datum/event/traders/proc/spawn_traders(list/spawnlocs, datum/event/traders/T)
+/datum/event/traders/proc/spawn_traders(list/spawnlocs, datum/traders/T)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [T.trader_type] Trader?", ROLE_TRADER, TRUE)
 	var/index = 1
 	while(spawn_count > 0 && length(candidates))
@@ -114,7 +107,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	else
 		GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
-/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M, datum/event/traders/T)
+/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M, datum/traders/T)
 	var/list/messages = list()
 	messages.Add("<span class='boldnotice'>You are a trader! </span><span class='notice'>You are currently docked at [T.dock_site].<br>You are about to trade with [station_name()].</span><br>")
 	messages.Add(M.mind.prepare_announce_objectives())
@@ -130,7 +123,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	return objs
 
 //Datums that handle the various announcements, species, outfits, and item lists.
-/datum/event/traders/sol
+/datum/traders
+	var/trader_type	//What faction the trader is
+	var/trader_location //Where the traders originate from
+	var/dock_site //What specific station the traders came from
+	var/trader_species //What species the traders consist of
+	var/trader_outfit //What outfit do the traders spawn with
+	var/trader_minor_special //What standard faction gear do they start with
+	var/trader_major_special //What big ticket faction gear do they start with
+
+/datum/traders/sol
 	trader_type = "Trans-Solar Federation"
 	trader_location = "Kayani Station"
 	dock_site = "Kayani Station"
@@ -139,16 +141,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/federation_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/federation_major
 
-/datum/event/traders/cyber
+/datum/traders/cyber
 	trader_type = "Cybersun Industries"
-	trader_location = "an unregistered station"
+	trader_location = "-=ERROR: Unregisted Station Charter=-"
 	dock_site = "an undercover robotics factory"
 	trader_species = /mob/living/carbon/human
 	trader_outfit = /datum/outfit/admin/trader/cyber
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/cybersun_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/cybersun_major
 
-/datum/event/traders/commie
+/datum/traders/commie
 	trader_type = "USSP"
 	trader_location = "Belastrav"
 	dock_site = "Belastrav Station"
@@ -157,7 +159,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/ussp_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/ussp_major
 
-/datum/event/traders/unathi
+/datum/traders/unathi
 	trader_type = "Glint Scales"
 	trader_location = "Moghes"
 	dock_site = "a Glint-Scale outpost"
@@ -166,7 +168,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/glintscale_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/glintscale_major
 
-/datum/event/traders/vulp
+/datum/traders/vulp
 	trader_type = "Steadfast Trading Co."
 	trader_location = "Vazzend"
 	dock_site = "the MV Steadfast Platinum"
@@ -175,7 +177,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/steadfast_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/steadfast_major
 
-/datum/event/traders/ipc
+/datum/traders/ipc
 	trader_type = "Synthetic Union"
 	trader_location = "Cadraenov Epsilon"
 	dock_site = "Cadraenov Station"
@@ -184,7 +186,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/syntheticunion_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/syntheticunion_major
 
-/datum/event/traders/vox
+/datum/traders/vox
 	trader_type = "Skipjack"
 	trader_location = "a nearby skipjack"
 	dock_site = "a trading skipjack"
@@ -193,8 +195,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/skipjack_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/skipjack_major
 
-/datum/event/traders/skrell
-	trader_type = "Solar-Central Compact"
+/datum/traders/skrell
+	trader_type = "Skrellian Central Authority"
 	trader_location = "the Crown"
 	dock_site = "Crown Station"
 	trader_species = /mob/living/carbon/human/skrell
@@ -202,7 +204,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/solarcentral_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/solarcentral_major
 
-/datum/event/traders/grey
+/datum/traders/grey
 	trader_type = "Technocracy"
 	trader_location = "Mauna-b"
 	dock_site = "Orbital Commerce Outpost 58"
@@ -211,7 +213,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_minor_special = /obj/effect/spawner/lootdrop/trade_sol/technocracy_minor
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/technocracy_major
 
-/datum/event/traders/nian
+/datum/traders/nian
 	trader_type = "Merchant Guild"
 	trader_location = "the Nian Merchant Guild"
 	dock_site = "Guild Subsidiary Station 'Gilded Comet'"
