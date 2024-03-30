@@ -396,19 +396,10 @@
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		updateUsrDialog()
-		force_update_static_data()
+		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
 	else
 		return ..()
-
-/obj/machinery/computer/pandemic/proc/force_update_static_data()
-	var/ui_key = "[src.UID()]"
-	var/open_uis = SStgui.open_uis_by_src[ui_key]
-	// No UIs opened for this src_object
-	if(isnull(open_uis) || !islist(open_uis))
-		return
-	for(var/datum/tgui/ui in open_uis)
-		ui.send_full_update(null, TRUE)
 
 /obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
 	if(beaker)
