@@ -56,6 +56,8 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_plasma = 10
 	/// points gained per research design returned
 	var/credits_per_design = 20
+	/// points gained per virology goal
+	var/credits_per_virology_goal = 200
 
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message
@@ -114,10 +116,13 @@ SUBSYSTEM_DEF(economy)
 				return FALSE //really fuck off, you're vv editing something to a value that will break the economy
 	return ..()
 
-/datum/controller/subsystem/economy/Initialize()
-	///create main station accounts
+/proc/init_current_date_string()
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
+
+/datum/controller/subsystem/economy/Initialize()
+	init_current_date_string()
+	///create main station accounts
 	if(GLOB.station_money_database)
 		populate_station_database()
 		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
@@ -144,6 +149,9 @@ SUBSYSTEM_DEF(economy)
 
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
+
+	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
+		P.print_goal_orders()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
