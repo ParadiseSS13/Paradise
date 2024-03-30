@@ -64,7 +64,6 @@ export const CoinMint = (props, context) => {
                       <Button
                         icon={'eject'}
                         tooltip={'Eject selected material'}
-                        disabled={data.totalMaterials}
                         onClick={() => act('ejectMat')}
                       />
                     </Stack.Item>

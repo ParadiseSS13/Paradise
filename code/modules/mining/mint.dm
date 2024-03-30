@@ -25,12 +25,29 @@
 				continue
 			coin_materials += coin_mat.id
 
-	AddComponent(/datum/component/material_container, coin_materials, MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack)
+	AddComponent(/datum/component/material_container, coin_materials, MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack, _after_insert=CALLBACK(src, PROC_REF(material_insert)))
 	chosen_material = pick(coin_materials[1])
+
+/obj/machinery/autolathe/Destroy()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.retrieve_all()
+	return ..()
+
+/obj/machinery/mineral/mint/update_icon_state()
+	if(active)
+		icon_state = "coin_press-active"
+	else
+		icon_state = "coin_press"
 
 /obj/machinery/mineral/mint/wrench_act(mob/user, obj/item/I)
 	default_unfasten_wrench(user, I, time = 4 SECONDS)
 	return TRUE
+
+/obj/machinery/mineral/mint/attack_hand(mob/user)
+	ui_interact(user)
+
+/obj/machinery/mineral/mint/attack_ghost(mob/user)
+	ui_interact(user)
 
 /obj/machinery/mineral/mint/ui_state(mob/user)
 	return GLOB.default_state
@@ -97,18 +114,12 @@
 			if(material.amount < MINERAL_MATERIAL_AMOUNT)
 				to_chat(usr, "<span class='warning'>Not enough [material.name] to eject!</span>")
 				return
-			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [material.name]", material.amount, round(material.amount / MINERAL_MATERIAL_AMOUNT), 1)
+			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [material.name]", max_value = round(material.amount / MINERAL_MATERIAL_AMOUNT), min_value = 1)
 			if(isnull(num_sheets))
 				return
 			materials.retrieve_sheets(num_sheets, chosen_material)
 		if("ejectBag")
 			eject_bag(usr)
-
-/obj/machinery/mineral/mint/attack_hand(mob/user)
-	ui_interact(user)
-
-/obj/machinery/mineral/mint/attack_ghost(mob/user)
-	ui_interact(user)
 
 /obj/machinery/mineral/mint/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/money))
@@ -125,19 +136,14 @@
 
 	return ..()
 
-/obj/machinery/mineral/mint/update_icon_state()
-	if(active)
-		icon_state = "coin_press-active"
-	else
-		icon_state = "coin_press"
-
 /obj/machinery/mineral/mint/process()
 	if(!active)
 		return
-	if(length(money_bag.contents) == money_bag.storage_slots)
+	if(length(money_bag.contents) >= money_bag.storage_slots)
 		active = FALSE
 		visible_message("<span class='notice'>[src] stops printing to prevent an overflow.</span>")
 		update_icon(UPDATE_ICON_STATE)
+		SStgui.update_uis(src)
 		return
 
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -146,6 +152,7 @@
 		active = FALSE
 		visible_message("<span class='notice'>[src] ceased production due to a lack of material.</span>")
 		update_icon(UPDATE_ICON_STATE)
+		SStgui.update_uis(src)
 		return
 
 	materials.use_amount_type(COIN_COST, chosen_material)
@@ -177,6 +184,9 @@
 		var/turf/T = get_step(src, output_dir)
 		money_bag.forceMove(T)
 	money_bag = null
+	SStgui.update_uis(src)
+
+/obj/machinery/mineral/mint/proc/material_insert()
 	SStgui.update_uis(src)
 
 #undef COIN_COST
