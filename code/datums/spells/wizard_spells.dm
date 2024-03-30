@@ -242,7 +242,7 @@
 /datum/spell/aoe/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
-	base_cooldown = 500
+	base_cooldown = 50 SECONDS
 	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
