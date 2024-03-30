@@ -49,7 +49,7 @@
 	seed = /obj/item/seeds/lettuce
 	name = "lettuce"
 	desc = "Often confused with cabbages."
-	icon_state = "cabbage"
+	icon_state = "lettuce"
 	filling_color = "#419541"
 	bitesize_mod = 2
 	tastes = list("lettuce" = 1)
