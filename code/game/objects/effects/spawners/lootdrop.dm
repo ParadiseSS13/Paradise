@@ -337,7 +337,6 @@
 				// Ranged weapons
 				/obj/item/storage/box/enforcer_rubber = 50, //Lethal ammo can be printed at an autolathe, so no need for the lethal subtype
 				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100, // cycler shotgun, not normally available to crew
-				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50, //Weapon crafting, lets officers experiment however lets not have it be C class
 
 				)
 
@@ -473,9 +472,9 @@
 				/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
 				/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual = 30,
 				/obj/item/clothing/mask/holo_cigar = 50,
-				/obj/mecha/combat/marauder/mauler/trader = 3 //Extremely rare, unloaded so crew need to arm it for it to have any use.
+				/obj/mecha/combat/marauder/mauler/trader = 3 //Extremely rare, unloaded so crew need to arm it for it to have any use. Also most definitely needs one helluva permit.
 				)
-	lootdoubles = false //No double mechs.
+	lootdoubles = FALSE //No double mechs.
 
 /obj/effect/spawner/lootdrop/trade_sol/ussp_minor
 	name = "11. USSP small gear"
