@@ -110,10 +110,16 @@
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 	if(istype(I, /obj/item/flamethrower))
 		var/obj/item/flamethrower/big_lighter = I
-		if(!big_lighter.lit || !cistern)
+		if(!big_lighter.lit)
+			to_chat(user, "<span_class = 'warning'>The flamethrower isn't lit!</span>")
 			return
 		big_lighter.default_ignite(loc, 0.01)
-		user.visible_message("<span class='notice'>[user] torches the contents of the cistern with [big_lighter]!</span>", "<span class='notice'>You torch the conents of the cistern with [big_lighter]!")
+		if(!cistern) //Just changes what message you get, since fire_act handles the open cistern too.
+			user.visible_message("<span class='warning'>[user] torches the contents of the top of the toilet with [big_lighter]!</span>", "<span class='warning'>You torch the top of the toilet with [big_lighter]! Whoops.</span>")
+			return
+
+		user.visible_message("<span class='notice'>[user] torches the contents of the cistern with [big_lighter]!</span>", "<span class='notice'>You torch the conents of the cistern with [big_lighter]!</span>")
+		return
 
 	if(cistern)
 		update_contents_weight_class()
