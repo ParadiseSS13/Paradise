@@ -841,7 +841,7 @@
 
 /obj/item/paper/pickup(user)
 	..()
-	if(!(contact_poison && ishuman(user)))
+	if(!contact_poison || !ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	var/obj/item/clothing/gloves/G = H.gloves
