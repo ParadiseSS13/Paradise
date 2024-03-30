@@ -163,14 +163,14 @@
 
 /obj/machinery/mineral/mint/proc/try_make_coins(mob/user)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	if(!materials.can_use_amount(COIN_COST, chosen_material))
-		visible_message("<span class='warning'>Lack of selected material for production!</span>")
-		return
 	if(!money_bag)
 		visible_message("<span class='warning'>[src] cannot work without a money bag!</span>")
 		return
 	if(length(money_bag.contents) == money_bag.storage_slots)
 		visible_message("<span class='warning'>[money_bag.name] is full!</span>")
+		return
+	if(!materials.can_use_amount(COIN_COST, chosen_material))
+		visible_message("<span class='warning'>Lack of selected material for production!</span>")
 		return
 	active = TRUE
 
