@@ -131,7 +131,7 @@
 /datum/spell/emplosion/disable_tech
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
-	base_cooldown = 400
+	base_cooldown = 40 SECONDS
 	clothes_req = TRUE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
