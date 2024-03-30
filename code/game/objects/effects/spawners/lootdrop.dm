@@ -655,8 +655,8 @@
 				/obj/item/mod/module/energy_shield = 40,
 				/obj/item/shield/energy = 40,
 				/obj/item/reagent_containers/applicator/dual/syndi = 50, //Same as the above but comes emagged
-				/obj/item/gun/medbeam = 30
-				/obj/item/gun/syringe/syndicate = 50
+				/obj/item/gun/medbeam = 30,
+				/obj/item/gun/syringe/syndicate = 50,
 				/obj/item/storage/box/skrell_suit_black = 30,
 				/obj/item/storage/box/skrell_suit_white = 30,
 				/obj/item/rod_of_asclepius = 20
