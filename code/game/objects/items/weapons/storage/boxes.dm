@@ -957,7 +957,7 @@
 	new /obj/item/circuitboard/turbine_computer(src)
 	new /obj/item/circuitboard/power_compressor(src)
 	new /obj/item/circuitboard/power_turbine(src)
-	for(var I in 1 to 2)
+	for(var/I in 1 to 2)
 		new /obj/item/stock_parts/capacitor(src)
 		new /obj/item/stock_parts/manipulator(src)
 

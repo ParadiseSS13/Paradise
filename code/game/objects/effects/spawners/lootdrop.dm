@@ -467,14 +467,15 @@
 				/obj/item/gun/projectile/automatic/pistol = 50,
 				/obj/item/bio_chip/storage = 50,
 				/obj/item/melee/knuckleduster/syndie = 50,
-				/obj/item/clothing/glasses/thermal/monocle = 50,
+				/obj/item/clothing/glasses/thermal/eyepatch = 50,
 				/obj/item/toy/syndicateballoon = 60,
 				/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
 				/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
 				/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual = 30,
 				/obj/item/clothing/mask/holo_cigar = 50,
-				/obj/mecha/combat/marauder = 5 //Extremely rare, unloaded so crew need to arm it for it to have any use.
+				/obj/mecha/combat/marauder/mauler/trader = 3 //Extremely rare, unloaded so crew need to arm it for it to have any use.
 				)
+	lootdoubles = false //No double mechs.
 
 /obj/effect/spawner/lootdrop/trade_sol/ussp_minor
 	name = "11. USSP small gear"
