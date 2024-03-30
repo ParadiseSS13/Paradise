@@ -847,7 +847,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 1
+		/obj/item/hand_labeler_refill = 2
 	)
 
 /datum/outfit/admin/trader/sol
@@ -866,7 +866,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 1
+		/obj/item/hand_labeler_refill = 2
 	)
 
 /datum/outfit/admin/trader/commie
@@ -877,7 +877,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 1
+		/obj/item/hand_labeler_refill = 2
 	)
 
 /datum/outfit/admin/trader/unathi
@@ -911,7 +911,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival_vox = 1,
 		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 1
+		/obj/item/hand_labeler_refill = 2
 	)
 
 /datum/outfit/admin/trader/skrell
