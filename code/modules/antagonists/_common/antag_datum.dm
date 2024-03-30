@@ -49,6 +49,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/blurb_b = 0
 	var/blurb_a = 0
 
+	/// Do we have delayed objective giving?
+	var/delayed_objectives = FALSE
+
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	objective_holder = new(src)
@@ -229,13 +232,13 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
  * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_antag_objective(datum/objective/O, explanation_text, mob/target_override)
+/datum/antagonist/proc/add_antag_objective(datum/objective/O, explanation_text, mob/target_override, should_delay_objective)
 	if(ispath(O))
 		O = new O()
 	if(O.owner)
 		stack_trace("[O], [O.type] was assigned as an objective to [owner] (mind), but already had an owner: [O.owner] (mind). Overriding.")
 	O.owner = owner
-
+	O.delayed_objective = should_delay_objective
 	return objective_holder.add_objective(O, explanation_text, target_override)
 
 /**

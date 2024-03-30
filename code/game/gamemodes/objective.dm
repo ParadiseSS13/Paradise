@@ -35,6 +35,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/datum/objective_holder/holder
 
+	/// Should this objective obscure the objective text on it's first gain?
+	var/delayed_objective = FALSE
+
 /datum/objective/New(text, datum/team/team_to_join)
 	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
@@ -162,6 +165,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = TRUE
 
 /datum/objective/assassinate/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to assassinate another crewmember. Please hold for further details."
+		delayed_objective = FALSE
+		return
+
 	if(target?.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
@@ -184,6 +192,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/won = FALSE
 
 /datum/objective/assassinateonce/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to assassinate another crewmember a lesson. Please hold for further details."
+		delayed_objective = FALSE
+		return
+
 	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
 		establish_signals()
@@ -246,6 +259,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = FALSE
 
 /datum/objective/maroon/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. Please hold for further details."
+		delayed_objective = FALSE
+		return
+
 	if(target?.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
 	else
@@ -265,7 +283,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return TRUE
 
-
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	martyr_compatible = FALSE
@@ -279,6 +296,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_CHANGELING
 
 /datum/objective/debrain/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to steal another crewmember's brain. Please hold for further details."
+		delayed_objective = FALSE
+		return
+
 	if(target?.current)
 		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role]."
 	else
@@ -428,6 +450,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	return TRUE
 
+/datum/objective/update_explanation_text()
+	return
 
 /datum/objective/escape/escape_with_identity
 	name = null
@@ -585,6 +609,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target
 
 /datum/objective/steal/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to steal a high-security item. Please hold for further details."
+		delayed_objective = FALSE
+		return
+
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
 	if(length(steal_target.protected_jobs) && steal_target.job_possession)
 		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]."
@@ -694,6 +723,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/destroy/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to either destroy or steal an Artificial Intelligence. Please hold for further details."
+		delayed_objective = FALSE
+		return
+
 	if(target?.current)
 		explanation_text = "Destroy [target.current.real_name], the AI."
 	else
@@ -812,9 +846,3 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
 	completed = TRUE
-
-// Objective for traitors to make sure they don't panick when they get no objectives
-/datum/objective/traitor_wait
-	explanation_text = "Wait for further instructions."
-	needs_target = FALSE
-	completed = TRUE // Technically not necessary, but you never know

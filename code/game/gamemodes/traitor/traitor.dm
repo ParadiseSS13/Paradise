@@ -59,8 +59,11 @@
 
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/traitor_datum = new(src)
-		traitor_datum.give_objectives = FALSE
-		traitor_datum.add_antag_objective(/datum/objective/traitor_wait)
+		if(isAI(traitor.current))
+			traitor.add_antag_datum(traitor_datum)
+			continue
+
+		traitor_datum.delayed_objectives = TRUE
 		traitor.add_antag_datum(traitor_datum)
 		traitors += src
 
@@ -73,18 +76,17 @@
 /datum/game_mode/traitor/late_handout()
 	var/traitors_to_add = 0
 
-	for(var/datum/mind/traitor as anything in traitors)
-		if(QDELETED(traitor) || !traitor.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
 			traitors_to_add++
-			traitors -= traitor
+			traitors -= traitor_mind
 			continue
 		for(var/datum/antagonist/traitor/traitor_datum in traitor.antag_datums)
-			for(var/datum/objective/traitor_wait/objective in traitor_datum.objective_holder.objectives)
-				traitor_datum.remove_antag_objective(objective)
-			traitor_datum.give_objectives()
+			for(var/datum/objective/objective in traitor_datum.objective_holder.objectives)
+				objective.update_explanation_text()
 
-		var/list/messages = traitor.prepare_announce_objectives()
-		to_chat(traitor.current, chat_box_red(messages.Join("<br>")))
+		var/list/messages = traitor_mind.prepare_announce_objectives()
+		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
 
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))
