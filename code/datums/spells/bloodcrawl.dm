@@ -200,9 +200,9 @@
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(tele_loc, L.dir, "jauntup")
 	if(prob(25) && isdemon(L))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
-		playsound(tele_loc, pick(voice),50, 1, -1)
-	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b>")
-	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, 1, -1)
+		playsound(tele_loc, pick(voice),50, TRUE, -1)
+	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b></span>")
+	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 /datum/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
 	if(!istype(C))
