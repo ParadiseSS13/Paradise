@@ -785,7 +785,7 @@
 	items = list(
 		/obj/item/food/snacks/grown/redbeet,
 		/obj/item/food/snacks/grown/redbeet,
-		/obj/item/food/snacks/grown/lettuce
+		/obj/item/food/snacks/grown/cabbage
 	)
 	result = /obj/item/food/snacks/soup/redbeetsoup
 
@@ -861,7 +861,7 @@
 	reagents = list("water" = 10)
 	items = list(
 		/obj/item/food/snacks/beans,
-		/obj/item/food/snacks/grown/lettuce,
+		/obj/item/food/snacks/grown/cabbage,
 		/obj/item/food/snacks/grown/tomato,
 		/obj/item/food/snacks/grown/onion,
 		/obj/item/food/snacks/grown/chili,
@@ -883,7 +883,7 @@
 	reagents = list("water" = 10, "soysauce" = 5)
 	items = list(
 		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/lettuce,
+		/obj/item/food/snacks/grown/cabbage,
 		/obj/item/food/snacks/grown/onion,
 		/obj/item/food/snacks/grown/carrot,
 		/obj/item/food/snacks/cutlet
@@ -947,7 +947,7 @@
 	reagents = list("water" = 10)
 	items = list(
 		/obj/item/food/snacks/grown/whitebeet,
-		/obj/item/food/snacks/grown/lettuce
+		/obj/item/food/snacks/grown/cabbage
 	)
 	result = /obj/item/food/snacks/soup/beetsoup
 
@@ -1118,7 +1118,7 @@
 	items = list(
 		/obj/item/food/snacks/dough,
 		/obj/item/food/snacks/meatball,
-		/obj/item/food/snacks/grown/lettuce
+		/obj/item/food/snacks/grown/cabbage
 	)
 	result = /obj/item/food/snacks/meatbun
 
