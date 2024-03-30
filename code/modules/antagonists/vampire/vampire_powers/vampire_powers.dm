@@ -93,7 +93,7 @@
 		rejuv_multiplier = clamp((100 - owner.current.health) / 20, 1, 5) // brute and burn healing between 5 and 50
 		return rejuv_multiplier
 
-	return 1
+	return TRUE
 
 
 /datum/spell/vampire/self/specialize
