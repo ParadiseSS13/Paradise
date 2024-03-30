@@ -8,6 +8,10 @@
 	real_progress = progress
 	temporary_progress = progress.Copy()
 
+/datum/secondary_goal_tracker/proc/reset()
+	real_progress = new real_progress.type(goal)
+	temporary_progress = real_progress.Copy()
+
 /datum/secondary_goal_tracker/proc/register(shuttle)
 	RegisterSignal(shuttle, COMSIG_CARGO_BEGIN_SCAN,		PROC_REF(reset_tempporary_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_BEGIN_SELL,		PROC_REF(reset_tempporary_progress))

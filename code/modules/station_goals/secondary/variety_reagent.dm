@@ -10,6 +10,7 @@
 /datum/station_goal/secondary/variety_reagent/Initialize(requester_account)
 	reward = SSeconomy.credits_per_variety_reagent_goal
 	..()
+	admin_desc = "[amount_per] units of [different_types] [generic_name_plural]"
 
 
 /datum/secondary_goal_progress/variety_reagent

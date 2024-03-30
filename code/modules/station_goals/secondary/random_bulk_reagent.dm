@@ -6,6 +6,10 @@
 	var/department_account
 	var/reward
 
+/datum/station_goal/secondary/random_bulk_reagent/Initialize(requester_account)
+	..()
+	admin_desc = "[amount] units of [initial(reagent_type.name)]"
+
 /datum/station_goal/secondary/random_bulk_reagent/randomize_params()
 	var/list/valid_reagents = list()
 	for(var/R in subtypesof(/datum/reagent))

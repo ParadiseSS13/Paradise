@@ -33,6 +33,7 @@
 			reward = SSeconomy.credits_per_hard_food_goal
 
 	report_message = "Someone spiked the water cooler at CC with Space Drugs again, and we all have a craving for [initial(food_type.name)]. Please send us [amount] servings of it."
+	admin_desc = "[amount] servings of [initial(food_type.name)]"
 
 
 /datum/secondary_goal_progress/random_bulk_food

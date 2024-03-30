@@ -17,6 +17,7 @@
 		trait_names += initial(trait.name)
 
 	report_message = "The NSV Watney is studying kudzu, and needs some samples with [english_list(trait_names)], but no other mutations. [amount] packs of seeds should do."
+	admin_desc = "Kudzu with [trait_names.Join(",")]"
 
 /datum/secondary_goal_progress/random_kudzu
 	var/list/traits

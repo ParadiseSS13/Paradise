@@ -1,15 +1,23 @@
 /datum/station_goal/secondary
 	name = "Generic Secondary Goal"
 	required_crew = 1
-	// Should match the values used for requests consoles.
+	/// Admin-only shor description of the goal.
+	var/admin_desc = "No description"
+	/// Assigned department. Should match the values used for requests consoles.
 	var/department = "Unknown"
+	/// The person who requested the goal.
 	var/requester_name
+	/// The money account of the person who requested the goal.
 	var/personal_account
+	/// Should we (still) send a personal crate on the next shipment?
 	var/should_send_crate = TRUE
+	/// Type path of the progress tracker used.
 	var/progress_type = /datum/secondary_goal_progress
+	/// Progress type of this goal.
 	var/datum/secondary_goal_progress/progress
+	/// Tracker that manages the goal progress, permanent and temporary.
 	var/datum/secondary_goal_tracker/tracker
-	// Abstract goals can't be used directly.
+	/// Abstract goals can't be used directly.
 	var/abstract = TRUE
 
 /datum/station_goal/secondary/proc/Initialize(requester_name_in, requester_account)
@@ -27,18 +35,23 @@
 /datum/station_goal/secondary/proc/randomize_params()
 	return
 
-/datum/station_goal/secondary/send_report(requester)
+/datum/station_goal/secondary/send_report(requester, intro_override = FALSE)
 	var/list/message_parts = list()
-	message_parts += "Received secondary goal request from [requester] for [department]."
-	message_parts += "Querying master task list...."
-	message_parts += "Suitable task found. Task details:"
+	if(intro_override)
+		message_parts += intro_override
+	else
+		message_parts += "Received secondary goal request from [requester] for [department]."
+		message_parts += "Querying master task list...."
+		message_parts += "Suitable task found. Task details:"
 	message_parts += ""
 	message_parts += report_message
 	if(should_send_crate)
 		message_parts += "You must submit this in a locked personal crate. One will be sent to your Cargo department. More can be ordered if needed."
 	send_requests_console_message(message_parts, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
-	send_requests_console_message(message_parts, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
-	send_requests_console_message(message_parts, "Central Command", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
+	if(department !=  "Captain's Desk")
+		send_requests_console_message(message_parts, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
+	if(department !=  "Bridge")
+		send_requests_console_message(message_parts, "Central Command", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 
 /proc/generate_secondary_goal(department, requester = null, mob/user = null)
 	var/list/possible = list()
@@ -71,3 +84,21 @@
 	else
 		built.send_report(ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name)
 	SSticker.mode.secondary_goals += built
+
+/datum/station_goal/secondary/Topic(href, href_list)
+	if(!check_rights(R_EVENT))
+		return
+
+	if(href_list["announce"])
+		send_report("CentCom", "A task for [department] has been issued by Central Command:")
+	else if(href_list["remove"])
+		SSticker.mode.secondary_goals -= src
+		qdel(src)
+		usr.client.modify_goals()
+	else if(href_list["mark_complete"])
+		completed = 1
+		usr.client.modify_goals()
+	else if(href_list["reset_progress"])
+		completed = 0
+		tracker.reset()
+		usr.client.modify_goals()
