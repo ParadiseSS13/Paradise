@@ -237,7 +237,6 @@ fi
 if [[ -z ${1} ]]; then
   task-install
   task-lint --fix
-  task-prettier
   task-webpack --mode=production
   exit 0
 fi

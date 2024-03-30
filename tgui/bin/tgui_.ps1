@@ -194,7 +194,6 @@ if ($Args.Length -gt 0) {
 if ($Args.Length -eq 0) {
   task-install
   task-lint --fix
-  task-prettier
   task-webpack --mode=production
   exit 0
 }
