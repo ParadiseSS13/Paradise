@@ -6193,7 +6193,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "vf" = (
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -6293,7 +6293,7 @@
 /area/centcom/control)
 "vu" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
@@ -6343,7 +6343,7 @@
 /area/trader_station/sol)
 "vD" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},

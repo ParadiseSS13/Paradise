@@ -36,8 +36,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 		spawner_list += loc
 		return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/spawner/soltrader
-	name = "traderstart_sol"
+/obj/effect/landmark/spawner/trader
+	name = "traderstart"
 	icon_state = "Trader"
 
 /obj/effect/landmark/spawner/tradergearminor

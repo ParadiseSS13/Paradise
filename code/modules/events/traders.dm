@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 	//Get the list of spawn locations for traders
 	var/list/spawnlocs = list()
-	for(var/obj/effect/landmark/spawner/soltrader/S in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/spawner/trader/S in GLOB.landmarks_list)
 		spawnlocs += get_turf(S)
 
 	if(!spawnlocs.len)
