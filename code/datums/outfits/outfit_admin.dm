@@ -863,12 +863,22 @@
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/security
+	backpack_contents = list(
+		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/hand_labeler = 1,
+		/obj/item/hand_labeler_refill = 1
+	)
 
 /datum/outfit/admin/trader/commie
 	name = "USSP Trader"
 	uniform = /obj/item/clothing/under/new_soviet
 	suit = /obj/item/clothing/suit/sovietcoat
 	head = /obj/item/clothing/head/ushanka
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/hand_labeler = 1,
+		/obj/item/hand_labeler_refill = 1
+	)
 
 /datum/outfit/admin/trader/unathi
 	name = "Glint-Scales Trader"
