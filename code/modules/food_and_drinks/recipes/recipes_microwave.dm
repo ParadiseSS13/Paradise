@@ -1093,7 +1093,7 @@
 	reagents = list("soysauce" = 10)
 	items = list(
 		/obj/item/food/snacks/friedegg,
-		/obj/item/food/snacks/grown/lettuce
+		/obj/item/food/snacks/grown/cabbage
 	)
 	result = /obj/item/food/snacks/wrap
 
