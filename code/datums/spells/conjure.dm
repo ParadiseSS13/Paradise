@@ -22,7 +22,7 @@
 
 /datum/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
 	var/list/what_conjure_summoned = list()
-	playsound(get_turf(user), cast_sound, 50,1)
+	playsound(get_turf(user), cast_sound, 50, TRUE)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
