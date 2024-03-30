@@ -31,7 +31,7 @@
 			set_opacity(0)
 		stoplag()
 
-/obj/effect/particle_effect/smoke/New(datum/reagents/chemicals = null)
+/obj/effect/particle_effect/smoke/New(loc, datum/reagents/chemicals = null)
 	..()
 	START_PROCESSING(SSobj, src)
 	lifetime += rand(-1,1)
@@ -85,26 +85,27 @@
 
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
-	var/datum/reagents/chemicals_to_add = new/datum/reagents(1000)
+	var/datum/reagents/chemicals_to_add = null
+	var/chems_per_smoke = 0
 	var/direction
 
 /datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, datum/reagents/chemicals = null)
-	number = clamp(amount, amount, 20)
+	number = clamp(amount, 0, 20)
 	cardinals = only_cardinals
 	location = get_turf(source)
 	if(desired_direction)
 		direction = desired_direction
 	if(chemicals)
-		chemicals.copy_to(chemicals_to_add)
+		chemicals_to_add = chemicals
+		chems_per_smoke = chemicals_to_add.total_volume / number
 
 /datum/effect_system/smoke_spread/start()
 	for(var/i=0, i<number, i++)
 		if(holder)
 			location = get_turf(holder)
-		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+		var/obj/effect/particle_effect/smoke/S = new effect_type(location, chemicals_to_add)
 		if(chemicals_to_add)
-			var/chems_per_smoke = (chemicals_to_add.total_volume / number)
-			chemicals_to_add.trans_to(S, chems_per_smoke)
+			chemicals_to_add.copy_to(S, chems_per_smoke)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)

@@ -242,12 +242,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 			for(var/datum/reagent/R in reagents.reagent_list)
 				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
-			smoke.set_up(1, FALSE, src, null, reagents)
-			smoke.start()
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
+		smoke.set_up(1, FALSE, src, dir, reagents)
+		smoke.start()
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
