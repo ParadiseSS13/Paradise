@@ -224,6 +224,6 @@
 	if(!reagents)
 		return
 	var/datum/effect_system/smoke_spread/smoke = new
-	var/smokes_to_make = round(reagents.total_volume/10)
+	var/smokes_to_make = clamp(round(reagents.total_volume/10), 1, 5) //Each grown object can make up to 5 smokes each
 	smoke.set_up(smokes_to_make, FALSE, src, null, reagents)
 	smoke.start()
