@@ -926,7 +926,7 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
 /obj/item/storage/box/enforcer_lethal
-	name = "\improper Enforcer pistol kit (lethal)"
+	name = "Enforcer pistol kit (lethal)"
 	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'LETHAL'."
 	icon_state = "ert_box"
 
@@ -936,7 +936,7 @@
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 
 /obj/item/storage/box/hydroponics_starter
-	name = "\improper hydroponics starter kit"
+	name = "hydroponics starter kit"
 	desc = "Everything you need to start your own botany lab."
 	icon_state = "ert_box"
 
@@ -949,7 +949,7 @@
 	new /obj/item/reagent_containers/glass/bucket(src)
 
 /obj/item/storage/box/turbine_kit
-	name = "\improper turbine kit"
+	name = "turbine kit"
 	desc = "Somehow, they managed to fit almost an entire turbine assembly into this box."
 	icon_state = "ert_box"
 
@@ -962,7 +962,7 @@
 		new /obj/item/stock_parts/manipulator(src)
 
 /obj/item/storage/box/deagle
-	name = "\improper desert eagle handcannon kit"
+	name = "desert eagle handcannon kit"
 	desc = "A box marked with pictures of the iconic Deseart Eagle pistol, one ammo clip, and the word 'LETHAL'."
 	icon_state = "ert_box"
 
@@ -971,7 +971,7 @@
 	new /obj/item/ammo_box/magazine/m50(src)
 
 /obj/item/storage/box/skrell_suit_white
-	name = "\improper white skrellian suit box"
+	name = "white skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit. This one is white."
 	icon_state = "doom_box"
 
@@ -980,15 +980,16 @@
 	new /obj/item/clothing/suit/space/skrell/white(src)
 
 /obj/item/storage/box/skrell_suit_black
-	name = "\improper black skrellian suit box"
+	name = "black skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit. This one is black."
 	icon_state = "doom_box"
 
 /obj/item/storage/box/skrell_suit_black/populate_contents()
 	new /obj/item/clothing/head/helmet/space/skrell/black(src)
 	new /obj/item/clothing/suit/space/skrell/black(src)
+
 /obj/item/storage/box/breacher_suit_cheap
-	name = "\improper cheap breacher suit box"
+	name = "cheap breacher suit box"
 	desc = "A box containing a knock-off unathi battlesuit."
 	icon_state = "doom_box"
 
@@ -997,7 +998,7 @@
 	new /obj/item/clothing/head/helmet/space/unathi/helmet_cheap(src)
 
 /obj/item/storage/box/breacher_suit
-	name = "\improper breacher suit box"
+	name = "breacher suit box"
 	desc = "A box containing a bulky unathi battlesuit."
 	icon_state = "doom_box"
 
@@ -1006,7 +1007,7 @@
 	new /obj/item/clothing/head/helmet/space/unathi/breacher(src)
 
 /obj/item/storage/box/vox_spacesuit
-	name = "\improper vox voidsuit box"
+	name = "vox voidsuit box"
 	desc = "A box containing an old, dusty voidsuit fit for vox."
 	icon_state = "doom_box"
 
