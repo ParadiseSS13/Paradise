@@ -7,7 +7,6 @@
 	var/list/modules = list()
 	var/static/list/general_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/repair_droid,
-		/obj/item/mecha_parts/mecha_equipment/teleporter,
 		/obj/item/mecha_parts/mecha_equipment/generator/nuclear,
 		/obj/item/mecha_parts/mecha_equipment/generator,
 		/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
