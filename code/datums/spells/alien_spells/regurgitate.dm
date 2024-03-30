@@ -15,4 +15,4 @@
 		M.forceMove(output_loc)
 		user.visible_message("<span class='alertalien'><b>[user] hurls out the contents of [p_their()] stomach!</b></span>")
 		return
-	user.visible_message("<span class='alertalien'><B>[user] dry heaves!</span>")
+	user.visible_message("<span class='alertalien'><b>[user] dry heaves!</b></span>")
