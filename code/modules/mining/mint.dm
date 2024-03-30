@@ -44,6 +44,7 @@
 	return TRUE
 
 /obj/machinery/mineral/mint/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/mineral/mint/attack_ghost(mob/user)
