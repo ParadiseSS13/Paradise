@@ -6966,6 +6966,8 @@
 	req_one_access_txt = "19";
 	pixel_x = -8
 	},
+/obj/item/clothing/under/towel_long_alt/brown,
+/obj/item/clothing/head/towel/brown,
 /turf/simulated/floor/carpet/orange,
 /area/station/supply/qm)
 "aEM" = (
@@ -12634,6 +12636,8 @@
 /obj/structure/mirror{
 	pixel_x = 26
 	},
+/obj/item/clothing/under/towel_long_alt/cyan,
+/obj/item/clothing/head/towel/cyan,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23086,6 +23090,10 @@
 "bQm" = (
 /obj/structure/dresser,
 /obj/machinery/status_display/directional/north,
+/obj/item/clothing/under/towel_long_alt/orange,
+/obj/item/clothing/head/towel/orange{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/command/office/ce)
 "bQo" = (
@@ -27119,6 +27127,10 @@
 /area/station/command/office/captain/bedroom)
 "cea" = (
 /obj/structure/dresser,
+/obj/item/clothing/under/towel_long_alt/blue,
+/obj/item/clothing/head/towel/blue{
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain/bedroom)
 "cei" = (
@@ -33665,6 +33677,14 @@
 	dir = 8
 	},
 /obj/machinery/alarm/directional/east,
+/obj/structure/table,
+/obj/item/clothing/under/towel_long_alt,
+/obj/item/clothing/under/towel_long{
+	pixel_y = 7
+	},
+/obj/item/clothing/head/towel{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/pool)
 "cFJ" = (
@@ -41606,6 +41626,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/item/clothing/under/towel_long_alt/purple,
+/obj/item/clothing/head/towel/purple{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -47077,6 +47101,10 @@
 "dUJ" = (
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/dresser,
+/obj/item/clothing/under/towel_short_alt/green,
+/obj/item/clothing/head/towel/green{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dUK" = (
@@ -61400,6 +61428,10 @@
 /obj/machinery/light/directional/north,
 /obj/machinery/light_switch/east,
 /obj/structure/dresser,
+/obj/item/clothing/under/towel_short_alt/blue,
+/obj/item/clothing/head/towel/blue{
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "iie" = (
@@ -67122,6 +67154,17 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/west,
+/obj/structure/table,
+/obj/item/clothing/under/towel_short_alt,
+/obj/item/clothing/under/towel_short{
+	pixel_y = 7
+	},
+/obj/item/clothing/under/towel_short{
+	pixel_y = 7
+	},
+/obj/item/clothing/head/towel{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/pool)
 "jVi" = (
@@ -85622,6 +85665,9 @@
 	icon_state = "2-8"
 	},
 /obj/effect/landmark/start/assistant,
+/obj/item/clothing/head/towel{
+	pixel_y = -7
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/pool)
 "pLI" = (
@@ -93437,6 +93483,10 @@
 "sjM" = (
 /obj/structure/dresser,
 /obj/machinery/light_switch/north,
+/obj/item/clothing/under/towel_long_alt/red,
+/obj/item/clothing/head/towel/red{
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/hos)
 "sjT" = (

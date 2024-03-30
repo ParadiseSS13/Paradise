@@ -26105,6 +26105,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
+/obj/item/ashtray/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -46600,18 +46601,18 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
 "edp" = (
-/obj/item/cartridge/engineering{
-	pixel_x = 3
-	},
+/obj/structure/table,
 /obj/item/cartridge/engineering{
 	pixel_x = -3;
 	pixel_y = 2
 	},
 /obj/item/cartridge/engineering{
+	pixel_x = 3
+	},
+/obj/item/cartridge/engineering{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -53488,6 +53489,14 @@
 	pixel_x = -8;
 	id = "CMO_Bed"
 	},
+/obj/item/clothing/under/towel_long_alt/cyan{
+	pixel_y = -5;
+	pixel_x = -7
+	},
+/obj/item/clothing/head/towel/cyan{
+	pixel_x = -7;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54549,7 +54558,6 @@
 /area/station/security/brig)
 "gVT" = (
 /obj/structure/table,
-/obj/item/ashtray/glass,
 /obj/machinery/light_switch/north,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
@@ -61018,6 +61026,28 @@
 	c_tag = "Brig Restroom";
 	dir = 1
 	},
+/obj/structure/table,
+/obj/item/clothing/under/towel_long_alt/red{
+	pixel_x = -8;
+	pixel_y = -5
+	},
+/obj/item/clothing/under/towel_long/red{
+	pixel_x = -8
+	},
+/obj/item/clothing/under/towel_short_alt/red{
+	pixel_x = 8;
+	pixel_y = -8
+	},
+/obj/item/clothing/under/towel_short/red{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/towel/red{
+	pixel_x = 7
+	},
+/obj/item/clothing/head/towel/red{
+	pixel_x = -7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -64924,6 +64954,8 @@
 	pixel_y = 14
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/clothing/under/towel_long/blue,
+/obj/item/clothing/head/towel/blue,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "kQw" = (
@@ -69010,6 +69042,8 @@
 /obj/machinery/door_control/shutter/west{
 	id = "hos_secure_doors"
 	},
+/obj/item/clothing/under/towel_long_alt/red,
+/obj/item/clothing/head/towel/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -79996,6 +80030,12 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/item/clothing/under/towel_long_alt/blue{
+	pixel_y = -5
+	},
+/obj/item/clothing/head/towel/blue{
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
@@ -91952,6 +91992,23 @@
 "uCJ" = (
 /obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/clothing/under/towel_short_alt{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/clothing/under/towel_short{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/obj/structure/table,
+/obj/item/clothing/head/towel{
+	pixel_x = -15;
+	pixel_y = 5
+	},
+/obj/item/clothing/head/towel{
+	pixel_x = -15;
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -97381,6 +97438,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "wEb" = (
+/obj/item/clothing/under/towel_long{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/clothing/under/towel_long_alt{
+	pixel_y = 10;
+	pixel_x = -5
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

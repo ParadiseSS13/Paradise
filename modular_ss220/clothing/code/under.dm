@@ -266,3 +266,238 @@
 		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		)
 
+/obj/item/clothing/under/towel_long
+	name = "полотенце"
+	desc = "Полотенце, сотканное из синтетической ткани. Можно обмотать вокруг тела."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "towel_long"
+	item_color = "towel_long"
+	has_sensor = 0
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Plasmaman" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Monkey" = 'modular_ss220/clothing/icons/mob/species/monkey/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Adbuctor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+	)
+
+/obj/item/clothing/under/towel_long_alt
+	name = "махровое полотенце"
+	desc = "Полотенце, сотканное из синтетической ткани, на взгляд шершавое. Можно обмотать вокруг тела."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "towel_long_alt"
+	item_color = "towel_long_alt"
+	has_sensor = 0
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Plasmaman" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Monkey" = 'modular_ss220/clothing/icons/mob/species/monkey/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Adbuctor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+	)
+
+/obj/item/clothing/under/towel_short
+	name = "маленькое полотенце"
+	desc = "Полотенце, сотканное из синтетической ткани, но маленькое. Можно обмотать вокруг тела."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "towel_short"
+	item_color = "towel_short"
+	has_sensor = 0
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Plasmaman" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Monkey" = 'modular_ss220/clothing/icons/mob/species/monkey/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Adbuctor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+	)
+
+/obj/item/clothing/under/towel_short_alt
+	name = "маленькое махровое полотенце"
+	desc = "Полотенце, сотканное из синтетической ткани, на взгляд шершавое и маленькое. Можно обмотать вокруг тела."
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	icon_state = "towel_short_alt"
+	item_color = "towel_short_alt"
+	has_sensor = 0
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Plasmaman" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/species/unathi/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Monkey" = 'modular_ss220/clothing/icons/mob/species/monkey/under.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Adbuctor" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+	)
+
+// Длинное полотенце
+/obj/item/clothing/under/towel_long/red
+	name = "красное полотенце"
+	color = "#EE204D"
+
+/obj/item/clothing/under/towel_long/green
+	name = "зелёное полотенце"
+	color = "#32CD32"
+
+/obj/item/clothing/under/towel_long/blue
+	name = "синее полотенце"
+	color = "#1E90FF"
+
+/obj/item/clothing/under/towel_long/orange
+	name = "оранжевое полотенце"
+	color = "#FFA500"
+
+/obj/item/clothing/under/towel_long/purple
+	name = "фиолетовое полотенце"
+	color = "#DA70D6"
+
+/obj/item/clothing/under/towel_long/cyan
+	name = "голубое полотенце"
+	color = "#40E0D0"
+
+/obj/item/clothing/under/towel_long/brown
+	name = "коричневое полотенце"
+	color = "#DEB887"
+
+// Длинное махровое полотенце
+/obj/item/clothing/under/towel_long_alt/red
+	name = "красное махровое полотенце"
+	color = "#EE204D"
+
+/obj/item/clothing/under/towel_long_alt/green
+	name = "зелёное махровое полотенце"
+	color = "#32CD32"
+
+/obj/item/clothing/under/towel_long_alt/blue
+	name = "синее махровое полотенце"
+	color = "#1E90FF"
+
+/obj/item/clothing/under/towel_long_alt/orange
+	name = "оранжевое махровое полотенце"
+	color = "#FFA500"
+
+/obj/item/clothing/under/towel_long_alt/purple
+	name = "фиолетовое махровое полотенце"
+	color = "#DA70D6"
+
+/obj/item/clothing/under/towel_long_alt/cyan
+	name = "голубое махровое полотенце"
+	color = "#40E0D0"
+
+/obj/item/clothing/under/towel_long_alt/brown
+	name = "коричневое махровое полотенце"
+	color = "#DEB887"
+
+// Маленькое полотенце
+/obj/item/clothing/under/towel_short/red
+	name = "красное маленькое полотенце"
+	color = "#EE204D"
+
+/obj/item/clothing/under/towel_short/green
+	name = "зелёное маленькое полотенце"
+	color = "#32CD32"
+
+/obj/item/clothing/under/towel_short/blue
+	name = "синее маленькое полотенце"
+	color = "#1E90FF"
+
+/obj/item/clothing/under/towel_short/orange
+	name = "оранжевое маленькое полотенце"
+	color = "#FFA500"
+
+/obj/item/clothing/under/towel_short/purple
+	name = "фиолетовое маленькое полотенце"
+	color = "#DA70D6"
+
+/obj/item/clothing/under/towel_short/cyan
+	name = "голубое маленькое полотенце"
+	color = "#40E0D0"
+
+/obj/item/clothing/under/towel_short/brown
+	name = "коричневое маленькое полотенце"
+	color = "#DEB887"
+
+// Маленькое махровое полотенце
+/obj/item/clothing/under/towel_short_alt/red
+	name = "красное махровое маленькое полотенце"
+	color = "#EE204D"
+
+/obj/item/clothing/under/towel_short_alt/green
+	name = "зелёное махровое маленькое полотенце"
+	color = "#32CD32"
+
+/obj/item/clothing/under/towel_short_alt/blue
+	name = "синее махровое маленькое полотенце"
+	color = "#1E90FF"
+
+/obj/item/clothing/under/towel_short_alt/orange
+	name = "оранжевое махровое маленькое полотенце"
+	color = "#FFA500"
+
+/obj/item/clothing/under/towel_short_alt/purple
+	name = "фиолетовое махровое маленькое полотенце"
+	color = "#DA70D6"
+
+/obj/item/clothing/under/towel_short_alt/cyan
+	name = "голубое махровое маленькое полотенце"
+	color = "#40E0D0"
+
+/obj/item/clothing/under/towel_short_alt/brown
+	name = "коричневое махровое маленькое полотенце"
+	color = "#DEB887"
