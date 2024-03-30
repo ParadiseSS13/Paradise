@@ -39,5 +39,5 @@
 
 	// Exit vent
 	slime.loc.relaymove(slime, EAST)
-	if(!istype(slime.loc, /turf))
+	if(!isturf(slime.loc))
 		Fail("Wasn't able to ventcrawl out of vent.")
