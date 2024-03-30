@@ -95,13 +95,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			M.mind.offstation_role = TRUE
 
 			//Get the list of spawn locations for company specific items, spawn gear
-			for (var/obj/effect/landmark/spawner/tradergearminor/A in GLOB.landmarks_list)
+			for(var/obj/effect/landmark/spawner/tradergearminor/A in GLOB.landmarks_list)
 				var /obj/structure/closet/locker = new /obj/structure/closet(get_turf(A))
 				locker.open()
 				new T.trader_minor_special(locker)
 				locker.close()
 
-			for (var/obj/effect/landmark/spawner/tradergearmajor/B in GLOB.landmarks_list)
+			for(var/obj/effect/landmark/spawner/tradergearmajor/B in GLOB.landmarks_list)
 				var /obj/structure/closet/locker = new /obj/structure/closet(get_turf(B))
 				locker.open()
 				new T.trader_major_special(locker)
