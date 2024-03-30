@@ -449,7 +449,7 @@
 /datum/spell/sacred_flame
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
-	base_cooldown = 60
+	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"
