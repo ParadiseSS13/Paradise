@@ -6,11 +6,11 @@
 	icon_state = "coin_press"
 	density = TRUE
 	anchored = TRUE
-	/// How many coins the machine made in it's last load.
+	/// How many coins did the machine make in total.
 	var/total_coins = 0
 	/// Is it creating coins now?
 	var/active = FALSE
-	/// Which material will be used to make coins.
+	/// Which material will be used to make coins or for ejecting.
 	var/chosen_material
 	/// Inserted money bag.
 	var/obj/item/storage/bag/money/money_bag
