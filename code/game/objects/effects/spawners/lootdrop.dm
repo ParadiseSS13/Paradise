@@ -554,7 +554,7 @@
 	loot = list(
 				/obj/item/mod/construction/plating/research = 30,
 				/obj/item/assembly/signaler/anomaly/random = 20,
-				/obj/item/gun/energy/plasma_pistol = 50,
+				/obj/item/gun/energy/gun = 50,
 				/obj/item/storage/box/dragonsbreath = 30,
 				/obj/item/storage/box/turbine_kit = 20,
 				/obj/item/mod/module/firefighting_tank = 40,
@@ -589,7 +589,7 @@
 				/obj/item/organ/internal/cyberimp/arm/esword = 30,
 				/obj/item/organ/internal/cyberimp/arm/flash = 50,
 				/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened = 50,
-				/obj/item/organ/internal/cyberimp/arm/baton = 20, //Security'll love this one
+				/obj/item/organ/internal/cyberimp/arm/telebaton = 20, //Security'll love this one
 				/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
 				/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
 				/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened = 20,
@@ -634,9 +634,7 @@
 /obj/effect/spawner/lootdrop/trade_sol/solarcentral_minor
 	name = "11. skrellian central authority small gear" //Medical and protection theme - shields, mods, meds, and love
 	loot = list(
-				/obj/item/mod/control/pre_equipped/medical = 40,
-				/obj/item/mod/control/pre_equipped/rescue = 40,
-				/obj/item/mod/control/pre_equipped/standard = 50,
+				/obj/item/mod/control/pre_equipped/rescue = 60,
 				/obj/item/pen/sleepy/love = 50,
 				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
 				/obj/item/reagent_containers/glass/bottle/love = 50,
@@ -644,6 +642,9 @@
 				/obj/item/reagent_containers/applicator/dual = 50,
 				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 30,
 				/obj/item/storage/firstaid/surgery = 40,
+				/obj/item/dnainjector/nobreath = 50,
+				/obj/item/dnainjector/regenerate = 50,
+				/obj/item/dnainjector/insulation = 50,
 				/obj/item/flag/species/skrell = 20
 				)
 
@@ -653,10 +654,9 @@
 	loot = list(
 				/obj/item/mod/module/energy_shield = 40,
 				/obj/item/shield/energy = 40,
-				/obj/item/dnainjector/nobreath = 50,
-				/obj/item/dnainjector/regenerate = 50,
-				/obj/item/dnainjector/insulation = 50,
 				/obj/item/reagent_containers/applicator/dual/syndi = 50, //Same as the above but comes emagged
+				/obj/item/gun/medbeam = 30
+				/obj/item/gun/syringe/syndicate = 50
 				/obj/item/storage/box/skrell_suit_black = 30,
 				/obj/item/storage/box/skrell_suit_white = 30,
 				/obj/item/rod_of_asclepius = 20
