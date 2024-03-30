@@ -845,10 +845,20 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
 		/obj/item/hand_labeler_refill = 2
 	)
+	box = /obj/item/storage/box/survival
+
+/datum/outfit/admin/trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/trader/sol
 	name = "Trans-Solar Federation Trader"
@@ -863,22 +873,14 @@
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/security
-	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
-		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 2
-	)
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/admin/trader/commie
 	name = "USSP Trader"
 	uniform = /obj/item/clothing/under/new_soviet
 	suit = /obj/item/clothing/suit/sovietcoat
 	head = /obj/item/clothing/head/ushanka
-	backpack_contents = list(
-		/obj/item/storage/box/soviet = 1,
-		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 2
-	)
+	box = /obj/item/storage/box/soviet
 
 /datum/outfit/admin/trader/unathi
 	name = "Glint-Scales Trader"
@@ -908,11 +910,7 @@
 	belt = /obj/item/melee/classic_baton/telescopic
 	mask = /obj/item/clothing/mask/breath/vox/respirator
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double/vox
-	backpack_contents = list(
-		/obj/item/storage/box/survival_vox = 1,
-		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 2
-	)
+	box = /obj/item/storage/box/survival_vox
 
 /datum/outfit/admin/trader/skrell
 	name = "Solar-Central Compact Trader"
@@ -933,16 +931,6 @@
 	suit = /obj/item/clothing/suit/pimpcoat
 	shoes = /obj/item/clothing/shoes/fluff/noble_boot
 	belt = /obj/item/melee/classic_baton/ntcane
-
-/datum/outfit/admin/trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
-	H.sec_hud_set_ID()
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
