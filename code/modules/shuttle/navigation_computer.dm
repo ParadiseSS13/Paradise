@@ -28,7 +28,8 @@
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
 	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
-		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
+		for(var/zlvl in levels_by_trait(ORE_LEVEL))
+			jumpto_ports += list("nav_z[zlvl]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	GLOB.navigation_computers -= src

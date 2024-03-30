@@ -17,7 +17,55 @@
  * Now it only generates rivers, but it can do all stuff you desire.
  */
 /datum/lavaland_theme/proc/setup()
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	setup_multisector()
+
+/datum/lavaland_theme/proc/setup_multisector()
+	var/bridge_diameter = 12
+	var/interval = 20
+	var/list/built_bridges = list()
+
+	for(var/zlvl in levels_by_trait(ORE_LEVEL))
+		var/datum/space_level/level = GLOB.space_manager.get_zlev(zlvl)
+		if(!built_bridges["[zlvl]"])
+			built_bridges["[zlvl]"] = list()
+
+		for(var/d in level.neighbors)
+			if(d == Z_LEVEL_SOUTH && !(Z_LEVEL_SOUTH in built_bridges["[level.zpos]"]))
+				var/datum/space_level/connected = level.get_connection(Z_LEVEL_SOUTH)
+				var/left_margin = TRANSITIONEDGE + 5
+				while(left_margin < world.maxx - TRANSITIONEDGE)
+					if(prob(50))
+						var/left_edge = rand(left_margin, left_margin + bridge_diameter)
+						var/loc = locate(left_edge, bridge_diameter / 2 + 1, level.zpos)
+						var/datum/map_template/ruin/lavaland/zlvl_bridge/template = GLOB.lavaland_zlvl_bridge_templates["lavaland_zlvl_bridge_vertical_1.dmm"]
+						template.load(loc, centered = TRUE)
+						// now make sure we line up another bridge on the linked map
+						loc = locate(left_edge, world.maxy - (bridge_diameter / 2) + 1, connected.zpos)
+						template.load(loc, centered = TRUE)
+
+					left_margin += interval
+
+				LAZYORASSOCLIST(built_bridges, "[level.zpos]", Z_LEVEL_SOUTH)
+				LAZYORASSOCLIST(built_bridges, "[connected.zpos]", Z_LEVEL_NORTH)
+
+			else if(d == Z_LEVEL_EAST && !(Z_LEVEL_WEST in built_bridges["[level.zpos]"]))
+				var/datum/space_level/connected = level.get_connection(Z_LEVEL_EAST)
+				var/north_margin = TRANSITIONEDGE + 5
+				while(north_margin < world.maxy - TRANSITIONEDGE)
+					if(prob(50))
+						var/north_edge = rand(north_margin, north_margin + bridge_diameter)
+						var/loc = locate(bridge_diameter / 2, north_edge, level.zpos)
+						var/datum/map_template/ruin/lavaland/zlvl_bridge/template = GLOB.lavaland_zlvl_bridge_templates["lavaland_zlvl_bridge_horizontal_1.dmm"]
+						template.load(loc, centered = TRUE)
+						// now make sure we line up another bridge on the linked map
+						loc = locate(world.maxx - (bridge_diameter / 2) + 1, north_edge, connected.zpos)
+						template.load(loc, centered = TRUE)
+
+					north_margin += interval
+
+				LAZYORASSOCLIST(built_bridges, "[level.zpos]", Z_LEVEL_EAST)
+				LAZYORASSOCLIST(built_bridges, "[connected.zpos]", Z_LEVEL_WEST)
 
 /datum/lavaland_theme/lava
 	name = "lava"
@@ -25,8 +73,10 @@
 	planet_icon_state = "planet_lava"
 
 /datum/lavaland_theme/lava/setup()
-	var/datum/river_spawner/lava_spawner = new(level_name_to_num(MINING))
-	lava_spawner.generate()
+	. = ..()
+	for(var/zlvl in levels_by_trait(ORE_LEVEL))
+		var/datum/river_spawner/lava_spawner = new(zlvl)
+		lava_spawner.generate()
 
 /datum/lavaland_theme/plasma
 	name = "plasma"
@@ -34,9 +84,11 @@
 	planet_icon_state = "planet_plasma"
 
 /datum/lavaland_theme/plasma/setup()
-	var/datum/river_spawner/spawner = new(level_name_to_num(MINING))
-	spawner.generate(nodes = 2)
-	spawner.generate(nodes = 2) // twice
+	. = ..()
+	for(var/zlvl in levels_by_trait(ORE_LEVEL))
+		var/datum/river_spawner/spawner = new(zlvl)
+		spawner.generate(nodes = 2)
+		spawner.generate(nodes = 2) // twice
 
 /datum/lavaland_theme/chasm
 	name = "chasm"
@@ -44,6 +96,7 @@
 	planet_icon_state = "planet_chasm"
 
 /datum/lavaland_theme/chasm/setup()
-	var/datum/river_spawner/spawner = new(level_name_to_num(MINING), spread_prob_ = 10, spread_prob_loss_ = 5)
-	spawner.generate(nodes = 6, min_x = 50, min_y = 7, max_x = 250, max_y = 225)
-
+	. = ..()
+	for(var/zlvl in levels_by_trait(ORE_LEVEL))
+		var/datum/river_spawner/spawner = new(zlvl, spread_prob_ = 10, spread_prob_loss_ = 5)
+		spawner.generate(nodes = 6, min_x = 50, min_y = 7, max_x = 250, max_y = 225)

@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		lavaland_ruins_placer = new()
-		lavaland_ruins_placer.place_ruins(list(level_name_to_num(MINING)))
+		lavaland_ruins_placer.place_ruins(levels_by_trait(ORE_LEVEL))
 		if(lavaland_theme)
 			lavaland_theme.setup()
 		if(caves_theme)
@@ -295,7 +295,7 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK))
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK), transition_tag = TRANSITION_TAG_SPACE)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
@@ -316,8 +316,15 @@ SUBSYSTEM_DEF(mapping)
 		return
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
-	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
-	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
+	for(var/i in 1 to 2)
+		var/lavaland_zlevel = GLOB.space_manager.add_new_zlevel(
+			"LAVALAND[i]",
+			linkage = CROSSLINKED,
+			traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
+			transition_tag = TRANSITION_TAG_LAVALAND
+		)
+		GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
+
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()

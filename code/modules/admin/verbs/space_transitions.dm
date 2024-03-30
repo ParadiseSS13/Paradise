@@ -34,8 +34,13 @@
 	if(choice == "No")
 		return
 
+	var/list/sectortypes = list(TRANSITION_TAG_SPACE, TRANSITION_TAG_LAVALAND)
+	var/sectortype = tgui_input_list(usr, "Please select sector type", "", sectortypes)
+
+	if(!(sectortype in sectortypes))
+		return
+
 	message_admins("[key_name_admin(usr)] made a space map")
 
-
-	GLOB.space_manager.map_as_turfs(get_turf(usr))
+	GLOB.space_manager.map_as_turfs(get_turf(usr), sectortype)
 	log_admin("[key_name(usr)] made a space map")

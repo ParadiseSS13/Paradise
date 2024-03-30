@@ -1,0 +1,9562 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"at" = (
+/obj/structure/closet/crate/freezer/iv_storage,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"au" = (
+/obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"av" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/trash/sosjerky,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"ay" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 5
+	},
+/area/mine/laborcamp)
+"aF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"aX" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 10
+	},
+/area/mine/laborcamp)
+"aY" = (
+/obj/machinery/requests_console/directional/north,
+/obj/effect/turf_decal/arrows/red{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"aZ" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"bu" = (
+/obj/machinery/door/airlock/security/glass{
+	locked = 1;
+	id_tag = "labor_door_int";
+	name = "Labor Camp Airlock"
+	},
+/obj/machinery/access_button{
+	autolink_id = "labor_btn_int";
+	name = "Prison Wing Access Button";
+	pixel_y = 21;
+	req_access = list(2)
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"bw" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp/security)
+"by" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"bJ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/supply,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/airlock/engineering{
+	name = "Labor Camp Maintenance"
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"cd" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"ch" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcornersiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"cm" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"cs" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Labor Camp Central Wesst";
+	network = list("Labor Camp");
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"cv" = (
+/obj/machinery/door/airlock/security/glass{
+	locked = 1;
+	id_tag = "labor_door_ext";
+	name = "Labor Camp Airlock"
+	},
+/obj/machinery/access_button{
+	autolink_id = "labor_btn_ext";
+	name = "Prison Wing Access Button";
+	pixel_y = 21;
+	req_access = list(2)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Labor";
+	name = "labor camp blast door"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"cS" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"dD" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"dO" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"en" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"ep" = (
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"eA" = (
+/obj/structure/closet/cabinet,
+/obj/item/trash/can,
+/obj/item/trash/pistachios,
+/obj/effect/spawner/random/maintenance,
+/obj/item/clothing/mask/balaclava,
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"eR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"fc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"fd" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 9
+	},
+/area/mine/laborcamp)
+"fk" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"fu" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/lavaland/surface/gulag_rock)
+"fv" = (
+/obj/item/cigbutt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"fB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Labor Camp Infirmary";
+	network = list("Labor Camp");
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"fD" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
+"fV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"gb" = (
+/obj/machinery/mineral/labor_points_checker{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/red/corner,
+/obj/effect/turf_decal/arrows/red{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 5
+	},
+/area/mine/laborcamp)
+"gj" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Maintenance";
+	network = list("Labor Camp");
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"gk" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/directional/west{
+	shock_proof = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"gD" = (
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	name = "East Switch";
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Labor Camp Lockers";
+	network = list("Labor Camp");
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"gE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"gH" = (
+/obj/structure/table,
+/obj/item/folder/red,
+/obj/item/restraints/handcuffs,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/flasher_button{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	req_access = list(1)
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"gW" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"hl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/firstaid/ancient,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "air_in";
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"hn" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/cryopod{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 10
+	},
+/area/mine/laborcamp)
+"hq" = (
+/obj/machinery/flasher_button{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_y = -26;
+	req_access = list(1)
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"hu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"hv" = (
+/mob/living/simple_animal/bot/secbot/beepsky{
+	desc = "Powered by the tears and sweat of laborers.";
+	name = "Prison Ofitser"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"hW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"if" = (
+/obj/structure/sign/nanotrasen{
+	pixel_x = 32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ig" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"iq" = (
+/obj/structure/bed,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"ir" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"iH" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"iO" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"iW" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/sign/poster/official/help_others{
+	pixel_y = 31
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"jc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"jG" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jK" = (
+/obj/effect/decal/remains/human,
+/obj/structure/sign/nanotrasen{
+	pixel_x = 32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"kd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"ln" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp/security)
+"lp" = (
+/obj/structure/bookcase{
+	name = "bookcase (Fiction)"
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"lR" = (
+/obj/structure/glowshroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"lT" = (
+/obj/machinery/flasher{
+	id = "laborairlock";
+	pixel_y = 22;
+	pixel_x = 16
+	},
+/obj/machinery/flasher_button{
+	id = "laborairlock";
+	pixel_x = -10;
+	pixel_y = 20
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"lU" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_random,
+/obj/item/lighter/random{
+	pixel_x = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"lY" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"md" = (
+/obj/machinery/mineral/equipment_vendor/labor,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/rack,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 9
+	},
+/area/mine/laborcamp)
+"me" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"mf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"mj" = (
+/obj/structure/flora/ash/stem_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"mk" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 35
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"mq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"mr" = (
+/obj/structure/closet/crate/can,
+/obj/effect/spawner/random/maintenance,
+/obj/item/cigbutt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"mO" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/directional/west{
+	shock_proof = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"na" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"nb" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"ni" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"nl" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"nu" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp External";
+	dir = 4;
+	network = list("Labor Camp")
+	},
+/obj/structure/closet/crate,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
+"nA" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "laborcamp_away";
+	name = "Labor Camp Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp/security)
+"nG" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"nJ" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Labor Camp Central East";
+	network = list("Labor Camp");
+	dir = 8
+	},
+/obj/structure/chair/sofa/bench/right{
+	dir = 8
+	},
+/obj/machinery/flasher{
+	id = "labor";
+	pixel_x = 22;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"ok" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Labor Camp Bedroom";
+	dir = 1;
+	network = list("Labor Camp")
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"ou" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp/security)
+"ox" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/chair/sofa/bench/left{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"pd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"pf" = (
+/obj/structure/table,
+/obj/item/reagent_containers/spray/pepper,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"pk" = (
+/obj/structure/flora/ash/tall_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"pl" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/obj/structure/sign/poster/contraband/clown{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"pn" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Labor Camp Security"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp/security)
+"pq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"pB" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"pM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"pU" = (
+/obj/machinery/atmospherics/binary/pump{
+	name = "prisoner supression system";
+	target_pressure = 4500
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"pY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"pZ" = (
+/turf/simulated/wall/mineral/titanium,
+/area/lavaland/surface/gulag_rock)
+"qa" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"qi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/door/airlock{
+	name = "Restroom"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"ql" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/cigarettes/cigpack_random,
+/obj/item/lighter/random{
+	pixel_x = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"qm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"qo" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Labor Shuttle Airlock"
+	},
+/obj/docking_port/mobile/labour,
+/obj/structure/fans/tiny,
+/obj/docking_port/stationary{
+	area_type = /area/lavaland/surface/outdoors;
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp_away";
+	name = "labor camp";
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
+	width = 9
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
+"qp" = (
+/obj/machinery/economy/vending/wallmed/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"qx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Labor Camp Storage";
+	dir = 5;
+	network = list("Labor Camp")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"qy" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"qA" = (
+/obj/machinery/airlock_controller/access_controller{
+	name = "Labor Camp Access Console";
+	ext_door_link_id = "labor_door_ext";
+	int_door_link_id = "labor_door_int";
+	ext_button_link_id = "labor_btn_ext";
+	int_button_link_id = "labor_btn_int";
+	pixel_y = -22;
+	pixel_x = 5
+	},
+/obj/machinery/door_control{
+	id = "Labor";
+	name = "Labor Camp Lockdown";
+	pixel_y = -22;
+	pixel_x = -7;
+	req_access = list(2)
+	},
+/obj/machinery/flasher_button{
+	id = "laborairlock";
+	pixel_y = -32;
+	pixel_x = 5;
+	name = "Labor Airlock Flasher"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"qE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"qI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
+/obj/item/mining_scanner,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 5
+	},
+/area/mine/laborcamp)
+"qZ" = (
+/obj/structure/sink/kitchen/old{
+	pixel_y = -10;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"rg" = (
+/obj/structure/rack,
+/obj/item/screwdriver,
+/obj/item/storage/bag/trash,
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "Nanotrasen Labor Camp"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"rh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/south,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"rk" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/siberia)
+"rn" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 10
+	},
+/area/mine/laborcamp)
+"rq" = (
+/obj/machinery/door/airlock{
+	name = "Labor Camp Storage"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"rB" = (
+/obj/structure/grille/broken,
+/obj/structure/grille/broken,
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/gulag_rock)
+"rN" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"rP" = (
+/obj/structure/table,
+/obj/item/storage/bag/tray,
+/obj/item/food/tofu,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "air_in";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"sb" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/gulag_rock)
+"sc" = (
+/obj/machinery/door/airlock/security/glass{
+	locked = 1;
+	id_tag = "labor_door_ext";
+	name = "Labor Camp Airlock"
+	},
+/obj/machinery/access_button{
+	autolink_id = "labor_btn_ext";
+	name = "Prison Wing Access Button";
+	pixel_y = -21;
+	req_access = list(2)
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Labor";
+	name = "labor camp blast door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"sk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"sy" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/monkeycubes,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"sB" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/supply,
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"sE" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"sO" = (
+/turf/simulated/mineral/random/volcanic/labormineral,
+/area/lavaland/surface/gulag_rock)
+"te" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/area_atmos/area,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"tj" = (
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"to" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"tp" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tE" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "laborcamp_away2";
+	name = "Labor Camp Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"tJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/cigbutt,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"tM" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Labor Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
+"tU" = (
+/obj/machinery/newscaster/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"ua" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"us" = (
+/obj/structure/table,
+/obj/item/ashtray/plastic,
+/obj/item/storage/fancy/cigarettes/cigpack_random{
+	pixel_y = 3;
+	pixel_x = -9
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/cigbutt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 9
+	},
+/area/mine/laborcamp)
+"uw" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/shuttle/siberia)
+"uG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"uJ" = (
+/obj/machinery/computer/shuttle/labor/one_way{
+	dir = 4
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = -28
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"uK" = (
+/obj/structure/closet/crate,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
+"uP" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
+"uW" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"vr" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"vJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"vW" = (
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = -28
+	},
+/obj/machinery/alarm/directional/west,
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"wa" = (
+/obj/item/clothing/under/color/orange,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wg" = (
+/obj/machinery/computer/security{
+	dir = 8;
+	network = list("Labor Camp")
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"ws" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"wz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"xu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"xx" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/plate,
+/obj/item/kitchen/utensil/fork,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"xZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"ya" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"yk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"yo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"yr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"yB" = (
+/obj/structure/closet/secure_closet/brig/gulag,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"yT" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"zj" = (
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"zr" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"zG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"zK" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Labor Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"zL" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/item/radio/intercom/locked/prison{
+	name = "Prison Intercom (General)";
+	pixel_y = 25
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"zO" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp/security)
+"zT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"zU" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"zV" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/flashlight/flare,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/gulag_rock)
+"zY" = (
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"zZ" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Ae" = (
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
+/obj/item/mining_scanner,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"Am" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/lavaland_air,
+/area/shuttle/siberia)
+"Aq" = (
+/obj/structure/bookcase{
+	name = "bookcase (Adult)"
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Au" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Labor";
+	name = "labor camp blast door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"Aw" = (
+/obj/machinery/computer/shuttle/labor{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"AD" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"AI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"AL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/medical/splint{
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"AV" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Bp" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Breakroom";
+	network = list("Labor Camp")
+	},
+/obj/machinery/economy/vending/sovietsoda,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Br" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"Bt" = (
+/obj/machinery/atmospherics/meter,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp/security)
+"Bw" = (
+/obj/structure/sign/nanotrasen,
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
+"BW" = (
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/lavaland/surface/gulag_rock)
+"Cj" = (
+/turf/simulated/mineral/random/volcanic/labormineral,
+/area/lavaland/surface/outdoors)
+"Cl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp/security)
+"Cn" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Labor Camp Security"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"Co" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"CD" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
+"CI" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/suit_storage_unit/gulag,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 9
+	},
+/area/mine/laborcamp)
+"CS" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"CU" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/mine/laborcamp/security)
+"De" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"Dj" = (
+/obj/structure/chair,
+/obj/item/cigbutt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"DP" = (
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"DY" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/book/manual/wiki/security_space_law,
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Ec" = (
+/obj/structure/door_assembly/door_assembly_silver,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/gulag_rock)
+"Ej" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "laborcamp_away2";
+	name = "Labor Camp Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Labor";
+	name = "labor camp blast door"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"EG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"EH" = (
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
+"EN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"ER" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"EV" = (
+/obj/machinery/door/airlock/glass{
+	name = "Labor Camp Library"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Fd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/wallmed/directional/north,
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"Fm" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"Fp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"FI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/flasher{
+	id = "labor";
+	pixel_y = -22
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/closet/wardrobe/pjs,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"FN" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"FR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"FX" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Labor";
+	name = "labor camp blast door"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"Gm" = (
+/obj/machinery/mineral/labor_prisoner_shuttle_console{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"Gs" = (
+/obj/machinery/door/airlock/glass{
+	name = "Labor Camp Bedroom"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"GD" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"GF" = (
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"GH" = (
+/obj/machinery/door/airlock/security/glass{
+	locked = 1;
+	id_tag = "labor_door_int";
+	name = "Labor Camp Airlock"
+	},
+/obj/machinery/access_button{
+	autolink_id = "labor_btn_int";
+	name = "Prison Wing Access Button";
+	pixel_y = -21;
+	req_access = list(2)
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"GJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"GM" = (
+/obj/structure/flora/ash/rock/style_random,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"GN" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"GQ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"GV" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"Hh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Hp" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"HB" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"HQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"Ij" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"Ik" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"Im" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/library,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Iw" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Infirmary"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"IL" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"Je" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/obj/item/pickaxe/safety,
+/obj/item/soap/homemade,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"Jl" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"Jo" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
+"JU" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Ko" = (
+/obj/machinery/flasher{
+	id = "labor";
+	pixel_y = 22
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"KG" = (
+/obj/machinery/computer/shuttle/labor/one_way{
+	dir = 4
+	},
+/obj/machinery/computer/cryopod{
+	dir = 4;
+	pixel_x = -28
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"KK" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"KL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = 8
+	},
+/obj/machinery/flasher_button{
+	id = "labor";
+	name = "Labor Camp Flasher";
+	pixel_x = 24;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"Lm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Lt" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4;
+	name = "scrubber outlet"
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Lw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"LG" = (
+/obj/effect/decal/cleanable/ash,
+/obj/item/clothing/mask/gas/clown_hat,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"LN" = (
+/obj/machinery/suit_storage_unit/gulag,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"LS" = (
+/obj/structure/ore_box,
+/obj/machinery/camera{
+	c_tag = "Labor Camp Airlock";
+	network = list("Labor Camp")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"Mo" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"Ms" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Mx" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp/security)
+"MI" = (
+/obj/structure/flora/ash/cacti,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"MK" = (
+/obj/structure/table,
+/obj/item/storage/bag/dice,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"MN" = (
+/obj/item/card/id/prisoner/random,
+/obj/item/toy/figure/crew/syndie,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"MR" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Monitoring";
+	network = list("Labor Camp");
+	dir = 6
+	},
+/obj/structure/table,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"MV" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Nd" = (
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/gulag_rock)
+"Nh" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
+"Nj" = (
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"Np" = (
+/obj/machinery/mineral/ore_redemption/labor{
+	input_dir = 4;
+	output_dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"NL" = (
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"NN" = (
+/obj/item/clothing/shoes/orange,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"NQ" = (
+/obj/item/cigbutt,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Oj" = (
+/obj/structure/table,
+/obj/item/toy/figure/crew/assistant,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/pen,
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"OB" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Library";
+	dir = 9;
+	network = list("Labor Camp")
+	},
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"OG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Pd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Po" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"PA" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"PR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/mine/laborcamp)
+"PZ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
+"Qh" = (
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"Qi" = (
+/obj/machinery/economy/vending/sustenance,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Qj" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"Qm" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Qt" = (
+/obj/machinery/flasher{
+	id = "labor";
+	pixel_y = -22
+	},
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"Qz" = (
+/obj/item/cigbutt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/mine/laborcamp)
+"QK" = (
+/obj/structure/flora/ash/rock/style_random,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"QQ" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"QV" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "laborcamp_away";
+	name = "Labor Camp Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"Re" = (
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"Rn" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/gulag_rock)
+"Ru" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Labor Camp Security Airlock";
+	network = list("Labor Camp")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"Rx" = (
+/obj/machinery/newscaster/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"RP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"RV" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"RX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Sb" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"Sp" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Sr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "air_in";
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/deck/cards,
+/obj/item/paper{
+	info = "What is the barometer?<br><br>Barometer is a scientific instrument used in meteorology to measure atmospheric pressure, and is widely used by miners to know when the next ash storm will happen.<br><br>Our Nanotrasen technology managed to implement the barometer functions in just one instrument, the Analyzer. The Analyzer can measure pipes with various useful information, as well as measure atmospheric pressure.<br><br>How to use the barometer?<br><br>To use the barometer, go to a space with relatively low pressure and press the button indicated on the instrument. When you press it, the analyzer will immediately measure the environment and give you the information.";
+	name = "A guide for your safety";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"SE" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"Td" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Te" = (
+/obj/structure/bookcase{
+	name = "bookcase (Adult)"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood,
+/area/mine/laborcamp)
+"Th" = (
+/obj/machinery/flasher{
+	id = "labor";
+	pixel_y = -22
+	},
+/obj/item/cigbutt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"Tl" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Tv" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/shuttle/siberia)
+"Ty" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 10
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"TN" = (
+/obj/item/trash/syndi_cakes,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"TU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"UB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcornersiding";
+	dir = 1
+	},
+/area/mine/laborcamp)
+"UI" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"UT" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/maintenance,
+/obj/item/mounted/frame/apc_frame,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"Vq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Vv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Vz" = (
+/obj/machinery/computer/prisoner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"VW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"We" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"Wg" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"Wm" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/scrubber,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"WJ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal{
+	dir = 6
+	},
+/obj/machinery/camera{
+	c_tag = "Labor Camp Shuttle";
+	network = list("Labor Camp");
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"WZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Xq" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/gulag_rock)
+"Xx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light/small,
+/obj/structure/bedsheetbin,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"XO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp)
+"Yc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 10
+	},
+/area/mine/laborcamp)
+"Yv" = (
+/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"YB" = (
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"YH" = (
+/obj/structure/flora/ash/cacti,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"YI" = (
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
+"YU" = (
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/lavaland/surface/outdoors)
+"Ze" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowsiding"
+	},
+/area/mine/laborcamp)
+"Zj" = (
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp/security)
+"Zp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"Zz" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ZC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
+"ZK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
+"ZL" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ZX" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"ZZ" = (
+/obj/item/mounted/frame/intercom,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/gulag_rock)
+
+(1,1,1) = {"
+Qm
+ua
+Qm
+YU
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+Qm
+ua
+ua
+ua
+Qm
+ua
+ua
+Qm
+ua
+Qm
+ua
+ua
+ua
+ua
+YU
+YU
+Qm
+ua
+ua
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Cj
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+"}
+(2,1,1) = {"
+Qm
+Qm
+Qm
+Qm
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+Qm
+Qm
+ua
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+Cj
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+YU
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+"}
+(3,1,1) = {"
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+Cj
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+Cj
+ua
+ua
+ua
+Qm
+Cj
+ua
+ua
+ua
+ua
+ua
+ua
+YU
+YU
+YU
+YU
+YU
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+"}
+(4,1,1) = {"
+Qm
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Po
+GM
+ua
+ua
+ua
+Po
+au
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+"}
+(5,1,1) = {"
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Cj
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Po
+pk
+Po
+ua
+ua
+GM
+jG
+Po
+Po
+Po
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+"}
+(6,1,1) = {"
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+rk
+rk
+fD
+rk
+rk
+fD
+rk
+rk
+rk
+Po
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+"}
+(7,1,1) = {"
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+fD
+Aw
+gW
+zK
+Gm
+jR
+WJ
+uw
+Am
+ua
+ua
+ua
+ua
+ua
+De
+Qm
+Qm
+"}
+(8,1,1) = {"
+uP
+ua
+uP
+uP
+BW
+sO
+sO
+sO
+sO
+sO
+sO
+Jo
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+BW
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+sO
+sO
+uP
+uP
+sO
+sO
+sO
+sO
+ua
+ua
+sO
+sO
+sO
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Po
+tp
+Po
+ua
+ua
+ua
+pB
+pB
+fD
+Qj
+gW
+rk
+zr
+GF
+GD
+Tv
+Am
+Po
+pB
+pB
+ua
+ua
+ua
+ua
+Qm
+"}
+(9,1,1) = {"
+sb
+ua
+ua
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+tp
+tp
+NN
+Po
+pB
+ua
+Po
+pk
+pB
+fD
+gH
+hq
+rk
+YB
+cd
+GD
+uw
+Am
+Po
+pB
+ua
+ua
+ua
+ua
+ua
+ua
+"}
+(10,1,1) = {"
+sb
+sb
+ua
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+fu
+Ec
+fu
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+MV
+wa
+MN
+au
+ua
+ua
+if
+Po
+Po
+rk
+rk
+tM
+rk
+rk
+rk
+qo
+rk
+rk
+Po
+mj
+ua
+ua
+ua
+ua
+ua
+ua
+"}
+(11,1,1) = {"
+sb
+sb
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+pZ
+zV
+Xq
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+pB
+LG
+Po
+ua
+GM
+bw
+bw
+bw
+Zj
+Zj
+nA
+Zj
+EH
+EH
+QV
+EH
+EH
+Nh
+Sp
+ua
+ua
+ua
+au
+ua
+ua
+"}
+(12,1,1) = {"
+De
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+Nd
+ZZ
+pZ
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+pB
+jK
+Po
+ua
+Po
+bw
+Qh
+sy
+ir
+gk
+nG
+uJ
+EH
+KG
+nb
+mO
+vW
+Nh
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+"}
+(13,1,1) = {"
+De
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+Rn
+rB
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+pB
+ua
+ua
+EH
+FX
+FX
+Nh
+Zj
+mk
+pU
+Bt
+ou
+GN
+mq
+Cn
+PZ
+UI
+Mo
+DP
+FX
+GM
+ua
+pB
+ua
+ua
+ua
+ua
+"}
+(14,1,1) = {"
+De
+De
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+GM
+GV
+pB
+ua
+Nh
+ql
+xx
+pl
+Zj
+MR
+CU
+hv
+Cl
+Nj
+qA
+EH
+te
+RV
+XO
+zj
+FX
+Po
+mj
+Po
+ua
+Po
+ua
+ua
+"}
+(15,1,1) = {"
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+Po
+Po
+Po
+pB
+Nh
+zL
+uW
+sE
+Zj
+pf
+ln
+AD
+Cl
+lY
+AD
+PA
+Dj
+en
+Lw
+yB
+FX
+Lt
+Po
+ua
+ua
+ua
+Po
+ua
+"}
+(16,1,1) = {"
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Po
+Po
+pk
+FX
+cm
+AV
+qZ
+bw
+lU
+KL
+Vz
+Cl
+YI
+wg
+PA
+Jl
+qy
+na
+gD
+EH
+Zz
+Po
+ua
+ua
+ua
+ua
+ua
+"}
+(17,1,1) = {"
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+Po
+YH
+QK
+jG
+FX
+zT
+TN
+Th
+bw
+Zj
+Zj
+Mx
+pn
+zO
+Zj
+EH
+bu
+HB
+GH
+EH
+EH
+Au
+FX
+Nh
+lR
+ua
+ua
+Po
+"}
+(18,1,1) = {"
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+Po
+Po
+FX
+mr
+pq
+Ms
+rP
+Td
+EH
+us
+HQ
+nl
+hn
+Nh
+lT
+Co
+Sb
+EH
+Fd
+AI
+at
+Nh
+ua
+Po
+ua
+ua
+"}
+(19,1,1) = {"
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+EH
+Bp
+RX
+ZC
+Pd
+ZC
+ya
+pY
+Vv
+NL
+qp
+EH
+Ru
+fV
+GQ
+EH
+yo
+aF
+Fm
+FX
+Po
+MI
+ua
+ua
+"}
+(20,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+sO
+ua
+ua
+ua
+ua
+Po
+Nh
+Qi
+fv
+av
+fc
+TU
+qi
+hW
+tJ
+NL
+Qt
+EH
+cv
+HB
+sc
+EH
+iW
+PR
+qa
+FX
+Po
+GM
+Po
+ua
+"}
+(21,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+Po
+ZL
+EH
+EH
+Nh
+Nh
+Nh
+EH
+EH
+Ko
+Vv
+NL
+ch
+cs
+nl
+dD
+aX
+EH
+to
+ni
+AL
+FX
+Po
+Po
+Po
+ua
+"}
+(22,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+EH
+CI
+qx
+Ik
+rn
+EH
+md
+UB
+ig
+by
+by
+WZ
+WZ
+EN
+EG
+Iw
+qm
+fB
+hl
+EH
+De
+De
+ua
+ua
+"}
+(23,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+EH
+Ae
+iH
+wz
+Je
+EH
+tU
+kd
+pd
+Sr
+MK
+Yv
+zZ
+NL
+Wg
+Nh
+Nh
+Nh
+EH
+EH
+EH
+Nh
+ua
+ua
+"}
+(24,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+uP
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+Nh
+LN
+Qz
+me
+Ij
+rq
+zG
+cS
+xu
+VW
+VW
+fk
+Tl
+mf
+FI
+Nh
+Br
+aZ
+tj
+gj
+eR
+Nh
+ua
+ua
+"}
+(25,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+Nh
+jc
+iH
+ws
+rN
+EH
+aY
+OG
+NL
+NL
+NL
+FR
+ER
+NQ
+Xx
+Nh
+Wm
+Re
+Re
+gE
+Zp
+Nh
+ua
+ua
+"}
+(26,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+BW
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+Nh
+LN
+sk
+yT
+RP
+EH
+gb
+Fp
+IL
+nJ
+ox
+Ze
+GJ
+iO
+vr
+bJ
+sB
+We
+zY
+SE
+yk
+EH
+ua
+ua
+"}
+(27,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+Nh
+qI
+iO
+Rx
+dO
+EH
+EH
+tE
+Np
+EH
+EH
+EV
+EH
+Nh
+Gs
+EH
+EH
+vJ
+xZ
+Ty
+ZX
+EH
+ua
+ua
+"}
+(28,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+De
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+EH
+EH
+Nh
+Nh
+EH
+EH
+fd
+ZK
+Yc
+EH
+Te
+pM
+Im
+EH
+Lm
+Oj
+EH
+xZ
+Re
+gE
+zU
+EH
+ua
+ua
+"}
+(29,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+De
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+EH
+QQ
+Vq
+Hp
+EH
+Aq
+qE
+rh
+EH
+hu
+ok
+Nh
+UT
+CS
+rg
+zU
+EH
+ua
+ua
+"}
+(30,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+Nh
+LS
+Hh
+yr
+EH
+FN
+JU
+uG
+EH
+eA
+iq
+Nh
+EH
+EH
+EH
+EH
+Bw
+ua
+ua
+"}
+(31,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+De
+ua
+ua
+ua
+ua
+ua
+sO
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+Nh
+ay
+KK
+ep
+EH
+DY
+OB
+lp
+EH
+EH
+Nh
+Nh
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+"}
+(32,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+Nh
+Nh
+Ej
+PA
+EH
+EH
+EH
+EH
+EH
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+"}
+(33,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+De
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+nu
+uK
+uK
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+"}
+(34,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+YU
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+"}
+(35,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+"}
+(36,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+"}
+(37,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+CD
+CD
+sO
+sO
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+"}
+(38,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+"}
+(39,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+"}
+(40,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+"}
+(41,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(42,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(43,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+uP
+uP
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(44,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(45,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+sO
+sO
+uP
+ua
+ua
+uP
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+sO
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(46,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+ua
+ua
+ua
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+uP
+sO
+sO
+sO
+sO
+uP
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(47,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+Qm
+De
+De
+De
+ua
+ua
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(48,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+De
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(49,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+YU
+Qm
+De
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+De
+De
+De
+De
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+De
+De
+De
+De
+ua
+ua
+ua
+ua
+De
+De
+ua
+ua
+ua
+ua
+ua
+ua
+ua
+De
+De
+De
+ua
+ua
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(50,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+Qm
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}
+(51,1,1) = {"
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+De
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+Qm
+"}

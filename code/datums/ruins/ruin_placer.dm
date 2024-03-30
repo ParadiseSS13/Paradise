@@ -131,7 +131,7 @@
 			continue
 		ruins_availible[R] = R.placement_weight
 
-	while(ruin_budget > 0 && (length(ruins_availible) || length(forced_ruins)))
+	while((ruin_budget > 0 && length(ruins_availible)) || length(forced_ruins))
 		var/datum/map_template/ruin/current_pick
 		var/forced = FALSE
 		if(length(forced_ruins)) //We have something we need to load right now, so just pick it

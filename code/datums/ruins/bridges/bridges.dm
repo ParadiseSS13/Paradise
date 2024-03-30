@@ -280,6 +280,24 @@
 			return current_turf.x <= 2
 	return TRUE
 
+/datum/map_template/ruin/lavaland/zlvl_bridge
+	prefix = "_maps/map_files/RandomRuins/LavaRuins/zlvl_bridges/"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+	name = "Vertical Bridge One"
+	suffix = "lavaland_zlvl_bridge_vertical_1.dmm"
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
+	name = "Horizontal Bridge One"
+	suffix = "lavaland_zlvl_bridge_horizontal_1.dmm"
+
 #undef LONG_BRIDGE_THEME_CULT
 #undef LONG_BRIDGE_THEME_HIERO
 #undef LONG_BRIDGE_THEME_CLOCKWORK
