@@ -494,7 +494,7 @@
 	loot = list(
 				/obj/item/gun/projectile/revolver/nagant = 50,
 				/obj/item/gun/projectile/automatic/pistol/APS = 30,
-				/obj/item/gun/projectile/automatic/ak814 = 30,
+				/obj/item/gun/projectile/shotgun/boltaction = 50,
 				/obj/item/clothing/suit/space/hardsuit/soviet = 40,
 				/obj/item/clothing/glasses/thermal/eyepatch = 50,
 				/obj/item/clothing/mask/holo_cigar = 10,
@@ -620,6 +620,7 @@
 				/obj/item/storage/box/vox_spacesuit = 20,
 				/obj/item/storage/box/syndie_kit/chameleon = 50,
 				/obj/item/organ/internal/cyberimp/arm/esword = 30,
+				/obj/item/gun/energy/spikethrower = 20,
 				/obj/item/organ/internal/cyberimp/arm/medibeam = 50,
 				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 50,
 				/obj/item/organ/internal/cyberimp/arm/gun/laser = 30,
@@ -630,7 +631,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/solarcentral_minor
-	name = "11. solar-central compact small gear" //Medical and protection theme - shields, mods, meds, and love
+	name = "11. skrellian central authority small gear" //Medical and protection theme - shields, mods, meds, and love
 	loot = list(
 				/obj/item/mod/control/pre_equipped/medical = 40,
 				/obj/item/mod/control/pre_equipped/rescue = 40,
@@ -646,7 +647,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/solarcentral_major
-	name = "12. solar-central large gear"
+	name = "12. skrellian central authority large gear"
 	lootcount = 3
 	loot = list(
 				/obj/item/mod/module/energy_shield = 40,
