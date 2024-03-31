@@ -108,7 +108,7 @@
 	if(!engineering_machine_interaction)	// Everything past this point requires being able to engineer.
 		return
 
-	else if(istype(target,/obj/machinery/power/apc))
+	else if(istype(target, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened && A.cell)
 			gripped_item = A.cell
