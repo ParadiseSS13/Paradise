@@ -142,4 +142,4 @@
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Attention! Delta security level reached!"
-	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
+	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to abandon the station immediately. This is not a drill."
