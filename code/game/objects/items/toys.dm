@@ -1177,6 +1177,7 @@
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
 			zone = "chest"
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+		playsound(src, 'sound/voice/now.ogg', 80, TRUE)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
@@ -1237,6 +1238,13 @@
 	if(istype(I, /obj/item/ammo_box/a357))
 		to_chat(user, "<span class='warning'>You go to speedload [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
+	return ..()
+
+/obj/item/toy/russian_revolver/trick_revolver/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+	if(target_atom != src)
+		pointer_mob.visible_message("<span class='danger'>[pointer_mob] points [src] at- and [src] goes off in their hand!</span>")
+		shoot_gun(pointer_mob)
+		return TRUE
 	return ..()
 
 /*

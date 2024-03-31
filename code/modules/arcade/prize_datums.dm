@@ -8,22 +8,16 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 		prizes += new itempath()
 
 /datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
-	if(!prize_counter.Adjacent(usr))
-		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
-		return
-	if(!prize_counter)
-		return 0
 	var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
+	if(!prize_counter)
+		return
 	if(!item)
-		return 0
-	if(prize_counter.tickets >= item.cost)
-		new item.typepath(prize_counter.loc)
-		prize_counter.tickets -= item.cost
-		to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
-		return TRUE
-	else
-		to_chat(usr, "<span class='warning'>Not enough tickets!</span>")
-		return FALSE
+		return
+
+	new item.typepath(prize_counter.loc)
+	prize_counter.tickets -= item.cost
+	to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
+	playsound(prize_counter, 'sound/machines/machine_vend.ogg', 50, TRUE)
 
 //////////////////////////////////////
 //			prize_item datum		//

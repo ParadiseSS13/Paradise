@@ -1003,7 +1003,7 @@
 
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
@@ -1331,7 +1331,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color(user)
@@ -1407,7 +1407,7 @@
 	usr.update_inv_head()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /// chronx100: Hughe O'Splash
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx

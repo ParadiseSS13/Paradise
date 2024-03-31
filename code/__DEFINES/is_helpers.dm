@@ -17,6 +17,8 @@
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
+#define ismonkey(A) (istype(A, /mob/living/carbon/human/monkey))
+
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
