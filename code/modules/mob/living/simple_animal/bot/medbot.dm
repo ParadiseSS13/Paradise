@@ -474,14 +474,14 @@
 		var/list/messagevoice = list("AAAAAAA!" = 'sound/voice/medbot_scream.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
+		playsound(loc, messagevoice[message], 10, FALSE)
 		bot_reset()
 		return
 	else
 		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
-		playsound(loc, messagevoice[message], 50, FALSE)
+		playsound(loc, messagevoice[message], 10, FALSE)
 		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
