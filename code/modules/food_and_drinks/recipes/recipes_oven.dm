@@ -621,7 +621,7 @@
 	reagents = list("sodiumchloride" = 1)
 	items = list(
 		/obj/item/food/snacks/sliceable/flatdough,
-        /obj/item/food/snacks/soydope
+	    /obj/item/food/snacks/soydope
 	)
 	result = /obj/item/food/snacks/vegansausageroll
 
