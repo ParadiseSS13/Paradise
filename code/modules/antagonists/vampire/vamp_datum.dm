@@ -310,7 +310,7 @@
 	check_vampire_upgrade(TRUE)
 	for(var/obj/effect/proc_holder/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
