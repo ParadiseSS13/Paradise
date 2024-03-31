@@ -500,7 +500,7 @@
 
 /obj/effect/proc_holder/spell/corpse_explosion/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
-	if(!target || target.stat == !DEAD)
+	if(!target || target.stat != DEAD)
 		return
 	var/turf/corpse_turf = get_turf(target)
 	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
