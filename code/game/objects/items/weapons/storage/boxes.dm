@@ -1201,6 +1201,16 @@
 		new /obj/item/bio_chip_case/mindshield(src)
 	new /obj/item/bio_chip_implanter/mindshield(src)
 
+/obj/item/storage/box/mindshield/superstuffed
+	name = "deluxe boxed mimeshield kit"
+	desc = "Only you decide who can be trusted. Choose wisely!"
+	icon_state = "implant_box"
+
+/obj/item/storage/box/mindshield/superstuffed/populate_contents()
+	for(var/I in 1 to 13)
+		new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_implanter/mindshield(src)
+
 /obj/item/storage/box/dish_drive
 	name = "DIY Dish Drive Kit"
 	desc = "Contains everything you need to build your own Dish Drive!"

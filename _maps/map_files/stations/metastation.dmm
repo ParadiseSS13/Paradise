@@ -73362,7 +73362,6 @@
 	pixel_y = 2
 	},
 /obj/item/storage/box/trackimp,
-/obj/item/storage/lockbox/mindshield,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";

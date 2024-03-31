@@ -22525,7 +22525,6 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/chemimp,
 /obj/item/storage/box/trackimp,
-/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "bpa" = (

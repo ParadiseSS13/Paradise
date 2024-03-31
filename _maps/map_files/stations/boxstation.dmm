@@ -396,7 +396,6 @@
 /area/station/medical/medbay)
 "adb" = (
 /obj/structure/rack,
-/obj/item/storage/lockbox/mindshield,
 /obj/item/storage/box/trackimp,
 /obj/item/storage/box/chemimp{
 	pixel_x = 4;

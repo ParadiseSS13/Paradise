@@ -22643,7 +22643,6 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/trackimp,
-/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

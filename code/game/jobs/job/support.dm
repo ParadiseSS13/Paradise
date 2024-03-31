@@ -400,9 +400,10 @@
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/reagent_containers/drinks/bottle/bottleofnothing = 1,
-		/obj/item/cane = 1
+		/obj/item/cane = 1,
+		/obj/item/storage/box/mindshield/superstuffed
 	)
-
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/mime
 

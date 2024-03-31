@@ -54,7 +54,6 @@
 	new /obj/item/storage/bag/garment/head_of_security(src)
 	new /obj/item/cartridge/hos(src)
 	new /obj/item/radio/headset/heads/hos/alt(src)
-	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/shield/riot/tele(src)
