@@ -46,6 +46,7 @@
 				tries++
 				copy_list -= new_test_subject
 				continue
+			user.unEquip(src, TRUE)
 			forceMove(get_turf(new_test_subject))
 			new_test_subject.put_in_hands(src)
 			break
