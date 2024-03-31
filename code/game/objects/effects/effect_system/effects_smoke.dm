@@ -72,8 +72,9 @@
 	if(!C.can_breathe_gas())
 		return FALSE
 	if(C.smoke_delay)
-		return FALSE
 		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
+		return FALSE
+
 	if(reagents)
 		reagents.trans_to(C, reagents.total_volume)
 	C.smoke_delay++
