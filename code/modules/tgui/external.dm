@@ -82,7 +82,7 @@
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != UI_INTERACTIVE)
 		return TRUE
-	playsound(src, 'sound/items/bikehorn.ogg', 30, vary = TRUE)
+	playsound(src, 'sound/items/bikehorn.ogg', 20, vary = TRUE)
 
 /**
  * public
