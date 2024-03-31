@@ -118,7 +118,7 @@
 			user.visible_message("<span class='warning'>[user] torches the contents of the top of the toilet with [big_lighter]!</span>", "<span class='warning'>You torch the top of the toilet with [big_lighter]! Whoops.</span>")
 			return
 
-		user.visible_message("<span class='notice'>[user] torches the contents of the cistern with [big_lighter]!</span>", "<span class='notice'>You torch the conents of the cistern with [big_lighter]!</span>")
+		user.visible_message("<span class='notice'>[user] torches the contents of the cistern with [big_lighter]!</span>", "<span class='notice'>You torch the contents of the cistern with [big_lighter]!</span>")
 		return
 
 	if(cistern)
