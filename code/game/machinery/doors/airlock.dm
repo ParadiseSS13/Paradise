@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/cur_command
 	/// Is a command actually running
 	var/command_running = FALSE
-	COOLDOWN_DECLARE(deniedCD)
+
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -613,11 +613,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if("closing")
 			update_icon(AIRLOCK_CLOSING)
 		if("deny")
-			if(!stat && COOLDOWN_FINISHED(src, deniedCD))
+			if(!stat)
 				update_icon(AIRLOCK_DENY)
-				playsound(src, doorDeni, 35, 0, 3)
-				COOLDOWN_START(src, deniedCD, 1.5 SECONDS)
-				sleep(1.5 SECONDS)
+				playsound(src,doorDeni,50,0,3)
+				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
 /obj/machinery/door/airlock/examine(mob/user)
