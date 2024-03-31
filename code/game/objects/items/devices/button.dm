@@ -18,12 +18,12 @@
 		return
 
 	last_pressed_time = world.time + 1 MINUTES
+	var/tries = 0
+	var/list/copy_list = GLOB.alive_mob_list.Copy()
 
 	if(prob(10) && last_pressed_person) // Fuck you for selling your colleague's lives for a measly 1k credits.
 		last_pressed_person.death()
 	else
-		var/list/copy_list = GLOB.alive_mob_list.Copy()
-		var/tries = 0
 		while(tries < 30)
 			var/mob/living/carbon/human/bad_luck_brandon = pick(copy_list)
 			if(!istype(bad_luck_brandon))
