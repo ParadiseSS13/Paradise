@@ -606,7 +606,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	var/viewX
 	var/viewY
 	if(isnum(view))
-		var/totalviewrange = 1 + 2 * view
+		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
 		viewX = totalviewrange
 		viewY = totalviewrange
 	else if(istext(view))
@@ -621,6 +621,13 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		CRASH("Invalid view type parameter passed to getviewsize: [view]")
 
 	return list(viewX, viewY)
+
+
+/proc/in_view_range(mob/user, atom/A)
+	var/list/view_range = getviewsize(user.client.view)
+	var/turf/source = get_turf(user)
+	var/turf/target = get_turf(A)
+	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[2], source.y + view_range[2])
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)

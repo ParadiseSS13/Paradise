@@ -58,6 +58,10 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
+#define isgun(A) (istype(A, /obj/item/gun))
+
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
 #define is_pda(W) (istype(W, /obj/item/pda))

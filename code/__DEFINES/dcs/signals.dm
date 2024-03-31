@@ -462,6 +462,13 @@
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob/login() finishes: (client)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
+/// from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
 ///sent from living mobs every tick of fire
