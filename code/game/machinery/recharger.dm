@@ -74,6 +74,8 @@
 
 /obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return TRUE
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be secured down first!</span>")
 		return

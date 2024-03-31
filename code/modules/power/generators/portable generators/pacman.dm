@@ -225,7 +225,8 @@
 /obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/I)
 	if(active)
 		return
-
+	if(check_screw_size(user, I))
+		return TRUE
 	panel_open = !panel_open
 	I.play_tool_sound(src)
 	if(panel_open)

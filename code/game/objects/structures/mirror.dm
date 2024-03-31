@@ -56,6 +56,8 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	if(check_screw_size(user, I))
+		return
 	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return

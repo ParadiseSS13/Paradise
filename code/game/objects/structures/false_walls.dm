@@ -132,6 +132,8 @@
 		return TRUE
 	if(!density)
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
+		return 
+	if(check_screw_size(user, I))
 		return TRUE
 	var/turf/T = get_turf(src)
 	if(T.density)

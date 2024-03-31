@@ -74,6 +74,8 @@
 
 /obj/structure/transit_tube_pod/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	var/obj/structure/transit_tube_construction/pod/P = new(get_turf(src))
 	P.dir = dir
 	to_chat(user, "<span class='notice'>You uninstall [src].</span>")

@@ -30,11 +30,15 @@
 		if(alpha < 160)
 			set_opacity(0)
 		stoplag()
+	GLOB.smokes_active--
 
-/obj/effect/particle_effect/smoke/New()
+/obj/effect/particle_effect/smoke/New(loc, contains_chemicals = FALSE)
 	..()
 	START_PROCESSING(SSobj, src)
-	lifetime += rand(-1,1)
+	GLOB.smokes_active++
+	lifetime += rand(-1, 1)
+	if(contains_chemicals)
+		create_reagents(10)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -68,7 +72,11 @@
 	if(!C.can_breathe_gas())
 		return FALSE
 	if(C.smoke_delay)
+		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
 		return FALSE
+
+	if(reagents)
+		reagents.trans_to(C, reagents.total_volume)
 	C.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
 	return TRUE
@@ -79,20 +87,30 @@
 
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
+	var/datum/reagents/chemicals_to_add
+	var/units_per_smoke = 0
 	var/direction
 
-/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction)
-	number = clamp(amount, amount, 20)
+/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, datum/reagents/chemicals = null)
+	number = clamp(amount, 0, 20)
 	cardinals = only_cardinals
 	location = get_turf(source)
 	if(desired_direction)
 		direction = desired_direction
+	if(chemicals)
+		chemicals_to_add = chemicals
+		units_per_smoke = clamp((chemicals_to_add.total_volume / number), 0, 10)
 
 /datum/effect_system/smoke_spread/start()
+	var/smoke_budget = GLOBAL_SMOKE_LIMIT - GLOB.smokes_active
+	if(smoke_budget < number) //Dream blunt rotation scenario
+		return
 	for(var/i=0, i<number, i++)
 		if(holder)
 			location = get_turf(holder)
-		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+		var/obj/effect/particle_effect/smoke/S = new effect_type(location, (chemicals_to_add ? TRUE : FALSE))
+		if(chemicals_to_add)
+			chemicals_to_add.copy_to(S, units_per_smoke)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)

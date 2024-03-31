@@ -39,6 +39,8 @@
 	if(istype(src, /obj/structure/sign/double))
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "You unfasten the sign with [I].")
@@ -63,6 +65,8 @@
 	if(!isturf(user.loc)) // Why does this use user? This should just be loc.
 		return
 	. = TRUE // These return values gotta be true or we stab the sign
+	if(check_screw_size(user, I))
+		return
 	var/direction = tgui_input_list(user, "Which direction will this sign be moved?", "Select direction,", list("North", "East", "South", "West", "Cancel"))
 	if(direction == "Cancel" || QDELETED(src))
 		return
