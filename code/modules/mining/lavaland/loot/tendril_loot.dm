@@ -438,7 +438,7 @@
 	if(M.color == turn_color) // Don't stun them again if they're already gold
 		return
 
-	M.color =
+	M.color = turn_color
 	M.Stun(10 SECONDS)
 	to_chat(M, "<span class='biggerdanger'>You are frozen solid!</span>")
 
