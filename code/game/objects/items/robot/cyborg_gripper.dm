@@ -77,7 +77,7 @@
 			"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",
 			"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>"
 			)
-		return
+		return FALSE
 
 	if(gripped_item) //Already have an item.
 
