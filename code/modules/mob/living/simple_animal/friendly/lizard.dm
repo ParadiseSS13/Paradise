@@ -90,5 +90,5 @@
 	return ..()
 
 /mob/living/simple_animal/lizard/death(gibbed)
-	new /obj/item/organ/external/toe(get_turf(src))
+	new /obj/item/organ/toe(get_turf(src))
 	. = ..()
