@@ -253,7 +253,6 @@
 		qdel(robusted)
 
 /atom/movable/screen/fullscreen/robusted/respawn/Click(location,control,params)
-	to_chat(usr, "Clicked [name]")
 	for(var/atom/atom in GLOB.skeleton_spawners)
 		var/turf/spawn_turf = get_turf(atom)
 		if(!istype(spawn_turf))
