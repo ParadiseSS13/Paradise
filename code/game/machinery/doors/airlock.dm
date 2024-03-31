@@ -617,7 +617,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				update_icon(AIRLOCK_DENY)
 				playsound(src, doorDeni, 35, 0, 3)
 				COOLDOWN_START(src, deniedCD, 1.5 SECONDS)
-				sleep(1.5 SECONDS)
+				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
 /obj/machinery/door/airlock/examine(mob/user)
