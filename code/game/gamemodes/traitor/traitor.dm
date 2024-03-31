@@ -80,7 +80,7 @@
 			traitors_to_add++
 			traitors -= traitor_mind
 			continue
-		for(var/datum/antagonist/traitor/traitor_datum in traitor.antag_datums)
+		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
 			for(var/datum/objective/objective in traitor_datum.objective_holder.objectives)
 				objective.update_explanation_text()
 
