@@ -2576,6 +2576,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"jc" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "je" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
@@ -6709,7 +6718,9 @@
 	desc = "Used to grind things up into raw materials and liquids.";
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglasssssssssssssssssssssssss"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7087,6 +7098,13 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"yG" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/mob/living/simple_animal/pet/dog/corgi,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -7216,6 +7234,13 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
+"zu" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/mob/living/simple_animal/lizard,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "zv" = (
 /obj/item/flag/wiz,
 /turf/simulated/floor/wood,
@@ -7484,6 +7509,12 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"AA" = (
+/obj/structure/mineral_door/wood{
+	name = "Changing chamber"
+	},
+/turf/simulated/floor/clockwork,
+/area/wizard_station)
 "AB" = (
 /obj/machinery/computer/arcade/battle{
 	dir = 4
@@ -9647,6 +9678,43 @@
 /obj/effect/decal/cleanable/ants,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"It" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglass";
+	icon = 'icons/obj/drinks.dmi';
+	pixel_x = 10;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglass";
+	icon = 'icons/obj/drinks.dmi';
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglass";
+	icon = 'icons/obj/drinks.dmi';
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglass";
+	icon = 'icons/obj/drinks.dmi';
+	pixel_x = 2;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglass";
+	icon = 'icons/obj/drinks.dmi';
+	pixel_x = 2;
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	icon_state = "manlydorfglass";
+	icon = 'icons/obj/drinks.dmi';
+	pixel_x = 10
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "Iu" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets,
@@ -10595,6 +10663,11 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"LD" = (
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/reagentgrinder/empty,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "LF" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin{
@@ -11355,6 +11428,30 @@
 /obj/machinery/power/port_gen/pacman/super/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"NV" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/reagent_containers/condiment/capsaicin{
+	pixel_y = 10;
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/condiment/oliveoil{
+	pixel_x = 10;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/condiment/syndisauce{
+	pixel_y = 10;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -10;
+	pixel_y = -3
+	},
+/obj/item/food/snacks/weirdcheesewedge,
+/obj/item/reagent_containers/condiment/vinegar{
+	pixel_x = 10
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "NW" = (
 /obj/structure/sign/securearea{
 	pixel_x = 32
@@ -12229,6 +12326,9 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"QS" = (
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "QT" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/holofloor/grass,
@@ -12276,6 +12376,15 @@
 "Rc" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
+"Rd" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "Re" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
@@ -13260,6 +13369,31 @@
 	icon_state = "red"
 	},
 /area/centcom/evac)
+"Vh" = (
+/obj/item/reagent_containers/glass/bottle/tin_lux{
+	pixel_x = 10
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/item/reagent_containers/glass/bottle/triplepiss{
+	pixel_x = 10;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/bottle/magnitis{
+	pixel_y = 10;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent{
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/bottle/plasma{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/glass/bottle/pierrot_throat{
+	pixel_x = -5
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "Vi" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
@@ -63343,11 +63477,11 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+xH
+xH
+xH
+xH
+GN
 xH
 xH
 xH
@@ -63600,11 +63734,11 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+xH
+Vh
+QS
+QS
+QS
 xH
 cP
 RA
@@ -63857,11 +63991,11 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+GN
+It
+QS
+QS
+QS
 xH
 cS
 Lv
@@ -64114,12 +64248,12 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-BX
-xH
+GN
+LD
+QS
+QS
+QS
+AA
 cU
 eo
 eo
@@ -64371,11 +64505,11 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-BX
-BX
-BX
+GN
+jc
+QS
+QS
+QS
 xH
 gB
 QU
@@ -64628,11 +64762,11 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+GN
+Rd
+QS
+QS
+QS
 xH
 xH
 xH
@@ -64885,12 +65019,12 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+xH
+NV
+QS
+zu
+yG
+xH
 UJ
 UJ
 UJ
@@ -65142,12 +65276,12 @@ aN
 yl
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+xH
+GN
+GN
+GN
+xH
+xH
 UJ
 UJ
 UJ

@@ -39,6 +39,7 @@
 /mob/living/simple_animal/pet/dog/death(gibbed)
 	// Only execute the below if we successfully died
 	new /obj/item/organ/internal/tongue(get_turf(src))
+	new /obj/item/organ/internal/eyes(get_turf(src))
 	. = ..(gibbed)
 	if(!.)
 		return

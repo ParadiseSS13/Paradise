@@ -427,7 +427,7 @@
 	name = "Philosopher's Stone"
 	desc = "The fabled stone, said to be impossible to create ... until now!"
 	icon = 'icons/obj/stacks/minerals.dmi'
-	icon_state = "telecrystal"
+	icon_state = "philo_stone"
 	item_state = "telecrystal"
 	var/turn_color = "#FFD700"
 
@@ -457,4 +457,5 @@
 /obj/item/philo_stone/plasma
 	name = "Phoron's Stone"
 	desc = "The fabled stone, said to be able to grant eternal life and change metal into ... plasma? That can't be right!"
+	color = "#bf00ff"
 	turn_color = "#bf00ff"
