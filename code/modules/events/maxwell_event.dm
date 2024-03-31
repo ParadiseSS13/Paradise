@@ -1,5 +1,5 @@
 /datum/event/spawn_maxwell
-	var/name = "Maxwell"
+	name = "Maxwell"
 
 /datum/event/spawn_maxwell/proc/get_spawn_loc()
 	var/list/possible_spawns = GLOB.nukedisc_respawn
