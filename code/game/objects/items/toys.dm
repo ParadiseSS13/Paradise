@@ -976,6 +976,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	var/cooldown = 0
+	var/cooldown_time = 20 MINUTES
 
 /obj/structure/emergency_meeting_button/attack_hand(mob/user)
 	if(cooldown >= world.time)
@@ -984,7 +985,7 @@
 
 	flick("bigred_press", src)
 
-	cooldown = (world.time + 20 MINUTES) // Sets cooldown at 30 seconds
+	cooldown = (world.time + cooldown_time) // Sets cooldown at 30 seconds
 
 	GLOB.minor_announcement.Announce("[user] has called an emergency meeting in [get_area(src)]. Appropriate crew have been summoned.", "Emergency Meeting", 'sound/effects/sus.ogg')
 
@@ -1012,6 +1013,9 @@
 
 		pulled.forceMove(get_turf(chair))
 		to_chat(pulled, "<span class='warning'>You have been summoned for the meeting!</span>")
+
+/obj/structure/emergency_meeting_button/somewhere
+	cooldown_time = 60 MINUTES
 
 /*
  * AI core prizes

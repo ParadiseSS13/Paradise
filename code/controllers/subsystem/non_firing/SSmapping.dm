@@ -136,8 +136,21 @@ SUBSYSTEM_DEF(mapping)
 		var/atom/sur_le_table = locate(/obj/structure/table) in meeting_area
 		if(sur_le_table)
 			new /obj/structure/emergency_meeting_button(get_turf(sur_le_table))
+
+		if(prob(30))
+			var/list/station_areas = list()
+			for(var/area/station/ar in world)
+				station_areas += ar
+			var/area/chosen_area = pick(station_areas)
+			var/list/turfs = list()
+			for(var/turf/tu in chosen_area)
+				turfs += tu
+			var/turf/chosen = pick(turfs)
+			new /obj/structure/emergency_meeting_button/somewhere(chosen)
+			log_debug("hehe")
 	catch
 		log_debug("xd")
+
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
