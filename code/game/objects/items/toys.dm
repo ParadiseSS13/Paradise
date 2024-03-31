@@ -977,7 +977,7 @@
 	icon_state = "bigred"
 	var/cooldown = 0
 
-/obj/item/toy/redbutton/emergency/attack_hand(mob/user)
+/obj/structure/emergency_meeting_button/attack_hand(mob/user)
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
