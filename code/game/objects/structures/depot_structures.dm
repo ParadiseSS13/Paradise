@@ -38,6 +38,8 @@
 
 /obj/structure/fusionreactor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")

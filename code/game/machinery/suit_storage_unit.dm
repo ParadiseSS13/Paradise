@@ -373,6 +373,8 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return

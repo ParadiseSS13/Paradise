@@ -42,6 +42,8 @@
 
 /obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
 
 /obj/machinery/telepad/multitool_act(mob/user, obj/item/I)
@@ -78,6 +80,8 @@
 
 /obj/machinery/telepad_cargo/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class = 'caution'> You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon.</span>")

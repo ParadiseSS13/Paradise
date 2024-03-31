@@ -21,6 +21,8 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	if(check_screw_size(user, I))
+		return
 	if(state == PLASTIC_FLAPS_NORMAL)
 		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
 		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)

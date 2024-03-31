@@ -119,7 +119,9 @@
 	if(!cell)
 		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
 		return
-
+	if(check_screw_size(user, I))
+		return TRUE
+		
 	cell.update_icon()
 	cell.forceMove(get_turf(loc))
 	cell = null

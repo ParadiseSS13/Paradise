@@ -145,6 +145,8 @@
 	icon_state = "ishotgunstep1"
 
 /obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
 	user.unEquip(src)
 	user.put_in_hands(C)

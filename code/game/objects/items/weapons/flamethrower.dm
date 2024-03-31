@@ -152,6 +152,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return
 	status = !status
 	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
 	update_icon()

@@ -412,6 +412,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
+	if(check_screw_size(user, I))
+		return
 
 	if(keyslot1 || keyslot2)
 

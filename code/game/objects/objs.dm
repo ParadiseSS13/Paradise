@@ -39,6 +39,9 @@
 	var/list/req_one_access = null
 	var/req_one_access_txt = "0"
 
+	/// Size of the screw head used in this atom. Yes, everything is screwed.
+	var/screw_size = 0
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -60,6 +63,7 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+	pick_random_screw_size()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -316,3 +320,21 @@
 		C.Weaken(3 SECONDS)
 	else
 		C.KnockDown(3 SECONDS)
+
+/obj/proc/pick_random_screw_size()
+	screw_size = rand(0, 4)
+
+/obj/proc/set_screw_size(s)
+	screw_size = s
+
+/obj/proc/check_screw_size(mob/U, obj/item/screwdriver/S)
+	if(S.multiheaded)
+		return FALSE
+	if(screw_size > S.head_size)
+		to_chat(U, "<span class='warning'>This screwdriver is too small!</span>")
+		return TRUE
+	if(screw_size < S.head_size)
+		to_chat(U, "<span class='warning'>This screwdriver is too big!</span>")
+		return TRUE
+	return FALSE
+	

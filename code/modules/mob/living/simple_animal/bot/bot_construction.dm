@@ -179,6 +179,8 @@
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 8)
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
 	if(do_after(user, 40 * I.toolspeed, target = src))
@@ -517,6 +519,8 @@
 /obj/item/secbot_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 0 && build_step != 2 && build_step != 3)
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 
 	switch(build_step)
 		if(0)
@@ -599,7 +603,9 @@
 /obj/item/griefsky_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(!build_step && !toy_step)
 		return
-
+	if(check_screw_size(user, I))
+		return TRUE
+		
 	if(build_step)
 		new /obj/item/melee/energy/sword(get_turf(src))
 		to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")

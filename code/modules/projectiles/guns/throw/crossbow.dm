@@ -116,7 +116,8 @@
 	if(!cell)
 		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
 		return
-
+	if(check_screw_size(user, I))
+		return
 	cell.forceMove(get_turf(src))
 	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
 	cell = null

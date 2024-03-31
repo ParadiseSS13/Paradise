@@ -59,7 +59,8 @@
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	if(!diode)
 		return
-
+	if(check_screw_size(user, I))
+		return TRUE
 	to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
 	diode.forceMove(get_turf(loc))
 	diode = null
