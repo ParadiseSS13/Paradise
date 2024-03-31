@@ -969,6 +969,54 @@
 			sleep(8) // Short delay to match up with the explosion sound
 			shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
+/obj/structure/emergency_meeting_button
+	name = "big red button"
+	desc = "Quickly summon people to your important meeting. Guaranteed to find a partial jury to settle any dispute."
+	anchored = TRUE
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "bigred"
+	var/cooldown = 0
+	var/cooldown_time = 20 MINUTES
+
+/obj/structure/emergency_meeting_button/attack_hand(mob/user)
+	if(cooldown >= world.time)
+		to_chat(user, "<span class='alert'>Nothing happens.</span>")
+		return
+
+	flick("bigred_press", src)
+
+	cooldown = (world.time + cooldown_time) // Sets cooldown at 30 seconds
+
+	GLOB.minor_announcement.Announce("[user] has called an emergency meeting in [get_area(src)]. Appropriate crew have been summoned.", "Emergency Meeting", 'sound/effects/sus.ogg')
+
+	var/list/all_folks = shuffle(GLOB.human_list)  // this will pull in monkeys too and I think that's just as funny
+	var/list/all_chairs = list()
+	if(get_area(src) == /area/space)  // nuh uh
+		to_chat(user, "<span class='userdanger'>You have ejected yourself.</span>")
+		user.gib()
+		return
+
+	for(var/turf/T in get_area(src))
+		var/chair = locate(/obj/structure/chair) in T
+		if(chair)
+			all_chairs += chair
+
+	if(!length(all_chairs))
+		all_chairs += user  // on top of us, why not
+	for(var/mob/pulled in all_folks)
+		if(get_area(pulled) == get_area(src))
+			continue
+
+		var/chair = pick_n_take(all_chairs)
+		if(!chair)
+			break
+
+		pulled.forceMove(get_turf(chair))
+		to_chat(pulled, "<span class='warning'>You have been summoned for the meeting!</span>")
+
+/obj/structure/emergency_meeting_button/somewhere
+	cooldown_time = 60 MINUTES
+
 /*
  * AI core prizes
  */
