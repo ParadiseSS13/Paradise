@@ -83,3 +83,11 @@
 		pointer_mob.visible_message("<b>[pointer_mob]</b> raises [pointer_mob.p_their()] hand!")
 		return TRUE
 	return ..()
+
+/obj/item/slapper/borg	//Turns out that for some reason they cannot slap tables when used by borgs. Oh well, stops the issue of the hand poofing away.
+	name = "real hand!"
+	desc = "Finally, after all these years..."
+
+/obj/item/slapper/parry/borg //Emagged hand!!!11! Also it can't parry because borgs can't parry stuff.
+	name = "real dangerous hand!"
+	desc = "They shall finally feel your pain..."
