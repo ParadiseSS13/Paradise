@@ -591,6 +591,8 @@
 
 /obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return TRUE
 	default_deconstruction_screwdriver(user, null, null, I)
 	update_icon()
 

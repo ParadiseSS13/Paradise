@@ -414,6 +414,8 @@
 		return TRUE
 
 /obj/machinery/teleport/hub/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
 		return TRUE
 
@@ -550,6 +552,8 @@
 		return TRUE
 
 /obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
 		return TRUE
 
@@ -643,6 +647,8 @@
 	M.set_multitool_buffer(user, src)
 
 /obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
 		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		return TRUE

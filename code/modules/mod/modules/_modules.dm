@@ -417,6 +417,8 @@
 	if(!core)
 		to_chat(user, "<span class='warning'>A core is not installed!</span>")
 		return
+	if(check_screw_size(user, tool))
+		return TRUE
 	if(!do_after(user, 3 SECONDS, target = src))
 		return
 	to_chat(user, "<span class='notice'>You remove [core].</span>")

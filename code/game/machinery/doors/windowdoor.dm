@@ -320,6 +320,8 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
 

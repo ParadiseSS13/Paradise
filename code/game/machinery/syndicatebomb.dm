@@ -155,6 +155,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return
 	open_panel = !open_panel
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")

@@ -101,6 +101,8 @@
 /obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
 	is_open = !is_open
 

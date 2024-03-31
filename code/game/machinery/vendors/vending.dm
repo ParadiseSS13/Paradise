@@ -449,6 +449,8 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return
 	if(!anchored)
 		return
 	panel_open = !panel_open
