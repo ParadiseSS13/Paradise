@@ -388,6 +388,7 @@
 	jobtype = /datum/job/mime
 
 	uniform = /obj/item/clothing/under/rank/civilian/mime
+	r_pocket = /obj/item/key/mime
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
