@@ -40,3 +40,11 @@
 	mid_sounds = list('sound/items/taperecorder/taperecorder_hiss_mid.ogg')
 	start_sound = list('sound/items/taperecorder/taperecorder_hiss_start.ogg')
 	volume = 10
+
+/datum/looping_sound/maxwell
+	mid_sounds = list('sound/items/maxwell.ogg')
+	mid_length = 7.1 SECONDS
+	extra_range = 10
+	volume = 30
+	falloff_distance = 4
+	falloff_exponent = 5

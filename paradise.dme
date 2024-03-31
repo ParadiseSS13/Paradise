@@ -1768,6 +1768,7 @@
 #include "code\modules\events\ion_storm.dm"
 #include "code\modules\events\koi_mirgration.dm"
 #include "code\modules\events\mass_hallucination.dm"
+#include "code\modules\events\maxwell_event.dm"
 #include "code\modules\events\meaty_gore.dm"
 #include "code\modules\events\meaty_ops.dm"
 #include "code\modules\events\meaty_ores.dm"
