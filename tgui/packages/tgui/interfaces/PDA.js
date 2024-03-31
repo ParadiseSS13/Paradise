@@ -112,7 +112,7 @@ const PDAFooter = (props, context) => {
   const { app } = data;
 
   return (
-    <Box height="45px" className="PDA__footer" backgroundColor="#1b1b1b">
+    <Box height="45px" className="PDA__footer" backgroundColor="#a60037">
       <Stack fill>
         {!!app.has_back && (
           <Stack.Item basis="33%" mr={-0.5}>

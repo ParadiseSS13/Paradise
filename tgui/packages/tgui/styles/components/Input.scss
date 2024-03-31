@@ -8,8 +8,8 @@
 @use '../functions.scss' as *;
 
 $text-color: base.$color-fg !default;
-$background-color: #0a0a0a !default;
-$border-color: #88bfff !default;
+$background-color: #990099 !default;
+$border-color: #ffd500 !default;
 $border-color-disabled: color.adjust(
   $border-color,
   $saturation: -100%,
