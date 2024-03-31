@@ -119,8 +119,6 @@
 
 /mob/living/simple_animal/bot/medbot/update_overlays()
 	. = ..()
-	if(skin)
-		to_chat(src, "<span>We are testing Pillbot, no skins today</span>")
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
