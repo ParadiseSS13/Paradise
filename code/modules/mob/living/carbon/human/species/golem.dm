@@ -541,9 +541,9 @@
 		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	UpdateButtonIcon() //action icon looks unavailable
+	UpdateButtons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	UpdateButtonIcon() //action icon looks available again
+	UpdateButtons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"

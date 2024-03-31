@@ -306,9 +306,16 @@
 
 	mineralChance = 10
 	mineralSpawnChanceList = list(
-		/turf/simulated/mineral/uranium/volcanic = 5, /turf/simulated/mineral/diamond/volcanic = 1, /turf/simulated/mineral/gold/volcanic = 10, /turf/simulated/mineral/titanium/volcanic = 11,
-		/turf/simulated/mineral/silver/volcanic = 12, /turf/simulated/mineral/plasma/volcanic = 20, /turf/simulated/mineral/iron/volcanic = 40,
-		/turf/simulated/mineral/gibtonite/volcanic = 4, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1, /turf/simulated/mineral/bscrystal/volcanic = 1)
+		/turf/simulated/mineral/uranium/volcanic = 5,
+		/turf/simulated/mineral/diamond/volcanic = 1,
+		/turf/simulated/mineral/gold/volcanic = 10,
+		/turf/simulated/mineral/titanium/volcanic = 11,
+		/turf/simulated/mineral/silver/volcanic = 12,
+		/turf/simulated/mineral/plasma/volcanic = 20,
+		/turf/simulated/mineral/iron/volcanic = 40,
+		/turf/simulated/mineral/gibtonite/volcanic = 4,
+		/turf/simulated/mineral/bscrystal/volcanic = 1
+	)
 
 /turf/simulated/mineral/random/labormineral
 	mineralSpawnChanceList = list(
