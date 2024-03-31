@@ -36,7 +36,7 @@
 	..()
 	START_PROCESSING(SSobj, src)
 	GLOB.smokes_active++
-	lifetime += rand(-1,1)
+	lifetime += rand(-1, 1)
 	if(contains_chemicals)
 		create_reagents(10)
 
