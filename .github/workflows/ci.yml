@@ -2,10 +2,11 @@ name: CI
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
+      - so_funny
   merge_group:
 
 jobs:
@@ -91,7 +92,13 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation']
+        maptype:
+          [
+            '/datum/map/boxstation',
+            '/datum/map/deltastation',
+            '/datum/map/metastation',
+            '/datum/map/cerestation',
+          ]
         byondtype: ['STABLE']
     services:
       mariadb:
@@ -131,9 +138,9 @@ jobs:
     name: Windows RUSTG Validation
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.8.2' # Script was made for 3.8.2
-        architecture: 'x86' # This MUST be x86
-    - run: python tools/ci/validate_rustg_windows.py
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.2' # Script was made for 3.8.2
+          architecture: 'x86' # This MUST be x86
+      - run: python tools/ci/validate_rustg_windows.py
