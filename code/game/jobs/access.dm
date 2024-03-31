@@ -190,9 +190,13 @@
 /proc/get_access_desc(A)
 	switch(A)
 		if(ACCESS_CARGO)
-			return "Cargo Bay"
+			return "Cargo Office"
 		if(ACCESS_CARGO_BOT)
 			return "Cargo Bot Delivery"
+		if(ACCESS_CARGO_BAY)
+			return "Cargo Bay"
+		if(ACCESS_SUPPLY_SHUTTLE)
+			return "Supply Shuttle"
 		if(ACCESS_SECURITY)
 			return "Security"
 		if(ACCESS_BRIG)
@@ -290,7 +294,7 @@
 		if(ACCESS_MINING_OFFICE)
 			return "Mining Office"
 		if(ACCESS_MAILSORTING)
-			return "Cargo Office"
+			return "Mail Sorting"
 		if(ACCESS_MINT)
 			return "Mint"
 		if(ACCESS_MINT_VAULT)

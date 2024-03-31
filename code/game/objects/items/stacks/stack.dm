@@ -12,8 +12,8 @@
 	origin_tech = "materials=1"
 	/// Whether this stack is a `/cyborg` subtype or not.
 	var/is_cyborg = FALSE
-	/// The energy storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
-	var/datum/robot_energy_storage/source
+	/// The storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
+	var/datum/robot_storage/source
 	/// Which `robot_energy_storage` to choose when this stack is created in cyborgs. Used only with `/cyborg` type stacks.
 	var/energy_type
 	/// How much energy using 1 sheet from the stack costs. Used only with `/cyborg` type stacks.
@@ -250,8 +250,8 @@
 		return amount
 
 	if(!source) // The energy source has not yet been initializied
-		return 0
-	return round(source.energy / cost)
+		return FALSE
+	return round(source.amount / cost)
 
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
@@ -321,7 +321,7 @@
 // Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(is_cyborg)
-		return source.energy < cost
+		return source.amount < cost
 	if(amount < 1)
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
@@ -339,7 +339,7 @@
 		return FALSE
 	var/transfer = get_amount()
 	if(S.is_cyborg)
-		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
+		transfer = min(transfer, round((S.source.max_amount - S.source.amount) / S.cost))
 	else
 		transfer = min(transfer, S.max_amount - S.amount)
 	if(transfer <= 0)

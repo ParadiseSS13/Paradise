@@ -52,7 +52,7 @@
 		belt_image.color = I.color
 		. += belt_image
 
-/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/belt/handle_item_insertion(obj/item/I, mob/user, prevent_warning)
 	. = ..()
 	update_weight()
 
@@ -194,7 +194,8 @@
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
-		/obj/item/geiger_counter
+		/obj/item/geiger_counter,
+		/obj/item/organ_extractor
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -287,6 +288,7 @@
 		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
+		/obj/item/holosign_creator/detective,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
@@ -752,7 +754,7 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
-/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, prevent_warning)
+/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, mob/user, prevent_warning)
 	if(!..())
 		return
 	playsound(src, 'sound/weapons/blade_sheath.ogg', 20)

@@ -1,24 +1,33 @@
 /datum/action/changeling/headslug
 	name = "Last Resort"
-	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals. We will need to absorb someone to use this ability again."
-	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us. This ability is available only once per absorption."
+	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals."
+	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us."
 	button_icon_state = "last_resort"
 	chemical_cost = 20
+	dna_cost = 2
 	req_human = TRUE
 	req_stat = DEAD
 	bypass_fake_death = TRUE
-	power_type = CHANGELING_INNATE_POWER
+	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-	if(cling.headslugged)
-		to_chat(user, "<span class='notice'>We need to absorb a humanoid to headslug again.</span>")
-		return
 	if(tgui_alert(user, "Are you sure you wish to do this? This action cannot be undone.", "Sting", list("Yes", "No")) != "Yes")
 		return
-	cling.headslugged = TRUE
 	..()
 
-/datum/action/changeling/headslug/sting_action(mob/user)
+/datum/action/changeling/headslug/sting_action(mob/living/user)
+	user.Weaken(30 SECONDS)
+	user.do_jitter_animation(1000, -1) // jitter until they are gibbed
+	user.visible_message("<span class='danger'>A loud crack erupts from [user], followed by a hiss.</span>")
+	playsound(get_turf(user), "bonebreak", 75, TRUE)
+	playsound(get_turf(user), 'sound/machines/hiss.ogg', 75, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(become_headslug), user), 5 SECONDS)
+	var/matrix/M = user.transform
+	M.Scale(1.8, 1.2)
+	animate(user, time = 5 SECONDS, transform = M, easing = SINE_EASING)
+
+/datum/action/changeling/headslug/proc/become_headslug(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
 
