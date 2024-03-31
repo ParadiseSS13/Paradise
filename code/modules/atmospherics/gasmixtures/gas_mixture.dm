@@ -79,13 +79,20 @@ What are the archived variables for?
 
 	///Update archived versions of variables. Returns: TRUE in all cases
 /datum/gas_mixture/proc/archive()
+	oxygen = max(0, oxygen)
 	oxygen_archived = oxygen
+	carbon_dioxide = max(0, carbon_dioxide)
 	carbon_dioxide_archived = carbon_dioxide
+	nitrogen = max(0, nitrogen)
 	nitrogen_archived =  nitrogen
+	toxins = max(0, toxins)
 	toxins_archived = toxins
+	sleeping_agent = max(0, sleeping_agent)
 	sleeping_agent_archived = sleeping_agent
+	agent_b = max(0, agent_b)
 	agent_b_archived = agent_b
 
+	temperature = max(0, temperature)
 	temperature_archived = temperature
 
 	return TRUE
