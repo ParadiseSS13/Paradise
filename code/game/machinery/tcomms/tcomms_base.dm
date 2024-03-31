@@ -460,6 +460,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /**

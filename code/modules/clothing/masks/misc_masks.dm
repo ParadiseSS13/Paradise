@@ -159,6 +159,8 @@
 	if(!trigger)
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")

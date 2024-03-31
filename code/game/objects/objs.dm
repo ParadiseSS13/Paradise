@@ -39,6 +39,9 @@
 	var/list/req_one_access = null
 	var/req_one_access_txt = "0"
 
+	/// Size of the screw head used in this atom. Yes, everything is screwed.
+	var/screw_size = 0
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -60,6 +63,7 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+	pick_random_screw_size()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -297,7 +301,6 @@
 	if(!sharp && new_sharp_val)
 		AddComponent(/datum/component/surgery_initiator)
 
-
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
@@ -316,3 +319,22 @@
 		C.Weaken(3 SECONDS)
 	else
 		C.KnockDown(3 SECONDS)
+
+/obj/proc/pick_random_screw_size()
+	screw_size = rand(0, 4)
+
+/obj/proc/set_screw_size(s)
+	screw_size = s
+
+/obj/proc/check_screw_size(mob/U, obj/item/screwdriver/S)
+	if(!U || !S)
+		return FALSE // to be safe, let things done by default in case some args aren't passed
+	if(S.multiheaded)
+		return FALSE
+	if(screw_size > S.head_size)
+		to_chat(U, "<span class='warning'>This screwdriver is too small!</span>")
+		return TRUE
+	if(screw_size < S.head_size)
+		to_chat(U, "<span class='warning'>This screwdriver is too big!</span>")
+		return TRUE
+	return FALSE

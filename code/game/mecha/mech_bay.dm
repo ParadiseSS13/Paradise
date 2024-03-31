@@ -96,6 +96,8 @@
 	return ..()
 
 /obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
 		return TRUE
 

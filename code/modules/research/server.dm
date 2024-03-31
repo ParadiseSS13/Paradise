@@ -153,6 +153,8 @@
 		return ..()
 
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
 	return TRUE
 

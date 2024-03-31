@@ -432,6 +432,8 @@
 
 /obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))

@@ -44,10 +44,12 @@
 	else
 		prescription_glasses.forceMove(get_turf(src))
 
-/obj/item/clothing/glasses/screwdriver_act(mob/living/user)
+/obj/item/clothing/glasses/screwdriver_act(mob/living/user, obj/item/I)
 	if(!prescription)
 		to_chat(user, "<span class='notice'>There are no prescription lenses in [src].</span>")
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 	remove_prescription(user)
 	return TRUE
 

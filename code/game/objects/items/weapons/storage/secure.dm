@@ -51,6 +51,8 @@
 	return ..()
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(I.use_tool(src, user, 2 SECONDS * I.toolspeed, volume = 10))
 		panel_open = !panel_open
 		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the service panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the service panel.</span>")

@@ -360,6 +360,8 @@
 		return TRUE
 
 /obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(occupant)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE
