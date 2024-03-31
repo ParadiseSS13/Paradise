@@ -72,13 +72,13 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			var/skipcount = abs(GLOB.error_cooldown[erroruid]) - 1
 			GLOB.error_cooldown[erroruid] = 0
 			if(skipcount > 0)
-				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
+				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file]:[e.line].")
 				GLOB.error_cache.logError(e, skipCount = skipcount)
 	GLOB.error_last_seen[erroruid] = world.time
 	GLOB.error_cooldown[erroruid] = cooldown
 
 	// This line will log a runtime summary to a file which can be publicly distributed without sending player data
-	log_runtime_summary("Runtime in [e.file],[e.line]: [e]")
+	log_runtime_summary("Runtime in [e.file]:[e.line]: [e]")
 
 	// The detailed error info needs some tweaking to make it look nice
 	var/list/srcinfo = null
@@ -131,8 +131,8 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		desclines += "  (This error will now be silenced for [ERROR_SILENCE_TIME / 600] minutes)"
 
 	// Now to actually output the error info...
-	log_world("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
-	log_runtime_txt("Runtime in [e.file],[e.line]: [e]")
+	log_world("\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]")
+	log_runtime_txt("Runtime in [e.file],[e.line]: [e]") // All other runtimes show as [e.file]:[e.line] except this one to prevent fuckery with analyzing both old and new runtimes. runtime.log should stay in the [e.file],[e.line] format.
 	for(var/line in desclines)
 		log_world(line)
 		log_runtime_txt(line)

@@ -11,13 +11,13 @@
 #define CAN_RESIST	(1<<2)
 
 //Spread Flags
-#define SPECIAL 		(1<<0)
-#define NON_CONTAGIOUS 	(1<<1)
-#define BLOOD 			(1<<2)
-#define CONTACT_FEET 	(1<<3)
-#define CONTACT_HANDS 	(1<<4)
-#define CONTACT_GENERAL (1<<5)
-#define AIRBORNE 		(1<<6)
+#define SPECIAL			(1<<0)
+#define NON_CONTAGIOUS	(1<<1)
+#define BLOOD			(1<<2)
+#define CONTACT_FEET	(1<<3)
+#define CONTACT_HANDS	(1<<4)
+#define CONTACT_GENERAL	(1<<5)
+#define AIRBORNE		(1<<6)
 
 
 //Severity Defines
@@ -108,12 +108,19 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(!(disease_flags & CURABLE))
 		return 0
 
-	. = cures.len
+	var/cures_found = 0
 	for(var/C_id in cures)
-		if(!affected_mob.reagents.has_reagent(C_id))
-			.--
-	if(!. || (needs_all_cures && . < cures.len))
-		return 0
+		if(C_id == "ethanol")
+			for(var/datum/reagent/consumable/ethanol/booze in affected_mob.reagents.reagent_list)
+				cures_found++
+				break
+		else if(affected_mob.reagents.has_reagent(C_id))
+			cures_found++
+
+	if(needs_all_cures && cures_found < length(cures))
+		return FALSE
+
+	return cures_found
 
 /datum/disease/proc/spread(force_spread = 0)
 	if(!affected_mob)
