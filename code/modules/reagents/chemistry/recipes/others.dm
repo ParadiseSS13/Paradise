@@ -506,10 +506,19 @@
 							"triplepiss" = 1, "toefrog" = 1, "liquid_glass" = 1
 								)
 	result = null
+	var/obj/item/philo_stone/stone = /obj/item/philo_stone
 
 /datum/chemical_reaction/philo_stone/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/reaction_turf = get_turf(holder.my_atom)
-	new /obj/item/philo_stone(reaction_turf)
+	new stone(reaction_turf)
+
+/datum/chemical_reaction/philo_stone
+	name = "Phoron's Stone"
+	id = "phoronstone"
+	required_reagents = list("babel_ex" = 1, "tinlux" = 1, "mugwort" = 5,
+							"triplepiss" = 1, "toefrog" = 1, "plasma" = 1
+								)
+	stone = /obj/item/philo_stone/plasma
 
 /datum/chemical_reaction/liquid_glass
 	name = "liquid glass"
