@@ -969,11 +969,15 @@
 			sleep(8) // Short delay to match up with the explosion sound
 			shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
-/obj/item/toy/redbutton/emergency
+/obj/structure/emergency_meeting_button
+	name = "big red button"
 	desc = "Quickly summon people to your important meeting. Guaranteed to find a partial jury to settle any dispute."
 	anchored = TRUE
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "bigred"
+	var/cooldown = 0
 
-/obj/item/toy/redbutton/emergency/attack_self(mob/user)
+/obj/item/toy/redbutton/emergency/attack_hand(mob/user)
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
