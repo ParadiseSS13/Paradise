@@ -33,12 +33,11 @@
 /obj/item/screwdriver/examine(mob/user)
 	. = ..()
 	var/skill_check
-	if(user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Life Support Specialist")
+	if(user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Life Support Specialist" || user.mind.assigned_role == "Cyborg")
 		skill_check = head_size
 	else	
 		skill_check = abs(head_size + rand(-1, 1)) + 1
 	. += "<span class='notice'>You guess this one is size [skill_check].</span>"
-
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
@@ -169,6 +168,8 @@
 	head_size += 1
 	if(head_size > 4)
 		head_size = 0
+	to_chat(user, "<span class='notice'>You change [src] size to [head_size].</span>")
+
 
 /obj/item/screwdriver/proc/pick_random_head_size()
 	head_size = rand(0, 4)
