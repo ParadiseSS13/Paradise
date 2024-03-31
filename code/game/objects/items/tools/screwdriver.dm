@@ -22,10 +22,22 @@
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
+	var/head_size = 0
+	var/multiheaded = FALSE
 
 /obj/item/screwdriver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
+	pick_random_head_size()
+
+/obj/item/screwdriver/examine(mob/user)
+	. = ..()
+	var/skill_check
+	if(user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Life Support Specialist" || user.mind.assigned_role == "Cyborg")
+		skill_check = head_size
+	else	
+		skill_check = abs(head_size + rand(-1, 1)) + 1
+	. += "<span class='notice'>You guess this one is size [skill_check].</span>"
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
@@ -34,6 +46,7 @@
 	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
+	multiheaded = TRUE
 
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -98,10 +111,13 @@
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
+	multiheaded = TRUE
+
 
 /obj/item/screwdriver/power
 	name = "hand drill"
-	desc = "A simple hand drill with a screwdriver bit attached."
+	desc = "A simple hand drill with a screwdriver bit attached.<br>\
+			<span class='notice'>You can use a screwdriver to adjust the size of the screwdriver bit.!</span>"
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -133,8 +149,60 @@
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
+/obj/item/screwdriver/power/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
+	head_size += 1
+	if(head_size > 4)
+		head_size = 0
+	to_chat(user, "<span class='notice'>You change the size of the screwdriver bit.</span>")
+
 /obj/item/screwdriver/cyborg
 	name = "powered screwdriver"
-	desc = "An electrical screwdriver, designed to be both precise and quick."
+	desc = "An electrical screwdriver, designed to be both precise and quick.<br>\
+			<span class='notice'>You can use it to change the head size.</span>"
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5
+
+/obj/item/screwdriver/cyborg/attack_self(mob/user)
+	head_size += 1
+	if(head_size > 4)
+		head_size = 0
+	to_chat(user, "<span class='notice'>You change [src] size to [head_size].</span>")
+
+
+/obj/item/screwdriver/proc/pick_random_head_size()
+	head_size = rand(0, 4)
+
+/obj/item/screwdriver/proc/set_head_size(S)
+	head_size = S
+
+/obj/item/screwdriver/zero
+
+/obj/item/screwdriver/zero/Initialize()
+	. = ..()
+	set_head_size(0)
+
+/obj/item/screwdriver/one
+
+/obj/item/screwdriver/one/Initialize()
+	. = ..()
+	set_head_size(1)
+
+/obj/item/screwdriver/two
+
+/obj/item/screwdriver/two/Initialize()
+	. = ..()
+	set_head_size(2)
+
+/obj/item/screwdriver/three
+
+/obj/item/screwdriver/three/Initialize()
+	. = ..()
+	set_head_size(3)
+
+/obj/item/screwdriver/four
+
+/obj/item/screwdriver/four/Initialize()
+	. = ..()
+	set_head_size(4)

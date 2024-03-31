@@ -212,6 +212,8 @@
 			break
 	if(!component_check)
 		return TRUE
+	if(check_screw_size(user, I))
+		return TRUE
 	I.play_tool_sound(src)
 	var/obj/machinery/new_machine = new circuit.build_path(loc)
 	new_machine.on_construction()
@@ -288,6 +290,8 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
@@ -568,6 +572,8 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
@@ -633,6 +639,8 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/new_name = "ChemMaster"

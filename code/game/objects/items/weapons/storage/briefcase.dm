@@ -72,6 +72,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return
 	if(!bottom_open)
 		to_chat(user, "<span class='notice'>You begin to hunt around the rim of [src]...</span>")
 		busy_hunting = TRUE

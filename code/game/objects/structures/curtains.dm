@@ -47,6 +47,8 @@
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)

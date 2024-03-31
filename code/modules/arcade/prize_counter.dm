@@ -106,6 +106,8 @@
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 	I.play_tool_sound(src)
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")

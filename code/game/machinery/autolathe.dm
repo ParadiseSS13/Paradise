@@ -319,6 +319,8 @@
 		default_deconstruction_crowbar(user, I)
 
 /obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE

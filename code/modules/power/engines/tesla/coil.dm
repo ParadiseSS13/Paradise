@@ -66,6 +66,8 @@
 
 /obj/machinery/power/tesla_coil/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", I)
@@ -139,6 +141,8 @@
 
 /obj/machinery/power/grounding_rod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", I)
 
 /obj/machinery/power/grounding_rod/wrench_act(mob/user, obj/item/I)

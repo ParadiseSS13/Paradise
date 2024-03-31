@@ -127,6 +127,8 @@
 		return TRUE
 
 /obj/machinery/atmospherics/unary/thermomachine/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
 		on = FALSE
 		update_icon()

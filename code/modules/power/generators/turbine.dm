@@ -154,6 +154,8 @@
 		return TRUE
 
 /obj/machinery/power/compressor/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 

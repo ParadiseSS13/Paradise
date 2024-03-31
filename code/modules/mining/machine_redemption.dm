@@ -232,6 +232,8 @@
 	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
 		SStgui.update_uis(src)
 		return TRUE
