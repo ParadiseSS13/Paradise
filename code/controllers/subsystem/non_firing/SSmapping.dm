@@ -181,6 +181,27 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	// hehe
+	// try catch here so if it fails it doesn't actually kill the server
+	try
+		var/area/meeting_area
+		for(var/area/station/command/meeting_room/meet in world)
+			meeting_area = meet
+
+		if(!meeting_area)
+			// failing that
+			for(var/area/station/command/bridge/br in world)
+				meeting_area = br
+
+		if(!meeting_area)
+			return
+
+		var/atom/sur_le_table = locate(/obj/structure/table) in meeting_area
+		if(sur_le_table)
+			new /obj/structure/emergency_meeting_button(get_turf(sur_le_table))
+	catch
+		log_debug("xd")
+
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_MESSY))
 		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
