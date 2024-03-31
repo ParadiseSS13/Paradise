@@ -3,9 +3,9 @@
 
 //Request Console Department Types.
 //For one console to be under multiple categories, you need to add the numbers with each other. For example, value of 6 will allow you to request supplies and relay info to that specific console.
-#define RC_ASSIST 1		//Request Assistance
-#define RC_SUPPLY 2		//Request Supplies
-#define RC_INFO   4		//Relay Info
+#define RC_ASSIST (1<<0)		//Request Assistance
+#define RC_SUPPLY (1<<1)		//Request Supplies
+#define RC_INFO   (1<<2)		//Relay Info
 
 //Request Console Screens
 #define RCS_MAINMENU 0	// Main menu
@@ -186,7 +186,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(reject_bad_text(params["write"]))
 				recipient = params["write"] //write contains the string of the receiving department's name
 
-				var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
 				if(new_message)
 					message = new_message
 					screen = RCS_MESSAUTH
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					reset_message(TRUE)
 
 		if("writeAnnouncement")
-			var/new_message = input("Write your message:", "Awaiting Input", message) as message|null
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
 			if(new_message)
 				message = new_message
 			else
@@ -363,6 +363,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	set_light(2)
 
 /obj/machinery/requests_console/proc/remind_unread_messages()
+	if(reminder_timer_id == TIMER_ID_NULL)
+		return
+
 	if(newmessagepriority == RQ_NONEW_MESSAGES)
 		deltimer(reminder_timer_id)
 		reminder_timer_id = TIMER_ID_NULL
@@ -375,3 +378,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+
+#undef RC_ASSIST
+#undef RC_SUPPLY
+#undef RC_INFO
+#undef RCS_MAINMENU
+#undef RCS_RQSUPPLY
+#undef RCS_RQASSIST
+#undef RCS_SENDINFO
+#undef RCS_SENTPASS
+#undef RCS_SENTFAIL
+#undef RCS_VIEWMSGS
+#undef RCS_MESSAUTH
+#undef RCS_ANNOUNCE
+#undef RCS_SHIPPING
+#undef RCS_SHIP_LOG
+#undef ENGI_ROLES
+#undef SEC_ROLES
+#undef MISC_ROLES
+#undef MED_ROLES
+#undef COM_ROLES
+#undef SCI_ROLES
+#undef SUPPLY_ROLES

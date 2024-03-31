@@ -212,7 +212,8 @@
 
 /////////////////////Titanium walls/////////////////////
 
-/turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works
+/// has to use this path due to how building walls works
+/turf/simulated/wall/mineral/titanium
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/plastinum_wall.dmi'

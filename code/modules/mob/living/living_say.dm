@@ -79,10 +79,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			verb = "slurs"
 
 		if(AmountStuttering())
-			if(robot)
-				S.message = robostutter(S.message)
-			else
-				S.message = stutter(S.message)
+			S.message = stutter(S.message, getStaminaLoss(), robot)
 			verb = "stammers"
 
 		if(AmountCultSlurring())
@@ -130,9 +127,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	//parse the radio code and consume it
 	if(message_mode)
 		if(message_mode == "headset")
-			message = copytext(message, 2)	//it would be really nice if the parse procs could do this for us.
+			message = copytext_char(message, 2)	//it would be really nice if the parse procs could do this for us.
 		else
-			message = copytext(message, 3)
+			message = copytext_char(message, 3)
 
 	message = trim_left(message)
 

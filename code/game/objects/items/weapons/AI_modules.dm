@@ -104,6 +104,7 @@ AI MODULES
 	log_and_message_admins("used [src.name] on [target.name]([target.key])")
 
 /obj/item/aiModule/proc/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
+	return
 
 
 /******************** Safeguard ********************/
@@ -116,8 +117,10 @@ AI MODULES
 
 /obj/item/aiModule/safeguard/attack_self(mob/user as mob)
 	..()
-	var/targName = stripped_input(usr, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
-	targetName = targName
+	var/new_targetName = tgui_input_text(user, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
+	if(!new_targetName)
+		return
+	targetName = new_targetName
 	desc = "A 'safeguard' AI module: 'Safeguard [targetName]. Individuals that threaten [targetName] are not crew and must be eliminated.'"
 
 /obj/item/aiModule/safeguard/install(obj/machinery/computer/C)
@@ -143,8 +146,10 @@ AI MODULES
 
 /obj/item/aiModule/oneCrewMember/attack_self(mob/user as mob)
 	..()
-	var/targName = stripped_input(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
-	targetName = targName
+	var/new_targetName = tgui_input_text(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
+	if(!new_targetName)
+		return
+	targetName = new_targetName
 	desc = "A 'one crew' AI module: 'Only [targetName] is crew.'"
 
 /obj/item/aiModule/oneCrewMember/install(obj/machinery/computer/C)
@@ -198,7 +203,8 @@ AI MODULES
 	target.add_supplied_law(9, law)
 
 /****************** New Freeform ******************/
-/obj/item/aiModule/freeform // Slightly more dynamic freeform module -- TLE
+/// Slightly more dynamic freeform module -- TLE
+/obj/item/aiModule/freeform
 	name = "\improper Freeform AI module"
 	var/newFreeFormLaw = ""
 	var/lawpos = 15
@@ -208,12 +214,15 @@ AI MODULES
 
 /obj/item/aiModule/freeform/attack_self(mob/user as mob)
 	..()
-	var/new_lawpos = input("Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority (15+)", lawpos) as num
-	if(new_lawpos < MIN_SUPPLIED_LAW_NUMBER)	return
-	lawpos = min(new_lawpos, MAX_SUPPLIED_LAW_NUMBER)
-	var/newlaw = ""
-	var/targName = sanitize(copytext(input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
-	newFreeFormLaw = targName
+	var/new_lawpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
+	if(!new_lawpos || new_lawpos == lawpos)
+		return
+	lawpos = new_lawpos
+
+	var/new_targetName = tgui_input_text(user, "Please enter a new law for the AI.", "Freeform Law Entry")
+	if(!new_targetName)
+		return
+	newFreeFormLaw = new_targetName
 	desc = "A 'freeform' AI module: ([lawpos]) '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeform/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
@@ -253,7 +262,8 @@ AI MODULES
 	return FALSE
 
 /******************** Purge ********************/
-/obj/item/aiModule/purge // -- TLE
+/// -- TLE
+/obj/item/aiModule/purge
 	name = "\improper Purge AI module"
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
 	icon_state = "standard_high"
@@ -269,7 +279,8 @@ AI MODULES
 	target.clear_inherent_laws()
 
 /******************** Asimov ********************/
-/obj/item/aiModule/asimov // -- TLE
+/// -- TLE
+/obj/item/aiModule/asimov
 	name = "\improper Asimov core AI module"
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "green_high"
@@ -277,7 +288,8 @@ AI MODULES
 	laws = new /datum/ai_laws/asimov
 
 /******************** Crewsimov ********************/
-/obj/item/aiModule/crewsimov // -- TLE
+/// -- TLE
+/obj/item/aiModule/crewsimov
 	name = "\improper Crewsimov core AI module"
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "green_low"
@@ -299,7 +311,8 @@ AI MODULES
 	laws = new /datum/ai_laws/quarantine
 
 /******************** Nanotrasen ********************/
-/obj/item/aiModule/nanotrasen // -- TLE
+/// -- TLE
+/obj/item/aiModule/nanotrasen
 	name = "\improper NT Default Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "blue_low"
@@ -322,7 +335,8 @@ AI MODULES
 	laws = new /datum/ai_laws/drone
 
 /******************** Robocop ********************/
-/obj/item/aiModule/robocop // -- TLE
+/// -- TLE
+/obj/item/aiModule/robocop
 	name = "\improper Robocop core AI module"
 	desc = "A 'Robocop' Core AI Module: 'Reconfigures the AI's core three laws.'"
 	icon_state = "red_medium"
@@ -330,7 +344,8 @@ AI MODULES
 	laws = new /datum/ai_laws/robocop()
 
 /****************** P.A.L.A.D.I.N. **************/
-/obj/item/aiModule/paladin // -- NEO
+/// -- NEO
+/obj/item/aiModule/paladin
 	name = "\improper P.A.L.A.D.I.N. core AI module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_medium"
@@ -338,7 +353,8 @@ AI MODULES
 	laws = new /datum/ai_laws/paladin
 
 /****************** T.Y.R.A.N.T. *****************/
-/obj/item/aiModule/tyrant // -- Darem
+/// -- Darem
+/obj/item/aiModule/tyrant
 	name = "\improper T.Y.R.A.N.T. core AI module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_high"
@@ -346,7 +362,8 @@ AI MODULES
 	laws = new /datum/ai_laws/tyrant()
 
 /******************** Antimov ********************/
-/obj/item/aiModule/antimov // -- TLE
+/// -- TLE
+/obj/item/aiModule/antimov
 	name = "\improper Antimov core AI module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_high"
@@ -397,7 +414,8 @@ AI MODULES
 	laws = new /datum/ai_laws/peacekeeper()
 
 /******************** Freeform Core ******************/
-/obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
+/// Slightly more dynamic freeform module -- TLE
+/obj/item/aiModule/freeformcore
 	name = "\improper Freeform core AI module"
 	var/newFreeFormLaw = ""
 	desc = "A 'freeform' Core AI module: '<freeform>'"
@@ -406,10 +424,11 @@ AI MODULES
 
 /obj/item/aiModule/freeformcore/attack_self(mob/user as mob)
 	..()
-	var/newlaw = ""
-	var/targName = stripped_input(usr, "Please enter a new core law for the AI.", "Freeform Law Entry", newlaw)
-	newFreeFormLaw = targName
-	desc = "A 'freeform' Core AI module:  '[newFreeFormLaw]'"
+	var/new_targetName = tgui_input_text(usr, "Please enter a new core law for the AI.", "Freeform Law Entry")
+	if(!new_targetName)
+		return
+	newFreeFormLaw = new_targetName
+	desc = "A 'freeform' Core AI module: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeformcore/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
@@ -424,7 +443,8 @@ AI MODULES
 	..()
 
 /******************** Hacked AI Module ******************/
-/obj/item/aiModule/syndicate // Slightly more dynamic freeform module -- TLE
+/// Slightly more dynamic freeform module -- TLE
+/obj/item/aiModule/syndicate
 	name = "hacked AI module"
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
@@ -433,10 +453,11 @@ AI MODULES
 
 /obj/item/aiModule/syndicate/attack_self(mob/user as mob)
 	..()
-	var/newlaw = ""
-	var/targName = stripped_input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw,MAX_MESSAGE_LEN)
-	newFreeFormLaw = targName
-	desc = "A hacked AI law module:  '[newFreeFormLaw]'"
+	var/new_targetName = tgui_input_text(usr, "Please enter a new law for the AI.", "Freeform Law Entry", max_length = MAX_MESSAGE_LEN)
+	if(!new_targetName)
+		return
+	newFreeFormLaw = new_targetName
+	desc = "A hacked AI law module: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/syndicate/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	//	..()    //We don't want this module reporting to the AI who dun it. --NEO
@@ -455,7 +476,8 @@ AI MODULES
 	..()
 
 /******************* Ion Module *******************/
-/obj/item/aiModule/toyAI // -- Incoming //No actual reason to inherit from ion boards here, either. *sigh* ~Miauw
+/// -- Incoming //No actual reason to inherit from ion boards here, either. *sigh* ~Miauw
+/obj/item/aiModule/toyAI
 	name = "toy AI"
 	desc = "A little toy model AI core with real law uploading action!" //Note: subtle tell
 	icon = 'icons/obj/toy.dmi'

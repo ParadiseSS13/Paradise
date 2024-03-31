@@ -205,7 +205,7 @@
 		if("unlink")
 			if(!linked)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()

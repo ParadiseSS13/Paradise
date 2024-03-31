@@ -1,5 +1,5 @@
 /turf/simulated/floor/light
-	name = "\improper light floor"
+	name = "light floor"
 	light_range = 0
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
@@ -46,6 +46,8 @@
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
+		return
+	if(user.a_intent != INTENT_HELP)
 		return
 	toggle_light(!on)
 

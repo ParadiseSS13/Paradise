@@ -277,7 +277,8 @@
 					C.add_queued_power_demand(C.get_queued_available_power() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
-/obj/structure/grille/broken // Pre-broken grilles for map placement
+/// Pre-broken grilles for map placement
+/obj/structure/grille/broken
 	icon_state = "brokengrille"
 	density = FALSE
 	obj_integrity = 20

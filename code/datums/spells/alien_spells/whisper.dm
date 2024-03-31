@@ -17,7 +17,7 @@
 /obj/effect/proc_holder/spell/alien_spell/whisper/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/target = targets[1]
 
-	var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
+	var/msg = tgui_input_text(user, "Message:", "Alien Whisper")
 	if(!msg)
 		revert_cast(user)
 		return

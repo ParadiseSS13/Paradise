@@ -6,8 +6,6 @@
 	power_state = NO_POWER_USE
 	can_unwrench = TRUE
 	damage_deflection = 12
-	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
-
 	can_be_undertile = TRUE
 
 	//Buckling
@@ -56,12 +54,6 @@
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
-
-/obj/machinery/atmospherics/pipe/proc/check_pressure(pressure)
-	//Return 1 if parent should continue checking other pipes
-	//Return null if parent should stop checking other pipes. Recall: qdel(src) will by default return null
-
-	return 1
 
 /obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
 	if(air_temporary)

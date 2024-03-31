@@ -250,15 +250,6 @@
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
-/obj/item/storage/box/flashbangs
-	name = "box of flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
-	icon_state = "flashbang"
-
-/obj/item/storage/box/flashbangs/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/grenade/flashbang(src)
-
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
 	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
@@ -648,6 +639,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
 
+/obj/item/storage/box/smoke_grenades
+	name = "smoke grenades"
+	desc = "A box with 7 smoke grenades."
+	icon_state = "teargas_box"
+
+/obj/item/storage/box/smoke_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/smokebomb(src)
+
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
 	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
@@ -1021,7 +1021,7 @@
 		design = switchDesign
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
-	else if(is_sharp(W))
+	else if(W.sharp)
 		if(!contents.len)
 			if(item_state == "paperbag_None")
 				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
@@ -1126,7 +1126,8 @@
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
 
-/obj/item/storage/box/stockparts/basic //for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+/// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+/obj/item/storage/box/stockparts/basic
 	name = "box of stock parts"
 	desc = "Contains a variety of basic stock parts."
 
@@ -1231,6 +1232,15 @@
 /obj/item/storage/box/foam_grenades/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
+
+/obj/item/storage/box/coke_envirosuit
+	name = "coke suit box"
+	desc = "A box with a special envirosuit brought to you by Space Cola Co."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/coke_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/coke(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

@@ -126,18 +126,6 @@
 	icon_state = "fan"
 	desc = "A small desktop fan. The button seems to be stuck in the 'on' position."
 
-/*
-/obj/item/game_kit
-	name = "Gaming Kit"
-	icon = 'icons/obj/items.dmi'
-	icon_state = "game_kit"
-	var/selected = null
-	var/board_stat = null
-	var/data = ""
-	var/base_url = "http://svn.slurm.us/public/spacestation13/misc/game_kit"
-	item_state = "sheet-metal"
-	w_class = WEIGHT_CLASS_HUGE
-*/
 
 /obj/item/gift
 	name = "gift"

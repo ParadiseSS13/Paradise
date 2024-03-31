@@ -1,4 +1,5 @@
-/obj/structure/chair	// fuck you Pete
+/// fuck you Pete
+/obj/structure/chair
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'

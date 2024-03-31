@@ -107,7 +107,6 @@
 		if(patient)
 			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
 		return "[output] [temp]"
-	return
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
 	..()
@@ -125,7 +124,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_stats()
 	if(!patient)
 		return
-	return {"<html>
+	return {"<html><meta charset='utf-8'>
 				<head>
 				<title>[patient] statistics</title>
 				<script language='javascript' type='text/javascript'>
@@ -384,7 +383,7 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
-	var/output = {"<html>
+	var/output = {"<html><meta charset='utf-8'>
 						<head>
 						<title>Reagent Synthesizer</title>
 						<script language='javascript' type='text/javascript'>

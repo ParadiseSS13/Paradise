@@ -288,7 +288,7 @@
 	for(var/mob/living/carbon/human/H as anything in targets)
 		targets_by_name[H.real_name] = H
 
-	var/target_name = input(user, "Person to Locate", "Blood Stench") in targets_by_name
+	var/target_name = tgui_input_list(user, "Person to Locate", "Blood Stench", targets_by_name)
 	if(!target_name)
 		return
 	var/mob/living/carbon/human/target = targets_by_name[target_name]

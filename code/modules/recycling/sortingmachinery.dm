@@ -377,7 +377,7 @@
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
 		if(is_pen(O))
-			var/str = copytext(sanitize(input(user, "Intended recipient?", "Address", "")), 1, MAX_NAME_LEN)
+			var/str = tgui_input_text(user, "Intended recipient?", "Address", max_length = MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
 				return
@@ -410,7 +410,7 @@
 		wrapped = null
 		qdel(src)
 	else if(wrapped)
-		switch(alert("Select an action:",, "Remove Object", "Seal Package", "Cancel"))
+		switch(tgui_alert(user, "Select an action:", "Shipping", list("Remove Object", "Seal Package", "Cancel")))
 			if("Remove Object")
 				to_chat(user, "<span class='notice'>You shake out [src]'s contents onto the floor.</span>")
 				wrapped.forceMove(get_turf(user))
@@ -421,7 +421,7 @@
 				sealed = 1
 				update_desc()
 	else
-		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 			user.unEquip(src)

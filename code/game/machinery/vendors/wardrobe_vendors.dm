@@ -23,6 +23,7 @@
 					/obj/item/clothing/under/rank/security/officer/fancy = 4,
 					/obj/item/clothing/under/rank/security/officer/skirt/fancy = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
+					/obj/item/clothing/head/cowboyhat/sec = 4,
 					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
 					/obj/item/clothing/head/soft/sec = 4,
@@ -32,6 +33,7 @@
 					/obj/item/clothing/mask/gas/sechailer/swat = 2,
 					/obj/item/clothing/suit/jacket/secbomber = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
+					/obj/item/clothing/suit/armor/secponcho = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
 					/obj/item/clothing/shoes/jackboots = 4,
 					/obj/item/clothing/shoes/jackboots/jacksandals = 4,
@@ -61,12 +63,14 @@
 				/obj/item/clothing/head/officer = 40,
 				/obj/item/clothing/head/beret/sec = 40,
 				/obj/item/clothing/head/soft/sec = 40,
+				/obj/item/clothing/head/cowboyhat/sec = 50,
 				/obj/item/clothing/head/drillsgt = 40,
 				/obj/item/clothing/mask/bandana/red = 40,
 				/obj/item/clothing/mask/balaclava = 60,
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
 				/obj/item/clothing/suit/jacket/secbomber = 75,
 				/obj/item/clothing/suit/armor/secjacket = 75,
+				/obj/item/clothing/suit/armor/secponcho = 75,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 75,
 				/obj/item/clothing/shoes/jackboots = 20,
 				/obj/item/clothing/shoes/jackboots/jacksandals = 20,
@@ -718,8 +722,12 @@
 
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 3,
-					/obj/item/clothing/head/soft/purple = 3,
-					/obj/item/clothing/gloves/color/black = 3,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 3,
+					/obj/item/clothing/under/rank/civilian/janitor/overalls = 3,
+					/obj/item/clothing/head/soft/janitorgrey = 3,
+					/obj/item/clothing/head/soft/janitorpurple = 3,
+					/obj/item/clothing/head/beret/janitor = 3,
+					/obj/item/clothing/gloves/janitor = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
 					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/belt/janitor = 3)
@@ -727,7 +735,11 @@
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
 
 	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
-					/obj/item/clothing/head/soft/purple = 20,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 50,
+					/obj/item/clothing/under/rank/civilian/janitor/overalls = 50,
+					/obj/item/clothing/head/soft/janitorgrey = 20,
+					/obj/item/clothing/head/soft/janitorpurple = 20,
+					/obj/item/clothing/head/beret/janitor = 20,
 					/obj/item/clothing/accessory/armband/service = 20)
 
 	refill_canister = /obj/item/vending_refill/janidrobe

@@ -282,7 +282,8 @@
 	charges = 4
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
-/obj/item/cartridge/syndicate/nuclear //needed subtype so regular traitors can't open and close nuclear shuttle doors
+/// needed subtype so regular traitors can't open and close nuclear shuttle doors
+/obj/item/cartridge/syndicate/nuclear
 	name = "Nuclear Agent Detomatix Cartridge"
 	desc = "The same reliable Detomatix program except with the added ability of remotely toggling your nuclear shuttle airlock from your PDA"
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.

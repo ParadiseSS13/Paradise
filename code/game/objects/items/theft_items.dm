@@ -39,7 +39,8 @@
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
-/obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/// The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/obj/item/nuke_core/plutonium
 
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container

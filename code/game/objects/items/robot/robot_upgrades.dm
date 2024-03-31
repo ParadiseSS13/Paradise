@@ -104,7 +104,10 @@
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	if(!new_heldname)
+		return
+	heldname = new_heldname
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
@@ -199,7 +202,7 @@
 		icon_state = "selfrepair_[on ? "on" : "off"]"
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	else
 		icon_state = "cyborg_upgrade5"
 

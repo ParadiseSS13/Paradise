@@ -1,4 +1,5 @@
-/mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
+/// This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
+/mob/living/simple_animal/bot/secbot/griefsky
 	name = "\improper General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
 	icon_state = "griefsky0"
@@ -18,7 +19,8 @@
 	var/spam_flag = 0
 	var/frustration_number = 15
 
-/mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
+/// A toy version of general griefsky!
+/mob/living/simple_animal/bot/secbot/griefsky/toy
 	name = "Genewul Giftskee"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
 	spin_icon = "griefskyj-c"
@@ -110,7 +112,8 @@
 			icon_state = "griefsky1"
 			walk_to(src,0)
 			set_path(null)
-			look_for_perp()	// see if any criminals are in range
+			if(find_new_target())
+				return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
@@ -121,38 +124,38 @@
 				set_path(null)
 				back_to_idle()
 				return
-			if(target)		// make sure target exists
-				if(target.stat == !DEAD)
-					if(Adjacent(target) && isturf(target.loc))	// if right next to perp
-						target_lastloc = target.loc
-						sword_attack(target)
-						anchored = TRUE
-						frustration++
-						return
-					else								// not next to perp
-						var/turf/olddist = get_dist(src, target)
-						walk_to(src, target,1,3) //he's a fast fucker
-						if((get_dist(src, target)) >= (olddist))
-							frustration++
-						else
-							frustration = 0
-				else
-					back_to_idle()
-					speak("You fool")
-			else
+
+			if(!target)		// make sure target exists
 				back_to_idle()
+				speak("You fool")
+				return
+
+			if(target.stat == DEAD)
+				back_to_idle()
+				return
+
+			if(Adjacent(target) && isturf(target.loc))	// if right next to perp
+				target_lastloc = target.loc
+				sword_attack(target)
+				anchored = TRUE
+				frustration++
+				return							// not next to perp
+
+			try_chasing_target(target)
 
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
 
 		if(BOT_PATROL)
 			icon_state = "griefsky1"
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
 	return
 
-/mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
+/mob/living/simple_animal/bot/secbot/griefsky/find_new_target()
 	anchored = FALSE
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
@@ -163,22 +166,20 @@
 
 		threatlevel = C.assess_threat(src)
 
-		if(!threatlevel)
+		if(!threatlevel || threatlevel < 4)
 			continue
 
-		else if(threatlevel >= 4)
-			target = C
-			oldtarget_name = C.name
-			speak("You are a bold one")
-			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
-			visible_message("[src] ignites his energy swords!")
-			icon_state = "griefsky-c"
-			visible_message("<b>[src]</b> points at [C.name]!")
-			mode = BOT_HUNT
-			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-			break
-		else
-			continue
+		target = C
+		oldtarget_name = C.name
+		speak("You are a bold one")
+		playsound(src,'sound/weapons/saberon.ogg', 50, TRUE, -1)
+		visible_message("[src] ignites his energy swords!")
+		icon_state = "griefsky-c"
+		visible_message("<b>[src]</b> points at [C.name]!")
+		mode = BOT_HUNT
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	walk_to(src,0)

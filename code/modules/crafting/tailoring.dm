@@ -212,6 +212,24 @@
 	reqs = list(/obj/item/clothing/glasses/hud/janitor/sunglasses = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudsunmeson
+	name = "Meson HUD sunglasses"
+	result = list(/obj/item/clothing/glasses/meson/sunglasses)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsunmesonremoval
+	name = "Meson HUD sunglasses removal"
+	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/meson)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/beergoggles
 	name = "Sunscanners"
 	result = list(/obj/item/clothing/glasses/sunglasses/reagent)
@@ -279,4 +297,42 @@
 	reqs = list(/obj/item/clothing/mask/gas = 1,
 				/obj/item/assembly/voice = 1,
 				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/flower_crown
+	name = "Flower Crown"
+	result = list(/obj/item/clothing/head/flower_crown)
+	reqs = list(/obj/item/food/snacks/grown/poppy = 3,
+					/obj/item/food/snacks/grown/lily = 3,
+					/obj/item/grown/sunflower = 3
+					)
+	time = 2 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/sunflower_crown
+	name = "Sunflower Crown"
+	result = list(/obj/item/clothing/head/sunflower_crown)
+	reqs = list(/obj/item/grown/sunflower = 5)
+	time = 2 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/poppy_crown
+	name = "Poppy Crown"
+	result = list(/obj/item/clothing/head/poppy_crown)
+	reqs = list(/obj/item/food/snacks/grown/poppy = 5)
+	time = 2 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/lily_crown
+	name = "Lily Crown"
+	result = list(/obj/item/clothing/head/lily_crown)
+	reqs = list(/obj/item/food/snacks/grown/lily = 5)
+	time = 2 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/geranium_crown
+	name = "Geranium Crown"
+	result = list(/obj/item/clothing/head/geranium_crown)
+	reqs = list(/obj/item/food/snacks/grown/geranium = 5)
+	time = 2 SECONDS
 	category = CAT_CLOTHING

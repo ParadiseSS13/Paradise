@@ -31,13 +31,15 @@ export const BotFloor = (props, context) => {
             fluid
             checked={hullplating}
             content="Add tiles to new hull plating"
+            tooltip="Fixing a plating requires the removal of floor tile. This will place it back after repairing. Same goes for hull breaches"
             disabled={noaccess}
             onClick={() => act('autotile')}
           />
           <Button.Checkbox
             fluid
             checked={replace}
-            content="Replace floor tiles"
+            content="Add floor tiles on exposed hull plating"
+            tooltip="Example: It will add tiles to maintenance"
             disabled={noaccess}
             onClick={() => act('replacetiles')}
           />

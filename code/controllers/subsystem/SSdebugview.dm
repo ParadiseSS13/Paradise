@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(debugview)
 		C.debug_text_overlay.maptext = "<span class='maptext' style='background-color: #272727;'>[out_text]</span>"
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)
-	C.debug_text_overlay = new /obj/screen/debugtextholder(null, C)
+	C.debug_text_overlay = new /atom/movable/screen/debugtextholder(null, C)
 	C.screen |= C.debug_text_overlay
 	processing |= C
 
@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(debugview)
 	C.screen -= C.debug_text_overlay
 	QDEL_NULL(C.debug_text_overlay)
 
-/obj/screen/debugtextholder
+/atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "empty"
 	screen_loc = "TOP,LEFT"
@@ -61,11 +61,11 @@ SUBSYSTEM_DEF(debugview)
 	maptext_height = 480 // 15 * 32 (15 tiles, 32 pixels each)
 	maptext_width = 480 // changes with prefs
 
-/obj/screen/debugtextholder/Initialize(mapload, client/C)
+/atom/movable/screen/debugtextholder/Initialize(mapload, client/C)
 	. = ..()
 	update_view(C)
 
-/obj/screen/debugtextholder/proc/update_view(client/C)
+/atom/movable/screen/debugtextholder/proc/update_view(client/C)
 	var/list/viewsizes = getviewsize(C.view)
 	maptext_width = viewsizes[1] * world.icon_size
 
@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(debugview)
 		if((SS.flags & SS_NO_FIRE) || !SS.can_fire)
 			continue
 
-		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% | [SS.get_stat_details()]"
+		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href=?_src_=vars;Vars=[SS.UID()]>VV Edit</a>"
 
 	popup.set_content(html.Join("<br>"))
 	popup.open(FALSE)

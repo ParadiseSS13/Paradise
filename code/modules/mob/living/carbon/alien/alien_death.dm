@@ -12,7 +12,7 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
-	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 
 	for(var/mob/M in stomach_contents) //Release eaten mobs when Beno is gibbed
 		LAZYREMOVE(stomach_contents, M)
@@ -20,6 +20,13 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.KnockDown(5 SECONDS)
+
+	for(var/obj/item/organ/internal/I in internal_organs)
+		if(isturf(loc))
+			var/atom/movable/thing = I.remove(src)
+			if(thing)
+				thing.forceMove(get_turf(src))
+				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 	flick("gibbed-a", animation)
 	xgibs(loc)

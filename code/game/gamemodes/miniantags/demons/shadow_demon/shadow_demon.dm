@@ -164,7 +164,7 @@
 	if(lum_count > 0.2)
 		if(!thrown_alert)
 			thrown_alert = TRUE
-			throw_alert("light", /obj/screen/alert/lightexposure)
+			throw_alert("light", /atom/movable/screen/alert/lightexposure)
 		alpha = 255
 		speed = initial(speed)
 	else
