@@ -1833,3 +1833,56 @@
 	if(event_spawn)
 		GLOB.major_announcement.Announce("The legendary MAXWELL has been found by [user.name]! What a silly kitty!", "MAXWELL FOUND!!!", 'sound/items/maxwell.ogg')
 		event_spawn = FALSE
+
+/*
+*Joy Buzzer
+*/
+
+/obj/item/toy/joy_buzzer
+	name = "joy buzzer"
+	desc = "A device that straps to the hand and gives a small, harmless electric shock to anybody who shakes hands with the user."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "buzzer"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/toy/joy_buzzer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Using the emotes *handshake, *highfive, or *dap with someone while this is in one of your hands will deliver a shock to the other person</span>"
+
+/obj/item/toy/joy_buzzer/proc/electrocute(mob/living/prankster, mob/living/victim)
+	if(prankster == victim || !victim)
+		prankster.visible_message("<span class='warning'>[prankster] shocks [prankster.p_themselves()] with [prankster.p_their()] own [name]!</span>", "<span class='warning'>You shock yourself with your own [name]!</span>")
+	else
+		victim.visible_message("<span class='warning'>[victim] is shocked by [prankster]'s [name]!</span>", "<span class='warning'>You are shocked by [prankster]'s [name]!</span>")
+	playsound(src, 'sound/effects/sparks1.ogg', 20)
+	if(emagged)
+		victim.AdjustJitter(10 SECONDS)
+		victim.AdjustStunned(8 SECONDS)
+		victim.AdjustStuttering(20 SECONDS)
+		victim.AdjustKnockDown(5 SECONDS)
+		victim.apply_damage(rand(20, 40), BURN, victim.hand ? "l_hand" : "r_hand", used_weapon = "Electrocution")
+		add_attack_logs(prankster, victim, "Zapped with an emagged joy buzzer")
+	else
+		victim.AdjustJitter(5 SECONDS)
+		victim.AdjustStunned(4 SECONDS)
+		victim.AdjustStuttering(10 SECONDS)
+		add_attack_logs(prankster, victim, "Stunned with a joy buzzer")
+
+/obj/item/toy/joy_buzzer/emag_act(mob/user)
+	. = ..()
+	if(!emagged)
+		to_chat(user, "<span class='warning'>Sparks fly out of the [name]!</span>")
+		log_game("[key_name(user)] emagged [src]")
+		emagged = TRUE
+
+/obj/item/toy/joy_buzzer/cmag_act(mob/user)
+	. = ..()
+	emag_act(user)
+
+/obj/item/toy/joy_buzzer/suicide_act(mob/living/user)
+	to_chat(viewers(user), "<span class='suicide'>[user] is strapping [src] to [user.p_their()] [ismachineperson(user) ? "charging cable" : "tongue"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.AdjustStunned(8 SECONDS)
+	sleep(25)
+	playsound(src, 'sound/effects/sparks3.ogg', 20)
+	user.AdjustJitter(10 SECONDS)
+	return FIRELOSS

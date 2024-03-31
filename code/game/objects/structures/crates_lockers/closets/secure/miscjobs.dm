@@ -21,6 +21,7 @@
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/seeds/banana(src)
 	new /obj/item/restraints/handcuffs/toy(src)
+	new /obj/item/toy/joy_buzzer(src)
 
 
 
@@ -49,6 +50,7 @@
 	new /obj/item/toy/crayon/mime(src)
 	new /obj/item/reagent_containers/drinks/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)
+	new /obj/item/book/shoelace_dynamics(src)
 	new /obj/item/key/mime(src)
 
 /obj/structure/closet/secure_closet/syndicate_officer

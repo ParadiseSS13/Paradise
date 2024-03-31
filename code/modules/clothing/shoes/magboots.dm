@@ -14,6 +14,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
+	has_laces = FALSE
 
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
@@ -117,6 +118,7 @@
 	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
+	has_laces = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
 	. = ..()
