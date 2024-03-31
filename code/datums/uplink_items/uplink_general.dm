@@ -169,6 +169,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous
 	category = "Highly Visible and Dangerous Weapons"
 
+/datum/uplink_item/dangerous/poopbox
+	name = "Poop Kit"
+	reference = "PPK"
+	desc = "Poop it up!"
+	item = /obj/item/storage/box/syndie_kit/poop
+	cost = 50
+
 /datum/uplink_item/dangerous/pistol
 	name = "FK-69 Stechkin Pistol"
 	reference = "SPI"

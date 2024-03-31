@@ -245,6 +245,17 @@
 /obj/item/storage/box/syndie_kit/poisoner
 	name = "poisoner's kit"
 
+/obj/item/storage/box/syndie_kit/poop
+	name = "poop ops kit"
+	desc = "Rip and tear until it is done"
+
+/obj/item/storage/box/syndie_kit/poop/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/grenade/chem_grenade/poop(src)
+	var/obj/item/reagent_containers/spray/empty/S = new(src)
+	S.name = "poop blaster"
+	S.reagents.add_reagent("poop", 250)
+
 /obj/item/storage/box/syndie_kit/poisoner/populate_contents()
 	new /obj/item/pen/multi/poison(src)
 	new /obj/item/clothing/gloves/color/black/poisoner(src)

@@ -37,6 +37,24 @@
 	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/poop
+	key = "poop"
+	message = "poops!"
+	emote_type = EMOTE_AUDIBLE
+	sound = 'sound/misc/soggy.ogg'
+
+/datum/emote/living/carbon/human/poop/run_emote(mob/user, params, type_override, intentional)
+	if(!ishuman(user))
+		return
+	var/customMessage = pick(list("flatulates violently!", "unleashes gas!", "ass blasts!"))
+	message = customMessage;
+	if(user.nutrition < 150)
+		to_chat(user, "<span class='warning'>You're all out of gas!</span>")
+		return TRUE
+	new /obj/effect/decal/cleanable/blood/poop(get_turf(user))
+	user.adjust_nutrition(-50);
+	return ..()
+
 /datum/emote/living/carbon/human/clap
 	key = "clap"
 	key = "clap"

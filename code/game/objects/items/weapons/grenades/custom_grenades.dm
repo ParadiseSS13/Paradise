@@ -69,6 +69,24 @@
 	beakers += B2
 	update_icon()
 
+/obj/item/grenade/chem_grenade/poop
+	payload_name = "poop"
+	desc = "Poop!"
+	stage = 2
+
+/obj/item/grenade/chem_grenade/poop/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	B1.reagents.add_reagent("poop", 70)
+	B1.reagents.add_reagent("potassium", 30)
+	B2.reagents.add_reagent("sugar", 30)
+	B2.reagents.add_reagent("phosphorus", 30)
+	B2.reagents.add_reagent("poop", 40)
+	beakers += B1
+	beakers += B2
+	update_icon()
+
 /obj/item/grenade/chem_grenade/ethanol
 	payload_name = "ethanol"
 	desc = "Ach, that hits the spot."

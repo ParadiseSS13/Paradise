@@ -65,3 +65,15 @@
 /obj/effect/decal/cleanable/blood/oil/streak
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 	amount = 2
+
+/obj/effect/decal/cleanable/blood/poop
+	name = "poop"
+	desc = "It's yellow and greasy. You should dump this down the toilet while it's still hot."
+	basecolor = "#615018"
+	bloodiness = MAX_SHOE_BLOODINESS
+
+/obj/effect/decal/cleanable/blood/poop/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers))
+		I.reagents.add_reagent("poop", 5)
+		qdel(src)
+		return

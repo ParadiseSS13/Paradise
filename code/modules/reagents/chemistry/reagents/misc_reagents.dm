@@ -716,3 +716,22 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
+
+/datum/reagent/poop
+	name = "Poop"
+	id = "poop"
+	description = "A substance applied to the skin to darken the skin."
+	color = "#615018"
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	taste_description = "oh god oh FUCK oh NO FUCK NO"
+
+/datum/reagent/poop/reaction_mob(mob/living/M, method=REAGENT_TOUCH, reac_volume, show_message = 1)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(method == REAGENT_INGEST)
+			H.vomit(lost_nutrition = 0)
+	..()
+
+/datum/reagent/poop/reaction_turf(turf/T, volume)
+	if(volume > 4)
+		new /obj/effect/decal/cleanable/blood/poop(T)
