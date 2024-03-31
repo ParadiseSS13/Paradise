@@ -1024,6 +1024,13 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"ea" = (
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/obj/structure/table/wood/fancy/black,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "eb" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/toilet{
@@ -3913,6 +3920,14 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"nf" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/obj/item/kitchen/knife/ritual,
+/turf/simulated/floor/carpet/royalblue,
+/area/wizard_station)
 "ng" = (
 /obj/mecha/combat/phazon,
 /turf/simulated/floor/plasteel,
@@ -9706,7 +9721,7 @@
 /obj/item/reagent_containers/glass/beaker/large{
 	icon_state = "manlydorfglass";
 	icon = 'icons/obj/drinks.dmi';
-	pixel_x = 2;
+	pixel_x = 2
 	},
 /obj/item/reagent_containers/glass/beaker/large{
 	icon_state = "manlydorfglass";
@@ -63737,7 +63752,7 @@ UJ
 xH
 Vh
 QS
-QS
+ea
 QS
 xH
 cP
@@ -64509,7 +64524,7 @@ GN
 jc
 QS
 QS
-QS
+nf
 xH
 gB
 QU
