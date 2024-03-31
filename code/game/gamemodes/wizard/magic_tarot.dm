@@ -18,7 +18,7 @@
 
 /obj/item/tarot_generator/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
-		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown)/10)] more seconds!</span>")
+		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more seconds!</span>")
 		return
 	if(length(our_card_list) >= maximum_cards)
 		to_chat(user, "<span class='warning'>[src]'s magic can only support up to [maximum_cards] in the world at once, use or destroy some!</span>")
@@ -34,7 +34,7 @@
 	. += "<span class='hierophant'>Alt-Shift-Click to destroy all cards it has produced.</span>"
 	. += "<span class='hierophant'>It has [length(our_card_list)] cards in the world right now.</span>"
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
-		. += "<span class='hierophant'>You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown)/10)] seconds.</span>"
+		. += "<span class='hierophant'>You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] seconds.</span>"
 
 /obj/item/tarot_generator/AltShiftClick(mob/user)
 	for(var/obj/item/magic_tarot_card/MTC in our_card_list)
@@ -126,7 +126,7 @@
 		to_chat(user, "</span><span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
 		qdel(src)
 
-/obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recomended for ruins.
+/obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
 	let_people_choose = TRUE
 
 /obj/item/magic_tarot_card
@@ -207,7 +207,7 @@
 	qdel(src)
 
 /obj/item/magic_tarot_card/proc/dust()
-	visible_message("<span class='danger'>[src] disintigrates into dust!</span>")
+	visible_message("<span class='danger'>[src] disintegrates into dust!</span>")
 	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
 
@@ -667,7 +667,7 @@
 		C.moving = 2
 		C.standard_moving_before_recalc = 2
 		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
-		active_chasers += 1
+		active_chasers++
 
 /datum/tarot/reversed/the_lovers
 	name = "VI - The Lovers?"

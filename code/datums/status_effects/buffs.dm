@@ -87,20 +87,20 @@
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 		return
-	else
+
 		var/found_someone = FALSE
 
-		for(var/mob/living/L in oview(9, owner))
-			found_someone = TRUE
-			playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
-			L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
-			L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
-		if(found_someone)
-			owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around him!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
-		else
-			owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
-			playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
-			owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	for(var/mob/living/L in oview(9, owner))
+		found_someone = TRUE
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	if(found_someone)
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around him!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+	else
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
 /datum/status_effect/void_price
 	id = "void_price"
@@ -134,6 +134,7 @@
 /datum/status_effect/blooddrunk/chariot
 	duration = 10 SECONDS
 	chariot = TRUE
+	
 /atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
 	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
@@ -209,11 +210,10 @@
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V)
-		if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
-			bonus_damage_applied = TRUE
-			H.physiology.melee_bonus += 10
-			H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
+	if(V?.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+		bonus_damage_applied = TRUE
+		H.physiology.melee_bonus += 10
+		H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
 
 /datum/status_effect/bloodswell/on_remove()
 	if(!ishuman(owner))
