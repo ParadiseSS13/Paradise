@@ -42,6 +42,9 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
+/mob/living/simple_animal/mouse/get_scooped(mob/living/carbon/grabber)
+	playsound(src, 'sound/creatures/a-rat.ogg', 100, 0)
+
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)

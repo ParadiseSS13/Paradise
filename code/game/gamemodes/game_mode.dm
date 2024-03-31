@@ -79,6 +79,8 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
+	sound_to_playing_players_on_station_level('sound/misc/no_escape.ogg', 50, channel = CHANNEL_FIREALARM)
+
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query), dont bother slowing roundstart
 
 	generate_station_goals()
