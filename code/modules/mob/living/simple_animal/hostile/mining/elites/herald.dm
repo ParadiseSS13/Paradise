@@ -284,7 +284,7 @@
 			continue
 		if(T.z != usr.z) //No crossing zlvls
 			continue
-		if(istype(i, /obj/item/shield/mirror) && !iscultist(usr)) //No teleporting to cult bases
+		if(istype(i, /obj/item/shield/mirror) && !IS_CULTIST(usr)) //No teleporting to cult bases
 			continue
 		if(istype(i, /obj/structure/mirror))
 			var/obj/structure/mirror/B = i

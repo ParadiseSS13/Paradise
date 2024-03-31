@@ -851,11 +851,11 @@
 
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 
-	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+	var/static/list/col_filter_green = list(0.66,0,0,0, 0,1,0,0, 0,0,0.66,0, 0,0,0,1)
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
 
-	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.02))
 
 	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
 		return
@@ -948,11 +948,11 @@
 	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
 	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
 
-	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+	var/static/list/col_filter_green = list(0.66,0,0,0, 0,1,0,0, 0,0,0.66,0, 0,0,0,1)
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
 
-	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.02))
 
 	var/overdosed = (id in L.reagents.overdose_list())
 	if(overdosed)
@@ -1025,11 +1025,11 @@
 
 	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
 
-	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+	var/static/list/col_filter_green = list(0.66,0,0,0, 0,1,0,0, 0,0,0.66,0, 0,0,0,1)
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
 
-	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.02))
 
 
 /datum/reagent/mephedrone/overdose_process(mob/living/carbon/L)
@@ -1325,3 +1325,5 @@
 	return list(effect, update_flags)
 
 #undef DRAWBACK_CHANCE_MODIFIER
+#undef CONSTANT_DOSE_SAFE_LIMIT
+#undef CONSTANT_DOSE_DEATH_LIMIT

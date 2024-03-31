@@ -1,405 +1,521 @@
-import { round } from 'common/math';
 import { useBackend } from '../backend';
 import {
-  Box,
   Button,
-  Stack,
-  Icon,
   LabeledList,
-  NoticeBox,
   ProgressBar,
   Section,
+  Box,
   Tabs,
+  Stack,
+  Collapsible,
+  Icon,
 } from '../components';
-import { COLORS } from '../constants';
-import {
-  ComplexModal,
-  modalRegisterBodyOverride,
-} from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 
-const viewRecordModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
-  const { activerecord, realname, health, unidentity, strucenzymes } =
-    modal.args;
-  const damages = health.split(' - ');
-  return (
-    <Section level={2} m="-1rem" pb="1.5rem" title={'Records of ' + realname}>
-      <LabeledList>
-        <LabeledList.Item label="Name">{realname}</LabeledList.Item>
-        <LabeledList.Item label="Damage">
-          {damages.length > 1 ? (
-            <>
-              <Box color={COLORS.damageType.oxy} inline>
-                {damages[0]}
-              </Box>
-              &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.toxin} inline>
-                {damages[2]}
-              </Box>
-              &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.brute} inline>
-                {damages[3]}
-              </Box>
-              &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.burn} inline>
-                {damages[1]}
-              </Box>
-            </>
-          ) : (
-            <Box color="bad">Unknown</Box>
-          )}
-        </LabeledList.Item>
-        <LabeledList.Item label="UI" className="LabeledList__breakContents">
-          {unidentity}
-        </LabeledList.Item>
-        <LabeledList.Item label="SE" className="LabeledList__breakContents">
-          {strucenzymes}
-        </LabeledList.Item>
-        <LabeledList.Item label="Actions">
-          <Button
-            disabled={!data.podready}
-            icon="user-plus"
-            content="Clone"
-            onClick={() =>
-              act('clone', {
-                ref: activerecord,
-              })
-            }
-          />
-          <Button
-            icon="trash"
-            content="Delete"
-            onClick={() => act('del_rec')}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
-  );
-};
+const brokenFlag = 1 << 0;
+const internalBleedingFlag = 1 << 5;
+const burnWoundFlag = 1 << 7;
 
 export const CloningConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { menu } = data;
-  modalRegisterBodyOverride('view_rec', viewRecordModalBodyOverride);
+  const { tab, has_scanner, pod_amount } = data;
   return (
-    <Window width={535} height={440}>
-      <ComplexModal maxWidth="75%" maxHeight="75%" />
-      <Window.Content>
-        <Stack fill vertical>
-          <CloningConsoleTemp />
-          <CloningConsoleStatus />
-          <CloningConsoleNavigation />
-          <Stack.Item grow>
-            <Section fill scrollable>
-              <CloningConsoleBody />
-            </Section>
-          </Stack.Item>
-        </Stack>
+    <Window width={640} height={520}>
+      <Window.Content scrollable>
+        <Section title="Cloning Console">
+          <LabeledList>
+            <LabeledList.Item label="Connected scanner">
+              {has_scanner ? 'Online' : 'Missing'}
+            </LabeledList.Item>
+            <LabeledList.Item label="Connected pods">
+              {pod_amount}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+        <Tabs>
+          <Tabs.Tab
+            selected={tab === 1}
+            icon="home"
+            onClick={() => act('menu', { tab: 1 })}
+          >
+            Main Menu
+          </Tabs.Tab>
+          <Tabs.Tab
+            selected={tab === 2}
+            icon="user"
+            onClick={() => act('menu', { tab: 2 })}
+          >
+            Damage Configuration
+          </Tabs.Tab>
+        </Tabs>
+        <Section>
+          <CloningConsoleBody />
+        </Section>
       </Window.Content>
     </Window>
   );
 };
 
-const CloningConsoleNavigation = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { menu } = data;
-  return (
-    <Stack.Item>
-      <Tabs>
-        <Tabs.Tab
-          selected={menu === 1}
-          icon="home"
-          onClick={() =>
-            act('menu', {
-              num: 1,
-            })
-          }
-        >
-          Main
-        </Tabs.Tab>
-        <Tabs.Tab
-          selected={menu === 2}
-          icon="folder"
-          onClick={() =>
-            act('menu', {
-              num: 2,
-            })
-          }
-        >
-          Records
-        </Tabs.Tab>
-      </Tabs>
-    </Stack.Item>
-  );
-};
-
 const CloningConsoleBody = (props, context) => {
   const { data } = useBackend(context);
-  const { menu } = data;
+  const { tab } = data;
   let body;
-  if (menu === 1) {
+  if (tab === 1) {
     body = <CloningConsoleMain />;
-  } else if (menu === 2) {
-    body = <CloningConsoleRecords />;
+  } else if (tab === 2) {
+    body = <CloningConsoleDamage />;
   }
   return body;
 };
 
 const CloningConsoleMain = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    loading,
-    scantemp,
-    occupant,
-    locked,
-    can_brainscan,
-    scan_mode,
-    numberofpods,
-    pods,
-    selected_pod,
-  } = data;
-  const isLocked = locked && !!occupant;
+  const { pods, pod_amount, selected_pod_UID } = data;
   return (
-    <>
-      <Section
-        title="Scanner"
-        buttons={
-          <>
-            <Box inline color="label">
-              Scanner Lock:&nbsp;
-            </Box>
-            <Button
-              disabled={!occupant}
-              selected={isLocked}
-              icon={isLocked ? 'toggle-on' : 'toggle-off'}
-              content={isLocked ? 'Engaged' : 'Disengaged'}
-              onClick={() => act('lock')}
-            />
-            <Button
-              disabled={isLocked || !occupant}
-              icon="user-slash"
-              content="Eject Occupant"
-              onClick={() => act('eject')}
-            />
-          </>
-        }
-      >
-        <LabeledList>
-          <LabeledList.Item label="Status">
-            {loading ? (
-              <Box color="average">
-                <Icon name="spinner" spin />
-                &nbsp; Scanning...
-              </Box>
-            ) : (
-              <Box color={scantemp.color}>{scantemp.text}</Box>
-            )}
-          </LabeledList.Item>
-          {!!can_brainscan && (
-            <LabeledList.Item label="Scan Mode">
-              <Button
-                icon={scan_mode ? 'brain' : 'male'}
-                content={scan_mode ? 'Brain' : 'Body'}
-                onClick={() => act('toggle_mode')}
-              />
-            </LabeledList.Item>
-          )}
-        </LabeledList>
-        <Button
-          disabled={!occupant || loading}
-          icon="user"
-          content="Scan Occupant"
-          mt="0.5rem"
-          mb="0"
-          onClick={() => act('scan')}
-        />
-      </Section>
-      <Section title="Pods">
-        {numberofpods ? (
-          pods.map((pod, i) => {
-            let podAction;
-            if (pod.status === 'cloning') {
-              podAction = (
-                <ProgressBar
-                  min="0"
-                  max="100"
-                  value={pod.progress / 100}
-                  ranges={{
-                    good: [0.75, Infinity],
-                    average: [0.25, 0.75],
-                    bad: [-Infinity, 0.25],
-                  }}
-                  mt="0.5rem"
-                >
-                  <Box textAlign="center">{round(pod.progress, 0) + '%'}</Box>
-                </ProgressBar>
-              );
-            } else if (pod.status === 'mess') {
-              podAction = (
-                <Box bold color="bad" mt="0.5rem">
-                  ERROR
-                </Box>
-              );
-            } else {
-              podAction = (
-                <Button
-                  selected={selected_pod === pod.pod}
-                  icon={selected_pod === pod.pod && 'check'}
-                  content="Select"
-                  mt="0.5rem"
-                  onClick={() =>
-                    act('selectpod', {
-                      ref: pod.pod,
-                    })
-                  }
-                />
-              );
-            }
-
-            return (
-              <Box
-                key={i}
-                width="64px"
-                textAlign="center"
-                inline
-                mr="0.5rem"
-                mt={1}
-              >
+    <Box>
+      {!pod_amount && <Box color="average">Notice: No pods connected.</Box>}
+      {!!pod_amount &&
+        pods.map((pod, i) => (
+          <Section key={pod} layer={2} title={'Pod ' + (i + 1)}>
+            <Stack textAlign="center">
+              <Stack.Item basis="96px" shrink={0}>
                 <img
-                  src={resolveAsset('pod_' + pod.status + '.gif')}
+                  src={resolveAsset(
+                    'pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif'
+                  )}
                   style={{
                     width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor',
                   }}
                 />
-                <Box color="label">Pod #{i + 1}</Box>
-                <Box
-                  bold
-                  mt={0.75}
-                  color={pod.biomass >= 150 ? 'good' : 'bad'}
-                  inline
+                <Button
+                  selected={selected_pod_UID === pod['uid']}
+                  onClick={() => act('select_pod', { uid: pod['uid'] })}
                 >
-                  <Icon name={pod.biomass >= 150 ? 'circle' : 'circle-o'} />
-                  &nbsp;
-                  {pod.biomass}
-                </Box>
-                {podAction}
-              </Box>
-            );
-          })
-        ) : (
-          <Box color="bad">No pods detected. Unable to clone.</Box>
-        )}
-      </Section>
-    </>
-  );
-};
-
-const CloningConsoleRecords = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { records } = data;
-  if (!records.length) {
-    return (
-      <Stack fill>
-        <Stack.Item grow align="center" textAlign="center" color="label">
-          <Icon name="user-slash" mb="0.5rem" size="5" />
-          <br />
-          No records found.
-        </Stack.Item>
-      </Stack>
-    );
-  }
-  return (
-    <Box mt="0.5rem">
-      {records.map((record, i) => (
-        <Button
-          key={i}
-          icon="user"
-          mb="0.5rem"
-          content={record.realname}
-          onClick={() =>
-            act('view_rec', {
-              ref: record.record,
-            })
-          }
-        />
-      ))}
+                  Select
+                </Button>
+              </Stack.Item>
+              <Stack.Item>
+                <LabeledList>
+                  <LabeledList.Item label="Progress">
+                    {!pod['cloning'] && (
+                      <Box color="average">Pod is inactive.</Box>
+                    )}
+                    {!!pod['cloning'] && (
+                      <ProgressBar
+                        value={pod['clone_progress']}
+                        maxValue={100}
+                        color="good"
+                      />
+                    )}
+                  </LabeledList.Item>
+                  <LabeledList.Divider />
+                  <LabeledList.Item label="Biomass">
+                    <ProgressBar
+                      value={pod['biomass']}
+                      ranges={{
+                        good: [
+                          (2 * pod['biomass_storage_capacity']) / 3,
+                          pod['biomass_storage_capacity'],
+                        ],
+                        average: [
+                          pod['biomass_storage_capacity'] / 3,
+                          (2 * pod['biomass_storage_capacity']) / 3,
+                        ],
+                        bad: [0, pod['biomass_storage_capacity'] / 3], // This is just thirds again
+                      }}
+                      minValue={0}
+                      maxValue={pod['biomass_storage_capacity']}
+                    >
+                      {pod['biomass']}/
+                      {pod['biomass_storage_capacity'] +
+                        ' (' +
+                        (100 * pod['biomass']) /
+                          pod['biomass_storage_capacity'] +
+                        '%)'}
+                    </ProgressBar>
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Sanguine Reagent">
+                    {pod['sanguine_reagent']}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Osseous Reagent">
+                    {pod['osseous_reagent']}
+                  </LabeledList.Item>
+                </LabeledList>
+              </Stack.Item>
+            </Stack>
+          </Section>
+        ))}
     </Box>
   );
 };
 
-const CloningConsoleTemp = (props, context) => {
+const CloningConsoleDamage = (props, context) => {
   const { act, data } = useBackend(context);
-  const { temp } = data;
-  if (!temp || !temp.text || temp.text.length <= 0) {
-    return;
-  }
-
-  const tempProp = { [temp.style]: true };
+  const {
+    selected_pod_data,
+    has_scanned,
+    scanner_has_patient,
+    feedback,
+    scan_successful,
+    cloning_cost,
+    has_scanner,
+  } = data;
   return (
-    <NoticeBox {...tempProp}>
-      <Box inline verticalAlign="middle">
-        {temp.text}
-      </Box>
-      <Button
-        icon="times-circle"
-        float="right"
-        onClick={() => act('cleartemp')}
-      />
-      <Box clear="both" />
-    </NoticeBox>
+    <Box>
+      {!has_scanner && <Box color="average">Notice: No scanner connected.</Box>}
+      {!!has_scanner && (
+        <Box>
+          <Section
+            layer={2}
+            title="Scanner Info"
+            buttons={
+              <Box>
+                <Button icon="hourglass-half" onClick={() => act('scan')}>
+                  Scan
+                </Button>
+                <Button icon="eject" onClick={() => act('eject')}>
+                  Eject Patient
+                </Button>
+              </Box>
+            }
+          >
+            {!has_scanned && (
+              <Box color="average">
+                {scanner_has_patient
+                  ? 'No scan detected for current patient.'
+                  : 'No patient is in the scanner.'}
+              </Box>
+            )}
+            {!!has_scanned && (
+              <Box color={feedback['color']}>{feedback['text']}</Box>
+            )}
+          </Section>
+          <Section layer={2} title="Damages Breakdown">
+            <Box>
+              {(!scan_successful || !has_scanned) && (
+                <Box color="average">No valid scan detected.</Box>
+              )}
+              {!!scan_successful && !!has_scanned && (
+                <Box>
+                  <Stack>
+                    <Stack.Item>
+                      <Button onClick={() => act('fix_all')}>
+                        Repair All Damages
+                      </Button>
+                      <Button onClick={() => act('fix_none')}>
+                        Repair No Damages
+                      </Button>
+                    </Stack.Item>
+                    <Stack.Item grow={1} />
+                    <Stack.Item>
+                      <Button onClick={() => act('clone')}>Clone</Button>
+                    </Stack.Item>
+                  </Stack>
+                  <Stack height="25px">
+                    <Stack.Item width="40%">
+                      <ProgressBar
+                        value={cloning_cost[0]}
+                        maxValue={selected_pod_data['biomass_storage_capacity']}
+                        ranges={{
+                          bad: [
+                            (2 *
+                              selected_pod_data['biomass_storage_capacity']) /
+                              3,
+                            selected_pod_data['biomass_storage_capacity'],
+                          ],
+                          average: [
+                            selected_pod_data['biomass_storage_capacity'] / 3,
+                            (2 *
+                              selected_pod_data['biomass_storage_capacity']) /
+                              3,
+                          ],
+                          good: [
+                            0,
+                            selected_pod_data['biomass_storage_capacity'] / 3,
+                          ],
+                        }}
+                        color={
+                          cloning_cost[0] > selected_pod_data['biomass']
+                            ? 'bad'
+                            : null
+                        }
+                      >
+                        Biomass: {cloning_cost[0]}/
+                        {selected_pod_data['biomass']}/
+                        {selected_pod_data['biomass_storage_capacity']}
+                      </ProgressBar>
+                    </Stack.Item>
+                    <Stack.Item width="30%">
+                      <ProgressBar
+                        value={cloning_cost[1]}
+                        maxValue={selected_pod_data['max_reagent_capacity']}
+                        ranges={{
+                          bad: [
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
+                            selected_pod_data['max_reagent_capacity'],
+                          ],
+                          average: [
+                            selected_pod_data['max_reagent_capacity'] / 3,
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
+                          ],
+                          good: [
+                            0,
+                            selected_pod_data['max_reagent_capacity'] / 3,
+                          ],
+                        }}
+                        color={
+                          cloning_cost[1] >
+                          selected_pod_data['sanguine_reagent']
+                            ? 'bad'
+                            : 'good'
+                        }
+                      >
+                        Sanguine: {cloning_cost[1]}/
+                        {selected_pod_data['sanguine_reagent']}/
+                        {selected_pod_data['max_reagent_capacity']}
+                      </ProgressBar>
+                    </Stack.Item>
+                    <Stack.Item width="30%">
+                      <ProgressBar
+                        value={cloning_cost[2]}
+                        maxValue={selected_pod_data['max_reagent_capacity']}
+                        ranges={{
+                          bad: [
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
+                            selected_pod_data['max_reagent_capacity'],
+                          ],
+                          average: [
+                            selected_pod_data['max_reagent_capacity'] / 3,
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
+                          ],
+                          good: [
+                            0,
+                            selected_pod_data['max_reagent_capacity'] / 3,
+                          ],
+                        }}
+                        color={
+                          cloning_cost[2] > selected_pod_data['osseous_reagent']
+                            ? 'bad'
+                            : 'good'
+                        }
+                      >
+                        Osseous: {cloning_cost[2]}/
+                        {selected_pod_data['osseous_reagent']}/
+                        {selected_pod_data['max_reagent_capacity']}
+                      </ProgressBar>
+                    </Stack.Item>
+                  </Stack>
+                  <LimbsMenu />
+                  <OrgansMenu />
+                </Box>
+              )}
+            </Box>
+          </Section>
+        </Box>
+      )}
+    </Box>
   );
 };
 
-const CloningConsoleStatus = (props, context) => {
+const LimbsMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { scanner, numberofpods, autoallowed, autoprocess, disk } = data;
+  const { patient_limb_data, limb_list, desired_limb_data } = data;
   return (
-    <Stack.Item>
-      <Section
-        title="Status"
-        buttons={
-          // eslint-disable-next-line react/jsx-no-useless-fragment
-          <>
-            {!!autoallowed && (
-              <>
-                <Box inline color="label">
-                  Auto-processing:&nbsp;
-                </Box>
-                <Button
-                  selected={autoprocess}
-                  icon={autoprocess ? 'toggle-on' : 'toggle-off'}
-                  content={autoprocess ? 'Enabled' : 'Disabled'}
-                  onClick={() =>
-                    act('autoprocess', {
-                      on: autoprocess ? 0 : 1,
-                    })
+    <Collapsible title="Limbs">
+      {limb_list.map((limb, i) => (
+        <Box key={limb}>
+          <Stack align="baseline">
+            <Stack.Item color="label" width="15%" height="20px">
+              {patient_limb_data[limb][4]}:{' '}
+            </Stack.Item>
+            <Stack.Item grow={1} />
+            {patient_limb_data[limb][3] === 0 && (
+              <Stack.Item width="60%">
+                <ProgressBar
+                  value={
+                    desired_limb_data[limb][0] + desired_limb_data[limb][1]
                   }
-                />
-              </>
+                  maxValue={patient_limb_data[limb][5]}
+                  ranges={{
+                    good: [0, patient_limb_data[limb][5] / 3],
+                    average: [
+                      patient_limb_data[limb][5] / 3,
+                      (2 * patient_limb_data[limb][5]) / 3,
+                    ],
+                    bad: [
+                      (2 * patient_limb_data[limb][5]) / 3,
+                      patient_limb_data[limb][5],
+                    ],
+                  }}
+                >
+                  {'Post-Cloning Damage: '}
+                  <Icon name="bone" />
+                  {' ' + desired_limb_data[limb][0] + ' / '}
+                  <Icon name="fire" />
+                  {' ' + desired_limb_data[limb][1]}
+                </ProgressBar>
+              </Stack.Item>
             )}
-          </>
-        }
-      >
-        <LabeledList>
-          <LabeledList.Item label="Scanner">
-            {scanner ? (
-              <Box color="good">Connected</Box>
-            ) : (
-              <Box color="bad">Not connected!</Box>
+            {!(patient_limb_data[limb][3] === 0) && (
+              <Stack.Item width="60%">
+                <ProgressBar color="bad" value={0}>
+                  The patient&apos;s {patient_limb_data[limb][4]} is missing!
+                </ProgressBar>
+              </Stack.Item>
             )}
-          </LabeledList.Item>
-          <LabeledList.Item label="Pods">
-            {numberofpods ? (
-              <Box color="good">{numberofpods} connected</Box>
-            ) : (
-              <Box color="bad">None connected!</Box>
+          </Stack>
+          <Stack>
+            {!!patient_limb_data[limb][3] && (
+              <Stack.Item>
+                <Button.Checkbox
+                  checked={!desired_limb_data[limb][3]}
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'replace' })
+                  }
+                >
+                  Replace Limb
+                </Button.Checkbox>
+              </Stack.Item>
             )}
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
-    </Stack.Item>
+            {!patient_limb_data[limb][3] && (
+              <Stack.Item>
+                <Button.Checkbox
+                  disabled={
+                    !(patient_limb_data[limb][0] || patient_limb_data[limb][1])
+                  }
+                  checked={
+                    !(desired_limb_data[limb][0] || desired_limb_data[limb][1])
+                  }
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'damage' })
+                  }
+                >
+                  Repair Damages
+                </Button.Checkbox>
+                <Button.Checkbox
+                  disabled={!(patient_limb_data[limb][2] & brokenFlag)}
+                  checked={!(desired_limb_data[limb][2] & brokenFlag)}
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'bone' })
+                  }
+                >
+                  Mend Bone
+                </Button.Checkbox>
+                <Button.Checkbox
+                  disabled={
+                    !(patient_limb_data[limb][2] & internalBleedingFlag)
+                  }
+                  checked={!(desired_limb_data[limb][2] & internalBleedingFlag)}
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'ib' })
+                  }
+                >
+                  Mend IB
+                </Button.Checkbox>
+                <Button.Checkbox
+                  disabled={!(patient_limb_data[limb][2] & burnWoundFlag)}
+                  checked={!(desired_limb_data[limb][2] & burnWoundFlag)}
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'critburn' })
+                  }
+                >
+                  Mend Critical Burn
+                </Button.Checkbox>
+              </Stack.Item>
+            )}
+          </Stack>
+        </Box>
+      ))}
+    </Collapsible>
+  );
+};
+
+const OrgansMenu = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { patient_organ_data, organ_list, desired_organ_data } = data;
+  return (
+    <Collapsible title="Organs">
+      {organ_list.map((organ, i) => (
+        <Box key={organ}>
+          <Stack align="baseline">
+            <Stack.Item color="label" width="20%" height="20px">
+              {patient_organ_data[organ][3]}:{' '}
+            </Stack.Item>
+            {!(patient_organ_data[organ][5] === 'heart') && (
+              <Box>
+                <Stack.Item>
+                  {!!patient_organ_data[organ][2] && (
+                    <Button.Checkbox
+                      checked={
+                        !desired_organ_data[organ][2] &&
+                        !desired_organ_data[organ][1]
+                      }
+                      onClick={() =>
+                        act('toggle_organ_repair', {
+                          organ: organ,
+                          type: 'replace',
+                        })
+                      }
+                    >
+                      Replace Organ
+                    </Button.Checkbox>
+                  )}
+                  {!patient_organ_data[organ][2] && (
+                    <Box>
+                      <Button.Checkbox
+                        disabled={!patient_organ_data[organ][0]}
+                        checked={!desired_organ_data[organ][0]}
+                        onClick={() =>
+                          act('toggle_organ_repair', {
+                            organ: organ,
+                            type: 'damage',
+                          })
+                        }
+                      >
+                        Repair Damages
+                      </Button.Checkbox>
+                    </Box>
+                  )}
+                </Stack.Item>
+              </Box>
+            )}
+            {!!(patient_organ_data[organ][5] === 'heart') && (
+              <Box color="average">
+                Heart replacement is required for cloning.
+              </Box>
+            )}
+            <Stack.Item grow={1} />
+            <Stack.Item width="35%">
+              {!!patient_organ_data[organ][2] && (
+                <ProgressBar color="bad" value={0}>
+                  The patient&apos;s {patient_organ_data[organ][3]} is missing!
+                </ProgressBar>
+              )}
+              {!patient_organ_data[organ][2] && (
+                <ProgressBar
+                  value={desired_organ_data[organ][0]}
+                  maxValue={patient_organ_data[organ][4]}
+                  ranges={{
+                    good: [0, patient_organ_data[organ][4] / 3],
+                    average: [
+                      patient_organ_data[organ][4] / 3,
+                      (2 * patient_organ_data[organ][4]) / 3,
+                    ],
+                    bad: [
+                      (2 * patient_organ_data[organ][4]) / 3,
+                      patient_organ_data[organ][4],
+                    ],
+                  }}
+                >
+                  {'Post-Cloning Damage: ' + desired_organ_data[organ][0]}
+                </ProgressBar>
+              )}
+            </Stack.Item>
+          </Stack>
+        </Box>
+      ))}
+    </Collapsible>
   );
 };

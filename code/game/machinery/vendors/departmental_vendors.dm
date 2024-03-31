@@ -184,13 +184,13 @@
 					/obj/item/seeds/chili = 3,
 					/obj/item/seeds/cocoapod = 3,
 					/obj/item/seeds/coffee = 3,
-					/obj/item/seeds/comfrey =3,
+					/obj/item/seeds/comfrey = 3,
 					/obj/item/seeds/corn = 3,
 					/obj/item/seeds/cotton = 3,
-					/obj/item/seeds/nymph =3,
+					/obj/item/seeds/nymph = 3,
 					/obj/item/seeds/eggplant = 3,
 					/obj/item/seeds/garlic = 3,
-					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/glowshroom = 3,
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
@@ -219,13 +219,13 @@
 					/obj/item/seeds/whitebeet = 3)
 
 	contraband = list(/obj/item/seeds/cannabis = 3,
-					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/amanita = 3,
 					/obj/item/seeds/fungus = 3,
-					/obj/item/seeds/liberty = 2,
-					/obj/item/seeds/nettle = 2,
-					/obj/item/seeds/plump = 2,
-					/obj/item/seeds/reishi = 2,
-					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/liberty = 3,
+					/obj/item/seeds/nettle = 3,
+					/obj/item/seeds/plump = 3,
+					/obj/item/seeds/reishi = 3,
+					/obj/item/seeds/starthistle = 3,
 					/obj/item/seeds/random = 2)
 
 	refill_canister = /obj/item/vending_refill/hydroseeds

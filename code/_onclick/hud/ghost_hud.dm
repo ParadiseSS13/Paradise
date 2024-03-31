@@ -1,14 +1,5 @@
-/mob/dead/observer/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/ghost(src)
-		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
-
 /atom/movable/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
-
-/atom/movable/screen/ghost/MouseEntered()
-	. = ..()
-	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/orbit
 	name = "Orbit"
@@ -25,6 +16,10 @@
 /atom/movable/screen/ghost/reenter_corpse/Click()
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
+
+/atom/movable/screen/ghost/reenter_corpse/MouseEntered()
+	. = ..()
+	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/teleport
 	name = "Teleport"

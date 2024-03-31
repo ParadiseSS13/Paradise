@@ -43,9 +43,20 @@
 		return ..()
 
 /obj/item/wirecutters/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
+
+/obj/item/wirecutters/proc/is_robotic_suicide(mob/user)
+	if(!ishuman(user))
+		return FALSE
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/external/chest/chest = H.bodyparts_by_name["chest"]
+	if(!chest)
+		return FALSE
+
+	return chest.is_robotic()
 
 /obj/item/wirecutters/security
 	name = "security wirecutters"
@@ -125,15 +136,27 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
-	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
-		if(head)
-			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
-	return BRUTELOSS
+	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+
+	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
+		return SHAME
+
+	if(!ishuman(user))
+		return BRUTELOSS
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
+	if(!head)
+		user.visible_message("<span class='suicide'>...but [user.p_they()] [user.p_are()] already headless! How embarassing.</span>")
+		return SHAME
+
+	head.droplimb(FALSE, DROPLIMB_SHARP, FALSE, TRUE)
+
+	if(user.stat != DEAD)
+		user.visible_message("<span class='suicide'>...but [user.p_they()] didn't need it anyway! How embarassing.</span>")
+		return SHAME
+
+	return OXYLOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)

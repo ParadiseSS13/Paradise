@@ -31,10 +31,10 @@
 				return "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
 		if("eyes")
 			if(HAS_TRAIT(src, SCRYING))
-				if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+				if(IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
 					return "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
 				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
-			if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+			if(IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
 				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	return msg

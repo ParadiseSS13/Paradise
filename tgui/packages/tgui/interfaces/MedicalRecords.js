@@ -6,6 +6,7 @@ import {
   Icon,
   Input,
   LabeledList,
+  ProgressBar,
   Section,
   Stack,
   Tabs,
@@ -95,6 +96,9 @@ export const MedicalRecords = (_properties, context) => {
     // Virus Database
     body = <MedicalRecordsViruses />;
   } else if (screen === 6) {
+    // Virology Goals
+    body = <MedicalRecordsGoals />;
+  } else if (screen === 7) {
     // Medbot Tracking
     body = <MedicalRecordsMedbots />;
   }
@@ -309,9 +313,11 @@ const MedicalRecordsView = (_properties, context) => {
                   onClick={() => act('del_med_record')}
                 />
               }
-            />
+            >
+              <MedicalRecordsViewMedical />
+            </Section>
           </Stack.Item>
-          <MedicalRecordsViewMedical />
+          <MedicalRecordsViewComments />
         </>
       )}
     </>
@@ -371,6 +377,42 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
 };
 
 const MedicalRecordsViewMedical = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { medical } = data;
+  if (!medical || !medical.fields) {
+    return (
+      <Stack fill vertical>
+        <Stack.Item grow color="bad">
+          <Section fill>Medical records lost!</Section>
+        </Stack.Item>
+      </Stack>
+    );
+  }
+  return (
+    <Stack>
+      <Stack.Item grow>
+        <LabeledList>
+          {medical.fields.map((field, i) => (
+            <LabeledList.Item key={i} label={field.field}>
+              <Box height="20px" inline>
+                {field.value}
+              </Box>
+              {!!field.edit && (
+                <Button
+                  icon="pen"
+                  ml="0.5rem"
+                  onClick={() => doEdit(context, field)}
+                />
+              )}
+            </LabeledList.Item>
+          ))}
+        </LabeledList>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const MedicalRecordsViewComments = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical } = data;
   return (
@@ -470,6 +512,52 @@ const MedicalRecordsViruses = (_properties, context) => {
         </Stack.Item>
       </Stack>
     </>
+  );
+};
+
+const MedicalRecordsGoals = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { goals } = data;
+  return (
+    <Section title="Virology Goals" fill>
+      <Stack.Item grow>
+        {(goals.length !== 0 &&
+          goals.map((goal) => {
+            return (
+              <Stack.Item key={goal.id}>
+                <Section title={goal.name}>
+                  <Table>
+                    <Table.Row header>
+                      <Table.Cell textAlign="center">
+                        <ProgressBar
+                          value={goal.delivered}
+                          minValue={0}
+                          maxValue={goal.deliverygoal}
+                          ranges={{
+                            good: [goal.deliverygoal * 0.5, Infinity],
+                            average: [
+                              goal.deliverygoal * 0.25,
+                              goal.deliverygoal * 0.5,
+                            ],
+                            bad: [-Infinity, goal.deliverygoal * 0.25],
+                          }}
+                        >
+                          {goal.delivered} / {goal.deliverygoal} Units
+                        </ProgressBar>
+                      </Table.Cell>
+                    </Table.Row>
+                  </Table>
+                  <Box>{goal.report}</Box>
+                </Section>
+              </Stack.Item>
+            );
+          })) || (
+          <Stack.Item>
+            <Box textAlign="center">No Goals Detected</Box>
+          </Stack.Item>
+        )}
+      </Stack.Item>
+    </Section>
   );
 };
 
@@ -628,9 +716,18 @@ const MedicalRecordsNavigation = (_properties, context) => {
           Virus Database
         </Tabs.Tab>
         <Tabs.Tab
-          icon="plus-square"
+          icon="vial"
           selected={screen === 6}
-          onClick={() => act('screen', { screen: 6 })}
+          onClick={() => {
+            act('screen', { screen: 6 });
+          }}
+        >
+          Virology Goals
+        </Tabs.Tab>
+        <Tabs.Tab
+          icon="plus-square"
+          selected={screen === 7}
+          onClick={() => act('screen', { screen: 7 })}
         >
           Medibot Tracking
         </Tabs.Tab>

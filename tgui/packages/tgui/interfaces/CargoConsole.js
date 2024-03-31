@@ -168,7 +168,7 @@ const PaymentPane = (properties, context) => {
 
 const CataloguePane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { categories, supply_packs } = data;
+  const { requests, categories, supply_packs } = data;
 
   const [category, setCategory] = useSharedState(
     context,
@@ -199,6 +199,7 @@ const CataloguePane = (_properties, context) => {
     context,
     'selectedAccount'
   );
+
   const cratesToShow = flow([
     filter(
       (pack) =>
@@ -258,7 +259,7 @@ const CataloguePane = (_properties, context) => {
                   <Button
                     content="Order Multiple"
                     icon="cart-plus"
-                    disabled={!selectedAccount}
+                    disabled={!selectedAccount || c.singleton}
                     onClick={() =>
                       act('order', {
                         crate: c.ref,

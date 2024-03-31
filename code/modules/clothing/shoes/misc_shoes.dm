@@ -14,6 +14,7 @@
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 115, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
+	knife_slot = TRUE
 
 /// overpowered gimmick boots
 /obj/item/clothing/shoes/combat/swat
@@ -84,6 +85,10 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/enabled_waddle = TRUE
+	// "Dyeable" in this case is a bit of an understatement, washing these
+	// with a crayon will give them the appearance and name of normal
+	// shoes, but the functionality of clown shoes.
+	dyeable = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
@@ -115,11 +120,13 @@
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
+	dyeable = FALSE
 	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
+	dyeable = FALSE
 	magical = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/magical/nodrop
@@ -130,6 +137,7 @@
 	actions_types = list(/datum/action/item_action/slipping)
 	enabled_waddle = FALSE
 	slowdown = 0
+	dyeable = FALSE
 	var/slide_distance = 6
 	var/recharging_rate = 8 SECONDS
 	var/recharging_time = 0
@@ -208,6 +216,11 @@
 	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
+	cold_protection = FEET|LEGS
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	heat_protection = FEET|LEGS
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	knife_slot = TRUE
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -326,6 +339,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
@@ -407,9 +421,10 @@
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
 	can_cut_open = FALSE
+	knife_slot = TRUE
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
-	var/recharging_rate = 60 //default 6 seconds between each dash
+	var/recharging_rate = 6 SECONDS //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot)

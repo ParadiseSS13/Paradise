@@ -130,17 +130,3 @@
 				GLOB.assigned_mutation_blocks[block] = mutation
 
 	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
-
-/proc/setupcult()
-	var/static/datum/cult_info/picked_cult // Only needs to get picked once
-
-	if(picked_cult)
-		return picked_cult
-
-	var/random_cult = pick(typesof(/datum/cult_info))
-	picked_cult = new random_cult()
-
-	if(!picked_cult)
-		stack_trace("Cult datum creation failed")
-	//todo:add adminonly datum var, check for said var here...
-	return picked_cult
