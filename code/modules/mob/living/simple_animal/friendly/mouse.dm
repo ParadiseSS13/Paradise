@@ -80,7 +80,6 @@
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
-	//src.transform *= 2
 	update_appearance(UPDATE_DESC)
 
 /mob/living/simple_animal/mouse/update_desc()
