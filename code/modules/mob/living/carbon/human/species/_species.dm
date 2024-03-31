@@ -1020,9 +1020,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	H.update_tint()
 	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
-	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+/datum/species/proc/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
+	if(abs(temperature - H.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
+		H.bodytemperature = (temperature + H.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
 
 	if(method == REAGENT_TOUCH)
 		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
