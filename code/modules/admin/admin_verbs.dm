@@ -395,11 +395,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_MENTOR))
 		return
 
-	if(!isliving(mob))
-		to_chat(src, "You're already a ghost!")
-		return
 	if(isnewplayer(mob))
 		to_chat(src, "You can't ghost while you're still in the lobby! Join or observe first.")
+		return
+	if(!isliving(mob))
+		to_chat(src, "You're already a ghost!")
 		return
 	to_chat(src, "You are now a ghost!")
 	mob.gib()
