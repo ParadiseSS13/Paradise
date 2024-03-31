@@ -97,6 +97,13 @@
 	if(!on)
 		return 0
 
+	// Coolers don't heat.
+	if(air_contents.temperature <= target_temperature && cooling)
+		return 0
+	// Heaters don't cool.
+	if(air_contents.temperature >= target_temperature && !cooling)
+		return 0
+
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
 	var/old_temperature = air_contents.temperature
