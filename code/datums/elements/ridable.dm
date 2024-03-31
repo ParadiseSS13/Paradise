@@ -88,7 +88,7 @@
 		held_items += user.l_hand
 		held_items += user.r_hand
 		for(var/obj/item/I in held_items) // delete any hand items like slappers that could still totally be used to grab on
-			if((I.flags & DROPDEL & ABSTRACT))
+			if(I.flags & DROPDEL & ABSTRACT)
 				qdel(I)
 
 		// this would be put_in_hands() if it didn't have the chance to sleep, since this proc gets called from a signal handler that relies on what this returns
