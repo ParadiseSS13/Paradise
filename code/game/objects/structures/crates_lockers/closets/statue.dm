@@ -120,6 +120,7 @@
 
 /obj/structure/closet/statue/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	timer = 120
 
 /obj/structure/closet/statue/indestructible/ex_act(severity)
 	return //No delimbing them

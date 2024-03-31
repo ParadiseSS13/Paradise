@@ -2,7 +2,7 @@
 	name = "Enchanted tarot card deck"
 	desc = "This tarot card box has quite the aray of runes and artwork on it."
 	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "card_holder"
+	icon_state = "tarot_box"
 	w_class = WEIGHT_CLASS_SMALL
 	/// What is the maximum number of cards the tarot generator can have in the world at a time?
 	var/maximum_cards = 3
@@ -46,7 +46,7 @@
 	name = "\improper Enchanted Arcana Pack"
 	desc = "A pack of 3 Enchanted tarot cards. Collect them all!"
 	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "card_holder"
+	icon_state = "pack"
 	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
 	var/cards = 3
 
@@ -62,11 +62,13 @@
 /obj/item/tarot_card_pack/jumbo
 	name = "\improper Jumbo Arcana Pack"
 	desc = "A Jumbo card pack from your friend Jimbo!"
+	icon_state = "jumbopack"
 	cards = 5
 
 /obj/item/tarot_card_pack/mega
 	name = "\improper MEGA Arcana Pack"
 	desc = "Sadly, you won't find a Joker for an angel room, or a Soul card in here either."
+	icon_state = "megapack"
 	cards = 7
 
 // Blank tarot cards. Made by the cult, however also good for space ruins potentially, where one feels a card pack would be too much?
@@ -144,6 +146,8 @@
 	var/datum/tarot/our_tarot
 	/// Our fancy description given to use by the tarot datum.
 	var/card_desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
+	///Is the card face down? Shows the card back, hides the examine / name.
+	var/face_down = FALSE
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -165,18 +169,38 @@
 
 /obj/item/magic_tarot_card/examine(mob/user)
 	. = ..()
-	. += "<span class='hierophant'>[card_desc]</span>"
+	if(!face_down)
+		. += "<span class='hierophant'>[card_desc]</span>"
+	. += "<span class='hierophant'>Alt-Shift-Click to flip the card over.</span>"
 
 /obj/item/magic_tarot_card/attack_self(mob/user)
 	if(our_tarot)
 		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user)
 	poof()
 
+/obj/item/magic_tarot_card/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	if(face_down)
+		flip()
+	. = ..()
+
 /obj/item/magic_tarot_card/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(hit_atom) && our_tarot)
 		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), hit_atom)
 	poof()
+
+/obj/item/magic_tarot_card/AltShiftClick(mob/user)
+	flip()
+
+/obj/item/magic_tarot_card/proc/flip()
+	if(!face_down)
+		icon_state = "cardback[our_tarot.reversed ? "?" : ""]"
+		name = "Enchanted tarot card"
+		face_down = TRUE
+	else
+		name = our_tarot.name
+		icon_state = "tarot_[our_tarot.card_icon]"
+		face_down = FALSE
 
 /obj/item/magic_tarot_card/proc/poof()
 	new /obj/effect/temp_visual/revenant(get_turf(src))
@@ -194,6 +218,8 @@
 	var/desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
 	/// What icon is used for the card?
 	var/card_icon = "the_unknown"
+	/// Are we reversed? Used for the card back.
+	var/reversed = FALSE
 
 /datum/tarot/proc/activate(mob/living/target)
 	message_admins("Uh oh! A bugged tarot card was spawned and used. Please make an issue report! Type was [src.type]")
@@ -202,6 +228,7 @@
 	name = "XXII - The Unknown?"
 	desc = "Untold answers... wait what? This is a bug, report this as an issue on github! This one was a reversed arcana!"
 	card_icon = "the_unknown?"
+	reversed = TRUE
 
 /datum/tarot/the_fool
 	name = "0 - The Fool"
@@ -318,6 +345,7 @@
 		var/mob/living/carbon/human/H = target
 		H.adjustBruteLoss(-40, robotic = TRUE)
 		H.adjustFireLoss(-40, robotic = TRUE)
+		H.blood_volume = min(H.blood_volume + 100, BLOOD_VOLUME_NORMAL)
 	else
 		target.adjustBruteLoss(-40)
 		target.adjustFireLoss(-40)

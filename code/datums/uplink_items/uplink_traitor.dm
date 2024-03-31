@@ -309,7 +309,7 @@
 
 /datum/uplink_item/jobspecific/tarot_generator
 	name = "Enchanted tarot card deck"
-	desc = "An magic tarot card deck \"borrowed\" from a Wizard federation storage unit. \
+	desc = "A magic tarot card deck \"borrowed\" from a Wizard federation storage unit. \
 	Capable of producing magic tarot cards of the 22 major arcana, and reversed. Each card has a diffrent effect. \
 	Throw the card at someone to use it on them, or use it on hand to apply it to yourself. Unlimited uses, 25 second cooldown, can have up to 3 cards in the world."
 	reference = "tarot"
