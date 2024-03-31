@@ -1749,7 +1749,7 @@
 	emag_act(user)
 
 /obj/item/toy/joy_buzzer/suicide_act(mob/living/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is strapping [src] to [user.p_their()] [ismachineperson(user) ? "charging port" : "tongue"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is strapping [src] to [user.p_their()] [ismachineperson(user) ? "charging cable" : "tongue"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	user.AdjustStunned(8 SECONDS)
 	sleep(25)
 	playsound(src, 'sound/effects/sparks3.ogg', 20)
