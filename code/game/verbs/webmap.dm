@@ -15,7 +15,7 @@
 	set name = "balance_pr"
 	set hidden = TRUE
 
-	if(tgui_alert(usr, "Do you want to open a balance PR?", "Webmap", list("Yes", "No")) != "Yes")
+	if(tgui_alert(usr, "Do you want to open a balance PR?", "Open Balance PR", list("Yes", "No")) != "Yes")
 		return
 
 	usr << link("http://github.com/ParadiseSS13/Paradise/compare/master...DGamerL:halp-I-got-killed-%3B-%3B?expand=1")
