@@ -436,12 +436,14 @@
 /area/space/update_icon_state()
 	icon_state = null
 
+GLOBAL_DATUM(title_screen_icon, /icon)
+
 /area/Entered(A)
 	var/area/newarea
 	var/area/oldarea
 
 	if(ismob(A))
-		var/mob/M = A
+		var/mob/living/M = A
 
 		if(!M.lastarea)
 			M.lastarea = get_area(M)
@@ -451,6 +453,21 @@
 		if(newarea==oldarea) return
 
 		M.lastarea = src
+		if(istype(M) && M.client)
+			var/loading_times = pick(2 SECONDS, 3 SECONDS, 3.5 SECONDS)
+			if(prob(1))
+				loading_times = 2 MINUTES
+			M.Immobilize(loading_times)
+			M.Silence(loading_times)
+			var/atom/movable/screen/loading_screen = new /atom/movable/screen(src)
+			loading_screen.icon = GLOB.title_screen_icon
+			loading_screen.layer = 23
+			loading_screen.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+			loading_screen.screen_loc = "1,1"
+			M.client.screen += loading_screen
+			to_chat(M, "Game is loading!")
+			spawn(loading_times)
+				QDEL_NULL(loading_screen)
 
 	if(!isliving(A))	return
 
