@@ -209,7 +209,70 @@
 	given_x = round(icon_x - world.icon_size * our_x, 1)
 	given_y = round(icon_y - world.icon_size * our_y, 1)
 
-
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER
+
+/atom/movable/screen/fullscreen/robusted
+	name = "robusted"
+	icon_state = "robusted"
+	layer = 2 // Just under the hud layer
+	opacity = 1
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = -1
+	var/atom/movable/screen/fullscreen/robusted/robusted
+	var/atom/movable/screen/fullscreen/robusted/respawn/respawn
+	var/atom/movable/screen/fullscreen/robusted/open_pr/open_pr
+	var/timer
+
+/atom/movable/screen/fullscreen/robusted/Initialize(mapload)
+	. = ..()
+	timer = addtimer(CALLBACK(src, PROC_REF(qdel), src), 20 SECONDS)
+
+/atom/movable/screen/fullscreen/robusted/Click(location, control, params)
+	. = ..()
+	qdel(src)
+
+/atom/movable/screen/fullscreen/robusted/Destroy()
+	. = ..()
+	if(respawn && !QDELETED(respawn))
+		qdel(respawn)
+	if(open_pr && !QDELETED(respawn))
+		qdel(open_pr)
+	timer = null
+
+/atom/movable/screen/fullscreen/robusted/respawn
+	name = "Respawn?"
+	icon_state = "respawn"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	layer = 20.9 // Just under the hud layer
+
+/atom/movable/screen/fullscreen/robusted/respawn/Destroy()
+	. = ..()
+	if(robusted && !QDELETED(robusted))
+		qdel(robusted)
+
+/atom/movable/screen/fullscreen/robusted/respawn/Click(location,control,params)
+	for(var/atom/atom in GLOB.skeleton_spawners)
+		var/turf/spawn_turf = get_turf(atom)
+		if(!istype(spawn_turf))
+			continue
+		var/mob/living/carbon/human/skeleton/skeleton_mob = new(spawn_turf)
+		skeleton_mob.key = usr.key
+		break
+
+/atom/movable/screen/fullscreen/robusted/open_pr
+	name = "Open balance PR!"
+	icon_state = "open_pr"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	layer = 20.9 // Just under the hud layer
+
+/atom/movable/screen/fullscreen/robusted/open_pr/Click(location, control, params)
+	. = ..()
+	if(usr.client)
+		usr.client.open_balance_pr()
+
+/atom/movable/screen/fullscreen/robusted/open_pr/Destroy()
+	. = ..()
+	if(robusted && !QDELETED(robusted))
+		qdel(robusted)
