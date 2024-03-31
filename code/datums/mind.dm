@@ -166,7 +166,7 @@
 	if(ishuman(new_character))
 		var/mob/living/carbon/human/H = new_character
 		if(H.mind in SSticker.mode.syndicates)
-			SSticker.mode.update_synd_icons_added()
+			SSticker.mode.update_synd_icons_added(H.mind)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
