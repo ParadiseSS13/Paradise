@@ -471,7 +471,7 @@
 		reagent_id = select_medication(C, beaker_injection)
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
-		var/list/messagevoice = list("All patched up!" = 'sound/voice/mpatchedup.ogg', "An apple a day keeps me away." = 'sound/voice/mapple.ogg', "Feel better soon!" = 'sound/voice/mfeelbetter.ogg')
+		var/list/messagevoice = list("AAAAAAA!" = 'sound/voice/medbot_scream.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
 		playsound(loc, messagevoice[message], 50, FALSE)
@@ -481,6 +481,7 @@
 		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
+		playsound(loc, messagevoice[message], 50, FALSE)
 		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
