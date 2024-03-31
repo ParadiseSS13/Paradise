@@ -290,7 +290,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(check_screw_size())
+	if(check_screw_size(user, I))
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -572,7 +572,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(check_screw_size())
+	if(check_screw_size(user, I))
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -639,7 +639,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(check_screw_size())
+	if(check_screw_size(user, I))
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

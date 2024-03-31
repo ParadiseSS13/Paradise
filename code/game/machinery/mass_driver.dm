@@ -158,7 +158,7 @@
 /obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
 	if(build != 4)
 		return
-	if(check_screw_size())
+	if(check_screw_size(user, I))
 		return
 
 	to_chat(user, "<span class='notice'>You finalize the Mass Driver.</span>")
