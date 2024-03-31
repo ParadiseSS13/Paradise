@@ -1710,3 +1710,78 @@
 	throwforce = 0
 	breakouttime = 0
 	ignoresClumsy = TRUE
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣶⣶⣶⣶⣤⣤⣀⣀⠀⠀⠙⢿⣷⣶⣶⣤⣤⣤⣤⣠⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀
+⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀
+⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆
+⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
+⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣻⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃
+⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡶⠿⣿⣿⣿⠿⢿⣿⠟⠁⠀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠧⢠⣽⣤⣤⣴⣾⠇⠀⠀⠀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠚⠋⠀⢸⡆⠀⠀⠀
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀
+⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀
+⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⣀⣤⣿⠇⠀⠀⠀⠀
+⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⢻⣿⡿⠀⠀⠀⠀⠀
+⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⠀⢸⡿⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⠙⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⡾⠃⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠙⠛⠛⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠉⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⣈⢉⠉⠉⠉⠉⠉⠉⠉⢉⢉⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+*/
+
+/obj/item/toy/plushie/maxwell
+	name = "Maxwell"
+	desc = "IT'S MAXWELL!!!!!!!"
+	icon_state = "maxwell"
+	var/is_active = FALSE
+	var/event_spawn = FALSE
+	var/datum/looping_sound/maxwell/soundloop
+
+/obj/item/toy/plushie/maxwell/Initialize(mapload, set_active, is_event_spawn)
+	. = ..()
+	is_active = set_active
+	event_spawn = is_event_spawn
+	soundloop = new(list(src), FALSE)
+	if(is_active)
+		soundloop.start()
+		START_PROCESSING(SSobj, src)
+
+/obj/item/toy/plushie/maxwell/Destroy()
+	GLOB.major_announcement.Announce("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. MAXWELL was destroyed! Who would do such a thing!", "MAXWELL... DESTROYED!?!??!!!", 'sound/items/nanyaaa.ogg')
+	remove_filter("ray")
+	GLOB.poi_list.Remove(src)
+	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
+	return ..()
+
+/obj/item/toy/plushie/maxwell/attack_self(mob/user)
+	. = ..()
+	if(!is_active)
+		soundloop.start()
+		is_active = TRUE
+		START_PROCESSING(SSobj, src)
+	else
+		soundloop.stop()
+		is_active = FALSE
+		remove_filter("ray")
+		STOP_PROCESSING(SSobj, src)
+
+/obj/item/toy/plushie/maxwell/process()
+	. = ..()
+	if(is_active)
+		var/new_filter = isnull(get_filter("ray"))
+		ray_filter_helper(1, 40,"#ffffff", 6, 20)
+		if(new_filter)
+			animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+			animate(offset = 0, time = 10 SECONDS)
+
+/obj/item/toy/plushie/maxwell/pickup(mob/user)
+	. = ..()
+	playsound(src, 'sound/creatures/cat_meow.ogg', 100, TRUE)
+	if(event_spawn)
+		GLOB.major_announcement.Announce("The legendary MAXWELL has been found by [user.name]! What a silly kitty!", "MAXWELL FOUND!!!", 'sound/items/maxwell.ogg')
+		event_spawn = FALSE
