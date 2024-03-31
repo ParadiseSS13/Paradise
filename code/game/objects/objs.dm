@@ -327,6 +327,8 @@
 	screw_size = s
 
 /obj/proc/check_screw_size(mob/U, obj/item/screwdriver/S)
+	if(!U || !S)
+		return FALSE // to be safe, let things done by default in case some args aren't passed
 	if(S.multiheaded)
 		return FALSE
 	if(screw_size > S.head_size)
