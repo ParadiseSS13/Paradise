@@ -137,6 +137,7 @@
 	return TRUE
 
 /obj/tgvehicle/proc/after_remove_occupant(mob/M)
+	return
 
 /obj/tgvehicle/relaymove(mob/living/user, direction)
 	if(!canmove)
