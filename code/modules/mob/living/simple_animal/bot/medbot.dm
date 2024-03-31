@@ -289,7 +289,7 @@
 			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/medbot_scream.ogg', "Wait [H.name]! I want to help!" = 'sound/voice/medbot_scream.ogg', "[H.name], you appear to be injured!" = 'sound/voice/medbot_scream.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
-			playsound(loc, messagevoice[message], 50, FALSE)
+			playsound(loc, messagevoice[message], 20, FALSE)
 			last_newpatient_speak = world.time
 		return H
 	else
@@ -311,7 +311,7 @@
 			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/medbot_scream.ogg', "There's always a catch, and I'm the best there is." = 'sound/voice/medbot_scream.ogg', "I knew it, I should've been a plastic surgeon." = 'sound/voice/medbot_scream.ogg', "What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/medbot_scream.ogg', "Delicious!" = 'sound/voice/medbot_scream.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
-			playsound(loc, messagevoice[message], 50, FALSE)
+			playsound(loc, messagevoice[message], 20, FALSE)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
 		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
 		oldpatient = patient
@@ -456,7 +456,7 @@
 		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/medbot_scream.ogg', "Live, damnit! LIVE!" = 'sound/voice/medbot_scream.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/medbot_scream.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
+		playsound(loc, messagevoice[message], 20, FALSE)
 		oldpatient = patient
 		soft_reset()
 		return
@@ -474,14 +474,14 @@
 		var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot_scream.ogg', "An apple a day keeps me away." = 'sound/voice/medbot_scream.ogg', "Feel better soon!" = 'sound/voice/medbot_scream.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
+		playsound(loc, messagevoice[message], 20, FALSE)
 		bot_reset()
 		return
 	else
 		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
-		playsound(loc, 'sound/voice/medbot_scream.ogg', 10, FALSE)
+		playsound(loc, 'sound/voice/medbot_scream.ogg', 20, FALSE)
 		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
