@@ -8,11 +8,11 @@
 @use '../functions.scss' as *;
 
 $color-default: colors.bg(colors.$primary) !default;
-$color-disabled: #a60037 !default;
+$color-disabled: #ff0054 !default;
 $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
-$color-transparent-text: rgba(255, 255, 255, 0.5) !default;
+$color-transparent-text: rgba(255, 255, 255, 0.75) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
