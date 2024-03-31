@@ -18,7 +18,7 @@
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
 
-s
+
 	var/blood = TRUE
 	var/list/target_types = list()
 	var/obj/effect/decal/cleanable/target
