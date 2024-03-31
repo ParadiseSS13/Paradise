@@ -224,6 +224,6 @@
 	if(!reagents)
 		return
 	var/datum/effect_system/smoke_spread/smoke = new
-	var/smokes_to_make = clamp(round(reagents.total_volume/10), 1, 10) //Each grown object can make up to 10 smokes each but the global limit stops it from getting too laggy
+	var/smokes_to_make = clamp(round(reagents.total_volume / 10), 1, 10) //Each grown object can make up to 10 smokes each but the global limit stops it from getting too laggy
 	smoke.set_up(smokes_to_make, FALSE, src, null, reagents)
 	smoke.start()
