@@ -135,6 +135,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	/// Whether this object can be used to hit ANY other object.
+	var/can_hit_anything = FALSE
+
 /obj/item/New()
 	..()
 
