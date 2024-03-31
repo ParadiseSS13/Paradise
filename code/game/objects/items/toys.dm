@@ -1745,6 +1745,7 @@
 /obj/item/toy/plushie/maxwell/Destroy()
 	GLOB.major_announcement.Announce("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. MAXWELL was destroyed! Who would do such a thing!", "MAXWELL... DESTROYED!?!??!!!", 'sound/creatures/cat_meow.ogg')
 	remove_filter("ray")
+	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(soundloop)
 	return ..()
@@ -1772,7 +1773,7 @@
 
 /obj/item/toy/plushie/maxwell/pickup(mob/user)
 	. = ..()
-	playsound(src, 'sound/creatures/cat_meow.ogg')
+	playsound(src, 'sound/creatures/cat_meow.ogg', 100, TRUE)
 	if(event_spawn)
 		GLOB.major_announcement.Announce("The legendary MAXWELL has been found by [user.name]! What a silly kitty!", "MAXWELL FOUND!!!", 'sound/items/maxwell.ogg')
 		event_spawn = FALSE

@@ -14,5 +14,7 @@
 /datum/event/spawn_maxwell/start()
     var/turf/spawn_loc = get_spawn_loc()
     var/obj/item/toy/plushie/maxwell/maxwell = new /obj/item/toy/plushie/maxwell(spawn_loc, TRUE, TRUE)
+    GLOB.poi_list.Add(maxwell)
     GLOB.major_announcement.Announce("A legendary MAXWELL has appeared on [station_name()]! All personnel must attempt to retrieve the cat!", "MAXWELL!!!", 'sound/items/maxwell.ogg')
     announce_to_ghosts(maxwell)
+    
