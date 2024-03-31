@@ -24,7 +24,7 @@
 					buckled_mob.pixel_x = 8
 					buckled_mob.pixel_y = 10
 
-/obj/vehicle/hypnodisc/Bump(atom/movable/M)
+/obj/vehicle/hypnodisc/Bump(atom/A)
 	// Handle doors
 	..()
 
@@ -32,14 +32,32 @@
 		// No murder if no one is on it
 		return
 
-	if(!istype(M, /mob/living/carbon/human))
-		// No murdering non humans
-		return
 
-	var/mob/living/carbon/human/H = M
+	if(istype(A, /mob/living/carbon/human))
+		// Handle human damage
+		var/mob/living/carbon/human/H = A
 
-	H.adjustBruteLoss(75) // Youve been hit with a bigass spinning disc - its going to hurt
-	// We ignore canstun here, need to knock people over to avoid chain damage
-	H.Stun(10 SECONDS, TRUE)
-	H.Weaken(10 SECONDS, TRUE)
+		H.adjustBruteLoss(75) // Youve been hit with a bigass spinning disc - its going to hurt
+		// We ignore canstun here, need to knock people over to avoid chain damage
+		H.Stun(10 SECONDS, TRUE)
+		H.Weaken(10 SECONDS, TRUE)
 
+
+	if(istype(A, /turf/simulated/wall))
+		var/wall_damage = 25 // Base wall damage
+
+		if(istype(A, /turf/simulated/wall/r_wall))
+			wall_damage = 50 // More damage for rwalls
+
+		var/turf/simulated/wall/W = A
+		W.take_damage(wall_damage)
+
+
+	if(istype(A, /obj/machinery/door))
+		return // We already handled doors
+
+
+	if(istype(A, /obj))
+		// Damage objects
+		var/obj/O = A
+		O.take_damage(50)
