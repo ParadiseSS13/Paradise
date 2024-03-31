@@ -590,7 +590,7 @@
 
 /obj/item/food/snacks/yumyum
 	name = "yum yum"
-	desc = "PLACEHOLDER."
+	desc = "I would call it 'yum yum yum', two yums aren't enough."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "yumyum"
 	filling_color = "#E7D8AB"
@@ -600,7 +600,7 @@
 
 /obj/item/food/snacks/belgianbun
 	name = "belgian bun"
-	desc = "PLACEHOLDER."
+	desc = "Probably something your nan enjoys."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "belgianbun"
 	filling_color = "#E7D8AB"
@@ -610,7 +610,7 @@
 
 /obj/item/food/snacks/steakbake
 	name = "steak bake"
-	desc = "PLACEHOLDER."
+	desc = "The bake where boys become men."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "steakbake"
 	filling_color = "#532c11"
@@ -620,7 +620,7 @@
 
 /obj/item/food/snacks/cheesebeanmelt
 	name = "sausage, cheese and bean melt"
-	desc = "PLACEHOLDER."
+	desc = "FUCK, why is the cheese and beans so hot?"
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "cheesebeanmelt"
 	filling_color = "#dfc14a"
@@ -630,7 +630,7 @@
 
 /obj/item/food/snacks/sausageroll
 	name = "sausage roll"
-	desc = "PLACEHOLDER."
+	desc = "A classic you must order if you are truly British."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "sausageroll"
 	filling_color = "#dfc14a"
@@ -640,13 +640,13 @@
 
 /obj/item/food/snacks/vegansausageroll
 	name = "vegan sausage roll"
-	desc = "PLACEHOLDER."
+	desc = "Tastes almost like the real thing, surprisingly."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "vegansausageroll"
 	filling_color = "#dfc14a"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
-	tastes = list("soy" = 1, "flaky dough" = 1)
+	tastes = list("soy" = 1, "flaky dough" = 1, "mimic of a sausage" = 1)
 
 /obj/item/food/snacks/croissant
 	name = "croissant"
