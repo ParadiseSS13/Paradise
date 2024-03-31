@@ -1743,7 +1743,7 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/toy/plushie/maxwell/Destroy()
-	GLOB.major_announcement.Announce("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. MAXWELL was destroyed! Who would do such a thing!", "MAXWELL... DESTROYED!?!??!!!", 'sound/creatures/cat_meow.ogg')
+	GLOB.major_announcement.Announce("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. MAXWELL was destroyed! Who would do such a thing!", "MAXWELL... DESTROYED!?!??!!!", 'sound/creatures/nanyaaa.ogg')
 	remove_filter("ray")
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
