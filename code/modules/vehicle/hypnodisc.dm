@@ -40,6 +40,6 @@
 
 	H.adjustBruteLoss(75) // Youve been hit with a bigass spinning disc - its going to hurt
 	// We ignore canstun here, need to knock people over to avoid chain damage
-	H.Stun(100, TRUE)
-	H.Weaken(100, TRUE)
+	H.Stun(10 SECONDS, TRUE)
+	H.Weaken(10 SECONDS, TRUE)
 
