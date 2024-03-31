@@ -87,7 +87,7 @@
 
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
-	var/datum/reagents/chemicals_to_add = null
+	var/datum/reagents/chemicals_to_add
 	var/units_per_smoke = 0
 	var/direction
 
