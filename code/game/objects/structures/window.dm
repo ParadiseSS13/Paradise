@@ -251,6 +251,8 @@
 	. = TRUE
 	if(!can_be_reached(user))
 		return
+	if(check_screw_size(user, I))
+		return
 	if(reinf)
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)

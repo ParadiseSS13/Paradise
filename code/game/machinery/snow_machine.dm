@@ -48,6 +48,8 @@
 		return TRUE
 
 /obj/machinery/snow_machine/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "snow_machine_openpanel", "snow_machine_off", I))
 		turn_on_or_off(FALSE)
 		return TRUE

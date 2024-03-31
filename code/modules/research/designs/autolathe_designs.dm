@@ -74,13 +74,46 @@
 	build_path = /obj/item/weldingtool/mini
 	category = list("initial","Tools")
 
-/datum/design/screwdriver
-	name = "Screwdriver"
-	id = "screwdriver"
+/datum/design/screwdriver0
+	name = "Screwdriver (size 1)"
+	id = "screwdriver0"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 350)
-	build_path = /obj/item/screwdriver
+	build_path = /obj/item/screwdriver/zero
 	category = list("initial","Tools")
+
+/datum/design/screwdriver1
+	name = "Screwdriver (size 2)"
+	id = "screwdriver1"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 350)
+	build_path = /obj/item/screwdriver/one
+	category = list("initial","Tools")
+
+/datum/design/screwdriver2
+	name = "Screwdriver (size 3)"
+	id = "screwdriver2"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 350)
+	build_path = /obj/item/screwdriver/two
+	category = list("initial","Tools")
+	
+/datum/design/screwdriver3
+	name = "Screwdriver (size 4)"
+	id = "screwdriver3"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 350)
+	build_path = /obj/item/screwdriver/three
+	category = list("initial","Tools")
+	
+/datum/design/screwdriver4
+	name = "Screwdriver (size 5)"
+	id = "screwdriver4"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 350)
+	build_path = /obj/item/screwdriver/four
+	category = list("initial","Tools")
+
 
 /datum/design/wirecutters
 	name = "Wirecutters"

@@ -33,6 +33,11 @@
 	linked_emote = /datum/emote/living/choke
 	name = "Choke"
 
+// just putting this here so CI clears
+/datum/keybinding/emote/carbon/fuck
+	linked_emote = /datum/emote/living/carbon/human/aaauuuggghhh
+	name = "lmao"
+
 /datum/keybinding/emote/collapse
 	linked_emote = /datum/emote/living/collapse
 	name = "Collapse"

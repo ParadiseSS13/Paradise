@@ -119,6 +119,40 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	// hehe
+	// try catch here so if it fails it doesn't actually kill the server
+	try
+		var/area/meeting_area
+		for(var/area/station/command/meeting_room/meet in world)
+			meeting_area = meet
+
+		if(!meeting_area)
+			// failing that
+			for(var/area/station/command/bridge/br in world)
+				meeting_area = br
+
+		if(!meeting_area)
+			return
+
+		var/atom/sur_le_table = locate(/obj/structure/table) in meeting_area
+		if(sur_le_table)
+			new /obj/structure/emergency_meeting_button(get_turf(sur_le_table))
+
+		if(prob(30))
+			var/list/station_areas = list()
+			for(var/area/station/ar in world)
+				station_areas += ar
+			var/area/chosen_area = pick(station_areas)
+			var/list/turfs = list()
+			for(var/turf/tu in chosen_area)
+				turfs += tu
+			var/turf/chosen = pick(turfs)
+			new /obj/structure/emergency_meeting_button/somewhere(chosen)
+			log_debug("hehe")
+	catch
+		log_debug("xd")
+
+
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
 	// load in extra levels of space ruins

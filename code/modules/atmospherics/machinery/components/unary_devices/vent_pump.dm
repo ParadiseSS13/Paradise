@@ -208,6 +208,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
 	if(welded)
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
 	if(do_after(user, 20 * I.toolspeed, target = src))
 		I.play_tool_sound(src)

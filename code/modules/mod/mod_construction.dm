@@ -34,6 +34,8 @@
 
 /obj/item/mod/construction/broken_core/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
+	if(check_screw_size(user, tool))
+		return TRUE
 	if(!tool.use_tool(src, user, 5 SECONDS, volume = 30))
 		return
 	new /obj/item/mod/core/standard(drop_location())

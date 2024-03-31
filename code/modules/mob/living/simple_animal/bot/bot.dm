@@ -1102,6 +1102,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		to_chat(src, "0. [paicard.pai.pai_law0]")
 	if(emagged)
 		to_chat(src, "<span class='danger'>1. #$!@#$32K#$</span>")
+	else if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(src, "<span class='sans'>1. Be funny.</span>")
 	else
 		to_chat(src, "1. You are a machine built to serve the station's crew and AI(s).")
 		to_chat(src, "2. Your function is to [bot_purpose].")

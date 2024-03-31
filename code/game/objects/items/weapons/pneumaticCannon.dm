@@ -90,6 +90,8 @@
 	load_item(W, user)
 
 /obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	remove_tank(user)
 	return TRUE
 

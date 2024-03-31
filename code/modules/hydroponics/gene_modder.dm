@@ -53,25 +53,49 @@
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 3)
-			max_potency = 95
-		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95 	 Clamps at 100
-
-		max_yield = initial(max_yield) + (M.rating*2) // 4,6,8,10 	Clamps at 10
+		switch(M.rating)
+			if(1)
+				max_potency = 51
+				max_yield = 4
+			if(2)
+				max_potency = 95
+				max_yield = 10
+			if(3)
+				max_potency = 77
+				max_yield = 8
+			else
+				max_potency = 58
+				max_yield = 6
 
 	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
-		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
-			min_production = 1
-		else
-			min_production = 12 - (SM.rating * 3) //9,6,3,1. Requires if to avoid going below clamp [1]
-
-		max_endurance = initial(max_endurance) + (SM.rating * 25) // 35,60,85,100	Clamps at 10min 100max
+		switch(SM.rating)
+			if(1)
+				min_production = 9
+				max_endurance = 35
+			if(2)
+				min_production = 1
+				max_endurance = 100
+			if(3)
+				min_production = 3
+				max_endurance = 85
+			else
+				min_production = 6
+				max_endurance = 60
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
-		var/weed_rate_mod = ML.rating * 2.5
-		min_weed_rate = FLOOR(10-weed_rate_mod, 1) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_weed_chance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
+		switch(ML.rating)
+			if(1)
+				min_weed_rate = 7
+				min_weed_chance = 48
+			if(2)
+				min_weed_rate = 0
+				min_weed_chance = 3
+			if(3)
+				min_weed_rate = 2
+				min_weed_chance = 19
+			else
+				min_weed_rate = 5
+				min_weed_chance = 35
 
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS

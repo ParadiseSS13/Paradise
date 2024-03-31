@@ -350,6 +350,8 @@
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(gun_light && can_flashlight)
@@ -469,6 +471,9 @@
 	semicd = 0
 
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
+
+	if(user == target)
+		playsound(src, 'sound/voice/now.ogg', 80, TRUE)
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5
