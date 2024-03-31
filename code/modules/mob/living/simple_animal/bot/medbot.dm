@@ -5,7 +5,7 @@
 
 //Medbot
 /mob/living/simple_animal/bot/medbot
-	name = "\improper Medibot"
+	name = "\improper Pillbot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
@@ -120,7 +120,7 @@
 /mob/living/simple_animal/bot/medbot/update_overlays()
 	. = ..()
 	if(skin)
-		. += "medskin_[skin]"
+		to_chat(src, "<span>We are testing Pillbot, no skins today</span>")
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
