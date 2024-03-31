@@ -1024,6 +1024,27 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
 
+	if(method == REAGENT_TOUCH)
+		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
+			return
+		if(volume > 25)
+			if(prob(75))
+				H.take_organ_damage(5, 10)
+				H.emote("scream")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
+				if(affecting)
+					affecting.disfigure()
+			else
+				H.take_organ_damage(5, 10)
+		else
+			H.take_organ_damage(5, 10)
+	else
+		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.emote("scream")
+			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
 
@@ -1078,28 +1099,3 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ("head")
 		return HD?.hair_colour
-
-
-/datum/species/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
-	. = ..()
-
-	if(method == REAGENT_TOUCH)
-		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
-			return
-		if(volume > 25)
-			if(prob(75))
-				H.take_organ_damage(5, 10)
-				H.emote("scream")
-				var/obj/item/organ/external/affecting = H.get_organ("head")
-				if(affecting)
-					affecting.disfigure()
-			else
-				H.take_organ_damage(5, 10)
-		else
-			H.take_organ_damage(5, 10)
-	else
-		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-		if(volume >= 10)
-			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
-			H.emote("scream")
-			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
