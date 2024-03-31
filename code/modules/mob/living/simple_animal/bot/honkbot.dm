@@ -207,6 +207,16 @@
 	C.SetDeaf(0)
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
 
+/mob/living/simple_animal/bot/honkbot/proc/cuff_callback(mob/living/carbon/C)
+	mode = BOT_ARREST
+	if(!do_after(src, 6 SECONDS, target = C))
+		mode = BOT_IDLE
+		return
+	if(!C.handcuffed && on)
+		C.handcuffed = new /obj/item/restraints/handcuffs/twimsts(C)
+		C.update_handcuffed()
+	mode = BOT_IDLE
+
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(spam_flag)
 		return
@@ -240,6 +250,10 @@
 	add_attack_logs(src, C, "honked by [src]")
 	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 			"<span class='userdanger'>[src] has honked you!</span>")
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
+						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
