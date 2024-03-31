@@ -190,6 +190,9 @@
 		if(!user.drop_item()) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
+		if(W.loc != user.loc)
+			// It went somewhere else, don't teleport it back.
+			return
 		if(W)
 			W.forceMove(loc)
 			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
@@ -233,7 +236,7 @@
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
 	..()
-	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
+	if(is_screen_atom(O))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
 		return
@@ -371,7 +374,7 @@
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
 	for(var/atom/A in contents)

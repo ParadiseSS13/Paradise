@@ -132,6 +132,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/belt_icon = null
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
+	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
+	var/reach = 1
 
 /obj/item/New()
 	..()
@@ -177,7 +179,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	QDEL_LIST_CONTENTS(actions)
+	// actions clear themselves from the list on cut
+	if(islist(actions))
+		for(var/datum/action/A as anything in actions)
+			qdel(A)
+		if(!isnull(actions))
+			actions.Cut()
+
 	master = null
 	return ..()
 
@@ -252,10 +260,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		MO.pixel_y = rand(-16,16)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
-
-/obj/item/afterattack(atom/target, mob/user, proximity, params)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
-	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
@@ -364,7 +368,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 							failure = 1
 							continue
 						success = 1
-						S.handle_item_insertion(IT, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
+						S.handle_item_insertion(IT, user, TRUE)	//The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
 						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
 					else if(success)
@@ -373,7 +377,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
 
 			else if(S.can_be_inserted(src))
-				S.handle_item_insertion(src)
+				S.handle_item_insertion(src, user)
 	else if(istype(I, /obj/item/stack/tape_roll))
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
@@ -904,3 +908,20 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/get_heat()
 	return
+
+/obj/item/proc/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+	if(!HAS_TRAIT(src, TRAIT_CAN_POINT_WITH) || target_atom == src)
+		return FALSE
+
+	var/pointed_object = "\the [target_atom]"
+	if(target_atom.loc in pointer_mob)
+		pointed_object += " inside [target_atom.loc]"
+
+	if(pointer_mob.a_intent == INTENT_HELP || !ismob(target_atom))
+		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src]")
+		return TRUE
+
+	target_atom.visible_message("<span class='danger'>[pointer_mob] points [src] at [pointed_object]!</span>",
+									"<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
+	SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
+	return TRUE

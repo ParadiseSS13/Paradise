@@ -621,7 +621,8 @@
 	if(!total_override)
 		..()
 
-/obj/structure/table/wood/poker //No specialties, Just a mapping object.
+/// No specialties, Just a mapping object.
+/obj/structure/table/wood/poker
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon = 'icons/obj/smooth_structures/tables/poker_table.dmi'

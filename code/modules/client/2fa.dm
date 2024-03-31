@@ -65,7 +65,7 @@
 
 
 	// If we are here, they just want to change the mode
-	var/option = alert(usr, "Would you like to change 2FA mode or disable it entirely?", "2FA Mode", "Enable (Always)", "Enable (On IP Change)", "Deactivate")
+	var/option = tgui_alert(usr, "Would you like to change 2FA mode or disable it entirely?", "2FA Mode", list("Enable (Always)", "Enable (On IP Change)", "Deactivate"))
 	switch(option)
 		if("Enable (Always)")
 			prefs._2fa_status = _2FA_ENABLED_ALWAYS
@@ -76,7 +76,7 @@
 			prefs.save_preferences(src)
 			prefs.ShowChoices(usr)
 		if("Deactivate")
-			var/confirm = alert(usr, "Are you SURE you want to deactivate 2FA?", "WARNING", "Yes", "No")
+			var/confirm = tgui_alert(usr, "Are you SURE you want to deactivate 2FA?", "WARNING", list("Yes", "No"))
 			if(confirm != "Yes")
 				return
 

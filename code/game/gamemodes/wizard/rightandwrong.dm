@@ -41,7 +41,22 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/projectile/revolver/golden,
 	/obj/item/gun/projectile/automatic/sniper_rifle,
 	/obj/item/gun/medbeam,
-	/obj/item/gun/energy/laser/scatter))
+	/obj/item/gun/energy/laser/scatter,
+	/obj/item/gun/projectile/automatic/c20r/toy/riot,
+	/obj/item/gun/projectile/shotgun/automatic/dual_tube,
+	/obj/item/gun/energy/kinetic_accelerator/experimental, // even with atmos, this thing can get scary
+	/obj/item/gun/energy/emitter,
+	/obj/item/gun/energy/spikethrower,
+	/obj/item/gun/energy/bsg/prebuilt,
+	/obj/item/gun/energy/xray,
+	/obj/item/gun/energy/plasma_pistol,
+	/obj/item/gun/projectile/automatic/pistol/APS, // whyyy is this capitalized
+	/obj/item/gun/projectile/revolver/overgrown,
+	/obj/item/gun/energy/gun/blueshield/pdw9,
+	/obj/item/gun/energy/disabler/silencer,
+	/obj/item/gun/energy/lwap,
+	/obj/item/gun/energy/arc_revolver,
+	/obj/item/gun/projectile/automatic/ak814))
 
 //if you add anything that isn't covered by the typepaths below, add it to summon_magic_objective_types
 GLOBAL_LIST_INIT(summoned_magic, list(
@@ -55,9 +70,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/spellbook/oneuse/charge,
 	/obj/item/spellbook/oneuse/summonitem,
 	/obj/item/gun/magic/wand,
-	/obj/item/gun/magic/wand/death,
 	/obj/item/gun/magic/wand/resurrection,
-	/obj/item/gun/magic/wand/polymorph,
 	/obj/item/gun/magic/wand/teleport,
 	/obj/item/gun/magic/wand/door,
 	/obj/item/gun/magic/wand/fireball,
@@ -69,7 +82,6 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/melee/ghost_sword))
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
-	/obj/item/gun/magic/staff/change,
 	/obj/item/gun/magic/staff/animate,
 	/obj/item/storage/belt/wands/full,
 	/obj/item/contract,
@@ -166,3 +178,5 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 			give_magic(H)
 		else
 			give_guns(H)
+
+#undef SPECIALIST_MAGIC_PROB

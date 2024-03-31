@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
     - master
+  merge_group:
 
 jobs:
   run_linters:
@@ -13,37 +14,47 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Cache
         uses: actions/cache@v4
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
+
       - name: Install Tools
         run: |
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
+
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
           cache: 'pip'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
           tools/ci/check_json.sh
-          tools/ci/build_tgui.sh
+          tgui/bin/tgui --ci
           python tools/ci/check_grep2.py
           python tools/ci/check_line_endings.py
           python tools/ci/check_file_names.py
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/define_sanity.py
           python -m tools.ci.check_icon_conflicts
+          python -m tools.ci.check_icon_dupenames
           python -m tools.maplint.source --github
-          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
-      - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
-        if: always()
-        with:
-          outputFile: output-annotations.txt
+
+      - name: Run DreamChecker
+        shell: bash
+        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
   odlint:
     name: Lint with OpenDream
@@ -80,7 +91,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation', '/datum/map/cerestation']
+        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation']
         byondtype: ['STABLE']
     services:
       mariadb:

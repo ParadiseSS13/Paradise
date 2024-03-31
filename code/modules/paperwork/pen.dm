@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!</span>")
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -62,7 +62,6 @@
 		"blue" = list(0.5, 0.5, 1),
 		"yellow" = list(1, 1, 0))
 	var/pen_colour_iconstate = "pencolor"
-	var/pen_colour_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
 	..()
@@ -83,8 +82,6 @@
 	var/icon/colour_overlay = new(icon, pen_colour_iconstate)
 	var/list/colours = colour_choices[colour]
 	colour_overlay.SetIntensity(colours[1], colours[2], colours[3])
-	if(pen_colour_shift)
-		colour_overlay.Shift(SOUTH, pen_colour_shift)
 	. += colour_overlay
 
 /obj/item/pen/fancy
@@ -93,16 +90,54 @@
 	icon_state = "fancypen"
 
 /obj/item/pen/multi/gold
-	name = "Gilded Pen"
+	name = "gilded pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	pen_colour_shift = 0
 
 /obj/item/pen/multi/fountain
-	name = "Engraved Fountain Pen"
-	desc = "An expensive looking pen."
+	name = "engraved fountain pen"
+	desc = "An expensive-looking pen typically issued to Nanotrasen employees."
 	icon_state = "fountainpen"
-	pen_colour_shift = 0
+
+/obj/item/pen/multi/syndicate
+	name = "syndicate fountain pen"
+	desc = "A suspicious-looking pen issued to Syndicate staff."
+	icon_state = "pen_syndie"
+
+/obj/item/pen/cap
+	name = "captain's fountain pen"
+	desc = "An expensive pen only issued to station captains."
+	icon_state = "pen_cap"
+
+/obj/item/pen/hop
+	name = "head of personnel's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of service."
+	icon_state = "pen_hop"
+
+/obj/item/pen/hos
+	name = "head of security's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of security."
+	icon_state = "pen_hos"
+
+/obj/item/pen/cmo
+	name = "chief medical officer's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of medical."
+	icon_state = "pen_cmo"
+
+/obj/item/pen/ce
+	name = "chief engineer's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of engineering."
+	icon_state = "pen_ce"
+
+/obj/item/pen/rd
+	name = "research director's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of research."
+	icon_state = "pen_rd"
+
+/obj/item/pen/qm
+	name = "quartermaster's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of cargo."
+	icon_state = "pen_qm"
 
 /*
  * Sleepypens
@@ -127,13 +162,11 @@
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
 	if(reagents.total_volume && M.reagents)
+		var/fraction = min(transfer_amount / reagents.total_volume, 1)
+		reagents.reaction(M, REAGENT_INGEST, fraction)
 		transfered = reagents.trans_to(M, transfer_amount)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
-	for(var/datum/reagent/R as anything in reagents.reagent_list)
-		if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-			continue
-		reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 
 

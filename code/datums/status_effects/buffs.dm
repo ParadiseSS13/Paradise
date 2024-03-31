@@ -4,18 +4,18 @@
 	id = "his_grace"
 	duration = -1
 	tick_interval = 4
-	alert_type = /obj/screen/alert/status_effect/his_grace
+	alert_type = /atom/movable/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
 	/// Attached His Grace toolbox
 	var/obj/item/his_grace/toolbox
 
-/obj/screen/alert/status_effect/his_grace
+/atom/movable/screen/alert/status_effect/his_grace
 	name = "His Grace"
 	desc = "His Grace hungers, and you must feed Him."
 	icon_state = "his_grace"
 	alerttooltipstyle = "hisgrace"
 
-/obj/screen/alert/status_effect/his_grace/MouseEntered(location, control, params)
+/atom/movable/screen/alert/status_effect/his_grace/MouseEntered(location, control, params)
 	desc = initial(desc)
 	var/datum/status_effect/his_grace/HG = attached_effect
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
@@ -61,9 +61,9 @@
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
 	duration = 3 SECONDS
-	alert_type = /obj/screen/alert/status_effect/shadow_mend
+	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
 
-/obj/screen/alert/status_effect/shadow_mend
+/atom/movable/screen/alert/status_effect/shadow_mend
 	name = "Shadow Mend"
 	desc = "Shadowy energies wrap around your wounds, sealing them at a price. After healing, you will slowly lose health every three seconds for thirty seconds."
 	icon_state = "shadow_mend"
@@ -88,10 +88,10 @@
 	duration = 30 SECONDS
 	tick_interval = 3 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/void_price
+	alert_type = /atom/movable/screen/alert/status_effect/void_price
 	var/price = 3 //This is how much hp you lose per tick. Each time the buff is refreshed, it increased by 1. Healing too much in a short period of time will cause your swift demise
 
-/obj/screen/alert/status_effect/void_price
+/atom/movable/screen/alert/status_effect/void_price
 	name = "Void Price"
 	desc = "Black tendrils cinch tightly against you, digging wicked barbs into your flesh."
 	icon_state = "shadow_mend"
@@ -108,10 +108,10 @@
 	id = "blooddrunk"
 	duration = 10
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
 
-/obj/screen/alert/status_effect/blooddrunk
+/atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
 	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
 	icon_state = "blooddrunk"
@@ -147,7 +147,7 @@
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.remove_stun_absorption("blooddrunk")
 
-/obj/screen/alert/status_effect/dash
+/atom/movable/screen/alert/status_effect/dash
 	name = "Dash"
 	desc = "Your have the ability to dash!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -157,16 +157,16 @@
 	id = "dash"
 	duration = 5 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/dash
+	alert_type = /atom/movable/screen/alert/status_effect/dash
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
 	duration = 30 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blood_swell
+	alert_type = /atom/movable/screen/alert/status_effect/blood_swell
 	var/bonus_damage_applied = FALSE
 
-/obj/screen/alert/status_effect/blood_swell
+/atom/movable/screen/alert/status_effect/blood_swell
 	name = "Blood Swell"
 	desc = "Your body has been infused with crimson magics, your resistance to attacks has greatly increased!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -206,9 +206,9 @@
 	id = "vampire_gladiator"
 	duration = 30 SECONDS
 	tick_interval = 1 SECONDS
-	alert_type = /obj/screen/alert/status_effect/vampire_gladiator
+	alert_type = /atom/movable/screen/alert/status_effect/vampire_gladiator
 
-/obj/screen/alert/status_effect/vampire_gladiator
+/atom/movable/screen/alert/status_effect/vampire_gladiator
 	name = "Gladiatorial Resilience"
 	desc = "Roused by the thrill of the fight, your body has become more resistant to breaking!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -408,7 +408,7 @@
 			if(!heal_points)
 				return
 
-/obj/screen/alert/status_effect/regenerative_core
+/atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
 	desc = "You can move faster than your broken body could normally handle!"
 	icon_state = "regenerative_core"
@@ -418,7 +418,7 @@
 	id = "Regenerative Core"
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /obj/screen/alert/status_effect/regenerative_core
+	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
@@ -551,9 +551,9 @@
 	id = "chainsaw_slaying"
 	duration = 5 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/chainsaw
+	alert_type = /atom/movable/screen/alert/status_effect/chainsaw
 
-/obj/screen/alert/status_effect/chainsaw
+/atom/movable/screen/alert/status_effect/chainsaw
 	name = "Revved up!"
 	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
 	icon_state = "chainsaw"
@@ -585,9 +585,9 @@
 	duration = -1
 	tick_interval = 2 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /obj/screen/alert/status_effect/hope
+	alert_type = /atom/movable/screen/alert/status_effect/hope
 
-/obj/screen/alert/status_effect/hope
+/atom/movable/screen/alert/status_effect/hope
 	name = "Hope."
 	desc = "A ray of hope beyond dispair."
 	icon_state = "hope"
@@ -640,13 +640,13 @@
 	return ..()
 
 /datum/status_effect/drill_payback/on_apply()
-	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
 	return TRUE
 
 /datum/status_effect/drill_payback/proc/payback_phase_2()
 	owner.clear_fullscreen("payback")
-	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
 
 /datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
@@ -735,6 +735,10 @@
 	SIGNAL_HANDLER
 	if(!(attacker.a_intent in list(INTENT_DISARM, INTENT_HARM)))
 		return
+	if(!victim.AmountParalyzed())
+		stack_trace("/datum/status_effect/rev_protection was on [victim] despite them not being paralyzed. This status effect should last the same amount of time as them being paralyzed.")
+		qdel(src)
+		return
 	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
 		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
 		attacker.changeNext_move(CLICK_CD_MELEE)
@@ -752,9 +756,9 @@
 	id = "bearserker rage"
 	duration = 5 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/bearserker_rage
+	alert_type = /atom/movable/screen/alert/status_effect/bearserker_rage
 
-/obj/screen/alert/status_effect/bearserker_rage
+/atom/movable/screen/alert/status_effect/bearserker_rage
 	name = "Bearserker Rage"
 	desc = "<span class='danger'>Blood flows between your fingers, and Foh'Sie roars; \"MORE BLOOD!\"</span>"
 	icon_state = "bearserker"

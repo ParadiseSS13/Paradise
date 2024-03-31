@@ -34,7 +34,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()
 	if(occupant)
-		if(occupant.is_dead())
+		if(occupant.stat == DEAD)
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
@@ -49,8 +49,8 @@
 	else
 		set_light(0)
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -62,8 +62,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -156,6 +156,7 @@
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
+			QDEL_LIST_CONTENTS(L.grabbed_by)
 		SStgui.update_uis(src)
 	return TRUE
 
@@ -412,7 +413,7 @@
 
 	occupant.forceMove(get_step(loc, SOUTH)) // Doesn't account for walls
 
-	if(occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected
+	if(ishuman(occupant) && occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected. Xenos also fit in these and they don't have dna
 		occupant.bodytemperature = occupant.dna.species.cold_level_1
 
 	occupant = null
@@ -481,7 +482,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
-	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.

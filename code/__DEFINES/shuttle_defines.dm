@@ -7,9 +7,9 @@
 #define DOCKING_NULL_SOURCE			(1<<4)
 
 //Rotation params
-#define ROTATE_DIR 1
-#define ROTATE_SMOOTH 2
-#define ROTATE_OFFSET 4
+#define ROTATE_DIR      (1<<0)
+#define ROTATE_SMOOTH   (1<<1)
+#define ROTATE_OFFSET   (1<<2)
 
 #define SHUTTLE_DOCKER_LANDING_CLEAR 1
 #define SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT 2

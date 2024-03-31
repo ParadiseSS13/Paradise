@@ -162,9 +162,9 @@
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
+	dwidth = 6
+	height = 19
+	width = 12
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -222,6 +222,9 @@
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
+
+	/// The speed factor for this shuttle. Higher means faster.
+	var/shuttle_speed_factor = 1
 
 	var/mob/last_caller				// Who called the shuttle the last time
 
@@ -366,7 +369,7 @@
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1, , TRUE))
+		if(dock(S1, null, TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
@@ -694,8 +697,8 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(callTime/divisor, 1)
-	return max( round((timer+callTime-world.time)/divisor,1), 0 )
+		return round((callTime / shuttle_speed_factor) / divisor, 1)
+	return max(round(((timer + callTime - world.time) / divisor) / shuttle_speed_factor, 1), 0)
 
 // returns 3-letter mode string, used by status screens and mob status panel
 /obj/docking_port/mobile/proc/getModeStr()
@@ -904,8 +907,8 @@
 
 
 /obj/machinery/computer/shuttle/white_ship
-	name = "White Ship Console"
-	desc = "Used to control the White Ship."
+	name = "Navigation console"
+	desc = "Used to control the NEV Limulus expeditionary vessel."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime

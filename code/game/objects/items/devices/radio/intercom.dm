@@ -295,7 +295,7 @@
 	frequency = 1480
 
 /obj/item/radio/intercom/locked/prison
-	name = "\improper prison intercom"
+	name = "prison intercom"
 	desc = "Talk through this. It looks like it has been modified to not broadcast."
 
 /obj/item/radio/intercom/locked/prison/New()

@@ -93,7 +93,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)
@@ -131,7 +131,8 @@
 			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
 	return TRUE
 
-/datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
+/// Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
+/datum/species/diona/pod
 	name = "Diomorph" //Seperate name needed else can't select diona period
 	species_traits = list(NO_HAIR, NOT_SELECTABLE)
 	pod = TRUE

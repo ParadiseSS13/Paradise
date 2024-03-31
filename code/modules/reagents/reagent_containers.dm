@@ -15,22 +15,43 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
 
+/obj/item/reagent_containers/proc/can_set_transfer_amount(mob/user)
+	if(!length(possible_transfer_amounts))
+		// Nothing to configure.
+		return FALSE
+	if(isrobot(user) && src.loc == user)
+		// Borgs can configure their modules.
+		return TRUE
+	if(!Adjacent(user))
+		// No configuring the beaker across the room.
+		return FALSE
+	if(!ishuman(user))
+		// Although a funny idea, station pets changing transfer
+		// amounts on random conatiners would probably be frustrating
+		// for the crew.
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		// I guess there's, like, a switch or a dial or something?
+		// Whatever, you need to use your hands for this.
+		return FALSE
+	return TRUE
+
 /obj/item/reagent_containers/AltClick(mob/user)
-	if(!Adjacent(user) || !length(possible_transfer_amounts) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!can_set_transfer_amount(user))
 		return
 
-	var/default = null
-	if(amount_per_transfer_from_this in possible_transfer_amounts)
-		default = amount_per_transfer_from_this
-	var/new_transfer_rate = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	var/new_transfer_rate = tgui_input_list(user, "Amount per transfer from this:", "[src]", possible_transfer_amounts, "[amount_per_transfer_from_this]")
 	if(!new_transfer_rate)
 		return
 
-	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
-		return
-	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+	// This looks redundant, but it's not. Time elapsed while the input
+	// list was open, so we need to re-check our conditions and give an
+	// error if they changed.
+	if(!can_set_transfer_amount(user))
+		if(!Adjacent(user))
+			to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
 
 	amount_per_transfer_from_this = new_transfer_rate
@@ -42,7 +63,7 @@
 		create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
-		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
+		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808", "blood_type" = BLOOD_TYPE_FAKE_BLOOD)
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 

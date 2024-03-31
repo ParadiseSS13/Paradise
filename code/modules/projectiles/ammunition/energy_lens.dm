@@ -13,7 +13,8 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
+/// to balance cyborg energy cost seperately
+/obj/item/ammo_casing/energy/laser/cyborg
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/lasergun
@@ -166,7 +167,17 @@
 	harmful = FALSE
 	delay = 0.6 SECONDS
 
-/obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
+/obj/item/ammo_casing/energy/disabler/smg
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	e_cost = 25
+	fire_sound = 'sound/weapons/taser3.ogg'
+	click_cooldown_override = 2
+	variance = 15
+	randomspread = 1
+	delay = 2
+
+/// seperate balancing for cyborg, again
+/obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/disabler/hos
@@ -286,7 +297,7 @@
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/emitter
-	projectile_type = /obj/item/projectile/beam/emitter/hitscan
+	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
 	e_cost = 100
@@ -297,7 +308,8 @@
 	e_cost = 350 // about 42 shots on an engineering borg from a borging machine, Reads a lot better than it actually is because people miss shots and often your better abilities require charge as well
 	delay = 1 SECONDS
 
-/obj/item/ammo_casing/energy/emitter/cyborg/proto // needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+/// needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+/obj/item/ammo_casing/energy/emitter/cyborg/proto
 	e_cost = 500
 	delay = 2 SECONDS
 

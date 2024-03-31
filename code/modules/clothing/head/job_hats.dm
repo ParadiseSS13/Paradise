@@ -72,6 +72,28 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		)
 
+//Quartermaster
+/obj/item/clothing/head/qm
+	name = "quartermaster's cap"
+	desc = "A cap issued to quartermasters. To show the warehouse workers who's boss."
+	icon_state = "qmcap"
+	dog_fashion = /datum/dog_fashion/head/qm
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	)
+
+/obj/item/clothing/head/qm/beret
+	name = "quartermaster's beret"
+	desc = "A brown beret with a golden cargo insignia emblazoned on it. Rule over Cargonia in style."
+	icon_state = "beret_qm"
+	dog_fashion = /datum/dog_fashion/head/qm
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
 	name = "Nanotrasen Representative's hat"
@@ -242,6 +264,11 @@
 	name = "bioengineer beret"
 	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticsblack"
+
+/obj/item/clothing/head/beret/janitor
+	name = "janitorial beret"
+	desc = "A purple beret with a mint service insignia emblazoned on it. It smells squeaky clean."
+	icon_state = "beret_janitor"
 
 //Medical
 /obj/item/clothing/head/beret/med

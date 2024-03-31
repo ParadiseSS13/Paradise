@@ -283,7 +283,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return TRUE
 
-/datum/objective/debrain //I want braaaainssss
+/// I want braaaainssss
+/datum/objective/debrain
 	name = "Debrain"
 	martyr_compatible = FALSE
 
@@ -319,7 +320,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 
-/datum/objective/protect //The opposite of killing a dude.
+/// The opposite of killing a dude.
+/datum/objective/protect
 	name = "Protect"
 	martyr_compatible = TRUE
 
@@ -340,7 +342,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return FALSE
 
-/datum/objective/protect/mindslave //subytpe for mindslave implants
+/// subytpe for mindslave implants
+/datum/objective/protect/mindslave
 	needs_target = FALSE // To be clear, this objective should have a target, but it will always be manually set to the mindslaver through the mindslave antag datum.
 
 // This objective should only be given to a single owner. We can use `owner` and not `get_owners()`.
@@ -592,7 +595,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!steal_target_path)
 			return
 
-		var/theft_objective_name = sanitize(copytext(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
+		var/theft_objective_name = sanitize(copytext_char(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
 		if(!theft_objective_name)
 			return
 

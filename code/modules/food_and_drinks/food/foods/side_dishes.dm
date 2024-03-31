@@ -72,7 +72,8 @@
 	list_reagents = list("nutriment" = 10, "beans" = 10, "vitamin" = 3)
 	tastes = list("beans" = 1)
 
-/obj/item/food/snacks/mashed_potatoes //mashed taters
+/// mashed taters
+/obj/item/food/snacks/mashed_potatoes
 	name = "mashed potatoes"
 	desc = "Some soft, creamy, and irresistible mashed potatoes."
 	icon_state = "mashedtaters"

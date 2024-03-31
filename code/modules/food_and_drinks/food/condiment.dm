@@ -135,7 +135,8 @@
 	list_reagents = list("sugar" = 50)
 	possible_states = list()
 
-/obj/item/reagent_containers/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
+/// Seperate from above since it's a small shaker rather then
+/obj/item/reagent_containers/condiment/saltshaker
 	name = "salt shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
@@ -146,12 +147,15 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/newname = "[name]"
 	name = "[user.name]"
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
+	var/space = reagents.maximum_volume - reagents.total_volume
+	if(space > 0)
+		reagents.add_reagent("sodiumchloride", space)
 	return BRUTELOSS
 
 /obj/item/reagent_containers/condiment/peppermill

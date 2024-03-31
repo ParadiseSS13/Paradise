@@ -11,18 +11,18 @@
 /obj/effect/proc_holder/spell/area_teleport/before_cast(list/targets, mob/user)
 	..()
 	selected_area = null // Reset it
-	var/A
+	var/area_name
 
 	if(!randomise_selection)
-		A = input("Area to teleport to", "Teleport", A) as null|anything in SSmapping.teleportlocs
+		area_name = tgui_input_list(user, "Area to teleport to", "Teleport", SSmapping.teleportlocs)
 	else
-		A = pick(SSmapping.teleportlocs)
+		area_name = pick(SSmapping.teleportlocs)
 
-	if(!A)
+	if(!area_name)
 		smoke_type = SMOKE_NONE
 		return
 
-	var/area/thearea = SSmapping.teleportlocs[A]
+	var/area/thearea = SSmapping.teleportlocs[area_name]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
 		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")

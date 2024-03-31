@@ -55,7 +55,8 @@
 	icon = 'icons/effects/blood.dmi'
 	flags = NODROP|ABSTRACT
 
-/obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
+/// Can't use the wizard one, blocked by jaunt/slow
+/obj/effect/dummy/slaughter
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
@@ -274,3 +275,6 @@
 		return
 	var/mob/living/simple_animal/demon/shadow/S = L
 	S.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
+
+#undef BLOODCRAWL
+#undef BLOODCRAWL_EAT

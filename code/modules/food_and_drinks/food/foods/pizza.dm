@@ -372,7 +372,9 @@
 	if(is_pen(I))
 		if(open)
 			return
-		var/t = clean_input("Enter what you want to set the tag to:", "Write", null)
+		var/t = tgui_input_text(usr, "Enter what you want to set the tag to:", "Write")
+		if(!t)
+			return
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
@@ -458,14 +460,16 @@
 		desc = "It seems inactive."
 		icon_state = "pizzabox_bomb"
 		timer_set = TRUE
-		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) SECONDS
+		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
+		if(!new_timer)
+			return
 		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
 			timer_set = FALSE
 			name = "pizza box"
 			desc = "A box suited for pizzas."
 			icon_state = "pizzabox1"
 			return
-		timer = clamp(timer, 1 SECONDS, 10 SECONDS)
+		timer = new_timer SECONDS
 		icon_state = "pizzabox1"
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing [src].")
 		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
@@ -515,8 +519,8 @@
 /obj/item/pizzabox/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
-		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
-		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
+		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
+		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
 			return
 		playsound(src, I.usesound, 50, 1, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")

@@ -12,7 +12,7 @@
 
 	var/last_pressure_delta = 0
 
-	var/side = CIRC_LEFT
+	var/side = CIRCULATOR_SIDE_LEFT
 	var/side_inverted = FALSE
 
 	var/light_range_on = 1

@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "ac" = (
@@ -250,6 +250,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
+"bJ" = (
+/mob/living/simple_animal/hostile/bear/polar,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "bM" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -287,9 +291,9 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/dark{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
+	oxygen = 8;
+	nitrogen = 14;
+	temperature = 500
 	},
 /area/ruin/powered/snow_biodome)
 "jE" = (
@@ -1267,7 +1271,7 @@ aB
 ak
 ak
 aC
-ak
+bJ
 Wg
 QI
 tb

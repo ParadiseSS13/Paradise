@@ -313,7 +313,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 		H.adjust_nutrition(light_amount * 10)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
@@ -541,9 +541,9 @@
 		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	UpdateButtonIcon() //action icon looks unavailable
+	UpdateButtons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	UpdateButtonIcon() //action icon looks available again
+	UpdateButtons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"

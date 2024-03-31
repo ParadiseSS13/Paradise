@@ -165,10 +165,7 @@
 /turf/simulated/wall,
 /area/ruin/space/derelict/teleporter)
 "B" = (
-/obj/machinery/power/apc/off_station{
-	name = "Worn-out APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},

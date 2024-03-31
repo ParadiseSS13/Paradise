@@ -1,0 +1,51 @@
+@use 'sass:map';
+
+$background: #131313;
+$button: #1f1f1f;
+$lightMode: #ffffff;
+$lightBorder: #bbbbbb;
+$lightHover: #eaeaea;
+
+$_channel_map: (
+  'AI': #ff5ed7,
+  'Admin': #ffbbff,
+  'Binary': #1e90ff,
+  'Cmd': #2681a5,
+  'Dept': #993399,
+  'Dsay': #b486b4,
+  'ERT': #2681a5,
+  'Engi': #f37746,
+  'Intercom': #a4bad6,
+  'L-Ear': #a4bad6,
+  'LOOC': #6699cc,
+  'Me': #5975da,
+  'Med': #57b8f0,
+  'Mentor': #d6c208,
+  'OOC': #cca300,
+  'Proc': #b84f92,
+  'R-Ear': #a4bad6,
+  'Radio': #1ecc43,
+  'Say': #a4bad6,
+  'Sci': #c68cfa,
+  'Sec': #dd3535,
+  'Serv': #6ca729,
+  'SpecOps': #2681a5,
+  'Special': #1e90ff,
+  'Supp': #b88646,
+  'Synd': #8f4a4b,
+  'SyndTeam': #8f4a4b,
+  'Whisper': #a4bad6,
+);
+
+$channel_keys: map.keys($_channel_map) !default;
+
+$channel-map: ();
+
+@each $channel in $channel_keys {
+  $channel-map: map-merge(
+    $channel-map,
+    (
+      $channel: map.get($_channel_map, $channel),
+    )
+  );
+}

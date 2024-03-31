@@ -1,4 +1,5 @@
-/obj/item/paintkit //Please don't use this for anything, it's a base type for custom mech paintjobs.
+/// Please don't use this for anything, it's a base type for custom mech paintjobs.
+/obj/item/paintkit
 	name = "mecha customisation kit"
 	desc = "A generic kit containing all the needed tools and parts to turn a mech into another mech."
 	icon = 'icons/obj/painting.dmi'
@@ -21,7 +22,7 @@
 	allowed_types = list("ripley","firefighter")
 
 /obj/item/paintkit/mercenary
-	name = "\improper mercenary APLU \"Ripley\" kit"
+	name = "mercenary APLU \"Ripley\" kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU \"Ripley\" into an old Mercenaries APLU."
 	new_name = "APLU \"Strike the Earth!\""
 	new_desc = "Looks like an over worked, under maintained Ripley with some horrific damage."
