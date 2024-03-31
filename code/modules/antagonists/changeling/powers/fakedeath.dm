@@ -23,7 +23,7 @@
 	return TRUE
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
-	if(user?.mind && cling?.acquired_powers)
+	if(!QDELETED(user) && user.mind && cling?.acquired_powers)
 		to_chat(user, "<span class='notice'>We are ready to regenerate.</span>")
 		cling.give_power(new /datum/action/changeling/revive)
 

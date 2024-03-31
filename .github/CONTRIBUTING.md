@@ -798,6 +798,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 * [AffectedArc07](https://github.com/AffectedArc07)
 * [Charliminator](https://github.com/hal9000PR)
+* [Contrabang](https://github.com/Contrabang)
 * [lewcc](https://github.com/lewcc)
 
 ---
