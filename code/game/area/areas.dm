@@ -456,7 +456,7 @@ GLOBAL_DATUM(title_screen_icon, /icon)
 		if(istype(M) && M.client)
 			var/loading_times = pick(2 SECONDS, 3 SECONDS, 3.5 SECONDS)
 			if(prob(1))
-				loading_times = 2 MINUTES
+				loading_times = 30 SECONDS
 			M.Immobilize(loading_times)
 			M.Silence(loading_times)
 			var/atom/movable/screen/loading_screen = new /atom/movable/screen(src)
