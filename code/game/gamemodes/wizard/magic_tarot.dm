@@ -222,7 +222,7 @@
 	var/reversed = FALSE
 
 /datum/tarot/proc/activate(mob/living/target)
-	message_admins("Uh oh! A bugged tarot card was spawned and used. Please make an issue report! Type was [src.type]")
+	stack_trace("A bugged tarot card was spawned and used. Please make an issue report! Type was [src.type]")
 
 /datum/tarot/reversed
 	name = "XXII - The Unknown?"
@@ -268,28 +268,28 @@
 		for(var/mob/living/L in shuffle(view(9, src)))
 			owner = L
 			break
-	var/turf/TA = get_turf(owner)
+	var/turf/first_turf = get_turf(owner)
 	owner.Immobilize(3 SECONDS)
-	new /obj/effect/decal/cleanable/blood/bubblegum(TA)
-	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TA)
+	new /obj/effect/decal/cleanable/blood/bubblegum(first_turf)
+	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(first_turf)
 	sleep(6)
-	var/turf/TB = get_turf(owner)
+	var/turf/second_turf = get_turf(owner)
 	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
-	playsound(TB, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
+	playsound(second_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
 	owner.adjustBruteLoss(damage)
-	new /obj/effect/decal/cleanable/blood/bubblegum(TB)
-	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(TB)
+	new /obj/effect/decal/cleanable/blood/bubblegum(second_turf)
+	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(second_turf)
 	sleep(6)
-	var/turf/TC = get_turf(owner)
+	var/turf/third_turf = get_turf(owner)
 	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
-	playsound(TC, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
+	playsound(third_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
 	owner.adjustBruteLoss(damage)
-	new /obj/effect/decal/cleanable/blood/bubblegum(TC)
-	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TC)
+	new /obj/effect/decal/cleanable/blood/bubblegum(third_turf)
+	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(third_turf)
 	sleep(6)
-	var/turf/TD = get_turf(owner)
+	var/turf/fourth_turf = get_turf(owner)
 	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
-	playsound(TD, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
+	playsound(fourth_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
 	owner.adjustBruteLoss(damage)
 	qdel(src)
 
@@ -574,12 +574,13 @@
 	card_icon = "the_fool?"
 
 /datum/tarot/reversed/the_fool/activate(mob/living/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		for(var/obj/item/I in H)
-			if(istype(/obj/item/bio_chip, I))
-				continue
-			H.unEquip(I)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	for(var/obj/item/I in H)
+		if(istype(/obj/item/bio_chip, I))
+			continue
+		H.unEquip(I)
 
 /datum/tarot/reversed/the_magician
 	name = "I - The Magician?"
@@ -675,15 +676,16 @@
 	card_icon = "the_lovers?"
 
 /datum/tarot/reversed/the_lovers/activate(mob/living/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		H.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
-		H.bleed(120)
-		var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
-		chest.fracture()
-		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
-		var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-		our_heart.receive_damage(20, TRUE)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	H.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
+	H.bleed(120)
+	var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
+	chest.fracture()
+	var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+	our_heart.receive_damage(20, TRUE)
 
 /datum/tarot/reversed/the_chariot
 	name = "VII - The Chariot?"
@@ -778,16 +780,17 @@
 	card_icon = "temperance?"
 
 /datum/tarot/reversed/temperance/activate(mob/living/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/i = 0
-		while(i <= 5)
-			var/datum/reagents/R = new/datum/reagents(10)
-			R.add_reagent(get_random_reagent_id_for_real(), 10)
-			R.reaction(H, REAGENT_INGEST)
-			R.trans_to(H, 10)
-			i++
-		target.visible_message("<span class='warning'>[target] consumes 5 pills rapidly!</span>")
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	var/i = 0
+	while(i <= 5)
+		var/datum/reagents/R = new/datum/reagents(10)
+		R.add_reagent(get_random_reagent_id_for_real(), 10)
+		R.reaction(H, REAGENT_INGEST)
+		R.trans_to(H, 10)
+		i++
+	target.visible_message("<span class='warning'>[target] consumes 5 pills rapidly!</span>")
 
 /datum/tarot/reversed/the_devil
 	name = "XV - The Devil?"
@@ -819,24 +822,25 @@
 	card_icon = "the_stars?"
 
 /datum/tarot/reversed/the_stars/activate(mob/living/target) //Heavy clone damage hit, but gain 2 cards. Not teathered to the card producer. Could lead to card stacking, but would require the sun to fix easily
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		H.adjustCloneLoss(50)
-		for(var/obj/item/organ/external/E in shuffle(H.bodyparts))
-			switch(rand(1,3))
-				if(1)
-					E.fracture()
-				if(2)
-					E.cause_internal_bleeding()
-				if(3)
-					E.cause_burn_wound()
-			break // I forgot the break the first time. Very funny.
-		H.drop_l_hand()
-		H.drop_r_hand()
-		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
-		var/obj/item/magic_tarot_card/MPC = new /obj/item/magic_tarot_card(get_turf(src))
-		H.put_in_hands(MTC)
-		H.put_in_hands(MPC)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	H.adjustCloneLoss(50)
+	for(var/obj/item/organ/external/E in shuffle(H.bodyparts))
+		switch(rand(1,3))
+			if(1)
+				E.fracture()
+			if(2)
+				E.cause_internal_bleeding()
+			if(3)
+				E.cause_burn_wound()
+		break // I forgot the break the first time. Very funny.
+	H.drop_l_hand()
+	H.drop_r_hand()
+	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
+	var/obj/item/magic_tarot_card/MPC = new /obj/item/magic_tarot_card(get_turf(src))
+	H.put_in_hands(MTC)
+	H.put_in_hands(MPC)
 
 /datum/tarot/reversed/the_moon
 	name = "XVIII - The Moon?"

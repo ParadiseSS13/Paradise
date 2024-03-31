@@ -88,7 +88,7 @@
 		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 		return
 
-		var/found_someone = FALSE
+	var/found_someone = FALSE
 
 	for(var/mob/living/L in oview(9, owner))
 		found_someone = TRUE
@@ -134,7 +134,7 @@
 /datum/status_effect/blooddrunk/chariot
 	duration = 10 SECONDS
 	chariot = TRUE
-	
+
 /atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
 	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
