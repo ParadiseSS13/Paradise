@@ -336,4 +336,3 @@
 		to_chat(U, "<span class='warning'>This screwdriver is too big!</span>")
 		return TRUE
 	return FALSE
-	
