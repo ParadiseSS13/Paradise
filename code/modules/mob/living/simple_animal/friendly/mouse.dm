@@ -43,6 +43,9 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
+/mob/living/simple_animal/mouse/get_scooped(mob/living/carbon/grabber)
+	playsound(src, 'sound/creatures/a-rat.ogg', 100, 0)
+
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
@@ -151,6 +154,17 @@
 	. = ..()
 	// Tom fears no cable.
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
+
+/mob/living/simple_animal/mouse/white/Brain
+	name = "Brain"
+	real_name = "Brain"
+	response_harm = "splats"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/mouse/white/Brain/update_desc()
+	. = ..()
+	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
 
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
