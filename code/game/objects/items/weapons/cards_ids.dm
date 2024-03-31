@@ -512,7 +512,7 @@
 							"Medical" = GLOB.medical_positions,
 							"Science" = GLOB.science_positions,
 							"Security" = GLOB.security_positions,
-							"Support" = GLOB.support_positions,
+							"Service" = GLOB.service_positions,
 							"Supply" = GLOB.supply_positions,
 							"Command" = GLOB.command_positions,
 							"Custom" = null,

@@ -162,6 +162,9 @@
 /datum/supply_packs/organic/chicken
 	name = "Chicken Crate"
 	cost = 100
+	contains_special = list(
+		"4 to 6 chickens"
+	)
 	containertype = /obj/structure/closet/critter/chick
 	containername = "chicken crate"
 

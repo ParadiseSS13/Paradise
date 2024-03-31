@@ -637,6 +637,7 @@
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	damage_deflection = 21
+	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return

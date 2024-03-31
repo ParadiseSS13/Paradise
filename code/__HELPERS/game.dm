@@ -503,7 +503,7 @@
 			var/turf/T = get_turf(vent)
 			var/mobs_nearby = FALSE
 			for(var/mob/living/M in orange(7, T))
-				if(M.is_dead()) //we don't care about dead mobs
+				if(M.stat == DEAD) //we don't care about dead mobs
 					continue
 				if(!M.client && !istype(get_area(T), /area/station/science/xenobiology)) //we add an exception here for clientless mobs (apart from ones near xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs)
 					continue
