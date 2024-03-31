@@ -32,6 +32,11 @@
 		// No murder if no one is on it
 		return
 
+	if(istype(A, /obj/machinery/door))
+		return // We already handled doors
+
+	playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+	playsound(src, 'sound/weapons/circsawhit.ogg', 50, TRUE)
 
 	if(istype(A, /mob/living/carbon/human))
 		// Handle human damage
@@ -51,10 +56,6 @@
 
 		var/turf/simulated/wall/W = A
 		W.take_damage(wall_damage)
-
-
-	if(istype(A, /obj/machinery/door))
-		return // We already handled doors
 
 
 	if(istype(A, /obj))
