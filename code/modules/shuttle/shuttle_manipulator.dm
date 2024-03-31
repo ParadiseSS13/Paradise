@@ -194,7 +194,7 @@
 					intact for round sanity.")
 			else if(S)
 				// If successful, returns the mobile docking port
-				var/obj/docking_port/mobile/mdp = action_load(S)
+				var/obj/docking_port/mobile/mdp = action_load_old(S)
 				if(mdp)
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")

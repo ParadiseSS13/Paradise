@@ -27,6 +27,7 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SEC_DOORS,
 		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_WEAPONS
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
@@ -41,7 +42,7 @@
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	head = /obj/item/clothing/head/qm
 	l_ear = /obj/item/radio/headset/heads/qm
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/meson/sunglasses
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard
@@ -357,7 +358,7 @@
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
 	background_icon_state = "bg_spell"
-	UpdateButtonIcon()
+	UpdateButtons()
 	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
 
 /datum/action/innate/toggle_clumsy/Deactivate()
@@ -366,7 +367,7 @@
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
 	background_icon_state = "bg_default"
-	UpdateButtonIcon()
+	UpdateButtons()
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime

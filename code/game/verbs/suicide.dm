@@ -158,3 +158,7 @@
 		affected.add_autopsy_data(byitem ? "Suicide by [byitem]" : "Suicide", dmgamt)
 
 	updatehealth()
+
+/mob/living/brain/do_suicide()
+	visible_message("<span class='danger'>[src] is thinking about thinking about thinking about thinking about.... It looks like [p_theyre()] trying to commit suicide!</span>")
+	death()

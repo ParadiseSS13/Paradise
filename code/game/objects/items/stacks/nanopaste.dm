@@ -67,7 +67,7 @@
 		H.bleed_rate = 0
 
 /obj/item/stack/nanopaste/cyborg
-	energy_type = /datum/robot_energy_storage/medical/nanopaste
+	energy_type = /datum/robot_storage/energy/medical/nanopaste
 	is_cyborg = TRUE
 
 /obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
@@ -77,4 +77,4 @@
 		return ..()
 
 /obj/item/stack/nanopaste/cyborg/syndicate
-	energy_type = /datum/robot_energy_storage/medical/nanopaste/syndicate
+	energy_type = /datum/robot_storage/energy/medical/nanopaste/syndicate

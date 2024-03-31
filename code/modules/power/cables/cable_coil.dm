@@ -53,8 +53,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		name = "cable piece"
 
 /obj/item/stack/cable_coil/update_icon_state()
-	if(!color)
-		color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_ORANGE, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	if(amount == 1)
 		icon_state = "coil1"
 	else if(amount == 2)
@@ -388,7 +386,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	update_wclass()
 
 /obj/item/stack/cable_coil/cyborg
-	energy_type = /datum/robot_energy_storage/cable
+	energy_type = /datum/robot_storage/energy/cable
 	is_cyborg = TRUE
 
 /obj/item/stack/cable_coil/cyborg/update_icon_state()

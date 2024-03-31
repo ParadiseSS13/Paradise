@@ -158,6 +158,17 @@
 	// Tom fears no cable.
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
+/mob/living/simple_animal/mouse/white/Brain
+	name = "Brain"
+	real_name = "Brain"
+	response_harm = "splats"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/mouse/white/Brain/update_desc()
+	. = ..()
+	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
+
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100

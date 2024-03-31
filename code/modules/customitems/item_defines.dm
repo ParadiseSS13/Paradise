@@ -644,13 +644,6 @@
 	icon_state = "charred_visor"
 	species_restricted = list("Vox")
 
-/// Gibson1027: Sploosh
-/obj/item/clothing/head/bearpelt/fluff/polar
-	name = "polar bear pelt hat"
-	desc = "Fuzzy, and also stained with blood."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "polarbearpelt"
-
 /// Sparkyninja: Neil Wilkinson
 /obj/item/clothing/head/fluff/sparkyninja_beret
 	name = "royal marines commando beret"
@@ -1010,7 +1003,7 @@
 
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
@@ -1338,7 +1331,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color(user)
@@ -1414,7 +1407,7 @@
 	usr.update_inv_head()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /// chronx100: Hughe O'Splash
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx

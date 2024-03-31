@@ -77,9 +77,6 @@
 		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
-	
-	if(is_species(owner, /datum/species/monkey))
-		name = "[owner.name]'s [initial(name)]"
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
@@ -201,7 +198,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
-	organ_datums = list(/datum/organ/heart, /datum/organ/lungs)
+	organ_datums = list(/datum/organ/heart, /datum/organ/lungs/slime)
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
