@@ -86,7 +86,7 @@
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
 	if(!IED && !sig)
 		return
-
+	
 	if(IED)
 		IED.forceMove(get_turf(src))
 		IED = null

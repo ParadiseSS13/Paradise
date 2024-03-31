@@ -693,3 +693,11 @@
 	item = /obj/item/cartridge/syndicate
 	cost = 30
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/hypnodisc
+	name = "Hypnodisc"
+	desc = "Once a creation to fight in old-earth entertainment, we have collected the blueprints and remade it as a murder weapon."
+	reference = "HDISC"
+	item = /obj/vehicle/hypnodisc
+	cost = 70 // Just enough to get an emag as well
+	hijack_only = TRUE // This thing is fucking letahl

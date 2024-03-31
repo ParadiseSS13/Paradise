@@ -90,6 +90,8 @@
 
 /obj/machinery/chem_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	default_deconstruction_screwdriver(user, "mixer0b", "mixer[beaker ? "1" : "0"]b", I)
 
 /obj/machinery/chem_heater/crowbar_act(mob/user, obj/item/I)

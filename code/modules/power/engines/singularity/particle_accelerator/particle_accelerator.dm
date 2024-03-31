@@ -180,6 +180,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
@@ -262,6 +264,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)

@@ -122,8 +122,9 @@ GLOBAL_LIST_EMPTY(holopads)
 
 /obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return TRUE
 	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
-
 
 /obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
 	. = TRUE

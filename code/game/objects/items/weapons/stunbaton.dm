@@ -137,6 +137,8 @@
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 
 	user.put_in_hands(cell)
 	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")

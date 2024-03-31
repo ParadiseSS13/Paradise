@@ -77,3 +77,8 @@
 			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
 			update_inv_shoes()
+	var/obj/item/clothing/shoes/the_shoes = shoes
+	if(istype(the_shoes) && the_shoes.laces_tied_together && !IS_HORIZONTAL(src))
+		KnockDown(1 SECONDS)
+		Stun(1 SECONDS)
+		visible_message("<span class='warning'>[src] trips and falls!", "<span class='warning'>You trip and fall! Your shoes are tied together! Alt-Shift-Click [the_shoes] to untie the knot.")

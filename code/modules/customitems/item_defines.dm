@@ -1427,6 +1427,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_shoes"
 	item_state = "chronx_shoes"
+	has_laces = FALSE
 
 /// m3hillus: Medusa Schlofield
 /obj/item/clothing/suit/armor/vest/fluff/tactical

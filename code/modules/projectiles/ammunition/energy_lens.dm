@@ -163,14 +163,14 @@
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name  = "disable"
 	e_cost = 50
-	fire_sound = 'sound/weapons/taser2.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 	harmful = FALSE
 	delay = 0.6 SECONDS
 
 /obj/item/ammo_casing/energy/disabler/smg
 	projectile_type = /obj/item/projectile/beam/disabler/weak
 	e_cost = 25
-	fire_sound = 'sound/weapons/taser3.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 	click_cooldown_override = 2
 	variance = 15
 	randomspread = 1

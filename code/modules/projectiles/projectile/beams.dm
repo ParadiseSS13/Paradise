@@ -89,21 +89,21 @@
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/projectile/beam/disabler
-	name = "disabler beam"
-	icon_state = "omnilaser"
+	name = "disabler electrode"
+	icon_state = "spark"
 	damage = 30
 	damage_type = STAMINA
 	flag = "energy"
-	hitsound = 'sound/weapons/tap.ogg'
+	hitsound = 'sound/weapons/tase.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_CYAN
+	light_color = "#FFFF00"
 
 /obj/item/projectile/beam/disabler/weak
-	name = "weakened disabler beam"
+	name = "weakened disabler electrode"
 	damage = 15
 	armour_penetration_flat = -10
-	light_color = LIGHT_COLOR_BLUE
+	light_color = "#FFFF00"
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"

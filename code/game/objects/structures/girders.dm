@@ -322,6 +322,8 @@
 	if(state != GIRDER_DISPLACED && state != GIRDER_REINF && state != GIRDER_REINF_STRUTS)
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	switch(state)

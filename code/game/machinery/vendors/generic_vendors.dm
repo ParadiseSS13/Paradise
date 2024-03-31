@@ -1127,7 +1127,7 @@
 	icon_lightmask = "crittercare"
 	icon_panel = "drobe"
 	category = VENDOR_TYPE_SUPPLIES
-	products = list(/obj/item/petcollar = 5,
+	products = list(/obj/item/clothing/accessory/petcollar = 5,
 					/obj/item/storage/firstaid/aquatic_kit/full =5,
 					/obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5,
@@ -1142,7 +1142,7 @@
 					/obj/item/toy/pet_rock/fred = 1,
 					/obj/item/toy/pet_rock/roxie = 1)
 
-	prices = list(/obj/item/petcollar = 75,
+	prices = list(/obj/item/clothing/accessory/petcollar = 75,
 				/obj/item/storage/firstaid/aquatic_kit/full = 50,
 				/obj/item/fish_eggs/goldfish = 10,
 				/obj/item/fish_eggs/clownfish = 30,

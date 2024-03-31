@@ -85,6 +85,8 @@
 		icon_state = "biogen-work"
 
 /obj/machinery/biogenerator/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(!default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", I))
 		return FALSE
 	if(container)
