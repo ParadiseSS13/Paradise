@@ -5,8 +5,6 @@
 	parent_organ = "head"
 
 /// Yeah I'm very lazy, this now fits here.
-/obj/item/organ/external/toe
+/obj/item/organ/toe
 	name = "toe"
 	icon_state = "toe"
-	organ_tag = "toe"
-	parent_organ = "r_leg"

@@ -512,7 +512,7 @@
 	var/turf/reaction_turf = get_turf(holder.my_atom)
 	new stone(reaction_turf)
 
-/datum/chemical_reaction/philo_stone
+/datum/chemical_reaction/philo_stone/plasma
 	name = "Phoron's Stone"
 	id = "phoronstone"
 	required_reagents = list("babel_ex" = 1, "tinlux" = 1, "mugwort" = 5,
