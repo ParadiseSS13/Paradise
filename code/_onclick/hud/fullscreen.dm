@@ -227,7 +227,7 @@
 
 /atom/movable/screen/fullscreen/robusted/Initialize(mapload)
 	. = ..()
-	timer = addtimer(CALLBACK(src, PROC_REF(qdel), src), 20 SECONDS)
+	timer = addtimer(CALLBACK(src, GLOBAL_PROC_REF(qdel), src), 20 SECONDS)
 
 /atom/movable/screen/fullscreen/robusted/Click(location, control, params)
 	. = ..()
