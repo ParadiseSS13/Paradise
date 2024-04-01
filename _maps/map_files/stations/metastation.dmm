@@ -74301,7 +74301,6 @@
 /area/station/hallway/primary/central/west)
 "pxG" = (
 /obj/structure/morgue,
-/obj/effect/landmark/skeleton,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},

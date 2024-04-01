@@ -89,6 +89,10 @@
 	H.equip_or_collect(I, slot, TRUE)
 	return I
 
+/obj/effect/mob_spawn/human/alive/ghost_bar/Initialize()
+	. = ..()
+	GLOB.ghost_bar_spawners += src
+
 /obj/structure/ghost_bar_cryopod
 	name = "returning sarcophagus"
 	desc = "Returns you back to the world of the dead."
