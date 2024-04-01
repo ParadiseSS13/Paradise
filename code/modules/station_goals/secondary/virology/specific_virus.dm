@@ -50,7 +50,7 @@
 	copy.goal_symptoms = goal_symptoms
 	return copy
 
-/datum/secondary_goal_progress/virology/specific_virus/check_virus(var/datum/disease/advance/D, volume, datum/economy/cargo_shuttle_manifest/manifest, complain = FALSE)
+/datum/secondary_goal_progress/virology/specific_virus/check_virus(datum/disease/advance/D, volume, datum/economy/cargo_shuttle_manifest/manifest, complain = FALSE)
 	. = FALSE
 	if(length(D.symptoms) != length(goal_symptoms))
 		if(!manifest || !complain)

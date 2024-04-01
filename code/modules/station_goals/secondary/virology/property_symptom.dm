@@ -54,7 +54,7 @@
 	copy.goal_property_value = goal_property_value
 	return copy
 
-/datum/secondary_goal_progress/virology/property_symptom/check_virus(var/datum/disease/advance/D, volume, datum/economy/cargo_shuttle_manifest/manifest, complain = FALSE)
+/datum/secondary_goal_progress/virology/property_symptom/check_virus(datum/disease/advance/D, volume, datum/economy/cargo_shuttle_manifest/manifest, complain = FALSE)
 	//We want 3 other symptoms alongside the requested one
 	var/required_symptoms = 4
 	if(length(D.symptoms) < required_symptoms)
