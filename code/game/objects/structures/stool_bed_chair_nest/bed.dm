@@ -50,8 +50,6 @@
 	else
 		to_chat(user, "<span class='warning'>You can't manage to unbuckle yourself, call for help!</span>")
 
-/obj/structure/bed/antihobo/Destroy()
-	return ..()
 
 /obj/structure/bed/psych
 	name = "psych bed"
