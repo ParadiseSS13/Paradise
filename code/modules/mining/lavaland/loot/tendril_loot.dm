@@ -426,3 +426,40 @@
 		return QDEL_HINT_LETMELIVE
 	else
 		. = ..()
+
+/obj/item/philo_stone
+	name = "Philosopher's Stone"
+	desc = "The fabled stone, said to be impossible to create ... until now!"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "philo_stone"
+	item_state = "telecrystal"
+	var/turn_color = "#FFD700"
+
+/obj/item/philo_stone/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	if(!istype(M))
+		return
+	if(M.color == turn_color) // Don't stun them again if they're already gold
+		return
+
+	M.color = turn_color
+	M.Stun(10 SECONDS)
+	to_chat(M, "<span class='biggerdanger'>You are frozen solid!</span>")
+
+/obj/item/philo_stone/attack_obj(obj/O, mob/living/user, params)
+	. = ..()
+	O.color = turn_color
+
+	if(isitem(O))
+		var/obj/item/item = O
+		if(MAT_METAL in item.materials)
+			if(turn_color == "#FFD700")
+				item.materials = list(MAT_GOLD = 2000)
+			else
+				item.materials = list(MAT_PLASMA = 2000)
+
+/obj/item/philo_stone/plasma
+	name = "Phoron's Stone"
+	desc = "The fabled stone, said to be able to grant eternal life and change metal into ... plasma? That can't be right!"
+	color = "#bf00ff"
+	turn_color = "#bf00ff"

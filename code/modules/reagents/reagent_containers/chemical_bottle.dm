@@ -285,6 +285,18 @@
 	icon_state = "wide_bottle"
 	list_reagents = list("potass_iodide" = 30)
 
+/obj/item/reagent_containers/glass/bottle/tin_lux
+	name = "Tinea Luxor"
+	desc = "A small bottle of tinea luxor."
+	icon_state = "wide_bottle"
+	list_reagents = list("tinlux" = 30)
+
+/obj/item/reagent_containers/glass/bottle/triplepiss
+	name = "Triplepiss"
+	desc = "A small bottle of triple distilled piss."
+	icon_state = "round_bottle"
+	list_reagents = list("triplepiss" = 30)
+
 /obj/item/reagent_containers/glass/bottle/flu_virion
 	name = "Flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."

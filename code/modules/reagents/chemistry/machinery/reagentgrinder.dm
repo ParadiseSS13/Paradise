@@ -22,7 +22,8 @@
 		/obj/item/stack/sheet/plasteel = list("iron" = 20, "plasma_dust" = 20),
 		/obj/item/stack/sheet/wood = list("carbon" = 20),
 		/obj/item/stack/sheet/glass = list("silicon" = 20),
-		/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
+		/obj/item/stack/sheet/rglass = list("silicon" = 20, "glass" = 20, "iron" = 20),
+		/obj/item/stack/sheet/glass = list("silicon"  = 20, "glass" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
 		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
@@ -43,6 +44,9 @@
 		/obj/item/food/snacks/grown/rice = list("rice" = -5),
 		/obj/item/food/snacks/grown/olive = list("olivepaste" = 0, "sodiumchloride" = 0),
 		/obj/item/food/snacks/grown/peanuts = list("peanutbutter" = 0),
+		/obj/item/organ/internal/tongue = list("tonguedog" = 20),
+		/obj/item/organ/toe = list("toefrog" = 20),
+		/obj/item/organ/internal/eyes = list("eyenewt" = 20),
 
 		// Grinder stuff, but only if dry
 		/obj/item/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
