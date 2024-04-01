@@ -42,9 +42,9 @@
 			to_chat(bad_luck_brandon, "<span class='biggerdanger'>You have been randomly selected to donate your heart!</span>")
 			var/datum/organ/organ_datum = bad_luck_brandon.get_int_organ_datum(ORGAN_DATUM_HEART)
 			qdel(organ_datum.linked_organ)
-			new /obj/item/stack/spacecash/c1000(get_turf(user))
 			break
 
+	new /obj/item/stack/spacecash/c1000(get_turf(user))
 	if(tries >= 30)
 		to_chat(user, "No organ donors have been found yet.")
 		return
