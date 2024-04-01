@@ -199,6 +199,8 @@
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be disabled first!</span>")
 		return
+	if(check_screw_size(user, I))
+		return
 	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
 
 /obj/machinery/power/emitter/crowbar_act(mob/living/user, obj/item/I)

@@ -154,6 +154,8 @@
 
 // Interactions
 /obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return

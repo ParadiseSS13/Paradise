@@ -105,6 +105,8 @@
 	return ..()
 
 /obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(open)
 		to_chat(user, "<span class='warning'>The screws can't reach while its open.</span>")
 		return TRUE

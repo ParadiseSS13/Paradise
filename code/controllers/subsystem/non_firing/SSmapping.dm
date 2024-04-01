@@ -29,10 +29,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+			map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -76,6 +76,7 @@ SUBSYSTEM_DEF(mapping)
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		if(lavaland_theme)
 			lavaland_theme.setup()
+			lavaland_theme.setup_caves()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
@@ -117,6 +118,40 @@ SUBSYSTEM_DEF(mapping)
 		world.name = "[GLOB.configuration.general.server_name]: [station_name()]"
 	else
 		world.name = station_name()
+
+	// hehe
+	// try catch here so if it fails it doesn't actually kill the server
+	try
+		var/area/meeting_area
+		for(var/area/station/command/meeting_room/meet in world)
+			meeting_area = meet
+
+		if(!meeting_area)
+			// failing that
+			for(var/area/station/command/bridge/br in world)
+				meeting_area = br
+
+		if(!meeting_area)
+			return
+
+		var/atom/sur_le_table = locate(/obj/structure/table) in meeting_area
+		if(sur_le_table)
+			new /obj/structure/emergency_meeting_button(get_turf(sur_le_table))
+
+		if(prob(30))
+			var/list/station_areas = list()
+			for(var/area/station/ar in world)
+				station_areas += ar
+			var/area/chosen_area = pick(station_areas)
+			var/list/turfs = list()
+			for(var/turf/tu in chosen_area)
+				turfs += tu
+			var/turf/chosen = pick(turfs)
+			new /obj/structure/emergency_meeting_button/somewhere(chosen)
+			log_debug("hehe")
+	catch
+		log_debug("xd")
+
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()

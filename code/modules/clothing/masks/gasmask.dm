@@ -374,6 +374,8 @@
 	. = ..()
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	switch(aggressiveness)
 		if(1)
 			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")

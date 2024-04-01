@@ -310,6 +310,8 @@
 		to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
+	if(check_screw_size(user, screwdriver))
+		return TRUE
 	to_chat(user, "<span class='notice'>[open ? "Closing" : "Opening"] cover...</span>")
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
@@ -485,7 +487,7 @@
 	return ..()
 
 /obj/item/mod/control/update_icon_state()
-	if(current_disguise)
+	if(current_disguise || isnull(chameleon_action) || active)
 		icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 

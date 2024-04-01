@@ -576,6 +576,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(check_screw_size(user, I))
+		return
 
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
@@ -695,6 +697,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(check_screw_size(user, I))
 		return
 
 	if(keyslot)

@@ -4,6 +4,10 @@
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
+/obj/item/restraints/Initialize()
+	..()
+	ADD_TRAIT(src, TRAIT_DO_NOT_POSSESS, ROUNDSTART_TRAIT)
+
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."

@@ -46,6 +46,8 @@
 // Fix the clapper
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)
 	. = TRUE
+	if(check_screw_size(user, tool))
+		return
 	if(broken_ringer)
 		visible_message("<span class='notice'>[user] begins repairing [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>")
 		tool.play_tool_sound(src)

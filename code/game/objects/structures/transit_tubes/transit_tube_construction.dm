@@ -41,6 +41,8 @@
 
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	var/turf/T = get_turf(src)
 	if(!isfloorturf(T) && !isspaceturf(T))
 		to_chat(user, "<span class='notice'>You cannot install [src] here.</span>")
@@ -73,6 +75,8 @@
 
 /obj/structure/transit_tube_construction/pod/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	var/turf/T = get_turf(src)
 	for(var/obj/turf_contents in T)
 		if(istype(turf_contents, /obj/structure/transit_tube))

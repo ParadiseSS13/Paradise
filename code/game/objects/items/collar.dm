@@ -1,4 +1,4 @@
-/obj/item/petcollar
+/obj/item/clothing/accessory/petcollar
 	name = "pet collar"
 	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
@@ -6,12 +6,12 @@
 	var/tagname = null
 	var/obj/item/card/id/access_id
 
-/obj/item/petcollar/Destroy()
+/obj/item/clothing/accessory/petcollar/Destroy()
 	QDEL_NULL(access_id)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/petcollar/attack_self(mob/user)
+/obj/item/clothing/accessory/petcollar/attack_self(mob/user)
 	var/option = "Change Name"
 	if(access_id)
 		option = tgui_input_list(user, "What do you want to do?", "[src]", list("Change Name", "Remove ID"))
@@ -32,7 +32,7 @@
 					user.put_in_hands(access_id)
 					access_id = null
 
-/obj/item/petcollar/attackby(obj/item/card/id/W, mob/user, params)
+/obj/item/clothing/accessory/petcollar/attackby(obj/item/card/id/W, mob/user, params)
 	if(!istype(W))
 		return ..()
 	if(access_id)
@@ -43,23 +43,23 @@
 	access_id = W
 	to_chat(user, "<span class='notice'>[W] clips onto [src] snugly.</span>")
 
-/obj/item/petcollar/GetAccess()
+/obj/item/clothing/accessory/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
 
-/obj/item/petcollar/examine(mob/user)
+/obj/item/clothing/accessory/petcollar/examine(mob/user)
 	. = ..()
 	if(access_id)
 		. += "There is [bicon(access_id)] \a [access_id] clipped onto it."
 
-/obj/item/petcollar/equipped(mob/living/simple_animal/user)
+/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
-/obj/item/petcollar/dropped(mob/living/simple_animal/user)
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
 	..()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/petcollar/process()
+/obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)

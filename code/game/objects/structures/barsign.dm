@@ -108,6 +108,8 @@
 		return ..()
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 		prev_sign = current_sign

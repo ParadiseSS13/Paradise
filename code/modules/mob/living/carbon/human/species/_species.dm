@@ -676,6 +676,65 @@
 	if(M.mind)
 		attacker_style = M.mind.martial_art
 
+	// Shoe Tying Mechanics
+	var/tying_skill = 0
+	var/obj/item/clothing/gloves/G = M.gloves
+	if(HAS_TRAIT(M, "can_tie_together_laces"))
+		tying_skill += 1
+		if(HAS_TRAIT(M, "lace_tying_expert"))
+			tying_skill += 1
+		if(istype(G) && G.pickpocket)
+			tying_skill += 1
+	if(tying_skill && (M.zone_selected == BODY_ZONE_PRECISE_L_FOOT || M.zone_selected == BODY_ZONE_PRECISE_R_FOOT) && M.a_intent == INTENT_GRAB)
+		if(!H.has_organ_for_slot(SLOT_HUD_SHOES))
+			if(!H.has_organ("r_foot"))
+				if(!H.has_organ("l_foot"))
+					to_chat(M, "<span class='warning'>[H] doesn't have any feet, let alone shoes!</span>")
+				else
+					to_chat(M, "<span class='warning'>[H] doesn't have a right foot, let alone shoes!</span>")
+			else
+				to_chat(M, "<span class='warning'>[H] doesn't have a left foot, let alone shoes!</span>")
+			return
+		// For whatever reason the equipment slot for shoes isn't typed specifically for shoes, so we'll have to check that it is the actual 'shoes' subtype here.
+		var/obj/item/clothing/shoes/the_shoes = H.shoes
+		if(!istype(the_shoes))
+			to_chat(M, "<span class='warning'>[H] isn't wearing any shoes!</span>")
+			return
+		if(!the_shoes.has_laces)
+			to_chat(M, "<span class='warning'>[H]'s [the_shoes] do not have any laces!</span>")
+			return
+		the_shoes.add_fingerprint(M)
+		// Untying
+		if(the_shoes.laces_tied_together)
+			if(tying_skill > 1)
+				to_chat(M, "You begin to subtly untie the laces between [H]'s [the_shoes.name].")
+			else
+				M.visible_message("[M] begins to untie the laces between [H]'s [the_shoes.name].", "You begin to untie the laces between [H]'s [the_shoes.name].")
+			if(do_after(M, 8 SECONDS / tying_skill, target = H))
+				the_shoes.laces_tied_together = FALSE
+				if(tying_skill > 1)
+					to_chat(M, "You successfully untie the laces between [H]'s [the_shoes.name].")
+				else
+					M.visible_message("<span class='danger'>[M] successfully unties the laces between [H]'s [the_shoes.name].</span>", "You successfully untie the laces between [H]'s [the_shoes.name].")
+			else
+				to_chat(M, "<span class='warning'>You fail to untie the knot!</span>")
+		// Tying
+		else
+			if(tying_skill > 1)
+				to_chat(M, "You begin to subtly tie together the laces on [H]'s [the_shoes.name].")
+			else
+				M.visible_message("<span class='danger'>[M] begins to tie together the laces on [H]'s [the_shoes.name].</span>", "You begin to tie together the laces on [H]'s [the_shoes.name].")
+			if(do_after(M, 8 SECONDS / tying_skill, target = H))
+				the_shoes.laces_tied_together = TRUE
+				add_attack_logs(M, H, "Tied laces together")
+				if(tying_skill > 1)
+					to_chat(M, "You successfully tie together the laces on [H]'s [the_shoes.name].")
+				else
+					M.visible_message("<span class='danger'>[M] successfully ties together the laces on [H]'s [the_shoes.name].</span>", "You successfully tie together the laces on [H]'s [the_shoes.name].")
+			else
+				to_chat(M, "<span class='warning'>You fail to tie the knot!</span>")
+		return
+
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
@@ -693,9 +752,6 @@
 
 		if(INTENT_DISARM)
 			disarm(M, H, attacker_style)
-
-/datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
-	return message
 
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
@@ -1023,9 +1079,30 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	H.update_tint()
 	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
-	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+/datum/species/proc/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
+	if(abs(temperature - H.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
+		H.bodytemperature = (temperature + H.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+
+	if(method == REAGENT_TOUCH)
+		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
+			return
+		if(volume > 25)
+			if(prob(75))
+				H.take_organ_damage(5, 10)
+				H.emote("scream")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
+				if(affecting)
+					affecting.disfigure()
+			else
+				H.take_organ_damage(5, 10)
+		else
+			H.take_organ_damage(5, 10)
+	else
+		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.emote("scream")
+			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE

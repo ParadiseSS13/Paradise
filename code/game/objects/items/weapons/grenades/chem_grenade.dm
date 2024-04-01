@@ -191,6 +191,8 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(stage == WIRED)
 		if(!length(beakers))
 			to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")

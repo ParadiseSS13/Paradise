@@ -1,7 +1,7 @@
 #define BATON_COOLDOWN 3.5 SECONDS
 
 /mob/living/simple_animal/bot/secbot
-	name = "\improper Securitron"
+	name = "\improper Gunitron"
 	desc = "A little security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"

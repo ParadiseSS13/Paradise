@@ -72,7 +72,7 @@
 
 /obj/machinery/r_n_d/server/process()
 	if(prob(3) && plays_sound)
-		playsound(loc, "computer_ambience", 50, 1)
+		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
@@ -153,6 +153,8 @@
 		return ..()
 
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
 	return TRUE
 

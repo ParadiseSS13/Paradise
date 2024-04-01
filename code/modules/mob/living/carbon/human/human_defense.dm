@@ -721,6 +721,49 @@ emp_act
 		var/armor_block = run_armor_check(affecting, MELEE)
 		apply_damage(damage, BRUTE, affecting, armor_block)
 
+/mob/living/carbon/human/attack_tk(mob/psychic)
+	..()
+	var/tying_skill = 0
+	if(HAS_TRAIT(psychic, "can_tie_together_laces"))
+		tying_skill += 1
+		if(HAS_TRAIT(psychic, "lace_tying_expert"))
+			tying_skill += 1
+	if(tying_skill && (psychic.zone_selected == BODY_ZONE_PRECISE_L_FOOT || psychic.zone_selected == BODY_ZONE_PRECISE_R_FOOT) && psychic.a_intent == INTENT_GRAB)
+		if(!has_organ_for_slot(SLOT_HUD_SHOES))
+			if(!has_organ("r_foot"))
+				if(!has_organ("l_foot"))
+					to_chat(psychic, "<span class='warning'>[src] doesn't have any feet, let alone shoes!</span>")
+				else
+					to_chat(psychic, "<span class='warning'>[src] doesn't have a right foot, let alone shoes!</span>")
+			else
+				to_chat(psychic, "<span class='warning'>[src] doesn't have a left foot, let alone shoes!</span>")
+			return
+		var/obj/item/clothing/shoes/the_shoes = shoes
+		if(!istype(the_shoes))
+			to_chat(psychic, "<span class='warning'>[src] isn't wearing any shoes!</span>")
+			return
+		if(!the_shoes.has_laces)
+			to_chat(psychic, "<span class='warning'>[src]'s [the_shoes.name] do not have any laces!</span>")
+			return
+		// Untying
+		if(the_shoes.laces_tied_together)
+			to_chat(psychic, "You begin to untie the laces between [src]'s [the_shoes.name].")
+			if(do_after(psychic, 8 SECONDS / tying_skill, target = src))
+				the_shoes.laces_tied_together = FALSE
+				to_chat(psychic, "You successfully untie the laces between [src]'s [the_shoes.name].")
+			else
+				to_chat(psychic, "<span class='warning'>You fail to untie the knot!</span>")
+		// Tying
+		else
+			to_chat(psychic, "You begin to tie together the laces on [src]'s [the_shoes.name].")
+			if(do_after(psychic, 8 SECONDS / tying_skill, target = src))
+				the_shoes.laces_tied_together = TRUE
+				add_attack_logs(psychic, src, "Tied laces together")
+				to_chat(psychic, "You successfully tie together the laces on [src]'s [the_shoes.name].")
+			else
+				to_chat(psychic, "<span class='warning'>You fail to tie the knot!</span>")
+		return
+
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
