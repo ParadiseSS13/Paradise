@@ -167,8 +167,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/screwdriver_act(mob/living/user, obj/item/I)
-	if(check_screw_size(user, I))
-		return TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 

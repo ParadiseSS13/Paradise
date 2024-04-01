@@ -169,8 +169,6 @@
 	. = TRUE
 	if(shock(user, 90))
 		return
-	if(check_screw_size(user, I))
-		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored

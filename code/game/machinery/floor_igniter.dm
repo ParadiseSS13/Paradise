@@ -98,8 +98,6 @@
 
 /obj/machinery/sparker/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(check_screw_size(user, I))
-		return TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 

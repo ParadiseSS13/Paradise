@@ -72,8 +72,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(check_screw_size(user, I))
-		return TRUE
 	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", monitor_names_paths)
 	if(!choice)
 		return
@@ -666,8 +664,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user))
 		return
-	if(check_screw_size(user, I))
-		return	
 
 	switch(state)
 		if(STATE_CIRCUIT)

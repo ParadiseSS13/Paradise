@@ -179,8 +179,6 @@ FIRE ALARM
 	if(buildstage != FIRE_ALARM_READY)
 		return
 	. = TRUE
-	if(check_screw_size(user, I))
-		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wiresexposed = !wiresexposed

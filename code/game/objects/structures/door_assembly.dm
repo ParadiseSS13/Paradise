@@ -143,8 +143,6 @@
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
-	if(check_screw_size(user, I))
-		return
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is finishing the airlock...", \
