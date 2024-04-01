@@ -989,7 +989,7 @@
 
 	GLOB.minor_announcement.Announce("[user] has called an emergency meeting in [get_area(src)]. Appropriate crew have been summoned.", "Emergency Meeting", 'sound/effects/sus.ogg')
 
-	var/list/all_folks = shuffle(GLOB.human_list)  // this will pull in monkeys too and I think that's just as funny
+	var/list/all_folks = shuffle(GLOB.player_list)  // this will pull in monkeys too and I think that's just as funny
 	var/list/all_chairs = list()
 	if(get_area(src) == /area/space)  // nuh uh
 		to_chat(user, "<span class='userdanger'>You have ejected yourself.</span>")
@@ -1003,7 +1003,7 @@
 
 	if(!length(all_chairs))
 		all_chairs += user  // on top of us, why not
-	for(var/mob/pulled in all_folks)
+	for(var/mob/living/pulled in all_folks)
 		if(get_area(pulled) == get_area(src))
 			continue
 
