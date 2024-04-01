@@ -173,6 +173,8 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
+	if(check_screw_size(user, I))
+		return
 	if(circuit && !(flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)

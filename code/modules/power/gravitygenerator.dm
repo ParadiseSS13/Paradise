@@ -196,6 +196,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(construction_state != GRAV_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")

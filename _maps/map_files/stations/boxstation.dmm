@@ -20401,6 +20401,8 @@
 	},
 /area/station/hallway/primary/central/nw)
 "bkz" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/purple,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -22269,6 +22271,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/green,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -22278,6 +22282,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -33754,6 +33760,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/brainalyzer,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
 "cfs" = (
@@ -36347,6 +36354,15 @@
 	icon_state = "darkred"
 	},
 /area/station/medical/storage/secondary)
+"cpe" = (
+/obj/structure/morgue{
+	dir = 8
+	},
+/obj/effect/landmark/skeleton,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/morgue)
 "cph" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -59928,6 +59944,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
+"gSh" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/black,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/north)
 "gSC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -78296,6 +78320,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
+"pSS" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/north)
 "pSY" = (
 /obj/machinery/turretid/stun{
 	control_area = "\improper AI Upload Chamber";
@@ -80949,6 +80981,14 @@
 	icon_state = "blue"
 	},
 /area/station/maintenance/aft)
+"rar" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/blue,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/north)
 "raC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -82067,6 +82107,14 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"rAT" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/north)
 "rBg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93899,6 +93947,14 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
+"xFs" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/centcom,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/north)
 "xFt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -95027,6 +95083,14 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"ycX" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/red,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/north)
 "ydj" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -123928,7 +123992,7 @@ aRw
 diw
 bhb
 bnd
-bkz
+rAT
 uco
 jvs
 bpq
@@ -124185,7 +124249,7 @@ dcb
 bdv
 bhc
 bnh
-bkz
+rar
 aSv
 bnY
 bpu
@@ -124442,7 +124506,7 @@ bhd
 bhd
 biI
 bnf
-bkz
+gSh
 oKr
 nMx
 toQ
@@ -124699,7 +124763,7 @@ bhh
 bhV
 biK
 bnj
-bkz
+ycX
 qCN
 boa
 iFa
@@ -124956,7 +125020,7 @@ aDN
 bdw
 bgW
 bni
-bkz
+pSS
 qCN
 aYf
 aYg
@@ -125470,7 +125534,7 @@ aDN
 aDN
 bdD
 bna
-bkz
+xFs
 iSg
 jgu
 hzl
@@ -136279,7 +136343,7 @@ lFG
 bJc
 bEu
 bby
-bFQ
+cpe
 fsb
 bFQ
 bFT

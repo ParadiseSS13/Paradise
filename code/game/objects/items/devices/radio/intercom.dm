@@ -195,6 +195,8 @@
 		return
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
+	if(check_screw_size(user, I))
+		return
 	update_icon(UPDATE_ICON_STATE)
 	on = TRUE
 	b_stat = FALSE

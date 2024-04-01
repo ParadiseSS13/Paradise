@@ -59,7 +59,9 @@
 	if(!deliveryamt)
 		to_chat(user, "<span class='notice'>You need to add banana peels before you can ready the grenade!</span>")
 		return TRUE
-
+	if(check_screw_size(user, I))
+		return TRUE
+		
 	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
 	user.unEquip(src)
 	user.put_in_hands(G)

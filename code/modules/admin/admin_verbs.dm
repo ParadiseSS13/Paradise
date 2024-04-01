@@ -214,6 +214,7 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/mentor_ghost,			/*Allows us to ghost at will*/
 	/client/proc/openMentorTicketUI,
 	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
@@ -386,6 +387,22 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/mentor_ghost()
+	set category = "Admin"
+	set name = "Mghost"
+
+	if(!check_rights(R_MENTOR))
+		return
+
+	if(isnewplayer(mob))
+		to_chat(src, "You can't ghost while you're still in the lobby! Join or observe first.")
+		return
+	if(!isliving(mob))
+		to_chat(src, "You're already a ghost!")
+		return
+	to_chat(src, "You are now a ghost!")
+	mob.gib()
 
 /client/proc/invisimin()
 	set name = "Invisimin"

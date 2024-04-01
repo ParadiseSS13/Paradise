@@ -54,6 +54,8 @@
 
 /obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(active)
 		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
 		return

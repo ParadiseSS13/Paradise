@@ -89,6 +89,8 @@
 	if(stage != 2)
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	switch(fixture_type)
@@ -555,7 +557,8 @@
 /obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
 	if(status != LIGHT_EMPTY)
 		return
-
+	if(check_screw_size(user, I))
+		return TRUE
 	I.play_tool_sound(src)
 	user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
 		"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")

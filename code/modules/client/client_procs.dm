@@ -380,6 +380,8 @@
 		if(src)
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
+			// fit_viewport here too as its all winset/get commands
+			fit_viewport() // required to prevent people from logging in for the first time and their screen being SUPER tiny
 
 	// Try doing this before mob login
 	generate_clickcatcher()
@@ -453,6 +455,8 @@
 	display_job_bans(TRUE)
 	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
 		winset(src, "debugmcbutton", "is-disabled=false")
+
+	increase_engagement()
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")

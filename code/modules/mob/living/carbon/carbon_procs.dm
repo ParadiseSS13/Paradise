@@ -243,6 +243,8 @@
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
+	if(ismonkey(src)) // We like monkey
+		playsound(get_turf(src), 'sound/misc/monke.ogg', 75, 0, -1)
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	if(M.zone_selected == "head")
 		M.visible_message(\
@@ -1144,6 +1146,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
+
+	if(mind?.assigned_role == "Clown")
+		for(var/mob/living/carbon/human/H in GLOB.human_list)
+			playsound(H.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
+			H.KnockDown(knockdown)
 	return TRUE
 
 /mob/living/carbon/proc/shock_reduction()

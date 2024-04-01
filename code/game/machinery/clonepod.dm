@@ -385,7 +385,7 @@
 		return FALSE
 
 	clone.forceMove(loc)
-	new /obj/effect/gibspawner/generic(get_turf(src), clone)
+	new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
@@ -591,6 +591,8 @@
 
 /obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return TRUE
 	default_deconstruction_screwdriver(user, null, null, I)
 	update_icon()
 
