@@ -215,6 +215,9 @@
 				else
 					gear_leftovers += G
 
+	if(H.ckey == "eod501")
+		H.equip_to_slot_if_possible(new /obj/item/clothing/under/costume/maid, SLOT_HUD_JUMPSUIT)
+
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
