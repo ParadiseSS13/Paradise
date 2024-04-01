@@ -3317,7 +3317,7 @@
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
 			return
-		var/list/type_choices = typesof(/datum/station_goal)
+		var/list/type_choices = typesof(/datum/station_goal) - typesof(/datum/station_goal/secondary)
 		var/picked = input("Choose goal type") in type_choices|null
 		if(!picked)
 			return
@@ -3333,6 +3333,46 @@
 			G.report_message = description
 		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
+		modify_goals()
+
+	else if(href_list["add_secondary_goal"])
+		if(!check_rights(R_EVENT))
+			return
+		var/list/type_choices = typesof(/datum/station_goal/secondary)
+		for(var/T in type_choices)
+			if(T == /datum/station_goal/secondary)
+				continue
+			var/datum/station_goal/secondary/SG = T
+			if(initial(SG.abstract))
+				type_choices -= SG
+		var/picked = pick_closest_path(FALSE, make_types_fancy(type_choices), skip_filter = TRUE)
+		if(!picked)
+			return
+		var/datum/station_goal/secondary/G = new picked()
+		if(picked == /datum/station_goal/secondary)
+			var/newname = clean_input("Enter goal name:")
+			if(!newname)
+				return
+			G.name = newname
+			var/description = input("Enter A.L.I.C.E message contents:") as message|null
+			if(!description)
+				return
+			G.report_message = description
+			var/admin_description = input("Enter description for admins:") as message|null
+			if(!admin_description)
+				return
+			G.admin_desc = admin_description
+			var/department_choices = list()
+			for(var/obj/machinery/requests_console/RC in GLOB.allRequestConsoles)
+				department_choices |= RC.department
+			var/department = input("Choose goal department") in department_choices|null
+			if(!department)
+				return
+			G.department = department
+			G.should_send_crate = alert("Send a personal crate?","Send crate","Yes","No") == "Yes"
+		G.Initialize()
+		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
+		SSticker.mode.secondary_goals += G
 		modify_goals()
 
 	else if(href_list["showdetails"])
