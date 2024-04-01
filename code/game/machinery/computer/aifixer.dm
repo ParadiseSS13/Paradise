@@ -11,8 +11,6 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/I)
-	if(check_screw_size(user, I))
-		return TRUE
 	if(occupant)
 		if(stat & BROKEN)
 			return ..()

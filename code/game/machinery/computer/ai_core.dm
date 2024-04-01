@@ -155,8 +155,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(check_screw_size(user, I))
-		return
 	switch(state)
 		if(SCREWED_CORE)
 			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")

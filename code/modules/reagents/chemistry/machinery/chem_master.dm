@@ -160,8 +160,6 @@
 
 /obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(check_screw_size(user, I))
-		return
 	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
 		if(beaker)
 			beaker.forceMove(get_turf(src))

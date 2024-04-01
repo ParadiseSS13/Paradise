@@ -207,8 +207,6 @@
 		assembly.hear_message(M, msg)
 
 /obj/item/reagent_containers/glass/beaker/screwdriver_act(mob/living/user, obj/item/I)
-	if(check_screw_size(user, I))
-		return TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(assembly)
