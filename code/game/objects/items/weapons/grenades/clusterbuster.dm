@@ -229,7 +229,7 @@
 
 /obj/item/grenade/clusterbuster/ied
 	name = "\improper IED Cluster Grenade"
-	desc = "For when you need to do something between everything and nothing"
+	desc = "For when you need to do something between everything and nothing."
 	payload = /obj/item/grenade/iedcasing
 
 ////////////Clusterbuster of Clusterbusters////////////
