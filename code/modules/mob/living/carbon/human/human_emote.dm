@@ -461,7 +461,7 @@
 	sound = 'sound/voice/dust.ogg'
 	vary = TRUE
 
-/datum/emote/living/carbon/human/play_sound_effect(mob/living/carbon/human/user, intentional, sound_path, sound_volume)
+/datum/emote/living/carbon/human/aaauuuggghhh/play_sound_effect(mob/living/carbon/human/user, intentional, sound_path, sound_volume)
 	if(intentional)
 		// get trolled idiot
 		user.visible_message("<span class='danger'>[user] starts having a seizure!</span>", "<span class='alert'>You have a seizure!</span>")
