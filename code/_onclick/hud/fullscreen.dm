@@ -253,12 +253,8 @@
 		qdel(robusted)
 
 /atom/movable/screen/fullscreen/robusted/respawn/Click(location,control,params)
-	for(var/atom/atom in GLOB.skeleton_spawners)
-		var/turf/spawn_turf = get_turf(atom)
-		if(!istype(spawn_turf))
-			continue
-		var/mob/living/carbon/human/skeleton/skeleton_mob = new(spawn_turf)
-		skeleton_mob.key = usr.key
+	for(var/obj/effect/mob_spawn/human/alive/ghost_bar/bar in world)
+		bar.create(usr.ckey)
 		break
 
 /atom/movable/screen/fullscreen/robusted/open_pr

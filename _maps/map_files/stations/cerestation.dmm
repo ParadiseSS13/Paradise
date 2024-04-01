@@ -13848,7 +13848,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/skeleton,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -36358,7 +36358,6 @@
 /obj/structure/morgue{
 	dir = 8
 	},
-/obj/effect/landmark/skeleton,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
