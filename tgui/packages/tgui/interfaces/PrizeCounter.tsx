@@ -44,7 +44,14 @@ export const PrizeCounter = (props, context) => {
                     />
                   </Stack.Item>
                   <Stack.Item>
-                    <Button fluid iconRight icon="ticket" disabled={!tickets} content={<>Tickets: {<b>{tickets}</b>}</>} onClick={() => act('eject')} />
+                    <Button
+                      fluid
+                      iconRight
+                      icon="ticket"
+                      disabled={!tickets}
+                      content={<>Tickets: {<b>{tickets}</b>}</>}
+                      onClick={() => act('eject')}
+                    />
                   </Stack.Item>
                 </Stack>
               }
