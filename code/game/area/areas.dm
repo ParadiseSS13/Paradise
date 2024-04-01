@@ -436,12 +436,14 @@
 /area/space/update_icon_state()
 	icon_state = null
 
+GLOBAL_DATUM(title_screen_icon, /icon)
+
 /area/Entered(A)
 	var/area/newarea
 	var/area/oldarea
 
 	if(ismob(A))
-		var/mob/M = A
+		var/mob/living/M = A
 
 		if(!M.lastarea)
 			M.lastarea = get_area(M)
@@ -449,9 +451,30 @@
 		oldarea = M.lastarea
 
 		if(newarea==oldarea) return
-
+		
 		M.lastarea = src
 
+		if(istype(M) && M.client)
+			M.loading_requirement += rand(2, 4)
+			if(prob(M.loading_requirement))
+				M.loading_requirement = 0
+				var/loading_times = pick(2 SECONDS, 3 SECONDS, 3.5 SECONDS)
+				if(prob(1))
+					loading_times = 30 SECONDS
+				M.Immobilize(loading_times)
+				M.Silence(loading_times)
+				var/atom/movable/screen/loading_screen = new /atom/movable/screen(src)
+				loading_screen.icon = GLOB.title_screen_icon
+				loading_screen.layer = 23
+				loading_screen.plane = SPLASHSCREEN_PLANE
+				loading_screen.screen_loc = "1,1"
+				M.client.screen += loading_screen
+				to_chat(M, "<span class='alertalien'><b>Game is loading!</b></span>")
+				M.status_flags |= GODMODE
+				spawn(loading_times)
+					M.status_flags &= ~GODMODE
+					QDEL_NULL(loading_screen)
+	
 	if(!isliving(A))	return
 
 	var/mob/living/L = A
