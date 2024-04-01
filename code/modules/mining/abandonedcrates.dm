@@ -72,7 +72,7 @@
 		if(61 to 62)
 			for(var/i in 1 to 5)
 				new /obj/item/clothing/head/kitty(src)
-				new /obj/item/clothing/accessory/petcollar(src)
+				new /obj/item/petcollar(src)
 		if(63 to 64)
 			for(var/i in 1 to rand(4, 7))
 				var/newcoin = pick(/obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/gold, /obj/item/coin/diamond, /obj/item/coin/plasma, /obj/item/coin/uranium)
