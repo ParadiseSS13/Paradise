@@ -409,7 +409,7 @@
 /obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
 	if(modified)
 		return
-
+	
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	I.play_tool_sound(src)
 	modified = TRUE

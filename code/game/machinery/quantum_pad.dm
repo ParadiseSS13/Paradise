@@ -91,6 +91,8 @@
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(check_screw_size(user, I))
+		return TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)

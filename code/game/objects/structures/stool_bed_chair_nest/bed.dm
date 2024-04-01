@@ -35,6 +35,22 @@
 		return
 	return ..()
 
+/obj/structure/bed/antihobo
+	name = "unsuspicious bed"
+	desc = "This is a comfy bed placed by the company for this special day. Maybe they want their beloved employees to take a nap?"
+
+/obj/structure/bed/antihobo/buckle_mob(mob/living/M, force, check_loc)
+	. = ..()
+	playsound(loc, 'sound/machines/switch.ogg', 30)
+	atom_say("A hobo has been detected and restrained, nearby authorities should dismantle this bed and take them to work")
+
+/obj/structure/bed/antihobo/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(buckled_mob != user)
+		to_chat(user, "<span class='warning'>You can't manage to unbuckle [buckled_mob]! Deconstruction seems to be the only method.</span>")
+	else
+		to_chat(user, "<span class='warning'>You can't manage to unbuckle yourself, call for help!</span>")
+
+
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."

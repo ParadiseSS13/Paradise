@@ -29,10 +29,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+			map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -76,6 +76,7 @@ SUBSYSTEM_DEF(mapping)
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		if(lavaland_theme)
 			lavaland_theme.setup()
+			lavaland_theme.setup_caves()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else

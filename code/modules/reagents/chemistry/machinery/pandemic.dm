@@ -366,6 +366,8 @@
 		return ..()
 
 /obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(beaker)
 		eject_beaker()
 		return TRUE

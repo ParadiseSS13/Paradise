@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(celltimers_list) // list of all cell timers
 GLOBAL_LIST_EMPTY(cell_logs)
 GLOBAL_LIST_EMPTY(navigation_computers)
 GLOBAL_LIST_EMPTY(hierophant_walls)
+GLOBAL_LIST_EMPTY(skeleton_spawners)
 GLOBAL_LIST_EMPTY(pandemics)
 
 GLOBAL_LIST_EMPTY(all_areas)

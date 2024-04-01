@@ -340,6 +340,8 @@
 		default_deconstruction_crowbar(user, I)
 
 /obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(occupant || on)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE

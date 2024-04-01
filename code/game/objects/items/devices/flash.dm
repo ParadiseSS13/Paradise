@@ -43,7 +43,8 @@
 /obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
 	if(!can_overcharge)
 		return
-
+	if(check_screw_size(user, I))
+		return TRUE
 	if(battery_panel)
 		to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
 	else

@@ -83,3 +83,4 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+	has_laces = FALSE
