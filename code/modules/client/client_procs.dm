@@ -382,7 +382,7 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 			// fit_viewport here too as its all winset/get commands
 			fit_viewport() // required to prevent people from logging in for the first time and their screen being SUPER tiny
-
+			
 	// Try doing this before mob login
 	generate_clickcatcher()
 	apply_clickcatcher()
