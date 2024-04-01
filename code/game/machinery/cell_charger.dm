@@ -93,6 +93,8 @@
 		return TRUE
 
 /obj/machinery/cell_charger/screwdriver_act(mob/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	if(anchored && !charging && default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		return TRUE
 

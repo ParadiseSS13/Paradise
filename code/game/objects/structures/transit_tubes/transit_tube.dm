@@ -156,7 +156,8 @@
 	if(!istype(construction))
 		CRASH("expected [construction] to be a transit_tube construction")
 	. = TRUE
-
+	if(check_screw_size(user, I))
+		return
 	var/leaf = copytext("[type]", (findlasttext("[type]", "/") + 1))
 	construction.dir = dir
 	if(leaf == "flipped")

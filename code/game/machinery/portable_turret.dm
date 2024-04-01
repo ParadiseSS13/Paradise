@@ -976,6 +976,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 6 && build_step != 5)
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 
 	if(build_step == 5)
 		build_step = 6

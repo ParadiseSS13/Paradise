@@ -138,6 +138,8 @@
 	if(mode>0) // It's on
 		return
 	. = TRUE
+	if(check_screw_size(user, I))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(contents.len > 0)
@@ -1444,7 +1446,8 @@
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
-
+	if(check_screw_size(user, I))
+		return TRUE
 	if(!mode)
 		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
 	else if(mode)

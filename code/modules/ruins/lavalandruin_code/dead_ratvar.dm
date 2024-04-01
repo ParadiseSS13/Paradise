@@ -100,6 +100,8 @@
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
 		return
+	if(check_screw_size(user, I))
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE

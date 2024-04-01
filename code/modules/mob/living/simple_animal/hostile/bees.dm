@@ -213,10 +213,10 @@
 	if(prob(BEE_POLLINATE_PEST_CHANCE))
 		Hydro.adjustPests(-10)
 	if(prob(BEE_POLLINATE_YIELD_CHANCE))
-		Hydro.myseed.adjust_yield(1)
+		Hydro.myseed.adjust_yield(rand(-1, 1))
 		Hydro.yieldmod = 2
 	if(prob(BEE_POLLINATE_POTENCY_CHANCE))
-		Hydro.myseed.adjust_potency(1)
+		Hydro.myseed.adjust_potency(rand(-1, 1))
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + growth, 100)

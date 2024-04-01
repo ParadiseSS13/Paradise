@@ -251,6 +251,8 @@
 /obj/machinery/cooker/screwdriver_act(mob/user, obj/item/I)
 	if(!upgradeable)
 		return
+	if(check_screw_size(user, I))
+		return TRUE
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))
 		return TRUE
 

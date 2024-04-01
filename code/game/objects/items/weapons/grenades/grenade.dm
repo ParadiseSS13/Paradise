@@ -90,6 +90,8 @@
 		M.unEquip(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
+	if(check_screw_size(user, I))
+		return TRUE
 	switch(det_time)
 		if(1)
 			det_time = 10

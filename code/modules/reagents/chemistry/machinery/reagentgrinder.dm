@@ -150,6 +150,8 @@
 	. = TRUE
 	if(!anchored || beaker)
 		return
+	if(check_screw_size(user, I))
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
