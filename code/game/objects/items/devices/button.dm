@@ -6,10 +6,10 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "syndicate=2"
-	var/mob/living/last_pressed_person
+	var/mob/living/carbon/human/last_pressed_person
 	var/last_pressed_time
 
-/obj/item/money_button/attack_self(mob/user)
+/obj/item/money_button/attack_self(mob/living/carbon/human/user)
 	if(last_pressed_time > world.time)
 		to_chat(user, "<span class='notice'>Wait a bit before clicking the button!</span>")
 		return
@@ -22,7 +22,9 @@
 	var/list/copy_list = GLOB.alive_mob_list.Copy()
 
 	if(prob(10) && last_pressed_person) // Fuck you for selling your colleague's lives for a measly 1k credits.
-		last_pressed_person.death()
+		var/datum/organ/organ_datum = last_pressed_person.get_int_organ_datum(ORGAN_DATUM_HEART)
+		qdel(organ_datum.linked_organ)
+		to_chat(last_pressed_person, "<span class='biggerdanger'>This is your punishment for selling someone's life.</span>")
 	else
 		while(tries < 30)
 			var/mob/living/carbon/human/bad_luck_brandon = pick(copy_list)
