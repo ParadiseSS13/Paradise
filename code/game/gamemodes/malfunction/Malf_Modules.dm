@@ -23,7 +23,7 @@
 		return
 	if(!istype(user))
 		stack_trace("A non ai ([user]) tried to cast an AI spell.")
-		qdel(src)
+		user.RemoveSpell(src)
 		return FALSE
 
 /datum/spell/ai_spell/after_cast(list/targets, mob/user)
@@ -38,7 +38,7 @@
 	if(!uses)
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
-		qdel(src)
+		owner.RemoveSpell(src)
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
@@ -58,7 +58,7 @@
 	if(!uses)
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
-		owner.RemoveSpell(src)
+		owner.mob_spell_list -= src
 		QDEL_IN(src, 10 SECONDS) //let any active timers on us finish up
 
 /datum/spell/ai_spell/ranged/create_new_targeting()
