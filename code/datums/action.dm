@@ -22,7 +22,8 @@
 	target = Target
 
 /datum/action/proc/should_draw_cooldown()
-	return !IsAvailable()
+	var/ready = IsAvailable()
+	return !ready
 
 /datum/action/proc/clear_ref(datum/ref)
 	SIGNAL_HANDLER
