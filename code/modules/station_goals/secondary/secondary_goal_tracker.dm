@@ -17,7 +17,7 @@
 	RegisterSignal(shuttle, COMSIG_CARGO_BEGIN_SELL,		PROC_REF(reset_tempporary_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_CHECK_SELL,		PROC_REF(check_for_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_DO_PRIORITY_SELL,	PROC_REF(update_progress))
-	RegisterSignal(shuttle, COMSIG_CARGO_SEND_ERROR,		PROC_REF(update_progress))
+	RegisterSignal(shuttle, COMSIG_CARGO_SEND_ERROR,		PROC_REF(complain))
 	RegisterSignal(shuttle, COMSIG_CARGO_END_SELL,			PROC_REF(check_for_completion))
 
 /datum/secondary_goal_tracker/proc/unregister(shuttle)
@@ -45,6 +45,11 @@
 	. = real_progress.update(thing, manifest)
 	if(. & COMSIG_CARGO_SELL_PRIORITY)
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal.name, "items sold"))
+
+// Send error messages for stuff we didn't sell.
+/datum/secondary_goal_tracker/proc/complain(obj/docking_port/mobile/supply/shuttle, atom/movable/thing, datum/economy/cargo_shuttle_manifest/manifest)
+	SIGNAL_HANDLER  // COMSIG_CARGO_SEND_ERROR
+	real_progress.update(thing, manifest, TRUE)
 
 /datum/secondary_goal_tracker/proc/check_for_completion(obj/docking_port/mobile/supply/shuttle, datum/economy/cargo_shuttle_manifest/manifest)
 	SIGNAL_HANDLER  // COMSIG_CARGO_END_SELL
@@ -81,9 +86,12 @@
 
 // Check the item to see if it belongs to this goal.
 // Update the manifest accodingly, if provided.
+// If complain is TRUE, the item couldn't be sold by anyone and you should put
+// error messages (if any) into the manifest.
 // Return values from code/__DEFINES/supply_defines.dm.
 // Use COMSIG_CARGO_SELL_PRIORITY, not COMSIG_CARGO_SELL_NORMAL.
-/datum/secondary_goal_progress/proc/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
+/datum/secondary_goal_progress/proc/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null, complain = FALSE)
+	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_CHECK_SELL, COMSIG_CARGO_DO_PRIORITY_SELL, COMSIG_CARGO_SEND_ERROR
 	return
 
 // Check to see if this goal has been completed.

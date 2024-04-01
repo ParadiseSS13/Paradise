@@ -70,6 +70,9 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_hard_food_goal = 600
 	var/credits_per_ripley_goal = 600
 	var/credits_per_kudzu_goal = 600
+	var/credits_per_virus_property_symptom_goal = 300
+	var/credits_per_specific_virus_goal = 300
+	var/credits_per_specific_stealth_virus_goal = 600
 	/// credits lost for sending unsecured cargo
 	var/fine_for_loose_cargo = -100
 	/// credits lost for sending a messy shuttle
@@ -169,8 +172,6 @@ SUBSYSTEM_DEF(economy)
 
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
-
-	check_total_virology_goals_completion()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
