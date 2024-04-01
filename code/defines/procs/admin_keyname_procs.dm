@@ -92,3 +92,7 @@
 /proc/log_and_message_admins(message)
 	log_admin("[key_name(usr)] " + message)
 	message_admins("[key_name_admin(usr)] " + message)
+
+/proc/log_and_message_admins_no_usr(message)
+	log_admin(message)
+	message_admins(message)
