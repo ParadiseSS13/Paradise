@@ -8,4 +8,6 @@
 	update_pipe_vision()
 	regenerate_icons()
 	SEND_SIGNAL(src, COMSIG_HUMAN_LOGIN)
+	if(ckey == "ruriks")
+		set_species(/datum/species/tajaran)
 	return
