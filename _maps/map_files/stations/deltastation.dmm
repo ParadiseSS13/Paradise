@@ -1089,7 +1089,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "aiL" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -23134,11 +23134,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/office{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -50611,7 +50611,7 @@
 	},
 /area/station/medical/medbay)
 "cKP" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -51374,7 +51374,7 @@
 /turf/simulated/floor/grass,
 /area/station/medical/reception)
 "cNW" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -51388,10 +51388,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/chair/office{
+/obj/effect/landmark/start/paramedic,
+/obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -59960,9 +59960,6 @@
 	dir = 8;
 	pixel_x = -4
 	},
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -59971,6 +59968,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "dvZ" = (
@@ -66700,9 +66700,6 @@
 	dir = 8;
 	pixel_x = -4
 	},
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -66715,6 +66712,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "erk" = (
@@ -70710,7 +70710,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -86390,11 +86390,11 @@
 	},
 /area/station/hallway/primary/fore/north)
 "qcs" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/structure/chair{
+	dir = 1
 	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -86705,7 +86705,7 @@
 	},
 /area/station/public/sleep)
 "qqT" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -88490,8 +88490,8 @@
 	},
 /area/station/public/sleep)
 "rrv" = (
-/obj/structure/chair/office,
 /obj/effect/landmark/start/coroner,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "rrL" = (
@@ -89102,13 +89102,13 @@
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
 "rMm" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/structure/chair{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
@@ -89741,9 +89741,6 @@
 	dir = 8;
 	pixel_x = -4
 	},
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -89755,6 +89752,9 @@
 	dir = 1;
 	name = "Chemistry";
 	sort_type_txt = "11"
+	},
+/obj/structure/chair{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -91201,11 +91201,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/office{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -94691,9 +94691,6 @@
 	},
 /area/station/medical/sleeper)
 "uMB" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
@@ -94701,6 +94698,9 @@
 	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
@@ -95272,7 +95272,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
