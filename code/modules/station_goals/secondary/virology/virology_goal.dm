@@ -10,7 +10,7 @@
 	/// If you change this, update the report messages.
 	var/delivery_goal = 15
 
-/datum/secondary_goal_progress/virology/proc/check_virus(datum/disease/advanced/D, datum/economy/cargo_shuttle_manifest/manifest, complain)
+/datum/secondary_goal_progress/virology/proc/check_virus(datum/disease/advance/D, datum/economy/cargo_shuttle_manifest/manifest, complain)
 	return TRUE
 
 /datum/secondary_goal_progress/virology/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null, complain = FALSE)
