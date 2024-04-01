@@ -462,10 +462,11 @@ GLOBAL_DATUM(title_screen_icon, /icon)
 			var/atom/movable/screen/loading_screen = new /atom/movable/screen(src)
 			loading_screen.icon = GLOB.title_screen_icon
 			loading_screen.layer = 23
+			loading_screen.plane = SPLASHSCREEN_PLANE
 			loading_screen.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			loading_screen.screen_loc = "1,1"
 			M.client.screen += loading_screen
-			to_chat(M, "Game is loading!")
+			to_chat(M, "<span class='alertalien'><b>Game is loading!</b></span>")
 			spawn(loading_times)
 				QDEL_NULL(loading_screen)
 
