@@ -6,13 +6,13 @@
 	/// does it start off cooldown?
 	var/starts_off_cooldown = TRUE
 	/// holds a ref to the spell
-	var/obj/effect/proc_holder/spell/spell_parent
+	var/datum/spell/spell_parent
 
 /datum/spell_cooldown/Destroy()
 	spell_parent = null
 	return ..()
 
-/datum/spell_cooldown/proc/cooldown_init(obj/effect/proc_holder/spell/new_spell)
+/datum/spell_cooldown/proc/cooldown_init(datum/spell/new_spell)
 	spell_parent = new_spell
 	if(!starts_off_cooldown)
 		start_recharge()
