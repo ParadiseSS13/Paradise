@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!S)
 		return FALSE
 
-	symptoms += S
+	symptoms += new S
 	return TRUE
 
 // Simply removes the symptom.

@@ -1,10 +1,17 @@
 #define MAX_CRATE_DELIVERY 40
 
+/// This can be shipped on the shuttle.
 #define CARGO_OK 0
+/// This can never be shipped on the shuttle.
 #define CARGO_PREVENT_SHUTTLE 1
+/// Ignore this atom.
 #define CARGO_SKIP_ATOM 2
-#define CARGO_REQUIRE_PRIORITY 3
-#define CARGO_HAS_PRIORITY 4
+/// Must contain a priority or wrong item.
+/// Used to prevent opening a locked box by selling the box and getting the
+/// contents back.
+#define CARGO_REQUIRE_SPECIAL 3
+/// Does contain a priority or wrong item.
+#define CARGO_HAS_SPECIAL 4
 
 
 /obj/docking_port/mobile/supply
@@ -168,21 +175,21 @@
 		var/child_handling = deep_scan(child)
 		if(child_handling == CARGO_PREVENT_SHUTTLE)
 			return CARGO_PREVENT_SHUTTLE
-		if(child_handling == CARGO_HAS_PRIORITY)
+		if(child_handling == CARGO_HAS_SPECIAL)
 			found_priority = TRUE
 
 	if(handling != CARGO_SKIP_ATOM)
-		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
+		if(handling == CARGO_REQUIRE_SPECIAL && !found_priority)
 			blocking_item = "locked containers that don't contain goal items ([AM])"
 			return CARGO_PREVENT_SHUTTLE
 		var/sellable = SEND_SIGNAL(src, COMSIG_CARGO_CHECK_SELL, AM)
 		manifest.items_to_sell[AM] = sellable
 		if(top_level && !(sellable & COMSIG_CARGO_IS_SECURED))
 			manifest.loose_cargo = TRUE
-		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
+		if(sellable & (COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_SELL_WRONG))
 			if(top_level)
 				return CARGO_OK
-			return CARGO_HAS_PRIORITY
+			return CARGO_HAS_SPECIAL
 
 	return CARGO_OK
 
@@ -205,7 +212,7 @@
 	if(istype(AM, /obj/structure/closet/crate/secure))
 		var/obj/structure/closet/crate/secure/SC = AM
 		if(SC.locked)
-			return CARGO_REQUIRE_PRIORITY
+			return CARGO_REQUIRE_SPECIAL
 		else if(istype(SC, /obj/structure/closet/crate/secure/personal))
 			blocking_item = "unlocked personal crates ([AM])"
 			return CARGO_PREVENT_SHUTTLE
@@ -213,7 +220,7 @@
 	if(istype(AM, /obj/item/storage/lockbox))
 		var/obj/item/storage/lockbox/LB = AM
 		if(LB.locked)
-			return CARGO_REQUIRE_PRIORITY
+			return CARGO_REQUIRE_SPECIAL
 
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
@@ -798,5 +805,5 @@
 #undef CARGO_OK
 #undef CARGO_PREVENT_SHUTTLE
 #undef CARGO_SKIP_ATOM
-#undef CARGO_REQUIRE_PRIORITY
-#undef CARGO_HAS_PRIORITY
+#undef CARGO_REQUIRE_SPECIAL
+#undef CARGO_HAS_SPECIAL
