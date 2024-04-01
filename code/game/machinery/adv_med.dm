@@ -146,9 +146,9 @@
 		return TRUE
 
 	if(H == user)
-		visible_message("[user] climbs into the body scanner.")
+		visible_message("[user] climbs into [src].")
 	else
-		visible_message("[user] puts [H] into [src].")
+		visible_message("[user] puts [H] into the body scanner.")
 
 	QDEL_LIST_CONTENTS(H.grabbed_by)
 	H.forceMove(src)
