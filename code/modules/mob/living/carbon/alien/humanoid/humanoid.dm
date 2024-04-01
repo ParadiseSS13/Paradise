@@ -23,7 +23,7 @@
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
+	AddSpell(new /datum/spell/alien_spell/regurgitate)
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
