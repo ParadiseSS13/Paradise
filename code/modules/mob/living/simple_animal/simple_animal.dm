@@ -88,7 +88,7 @@
 	/// Allows a mob to pass unbolted doors while hidden
 	var/pass_door_while_hidden = FALSE
 
-	var/obj/item/clothing/accessory/petcollar/pcollar = null
+	var/obj/item/petcollar/pcollar = null
 	/// If the mob has collar sprites, define them.
 	var/collar_type
 	/// If the mob can be renamed
@@ -533,7 +533,7 @@
 				return FALSE
 			if(!can_collar)
 				return FALSE
-			if(!istype(I, /obj/item/clothing/accessory/petcollar))
+			if(!istype(I, /obj/item/petcollar))
 				return FALSE
 			return TRUE
 
@@ -643,7 +643,7 @@
 		LAZYREMOVE(idle_mobs_on_old_z, src)
 		toggle_ai(initial(AIStatus))
 
-/mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
+/mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
 	if(user && !user.unEquip(P))
