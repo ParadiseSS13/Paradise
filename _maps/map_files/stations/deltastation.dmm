@@ -88900,6 +88900,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/medical/virology)
+"rEp" = (
+/obj/machinery/brainalyzer,
+/turf/simulated/floor/wood,
+/area/station/medical/psych)
 "rEs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -146126,7 +146130,7 @@ kYE
 jNY
 cPQ
 oop
-cPQ
+rEp
 lYX
 iNo
 mpZ

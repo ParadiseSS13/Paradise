@@ -1173,9 +1173,7 @@
 	},
 /area/station/public/fitness)
 "alg" = (
-/obj/structure/bookcase{
-	name = "bookcase (Reference)"
-	},
+/obj/machinery/brainalyzer,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "alh" = (
