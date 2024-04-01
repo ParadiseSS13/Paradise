@@ -7,10 +7,10 @@
 @use '../base.scss';
 @use '../colors.scss';
 
-$text-color: rgba(255, 255, 255, 0.75) !default;
-$background-color: #363636 !default;
-$shadow-color-core: #161616 !default;
-$shadow-color: rgba(0, 0, 0, 0.1) !default;
+$text-color: rgba(255, 255, 255, 1) !default;
+$background-color: #a60037 !default;
+$shadow-color-core: #8c002f !default;
+$shadow-color: rgba(140, 0, 50, 0.1) !default;
 
 .TitleBar {
   background-color: $background-color;
