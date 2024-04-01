@@ -969,6 +969,54 @@
 			sleep(8) // Short delay to match up with the explosion sound
 			shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
+/obj/structure/emergency_meeting_button
+	name = "big red button"
+	desc = "Quickly summon people to your important meeting. Guaranteed to find a partial jury to settle any dispute."
+	anchored = TRUE
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "bigred"
+	var/cooldown = 0
+	var/cooldown_time = 20 MINUTES
+
+/obj/structure/emergency_meeting_button/attack_hand(mob/user)
+	if(cooldown >= world.time)
+		to_chat(user, "<span class='alert'>Nothing happens.</span>")
+		return
+
+	flick("bigred_press", src)
+
+	cooldown = (world.time + cooldown_time) // Sets cooldown at 30 seconds
+
+	GLOB.minor_announcement.Announce("[user] has called an emergency meeting in [get_area(src)]. Appropriate crew have been summoned.", "Emergency Meeting", 'sound/effects/sus.ogg')
+
+	var/list/all_folks = shuffle(GLOB.player_list)  // this will pull in monkeys too and I think that's just as funny
+	var/list/all_chairs = list()
+	if(get_area(src) == /area/space)  // nuh uh
+		to_chat(user, "<span class='userdanger'>You have ejected yourself.</span>")
+		user.gib()
+		return
+
+	for(var/turf/T in get_area(src))
+		var/chair = locate(/obj/structure/chair) in T
+		if(chair)
+			all_chairs += chair
+
+	if(!length(all_chairs))
+		all_chairs += user  // on top of us, why not
+	for(var/mob/living/pulled in all_folks)
+		if(get_area(pulled) == get_area(src))
+			continue
+
+		var/chair = pick_n_take(all_chairs)
+		if(!chair)
+			break
+
+		pulled.forceMove(get_turf(chair))
+		to_chat(pulled, "<span class='warning'>You have been summoned for the meeting!</span>")
+
+/obj/structure/emergency_meeting_button/somewhere
+	cooldown_time = 60 MINUTES
+
 /*
  * AI core prizes
  */
@@ -1177,6 +1225,7 @@
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
 			zone = "chest"
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+		playsound(src, 'sound/voice/now.ogg', 80, TRUE)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
@@ -1709,3 +1758,131 @@
 	throwforce = 0
 	breakouttime = 0
 	ignoresClumsy = TRUE
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣶⣶⣶⣶⣤⣤⣀⣀⠀⠀⠙⢿⣷⣶⣶⣤⣤⣤⣤⣠⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀
+⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀
+⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆
+⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
+⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣻⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃
+⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡶⠿⣿⣿⣿⠿⢿⣿⠟⠁⠀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠧⢠⣽⣤⣤⣴⣾⠇⠀⠀⠀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠚⠋⠀⢸⡆⠀⠀⠀
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀
+⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀
+⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⣀⣤⣿⠇⠀⠀⠀⠀
+⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⢻⣿⡿⠀⠀⠀⠀⠀
+⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⠀⢸⡿⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⠙⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⡾⠃⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠙⠛⠛⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠉⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⣈⢉⠉⠉⠉⠉⠉⠉⠉⢉⢉⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+*/
+
+/obj/item/toy/plushie/maxwell
+	name = "Maxwell"
+	desc = "IT'S MAXWELL!!!!!!!"
+	icon_state = "maxwell"
+	var/is_active = FALSE
+	var/event_spawn = FALSE
+	var/datum/looping_sound/maxwell/soundloop
+
+/obj/item/toy/plushie/maxwell/Initialize(mapload, set_active, is_event_spawn)
+	. = ..()
+	is_active = set_active
+	event_spawn = is_event_spawn
+	soundloop = new(list(src), FALSE)
+	if(is_active)
+		soundloop.start()
+		START_PROCESSING(SSobj, src)
+
+/obj/item/toy/plushie/maxwell/Destroy()
+	GLOB.major_announcement.Announce("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. MAXWELL was destroyed! Who would do such a thing!", "MAXWELL... DESTROYED!?!??!!!", 'sound/items/nanyaaa.ogg')
+	remove_filter("ray")
+	GLOB.poi_list.Remove(src)
+	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
+	return ..()
+
+/obj/item/toy/plushie/maxwell/attack_self(mob/user)
+	. = ..()
+	if(!is_active)
+		soundloop.start()
+		is_active = TRUE
+		START_PROCESSING(SSobj, src)
+	else
+		soundloop.stop()
+		is_active = FALSE
+		remove_filter("ray")
+		STOP_PROCESSING(SSobj, src)
+
+/obj/item/toy/plushie/maxwell/process()
+	. = ..()
+	if(is_active)
+		var/new_filter = isnull(get_filter("ray"))
+		ray_filter_helper(1, 40,"#ffffff", 6, 20)
+		if(new_filter)
+			animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+			animate(offset = 0, time = 10 SECONDS)
+
+/obj/item/toy/plushie/maxwell/pickup(mob/user)
+	. = ..()
+	playsound(src, 'sound/creatures/cat_meow.ogg', 100, TRUE)
+	if(event_spawn)
+		GLOB.major_announcement.Announce("The legendary MAXWELL has been found by [user.name]! What a silly kitty!", "MAXWELL FOUND!!!", 'sound/items/maxwell.ogg')
+		event_spawn = FALSE
+
+/*
+*Joy Buzzer
+*/
+
+/obj/item/toy/joy_buzzer
+	name = "joy buzzer"
+	desc = "A device that straps to the hand and gives a small, harmless electric shock to anybody who shakes hands with the user."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "buzzer"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/toy/joy_buzzer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Using the emotes *handshake, *highfive, or *dap with someone while this is in one of your hands will deliver a shock to the other person</span>"
+
+/obj/item/toy/joy_buzzer/proc/electrocute(mob/living/prankster, mob/living/victim)
+	if(prankster == victim || !victim)
+		prankster.visible_message("<span class='warning'>[prankster] shocks [prankster.p_themselves()] with [prankster.p_their()] own [name]!</span>", "<span class='warning'>You shock yourself with your own [name]!</span>")
+	else
+		victim.visible_message("<span class='warning'>[victim] is shocked by [prankster]'s [name]!</span>", "<span class='warning'>You are shocked by [prankster]'s [name]!</span>")
+	playsound(src, 'sound/effects/sparks1.ogg', 20)
+	if(emagged)
+		victim.AdjustJitter(10 SECONDS)
+		victim.AdjustStunned(8 SECONDS)
+		victim.AdjustStuttering(20 SECONDS)
+		victim.AdjustKnockDown(5 SECONDS)
+		victim.apply_damage(rand(20, 40), BURN, victim.hand ? "l_hand" : "r_hand", used_weapon = "Electrocution")
+		add_attack_logs(prankster, victim, "Zapped with an emagged joy buzzer")
+	else
+		victim.AdjustJitter(5 SECONDS)
+		victim.AdjustStunned(4 SECONDS)
+		victim.AdjustStuttering(10 SECONDS)
+		add_attack_logs(prankster, victim, "Stunned with a joy buzzer")
+
+/obj/item/toy/joy_buzzer/emag_act(mob/user)
+	. = ..()
+	if(!emagged)
+		to_chat(user, "<span class='warning'>Sparks fly out of the [name]!</span>")
+		log_game("[key_name(user)] emagged [src]")
+		emagged = TRUE
+
+/obj/item/toy/joy_buzzer/cmag_act(mob/user)
+	. = ..()
+	emag_act(user)
+
+/obj/item/toy/joy_buzzer/suicide_act(mob/living/user)
+	to_chat(viewers(user), "<span class='suicide'>[user] is strapping [src] to [user.p_their()] [ismachineperson(user) ? "charging cable" : "tongue"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.AdjustStunned(8 SECONDS)
+	sleep(25)
+	playsound(src, 'sound/effects/sparks3.ogg', 20)
+	user.AdjustJitter(10 SECONDS)
+	return FIRELOSS

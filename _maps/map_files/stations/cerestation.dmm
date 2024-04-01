@@ -7423,6 +7423,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/blue,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -9170,6 +9172,7 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "bey" = (
+/obj/machinery/brainalyzer,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "bez" = (
@@ -16337,7 +16340,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide" , "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -32411,6 +32414,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/brown,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -32651,6 +32656,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/black,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -32729,6 +32736,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/red,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -53595,6 +53604,23 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient,
 /area/station/hallway/primary/starboard/north)
+"khp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/green,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore/north)
 "khM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -69597,6 +69623,23 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"ppj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore/north)
 "ppp" = (
 /obj/structure/girder,
 /obj/item/stack/sheet/metal,
@@ -85428,6 +85471,23 @@
 "uwf" = (
 /turf/simulated/wall,
 /area/station/hallway/spacebridge/scidock)
+"uwi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore/north)
 "uwq" = (
 /obj/machinery/light{
 	dir = 8
@@ -129998,7 +130058,7 @@ byn
 pyM
 dQx
 bEi
-bUO
+uwi
 ugQ
 sGY
 npV
@@ -130255,7 +130315,7 @@ byt
 bAK
 mZB
 bEi
-bUO
+ppj
 ugQ
 sGY
 npV
@@ -130769,7 +130829,7 @@ aVS
 aVS
 aVS
 aVS
-bUO
+khp
 ugQ
 hcT
 aKp

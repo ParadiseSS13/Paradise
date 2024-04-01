@@ -136,6 +136,17 @@
 				H.blood_volume += 0.8
 	return ..()
 
+/datum/reagent/glass
+	name = "Ground glass"
+	id = "glass"
+	description = "This glass has been ground up to dust, making it exhibit liquid state properties."
+	color = "#796e91"
+	taste_description = "sharp"
+
+/datum/reagent/glass/on_mob_life(mob/living/M)
+	. = ..()
+	M.adjustBruteLoss(1) // You are stuffing glass dust in your throat, what did you expectf
+
 //foam
 /datum/reagent/fluorosurfactant
 	name = "Fluorosurfactant"
@@ -638,13 +649,21 @@
 	reagent_state = LIQUID
 	color = "#050519"
 
+/datum/reagent/eyenewt/on_mob_add(mob/living/L)
+	. = ..()
+	L.EyeBlind(5 SECONDS)
+
+/datum/reagent/eyenewt/on_mob_life(mob/living/M)
+	. = ..()
+	M.EyeBlind(5 SECONDS)
+
 /datum/reagent/toefrog
 	name = "Toe of frog"
 	id = "toefrog"
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#092D09"
-	taste_description = "alchemy"
+	taste_description = "a sharp pain in your toe"
 
 /datum/reagent/woolbat
 	name = "Wool of bat"
@@ -660,7 +679,12 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#2D0909"
-	taste_description = "alchemy"
+	taste_description = "fur"
+
+/datum/reagent/tonguedog/on_mob_add(mob/living/L)
+	. = ..()
+	L.languages = list(new /datum/language/vulpkanin/monkey)
+	L.default_language = L.languages[1]
 
 /datum/reagent/triplepiss
 	name = "Triplepiss"
@@ -669,6 +693,44 @@
 	reagent_state = LIQUID
 	color = "#857400"
 	taste_description = "alchemy"
+
+/datum/reagent/babel_extract
+	name = "Extract of Babel"
+	id = "babel_ex"
+	description = "Ackindenizes wibix."
+	reagent_state = LIQUID
+	color = "#5d1110"
+	taste_description = "burnt toast"
+
+/datum/reagent/babel_extract/on_mob_add(mob/living/L)
+	. = ..()
+	L.languages = list(new /datum/language/gibberish)
+	L.default_language = L.languages[1]
+
+/datum/reagent/panacea
+	name = "Panacea"
+	id = "panacea"
+	description = "The cure for every disease that has ever existed!"
+	color = "#00ff44"
+	taste_description = "Medicine"
+
+/datum/reagent/panacea/on_mob_add(mob/living/L)
+	. = ..()
+	for(var/datum/disease/disease in L.viruses)
+		disease.cure()
+	if(!HAS_TRAIT(L, TRAIT_VIRUSIMMUNE))
+		ADD_TRAIT(L, TRAIT_VIRUSIMMUNE, "panacea")
+
+/datum/reagent/liquid_glass
+	name = "Liquid glass"
+	id = "l_glass"
+	description = "With the power of alchemy, glass has been transformed to a liquid state!"
+	color = "#ffffff"
+	metabolization_rate = 5 // This does NOT like being inside of you
+	taste_description = "sand"
+
+/datum/reagent/liquid_glass/on_mob_add(mob/living/L)
+	. = ..()
 
 /datum/reagent/spraytan
 	name = "Spray Tan"

@@ -88,3 +88,7 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/simple_animal/lizard/death(gibbed)
+	new /obj/item/organ/toe(get_turf(src))
+	. = ..()

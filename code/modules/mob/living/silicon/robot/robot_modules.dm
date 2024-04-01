@@ -355,9 +355,11 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper_medical
+		/obj/item/gripper_medical,
+		/obj/item/slapper/borg
+
 	)
-	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
+	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/slapper/parry/borg)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
 // Disable safeties on the borg's defib.
@@ -417,9 +419,10 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/inflatable/cyborg,
-		/obj/item/inflatable/cyborg/door
+		/obj/item/inflatable/cyborg/door,
+		/obj/item/slapper/borg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
+	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg, /obj/item/slapper/parry/borg)
 	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
@@ -441,13 +444,15 @@
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/holosign_creator/security,
-		/obj/item/clothing/mask/gas/sechailer/cyborg
+		/obj/item/clothing/mask/gas/sechailer/cyborg,
+		/obj/item/slapper/borg
 	)
 	emag_override_modules = list(/obj/item/gun/energy/laser/cyborg)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
-		/obj/item/gun/energy/laser/cyborg
+		/obj/item/gun/energy/laser/cyborg,
+		/obj/item/slapper/parry/borg
 	)
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
@@ -467,10 +472,11 @@
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/extinguisher/mini
+		/obj/item/extinguisher/mini,
+		/obj/item/slapper/borg
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/slapper/parry/borg)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
@@ -532,10 +538,11 @@
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
-		/obj/item/reagent_containers/drinks/shaker
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/slapper/borg
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/slapper/parry/borg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
 		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
@@ -593,9 +600,10 @@
 		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
-		/obj/item/gps/cyborg
+		/obj/item/gps/cyborg,
+		/obj/item/slapper/borg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/slapper/parry/borg)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
 
 // Replace their normal drill with a diamond drill.
@@ -632,6 +640,7 @@
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg/red,
+		/obj/item/slapper/parry/borg //Can't be emagged. It's a deathsquad borg. It will SLAP YOU TO DEATH!
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
@@ -646,8 +655,10 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg/red,
-		/obj/item/pinpointer/operative
+		/obj/item/pinpointer/operative,
+		/obj/item/slapper/borg
 	)
+	emag_modules = list(/obj/item/slapper/parry/borg)
 
 // Sydicate medical cyborg module.
 /obj/item/robot_module/syndicate_medical
@@ -679,8 +690,10 @@
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
-		/obj/item/gripper_medical
+		/obj/item/gripper_medical,
+		/obj/item/slapper/borg
 	)
+	emag_modules = list(/obj/item/slapper/parry/borg)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
 // Sydicate engineer/sabotuer cyborg module.
@@ -710,8 +723,10 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/slapper/borg
 	)
+	emag_modules = list(/obj/item/slapper/parry/borg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
 /obj/item/robot_module/destroyer
@@ -725,7 +740,8 @@
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
-		/obj/item/borg/destroyer/mobility
+		/obj/item/borg/destroyer/mobility,
+		/obj/item/slapper/parry/borg // Adminbus borg gets the nasty slap
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
@@ -746,8 +762,10 @@
 		// Overall, gamma borg has higher skill floor but lower skill ceiling.
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
+		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
+		/obj/item/slapper/borg
 	)
+	emag_modules = list(/obj/item/slapper/parry/borg)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/immolator/multi/cyborg
@@ -764,7 +782,9 @@
 		/obj/item/flash/cyborg/alien,
 		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke,
+		/obj/item/slapper/borg
 	)
+	emag_modules = list(/obj/item/slapper/parry/borg)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/alien/acid)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/alien/acid,
@@ -803,8 +823,10 @@
 		/obj/item/stack/sheet/glass/cyborg/drone,
 		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,
-		/obj/item/stack/tile/wood/cyborg
+		/obj/item/stack/tile/wood/cyborg,
+		/obj/item/slapper/borg
 	)
+	emag_modules = list(/obj/item/slapper/parry/borg) //Imagine how funny it would be to be slapped to death by a hat
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/weldingtool/largetank/cyborg,

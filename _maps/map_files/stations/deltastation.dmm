@@ -23668,6 +23668,8 @@
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/black,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -23683,6 +23685,8 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -72058,6 +72062,8 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "hBw" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -72257,6 +72263,14 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
+"hHN" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/centcom,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "hHW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -74722,6 +74736,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/supply/qm)
+"jiK" = (
+/obj/machinery/light,
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "jiO" = (
 /obj/structure/sign/vacuum/external,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -79097,6 +79119,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/medical/break_room)
+"lTO" = (
+/obj/structure/morgue{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/medical/morgue)
 "lTY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84413,6 +84441,13 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/service/expedition)
+"oVo" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/station/hallway/primary/central/north)
 "oVu" = (
 /obj/structure/morgue,
 /obj/machinery/light/small,
@@ -88893,6 +88928,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/medical/virology)
+"rEp" = (
+/obj/machinery/brainalyzer,
+/turf/simulated/floor/wood,
+/area/station/medical/psych)
 "rEs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -89130,6 +89169,13 @@
 	icon_state = "vault"
 	},
 /area/station/turret_protected/aisat)
+"rMv" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/green,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "rMG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -96718,6 +96764,13 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"waQ" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "wbi" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -98663,6 +98716,14 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
+"xgG" = (
+/obj/structure/bed/antihobo,
+/obj/item/bedsheet/orange,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "xgH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
@@ -139117,7 +139178,7 @@ bQy
 bmZ
 rnb
 npJ
-xGb
+waQ
 bKt
 aaa
 mBN
@@ -139374,7 +139435,7 @@ bQy
 aYZ
 fJp
 npJ
-xGb
+rMv
 bKt
 aaa
 koT
@@ -139631,7 +139692,7 @@ aYZ
 bna
 rnb
 npJ
-fwU
+jiK
 kgl
 abj
 bwf
@@ -140402,7 +140463,7 @@ foX
 bMb
 bov
 hgo
-hBw
+oVo
 bKt
 aaa
 jQN
@@ -140916,7 +140977,7 @@ bls
 bfq
 bov
 hgo
-uGT
+xgG
 bKt
 aaa
 mTy
@@ -141173,7 +141234,7 @@ blt
 bfq
 bov
 hgo
-uGT
+hHN
 bKt
 aaa
 nWi
@@ -146119,7 +146180,7 @@ kYE
 jNY
 cPQ
 oop
-cPQ
+rEp
 lYX
 iNo
 mpZ
@@ -146127,7 +146188,7 @@ iHR
 duk
 jfB
 hbl
-hbl
+lTO
 dvw
 kfx
 tdW

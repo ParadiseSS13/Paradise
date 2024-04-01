@@ -128,6 +128,21 @@
 	icon_state = "key"
 	w_class = WEIGHT_CLASS_TINY
 
+/obj/item/key/mime
+	name = "mime car key"
+	desc = "A key that leads to the mime invisible car. Activate and try to locate it, good luck."
+	icon_state = "mimekey"
+	COOLDOWN_DECLARE(alarm_cooldown)
+
+/obj/item/key/mime/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, alarm_cooldown))
+		return
+	if(prob(10))
+		to_chat(user, "<span class='warning'>The key vibrates, looks like you are close to it!</span>")
+	else
+		to_chat(user, "<span class='info'>The key does nothing, seems like the car is too far away.</span>")
+	playsound(user, 'sound/misc/mime_key.ogg', 20)
+	COOLDOWN_START(src, alarm_cooldown, 4 SECONDS)
 
 //BUCKLE HOOKS
 /obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
@@ -203,14 +218,14 @@
 	handle_vehicle_offsets()
 
 
-/obj/vehicle/Bump(atom/movable/M)
+/obj/vehicle/Bump(atom/A)
 	if(!spaceworthy && isspaceturf(get_turf(src)))
 		return FALSE
 	. = ..()
 	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && has_buckled_mobs())
+		if(istype(A, /obj/machinery/door) && has_buckled_mobs())
 			for(var/m in buckled_mobs)
-				M.Bumped(m)
+				A.Bumped(m)
 
 /obj/vehicle/proc/RunOver(mob/living/carbon/human/H)
 	return		//write specifics for different vehicles

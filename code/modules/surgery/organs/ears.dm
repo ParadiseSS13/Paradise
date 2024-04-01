@@ -22,8 +22,6 @@
 			C.Deaf(8 SECONDS)
 			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
 
-
-
 /obj/item/organ/internal/ears/surgeryize()
 	owner?.SetDeaf(0)
 	heal_internal_damage(100)
