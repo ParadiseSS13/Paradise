@@ -1173,7 +1173,7 @@
 	},
 /area/station/public/fitness)
 "alg" = (
-/obj/machinery/bodyscanner/brain,
+/obj/machinery/brainalyzer,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "alh" = (

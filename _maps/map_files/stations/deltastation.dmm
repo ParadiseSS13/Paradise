@@ -88901,7 +88901,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/medical/virology)
 "rEp" = (
-/obj/machinery/bodyscanner/brain,
+/obj/machinery/brainalyzer,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "rEs" = (

@@ -9170,7 +9170,7 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "bey" = (
-/obj/machinery/bodyscanner/brain,
+/obj/machinery/brainalyzer,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "bez" = (
