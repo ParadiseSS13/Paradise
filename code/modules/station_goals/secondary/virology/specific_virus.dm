@@ -34,13 +34,11 @@
 	return english_list(msg, ", ")
 
 /datum/secondary_goal_progress/virology/specific_virus
-	var/goal_name
 	var/reward
 	var/list/goal_symptoms
 
 /datum/secondary_goal_progress/virology/specific_virus/configure(datum/station_goal/secondary/virology/specific_virus/goal)
 	..()
-	goal_name = goal.name
 	reward = SSeconomy.credits_per_specific_virus_goal
 	goal_symptoms = goal.goal_symptoms
 
@@ -48,7 +46,6 @@
 	var/datum/secondary_goal_progress/virology/specific_virus/copy = ..()
 	// These aren't really needed in the intended use case, they're
 	// just here in case someone uses this method somewhere else.
-	copy.goal_name = goal_name
 	copy.reward = reward
 	copy.goal_symptoms = goal_symptoms
 	return copy

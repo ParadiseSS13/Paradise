@@ -29,7 +29,6 @@
 
 
 /datum/secondary_goal_progress/virology/property_symptom
-	var/goal_name
 	var/reward
 	var/datum/symptom/goal_symptom //Type path of the symptom
 	var/goal_symptom_name
@@ -38,7 +37,6 @@
 
 /datum/secondary_goal_progress/virology/property_symptom/configure(datum/station_goal/secondary/virology/property_symptom/goal)
 	..()
-	goal_name = goal.name
 	reward = SSeconomy.credits_per_virus_property_symptom_goal
 	goal_symptom = goal.goal_symptom
 	goal_symptom_name = goal.goal_symptom_name
@@ -49,7 +47,6 @@
 	var/datum/secondary_goal_progress/virology/property_symptom/copy = ..()
 	// These aren't really needed in the intended use case, they're
 	// just here in case someone uses this method somewhere else.
-	copy.goal_name = goal_name
 	copy.reward = reward
 	copy.goal_symptom = goal_symptom
 	copy.goal_symptom_name = goal_symptom_name
@@ -94,7 +91,6 @@
 			item.zero_is_good = TRUE
 			item.reason = "Received [volume] units of usable virus [D.name] for [goal_name]."
 			manifest.line_items += item
-		delivered_amount += volume
 		return TRUE
 	if(!manifest || !complain)
 		return

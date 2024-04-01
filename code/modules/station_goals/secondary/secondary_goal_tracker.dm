@@ -91,7 +91,7 @@
 // Return values from code/__DEFINES/supply_defines.dm.
 // Use COMSIG_CARGO_SELL_PRIORITY, not COMSIG_CARGO_SELL_NORMAL.
 /datum/secondary_goal_progress/proc/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null, complain = FALSE)
-	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_CHECK_SELL, COMSIG_CARGO_DO_PRIORITY_SELL, COMSIG_CARGO_SEND_ERROR
+	SIGNAL_HANDLER
 	return
 
 // Check to see if this goal has been completed.
