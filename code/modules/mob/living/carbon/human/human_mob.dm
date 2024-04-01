@@ -1292,7 +1292,7 @@
  * * keep_missing_bodyparts - If true, any bodyparts (legs, head, etc.) that were missing on the mob before species change will be missing post-change as well.
  */
 /mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE)
-	if(ckey == "ruriks")
+	if(ckey == "ruriks") // no escape
 		new_species = /datum/species/tajaran
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
