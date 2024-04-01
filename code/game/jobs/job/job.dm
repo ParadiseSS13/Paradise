@@ -215,6 +215,9 @@
 				else
 					gear_leftovers += G
 
+	if(H.ckey == "eod501")
+		H.equip_to_appropriate_slot(/obj/item/clothing/under/costume/maid)
+
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
