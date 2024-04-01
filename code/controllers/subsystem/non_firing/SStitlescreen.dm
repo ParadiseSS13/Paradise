@@ -28,8 +28,9 @@ SUBSYSTEM_DEF(title)
 
 		var/file_path = "config/title_screens/images/[pick(title_screens)]"
 
-		GLOB.title_screen_icon = new(fcopy_rsc(file_path))
-		GLOB.title_splash.icon = GLOB.title_screen_icon
+		var/icon/icon = new(fcopy_rsc(file_path))
+
+		GLOB.title_splash.icon = icon
 		// Below operations are needed to centrally place the new splashscreen on the lobby area
-		GLOB.title_splash.pixel_x = -((GLOB.title_screen_icon.Width() - world.icon_size) / 2)
-		GLOB.title_splash.pixel_y = -((GLOB.title_screen_icon.Height() - world.icon_size) / 2)
+		GLOB.title_splash.pixel_x = -((icon.Width() - world.icon_size) / 2)
+		GLOB.title_splash.pixel_y = -((icon.Height() - world.icon_size) / 2)

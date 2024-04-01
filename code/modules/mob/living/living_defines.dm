@@ -107,5 +107,3 @@
 	var/last_taste_time
 	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
 	var/last_taste_text
-	/// This is a var. this var holds information. information is stored in the var. you can access a var through the . : :: ?. instructions. i hope this documentation helps
-	var/loading_requirement = 0
