@@ -503,7 +503,7 @@
 	name = "Philosopher's Stone"
 	id = "philostone"
 	required_reagents = list("babel_ex" = 1, "tinlux" = 1, "mugwort" = 5,
-							"triplepiss" = 1, "toefrog" = 1, "liquid_glass" = 1
+							"triplepiss" = 1, "toefrog" = 1, "l_glass" = 1
 								)
 	result = null
 	var/obj/item/philo_stone/stone = /obj/item/philo_stone
@@ -524,4 +524,4 @@
 	name = "liquid glass"
 	id = "liquid_glass"
 	required_reagents = list("glass" = 1, "eyenewt" = 1)
-	result = "liquid_glass"
+	result = "l_glass"
