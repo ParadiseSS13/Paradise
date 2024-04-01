@@ -44,10 +44,11 @@
 			qdel(organ_datum.linked_organ)
 			break
 
-	new /obj/item/stack/spacecash/c1000(get_turf(user))
 	if(tries >= 30)
 		to_chat(user, "No organ donors have been found yet.")
 		return
+
+	new /obj/item/stack/spacecash/c1000(get_turf(user))
 	tries = 0
 	while(tries < 30)
 		var/mob/living/carbon/human/new_test_subject = pick(copy_list)
