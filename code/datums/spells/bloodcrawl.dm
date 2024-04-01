@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/bloodcrawl
+/datum/spell/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
 	base_cooldown = 1 SECONDS
@@ -12,7 +12,7 @@
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
-/obj/effect/proc_holder/spell/bloodcrawl/create_new_targeting()
+/datum/spell/bloodcrawl/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = allowed_type
@@ -21,17 +21,17 @@
 	T.use_turf_of_user = TRUE
 	return T
 
-/obj/effect/proc_holder/spell/bloodcrawl/valid_target(obj/effect/decal/cleanable/target, user)
+/datum/spell/bloodcrawl/valid_target(obj/effect/decal/cleanable/target, user)
 	return target.can_bloodcrawl_in()
 
-/obj/effect/proc_holder/spell/bloodcrawl/can_cast(mob/living/user, charge_check, show_message)
+/datum/spell/bloodcrawl/can_cast(mob/living/user, charge_check, show_message)
 	. = ..()
 	if(!.)
 		return
 	if(!isliving(user))
 		return FALSE
 
-/obj/effect/proc_holder/spell/bloodcrawl/cast(list/targets, mob/living/user)
+/datum/spell/bloodcrawl/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
 	if(!phased)
 		if(phaseout(target, user))
@@ -78,7 +78,7 @@
 	return
 
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
+/datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
 		to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
 		return FALSE
@@ -101,13 +101,13 @@
 	. = ..()
 	flick(animation_state, src) // Setting the icon_state to the animation has timing issues and can cause frame skips
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
+/datum/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
-	visible_message("<span class='danger'>[L] sinks into [A].</span>")
-	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, 1, -1)
+	mob_loc.visible_message("<span class='danger'>[L] sinks into [A].</span>")
+	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, L.dir, "jaunt")
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
+/datum/spell/bloodcrawl/proc/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
 	if(!HAS_TRAIT(L, TRAIT_BLOODCRAWL_EAT))
 		return
 
@@ -176,10 +176,10 @@
 		victim.ghostize()
 		qdel(victim)
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
+/datum/spell/bloodcrawl/proc/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
 	L.notransform = FALSE
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/B, mob/living/L)
+/datum/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/B, mob/living/L)
 
 	if(iscarbon(L) && !block_hands(L))
 		return FALSE
@@ -187,7 +187,7 @@
 	INVOKE_ASYNC(src, PROC_REF(async_phase), B, L)
 	return TRUE
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/async_phase(obj/effect/decal/cleanable/B, mob/living/L)
+/datum/spell/bloodcrawl/proc/async_phase(obj/effect/decal/cleanable/B, mob/living/L)
 	var/turf/mobloc = get_turf(L)
 	sink_animation(B, L)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
@@ -196,24 +196,24 @@
 	handle_consumption(L, L.pulling, B, holder)
 	post_phase_in(L, holder)
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/rise_animation(turf/tele_loc, mob/living/L, atom/A)
+/datum/spell/bloodcrawl/proc/rise_animation(turf/tele_loc, mob/living/L, atom/A)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(tele_loc, L.dir, "jauntup")
 	if(prob(25) && isdemon(L))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
-		playsound(tele_loc, pick(voice),50, 1, -1)
-	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b>")
-	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, 1, -1)
+		playsound(tele_loc, pick(voice),50, TRUE, -1)
+	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b></span>")
+	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
+/datum/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
 	if(!istype(C))
 		return
 	for(var/obj/item/bloodcrawl/BC in C)
 		qdel(BC)
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/rise_message(atom/A)
+/datum/spell/bloodcrawl/proc/rise_message(atom/A)
 	A.visible_message("<span class='warning'>[A] starts to bubble...</span>")
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
+/datum/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/S = L
 		S.speed = 0
@@ -222,7 +222,7 @@
 	addtimer(VARSET_CALLBACK(L, color, null), 6 SECONDS)
 
 
-/obj/effect/proc_holder/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
+/datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
 
 	if(L.notransform)
 		to_chat(L, "<span class='warning'>Finish eating first!</span>")
@@ -246,30 +246,30 @@
 	post_phase_out(A, L)
 	return TRUE
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl
+/datum/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
 	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/valid_target(turf/target, user)
+/datum/spell/bloodcrawl/shadow_crawl/valid_target(turf/target, user)
 	return target.get_lumcount() < 0.2
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/rise_message(atom/A)
+/datum/spell/bloodcrawl/shadow_crawl/rise_message(atom/A)
 	return
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/rise_animation(turf/tele_loc, mob/living/L, atom/A)
+/datum/spell/bloodcrawl/shadow_crawl/rise_animation(turf/tele_loc, mob/living/L, atom/A)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(get_turf(L), L.dir, "shadowwalk_appear")
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
+/datum/spell/bloodcrawl/shadow_crawl/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
 	return
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/sink_animation(atom/A, mob/living/L)
+/datum/spell/bloodcrawl/shadow_crawl/sink_animation(atom/A, mob/living/L)
 	A.visible_message("<span class='danger'>[L] sinks into the shadows...</span>")
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(get_turf(L), L.dir, "shadowwalk_disappear")
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
+/datum/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
 	..()
 	if(!istype(L, /mob/living/simple_animal/demon/shadow))
 		return
