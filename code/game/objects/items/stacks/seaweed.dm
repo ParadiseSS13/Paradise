@@ -2,7 +2,7 @@
 	name = "seaweed sheet"
 	desc = "Weed.. from the Sea!"
 	singular_name = "seaweed sheet"
-	icon = 'icons/obj/stacks/seaweed.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "seaweed"
 	item_state = "seaweed"
 	w_class = WEIGHT_CLASS_TINY
