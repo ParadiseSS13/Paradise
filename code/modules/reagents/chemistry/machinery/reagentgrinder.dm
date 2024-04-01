@@ -45,7 +45,7 @@
 		/obj/item/food/snacks/grown/olive = list("olivepaste" = 0, "sodiumchloride" = 0),
 		/obj/item/food/snacks/grown/peanuts = list("peanutbutter" = 0),
 		/obj/item/organ/internal/tongue = list("tonguedog" = 20),
-		/obj/item/organ/external/toe = list("toefrog" = 20),
+		/obj/item/organ/toe = list("toefrog" = 20),
 		/obj/item/organ/internal/eyes = list("eyenewt" = 20),
 
 		// Grinder stuff, but only if dry
