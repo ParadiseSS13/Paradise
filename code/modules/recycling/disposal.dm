@@ -317,16 +317,15 @@
 			mode = 0
 			update()
 
-		if(!issilicon(usr))
-			if(action == "engageHandle")
-				flush = 1
-				update()
-			if(action == "disengageHandle")
-				flush = 0
-				update()
+		if(action == "engageHandle")
+			flush = 1
+			update()
+		if(action == "disengageHandle")
+			flush = 0
+			update()
 
-			if(action == "eject")
-				eject()
+		if(action == "eject")
+			eject()
 
 	return TRUE
 
