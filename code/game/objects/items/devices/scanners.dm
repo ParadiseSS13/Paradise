@@ -644,10 +644,7 @@ SLIME SCANNER
 			message += ""
 			message += "<span class='info'>Temperature: [round(air.temperature-T0C)] &deg;C ([round(air.temperature)] K)</span>"
 			message += "<span class='info'>Volume: [round(volume)] Liters</span>"
-			if(abs(pressure - ONE_ATMOSPHERE) < 10)
-				message += "<span class='info'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			else
-				message += "<span class='alert'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			message += "<span class='info'>Pressure: [round(pressure, 0.1)] kPa</span>"
 			message += "<span class='info'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
 			message += "<span class='info'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
 		else
