@@ -108,6 +108,8 @@
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/scrubber/attack_ghost(mob/user)
+	if(..())
+		return
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/scrubber/attack_hand(mob/user)
