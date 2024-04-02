@@ -641,7 +641,7 @@
 
 /datum/action/spell_action/New(Target)
 	..()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = src
 	name = S.name
 	desc = S.desc
@@ -652,7 +652,7 @@
 
 
 /datum/action/spell_action/Destroy()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = null
 	return ..()
 
@@ -665,27 +665,27 @@
 	if(!..())
 		return FALSE
 	if(target)
-		var/obj/effect/proc_holder/spell = target
+		var/datum/spell/spell = target
 		spell.Click()
 		return TRUE
 
 /datum/action/spell_action/AltTrigger()
 	if(target)
-		var/obj/effect/proc_holder/spell/spell = target
+		var/datum/spell/spell = target
 		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()
 	if(!target)
 		return FALSE
-	var/obj/effect/proc_holder/spell/spell = target
+	var/datum/spell/spell = target
 
 	if(owner)
 		return spell.can_cast(owner)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	if(!istype(S))
 		return ..()
 
