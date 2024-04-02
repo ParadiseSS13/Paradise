@@ -605,7 +605,7 @@ SLIME SCANNER
 		return FALSE
 
 	var/icon = target
-	var/message = list()
+	var/list/message = list()
 	if(!silent && isliving(user))
 		user.visible_message("<span class='notice'>[user] uses the analyzer on [target].</span>", "<span class='notice'>You use the analyzer on [target].</span>")
 	message += "<span class='boldnotice'>Results of analysis of [bicon(icon)] [target].</span>"
@@ -662,8 +662,7 @@ SLIME SCANNER
 			message += length(airs) > 1 ? "<span class='info'>This node is empty!</span>" : "<span class='info'>[target] is empty!</span>"
 			message += "<span class='info'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
-	// we let the join apply newlines so we do need handholding
-	to_chat(user, ("<div class='examine_block'>" + (jointext(message, "\n")) + "</div>"))
+	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE
 
 /******************************/
