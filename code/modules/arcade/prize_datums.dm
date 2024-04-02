@@ -9,7 +9,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
 	var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
-	if(!prize_counter)
+	if(!prize_counter || prize_counter.tickets < item.cost)
 		return
 	if(!item)
 		return
