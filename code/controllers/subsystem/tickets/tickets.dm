@@ -1,15 +1,3 @@
-//Defines
-//Deciseconds until ticket becomes stale if unanswered. Alerts admins.
-#define TICKET_TIMEOUT 6000 // 10 minutes
-//Decisecions before the user is allowed to open another ticket while their existing one is open.
-#define TICKET_DUPLICATE_COOLDOWN 3000 // 5 minutes
-
-//Status defines
-#define TICKET_OPEN       1
-#define TICKET_CLOSED     2
-#define TICKET_RESOLVED   3
-#define TICKET_STALE      4
-
 #define TICKET_STAFF_MESSAGE_ADMIN_CHANNEL 1
 #define TICKET_STAFF_MESSAGE_PREFIX 2
 
@@ -44,6 +32,11 @@ SUBSYSTEM_DEF(tickets)
 	/// DB ID for these tickets to be logged with
 	var/db_save_id = "ADMIN"
 
+	// Autoresponse phrases.
+	var/response_phrases
+	// Autoresponse keys, in sorted order.
+	var/sorted_responses
+
 /datum/controller/subsystem/tickets/get_metrics()
 	. = ..()
 	var/list/cust = list()
@@ -54,6 +47,31 @@ SUBSYSTEM_DEF(tickets)
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 			"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
 			"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
+
+	response_phrases = list("Thanks" = "Thanks for the ahelp!",
+		"Handling It" = "The issue is being looked into, thanks.",
+		"Already Resolved" = "The problem has been resolved already.",
+		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
+		"Happens Again" = "Thanks, let us know if it continues to happen.",
+		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
+		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representative, or any other relevant authority currently on station.",
+		"Reject" = "Reject",
+		"Man Up" = "Man Up",
+	)
+
+	if(GLOB.configuration.url.banappeals_url)
+		response_phrases["Appeal on the Forums"] = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
+
+	if(GLOB.configuration.url.github_url)
+		response_phrases["Github Issue Report"] = "To report a bug, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends."
+
+	if(GLOB.configuration.url.exploit_url)
+		response_phrases["Exploit Report"] = "To report an exploit, please go to our <a href='[GLOB.configuration.url.exploit_url]'>Exploit Report page</a>. Then 'Start New Topic'. Then fill out the topic with as much information about the exploit that you can. If possible, add steps taken to reproduce the exploit. The Development Team will be informed automatically of the post."
+
+	var/unsorted_responses = list()
+	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
+		unsorted_responses += key
+	sorted_responses = sortTim(unsorted_responses, GLOBAL_PROC_REF(cmp_text_asc)) //use sortTim and cmp_text_asc to sort alphabetically
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
@@ -110,8 +128,9 @@ SUBSYSTEM_DEF(tickets)
 		to_chat(C.mob, "<span class='[span_class]'>Your [ticket_name] #[ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		var/url_message = makeUrlMessage(C, text, ticketNum)
 		message_staff(url_message, NONE, TRUE)
+		return T
 	else
-		newTicket(C, text, text)
+		return newTicket(C, text, text)
 
 /**
  * Will add the URLs usable by staff to the message and return it
@@ -126,13 +145,13 @@ SUBSYSTEM_DEF(tickets)
 	if(istype(target, /datum/ticket))
 		var/datum/ticket/T = target
 		M = get_mob_by_ckey(T.client_ckey)
-		key_and_name = M ? key_name(M, TRUE, ticket_help_type) : "[T.client_ckey] (DC)/(DELETED)"
+		key_and_name = M ? key_name(M, TRUE, ticket_help_type, ticket_id = T.ticketNum) : "[T.client_ckey] (DC)/(DELETED)"
 		msg = T.title
 		ticketNum = T.ticketNum
 	else if(isclient(target))
 		var/client/C = target
 		M = C.mob
-		key_and_name = key_name(M, TRUE, ticket_help_type)
+		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name] "
@@ -165,12 +184,14 @@ SUBSYSTEM_DEF(tickets)
 	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
+	return T
 
 //Set ticket state with key N to open
 /datum/controller/subsystem/tickets/proc/openTicket(N)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_OPEN)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [N]</span>")
+		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has been re-opened.</span>")
 		T.ticketState = TICKET_OPEN
 		return TRUE
 
@@ -183,10 +204,16 @@ SUBSYSTEM_DEF(tickets)
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
 
+/datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
+	var/list/ticket_numbers = list()
+	for(var/datum/ticket/T in tickets)
+		ticket_numbers += T.ticketNum
+		T.addResponse(who, message)
+
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
 		return
-	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?",,"Yes","No") != "Yes")
+	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?", null,"Yes","No") != "Yes")
 		return
 	if(!other_ticket_system_staff_check())
 		return
@@ -195,11 +222,12 @@ SUBSYSTEM_DEF(tickets)
 		to_chat(usr, "<span class='warning'>This ticket has already been converted!</span>")
 		return
 	convert_ticket(T)
+	message_staff("<span class='[span_class]'>[usr.client] / ([usr]) converted [ticket_name] number [ticketId]</span>")
 
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
 	var/list/staff = staff_countup(other_ticket_permission)
 	if(!staff[1])
-		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?",, "No", "Yes") != "Yes")
+		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?", null, "No", "Yes") != "Yes")
 			return FALSE
 	return TRUE
 
@@ -232,31 +260,8 @@ SUBSYSTEM_DEF(tickets)
 			return
 	T.assignStaff(C)
 
-	var/response_phrases = list("Thanks" = "Thanks for the ahelp!",
-		"Handling It" = "The issue is being looked into, thanks.",
-		"Already Resolved" = "The problem has been resolved already.",
-		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
-		"Happens Again" = "Thanks, let us know if it continues to happen.",
-		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
-		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representative, or any other relevant authority currently on station.",
-		"Reject" = "Reject",
-		"Man Up" = "Man Up",
-	)
 
-	if(GLOB.configuration.url.banappeals_url)
-		response_phrases["Appeal on the Forums"] = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
-
-	if(GLOB.configuration.url.github_url)
-		response_phrases["Github Issue Report"] = "To report a bug, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends."
-
-	if(GLOB.configuration.url.exploit_url)
-		response_phrases["Exploit Report"] = "To report an exploit, please go to our <a href='[GLOB.configuration.url.exploit_url]'>Exploit Report page</a>. Then 'Start New Topic'. Then fill out the topic with as much information about the exploit that you can. If possible, add steps taken to reproduce the exploit. The Development Team will be informed automatically of the post."
-
-	var/sorted_responses = list()
-	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
-		sorted_responses += key
-
-	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc)) //use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sorted_responses
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	if(!ticket_owner)
 		to_chat(C, "<span class='notice'>Can't respond to the ticket of a disconnected user.")
@@ -301,7 +306,9 @@ SUBSYSTEM_DEF(tickets)
 	return FALSE
 
 //Check if the user has ANY ticket not resolved or closed.
-/datum/controller/subsystem/tickets/proc/checkForTicket(client/C)
+/datum/controller/subsystem/tickets/proc/checkForTicket(client/C, ticket_id = -1)
+	if(ticket_id > 0 && ticket_id <= length(allTickets))
+		return list(allTickets[ticket_id])
 	var/list/tickets = list()
 	for(var/datum/ticket/T in allTickets)
 		if(T.client_ckey == C.ckey && (T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE))
@@ -635,7 +642,7 @@ UI STUFF
 		if(!check_rights(close_rights))
 			to_chat(usr, "<span class='warning'>Not enough rights to close this ticket.</span>")
 			return
-		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
+		if(alert("Are you sure? This will send a negative message.", null,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
 			showDetailUI(usr, indexNum)

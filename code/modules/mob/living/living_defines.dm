@@ -97,6 +97,9 @@
 
 	var/datum/middleClickOverride/middleClickOverride = null
 
+	/// Famous last words -- if succumbing, what the user's last words were
+	var/last_words
+
 	/*
 	Taste Vars
 	*/

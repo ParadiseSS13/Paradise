@@ -249,6 +249,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 /// Makes the item no longer spit out a visible message when thrown
 #define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
+/// Makes the item not display a message on storage insertion
+#define TRAIT_SILENT_INSERTION "silent_insertion"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -264,6 +266,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An item that can be pointed at mobs, while on non-help intent.
 #define TRAIT_CAN_POINT_WITH "can_point_with"
+
+///An organ that was inserted into a dead mob, that has not been revived yet
+#define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
 //
 // common trait sources
@@ -363,3 +368,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
+//***** TURF TRAITS *****//
+// Causes the effect to go through a teleporter instead of being deleted by it.
+#define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"

@@ -571,10 +571,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	var/list/spell_list = list()
-	var/type_length = length("/obj/effect/proc_holder/spell") + 2
+	var/type_length = length("/datum/spell") + 2
 	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
-	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
+	var/datum/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
 	if(!S)
 		return
 	S = spell_list[S]
@@ -1028,7 +1028,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",,"Yes", "No", "Custom Message")
+	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?", null,"Yes", "No", "Custom Message")
 
 	switch(alert_type)
 		if("Yes")

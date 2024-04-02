@@ -20,6 +20,8 @@
 	var/traitor_objectives_amount = 2
 	/// Enable player limits on gamemodes? Disabling can be useful for testing
 	var/enable_gamemode_player_limit = TRUE
+	/// Should we generate random station traits at game start?
+	var/add_random_station_traits = TRUE
 
 // Dynamically setup a list of all gamemodes
 /datum/configuration_section/gamemode_configuration/New()
@@ -51,6 +53,7 @@
 	CONFIG_LOAD_BOOL(prevent_mindshield_antags, data["prevent_mindshield_antag"])
 	CONFIG_LOAD_BOOL(disable_certain_round_early_end, data["disable_certain_round_early_end"])
 	CONFIG_LOAD_BOOL(enable_gamemode_player_limit, data["enable_gamemode_player_limit"])
+	CONFIG_LOAD_BOOL(add_random_station_traits, data["add_random_station_traits"])
 
 	CONFIG_LOAD_NUM(traitor_objectives_amount, data["traitor_objective_amount"])
 

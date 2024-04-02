@@ -250,6 +250,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
+"bJ" = (
+/mob/living/simple_animal/hostile/bear/polar,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "bM" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -1267,7 +1271,7 @@ aB
 ak
 ak
 aC
-ak
+bJ
 Wg
 QI
 tb
