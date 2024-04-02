@@ -44,6 +44,7 @@
 		var/datum/mind/new_headrev = pick_n_take(possible_revolutionaries)
 		pre_revolutionaries |= new_headrev
 		new_headrev.restricted_roles = restricted_jobs
+		new_headrev.special_role = SPECIAL_ROLE_HEAD_REV
 
 	if(length(pre_revolutionaries) < required_enemies)
 		return FALSE
