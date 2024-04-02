@@ -495,7 +495,7 @@
 		error = "Package [slip.ordernumber] rejected. A Nanotrasen supply department official will reach out to you in 2-3 business days."
 		SSblackbox.record_feedback("tally", "cargo manifests rejected", 1, "amount")
 	else if(!(/obj/item/stamp/granted in slip.stamped))
-		error = "Received unstamped anifest for package [slip.ordernumber]. Remember to stamp all manifests before returning them."
+		error = "Received unstamped manifest for package [slip.ordernumber]. Remember to stamp all manifests before returning them."
 		SSblackbox.record_feedback("tally", "cargo manifests not stamped", 1, "amount")
 
 	if(error)
