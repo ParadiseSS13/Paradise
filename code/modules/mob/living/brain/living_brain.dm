@@ -21,7 +21,7 @@
 	if(!ismob(other))
 		return ..()
 	if(issilicon(other))
-		return container && istype(container, /obj/item/mmi)
+		return istype(container, /obj/item/mmi)
 	if(ishuman(other))
 		return TRUE
 	if(isslime(other))
