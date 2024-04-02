@@ -20,34 +20,24 @@
 	var/direction
 
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
-	if(alpha == 0) //Handle already transparent case
-		return
-	if(frames == 0)
-		frames = 1 //We will just assume that by 0 frames, the coder meant "during one frame".
-	var/step = alpha / frames
-	for(var/i = 0, i < frames, i++)
-		alpha -= step
-		if(alpha < 160)
-			set_opacity(0)
-		stoplag()
+	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 	GLOB.smokes_active--
 
-/obj/effect/particle_effect/smoke/New(loc, contains_chemicals = FALSE)
+/obj/effect/particle_effect/smoke/New()
 	..()
 	START_PROCESSING(SSobj, src)
-	GLOB.smokes_active++
-	lifetime += rand(-1, 1)
-	if(contains_chemicals)
-		create_reagents(10)
+	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
+	lifetime += rand(-1,1)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE))
 	return ..()
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	STOP_PROCESSING(SSobj, src)
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
-	QDEL_IN(src, 10)
+	QDEL_IN(src, 2 SECONDS)
 
 /obj/effect/particle_effect/smoke/process()
 	lifetime--
@@ -59,25 +49,21 @@
 		steps--
 	return 1
 
-/obj/effect/particle_effect/smoke/Crossed(mob/living/M, oldloc)
-	if(!istype(M))
-		return
-	smoke_mob(M)
-
-/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
-	if(!istype(C))
+/obj/effect/particle_effect/smoke/proc/smoke_mob(datum/source, mob/living/carbon/breather)
+	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
+	if(!istype(breather))
 		return FALSE
 	if(lifetime<1)
 		return FALSE
-	if(!C.can_breathe_gas())
+	if(!breather.can_breathe_gas())
 		return FALSE
-	if(C.smoke_delay)
+	if(breather.smoke_delay)
 		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
 		return FALSE
 
 	if(reagents)
-		reagents.trans_to(C, reagents.total_volume)
-	C.smoke_delay++
+		reagents.trans_to(breather, reagents.total_volume)
+	breather.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
 	return TRUE
 
@@ -134,7 +120,7 @@
 			smoke_mob(M)
 
 /obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
-	if(..())
+	if(..()) //Registered to the COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
 		M.drop_item()
 		M.adjustOxyLoss(1)
 		M.emote("cough")
@@ -142,11 +128,11 @@
 
 /obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
-		return 1
+		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage/2)
-	return 1
+	return TRUE
 
 /datum/effect_system/smoke_spread/bad
 	effect_type = /obj/effect/particle_effect/smoke/bad
@@ -220,7 +206,17 @@
 		M.drop_item()
 		M.Sleeping(20 SECONDS)
 		M.emote("cough")
-		return 1
+		return TRUE
 
 /datum/effect_system/smoke_spread/sleeping
 	effect_type = /obj/effect/particle_effect/smoke/sleeping
+
+////////////////////////////////////
+// See-through smoke
+///////////////////////////////////
+/obj/effect/particle_effect/smoke/transparent
+	opacity = FALSE
+	alpha = 125
+
+/datum/effect_system/smoke_spread/transparent
+	effect_type = /obj/effect/particle_effect/smoke/transparent
