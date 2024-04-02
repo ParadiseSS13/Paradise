@@ -847,8 +847,8 @@
 
 /datum/status_effect/reversed_sun/on_apply()
 	. = ..()
-	owner.become_nearsighted("reversed_sun")
-	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "reversed_sun")
+	owner.become_nearsighted("REVERSED_SUN")
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
 	owner.update_sight()
 	owner.set_light(7, -5, "#ddd6cf")
 
@@ -856,13 +856,17 @@
 	. = ..()
 	owner.remove_light()
 	owner.cure_nearsighted()
-	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "reversed_sun")
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
 	owner.update_sight()
 
 /datum/status_effect/reversed_sun/tick()
-	for(var/mob/living/L in oview(8, owner))
-		if(L.affects_vampire(owner))
-			L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
-	for(var/obj/item/projectile/P in view(8, owner))
-		if(P.flag == ENERGY || P.flag == LASER)
-			P.damage *= 0.85
+	for(var/atom/movable/AM in oview(8, owner))
+		if(isliving(AM))
+			var/mob/living/L = AM
+			if(L.affects_vampire(owner))
+				L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
+			return
+		if(istype(AM, /obj/item/projectile))
+			var/obj/item/projectile/P = AM
+			if(P.flag == ENERGY || P.flag == LASER)
+				P.damage *= 0.85

@@ -62,12 +62,6 @@
 	. = ..()
 	qdel(src)
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity)
-	var/atom/A = target
-	if(!proximity)
-		return
-	A.emag_act(user)
-
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"

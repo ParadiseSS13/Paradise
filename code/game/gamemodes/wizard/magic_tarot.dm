@@ -51,7 +51,8 @@
 	var/cards = 3
 
 /obj/item/tarot_card_pack/attack_self(mob/user)
-	to_chat(user, "<span class='hierophant'>You tear open [src]!</span>")
+	user.visible_message("<span class='notice'>[user] tears open [src].</span>", \
+						"<span class='hierophant'>You tear open [src]!</span>")
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	var/prints = 0
 	while(prints < cards)
@@ -268,29 +269,19 @@
 		for(var/mob/living/L in shuffle(view(9, src)))
 			owner = L
 			break
-	var/turf/first_turf = get_turf(owner)
 	owner.Immobilize(3 SECONDS)
-	new /obj/effect/decal/cleanable/blood/bubblegum(first_turf)
-	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(first_turf)
-	sleep(6)
-	var/turf/second_turf = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
-	playsound(second_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
-	owner.adjustBruteLoss(damage)
-	new /obj/effect/decal/cleanable/blood/bubblegum(second_turf)
-	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(second_turf)
-	sleep(6)
-	var/turf/third_turf = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
-	playsound(third_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
-	owner.adjustBruteLoss(damage)
-	new /obj/effect/decal/cleanable/blood/bubblegum(third_turf)
-	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(third_turf)
-	sleep(6)
-	var/turf/fourth_turf = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
-	playsound(fourth_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
-	owner.adjustBruteLoss(damage)
+	for(var/i in 1 to 3)
+		var/turf/first_turf = get_turf(owner)
+		new /obj/effect/decal/cleanable/blood/bubblegum(first_turf)
+		if(prob(50))
+			new /obj/effect/temp_visual/bubblegum_hands/rightsmack(first_turf)
+		else
+			new /obj/effect/temp_visual/bubblegum_hands/leftsmack(first_turf)
+		sleep(6)
+		var/turf/second_turf = get_turf(owner)
+		to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
+		playsound(second_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
+		owner.adjustBruteLoss(damage)
 	qdel(src)
 
 /datum/tarot/the_empress
@@ -508,31 +499,31 @@
 /datum/tarot/the_moon/activate(mob/living/target)
 	var/list/funny_ruin_list = list()
 	var/turf/target_turf = get_turf(target)
-	for(var/i in GLOB.ruin_landmarks)
-		var/obj/effect/landmark/ruin/ruin_landmark = i
+	for(var/I in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = I
 		if(ruin_landmark.z == target_turf.z)
 			funny_ruin_list += ruin_landmark
 
 	if(length(funny_ruin_list))
-		var/turf/t = get_turf(pick(funny_ruin_list))
-		target.forceMove(t)
+		var/turf/T = get_turf(pick(funny_ruin_list))
+		target.forceMove(T)
 		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-		t.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-		new /obj/item/pickaxe/emergency(t)
+		T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
+		new /obj/item/pickaxe/emergency(T)
 		target.update_parallax_contents()
 		return
 	//We did not find a ruin on the same level. Well. I hope you have a space suit, but we'll go space ruins as they are mostly sorta kinda safer.
-	for(var/i in GLOB.ruin_landmarks)
-		var/obj/effect/landmark/ruin/ruin_landmark = i
+	for(var/I in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = I
 		if(!is_mining_level(ruin_landmark.z))
 			funny_ruin_list += ruin_landmark
 
 	if(length(funny_ruin_list))
-		var/turf/t = get_turf(pick(funny_ruin_list))
-		target.forceMove(t)
+		var/turf/T = get_turf(pick(funny_ruin_list))
+		target.forceMove(T)
 		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-		t.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-		new /obj/item/pickaxe/emergency(t)
+		T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
+		new /obj/item/pickaxe/emergency(T)
 		target.update_parallax_contents()
 		return
 	to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
@@ -694,7 +685,7 @@
 
 /datum/tarot/reversed/the_chariot/activate(mob/living/target)
 	target.Stun(4 SECONDS)
-	new /obj/structure/closet/statue/indestructible(target.loc, target)
+	new /obj/structure/closet/statue/indestructible(get_turf(target), target)
 
 /datum/tarot/reversed/justice
 	name = "VIII - Justice?"
@@ -783,10 +774,10 @@
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/human/H = target
-	var/i = 0
+	var/i = 1
 	while(i <= 5)
 		var/datum/reagents/R = new/datum/reagents(10)
-		R.add_reagent(get_random_reagent_id_for_real(), 10)
+		R.add_reagent(get_unrestricted_random_reagent_id(), 10)
 		R.reaction(H, REAGENT_INGEST)
 		R.trans_to(H, 10)
 		i++
@@ -807,14 +798,14 @@
 	card_icon = "the_tower?"
 
 /datum/tarot/reversed/the_tower/activate(mob/living/target)
-	for(var/turf/t in RANGE_TURFS(9, target))
-		if(locate(/mob/living) in t)
+	for(var/turf/T in RANGE_TURFS(9, target))
+		if(locate(/mob/living) in T)
 			continue
-		if(istype(t, /turf/simulated/wall/indestructible))
+		if(istype(T, /turf/simulated/wall/indestructible))
 			continue
 		if(prob(66))
 			continue
-		t.ChangeTurf(/turf/simulated/mineral/random/labormineral)
+		T.ChangeTurf(/turf/simulated/mineral/random/labormineral)
 
 /datum/tarot/reversed/the_stars
 	name = "XVII - The Stars?"

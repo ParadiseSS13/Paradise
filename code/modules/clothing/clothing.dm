@@ -614,13 +614,13 @@
 /obj/item/clothing/suit/proc/setup_hierophant_shielding()
 	var/datum/component/shielded/shield = src.GetComponent(/datum/component/shielded)
 	if(!shield)
-		AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon = "shield-hierophant", run_hit_callback = CALLBACK(src, PROC_REF(h_shield_damaged)))
+		AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon = "shield-hierophant", run_hit_callback = CALLBACK(src, PROC_REF(hierophant_shield_damaged)))
 		return
 	if(shield.shield_icon == "shield-hierophant") //If the hierophant shield has been used, recharge it. Otherwise, it's a shielded component we don't want to touch
 		shield.current_charges = 3
 
 /// A proc for callback when the shield breaks, since I am stupid and want custom effects.
-/obj/item/clothing/suit/proc/h_shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+/obj/item/clothing/suit/proc/hierophant_shield_damaged(mob/living/wearer, attack_text, new_current_charges)
 	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of dark-purple sparks!</span>")
 	new /obj/effect/temp_visual/cult/sparks/hierophant(get_turf(wearer))
 	playsound(wearer,'sound/magic/blind.ogg', 200, TRUE, -2)
