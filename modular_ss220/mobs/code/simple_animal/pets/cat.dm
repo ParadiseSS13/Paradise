@@ -20,7 +20,6 @@
 	mob_size = MOB_SIZE_LARGE // THICK!!!
 	//canmove = FALSE
 	butcher_results = list(/obj/item/food/snacks/meat = 8)
-	tts_seed = "Huntress"
 	maxHealth = 40 // Sooooo faaaat...
 	health = 40
 	speed = 10 // TOO FAT
@@ -89,7 +88,6 @@
 	icon_living = "floppa"
 	icon_dead = "floppa_dead"
 	icon_resting = "floppa_rest"
-	tts_seed = "Uther"
 	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/cat/fat/Iriska

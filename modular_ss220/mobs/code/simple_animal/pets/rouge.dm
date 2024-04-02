@@ -16,7 +16,6 @@
 	speak_emote = list("hisses")
 	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
 	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
-	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
 	attacktext = "кусает"

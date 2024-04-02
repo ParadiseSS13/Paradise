@@ -27,7 +27,6 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_SLIME
-	tts_seed = "Narrator"
 	faction = list("slime","neutral")
 	//holder_type = /obj/item/holder/cat2
 

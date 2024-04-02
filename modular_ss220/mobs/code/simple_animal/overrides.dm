@@ -5,8 +5,6 @@
 	attacktext = "атакует"
 	attack_sound = null
 	friendly = "утыкается в" //If the mob does no damage with it's attack
-
-	tts_seed = "Angel"
 	var/list/damaged_sound = null // The sound played when player hits animal
 	var/list/talk_sound = null // The sound played when talk
 

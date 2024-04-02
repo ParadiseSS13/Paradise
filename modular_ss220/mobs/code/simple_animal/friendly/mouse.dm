@@ -6,7 +6,6 @@
 	damaged_sound = list('modular_ss220/mobs/sound/creatures/rat_wound.ogg')
 	blood_volume = BLOOD_VOLUME_SURVIVE
 	butcher_results = list(/obj/item/food/snacks/meat/mouse)
-	tts_seed = "Gyro"
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -70,14 +69,7 @@
 // 			to_chat(src, "scream, squeak")
 // 			playsound(src, damaged_sound, 40, 1)
 
-/mob/living/simple_animal/mouse/white
-	tts_seed = "Meepo"
-
-/mob/living/simple_animal/mouse/brown
-	tts_seed = "Clockwerk"
-
 /mob/living/simple_animal/mouse/brown/Tom
-	tts_seed = "Arthas"
 	maxHealth = 10
 	health = 10
 
@@ -94,4 +86,3 @@
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
 	maxHealth = 20
 	health = 20
-	tts_seed = "Clockwerk"

@@ -9,6 +9,8 @@
 #define TTS_TRAIT_RATE_FASTER (1<<2)
 #define TTS_TRAIT_RATE_MEDIUM (1<<3)
 
+#define TTS_TRAIT_ROBOTIZE "tts_trait_robotize"
+
 #define TTS_CATEGORY_OTHER "Другое"
 #define TTS_CATEGORY_WARCRAFT3 "WarCraft 3"
 #define TTS_CATEGORY_HALFLIFE2 "Half-Life 2"
@@ -70,3 +72,11 @@
 		"Капитан, вы уверены что хотите назначить клоуна на должность главы персонала?",\
 	)
 
+//from base of atom/change_tts_seed(): (mob/chooser, override, fancy_voice_input_tgui)
+#define COMSIG_ATOM_TTS_SEED_CHANGE "atom_tts_seed_change"
+//called for tts_component: (atom/speaker, mob/listener, message, atom/location, is_local, effect, traits, preSFX, postSFX)
+#define COMSIG_ATOM_TTS_CAST "atom_tts_cast"
+//from base of atom/tts_trait_add(): (atom/user, trait)
+#define COMSIG_ATOM_TTS_TRAIT_ADD "atom_tts_trait_add"
+//from base of atom/tts_trait_remove(): (atom/user, trait)
+#define COMSIG_ATOM_TTS_TRAIT_REMOVE "atom_tts_trait_remove"

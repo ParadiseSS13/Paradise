@@ -14,7 +14,6 @@
 	animal_species = /mob/living/simple_animal/mouse/hamster
 	holder_type = /obj/item/holder/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
-	tts_seed = "Gyro"
 	maxHealth = 10
 	health = 10
 
@@ -23,7 +22,6 @@
 	name = "хомячок"
 	real_name = "хомячок"
 	desc = "Очень миленький! Какие у него пушистые щечки!"
-	tts_seed = "Meepo"
 	turns_per_move = 2
 	response_help  = "полапал"
 	response_disarm = "аккуратно отодвинул"

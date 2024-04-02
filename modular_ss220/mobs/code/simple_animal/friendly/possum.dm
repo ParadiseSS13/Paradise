@@ -17,7 +17,6 @@
 	speak_emote = list("Hsss", "Hisss")
 	emote_hear = list("Aaaaa!", "Ahhss!")
 	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
-	tts_seed = "Clockwerk"
 	faction = list("neutral")
 	maxHealth = 30
 	health = 30

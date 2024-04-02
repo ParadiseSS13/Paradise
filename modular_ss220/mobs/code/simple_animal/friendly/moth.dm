@@ -23,7 +23,6 @@
 	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/moth
-	tts_seed = "Tychus"
 
 /mob/living/simple_animal/mothroach
 	name = "mothroach"
@@ -51,4 +50,3 @@
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
 	holder_type = /obj/item/holder/mothroach
-	tts_seed = "Tychus"

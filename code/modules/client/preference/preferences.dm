@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
 
-			// SS220 ADDITION START
+			// SS220 ADDITION START - TTS220
 			if(GLOB.configuration.tts.tts_enabled)
 				dat += {"
 				<h2>Text-to-Speech</h2>

@@ -394,7 +394,6 @@
 	icon_living = "snake"
 	icon_dead = "snake_dead"
 	speak_emote = list("hisses")
-	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
 	attacktext = "кусает"
@@ -514,7 +513,6 @@
 	stat_attack = UNCONSCIOUS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	tts_seed = "Anubarak"
 
 /mob/living/simple_animal/hostile/abomination/super
 	desc = "Оскалившийся, страшный монстр. Этот кажется проворным."
@@ -589,7 +587,6 @@
 	speak = list("уааааааааа-хааууууууаааааа!", "ААААаааууАААУааХУААААА!!!", "уууууууухххх.... ххххх-ххьооооонкккхх....", "ХХХХУУАААООНККК!!!")
 	speak_emote = list("извивается", "корчится", "пульсирует", "бурлит", "расползается")
 	speak_chance = 10
-	tts_seed = "Kleiner"
 	maxHealth = 500
 	health = 500
 	pixel_x = -16
@@ -641,7 +638,6 @@
 	/obj/item/clothing/suit/imperium_monk,
 	/obj/effect/particle_effect/smoke/bad,
 	/obj/item/emerald_stone)
-	tts_seed = "Abaddon"
 
 /mob/living/simple_animal/hostile/deadwizard/Shoot(atom/targeted_atom)
 	..()

@@ -1,12 +1,8 @@
 /mob/living/simple_animal/hostile/retaliate/goat
-	tts_seed = "Muradin"
-
 	attacktext = "бодает"
 	death_sound = 'modular_ss220/mobs/sound/creatures/goat_death.ogg'
 
 /mob/living/simple_animal/cow
-	tts_seed = "Cairne"
-
 	attacktext = "бодает"
 	death_sound = 'modular_ss220/mobs/sound/creatures/cow_death.ogg'
 	damaged_sound = list('modular_ss220/mobs/sound/creatures/cow_damaged.ogg')
@@ -15,7 +11,6 @@
 /mob/living/simple_animal/chicken
 	name = "курица"
 	desc = "Гордая несушка. Яички должны быть хороши!"
-	tts_seed = "Windranger"
 	death_sound = 'modular_ss220/mobs/sound/creatures/chicken_death.ogg'
 	damaged_sound = list('modular_ss220/mobs/sound/creatures/chicken_damaged1.ogg', 'modular_ss220/mobs/sound/creatures/chicken_damaged2.ogg')
 	talk_sound = list('modular_ss220/mobs/sound/creatures/chicken_talk.ogg')
@@ -24,7 +19,6 @@
 /mob/living/simple_animal/chick
 	name = "цыпленок"
 	desc = "Маленькая прелесть! Но пока что маловата..."
-	tts_seed = "Meepo"
 	attacktext = "клюёт"
 	death_sound = 'modular_ss220/mobs/sound/creatures/mouse_squeak.ogg'
 	holder_type = /obj/item/holder/chick
@@ -49,7 +43,6 @@
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
-	tts_seed = "pantheon"
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
@@ -80,7 +73,6 @@
 
 /mob/living/simple_animal/pig
 	name = "свинья"
-	tts_seed = "Anubarak"
 	attacktext = "лягает"
 	death_sound = 'modular_ss220/mobs/sound/creatures/pig_death.ogg'
 	talk_sound = list('modular_ss220/mobs/sound/creatures/pig_talk1.ogg', 'modular_ss220/mobs/sound/creatures/pig_talk2.ogg')
@@ -125,5 +117,4 @@
 	maxHealth = 20
 
 /mob/living/simple_animal/seal
-	tts_seed = "Narrator"
 	death_sound = 'modular_ss220/mobs/sound/creatures/seal_death.ogg'

@@ -252,7 +252,7 @@
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
-						"tts_seed" = tts_seed,
+						"tts_seed" = tts_seed, // SS220 EDIT ADDITION - TTS220
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -381,7 +381,7 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
-		"tts_seed" = tts_seed
+		"tts_seed" = tts_seed // SS220 EDIT ADDITION - TTS220
 	))
 
 	if(!query.warn_execute())
@@ -469,7 +469,7 @@
 	var/custom_emotes_tmp = query.item[55]
 	physique = query.item[56]
 	height = query.item[57]
-	tts_seed = query.item[58]
+	tts_seed = query.item[58] // SS220 EDIT ADDITION - TTS220
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]

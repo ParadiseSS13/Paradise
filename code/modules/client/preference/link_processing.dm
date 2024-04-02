@@ -710,7 +710,7 @@
 						return
 					active_character.flavor_text = msg
 
-				// SS220 ADDITION START
+				// SS220 ADDITION START - TTS220
 				if("tts_seed")
 					var/datum/ui_module/tts_seeds_explorer/explorer = explorer_users[user]
 					if(!explorer)

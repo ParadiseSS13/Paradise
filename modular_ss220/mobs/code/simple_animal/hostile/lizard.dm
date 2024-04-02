@@ -9,7 +9,6 @@
 	speak_emote = list("growls", "roars")
 	emote_hear = list("rawrs","grumbles","grawls")
 	emote_see = list("stares ferociously", "stomps")
-	tts_seed = "Shaker"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6

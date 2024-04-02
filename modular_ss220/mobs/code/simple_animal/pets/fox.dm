@@ -1,5 +1,4 @@
 /mob/living/simple_animal/pet/dog/fox
-	tts_seed = "Barney"
 	yelp_sound = 'modular_ss220/mobs/sound/creatures/fox_yelp.ogg' //Used on death.
 	holder_type = /obj/item/holder/fox
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'

@@ -4,7 +4,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 /mob/living/simple_animal/pet/sloth
-	tts_seed = "Peon"
 	holder_type = /obj/item/holder/sloth
 
 /mob/living/simple_animal/pet/sloth/paperwork

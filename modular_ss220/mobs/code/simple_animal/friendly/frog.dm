@@ -15,7 +15,6 @@
 	talk_sound = list('modular_ss220/mobs/sound/creatures/frog_talk1.ogg', 'modular_ss220/mobs/sound/creatures/frog_talk2.ogg')
 	damaged_sound = list('modular_ss220/mobs/sound/creatures/frog_damaged.ogg')
 	death_sound = 'modular_ss220/mobs/sound/creatures/frog_death.ogg'
-	tts_seed = "pantheon"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 10
