@@ -8,9 +8,9 @@
 	return new /datum/spell_targeting/self
 
 /datum/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
-	var/static/list/resin_buildings = list("Resin Wall (55)" = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
-									"Resin Nest (55)" = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
-									"Resin door (80)" = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"),
+	var/static/list/resin_buildings = list("Resin Wall" = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
+									"Resin Nest" = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
+									"Resin door" = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"),
 									"Revival Nest" = image(icon = 'icons/mob/alien.dmi', icon_state = "placeholder_rejuv_nest"))
 	var/choice = show_radial_menu(user, user, resin_buildings, src, radius = 40)
 	var/turf/turf_to_spawn_at = user.loc
