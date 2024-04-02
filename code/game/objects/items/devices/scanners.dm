@@ -520,50 +520,7 @@ SLIME SCANNER
 	if(!isturf(location))
 		return
 
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(user, "<span class='info'><B>Results:</B></span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(user, "<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>")
-	else
-		to_chat(user, "<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.oxygen/total_moles
-		var/n2_concentration = environment.nitrogen/total_moles
-		var/co2_concentration = environment.carbon_dioxide/total_moles
-		var/plasma_concentration = environment.toxins/total_moles
-		var/n2o_concentration = environment.sleeping_agent/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100)] %</span>")
-
-		if(plasma_concentration > 0.01)
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
-
-		if(n2o_concentration > 0.01)
-			to_chat(user, "<span class='info'>Nitrous Oxide: [round(n2o_concentration*100)] %</span>")
-
-		if(unknown_concentration > 0.01)
-			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
-
-		to_chat(user, "<span class='info'>Temperature: [round(environment.temperature-T0C)] &deg;C</span>")
-
+	atmos_scan(user, location)
 	add_fingerprint(user)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
@@ -662,28 +619,39 @@ SLIME SCANNER
 		var/thermal_energy = air.thermal_energy()
 
 		if(total_moles > 0)
-			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-			if(air.oxygen)
-				message += "<span class='notice'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(air.oxygen / total_moles*100, 0.01)] %)</span>"
-			if(air.carbon_dioxide)
-				message += "<span class='notice'>Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] moles ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)</span>"
-			if(air.nitrogen)
-				message += "<span class='notice'>Nitrogen: [round(air.nitrogen, 0.01)] moles ([round(air.nitrogen / total_moles*100, 0.01)] %)</span>"
-			if(air.toxins)
-				message += "<span class='notice'>Plasma: [round(air.toxins, 0.01)] moles ([round(air.toxins / total_moles*100, 0.01)] %)</span>"
-			if(air.sleeping_agent)
-				message += "<span class='notice'>Nitrous Oxide: [round(air.sleeping_agent, 0.01)] moles ([round(air.sleeping_agent / total_moles*100, 0.01)] %)</span>"
-			if(air.agent_b)
-				message += "<span class='notice'>Agent B: [round(air.agent_b, 0.01)] moles ([round(air.agent_b / total_moles*100, 0.01)] %)</span>"
+			message += "<span class='info'>Total: [round(total_moles, 0.01)] moles</span>"
+			if(air.oxygen && air.oxygen / total_moles > 0.01)
+				var/o2_concentration = air.oxygen / total_moles
+				if(abs(o2_concentration - O2STANDARD) < 2)
+					message += "<span class='info'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(o2_concentration * 100, 0.01)] %)</span>"
+				else
+					message += "<span class='alert'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(o2_concentration * 100, 0.01)] %)</span>"
+			if(air.nitrogen && air.nitrogen / total_moles > 0.01)
+				var/n2_concentration = air.nitrogen / total_moles
+				if(abs(n2_concentration - N2STANDARD) < 20)
+					message += "<span class='info'>Nitrogen: [round(air.nitrogen, 0.01)] moles ([round(n2_concentration * 100, 0.01)] %)</span>"
+				else
+					message += "<span class='alert'>Nitrogen: [round(air.nitrogen, 0.01)] moles ([round(n2_concentration * 100, 0.01)] %)</span>"
+			if(air.carbon_dioxide && air.carbon_dioxide / total_moles > 0.01)
+				message += "<span class='info'>Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] moles ([round(air.carbon_dioxide / total_moles * 100, 0.01)] %)</span>"
+			if(air.toxins && air.toxins / total_moles > 0.01)
+				message += "<span class='info'>Plasma: [round(air.toxins, 0.01)] moles ([round(air.toxins / total_moles * 100, 0.01)] %)</span>"
+			if(air.sleeping_agent && air.sleeping_agent / total_moles > 0.01)
+				message += "<span class='info'>Nitrous Oxide: [round(air.sleeping_agent, 0.01)] moles ([round(air.sleeping_agent / total_moles * 100, 0.01)] %)</span>"
+			if(air.agent_b && air.agent_b / total_moles > 0.01)
+				message += "<span class='info'>Agent B: [round(air.agent_b, 0.01)] moles ([round(air.agent_b / total_moles * 100, 0.01)] %)</span>"
 
-			message += "<span class='notice'>Temperature: [round(air.temperature-T0C)] &deg;C ([round(air.temperature)] K)</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+			message += "<span class='info'>Temperature: [round(air.temperature-T0C)] &deg;C ([round(air.temperature)] K)</span>"
+			message += "<span class='info'>Volume: [round(volume)] Liters</span>"
+			if(abs(pressure - ONE_ATMOSPHERE) < 10)
+				message += "<span class='info'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			else
+				message += "<span class='alert'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			message += "<span class='info'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+			message += "<span class='info'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
 		else
-			message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+			message += length(airs) > 1 ? "<span class='info'>This node is empty!</span>" : "<span class='info'>[target] is empty!</span>"
+			message += "<span class='info'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
 	// we let the join apply newlines so we do need handholding
 	to_chat(user, ("<div class='examine_block'>" + (jointext(message, "\n")) + "</div>"))
