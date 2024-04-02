@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(economy)
 	ordernum = rand(1, 9000)
 
 	// these represent intermediate types, we really shouldn't bother with them
-	var/list/ignored_supply_pack_types = list(
+	var/list/static/ignored_supply_pack_types = list(
 		/datum/supply_packs/abstract,
 		/datum/supply_packs/abstract/shuttle
 	)

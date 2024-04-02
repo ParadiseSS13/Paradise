@@ -14,11 +14,11 @@
 
 /obj/item/tarot_generator/wizard
 	maximum_cards = 5
-	our_card_cooldown_time = 12 SECONDS// A minute for a full hand of 5 cards
+	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards
 
 /obj/item/tarot_generator/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
-		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more seconds!</span>")
+		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!</span>")
 		return
 	if(length(our_card_list) >= maximum_cards)
 		to_chat(user, "<span class='warning'>[src]'s magic can only support up to [maximum_cards] in the world at once, use or destroy some!</span>")
@@ -32,9 +32,9 @@
 /obj/item/tarot_generator/examine(mob/user)
 	. = ..()
 	. += "<span class='hierophant'>Alt-Shift-Click to destroy all cards it has produced.</span>"
-	. += "<span class='hierophant'>It has [length(our_card_list)] cards in the world right now.</span>"
+	. += "<span class='hierophant'>It has [length(our_card_list)] card\s in the world right now.</span>"
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
-		. += "<span class='hierophant'>You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] seconds.</span>"
+		. += "<span class='hierophant'>You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] second\s.</span>"
 
 /obj/item/tarot_generator/AltShiftClick(mob/user)
 	for(var/obj/item/magic_tarot_card/MTC in our_card_list)
@@ -389,9 +389,11 @@
 	card_icon = "wheel_of_fortune"
 
 /datum/tarot/wheel_of_fortune/activate(mob/living/target)
-	var/list/static/bad_vendors = list(/obj/machinery/economy/vending/liberationstation,
-	/obj/machinery/economy/vending/toyliberationstation,
-	/obj/machinery/economy/vending/wallmed)
+	var/list/static/bad_vendors = list(
+		/obj/machinery/economy/vending/liberationstation,
+		/obj/machinery/economy/vending/toyliberationstation,
+		/obj/machinery/economy/vending/wallmed
+	)
 	var/turf/target_turf = get_turf(target)
 	var/vendorpath = pick(subtypesof(/obj/machinery/economy/vending) - bad_vendors)
 	new vendorpath(target_turf)
@@ -542,7 +544,7 @@
 	card_icon = "judgement"
 
 /datum/tarot/judgement/activate(mob/living/target)
-	notify_ghosts("[target] has used a judgment card. Judge them. Or not, up to you.", enter_link="<a href=?src=[UID()];follow=1>(Click to judge)</a>", source = target, action = NOTIFY_FOLLOW)
+	notify_ghosts("[target] has used a judgment card. Judge them. Or not, up to you.", enter_link = "<a href=?src=[UID()];follow=1>(Click to judge)</a>", source = target, action = NOTIFY_FOLLOW)
 
 /datum/tarot/the_world
 	name = "XXI - The World"
@@ -596,7 +598,7 @@
 				var/mob/living/M = AM
 				M.Weaken(6 SECONDS)
 				M.adjustBruteLoss(10)
-				to_chat(M, "<span class='userdanger'>You're slammed into the floor by [name]</span>")
+				to_chat(M, "<span class='userdanger'>You're slammed into the floor by [name]!</span>")
 				add_attack_logs(target, M, "[M] was thrown by [target]'s [name]", ATKLOG_ALMOSTALL)
 		else
 			new sparkle_path(get_turf(AM), get_dir(target, AM))
@@ -776,7 +778,7 @@
 	var/mob/living/carbon/human/H = target
 	var/i = 1
 	while(i <= 5)
-		var/datum/reagents/R = new/datum/reagents(10)
+		var/datum/reagents/R = new /datum/reagents(10)
 		R.add_reagent(get_unrestricted_random_reagent_id(), 10)
 		R.reaction(H, REAGENT_INGEST)
 		R.trans_to(H, 10)

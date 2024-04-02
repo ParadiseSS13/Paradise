@@ -612,7 +612,7 @@
 
 ///Hierophant card shielding. Saves me time.
 /obj/item/clothing/suit/proc/setup_hierophant_shielding()
-	var/datum/component/shielded/shield = src.GetComponent(/datum/component/shielded)
+	var/datum/component/shielded/shield = GetComponent(/datum/component/shielded)
 	if(!shield)
 		AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon = "shield-hierophant", run_hit_callback = CALLBACK(src, PROC_REF(hierophant_shield_damaged)))
 		return
