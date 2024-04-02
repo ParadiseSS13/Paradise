@@ -75,6 +75,11 @@
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
+/**
+ * Checks if the mob can understand the other speaker
+ * 
+ * If it return FALSE, then the message will have some letters replaced with stars from the heard message
+*/
 /mob/proc/say_understands(atom/movable/other, datum/language/speaking = null)
 	if(stat == DEAD)
 		return TRUE
