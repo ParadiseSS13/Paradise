@@ -592,6 +592,8 @@ SLIME SCANNER
 		return
 	if(target.return_analyzable_air())
 		atmos_scan(user, target)
+	else
+		atmos_scan(user, get_turf(target))
 
 /**
  * Outputs a message to the user describing the target's gasmixes.
