@@ -17,9 +17,7 @@
 	if(isAI(speaker_mob))
 		//AI's can't pretend to be other mobs.
 		return speaker_name
-	if(!check_name_against)
-		check_name_against = speaker_name
-	if(check_name_against == speaker_mob.real_name)
+	if(!check_name_against || check_name_against == speaker_mob.real_name)
 		return speaker_name
 	speaker_name = "[speaker_mob.real_name] ([speaker_name])"
 	return speaker_name
