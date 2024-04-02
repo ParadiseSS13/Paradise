@@ -103,9 +103,6 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
-/obj/machinery/atmospherics/portable/scrubber/return_analyzable_air()
-	return air_contents
-
 /obj/machinery/atmospherics/portable/scrubber/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
