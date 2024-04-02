@@ -61,6 +61,7 @@
 		custom_emotes,
 		physique,
 		height,
+		cyborg_brain_type,
 		tts_seed
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
