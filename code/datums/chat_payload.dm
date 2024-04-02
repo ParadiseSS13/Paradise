@@ -11,9 +11,9 @@
 	var/delivery_attempt = 0
 
 /datum/chat_payload/Destroy(force = FALSE, ...)
-	. = ..()
 	target = null
 	targets.Cut()
+	return ..()
 
 /// Converts the chat payload into a JSON string
 /datum/chat_payload/proc/into_message()
