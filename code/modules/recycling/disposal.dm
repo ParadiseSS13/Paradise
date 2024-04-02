@@ -318,10 +318,10 @@
 			update()
 
 		if(action == "engageHandle")
-			flush = 1
+			flush = TRUE
 			update()
 		if(action == "disengageHandle")
-			flush = 0
+			flush = FALSE
 			update()
 
 		if(action == "eject")
