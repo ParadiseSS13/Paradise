@@ -486,6 +486,211 @@ SLIME SCANNER
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /******************************/
+/***	GAS ANALYZER		***/
+/******************************/
+
+/obj/item/analyzer
+	name = "analyzer"
+	desc = "A hand-held environmental scanner which reports current gas levels."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "atmos"
+	item_state = "analyzer"
+	slot_flags = SLOT_FLAG_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	flags = CONDUCT
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 7
+	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
+	origin_tech = "magnets=1;engineering=1"
+	var/cooldown = FALSE
+	var/cooldown_time = 250
+	var/accuracy // 0 is the best accuracy.
+
+/obj/item/analyzer/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Alt-click [src] to activate the barometer function.</span>"
+
+/obj/item/analyzer/attack_self(mob/user as mob)
+
+	if(user.stat)
+		return
+
+	var/turf/location = user.loc
+	if(!isturf(location))
+		return
+
+	var/datum/gas_mixture/environment = location.return_air()
+
+	var/pressure = environment.return_pressure()
+	var/total_moles = environment.total_moles()
+
+	to_chat(user, "<span class='info'><B>Results:</B></span>")
+	if(abs(pressure - ONE_ATMOSPHERE) < 10)
+		to_chat(user, "<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>")
+	else
+		to_chat(user, "<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>")
+	if(total_moles)
+		var/o2_concentration = environment.oxygen/total_moles
+		var/n2_concentration = environment.nitrogen/total_moles
+		var/co2_concentration = environment.carbon_dioxide/total_moles
+		var/plasma_concentration = environment.toxins/total_moles
+		var/n2o_concentration = environment.sleeping_agent/total_moles
+
+		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
+		if(abs(n2_concentration - N2STANDARD) < 20)
+			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
+		else
+			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>")
+
+		if(abs(o2_concentration - O2STANDARD) < 2)
+			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100)] %</span>")
+		else
+			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>")
+
+		if(co2_concentration > 0.01)
+			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100)] %</span>")
+		else
+			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100)] %</span>")
+
+		if(plasma_concentration > 0.01)
+			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
+
+		if(n2o_concentration > 0.01)
+			to_chat(user, "<span class='info'>Nitrous Oxide: [round(n2o_concentration*100)] %</span>")
+
+		if(unknown_concentration > 0.01)
+			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
+
+		to_chat(user, "<span class='info'>Temperature: [round(environment.temperature-T0C)] &deg;C</span>")
+
+	add_fingerprint(user)
+
+/obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
+	..()
+
+	if(!user.incapacitated() && Adjacent(user))
+
+		if(cooldown)
+			to_chat(user, "<span class='warning'>[src]'s barometer function is preparing itself.</span>")
+			return
+
+		var/turf/T = get_turf(user)
+		if(!T)
+			return
+
+		playsound(src, 'sound/effects/pop.ogg', 100)
+		var/area/user_area = T.loc
+		var/datum/weather/ongoing_weather = null
+
+		if(!user_area.outdoors)
+			to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
+			return
+
+		for(var/V in SSweather.processing)
+			var/datum/weather/W = V
+			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == WEATHER_END_STAGE))
+				ongoing_weather = W
+				break
+
+		if(ongoing_weather)
+			if((ongoing_weather.stage == WEATHER_MAIN_STAGE) || (ongoing_weather.stage == WEATHER_WIND_DOWN_STAGE))
+				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == WEATHER_MAIN_STAGE ? "already here!" : "winding down."]</span>")
+				return
+
+			to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
+			if(ongoing_weather.aesthetic)
+				to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+		else
+			var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
+			var/fixed = next_hit ? next_hit - world.time : -1
+			if(fixed < 0)
+				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
+			else
+				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
+		cooldown = TRUE
+		addtimer(CALLBACK(src, PROC_REF(ping)), cooldown_time)
+
+/obj/item/analyzer/proc/ping()
+	if(isliving(loc))
+		var/mob/living/L = loc
+		to_chat(L, "<span class='notice'>[src]'s barometer function is ready!</span>")
+	playsound(src, 'sound/machines/click.ogg', 100)
+	cooldown = FALSE
+
+/obj/item/analyzer/proc/butchertime(amount)
+	if(!amount)
+		return
+	if(accuracy)
+		var/inaccurate = round(accuracy * (1 / 3))
+		if(prob(50))
+			amount -= inaccurate
+		if(prob(50))
+			amount += inaccurate
+	return DisplayTimeText(max(1, amount))
+
+/**
+ * Outputs a message to the user describing the target's gasmixes.
+ * Used in chat-based gas scans.
+ */
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE)
+	var/mixture = target.return_analyzable_air()
+	if(!mixture)
+		return FALSE
+
+	var/icon = target
+	var/message = list()
+	if(!silent && isliving(user))
+		user.visible_message("<span class='notice'>[user] uses the analyzer on [target].</span>", "<span class='notice'>You use the analyzer on [target].</span>")
+	message += "<span class='boldnotice'>Results of analysis of [bicon(icon)] [target].</span>"
+
+	if(!print)
+		return TRUE
+
+	var/list/airs = islist(mixture) ? mixture : list(mixture)
+	for(var/datum/gas_mixture/air as anything in airs)
+		var/mix_name = capitalize(lowertext(target.name))
+		if(airs.len > 1) //not a unary gas mixture
+			var/mix_number = airs.Find(air)
+			message += "<span class='boldnotice'>Node [mix_number]</span>"
+			mix_name += " - Node [mix_number]"
+
+		var/total_moles = air.total_moles()
+		var/pressure = air.return_pressure()
+		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+		var/temperature = air.return_temperature()
+		var/heat_capacity = air.heat_capacity()
+		var/thermal_energy = air.thermal_energy()
+
+		if(total_moles > 0)
+			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
+			if(air.oxygen)
+				message += "<span class='notice'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(air.oxygen / total_moles*100, 0.01)] %)</span>"
+			if(air.carbon_dioxide)
+				message += "<span class='notice'>Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] moles ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)</span>"
+			if(air.nitrogen)
+				message += "<span class='notice'>Nitrogen: [round(air.nitrogen, 0.01)] moles ([round(air.nitrogen / total_moles*100, 0.01)] %)</span>"
+			if(air.toxins)
+				message += "<span class='notice'>Plasma: [round(air.toxins, 0.01)] moles ([round(air.toxins / total_moles*100, 0.01)] %)</span>"
+			if(air.sleeping_agent)
+				message += "<span class='notice'>Nitrous Oxide: [round(air.sleeping_agent, 0.01)] moles ([round(air.sleeping_agent / total_moles*100, 0.01)] %)</span>"
+			if(air.agent_b)
+				message += "<span class='notice'>Agent B: [round(air.agent_b, 0.01)] moles ([round(air.agent_b / total_moles*100, 0.01)] %)</span>"
+
+			message += "<span class='notice'>Temperature: [round(air.temperature-T0C)] &deg;C ([round(air.temperature)] K)</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+		else
+			message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+
+	// we let the join apply newlines so we do need handholding
+	to_chat(user, ("<div class='examine_block'>" + (jointext(message, "\n")) + "</div>"))
+	return TRUE
+
+/******************************/
 /***	REAGENT SCANNERS	***/
 /******************************/
 /obj/item/reagent_scanner
