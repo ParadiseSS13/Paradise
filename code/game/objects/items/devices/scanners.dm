@@ -604,11 +604,10 @@ SLIME SCANNER
 	if(!mixture)
 		return FALSE
 
-	var/icon = target
 	var/list/message = list()
 	if(!silent && isliving(user))
 		user.visible_message("<span class='notice'>[user] uses the analyzer on [target].</span>", "<span class='notice'>You use the analyzer on [target].</span>")
-	message += "<span class='boldnotice'>Results of analysis of [bicon(icon)] [target].</span>"
+	message += "<span class='boldnotice'>Results of analysis of [bicon(target)] [target].</span>"
 
 	if(!print)
 		return TRUE
@@ -616,7 +615,7 @@ SLIME SCANNER
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	for(var/datum/gas_mixture/air as anything in airs)
 		var/mix_name = capitalize(lowertext(target.name))
-		if(airs.len > 1) //not a unary gas mixture
+		if(length(air) > 1) //not a unary gas mixture
 			var/mix_number = airs.Find(air)
 			message += "<span class='boldnotice'>Node [mix_number]</span>"
 			mix_name += " - Node [mix_number]"
@@ -627,7 +626,7 @@ SLIME SCANNER
 		var/heat_capacity = air.heat_capacity()
 		var/thermal_energy = air.thermal_energy()
 
-		if(total_moles > 0)
+		if(total_moles)
 			message += "<span class='info'>Total: [round(total_moles, 0.01)] moles</span>"
 			if(air.oxygen && air.oxygen / total_moles > 0.01)
 				message += "<span class='oxygen'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(air.oxygen / total_moles * 100, 0.01)] %)</span>"
@@ -661,6 +660,7 @@ SLIME SCANNER
 /******************************/
 /***	REAGENT SCANNERS	***/
 /******************************/
+
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."

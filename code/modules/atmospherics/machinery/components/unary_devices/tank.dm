@@ -17,7 +17,7 @@
 			return
 		add_underlay(T, node, dir)
 
-/obj/machinery/atmospherics/unary/tank/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/unary/tank/return_analyzable_air()
 	return air_contents
 
 /obj/machinery/atmospherics/unary/tank/air

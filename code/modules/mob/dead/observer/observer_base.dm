@@ -576,12 +576,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Toggles whether you analyze gas contents on click"
 	set category = "Ghost"
 
+	gas_scan = !gas_scan
 	if(gas_scan)
-		to_chat(src, "<span class='notice'>Gas scan disabled.</span>")
-		gas_scan = FALSE
-	else
 		to_chat(src, "<span class='notice'>Gas scan enabled.</span>")
-		gas_scan = TRUE
+	else
+		to_chat(src, "<span class='notice'>Gas scan disabled.</span>")
+
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
