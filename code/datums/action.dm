@@ -54,7 +54,7 @@
 			continue
 		HideFrom(hud.mymob)
 
-	LAZYREMOVE(remove_from?.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	remove_from?.actions -= src // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 	// owner = null
 
@@ -142,7 +142,7 @@
 	var/datum/hud/our_hud = viewer.hud_used
 	if(viewers[our_hud]) // Already have a copy of us? go away
 		return
-	LAZYOR(viewer.actions, src) // Move this in
+	viewer.actions |= src // Move this in
 	ShowTo(viewer)
 
 //Adds our action button to the screen of a player
@@ -168,7 +168,7 @@
 /datum/action/proc/HideFrom(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
 	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
-	LAZYREMOVE(viewer.actions, src)
+	viewer.actions -= src
 	if(button)
 		button.clean_up_keybinds(viewer)
 		qdel(button)
