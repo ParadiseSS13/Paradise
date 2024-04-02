@@ -124,6 +124,7 @@
 	if(volume > 4.5)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+			// im not going to make this an organ datum, so that slime people dont get their brain instantly deleted
 			var/obj/item/organ/internal/heart/ate_heart = H.get_int_organ(/obj/item/organ/internal/heart)
 			if(ate_heart)
 				ate_heart.remove(H)

@@ -53,7 +53,8 @@
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/modules_taj.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
 		)
 
 /obj/item/mod/module/Initialize(mapload)
@@ -327,7 +328,7 @@
 	if(length(pinned_to))
 		for(var/datum/action/item_action/mod/pinned_module/M in user.actions)
 			if(M.module == src)
-				M.Remove(user)
+				qdel(M)
 		pinned_to = list()
 		return
 	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)

@@ -136,6 +136,7 @@
 				/obj/item/caution = 10,
 				/obj/item/mod/construction/broken_core = 4,
 				/obj/effect/spawner/random_spawners/mod/maint = 10,
+				/obj/item/melee/knuckleduster = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/grenade/smokebomb = 3,
@@ -158,15 +159,24 @@
 				/obj/item/storage/belt/military/traitor = 2,
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
-				/obj/item/implanter/storage = 1,
+				/obj/item/bio_chip_implanter/storage = 1,
 				/obj/item/deck/cards/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
 				/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
+				/obj/item/melee/knuckleduster/syndie = 2,
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
+
+/obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT) && prob(50))
+		return qdel(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT) && prob(50))
+		lootcount = min(lootcount * 2, 12)
+	. = ..()
+
 
 /obj/effect/spawner/lootdrop/maintenance/two
 	name = "maintenance loot spawner (2 items)"
@@ -184,7 +194,8 @@
 	lootcount = 8
 
 
-/obj/effect/spawner/lootdrop/crate_spawner // for ruins
+/// for ruins
+/obj/effect/spawner/lootdrop/crate_spawner
 	name = "lootcrate spawner"
 	lootdoubles = FALSE
 	loot = list(
@@ -413,20 +424,20 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/soup/beetsoup,
-			/obj/item/reagent_containers/food/snacks/soup/stew,
-			/obj/item/reagent_containers/food/snacks/soup/hotchili,
-			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
-			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
+			/obj/item/food/snacks/soup/beetsoup,
+			/obj/item/food/snacks/soup/stew,
+			/obj/item/food/snacks/soup/hotchili,
+			/obj/item/food/snacks/soup/nettlesoup,
+			/obj/item/food/snacks/soup/meatballsoup)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/salad/herb,
-			/obj/item/reagent_containers/food/snacks/salad/valid,
-			/obj/item/reagent_containers/food/snacks/salad/aesir)
+			/obj/item/food/snacks/salad/herb,
+			/obj/item/food/snacks/salad/valid,
+			/obj/item/food/snacks/salad/aesir)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
-			/obj/item/reagent_containers/food/snacks/burger/bigbite,
-			/obj/item/reagent_containers/food/snacks/burger/superbite)
+			/obj/item/food/snacks/enchiladas,
+			/obj/item/food/snacks/stewedsoymeat,
+			/obj/item/food/snacks/burger/bigbite,
+			/obj/item/food/snacks/burger/superbite)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)

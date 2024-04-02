@@ -5,62 +5,53 @@
 	cure_text = "Banana products, especially banana bread."
 	cures = list("banana")
 	cure_chance = 75
-	agent = "H0NI<42 Virus"
-	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 0.75
-	desc = "If left untreated the subject will probably drive others to insanity."
-	severity = MEDIUM
-
-/datum/disease/pierrot_throat/stage_act()
-	if(!..())
-		return FALSE
-	switch(stage)
-		if(1)
-			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel a little silly.</span>")
-		if(2)
-			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You start seeing rainbows.</span>")
-		if(3)
-			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
-		if(4)
-			if(prob(5))
-				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
-
-
-/datum/disease/pierrot_throat/advanced
-	name = "Advanced Pierrot's Throat"
-	spread_text = "Airborne"
-	cure_text = "Banana products, especially banana bread."
-	cures = list("banana")
-	cure_chance = 75
 	agent = "H0NI<42.B4n4 Virus"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
-	severity = DANGEROUS
+	severity = MINOR
 
-/datum/disease/pierrot_throat/advanced/stage_act()
+/datum/disease/pierrot_throat/stage_act()
 	if(!..())
 		return FALSE
-	switch(stage)
-		if(1)
-			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel very silly.</span>")
-			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You feel like making a joke.</span>")
-		if(2)
-			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You don't just start seeing rainbows... YOU ARE RAINBOWS!</span>")
-		if(3)
-			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
-				SEND_SOUND(affected_mob, sound('sound/items/airhorn.ogg'))
-		if(4)
-			if(prob(5))
-				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
+	if(stage < 2)
+		return
 
-			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
-				affected_mob.unEquip(affected_mob.wear_mask, TRUE)
-				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), SLOT_HUD_WEAR_MASK)
+	var/mob/living/carbon/human/H = affected_mob
+
+	var/static/list/message_chances = list(null, 4, 2, 1)
+	if(prob(message_chances[stage]))
+		to_chat(H, "<span class='danger'>You feel [pick("a little silly", "like making a joke", "in the mood for giggling", "like the world is a little more vibrant")].</span>")
+	if(prob(message_chances[stage]))
+		to_chat(H, "<span class='danger'>You see [pick("rainbows", "puppies", "banana pies")] for a moment.</span>")
+
+	if(stage < 3)
+		return
+
+	var/static/list/honk_chances = list(null, null, 4, 0.66)
+	if(prob(honk_chances[stage]))
+		to_chat(H, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
+		SEND_SOUND(H, sound(pick(18; 'sound/items/bikehorn.ogg', 1; 'sound/items/airhorn.ogg', 1; 'sound/items/airhorn2.ogg'))) // 10% chance total for an airhorn
+
+	if(stage < 4)
+		return
+
+	if(prob(5))
+		H.say(pick(list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...")))
+
+	// Semi-permanent clown mask while in last stage of infection
+	if(locate(/obj/item/clothing/mask/gas/clown_hat) in H)
+		return
+	if(!H.has_organ_for_slot(SLOT_HUD_WEAR_MASK) || !H.canUnEquip(H.get_item_by_slot(SLOT_HUD_WEAR_MASK)))
+		return
+
+	var/saved_internals = H.internal
+
+	H.unEquip(H.get_item_by_slot(SLOT_HUD_WEAR_MASK))
+	var/obj/item/clothing/mask/gas/clown_hat/peak_comedy = new
+	peak_comedy.flags |= DROPDEL
+	H.equip_to_slot_or_del(peak_comedy, SLOT_HUD_WEAR_MASK)
+
+	if(saved_internals) // Let's not stealthily suffocate Vox/Plasmamen, this isn't a murder virus
+		H.internal = saved_internals
+		H.update_action_buttons_icon()

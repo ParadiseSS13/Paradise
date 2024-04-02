@@ -17,7 +17,7 @@
 		/obj/item/coin,
 		/obj/item/dice,
 		/obj/item/disk,
-		/obj/item/implanter,
+		/obj/item/bio_chip_implanter,
 		/obj/item/lighter,
 		/obj/item/match,
 		/obj/item/paper,
@@ -43,7 +43,7 @@
 	if(. && istype(I, /obj/item/card/id))
 		refresh_ID()
 
-/obj/item/storage/wallet/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
+/obj/item/storage/wallet/handle_item_insertion(obj/item/I, mob/user, prevent_warning = FALSE)
 	. = ..()
 	if(. && istype(I, /obj/item/card/id))
 		refresh_ID()

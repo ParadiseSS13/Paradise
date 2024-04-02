@@ -8,7 +8,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_suit
 	materials = list(MAT_METAL=15000)
-	construction_time = 500
+	construction_time = 50 SECONDS
 	category = list("Cyborg")
 
 /datum/design/borg_chest
@@ -17,7 +17,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/chest
 	materials = list(MAT_METAL=40000)
-	construction_time = 350
+	construction_time = 35 SECONDS
 	category = list("Cyborg")
 
 /datum/design/borg_head
@@ -26,7 +26,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/head
 	materials = list(MAT_METAL=5000)
-	construction_time = 350
+	construction_time = 35 SECONDS
 	category = list("Cyborg")
 
 /datum/design/borg_l_arm
@@ -35,7 +35,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/l_arm
 	materials = list(MAT_METAL=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg")
 
 /datum/design/borg_r_arm
@@ -44,7 +44,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/r_arm
 	materials = list(MAT_METAL=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg")
 
 /datum/design/borg_l_leg
@@ -53,7 +53,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/l_leg
 	materials = list(MAT_METAL=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg")
 
 /datum/design/borg_r_leg
@@ -62,7 +62,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/r_leg
 	materials = list(MAT_METAL=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg")
 
 //Robot repair
@@ -72,7 +72,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_component/binary_communication_device
 	materials = list(MAT_METAL=2500, MAT_GLASS=1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg Repair")
 
 /datum/design/borg_radio
@@ -81,7 +81,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_component/radio
 	materials = list(MAT_METAL=2500, MAT_GLASS=1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg Repair")
 
 /datum/design/borg_actuator
@@ -90,7 +90,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_component/actuator
 	materials = list(MAT_METAL=3500)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg Repair")
 
 /datum/design/borg_diagnosis_unit
@@ -99,7 +99,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_component/diagnosis_unit
 	materials = list(MAT_METAL=3500)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg Repair")
 
 /datum/design/borg_camera
@@ -108,7 +108,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_component/camera
 	materials = list(MAT_METAL=2500, MAT_GLASS=1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg Repair")
 
 /datum/design/borg_armor
@@ -117,7 +117,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/robot_parts/robot_component/armour
 	materials = list(MAT_METAL=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Cyborg Repair")
 
 //Ripley
@@ -127,7 +127,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/ripley
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Ripley")
 
 //Firefighter subtype
@@ -137,7 +137,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/firefighter
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Firefighter")
 
 /datum/design/ripley_torso
@@ -146,7 +146,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/ripley_torso
 	materials = list(MAT_METAL=20000, MAT_GLASS=7500)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Ripley","Firefighter")
 
 /datum/design/ripley_left_arm
@@ -155,7 +155,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/ripley_left_arm
 	materials = list(MAT_METAL=15000)
-	construction_time = 150
+	construction_time = 15 SECONDS
 	category = list("Ripley","Firefighter")
 
 /datum/design/ripley_right_arm
@@ -164,7 +164,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/ripley_right_arm
 	materials = list(MAT_METAL=15000)
-	construction_time = 150
+	construction_time = 15 SECONDS
 	category = list("Ripley","Firefighter")
 
 /datum/design/ripley_left_leg
@@ -173,7 +173,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/ripley_left_leg
 	materials = list(MAT_METAL=15000)
-	construction_time = 150
+	construction_time = 15 SECONDS
 	category = list("Ripley","Firefighter")
 
 /datum/design/ripley_right_leg
@@ -182,7 +182,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/ripley_right_leg
 	materials = list(MAT_METAL=15000)
-	construction_time = 150
+	construction_time = 15 SECONDS
 	category = list("Ripley","Firefighter")
 
 //Odysseus
@@ -192,7 +192,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/odysseus
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Odysseus")
 
 /datum/design/odysseus_torso
@@ -201,7 +201,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/odysseus_torso
 	materials = list(MAT_METAL=12000)
-	construction_time = 180
+	construction_time = 18 SECONDS
 	category = list("Odysseus")
 
 /datum/design/odysseus_head
@@ -210,7 +210,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/odysseus_head
 	materials = list(MAT_METAL=6000,MAT_GLASS=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Odysseus")
 
 /datum/design/odysseus_left_arm
@@ -219,7 +219,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/odysseus_left_arm
 	materials = list(MAT_METAL=6000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Odysseus")
 
 /datum/design/odysseus_right_arm
@@ -228,7 +228,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/odysseus_right_arm
 	materials = list(MAT_METAL=6000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Odysseus")
 
 /datum/design/odysseus_left_leg
@@ -237,7 +237,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/odysseus_left_leg
 	materials = list(MAT_METAL=7000)
-	construction_time = 130
+	construction_time = 13 SECONDS
 	category = list("Odysseus")
 
 /datum/design/odysseus_right_leg
@@ -246,7 +246,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/odysseus_right_leg
 	materials = list(MAT_METAL=7000)
-	construction_time = 130
+	construction_time = 13 SECONDS
 	category = list("Odysseus")
 
 //Gygax
@@ -256,7 +256,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/gygax
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_torso
@@ -265,7 +265,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_torso
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_DIAMOND=2000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_head
@@ -274,7 +274,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_head
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000, MAT_DIAMOND=2000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_left_arm
@@ -283,7 +283,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_left_arm
 	materials = list(MAT_METAL=15000, MAT_DIAMOND=1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_right_arm
@@ -292,7 +292,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_right_arm
 	materials = list(MAT_METAL=15000, MAT_DIAMOND=1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_left_leg
@@ -301,7 +301,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_left_leg
 	materials = list(MAT_METAL=15000, MAT_DIAMOND=2000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_right_leg
@@ -310,7 +310,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_right_leg
 	materials = list(MAT_METAL=15000, MAT_DIAMOND=2000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Gygax")
 
 /datum/design/gygax_armor
@@ -319,7 +319,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_armour
 	materials = list(MAT_METAL=15000,MAT_DIAMOND=10000,MAT_TITANIUM=10000)
-	construction_time = 600
+	construction_time = 60 SECONDS
 	category = list("Gygax")
 
 //Durand
@@ -329,7 +329,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/durand
 	materials = list(MAT_METAL=25000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_torso
@@ -338,7 +338,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_torso
 	materials = list(MAT_METAL=25000,MAT_GLASS=10000,MAT_SILVER=10000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_head
@@ -347,7 +347,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_head
 	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_SILVER=2000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_left_arm
@@ -356,7 +356,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_left_arm
 	materials = list(MAT_METAL=10000,MAT_SILVER=4000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_right_arm
@@ -365,7 +365,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_right_arm
 	materials = list(MAT_METAL=10000,MAT_SILVER=4000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_left_leg
@@ -374,7 +374,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_left_leg
 	materials = list(MAT_METAL=15000,MAT_SILVER=4000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_right_leg
@@ -383,7 +383,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_right_leg
 	materials = list(MAT_METAL=15000,MAT_SILVER=4000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Durand")
 
 /datum/design/durand_armor
@@ -392,7 +392,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_armor
 	materials = list(MAT_METAL=30000,MAT_URANIUM=25000,MAT_TITANIUM=20000)
-	construction_time = 600
+	construction_time = 60 SECONDS
 	category = list("Durand")
 
 //H.O.N.K
@@ -402,7 +402,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/honker
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("H.O.N.K")
 
 /datum/design/honk_torso
@@ -411,7 +411,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/honker_torso
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_BANANIUM=10000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("H.O.N.K")
 
 /datum/design/honk_head
@@ -420,7 +420,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/honker_head
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_BANANIUM=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("H.O.N.K")
 
 /datum/design/honk_left_arm
@@ -429,7 +429,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/honker_left_arm
 	materials = list(MAT_METAL=15000,MAT_BANANIUM=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("H.O.N.K")
 
 /datum/design/honk_right_arm
@@ -438,7 +438,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/honker_right_arm
 	materials = list(MAT_METAL=15000,MAT_BANANIUM=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("H.O.N.K")
 
 /datum/design/honk_left_leg
@@ -447,7 +447,7 @@
 	build_type = MECHFAB
 	build_path =/obj/item/mecha_parts/part/honker_left_leg
 	materials = list(MAT_METAL=20000,MAT_BANANIUM=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("H.O.N.K")
 
 /datum/design/honk_right_leg
@@ -456,7 +456,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/honker_right_leg
 	materials = list(MAT_METAL=20000,MAT_BANANIUM=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("H.O.N.K")
 
 //Reticence
@@ -466,7 +466,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/reticence
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Reticence")
 
 /datum/design/reticence_torso
@@ -475,7 +475,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/reticence_torso
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_TRANQUILLITE=10000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Reticence")
 
 /datum/design/reticence_head
@@ -484,7 +484,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/reticence_head
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_TRANQUILLITE=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Reticence")
 
 /datum/design/reticence_left_arm
@@ -493,7 +493,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/reticence_left_arm
 	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Reticence")
 
 /datum/design/reticence_right_arm
@@ -502,7 +502,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/reticence_right_arm
 	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Reticence")
 
 /datum/design/reticence_left_leg
@@ -511,7 +511,7 @@
 	build_type = MECHFAB
 	build_path =/obj/item/mecha_parts/part/reticence_left_leg
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Reticence")
 
 /datum/design/reticence_right_leg
@@ -520,7 +520,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/reticence_right_leg
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Reticence")
 
 //Phazon
@@ -530,7 +530,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/chassis/phazon
 	materials = list(MAT_METAL=20000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_torso
@@ -539,7 +539,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_torso
 	materials = list(MAT_METAL=35000,MAT_GLASS=10000,MAT_PLASMA=20000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_head
@@ -548,7 +548,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_head
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000,MAT_PLASMA=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_left_arm
@@ -557,7 +557,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_left_arm
 	materials = list(MAT_METAL=20000,MAT_PLASMA=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_right_arm
@@ -566,7 +566,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_right_arm
 	materials = list(MAT_METAL=20000,MAT_PLASMA=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_left_leg
@@ -575,7 +575,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_left_leg
 	materials = list(MAT_METAL=20000,MAT_PLASMA=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_right_leg
@@ -584,7 +584,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_right_leg
 	materials = list(MAT_METAL=20000,MAT_PLASMA=10000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Phazon")
 
 /datum/design/phazon_armor
@@ -593,7 +593,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_armor
 	materials = list(MAT_METAL=25000,MAT_PLASMA=20000,MAT_TITANIUM=20000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Phazon")
 
 //Exosuit Equipment
@@ -603,7 +603,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/cable_layer
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_drill
@@ -612,7 +612,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_extinguisher
@@ -621,7 +621,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/extinguisher
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_hydraulic_clamp
@@ -630,7 +630,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_sleeper
@@ -640,7 +640,7 @@
 	req_tech = list("biotech" = 3, "engineering" = 3, "plasmatech" = 2)
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	materials = list(MAT_METAL=5000,MAT_GLASS=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_syringe_gun
@@ -650,7 +650,7 @@
 	req_tech = list("magnets" = 4,"biotech" = 4, "combat" = 3, "materials" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
 	materials = list(MAT_METAL=3000,MAT_GLASS=2000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/medical_jaw
@@ -660,7 +660,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6)	//now same as jaws of life
 	materials = list(MAT_METAL=5000,MAT_SILVER=2000,MAT_TITANIUM=1500)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator
@@ -669,7 +669,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator
 	materials = list(MAT_METAL=10000,MAT_GLASS=1000,MAT_SILVER=2000,MAT_PLASMA=5000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_disabler
@@ -679,7 +679,7 @@
 	req_tech = list("combat" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_lmg
@@ -689,7 +689,7 @@
 	req_tech = list("combat" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_banana_mortar
@@ -698,7 +698,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	materials = list(MAT_METAL=20000,MAT_BANANIUM=5000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_honker
@@ -707,7 +707,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/honker
 	materials = list(MAT_METAL=20000,MAT_BANANIUM=10000)
-	construction_time = 500
+	construction_time = 50 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mousetrap_mortar
@@ -716,7 +716,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
 	materials = list(MAT_METAL=20000,MAT_BANANIUM=5000)
-	construction_time = 300
+	construction_time = 30 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_silentgun
@@ -725,7 +725,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=10000)
-	construction_time = 500
+	construction_time = 50 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mimercd
@@ -735,7 +735,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/mimercd
 	materials = list(MAT_METAL=30000,MAT_TRANQUILLITE=10000)
-	construction_time = 700
+	construction_time = 70 SECONDS
 	category = list("Exosuit Equipment")
 
 // Exosuit Modules
@@ -747,7 +747,7 @@
 	req_tech = list("materials" = 5, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	materials = list(MAT_METAL=10000,MAT_DIAMOND=6500)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mining_scanner
@@ -756,7 +756,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	materials = list(MAT_METAL=5000,MAT_GLASS=2500)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator_nuclear
@@ -767,7 +767,7 @@
 	req_tech = list("powerstorage"= 5, "engineering" = 4, "materials" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	materials = list(MAT_METAL=10000,MAT_GLASS=1000,MAT_SILVER=500)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_gravcatapult
@@ -778,7 +778,7 @@
 	req_tech = list("bluespace" = 4, "magnets" = 3, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_rcd
@@ -789,7 +789,7 @@
 	req_tech = list("materials" = 5, "bluespace" = 3, "magnets" = 4, "powerstorage"=4, "engineering" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
 	materials = list(MAT_METAL=30000,MAT_GOLD=20000,MAT_PLASMA=25000,MAT_SILVER=20000)
-	construction_time = 1200
+	construction_time = 120 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_ccw_armor
@@ -800,7 +800,7 @@
 	req_tech = list("materials" = 5, "combat" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	materials = list(MAT_METAL=20000,MAT_SILVER=5000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_proj_armor
@@ -811,7 +811,7 @@
 	req_tech = list("materials" = 5, "combat" = 5, "engineering"=3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	materials = list(MAT_METAL=20000,MAT_GOLD=5000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_repair_droid
@@ -822,7 +822,7 @@
 	req_tech = list("magnets" = 3, "programming" = 3, "engineering" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/repair_droid
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/clusterbang_launcher
@@ -833,7 +833,7 @@
 	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_bola
@@ -844,7 +844,7 @@
 	req_tech = list("combat" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_teleporter
@@ -855,7 +855,7 @@
 	req_tech = list("bluespace" = 8, "magnets" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/teleporter
 	materials = list(MAT_METAL=10000,MAT_DIAMOND=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_energy_relay
@@ -866,7 +866,7 @@
 	req_tech = list("magnets" = 4, "powerstorage" = 5, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	materials = list(MAT_METAL=10000,MAT_GLASS=2000,MAT_GOLD=2000,MAT_SILVER=3000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 // Exosuit Weapons
@@ -878,7 +878,7 @@
 	req_tech = list("combat" = 4, "magnets" = 4, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_laser
@@ -889,7 +889,7 @@
 	req_tech = list("combat" = 3, "magnets" = 3, "engineering" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_carbine
@@ -900,7 +900,7 @@
 	req_tech = list("combat" = 5, "materials" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_scattershot
@@ -911,7 +911,7 @@
 	req_tech = list("combat" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(MAT_METAL=10000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_ion
@@ -922,7 +922,7 @@
 	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	materials = list(MAT_METAL=20000,MAT_SILVER=6000,MAT_URANIUM=2000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_grenade_launcher
@@ -933,7 +933,7 @@
 	req_tech = list("combat" = 4, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_missile_rack
@@ -944,7 +944,7 @@
 	req_tech = list("combat" = 6, "materials" = 5, "engineering" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_plasma_cutter
@@ -955,7 +955,7 @@
 	req_tech = list("engineering" = 4, "materials" = 5, "plasmatech" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 6000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_tesla
@@ -966,7 +966,7 @@
 	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	materials = list(MAT_METAL=20000,MAT_SILVER=8000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_immolator
@@ -977,7 +977,7 @@
 	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mecha_thruster
@@ -988,7 +988,7 @@
 	req_tech = list("engineering" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/thrusters
 	materials = list(MAT_METAL = 15000, MAT_PLASMA = 3000)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 //Cyborg Upgrade Modules
@@ -999,7 +999,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/reset
 	materials = list(MAT_METAL=10000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_rename
@@ -1008,7 +1008,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rename
 	materials = list(MAT_METAL=35000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_restart
@@ -1017,7 +1017,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/restart
 	materials = list(MAT_METAL=60000 , MAT_GLASS=5000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_vtec
@@ -1027,7 +1027,7 @@
 	build_path = /obj/item/borg/upgrade/vtec
 	req_tech = list("engineering" = 4, "materials" = 5, "programming" = 4)
 	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_URANIUM= 5000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_thrusters
@@ -1037,7 +1037,7 @@
 	build_path = /obj/item/borg/upgrade/thrusters
 	req_tech = list("engineering" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL=10000, MAT_PLASMA=5000, MAT_URANIUM = 6000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_diamonddrill
@@ -1047,7 +1047,7 @@
 	build_path = /obj/item/borg/upgrade/ddrill
 	req_tech = list("engineering" = 5, "materials" = 6)
 	materials = list(MAT_METAL=10000, MAT_DIAMOND=2000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_holding
@@ -1057,7 +1057,7 @@
 	build_path = /obj/item/borg/upgrade/soh
 	req_tech = list("engineering" = 4, "materials" = 4, "bluespace" = 4)
 	materials = list(MAT_METAL = 10000, MAT_GOLD = 250, MAT_URANIUM = 500)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_engi
@@ -1067,7 +1067,7 @@
 	build_path = /obj/item/borg/upgrade/abductor_engi
 	req_tech = list("engineering" = 7, "materials" = 7, "abductor" = 4)
 	materials = list(MAT_METAL = 25000, MAT_SILVER = 12500, MAT_PLASMA = 5000, MAT_TITANIUM = 10000, MAT_DIAMOND = 10000) //Base abductor engineering tools * 4
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_medi
@@ -1077,7 +1077,7 @@
 	build_path = /obj/item/borg/upgrade/abductor_medi
 	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
 	materials = list(MAT_METAL = 18000, MAT_GLASS = 1500, MAT_SILVER = 13000, MAT_GOLD = 1000, MAT_PLASMA = 4000, MAT_TITANIUM = 12000, MAT_DIAMOND = 1000) //Base abductor engineering tools *8 + IMS cost
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_lavaproof
@@ -1086,7 +1086,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/lavaproof
 	materials = list(MAT_METAL = 10000, MAT_PLASMA = 4000, MAT_TITANIUM = 5000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_syndicate_module
@@ -1096,7 +1096,7 @@
 	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 4)
 	build_path = /obj/item/borg/upgrade/syndicate
 	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_DIAMOND = 10000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_selfrepair
@@ -1106,7 +1106,7 @@
 	build_path = /obj/item/borg/upgrade/selfrepair
 	req_tech = list("materials" = 4, "engineering" = 4)
 	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_bluespace_trash_bag
@@ -1116,7 +1116,7 @@
 	build_path = /obj/item/borg/upgrade/bluespace_trash_bag
 	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
 	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_floorbuffer
@@ -1126,7 +1126,7 @@
 	build_path = /obj/item/borg/upgrade/floorbuffer
 	req_tech = list("materials" = 4, "engineering" = 4)
 	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_syndie_soap
@@ -1136,17 +1136,27 @@
 	build_path = /obj/item/borg/upgrade/syndie_soap
 	req_tech = list("syndicate" = 2)
 	materials = list(MAT_GOLD = 1250, MAT_PLASMA = 2500, MAT_SILVER = 1250)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
-	
+
 /datum/design/borg_upgrade_rcd
 	name = "Cyborg Upgrade (Rapid Construction Device)"
 	id = "borg_upgrade_RCD"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rcd
 	req_tech = list("materials" = 6, "engineering" = 5, "powerstorage" = 5)
-	materials = list(MAT_METAL=30000, MAT_GLASS=15000,)
-	construction_time = 120
+	materials = list(MAT_METAL = 30000, MAT_GLASS = 15000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_rped
+	name = "Cyborg Upgrade (Rapid Part Exchange Device)"
+	id = "borg_upgrade_RPED"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/rped
+	req_tech = list("materials" = 3, "engineering" = 4)
+	materials = list(MAT_METAL = 40000, MAT_GLASS = 15000)
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 //Misc
@@ -1156,7 +1166,7 @@
 	build_type = MECHFAB
 	build_path =/obj/item/mecha_parts/mecha_tracking
 	materials = list(MAT_METAL=500)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	category = list("Misc")
 
 /datum/design/mecha_tracking_ai_control
@@ -1166,7 +1176,7 @@
 	build_path = /obj/item/mecha_parts/mecha_tracking/ai_control
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 200)
 	req_tech = list("programming" = 3, "magnets" = 2, "engineering" = 2)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_head
@@ -1175,7 +1185,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/external/head/ipc
 	materials = list(MAT_METAL=15000, MAT_GLASS=5000)
-	construction_time = 350
+	construction_time = 35 SECONDS
 	category = list("Misc")
 
 /datum/design/integrated_robotic_chassis
@@ -1184,7 +1194,7 @@
 	build_type = MECHFAB
 	build_path = /mob/living/carbon/human/machine/created
 	materials = list(MAT_METAL = 40000, MAT_TITANIUM = 7000) //for something made from lego, they sure need a lot of metal
-	construction_time = 400
+	construction_time = 40 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_cell
@@ -1193,7 +1203,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cell
 	materials = list(MAT_METAL=2000, MAT_GLASS=750)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_charger
@@ -1202,7 +1212,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
 	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_optics
@@ -1211,7 +1221,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/eyes/optical_sensor
 	materials = list(MAT_METAL=1000, MAT_GLASS=2500)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_microphone
@@ -1220,7 +1230,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/ears/microphone
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 2500)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Misc")
 
 /datum/design/synthetic_flash
@@ -1230,7 +1240,7 @@
 	req_tech = list("magnets" = 3, "combat" = 2)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 750, MAT_GLASS = 750)
-	construction_time = 100
+	construction_time = 10 SECONDS
 	build_path = /obj/item/flash/synthetic
 	category = list("Misc")
 
@@ -1240,7 +1250,7 @@
 	id = "voice_standard"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 500)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	build_path = /obj/item/mecha_modkit/voice
 	category = list("Misc")
 
@@ -1250,7 +1260,7 @@
 	id = "voice_nanotrasen"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 500)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	build_path = /obj/item/mecha_modkit/voice/nanotrasen
 	category = list("Misc")
 
@@ -1260,7 +1270,7 @@
 	id = "voice_silent"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 500)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	build_path = /obj/item/mecha_modkit/voice/silent
 	category = list("Misc")
 
@@ -1270,7 +1280,7 @@
 	id = "voice_honk"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	build_path = /obj/item/mecha_modkit/voice/honk
 	category = list("Misc")
 
@@ -1281,6 +1291,6 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
 	req_tech = list("syndicate" = 2)
-	construction_time = 50
+	construction_time = 5 SECONDS
 	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")

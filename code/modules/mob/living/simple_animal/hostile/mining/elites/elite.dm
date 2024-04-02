@@ -49,8 +49,8 @@
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
-			var/response = alert(src, "Re-enter the tumor?","Despawn yourself?", "Yes", "No")
-			if(response == "No" || QDELETED(src) || !Adjacent(T))
+			var/response = tgui_alert(src, "Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
+			if(response != "Yes" || QDELETED(src) || !Adjacent(T))
 				return
 			T.clear_activator(src)
 			T.mychild = null
@@ -111,8 +111,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/New(Target)
-	. = ..()
+/datum/action/innate/elite_attack/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
 	button.maptext_y = 0
@@ -125,13 +125,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButton()
+	UpdateButtons()
 
-/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
+/datum/action/innate/elite_attack/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	. = ..()
 	if(status_only)
 		return
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
+
 	if(timeleft == 0)
 		button.maptext = ""
 	else
@@ -475,10 +477,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return FALSE
 
 /obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/item/projectile))
-		return FALSE
-		
+	return FALSE
+
 /obj/item/gps/internal/tumor
 	icon_state = null
 	gpstag = "Cancerous Signal"

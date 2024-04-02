@@ -56,9 +56,8 @@
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return
-	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")
-	turn_on_or_off(FALSE)
+	if(!anchored)
+		turn_on_or_off(FALSE)
 
 /obj/machinery/snow_machine/process()
 	if(power_used_this_cycle)

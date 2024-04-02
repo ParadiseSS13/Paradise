@@ -101,8 +101,8 @@
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "gammaalert"
 	lowering_to_announcement_title = "Attention! Gamma security level activated!"
-	lowering_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location."
-	elevating_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location."
+	lowering_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek out command staff for instructions."
+	elevating_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek out command staff for instructions."
 	elevating_to_announcement_title = "Attention! Gamma security level activated!"
 
 /**

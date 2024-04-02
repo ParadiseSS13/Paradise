@@ -42,6 +42,7 @@
 
 		emagged = TRUE
 		toggle_lock()
+		return TRUE
 
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()

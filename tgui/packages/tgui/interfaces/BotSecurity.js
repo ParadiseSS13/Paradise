@@ -1,6 +1,5 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
+import { Button, Section } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -16,7 +15,7 @@ export const BotSecurity = (props, context) => {
     arrest_declare,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={445}>
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Who To Arrest">

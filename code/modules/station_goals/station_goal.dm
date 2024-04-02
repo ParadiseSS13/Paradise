@@ -30,7 +30,7 @@
 	if(check_completion())
 		to_chat(world, "<b>Station Goal</b>: [name]:  <span class='greenannounce'>Completed!</span>")
 	else
-		to_chat(world, "<b>Station Goal</b>: [name]: <span class='boldannounce'>Failed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]: <span class='boldannounceic'>Failed!</span>")
 
 /datum/station_goal/Destroy()
 	SSticker.mode.station_goals -= src
@@ -46,4 +46,6 @@
 		on_report()
 		send_report()
 	else if(href_list["remove"])
+		SSticker.mode.station_goals -= src
 		qdel(src)
+		usr.client.modify_goals()

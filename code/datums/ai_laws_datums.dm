@@ -1,5 +1,3 @@
-#define BASE_LAW_TYPE /datum/ai_laws/nanotrasen
-
 /datum/ai_law
 	var/law = ""
 	var/index = 0
@@ -22,6 +20,8 @@
 	var/law_header = "Prime Directives"
 	var/selectable = FALSE
 	var/default = FALSE
+	///Is this lawset used by the unique ai trait?
+	var/unique_ai = FALSE
 	var/datum/ai_law/zero/zeroth_law = null
 	var/datum/ai_law/zero/zeroth_law_borg = null
 	var/list/datum/ai_law/inherent_laws = list()
@@ -182,6 +182,7 @@
 		law.delete_law(src)
 
 /datum/ai_law/proc/delete_law(datum/ai_laws/laws)
+	return
 
 /datum/ai_law/zero/delete_law(datum/ai_laws/laws)
 	laws.clear_zeroth_laws()
@@ -245,6 +246,7 @@
 	return law.get_state_law(src)
 
 /datum/ai_law/proc/get_state_law(datum/ai_laws/laws)
+	return
 
 /datum/ai_law/zero/get_state_law(datum/ai_laws/laws)
 	if(src == laws.zeroth_law)
@@ -271,7 +273,8 @@
 /datum/ai_laws/proc/set_state_law(datum/ai_law/law, state)
 	law.set_state_law(src, state)
 
-/datum/ai_law/proc/set_state_law(datum/ai_law/law, state)
+/datum/ai_law/proc/set_state_law(datum/ai_laws/laws, state)
+	return
 
 /datum/ai_law/zero/set_state_law(datum/ai_laws/laws, state)
 	if(src == laws.zeroth_law)

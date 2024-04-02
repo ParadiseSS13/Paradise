@@ -39,8 +39,10 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
-	var/paper_width = 400//Width of the window that opens
-	var/paper_height = 400//Height of the window that opens
+	/// Width of the window that opens
+	var/paper_width = 600
+	/// Height of the window that opens
+	var/paper_height = 750
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -82,8 +84,8 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
-		popup.stylesheets = list()
+		var/datum/browser/popup = new(user, "Paper[UID()]", null, paper_width, paper_height)
+		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
@@ -288,7 +290,7 @@
 
 
 /obj/item/paper/proc/openhelp(mob/user as mob)
-	user << browse({"<HTML><HEAD><TITLE>Pen Help</TITLE></HEAD>
+	user << browse({"<html><meta charset='utf-8'><head><title>Pen Help</title></head>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>
@@ -344,7 +346,7 @@
 		var/const/station_text = "\[Station name\]"
 		var/list/menu_list = list() //text items in the menu
 		menu_list.Add(usr.real_name) //the real name of the character, even if it is hidden
-		if(usr.real_name != usr.name || usr.name != "unknown") //if the player is masked or the name is different a new answer option is added
+		if(usr.real_name != usr.name) //if the player is masked or the name is different a new answer option is added
 			menu_list.Add("[usr.name]")
 		menu_list.Add(usr.job, //current job
 			num_text, //account number
@@ -356,7 +358,7 @@
 			usr.gender, //current gender
 			usr.dna.species //current species
 		)
-		var/input_element = input("Select the text you want to add:", "Select item") as null|anything in menu_list
+		var/input_element = tgui_input_list(usr, "Select the text you want to add", "Select item", menu_list)
 		switch(input_element) //format selected menu items in pencode and internal data
 			if(sign_text)
 				input_element = "\[sign\]"
@@ -373,7 +375,7 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
+		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
@@ -460,7 +462,7 @@
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
-	if(is_hot(P))
+	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
@@ -484,6 +486,9 @@
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(obj/item/stamp/S)
+	if(length(stamp_overlays) > 49) //Do not remove this cap or you'll unleash evil upon the world
+		return
+
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
@@ -577,9 +582,15 @@
 	name = "discoveries and thoughts"
 	info = "As the Diona species, we awoke aboard our terraformation vessel with the primary goal of reshaping the alien world. Our endeavors were highly successful, as we cultivated various plant species and made astonishing discoveries throughout our journey. We seeded a remarkable 'special' grass around our ship, which thrived splendidly. However, as time passed, we faced a growing challenge - a shortage of oxygen in our containment tanks hindered our ability to spread the grass further. In response, we embarked on a series of trials and experiments to engineer plants with the capacity to survive in low-oxygen environments, thus extending our breath of life. <br>Through a series of trials, combining failures and successes, we unveiled several plant species with unique attributes. Some proved to be valuable for healing purposes, while others offered addictive properties. Glowing mushrooms emerged as a source of vital light, preventing us from succumbing to the darkness. Among these discoveries, one plant commanded our utmost attention – the 'space tobacco.' While this species did not generate oxygen, it contained a chemical known as Salbutamol, enabling us to respire in low-oxygen conditions when consumed. The only drawback was the need to meticulously extract harmful compounds for its safe utilization. <br>Amid our efforts to expand the greenery, an unexpected encounter transpired. I found myself under assault by an enigmatic creature, and I was forced to flee in haste, straying too far from our vessel. As I stand now, my supplies of life-sustaining plants are dwindling, as is my ability to endure in this low-oxygen environment. Suffocation looms, and I must hasten my return to the safety of our ship to avert this dire fate."
 
+/obj/item/paper/crumpled/bloody/hacker
+	name = "burned paper scrap"
+	icon_state = "scrap_bloodied"
+	info = "<p style='text-align:center;font-family;font-size:120%;font-weight:bold;'>FINALLY, I DECIPHERED NTS' FAXING NETWO-</p>"
+
 /obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
+	paper_width = 400
 	paper_height = 150
 
 /obj/item/paper/fortune/New()
@@ -694,11 +705,11 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tank <br>- 4 breathing masks <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator has sent you to planet SN-856B in the Jansev4 system to perform terraforming. <br>To assist you in your task, we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tanks <br>- 4 breathing masks <br>- 4 bee starter kits <br>- A fully functional botanical setup <br><br>You will find an Introduction for Experimental Terraforming inside the cockpit."
 
-/obj/item/paper/seed_vault/terraformation
+/obj/item/paper/seed_vault/terraforming_introduction
 	name = "Terraformation Experiment for SN-856B"
-	info = "Thanks to genetic engineering, we modified this grass to be able grow on a rocky, waterless environment. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass; after you place them down, anchor it down to the terrain so they will start to spread roots deep inside. After all steps are done, repeat it until you cover as much ground as possible. After a certain amount of time it will start producing oxygen, with will begin to increase the density of the atmosphere."
+	info = "Thanks to genetic engineering, we modified this grass to be able grow in rocky, waterless environments. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass. Cover as much ground with these patches as you can, and with time it will start producing oxygen, which will begin to increase the density of the atmosphere."
 
 /obj/item/paper/seed_vault/autopilot_logs
 	name = "Automatical Logs Printout"

@@ -27,7 +27,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/mimejutsu/F = new/datum/martial_art/mimejutsu(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of mimes.</span>")
+		to_chat(H, "<span class='boldannounceic'>You have learned the ancient martial art of mimes.</span>")
 		used = TRUE
 		desc = "It used to have something stapled to it..the staple is still there."
 		name = "beret with staple"

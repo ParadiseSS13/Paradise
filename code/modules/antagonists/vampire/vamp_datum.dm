@@ -17,15 +17,21 @@
 	/// Nullrods and holywater make their abilities cost more
 	var/nullified = 0
 	/// a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum
-	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-									/obj/effect/proc_holder/spell/vampire/glare = 0,
+	var/list/upgrade_tiers = list(/datum/spell/vampire/self/rejuvenate = 0,
+									/datum/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
-									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
+									/datum/spell/vampire/self/specialize = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
+	blurb_text_color = COLOR_RED
+	blurb_text_outline_width = 0
+	blurb_r = 255
+	blurb_g = 221
+	blurb_b = 138
+	blurb_a = 1
 
 /datum/antagonist/mindslave/thrall
 	name = "Vampire Thrall"
@@ -41,12 +47,12 @@
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
 	mob_override = ..()
 	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
+	M.AddSpell(new /datum/spell/vampire/thrall_commune)
 
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
 	mob_override = ..()
 	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+	M.RemoveSpell(/datum/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
@@ -67,7 +73,7 @@
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
 	powers += spell
-	if(istype(spell, /obj/effect/proc_holder/spell))
+	if(istype(spell, /datum/spell))
 		owner.AddSpell(spell)
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
@@ -128,8 +134,7 @@
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-
-		if(H.stat < DEAD)
+		if(H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
@@ -172,12 +177,12 @@
  * Remove and delete the vampire's current subclass and all associated abilities.
  *
  * Arguments:
- * * give_specialize_power - if the [specialize][/obj/effect/proc_holder/spell/vampire/self/specialize] power should be given back or not
+ * * give_specialize_power - if the [specialize][/datum/spell/vampire/self/specialize] power should be given back or not
  */
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
+		upgrade_tiers[/datum/spell/vampire/self/specialize] = 150
 	remove_all_powers()
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
@@ -215,8 +220,8 @@
 /datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
 		if(!(p in old_powers))
-			if(istype(p, /obj/effect/proc_holder/spell))
-				var/obj/effect/proc_holder/spell/power = p
+			if(istype(p, /datum/spell))
+				var/datum/spell/power = p
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
@@ -255,7 +260,7 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Usable Blood"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
@@ -303,9 +308,9 @@
 	bloodtotal += blood_amount
 	bloodusable += blood_amount
 	check_vampire_upgrade(TRUE)
-	for(var/obj/effect/proc_holder/spell/S in powers)
+	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
@@ -359,3 +364,6 @@
 /datum/hud/proc/remove_vampire_hud()
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
+
+/datum/antagonist/vampire/custom_blurb()
+	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."

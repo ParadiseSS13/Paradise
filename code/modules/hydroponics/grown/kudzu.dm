@@ -6,7 +6,7 @@
 	icon_state = "seed-kudzu"
 	species = "kudzu"
 	plantname = "Kudzu"
-	product = /obj/item/reagent_containers/food/snacks/grown/kudzupod
+	product = /obj/item/food/snacks/grown/kudzupod
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
 	lifespan = 20
 	endurance = 10
@@ -22,7 +22,7 @@
 	return S
 
 /obj/item/seeds/kudzu/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide..</span>")
+	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide!.</span>")
 	plant(user)
 	return BRUTELOSS
 
@@ -44,7 +44,7 @@
 	var/text = ..()
 	var/text_string = ""
 	for(var/datum/spacevine_mutation/SM in mutations)
-		text_string += "[(text_string == "") ? "" : ", "][SM.name]"
+		text_string += "[(text_string == "") ? "" : ", "][initial(SM.name)]"
 	text += "\n- Plant Mutations: [(text_string == "") ? "None" : text_string]"
 	return text
 
@@ -53,7 +53,7 @@
 
 	if(S.has_reagent("sterilizine", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			if(SM.quality == NEGATIVE)
+			if(initial(SM.quality) == SPACEVINE_MUTATION_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && temp_mut_list.len)
 			mutations.Remove(pick(temp_mut_list))
@@ -61,7 +61,7 @@
 
 	if(S.has_reagent("fuel", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			if(SM.quality == POSITIVE)
+			if(initial(SM.quality) == SPACEVINE_MUTATION_POSITIVE)
 				temp_mut_list += SM
 		if(prob(20) && temp_mut_list.len)
 			mutations.Remove(pick(temp_mut_list))
@@ -69,7 +69,7 @@
 
 	if(S.has_reagent("phenol", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			if(SM.quality == MINOR_NEGATIVE)
+			if(initial(SM.quality) == SPACEVINE_MUTATION_MINOR_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && temp_mut_list.len)
 			mutations.Remove(pick(temp_mut_list))
@@ -88,7 +88,7 @@
 		adjust_potency(rand(15, -5))
 
 
-/obj/item/reagent_containers/food/snacks/grown/kudzupod
+/obj/item/food/snacks/grown/kudzupod
 	seed = /obj/item/seeds/kudzu
 	name = "kudzu pod"
 	desc = "<I>Pueraria Virallis</I>: An invasive species with vines that rapidly creep and wrap around whatever they contact."

@@ -10,13 +10,13 @@
 	emote_see = list("clacks")
 	speak_chance = 1
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/snacks/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
 	stop_automated_movement = TRUE
 	friendly = "pinches"
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	can_hide = TRUE
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN

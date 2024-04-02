@@ -16,7 +16,7 @@
 	return TRUE
 
 /obj/item/projectile/ion/weak
-	strong_emp = 0
+	strong_emp = -1
 	weak_emp = 0
 
 /obj/item/projectile/bullet/gyro

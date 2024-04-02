@@ -259,20 +259,6 @@
 /datum/component/proc/InheritComponent(datum/component/C, i_am_original)
 	return
 
-
-/**
-  * Called on a component when a component of the same type was added to the same parent with [COMPONENT_DUPE_SELECTIVE]
-  *
-  * See [/datum/component/var/dupe_mode]
-  *
-  * `C`'s type will always be the same of the called component
-  *
-  * return TRUE if you are absorbing the component, otherwise FALSE if you are fine having it exist as a duplicate component
-  */
-/datum/component/proc/CheckDupeComponent(datum/component/C, ...)
-	return
-
-
 /**
   * Callback Just before this component is transferred
   *
@@ -443,12 +429,6 @@
 					var/list/arguments = raw_args.Copy()
 					arguments[1] = new_comp
 					var/make_new_component = TRUE
-					for(var/i in GetComponents(new_type))
-						var/datum/component/C = i
-						if(C.CheckDupeComponent(arglist(arguments)))
-							make_new_component = FALSE
-							QDEL_NULL(new_comp)
-							break
 					if(!new_comp && make_new_component)
 						new_comp = new nt(raw_args)
 		else if(!new_comp)

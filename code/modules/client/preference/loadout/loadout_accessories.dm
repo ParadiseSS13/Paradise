@@ -147,9 +147,17 @@
 	display_name = "Cowboy shirt, short sleeved navy"
 	path = /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 
+/datum/gear/accessory/locket/silver
+	display_name = "Silver locket"
+	path = /obj/item/clothing/accessory/necklace/locket/silver
+
 /datum/gear/accessory/locket
 	display_name = "Gold locket"
 	path = /obj/item/clothing/accessory/necklace/locket
+
+/datum/gear/accessory/necklace/long
+	display_name = "Large necklace"
+	path = /obj/item/clothing/accessory/necklace/long
 
 /datum/gear/accessory/necklace
 	display_name = "Simple necklace"

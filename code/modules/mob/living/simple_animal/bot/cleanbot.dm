@@ -29,11 +29,31 @@
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
+	var/static/list/clean_dirt = list(
+		/obj/effect/decal/cleanable/vomit,
+		/obj/effect/decal/cleanable/blood/gibs/robot,
+		/obj/effect/decal/cleanable/crayon,
+		/obj/effect/decal/cleanable/liquid_fuel,
+		/obj/effect/decal/cleanable/molten_object,
+		/obj/effect/decal/cleanable/tomato_smudge,
+		/obj/effect/decal/cleanable/egg_smudge,
+		/obj/effect/decal/cleanable/pie_smudge,
+		/obj/effect/decal/cleanable/flour,
+		/obj/effect/decal/cleanable/ash,
+		/obj/effect/decal/cleanable/greenglow,
+		/obj/effect/decal/cleanable/dirt
+	)
+	var/static/list/clean_blood = list(
+		/obj/effect/decal/cleanable/blood,
+		/obj/effect/decal/cleanable/trail_holder
+	)
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
-	get_targets()
 	icon_state = "cleanbot[on]"
+
+	clean_dirt = typecacheof(clean_dirt)
+	clean_blood = typecacheof(clean_blood)
 
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
@@ -75,14 +95,13 @@
 
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
-	for(var/T in target_types)
-		if(istype(D, T))
-			return D
+	if(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood))
+		return D
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
 	if(!..())
@@ -91,7 +110,7 @@
 	if(mode == BOT_CLEANING)
 		return
 
-	if(emagged == 2) //Emag functions
+	if(emagged) //Emag functions
 		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
@@ -105,7 +124,7 @@
 		audible_message("[src] makes an excited beeping booping sound!")
 
 	if(!target) //Search for cleanables it can see.
-		target = scan(/obj/effect/decal/cleanable)
+		target = scan(/obj/effect/decal/cleanable, avoid_bot = TRUE)
 
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
@@ -124,43 +143,19 @@
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
 			path = get_path_to(src, target, 30, id=access_card)
 			if(!bot_move(target))
+				ignore_job -= target.UID()
 				add_to_ignore(target)
 				target = null
 				path = list()
 				return
 			mode = BOT_MOVING
 		else if(!bot_move(target))
+			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE
 			return
 
 	oldloc = loc
-
-/mob/living/simple_animal/bot/cleanbot/proc/get_targets()
-	target_types = new/list()
-
-	target_types += /obj/effect/decal/cleanable/blood/oil
-	target_types += /obj/effect/decal/cleanable/vomit
-	target_types += /obj/effect/decal/cleanable/blood/gibs/robot
-	target_types += /obj/effect/decal/cleanable/crayon
-	target_types += /obj/effect/decal/cleanable/liquid_fuel
-	target_types += /obj/effect/decal/cleanable/molten_object
-	target_types += /obj/effect/decal/cleanable/tomato_smudge
-	target_types += /obj/effect/decal/cleanable/egg_smudge
-	target_types += /obj/effect/decal/cleanable/pie_smudge
-	target_types += /obj/effect/decal/cleanable/flour
-	target_types += /obj/effect/decal/cleanable/ash
-	target_types += /obj/effect/decal/cleanable/greenglow
-	target_types += /obj/effect/decal/cleanable/dirt
-
-	if(blood)
-		target_types += /obj/effect/decal/cleanable/blood/xeno/
-		target_types += /obj/effect/decal/cleanable/blood/gibs/xeno
-		target_types += /obj/effect/decal/cleanable/blood/
-		target_types += /obj/effect/decal/cleanable/blood/gibs/
-		target_types += /obj/effect/decal/cleanable/blood/tracks
-		target_types += /obj/effect/decal/cleanable/dirt
-		target_types += /obj/effect/decal/cleanable/trail_holder
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
@@ -171,6 +166,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(mode == BOT_CLEANING)
+		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
 	mode = BOT_IDLE
@@ -192,10 +188,13 @@
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/cleanbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotClean", name, 500, 500)
+		ui = new(user, src, "BotClean", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
@@ -226,7 +225,6 @@
 			remote_disabled = !remote_disabled
 		if("blood")
 			blood =!blood
-			get_targets()
 		if("ejectpai")
 			ejectpai()
 

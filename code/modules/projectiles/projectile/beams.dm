@@ -99,6 +99,12 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
+/obj/item/projectile/beam/disabler/weak
+	name = "weakened disabler beam"
+	damage = 15
+	armour_penetration_flat = -10
+	light_color = LIGHT_COLOR_BLUE
+
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
@@ -178,7 +184,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.adjustStaminaLoss(34)
+				M.apply_damage(34, STAMINA)
 	return 1
 
 /obj/item/projectile/beam/lasertag/omni
@@ -198,6 +204,7 @@
 
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
+	immolate = 1
 
 /obj/item/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
@@ -225,13 +232,6 @@
 	impact_light_intensity = 7
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_FIRE
-
-/obj/item/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(isliving(target))
-		var/mob/living/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
 
 /obj/item/projectile/beam/instakill
 	name = "instagib laser"

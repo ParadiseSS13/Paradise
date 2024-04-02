@@ -64,13 +64,7 @@
 
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
-		client.verbs += /client/proc/readmin
-
-	//Clear ability list and update from mob.
-	client.verbs -= GLOB.ability_verbs
-
-	if(abilities)
-		client.verbs |= abilities
+		add_verb(client, /client/proc/readmin)
 
 	client.update_active_keybindings()
 
@@ -86,3 +80,4 @@
 
 	update_client_colour(0)
 	update_morgue()
+	client.init_verbs()

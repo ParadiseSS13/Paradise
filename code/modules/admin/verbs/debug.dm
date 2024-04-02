@@ -20,7 +20,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/returnval = null
 		var/class = null
 
-		switch(alert("Proc owned by something?",,"Yes","No"))
+		switch(alert("Proc owned by something?", null,"Yes","No"))
 			if("Yes")
 				targetselected = 1
 				if(src.holder && src.holder.marked_datum)
@@ -141,7 +141,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
-		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
@@ -153,7 +153,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 #endif
 
 /client/proc/callproc_datum(A as null|area|mob|obj|turf)
-	set category = null
 	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
@@ -488,7 +487,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(M.ckey)
-		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",,"Yes","No") != "Yes")
+		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.", null,"Yes","No") != "Yes")
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
@@ -619,7 +618,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(world, "* [areatype]")
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
-	set category = "Event"
 	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
@@ -663,7 +661,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	)
 
 	var/list/outfits = list()
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - list(/datum/outfit/varedit, /datum/outfit/admin)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
@@ -710,7 +708,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
+	if(alert("Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
 	for(var/obj/machinery/power/emitter/E in GLOB.machines)

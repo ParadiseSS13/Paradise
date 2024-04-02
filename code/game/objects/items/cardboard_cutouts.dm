@@ -79,7 +79,7 @@
 	if(pushed_over)
 		to_chat(user, "<span class='warning'>Right [src] first!</span>")
 		return
-	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in possible_appearances
+	var/new_appearance = tgui_input_list(user, "Choose a new appearance for [src]", "26th Century Deception", possible_appearances)
 	if(!Adjacent(usr))
 		user.visible_message("<span class='danger'>You need to be closer!</span>")
 		return
@@ -186,5 +186,6 @@
 /obj/item/cardboard_cutout/setDir()
 	dir = SOUTH
 
-/obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+/// Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+/obj/item/cardboard_cutout/adaptive
 	deceptive = TRUE

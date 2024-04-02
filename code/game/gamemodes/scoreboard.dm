@@ -129,7 +129,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 /datum/scoreboard/proc/check_station_player(mob/M)
-	if(!is_station_level(M.z) || M.stat < DEAD)
+	if(!is_station_level(M.z) || M.stat != DEAD)
 		return
 	if(isAI(M))
 		dead_ai = TRUE
@@ -149,14 +149,14 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		richest_cash = cash_score
 		richest_name = H.real_name
 		richest_job = H.job
-		richest_key = H.key
+		richest_key = (H.client?.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "Anon" : H.key
 
 	var/damage_score = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
 	if(damage_score > damaged_health)
 		damaged_health = damage_score
 		damaged_name = H.real_name
 		damaged_job = H.job
-		damaged_key = H.key
+		damaged_key = (H.client?.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "Anon" : H.key
 
 /// A function to determine the cash plus the account balance of the wealthiest escapee
 /datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)
@@ -241,7 +241,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 	// Generate the score panel
-	var/list/dat = list("<b>Round Statistics and Score</b><br><hr>")
+	var/list/dat = list("<meta charset='UTF-8'><b>Round Statistics and Score</b><br><hr>")
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 

@@ -279,11 +279,7 @@
 /datum/controller/subsystem/Initialize()
 	CRASH("Initialize() not overridden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
 
-//hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
 	var/ss_info = get_stat_details()
 
 	if(can_fire && !(SS_NO_FIRE & flags))
@@ -291,13 +287,7 @@
 	else
 		msg = "OFFLINE\t[ss_info]"
 
-	var/title = name
-	if(can_fire)
-		title = "[state_colour()]\[[state_letter()]][title]</font>"
-	else
-		title = "\[O][title]"
-
-	stat(title, statclick.update(msg))
+	return ..()
 
 /datum/controller/subsystem/proc/state_letter()
 	switch(state)
@@ -333,6 +323,7 @@
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 //should attempt to salvage what it can from the old instance of subsystem
 /datum/controller/subsystem/Recover()
+	return
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
 	switch(var_name)

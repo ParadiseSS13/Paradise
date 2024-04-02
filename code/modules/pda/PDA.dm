@@ -76,7 +76,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// The slot where you can store a pen
 	var/obj/item/held_pen
 	var/retro_mode = 0
-
+	/// What pen is loaded in the PDA
+	var/obj/item/pen/default_pen = /obj/item/pen
 
 /*
  *	The Actual PDA
@@ -90,7 +91,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	add_pen(new /obj/item/pen(src))
+	add_pen(new default_pen(src))
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -123,7 +124,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && can_use())
+	if((!is_screen_atom(over_object)) && can_use())
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
@@ -369,29 +370,34 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/proc/play_ringtone()
 	var/S
-
-	if(ttone in ttone_sound)
-		S = ttone_sound[ttone]
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
 	else
-		S = 'sound/machines/twobeep_high.ogg'
-	playsound(loc, S, 50, 1)
+		if(ttone in ttone_sound)
+			S = ttone_sound[ttone]
+		else
+			S = 'sound/machines/twobeep_high.ogg'
+		playsound(loc, S, 50, TRUE)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
-/obj/item/pda/proc/set_ringtone()
-	var/t = input("Please enter new ringtone", name, ttone) as text
-	if(in_range(src, usr) && loc == usr)
-		if(t)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, lowertext(t), lowertext(lock_code)))
-				to_chat(usr, "The PDA softly beeps.")
-				close(usr)
-			else
-				t = sanitize(copytext(t, 1, 20))
-				ttone = t
-			return 1
-	else
-		close(usr)
-	return 0
+/obj/item/pda/proc/set_ringtone(mob/user)
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
+	new_tone = trim(new_tone)
+
+	if(!in_range(src, user) || loc != user)
+		close(user)
+		return FALSE
+
+	if(!new_tone)
+		return FALSE
+
+	if(hidden_uplink && hidden_uplink.check_trigger(user, lowertext(new_tone), lowertext(lock_code)))
+		to_chat(user, "The PDA softly beeps.")
+		close(user)
+		return TRUE
+	ttone = new_tone
+	return TRUE
 
 /obj/item/pda/process()
 	if(current_app)

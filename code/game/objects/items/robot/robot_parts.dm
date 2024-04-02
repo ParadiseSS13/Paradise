@@ -26,7 +26,7 @@
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self(mob/user)
-	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!choice)
 		return
 	if(loc != user)
@@ -87,6 +87,7 @@
 	name = "endoskeleton"
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon_state = "robo_suit"
+	w_class = WEIGHT_CLASS_BULKY
 	model_info = null
 	var/obj/item/robot_parts/l_arm/l_arm = null
 	var/obj/item/robot_parts/r_arm/r_arm = null
@@ -262,7 +263,7 @@
 			if(!aisync)
 				lawsync = FALSE
 
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, ai_to_sync_to = forced_ai)
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, connect_to_AI = aisync, ai_to_sync_to = forced_ai)
 			if(!O)
 				return
 
@@ -314,8 +315,8 @@
 			O.robot_suit = src
 
 			if(!locomotion)
-				O.lockcharge = 1
-				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
+				O.SetLockdown(TRUE)
+				to_chat(O, "<span class='danger'>Error: Servo motors unresponsive. Lockdown enabled.</span>")
 
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
@@ -426,3 +427,4 @@
 	else
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = TRUE
+		return TRUE

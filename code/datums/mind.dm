@@ -163,6 +163,10 @@
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
+	if(ishuman(new_character))
+		var/mob/living/carbon/human/H = new_character
+		if(H.mind in SSticker.mode.syndicates)
+			SSticker.mode.update_synd_icons_added(H.mind)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
@@ -174,7 +178,7 @@
 	if(!recipient)
 		recipient = current
 	var/list/output = list()
-	output.Add("<B>[current.real_name]'s Memories:</B><HR>")
+	output.Add("<meta charset='UTF-8'><b>[current.real_name]'s Memories:</b><hr>")
 	output.Add(memory)
 
 	for(var/datum/antagonist/A in antag_datums)
@@ -328,7 +332,7 @@
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
-	if(src in SSticker.mode.cult)
+	if(has_antag_datum(/datum/antagonist/cultist))
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 		. += "<br>Give <a href='?src=[UID()];cult=dagger'>dagger</a>|<a href='?src=[UID()];cult=runedmetal'>runedmetal</a>."
 	else
@@ -338,11 +342,9 @@
 
 /datum/mind/proc/memory_edit_wizard(mob/living/carbon/human/H)
 	. = _memory_edit_header("wizard")
-	if(src in SSticker.mode.wizards)
+	if(has_antag_datum(/datum/antagonist/wizard))
 		. += "<b><font color='red'>WIZARD</font></b>|<a href='?src=[UID()];wizard=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
-		if(!objective_holder.has_objectives())
-			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];wizard=wizard'>wizard</a>|<b>NO</b>"
 
@@ -513,7 +515,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<meta charset='UTF-8'><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Factions and special roles:")
@@ -631,8 +633,8 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
-			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
+			"nuclear", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
 
@@ -640,11 +642,6 @@
 
 		switch(new_obj_type)
 			if("assassinate", "assassinateonce", "protect","debrain", "maroon")
-				//To determine what to name the objective in explanation text.
-				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
-				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
-				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
-
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
@@ -680,13 +677,11 @@
 				if(new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective:target = null
-					new_objective.explanation_text = "Free objective"
+					new_objective.update_explanation_text()
 				else
 					new_objective = new objective_path
 					new_objective:target = new_target:mind
-					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
-					new_objective.establish_signals()
+					new_objective.update_explanation_text()
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -694,7 +689,7 @@
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
-					new_objective.explanation_text = "Destroy [new_target.name], the experimental AI."
+					new_objective.update_explanation_text()
 				else
 					to_chat(usr, "No active AIs with minds")
 
@@ -722,7 +717,7 @@
 				if(!steal.select_target())
 					return
 
-			if("download","capture","absorb", "blood")
+			if("absorb", "blood")
 				var/def_num
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
@@ -734,11 +729,10 @@
 				switch(new_obj_type)
 					if("absorb")
 						new_objective = new /datum/objective/absorb
-						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
 				new_objective.target_amount = target_number
+				new_objective.update_explanation_text()
 
 			if("identity theft")
 				var/list/possible_targets = list()
@@ -755,11 +749,11 @@
 					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				new_objective.update_explanation_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!expl)
 					return
 				new_objective = new /datum/objective
@@ -799,14 +793,14 @@
 
 		switch(href_list["implant"])
 			if("remove")
-				for(var/obj/item/implant/mindshield/I in H.contents)
+				for(var/obj/item/bio_chip/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield bio-chip has been deactivated.</B></FONT></span>")
+				to_chat(H, "<span class='notice'><font size='3'><b>Your mindshield bio-chip has been deactivated.</b></font></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield bio-chip")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield bio-chip")
 			if("add")
-				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
+				var/obj/item/bio_chip/mindshield/L = new/obj/item/bio_chip/mindshield(H)
 				L.implant(H)
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield bio-chip")
@@ -815,8 +809,7 @@
 				to_chat(H, "<span class='userdanger'>You somehow have become the recipient of a mindshield transplant, and it just activated!</span>")
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
-					has_rev.silent = TRUE // we have some custom text, lets make the removal silent
-					remove_antag_datum(/datum/antagonist/rev)
+					remove_antag_datum(/datum/antagonist/rev, silent_removal = TRUE) // we have some custom text, lets make the removal silent
 					to_chat(H, "<span class='userdanger'>The nanobots in the mindshield implant remove all thoughts about being a revolutionary. Get back to work!</span>")
 
 	else if(href_list["revolution"])
@@ -908,50 +901,42 @@
 	else if(href_list["cult"])
 		switch(href_list["cult"])
 			if("clear")
-				if(src in SSticker.mode.cult)
-					SSticker.mode.remove_cultist(src)
-					special_role = null
+				if(has_antag_datum(/datum/antagonist/cultist))
+					remove_antag_datum(/datum/antagonist/cultist)
 					log_admin("[key_name(usr)] has de-culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
-				if(!(src in SSticker.mode.cult))
-					to_chat(current, CULT_GREETING)
-					SSticker.mode.add_cultist(src)
-					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
-					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
+				if(!has_antag_datum(/datum/antagonist/cultist))
+					add_antag_datum(/datum/antagonist/cultist)
+					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Bring It back.</span>")
+					log_and_message_admins("has culted [key_name(current)]")
 			if("dagger")
-				var/mob/living/carbon/human/H = current
-				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
+				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
+				if(!cultist.cult_give_item(/obj/item/melee/cultblade/dagger))
 					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
-				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
+				log_and_message_admins("has equipped [key_name(current)] with a cult dagger")
 			if("runedmetal")
-				var/mob/living/carbon/human/H = current
-				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
+				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
+				if(!cultist.cult_give_item(/obj/item/stack/sheet/runed_metal/ten))
 					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
-				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
+				log_and_message_admins("has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
 
 		switch(href_list["wizard"])
 			if("clear")
-				if(src in SSticker.mode.wizards)
-					SSticker.mode.wizards -= src
-					special_role = null
-					current.spellremove(current)
-					current.faction = list("Station")
-					SSticker.mode.update_wiz_icons_removed(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT></span>")
+				if(has_antag_datum(/datum/antagonist/wizard))
+					remove_antag_datum(/datum/antagonist/wizard)
+
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
 			if("wizard")
-				if(!(src in SSticker.mode.wizards))
-					SSticker.mode.wizards += src
-					special_role = SPECIAL_ROLE_WIZARD
-					//ticker.mode.learn_basic_spells(current)
-					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
-					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
-					current.faction = list("wizard")
+				if(!has_antag_datum(/datum/antagonist/wizard))
+					var/datum/antagonist/wizard/wizard = new /datum/antagonist/wizard()
+					wizard.should_equip_wizard = FALSE
+					wizard.should_name_pick = FALSE
+					add_antag_datum(wizard)
+
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
 					current.create_log(MISC_LOG, "[current] was made into a wizard by [key_name_admin(usr)]")
@@ -960,18 +945,18 @@
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the wizard's lair")
 			if("dressup")
-				SSticker.mode.equip_wizard(current)
+				var/datum/antagonist/wizard/wizard = has_antag_datum(/datum/antagonist/wizard)
+				var/list/text_result = wizard.equip_wizard()
+				to_chat(current, chat_box_red(text_result.Join("<br>")))
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
+				var/datum/antagonist/wizard/wizard = has_antag_datum(/datum/antagonist/wizard)
+				if(!istype(wizard))
+					return
+				wizard.name_wizard()
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
-			if("autoobjectives")
-				SSticker.mode.forge_wizard_objectives(src)
-				to_chat(usr, "<span class='notice'>The objectives for wizard [key] have been generated. You can edit them and announce manually.</span>")
-				log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 
 
 	else if(href_list["changeling"])
@@ -1067,7 +1052,7 @@
 					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
 					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
 				else
-					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+					vamp.upgrade_tiers -= /datum/spell/vampire/self/specialize
 					vamp.change_subclass(subclass_type)
 					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
 					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
@@ -1404,7 +1389,7 @@
 				if(has_antag_datum(/datum/antagonist/mindslave, FALSE))
 					var/mob/living/carbon/human/H = current
 					for(var/i in H.contents)
-						if(istype(i, /obj/item/implant/traitor))
+						if(istype(i, /obj/item/bio_chip/traitor))
 							qdel(i)
 							break
 					remove_antag_datum(/datum/antagonist/mindslave)
@@ -1430,7 +1415,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -1533,9 +1518,11 @@
  * Arguments:
  * * datum_type - an antag datum typepath
  */
-/datum/mind/proc/remove_antag_datum(datum_type, check_subtypes = TRUE)
+/datum/mind/proc/remove_antag_datum(datum_type, check_subtypes = TRUE, silent_removal = FALSE)
 	var/datum/antagonist/A = has_antag_datum(datum_type, check_subtypes)
-	qdel(A)
+	if(A)
+		A.silent |= silent_removal
+		qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
@@ -1642,30 +1629,10 @@
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
-/datum/mind/proc/make_Wizard()
-	if(!(src in SSticker.mode.wizards))
-		SSticker.mode.wizards += src
-		special_role = SPECIAL_ROLE_WIZARD
-		assigned_role = SPECIAL_ROLE_WIZARD
-		//ticker.mode.learn_basic_spells(current)
-		if(!GLOB.wizardstart.len)
-			current.loc = pick(GLOB.latejoin)
-			to_chat(current, "HOT INSERTION, GO GO GO")
-		else
-			current.loc = pick(GLOB.wizardstart)
-
-		SSticker.mode.equip_wizard(current)
-		for(var/obj/item/spellbook/S in current.contents)
-			S.op = 0
-		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
-		SSticker.mode.forge_wizard_objectives(src)
-		SSticker.mode.greet_wizard(src)
-		SSticker.mode.update_wiz_icons_added(src)
-
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
+	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
+	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
+	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
 
 	if(!role || !team || !teleport)
 		return
@@ -1709,14 +1676,14 @@
 		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
 	H.create_log(MISC_LOG, "[H] was made into an abductor")
 
-/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
+/datum/mind/proc/AddSpell(datum/spell/S)
 	spell_list += S
 	S.action.Grant(current)
 
-/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+/datum/mind/proc/RemoveSpell(datum/spell/spell) //To remove a specific spell from a mind
 	if(!spell)
 		return
-	for(var/obj/effect/proc_holder/spell/S in spell_list)
+	for(var/datum/spell/S in spell_list)
 		if(istype(S, spell))
 			qdel(S)
 			spell_list -= S
@@ -1729,7 +1696,10 @@
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
+		var/datum/spell/S = X
+		if(!S.on_mind_transfer(new_character))
+			current.RemoveSpell(S)
+			continue
 		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)

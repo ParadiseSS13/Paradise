@@ -199,6 +199,7 @@
 	name = "mission briefing"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "un" = (
@@ -618,11 +619,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
 "Ya" = (
-/obj/machinery/power/apc/off_station{
-	dir = 4;
-	pixel_x = 24;
-	req_access = list(150)
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"

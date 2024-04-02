@@ -2,6 +2,7 @@
 	name = "extended"
 	config_tag = "extended"
 	required_players = 0
+	single_antag_positions = list()
 
 /datum/game_mode/announce()
 	to_chat(world, "<B>The current game mode is - Extended Role-Playing!</B>")

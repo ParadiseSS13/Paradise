@@ -345,14 +345,6 @@
 
 	return candidates
 
-/proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
-	if(!isobj(O))	O = new /obj/screen/text()
-	O.maptext = maptext
-	O.maptext_height = maptext_height
-	O.maptext_width = maptext_width
-	O.screen_loc = screen_loc
-	return O
-
 /proc/remove_images_from_clients(image/I, list/show_to)
 	for(var/client/C in show_to)
 		C.images -= I
@@ -511,7 +503,7 @@
 			var/turf/T = get_turf(vent)
 			var/mobs_nearby = FALSE
 			for(var/mob/living/M in orange(7, T))
-				if(M.is_dead()) //we don't care about dead mobs
+				if(M.stat == DEAD) //we don't care about dead mobs
 					continue
 				if(!M.client && !istype(get_area(T), /area/station/science/xenobiology)) //we add an exception here for clientless mobs (apart from ones near xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs)
 					continue

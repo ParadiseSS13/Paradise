@@ -136,13 +136,18 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
 /obj/item/stack/sheet/metal/cyborg
-	energy_type = /datum/robot_energy_storage/metal
+	energy_type = /datum/robot_storage/material/metal
 	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/metal/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
+	var/mob/living/silicon/robot/robot = user
+	if(!istype(robot.module, /obj/item/robot_module/drone))
+		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+
+/obj/item/stack/sheet/metal/cyborg/drone
+	energy_type = /datum/robot_storage/energy/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -196,7 +201,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	return ..()
 
 /obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood
+	energy_type = /datum/robot_storage/energy/wood
 	is_cyborg = TRUE
 
 /*
@@ -242,7 +247,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
-	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("roulette", /obj/structure/roulette, 10, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
 
 /obj/item/stack/sheet/wood
@@ -274,6 +280,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2),
 		new /datum/stack_recipe("cloth footwraps", /obj/item/clothing/shoes/footwraps, 2),
 		null,
+		new /datum/stack_recipe("cloth handwraps", /obj/item/clothing/gloves/handwraps, 2),
 		new /datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1),
 		new /datum/stack_recipe("white gloves", /obj/item/clothing/gloves/color/white, 3),
 		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/mime, 2),
@@ -292,6 +299,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("mail bag", /obj/item/storage/bag/mail, 4),
+		new /datum/stack_recipe("construction bag", /obj/item/storage/bag/construction, 4),
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
@@ -422,7 +430,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	else
 		. = ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
+/// BubbleWrap
+/obj/item/stack/sheet/cardboard
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
@@ -484,11 +493,11 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
-	icon_state = SSticker.cultdat?.runed_metal_icon_state
-	item_state = SSticker.cultdat?.runed_metal_item_state
+	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
+	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
 	if(usr.holy_check())
@@ -588,6 +597,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty),
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3),
+	new /datum/stack_recipe("spray bottle", /obj/item/reagent_containers/spray/empty, 6),
 	null,
 	new /datum/stack_recipe_list("first-aid kits", list(
 		new /datum/stack_recipe("first-aid kit", /obj/item/storage/firstaid/regular, 4),

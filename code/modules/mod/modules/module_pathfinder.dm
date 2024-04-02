@@ -14,7 +14,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
 	/// The pathfinding implant.
-	var/obj/item/implant/mod/implant
+	var/obj/item/bio_chip/mod/implant
 
 /obj/item/mod/module/pathfinder/Initialize(mapload)
 	. = ..()
@@ -60,7 +60,7 @@
 	playsound(mod, 'sound/machines/ping.ogg', 50, TRUE)
 	drain_power(use_power_cost)
 
-/obj/item/implant/mod
+/obj/item/bio_chip/mod
 	name = "MOD pathfinder implant"
 	desc = "Lets you recall a MODsuit to you at any time."
 	implant_data = /datum/implant_fluff/pathfinder
@@ -77,21 +77,21 @@
 	var/tries = 0
 
 
-/obj/item/implant/mod/Initialize(mapload)
+/obj/item/bio_chip/mod/Initialize(mapload)
 	. = ..()
 	if(!istype(loc, /obj/item/mod/module/pathfinder))
 		return INITIALIZE_HINT_QDEL
 	module = loc
 	jet_icon = image(icon = 'icons/obj/clothing/modsuit/mod_modules.dmi', icon_state = "mod_jet", layer = LOW_ITEM_LAYER)
 
-/obj/item/implant/mod/Destroy()
+/obj/item/bio_chip/mod/Destroy()
 	if(path)
 		end_recall(successful = FALSE)
 	module = null
 	jet_icon = null
 	return ..()
 
-/obj/item/implant/mod/proc/recall()
+/obj/item/bio_chip/mod/proc/recall()
 	target = get_turf(imp_in)
 	if(!module?.mod)
 		to_chat(imp_in, "<span class='warning'>Module is not attached to a suit!</span>")
@@ -126,12 +126,12 @@
 	mod_move(target)
 	return TRUE
 
-/obj/item/implant/mod/proc/set_path(list/newpath)
+/obj/item/bio_chip/mod/proc/set_path(list/newpath)
 	if(newpath == null)
 		end_recall(FALSE)
 	path = newpath ? newpath : list()
 
-/obj/item/implant/mod/proc/end_recall(successful = TRUE)
+/obj/item/bio_chip/mod/proc/end_recall(successful = TRUE)
 	if(!module?.mod)
 		return
 	module.mod.cut_overlay(jet_icon)
@@ -141,14 +141,14 @@
 		to_chat(imp_in, "<span class='warning'>Lost connection to suit!</span>")
 		path = list() //Stopping endless end_recall with luck.
 
-/obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
+/obj/item/bio_chip/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
 
 	var/matrix/mod_matrix = matrix()
 	mod_matrix.Turn(get_angle(source, imp_in))
 	source.transform = mod_matrix
 
-/obj/item/implant/mod/proc/mod_move(dest)
+/obj/item/bio_chip/mod/proc/mod_move(dest)
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
 	if(get_turf(module.mod) == dest) //We have arrived, no need to move again.
 		for(var/mob/living/carbon/human/H in range(1, module.mod))
@@ -184,7 +184,7 @@
 
 	return TRUE
 
-/obj/item/implant/mod/proc/mod_step() //Step,increase tries if failed
+/obj/item/bio_chip/mod/proc/mod_step() //Step,increase tries if failed
 	if(!path || !length(path))
 		return FALSE
 	for(var/obj/machinery/door/D in range(2, module.mod))
@@ -203,7 +203,7 @@
 	tries = 0
 	return TRUE
 
-/obj/item/implant/mod/proc/increment_path()
+/obj/item/bio_chip/mod/proc/increment_path()
 	if(!path || !length(path))
 		return
 	path.Cut(1, 2)
@@ -222,7 +222,7 @@
 
 /datum/action/item_action/mod_recall/New(Target)
 	..()
-	if(!istype(Target, /obj/item/implant/mod))
+	if(!istype(Target, /obj/item/bio_chip/mod))
 		qdel(src)
 		return
 
@@ -230,7 +230,7 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/implant/mod/implant = target
+	var/obj/item/bio_chip/mod/implant = target
 	if(!COOLDOWN_FINISHED(src, recall_cooldown))
 		to_chat(usr, "<span class='warning'>On cooldown!</span>")
 		return

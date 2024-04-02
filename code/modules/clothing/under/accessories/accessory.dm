@@ -133,7 +133,8 @@
 	icon_state = "horribletie"
 	item_color = "horribletie"
 
-/obj/item/clothing/accessory/waistcoat // No overlay
+/// No overlay
+/obj/item/clothing/accessory/waistcoat
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
@@ -156,8 +157,10 @@
 			user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
 		else
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
-		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
-		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
+		var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
+		var/obj/item/organ/internal/H = heart_datum.linked_organ
+		var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+		var/obj/item/organ/internal/L = lung_datum.linked_organ
 		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
 			var/color = "notice"
 			if(H)
@@ -309,7 +312,8 @@
 	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
 	channel = "Supply"
 
-/obj/item/clothing/accessory/medal/recruiter // Prize for the NT Recruiter emagged arcade
+/// Prize for the NT Recruiter emagged arcade
+/obj/item/clothing/accessory/medal/recruiter
 	name = "nanotrasen recruiter medal"
 	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 
@@ -361,7 +365,8 @@
 	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
 	channel = null
 
-/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
+/// Kill every hardmode boss. In a shift. Good luck.
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full
 	name = "medal of incredible dedication"
 	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
 	channel = null
@@ -446,6 +451,7 @@
 	else
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		return TRUE
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
@@ -486,7 +492,8 @@
 //SCARVES//
 ///////////
 
-/obj/item/clothing/accessory/scarf // No overlay
+/// No overlay
+/obj/item/clothing/accessory/scarf
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
@@ -576,6 +583,14 @@
 	item_color = "necklace"
 	slot_flags = SLOT_FLAG_TIE
 
+/obj/item/clothing/accessory/necklace/long
+	name = "large necklace"
+	desc = "A large necklace."
+	icon_state = "necklacelong"
+	item_state = "necklacelong"
+	item_color = "necklacelong"
+
+
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
 	desc = "Damn, it feels good to be a gangster."
@@ -604,9 +619,9 @@
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
-	icon_state = "locket"
-	item_state = "locket"
-	item_color = "locket"
+	icon_state = "locketgold"
+	item_state = "locketgold"
+	item_color = "locketgold"
 	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
@@ -651,6 +666,13 @@
 			held = O
 	else
 		return ..()
+
+/obj/item/clothing/accessory/necklace/locket/silver
+	name = "silver locket"
+	desc = "A silver locket that seems to have space for a photo within."
+	icon_state = "locketsilver"
+	item_state = "locketsilver"
+	item_color = "locketsilver"
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt

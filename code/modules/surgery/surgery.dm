@@ -503,7 +503,7 @@
  * * tool - The tool performing the operation.
  */
 /proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
-	if(!isorgan(E))
+	if(!is_external_organ(E))
 		return
 	if(!E.owner)
 		return

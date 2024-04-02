@@ -531,7 +531,7 @@
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user))
 			if(!GLOB.dsay_enabled)
-				to_chat(user, "<span class='warning'>Deadchat is globally muted</span>")
+				to_chat(user, "<span class='warning'>Deadchat is globally muted.</span>")
 				return FALSE
 
 /**

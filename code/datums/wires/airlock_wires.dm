@@ -7,8 +7,6 @@
 	holder_type = /obj/machinery/door/airlock
 	wire_count = 12 // 10 actual, 2 duds.
 	proper_name = "Airlock"
-	window_x = 400
-	window_y = 101
 
 /datum/wires/airlock/New(atom/_holder)
 	wires = list(

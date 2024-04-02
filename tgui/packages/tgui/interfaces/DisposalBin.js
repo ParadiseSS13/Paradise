@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, ProgressBar } from '../components';
+import { Button, LabeledList, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
 export const DisposalBin = (props, context) => {
@@ -20,12 +20,9 @@ export const DisposalBin = (props, context) => {
     stateText = 'Idle';
   }
   return (
-    <Window>
+    <Window width={300} height={260}>
       <Window.Content>
-        <Section>
-          <Box bold m={1}>
-            Status
-          </Box>
+        <Section title="Status">
           <LabeledList>
             <LabeledList.Item label="State" color={stateColor}>
               {stateText}
@@ -43,9 +40,8 @@ export const DisposalBin = (props, context) => {
               />
             </LabeledList.Item>
           </LabeledList>
-          <Box bold m={1}>
-            Controls
-          </Box>
+        </Section>
+        <Section title="Controls">
           <LabeledList>
             <LabeledList.Item label="Handle">
               <Button

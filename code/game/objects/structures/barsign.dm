@@ -1,4 +1,5 @@
-/obj/structure/sign/barsign // All Signs are 64 by 32 pixels, they take two tiles
+/// All Signs are 64 by 32 pixels, they take two tiles
+/obj/structure/sign/barsign
 	name = "Bar Sign"
 	desc = "A bar sign with no writing on it."
 	icon = 'icons/obj/barsigns.dmi'
@@ -132,7 +133,8 @@
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
+	addtimer(CALLBACK(src, PROC_REF(post_emag)), 10 SECONDS)
+	return TRUE
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)

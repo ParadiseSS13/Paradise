@@ -92,9 +92,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
-	if(channel)
-		S.volume *= client.prefs.get_channel_volume(channel)
-
 	if(vary)
 		if(frequency)
 			S.frequency = frequency
@@ -158,6 +155,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			if(!(client?.prefs?.toggles2 & PREFTOGGLE_2_REVERB_DISABLE))
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
+
+	S.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= USER_VOLUME(src, channel)
 
 	SEND_SOUND(src, S)
 

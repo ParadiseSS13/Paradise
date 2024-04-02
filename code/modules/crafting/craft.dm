@@ -284,10 +284,13 @@
 	return parts_returned
 
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/personal_crafting/ui_state(mob/user)
+	return GLOB.not_incapacitated_turf_state
+
+/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
+		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)

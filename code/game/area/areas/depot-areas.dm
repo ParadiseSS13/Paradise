@@ -390,7 +390,7 @@
 /area/syndicate_depot/core/proc/ghostlog(gmsg)
 	if(istype(reactor))
 		var/image/alert_overlay = image('icons/obj/flag.dmi', "syndiflag")
-		notify_ghosts(gmsg, title = "Depot News", source = reactor.loc, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
+		notify_ghosts(gmsg, title = "Depot News", source = reactor.loc, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_JUMP)
 
 /area/syndicate_depot/core/proc/declare_started()
 	if(!run_started)

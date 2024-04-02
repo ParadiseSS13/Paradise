@@ -159,7 +159,7 @@
 /obj/item/mod/module/jetpack/configure_edit(key, value)
 	switch(key)
 		if("stabilizers")
-			set_stabilizers(text2bool(value))
+			set_stabilizers(value)
 
 /obj/item/mod/module/jetpack/proc/allow_thrust()
 	if(!active)
@@ -303,7 +303,7 @@
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
-	var/dispense_type = /obj/item/reagent_containers/food/snacks/burger/cheese
+	var/dispense_type = /obj/item/food/snacks/burger/cheese
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 

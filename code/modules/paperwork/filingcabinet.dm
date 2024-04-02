@@ -32,7 +32,8 @@
 	name = "autopsy reports drawer"
 	desc = "A large drawer for holding autopsy reports."
 
-/obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
+/// not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
+/obj/structure/filingcabinet/filingcabinet
 	icon_state = "tallcabinet"
 
 
@@ -83,10 +84,13 @@
 			return
 	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
 
-/obj/structure/filingcabinet/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/filingcabinet/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FilingCabinet",  name, 400, 300, master_ui, state)
+		ui = new(user, src, "FilingCabinet",  name)
 		ui.open()
 
 /obj/structure/filingcabinet/ui_data(mob/user)

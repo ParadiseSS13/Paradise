@@ -1,7 +1,7 @@
 
 /client/proc/forceEvent(type in SSevents.allEvents)
 	set name = "Trigger Event"
-	set category = "Debug"
+	set category = "Event"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -27,6 +27,7 @@
 		/area/shuttle,
 		/area/station/maintenance,
 		/area/station/science/toxins/test,
+		/area/space,
 		/area/station/public/sleep))
 
 	//These are needed because /area/station/engineering has to be removed from the list, but we still want these areas to get fucked up.

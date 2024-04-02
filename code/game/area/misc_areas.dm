@@ -3,7 +3,8 @@
 	name = "Unknown"
 	icon_state = "storage"
 
-/area/start            // will be unused once kurper gets his login interface patch done
+/// will be unused once kurper gets his login interface patch done
+/area/start
 	name = "start area"
 	icon_state = "start"
 	requires_power = FALSE
@@ -25,6 +26,12 @@
 /area/space/nearstation
 	icon_state = "space_near"
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+
+/area/space/nearstation/disposals
+	icon_state = "nearspace_disposals"
+
+/area/space/nearstation/centcom
+	icon_state = "space_near_cc"
 
 /area/space/atmosalert()
 	return

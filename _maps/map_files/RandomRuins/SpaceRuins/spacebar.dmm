@@ -336,9 +336,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "bt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bF" = (
@@ -371,7 +369,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/suit/hgpirate,
-/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer,
+/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
@@ -468,7 +466,7 @@
 /area/space/nearstation)
 "mb" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "mu" = (
@@ -544,7 +542,7 @@
 /area/ruin/space/powered/bar)
 "vD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "vE" = (
@@ -666,9 +664,7 @@
 	id_tag = "pod cycle";
 	name = "airlock dock"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -899,9 +895,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "RX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/marker_beacon/dock_marker,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
@@ -970,9 +964,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "ZM" = (

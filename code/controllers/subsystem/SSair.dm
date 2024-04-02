@@ -361,6 +361,7 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
 		count++
+		CHECK_TICK
 	return count
 
 //this can't be done with setup_atmos_machinery() because
@@ -420,3 +421,5 @@ SUBSYSTEM_DEF(air)
 #undef SSAIR_HIGHPRESSURE
 #undef SSAIR_HOTSPOTS
 #undef SSAIR_SUPERCONDUCTIVITY
+
+#undef SSAIR_DEFERREDPIPENETS

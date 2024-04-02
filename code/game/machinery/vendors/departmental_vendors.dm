@@ -100,13 +100,13 @@
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
-					/obj/item/reagent_containers/food/drinks/drinkingglass = 8,
+					/obj/item/reagent_containers/drinks/drinkingglass = 8,
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/storage/belt/chef = 2,
-					/obj/item/reagent_containers/food/condiment/pack/ketchup = 5,
-					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
-					/obj/item/reagent_containers/food/condiment/saltshaker =5,
-					/obj/item/reagent_containers/food/condiment/peppermill =5,
+					/obj/item/reagent_containers/condiment/pack/ketchup = 5,
+					/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
+					/obj/item/reagent_containers/condiment/saltshaker =5,
+					/obj/item/reagent_containers/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
 					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1,
@@ -184,13 +184,13 @@
 					/obj/item/seeds/chili = 3,
 					/obj/item/seeds/cocoapod = 3,
 					/obj/item/seeds/coffee = 3,
-					/obj/item/seeds/comfrey =3,
+					/obj/item/seeds/comfrey = 3,
 					/obj/item/seeds/corn = 3,
 					/obj/item/seeds/cotton = 3,
-					/obj/item/seeds/nymph =3,
+					/obj/item/seeds/nymph = 3,
 					/obj/item/seeds/eggplant = 3,
 					/obj/item/seeds/garlic = 3,
-					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/glowshroom = 3,
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
@@ -219,13 +219,13 @@
 					/obj/item/seeds/whitebeet = 3)
 
 	contraband = list(/obj/item/seeds/cannabis = 3,
-					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/amanita = 3,
 					/obj/item/seeds/fungus = 3,
-					/obj/item/seeds/liberty = 2,
-					/obj/item/seeds/nettle = 2,
-					/obj/item/seeds/plump = 2,
-					/obj/item/seeds/reishi = 2,
-					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/liberty = 3,
+					/obj/item/seeds/nettle = 3,
+					/obj/item/seeds/plump = 3,
+					/obj/item/seeds/reishi = 3,
+					/obj/item/seeds/starthistle = 3,
 					/obj/item/seeds/random = 2)
 
 	refill_canister = /obj/item/vending_refill/hydroseeds
@@ -280,7 +280,8 @@
 
 	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
-					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
+					/obj/item/reagent_containers/glass/bottle/pancuronium = 1,
+					/obj/item/food/snacks/candy/sucker = 2)
 
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
@@ -328,7 +329,7 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/flash = 5,
 					/obj/item/reagent_containers/spray/pepper = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,
+					/obj/item/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
@@ -340,5 +341,5 @@
 					/obj/item/hailer = 5)
 
 	refill_canister = /obj/item/vending_refill/security
-	prices = list(/obj/item/reagent_containers/food/snacks/donut = 40,
+	prices = list(/obj/item/food/snacks/donut = 40,
 				/obj/item/storage/fancy/donut_box = 200) //Bulk discount

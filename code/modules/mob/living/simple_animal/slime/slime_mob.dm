@@ -2,6 +2,7 @@
 	name = "grey baby slime (123)"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
+	hud_type = /datum/hud/slime
 	pass_flags = PASSTABLE | PASSGRILLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gender = NEUTER
@@ -193,7 +194,7 @@
 					healths.icon_state = "slime_health7"
 					severity = 6
 			if(severity > 0)
-				overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 			else
 				clear_fullscreen("brute")
 
@@ -224,21 +225,16 @@
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
 	return 2
 
-/mob/living/simple_animal/slime/Stat()
-	if(..())
+/mob/living/simple_animal/slime/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(!docile)
+		status_tab_data[++status_tab_data.len] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
+	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+		status_tab_data[++status_tab_data.len] = list("You can:", is_adult ? "reproduce!" : "evolve!")
 
-		if(!docile)
-			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			if(is_adult)
-				stat(null, "You can reproduce!")
-			else
-				stat(null, "You can evolve!")
-
-		if(stat == UNCONSCIOUS)
-			stat(null,"You are knocked out by high levels of BZ!")
-		else
-			stat(null,"Power Level: [powerlevel]")
+	else
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -250,7 +246,7 @@
 	if(!Proj)
 		return
 	attacked += 10
-	if((Proj.damage_type == BURN))
+	if(Proj.damage_type == BURN)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src)
 	else

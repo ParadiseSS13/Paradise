@@ -7,8 +7,6 @@
 
 	var/update = 1
 
-	var/alert_pressure = 0
-
 /datum/pipeline/New()
 	SSair.networks += src
 
@@ -28,14 +26,11 @@
 		reconcile_air()
 	return
 
-GLOBAL_VAR_INIT(pipenetwarnings, 10)
-
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/E = base
 		volume = E.volume
-		alert_pressure = E.alert_pressure
 		members += E
 		if(E.air_temporary)
 			air = E.air_temporary
@@ -63,8 +58,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 							volume += item.volume
 							item.parent = src
-
-							alert_pressure = min(alert_pressure, item.alert_pressure)
 
 							if(item.air_temporary)
 								air.merge(item.air_temporary)

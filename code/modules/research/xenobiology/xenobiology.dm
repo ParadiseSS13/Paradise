@@ -173,8 +173,7 @@
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = TRUE
-	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
-
+	var/newname = tgui_input_text(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN, 1)
 	if(!newname)
 		newname = "pet slime"
 	M.name = newname
@@ -228,7 +227,9 @@
 			explosion(T, -1, -1, 2, 3)
 		qdel(src)
 		return
-	var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
+	var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+	if(!reason_text)
+		return
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = TRUE
 
@@ -304,7 +305,7 @@
 		return
 
 	prompted = TRUE
-	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) != "Yes")
 		prompted = FALSE
 		return
 
@@ -520,12 +521,11 @@
 /obj/effect/timestop/New()
 	..()
 	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
+		for(var/datum/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= M
 
-
 /obj/effect/timestop/proc/timestop()
-	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, loc))
 			if(isliving(A))

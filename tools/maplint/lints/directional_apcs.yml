@@ -1,0 +1,33 @@
+help: "Use the specific directional subtypes for this APC."
+/obj/machinery/power/apc:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/power/apc:
+  banned: true
+=/obj/machinery/power/apc/directional:
+  banned: true
+=/obj/machinery/power/apc/important:
+  banned: true
+=/obj/machinery/power/apc/important/directional:
+  banned: true
+=/obj/machinery/power/apc/critical:
+  banned: true
+=/obj/machinery/power/apc/critical/directional:
+  banned: true
+=/obj/machinery/power/apc/off_station:
+  banned: true
+=/obj/machinery/power/apc/off_station/directional:
+  banned: true
+=/obj/machinery/power/apc/syndicate:
+  banned: true
+=/obj/machinery/power/apc/syndicate/directional:
+  banned: true
+=/obj/machinery/power/apc/syndicate/off:
+  banned: true
+=/obj/machinery/power/apc/syndicate/off/directional:
+  banned: true
+=/obj/machinery/power/apc/worn_out:
+  banned: true
+=/obj/machinery/power/apc/worn_out/directional:
+  banned: true

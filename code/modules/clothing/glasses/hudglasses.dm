@@ -235,3 +235,32 @@
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
+
+/obj/item/clothing/glasses/hud/janitor
+	name = "janitor HUD"
+	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
+	icon_state = "janihud"
+	hud_types = DATA_HUD_JANITOR
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/hud/janitor/sunglasses
+	name = "janitor HUD sunglasses"
+	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user."
+	icon_state = "sunhudjani"
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+
+/obj/item/clothing/glasses/hud/janitor/night
+	name = "night vision janitor HUD"
+	desc = "A janitorial filth scanner fitted with a light amplifier."
+	icon_state = "nvjanihud"
+	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE

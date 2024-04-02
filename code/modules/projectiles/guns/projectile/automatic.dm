@@ -63,7 +63,7 @@
 	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/gun/projectile/automatic/can_shoot()
 	return get_ammo()
@@ -76,7 +76,7 @@
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "\improper NF10 'Sabre' SMG"
 	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	item_state = "saber"
@@ -86,8 +86,8 @@
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
-	name = "\improper C-20r SMG"
-	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	name = "\improper C-20R SMG"
+	desc = "A two-round burst .45 SMG, designated 'C-20R'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -112,8 +112,8 @@
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "WT-550 PDW"
+	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "wt550"
 	w_class = WEIGHT_CLASS_BULKY
@@ -146,8 +146,8 @@
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
-	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
+	name = "\improper M-90GL Carbine"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90GL'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -237,10 +237,10 @@
 	burst_size = 4
 	fire_delay = 1
 
-//ARG Assault Rifle//
+//M26 Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
-	name = "\improper ARG"
-	desc = "A robust assault rifle used by Trans-Solar Federation forces."
+	name = "\improper M26A2 assault rifle"
+	desc = "A robust assault rifle used by Trans-Solar Federation forces. Chambered in 5.56mm."
 	icon_state = "arg"
 	item_state = "arg"
 	slot_flags = 0
@@ -256,7 +256,7 @@
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
 	name = "\improper AK-814 assault rifle"
-	desc = "A modern AK assault rifle favored by elite Soviet soldiers."
+	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Chambered in 7.62x54mm."
 	icon_state = "ak814"
 	item_state = "ak814"
 	origin_tech = "combat=5;materials=3"
@@ -273,8 +273,8 @@
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper 'Bulldog' Shotgun"
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	name = "\improper AS-14 'Bulldog' Shotgun"
+	desc = "A compact semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	w_class = WEIGHT_CLASS_NORMAL

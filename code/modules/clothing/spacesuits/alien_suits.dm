@@ -207,12 +207,11 @@
 	species_restricted = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
+	multiple_icons = FALSE
 
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
 	if(magpulse)
-		flags &= ~NOSLIP
-		magpulse = FALSE
-		flags |= NODROP
+		flags &= ~NODROP
 		to_chat(user, "You relax your deathgrip on the flooring.")
 	else
 		//make sure these can only be used when equipped.
@@ -222,20 +221,18 @@
 		if(H.shoes != src)
 			to_chat(user, "<span class='warning>You will have to put on [src] before you can do that.</span>")
 			return
-
-		flags |= NOSLIP
-		magpulse = TRUE
-		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
+		flags |= NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
 		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
+	return ..()
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user as mob)
 	..()
 	if(magpulse)
 		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
-		flags &= ~NOSLIP
 		magpulse = FALSE
+		no_slip = FALSE
 		flags &= ~NODROP
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)

@@ -26,12 +26,17 @@
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
-	if(is_hot(src) && A.reagents && !ismob(A))
+
+	if(SEND_SIGNAL(A, COMSIG_ITEM_BEING_ATTACKED, src, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
+	var/temperature = get_heat()
+	if(temperature && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
 		var/reagent_temp = A.reagents.chem_temp
-		var/time = (reagent_temp / 10) / (is_hot(src) / 1000)
+		var/time = (reagent_temp / 10) / (temperature / 1000)
 		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
 			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-			A.reagents.temperature_reagents(is_hot(src))
+			A.reagents.temperature_reagents(temperature)
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
@@ -128,7 +133,7 @@
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	return
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)

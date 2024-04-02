@@ -1,10 +1,5 @@
 #define DNA_BLOCK_SIZE 3
 
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
-
 #define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
 
 #define PAGE_UI "ui"
@@ -80,7 +75,7 @@
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/circuitboard/dna_scanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -92,7 +87,7 @@
 /obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/circuitboard/dna_scanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -186,6 +181,7 @@
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
+	QDEL_LIST_CONTENTS(L.grabbed_by)
 	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
@@ -256,14 +252,6 @@
 	occupant = M
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
-
-	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
-	if(locate(/obj/machinery/computer/cloning, get_step(src, NORTH)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, SOUTH)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
-
-		occupant.notify_ghost_cloning(source = src)
 
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
@@ -398,13 +386,16 @@
 
 		ui_interact(user)
 
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/scan_consolenew/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user == connected.occupant)
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DNAModifier", name, 660, 700, master_ui, state)
+		ui = new(user, src, "DNAModifier", name)
 		ui.open()
 
 /obj/machinery/computer/scan_consolenew/ui_data(mob/user)
@@ -732,8 +723,8 @@
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 
-					if((buf.types & DNA2_BUF_UI))
-						if((buf.types & DNA2_BUF_UE))
+					if(buf.types & DNA2_BUF_UI)
+						if(buf.types & DNA2_BUF_UE)
 							connected.occupant.real_name = buf.dna.real_name
 							connected.occupant.name = buf.dna.real_name
 						connected.occupant.UpdateAppearance(buf.dna.UI.Copy())
@@ -782,7 +773,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 10 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]
@@ -840,5 +831,5 @@
 #undef PAGE_SE
 #undef PAGE_BUFFER
 #undef PAGE_REJUVENATORS
-
-/////////////////////////// DNA MACHINES
+#undef DNA_BLOCK_SIZE
+#undef NEGATE_MUTATION_THRESHOLD

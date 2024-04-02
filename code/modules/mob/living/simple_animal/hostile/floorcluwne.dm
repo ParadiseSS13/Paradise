@@ -300,7 +300,7 @@
 				manifested = FALSE
 				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 2)
 				for(var/obj/machinery/light/L in range(H, 8))
-					L.flicker()
+					L.forced_flicker()
 
 		if(STAGE_ATTACK)
 

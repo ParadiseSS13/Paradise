@@ -284,7 +284,7 @@
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
-		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	if(updating)
 		update_health_hud()
 		update_stamina()
@@ -300,7 +300,7 @@
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
-		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	if(updating)
 		update_health_hud()
 		update_stamina()

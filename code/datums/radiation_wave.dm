@@ -119,7 +119,7 @@
 			/obj/structure/cable,
 			/obj/machinery/atmospherics,
 			/obj/item/ammo_casing,
-			/obj/item/implant,
+			/obj/item/bio_chip,
 			/obj/singularity,
 			))
 		if(!can_contaminate || !can_contam || blacklisted[thing.type])

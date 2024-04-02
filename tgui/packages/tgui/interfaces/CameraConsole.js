@@ -2,10 +2,19 @@ import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section } from '../components';
-import { refocusLayout, Window } from '../layouts';
+import { Button, ByondUi, Input, Section, Stack } from '../components';
+import { Window } from '../layouts';
+
+/**
+ * A crutch which, after selecting a camera in the list,
+ * allows you to scroll further,
+ * as the focus does not shift to the button using overflow.
+ * Please, delete that shit if there's a better way.
+ */
+String.prototype.trimLongStr = function (length) {
+  return this.length > length ? this.substring(0, length) + '...' : this;
+};
 
 /**
  * Returns previous and next camera names relative to the currently
@@ -47,10 +56,12 @@ export const CameraConsole = (props, context) => {
     activeCamera
   );
   return (
-    <Window resizable>
+    <Window width={870} height={708}>
       <div className="CameraConsole__left">
-        <Window.Content scrollable>
-          <CameraConsoleContent />
+        <Window.Content>
+          <Stack fill vertical>
+            <CameraConsoleContent />
+          </Stack>
         </Window.Content>
       </div>
       <div className="CameraConsole__right">
@@ -82,7 +93,6 @@ export const CameraConsole = (props, context) => {
           className="CameraConsole__map"
           params={{
             id: mapRef,
-            parent: config.window,
             type: 'map',
           }}
         />
@@ -97,40 +107,41 @@ export const CameraConsoleContent = (props, context) => {
   const { activeCamera } = data;
   const cameras = selectCameras(data.cameras, searchText);
   return (
-    <Fragment>
-      <Input
-        fluid
-        mb={1}
-        placeholder="Search for a camera"
-        onInput={(e, value) => setSearchText(value)}
-      />
-      <Section>
-        {cameras.map((camera) => (
-          // We're not using the component here because performance
-          // would be absolutely abysmal (50+ ms for each re-render).
-          <div
-            key={camera.name}
-            title={camera.name}
-            className={classes([
-              'Button',
-              'Button--fluid',
-              'Button--color--transparent',
-              'Button--ellipsis',
-              activeCamera &&
-                camera.name === activeCamera.name &&
-                'Button--selected',
-            ])}
-            onClick={() => {
-              refocusLayout();
-              act('switch_camera', {
-                name: camera.name,
-              });
-            }}
-          >
-            {camera.name}
-          </div>
-        ))}
-      </Section>
-    </Fragment>
+    <Stack fill vertical>
+      <Stack.Item>
+        <Input
+          fluid
+          placeholder="Search for a camera"
+          onInput={(e, value) => setSearchText(value)}
+        />
+      </Stack.Item>
+      <Stack.Item grow m={0}>
+        <Section fill scrollable>
+          {cameras.map((camera) => (
+            // We're not using the component here because performance
+            // would be absolutely abysmal (50+ ms for each re-render).
+            <div
+              key={camera.name}
+              title={camera.name}
+              className={classes([
+                'Button',
+                'Button--fluid',
+                'Button--color--transparent',
+                activeCamera &&
+                  camera.name === activeCamera.name &&
+                  'Button--selected',
+              ])}
+              onClick={() =>
+                act('switch_camera', {
+                  name: camera.name,
+                })
+              }
+            >
+              {camera.name.trimLongStr(23)}
+            </div>
+          ))}
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };

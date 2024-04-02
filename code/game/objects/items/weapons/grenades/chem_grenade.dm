@@ -324,8 +324,8 @@
 	desc = "A custom made large grenade. It affects a larger area."
 	icon_state = "large_grenade"
 	bomb_state = "largebomb"
-	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/food/condiment,
-								/obj/item/reagent_containers/food/drinks)
+	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/condiment,
+								/obj/item/reagent_containers/drinks)
 	origin_tech = "combat=3;engineering=3"
 	affected_area = 5
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
@@ -366,14 +366,16 @@
 	else
 		return ..()
 
-/obj/item/grenade/chem_grenade/cryo // Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
+/// Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
+/obj/item/grenade/chem_grenade/cryo
 	name = "cryo grenade"
 	desc = "A custom made cryogenic grenade. It rapidly cools its contents upon detonation."
 	icon_state = "cryog"
 	affected_area = 2
 	ignition_temp = -100
 
-/obj/item/grenade/chem_grenade/pyro // Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
+/// Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
+/obj/item/grenade/chem_grenade/pyro
 	name = "pyro grenade"
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
@@ -381,7 +383,8 @@
 	affected_area = 3
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
-/obj/item/grenade/chem_grenade/adv_release // Intended for weaker, but longer lasting effects. Could have some interesting uses.
+/// Intended for weaker, but longer lasting effects. Could have some interesting uses.
+/obj/item/grenade/chem_grenade/adv_release
 	name = "advanced release grenade"
 	desc = "A custom made advanced release grenade. It is able to be detonated more than once. Can be configured using a multitool."
 	icon_state = "timeg"
