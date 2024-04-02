@@ -121,6 +121,21 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/armor/secponcho
+	name = "security poncho"
+	desc = "A stylish black and red poncho made with reinforced fabric."
+	icon_state = "security_poncho"
+	item_state = "security_poncho"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -419,7 +434,7 @@
 	user.update_inv_wear_suit()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
