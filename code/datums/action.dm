@@ -657,7 +657,7 @@
 	return ..()
 
 /datum/action/spell_action/should_draw_cooldown()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	var/draw = S.cooldown_handler.should_draw_cooldown()
 	return draw
 
