@@ -1052,7 +1052,7 @@
 					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
 					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
 				else
-					vamp.upgrade_tiers -= /datum/spell/vampire/self/specialize
+					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
 					vamp.change_subclass(subclass_type)
 					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
 					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
@@ -1676,14 +1676,14 @@
 		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
 	H.create_log(MISC_LOG, "[H] was made into an abductor")
 
-/datum/mind/proc/AddSpell(datum/spell/S)
+/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
 	S.action.Grant(current)
 
-/datum/mind/proc/RemoveSpell(datum/spell/spell) //To remove a specific spell from a mind
+/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
 	if(!spell)
 		return
-	for(var/datum/spell/S in spell_list)
+	for(var/obj/effect/proc_holder/spell/S in spell_list)
 		if(istype(S, spell))
 			qdel(S)
 			spell_list -= S
@@ -1696,7 +1696,7 @@
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/X in spell_list)
-		var/datum/spell/S = X
+		var/obj/effect/proc_holder/spell/S = X
 		if(!S.on_mind_transfer(new_character))
 			current.RemoveSpell(S)
 			continue

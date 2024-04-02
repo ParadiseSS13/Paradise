@@ -1,13 +1,13 @@
-/datum/spell/alien_spell/evolve_queen
+/obj/effect/proc_holder/spell/alien_spell/evolve_queen
 	name = "Evolve into an alien queen"
 	desc = "Evolve into an alien queen."
 	plasma_cost = 300
 	action_icon_state = "alien_evolve_drone"
 
-/datum/spell/alien_spell/evolve_queen/create_new_targeting()
+/obj/effect/proc_holder/spell/alien_spell/evolve_queen/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/alien_spell/evolve_queen/cast(list/targets, mob/living/carbon/user)
+/obj/effect/proc_holder/spell/alien_spell/evolve_queen/cast(list/targets, mob/living/carbon/user)
 	/// First we check if there is a living queen
 	for(var/mob/living/carbon/alien/humanoid/queen/living_queen in GLOB.alive_mob_list)
 		if(living_queen.key || !living_queen.get_int_organ(/obj/item/organ/internal/brain)) // We do a once over to check the queen didn't end up going away into the magic land of semi-dead

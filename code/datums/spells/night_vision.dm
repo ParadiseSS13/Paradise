@@ -1,4 +1,4 @@
-/datum/spell/night_vision
+/obj/effect/proc_holder/spell/night_vision
 	name = "Toggle Nightvision"
 	desc = "Toggle your nightvision mode."
 
@@ -7,10 +7,10 @@
 
 	message = "<span class='notice'>You toggle your night vision!</span>"
 
-/datum/spell/night_vision/create_new_targeting()
+/obj/effect/proc_holder/spell/night_vision/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/night_vision/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/night_vision/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		switch(target.lighting_alpha)
 			if(LIGHTING_PLANE_ALPHA_VISIBLE)

@@ -1,5 +1,5 @@
 
-/datum/spell/chaplain_bless
+/obj/effect/proc_holder/spell/chaplain_bless
 	name = "Bless"
 	desc = "Blesses a single person."
 
@@ -14,16 +14,16 @@
 	cooldown_min = 20
 	action_icon_state = "shield"
 
-/datum/spell/chaplain_bless/create_new_targeting()
+/obj/effect/proc_holder/spell/chaplain_bless/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.range = 1
 	T.click_radius = -1
 	return T
 
-/datum/spell/chaplain_bless/valid_target(mob/living/carbon/human/target, mob/user)
+/obj/effect/proc_holder/spell/chaplain_bless/valid_target(mob/living/carbon/human/target, mob/user)
 	return target.mind && target.ckey && !target.stat
 
-/datum/spell/chaplain_bless/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/chaplain_bless/cast(list/targets, mob/living/user = usr)
 	if(!istype(user))
 		to_chat(user, "Somehow, you are not a living mob. This should never happen. Report this bug.")
 		revert_cast()

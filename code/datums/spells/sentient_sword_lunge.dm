@@ -1,4 +1,4 @@
-/datum/spell/sentient_sword_lunge
+/obj/effect/proc_holder/spell/sentient_sword_lunge
 	name = "Lunge"
 	desc = "Lunge at something in your view range."
 	clothes_req = FALSE
@@ -8,10 +8,10 @@
 	sound = 'sound/magic/repulse.ogg'
 	action_icon_state = "lunge"
 
-/datum/spell/sentient_sword_lunge/create_new_targeting()
+/obj/effect/proc_holder/spell/sentient_sword_lunge/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/datum/spell/sentient_sword_lunge/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/sentient_sword_lunge/cast(list/targets, mob/user = usr)
 	if(!istype(user.loc, /obj/item))
 		to_chat(user, "<span class='warning'>You cannot use this ability if you're outside a blade!</span>")
 		return

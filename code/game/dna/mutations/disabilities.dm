@@ -481,13 +481,13 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	activation_messages = list("You suddenly feel rather hot.")
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
-	spelltype = /datum/spell/immolate
+	spelltype = /obj/effect/proc_holder/spell/immolate
 
 /datum/mutation/grant_spell/immolate/New()
 	..()
 	block = GLOB.immolateblock
 
-/datum/spell/immolate
+/obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
@@ -501,10 +501,10 @@
 
 	action_icon_state = "genetic_incendiary"
 
-/datum/spell/immolate/create_new_targeting()
+/obj/effect/proc_holder/spell/immolate/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/immolate/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")

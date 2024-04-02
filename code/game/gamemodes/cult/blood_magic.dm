@@ -265,7 +265,7 @@
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
-	var/datum/spell/horror/PH
+	var/obj/effect/proc_holder/horror/PH
 	charges = 4
 
 /datum/action/innate/cult/blood_spell/horror/New()
@@ -274,7 +274,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/horror/Destroy()
-	var/datum/spell/horror/destroy = PH
+	var/obj/effect/proc_holder/horror/destroy = PH
 	. = ..()
 	if(!QDELETED(destroy))
 		QDEL_NULL(destroy)
@@ -283,24 +283,24 @@
 	PH.toggle(owner) //the important bit
 	return TRUE
 
-/datum/spell/horror
+/obj/effect/proc_holder/horror
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
-/datum/spell/horror/Destroy()
+/obj/effect/proc_holder/horror/Destroy()
 	var/datum/action/innate/cult/blood_spell/AA = attached_action
 	. = ..()
 	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
-/datum/spell/horror/proc/toggle(mob/user)
+/obj/effect/proc_holder/horror/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, "<span class='cult'>You dispel the magic...</span>")
 	else
 		add_ranged_ability(user, "<span class='cult'>You prepare to horrify a target...</span>")
 
-/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target)
+/obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))

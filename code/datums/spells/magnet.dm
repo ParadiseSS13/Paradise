@@ -1,4 +1,4 @@
-/datum/spell/charge_up/bounce/magnet
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet
 	name = "Magnetic Pull"
 	desc = "Pulls metalic objects from enemies hands with the power of MAGNETS."
 	action_icon_state = "magnet"
@@ -14,22 +14,22 @@
 	start_charging_text = "You start gathering magnetism around you."
 	bounce_hit_sound = 'sound/machines/defib_zap.ogg'
 
-/datum/spell/charge_up/bounce/magnet/New()
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/New()
 	..()
 	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity", layer = EFFECTS_LAYER)
 
-/datum/spell/charge_up/bounce/magnet/get_bounce_energy()
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/get_bounce_energy()
 	return get_energy_charge()
 
-/datum/spell/charge_up/bounce/magnet/get_bounce_amount()
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/get_bounce_amount()
 	if(get_energy_charge() >= 75)
 		return 5
 	return 0
 
-/datum/spell/charge_up/bounce/magnet/create_beam(mob/origin, mob/target)
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/create_beam(mob/origin, mob/target)
 	origin.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
-/datum/spell/charge_up/bounce/magnet/apply_bounce_effect(mob/origin, mob/target, energy, mob/user)
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/apply_bounce_effect(mob/origin, mob/target, energy, mob/user)
 	var/list/items_to_throw = list()
 	switch(energy)
 		if(0 to 25)
@@ -47,7 +47,7 @@
 	for(var/I in items_to_throw)
 		try_throw_object(user, target, I)
 
-/datum/spell/charge_up/bounce/magnet/proc/try_throw_object(mob/user, mob/thrower, obj/item/to_throw)
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/proc/try_throw_object(mob/user, mob/thrower, obj/item/to_throw)
 	if(!(to_throw.flags & CONDUCT) || !thrower.unEquip(to_throw, silent = TRUE))
 		return FALSE
 	thrower.visible_message("<span class='warning'>[to_throw] gets thrown out of [thrower] [thrower.p_their()] hands!</span>",

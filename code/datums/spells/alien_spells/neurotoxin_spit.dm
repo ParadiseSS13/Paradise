@@ -1,4 +1,4 @@
-/datum/spell/alien_spell/neurotoxin
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applies a small amount of stamina damage as well."
 	base_cooldown = 3 SECONDS
@@ -9,16 +9,16 @@
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
-/datum/spell/alien_spell/neurotoxin/create_new_targeting()
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/datum/spell/alien_spell/neurotoxin/update_spell_icon()
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/update_icon_state()
 	if(!action)
 		return
 	action.button_icon_state = "alien_neurotoxin_[active]"
 	action.UpdateButtons()
 
-/datum/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // A little aimbot is fine
@@ -35,7 +35,7 @@
 
 	return TRUE
 
-/datum/spell/alien_spell/neurotoxin/death_to_xenos
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/death_to_xenos
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks aliens down."
 	neurotoxin_type = /obj/item/projectile/bullet/anti_alien_toxin

@@ -46,18 +46,18 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/Initialize(mapload)
 	. = ..()
 	if(mind)
-		var/datum/spell/spell = new /datum/spell/princely_charge()
+		var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
 		mind.AddSpell(spell)
 	else
 		RegisterSignal(src, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/terror_spider/prince, give_spell))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/give_spell()
 	SIGNAL_HANDLER
-	var/datum/spell/spell = new /datum/spell/princely_charge()
+	var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
 	mind.AddSpell(spell)
 	UnregisterSignal(src, COMSIG_MOB_LOGIN)
 
-/datum/spell/princely_charge
+/obj/effect/proc_holder/spell/princely_charge
 	name = "Princely Charge"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
@@ -65,10 +65,10 @@
 	clothes_req = FALSE
 	action_icon_state = "terror_prince"
 
-/datum/spell/princely_charge/create_new_targeting()
+/obj/effect/proc_holder/spell/princely_charge/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/datum/spell/princely_charge/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/princely_charge/cast(list/targets, mob/user)
 	var/target = targets[1]
 	if(isliving(user))
 		var/mob/living/L = user

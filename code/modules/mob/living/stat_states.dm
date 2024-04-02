@@ -77,7 +77,7 @@
 
 	if(mind)
 		for(var/S in mind.spell_list)
-			var/datum/spell/spell = S
+			var/obj/effect/proc_holder/spell/spell = S
 			spell.UpdateButtons()
 
 	return TRUE
