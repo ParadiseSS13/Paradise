@@ -203,18 +203,20 @@
 		sensor_blink()
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
-/mob/living/simple_animal/bot/honkbot/proc/declare_victory(mob/living/carbon/C)
-	C.SetDeaf(0)
-	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
-
 /mob/living/simple_animal/bot/honkbot/proc/cuff_callback(mob/living/carbon/C)
 	mode = BOT_ARREST
-	if(!do_after(src, 6 SECONDS, target = C))
+	sleep(1 SECONDS)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
+						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	if(!do_after(src, 6 SECONDS, target = C) || !on)
 		mode = BOT_IDLE
 		return
-	if(!C.handcuffed && on)
+	if(!C.handcuffed)
 		C.handcuffed = new /obj/item/restraints/handcuffs/twimsts(C)
 		C.update_handcuffed()
+	C.SetDeaf(0)
+	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
 	mode = BOT_IDLE
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
@@ -226,12 +228,12 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		var/area/location = get_area(src)
 		speak("Arresting level 4 scumbag <b>[C]</b> in [location].", radio_channel)
-		addtimer(CALLBACK(src, PROC_REF(declare_victory), C), 5 SECONDS)
 
 	if(!ishuman(C))
 		C.Stuttering(40 SECONDS)
 		C.Stun(20 SECONDS)
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
+		return
 	var/mob/living/carbon/human/H = C
 	if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
 		return
@@ -250,10 +252,8 @@
 	add_attack_logs(src, C, "honked by [src]")
 	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 			"<span class='userdanger'>[src] has honked you!</span>")
-	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
