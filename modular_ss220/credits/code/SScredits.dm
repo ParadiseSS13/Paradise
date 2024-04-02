@@ -24,6 +24,9 @@ SUBSYSTEM_DEF(credits)
 	else if(HALLOWEEN in SSholiday.holidays)
 		end_titles = new /datum/credits/halloween()
 		cinematic_type = /datum/cinematic/credits/halloween
+	else if(APRIL_FOOLS in SSholiday.holidays)
+		end_titles = new /datum/credits/aprils_fool()
+		cinematic_type = /datum/cinematic/credits
 	else
 		end_titles = new /datum/credits/default()
 		cinematic_type = /datum/cinematic/credits
