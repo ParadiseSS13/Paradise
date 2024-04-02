@@ -586,6 +586,13 @@ SLIME SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!can_see(user, target, 1))
+		return
+	if(target.return_analyzable_air())
+		atmos_scan(user, target)
+
 /**
  * Outputs a message to the user describing the target's gasmixes.
  * Used in chat-based gas scans.
