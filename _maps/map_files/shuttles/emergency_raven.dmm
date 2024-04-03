@@ -1328,6 +1328,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"JM" = (
+/obj/structure/shuttle/engine/large,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
 "JO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -1434,6 +1438,9 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
+/area/shuttle/escape)
+"So" = (
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "Ux" = (
 /obj/effect/turf_decal/stripes/white/corner,
@@ -1656,8 +1663,8 @@ dI
 dE
 Mm
 cP
-cP
-aa
+So
+JM
 "}
 (6,1,1) = {"
 aa
@@ -1690,8 +1697,8 @@ dE
 dE
 Nd
 fn
-em
-aa
+So
+So
 "}
 (7,1,1) = {"
 ab
@@ -1792,8 +1799,8 @@ dE
 dE
 vw
 fn
-em
-aa
+So
+JM
 "}
 (10,1,1) = {"
 ab
@@ -1826,8 +1833,8 @@ dE
 dE
 cP
 cP
-cP
-aa
+So
+So
 "}
 (11,1,1) = {"
 ab
@@ -1860,7 +1867,7 @@ Sa
 Sa
 ed
 cP
-aa
+cP
 aa
 "}
 (12,1,1) = {"
@@ -1894,8 +1901,8 @@ dE
 dE
 cP
 cP
-cP
-aa
+So
+JM
 "}
 (13,1,1) = {"
 ab
@@ -1928,8 +1935,8 @@ dE
 dE
 sr
 fn
-em
-aa
+So
+So
 "}
 (14,1,1) = {"
 ab
@@ -2030,8 +2037,8 @@ dE
 dE
 NK
 fn
-em
-aa
+So
+JM
 "}
 (17,1,1) = {"
 aa
@@ -2064,8 +2071,8 @@ dQ
 dT
 qC
 cP
-cP
-aa
+So
+So
 "}
 (18,1,1) = {"
 aa
