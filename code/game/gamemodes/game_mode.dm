@@ -40,6 +40,7 @@
 	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
+	var/list/datum/station_goal/secondary/secondary_goals = list() // A list of all secondary goals issued
 
 	/// Each item in this list can only be rolled once on average.
 	var/list/single_antag_positions = list("Head of Personnel", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster")
@@ -177,6 +178,8 @@
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_3, list("escapees", "on_pod_3"))
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
+	for(var/tech_id in SSeconomy.tech_levels)
+		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. <@&[GLOB.configuration.discord.new_round_waiting_role]>") // SS220 Addition
 	if(SSredis.connected)
@@ -466,12 +469,14 @@
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()
 	for(var/T in subtypesof(/datum/station_goal))
+		if(ispath(T, /datum/station_goal/secondary))
+			continue
 		var/datum/station_goal/G = T
 		if(config_tag in initial(G.gamemode_blacklist))
 			continue
-		possible += T
+		possible += G
 	var/goal_weights = 0
-	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
+	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked = pick_n_take(possible)
 		goal_weights += initial(picked.weight)
 		station_goals += new picked
@@ -492,9 +497,24 @@
 	print_command_report(message_text, "NAS Trurl Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
-	for(var/V in station_goals)
-		var/datum/station_goal/G = V
-		G.print_result()
+	for(var/datum/station_goal/goal in station_goals)
+		goal.print_result()
+
+	var/departments = list()
+	for(var/datum/station_goal/secondary/goal in secondary_goals)
+		if(goal.completed)
+			if(!departments[goal.department])
+				departments[goal.department] = 0
+			departments[goal.department]++
+
+	to_chat(world, "<b>Secondary Goals</b>:")
+	var/any = FALSE
+	for(var/department in departments)
+		if(departments[department])
+			any = TRUE
+			to_chat(world, "<b>[department]</b>: <span class='greenannounce'>[departments[department]] completed!</span>")
+	if(!any)
+		to_chat(world, "<span class='boldannounceic'>None completed!</span>")
 
 /datum/game_mode/proc/generate_station_trait_report()
 	var/something_to_print = FALSE

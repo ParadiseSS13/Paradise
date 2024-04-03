@@ -1414,8 +1414,8 @@
 	box = /obj/item/storage/box/wizard
 
 	//The spells that the enforcer has.
-	var/list/spell_paths = list(/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter,
-										/obj/effect/proc_holder/spell/charge_up/bounce/lightning, /obj/effect/proc_holder/spell/summonitem)
+	var/list/spell_paths = list(/datum/spell/aoe/conjure/summon_supermatter,
+										/datum/spell/charge_up/bounce/lightning, /datum/spell/summonitem)
 
 /datum/outfit/admin/enforcer/post_equip(mob/living/carbon/human/H)
 	. = ..()

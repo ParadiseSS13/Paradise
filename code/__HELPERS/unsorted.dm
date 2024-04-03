@@ -1596,17 +1596,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(!value) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-		if(isnull(value))
-			return
-	value = trim(value)
-	if(!isnull(value) && value != "")
-		matches = filter_fancy_list(matches, value)
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
+	if(!skip_filter)
+		if(!value) //nothing should be calling us with a number, so this is safe
+			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+			if(isnull(value))
+				return
+		value = trim(value)
+		if(!isnull(value) && value != "")
+			matches = filter_fancy_list(matches, value)
 
-	if(!length(matches))
-		return
+		if(!length(matches))
+			return
 
 	var/chosen
 	if(length(matches) == 1)
@@ -1702,6 +1703,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
+			/datum/station_goal/secondary = "S_GOAL",
+			/datum/station_goal = "GOAL",
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",

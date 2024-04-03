@@ -46,4 +46,6 @@
 		on_report()
 		send_report()
 	else if(href_list["remove"])
+		SSticker.mode.station_goals -= src
 		qdel(src)
+		usr.client.modify_goals()

@@ -38,7 +38,8 @@
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
-
+	/// If a spawned cyborg should have an MMI, a positronic, or a robobrain. MMI by default
+	var/cyborg_brain_type = MMI_BORG
 	/// The body accessory name of the mob (e.g. wings, tail).
 	var/body_accessory = null
 
@@ -192,6 +193,7 @@
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
 					custom_emotes=:custom_emotes,
+					cyborg_brain_type=:cyborg_brain_type,
 					tts_seed=:tts_seed
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
@@ -252,6 +254,7 @@
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
+						"cyborg_brain_type" = cyborg_brain_type,
 						"tts_seed" = tts_seed, // SS220 EDIT ADDITION - TTS220
 						"ckey" = C.ckey,
 						"slot" = slot_number
@@ -293,7 +296,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, tts_seed)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, tts_seed)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -320,7 +323,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :tts_seed)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :tts_seed)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -381,6 +384,7 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
+		"cyborg_brain_type" = cyborg_brain_type,
 		"tts_seed" = tts_seed // SS220 EDIT ADDITION - TTS220
 	))
 
@@ -469,7 +473,8 @@
 	var/custom_emotes_tmp = query.item[55]
 	physique = query.item[56]
 	height = query.item[57]
-	tts_seed = query.item[58] // SS220 EDIT ADDITION - TTS220
+	cyborg_brain_type = query.item[58]
+	tts_seed = query.item[59] // SS220 EDIT ADDITION - TTS220
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -555,7 +560,7 @@
 	loadout_gear = sanitize_json(loadout_gear)
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
-
+	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)

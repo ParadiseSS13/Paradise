@@ -438,6 +438,9 @@ SUBSYSTEM_DEF(jobs)
 					AssignRole(player, "Assistant")
 			else
 				AssignRole(player, "Assistant")
+		else if(length(player.mind.restricted_roles))
+			stack_trace("A player with `restricted_roles` had no `special_role`. They are likely an antagonist, but failed to spawn in.") // this can be fixed by assigning a special_role in pre_setup of the gamemode
+			message_admins("A player mind ([player.mind]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
