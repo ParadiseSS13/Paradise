@@ -28,6 +28,8 @@
 	reagent_state = LIQUID
 	color = "#0000D8"
 	taste_description = "a magical journey"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/lsd/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -46,6 +48,8 @@
 	addiction_threshold = 10
 	heart_rate_decrease = 1
 	taste_description = "a synthetic high"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -171,6 +175,8 @@
 	addiction_threshold = 5
 	addiction_decay_rate = 0.2 // half the metabolism rate
 	taste_description = "bitterness"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -249,6 +255,8 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/pump_up/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -290,6 +298,8 @@
 	addiction_threshold = 10
 	taste_description = "very poor life choices"
 	allowed_overdose_process = TRUE
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
@@ -370,6 +380,8 @@
 	allowed_overdose_process = TRUE //Requested by balance.
 	/// modifier to the stun time of the mob taking the drug
 	var/tenacity = 1.5
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
@@ -440,6 +452,8 @@
 	addiction_decay_rate = 0.2
 	taste_description = "WAAAAGH"
 	var/bonus_damage = 2
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/L)
 	if(ishuman(L))
@@ -541,6 +555,8 @@
 	addiction_chance = 5
 	addiction_threshold = 5
 	taste_description = "the inside of a toilet... or worse"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -563,6 +579,8 @@
 	addiction_decay_rate = 0.2
 	/// how much do we edit the stun and stamina mods? lower is more resistance
 	var/tenacity = 0.5
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/aranesp/on_mob_add(mob/living/L)
 	if(ishuman(L))
@@ -610,6 +628,8 @@
 	addiction_chance_additional = 20
 	addiction_threshold = 20
 	minor_addiction = TRUE
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/happiness/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -718,6 +738,8 @@
 	addiction_chance_additional = 20
 	addiction_threshold = 10
 	taste_description = "flips"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -784,6 +806,8 @@
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	taste_description = "spinning"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
@@ -834,6 +858,8 @@
 	var/constant_dose_time = 0
 	/// Keeps track of how many chemicals we are delaying the changeling by.
 	var/changeling_chemical_tracker = 0
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 
 /datum/reagent/mephedrone/on_mob_add(mob/living/carbon/L)
@@ -1121,6 +1147,8 @@
 	addiction_decay_rate = 0.1 //very low to force them to take time off of meth
 	taste_description = "wiper fluid"
 	var/tenacity = 1.5 // higher is worse
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/lube/ultra/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
@@ -1184,6 +1212,8 @@
 	addiction_threshold = 5
 	addiction_decay_rate = 0.2
 	taste_description = "silicon"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
