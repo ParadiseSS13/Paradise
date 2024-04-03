@@ -187,7 +187,7 @@
 	if(length(bombs))
 		. += "<span class='notice'>List of synched bombs:</span>"
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
+			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"].</span>"
 
 /obj/item/detonator/update_icon()
 	. = ..()
