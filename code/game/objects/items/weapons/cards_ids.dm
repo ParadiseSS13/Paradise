@@ -330,90 +330,9 @@
 	origin_tech = "syndicate=1"
 	var/registered_user = null
 	untrackable = TRUE
-
-/obj/item/card/id/syndicate/researcher
-	initial_access = list(ACCESS_SYNDICATE)
-	assignment = "Syndicate Researcher"
-	icon_state = "syndie"
-
-/obj/item/card/id/syndicate/New()
-	access = initial_access.Copy()
-	..()
-
-/obj/item/card/id/syndicate/vox
-	name = "agent card"
-	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
-
-/obj/item/card/id/syndicate/ghost_bar
-	name = "ghost bar identification card"
-	assignment = "Ghost Bar Occupant"
-	initial_access = list() // This is for show, they don't need actual accesses
-	icon_state = "assistant"
-
-/obj/item/card/id/syndicate/command
-	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
-	icon_state = "commander"
-
-/obj/item/card/id/syndicate/afterattack(obj/item/O as obj, mob/user as mob, proximity)
-	if(!proximity)
-		return
-	if(istype(O, /obj/item/card/id))
-		var/obj/item/card/id/I = O
-		if(isliving(user) && user.mind)
-			if(user.mind.special_role)
-				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
-				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
-
-/obj/item/card/id/syndicate/attack_self(mob/user as mob)
-	if(!src.registered_name)
-		var/t = reject_bad_name(tgui_input_text(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name), TRUE)
-		if(!t)
-			to_chat(user, "<span class='warning'>Invalid name.</span>")
-			return
-		src.registered_name = t
-
-		var/u = tgui_input_text(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN)
-		if(!u)
-			to_chat(user, "<span class='warning'>Invalid assignment.</span>")
-			src.registered_name = ""
-			return
-		src.assignment = u
-		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
-		registered_user = user.mind.current
-	else if(!registered_user || registered_user == user.mind.current)
-		if(!registered_user)
-			registered_user = user.mind.current
-
-		switch(tgui_alert(user, "Would you like to display [src] or edit it?", "Choose", list("Show", "Edit")))
-			if("Show")
-				return ..()
-			if("Edit")
-				switch(tgui_input_list(user, "What would you like to edit on [src]?", "Agent ID", list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information")))
-					if("Name")
-						var/new_name = reject_bad_name(tgui_input_text(user, "What name would you like to put on this card?", "Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
-						if(!Adjacent(user) || !new_name)
-							return
-						src.registered_name = new_name
-						UpdateName()
-						to_chat(user, "<span class='notice'>Name changed to [new_name].</span>")
-						RebuildHTML()
-
-					if("Photo")
-						if(!Adjacent(user))
-							return
-						var/job_clothes = null
-						if(assignment)
-							job_clothes = assignment
-						var/icon/newphoto = get_id_photo(user, job_clothes)
-						if(!newphoto)
-							return
-						photo = newphoto
-						to_chat(user, "<span class='notice'>Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes.</span>")
-						RebuildHTML()
-
-					if("Appearance")
-						var/static/list/appearances = list(
+	var/static/list/card_images
+	var/mob/living/carbon/human/registered_human
+	var/list/appearances = list(
 							"data",
 							"id",
 							"gold",
@@ -464,149 +383,303 @@
 							"ERT_janitorial",
 							"ERT_paranormal",
 						)
-						var/choice = tgui_input_list(user, "Select the appearance for this card.", "Agent Card Appearance", appearances)
-						if(!Adjacent(user) || !choice)
-							return
-						icon_state = choice
-						switch(choice)
-							if("silver")
-								desc = "A silver card which shows honour and dedication."
-							if("gold")
-								desc = "A golden card which shows power and might."
-							if("clown")
-								desc = "Even looking at the card strikes you with deep fear."
-							if("mime")
-								desc = "..."
-							if("prisoner")
-								desc = "You are a number, you are not a free man."
-							if("centcom")
-								desc = "An ID straight from Central Command."
-							else
-								desc = "A card used to provide ID and determine access across the station."
-						to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
 
-					if("Sex")
-						var/new_sex = tgui_input_text(user,"What sex would you like to put on this card?", "Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male")
-						if(!Adjacent(user) || !new_sex)
-							return
-						sex = new_sex
-						to_chat(user, "<span class='notice'>Sex changed to [new_sex].</span>")
-						RebuildHTML()
+/obj/item/card/id/syndicate/researcher
+	initial_access = list(ACCESS_SYNDICATE)
+	assignment = "Syndicate Researcher"
+	icon_state = "syndie"
 
-					if("Age")
-						var/default = "21"
-						if(ishuman(user))
-							var/mob/living/carbon/human/H = user
-							default = H.age
-						var/new_age = tgui_input_number(user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
-						if(!Adjacent(user) || !new_age)
-							return
-						age = new_age
-						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
-						RebuildHTML()
+/obj/item/card/id/syndicate/New()
+	access = initial_access.Copy()
+	..()
 
-					if("Occupation")
-						var/static/list/departments = list(
-							"Assistant" = null,
-							"Engineering" = GLOB.engineering_positions,
-							"Medical" = GLOB.medical_positions,
-							"Science" = GLOB.science_positions,
-							"Security" = GLOB.security_positions,
-							"Service" = GLOB.service_positions,
-							"Supply" = GLOB.supply_positions,
-							"Command" = GLOB.command_positions,
-							"Custom" = null,
-						)
+/obj/item/card/id/syndicate/vox
+	name = "agent card"
+	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
 
-						var/department = tgui_input_list(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
-						var/new_job = "Assistant"
+/obj/item/card/id/syndicate/ghost_bar
+	name = "ghost bar identification card"
+	assignment = "Ghost Bar Occupant"
+	initial_access = list() // This is for show, they don't need actual accesses
+	icon_state = "assistant"
 
-						if(department == "Custom")
-							new_job = tgui_input_text(user, "Choose a custom job title:", "Agent Card Occupation", "Assistant")
-						else if(department != "Assistant" && !isnull(departments[department]))
-							new_job = tgui_input_list(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments[department])
+/obj/item/card/id/syndicate/command
+	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
+	icon_state = "commander"
 
-						if(!Adjacent(user) || !new_job)
-							return
-						assignment = new_job
-						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
-						UpdateName()
-						RebuildHTML()
+/obj/item/card/id/syndicate/afterattack(obj/item/O as obj, mob/user as mob, proximity)
+	if(!proximity)
+		return
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/I = O
+		if(isliving(user) && user.mind)
+			if(user.mind.special_role)
+				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
+				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
-					if("Money Account")
-						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345, max_value = 9999999)
-						if(!Adjacent(user) || !new_account)
-							return
-						associated_account_number = new_account
-						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
+/obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+	if(!registered_human)
+		return
+	. = TRUE
+	switch(action)
+		if("delete_info")
+			delete_info()
+		if("clear_access")
+			clear_access()
+		if("change_ai_tracking")
+			change_ai_tracking()
+		if("change_name")
+			change_name()
+		if("change_photo")
+			change_photo()
+		if("change_appearance")
+			change_appearance(params)
+		if("change_sex")
+			change_sex()
+		if("change_age")
+			change_age()
+		if("change_occupation")
+			change_occupation()
+		if("change_money_account")
+			change_money_account()
+		if("change_blood_type")
+			change_blood_type()
+		if("change_dna_hash")
+			change_dna_hash()
+		if("change_fingerprints")
+			change_fingerprints()
+	RebuildHTML()
 
-					if("Blood Type")
-						var/default = "\[UNSET\]"
-						if(ishuman(user))
-							var/mob/living/carbon/human/H = user
-							if(H.dna)
-								default = H.dna.blood_type
+/obj/item/card/id/syndicate/ui_data(mob/user)
+	var/list/data = list()
+	data["registered_name"] = registered_name
+	data["sex"] = sex
+	data["age"] = age
+	data["assignment"] = assignment
+	data["associated_account_number"] = associated_account_number
+	data["blood_type"] = blood_type
+	data["dna_hash"] = dna_hash
+	data["fingerprint_hash"] = fingerprint_hash
+	data["photo"] = photo
+	data["ai_tracking"] = untrackable
+	return data
 
-						var/new_blood_type = tgui_input_text(user, "What blood type would you like to be written on this card?", "Agent Card Blood Type", default)
-						if(!Adjacent(user) || !new_blood_type)
-							return
-						blood_type = new_blood_type
-						to_chat(user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
-						RebuildHTML()
+/obj/item/card/id/syndicate/ui_static_data(mob/user)
+	var/list/data = list()
+	if(!length(card_images))
+		var/list/new_images = list()
+		for(var/appearance_name in appearances)
+			new_images.Add(list(list(
+				"name" = appearance_name,
+				"image" = "[icon2base64(icon(initial(icon), appearance_name, SOUTH, 1))]"
+			)))
+		card_images = new_images
+	data["appearances"] = card_images
+	return data
 
-					if("DNA Hash")
-						var/default = "\[UNSET\]"
-						if(ishuman(user))
-							var/mob/living/carbon/human/H = user
-							if(H.dna)
-								default = H.dna.unique_enzymes
+/obj/item/card/id/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "AgentCard", name, 425, 500, master_ui, state)
+		ui.open()
 
-						var/new_dna_hash = tgui_input_text(user, "What DNA hash would you like to be written on this card?", "Agent Card DNA Hash", default)
-						if(!Adjacent(user) || !new_dna_hash)
-							return
-						dna_hash = new_dna_hash
-						to_chat(user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
-						RebuildHTML()
+/obj/item/card/id/syndicate/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	if(!registered_human)
+		registered_human = user
+	if(registered_human != user)
+		return flash_card(user)
+	switch(alert("Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
+		if("Show")
+			return flash_card(user)
+		if("Edit")
+			ui_interact(user)
+			return
 
-					if("Fingerprint Hash")
-						var/default = "\[UNSET\]"
-						if(ishuman(user))
-							var/mob/living/carbon/human/H = user
-							if(H.dna)
-								default = md5(H.dna.uni_identity)
+/obj/item/card/id/proc/flash_card(mob/user)
+	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
+		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	if(mining_points)
+		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
+	src.add_fingerprint(user)
 
-						var/new_fingerprint_hash = tgui_input_text(user, "What fingerprint hash would you like to be written on this card?", "Agent Card Fingerprint Hash", default)
-						if(!Adjacent(user) || !new_fingerprint_hash)
-							return
-						fingerprint_hash = new_fingerprint_hash
-						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
-						RebuildHTML()
+/obj/item/card/id/syndicate/proc/delete_info()
+	var/response = alert(registered_human, "Are you sure you want to delete all card info?","Delete Card Info", "No", "Yes")
+	if(response == "Yes")
+		name = initial(name)
+		registered_name = initial(registered_name)
+		icon_state = initial(icon_state)
+		sex = initial(sex)
+		age = initial(age)
+		assignment = initial(assignment)
+		associated_account_number = initial(associated_account_number)
+		blood_type = initial(blood_type)
+		dna_hash = initial(dna_hash)
+		fingerprint_hash = initial(fingerprint_hash)
+		photo = null
+		registered_human = null
 
-					if("Reset Access")
-						var/response = tgui_alert(user, "Are you sure you want to reset access saved on the card?", "Reset Access", list("No", "Yes"))
-						if(response == "Yes")
-							access = initial_access.Copy() // Initial() doesn't work on lists
-							to_chat(user, "<span class='notice'>Card access reset.</span>")
+/obj/item/card/id/syndicate/proc/clear_access()
+	var/response = alert(registered_human, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
+	if(response == "Yes")
+		access = initial_access.Copy() // Initial() doesn't work on lists
+		to_chat(registered_human, "<span class='notice'>Card access reset.</span>")
 
-					if("Delete Card Information")
-						var/response = tgui_alert(user, "Are you sure you want to delete all information saved on the card?", "Delete Card Information", list("No", "Yes"))
-						if(response == "Yes")
-							name = initial(name)
-							registered_name = initial(registered_name)
-							icon_state = initial(icon_state)
-							sex = initial(sex)
-							age = initial(age)
-							assignment = initial(assignment)
-							associated_account_number = initial(associated_account_number)
-							blood_type = initial(blood_type)
-							dna_hash = initial(dna_hash)
-							fingerprint_hash = initial(fingerprint_hash)
-							photo = null
-							registered_user = null
-							to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
-							RebuildHTML()
-	else
-		..()
+/obj/item/card/id/syndicate/proc/change_ai_tracking()
+	untrackable = !untrackable
+	to_chat(registered_human, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
+
+/obj/item/card/id/syndicate/proc/change_name()
+	var/new_name = reject_bad_name(input(registered_human,"What name would you like to put on this card?","Agent Card Name", ishuman(registered_human) ? registered_human.real_name : registered_human.name), TRUE)
+	if(!Adjacent(registered_human))
+		return
+	registered_name = new_name
+	UpdateName()
+	to_chat(registered_human, "<span class='notice'>Name changed to [new_name].</span>")
+
+/obj/item/card/id/syndicate/proc/change_photo()
+	if(!Adjacent(registered_human))
+		return
+	var/job_clothes = null
+	if(assignment)
+		job_clothes = assignment
+	var/icon/newphoto = get_id_photo(registered_human, job_clothes)
+	if(!newphoto)
+		return
+	photo = newphoto
+	to_chat(registered_human, "<span class='notice'>Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes.</span>")
+
+/obj/item/card/id/syndicate/proc/change_appearance(list/params)
+	var/choice = params["new_appearance"]
+	icon_state = choice
+	to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+
+/obj/item/card/id/syndicate/proc/change_sex()
+	var/new_sex = sanitize(stripped_input(registered_human,"What sex would you like to put on this card?","Agent Card Sex", ishuman(registered_human) ? capitalize(registered_human.gender) : "Male", MAX_MESSAGE_LEN))
+	if(!Adjacent(registered_human))
+		return
+	sex = new_sex
+	to_chat(registered_human, "<span class='notice'>Sex changed to [new_sex].</span>")
+
+/obj/item/card/id/syndicate/proc/change_age()
+	var/default = "21"
+	if(ishuman(registered_human))
+		var/mob/living/carbon/human/H = registered_human
+		default = H.age
+	var/new_age = sanitize(input(registered_human,"What age would you like to be written on this card?","Agent Card Age", default) as text)
+	if(!Adjacent(registered_human))
+		return
+	age = new_age
+	to_chat(registered_human, "<span class='notice'>Age changed to [new_age].</span>")
+
+/obj/item/card/id/syndicate/proc/change_occupation()
+	var/list/departments =list(
+				"Civilian",
+				"Engineering",
+				"Medical",
+				"Science",
+				"Security",
+				"Service",
+				"Command",
+				"Special",
+				"Custom",
+			)
+
+	var/department = input(registered_human, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+	var/new_job = "Civilian"
+	var/new_rank = "Civilian"
+
+	if(department == "Custom")
+		new_job = sanitize(stripped_input(registered_human,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+		var/department_icon = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+		switch(department_icon)
+			if("Engineering")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+			if("Medical")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+			if("Science")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+			if("Security")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+			if("Service")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.service_positions
+			if("Command")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+			if("Special")
+				new_rank = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs())
+			if("Custom")
+				new_rank = null
+	else if(department != "Civilian")
+		switch(department)
+			if("Engineering")
+				new_job = input(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+			if("Medical")
+				new_job = input(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+			if("Science")
+				new_job = input(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+			if("Security")
+				new_job = input(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+			if("Service")
+				new_job = input(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.service_positions
+			if("Command")
+				new_job = input(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+			if("Special")
+				new_job = input(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs())
+		new_rank = new_job
+
+	if(!Adjacent(registered_human))
+		return
+	assignment = new_job
+	rank = new_rank
+	to_chat(registered_human, "<span class='notice'>Occupation changed to [new_job].</span>")
+	UpdateName()
+	registered_human.sec_hud_set_ID()
+
+/obj/item/card/id/syndicate/proc/change_money_account()
+	var/new_account = input(registered_human,"What money account would you like to link to this card?","Agent Card Account",12345) as num
+	if(!Adjacent(registered_human))
+		return
+	associated_account_number = new_account
+	to_chat(registered_human, "<span class='notice'>Linked money account changed to [new_account].</span>")
+
+/obj/item/card/id/syndicate/proc/change_blood_type()
+	var/default = "\[UNSET\]"
+	if(ishuman(registered_human))
+		var/mob/living/carbon/human/H = registered_human
+		if(H.dna)
+			default = H.dna.blood_type
+	var/new_blood_type = sanitize(input(registered_human,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
+	if(!Adjacent(registered_human))
+		return
+	blood_type = new_blood_type
+	to_chat(registered_human, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
+
+/obj/item/card/id/syndicate/proc/change_dna_hash()
+	var/default = "\[UNSET\]"
+	if(ishuman(registered_human))
+		var/mob/living/carbon/human/H = registered_human
+		if(H.dna)
+			default = H.dna.unique_enzymes
+	var/new_dna_hash = sanitize(input(registered_human,"What DNA hash would you like to be written on this card?","Agent Card DNA Hash",default) as text)
+	if(!Adjacent(registered_human))
+		return
+	dna_hash = new_dna_hash
+	to_chat(registered_human, "<span class='notice'>>DNA hash changed to [new_dna_hash].</span>")
+
+/obj/item/card/id/syndicate/proc/change_fingerprints()
+	var/default = "\[UNSET\]"
+	if(ishuman(registered_human))
+		var/mob/living/carbon/human/H = registered_human
+		if(H.dna)
+			default = md5(H.dna.uni_identity)
+	var/new_fingerprint_hash = sanitize(input(registered_human,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash",default) as text)
+	if(!Adjacent(registered_human))
+		return
+	fingerprint_hash = new_fingerprint_hash
+	to_chat(registered_human, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 
 /obj/item/card/id/syndicate/Destroy()
 	registered_user = null
