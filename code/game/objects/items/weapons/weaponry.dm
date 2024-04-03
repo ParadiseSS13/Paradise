@@ -28,10 +28,10 @@
 /obj/item/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "sord"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "sord"
-	item_state = "sord"
 	slot_flags = SLOT_FLAG_BELT
 	force = 2
 	throwforce = 1

@@ -53,7 +53,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
+	AddSpell(new /datum/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -365,6 +365,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
+	GLOB.antag_hud_users |= user.ckey
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
 
@@ -852,6 +853,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
  */
 /mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers = TRUE)
+	if(check_rights(R_ADMIN | R_MOD, FALSE, src))
+		return TRUE
+
 	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
 		return TRUE
 
