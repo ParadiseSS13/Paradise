@@ -310,8 +310,8 @@
 /datum/uplink_item/jobspecific/tarot_generator
 	name = "Enchanted tarot card deck"
 	desc = "A magic tarot card deck \"borrowed\" from a Wizard federation storage unit. \
-	Capable of producing magic tarot cards of the 22 major arcana, and reversed. Each card has a different effect. \
-	Throw the card at someone to use it on them, or use it on hand to apply it to yourself. Unlimited uses, 25 second cooldown, can have up to 3 cards in the world."
+	Capable of producing magic tarot cards of the 22 major arcana, and their reversed versions. Each card has a different effect. \
+	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 25 second cooldown, can have up to 3 cards in the world."
 	reference = "tarot"
 	item = /obj/item/tarot_generator
 	cost = 55 //This can do a lot of stuff, but is quite random. As such, higher price.

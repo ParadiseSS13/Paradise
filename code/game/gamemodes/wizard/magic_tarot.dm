@@ -156,7 +156,7 @@
 		creator_deck = source
 	if(chosen_tarot)
 		our_tarot = new chosen_tarot
-	if(!our_tarot)
+	if(!istype(our_tarot))
 		var/tarotpath = pick(subtypesof(/datum/tarot) - /datum/tarot/reversed)
 		our_tarot = new tarotpath
 	name = our_tarot.name
@@ -468,7 +468,8 @@
 	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
 	bakoom.prime()
 
-/datum/tarot/the_stars //I'm sorry matt, this is very funny.
+/// I'm sorry matt, this is very funny.
+/datum/tarot/the_stars 
 	name = "XVII - The Stars"
 	desc = "May you find what you desire."
 	card_icon = "the_stars"
@@ -733,7 +734,7 @@
 	card_icon = "wheel_of_fortune?"
 
 /datum/tarot/reversed/wheel_of_fortune/activate(mob/living/target)
-	var/obj/item/dice/d20/fate/one_use/gonna_roll_a_one = new/obj/item/dice/d20/fate/one_use(get_turf(target))
+	var/obj/item/dice/d20/fate/one_use/gonna_roll_a_one = new /obj/item/dice/d20/fate/one_use(get_turf(target))
 	gonna_roll_a_one.diceroll(target)
 
 /datum/tarot/reversed/strength
@@ -828,6 +829,7 @@
 			if(3)
 				E.cause_burn_wound()
 		break // I forgot the break the first time. Very funny.
+		
 	H.drop_l_hand()
 	H.drop_r_hand()
 	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))

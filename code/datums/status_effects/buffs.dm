@@ -84,7 +84,7 @@
 /datum/status_effect/shadow_mend/on_remove()
 	if(!devil)
 		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
-		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 		return
 
@@ -865,7 +865,7 @@
 			var/mob/living/L = AM
 			if(L.affects_vampire(owner))
 				L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
-			return
+			continue
 		if(istype(AM, /obj/item/projectile))
 			var/obj/item/projectile/P = AM
 			if(P.flag == ENERGY || P.flag == LASER)

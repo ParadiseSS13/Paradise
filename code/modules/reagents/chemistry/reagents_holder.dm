@@ -969,7 +969,8 @@
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent
 
-/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID, with real non blacklisted balance boosting action!
+/// Returns a random reagent ID, with real non blacklisted balance boosting action!
+/proc/get_unrestricted_random_reagent_id()
 	var/static/list/random_reagents
 	if(!length(random_reagents))
 		random_reagents = list()

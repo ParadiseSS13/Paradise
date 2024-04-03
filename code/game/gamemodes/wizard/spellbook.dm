@@ -483,7 +483,7 @@
 	name = "Enchanted tarot card deck"
 	desc = "An magic tarot card deck, enchanted with special Ink. \
 	Capable of producing magic tarot cards of the 22 major arcana, both normal and reversed. Each card has a different effect. \
-	Throw the card at someone to use it on them, or use it on hand to apply it to yourself. Unlimited uses, 12 second cooldown, can have up to 5 cards in the world."
+	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 12 second cooldown, can have up to 5 cards in the world."
 	item_path = /obj/item/tarot_generator/wizard
 	cost = 2
 	category = "Artefacts"
