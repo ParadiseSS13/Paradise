@@ -135,10 +135,3 @@
 	CONFIG_LOAD_STR(server_name, data["server_name"])
 	CONFIG_LOAD_STR(server_tag_line, data["server_tag_line"])
 	CONFIG_LOAD_STR(server_features, data["server_features"])
-
-/datum/configuration_section/general_configuration/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("restart_timeout")
-			return FALSE
-	return ..()
-	
