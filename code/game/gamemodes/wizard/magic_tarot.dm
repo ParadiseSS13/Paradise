@@ -469,7 +469,7 @@
 	bakoom.prime()
 
 /// I'm sorry matt, this is very funny.
-/datum/tarot/the_stars 
+/datum/tarot/the_stars
 	name = "XVII - The Stars"
 	desc = "May you find what you desire."
 	card_icon = "the_stars"
@@ -521,15 +521,16 @@
 		if(!is_mining_level(ruin_landmark.z))
 			funny_ruin_list += ruin_landmark
 
-	if(length(funny_ruin_list))
-		var/turf/T = get_turf(pick(funny_ruin_list))
-		target.forceMove(T)
-		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-		T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-		new /obj/item/pickaxe/emergency(T)
-		target.update_parallax_contents()
-		return
-	to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
+	if(!length(funny_ruin_list))
+		to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
+
+	var/turf/T = get_turf(pick(funny_ruin_list))
+	target.forceMove(T)
+	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
+	new /obj/item/pickaxe/emergency(T)
+	target.update_parallax_contents()
+	return
 
 /datum/tarot/the_sun
 	name = "XIX - The Sun"
@@ -696,7 +697,7 @@
 	card_icon = "justice?"
 
 /datum/tarot/reversed/justice/activate(mob/living/target)
-	var/list/ignored_supply_pack_types = list(
+	var/list/static/ignored_supply_pack_types = list(
 		/datum/supply_packs/abstract,
 		/datum/supply_packs/abstract/shuttle
 	)
@@ -777,8 +778,7 @@
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/human/H = target
-	var/i = 1
-	while(i <= 5)
+	for(var/i in 1 to 5)
 		var/datum/reagents/R = new /datum/reagents(10)
 		R.add_reagent(get_unrestricted_random_reagent_id(), 10)
 		R.reaction(H, REAGENT_INGEST)
@@ -829,7 +829,7 @@
 			if(3)
 				E.cause_burn_wound()
 		break // I forgot the break the first time. Very funny.
-		
+
 	H.drop_l_hand()
 	H.drop_r_hand()
 	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))

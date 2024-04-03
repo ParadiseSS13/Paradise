@@ -96,7 +96,7 @@
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 	if(found_someone)
-		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around him!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
 	else
 		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
@@ -129,11 +129,13 @@
 	tick_interval = 0
 	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
-	var/chariot = FALSE //If this is the chariot subtype with pacifism
+	//If this is the chariot subtype, which grants pacifism while the effect is active.
+	var/chariot = FALSE
 
 /datum/status_effect/blooddrunk/chariot
 	duration = 10 SECONDS
 	chariot = TRUE
+	blooddrunk_damage_mod_remove = 6
 
 /atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
