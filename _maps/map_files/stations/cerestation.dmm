@@ -54277,7 +54277,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "ksD" = (
-/obj/structure/safe,
+/obj/structure/safe{
+	known_by = list("captain")
+	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/item/dice/d20{
