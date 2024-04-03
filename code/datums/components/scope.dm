@@ -28,7 +28,7 @@
 
 
 /datum/component/scope/Destroy(force)
-	if(tracker)
+	if(is_zoomed_in())
 		stop_zooming(tracker.owner)
 	return ..()
 
@@ -69,43 +69,43 @@
 	animate(user_client, world.tick_lag, pixel_x = tracker.given_x, pixel_y = tracker.given_y)
 
 /datum/component/scope/proc/on_move(atom/movable/source, atom/oldloc, dir, forced)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 
-	if(!tracker)
+	if(!is_zoomed_in())
 		return
 	stop_zooming(tracker.owner)
 
 /datum/component/scope/proc/on_action_trigger(datum/action/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ACTION_TRIGGER
 	var/obj/item/item = source.target
 	var/mob/living/user = item.loc
 	if(is_internal_organ(item))
 		var/obj/item/organ/internal/O = item
 		user = O.owner
-	if(tracker)
+	if(is_zoomed_in())
 		stop_zooming(user)
 	else
 		INVOKE_ASYNC(src, PROC_REF(zoom), user)
 
 /datum/component/scope/proc/on_wielded(obj/item/source, trait)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // SIGNAL_ADDTRAIT(TRAIT_WIELDED)
 	var/mob/living/user = source.loc
 	INVOKE_ASYNC(src, PROC_REF(zoom), user)
 
 /datum/component/scope/proc/on_unwielded(obj/item/source, trait)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // SIGNAL_REMOVETRAIT(TRAIT_WIELDED)
 	var/mob/living/user = source.loc
 	stop_zooming(user)
 
 /datum/component/scope/proc/on_gun_fire(obj/item/gun/source, mob/living/user, atom/target, flag, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_GUN_TRY_FIRE
 	if(!tracker?.given_turf || target == get_target(tracker.given_turf))
 		return NONE
 	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack), get_target(tracker.given_turf), user)
 	return COMPONENT_CANCEL_GUN_FIRE
 
 /datum/component/scope/proc/on_examine(datum/source, mob/user, list/examine_list)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
 
 	var/scope = istype(parent, /obj/item/gun) ? "scope in" : "zoom out"
 	switch(zoom_method)
@@ -119,7 +119,6 @@
  * * target_turf: The turf we are looking for targets on.
 */
 /datum/component/scope/proc/get_target(turf/target_turf)
-	var/list/object_targets = list()
 	var/list/non_dense_targets = list()
 	for(var/atom/movable/possible_target in target_turf)
 		if(possible_target.layer <= PROJECTILE_HIT_THRESHHOLD_LAYER)
@@ -186,13 +185,13 @@
 	return TRUE
 
 /datum/component/scope/proc/on_incapacitated(mob/living/source, amount = 0, ignore_canstun = FALSE)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_LIVING_STATUS_PARALYSE, COMSIG_LIVING_STATUS_STUN
 
 	if(amount > 0)
 		stop_zooming(source)
 
 /datum/component/scope/proc/generic_click(/obj/source, location, control, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CLICK
 	INVOKE_ASYNC(tracker.owner, TYPE_PROC_REF(/mob, ClickOn), get_target(tracker.given_turf), params)
 
 /**
@@ -202,7 +201,7 @@
  * * user: The mob we are canceling zooming on.
 */
 /datum/component/scope/proc/stop_zooming(mob/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CARBON_SWAP_HANDS, COMSIG_PARENT_QDELETING
 
 	if(!HAS_TRAIT(user, TRAIT_SCOPED))
 		return
@@ -229,11 +228,14 @@
 
 	if(user.client)
 		animate(user.client, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
-	tracker = null
+	QDEL_NULL(tracker)
 	tracker_owner_ckey = null
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_end(user)
+
+/datum/component/scope/proc/is_zoomed_in()
+	return !!tracker
 
 /atom/movable/screen/fullscreen/cursor_catcher/scope
 	icon = 'icons/mob/screen_scope.dmi'
