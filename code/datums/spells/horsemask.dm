@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/horsemask
+/datum/spell/horsemask
 	name = "Curse of the Horseman"
 	desc = "This spell triggers a curse on a target, causing them to wield an unremovable horse head mask. They will speak like a horse! Any masks they are wearing will be disintegrated. This spell does not require robes."
 	school = "transmutation"
@@ -15,13 +15,13 @@
 	action_icon_state = "barn"
 	sound = 'sound/magic/HorseHead_curse.ogg'
 
-/obj/effect/proc_holder/spell/horsemask/create_new_targeting()
+/datum/spell/horsemask/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	return T
 
 
-/obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
+/datum/spell/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
