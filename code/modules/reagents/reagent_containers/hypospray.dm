@@ -67,6 +67,11 @@
 
 	return ..()
 
+/obj/item/reagent_containers/hypospray/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can use a pen to add a label to [src].</span>"
+
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
