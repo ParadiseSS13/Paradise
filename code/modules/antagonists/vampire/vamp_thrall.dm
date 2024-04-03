@@ -14,9 +14,9 @@ RESTRICT_TYPE(/datum/antagonist/mindslave/thrall)
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
 	mob_override = ..()
 	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
+	M.AddSpell(new /datum/spell/vampire/thrall_commune)
 
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
 	mob_override = ..()
 	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+	M.RemoveSpell(/datum/spell/vampire/thrall_commune)

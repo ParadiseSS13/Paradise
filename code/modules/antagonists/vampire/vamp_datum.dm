@@ -19,10 +19,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	/// Nullrods and holywater make their abilities cost more
 	var/nullified = 0
 	/// a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum
-	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-									/obj/effect/proc_holder/spell/vampire/glare = 0,
+	var/list/upgrade_tiers = list(/datum/spell/vampire/self/rejuvenate = 0,
+									/datum/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
-									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
+									/datum/spell/vampire/self/specialize = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
@@ -54,7 +54,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
 	powers += spell
-	if(istype(spell, /obj/effect/proc_holder/spell))
+	if(istype(spell, /datum/spell))
 		owner.AddSpell(spell)
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
@@ -158,12 +158,12 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
  * Remove and delete the vampire's current subclass and all associated abilities.
  *
  * Arguments:
- * * give_specialize_power - if the [specialize][/obj/effect/proc_holder/spell/vampire/self/specialize] power should be given back or not
+ * * give_specialize_power - if the [specialize][/datum/spell/vampire/self/specialize] power should be given back or not
  */
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
+		upgrade_tiers[/datum/spell/vampire/self/specialize] = 150
 	remove_all_powers()
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
@@ -201,8 +201,8 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 /datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
 		if(!(p in old_powers))
-			if(istype(p, /obj/effect/proc_holder/spell))
-				var/obj/effect/proc_holder/spell/power = p
+			if(istype(p, /datum/spell))
+				var/datum/spell/power = p
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
@@ -289,9 +289,9 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	bloodtotal += blood_amount
 	bloodusable += blood_amount
 	check_vampire_upgrade(TRUE)
-	for(var/obj/effect/proc_holder/spell/S in powers)
+	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)

@@ -6,13 +6,13 @@
 	/// does it start off cooldown?
 	var/starts_off_cooldown = TRUE
 	/// holds a ref to the spell
-	var/obj/effect/proc_holder/spell/spell_parent
+	var/datum/spell/spell_parent
 
 /datum/spell_cooldown/Destroy()
 	spell_parent = null
 	return ..()
 
-/datum/spell_cooldown/proc/cooldown_init(obj/effect/proc_holder/spell/new_spell)
+/datum/spell_cooldown/proc/cooldown_init(datum/spell/new_spell)
 	spell_parent = new_spell
 	if(!starts_off_cooldown)
 		start_recharge()
@@ -33,7 +33,7 @@
 	if(!spell_parent.action)
 		stack_trace("[spell_parent.type] ended up with a null action")
 		return PROCESS_KILL
-	spell_parent.action.UpdateButtonIcon()
+	spell_parent.action.UpdateButtons()
 	if(should_end_cooldown())
 		return PROCESS_KILL
 
@@ -58,7 +58,7 @@
 	else
 		recharge_time = get_recharge_time()
 	if(spell_parent.action)
-		spell_parent.action.UpdateButtonIcon()
+		spell_parent.action.UpdateButtons()
 		START_PROCESSING(SSfastprocess, src)
 
 /datum/spell_cooldown/proc/revert_cast()

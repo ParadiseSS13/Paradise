@@ -1124,32 +1124,20 @@ Returns 1 if the chain up to the area contains the given typepath
 		loc = loc.loc
 	return null
 
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed()
+//For objects that should embed, but make no sense being sharp or is_pointed()
 //e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
 	/obj/item/pipe)))
 
 /proc/can_embed(obj/item/W)
-	if(is_sharp(W))
-		return 1
+	if(W.sharp)
+		return TRUE
 	if(is_pointed(W))
-		return 1
+		return TRUE
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
-//Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	if(!O)
-		return 0
-	if(O.sharp)
-		return 1
-	return 0
+		return TRUE
 
 /proc/reverse_direction(dir)
 	switch(dir)
@@ -1608,17 +1596,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(!value) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-		if(isnull(value))
-			return
-	value = trim(value)
-	if(!isnull(value) && value != "")
-		matches = filter_fancy_list(matches, value)
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
+	if(!skip_filter)
+		if(!value) //nothing should be calling us with a number, so this is safe
+			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+			if(isnull(value))
+				return
+		value = trim(value)
+		if(!isnull(value) && value != "")
+			matches = filter_fancy_list(matches, value)
 
-	if(!length(matches))
-		return
+		if(!length(matches))
+			return
 
 	var/chosen
 	if(length(matches) == 1)
@@ -1714,6 +1703,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
+			/datum/station_goal/secondary = "S_GOAL",
+			/datum/station_goal = "GOAL",
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",
