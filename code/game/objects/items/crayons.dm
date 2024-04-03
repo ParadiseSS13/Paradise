@@ -136,7 +136,8 @@
 		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
-	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
+	if(istype(src,/obj/item/toy/crayon/spraycan))	// Eating the spraycan is TOO silly!
+		return
 	if(M == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -147,7 +148,7 @@
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		user.adjust_nutrition(5)
 		if(times_eaten < max_bites)
-			to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
+			to_chat(user, "<span class='notice'>You take a bite of the [name]. Delicious!</span>")
 		else
 			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 			qdel(src)
@@ -329,6 +330,13 @@
 	if(!proximity)
 		return
 	if(capped)
+		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
+		return
+	if(istype(target, /obj/item/clothing/head/cardborg))	// Spraypainting your cardborg suit for more fashion options.
+		cardborg_recolour(target)
+		return
+	if(istype(target, /obj/item/clothing/suit/cardborg))
+		cardborg_recolour(target)
 		return
 	else
 		if(iscarbon(target))
@@ -358,5 +366,71 @@
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
+
+/obj/item/toy/crayon/spraycan/proc/cardborg_recolour(obj/target)
+	var/is_cardborg_head = FALSE
+	if(istype(target, /obj/item/clothing/head/cardborg))	// Differentiating between head and body.
+		is_cardborg_head = TRUE
+	var/selected_disguise
+	var/static/list/disguise_options = list(
+		"Standard" = image('icons/mob/robots.dmi', "Standard"),
+		"Security" = image('icons/mob/robots.dmi', "security-radial"),
+		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
+		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
+		"Service" = image('icons/mob/robots.dmi', "serv-radial"),
+		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
+		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
+		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
+		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
+		)
+	selected_disguise = show_radial_menu(usr, target, disguise_options, require_near = TRUE, radius = 42)
+
+	if(selected_disguise == null)
+		return
+
+	if(is_cardborg_head == TRUE)
+		switch(selected_disguise)
+			if("Standard")
+				selected_disguise = /obj/item/clothing/head/cardborg
+			if("Security")
+				selected_disguise = /obj/item/clothing/head/cardborg/security
+			if("Engineering")
+				selected_disguise = /obj/item/clothing/head/cardborg/engineering
+			if("Mining")
+				selected_disguise = /obj/item/clothing/head/cardborg/mining
+			if("Service")
+				selected_disguise = /obj/item/clothing/head/cardborg/service
+			if("Medical")
+				selected_disguise = /obj/item/clothing/head/cardborg/medical
+			if("Janitor")
+				selected_disguise = /obj/item/clothing/head/cardborg/janitor
+			if("Hunter")
+				selected_disguise = /obj/item/clothing/head/cardborg/xeno
+			if("Death Bot")
+				selected_disguise = /obj/item/clothing/head/cardborg/deathbot
+	else
+		switch(selected_disguise)
+			if("Standard")
+				selected_disguise = /obj/item/clothing/suit/cardborg
+			if("Security")
+				selected_disguise = /obj/item/clothing/suit/cardborg/security
+			if("Engineering")
+				selected_disguise = /obj/item/clothing/suit/cardborg/engineering
+			if("Mining")
+				selected_disguise = /obj/item/clothing/suit/cardborg/mining
+			if("Service")
+				selected_disguise = /obj/item/clothing/suit/cardborg/service
+			if("Medical")
+				selected_disguise = /obj/item/clothing/suit/cardborg/medical
+			if("Janitor")
+				selected_disguise = /obj/item/clothing/suit/cardborg/janitor
+			if("Hunter")
+				selected_disguise = /obj/item/clothing/suit/cardborg/xeno
+			if("Death Bot")
+				selected_disguise = /obj/item/clothing/suit/cardborg/deathbot
+
+	new selected_disguise(get_turf(target)) 	// Spawn the desired cardborg item.
+	QDEL_NULL(target)							// Get rid of the old one.
+	return
 
 #undef CRAYON_MESSAGE_MAX_LENGTH

@@ -1,4 +1,11 @@
 /*
+CONTENTS:
+1. Cardborg Helmets
+2. Cardborg Suits
+3. Disguise code
+*/
+
+/*
  / Cardborg Helmets.
 */
 /obj/item/clothing/head/cardborg
@@ -11,8 +18,8 @@
 	The wearer may also hallucinate themselves as being a robot as well."
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE		// Robots don't wear glasses and headsets.
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH		// Robots don't wear masks or smoke cigarettes.
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE		// Robots don't wear masks or ear accessories (yet!).
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH		// Both of these are REQUIRED for the species disguise to show on examine.
 	var/list/available_disguises = list("Standard") 	// All the sprites you can disguise as. A disguise will be randomly chosen from the list.
 	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
 	dog_fashion = /datum/dog_fashion/head/cardborg 		// How this looks on Ian, all the cardborg disguises look the same on Ian because I cannot be bothered to change that.
@@ -100,8 +107,8 @@
 	The wearer may also hallucinate themselves as being a robot as well."
 	icon_state = "cardborg"
 	item_state = "cardborg"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO		// Robots don't wear clothes!
-	flags_inv = HIDEJUMPSUIT							// Robots don't wear jumpsuits!
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO		// Robots don't wear clothes (yet)!
+	flags_inv = HIDEJUMPSUIT							// Robots don't wear jumpsuits (yet)!
 	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
 	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian, all the cardborg disguises look the same on Ian because I cannot be bothered to change that.
 
@@ -164,71 +171,6 @@
 	item_state = "cardborg_deathbot"
 	species_disguise = "High-tech killer robot"
 
-/*
- / Colouring code.
-*/
-/obj/item/clothing/proc/borg_type_selection()	// Try to avoid duplicating SOME code!
-	var/selected_disguise = null
-	var/static/list/disguise_options = list(
-		"Standard" = image('icons/mob/robots.dmi', "security-radial"),
-		"Security" = image('icons/mob/robots.dmi', "security-radial"),
-		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
-		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
-		"Service" = image('icons/mob/robots.dmi', "serv-radial"),
-		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
-		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
-		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
-		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
-		)
-	selected_disguise = show_radial_menu(src, src, disguise_options, radius = 42, custom_check = FALSE, require_near = TRUE)
-
-/obj/item/clothing/suit/cardborg/proc(user, /obj/item/toy/crayon/spraycan)	// Spraypainting the suit.
-	borg_type_selection()
-	switch(selected_disguise)
-		if("Standard")
-			selected_disguise = /obj/item/clothing/suit/cardborg
-		if("Security")
-			selected_disguise = /obj/item/clothing/suit/cardborg/security
-		if("Engineering")
-			selected_disguise = /obj/item/clothing/suit/cardborg/engineering
-		if("Mining")
-			selected_disguise = /obj/item/clothing/suit/cardborg/mining
-		if("Service")
-			selected_disguise = /obj/item/clothing/suit/cardborg/service
-		if("Medical")
-			selected_disguise = /obj/item/clothing/suit/cardborg/medical
-		if("Janitor")
-			selected_disguise = /obj/item/clothing/suit/cardborg/janitor
-		if("Hunter")
-			selected_disguise = /obj/item/clothing/suit/cardborg/xeno
-		if("Death Bot")
-		selected_disguise = /obj/item/clothing/suit/cardborg/deathbot
-	new selected_disguise(get_turf(src)) 	// Spawn the desired cardborg item.
-	QDEL_NULL(src)			// Get rid of the old one.
-
-/obj/item/clothing/head/cardborg/proc(user, /obj/item/toy/crayon/spraycan)	// Spraypainting the head.
-	borg_type_selection()
-	switch(selected_disguise.borg_type_selection)
-		if("Standard")
-			selected_disguise = /obj/item/clothing/head/cardborg
-		if("Security")
-			selected_disguise = /obj/item/clothing/head/cardborg/security
-		if("Engineering")
-			selected_disguise = /obj/item/clothing/head/cardborg/engineering
-		if("Mining")
-			selected_disguise = /obj/item/clothing/head/cardborg/mining
-		if("Service")
-			selected_disguise = /obj/item/clothing/head/cardborg/service
-		if("Medical")
-			selected_disguise = /obj/item/clothing/head/cardborg/medical
-		if("Janitor")
-			selected_disguise = /obj/item/clothing/head/cardborg/janitor
-		if("Hunter")
-			selected_disguise = /obj/item/clothing/head/cardborg/xeno
-		if("Death Bot")
-			selected_disguise = /obj/item/clothing/head/cardborg/deathbot
-	new selected_disguise(get_turf(src)) 	// Spawn the desired cardborg item.
-	QDEL_NULL(src)			// Get rid of the old one.
 /*
  / Disguise code.
 */
