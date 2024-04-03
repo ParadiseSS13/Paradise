@@ -35,6 +35,7 @@
 	filling_color = "#FCEE81"
 	list_reagents = list("nutriment" = 2, "vitamin" = 1)
 	tastes = list("pasta" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/pastatomato
 	name = "spaghetti"
@@ -46,6 +47,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6, "tomatojuice" = 10, "vitamin" = 4)
 	tastes = list("pasta" = 1, "tomato" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/meatballspaghetti
 	name = "spaghetti & meatballs"
@@ -56,6 +58,7 @@
 	filling_color = "#DE4545"
 	list_reagents = list("nutriment" = 8, "synaptizine" = 5, "vitamin" = 4)
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/spesslaw
 	name = "spesslaw"
@@ -65,6 +68,7 @@
 	filling_color = "#DE4545"
 	list_reagents = list("nutriment" = 8, "synaptizine" = 10, "vitamin" = 6)
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/macncheese
 	name = "mac 'n' cheese"
@@ -75,6 +79,7 @@
 	filling_color = "#ffe45d"
 	list_reagents = list("nutriment" = 5, "vitamin" = 2, "cheese" = 4)
 	tastes = list("pasta" = 1, "cheese" = 1, "comfort" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/lasagna
 	name = "lasagna"
@@ -84,3 +89,4 @@
 	filling_color = "#E18712"
 	list_reagents = list("nutriment" = 10, "msg" = 3, "vitamin" = 4, "tomatojuice" = 10)
 	tastes = list("pasta" = 1, "cheese" = 1, "tomato" = 1, "meat" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
