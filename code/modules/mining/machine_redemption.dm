@@ -198,6 +198,7 @@
 			points = 0
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+		return
 
 	else if(istype(I, /obj/item/disk/design_disk))
 		if(!user.drop_item())
