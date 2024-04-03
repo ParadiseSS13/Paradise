@@ -39,21 +39,25 @@ if __name__ == "__main__":
             if(not restrict_regex):
                 continue
 
-            type_path = restrict_regex.group(1)
+            restrict_type_path = restrict_regex.group(1)
 
-            # These regexes could probably usee some refinement, but they're the best I could come up with.
-            proc_search = re.compile(r'^(/[\w/]{3,}?)\/(?:proc\/)?\w+\(') # Search for any procs that are not of this type
-            def_search = re.compile(r'(^(?:/(?:\w+))+)') # Search for any definition that are not of this type
+            # Matches a definition into two groups:
+            # 1: The typepath or /proc (for global procs), required. First character is handled specially, to avoid picking up start-of-line comments.
+            # 2: The name of the proc, if any.
+            definition_matcher = re.compile(r'^(/[\w][\w/]*?)(?:/proc)?(?:/([\w]+)\(.*?)?(?: */[/*].*)?$')
             code.seek(0)
             for idx, line in enumerate(code):
-                if(rematch_result := re.search(proc_search, line)):
-                    rematch_result = rematch_result.group(1)
-                    if(type_path != rematch_result):
-                        all_failures += [Failure(code_filepath, idx + 1, f"'{rematch_result}' proc found in a file restricted to '{type_path}'")]
-                elif(rematch_result := re.search(def_search, line)):
-                    rematch_result = rematch_result.group(1)
-                    if(type_path != rematch_result):
-                        all_failures += [Failure(code_filepath, idx + 1, f"'{rematch_result}' type definition found in a file restricted to '{type_path}'")]
+                if(rematch_result := re.search(definition_matcher, line)):
+                    if(restrict_type_path != rematch_result.group(1)):
+                        type_path = rematch_result.group(1)
+                        proc_name = rematch_result.group(2)
+                        if(type_path == "/proc"):
+                            all_failures += [Failure(code_filepath, idx + 1, f"'Global proc '/proc/{proc_name}' found in a file restricted to type '{restrict_type_path}'")]
+                        else:
+                            if(proc_name):
+                                all_failures += [Failure(code_filepath, idx + 1, f"'Proc '{type_path}/proc/{proc_name}' found in a file restricted to type '{restrict_type_path}'")]
+                            else:
+                                all_failures += [Failure(code_filepath, idx + 1, f"'Definition for different type '{type_path}' found in a file restricted to '{restrict_type_path}'")]
 
 
     if all_failures:
