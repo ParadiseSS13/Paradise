@@ -16,6 +16,10 @@
 	sort_category = "Donor"
 	main_typepath = /datum/gear/donor
 
+/datum/gear/donor/executive
+	display_name = "Executive suit"
+	path = /obj/item/clothing/under/suit/black
+
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves

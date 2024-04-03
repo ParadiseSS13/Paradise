@@ -254,3 +254,11 @@
 /datum/gear/hat/capsolgov
 	display_name = "Cap, Sol Gov"
 	path = /obj/item/clothing/head/soft/solgov
+
+/datum/gear/hat/wizard
+	display_name = "Wizard hat"
+	path = /obj/item/clothing/head/wizard
+
+/datum/gear/hat/blackwizard
+	display_name = "Black wizard hat"
+	path = /obj/item/clothing/head/wizard/black

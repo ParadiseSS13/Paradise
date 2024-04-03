@@ -183,6 +183,11 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
+/datum/gear/uniform/mailman
+	display_name = "Mailman's jumpsuit"
+	path = /obj/item/clothing/under/misc/mailman
+	allowed_roles = list("Quartermaster","Cargo Technician")
+
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, quartermaster"
 	path = /obj/item/clothing/under/rank/cargo/qm/skirt
@@ -386,3 +391,16 @@
 	display_name = "Orange Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is orange."
 	path = /obj/item/clothing/under/misc/orangehawaiianshirt
+
+/datum/gear/uniform/waiter
+	display_name = "Waiter's outfit"
+	path = /obj/item/clothing/under/misc/waiter
+	allowed_roles = list("Chef")
+
+/datum/gear/uniform/vice
+	display_name = "Vice officer's jumpsuit"
+	path = /obj/item/clothing/under/misc/vice
+
+/datum/gear/uniform/overalls
+	display_name = "Laborer's overalls"
+	path = /obj/item/clothing/under/misc/overalls
