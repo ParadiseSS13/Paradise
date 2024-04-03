@@ -73,7 +73,7 @@
 		. += "clean_[area_locked ? "restrict" : "on"]"
 	else
 		. += "clean_brush"
-		. += "clean_[area_locked ? "restrict_" : ""]work"
+		. += "clean[area_locked ? "_restrict" : ""]_work"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
@@ -111,12 +111,12 @@
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	if(!(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood)))
 		return FALSE
-	if(area_locked)
-		var/area/target_area = get_area(D)
-		if(target_area == area_locked)
-			return D
-		return FALSE
-	return D
+	if(!area_locked)
+		return D
+	var/area/target_area = get_area(D)
+	if(target_area == area_locked)
+		return D
+	return FALSE
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
 	if(!..())
@@ -176,7 +176,7 @@
 	if(area_locked)
 		area_locked = null
 	else
-		area_locked = get_area(src)
+		area_locked = get_area(loc)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
