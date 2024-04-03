@@ -18,6 +18,7 @@
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
+	var/causes_coughing = FALSE
 
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
@@ -43,11 +44,13 @@
 	lifetime--
 	if(lifetime < 1)
 		kill_smoke()
-		return 0
+		return FALSE
 	if(steps >= 1)
 		step(src,direction)
 		steps--
-	return 1
+	for(var/mob/living/carbon/M in range(1,src))
+		smoke_mob(M)
+	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(datum/source, mob/living/carbon/breather)
 	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
@@ -63,6 +66,10 @@
 
 	if(reagents)
 		reagents.trans_to(breather, reagents.total_volume)
+	if(causes_coughing)
+		breather.drop_item()
+		breather.adjustOxyLoss(1)
+		breather.emote("cough")
 	breather.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
 	return TRUE
@@ -97,6 +104,7 @@
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location, (chemicals_to_add ? TRUE : FALSE))
 		if(chemicals_to_add)
 			chemicals_to_add.copy_to(S, units_per_smoke)
+			S.color = mix_color_from_reagents(chemicals_to_add)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)
@@ -113,21 +121,10 @@
 
 /obj/effect/particle_effect/smoke/bad
 	lifetime = 8
-
-/obj/effect/particle_effect/smoke/bad/process()
-	if(..())
-		for(var/mob/living/carbon/M in range(1,src))
-			smoke_mob(M)
-
-/obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
-	if(..()) //Registered to the COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
-		M.drop_item()
-		M.adjustOxyLoss(1)
-		M.emote("cough")
-		return 1
+	causes_coughing = TRUE
 
 /obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
+	if(height == 0)
 		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
@@ -195,6 +192,7 @@
 /obj/effect/particle_effect/smoke/sleeping
 	color = "#9C3636"
 	lifetime = 10
+	causes_coughing = TRUE
 
 /obj/effect/particle_effect/smoke/sleeping/process()
 	if(..())
@@ -203,9 +201,7 @@
 
 /obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_item()
 		M.Sleeping(20 SECONDS)
-		M.emote("cough")
 		return TRUE
 
 /datum/effect_system/smoke_spread/sleeping
