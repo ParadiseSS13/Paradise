@@ -183,11 +183,6 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
-/datum/gear/uniform/mailman
-	display_name = "Mailman's jumpsuit"
-	path = /obj/item/clothing/under/misc/mailman
-	allowed_roles = list("Quartermaster","Cargo Technician")
-
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, quartermaster"
 	path = /obj/item/clothing/under/rank/cargo/qm/skirt
@@ -404,3 +399,11 @@
 /datum/gear/uniform/overalls
 	display_name = "Laborer's overalls"
 	path = /obj/item/clothing/under/misc/overalls
+
+/datum/gear/uniform/wizard
+	display_name = "Wizard uniform"
+	path = /obj/item/clothing/under/color/lightpurple
+
+/datum/gear/uniform/mailman
+	display_name = "Mailman's jumpsuit"
+	path = /obj/item/clothing/under/misc/mailman
