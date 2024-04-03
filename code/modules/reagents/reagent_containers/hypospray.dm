@@ -60,6 +60,13 @@
 /obj/item/reagent_containers/hypospray/attack_self(mob/user)
 	return apply(user, user)
 
+/obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
+	if(is_pen(W))
+		rename_interactive(user, W, use_prefix = TRUE, prompt = "Give [src] a title.")
+		return TRUE
+
+	return ..()
+
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
