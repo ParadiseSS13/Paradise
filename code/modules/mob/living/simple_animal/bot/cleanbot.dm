@@ -176,7 +176,7 @@
 	if(area_locked)
 		area_locked = null
 	else
-		area_locked = get_area(loc)
+		area_locked = get_area(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
