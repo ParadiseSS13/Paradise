@@ -1,4 +1,4 @@
-/// Pill sprites for UIs
+/// Sprites for Orbit Role UI
 /datum/asset/spritesheet/orbit_job
 	name = "orbit_job"
 
