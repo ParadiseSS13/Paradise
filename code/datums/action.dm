@@ -21,6 +21,9 @@
 /datum/action/New(Target)
 	target = Target
 
+/datum/action/proc/should_draw_cooldown()
+	return !IsAvailable()
+
 /datum/action/proc/clear_ref(datum/ref)
 	SIGNAL_HANDLER
 	if(ref == owner)
@@ -132,7 +135,7 @@
 
 		ApplyIcon(button, force)
 
-	if(!IsAvailable())
+	if(should_draw_cooldown())
 		apply_unavailable_effect(button)
 	else
 		return TRUE
@@ -651,6 +654,10 @@
 	var/datum/spell/S = target
 	S.action = null
 	return ..()
+
+/datum/action/spell_action/should_draw_cooldown()
+	var/datum/spell/S = target
+	return S.cooldown_handler.should_draw_cooldown()
 
 /datum/action/spell_action/Trigger(left_click)
 	if(!..())
