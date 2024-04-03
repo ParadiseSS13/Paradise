@@ -681,7 +681,7 @@
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 
 /obj/structure/window/full/plasmabasic/BlockSuperconductivity()
-	return 1
+	return TRUE
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -705,7 +705,7 @@
 	return
 
 /obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
-	return 1
+	return TRUE
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
