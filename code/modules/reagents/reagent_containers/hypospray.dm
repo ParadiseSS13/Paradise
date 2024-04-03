@@ -61,8 +61,8 @@
 	return apply(user, user)
 
 /obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W, use_prefix = TRUE, prompt = "Give [src] a title.")
+	if(is_pen(I))
+		rename_interactive(user, I, use_prefix = TRUE, prompt = "Give [src] a title.")
 		return TRUE
 
 	return ..()
