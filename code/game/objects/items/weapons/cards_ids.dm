@@ -425,7 +425,7 @@
 	. = TRUE
 	switch(action)
 		if("delete_info")
-			delete_info()
+			delete_info(ui)
 		if("clear_access")
 			clear_access()
 		if("change_ai_tracking")
@@ -495,7 +495,7 @@
 		registered_human = user
 	if(registered_human != user)
 		return flash_card(user)
-	switch(tgui_alert("Would you like to display [src] or edit it?","Choose",list("Show","Edit")))
+	switch(tgui_alert(user, "Would you like to display [src] or edit it?","Choose",list("Edit", "Show")))
 		if("Show")
 			return flash_card(user)
 		if("Edit")
@@ -509,8 +509,8 @@
 		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
 	src.add_fingerprint(user)
 
-/obj/item/card/id/syndicate/proc/delete_info()
-	var/response = alert(registered_human, "Are you sure you want to delete all card info?","Delete Card Info", "No", "Yes")
+/obj/item/card/id/syndicate/proc/delete_info(datum/tgui/ui)
+	var/response = tgui_alert(registered_human, "Are you sure you want to delete all card info?","Delete Card Info", list("Yes", "No"))
 	if(response == "Yes")
 		name = initial(name)
 		registered_name = initial(registered_name)
@@ -524,9 +524,10 @@
 		fingerprint_hash = initial(fingerprint_hash)
 		photo = null
 		registered_human = null
+		ui.close()
 
 /obj/item/card/id/syndicate/proc/clear_access()
-	var/response = tgui_alert(registered_human, "Are you sure you want to reset access saved on the card?","Reset Access", list("No", "Yes"))
+	var/response = tgui_alert(registered_human, "Are you sure you want to reset access saved on the card?","Reset Access", list("Yes", "No"))
 	if(response == "Yes")
 		access = initial_access.Copy() // Initial() doesn't work on lists
 		to_chat(registered_human, "<span class='notice'>Card access reset.</span>")
@@ -642,7 +643,7 @@
 	registered_human.sec_hud_set_ID()
 
 /obj/item/card/id/syndicate/proc/change_money_account()
-	var/new_account = tgui_input_number(registered_human,"What money account would you like to link to this card?","Agent Card Account",12345)
+	var/new_account = tgui_input_number(registered_human,"What money account would you like to link to this card?","Agent Card Account",12345, 9999999)
 	if(!Adjacent(registered_human))
 		return
 	associated_account_number = new_account
