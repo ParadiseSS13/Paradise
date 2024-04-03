@@ -73,7 +73,7 @@
 		. += "clean_[area_locked ? "restrict" : "on"]"
 	else
 		. += "clean_brush"
-		. += "clean[area_locked ? "_restrict" : ""]_work"
+		. += "clean_[area_locked ? "restrict_" : ""]work"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
