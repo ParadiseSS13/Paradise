@@ -104,7 +104,6 @@
 	duration = 12
 
 /obj/effect/temp_visual/corpse_explosion
-	icon_state = "corpse_explosion"
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "corpse_explosion"
 	pixel_x = -16
