@@ -1,7 +1,6 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Button, LabeledList, Section, Tabs, Icon, Stack } from '../components';
 import { Window } from '../layouts';
-import { Fragment } from 'inferno';
 
 export const AgentCard = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
@@ -61,7 +60,7 @@ export const AgentCardInfo = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <>
       <Stack.Item>
         <Section title="Card Info">
           <LabeledList>
@@ -151,13 +150,13 @@ export const AgentCardInfo = (props, context) => {
           </LabeledList>
         </Section>
       </Stack.Item>
-    </Fragment>
+    </>
   );
 };
 
 export const AgentCardAppearances = (props, context) => {
   const { act, data } = useBackend(context);
-  const [selectedAppearance, setSelectedAppearance] = useLocalState(
+  const [selectedAppearance, setSelectedAppearance] = useSharedState(
     context,
     'selectedAppearance',
     null
