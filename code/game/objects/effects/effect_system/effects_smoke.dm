@@ -93,6 +93,8 @@
 	if(chemicals)
 		chemicals_to_add = chemicals
 		units_per_smoke = clamp((chemicals_to_add.total_volume / number), 0, 10)
+		add_attack_logs(M, location, "Caused a chemical smoke reaction containing [chemicals.reagent_list]. Source is [source]", ATKLOG_FEW)
+		log_game("A chemical smoke reaction has taken place in ([location])[chemicals.reagent_list]. Source is [source].")
 
 /datum/effect_system/smoke_spread/start()
 	var/smoke_budget = GLOBAL_SMOKE_LIMIT - GLOB.smokes_active
