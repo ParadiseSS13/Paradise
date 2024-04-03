@@ -192,13 +192,13 @@
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
+	mind.AddSpell(new /datum/spell/night_vision/revenant(null))
+	mind.AddSpell(new /datum/spell/revenant_transmit(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/defile(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/malfunction(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/haunt_object(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
 
@@ -363,3 +363,6 @@
 /obj/item/ectoplasm/revenant/examine(mob/user)
 	. = ..()
 	. += "<span class='revennotice'>Lifeless ectoplasm, still faintly glimmering in the light. From what was once a spirit seeking revenge on the station.</span>"
+
+#undef INVISIBILITY_REVENANT
+#undef REVENANT_NAME_FILE

@@ -2,34 +2,13 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "shell",
-			"command": "paracode/linters/check_grep2",
-			"windows": {
-				"command": ".\\tools\\bootstrap\\python.bat .\\tools\\ci\\check_grep2.py ${relativeFile}",
-			},
-			"problemMatcher": {
-				"owner": "dm",
-				"fileLocation": "relative",
-				"pattern": {
-					"regexp": "^(.*):(\\d+):\\s+(.*)$",
-					"file": 1,
-					"line": 2,
-					"message": 3,
-				}
-			},
-			"label": "linters: run check_grep2"
-		},
-		{
 			"type": "dreammaker",
 			"dme": "paradise.dme",
 			"problemMatcher": [
 				"$dreammaker"
 			],
 			"group": "build",
-			"label": "dm: build - paradise.dme",
-			"dependsOn": [
-				"linters: run check_grep2",
-			]
+			"label": "dm: build - paradise.dme"
 		},
 		{
 			"type": "shell",
@@ -57,5 +36,6 @@
 			"group": "build",
 			"label": "tgui: run dev server"
 		}
+		,
 	]
 }

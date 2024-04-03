@@ -480,3 +480,5 @@
 	pathfinding = new_pathfind
 	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
 	update_icons()
+
+#undef EMAG_TIMER

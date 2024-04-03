@@ -240,6 +240,12 @@
 	colour = "#FFFFFF"
 	colourName = "white"
 
+/obj/item/toy/crayon/white/chalk
+	name = "detective's chalk"
+	desc = "A stick of white chalk for marking crime scenes."
+	gender = PLURAL
+	toolspeed = 0.25
+
 /obj/item/toy/crayon/mime
 	name = "mime crayon"
 	desc = "A very sad-looking crayon."

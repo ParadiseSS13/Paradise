@@ -5,27 +5,29 @@
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
 	var/list/spells = list()
 	var/channeling = FALSE
+	default_button_position = DEFAULT_BLOODSPELLS
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/override_location()
-	button.ordered = FALSE
-	button.screen_loc = DEFAULT_BLOODSPELLS
-	button.moved = DEFAULT_BLOODSPELLS
-
 /datum/action/innate/cult/blood_magic/proc/Positioning()
-	var/list/screen_loc_split = splittext(button.screen_loc, ",")
-	var/list/screen_loc_X = splittext(screen_loc_split[1], ":")
-	var/list/screen_loc_Y = splittext(screen_loc_split[2], ":")
-	var/pix_X = text2num(screen_loc_X[2])
-	for(var/datum/action/innate/cult/blood_spell/B in spells)
-		if(B.button.locked)
-			var/order = pix_X + spells.Find(B) * 31
-			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
-			B.button.moved = B.button.screen_loc
+	for(var/datum/hud/hud as anything in viewers)
+		var/our_view = hud.mymob?.client?.view || "15x15"
+		var/atom/movable/screen/movable/action_button/button = viewers[hud]
+		var/position = screen_loc_to_offset(button.screen_loc)
+		var/spells_iterated = 0
+		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
+			spells_iterated += 1
+			if(blood_spell.positioned)
+				continue
+			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
+			if(!moving_button)
+				continue
+			var/our_x = position[1] + spells_iterated * world.icon_size // Offset any new buttons into our list
+			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
+			blood_spell.positioned = TRUE
 
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
@@ -98,6 +100,9 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
 	var/health_cost = 0
+	/// Have we already been positioned into our starting location?
+	var/positioned = FALSE
+
 
 /datum/action/innate/cult/blood_spell/proc/get_panel_text()
 	if(initial(charges) == 1)
@@ -105,7 +110,7 @@
 	var/available_charges = hand_magic ? "[hand_magic.uses]" : "[charges]"
 	return "[available_charges]/[initial(charges)]"
 
-/datum/action/innate/cult/blood_spell/UpdateButtonIcon()
+/datum/action/innate/cult/blood_spell/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
 	. = ..()
 	var/text = get_panel_text()
 	if(!text || !button)
@@ -120,11 +125,12 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
-	button.ordered = FALSE
+	// todo blood magic guh
+	// button.ordered = FALSE
 	..()
 
 /datum/action/innate/cult/blood_spell/override_location()
-	button.locked = TRUE
+	// button.locked = TRUE
 	all_magic.Positioning()
 
 /datum/action/innate/cult/blood_spell/Remove()
@@ -136,7 +142,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/IsAvailable()
-	if(!iscultist(owner) || owner.incapacitated() || !charges)
+	if(!IS_CULTIST(owner) || owner.incapacitated() || !charges)
 		return FALSE
 	return ..()
 
@@ -229,8 +235,7 @@
 	button_icon_state = "cult_dagger"
 
 /datum/action/innate/cult/blood_spell/dagger/New()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.dagger_icon
+	button_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
 	..()
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
@@ -260,7 +265,7 @@
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
-	var/obj/effect/proc_holder/horror/PH
+	var/datum/spell/horror/PH
 	charges = 4
 
 /datum/action/innate/cult/blood_spell/horror/New()
@@ -269,7 +274,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/horror/Destroy()
-	var/obj/effect/proc_holder/horror/destroy = PH
+	var/datum/spell/horror/destroy = PH
 	. = ..()
 	if(!QDELETED(destroy))
 		QDEL_NULL(destroy)
@@ -278,27 +283,27 @@
 	PH.toggle(owner) //the important bit
 	return TRUE
 
-/obj/effect/proc_holder/horror
+/datum/spell/horror
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
-/obj/effect/proc_holder/horror/Destroy()
+/datum/spell/horror/Destroy()
 	var/datum/action/innate/cult/blood_spell/AA = attached_action
 	. = ..()
 	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
-/obj/effect/proc_holder/horror/proc/toggle(mob/user)
+/datum/spell/horror/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, "<span class='cult'>You dispel the magic...</span>")
 	else
 		add_ranged_ability(user, "<span class='cult'>You prepare to horrify a target...</span>")
 
-/obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
+/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return
-	if(ranged_ability_user.incapacitated() || !iscultist(user))
+	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
 		user.ranged_ability.remove_ranged_ability(user)
 		return
 	if(user.holy_check())
@@ -307,15 +312,15 @@
 	if(!isturf(T))
 		return FALSE
 	if(target in view(7, ranged_ability_user))
-		if(!ishuman(target) || iscultist(target))
+		if(!ishuman(target) || IS_CULTIST(target))
 			return
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
-		attached_action.UpdateButtonIcon()
+		attached_action.UpdateButtons()
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
-		attached_action.UpdateButtonIcon()
+		attached_action.UpdateButtons()
 		user.ranged_ability.remove_ranged_ability(user, "<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
 		if(attached_action.charges <= 0)
 			to_chat(ranged_ability_user, "<span class='cult'>You have exhausted the spell's power!</span>")
@@ -336,7 +341,7 @@
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
-		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
+		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -352,7 +357,7 @@
 		"<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
 		owner.whisper(invocation)
-		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
+		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
 			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -365,7 +370,7 @@
 		qdel(src)
 	desc = "[revealing ? "Reveals" : "Conceals"] nearby cult structures, airlocks, and runes."
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
@@ -383,7 +388,7 @@
 /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
@@ -419,7 +424,7 @@
 			source.charges = uses
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-			source.UpdateButtonIcon()
+			source.UpdateButtons()
 	return ..()
 
 /obj/item/melee/blood_magic/customised_abstract_text(mob/living/carbon/owner)
@@ -429,7 +434,7 @@
 	afterattack(user, user, TRUE)
 
 /obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
-	if(!iscarbon(user) || !iscultist(user))
+	if(!iscarbon(user) || !IS_CULTIST(user))
 		uses = 0
 		qdel(src)
 		return
@@ -447,7 +452,7 @@
 	else if(source)
 		source.desc = source.base_desc
 		source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-		source.UpdateButtonIcon()
+		source.UpdateButtons()
 
 //The spell effects
 
@@ -462,7 +467,7 @@
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
-	if(iscultist(target))
+	if(IS_CULTIST(target))
 		return
 	if(user.holy_check())
 		return
@@ -511,7 +516,7 @@
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
 	var/atom/movable/teleportee
-	if(!iscultist(target) || !proximity)
+	if(!IS_CULTIST(target) || !proximity)
 		to_chat(user, "<span class='warning'>You can only teleport adjacent cultists with this spell!</span>")
 		return
 	if(user != target) // So that the teleport effect shows on the correct mob
@@ -586,7 +591,7 @@
 		else
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")
 			return
-		source.UpdateButtonIcon()
+		source.UpdateButtons()
 		..()
 
 /obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
@@ -875,17 +880,17 @@
 	if(!proximity)
 		return ..()
 	if(ishuman(target))
-		if(iscultist(target))
+		if(IS_CULTIST(target))
 			heal_cultist(user, target)
 			target.clean_blood()
 		else
 			steal_blood(user, target)
-		source.UpdateButtonIcon()
+		source.UpdateButtons()
 		return
 
 	if(isconstruct(target))
 		heal_construct(user, target)
-		source.UpdateButtonIcon()
+		source.UpdateButtons()
 		return
 
 	if(istype(target, /obj/item/blood_orb))
@@ -895,10 +900,10 @@
 			to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
 			playsound(user, 'sound/misc/enter_blood.ogg', 50, extrarange = SOUND_RANGE_SET(7))
 			qdel(candidate)
-			source.UpdateButtonIcon()
+			source.UpdateButtons()
 			return
 	blood_draw(target, user)
-	source.UpdateButtonIcon()
+	source.UpdateButtons()
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
@@ -1002,4 +1007,4 @@
 					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
 					uses += BLOOD_BARRAGE_COST // Refund the charges
 					qdel(rite)
-	source.UpdateButtonIcon()
+	source.UpdateButtons()
