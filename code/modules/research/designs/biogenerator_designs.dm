@@ -219,7 +219,7 @@
 	build_path = /obj/item/clothing/head/rice_hat
 	category = list("initial","Leather and Cloth")
 
-/datum/design/seasweed
+/datum/design/seaweed
 	name = "Seaweed Sheet"
 	id = "seaweed"
 	build_type = BIOGENERATOR
