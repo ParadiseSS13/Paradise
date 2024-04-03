@@ -581,7 +581,7 @@
 
 /obj/item/card/id/syndicate/proc/change_occupation()
 	var/list/departments =list(
-				"Civilian",
+				"Assistant",
 				"Engineering",
 				"Medical",
 				"Science",
@@ -593,11 +593,11 @@
 			)
 
 	var/department = tgui_input_list(registered_human, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
-	var/new_job = "Civilian"
-	var/new_rank = "Civilian"
+	var/new_job = "Assistant"
+	var/new_rank = "Assistant"
 
 	if(department == "Custom")
-		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
 		var/department_icon = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
 		switch(department_icon)
 			if("Engineering")
@@ -616,7 +616,7 @@
 				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
 			if("Custom")
 				new_rank = null
-	else if(department != "Civilian")
+	else if(department != "Assistant")
 		switch(department)
 			if("Engineering")
 				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.engineering_positions)
