@@ -657,8 +657,7 @@
 
 /datum/action/spell_action/should_draw_cooldown()
 	var/datum/spell/S = target
-	var/draw = S.cooldown_handler.should_draw_cooldown()
-	return draw
+	return S.cooldown_handler.should_draw_cooldown()
 
 /datum/action/spell_action/Trigger(left_click)
 	if(!..())
