@@ -34,10 +34,9 @@
 
 /datum/component/scope/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	switch(zoom_method)
-		if(ZOOM_METHOD_WIELD)
-			RegisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_WIELDED), PROC_REF(on_wielded))
-			RegisterSignal(parent, SIGNAL_REMOVETRAIT(TRAIT_WIELDED), PROC_REF(on_unwielded))
+	if(zoom_method == ZOOM_METHOD_WIELD)
+		RegisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_WIELDED), PROC_REF(on_wielded))
+		RegisterSignal(parent, SIGNAL_REMOVETRAIT(TRAIT_WIELDED), PROC_REF(on_unwielded))
 	if(item_action_type)
 		var/obj/item/parent_item = parent
 		var/datum/action/scope = new item_action_type(parent)
@@ -51,7 +50,7 @@
 	if(item_action_type)
 		var/obj/item/parent_item = parent
 		var/datum/action/scope = locate(item_action_type) in parent_item.actions
-		parent_item.actions -= (scope)
+		parent_item.actions -= scope
 	UnregisterSignal(parent, list(
 		COMSIG_MOVABLE_MOVED,
 		SIGNAL_ADDTRAIT(TRAIT_WIELDED),
@@ -138,11 +137,9 @@
 		if(!possible_target.density)
 			non_dense_targets += possible_target
 			continue
-		object_targets += possible_target
-	for(var/obj/important_object as anything in object_targets)
-		return important_object
-	for(var/obj/unimportant_object as anything in non_dense_targets)
-		return unimportant_object
+		return possible_target
+	if(length(non_dense_targets))
+		return non_dense_targets[1]
 	return target_turf
 
 /**
@@ -161,7 +158,7 @@
 		to_chat(user, "<span class='warning'>You are already trying to scope in!</span>")
 		return
 	if(time_to_scope)
-		attempting_to_scope= TRUE
+		attempting_to_scope = TRUE
 		if(!do_after(user, time_to_scope, target = parent))
 			attempting_to_scope = FALSE
 			return
