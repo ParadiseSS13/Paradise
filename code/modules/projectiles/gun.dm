@@ -201,7 +201,7 @@
 			var/obj/item/gun/GUN_2 = H.get_inactive_hand()
 
 			if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
-				process_fire(target, user, 1, params, null, bonus_spread)
+				process_fire(target, user, TRUE, params, null, bonus_spread)
 				return
 			if(GUN_2.can_trigger_gun(user))
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
@@ -209,9 +209,9 @@
 					if(GUN_1.type != GUN_2.type)
 						temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
 					bonus_spread += 24 * temporary_weapon_weight
-				addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), 1)
+				addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
 
-	process_fire(target,user,1,params, null, bonus_spread)
+	process_fire(target, user, TRUE, params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
