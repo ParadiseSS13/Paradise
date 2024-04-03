@@ -3631,10 +3631,6 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mt" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -3646,10 +3642,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "mw" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -8297,10 +8289,6 @@
 /area/centcom/suppy)
 "DD" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -8344,15 +8332,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DL" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -8363,11 +8342,6 @@
 /area/centcom/specops)
 "DN" = (
 /obj/mecha/combat/marauder/ares/loaded,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "DO" = (
@@ -8440,10 +8414,6 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DY" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},

@@ -536,7 +536,10 @@
 	color = "#ffffff"
 	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
-	if(potency != null && potency > 0)
+	if(!potency)
+		mutativeness = 0
+	else
+		// 0 mutativeness at 1 potency
 		// 1 mutativeness at 10 potency
 		// 4 mutativeness at 100 potency
 		mutativeness = log(10, potency) ** 2
