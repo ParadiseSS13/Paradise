@@ -157,10 +157,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)
 	message = lowertext(message)
-	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
+	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
-	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
+	for(var/mob/living/L as anything in get_mobs_in_view(8, owner, TRUE))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L

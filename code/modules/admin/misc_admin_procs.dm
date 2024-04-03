@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -647,9 +647,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Cultist"
 	if(M.mind in SSticker.mode.syndicates)
 		antag_list += "Nuclear Operative"
-	if(M.mind in SSticker.mode.wizards)
+	if(iswizard(M))
 		antag_list += "Wizard"
-	if(M.mind in SSticker.mode.changelings)
+	if(ischangeling(M))
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"

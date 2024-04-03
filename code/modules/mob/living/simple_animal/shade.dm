@@ -39,7 +39,8 @@
 	icon_state = SSticker.cultdat?.shade_icon_state
 
 /mob/living/simple_animal/shade/Destroy()
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
 	return ..()
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
@@ -63,10 +64,11 @@
 	health = 100
 	maxHealth = 100
 	weather_immunities = list("ash")
+	hud_type = /datum/hud/sword
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
-	AddSpell(new /obj/effect/proc_holder/spell/sentient_sword_lunge)
+	AddSpell(new /datum/spell/sentient_sword_lunge)
 	var/obj/item/nullrod/scythe/talking/host_sword = loc
 	if(istype(host_sword))
 		health = host_sword.obj_integrity

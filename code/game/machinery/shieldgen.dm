@@ -140,6 +140,7 @@
 	var/list/deployed_shields = list()
 	var/is_open = FALSE //Whether or not the wires are exposed
 	var/locked = FALSE
+	var/shield_range = 2
 
 /obj/machinery/shieldgen/Destroy()
 	QDEL_LIST_CONTENTS(deployed_shields)
@@ -155,7 +156,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	anchored = TRUE
 
-	for(var/turf/target_tile in range(2, src))
+	for(var/turf/target_tile in range(shield_range, src))
 		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
@@ -294,6 +295,12 @@
 
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
+
+/obj/machinery/shieldgen/raven
+	name = "military shield generator"
+	desc = "Military grade shield generators used to protect spaceships from incoming fire."
+	shield_range = 4
+	anchored = TRUE
 
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
 #define MAX_STORED_POWER 500

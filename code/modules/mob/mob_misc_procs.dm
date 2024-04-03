@@ -273,50 +273,36 @@
 		counter-=1
 	return newphrase
 
-/proc/stutter(n)
-	var/te = html_decode(n)
-	var/t = "" //placed before the message. Not really sure what it's for.
-	n = length_char(n) //length of the entire word
-	var/p = null
-	p = 1 //1 is the start of any word
-	while(p <= n) //while P, which starts at 1 is less or equal to N which is the length.
-		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if(prob(5))
-				n_letter = text("[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
-			else
-				if(prob(5))
-					n_letter = null
-				else
-					n_letter = text("[n_letter]-[n_letter]")
-		t = text("[t][n_letter]") //since the above is ran through for each letter, the text just adds up back to the original word.
-		p++ //for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
+/proc/stutter(phrase, stamina_loss = 0, robotic = FALSE)
+	phrase = html_decode(phrase)
+	var/list/split_phrase = splittext_char(phrase, " ") //Split it up into words.
 
-/proc/robostutter(n) //for robutts
-	var/te = html_decode(n)
-	var/t = ""//placed before the message. Not really sure what it's for.
-	n = length_char(n)//length of the entire word
-	var/p = null
-	p = 1//1 is the start of any word
-	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
-		var/robotletter = pick("@", "!", "#", "$", "%", "&", "?") //for beep boop
-		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if(prob(10))
-				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
-			else
-				if(prob(20))
-					n_letter = text("[n_letter]-[robotletter]-[n_letter]")
-				else
-					if(prob(5))
-						n_letter = robotletter
-					else
-						n_letter = text("[n_letter]-[n_letter]")
-		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
-		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
+	var/phrase_length = length_char(split_phrase)
+	var/stutter_chance = clamp(max(rand(25, 50), stamina_loss), 0, 100)
+	for(var/index in 1 to phrase_length)
+		if(!prob(stutter_chance))
+			continue
+		var/word = split_phrase[index] // Get the word at the index
+		var/first_letter = copytext_char(word, 1, 2)
 
+		//Search for dipthongs (two letters that make one sound.)
+		var/first_sound = copytext_char(word, 1, 3)
+		if(lowertext(first_sound) in list("ch", "th", "sh"))
+			first_letter = first_sound
+
+		var/second_repeat = first_letter
+		if(robotic && prob(50))
+			first_letter = pick("@", "!", "#", "$", "%", "&", "?")
+			if(prob(25))
+				second_repeat = pick("@", "!", "#", "$", "%", "&", "?")
+		//Repeat the first letter to create a stutter.
+		if(rand(1, 3) == 1) // more accurate than prob(33.333333)
+			word = "[first_letter]-[second_repeat]-[word]"
+		else
+			word = "[first_letter]-[word]"
+		split_phrase[index] = word // replace it
+
+	return sanitize(jointext(split_phrase, " "))
 
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */

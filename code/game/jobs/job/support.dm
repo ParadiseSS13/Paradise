@@ -398,7 +398,7 @@
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
 	background_icon_state = "bg_spell"
-	UpdateButtonIcon()
+	UpdateButtons()
 	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
 
 /datum/action/innate/toggle_clumsy/Deactivate()
@@ -407,7 +407,7 @@
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
 	background_icon_state = "bg_default"
-	UpdateButtonIcon()
+	UpdateButtons()
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
@@ -460,8 +460,8 @@
 		return
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
+		H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /datum/spell/mime/speak(null))
 		H.mind.miming = 1
 	qdel(H.GetComponent(/datum/component/footstep))
 

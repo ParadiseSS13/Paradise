@@ -630,3 +630,52 @@
 /obj/machinery/door/airlock/multi_tile/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/airlock_filler_object
+	name = "airlock fluff"
+	desc = "You shouldn't be able to see this fluff!"
+	icon = null
+	icon_state = null
+	density = TRUE
+	opacity = TRUE
+	anchored = TRUE
+	invisibility = INVISIBILITY_MAXIMUM
+	//atmos_canpass = CANPASS_DENSITY
+	/// The door/airlock this fluff panel is attached to
+	var/obj/machinery/door/filled_airlock
+
+/obj/airlock_filler_object/Bumped(atom/A)
+	if(isnull(filled_airlock))
+		stack_trace("Someone bumped into an airlock filler with no parent airlock specified!")
+	return filled_airlock.Bumped(A)
+
+/obj/airlock_filler_object/Destroy()
+	filled_airlock = null
+	return ..()
+
+/// Multi-tile airlocks pair with a filler panel, if one goes so does the other.
+/obj/airlock_filler_object/proc/pair_airlock(obj/machinery/door/parent_airlock)
+	if(isnull(parent_airlock))
+		stack_trace("Attempted to pair an airlock filler with no parent airlock specified!")
+
+	filled_airlock = parent_airlock
+	RegisterSignal(filled_airlock, PROC_REF(no_airlock))
+
+/obj/airlock_filler_object/proc/no_airlock()
+	UnregisterSignal(filled_airlock)
+	qdel(src)
+
+/// Multi-tile airlocks (using a filler panel) have special handling for movables with PASS_FLAG_GLASS
+/obj/airlock_filler_object/CanPass(atom/movable/mover, turf/target)
+	. = ..()
+	if(.)
+		return
+
+	if(istype(mover))
+		return !opacity
+
+/obj/airlock_filler_object/singularity_act()
+	return
+
+/obj/airlock_filler_object/singularity_pull(S, current_size)
+	return

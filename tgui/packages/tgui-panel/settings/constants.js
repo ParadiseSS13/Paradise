@@ -9,7 +9,6 @@ export const SETTINGS_TABS = [
     id: 'general',
     name: 'General',
   },
-
   {
     id: 'textHighlight',
     name: 'Text Highlights',

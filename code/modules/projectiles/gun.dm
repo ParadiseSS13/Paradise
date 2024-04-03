@@ -75,6 +75,7 @@
 	. = ..()
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -387,7 +388,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)
