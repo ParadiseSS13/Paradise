@@ -100,7 +100,7 @@
 	var/smoke_budget = GLOBAL_SMOKE_LIMIT - GLOB.smokes_active
 	if(smoke_budget < number) //Dream blunt rotation scenario
 		return
-	for(var/i=0, i<number, i++)
+	for(var/i in 1 to number)
 		if(holder)
 			location = get_turf(holder)
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location, (chemicals_to_add ? TRUE : FALSE))
