@@ -138,8 +138,7 @@
 		else if(prob(25))
 			floor.break_tile()
 		else if(!istype(floor, /turf/simulated/floor/grass)) // Just because grass isn't *as* easy to replace
-			floor.make_plating()
-			new /obj/item/stack/tile/plasteel(T)
+			floor.remove_tile(null, silent = TRUE, make_tile = TRUE)
 
 /obj/effect/spawner/themed_mess/engineering/drop_object(turf/T)
 	var/obj_type = pick(
