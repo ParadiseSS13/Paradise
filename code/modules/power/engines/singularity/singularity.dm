@@ -519,7 +519,7 @@
 
 /obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!istype(AM, /obj/item/projectile))
+	if(!isprojectile(AM))
 		return
 	var/obj/item/projectile/P = AM
 	var/distance = distance_to_singulo

@@ -6,7 +6,7 @@
 
 	if(height==0)
 		return 1
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return projectile_hit_check(mover)
 	if(mover.throwing)
 		return (!density || horizontal || (mover.throwing.thrower == src))

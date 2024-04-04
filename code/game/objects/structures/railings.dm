@@ -102,7 +102,7 @@
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return TRUE
 	if(ismob(mover))
 		var/mob/living/M = mover
@@ -130,7 +130,7 @@
 	var/mob/living/M = O
 	if(istype(O) && O.checkpass(PASSFENCE))
 		return TRUE
-	if(istype(O, /obj/item/projectile))
+	if(isprojectile(O))
 		return TRUE
 	if(istype(M))
 		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))

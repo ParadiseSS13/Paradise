@@ -47,7 +47,7 @@
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	else if(isprojectile(mover))
 		return prob(30)
 	return TRUE
 

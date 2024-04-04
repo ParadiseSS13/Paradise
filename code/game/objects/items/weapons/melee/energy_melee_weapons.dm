@@ -240,7 +240,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
