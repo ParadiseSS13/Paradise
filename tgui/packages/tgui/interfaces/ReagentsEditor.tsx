@@ -1,6 +1,6 @@
 import { Component } from 'inferno';
 import { useBackend } from '../backend';
-import { Icon, Input, Stack, Table } from '../components';
+import { Icon, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
@@ -97,18 +97,20 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     return (
       <Window width={400} height={480}>
         <Window.Content>
-          <Stack fill vertical>
-            <Stack.Item>
-              <Input
-                fluid
-                value={state.searchText}
-                onChange={this.handleSearchChange}
-              />
-            </Stack.Item>
-            <Stack.Item grow>
-              <Table className="reagents-table">{reagentsRows}</Table>
-            </Stack.Item>
-          </Stack>
+          <Section fill>
+            <Stack fill vertical>
+              <Stack.Item>
+                <Input
+                  fluid
+                  value={state.searchText}
+                  onChange={this.handleSearchChange}
+                />
+              </Stack.Item>
+              <Stack.Item grow>
+                <Table className="reagents-table">{reagentsRows}</Table>
+              </Stack.Item>
+            </Stack>
+          </Section>
         </Window.Content>
       </Window>
     );
