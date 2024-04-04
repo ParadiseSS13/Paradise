@@ -48,10 +48,10 @@ export const BotCall = (props, context) => {
         return <BotExists />;
       case 10:
         bot_model = 'Securitron';
-        return <BotExists />;
+        return <SecurityTab />;
       case 11:
         bot_model = 'ED-209';
-        return <BotExists />;
+        return <SecurityTab />;
       default:
         return 'This should not happen. Report on Paradise Github';
     }
@@ -118,11 +118,7 @@ const BotExists = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
   if (bots[bot_model] !== undefined) {
-    if (bot_model === 'Securitron' || bot_model === 'ED-209') {
-      return <SecurityTab />;
-    } else {
-      return <MapBot />;
-    }
+    return <MapBot />;
   } else {
     return <NoBot />;
   }
@@ -163,7 +159,7 @@ const SecurityTab = (_properties, context) => {
           </Tabs.Tab>
         </Tabs>
       </Stack.Item>
-      <MapBot />
+      <BotExists />
     </Stack>
   );
 };
