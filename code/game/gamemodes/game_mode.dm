@@ -240,7 +240,7 @@
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
-// Just the above proc but for alive players TODO: Refactor to not be copied code
+// Just the above proc but for alive players
 /datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
