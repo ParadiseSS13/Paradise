@@ -125,7 +125,7 @@
 /obj/machinery/mineral/mint/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/money))
 		if(money_bag)
-			to_chat(user, "<span class='notice'>There is already [money_bag.name] inside!</span>")
+			to_chat(user, "<span class='notice'>There is already a [money_bag.name] inside!</span>")
 			return
 		if(!user.drop_item())
 			return
