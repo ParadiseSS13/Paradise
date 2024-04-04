@@ -129,7 +129,7 @@ const PresentReagentRow = (
         <Icon
           className="volume-button edit-volume-button"
           name="syringe"
-          color="red"
+          color="green"
           onClick={() =>
             act('edit_volume', {
               uid,
