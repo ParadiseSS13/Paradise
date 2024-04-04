@@ -20,7 +20,7 @@
 	var/open_uis = SStgui.open_uis_by_src[src.UID()]
 	if (isnull(open_uis) || !islist(open_uis) || length(open_uis) <= 1)
 		// Remove after everyone closes UI to avoid memory leak
-		editors -= src
+		editors -= target.UID()
 
 /datum/reagents_editor/ui_static_data(mob/user)
 	. = ..()
