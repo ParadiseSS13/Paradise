@@ -57,7 +57,7 @@
 	row_offset = clamp(row_offset, 0, total_rows) // You're not allowed to offset so far that we have a row of blank space
 
 	var/button_number = 0
-	for(var/atom/movable/screen/button as anything in actions)
+	for(var/atom/movable/screen/button in actions)
 		var/postion = ButtonNumberToScreenCoords(button_number)
 		button.screen_loc = postion
 		button_number++
