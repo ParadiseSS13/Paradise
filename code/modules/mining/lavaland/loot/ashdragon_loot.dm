@@ -28,6 +28,7 @@
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
@@ -216,7 +217,7 @@
 		if(2)
 			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
+				var/datum/spell/shapeshift/dragon/D = new
 				user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")

@@ -828,7 +828,7 @@
 		for(var/obj/item/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
-			S.handle_item_insertion(G, 1)
+			S.handle_item_insertion(G, user, TRUE)
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)

@@ -1,0 +1,2212 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/template_noop,
+/area/template_noop)
+"ab" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "raven_cockpit_windows";
+	name = "Cockpit Blast Door";
+	id_tag = "raven_cockpit_windows"
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ac" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ad" = (
+/obj/machinery/computer/security,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ae" = (
+/obj/structure/table/reinforced,
+/obj/machinery/hologram/holopad,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"af" = (
+/obj/machinery/computer/emergency_shuttle,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ag" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door_control{
+	pixel_x = -5;
+	pixel_y = 6;
+	id = "raven_cockpit_windows";
+	name = "Cockpit Window Blast Doors"
+	},
+/obj/machinery/turretid/lethal{
+	req_access = list(18);
+	check_access = 0;
+	check_arrest = 0;
+	check_records = 0
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ah" = (
+/obj/machinery/computer/communications,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ai" = (
+/obj/machinery/computer/aifixer,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ak" = (
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"al" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"aq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"av" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"aw" = (
+/obj/machinery/computer/station_alert{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ax" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"ay" = (
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"aA" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluecorners"
+	},
+/area/shuttle/escape)
+"aC" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"aE" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/shuttle/escape)
+"aG" = (
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"aI" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/emergency,
+/obj/item/wrench,
+/obj/item/restraints/handcuffs,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"aM" = (
+/obj/structure/rack,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/extinguisher,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"aN" = (
+/obj/machinery/porta_turret/ai_turret,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"aO" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"aP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aT" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"aU" = (
+/obj/item/surgical_drapes,
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"aV" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/surgical_tray,
+/obj/item/reagent_containers/glass/bottle/reagent/hydrocodone,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"aW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/item/storage/box/handcuffs{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aX" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aY" = (
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aZ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"ba" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bb" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bc" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/door/poddoor/preopen{
+	id = "ravenbridgeblast";
+	name = "Cockpit Blast Door";
+	id_tag = "ravenbridgeblast"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"be" = (
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/escape)
+"bf" = (
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/escape)
+"bh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/sleeper,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"bi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bk" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bl" = (
+/obj/effect/turf_decal/stripes/white/end{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bn" = (
+/obj/effect/turf_decal/stripes/white/end{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/escape)
+"br" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"bt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bu" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bv" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bx" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"by" = (
+/obj/structure/closet/crate/freezer/iv_storage,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"bC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bD" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bE" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bJ" = (
+/obj/machinery/economy/vending/medical,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"bL" = (
+/obj/structure/table/reinforced,
+/obj/item/defibrillator/loaded,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"bM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/toxin,
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/escape)
+"bN" = (
+/obj/structure/sign/security,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"bO" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bR" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bS" = (
+/obj/structure/sign/lifestar,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"bT" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bU" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"bV" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/emergency,
+/obj/item/radio,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"bW" = (
+/obj/effect/turf_decal/raven/eight,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cb" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/radio,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cc" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cd" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ce" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cg" = (
+/obj/structure/sign/vacuum/external,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"ch" = (
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cl" = (
+/obj/effect/turf_decal/stripes/white/corner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cm" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"co" = (
+/obj/machinery/porta_turret/ai_turret,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"cr" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cs" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ct" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cz" = (
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cB" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cC" = (
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cD" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cE" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cL" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cM" = (
+/obj/effect/turf_decal/stripes/white/line,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cP" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"cR" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "escape_cargo_shutters";
+	name = "Cargo Bay Shutters";
+	id_tag = "escape_cargo_shutters";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cT" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cU" = (
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/structure/closet/crate/internals,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cV" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cW" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/item/multitool,
+/obj/machinery/door_control{
+	id = "escape_cargo_shutters";
+	name = "Warehouse Door Control";
+	pixel_x = -1;
+	pixel_y = 24;
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cX" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cY" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cZ" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/machinery/door_control{
+	id = "qm_warehouse";
+	name = "Warehouse Door Control";
+	pixel_x = -1;
+	pixel_y = 24;
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"da" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Seating"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"db" = (
+/obj/structure/closet/crate/medical,
+/obj/item/healthanalyzer{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/lazarus_injector,
+/mob/living/simple_animal/bot/medbot{
+	name = "\improper emergency medibot";
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dd" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"de" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Seating"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"df" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dg" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dh" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"di" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 10
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dj" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/space_heater,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dk" = (
+/obj/effect/turf_decal/box/white/corners,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dl" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dm" = (
+/obj/effect/turf_decal/box/white/corners,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dn" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"do" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dq" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"du" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/radio,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dv" = (
+/obj/structure/rack,
+/obj/item/crowbar,
+/obj/item/wrench,
+/obj/item/flashlight,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dw" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/belt/utility,
+/obj/item/radio/off{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/radio/off,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dx" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment{
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dy" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool{
+	pixel_x = 7;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"dz" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/emergency,
+/obj/item/radio,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dA" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Emergency Shutle Engineering"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dB" = (
+/obj/structure/sign/engineering,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"dE" = (
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/engineering_personal,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dI" = (
+/obj/structure/closet/secure_closet/engineering_personal,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dQ" = (
+/obj/machinery/recharge_station,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dS" = (
+/obj/machinery/shieldgen/raven,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dT" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"dV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/shieldgen/raven,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ed" = (
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman/upgraded{
+	anchored = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"el" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"em" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"en" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/spot,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"eo" = (
+/obj/docking_port/mobile/emergency{
+	dwidth = 15;
+	height = 21;
+	width = 33;
+	timid = 1
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ep" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"fc" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"fn" = (
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"fD" = (
+/obj/machinery/space_heater,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"gL" = (
+/obj/machinery/computer/med_data{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"hu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"jL" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"jZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/tesla_coil{
+	anchored = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ky" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"kF" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ly" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"lB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/meson/engine,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"lC" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"ml" = (
+/obj/effect/turf_decal/raven/three,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"nK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 50;
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/structure/table/reinforced,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"op" = (
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"ou" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ph" = (
+/obj/effect/turf_decal/raven/one,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"qa" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"qC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/structure/table/reinforced,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"rq" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/escape)
+"sr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasmareinforced,
+/obj/structure/closet/secure_closet/engineering_welding,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ss" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"uM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"vw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/plasmareinforced,
+/obj/structure/closet/secure_closet/engineering_electrical,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"wi" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/assembly/signaler,
+/obj/item/assembly/signaler,
+/obj/item/assembly/signaler,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"wp" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/escape)
+"wr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/shieldgen/raven,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"xH" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"yY" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"zo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/tesla_coil{
+	anchored = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"zR" = (
+/obj/machinery/door_control{
+	id = "ravenbridgeblast";
+	name = "Cockpick Airlock Blastdoor Control";
+	pixel_x = 5;
+	pixel_y = -35;
+	req_access = list(19)
+	},
+/obj/effect/turf_decal/raven/two,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"zT" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"zV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/secure_data,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"An" = (
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"AO" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"By" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/sleeper,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"BD" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"BW" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
+"Db" = (
+/obj/effect/turf_decal/raven/nine,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Ge" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"GL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/med_data{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"HB" = (
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 8
+	},
+/obj/machinery/door_control{
+	id = "escape_cargo_shutters";
+	name = "Warehouse Door Control";
+	pixel_x = -1;
+	pixel_y = -24;
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"HN" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/escape)
+"Ia" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
+"Jx" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"JM" = (
+/obj/structure/shuttle/engine/large,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"JO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Kd" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"Ls" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/table/reinforced,
+/obj/item/multitool,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Mm" = (
+/obj/item/stack/sheet/plastitaniumglass{
+	amount = 20;
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/table/reinforced,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Na" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Nd" = (
+/obj/structure/window/plasmareinforced,
+/obj/structure/dispenser,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Ng" = (
+/obj/effect/turf_decal/raven/five,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"NK" = (
+/obj/structure/rack,
+/obj/item/storage/box/lights/tubes,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"NQ" = (
+/obj/effect/turf_decal/raven/four,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Ob" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Pa" = (
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Px" = (
+/obj/machinery/shieldgen/raven,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Rw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Sa" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Sk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
+"So" = (
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"Ux" = (
+/obj/effect/turf_decal/stripes/white/corner,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door_control{
+	id = "escape_cargo_shutters";
+	name = "Warehouse Door Control";
+	pixel_x = -1;
+	pixel_y = -24;
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"US" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"Xd" = (
+/obj/effect/turf_decal/raven/seven,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"YX" = (
+/obj/effect/turf_decal/raven/six,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ZA" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"ZF" = (
+/obj/structure/window/plasmareinforced,
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"ZM" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aO
+cP
+cd
+co
+eo
+cP
+aO
+aa
+aO
+cP
+cd
+co
+cd
+cP
+aO
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aN
+br
+cP
+cP
+bU
+ce
+cu
+cx
+cE
+cP
+br
+cP
+cT
+ce
+df
+cx
+bU
+cP
+cP
+br
+aN
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aO
+cP
+cP
+wr
+cP
+cP
+bV
+cf
+cv
+en
+cP
+cP
+Px
+cP
+cP
+ep
+cv
+cD
+du
+cP
+cP
+dS
+cP
+aO
+aa
+aa
+"}
+(4,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aN
+cP
+aW
+bi
+bt
+bC
+cP
+cP
+cg
+ct
+cP
+cP
+hu
+ak
+hu
+cP
+cP
+ct
+cg
+cP
+cP
+dH
+dE
+nK
+cP
+aN
+aa
+"}
+(5,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+cP
+aP
+bu
+aY
+aZ
+bD
+br
+Sk
+ch
+cr
+cz
+ac
+ak
+ak
+ak
+cU
+aC
+dg
+AO
+dv
+cP
+dI
+dE
+Mm
+cP
+So
+JM
+"}
+(6,1,1) = {"
+aa
+ab
+ab
+ab
+cP
+cP
+aQ
+aY
+aY
+aY
+bE
+bk
+Ia
+Jx
+Jx
+Jx
+Jx
+Jx
+ak
+ak
+ak
+da
+dh
+ak
+ak
+dA
+dE
+dE
+Nd
+fn
+So
+So
+"}
+(7,1,1) = {"
+ab
+ab
+Px
+gL
+ay
+cP
+aR
+aX
+aY
+bv
+bF
+br
+Ia
+Rw
+Rw
+zT
+Rw
+Rw
+ak
+ak
+cV
+aC
+di
+dq
+dw
+dB
+dE
+dE
+fc
+fn
+em
+aa
+"}
+(8,1,1) = {"
+ab
+zV
+yY
+aq
+uM
+cP
+cP
+ba
+bj
+bw
+cP
+bN
+el
+ak
+ak
+ak
+ak
+ak
+bb
+cP
+cP
+cP
+cP
+ly
+cP
+ax
+xH
+dT
+Ob
+fn
+em
+aa
+"}
+(9,1,1) = {"
+ab
+ad
+al
+ak
+aA
+aI
+cP
+cP
+bk
+cP
+cP
+bO
+ak
+Jx
+Jx
+Jx
+Jx
+Jx
+Ux
+cP
+cW
+db
+dj
+ak
+cP
+jZ
+dE
+dE
+vw
+fn
+So
+JM
+"}
+(10,1,1) = {"
+ab
+ae
+Ge
+Xd
+NQ
+ph
+bx
+bc
+bl
+bx
+BW
+ak
+ak
+Rw
+Rw
+Rw
+zT
+Rw
+cL
+cR
+cY
+ac
+dk
+ak
+cP
+wi
+dE
+dE
+cP
+cP
+So
+So
+"}
+(11,1,1) = {"
+ab
+af
+al
+bW
+Ng
+zR
+cP
+bc
+ZA
+cP
+An
+ak
+ak
+ak
+ac
+cB
+ak
+ak
+cM
+cR
+ak
+ak
+ak
+Pa
+cP
+ZM
+Sa
+Sa
+ed
+cP
+cP
+aa
+"}
+(12,1,1) = {"
+ab
+ag
+Ge
+Db
+YX
+ml
+bx
+bc
+bn
+bx
+lC
+ac
+ak
+ou
+Jx
+Jx
+Jx
+Jx
+cM
+cR
+dl
+ak
+cX
+ak
+cP
+lB
+dE
+dE
+cP
+cP
+So
+JM
+"}
+(13,1,1) = {"
+ab
+ah
+al
+ak
+aE
+aM
+cP
+cP
+bo
+cP
+cP
+bR
+ak
+Rw
+Rw
+Rw
+Rw
+Rw
+HB
+cP
+cZ
+dd
+dm
+ac
+cP
+zo
+dE
+dE
+sr
+fn
+So
+So
+"}
+(14,1,1) = {"
+ab
+ai
+lC
+av
+op
+cP
+cP
+GL
+Kd
+by
+cP
+bS
+el
+ak
+ak
+ak
+ak
+ak
+bb
+cP
+cP
+cP
+cP
+ly
+cP
+ax
+xH
+dE
+fD
+fn
+em
+aa
+"}
+(15,1,1) = {"
+ab
+ab
+wr
+aw
+aG
+cP
+aT
+be
+bf
+wp
+bJ
+br
+Ge
+Jx
+Jx
+Jx
+Jx
+ou
+ak
+ak
+bO
+aC
+kF
+cr
+dx
+dB
+dE
+dE
+ZF
+fn
+em
+aa
+"}
+(16,1,1) = {"
+aa
+ab
+ab
+ab
+cP
+cP
+aU
+bf
+bf
+bf
+US
+bT
+ss
+Rw
+Rw
+Rw
+Rw
+Rw
+ak
+ak
+ak
+de
+dn
+ak
+ak
+dA
+dE
+dE
+NK
+fn
+So
+JM
+"}
+(17,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+cP
+aV
+HN
+bf
+rq
+bL
+br
+ss
+cl
+cs
+cC
+ak
+ak
+ak
+ak
+cU
+aC
+do
+qa
+dy
+cP
+dQ
+dT
+qC
+cP
+So
+So
+"}
+(18,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aN
+cP
+By
+bh
+jL
+bM
+cP
+cP
+cg
+ct
+cP
+cP
+Na
+ak
+BD
+cP
+cP
+ct
+cg
+cP
+cP
+dR
+dE
+Ls
+cP
+aN
+aa
+"}
+(19,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aO
+cP
+cP
+Px
+cP
+cP
+cb
+cm
+cu
+JO
+cP
+cP
+wr
+cP
+cP
+ky
+cu
+cx
+dz
+cP
+cP
+dV
+cP
+aO
+aa
+aa
+"}
+(20,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aN
+br
+cP
+cP
+cc
+cf
+cv
+cD
+cE
+cP
+br
+cP
+cE
+cf
+cv
+cy
+cc
+cP
+cP
+br
+aN
+aa
+aa
+aa
+"}
+(21,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aO
+cP
+cd
+co
+cd
+cP
+aO
+aa
+aO
+cP
+cd
+co
+cd
+cP
+aO
+aa
+aa
+aa
+aa
+aa
+aa
+"}
