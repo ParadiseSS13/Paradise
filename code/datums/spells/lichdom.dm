@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/lichdom
+/datum/spell/lichdom
 	name = "Bind Soul"
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
 	school = "necromancy"
@@ -17,26 +17,26 @@
 
 	action_icon_state = "skeleton"
 
-/obj/effect/proc_holder/spell/lichdom/create_new_targeting()
+/datum/spell/lichdom/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/lichdom/Destroy()
+/datum/spell/lichdom/Destroy()
 	for(var/datum/mind/M in SSticker.mode.wizards) //Make sure no other bones are about
-		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
-			if(istype(S,/obj/effect/proc_holder/spell/lichdom) && S != src)
+		for(var/datum/spell/S in M.spell_list)
+			if(istype(S,/datum/spell/lichdom) && S != src)
 				return ..()
 	if(existence_stops_round_end)
 		GLOB.configuration.gamemode.disable_certain_round_early_end = FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/lichdom/cast(list/targets, mob/user = usr)
+/datum/spell/lichdom/cast(list/targets, mob/user = usr)
 	for(var/mob/M in targets)
 		if(stat_allowed)
 			attempt_revive(M)
 		else if(!marked_item_uid)
 			attempt_mark_item(M)
 
-/obj/effect/proc_holder/spell/lichdom/proc/attempt_revive(mob/user)
+/datum/spell/lichdom/proc/attempt_revive(mob/user)
 	// Can only cast when unconscious/dead
 	if(user.stat == CONSCIOUS)
 		to_chat(user, "<span class='notice'>You aren't dead enough to revive!</span>")
@@ -95,7 +95,7 @@
 	cooldown_handler.recharge_duration += 1 MINUTES
 	to_chat(lich, "<span class='warning'>Your bones clatter and shudder as they're pulled back into this world!</span>")
 
-/obj/effect/proc_holder/spell/lichdom/proc/attempt_mark_item(mob/user)
+/datum/spell/lichdom/proc/attempt_mark_item(mob/user)
 	var/obj/item/target = user.get_active_hand()
 	if(!target)
 		to_chat(user, "<span class='warning'>You must hold an item you wish to make your phylactery!</span>")
@@ -141,7 +141,7 @@
 	existence_stops_round_end = TRUE
 	GLOB.configuration.gamemode.disable_certain_round_early_end = TRUE
 
-/obj/effect/proc_holder/spell/lichdom/proc/is_revive_possible()
+/datum/spell/lichdom/proc/is_revive_possible()
 	var/obj/item/marked_item = locateUID(marked_item_uid)
 	if(QDELETED(marked_item))
 		return FALSE
@@ -153,12 +153,12 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/lichdom/proc/check_revivability_handler()
+/datum/spell/lichdom/proc/check_revivability_handler()
 	SIGNAL_HANDLER
 
 	// There are other liches about, so round may still continue
 	for(var/datum/mind/M in SSticker.mode.wizards)
-		for(var/obj/effect/proc_holder/spell/lichdom/S in M.spell_list)
+		for(var/datum/spell/lichdom/S in M.spell_list)
 			if(S == src)
 				continue
 			// Other lich can still revive
@@ -170,7 +170,7 @@
 
 	GLOB.configuration.gamemode.disable_certain_round_early_end = is_revive_possible()
 
-/obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
+/datum/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), SLOT_HUD_HEAD)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)

@@ -13,7 +13,7 @@
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
 	if(istype(user.loc, /obj/machinery/atmospherics))
 		return FALSE
-	for(var/mob/living/M in get_mobs_in_view(4, user))
+	for(var/mob/living/M as anything in get_mobs_in_view(4, user))
 		if(iscarbon(M))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
