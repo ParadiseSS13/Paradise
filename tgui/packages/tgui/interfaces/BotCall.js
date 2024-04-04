@@ -3,14 +3,6 @@ import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 let bot_model = 'Securitron';
 
-const BotActive = (on) => {
-  if (on) {
-    return 'red';
-  } else {
-    return 'green';
-  }
-};
-
 const BotStatus = (mode) => {
   if (mode === 0) {
     // Idle
@@ -55,7 +47,7 @@ export const BotCall = (props, context) => {
         bot_model = 'Honkbot';
         return <BotExists />;
       default:
-        return 'This should not happen. Report on Paradise Github'; // Blatant copy past from atmos UI
+        return 'This should not happen. Report on Paradise Github';
     }
   };
 
@@ -108,8 +100,8 @@ export const BotCall = (props, context) => {
                 HonkBot
               </Tabs.Tab>
             </Tabs>
-            {decideTab(tabIndex)}
           </Stack.Item>
+          {decideTab(tabIndex)}
         </Stack>
       </Window.Content>
     </Window>
@@ -120,8 +112,8 @@ const BotExists = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
   if (bots[bot_model] !== undefined) {
-    if (bots[bot_model] === "Securitron" || bots[bot_model] === "ED-209") {
-      return <SecurityTab />;
+    if (bot_model === "Securitron" || bot_model === "ED-209") {
+      return <SecurityTab/>;
     } else  {
       return <MapBot />;
     }
@@ -144,8 +136,25 @@ const NoBot = (_properties, context) => {
 const SecurityTab = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
-
-
+  return (
+    <Stack fill vertical >
+      <Stack.Item>
+        <Tabs fluid textAlign="center">
+          <Tabs.Tab
+          bot_type = "Securitron"
+          >
+          Securitron
+          </Tabs.Tab>
+          <Tabs.Tab
+          bot_type = "ED-209"
+          >
+          ED-209
+          </Tabs.Tab>
+        </Tabs>
+      </Stack.Item>
+      <MapBot/>
+    </Stack>
+  );
 };
 
 const MapBot = (_properties, context) => {
@@ -153,7 +162,8 @@ const MapBot = (_properties, context) => {
   const { bots } = data;
 
   return (
-    <Box>
+    <Stack fill vertical>
+      <Stack.Item>
       <Table m="0.5rem">
         <Table.Row header>
           <Table.Cell>Name</Table.Cell>
@@ -167,7 +177,7 @@ const MapBot = (_properties, context) => {
           <Table.Row key={bot.UID}>
             <Table.Cell>{bot.name}</Table.Cell>
             <Table.Cell>{bot.model}</Table.Cell>
-            <Table.Cell>{BotStatus(bot.status)} </Table.Cell>
+            <Table.Cell>{bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>} </Table.Cell>
             <Table.Cell>{bot.location}</Table.Cell>
             <Table.Cell>
               <Button
@@ -192,6 +202,7 @@ const MapBot = (_properties, context) => {
           </Table.Row>
         ))}
       </Table>
-    </Box>
+    </Stack.Item>
+  </Stack>
   );
 };
