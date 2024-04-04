@@ -1494,11 +1494,11 @@
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team)
 	var/datum/antagonist/antag_datum
 	if(!ispath(datum_type_or_instance))
-		A = datum_type_or_instance
-		if(!istype(A))
+		antag_datum = datum_type_or_instance
+		if(!istype(antag_datum))
 			return
 	else
-		A = new datum_type_or_instance()
+		antag_datum = new datum_type_or_instance()
 
 	if(!antag_datum.can_be_owned(src))
 		qdel(antag_datum)
