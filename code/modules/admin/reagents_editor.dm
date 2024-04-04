@@ -84,5 +84,11 @@
 			var/new_volume = tgui_input_number(ui.user, "How much units of the reagent do you want to be in the container?", "Edit Reagent Volume", 0, 1E100, -1E100)
 			reagent.volume = new_volume
 
+		if("update_total")
+			target.reagents.update_total()
+
+		if("react_reagents")
+			target.reagents.handle_reactions()
+
 		else
 			. = FALSE
