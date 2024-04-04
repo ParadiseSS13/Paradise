@@ -117,7 +117,7 @@
 		autofire_on(source.client)
 
 /datum/component/automatic_fire/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CLIENT_MOUSEDOWN
 
 	var/list/modifiers = params2list(params) // If they're shift+clicking, for example, let's not have them accidentally shoot.
 
@@ -191,7 +191,7 @@
 	RegisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG, PROC_REF(on_mouse_drag))
 
 /datum/component/automatic_fire/proc/on_mouse_up(datum/source, atom/object, turf/location, control, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CLIENT_MOUSEUP
 
 	UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEUP)
 	mouse_status = AUTOFIRE_MOUSEUP
@@ -218,7 +218,7 @@
 	mouse_parameters = null
 
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CLIENT_MOUSEDRAG
 
 	if(isnull(over_location)) // This happens when the mouse is over an inventory or screen object, or on entering deep darkness, for example.
 		var/list/modifiers = params2list(params)
@@ -296,13 +296,13 @@
 	return TRUE
 
 /obj/item/gun/proc/autofire_bypass_check(datum/source, client/clicker, atom/target, turf/location, control, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_AUTOFIRE_ONMOUSEDOWN
 
 	if(clicker.mob.get_active_hand() != src)
 		return COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS
 
 /obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_AUTOFIRE_SHOT
 
 	if(semicd || shooter.incapacitated())
 		return NONE

@@ -622,7 +622,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 
 	return list(viewX, viewY)
 
-
 /proc/in_view_range(mob/user, atom/A)
 	var/list/view_range = getviewsize(user.client.view)
 	var/turf/source = get_turf(user)

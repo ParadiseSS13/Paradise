@@ -1915,11 +1915,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
 
-
 /// Returns a turf based on text inputs, original turf and viewing client
 /proc/parse_caught_click_modifiers(list/modifiers, turf/origin, client/viewing_client)
 	if(!modifiers)
-		return null
+		return
 
 	var/screen_loc = splittext(modifiers["screen-loc"], ",")
 	var/list/actual_view = getviewsize(viewing_client ? viewing_client.view : world.view)
