@@ -22,7 +22,6 @@
 
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
-	GLOB.smokes_active--
 
 /obj/effect/particle_effect/smoke/New(loc, contains_chemicals = FALSE)
 	..()
@@ -36,6 +35,7 @@
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE))
+	GLOB.smokes_active--
 	return ..()
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
