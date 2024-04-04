@@ -1,6 +1,26 @@
+import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Button, LabeledList, Section, Tabs, Icon, Stack } from '../components';
 import { Window } from '../layouts';
+
+type Data = {
+  ai_tracking: BooleanLike;
+  associated_account_number: number;
+  age: number;
+  registered_name: string;
+  sex: string;
+  blood_type: string;
+  dna_hash: string;
+  fingerprint_hash: string;
+  photo: string;
+  assignment: string;
+  appearances: Appearance[];
+};
+
+type Appearance = {
+  name: string;
+  image: string;
+};
 
 export const AgentCard = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
@@ -45,7 +65,7 @@ export const AgentCard = (props, context) => {
 };
 
 export const AgentCardInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const {
     registered_name,
     sex,
@@ -155,7 +175,7 @@ export const AgentCardInfo = (props, context) => {
 };
 
 export const AgentCardAppearances = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const [selectedAppearance, setSelectedAppearance] = useSharedState(
     context,
     'selectedAppearance',
@@ -164,26 +184,27 @@ export const AgentCardAppearances = (props, context) => {
   const { appearances } = data;
   return (
     <Stack.Item grow>
-      <Section fill scrollable title="Card Appearance">
-        {appearances.map((appearance_unit) => (
+      <Section fill scrollable title={'Card Appearance'}>
+        {appearances.map((appearance) => (
           <Button
-            compact
             m={0.5}
-            color="translucent"
-            key={appearance_unit.name}
-            selected={appearance_unit === selectedAppearance}
+            compact
+            color={'translucent'}
+            key={appearance.name}
+            selected={appearance.name === selectedAppearance}
+            tooltip={appearance.name}
             content={
               <img
-                src={`data:image/jped;base64,${appearance_unit.image}`}
+                src={`data:image/jped;base64,${appearance.image}`}
                 style={{
                   width: '64px',
                   'vertical-align': 'middle',
                   '-ms-interpolation-mode': 'nearest-neighbor',
                 }}
                 onClick={() => {
-                  setSelectedAppearance(appearance_unit);
+                  setSelectedAppearance(appearance.name);
                   act('change_appearance', {
-                    new_appearance: appearance_unit.name,
+                    new_appearance: appearance.name,
                   });
                 }}
               />
