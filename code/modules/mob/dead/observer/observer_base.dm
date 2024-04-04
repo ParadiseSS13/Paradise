@@ -894,16 +894,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	//Istype so we filter out points of interest that are not mobs
 	if(client && ismob(mob_eye))
+		// follow the mob so they're technically right there for visible messages n stuff
 		ManualFollow(mob_eye)
 		client.set_eye(mob_eye)
 		client.perspective = EYE_PERSPECTIVE
 		if(mob_eye.hud_used)
 			client.clear_screen()
 			LAZYOR(mob_eye.observers, src)
-			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
+			mob_eye.hud_used?.show_hud(mob_eye.hud_used.hud_version, src)
 			mob_observed = mob_eye.UID()
 
-		// follow the mob so they're technically right there
+
+		// other signals get registered where this gets added
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end))
 

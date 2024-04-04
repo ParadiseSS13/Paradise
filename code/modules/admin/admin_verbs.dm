@@ -358,10 +358,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/admin_ghost()
-	set category = "Admin"
-	set name = "Aghost"
-
+/client/proc/mentor_ghost()
 	var/is_mentor = check_rights(R_MENTOR)
 	var/is_full_admin = check_rights(R_ADMIN|R_MOD)
 
@@ -370,6 +367,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE) || !is_mentor))
 		return
 
+	do_aghost()
+
+/client/proc/do_aghost()
 	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
@@ -395,6 +395,22 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+
+/client/proc/admin_ghost()
+	set category = "Admin"
+	set name = "Aghost"
+
+	var/is_mentor = check_rights(R_MENTOR)
+	var/is_full_admin = check_rights(R_ADMIN|R_MOD)
+
+	// mentors are allowed only if they have the observe trait, which is given on observe.
+	// they should also not be given this proc.
+	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE) || !is_mentor))
+		return
+
+	do_aghost()
+
 
 
 /// Allow an admin to observe someone.
@@ -442,7 +458,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		admin_observe()
 		return
 
-	// observers don't need to ghost, so we don't need to worry about addinhg
+	// observers don't need to ghost, so we don't need to worry about adding any traits
 	if(isobserver(mob))
 		var/mob/dead/observer/ghost = mob
 		if(ghost.mob_observed)
@@ -468,7 +484,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
 	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
 
-	admin_ghost()
+	do_aghost()
 	var/mob/dead/observer/ghost = mob
 	// make the ghost orbit them so they can see their visible messages and whatnot
 	ghost.do_observe(target)
