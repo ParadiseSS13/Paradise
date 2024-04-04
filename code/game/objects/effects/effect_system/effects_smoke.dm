@@ -16,7 +16,7 @@
 	layer = FLY_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/steps = 0
-	var/lifetime = 5
+	var/lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	var/direction
 	var/causes_coughing = FALSE
 
@@ -122,7 +122,7 @@
 /////////////////////////////////////////////
 
 /obj/effect/particle_effect/smoke/bad
-	lifetime = 8
+	lifetime = 16 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
 /obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
@@ -193,7 +193,7 @@
 
 /obj/effect/particle_effect/smoke/sleeping
 	color = "#9C3636"
-	lifetime = 10
+	lifetime = 20 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
 /obj/effect/particle_effect/smoke/sleeping/process()
