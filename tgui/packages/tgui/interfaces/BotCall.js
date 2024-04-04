@@ -169,7 +169,7 @@ const MapBot = (_properties, context) => {
   const { bots } = data;
 
   return (
-    <Stack fill vertical>
+    <Stack fill vertical scrollable>
       <Stack.Item>
         <Table m="0.5rem">
           <Table.Row header>
@@ -185,7 +185,7 @@ const MapBot = (_properties, context) => {
               <Table.Cell>{bot.name}</Table.Cell>
               <Table.Cell>{bot.model}</Table.Cell>
               <Table.Cell>
-                {bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}{' '}
+                {bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}
               </Table.Cell>
               <Table.Cell>{bot.location}</Table.Cell>
               <Table.Cell>
