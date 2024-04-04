@@ -867,6 +867,3 @@ SUBSYSTEM_DEF(ticker)
 							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Blob")
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
-
-/datum/controller/subsystem/ticker/proc/handle_late_handout()
-	mode.late_handout()
