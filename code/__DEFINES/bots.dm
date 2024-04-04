@@ -34,6 +34,7 @@
 #define CLEAN_BOT			(1<<3)	// Cleanbots
 #define MED_BOT				(1<<4)	// Medibots
 #define HONK_BOT			(1<<5)	// Honkbots
+#define GRIEF_BOT			(1<<6)	// Griefsky
 
 //Sentience types
 #define SENTIENCE_ORGANIC 1

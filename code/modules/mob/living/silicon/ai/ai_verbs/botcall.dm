@@ -22,7 +22,6 @@
 			if(!(bot.model in data["bots"]))
 				data["bots"][bot.model] = list()
 			data["bots"][bot.model] += bot.get_bot_data()
-
 	return data
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

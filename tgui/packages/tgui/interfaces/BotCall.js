@@ -1,7 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
-let bot_type = 'Securitron';
+let bot_model = 'Securitron';
 
 const BotActive = (on) => {
   if (on) {
@@ -37,22 +37,22 @@ export const BotCall = (props, context) => {
   const decideTab = (index) => {
     switch (index) {
       case 0:
-        bot_type = 'Securitron';
+        bot_model = 'Securitron';
         return <BotExists />;
       case 1:
-        bot_type = 'Medibot';
+        bot_model = 'Medibot';
         return <BotExists />;
       case 2:
-        bot_type = 'Cleanbot';
+        bot_model = 'Cleanbot';
         return <BotExists />;
       case 3:
-        bot_type = 'Floorbot';
+        bot_model = 'Floorbot';
         return <BotExists />;
       case 4:
-        bot_type = 'MULE';
+        bot_model = 'MULE';
         return <BotExists />;
       case 5:
-        bot_type = 'Honkbot';
+        bot_model = 'Honkbot';
         return <BotExists />;
       default:
         return 'This should not happen. Report on Paradise Github'; // Blatant copy past from atmos UI
@@ -120,19 +120,19 @@ export const BotCall = (props, context) => {
 const BotExists = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
-  if (bots[bot_type] !== undefined) {
+  if (bots[bot_model] !== undefined) {
     return <MapBot />;
   } else {
-    return <NotBot />;
+    return <NoBot />;
   }
 };
 
-const NotBot = (_properties, context) => {
+const NoBot = (_properties, context) => {
   const { act, data } = useBackend(context);
   return (
     <Stack justify="center" align="center" fill vertical>
       <Box bold={1} color="bad">
-        No {bot_type} detected
+        No {bot_model} detected
       </Box>
     </Stack>
   );
@@ -153,7 +153,7 @@ const MapBot = (_properties, context) => {
           <Table.Cell>Interface</Table.Cell>
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
-        {bots[bot_type].map((bot) => (
+        {bots[bot_model].map((bot) => (
           <Table.Row key={bot.UID}>
             <Table.Cell>{bot.name}</Table.Cell>
             <Table.Cell>{bot.model}</Table.Cell>
