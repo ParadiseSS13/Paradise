@@ -406,6 +406,7 @@
 	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14
+	fire_delay = 0.75
 
 //Preload Syringes
 /obj/item/gun/syringe/malf/Initialize(mapload)
