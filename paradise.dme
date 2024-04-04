@@ -1354,6 +1354,7 @@
 #include "code\modules\admin\mute.dm"
 #include "code\modules\admin\outfits.dm"
 #include "code\modules\admin\player_panel.dm"
+#include "code\modules\admin\reagents_editor.dm"
 #include "code\modules\admin\secrets.dm"
 #include "code\modules\admin\sql_notes.dm"
 #include "code\modules\admin\topic.dm"
