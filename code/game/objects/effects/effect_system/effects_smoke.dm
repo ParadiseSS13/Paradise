@@ -24,11 +24,14 @@
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 	GLOB.smokes_active--
 
-/obj/effect/particle_effect/smoke/New()
+/obj/effect/particle_effect/smoke/New(loc, contains_chemicals = FALSE)
 	..()
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
+	GLOB.smokes_active++
 	lifetime += rand(-1,1)
+	if(contains_chemicals)
+		create_reagents(10)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -61,17 +64,16 @@
 	if(!breather.can_breathe_gas())
 		return FALSE
 	if(breather.smoke_delay)
-		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
+		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), breather), 10) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
 		return FALSE
-
 	if(reagents)
 		reagents.trans_to(breather, reagents.total_volume)
 	if(causes_coughing)
 		breather.drop_item()
 		breather.adjustOxyLoss(1)
-		breather.emote("cough")
+		INVOKE_ASYNC(breather, TYPE_PROC_REF(/mob/living/carbon, emote), "cough")
 	breather.smoke_delay++
-	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
+	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), breather), 10)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
@@ -93,8 +95,6 @@
 	if(chemicals)
 		chemicals_to_add = chemicals
 		units_per_smoke = clamp((chemicals_to_add.total_volume / number), 0, 10)
-		add_attack_logs(M, location, "Caused a chemical smoke reaction containing [chemicals.reagent_list]. Source is [source]", ATKLOG_FEW)
-		log_game("A chemical smoke reaction has taken place in ([location])[chemicals.reagent_list]. Source is [source].")
 
 /datum/effect_system/smoke_spread/start()
 	var/smoke_budget = GLOBAL_SMOKE_LIMIT - GLOB.smokes_active
