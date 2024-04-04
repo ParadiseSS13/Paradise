@@ -13,8 +13,6 @@ SUBSYSTEM_DEF(ticker)
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
-	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -730,7 +728,7 @@ SUBSYSTEM_DEF(ticker)
 		delay = max(0, delay)
 	else
 		// Use default restart timeout
-		delay = restart_timeout
+		delay = max(0, GLOB.configuration.general.restart_timeout SECONDS)
 
 	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 
