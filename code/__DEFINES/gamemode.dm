@@ -67,6 +67,3 @@
 #define NUKE_SITE_OFF_STATION_ZLEVEL 2
 /// The bomb's location cannot be found.
 #define NUKE_SITE_INVALID 3
-
-/// A define used to check if SSticker should hand out objectives later
-#define LATE_HANDOUT 2

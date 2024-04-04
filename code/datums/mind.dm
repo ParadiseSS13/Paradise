@@ -1491,9 +1491,14 @@
  * * antag_datum - an antag datum typepath or instance. If it's a typepath, it will create a new antag datum
  * * datum/team/team - the antag team that the src mind should join, if any
  */
-/datum/mind/proc/add_antag_datum(datum/antagonist/antag_datum, datum/team/team)
-	if(!istype(antag_datum))
-		antag_datum = new()
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team)
+	var/datum/antagonist/antag_datum
+	if(!ispath(datum_type_or_instance))
+		A = datum_type_or_instance
+		if(!istype(A))
+			return
+	else
+		A = new datum_type_or_instance()
 
 	if(!antag_datum.can_be_owned(src))
 		qdel(antag_datum)

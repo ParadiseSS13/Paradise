@@ -67,8 +67,6 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/scoreboard/score = null
 	/// List of ckeys who had antag rolling issues flagged
 	var/list/flagged_antag_rollers = list()
-	/// Time until we actually hand out the special roles
-	var/timer_till_handout
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -230,10 +228,6 @@ SUBSYSTEM_DEF(ticker)
 
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
-	if(can_continue == LATE_HANDOUT)
-		var/random_time = rand(300 SECONDS, 900 SECONDS)
-		timer_till_handout = addtimer(CALLBACK(src, PROC_REF(handle_late_handout)), random_time)
-		can_continue = TRUE
 
 	if(!can_continue)
 		QDEL_NULL(mode)

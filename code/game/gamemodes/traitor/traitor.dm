@@ -52,7 +52,7 @@
 
 	if(!length(pre_traitors))
 		return FALSE
-	return LATE_HANDOUT
+	return TRUE
 
 /datum/game_mode/traitor/post_setup()
 	. = ..()
@@ -65,6 +65,11 @@
 
 		traitor_datum.delayed_objectives = TRUE
 		traitor.add_antag_datum(traitor_datum)
+
+	if(length(pre_traitors))
+		var/random_time = rand(300 SECONDS, 900 SECONDS)
+		random_time = 30 SECONDS
+		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
 
 /datum/game_mode/traitor/proc/traitors_to_add()
 	if(GLOB.configuration.gamemode.traitor_scaling)
@@ -82,6 +87,7 @@
 			continue
 		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
 			for(var/datum/objective/objective in traitor_datum.objective_holder.objectives)
+				objective.delayed_objective = FALSE
 				objective.update_explanation_text()
 
 		var/list/messages = traitor_mind.prepare_announce_objectives()
