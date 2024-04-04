@@ -523,7 +523,7 @@
 
 	// Cigarettes
 	for(var/obj/item/clothing/mask/cigarette/O in holdingitems)
-		if(grind_up_the_container(O))
+		if(grind_items(O))
 			return
 
 	// Everything else
