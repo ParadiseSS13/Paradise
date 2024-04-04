@@ -100,7 +100,7 @@
 	var/smoke_budget = GLOBAL_SMOKE_LIMIT - GLOB.smokes_active
 	if(smoke_budget < number) //Dream blunt rotation scenario
 		return
-	for(var/i=0, i<number, i++)
+	for(var/i in 1 to number)
 		if(holder)
 			location = get_turf(holder)
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location, (chemicals_to_add ? TRUE : FALSE))
@@ -130,7 +130,7 @@
 		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
-		B.damage = (B.damage/2)
+		B.damage = (B.damage / 2)
 	return TRUE
 
 /datum/effect_system/smoke_spread/bad
