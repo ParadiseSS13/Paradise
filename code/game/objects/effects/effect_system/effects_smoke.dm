@@ -106,7 +106,7 @@
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location, (chemicals_to_add ? TRUE : FALSE))
 		if(chemicals_to_add)
 			chemicals_to_add.copy_to(S, units_per_smoke)
-			S.color = mix_color_from_reagents(chemicals_to_add)
+			S.color = mix_color_from_reagents(chemicals_to_add.reagent_list)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)
