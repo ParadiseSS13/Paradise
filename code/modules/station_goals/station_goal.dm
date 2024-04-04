@@ -45,7 +45,11 @@
 	if(href_list["announce"])
 		on_report()
 		send_report()
+		message_admins("[key_name_admin(usr)] sent an announcement for station goal [src]")
+		log_admin("[key_name_admin(usr)] sent an announcement for station goal [src]")
 	else if(href_list["remove"])
 		SSticker.mode.station_goals -= src
+		message_admins("[key_name_admin(usr)] removed station goal [src]")
+		log_admin("[key_name_admin(usr)] removed station goal [src]")
 		qdel(src)
 		usr.client.modify_goals()
