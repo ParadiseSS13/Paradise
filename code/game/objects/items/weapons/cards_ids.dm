@@ -510,7 +510,7 @@
 
 /obj/item/card/id/syndicate/proc/delete_info(datum/tgui/ui)
 	var/response = tgui_alert(registered_human, "Are you sure you want to delete all card info?","Delete Card Info", list("Yes", "No"))
-	if(!Adjacent(registered_human) || !response)
+	if(!Adjacent(registered_human) || isnull(response))
 		return
 	if(response == "Yes")
 		name = initial(name)
@@ -529,7 +529,7 @@
 
 /obj/item/card/id/syndicate/proc/clear_access()
 	var/response = tgui_alert(registered_human, "Are you sure you want to reset access saved on the card?","Reset Access", list("Yes", "No"))
-	if(!Adjacent(registered_human) || !response)
+	if(!Adjacent(registered_human) || isnull(response))
 		return
 	if(response == "Yes")
 		access = initial_access.Copy() // Initial() doesn't work on lists
@@ -540,7 +540,7 @@
 
 /obj/item/card/id/syndicate/proc/change_name()
 	var/new_name = reject_bad_name(tgui_input_text(registered_human,"What name would you like to put on this card?","Agent Card Name", ishuman(registered_human) ? registered_human.real_name : registered_human.name), TRUE)
-	if(!Adjacent(registered_human) || !new_name)
+	if(!Adjacent(registered_human) || isnull(new_name))
 		return
 	registered_name = new_name
 	UpdateName()
@@ -562,13 +562,13 @@
 
 /obj/item/card/id/syndicate/proc/change_sex()
 	var/new_sex = tgui_input_text(registered_human,"What sex would you like to put on this card?","Agent Card Sex", ishuman(registered_human) ? capitalize(registered_human.gender) : "Male", MAX_MESSAGE_LEN)
-	if(!Adjacent(registered_human) || !new_sex)
+	if(!Adjacent(registered_human) || isnull(new_sex))
 		return
 	sex = new_sex
 
 /obj/item/card/id/syndicate/proc/change_age()
 	var/new_age = tgui_input_number(registered_human,"What age would you like to be written on this card?","Agent Card Age", registered_human.age)
-	if(!Adjacent(registered_human) || !new_age)
+	if(!Adjacent(registered_human) || isnull(new_age))
 		return
 	age = new_age
 
@@ -586,8 +586,8 @@
 			)
 
 	var/department = tgui_input_list(registered_human, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
-	var/new_job = "Assistant"
-	var/new_rank = "Assistant"
+	var/new_job
+	var/new_rank
 
 	if(department == "Custom")
 		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
@@ -609,7 +609,9 @@
 				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
 			if("Custom")
 				new_rank = null
-	else if(department != "Assistant")
+			if("Assistant")
+				new_rank = "Assistant"
+	else
 		switch(department)
 			if("Engineering")
 				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.engineering_positions)
@@ -625,9 +627,11 @@
 				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.command_positions)
 			if("Special")
 				new_job = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
+			if("Assistant")
+				new_job = "Assistant"
 		new_rank = new_job
 
-	if(!Adjacent(registered_human))
+	if(!Adjacent(registered_human) || isnull(new_job))
 		return
 	assignment = new_job
 	rank = new_rank
@@ -636,25 +640,25 @@
 
 /obj/item/card/id/syndicate/proc/change_money_account()
 	var/new_account = tgui_input_number(registered_human, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
-	if(!Adjacent(registered_human) || !new_account)
+	if(!Adjacent(registered_human) || isnull(new_account))
 		return
 	associated_account_number = new_account
 
 /obj/item/card/id/syndicate/proc/change_blood_type()
 	var/new_blood_type = tgui_input_text(registered_human, "What blood type would you like to be written on this card?", "Agent Card Blood Type", registered_human.dna.blood_type)
-	if(!Adjacent(registered_human) || !new_blood_type)
+	if(!Adjacent(registered_human) || isnull(new_blood_type))
 		return
 	blood_type = new_blood_type
 
 /obj/item/card/id/syndicate/proc/change_dna_hash()
 	var/new_dna_hash = tgui_input_text(registered_human, "What DNA hash would you like to be written on this card?", "Agent Card DNA Hash", registered_human.dna.unique_enzymes)
-	if(!Adjacent(registered_human) || !new_dna_hash)
+	if(!Adjacent(registered_human) || isnull(new_dna_hash))
 		return
 	dna_hash = new_dna_hash
 
 /obj/item/card/id/syndicate/proc/change_fingerprints()
 	var/new_fingerprint_hash = tgui_input_text(registered_human,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash", md5(registered_human.dna.uni_identity))
-	if(!Adjacent(registered_human) || !new_fingerprint_hash)
+	if(!Adjacent(registered_human) || isnull(new_fingerprint_hash))
 		return
 	fingerprint_hash = new_fingerprint_hash
 
