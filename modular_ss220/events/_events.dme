@@ -4,3 +4,4 @@
 #include "code/headcrabs.dm"
 #include "code/infestation_extended.dm"
 #include "code/christmas.dm"
+#include "code/spider_terror.dm"
