@@ -528,11 +528,11 @@
 
 	// Everything else
 	for(var/obj/item/reagent_containers/O in holdingitems)
-		if(grind_up_the_container(O))
+		if(grind_items(O))
 			return
 
-// Helper proc to handle grinding funny reagent holding items
-/obj/machinery/reagentgrinder/proc/grind_up_the_container(obj/O)
+/// Will transfer reagents of the item to the beaker, and returns `TRUE` if the beaker is full
+/obj/machinery/reagentgrinder/proc/grind_items(obj/item/O)
 	O.reagents.trans_to(beaker, O.reagents.total_volume)
 	if(!O.reagents.total_volume)
 		remove_object(O)
