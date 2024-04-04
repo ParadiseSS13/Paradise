@@ -62,56 +62,55 @@ export const BotCall = (props, context) => {
   return (
     <Window width={700} height={400}>
       <Window.Content scrollable={tabIndex === 0}>
-        <Box fillPositionedParent>
-          <Tabs fluid textAlign="center">
-            <Tabs.Tab
-              key="Securitron"
-              selected={tabIndex === 0}
-              onClick={() => setTabIndex(0)}
-            >
-              Securitron
-            </Tabs.Tab>
-            <Tabs.Tab
-              key="Medibot"
-              selected={tabIndex === 1}
-              onClick={() => setTabIndex(1)}
-            >
-              Medibot
-            </Tabs.Tab>
-            <Tabs.Tab
-              key="Cleanbot"
-              selected={tabIndex === 2}
-              onClick={() => setTabIndex(2)}
-            >
-              Cleanbot
-            </Tabs.Tab>
-            <Tabs.Tab
-              bot_type="Floorbot"
-              key="Floorbot"
-              selected={tabIndex === 3}
-              onClick={() => setTabIndex(3)}
-            >
-              Floorbot
-            </Tabs.Tab>
-            <Tabs.Tab
-              bot_type="MULE"
-              key="Mule"
-              selected={tabIndex === 4}
-              onClick={() => setTabIndex(4)}
-            >
-              Mule
-            </Tabs.Tab>
-            <Tabs.Tab
-              bot_type="Honkbot"
-              key="HonkBot"
-              selected={tabIndex === 5}
-              onClick={() => setTabIndex(5)}
-            >
-              HonkBot
-            </Tabs.Tab>
-          </Tabs>
-          {decideTab(tabIndex)}
-        </Box>
+        <Stack fill vertical>
+          <Stack.Item>
+            <Tabs fluid textAlign="center">
+              <Tabs.Tab
+                key="Security"
+                selected={tabIndex === 0}
+                onClick={() => setTabIndex(0)}
+              >
+                Security
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Medibot"
+                selected={tabIndex === 1}
+                onClick={() => setTabIndex(1)}
+              >
+                Medibot
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Cleanbot"
+                selected={tabIndex === 2}
+                onClick={() => setTabIndex(2)}
+              >
+                Cleanbot
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Floorbot"
+                selected={tabIndex === 3}
+                onClick={() => setTabIndex(3)}
+              >
+                Floorbot
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Mule"
+                selected={tabIndex === 4}
+                onClick={() => setTabIndex(4)}
+              >
+                Mule
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="HonkBot"
+                selected={tabIndex === 5}
+                onClick={() => setTabIndex(5)}
+              >
+                HonkBot
+              </Tabs.Tab>
+            </Tabs>
+            {decideTab(tabIndex)}
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -121,7 +120,11 @@ const BotExists = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
   if (bots[bot_model] !== undefined) {
-    return <MapBot />;
+    if (bots[bot_model] === "Securitron" || bots[bot_model] === "ED-209") {
+      return <SecurityTab />;
+    } else  {
+      return <MapBot />;
+    }
   } else {
     return <NoBot />;
   }
@@ -136,6 +139,13 @@ const NoBot = (_properties, context) => {
       </Box>
     </Stack>
   );
+};
+
+const SecurityTab = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { bots } = data;
+
+
 };
 
 const MapBot = (_properties, context) => {
