@@ -9,7 +9,7 @@ type StaticReagentInformation = {
 };
 
 type VolatileReagentInformation = {
-  volume: number;
+  volume: number | null;
   uid: string;
 };
 
@@ -136,7 +136,9 @@ const PresentReagentRow = (
             })
           }
         />
-        <span className="volume-label">{volume}u</span>
+        <span className="volume-label">
+          {volume === null ? `NULL` : `${volume}u`}
+        </span>
       </Table.Cell>
       <Table.Cell className="reagent-name-cell">
         {reagentID} ({name})
