@@ -30,7 +30,7 @@ export const BotCall = (props, context) => {
     switch (index) {
       case 0:
         bot_model = 'Securitron';
-        return <BotExists />;
+        return <SecurityTab />;
       case 1:
         bot_model = 'Medibot';
         return <BotExists />;
@@ -45,6 +45,12 @@ export const BotCall = (props, context) => {
         return <BotExists />;
       case 5:
         bot_model = 'Honkbot';
+        return <BotExists />;
+      case 10:
+        bot_model = 'Securitron';
+        return <BotExists />;
+      case 11:
+        bot_model = 'ED-209';
         return <BotExists />;
       default:
         return 'This should not happen. Report on Paradise Github';
@@ -112,9 +118,9 @@ const BotExists = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
   if (bots[bot_model] !== undefined) {
-    if (bot_model === "Securitron" || bot_model === "ED-209") {
-      return <SecurityTab/>;
-    } else  {
+    if (bot_model === 'Securitron' || bot_model === 'ED-209') {
+      return <SecurityTab />;
+    } else {
       return <MapBot />;
     }
   } else {
@@ -135,24 +141,29 @@ const NoBot = (_properties, context) => {
 
 const SecurityTab = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { bots } = data;
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   return (
-    <Stack fill vertical >
+    <Stack fill vertical>
       <Stack.Item>
         <Tabs fluid textAlign="center">
           <Tabs.Tab
-          bot_type = "Securitron"
+            key="Security"
+            selected={tabIndex === 10}
+            onClick={() => setTabIndex(10)}
           >
-          Securitron
+            Securitron
           </Tabs.Tab>
           <Tabs.Tab
-          bot_type = "ED-209"
+            bot_type="ED-209"
+            key="ED-209"
+            selected={tabIndex === 11}
+            onClick={() => setTabIndex(11)}
           >
-          ED-209
+            ED-209
           </Tabs.Tab>
         </Tabs>
       </Stack.Item>
-      <MapBot/>
+      <MapBot />
     </Stack>
   );
 };
@@ -164,45 +175,47 @@ const MapBot = (_properties, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-      <Table m="0.5rem">
-        <Table.Row header>
-          <Table.Cell>Name</Table.Cell>
-          <Table.Cell>Model</Table.Cell>
-          <Table.Cell>Status</Table.Cell>
-          <Table.Cell>Location</Table.Cell>
-          <Table.Cell>Interface</Table.Cell>
-          <Table.Cell>Call</Table.Cell>
-        </Table.Row>
-        {bots[bot_model].map((bot) => (
-          <Table.Row key={bot.UID}>
-            <Table.Cell>{bot.name}</Table.Cell>
-            <Table.Cell>{bot.model}</Table.Cell>
-            <Table.Cell>{bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>} </Table.Cell>
-            <Table.Cell>{bot.location}</Table.Cell>
-            <Table.Cell>
-              <Button
-                content="Interface"
-                onClick={() =>
-                  act('interface', {
-                    botref: bot.UID,
-                  })
-                }
-              />
-            </Table.Cell>
-            <Table.Cell>
-              <Button
-                content="Call"
-                onClick={() =>
-                  act('call', {
-                    botref: bot.UID,
-                  })
-                }
-              />
-            </Table.Cell>
+        <Table m="0.5rem">
+          <Table.Row header>
+            <Table.Cell>Name</Table.Cell>
+            <Table.Cell>Model</Table.Cell>
+            <Table.Cell>Status</Table.Cell>
+            <Table.Cell>Location</Table.Cell>
+            <Table.Cell>Interface</Table.Cell>
+            <Table.Cell>Call</Table.Cell>
           </Table.Row>
-        ))}
-      </Table>
-    </Stack.Item>
-  </Stack>
+          {bots[bot_model].map((bot) => (
+            <Table.Row key={bot.UID}>
+              <Table.Cell>{bot.name}</Table.Cell>
+              <Table.Cell>{bot.model}</Table.Cell>
+              <Table.Cell>
+                {bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}{' '}
+              </Table.Cell>
+              <Table.Cell>{bot.location}</Table.Cell>
+              <Table.Cell>
+                <Button
+                  content="Interface"
+                  onClick={() =>
+                    act('interface', {
+                      botref: bot.UID,
+                    })
+                  }
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Button
+                  content="Call"
+                  onClick={() =>
+                    act('call', {
+                      botref: bot.UID,
+                    })
+                  }
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
+      </Stack.Item>
+    </Stack>
   );
 };
