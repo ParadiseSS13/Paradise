@@ -5,7 +5,7 @@
 	var/client/clicker
 	var/mob/living/shooter
 	var/atom/target
-	var/turf/target_loc //For dealing with locking on targets due to BYOND engine limitations (the mouse input only happening when mouse moves).
+	var/turf/target_loc // For dealing with locking on targets due to BYOND engine limitations (the mouse input only happening when mouse moves).
 	var/autofire_stat = AUTOFIRE_STAT_IDLE
 	var/mouse_parameters
 	/// Time between individual shots.
@@ -15,18 +15,18 @@
 	/// Should dual wielding be allowed?
 	var/allow_akimbo
 
-	///windup autofire vars
-	///Whether the delay between shots increases over time, simulating a spooling weapon
+	/// windup autofire vars
+	/// Whether the delay between shots increases over time, simulating a spooling weapon
 	var/windup_autofire = FALSE
-	///the reduction to shot delay for windup
+	/// the reduction to shot delay for windup
 	var/current_windup_reduction = 0
-	///the percentage of autfire_shot_delay that is added to current_windup_reduction
+	/// the percentage of autfire_shot_delay that is added to current_windup_reduction
 	var/windup_autofire_reduction_multiplier = 0.3
-	///How high of a reduction that current_windup_reduction can reach
+	/// How high of a reduction that current_windup_reduction can reach
 	var/windup_autofire_cap = 0.3
-	///How long it takes for weapons that have spooled-up to reset back to the original firing speed
+	/// How long it takes for weapons that have spooled-up to reset back to the original firing speed
 	var/windup_spindown = 3 SECONDS
-	///Timer for tracking the spindown reset timings
+	/// Timer for tracking the spindown reset timings
 	var/timerid
 	COOLDOWN_DECLARE(next_shot_cd)
 
@@ -62,9 +62,9 @@
 	SIGNAL_HANDLER
 
 	if(autofire_stat == AUTOFIRE_STAT_ALERT)
-		return //We've updated the firemode. No need for more.
+		return // We've updated the firemode. No need for more.
 	if(autofire_stat == AUTOFIRE_STAT_FIRING)
-		stop_autofiring() //Let's stop shooting to avoid issues.
+		stop_autofiring() // Let's stop shooting to avoid issues.
 		return
 	if(user.is_holding(parent))
 		autofire_on(user.client)
@@ -99,7 +99,7 @@
 
 	if(!QDELETED(clicker))
 		UnregisterSignal(clicker, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP, COMSIG_CLIENT_MOUSEDRAG))
-	mouse_status = AUTOFIRE_MOUSEUP //In regards to the component there's no click anymore to care about.
+	mouse_status = AUTOFIRE_MOUSEUP // In regards to the component there's no click anymore to care about.
 	clicker = null
 	if(!QDELETED(shooter))
 		RegisterSignal(shooter, COMSIG_MOB_LOGIN, PROC_REF(on_client_login))
@@ -119,7 +119,7 @@
 /datum/component/automatic_fire/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
 	SIGNAL_HANDLER
 
-	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
+	var/list/modifiers = params2list(params) // If they're shift+clicking, for example, let's not have them accidentally shoot.
 
 	if(modifiers["shift"])
 		return
@@ -133,14 +133,14 @@
 		return
 	if(source.mob.in_throw_mode)
 		return
-	if(!isturf(source.mob.loc)) //No firing inside lockers and stuff.
+	if(!isturf(source.mob.loc)) // No firing inside lockers and stuff.
 		return
-	if(get_dist(source.mob, _target) < 2) //Adjacent clicking.
+	if(get_dist(source.mob, _target) < 2) // Adjacent clicking.
 		return
 
-	if(isnull(location) || istype(_target, /obj/screen)) //Clicking on a screen object.
-		if(_target.plane != CLICKCATCHER_PLANE) //The clickcatcher is a special case. We want the click to trigger then, under it.
-			return //If we click and drag on our worn backpack, for example, we want it to open instead.
+	if(isnull(location) || istype(_target, /obj/screen)) // Clicking on a screen object.
+		if(_target.plane != CLICKCATCHER_PLANE) // The clickcatcher is a special case. We want the click to trigger then, under it.
+			return // If we click and drag on our worn backpack, for example, we want it to open instead.
 		_target = parse_caught_click_modifiers(modifiers, get_turf(source.eye), source)
 		params = list2params(modifiers)
 		if(!_target)
@@ -149,12 +149,12 @@
 	if(SEND_SIGNAL(src, COMSIG_AUTOFIRE_ONMOUSEDOWN, source, _target, location, control, params) & COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS)
 		return
 
-	source.click_intercept_time = world.time //From this point onwards Click() will no longer be triggered.
+	source.click_intercept_time = world.time // From this point onwards Click() will no longer be triggered.
 
 	if(autofire_stat == AUTOFIRE_STAT_IDLE)
 		CRASH("on_mouse_down() called with [autofire_stat] autofire_stat")
 	if(autofire_stat == AUTOFIRE_STAT_FIRING)
-		stop_autofiring() //This can happen if we click and hold and then alt+tab, printscreen or other such action. MouseUp won't be called then and it will keep autofiring.
+		stop_autofiring() // This can happen if we click and hold and then alt+tab, printscreen or other such action. MouseUp won't be called then and it will keep autofiring.
 
 	target = _target
 	target_loc = get_turf(target)
@@ -169,7 +169,7 @@
 	clicker.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
 	clicker.mouse_pointer_icon = clicker.mouse_override_icon
 
-	if(mouse_status == AUTOFIRE_MOUSEUP) //See mouse_status definition for the reason for this.
+	if(mouse_status == AUTOFIRE_MOUSEUP) // See mouse_status definition for the reason for this.
 		RegisterSignal(clicker, COMSIG_CLIENT_MOUSEUP, PROC_REF(on_mouse_up))
 		mouse_status = AUTOFIRE_MOUSEDOWN
 
@@ -177,15 +177,15 @@
 
 	if(isgun(parent))
 		var/obj/item/gun/shoota = parent
-		if(!shoota.on_autofire_start(shooter)) //This is needed because the minigun has a do_after before firing and signals are async.
+		if(!shoota.on_autofire_start(shooter)) // This is needed because the minigun has a do_after before firing and signals are async.
 			stop_autofiring()
 			return
 
 	if(autofire_stat != AUTOFIRE_STAT_FIRING)
-		return //Things may have changed while on_autofire_start() was being processed, due to do_after's sleep.
+		return // Things may have changed while on_autofire_start() was being processed, due to do_after's sleep.
 
-	if(!process_shot()) //First shot is processed instantly.
-		return //If it fails, such as when the gun is empty, then there's no need to schedule a second shot.
+	if(!process_shot()) // First shot is processed instantly.
+		return // If it fails, such as when the gun is empty, then there's no need to schedule a second shot.
 
 	START_PROCESSING(SSprojectiles, src)
 	RegisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG, PROC_REF(on_mouse_drag))
@@ -220,16 +220,16 @@
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
 
-	if(isnull(over_location)) //This happens when the mouse is over an inventory or screen object, or on entering deep darkness, for example.
+	if(isnull(over_location)) // This happens when the mouse is over an inventory or screen object, or on entering deep darkness, for example.
 		var/list/modifiers = params2list(params)
 		var/new_target = parse_caught_click_modifiers(modifiers, get_turf(source.eye), source)
 		params = list2params(modifiers)
 		mouse_parameters = params
 		if(!new_target)
-			if(QDELETED(target)) //No new target acquired, and old one was deleted, get us out of here.
+			if(QDELETED(target)) // No new target acquired, and old one was deleted, get us out of here.
 				stop_autofiring()
 				CRASH("on_mouse_drag failed to get the turf under screen object [over_object.type]. Old target was incidentally QDELETED.")
-			target = get_turf(target) //If previous target wasn't a turf, let's turn it into one to avoid locking onto a potentially moving target.
+			target = get_turf(target) // If previous target wasn't a turf, let's turn it into one to avoid locking onto a potentially moving target.
 			target_loc = target
 			CRASH("on_mouse_drag failed to get the turf under screen object [over_object.type]")
 		target = new_target
@@ -247,14 +247,14 @@
 	if(!COOLDOWN_FINISHED(src, next_shot_cd))
 		return TRUE
 
-	if(QDELETED(target) || get_turf(target) != target_loc) //Target moved or got destroyed since we last aimed.
-		target = target_loc //So we keep firing on the emptied tile until we move our mouse and find a new target.
+	if(QDELETED(target) || get_turf(target) != target_loc) // Target moved or got destroyed since we last aimed.
+		target = target_loc // So we keep firing on the emptied tile until we move our mouse and find a new target.
 
 	if(get_dist(shooter, target) <= 0)
-		target = get_step(shooter, shooter.dir) //Shoot in the direction faced if the mouse is on the same tile as we are.
+		target = get_step(shooter, shooter.dir) // Shoot in the direction faced if the mouse is on the same tile as we are.
 		target_loc = target
 	else if(!in_view_range(shooter, target))
-		stop_autofiring() //Elvis has left the building.
+		stop_autofiring() // Elvis has left the building.
 		return FALSE
 
 	shooter.face_atom(target)
@@ -312,7 +312,7 @@
 		return NONE
 
 	INVOKE_ASYNC(src, PROC_REF(do_autofire_shot), source, target, shooter, allow_akimbo, params)
-	return COMPONENT_AUTOFIRE_SHOT_SUCCESS //All is well, we can continue shooting.
+	return COMPONENT_AUTOFIRE_SHOT_SUCCESS // All is well, we can continue shooting.
 
 /obj/item/gun/proc/do_autofire_shot(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	var/obj/item/gun/akimbo_gun = shooter.get_inactive_hand()
