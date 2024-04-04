@@ -6,26 +6,21 @@
 }
 
 .volume-cell {
-  position: relative;
   min-width: 3em;
   text-align: right;
   vertical-align: middle;
 }
 
 .volume-button {
-  position: absolute;
   padding: 0 0.4em;
-  right: 0.5em;
-  top: 50%;
-  transform: translateY(-40%);
 }
 
 .volume-cell:not(:hover) .edit-volume-button {
-  visibility: hidden;
+  display: none;
 }
 
 .volume-cell:hover .volume-label {
-  visibility: hidden;
+  display: none;
 }
 
 .reagent-name-cell.reagent-absent {
