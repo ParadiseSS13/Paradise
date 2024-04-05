@@ -36,7 +36,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted red."
 	icon_state = "cardborg_h_security"
 	item_state = "cardborg_h_security"
-	available_disguises = list("secborg", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC")
+	available_disguises = list("secborg", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC", "heavySec")
 	species_disguise = "High-tech security robot"
 
 /obj/item/clothing/head/cardborg/engineering
@@ -52,7 +52,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted brown."
 	icon_state = "cardborg_h_mining"
 	item_state = "cardborg_h_mining"
-	available_disguises = list("Miner_old", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland")
+	available_disguises = list("Miner_old", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland", "squatminer", "coffinMiner")
 	species_disguise = "High-tech mining robot"
 
 /obj/item/clothing/head/cardborg/service
@@ -67,7 +67,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted blue."
 	icon_state = "cardborg_h_medical"
 	item_state = "cardborg_h_medical"
-	available_disguises = list("Medbot", "surgeon", "droid-medical", "medicalrobot", "Standard-Medi", "Noble-MED", "Cricket-MEDI")
+	available_disguises = list("Medbot", "surgeon", "droid-medical", "medicalrobot", "Standard-Medi", "Noble-MED", "Cricket-MEDI", "qualified_doctor")
 	species_disguise = "High-tech medical robot"
 
 /obj/item/clothing/head/cardborg/janitor
@@ -75,7 +75,7 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted purple."
 	icon_state = "cardborg_h_janitor"
 	item_state = "cardborg_h_janitor"
-	available_disguises = list("JanBot2", "janitorrobot", "mopgearrex", "Standard-Jani", "Noble-CLN", "Cricket-JANI")
+	available_disguises = list("JanBot2", "janitorrobot", "mopgearrex", "Standard-Jani", "Noble-CLN", "Cricket-JANI", "custodiborg")
 	species_disguise = "High-tech janitor robot"
 
 /obj/item/clothing/head/cardborg/xeno
@@ -174,70 +174,81 @@ CONTENTS:
 /*
  / Disguise code.
 */
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)	// Attempt to disguise when you put on the helmet.
 	..()
-	if(ishuman(user) && slot == SLOT_HUD_HEAD)
-		var/mob/living/carbon/human/H = user
-		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
-			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
-			CB.disguise(user, src)
+	if(slot == SLOT_HUD_HEAD)
+		apply_borg_disguise(user)
 
-/obj/item/clothing/head/cardborg/dropped(mob/living/user)	// You stop being a robot if you remove your helmet.
+/obj/item/clothing/head/cardborg/dropped(mob/living/user)			// You stop being a robot if you remove your helmet.
 	..()
-	user.remove_alt_appearance("borg_disguise")
+	user.remove_alt_appearance("borg_disguise_variant")
 
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)	// Attempt to disguise when you put on the suit.
 	..()
 	if(slot == SLOT_HUD_OUTER_SUIT)
-		disguise(user)
+		apply_borg_disguise(user)
 
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)	// You stop being a robot if you remove your suit.
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user)			// You stop being a robot if you remove your suit.
 	..()
-	user.remove_alt_appearance("borg_disguise")
+	user.remove_alt_appearance("borg_disguise_variant")
 
-/obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
-	if(borghead.species_disguise != H.wear_suit.species_disguise)	// If your head and body do not match, the disguise is not convincing enough.
+/obj/item/clothing/proc/apply_borg_disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
+	if(!istype(H))
 		return
-	if(istype(H))
-		if(!borghead)
-			borghead = H.head
-		if(istype(borghead, /obj/item/clothing/head/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY!?
-			var/borg_disguise_variant
-			var/disguise_eyes
-			borg_disguise_variant = pick(borghead.available_disguises)
-			switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
-				if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
-					disguise_eyes = "eyes-Standard"
-				if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
-					disguise_eyes = "eyes-Cricket"
-				if("ertgamma", "nano_bloodhound")
-					disguise_eyes = "eyes-ertgamma"
-				if("bloodhound")
-					disguise_eyes = "eyes-bloodhound"
-				if("syndie_bloodhound")
-					disguise_eyes = "eyes-syndie_bloodhound"
-				if("syndi-engi")
-					disguise_eyes = "eyes-syndi-engi"
-				if("lavaland")
-					disguise_eyes = "eyes-lavaland"
-				if("Miner")
-					disguise_eyes = "eyes-Miner"
-				if("droid-miner")
-					disguise_eyes = "eyes-droid-miner"
-				if("droid-medical")
-					disguise_eyes = "eyes-droid-medical"
-				if("landmate")
-					disguise_eyes = "eyes-landmate"
-				if("Engineering")
-					disguise_eyes = "eyes-Engineering"
-				if("surgeon")
-					disguise_eyes = "eyes-surgeon"
-				if("mopgearrex")
-					disguise_eyes = "eyes-mopgearrex"
-				if("toiletbot")
-					disguise_eyes = "eyes-toiletbot"
-			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
-			I.override = 1
-			if(disguise_eyes)
-				I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
-			H.add_alt_appearance("borg_disguise", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
+	if(!borghead)
+		borghead = H.head
+	if(!istype(borghead, /obj/item/clothing/head/cardborg)) 
+		return
+	if(!borgbody)
+		borgbody = H.wear_suit
+	if(!istype(borgbody, /obj/item/clothing/suit/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
+		return
+	if(borghead.species_disguise == borgbody.species_disguise)	// Ensure the helmet and suit have the same colour.
+		var/borg_disguise_variant
+		var/disguise_eyes
+		borg_disguise_variant = pick(borghead.available_disguises)
+		switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
+			if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
+				disguise_eyes = "eyes-Standard"
+			if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
+				disguise_eyes = "eyes-Cricket"
+			if("ertgamma", "nano_bloodhound")
+				disguise_eyes = "eyes-ertgamma"
+			if("bloodhound")
+				disguise_eyes = "eyes-bloodhound"
+			if("syndie_bloodhound")
+				disguise_eyes = "eyes-syndie_bloodhound"
+			if("syndi-engi")
+				disguise_eyes = "eyes-syndi-engi"
+			if("lavaland")
+				disguise_eyes = "eyes-lavaland"
+			if("Miner")
+				disguise_eyes = "eyes-Miner"
+			if("droid-miner")
+				disguise_eyes = "eyes-droid-miner"
+			if("droid-medical")
+				disguise_eyes = "eyes-droid-medical"
+			if("landmate")
+				disguise_eyes = "eyes-landmate"
+			if("Engineering")
+				disguise_eyes = "eyes-Engineering"
+			if("surgeon")
+				disguise_eyes = "eyes-surgeon"
+			if("mopgearrex")
+				disguise_eyes = "eyes-mopgearrex"
+			if("toiletbot")
+				disguise_eyes = "eyes-toiletbot"
+			if("qualified_doctor")
+				disguise_eyes = "eyes-qualified_doctor"
+			if("custodiborg")
+				disguise_eyes = "eyes-custodiborg"
+			if("heavySec")
+				disguise_eyes = "eyes-heavySec"
+			if("squatminer")
+				disguise_eyes = "eyes-squatminer"
+		var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
+		I.override = 1
+		if(disguise_eyes)
+			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
+		H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
+	return
