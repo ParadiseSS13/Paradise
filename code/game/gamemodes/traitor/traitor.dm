@@ -68,7 +68,6 @@
 
 	if(length(pre_traitors))
 		var/random_time = rand(300 SECONDS, 900 SECONDS)
-		random_time = 30 SECONDS
 		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
 
 /datum/game_mode/traitor/proc/traitors_to_add()
