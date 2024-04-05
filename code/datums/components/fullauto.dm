@@ -59,7 +59,7 @@
 	process_shot()
 
 /datum/component/automatic_fire/proc/wake_up(datum/source, mob/user, slot)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ITEM_EQUIPPED
 
 	if(autofire_stat == AUTOFIRE_STAT_ALERT)
 		return // We've updated the firemode. No need for more.
@@ -71,8 +71,6 @@
 
 // There is a gun and there is a user wielding it. The component now waits for the mouse click.
 /datum/component/automatic_fire/proc/autofire_on(client/user_client)
-	SIGNAL_HANDLER
-
 	if(autofire_stat != AUTOFIRE_STAT_IDLE)
 		return
 	autofire_stat = AUTOFIRE_STAT_ALERT
@@ -88,7 +86,7 @@
 	parent.RegisterSignal(parent, COMSIG_AUTOFIRE_SHOT, TYPE_PROC_REF(/obj/item/gun, do_autofire))
 
 /datum/component/automatic_fire/proc/autofire_off(datum/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_LOGOUT
 
 	if(autofire_stat == AUTOFIRE_STAT_IDLE)
 		return
@@ -110,7 +108,7 @@
 	parent.UnregisterSignal(src, COMSIG_AUTOFIRE_ONMOUSEDOWN)
 
 /datum/component/automatic_fire/proc/on_client_login(mob/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_LOGIN
 	if(!source.client)
 		return
 	if(source.is_holding(parent))
@@ -200,7 +198,7 @@
 	return COMPONENT_CLIENT_MOUSEUP_INTERCEPT
 
 /datum/component/automatic_fire/proc/stop_autofiring(datum/source, atom/object, turf/location, control, params)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_SWAPPED_HANDS
 
 	if(autofire_stat != AUTOFIRE_STAT_FIRING)
 		return
