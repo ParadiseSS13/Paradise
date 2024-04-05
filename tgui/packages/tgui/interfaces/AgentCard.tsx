@@ -2,6 +2,7 @@ import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Button, LabeledList, Section, Tabs, Icon, Stack } from '../components';
 import { Window } from '../layouts';
+import { classes } from 'common/react';
 
 type Data = {
   ai_tracking: BooleanLike;
@@ -14,12 +15,11 @@ type Data = {
   fingerprint_hash: string;
   photo: string;
   assignment: string;
-  appearances: Appearance[];
+  idcards: IDCard[];
 };
 
-type Appearance = {
+type IDCard = {
   name: string;
-  image: string;
 };
 
 export const AgentCard = (props, context) => {
@@ -36,7 +36,7 @@ export const AgentCard = (props, context) => {
   };
 
   return (
-    <Window width={425} height={500} theme="syndicate">
+    <Window width={400} height={500} theme="syndicate">
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item textAlign="center">
@@ -181,34 +181,25 @@ export const AgentCardAppearances = (props, context) => {
     'selectedAppearance',
     null
   );
-  const { appearances } = data;
+  const { idcards } = data;
   return (
     <Stack.Item grow>
       <Section fill scrollable title={'Card Appearance'}>
-        {appearances.map((appearance) => (
+        {idcards.map((idcard) => (
           <Button
             m={0.5}
             compact
             color={'translucent'}
-            key={appearance.name}
-            selected={appearance.name === selectedAppearance}
-            tooltip={appearance.name}
-            content={
-              <img
-                src={`data:image/jped;base64,${appearance.image}`}
-                style={{
-                  width: '64px',
-                  'vertical-align': 'middle',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-                onClick={() => {
-                  setSelectedAppearance(appearance.name);
-                  act('change_appearance', {
-                    new_appearance: appearance.name,
-                  });
-                }}
-              />
-            }
+            key={idcard.name}
+            selected={idcard.name === selectedAppearance}
+            tooltip={idcard.name}
+            className={classes(['idcards64x64', idcard.name])}
+            onClick={() => {
+              setSelectedAppearance(idcard.name);
+              act('change_appearance', {
+                new_appearance: idcard.name,
+              });
+            }}
           />
         ))}
       </Section>

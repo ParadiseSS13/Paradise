@@ -339,57 +339,6 @@
 	var/static/list/card_images
 	/// Editing is prohibited if registered_human reference is missing
 	var/mob/living/carbon/human/registered_human
-	var/static/list/appearances = list(
-							"data",
-							"id",
-							"gold",
-							"silver",
-							"centcom",
-							"security",
-							"detective",
-							"warden",
-							"internalaffairsagent",
-							"medical",
-							"coroner",
-							"virologist",
-							"chemist",
-							"paramedic",
-							"psychiatrist",
-							"research",
-							"roboticist",
-							"quartermaster",
-							"cargo",
-							"shaftminer",
-							"engineering",
-							"atmostech",
-							"captain",
-							"HoP",
-							"HoS",
-							"CMO",
-							"RD",
-							"CE",
-							"assistant",
-							"clown",
-							"mime",
-							"botanist",
-							"librarian",
-							"chaplain",
-							"bartender",
-							"chef",
-							"janitor",
-							"explorer",
-							"rainbow",
-							"prisoner",
-							"syndie",
-							"deathsquad",
-							"commander",
-							"ERT_leader",
-							"ERT_security",
-							"ERT_engineering",
-							"ERT_medical",
-							"ERT_janitorial",
-							"ERT_paranormal",
-						)
 
 /obj/item/card/id/syndicate/researcher
 	initial_access = list(ACCESS_SYNDICATE)
@@ -474,16 +423,19 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
-	if(!length(card_images))
-		var/list/new_images = list()
-		for(var/appearance_name in appearances)
-			new_images.Add(list(list(
-				"name" = appearance_name,
-				"image" = "[icon2base64(icon(initial(icon), appearance_name, SOUTH, 1))]"
-			)))
-		card_images = new_images
-	data["appearances"] = card_images
+	var/list/idcard_skins = list()
+	for(var/idcard_skin in get_all_card_skins())
+		idcard_skins.Add(list(list(
+			"name" = idcard_skin,
+		)))
+	data["idcards"] = idcard_skins
 	return data
+
+
+/obj/item/card/id/syndicate/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/idcards)
+	)
 
 /obj/item/card/id/syndicate/ui_state(mob/user)
 	return GLOB.default_state
