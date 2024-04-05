@@ -529,11 +529,8 @@
 		if(beaker.reagents.holder_full())
 			return
 
-/*
-The Botanitank, a bigger, faster grinder complete with integrated chem storage tank.
+//The Botanitank, a bigger, faster grinder complete with integrated chem storage tank.
 
-
-*/
 /obj/machinery/reagentgrinder/Botanitank
 	name = "\improper Botanitank"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -546,7 +543,6 @@ The Botanitank, a bigger, faster grinder complete with integrated chem storage t
 	resistance_flags = ACID_PROOF
 	var/obj/item/reagent_containers/internal = new /obj/item/reagent_containers/glass/beaker/noreact
 	var/processTime = 6
-
 
 //The Botanitank has different effects from components.
 

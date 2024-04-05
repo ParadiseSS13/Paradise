@@ -672,7 +672,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/grinder_names_paths = list(
 							"reagentgrinder" = /obj/machinery/reagentgrinder,
-							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank,)
+							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank)
 
 /obj/item/circuitboard/reagentgrinder/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
