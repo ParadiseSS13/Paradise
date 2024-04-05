@@ -41,7 +41,7 @@
 
 		if(WIRE_NUKE_DISARM)
 			if(N.timing && is_cut(WIRE_NUKE_CONTROL))
-				if(is_cut(WIRE_NUKE_LIGHT))
+				if(!is_cut(WIRE_NUKE_LIGHT))
 					N.icon_state = N.sprite_prefix + "nuclearbomb1"
 				N.timing = FALSE
 				N.audible_message("<span class='boldnotice'>The timer on [N] stops!</span>", hearing_distance = 1)

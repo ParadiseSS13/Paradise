@@ -101,7 +101,7 @@
 /obj/item/pinpointer/proc/scanbomb()
 	if(!syndicate)
 		if(!the_bomb)
-			the_bomb = locate() in GLOB.nt_nuke_list
+			the_bomb = locate() in GLOB.nuke_list
 	else
 		if(!the_s_bomb)
 			the_s_bomb = locate() in GLOB.syndi_nuke_list

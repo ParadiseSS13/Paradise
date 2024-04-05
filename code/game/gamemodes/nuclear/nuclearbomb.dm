@@ -70,19 +70,19 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
-	if(is_syndicate)
-		wires.labelled = FALSE
-		ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	previous_level = SSsecurity_level.get_current_level_as_text()
 	if(!training)
 		GLOB.poi_list |= src
-		if(is_syndicate)
-			GLOB.syndi_nuke_list |= src
-		else
-			GLOB.nt_nuke_list |= src
+		GLOB.nuke_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/nuclearbomb/syndicate/Initialize()
+	. = ..()
+	wires.labelled = FALSE
+	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
+	GLOB.syndi_nuke_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
@@ -90,11 +90,12 @@ GLOBAL_VAR(bomb_set)
 	QDEL_NULL(core)
 	if(!training)
 		GLOB.poi_list.Remove(src)
-		if(is_syndicate)
-			GLOB.syndi_nuke_list.Remove(src)
-		else
-			GLOB.nt_nuke_list.Remove(src)
+		GLOB.nuke_list.Remove(src)
 	return ..()
+
+/obj/machinery/nuclearbomb/syndicate/Destroy()
+	GLOB.syndi_nuke_list.Remove(src)
+	. = ..()
 
 /obj/machinery/nuclearbomb/process()
 	if(timing)
@@ -532,11 +533,11 @@ GLOBAL_VAR(bomb_set)
 			if(!core && !training)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
 				return
-			timing = !(timing)
-			if(timing)
+			if(!timing)
 				if(wires.is_cut(WIRE_NUKE_DETONATOR))
 					to_chat(usr, "<span class='warning'>[src] isn't arming! Something must be wrong with its wiring!</span>")
 					return FALSE
+				timing = TRUE
 				if(!wires.is_cut(WIRE_NUKE_LIGHT))
 					icon_state = sprite_prefix + "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
@@ -551,6 +552,7 @@ GLOBAL_VAR(bomb_set)
 				if(wires.is_cut(WIRE_NUKE_DISARM))
 					to_chat(usr, "<span class='warning'>[src] isn't disarming! Something must be wrong with its wiring!</span>")
 					return FALSE
+				timing = FALSE
 				if(!is_syndicate && !training)
 					SSsecurity_level.set_level(previous_level)
 				if(!training)
