@@ -536,8 +536,8 @@ The Botanitank, a bigger, faster grinder complete with integrated chem storage t
 */
 /obj/machinery/reagentgrinder/Botanitank
 	name = "\improper Botanitank"
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "juicer1"
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "botanitank_beaker"
 	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -885,4 +885,19 @@ The Botanitank, a bigger, faster grinder complete with integrated chem storage t
 		remove_object(O)
 		if(internal.reagents.holder_full())
 			return
+
+/obj/machinery/reagentgrinder/Botanitank/update_icon_state()
+	if(beaker)
+		icon_state = "botanitank_beaker"
+	else
+		icon_state = "botanitank_empty"
+
+/obj/machinery/reagentgrinder/Botanitank/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!anchored || beaker)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_screwdriver(user, "botanitank_open", "botanitank_empty", I)
+
 
