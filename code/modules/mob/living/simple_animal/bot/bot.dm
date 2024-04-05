@@ -17,6 +17,7 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = 0 						// No default canpush
 	can_strip = FALSE
+	hud_type = /datum/hud/bot
 
 	speak_emote = list("states")
 	friendly = "boops"
@@ -138,6 +139,7 @@
 	var/turf/last_target_location
 	/// Will be true if we lost target we were chasing
 	var/lost_target = FALSE
+
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
@@ -638,8 +640,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	bot_reset() // Reset a bot before setting it to call mode.
 	var/area/end_area = get_area(waypoint)
 
-	var/datum/job/captain/All = new/datum/job/captain
-	access_card.access = All.get_access() // Give the bot temporary all access
+	access_card.access = get_all_accesses() // Give the bot temporary all access
 
 	set_path(get_path_to(src, waypoint, 200, id = access_card))
 	calling_ai = caller // Link the AI to the bot!
@@ -917,7 +918,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/browser/popup = new(M,window_id,window_name,350,600)
 	popup.set_content(dat)
 	popup.open()
-	onclose(M, window_id, src)
+	onclose(M, window_id, UID())
 	return
 
 /mob/living/simple_animal/bot/proc/update_controls()

@@ -168,3 +168,9 @@
 					/obj/item/clothing/gloves/color/latex/nitrile)
 	cost = 200
 	containername = "nitrile glove crate"
+
+/datum/supply_packs/medical/omnizine
+	name = "Omnizine Shipment Crate"
+	contains = list(/obj/item/reagent_containers/glass/bottle/reagent/omnizine)
+	cost = 300
+	containername = "omnizine shipment crate"

@@ -121,3 +121,5 @@
 
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
 	del(world)	//shut it down
+
+#undef MAX_MAP_TEST_FAILURE_COUNT

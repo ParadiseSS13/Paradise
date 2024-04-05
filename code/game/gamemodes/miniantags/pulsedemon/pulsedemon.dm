@@ -6,8 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
-#define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
-
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
 	real_name = "pulse demon"
@@ -256,16 +254,16 @@
 	SSticker.mode.traitors |= mind
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cablehop)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/emagtamper)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/emp)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/overload)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotehijack)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
-	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
+	AddSpell(new /datum/spell/pulse_demon/cycle_camera)
+	AddSpell(new /datum/spell/pulse_demon/toggle/do_drain(do_drain))
+	AddSpell(new /datum/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
+	AddSpell(new /datum/spell/pulse_demon/cablehop)
+	AddSpell(new /datum/spell/pulse_demon/emagtamper)
+	AddSpell(new /datum/spell/pulse_demon/emp)
+	AddSpell(new /datum/spell/pulse_demon/overload)
+	AddSpell(new /datum/spell/pulse_demon/remotehijack)
+	AddSpell(new /datum/spell/pulse_demon/remotedrain)
+	AddSpell(new /datum/spell/pulse_demon/open_upgrades)
 
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -301,7 +299,7 @@
 	forceMove(T)
 	Move(T)
 	if(!current_cable && !current_power)
-		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
+		var/datum/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
 		if(!S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
@@ -320,11 +318,11 @@
 
 	if((!prev && !controlling_area) || (prev && controlling_area))
 		return // only update icons when we get or no longer have ANY area
-	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
+	for(var/datum/spell/pulse_demon/S in mob_spell_list)
 		if(!S.action || S.locked)
 			continue
 		if(S.requires_area)
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 
 // can enter an apc at all?
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -431,13 +429,13 @@
 		charge_drained += realdelta
 
 	update_glow()
-	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
+	for(var/datum/spell/pulse_demon/S in mob_spell_list)
 		if(!S.action || S.locked || !S.cast_cost)
 			continue
 		var/dist = S.cast_cost - orig
 		// only update icon if the amount is actually enough to change a spell's availability
 		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
-			S.action.UpdateButtonIcon()
+			S.action.UpdateButtons()
 	return realdelta
 
 // logarithmic scale for glow strength, see table:
@@ -573,7 +571,7 @@
 	else if(istype(loc, /obj/machinery/hologram/holopad))
 		var/obj/machinery/hologram/holopad/H = loc
 		name = "[H]"
-		for(var/mob/M in get_mobs_in_view(7, H))
+		for(var/mob/M as anything in get_mobs_in_view(7, H))
 			M.hear_say(message_pieces, verb, FALSE, src)
 		name = real_name
 		return TRUE
@@ -589,7 +587,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -855,3 +853,7 @@
 
 #undef ALERT_CATEGORY_NOPOWER
 #undef ALERT_CATEGORY_NOREGEN
+
+#undef PULSEDEMON_PLATING_SPARK_CHANCE
+#undef PULSEDEMON_APC_CHARGE_MULTIPLIER
+#undef PULSEDEMON_SMES_DRAIN_MULTIPLIER

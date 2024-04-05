@@ -12,9 +12,9 @@
 		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
+	if(stat != DEAD && bleed_rate && bleedsuppress)
 		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+	bleedsuppress = FALSE
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -362,3 +362,5 @@
 	var/id = get_blood_id()
 	if(id)
 		reagents.del_reagent(get_blood_id())
+
+#undef EXOTIC_BLEED_MULTIPLIER

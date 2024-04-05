@@ -4,6 +4,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
+	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
 	universal_speak = FALSE
@@ -638,7 +639,8 @@
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
 	..()
 	if(AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
+		var/list/idle_mobs_on_old_z = LAZYACCESS(SSidlenpcpool.idle_mobs_by_zlevel, old_z)
+		LAZYREMOVE(idle_mobs_on_old_z, src)
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
