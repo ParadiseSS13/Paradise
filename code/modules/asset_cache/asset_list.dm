@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/spritesheet/proc/icon_tag(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if(!sprite)
+	if(!sprite) //
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class='[name][size_id] [sprite_name]'></span>"}
