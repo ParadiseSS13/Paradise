@@ -255,5 +255,5 @@ CONTENTS:
 			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
 			I.override = 1
 			if(disguise_eyes)
-				I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
+				I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
 			H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
