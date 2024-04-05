@@ -181,7 +181,7 @@
 	name = "CLE-IAN-G"
 	speak = list("Ping!", "Beep!", "Woof!")
 	emote_see = list("goes rogue.", "sniffs for messes.", "licks the floor clean.")
-	desc = "Result of robotics budget cuts. More pettable than 9/10 janitors."
+	desc = "Result of robotics budget cuts. More pettable than 9 out of 10 janitors."
 
 /datum/dog_fashion/head/cardborg/xeno
 	name = "BORGIMORPH"
