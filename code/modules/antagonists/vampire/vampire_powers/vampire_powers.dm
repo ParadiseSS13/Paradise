@@ -234,14 +234,14 @@
 	// Attacker within 45 degrees of where the victim is facing.
 	if(attacker_dir & attacker_to_victim)
 		return DEVIATION_NONE
+	// Are they on the same tile? This is probably the victim crawling under the vampire, and looking down shouldn't be too tough.
+	if(victim.loc == attacker.loc)
+		return DEVIATION_NONE
 	// # # #
 	// - V - Attacker facing south
 	// - - -
 	// Victim at 135 or more degrees of where the victim is facing.
 	if(attacker_dir & reverse_direction(attacker_to_victim))
-		return DEVIATION_FULL
-	// Are they on the same tile? This is probably the victim crawling under the vampire, and looking down shouldn't be too tough.
-	if(victim.loc == attacker.loc)
 		return DEVIATION_FULL
 	// - - -
 	// # V # Attacker facing south
