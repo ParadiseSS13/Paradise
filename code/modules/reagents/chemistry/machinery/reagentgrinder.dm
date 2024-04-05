@@ -521,7 +521,7 @@
 		if(beaker.reagents.holder_full())
 			return
 
-	// Everything else. Will transfer reagents of the item to the beaker, and returns `TRUE` if the beaker is full
+	// Everything else - Transfers reagents from the items into the beaker
 	for(var/obj/item/O in holdingitems)
 		O.reagents.trans_to(beaker, O.reagents.total_volume)
 		if(!O.reagents.total_volume)
