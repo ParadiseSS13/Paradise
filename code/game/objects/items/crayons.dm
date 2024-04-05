@@ -136,7 +136,7 @@
 		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
-	if(istype(src,/obj/item/toy/crayon/spraycan))	// Eating the spraycan is TOO silly!
+	if(istype(src, /obj/item/toy/crayon/spraycan))	// Eating the spraycan is TOO silly!
 		return
 	if(M == user)
 		if(ishuman(user))
