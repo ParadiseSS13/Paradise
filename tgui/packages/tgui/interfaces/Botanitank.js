@@ -13,7 +13,7 @@ export const Botanitank = (props, context) => {
   const { operating } = data;
   const { title } = config;
   return (
-    <Window width={525} height={900}>
+    <Window width={550} height={900}>
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={operating} name={title} />
@@ -184,7 +184,7 @@ const TankReagents = (props, context) => {
                 return (
                   <Stack key={item}>
                     <Stack.Item width="30%">{item.display_name}</Stack.Item>
-                    <Stack.Item width="25%">
+                    <Stack.Item width="35%">
                       ({item.quantity} u in tank)
                     </Stack.Item>
                     <Stack.Item width={20}>

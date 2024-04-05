@@ -529,8 +529,11 @@
 		if(beaker.reagents.holder_full())
 			return
 
-// The Botanitank, a grinder and chem storage tank in one.
+/*
+The Botanitank, a bigger, faster grinder complete with integrated chem storage tank.
 
+
+*/
 /obj/machinery/reagentgrinder/Botanitank
 	name = "\improper Botanitank"
 	icon = 'icons/obj/kitchen.dmi'
@@ -542,10 +545,10 @@
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	var/obj/item/reagent_containers/internal = new /obj/item/reagent_containers/glass/beaker/noreact
+	var/processTime = 6
 
 
-//Matter bins increase reagent capacity
-
+//The Botanitank has different effects from components.
 
 /obj/machinery/reagentgrinder/Botanitank/RefreshParts()
 	var/H
@@ -554,8 +557,12 @@
 		H += M.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T += M.rating
-	limit = 10 * H
+	//A bigger device fits more stuff.
+	limit = 40 * H
 	efficiency = 0.8 + T * 0.1
+	//Faster by 1 second for every tier on both manipulators, down to 2 seconds at tier 4
+	processTime = 6 - T * 0.5
+	//Tank volume doubles with each tier of matter bin, starting at 1000.
 	internal.reagents.maximum_volume = 1000 * 2**(H-1)
 
 //Botanitank needs its own UI
@@ -566,7 +573,7 @@
 		ui = new(user, src, "Botanitank", name)
 		ui.open()
 
-// Add internal tank data to UI data
+// Add internal tank data to UI data.
 
 /obj/machinery/reagentgrinder/Botanitank/ui_data(mob/user)
 	var/list/data = list()
@@ -737,7 +744,7 @@
 	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
 	operating = TRUE
 	SStgui.update_uis(src)
-	spawn(6 SECONDS)
+	spawn(processTime SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
 		SStgui.update_uis(src)
@@ -856,7 +863,7 @@
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) // Start shaking
 	operating = TRUE
 	SStgui.update_uis(src)
-	spawn(5 SECONDS)
+	spawn(processTime-1 SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
 		SStgui.update_uis(src)
