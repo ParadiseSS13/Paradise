@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	for(var/icon_state_name in icon_states(I))
 		for(var/direction in directions)
-			var/prefix2 = length(directions) ? "[dir2text(direction)]-" : ""
+			var/prefix2 = length(directions) > 1 ? "[dir2text(direction)]-" : ""
 			Insert("[prefix][prefix2][icon_state_name]", I, icon_state=icon_state_name, dir=direction)
 
 /datum/asset/spritesheet/proc/css_tag()
@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/spritesheet/proc/icon_tag(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if(!sprite) //
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class='[name][size_id] [sprite_name]'></span>"}
