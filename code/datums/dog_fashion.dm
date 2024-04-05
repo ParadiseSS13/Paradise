@@ -155,7 +155,7 @@
 
 /datum/dog_fashion/head/cardborg/engineering
 	name = "ENGI-IAN"
-	speak = list("Ping!","Beep!","Woof!")
+	speak = list("Ping!", "Beep!", "Woof!")
 	emote_see = list("goes rogue.", "sniffs for wires.", "looks for an autolathe board.")
 	desc = "Result of robotics budget cuts. Knows as much about atmospherics as the average engineer."
 
