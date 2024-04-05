@@ -447,8 +447,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	var/full_admin = check_rights(R_ADMIN|R_MOD)
 
-	// todo what happens if a user we're observing logs out?
-
 	if(isnewplayer(mob))
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
