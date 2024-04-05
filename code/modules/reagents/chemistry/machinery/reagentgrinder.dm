@@ -527,4 +527,4 @@
 		if(!O.reagents.total_volume)
 			remove_object(O)
 		if(beaker.reagents.holder_full())
-			return TRUE
+			return
