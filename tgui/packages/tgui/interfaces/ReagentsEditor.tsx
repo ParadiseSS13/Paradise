@@ -142,10 +142,11 @@ const PresentReagentRow = (
   return (
     <Table.Row className="reagent-row">
       <Table.Cell className="volume-cell">
-        <Icon
-          className="edit-volume-button"
-          name="syringe"
-          color="green"
+        <Button
+          className="condensed-button"
+          icon="syringe"
+          iconColor="green"
+          color="none"
           onClick={() =>
             act('edit_volume', {
               uid,
@@ -172,9 +173,10 @@ const AbsentReagentRow = (
   return (
     <Table.Row className="reagent-row absent-row">
       <Table.Cell className="volume-cell">
-        <Icon
-          className="add-reagent-button"
-          name="fill-drip"
+        <Button
+          className="condensed-button add-reagent-button"
+          icon="fill-drip"
+          color="none"
           onClick={() => act('add_reagent', { reagentID })}
         />
       </Table.Cell>

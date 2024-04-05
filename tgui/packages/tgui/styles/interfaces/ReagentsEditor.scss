@@ -30,3 +30,11 @@
 .absent-row:not(:hover) .add-reagent-button {
   visibility: hidden;
 }
+
+.condensed-button {
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  line-height: 0;
+  background: none;
+}
