@@ -13,13 +13,9 @@ type VolatileReagentInformation = {
   uid: string;
 };
 
-type StaticReagentInformationWithID = StaticReagentInformation & { id: string };
-
-type ReagentInformation = StaticReagentInformationWithID &
-  VolatileReagentInformation;
-
-type FilteredReagentInformation = StaticReagentInformationWithID &
-  Partial<VolatileReagentInformation>;
+type FilteredReagentInformation = StaticReagentInformation & {
+  id: string;
+} & Partial<VolatileReagentInformation>;
 
 type StaticData = {
   reagentsInformation: Record<string, StaticReagentInformation>;
