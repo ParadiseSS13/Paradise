@@ -561,6 +561,9 @@ GLOBAL_VAR(bomb_set)
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
+	if(training)
+		qdel(src)
+		return
 	if(exploded)
 		return
 	if(timing)	//boom
