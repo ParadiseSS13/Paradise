@@ -36,7 +36,7 @@
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(default_spells.len)
 		for(var/spell in default_spells)
-			var/obj/effect/proc_holder/spell/S = spell
+			var/datum/spell/S = spell
 			if(!S)
 				return
 			H.mind.AddSpell(new S(null))
@@ -82,7 +82,7 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_spells = list(/obj/effect/proc_holder/spell/recruit)
+	default_spells = list(/datum/spell/recruit)
 	class = "Supervillain"
 	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
@@ -106,7 +106,7 @@
 	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
 	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
 	station's hero roster, you intend to leave your mark."
-	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
+	default_spells = list(/datum/spell/charge_up/bounce/lightning/lightnian)
 
 /datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
@@ -125,7 +125,7 @@
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
-	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
+	default_spells = list(/datum/spell/charge_up/bounce/magnet)
 
 /datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
@@ -143,7 +143,7 @@
 
 
 //The Griffin's special recruit abilitiy
-/obj/effect/proc_holder/spell/recruit
+/datum/spell/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
 	base_cooldown = 450
@@ -151,16 +151,16 @@
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
 
-/obj/effect/proc_holder/spell/recruit/create_new_targeting()
+/datum/spell/recruit/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = -1
 	T.range = 1
 	return T
 
-/obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/datum/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(SSticker.mode.greyshirts.len >= 3)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
@@ -171,10 +171,10 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
+/datum/spell/recruit/valid_target(mob/living/carbon/human/target, user)
 	return target.ckey && !target.stat
 
-/obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
+/datum/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 	if(target.mind.assigned_role != "Assistant")
 		to_chat(user, "<span class='warning'>You can only recruit Assistants.</span>")
