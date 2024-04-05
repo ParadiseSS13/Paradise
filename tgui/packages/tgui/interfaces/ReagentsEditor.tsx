@@ -142,17 +142,34 @@ const PresentReagentRow = (
   return (
     <Table.Row className="reagent-row">
       <Table.Cell className="volume-cell">
-        <Button
-          className="condensed-button"
-          icon="syringe"
-          iconColor="green"
-          color="none"
-          onClick={() =>
-            act('edit_volume', {
-              uid,
-            })
-          }
-        />
+        <div className="volume-actions-wrapper">
+          <Button.Confirm
+            className="condensed-button"
+            icon="trash-alt"
+            confirmIcon="check-double"
+            iconColor="red"
+            confirmContent=""
+            color="none"
+            confirmColor="none"
+            onClick={() =>
+              act('delete_reagent', {
+                uid,
+              })
+            }
+            mr="0.5em"
+          />
+          <Button
+            className="condensed-button"
+            icon="syringe"
+            iconColor="green"
+            color="none"
+            onClick={() =>
+              act('edit_volume', {
+                uid,
+              })
+            }
+          />
+        </div>
         <span className="volume-label">
           {volume === null ? `NULL` : `${volume}u`}
         </span>
