@@ -187,7 +187,7 @@
 	name = "BORGIMORPH"
 	speak = list("Ping!", "Beep!", "Woof!", "HISS!", "HISSHISSHISS!")
 	emote_see = list("goes rogue.", "hisses.")
-	desc = "Result of robotics budget cuts."
+	desc = "Result of robotics budget cuts. If this is your last line of defence against a xenomorph outbreak, god help you."
 
 /datum/dog_fashion/head/cardborg/deathbot
 	name = "Epsilon-D0G1"
