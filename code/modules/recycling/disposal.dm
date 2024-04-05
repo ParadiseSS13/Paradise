@@ -317,6 +317,8 @@
 			mode = 0
 			update()
 
+		if(!Adjacent(usr))	// Forces borgs to be next to the bin to use the following buttons.
+			return TRUE
 		if(action == "engageHandle")
 			flush = TRUE
 			update()
@@ -337,7 +339,9 @@
 	update()
 
 /obj/machinery/disposal/AltClick(mob/user)
-	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	if(!ishuman(user) && !issilicon(user))	// Humans and borgs can eject, but not other mobs.
 		return
 	user.visible_message(
 		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
