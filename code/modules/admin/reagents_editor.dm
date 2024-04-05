@@ -81,7 +81,7 @@
 			var/datum/reagent/reagent = locateUID(reagent_uid)
 			if(isnull(reagent))
 				return FALSE
-			var/new_volume_text = tgui_input_text(ui.user, "How much units of the reagent do you want to be in the container? Type \"remove\" to clear reagent.", "Edit Reagent Volume", 0)
+			var/new_volume_text = tgui_input_text(ui.user, "How much units of the reagent do you want to be in the container? Type \"remove\" to clear the reagent.", "Edit Reagent Volume", 0)
 			var/new_volume = text2num(new_volume_text)
 			if(isnull(new_volume))
 				if(lowertext(new_volume_text) == "remove")
