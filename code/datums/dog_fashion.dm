@@ -191,8 +191,8 @@
 
 /datum/dog_fashion/head/cardborg/deathbot
 	name = "Epsilon-D0G1"
-	speak = list("Ping!","Beep!","Woof!")
-	emote_see = list("goes rogue.", "sniffs out survivors.", "prepares to destroy the station")
+	speak = list("Ping!", "Beep!", "Woof!")
+	emote_see = list("goes rogue.", "sniffs out survivors.", "prepares to destroy the station.")
 	desc = "Result of robotics budget cuts. Looks just like the cyborg from the Deathsquad TV show!"
 
 /datum/dog_fashion/head/ghost
