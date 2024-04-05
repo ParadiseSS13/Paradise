@@ -19,12 +19,13 @@ CONTENTS:
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE		// Robots don't wear masks or ear accessories (yet!).
-	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH		// Both of these are REQUIRED for the species disguise to show on examine.
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH		// Robots don't wear masks or glasses (yet!).
 	var/list/available_disguises = list("Standard") 	// All the sprites you can disguise as. A disguise will be randomly chosen from the list.
 	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
 	dog_fashion = /datum/dog_fashion/head/cardborg 		// How this looks on Ian.
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'	// Greys have big heads and are smelly.
+	"Vox" = 'icons/mob/clothing/species/grey/head.dmi'	// Vox beaks stick out the normal helmets, and the grey helmets fit perfectly.
 	)
 
 /obj/item/clothing/head/cardborg/examine_more(mob/user)	// Handles item extended descriptions.
@@ -118,7 +119,7 @@ CONTENTS:
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO		// Robots don't wear clothes (yet)!
 	flags_inv = HIDEJUMPSUIT							// Robots don't wear jumpsuits (yet)!
 	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
-	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian. Dog fashion doesn't need to be defined for the subtypes.
+	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian. Doesn't need to be defined for the subtypes.
 
 /obj/item/clothing/suit/cardborg/examine_more(mob/user)	// Handles item extended descriptions.
     . = ..()
