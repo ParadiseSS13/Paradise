@@ -670,6 +670,32 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
+	var/static/list/grinder_names_paths = list(
+							"reagentgrinder" = /obj/machinery/reagentgrinder,
+							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank,)
+
+/obj/item/circuitboard/reagentgrinder/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", grinder_names_paths)
+	if(!choice)
+		return
+	set_type(user, choice)
+
+/obj/item/circuitboard/reagentgrinder/proc/set_type(mob/user, type)
+	if(!ispath(type))
+		board_name = type
+		type = grinder_names_paths[type]
+	else
+		for(var/name in grinder_names_paths)
+			if(grinder_names_paths[name] == type)
+				board_name = name
+				break
+	build_path = type
+	format_board_name()
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
 
 //Almost the same recipe as destructive analyzer to give people choices.
 /obj/item/circuitboard/experimentor
