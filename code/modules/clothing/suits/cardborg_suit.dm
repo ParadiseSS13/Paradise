@@ -68,6 +68,7 @@ CONTENTS:
 	available_disguises = list("Service", "toiletbot", "Brobot", "maximillion", "Service2", "Standard-Serv", "Noble-SRV", "Cricket-SERV")
 	species_disguise = "High-tech service robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg/service
+
 /obj/item/clothing/head/cardborg/medical
 	name = "blue cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted blue."
