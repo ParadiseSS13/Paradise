@@ -429,6 +429,7 @@
 			if("Death Bot")
 				selected_disguise = /obj/item/clothing/suit/cardborg/deathbot
 
+	playsound(usr, 'sound/effects/spray.ogg', 5, TRUE, 5)
 	new selected_disguise(get_turf(target)) 	// Spawn the desired cardborg item.
 	QDEL_NULL(target)							// Get rid of the old one.
 	return
