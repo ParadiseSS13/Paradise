@@ -917,10 +917,8 @@
 					if(!(varname in list("min1", "min2", "max1", "max2"))) // uh oh
 						message_admins("[key_name_admin(usr)] attempted to href edit vars on [src]!!!")
 						return
-
 					var/datum/tlv/tlv = TLV[env]
 					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
-
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
 					if(newval < 0)

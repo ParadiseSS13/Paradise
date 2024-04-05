@@ -57,7 +57,7 @@
 		return
 
 	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
-	if(!message)
+	if(isnull(message))
 		return
 	message = capitalize(message)
 	var/list/message_pieces = message_to_multilingual(message)

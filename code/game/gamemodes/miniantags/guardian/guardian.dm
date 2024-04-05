@@ -212,7 +212,7 @@
 		input = tgui_input_text(src, "Please enter a message to tell your summoner.", "Guardian")
 	else
 		input = message
-	if(!input || !summoner)
+	if(isnull(input) || !summoner)
 		return
 
 	// Show the message to the host and to the guardian.

@@ -28,7 +28,7 @@
 
 /datum/action/guardian/communicate/Trigger(left_click)
 	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
-	if(!input || !guardian)
+	if(isnull(input) || !guardian)
 		return
 
 	// Show the message to our guardian and to host.
@@ -171,7 +171,7 @@
 /datum/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
 	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
 	var/input = tgui_input_text(guardian_user, "What do you want your battlecry to be? Max length of 6 characters.", "Change Battlecry", guardian_user.battlecry, 6)
-	if(!input)
+	if(isnull(input))
 		revert_cast()
 		return
 	guardian_user.battlecry = input

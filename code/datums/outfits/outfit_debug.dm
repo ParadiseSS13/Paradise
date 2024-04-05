@@ -69,7 +69,7 @@
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
 	var/new_name = tgui_input_text(user, "Enter new fake agent name...", "New name", max_length = MAX_NAME_LEN)
-	if(!new_name)
+	if(isnull(new_name))
 		return
 	fake_name = new_name
 

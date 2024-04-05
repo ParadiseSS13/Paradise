@@ -163,20 +163,21 @@ Transponder Codes:<UL>"}
 
 		if(href_list["locedit"])
 			var/newloc = tgui_input_text(usr, "Enter New Location", "Navigation Beacon", location)
-			if(newloc)
-				location = newloc
-				updateDialog()
+			if(isnull(newloc))
+				return
+			location = newloc
+			updateDialog()
 
 		else if(href_list["edit"])
 			var/codekey = href_list["code"]
 
 			var/newkey = tgui_input_text(usr, "Enter Transponder Code Key", "Navigation Beacon", codekey)
-			if(!newkey)
+			if(isnull(newkey))
 				return
 
 			var/codeval = codes[codekey]
 			var/newval = tgui_input_text(usr, "Enter Transponder Code Value", "Navigation Beacon", codeval)
-			if(!newval)
+			if(isnull(newval))
 				newval = codekey
 				return
 
@@ -193,11 +194,11 @@ Transponder Codes:<UL>"}
 		else if(href_list["add"])
 
 			var/newkey = tgui_input_text(usr, "Enter New Transponder Code Key", "Navigation Beacon")
-			if(!newkey)
+			if(isnull(newkey))
 				return
 
 			var/newval = tgui_input_text(usr, "Enter New Transponder Code Value", "Navigation Beacon")
-			if(!newval)
+			if(isnull(newval))
 				newval = "1"
 				return
 
