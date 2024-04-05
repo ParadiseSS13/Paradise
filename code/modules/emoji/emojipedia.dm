@@ -1,4 +1,3 @@
-/// Opens the station traits admin panel
 /client/verb/emojipedia()
 	set name = "Emojipedia"
 	set category = "OOC"
