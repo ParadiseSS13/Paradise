@@ -670,7 +670,12 @@
 		if("dispense_mix")
 			var/amount = text2num(params["amount"])
 			dispense_mix(amount)
-
+		if("dump")
+			var/index = text2num(params["index"])
+			var/amount = text2num(params["amount"])
+			dump(amount, index)
+		if("clear")
+			clearTank()
 
 //dispense chems from the internal tank to the inserted container
 
@@ -702,6 +707,21 @@
 	var/dispensed = min(internal.reagents.total_volume, min(amount, beaker.reagents.maximum_volume - beaker.reagents.total_volume))
 	internal.reagents.trans_to(beaker,dispensed)
 	return
+
+//dump a specified amount of a specified reagent
+
+/obj/machinery/reagentgrinder/Botanitank/proc/dump(amount, index)
+	if(isnull(index) || !ISINDEXSAFE(internal.reagents.reagent_list, index) || !amount)
+		return FALSE
+	var/dumpAmount = min(amount, internal.reagents.reagent_list[index].volume)
+	internal.reagents.remove_reagent(internal.reagents.reagent_list[index].id, dumpAmount)
+
+//Empties the internal tank completely
+
+/obj/machinery/reagentgrinder/Botanitank/proc/clearTank()
+	for(var/datum/reagent/E in internal.reagents.reagent_list)
+		internal.reagents.remove_reagent(E.id,E.volume)
+
 
 //grind into the internal tank
 

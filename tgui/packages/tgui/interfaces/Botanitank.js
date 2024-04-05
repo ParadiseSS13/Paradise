@@ -13,7 +13,7 @@ export const Botanitank = (props, context) => {
   const { operating } = data;
   const { title } = config;
   return (
-    <Window width={450} height={900}>
+    <Window width={525} height={900}>
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={operating} name={title} />
@@ -134,7 +134,14 @@ const TankReagents = (props, context) => {
             {tank_current_volume} / {tank_max_volume} units
           </Box>
           <Button
+            content="Clear Tank"
+            color="red"
+            tooltip="completely empty the internal tank"
+            onClick={() => act('clear')}
+          />
+          <Button
             content="Dispense Mix"
+            tooltip="Dispense a proportional mix of the tank's contents"
             onClick={() => act('dispense_mix', { amount: dispenseAmount })}
           />
           <NumberInput
@@ -176,15 +183,15 @@ const TankReagents = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="55%">{item.display_name}</Stack.Item>
+                    <Stack.Item width="30%">{item.display_name}</Stack.Item>
                     <Stack.Item width="25%">
                       ({item.quantity} u in tank)
                     </Stack.Item>
-                    <Stack.Item width={17}>
+                    <Stack.Item width={20}>
                       <Button
                         width={4}
                         icon="arrow-down"
-                        tooltip="Dispense"
+                        tooltip="Dispense the set amount"
                         content={dispenseAmount}
                         onClick={() =>
                           act('dispense', {
@@ -201,6 +208,34 @@ const TankReagents = (props, context) => {
                         tooltipPosition="bottom-start"
                         onClick={() =>
                           act('dispense', {
+                            index: item.dispense,
+                            amount: item.quantity,
+                          })
+                        }
+                      />
+                      <Button
+                        width={4}
+                        icon="arrow-down"
+                        color="red"
+                        content={dispenseAmount}
+                        tooltip="Dump the set amount"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('dump', {
+                            index: item.dispense,
+                            amount: dispenseAmount,
+                          })
+                        }
+                      />
+                      <Button
+                        width={4}
+                        icon="arrow-down"
+                        color="red"
+                        content="All"
+                        tooltip="Dump All"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('dump', {
                             index: item.dispense,
                             amount: item.quantity,
                           })
