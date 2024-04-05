@@ -22,7 +22,7 @@ CONTENTS:
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH		// Both of these are REQUIRED for the species disguise to show on examine.
 	var/list/available_disguises = list("Standard") 	// All the sprites you can disguise as. A disguise will be randomly chosen from the list.
 	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
-	dog_fashion = /datum/dog_fashion/head/cardborg 		// How this looks on Ian, all the cardborg disguises look the same on Ian because I cannot be bothered to change that.
+	dog_fashion = /datum/dog_fashion/head/cardborg 		// How this looks on Ian.
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'	// Greys have big heads and are smelly.
 	)
@@ -38,6 +38,7 @@ CONTENTS:
 	item_state = "cardborg_h_security"
 	available_disguises = list("secborg", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC", "heavySec")
 	species_disguise = "High-tech security robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/security
 
 /obj/item/clothing/head/cardborg/engineering
 	name = "orange cardborg helmet"
@@ -46,6 +47,7 @@ CONTENTS:
 	item_state = "cardborg_h_engineering"
 	available_disguises = list("Engineering", "engineerrobot", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI")
 	species_disguise = "High-tech engineering robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/engineering
 
 /obj/item/clothing/head/cardborg/mining
 	name = "brown cardborg helmet"
@@ -54,6 +56,7 @@ CONTENTS:
 	item_state = "cardborg_h_mining"
 	available_disguises = list("Miner_old", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland", "squatminer", "coffinMiner")
 	species_disguise = "High-tech mining robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/mining
 
 /obj/item/clothing/head/cardborg/service
 	name = "green cardborg helmet"
@@ -62,6 +65,7 @@ CONTENTS:
 	item_state = "cardborg_h_service"
 	available_disguises = list("Service", "toiletbot", "Brobot", "maximillion", "Service2", "Standard-Serv", "Noble-SRV", "Cricket-SERV")
 	species_disguise = "High-tech service robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/service
 /obj/item/clothing/head/cardborg/medical
 	name = "blue cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted blue."
@@ -69,6 +73,7 @@ CONTENTS:
 	item_state = "cardborg_h_medical"
 	available_disguises = list("Medbot", "surgeon", "droid-medical", "medicalrobot", "Standard-Medi", "Noble-MED", "Cricket-MEDI", "qualified_doctor")
 	species_disguise = "High-tech medical robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/medical
 
 /obj/item/clothing/head/cardborg/janitor
 	name = "purple cardborg helmet"
@@ -77,6 +82,7 @@ CONTENTS:
 	item_state = "cardborg_h_janitor"
 	available_disguises = list("JanBot2", "janitorrobot", "mopgearrex", "Standard-Jani", "Noble-CLN", "Cricket-JANI", "custodiborg")
 	species_disguise = "High-tech janitor robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/janitor
 
 /obj/item/clothing/head/cardborg/xeno
 	name = "white cardborg helmet"
@@ -85,6 +91,7 @@ CONTENTS:
 	item_state = "cardborg_h_xeno"
 	available_disguises = list("xenoborg-state-a")
 	species_disguise = "High-tech alien-hunting robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/xeno
 
 /obj/item/clothing/head/cardborg/deathbot
 	name = "black cardborg helmet"
@@ -93,6 +100,7 @@ CONTENTS:
 	item_state = "cardborg_h_deathbot"
 	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma")
 	species_disguise = "High-tech killer robot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
 
 /*
  / Cardborg Suits.
@@ -110,7 +118,7 @@ CONTENTS:
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO		// Robots don't wear clothes (yet)!
 	flags_inv = HIDEJUMPSUIT							// Robots don't wear jumpsuits (yet)!
 	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
-	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian, all the cardborg disguises look the same on Ian because I cannot be bothered to change that.
+	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian. Dog fashion doesn't need to be defined for the subtypes.
 
 /obj/item/clothing/suit/cardborg/examine_more(mob/user)	// Handles item extended descriptions.
     . = ..()
@@ -176,8 +184,11 @@ CONTENTS:
 */
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)	// Attempt to disguise when you put on the helmet.
 	..()
-	if(slot == SLOT_HUD_HEAD)
-		apply_borg_disguise(user)
+	if(ishuman(user) && slot == SLOT_HUD_HEAD)
+		var/mob/living/carbon/human/H = user
+		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
+			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
+			CB.apply_borg_disguise(user, src)
 
 /obj/item/clothing/head/cardborg/dropped(mob/living/user)			// You stop being a robot if you remove your helmet.
 	..()
@@ -192,18 +203,12 @@ CONTENTS:
 	..()
 	user.remove_alt_appearance("borg_disguise_variant")
 
-/obj/item/clothing/proc/apply_borg_disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
+/obj/item/clothing/suit/cardborg/proc/apply_borg_disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
 	if(!istype(H))
 		return
 	if(!borghead)
-		borghead = H.head
-	if(!istype(borghead, /obj/item/clothing/head/cardborg)) 
-		return
-	if(!borgbody)
-		borgbody = H.wear_suit
-	if(!istype(borgbody, /obj/item/clothing/suit/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
-		return
-	if(borghead.species_disguise == borgbody.species_disguise)	// Ensure the helmet and suit have the same colour.
+		borghead = H.head									// This actually stops the disguise from applying just from having it in your hands AGHHHH!
+	if(istype(borghead, /obj/item/clothing/head/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY!
 		var/borg_disguise_variant
 		var/disguise_eyes
 		borg_disguise_variant = pick(borghead.available_disguises)
@@ -250,5 +255,5 @@ CONTENTS:
 		I.override = 1
 		if(disguise_eyes)
 			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
-		H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
+		H.add_alt_appearance("[borg_disguise_variant]", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
 	return
