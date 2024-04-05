@@ -339,6 +339,8 @@
 	. = ..()
 	if(.)
 		return
+	if(internal)
+		return
 
 	switch(action)
 		if("detach")
@@ -571,6 +573,7 @@
 	icon_state = "botanitank_empty"
 	layer = 2.9
 	anchored = TRUE
+	density = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 100
 	pass_flags = PASSTABLE
