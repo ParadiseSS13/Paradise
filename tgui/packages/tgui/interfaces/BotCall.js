@@ -26,6 +26,16 @@ const BotStatus = (mode) => {
 export const BotCall = (props, context) => {
   const { act, data } = useBackend(context);
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const botNames = {
+    0: 'Security',
+    1: 'Medibot',
+    2: 'Cleanbot',
+    3: 'Floorbot',
+    4: 'MULE',
+    5: 'Honkbot',
+    10: 'Securitron',
+    11: 'ED-209',
+  };
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -63,48 +73,15 @@ export const BotCall = (props, context) => {
         <Stack fill vertical>
           <Stack.Item>
             <Tabs fluid textAlign="center">
-              <Tabs.Tab
-                key="Security"
-                selected={tabIndex === 0}
-                onClick={() => setTabIndex(0)}
-              >
-                Security
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Medibot"
-                selected={tabIndex === 1}
-                onClick={() => setTabIndex(1)}
-              >
-                Medibot
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Cleanbot"
-                selected={tabIndex === 2}
-                onClick={() => setTabIndex(2)}
-              >
-                Cleanbot
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Floorbot"
-                selected={tabIndex === 3}
-                onClick={() => setTabIndex(3)}
-              >
-                Floorbot
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Mule"
-                selected={tabIndex === 4}
-                onClick={() => setTabIndex(4)}
-              >
-                Mule
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="HonkBot"
-                selected={tabIndex === 5}
-                onClick={() => setTabIndex(5)}
-              >
-                HonkBot
-              </Tabs.Tab>
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Tabs.Tab
+                  key={index}
+                  selected={tabIndex === index}
+                  onClick={() => setTabIndex(index)}
+                >
+                  {botNames[index]}
+                </Tabs.Tab>
+              ))}
             </Tabs>
           </Stack.Item>
           {decideTab(tabIndex)}
