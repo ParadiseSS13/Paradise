@@ -173,7 +173,7 @@
 
 /datum/dog_fashion/head/cardborg/medical
 	name = "M3D1CAL_IANTERN"
-	speak = list("Ping!","Beep!","Woof!")
+	speak = list("Ping!", "Beep!", "Woof!")
 	emote_see = list("goes rogue.", "sniffs out the injured.", "analyses your vitals.")
 	desc = "Result of robotics budget cuts. Hopefully medical is more useful."
 
