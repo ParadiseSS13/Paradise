@@ -459,7 +459,6 @@
 	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
 	operating = TRUE
 	SStgui.update_uis(src)
-	to_chat(world, "<span class='info'>[processTime]</span>")
 	spawn(processTime SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
