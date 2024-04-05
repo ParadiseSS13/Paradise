@@ -161,7 +161,7 @@
 
 /datum/dog_fashion/head/cardborg/mining
 	name = "DIGDOG"
-	speak = list("Ping!","Beep!","Woof!")
+	speak = list("Ping!", "Beep!", "Woof!")
 	emote_see = list("goes rogue.", "sniffs for ores.", "digs into the floor.")
 	desc = "Result of robotics budget cuts. Has dug up more bones than any other miner!"
 
