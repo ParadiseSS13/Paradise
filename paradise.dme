@@ -1740,6 +1740,7 @@
 #include "code\modules\economy\economy_machinery\economy_machinery.dm"
 #include "code\modules\economy\economy_machinery\eftpos.dm"
 #include "code\modules\emoji\emoji_parse.dm"
+#include "code\modules\emoji\emojipedia.dm"
 #include "code\modules\error_handler\error_handler.dm"
 #include "code\modules\error_handler\error_viewer.dm"
 #include "code\modules\events\abductor_event.dm"
