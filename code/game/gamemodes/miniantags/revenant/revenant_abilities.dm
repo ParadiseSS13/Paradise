@@ -134,7 +134,7 @@
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = tgui_input_text(user, "What do you wish to tell [M]?", "Transmit")
-			if(isnull(msg))
+			if(!msg)
 				cooldown_handler.revert_cast()
 				return
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)

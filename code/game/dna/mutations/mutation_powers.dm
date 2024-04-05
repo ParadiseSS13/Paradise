@@ -934,7 +934,7 @@
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
 	var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
-	if(isnull(say) || usr.stat)
+	if(!say || usr.stat)
 		return
 	say = pencode_to_html(say, usr, format = FALSE, fields = FALSE)
 
@@ -992,7 +992,7 @@
 			return
 		available_targets -= target
 		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
-		if(isnull(say))
+		if(!say)
 			return
 		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)

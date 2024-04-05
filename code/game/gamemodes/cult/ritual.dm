@@ -124,7 +124,7 @@
 		narsie_rune = TRUE
 	if(initial(rune.req_keyword))
 		keyword = tgui_input_text(user, "Please enter a keyword for the rune.", "Enter Keyword")
-		if(isnull(keyword))
+		if(!keyword)
 			return
 
 	// Check everything again, in case they moved

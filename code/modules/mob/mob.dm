@@ -766,15 +766,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE, encode = FALSE)
+	if(isnull(msg))
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	msg = html_encode(msg)
 
-	if(msg != null)
-		if(stat)
-			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
-			return
-		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = html_encode(msg)
-
-		flavor_text = msg
+	flavor_text = msg
 
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")

@@ -18,7 +18,7 @@
 	var/mob/living/target = targets[1]
 
 	var/msg = tgui_input_text(user, "Message:", "Alien Whisper")
-	if(isnull(msg))
+	if(!msg)
 		revert_cast(user)
 		return
 	log_say("(AWHISPER to [key_name(target)]) [msg]", user)
