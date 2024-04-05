@@ -146,7 +146,7 @@ const PresentReagentRow = (
           <Button.Confirm
             className="condensed-button"
             icon="trash-alt"
-            confirmIcon="check-double"
+            confirmIcon="question"
             iconColor="red"
             confirmContent=""
             color="none"
