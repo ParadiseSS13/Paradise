@@ -25,11 +25,11 @@ type VolatileData = {
   reagents: Record<string, VolatileReagentInformation>;
 };
 
+type ReagentsEditorData = StaticData & VolatileData;
+
 type ReagentsEditorState = {
   searchText: string;
 };
-
-type ReagentsEditorData = StaticData & VolatileData;
 
 // The linter is raising false-positives for unused state
 /* eslint-disable react/no-unused-state */
