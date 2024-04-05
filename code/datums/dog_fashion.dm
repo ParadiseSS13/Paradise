@@ -167,7 +167,7 @@
 
 /datum/dog_fashion/head/cardborg/service
 	name = "Service dogbot"
-	speak = list("Ping!","Beep!","Woof!")
+	speak = list("Ping!", "Beep!", "Woof!")
 	emote_see = list("goes rogue.")
 	desc = "Result of robotics budget cuts. Still about as useful as a real service cyborg..."
 
