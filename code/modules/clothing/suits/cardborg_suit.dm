@@ -30,8 +30,8 @@ CONTENTS:
 	)
 
 /obj/item/clothing/head/cardborg/examine_more(mob/user)			// Handles item extended descriptions.
-    . = ..()
-    . += extended_desc											// If an extended_desc is added to a subtype, this will handle it.
+	. = ..()
+	. += extended_desc											// If an extended_desc is added to a subtype, this will handle it.
 
 /obj/item/clothing/head/cardborg/security
 	name = "red cardborg helmet"
@@ -123,8 +123,8 @@ CONTENTS:
 	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian. Doesn't need to be defined for the subtypes.
 
 /obj/item/clothing/suit/cardborg/examine_more(mob/user)	// Handles item extended descriptions.
-    . = ..()
-    . += extended_desc									// If an extended_desc is added to a subtype, this will handle it.
+	. = ..()
+	. += extended_desc									// If an extended_desc is added to a subtype, this will handle it.
 /obj/item/clothing/suit/cardborg/security
 	name = "red cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted red."
