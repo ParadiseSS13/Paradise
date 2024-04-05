@@ -207,54 +207,55 @@ CONTENTS:
 	user.remove_alt_appearance("borg_disguise_variant")
 
 /obj/item/clothing/suit/cardborg/proc/apply_borg_disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
-	if(istype(H))
-		if(!borghead)
-			borghead = H.head									// This actually stops the disguise from applying just from having it in your hands AGHHHH!
-		if(istype(borghead, /obj/item/clothing/head/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY!
-			var/borg_disguise_variant
-			var/disguise_eyes
-			borg_disguise_variant = pick(borghead.available_disguises)
-			switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
-				if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
-					disguise_eyes = "eyes-Standard"
-				if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
-					disguise_eyes = "eyes-Cricket"
-				if("ertgamma", "nano_bloodhound")
-					disguise_eyes = "eyes-ertgamma"
-				if("bloodhound")
-					disguise_eyes = "eyes-bloodhound"
-				if("syndie_bloodhound")
-					disguise_eyes = "eyes-syndie_bloodhound"
-				if("syndi-engi")
-					disguise_eyes = "eyes-syndi-engi"
-				if("lavaland")
-					disguise_eyes = "eyes-lavaland"
-				if("Miner")
-					disguise_eyes = "eyes-Miner"
-				if("droid-miner")
-					disguise_eyes = "eyes-droid-miner"
-				if("droid-medical")
-					disguise_eyes = "eyes-droid-medical"
-				if("landmate")
-					disguise_eyes = "eyes-landmate"
-				if("Engineering")
-					disguise_eyes = "eyes-Engineering"
-				if("surgeon")
-					disguise_eyes = "eyes-surgeon"
-				if("mopgearrex")
-					disguise_eyes = "eyes-mopgearrex"
-				if("toiletbot")
-					disguise_eyes = "eyes-toiletbot"
-				if("qualified_doctor")
-					disguise_eyes = "eyes-qualified_doctor"
-				if("custodiborg")
-					disguise_eyes = "eyes-custodiborg"
-				if("heavySec")
-					disguise_eyes = "eyes-heavySec"
-				if("squatminer")
-					disguise_eyes = "eyes-squatminer"
-			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
-			I.override = 1
-			if(disguise_eyes)
-				I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
-			H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
+	if(!istype(H))
+		return
+	if(!borghead)
+		borghead = H.head									// This actually stops the disguise from applying just from having it in your hands AGHHHH!
+	if(istype(borghead, /obj/item/clothing/head/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY!
+		var/borg_disguise_variant
+		var/disguise_eyes
+		borg_disguise_variant = pick(borghead.available_disguises)
+		switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
+			if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
+				disguise_eyes = "eyes-Standard"
+			if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
+				disguise_eyes = "eyes-Cricket"
+			if("ertgamma", "nano_bloodhound")
+				disguise_eyes = "eyes-ertgamma"
+			if("bloodhound")
+				disguise_eyes = "eyes-bloodhound"
+			if("syndie_bloodhound")
+				disguise_eyes = "eyes-syndie_bloodhound"
+			if("syndi-engi")
+				disguise_eyes = "eyes-syndi-engi"
+			if("lavaland")
+				disguise_eyes = "eyes-lavaland"
+			if("Miner")
+				disguise_eyes = "eyes-Miner"
+			if("droid-miner")
+				disguise_eyes = "eyes-droid-miner"
+			if("droid-medical")
+				disguise_eyes = "eyes-droid-medical"
+			if("landmate")
+				disguise_eyes = "eyes-landmate"
+			if("Engineering")
+				disguise_eyes = "eyes-Engineering"
+			if("surgeon")
+				disguise_eyes = "eyes-surgeon"
+			if("mopgearrex")
+				disguise_eyes = "eyes-mopgearrex"
+			if("toiletbot")
+				disguise_eyes = "eyes-toiletbot"
+			if("qualified_doctor")
+				disguise_eyes = "eyes-qualified_doctor"
+			if("custodiborg")
+				disguise_eyes = "eyes-custodiborg"
+			if("heavySec")
+				disguise_eyes = "eyes-heavySec"
+			if("squatminer")
+				disguise_eyes = "eyes-squatminer"
+		var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
+		I.override = 1
+		if(disguise_eyes)
+			I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
+		H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
