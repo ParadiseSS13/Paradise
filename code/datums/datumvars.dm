@@ -949,7 +949,8 @@
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
 	else if(href_list["editreagents"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	
+			return
 
 		var/atom/A = locateUID(href_list["editreagents"])
 

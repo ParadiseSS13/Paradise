@@ -817,7 +817,7 @@
 		if(R.id == id)
 			return R
 
-	return null
+	return 
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))

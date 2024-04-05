@@ -18,7 +18,7 @@
 
 /datum/reagents_editor/ui_close(mob/user)
 	var/open_uis = SStgui.open_uis_by_src[src.UID()]
-	if (isnull(open_uis) || !islist(open_uis) || length(open_uis) <= 1)
+	if(isnull(open_uis) || !islist(open_uis) || length(open_uis) <= 1)
 		// Remove after everyone closes UI to avoid memory leak
 		editors -= target.UID()
 
@@ -53,7 +53,7 @@
 /datum/reagents_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 
-	if (.)
+	if(.)
 		return
 
 	. = TRUE

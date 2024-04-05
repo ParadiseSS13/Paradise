@@ -1248,7 +1248,7 @@
 	var/datum/reagents_editor/editor
 	// editors is static, it can be accessed using a null reference
 	editor = editor.editors[target_UID]
-	if (!editor)
+	if(!editor)
 		editor = new /datum/reagents_editor(target)
 		editor.editors[target_UID] = editor
 
