@@ -1,4 +1,4 @@
-//Biosuit complete with shoes (in the item sprite)
+//Basic biosuit, white and yellow
 /obj/item/clothing/head/bio_hood
 	name = "bio hood"
 	desc = "A hood that protects the head and face from biological contaminants."
@@ -52,7 +52,7 @@
 		)
 
 
-//Standard biosuit, white with blue
+//Medical biosuit, white with blue
 /obj/item/clothing/head/bio_hood/general
 	icon_state = "bio_general"
 
