@@ -149,7 +149,7 @@
 
 /datum/dog_fashion/head/cardborg/security
 	name = "SECBORGI"
-	speak = list("Ping!","Beep!","Woof!", "HALT!", "HALT! HALT! HALT!")
+	speak = list("Ping!", "Beep!", "Woof!", "HALT!", "HALT! HALT! HALT!")
 	emote_see = list("goes rogue.", "sniffs out criminals.")
 	desc = "Result of robotics budget cuts and a ban on the station having real security cyborgs."
 
