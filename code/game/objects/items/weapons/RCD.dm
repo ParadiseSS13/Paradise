@@ -146,7 +146,7 @@
 		if(!(user.l_hand == src) && !(user.r_hand == src))	// Do not commit die if the RCD isn't in your hands.
 			return SHAME								// If this triggers, someone probably chopped off your hand mid-suicide for some reason.
 		useResource(5, user)	// Consume ammo.
-		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves] with [src]!</span>")
+		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
 		playsound(loc, usesound, 50, TRUE)
 		for(var/obj/item/W in user)	// Do not delete all their stuff.
 			user.unEquip(W)			// Dump everything on the floor instead.
