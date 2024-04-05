@@ -385,10 +385,10 @@
 		)
 	selected_disguise = show_radial_menu(usr, target, disguise_options, require_near = TRUE, radius = 42)
 
-	if(selected_disguise == null)
+	if(!selected_disguise)
 		return
 
-	if(is_cardborg_head == TRUE)
+	if(is_cardborg_head)
 		switch(selected_disguise)
 			if("Standard")
 				selected_disguise = /obj/item/clothing/head/cardborg
