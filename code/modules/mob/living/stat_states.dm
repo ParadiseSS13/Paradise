@@ -64,7 +64,9 @@
 	GLOB.alive_mob_list |= src
 	REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
+	last_words = null
 	timeofdeath = null
+
 	if(updating)
 		update_blind_effects()
 		update_sight()
@@ -75,7 +77,7 @@
 
 	if(mind)
 		for(var/S in mind.spell_list)
-			var/obj/effect/proc_holder/spell/spell = S
+			var/datum/spell/spell = S
 			spell.UpdateButtons()
 
 	return TRUE
