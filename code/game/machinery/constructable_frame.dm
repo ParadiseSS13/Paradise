@@ -670,6 +670,9 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
+	var/static/list/regular_components = list(
+							/obj/item/stock_parts/manipulator = 2,
+							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/grinder_names_paths = list(
 							"reagentgrinder" = /obj/machinery/reagentgrinder,
 							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank)
@@ -691,7 +694,13 @@ to destroy them and players will be able to make replacements.
 		for(var/name in grinder_names_paths)
 			if(grinder_names_paths[name] == type)
 				board_name = name
+
+
 				break
+	if(board_name == "Botanitank")
+		req_components = regular_components + list(/obj/item/reagent_containers/glass/beaker/noreact = 1)
+	if(board_name == "reagentgrinder")
+		req_components = regular_components
 	build_path = type
 	format_board_name()
 	if(user)
