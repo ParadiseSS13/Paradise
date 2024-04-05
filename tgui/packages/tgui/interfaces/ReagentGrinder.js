@@ -1,21 +1,29 @@
 import { useBackend } from '../backend';
+import { useSharedState } from '../backend';
 import { Box, Button, Section, Table, Stack } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Operating } from '../interfaces/common/Operating';
+import { NumberInput } from '../components';
+import { LabeledList } from '../components';
+import { Icon } from '../components';
 
 export const ReagentGrinder = (props, context) => {
   const { act, data, config } = useBackend(context);
-  const { operating } = data;
+  const { operating, reagent_storage } = data;
   const { title } = config;
   return (
-    <Window width={400} height={565}>
+    <Window
+      width={reagent_storage ? 550 : 400}
+      height={reagent_storage ? 900 : 565}
+    >
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={operating} name={title} />
           <GrinderControls />
           <GrinderContents />
-          <GrinderReagents />
+          {reagent_storage ? <TankReagents /> : ''}
+          <BeakerReagents />
         </Stack>
       </Window.Content>
     </Window>
@@ -24,7 +32,7 @@ export const ReagentGrinder = (props, context) => {
 
 const GrinderControls = (props, context) => {
   const { act, data } = useBackend(context);
-  const { inactive } = data;
+  const { inactive, reagent_storage } = data;
 
   return (
     <Section title="Controls">
@@ -66,6 +74,7 @@ const GrinderContents = (props, context) => {
     <Section
       title="Contents"
       fill
+      height="60%"
       scrollable
       buttons={
         <Box>
@@ -100,7 +109,152 @@ const GrinderContents = (props, context) => {
   );
 };
 
-const GrinderReagents = (props, context) => {
+const TankReagents = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    beaker_loaded,
+    beaker_max_volume,
+    tank_current_volume,
+    tank_max_volume,
+    tank_contents,
+  } = data;
+
+  let [dispenseAmount, setDispenseAmount] = useSharedState(
+    context,
+    'dispenseAmount',
+    1
+  );
+
+  return (
+    <Section
+      title="Tank"
+      fill
+      scrollable
+      height="80%"
+      buttons={
+        <Box>
+          <Box inline color="label" mr={2}>
+            {tank_current_volume} / {tank_max_volume} units
+          </Box>
+          <Button
+            content="Clear Tank"
+            color="red"
+            tooltip="completely empty the internal tank"
+            onClick={() => act('clear')}
+          />
+          <Button
+            content="Dispense Mix"
+            tooltip="Dispense a proportional mix of the tank's contents"
+            onClick={() => act('dispense_mix', { amount: dispenseAmount })}
+          />
+          <NumberInput
+            width="40px"
+            minValue={0}
+            value={dispenseAmount}
+            maxValue={beaker_loaded ? beaker_max_volume : 0}
+            step={1}
+            stepPixelSize={3}
+            onChange={(e, value) => setDispenseAmount(value)}
+          />
+        </Box>
+      }
+    >
+      <Stack fill vertical>
+        <Section fill scrollable title={'Reagents'}>
+          {!tank_contents && (
+            <Stack fill>
+              <Stack.Item
+                bold
+                grow
+                textAlign="center"
+                align="center"
+                color="average"
+              >
+                <Icon.Stack>
+                  <Icon name="flask" size={5} color="green" />
+                  <Icon name="slash" size={5} color="red" />
+                </Icon.Stack>
+                <br />
+                The Botanitank is empty.
+              </Stack.Item>
+            </Stack>
+          )}
+          {!!tank_contents &&
+            tank_contents
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item width="30%">{item.display_name}</Stack.Item>
+                    <Stack.Item width="35%">
+                      ({item.quantity} u in tank)
+                    </Stack.Item>
+                    <Stack.Item width={20}>
+                      <Button
+                        width={4}
+                        icon="arrow-down"
+                        tooltip="Dispense the set amount"
+                        content={dispenseAmount}
+                        onClick={() =>
+                          act('dispense', {
+                            index: item.dispense,
+                            amount: dispenseAmount,
+                          })
+                        }
+                      />
+                      <Button
+                        width={4}
+                        icon="arrow-down"
+                        content="All"
+                        tooltip="Dispense all."
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('dispense', {
+                            index: item.dispense,
+                            amount: item.quantity,
+                          })
+                        }
+                      />
+                      <Button
+                        width={4}
+                        icon="arrow-down"
+                        color="red"
+                        content={dispenseAmount}
+                        tooltip="Dump the set amount"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('dump', {
+                            index: item.dispense,
+                            amount: dispenseAmount,
+                          })
+                        }
+                      />
+                      <Button
+                        width={4}
+                        icon="arrow-down"
+                        color="red"
+                        content="All"
+                        tooltip="Dump All"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('dump', {
+                            index: item.dispense,
+                            amount: item.quantity,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
+        </Section>
+      </Stack>
+    </Section>
+  );
+};
+
+const BeakerReagents = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     beaker_loaded,

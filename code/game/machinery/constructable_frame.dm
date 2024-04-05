@@ -288,7 +288,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
 	if(!choice)
@@ -568,7 +568,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
 	if(!choice)
@@ -633,7 +633,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 	var/new_name = "ChemMaster"
 	var/new_path = /obj/machinery/chem_master
@@ -676,7 +676,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/reagentgrinder/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", grinder_names_paths)
 	if(!choice)

@@ -1,7 +1,9 @@
+#define PROCESS_TIME  6
+
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
 	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "juicer1"
+	icon_state = "juicer0"
 	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -9,9 +11,11 @@
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	var/operating = FALSE
-	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
+	var/obj/item/reagent_containers/beaker = null
 	var/limit
+	var/processTime = PROCESS_TIME
 	var/efficiency
+	var/obj/item/reagent_containers/internal = null
 
 	// IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
 	var/list/blend_items = list (
@@ -109,8 +113,13 @@
 		H += M.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T += M.rating
-	limit = 10 * H
+	limit = (internal ? 40 : 10) * H
 	efficiency = 0.8 + T * 0.1
+	//Faster by 1 second for every tier on both manipulators, down to 2 seconds at tier 4
+	processTime = PROCESS_TIME - (internal ? T * 0.5 : 0)
+	//Tank volume doubles with each tier of matter bin, starting at 1000.
+	if(internal)
+		internal.reagents.maximum_volume = 1000 * 2**(H-1)
 
 /obj/machinery/reagentgrinder/Destroy()
 	QDEL_NULL(beaker)
@@ -128,9 +137,9 @@
 
 /obj/machinery/reagentgrinder/update_icon_state()
 	if(beaker)
-		icon_state = "juicer1"
+		icon_state = internal?"botanitank_beaker":"juicer1"
 	else
-		icon_state = "juicer0"
+		icon_state = internal?"botanitank_empty":"juicer0"
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -148,7 +157,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
+	default_deconstruction_screwdriver(user, internal?"botanitank_open":"juicer_open", internal?"botanitank_empty":"juicer0", I)
 
 /obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -252,6 +261,21 @@
 	data["limit"] = limit
 	data["count"] = length(holdingitems)
 	data["beaker_loaded"] = beaker ? TRUE : FALSE
+	data["reagent_storage"] = internal ? TRUE : FALSE
+	data["tank_contents"] = null
+
+	if(internal)
+		var/list/items = list()
+		for(var/i in 1 to length(internal.reagents.reagent_list))
+			var/datum/reagent/K = internal.reagents.reagent_list[i]
+			if(K.volume > 0)
+				items.Add(list(list("display_name" = K.name, "dispense" = i, "quantity" = K.volume)))
+
+		if(length(items))
+			data["tank_contents"] = items
+		data["tank_current_volume"] = internal.reagents.total_volume
+		data["tank_max_volume"]  = internal.reagents.maximum_volume
+
 	data["beaker_current_volume"] = beaker ? beaker.reagents.total_volume : null
 	data["beaker_max_volume"] = beaker ? beaker.reagents.maximum_volume : null
 	var/list/beakerContents = list()
@@ -379,10 +403,15 @@
 	qdel(O)
 
 /obj/machinery/reagentgrinder/proc/juice()
+	var/obj/item/reagent_containers/B = null
+	if(internal)
+		B = internal
+	else
+		B = beaker
 	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!beaker || beaker.reagents.holder_full())
+	if(!B || B.reagents.holder_full())
 		return
 
 	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
@@ -390,7 +419,7 @@
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) // Start shaking
 	operating = TRUE
 	SStgui.update_uis(src)
-	spawn(5 SECONDS)
+	spawn((processTime - 1) SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
 		SStgui.update_uis(src)
@@ -402,22 +431,27 @@
 			continue // Ignore food that doesn't juice into anything
 
 		for(var/r_id in special_juice)
-			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			var/space = B.reagents.maximum_volume - B.reagents.total_volume
 
-			beaker.reagents.add_reagent(r_id, min(get_juice_amount(O) * efficiency, space))
+			B.reagents.add_reagent(r_id, min(get_juice_amount(O) * efficiency, space))
 
-			if(beaker.reagents.holder_full())
+			if(B.reagents.holder_full())
 				break
 
 		remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(B.reagents.holder_full())
 			return
 
 /obj/machinery/reagentgrinder/proc/grind()
+	var/obj/item/reagent_containers/B = null
+	if(internal)
+		B = internal
+	else
+		B = beaker
 	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!beaker || beaker.reagents.holder_full())
+	if(!B || B.reagents.holder_full())
 		return
 
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
@@ -425,7 +459,8 @@
 	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
 	operating = TRUE
 	SStgui.update_uis(src)
-	spawn(6 SECONDS)
+	to_chat(world, "<span class='info'>[processTime]</span>")
+	spawn(processTime SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
 		SStgui.update_uis(src)
@@ -434,35 +469,35 @@
 	for(var/obj/item/food/snacks/O in holdingitems)
 		var/list/special_blend = get_special_blend(O)
 		for(var/r_id in special_blend)
-			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			var/space = B.reagents.maximum_volume - B.reagents.total_volume
 			var/amount = special_blend[r_id]
 
 			if(amount <= 0)
 				if(amount == 0)
 					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
+						B.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
 						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
 					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
+						B.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
 						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 				else
 					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
+						B.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
 						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
 					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
+						B.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
 						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 			else
-				O.reagents.trans_id_to(beaker, r_id, min(amount, space))
+				O.reagents.trans_id_to(B, r_id, min(amount, space))
 
-			if(beaker.reagents.holder_full())
+			if(B.reagents.holder_full())
 				break
 
-		O.reagents.trans_to(beaker, O.reagents.total_volume)
+		O.reagents.trans_to(B, O.reagents.total_volume)
 
 		if(!O.reagents.total_volume)
 			remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(B.reagents.holder_full())
 			return
 
 	// Sheets and rods(!)
@@ -471,62 +506,62 @@
 		if(!length(special_blend))
 			continue // Ignore stackables that don't grind into anything
 
-		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+		var/space = B.reagents.maximum_volume - B.reagents.total_volume
 		while(O.amount)
 			O.amount--
 
 			for(var/r_id in special_blend)
 				var/spaceused = min(special_blend[r_id] * efficiency, space)
 				space -= spaceused
-				beaker.reagents.add_reagent(r_id, spaceused)
+				B.reagents.add_reagent(r_id, spaceused)
 
 			if(O.amount < 1) // If leftover small - destroy
 				remove_object(O)
 				break
-			if(beaker.reagents.holder_full())
+			if(B.reagents.holder_full())
 				return
 
 	// Plants
 	for(var/obj/item/grown/O in holdingitems)
 		var/list/special_blend = get_special_blend(O)
 		for(var/r_id in special_blend)
-			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			var/space = B.reagents.maximum_volume - B.reagents.total_volume
 			var/amount = special_blend[r_id]
 
 			if(amount == 0)
 				if(O.reagents.has_reagent(r_id))
-					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
+					B.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
 			else
-				beaker.reagents.add_reagent(r_id, min(amount * efficiency, space))
+				B.reagents.add_reagent(r_id, min(amount * efficiency, space))
 
-			if(beaker.reagents.holder_full())
+			if(B.reagents.holder_full())
 				break
 
 		remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(B.reagents.holder_full())
 			return
 
 	// Slime Extracts
 	for(var/obj/item/slime_extract/O in holdingitems)
-		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+		var/space = B.reagents.maximum_volume - B.reagents.total_volume
 
 		if(O.reagents)
 			var/amount = O.reagents.total_volume
-			O.reagents.trans_to(beaker, min(amount, space))
+			O.reagents.trans_to(B, min(amount, space))
 		if(O.Uses > 0)
-			beaker.reagents.add_reagent("slimejelly", min(20 * efficiency, space))
+			B.reagents.add_reagent("slimejelly", min(20 * efficiency, space))
 
 		remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(B.reagents.holder_full())
 			return
 
-	// Everything else - Transfers reagents from it into beaker
+	// Everything else - Transfers reagents from it into B
 	for(var/obj/item/reagent_containers/O in holdingitems)
-		O.reagents.trans_to(beaker, O.reagents.total_volume)
+		O.reagents.trans_to(B, O.reagents.total_volume)
 
 		if(!O.reagents.total_volume)
 			remove_object(O)
-		if(beaker.reagents.holder_full())
+		if(B.reagents.holder_full())
 			return
 
 //The Botanitank, a bigger, faster grinder complete with integrated chem storage tank.
@@ -534,121 +569,15 @@
 /obj/machinery/reagentgrinder/Botanitank
 	name = "\improper Botanitank"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "botanitank_beaker"
+	icon_state = "botanitank_empty"
 	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 100
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
-	var/obj/item/reagent_containers/internal = new /obj/item/reagent_containers/glass/beaker/noreact
-	var/processTime = 6
-
-//The Botanitank has different effects from components.
-
-/obj/machinery/reagentgrinder/Botanitank/RefreshParts()
-	var/H
-	var/T
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		H += M.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		T += M.rating
-	//A bigger device fits more stuff.
-	limit = 40 * H
-	efficiency = 0.8 + T * 0.1
-	//Faster by 1 second for every tier on both manipulators, down to 2 seconds at tier 4
-	processTime = 6 - T * 0.5
-	//Tank volume doubles with each tier of matter bin, starting at 1000.
-	internal.reagents.maximum_volume = 1000 * 2**(H-1)
-
-//Botanitank needs its own UI
-
-/obj/machinery/reagentgrinder/Botanitank/ui_interact(mob/user, datum/tgui/ui = null)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Botanitank", name)
-		ui.open()
-
-// Add internal tank data to UI data.
-
-/obj/machinery/reagentgrinder/Botanitank/ui_data(mob/user)
-	var/list/data = list()
-	data["operating"] = operating
-	data["inactive"] = length(holdingitems) == 0 ? TRUE : FALSE
-	data["limit"] = limit
-	data["count"] = length(holdingitems)
-	data["beaker_loaded"] = beaker ? TRUE : FALSE
-	data["beaker_current_volume"] = beaker ? beaker.reagents.total_volume : null
-	data["beaker_max_volume"] = beaker ? beaker.reagents.maximum_volume : null
-	data["tank_contents"] = null
-
-	var/list/items = list()
-	for(var/i in 1 to length(internal.reagents.reagent_list))
-		var/datum/reagent/K = internal.reagents.reagent_list[i]
-		if(K.volume > 0)
-			items.Add(list(list("display_name" = K.name, "dispense" = i, "quantity" = K.volume)))
-
-	if(length(items))
-		data["tank_contents"] = items
-	data["tank_current_volume"] = internal.reagents.total_volume
-	data["tank_max_volume"]  = internal.reagents.maximum_volume
-
-	var/list/beakerContents = list()
-	if(beaker)
-		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // List in a list because Byond merges the first list...
-	data["beaker_contents"] = beakerContents
-
-	var/list/items_counts = list()
-	var/list/name_overrides = list()
-	for(var/obj/O in holdingitems)
-		var/display_name = O.name
-		if(istype(O, /obj/item/stack))
-			var/obj/item/stack/S = O
-			if(!items_counts[display_name])
-				items_counts[display_name] = 0
-				if(S.singular_name)
-					name_overrides[display_name] = S.singular_name
-				else
-					name_overrides[display_name] = display_name
-				if(S.amount > 1)
-					name_overrides[display_name] = "[name_overrides[display_name]]s" // name_overrides[display_name] Will be set on the first time as the singular form
-
-			items_counts[display_name] += S.amount
-			continue
-
-		else if(isfood(O))
-			var/obj/item/food/food = O
-			if(!items_counts[display_name])
-				if(food.ingredient_name)
-					name_overrides[display_name] = food.ingredient_name
-				else
-					name_overrides[display_name] = display_name
-			else
-				if(food.ingredient_name_plural)
-					name_overrides[display_name] = food.ingredient_name_plural
-				else if(items_counts[display_name] == 1) // Must only add "s" once or you get stuff like "eggsssss"
-					name_overrides[display_name] = "[name_overrides[display_name]]s" // name_overrides[display_name] Will be set on the first time as the singular form
-
-		items_counts[display_name]++
-
-	data["contents"] = list()
-	for(var/item in items_counts)
-		var/N = items_counts[item]
-		var/units
-		if(!(item in name_overrides))
-			units = "[lowertext(item)]"
-		else
-			units = "[name_overrides[item]]"
-
-		var/list/data_pr = list(
-			"name" = capitalize(item),
-			"amount" = N,
-			"units" = units
-		)
-
-		data["contents"] += list(data_pr)
-	return data
+	internal = new /obj/item/reagent_containers/glass/beaker/noreact
+	processTime = PROCESS_TIME
 
 //doing stuff with input from the ui
 
@@ -662,10 +591,10 @@
 			detach(ui.user)
 		if("eject")
 			eject(ui.user)
-		if("botani_grind")
-			botaniGrind()
-		if("botani_juice")
-			botaniJuice()
+		if("grind")
+			grind()
+		if("juice")
+			juice()
 		if("dispense")
 			var/index = text2num(params["index"])
 			var/amount = text2num(params["amount"])
@@ -726,174 +655,4 @@
 		internal.reagents.remove_reagent(E.id,E.volume)
 
 
-//grind into the internal tank
-
-/obj/machinery/reagentgrinder/Botanitank/proc/botaniGrind()
-	power_change()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!internal || internal.reagents.holder_full())
-		return
-
-	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
-	animate(src, pixel_x = pick(-3, -2, 2, 3), pixel_y = pick(-3, -2, 2, 3), time = 1 DECISECONDS, loop = 20, easing = JUMP_EASING)
-	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
-	operating = TRUE
-	SStgui.update_uis(src)
-	spawn(processTime SECONDS)
-		pixel_x = initial(pixel_x) // Return to its spot after shaking
-		operating = FALSE
-		SStgui.update_uis(src)
-
-	// Snacks and Plants
-	for(var/obj/item/food/snacks/O in holdingitems)
-		var/list/special_blend = get_special_blend(O)
-		for(var/r_id in special_blend)
-			var/space = internal.reagents.maximum_volume - internal.reagents.total_volume
-			var/amount = special_blend[r_id]
-
-			if(amount <= 0)
-				if(amount == 0)
-					if(O.reagents.has_reagent("nutriment"))
-						internal.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						internal.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-				else
-					if(O.reagents.has_reagent("nutriment"))
-						internal.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						internal.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-			else
-				O.reagents.trans_id_to(internal, r_id, min(amount, space))
-
-			if(internal.reagents.holder_full())
-				break
-
-		O.reagents.trans_to(internal, O.reagents.total_volume)
-
-		if(!O.reagents.total_volume)
-			remove_object(O)
-		if(internal.reagents.holder_full())
-			return
-
-	// Sheets and rods(!)
-	for(var/obj/item/stack/O in holdingitems)
-		var/list/special_blend = get_special_blend(O)
-		if(!length(special_blend))
-			continue // Ignore stackables that don't grind into anything
-
-		var/space = internal.reagents.maximum_volume - internal.reagents.total_volume
-		while(O.amount)
-			O.amount--
-
-			for(var/r_id in special_blend)
-				var/spaceused = min(special_blend[r_id] * efficiency, space)
-				space -= spaceused
-				internal.reagents.add_reagent(r_id, spaceused)
-
-			if(O.amount < 1) // If leftover small - destroy
-				remove_object(O)
-				break
-			if(internal.reagents.holder_full())
-				return
-
-	// Plants
-	for(var/obj/item/grown/O in holdingitems)
-		var/list/special_blend = get_special_blend(O)
-		for(var/r_id in special_blend)
-			var/space = internal.reagents.maximum_volume - internal.reagents.total_volume
-			var/amount = special_blend[r_id]
-
-			if(amount == 0)
-				if(O.reagents.has_reagent(r_id))
-					internal.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
-			else
-				internal.reagents.add_reagent(r_id, min(amount * efficiency, space))
-
-			if(internal.reagents.holder_full())
-				break
-
-		remove_object(O)
-		if(internal.reagents.holder_full())
-			return
-
-	// Slime Extracts
-	for(var/obj/item/slime_extract/O in holdingitems)
-		var/space = internal.reagents.maximum_volume - internal.reagents.total_volume
-
-		if(O.reagents)
-			var/amount = O.reagents.total_volume
-			O.reagents.trans_to(internal, min(amount, space))
-		if(O.Uses > 0)
-			internal.reagents.add_reagent("slimejelly", min(20 * efficiency, space))
-
-		remove_object(O)
-		if(internal.reagents.holder_full())
-			return
-
-	// Everything else - Transfers reagents from it into internal
-	for(var/obj/item/reagent_containers/O in holdingitems)
-		O.reagents.trans_to(internal, O.reagents.total_volume)
-
-		if(!O.reagents.total_volume)
-			remove_object(O)
-		if(internal.reagents.holder_full())
-			return
-
-
-//juice into the internal tank
-
-/obj/machinery/reagentgrinder/Botanitank/proc/botaniJuice()
-	power_change()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!internal || internal.reagents.holder_full())
-		return
-
-	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
-	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) // Start shaking
-	operating = TRUE
-	SStgui.update_uis(src)
-	spawn(processTime-1 SECONDS)
-		pixel_x = initial(pixel_x) // Return to its spot after shaking
-		operating = FALSE
-		SStgui.update_uis(src)
-
-	// Snacks
-	for(var/obj/item/food/snacks/O in holdingitems)
-		var/list/special_juice = get_special_juice(O)
-		if(!length(special_juice))
-			continue // Ignore food that doesn't juice into anything
-
-		for(var/r_id in special_juice)
-			var/space = internal.reagents.maximum_volume - internal.reagents.total_volume
-
-			internal.reagents.add_reagent(r_id, min(get_juice_amount(O) * efficiency, space))
-
-			if(internal.reagents.holder_full())
-				break
-
-		remove_object(O)
-		if(internal.reagents.holder_full())
-			return
-
-/obj/machinery/reagentgrinder/Botanitank/update_icon_state()
-	if(beaker)
-		icon_state = "botanitank_beaker"
-	else
-		icon_state = "botanitank_empty"
-
-/obj/machinery/reagentgrinder/Botanitank/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!anchored || beaker)
-		return
-	if(!I.tool_use_check(user, 0))
-		return
-	default_deconstruction_screwdriver(user, "botanitank_open", "botanitank_empty", I)
-
-
+#undef PROCESS_TIME
