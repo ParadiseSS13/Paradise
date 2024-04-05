@@ -136,7 +136,7 @@ GLOBAL_VAR(bomb_set)
 	set_light(0)
 
 	if(!wires.is_cut(WIRE_NUKE_LIGHT))
-		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
+		underlays += emissive_appearance(icon, sprite_prefix + "nukelights_lightmask")
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
 	if(panel_open)

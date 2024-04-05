@@ -29374,13 +29374,11 @@
 /area/station/security/prison/cell_block/A)
 "ddl" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/orange,
 /obj/machinery/door/firedoor,
+/obj/structure/cable/orange{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "ddn" = (
@@ -50467,12 +50465,12 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/west)
 "jjh" = (
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "jjp" = (
@@ -53611,11 +53609,6 @@
 /area/station/science/xenobiology)
 "khV" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/cable/orange{
 	d2 = 8;
 	icon_state = "0-8"
@@ -69393,6 +69386,15 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"pkS" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/orange{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "pli" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -83039,16 +83041,18 @@
 /area/station/maintenance/port)
 "tFL" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "tFY" = (
@@ -88442,6 +88446,16 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
+"voK" = (
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/station/security/permabrig)
 "voS" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8;
@@ -118249,7 +118263,7 @@ rHj
 cDb
 rHj
 aQL
-aQL
+voK
 tFL
 rNK
 rNK
@@ -118507,7 +118521,7 @@ gLk
 cVR
 amO
 myY
-tFL
+pkS
 rNK
 rNK
 khV
