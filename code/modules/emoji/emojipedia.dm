@@ -13,7 +13,7 @@
 	var/static/list/emoji_list = icon_states(icon(EMOJI_SET))
 
 /datum/ui_module/emojipedia/ui_state(mob/user)
-	return GLOB.admin_state
+	return GLOB.always_state
 
 /datum/ui_module/emojipedia/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
