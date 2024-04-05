@@ -185,7 +185,7 @@
 
 /datum/dog_fashion/head/cardborg/xeno
 	name = "BORGIMORPH"
-	speak = list("Ping!","Beep!","Woof!", "HISS!", "HISSHISSHISS!")
+	speak = list("Ping!", "Beep!", "Woof!", "HISS!", "HISSHISSHISS!")
 	emote_see = list("goes rogue.", "hisses.")
 	desc = "Result of robotics budget cuts."
 
