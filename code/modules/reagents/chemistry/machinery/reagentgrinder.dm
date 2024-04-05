@@ -521,20 +521,10 @@
 		if(beaker.reagents.holder_full())
 			return
 
-	// Cigarettes
-	for(var/obj/item/clothing/mask/cigarette/O in holdingitems)
-		if(grind_items(O))
-			return
-
-	// Everything else
-	for(var/obj/item/reagent_containers/O in holdingitems)
-		if(grind_items(O))
-			return
-
-/// Will transfer reagents of the item to the beaker, and returns `TRUE` if the beaker is full
-/obj/machinery/reagentgrinder/proc/grind_items(obj/item/O)
-	O.reagents.trans_to(beaker, O.reagents.total_volume)
-	if(!O.reagents.total_volume)
-		remove_object(O)
-	if(beaker.reagents.holder_full())
-		return TRUE
+	// Everything else. Will transfer reagents of the item to the beaker, and returns `TRUE` if the beaker is full
+	for(var/obj/item/O in holdingitems)
+		O.reagents.trans_to(beaker, O.reagents.total_volume)
+		if(!O.reagents.total_volume)
+			remove_object(O)
+		if(beaker.reagents.holder_full())
+			return TRUE
