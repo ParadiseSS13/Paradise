@@ -140,10 +140,10 @@ const PresentReagentRow = (
 ) => {
   const { act } = useBackend<ReagentsEditorData>(context);
   return (
-    <Table.Row className="reagent-row present-row">
+    <Table.Row className="reagent-row">
       <Table.Cell className="volume-cell">
         <Icon
-          className="volume-button edit-volume-button"
+          className="edit-volume-button"
           name="syringe"
           color="green"
           onClick={() =>
@@ -156,7 +156,7 @@ const PresentReagentRow = (
           {volume === null ? `NULL` : `${volume}u`}
         </span>
       </Table.Cell>
-      <Table.Cell className="reagent-name-cell">
+      <Table.Cell>
         {reagentID} ({name})
       </Table.Cell>
     </Table.Row>
@@ -173,12 +173,12 @@ const AbsentReagentRow = (
     <Table.Row className="reagent-row absent-row">
       <Table.Cell className="volume-cell">
         <Icon
-          className="volume-button add-reagent-button"
+          className="add-reagent-button"
           name="fill-drip"
           onClick={() => act('add_reagent', { reagentID })}
         />
       </Table.Cell>
-      <Table.Cell className="reagent-name-cell reagent-absent">
+      <Table.Cell className="reagent-absent-name-cell">
         {reagentID} ({name})
       </Table.Cell>
     </Table.Row>

@@ -19,7 +19,7 @@
   display: none;
 }
 
-.reagent-name-cell.reagent-absent {
+.reagent-absent-name-cell {
   color: colors.$grey;
 }
 
@@ -27,6 +27,6 @@
   padding-right: 0.5em;
 }
 
-.reagent-row:not(:hover) .add-reagent-button {
+.absent-row:not(:hover) .add-reagent-button {
   visibility: hidden;
 }
