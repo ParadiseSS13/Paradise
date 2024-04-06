@@ -678,9 +678,9 @@
 		doping_chem = /datum/reagent/diethylamine
 
 	// Compost, effectively
-	if(reagents.has_reagent("nutrient", 1))
-		adjustHealth(round(reagents.get_reagent_amount("nutrient") * 0.5))
-		adjustNutri(round(reagents.get_reagent_amount("nutrient") * 1))
+	if(reagents.has_reagent("nutriment", 1))
+		adjustHealth(round(reagents.get_reagent_amount("nutriment") * 0.5))
+		adjustNutri(round(reagents.get_reagent_amount("nutriment") * 1))
 
 	if(reagents.has_reagent("plantmatter", 1))
 		adjustHealth(round(reagents.get_reagent_amount("plantmatter") * 0.5))

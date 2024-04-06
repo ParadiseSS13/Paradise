@@ -152,8 +152,9 @@
 					/obj/item/shovel/spade = 3,
 					/obj/item/plant_analyzer = 4)
 
-	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,
-					/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	contraband = list(/obj/item/reagent_containers/glass/bottle/ash = 10,
+					/obj/item/reagent_containers/glass/bottle/saltpetre = 2,
+					/obj/item/reagent_containers/glass/bottle/mutagen = 2)
 
 	refill_canister = /obj/item/vending_refill/hydronutrients
 

@@ -37,8 +37,6 @@
 		/obj/item/food/snacks/grown/ash_flora,
 		/obj/item/food/snacks/honeycomb))
 
-/obj/item/storage/bag/plants/portaseeder
-
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
 	files = new(src)
@@ -352,7 +350,7 @@
 		for(var/R in D.make_reagents)
 			container.reagents.add_reagent(R, D.make_reagents[R] * amount)
 
-	// Creating all other items, such as monkey cubes or nutriment bottles.
+	// Creating all other items, such as monkey cubes or nutrient bottles.
 	else
 		if(!check_cost(D, amount))
 			return
