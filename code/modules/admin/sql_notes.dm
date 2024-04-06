@@ -175,19 +175,20 @@
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/output
-	var/navbar
-	var/ruler
-	ruler = "<hr style='background:#000000; border:0; height:3px'>"
+	var/list/output = list("<!DOCTYPE html>")
+	var/list/navbar = list()
+	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
+
 	navbar = "<meta charset='UTF-8'><a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
 		navbar += "|<a href='?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
+
 	navbar += "<br><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
 	<input type='submit' value='Search'></form>"
 	if(!linkless)
-		output = navbar
+		output += navbar
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
@@ -253,5 +254,5 @@
 	else
 		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
-	usr << browse(output, "window=show_notes;size=900x500")
+	usr << browse(output.Join(""), "window=show_notes;size=900x500")
 

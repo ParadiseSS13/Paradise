@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	holder.outfit_manager(usr)
 
 /datum/admins/proc/outfit_manager(mob/admin)
-	var/list/dat = list("<ul>")
+	var/list/dat = list("<!DOCTYPE html><ul>")
 	for(var/datum/outfit/O in GLOB.custom_outfits)
 		var/vv = FALSE
 		var/datum/outfit/varedit/VO = O

@@ -1147,7 +1147,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 
-	var/list/dat = list()
+	var/list/dat = list("<!DOCTYPE html>")
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
 		dat += "[S.name][S.completed ? " (C)" : ""] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a>"
 	dat += ""

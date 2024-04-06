@@ -905,7 +905,7 @@
 	var/url = winget(src, null, "url")
 
 	//special javascript to make them reconnect under a new window.
-	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+	src << browse("<!DOCTYPE html><a id='link' href='byond://[url]?token=[token]'>\
 		byond://[url]?token=[token]\
 	</a>\
 	<script type='text/javascript'>\

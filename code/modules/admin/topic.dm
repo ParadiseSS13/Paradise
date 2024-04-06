@@ -671,7 +671,7 @@
 		jobs += "</tr></table>"
 
 		body = "<body>[jobs]</body>"
-		dat = "<tt>[header][body]</tt>"
+		dat = "<!DOCTYPE html><tt>[header][body]</tt>"
 		usr << browse(dat, "window=jobban2;size=800x490")
 		return
 
@@ -887,7 +887,7 @@
 			return
 		if(query_noteedits.NextRow())
 			var/edit_log = query_noteedits.item[1]
-			usr << browse(edit_log,"window=noteedits")
+			usr << browse("<!DOCTYPE html>[edit_log]","window=noteedits")
 		qdel(query_noteedits)
 
 	else if(href_list["newban"])
@@ -991,7 +991,7 @@
 			return
 		if(query_watchedits.NextRow())
 			var/edit_log = query_watchedits.item[1]
-			usr << browse(edit_log,"window=watchedits")
+			usr << browse("<!DOCTYPE html>[edit_log]","window=watchedits")
 		qdel(query_watchedits)
 
 	else if(href_list["mute"])
@@ -1013,7 +1013,7 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
+		var/dat = {"<!DOCTYPE html><b>What mode do you wish to play?</b><hr>"}
 		for(var/mode in GLOB.configuration.gamemode.gamemodes)
 			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
@@ -1028,7 +1028,7 @@
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
+		var/dat = {"<!DOCTYPE html><b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		for(var/mode in GLOB.configuration.gamemode.gamemodes)
 			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
@@ -2371,7 +2371,7 @@
 		else if(istype(fax, /obj/item/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
-			var/data = ""
+			var/data = "<!DOCTYPE html>"
 			var/obj/item/paper_bundle/B = fax
 
 			for(var/page = 1, page <= B.amount + 1, page++)
@@ -2790,7 +2790,7 @@
 			return
 		if(query_memoedits.NextRow())
 			var/edit_log = query_memoedits.item[1]
-			usr << browse(edit_log,"window=memoeditlist")
+			usr << browse("<!DOCTYPE html>[edit_log]","window=memoeditlist")
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])

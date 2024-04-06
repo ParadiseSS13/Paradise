@@ -178,7 +178,7 @@
 	if(!recipient)
 		recipient = current
 	var/list/output = list()
-	output.Add("<meta charset='UTF-8'><b>[current.real_name]'s Memories:</b><hr>")
+	output.Add("<!DOCTYPE html><meta charset='UTF-8'><b>[current.real_name]'s Memories:</b><hr>")
 	output.Add(memory)
 
 	for(var/datum/antagonist/A in antag_datums)
