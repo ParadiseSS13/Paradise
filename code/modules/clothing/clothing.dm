@@ -3,8 +3,9 @@
 	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
-	var/list/species_restricted = null //Only these species can wear this kit.
-	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
+	var/list/species_restricted = null	// Only these species can wear this kit.
+	var/scan_reagents = FALSE			// Can the wearer see reagents inside transparent containers while it's equipped?
+	var/scan_reagents_advanced = FALSE	// Can the wearer see reagents inside any container and identify blood types while it's equipped?
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -87,11 +88,11 @@
 
 	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
-		return 0
+		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
 	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
-		return 1
+		return TRUE
 
 	if(species_restricted && ishuman(M))
 
@@ -100,21 +101,21 @@
 		var/mob/living/carbon/human/H = M
 
 		if("exclude" in species_restricted)
-			exclusive = 1
+			exclusive = TRUE
 
 		if(H.dna.species)
 			if(exclusive)
 				if(!(H.dna.species.name in species_restricted))
-					wearable = 1
+					wearable = TRUE
 			else
 				if(H.dna.species.name in species_restricted)
-					wearable = 1
+					wearable = TRUE
 
 			if(!wearable)
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
-				return 0
+				return FALSE
 
-	return 1
+	return TRUE
 
 /obj/item/clothing/proc/refit_for_species(target_species)
 	//Set icon
@@ -262,8 +263,8 @@
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	///Master pickpocket?
-	var/pickpocket = 0
-	var/clipped = 0
+	var/pickpocket = FALSE
+	var/clipped = FALSE
 	///Do they protect the wearer from poison ink?
 	var/safe_from_poison = FALSE
 	strip_delay = 20

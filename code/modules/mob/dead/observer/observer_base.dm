@@ -736,7 +736,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	updateghostimages()
 
-/mob/dead/observer/can_see_reagents()
+/mob/dead/observer/advanced_reagent_vision()	// Ghosts can see all the reagents inside things.
 	return TRUE
 
 /proc/updateallghostimages()

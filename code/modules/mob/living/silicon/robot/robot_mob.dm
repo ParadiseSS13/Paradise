@@ -113,9 +113,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
-	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+	var/has_advanced_reagent_vision = FALSE // Determines if the cyborg has advanced reagent vision.
 
-	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
+	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs.
 	var/mail_destination = 1
 
 /mob/living/silicon/robot/get_cell()
@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Medical"
 			status_flags &= ~CANPUSH
-			see_reagents = TRUE
+			has_advanced_reagent_vision = TRUE
 		if("Mining")
 			module = new /obj/item/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
@@ -480,7 +480,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
-			see_reagents = TRUE
+			has_advanced_reagent_vision = TRUE
 			if(selected_sprite == "Bro")
 				module.module_type = "Brobot"
 		if("Combat")
@@ -1373,7 +1373,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	see_reagents = TRUE
+	has_advanced_reagent_vision = TRUE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1406,7 +1406,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
-	see_reagents = TRUE
+	has_advanced_reagent_vision = TRUE
 
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1462,7 +1462,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	see_reagents = TRUE
+	has_advanced_reagent_vision = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1581,8 +1581,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 
-/mob/living/silicon/robot/can_see_reagents()
-	return see_reagents
+/mob/living/silicon/robot/advanced_reagent_vision()
+	return has_advanced_reagent_vision
 
 /mob/living/silicon/robot/verb/powerwarn()
 	set category = "Robot Commands"

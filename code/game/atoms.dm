@@ -364,24 +364,54 @@
 
 /atom/proc/build_reagent_description(mob/user)
 	. = list()
-	if(reagents)
+	if(!reagents)
+		return
+	var/one_percent = reagents.total_volume / 100
+	var/blood_type = ""
+	if(user.advanced_reagent_vision())	// You can see absolute unit concentrations in transparent containers and % concentrations in opaque containers. You can also see blood types.
+		. += "<span class='notice'>It contains:</span>"
+		if(!reagents.reagent_list.len)
+			. += "<span class='notice'>Nothing.</span>"
+			return
 		if(container_type & TRANSPARENT)
-			. += "<span class='notice'>It contains:</span>"
-			if(reagents.reagent_list.len)
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/I in reagents.reagent_list)
-						var/datum/reagent/R = I
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
-				else //Otherwise, just show the total volume
-					if(reagents && reagents.reagent_list.len)
-						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+			for(var/I in reagents.reagent_list)
+				var/datum/reagent/R = I
+				if(R.id != "blood")
+					. += "<span class='notice'>[R.volume] units of [R] ([R.volume / one_percent]%)</span>"
+				else
+					blood_type = R.data["blood_type"]
+					. += "<span class='notice'>[R.volume] units of [R] ([blood_type ? "[blood_type]" : ""]) ([R.volume / one_percent]%)</span>"
+			return
+		// Opaque containers
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.id != "blood")
+				. += "<span class='notice'>[R] ([R.volume / one_percent]%)</span>"
 			else
-				. += "<span class='notice'>Nothing.</span>"
-		else if(container_type & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
-			else
-				. += "<span class='danger'>It's empty.</span>"
+				blood_type = R.data["blood_type"]
+				. += "<span class='notice'>[R] ([blood_type ? "[blood_type]" : ""]) ([R.volume / one_percent]%)</span>"
+		return
+
+	if(container_type & TRANSPARENT)
+		. += "<span class='notice'>It contains:</span>"
+		if(user.reagent_vision())	// You can see absolute unit quantities of reagents in transparent containers.
+			if(container_type & TRANSPARENT)
+				for(var/I in reagents.reagent_list)
+					var/datum/reagent/R = I
+					. += "<span class='notice'>[R.volume] units of [R] ([R.volume / one_percent]%)</span>"
+				return
+
+		//Otherwise, just show the total volume
+		if(reagents && reagents.reagent_list.len)
+			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+			return
+		. += "<span class='notice'>Nothing.</span>"
+		return
+
+	if(container_type & AMOUNT_VISIBLE)
+		if(reagents.total_volume)
+			. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+			return
+		. += "<span class='danger'>It's empty.</span>"
 
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	. = build_base_description(infix, suffix)
