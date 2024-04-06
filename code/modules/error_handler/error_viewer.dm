@@ -117,7 +117,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	//  from the same source hasn't been shown too recently
 	if(error_source.next_message_at <= world.time)
 		var/const/viewtext = "\[view]" // Nesting these in other brackets went poorly
-		log_debug("Runtime in [e.file],[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
+		log_debug("Runtime in [e.file]:[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
 		error_source.next_message_at = world.time + ERROR_MSG_DELAY
 
 /datum/ErrorViewer/ErrorSource
@@ -128,7 +128,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	if(!istype(e))
 		name = "\[[time_stamp()]] Uncaught exceptions"
 		return
-	name = "\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]"
+	name = "\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]"
 
 /datum/ErrorViewer/ErrorSource/showTo(user, datum/ErrorViewer/back_to, linear)
 	if(!istype(back_to))
@@ -156,10 +156,10 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		name = "\[[time_stamp()]] Uncaught exception: [e]"
 		return
 	if(skipCount)
-		name = "\[[time_stamp()]] Skipped [skipCount] runtimes in [e.file],[e.line]."
+		name = "\[[time_stamp()]] Skipped [skipCount] runtimes in [e.file]:[e.line]."
 		isSkipCount = TRUE
 		return
-	name = "\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]"
+	name = "\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]"
 	exc = e
 	if(istype(desclines))
 		for(var/line in desclines)
