@@ -609,7 +609,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to steal a high-security item. Please hold for further details."
+		explanation_text = "Your objective is to steal a high-value item. Please hold for further details."
 		return
 
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
