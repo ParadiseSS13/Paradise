@@ -24,7 +24,7 @@ body:
     id: version
     attributes:
       label: BYOND Version
-      description: "На какой версии BYOND встретился баг. (Если уверены, что не связано - можно пропустить.)"
+      description: "На какой версии BYOND встретился баг. (Если уверены, что не связано, можно пропустить)"
 
   - type: textarea
     id: description
@@ -61,7 +61,7 @@ body:
     attributes:
       label: Шаги для повторения проблемы.
       description: Самая важная часть. Опишите ВСЁ, что вы делали, что бы встретиться с проблемой. (Обязательное поле)
-      placeholder: Find a chair, buckle yourself into it, be eaten by dragon.
+      placeholder: Нашел стул, сел, взорвался.
     validations:
       required: true
 
@@ -79,11 +79,11 @@ body:
     attributes:
       label: Дополнительная информация
       description: Всё, что вы считаете важным/относящимся к проблеме.
-      placeholder: "Я думаю, что проблема начала появляться после этого PR https://github.com/ss220club/Paradise-SS220/pull/583"
+      placeholder: Я думаю, что проблема начала появляться после этого PR https://github.com/ss220club/Paradise-SS220/pull/583
 
   - type: textarea
     id: logs
     attributes:
       label: Связанные логи
-      description: Пожалуйста, предоставьте связанные логи или рантаймы, если имеете к ним доступ(Лучше цензурить IP адреса).
+      description: Пожалуйста, предоставьте связанные логи или рантаймы, если имеете к ним доступ. (Лучше цензурить IP-адреса)
       render: DM
