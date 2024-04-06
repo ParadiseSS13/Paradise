@@ -139,8 +139,8 @@
 					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
 					for(var/obj/item/I in components)
 						I.loc = src.loc
-				name = ..al(name)
-				desc = ..al(desc)
+				name = initial(name)
+				desc = initial(desc)
 				req_components = null
 				components = null
 				icon_state = "box_1"
@@ -301,7 +301,7 @@ to destroy them and players will be able to make replacements.
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()
-	req_components = list(..al(typepath.refill_canister) = 1)
+	req_components = list(initial(typepath.refill_canister) = 1)
 
 /obj/item/circuitboard/slot_machine
 	board_name = "Slot Machine"
@@ -673,8 +673,7 @@ to destroy them and players will be able to make replacements.
 	var/static/list/regular_components = list(
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
-//The names in the list are used for setting the circuit  board type on init.
-//Keep them the same as the name of the machine.
+	//keep these the same as the corresponding machine names.
 	var/static/list/grinder_names_paths = list(
 							"All-In-One Grinder" = /obj/machinery/reagentgrinder/empty,
 							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank/empty)
