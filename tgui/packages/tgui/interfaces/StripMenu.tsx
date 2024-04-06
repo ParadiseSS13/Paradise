@@ -4,7 +4,6 @@ import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
-import { createLogger } from '../logging';
 
 const ROWS = 5;
 const COLUMNS = 5;
@@ -26,10 +25,11 @@ const CornerText = (props: {
   return (
     <Box
       style={{
-        position: 'relative',
-        left: align === 'left' ? '6px' : '-8px', // spacing letters is hard, but it looks good like this
+        position: 'absolute',
+        left: align === 'left' ? '6px' : '48px', // spacing letters is hard, but it looks good like this
         'text-align': align,
         'text-shadow': '2px 2px 2px #000',
+        top: '2px',
       }}
     >
       {children}
