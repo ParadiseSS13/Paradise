@@ -54,7 +54,8 @@
 		/obj/item/slime_extract = list(),
 		/obj/item/food = list(),
 		/obj/item/reagent_containers/pill = list(),
-		/obj/item/reagent_containers/patch = list()
+		/obj/item/reagent_containers/patch = list(),
+		/obj/item/clothing/mask/cigarette = list()
 	)
 
 	var/list/juice_items = list (
@@ -520,10 +521,9 @@
 		if(beaker.reagents.holder_full())
 			return
 
-	// Everything else - Transfers reagents from it into beaker
-	for(var/obj/item/reagent_containers/O in holdingitems)
+	// Everything else - Transfers reagents from the items into the beaker
+	for(var/obj/item/O in holdingitems)
 		O.reagents.trans_to(beaker, O.reagents.total_volume)
-
 		if(!O.reagents.total_volume)
 			remove_object(O)
 		if(beaker.reagents.holder_full())
