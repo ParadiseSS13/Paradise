@@ -342,6 +342,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 /obj/effect/spawner/oasisrock/proc/make_rock(radius)
 	var/our_turf = get_turf(src)
 	for(var/turf/oasis in circlerangeturfs(our_turf, radius))
+		if(istype(oasis.loc, /area/ruin))
+			continue
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
 	var/list/valid_turfs = circlerangeturfs(our_turf, radius + 1)
 	valid_turfs -= circlerangeturfs(our_turf, radius)
@@ -352,6 +354,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T, monsterprob = 30)
+	if(istype(T.loc, /area/ruin))
+		return
+
 	for(var/S in RANGE_TURFS(1, src))
 		var/turf/NT = S
 		if(!NT || isspaceturf(NT) || istype(NT.loc, /area/mine/explored) || istype(NT.loc, /area/lavaland/surface/outdoors/explored))
@@ -365,6 +370,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	T.ChangeTurf(turf_type, FALSE, FALSE, TRUE)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T, monsterprob = 30)
+	if(istype(T.loc, /area/ruin))
+		return
+
 	if(prob(monsterprob))
 		if(istype(loc, /area/mine/explored) || !istype(loc, /area/lavaland/surface/outdoors/unexplored))
 			return
@@ -406,6 +414,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 #undef RECURSION_MAX
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
+	if(istype(T.loc, /area/ruin))
+		return
+
 	var/floraprob = 12
 	switch(SSmapping.cave_theme)
 		if(BLOCKED_BURROWS)
