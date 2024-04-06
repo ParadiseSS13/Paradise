@@ -588,16 +588,16 @@
 	icon_state = "botanitank_empty"
 	beaker = null
 
-/obj/machinery/reagentgrinder/Initialize(mapload)
+/obj/machinery/reagentgrinder/Botanitank/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
-	component_parts[1].set_type(null, "Botanitank")
+	var/obj/item/circuitboard/reagentgrinder/board = new(null)
+	board.set_type(null,replacetext(name, "\improper", ""))
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/noreact(null)
-
+	component_parts += new /obj/item/reagent_containers/glass/beaker/noreact
+	component_parts += board
 	RefreshParts()
 
 
