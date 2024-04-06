@@ -674,8 +674,8 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/grinder_names_paths = list(
-							"reagentgrinder" = /obj/machinery/reagentgrinder,
-							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank)
+							"All-In-One Grinder" = /obj/machinery/reagentgrinder/empty,
+							"Botanitank" = /obj/machinery/reagentgrinder/Botanitank/empty)
 
 /obj/item/circuitboard/reagentgrinder/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

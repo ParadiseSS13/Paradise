@@ -3,7 +3,7 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
 	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "juicer0"
+	icon_state = "juicer1"
 	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -11,7 +11,7 @@
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	var/operating = FALSE
-	var/obj/item/reagent_containers/beaker = null
+	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit
 	var/processTime = PROCESS_TIME
 	var/efficiency
@@ -570,7 +570,7 @@
 /obj/machinery/reagentgrinder/Botanitank
 	name = "\improper Botanitank"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "botanitank_empty"
+	icon_state = "botanitank_beaker"
 	layer = 2.9
 	anchored = TRUE
 	density = TRUE
@@ -580,6 +580,26 @@
 	resistance_flags = ACID_PROOF
 	internal = new /obj/item/reagent_containers/glass/beaker/noreact
 	processTime = PROCESS_TIME
+
+
+//empty version
+
+/obj/machinery/reagentgrinder/Botanitank/empty
+	icon_state = "botanitank_empty"
+	beaker = null
+
+/obj/machinery/reagentgrinder/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts[1].set_type(null, "Botanitank")
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/noreact(null)
+
+	RefreshParts()
+
 
 //doing stuff with input from the ui
 
