@@ -61,7 +61,7 @@
 	var/tts_seeds
 	var/tts_gender = get_converted_tts_seed_gender()
 	var/list/tts_seeds_by_gender = SStts220.tts_seeds_by_gender[tts_gender]
-	if(check_rights(R_ADMIN, FALSE, chooser) || override || !ismob(being_changed))
+	if(check_rights(R_VAREDIT, FALSE, chooser) || override || !ismob(being_changed))
 		tts_seeds = tts_seeds_by_gender
 	else
 		tts_seeds = tts_seeds_by_gender && SStts220.get_available_seeds(being_changed) // && for lists means intersection
