@@ -1,12 +1,18 @@
 import { useBackend } from '../backend';
 import { useSharedState } from '../backend';
-import { Box, Button, Section, Table, Stack } from '../components';
+import {
+  Box,
+  Button,
+  Section,
+  Table,
+  Stack,
+  NumberInput,
+  LabeledList,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Operating } from '../interfaces/common/Operating';
-import { NumberInput } from '../components';
-import { LabeledList } from '../components';
-import { Icon } from '../components';
 
 export const ReagentGrinder = (props, context) => {
   const { act, data, config } = useBackend(context);
@@ -14,8 +20,8 @@ export const ReagentGrinder = (props, context) => {
   const { title } = config;
   return (
     <Window
-      width={reagent_storage ? 550 : 400}
-      height={reagent_storage ? 900 : 565}
+      width={reagent_storage ? 420 : 400}
+      height={reagent_storage ? 580 : 565}
     >
       <Window.Content>
         <Stack fill vertical>
@@ -130,7 +136,7 @@ const TankReagents = (props, context) => {
       title="Tank"
       fill
       scrollable
-      height="80%"
+      height="70%"
       buttons={
         <Box>
           <Box inline color="label" mr={2}>
@@ -161,7 +167,7 @@ const TankReagents = (props, context) => {
     >
       <Stack fill vertical>
         <Section fill scrollable title={'Reagents'}>
-          {!tank_contents && (
+          {!tank_contents ? (
             <Stack fill>
               <Stack.Item
                 bold
@@ -178,17 +184,16 @@ const TankReagents = (props, context) => {
                 The Botanitank is empty.
               </Stack.Item>
             </Stack>
-          )}
-          {!!tank_contents &&
+          ) : (
             tank_contents
               .slice()
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="30%">{item.display_name}</Stack.Item>
-                    <Stack.Item width="35%">
-                      ({item.quantity} u in tank)
+                    <Stack.Item width="25%">{item.display_name}</Stack.Item>
+                    <Stack.Item width="20%">
+                      ({parseFloat(item.quantity).toFixed(2)} u)
                     </Stack.Item>
                     <Stack.Item width={20}>
                       <Button
@@ -247,7 +252,8 @@ const TankReagents = (props, context) => {
                     </Stack.Item>
                   </Stack>
                 );
-              })}
+              })
+          )}
         </Section>
       </Stack>
     </Section>
