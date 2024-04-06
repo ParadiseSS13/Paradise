@@ -51,9 +51,16 @@
       ? parseInt(majorVersion, 10)
       : null;
   })();
+    
+  // Blink engine version
+  Byond.BLINK = (function () {
+    let groups = navigator.userAgent.match(/Chrome\/(\d+)\./);
+    let majorVersion = groups && groups[1];
+    return majorVersion ? parseInt(majorVersion, 10) : null;
+  })();
 
   // Basic checks to detect whether this page runs in BYOND
-  var isByond = (Byond.TRIDENT !== null || window.cef_to_byond)
+  var isByond = (Byond.TRIDENT !== null || Byond.BLINK !== null || window.cef_to_byond)
     && location.hostname === '127.0.0.1'
     && location.search !== '?external';
 
