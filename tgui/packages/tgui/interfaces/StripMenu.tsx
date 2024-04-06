@@ -228,6 +228,7 @@ enum ObscuringLevel {
 
 type Interactable = {
   interacting: BooleanLike;
+  cantstrip: BooleanLike;
 };
 
 /**
@@ -279,6 +280,13 @@ export const StripMenu = (props, context) => {
       return 'average';
     }
     return 'translucent';
+  };
+
+  const disable_background_hover = (item) => {
+    if (item && item.cantstrip) {
+      return 'transparent';
+    }
+    return 'none';
   };
 
   return (
@@ -344,7 +352,7 @@ export const StripMenu = (props, context) => {
                         }
                         size={3}
                         ml={0}
-                        mt={2.75}
+                        mt={2.5}
                         color="white"
                         style={{
                           'text-align': 'center',
@@ -394,6 +402,7 @@ export const StripMenu = (props, context) => {
                             width: '100%',
                             height: '100%',
                             padding: 0,
+                            'background-color': disable_background_hover(item),
                           }}
                         >
                           {slot.image && (

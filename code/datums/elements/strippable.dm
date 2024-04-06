@@ -397,6 +397,8 @@
 				if(strippable_item.try_equip(owner, held_item, user))
 					LAZYORASSOCLIST(interactions, user, key)
 
+					// Update just before the delay starts
+					SStgui.update_uis(src)
 					// Yielding call
 					var/should_finish = strippable_item.start_equip(owner, held_item, user)
 
@@ -420,6 +422,8 @@
 			else if(strippable_item.try_unequip(owner, user))
 				LAZYORASSOCLIST(interactions, user, key)
 
+				// Update just before the delay starts
+				SStgui.update_uis(src)
 				var/should_unequip = strippable_item.start_unequip(owner, user)
 
 				LAZYREMOVEASSOC(interactions, user, key)
@@ -459,6 +463,8 @@
 
 			LAZYORASSOCLIST(interactions, user, key)
 
+			// Update just before the delay starts
+			SStgui.update_uis(src)
 			// Potentially yielding
 			strippable_item.alternate_action(owner, user, params["action_key"])
 
