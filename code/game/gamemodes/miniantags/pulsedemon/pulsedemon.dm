@@ -517,7 +517,7 @@
 		return FALSE
 
 	if(sanitize)
-		message = sanitize_for_ic(message)
+		message = sanitize_for_ic(trim(message))
 
 	if(stat)
 		if(stat == DEAD)
