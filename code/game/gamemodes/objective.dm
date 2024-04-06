@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinateonce/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to assassinate another crewmember a lesson. Please hold for further details."
+		explanation_text = "Your objective is to teach another crewmember a lesson. Please hold for further details."
 		return
 
 	if(target?.current)
