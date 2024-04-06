@@ -592,7 +592,9 @@
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
-	component_parts[1].set_type(null, "Botanitank")
+	component_parts[1].name = "Botanitank"
+	component_parts[1].build_path = grinder_names_paths["Botanitank"]
+	component_parts[1].req_components = component_parts[1].regular_components + list(/obj/item/reagent_containers/glass/beaker/noreact = 1)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
