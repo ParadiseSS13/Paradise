@@ -308,7 +308,7 @@
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	var/area/A
-	if(MT) 
+	if(isatom(MT) && !QDELETED(MT))
 		A = get_area(MT)
 	else 
 		A = get_area(user) 
