@@ -152,18 +152,18 @@ Do not compare boolean values to TRUE or FALSE. For TRUE you should just check i
 
 ```dm
 // Bad
-var/thing = pick(list(TRUE, FALSE))
+var/thing = pick(TRUE, FALSE)
 if(thing == TRUE)
 	return "bleh"
-var/other_thing = pick(list(TRUE, FALSE))
+var/other_thing = pick(TRUE, FALSE)
 if(other_thing == FALSE)
 	return "meh"
 
 // Good
-var/thing = pick(list(TRUE, FALSE))
+var/thing = pick(TRUE, FALSE)
 if(thing)
 	return "bleh"
-var/other_thing = pick(list(TRUE, FALSE))
+var/other_thing = pick(TRUE, FALSE)
 if(!other_thing)
 	return "meh"
 ```
