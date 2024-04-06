@@ -279,7 +279,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		// Move our tunnel forward
 		tunnel = get_step(tunnel, dir)
 
-		if(istype(tunnel))
+		// Separate ruin area check here because of the raw ChangeTurf call that
+		// doesn't go through SpawnFloor/Flora/Monster.
+		if(istype(tunnel) && !istype(tunnel.loc, /area/ruin))
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
 			var/caveprob = 20
 			switch(SSmapping.cave_theme)
