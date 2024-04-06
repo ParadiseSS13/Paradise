@@ -588,6 +588,8 @@
 	icon_state = "botanitank_empty"
 	beaker = null
 
+//different initializer for different componenets
+
 /obj/machinery/reagentgrinder/Botanitank/Initialize(mapload)
 	. = ..()
 	component_parts = list()
