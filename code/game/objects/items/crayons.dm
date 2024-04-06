@@ -136,8 +136,7 @@
 		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
-	if(istype(src, /obj/item/toy/crayon/spraycan))	// Eating the spraycan is TOO silly!
-		return
+	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -148,7 +147,7 @@
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		user.adjust_nutrition(5)
 		if(times_eaten < max_bites)
-			to_chat(user, "<span class='notice'>You take a bite of the [name]. Delicious!</span>")
+			to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
 		else
 			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 			qdel(src)
@@ -330,7 +329,6 @@
 	if(!proximity)
 		return
 	if(capped)
-		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
 		return
 	if(istype(target, /obj/item/clothing/head/cardborg))	// Spraypainting your cardborg suit for more fashion options.
 		cardborg_recolour(target)
