@@ -134,7 +134,7 @@
 
 /datum/spellbook_entry/corpse_explosion
 	name = "Corpse Explosion"
-	spell_type = /obj/effect/proc_holder/spell/corpse_explosion
+	spell_type = /datum/spell/corpse_explosion
 	category = "Offensive"
 
 /datum/spellbook_entry/fireball

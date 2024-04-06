@@ -470,7 +470,7 @@
 		var/mob/living/U = user
 		U.IgniteMob()
 
-/obj/effect/proc_holder/spell/corpse_explosion
+/datum/spell/corpse_explosion
 	name = "Corpse Explosion"
 	desc = "Fills a corpse with energy, causing it to explode violently."
 	school = "evocation"
@@ -482,14 +482,14 @@
 	selection_deactivated_message = "<span class='notice'>You cancel the spell.</span>"
 	action_icon_state = "corpse_explosion"
 
-/obj/effect/proc_holder/spell/corpse_explosion/create_new_targeting()
+/datum/spell/corpse_explosion/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.click_radius = 0
 	T.try_auto_target = FALSE
 	T.allowed_type = /mob/living
 	return T
 
-/obj/effect/proc_holder/spell/corpse_explosion/cast(list/targets, mob/user)
+/datum/spell/corpse_explosion/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
 	if(!target || target.stat != DEAD)
 		return
