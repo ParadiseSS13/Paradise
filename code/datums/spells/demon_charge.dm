@@ -23,7 +23,7 @@
 /obj/effect/proc_holder/spell/demon_charge/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/demon_charge/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/demon_charge/cast(list/targets, mob/user = usr)
 	if(get_turf(user) != user.loc)
 		to_chat(user, "<span class='warning'>You must be phased in to charge!</span>")
 		revert_cast()
@@ -33,8 +33,7 @@
 		return FALSE
 	for(var/mob/living/M in targets)
 		var/turf/start = get_turf(M)
-		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
-		playsound(start, pick(voice), 50, TRUE, -1)
+		playsound(start, 'sound/effects/creepyshriek.ogg', 50, TRUE, -1)
 		var/obj/effect/immovablerod/demon/D = new(start, get_ranged_target_turf(M, M.dir, 15), 2)
 		D.caster = M
 		D.max_distance = 7
@@ -65,7 +64,7 @@
 	human_req = FALSE
 	base_cooldown = 5 SECONDS
 	cooldown_min = 5 SECONDS
-	action_icon_state = "immrod"
+	action_icon_state = "seismic_stomp"
 	centcom_cancast = TRUE
 	var/bloodcharge = TRUE
 
@@ -81,6 +80,8 @@
 		to_chat(user, "<span class='warning'>You need to consume a sentient new victim!</span>")
 		return FALSE
 	var/turf/origin_point = get_turf(user)
+	playsound(origin_point, 'sound/effects/bang.ogg', 100, TRUE, -1)
+	visible_message("<span class='danger'>[user] slams the ground!</span>")
 	for(var/mob/living/M in range(2, origin_point))
 		if(M == user)
 			continue

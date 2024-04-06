@@ -36,11 +36,12 @@
 	var/obj/effect/proc_holder/spell/demon_slam/slam_holder
 	var/obj/effect/proc_holder/spell/demon_charge/charge_holder
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
-	var/playstyle_string = "<b>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
-						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
-						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
-						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </b>"
-	del_on_death = TRUE
+	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill. \
+						       You may use the blood crawl icon when on blood pools to travel through them, appearing and disappearing from the station with a short delay. \
+						       While blood crawling you will heal back to half your health pool. Slowly. \
+						       If sink into your blood while dead or critical mobs are around you, you will pull them in with you, allowing you to feast. Healing 100HP each. \
+						       A bonus of 10 maximum hp is given per sentient humanoid consumed, every fourth corpse eaten will increase health by another 50. \
+						       Attacking sentient humanoids grants a 5% damage increase and a 5% damage reduction, stacking up to 50% extra. Maxing out at 45 damage. You will loose this buff out of combat however.<B>"
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
 /mob/living/simple_animal/demon/slaughter_demon/laughter
@@ -231,6 +232,12 @@
 	sink_animation(foundblood)
 	src.ExtinguishMob()
 	src.forceMove(holder)
+
+/mob/living/simple_animal/demon/slaughter_demon/Stat()
+	..()
+	stat(null, "Sentient creatures absorbed: [mindsabsorbed]")
+	stat(null, "Max health: [maxHealth]")
+	stat(null, "Bonus health total: [maxHealth - 400]")
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/sink_animation(atom/A)
 	var/turf/mob_loc = get_turf(channel_target)
