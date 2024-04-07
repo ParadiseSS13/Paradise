@@ -400,6 +400,20 @@
 	// no printing infinite syringes.
 	return
 
+/// craftable bamboo syringe gun
+/obj/item/gun/syringe/blowgun
+	name = "blowgun"
+	desc = "Fire syringes at a short distance."
+	icon_state = "blowgun"
+	item_state = "gun"
+
+/obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	visible_message("<span class='danger'>[user] shoots the blowgun!</span>")
+
+	user.adjustStaminaLoss(20, FALSE)
+	user.adjustOxyLoss(20)
+	return ..()
+
 /// Version for Malf Borgs
 /obj/item/gun/syringe/malf
 	name = "plasma syringe cannon"
