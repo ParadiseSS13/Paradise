@@ -110,13 +110,16 @@
 	if(!matrix)
 		reset()
 
+	var/matrix_length = length(matrix)
+
 	// Here we have CCM matrix of type:
 	// | rr rg rb |
 	// | gr gg gb |
 	// | br bg bb |
 	// with no brightness row, just append it.
-	if(length(matrix) == 9)
+	if(matrix_length == 9)
 		matrix += list(brightness, brightness, brightness)
+		return
 	
 	// Here we have CCM matrix of type:
 	// | rr rg rb ra |
@@ -124,18 +127,21 @@
 	// | br bg bb ba |
 	// | ar ag ab aa |
 	// with no brightness row, just append it.
-	if(length(matrix) == 16)
+	if(matrix_length == 16)
 		matrix += list(brightness, brightness, brightness, 0)
+		return
 
 	// We already have brightness row, just override. 
-	else if(length(matrix) == 12)
-		for(var/i = length(matrix) to length(matrix) - 3 step -1)
+	if(matrix_length == 12)
+		for(var/i = matrix_length to matrix_length - 3 step -1)
 			matrix[i] = brightness
+		return
 
 	// Just brightness matrix, override.
-	else if(length(matrix) == 3)
-		for(var/i = 1 to length(matrix))
+	if(matrix_length == 3)
+		for(var/i = 1 to matrix_length)
 			matrix[i] = brightness
+		return
 
 	CRASH("Couldn't figure out how to apply brightness to a matrix of length: [matrix_length]")
 
