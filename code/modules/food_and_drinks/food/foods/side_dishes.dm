@@ -145,4 +145,5 @@
 	icon_state = "onigiri"
 	list_reagents = list("nutriment" = 5, "vitamin" = 2)
 	tastes = list("rice" = 3, "seaweed" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
