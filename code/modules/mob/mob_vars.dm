@@ -197,7 +197,7 @@
 
 	var/registered_z
 
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+	var/datum/spell/ranged_ability //Any ranged ability the mob has, as a click override
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
@@ -246,3 +246,7 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
+
+	/// Does this mob speak OOC?
+	/// Controls whether they can say some symbols.
+	var/speaks_ooc = FALSE

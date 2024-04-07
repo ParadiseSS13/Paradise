@@ -161,7 +161,7 @@
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
 		if(job_ban)
-			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","servicedept","supplydept","nonhumandept"))
 				multi_job = TRUE
 				switch(banjob)
 					if("commanddept")
@@ -194,8 +194,14 @@
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
 							if(!temp) continue
 							jobs_to_ban += temp.title
-					if("supportdept")
-						for(var/jobPos in GLOB.support_positions)
+					if("servicedept")
+						for(var/jobPos in GLOB.service_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supplydept")
+						for(var/jobPos in GLOB.supply_positions)
 							if(!jobPos)	continue
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
 							if(!temp) continue
@@ -553,11 +559,32 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Support (Grey)
+	//Service (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.support_positions)]'><a href='?src=[UID()];jobban3=supportdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Support Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in GLOB.support_positions)
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.service_positions)]'><a href='?src=[UID()];jobban3=servicedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Service Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.service_positions)
+			if(!jobPos)	continue
+			var/datum/job/job = SSjobs.GetJob(jobPos)
+			if(!job) continue
+
+			if(jobban_isbanned(M, job.title))
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				counter++
+			else
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				counter++
+
+			if(counter >= 5) //So things dont get squiiiiished!
+				jobs += "</tr><tr align='center'>"
+				counter = 0
+		jobs += "</tr></table>"
+
+	//Supply (Brown)
+		counter = 0
+		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		jobs += "<tr bgcolor='e2c59d'><th colspan='[length(GLOB.supply_positions)]'><a href='?src=[UID()];jobban3=supplydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Supply Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.supply_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
@@ -668,7 +695,7 @@
 			to_chat(usr, "<span class='warning'>SSjobs has not been setup!</span>")
 			return
 
-		//get jobs for department if specified, otherwise just returnt he one job in a list.
+		//get jobs for department if specified, otherwise just return the one job in a list.
 		var/list/joblist = list()
 		switch(href_list["jobban3"])
 			if("commanddept")
@@ -701,8 +728,14 @@
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
-			if("supportdept")
-				for(var/jobPos in GLOB.support_positions)
+			if("servicedept")
+				for(var/jobPos in GLOB.service_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("supplydept")
+				for(var/jobPos in GLOB.supply_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
@@ -1695,13 +1728,16 @@
 			SStickets.resolveTicket(index)
 
 	else if(href_list["autorespond"])
+		var/datum/controller/subsystem/tickets/ticketSystem
 		if(href_list["is_mhelp"])
-			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
+			ticketSystem = SSmentor_tickets
+		else //Ahelp
+			ticketSystem = SStickets
+
+		if(!check_rights(ticketSystem.rights_needed))
 			return
 		var/index = text2num(href_list["autorespond"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-		SStickets.autoRespond(index)
+		ticketSystem.autoRespond(index)
 
 	if(href_list["convert_ticket"])
 		var/indexNum = text2num(href_list["convert_ticket"])
@@ -2402,7 +2438,7 @@
 		if(!input)
 			qdel(P)
 			return
-		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
+		input = admin_pencode_to_html(input) // Encode everything from pencode to html
 
 		var/customname = clean_input("Pick a title for the fax.", "Fax Title", null, owner)
 		if(!customname)
@@ -3281,8 +3317,8 @@
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
 			return
-		var/list/type_choices = typesof(/datum/station_goal)
-		var/picked = input("Choose goal type") in type_choices|null
+		var/list/type_choices = typesof(/datum/station_goal) - typesof(/datum/station_goal/secondary)
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3291,12 +3327,54 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter NAS Trurl message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description
 		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_admin("[key_name_admin(usr)] created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
+		modify_goals()
+
+	else if(href_list["add_secondary_goal"])
+		if(!check_rights(R_EVENT))
+			return
+		var/list/type_choices = typesof(/datum/station_goal/secondary)
+		for(var/T in type_choices)
+			if(T == /datum/station_goal/secondary)
+				continue
+			var/datum/station_goal/secondary/SG = T
+			if(initial(SG.abstract))
+				type_choices -= SG
+		var/picked = pick_closest_path(FALSE, make_types_fancy(type_choices), skip_filter = TRUE)
+		if(!picked)
+			return
+		var/datum/station_goal/secondary/G = new picked()
+		if(picked == /datum/station_goal/secondary)
+			var/newname = clean_input("Enter goal name:")
+			if(!newname)
+				return
+			G.name = newname
+			var/description = input("Enter A.L.I.C.E message contents:") as message|null
+			if(!description)
+				return
+			G.report_message = description
+			var/admin_description = input("Enter description for admins:") as message|null
+			if(!admin_description)
+				return
+			G.admin_desc = admin_description
+			var/department_choices = list()
+			for(var/obj/machinery/requests_console/RC in GLOB.allRequestConsoles)
+				department_choices |= RC.department
+			var/department = input("Choose goal department") as null|anything in department_choices
+			if(!department)
+				return
+			G.department = department
+			G.should_send_crate = alert("Send a personal crate?","Send crate","Yes","No") == "Yes"
+		G.Initialize()
+		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
+		log_admin("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
+		SSticker.mode.secondary_goals += G
 		modify_goals()
 
 	else if(href_list["showdetails"])

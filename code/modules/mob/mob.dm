@@ -139,7 +139,7 @@
 
 /mob/visible_message(message, self_message, blind_message)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M in get_mobs_in_view(3, src))
+		for(var/mob/M as anything in get_mobs_in_view(3, src))
 			if(M.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -151,7 +151,7 @@
 				msg = blind_message
 			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 		return
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -164,7 +164,7 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
@@ -180,7 +180,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -206,7 +206,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)
@@ -605,11 +605,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><b>Left Hand:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</a></td></tr>
+	<tr><td><b>Right Hand:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</a></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
+	<a href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</a>
 	"}
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -732,7 +732,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize(msg, list("\n" = "<BR>"))
 
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
@@ -772,7 +772,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 			return
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = html_encode(msg)
+		msg = msg
 
 		flavor_text = msg
 
@@ -1158,14 +1158,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
 			add_vomit_floor(TRUE)
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+/mob/proc/AddSpell(datum/spell/S)
 	mob_spell_list += S
 	S.action.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+/mob/proc/RemoveSpell(datum/spell/spell) //To remove a specific spell from a mind
 	if(!spell)
 		return
-	for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
+	for(var/datum/spell/S in mob_spell_list)
 		if(istype(S, spell))
 			qdel(S)
 			mob_spell_list -= S
