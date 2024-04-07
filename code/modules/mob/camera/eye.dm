@@ -1,5 +1,5 @@
 /mob/camera/eye
-  name = "Inactive Camera Eye"
+	name = "Inactive Camera Eye"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera_target"
 	alpha = 127
@@ -8,7 +8,7 @@
 	var/list/visibleCameraChunks = list()
 	var/mob/living/user = null
 	var/user_previous_remote_control = null
-  var/origin = null
+	var/origin = null
 	var/relay_speech = FALSE
 	var/static_visibility_range = 16
 	// Decides if it is shown by AI Detector or not
@@ -110,12 +110,12 @@
 
 	if(cooldown && cooldown < world.timeofday)
 		sprint = initial
-	
+
 	for(var/i = 0; i < max(sprint, initial); i += sprint_threshold)
 		var/turf/step = get_turf(get_step(src, direct))
 			if(step)
 				src.setLoc(step)
-	
+
 	cooldown = world.timeofday + cooldown_rate
 	if(acceleration)
 		sprint = min(sprint + acceleration_rate, max_sprint)
