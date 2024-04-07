@@ -29118,15 +29118,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -29227,10 +29224,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 6";
-	name = "Cell 6 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_6,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -29838,14 +29832,6 @@
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
 	req_one_access_txt = "75"
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_x = -30;
-	pixel_y = -30
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
@@ -70072,13 +70058,10 @@
 	},
 /area/station/maintenance/theatre)
 "glX" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -72173,7 +72156,7 @@
 /area/station/security/evidence)
 "hFE" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /turf/space,
@@ -74418,13 +74401,10 @@
 	c_tag = "Brig - Cell 2";
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
 "iYj" = (
@@ -82503,6 +82483,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
+"nRs" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = -30;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/station/command/bridge)
 "nRv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -90799,13 +90792,10 @@
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "sCu" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -95037,10 +95027,6 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/medical/psych)
 "uYc" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 5";
-	name = "Cell 5 Locker"
-	},
 /obj/machinery/camera{
 	c_tag = "Brig - Cell 5"
 	},
@@ -95053,6 +95039,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -141696,7 +141683,7 @@ bwf
 bAC
 bCl
 byU
-bFy
+nRs
 bWX
 bWX
 iDU
