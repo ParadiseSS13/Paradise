@@ -233,11 +233,6 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 5, one_per_turf = TRUE, on_floor = TRUE),
 		)),
-	new /datum/stack_recipe_list("bamboo benches", list(
-		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo bench (right)", /obj/structure/chair/sofa/bamboo/right, 2, one_per_turf = TRUE, on_floor = TRUE),
-		)),
 	null,
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS),
@@ -269,6 +264,47 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 /obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
 	return ..()
+
+/*
+ * Bamboo
+ */
+GLOBAL_LIST_INIT(bamboo_recipes, list(
+	new /datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("bamboo spear", /obj/item/spear/bamboo, req_amount = 25, time = 9 SECONDS),
+	new /datum/stack_recipe("blow gun", /obj/item/gun/syringe/blowgun, req_amount = 10, time = 7 SECONDS),
+	new /datum/stack_recipe("rice hat", /obj/item/clothing/head/rice_hat, req_amount = 10, time = 7 SECONDS),
+	null,
+	new /datum/stack_recipe("bamboo mat piece", /obj/item/stack/tile/bamboo, req_amount = 1, res_amount = 4, max_res_amount = 20),
+	new /datum/stack_recipe_list("tatami mats", list(
+		new /datum/stack_recipe("green tatami", /obj/item/stack/tile/bamboo/tatami, req_amount = 1, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("purple tatami", /obj/item/stack/tile/bamboo/tatami/purple, req_amount = 1, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("black tatami", /obj/item/stack/tile/bamboo/tatami/black, req_amount = 1, res_amount = 4, max_res_amount = 20),
+		)),
+	null,
+	new /datum/stack_recipe_list("bamboo benches", list(
+		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bamboo bench (right)", /obj/structure/chair/sofa/bamboo/right, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+		)),
+	))
+
+/obj/item/stack/sheet/bamboo
+	name = "bamboo cuttings"
+	desc = "Finely cut bamboo sticks."
+	singular_name = "cut bamboo stick"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-bamboo"
+	item_state = "sheet-bamboo"
+	resistance_flags = FLAMMABLE
+	sheettype = "bamboo"
+	merge_type = /obj/item/stack/sheet/bamboo
+
+/obj/item/stack/sheet/bamboo/New(loc, amount=null)
+	recipes = GLOB.bamboo_recipes
+	return ..()
+
+/obj/item/stack/sheet/bamboo/fifty
+	amount = 50
 
 /*
  * Cloth
