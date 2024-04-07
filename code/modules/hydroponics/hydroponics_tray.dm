@@ -427,6 +427,8 @@
 	adjustWeeds(-10) // Reset
 	adjustPests(-10) // Reset
 	update_state()
+	mut_beamed = FALSE
+	yield_beamed = FALSE
 	plant_hud_set_health()
 	plant_hud_set_status()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
@@ -445,6 +447,8 @@
 		plant_health = myseed.endurance
 		lastcycle = world.time
 		harvest = FALSE
+		mut_beamed = FALSE
+		yield_beamed = FALSE
 		plant_hud_set_health()
 		plant_hud_set_status()
 		adjustWeeds(-10) // Reset
@@ -463,6 +467,8 @@
 	if(!dead)
 		update_state()
 		dead = TRUE
+	mut_beamed = FALSE
+	yield_beamed = FALSE
 	plant_hud_set_health()
 	plant_hud_set_status()
 
@@ -816,6 +822,8 @@
 				harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 			qdel(myseed)
 			myseed = null
+			mut_beamed = FALSE
+			yield_beamed = FALSE
 			plant_hud_set_health()
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
