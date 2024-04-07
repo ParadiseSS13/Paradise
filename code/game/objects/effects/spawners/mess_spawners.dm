@@ -3,6 +3,9 @@
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "questionmark"
 
+	/// The number of tiles to spread to. Each new chosen tile receives this
+	/// value decremented by one, ensuring the maximum size of the mess is limited
+	/// by the original spawner's value.
 	var/remaining_tiles
 
 /obj/effect/spawner/themed_mess/proc/drop_mess()
