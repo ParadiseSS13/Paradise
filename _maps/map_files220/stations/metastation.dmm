@@ -55736,7 +55736,7 @@
 /area/station/service/hydroponics)
 "iuj" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /turf/space,
@@ -57134,7 +57134,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "jbB" = (
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /obj/structure/lattice,
