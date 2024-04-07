@@ -91,14 +91,22 @@
 
 	if(href_list["announce"])
 		send_report("CentCom", "A task for [department] has been issued by Central Command:")
+		message_admins("[key_name_admin(usr)] sent an announcement for secondary goal [src] ([admin_desc])")
+		log_admin("[key_name_admin(usr)] sent an announcement for secondary goal [src] ([admin_desc])")
 	else if(href_list["remove"])
 		SSticker.mode.secondary_goals -= src
+		message_admins("[key_name_admin(usr)] removed secondary goal [src] ([admin_desc])")
+		log_admin("[key_name_admin(usr)] removed secondary goal [src] ([admin_desc])")
 		qdel(src)
 		usr.client.modify_goals()
 	else if(href_list["mark_complete"])
 		completed = 1
 		usr.client.modify_goals()
+		message_admins("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
+		log_admin("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
 	else if(href_list["reset_progress"])
 		completed = 0
 		tracker.reset()
 		usr.client.modify_goals()
+		message_admins("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")
+		log_admin("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")

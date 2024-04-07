@@ -55,3 +55,7 @@
 		L.break_light_tube()
 	empulse(get_turf(user), 3, 5, 1)
 	return TRUE
+
+/// A more expensive version, used during rounds with cyber rev station trait for balance reasons.
+/datum/action/changeling/dissonant_shriek/cyberrev
+	dna_cost = 5
