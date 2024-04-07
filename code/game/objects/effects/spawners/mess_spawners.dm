@@ -191,7 +191,7 @@
 	trash.transform = turn(transform, rand(0, 360))
 
 /proc/generate_themed_messes(themed_mess_types)
-	var/mess_count = rand(10, 20)
+	var/mess_count = rand(5, 10)
 	for(var/i in 1 to mess_count)
 		var/area/target_area = findEventArea()
 		var/list/turfs = get_area_turfs(target_area)
