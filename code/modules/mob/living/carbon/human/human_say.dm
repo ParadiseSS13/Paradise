@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 
-		if(span)
+		if(span && !speaks_ooc)
 			S.message = "<span class='[span]'>[S.message]</span>"
 
 	if(wear_mask)

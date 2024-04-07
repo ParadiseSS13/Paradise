@@ -512,8 +512,8 @@
 		return
 
 	user.set_machine(src)
-	var/dat = "<table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_COLLAR]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr></table>"
-	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
+	var/dat = "<table><tr><td><b>Collar:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_COLLAR]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</a></td></tr></table>"
+	dat += "<a href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</a>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
 	popup.set_content(dat)
