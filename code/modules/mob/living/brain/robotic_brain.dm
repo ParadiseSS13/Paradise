@@ -1,6 +1,6 @@
 /obj/item/mmi/robotic_brain
 	name = "robotic brain"
-	desc = "An advanced circuit, capable of housing a non-sentient synthetic intelligence."
+	desc = "A Beta-level artifical intelligence core containing a non-sapient mechanical mind."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "boris_blank"
 	var/blank_icon = "boris_blank"

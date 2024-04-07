@@ -213,6 +213,7 @@
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
+	holder_type = /obj/item/holder/chicken
 	can_hide = TRUE
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -242,6 +243,11 @@
 
 /mob/living/simple_animal/chick/npc_safe(mob/user)
 	return TRUE
+
+/mob/living/simple_animal/chick/attack_hand(mob/living/carbon/human/M)
+	if(M.a_intent == INTENT_HELP)
+		get_scooped(M, TRUE)
+	..()
 
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)

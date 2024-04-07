@@ -121,8 +121,11 @@
 	ui_interact(user)
 
 /obj/machinery/prize_counter/proc/print_tickets()
+	if(tickets <= 0)
+		tickets = 0 // Reset tickets to zero when trying to print a negative number
+		return
 	if(tickets >= 9999)
-		new /obj/item/stack/tickets(get_turf(src), 9999)	//max stack size
+		new /obj/item/stack/tickets(get_turf(src), 9999) // Max stack size
 		tickets -= 9999
 	else
 		new /obj/item/stack/tickets(get_turf(src), tickets)

@@ -21,6 +21,9 @@
 /datum/action/New(Target)
 	target = Target
 
+/datum/action/proc/should_draw_cooldown()
+	return !IsAvailable()
+
 /datum/action/proc/clear_ref(datum/ref)
 	SIGNAL_HANDLER
 	if(ref == owner)
@@ -54,7 +57,7 @@
 			continue
 		HideFrom(hud.mymob)
 
-	LAZYREMOVE(remove_from?.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	remove_from?.actions -= src // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 	// owner = null
 
@@ -132,7 +135,7 @@
 
 		ApplyIcon(button, force)
 
-	if(!IsAvailable())
+	if(should_draw_cooldown())
 		apply_unavailable_effect(button)
 	else
 		return TRUE
@@ -142,7 +145,7 @@
 	var/datum/hud/our_hud = viewer.hud_used
 	if(viewers[our_hud]) // Already have a copy of us? go away
 		return
-	LAZYOR(viewer.actions, src) // Move this in
+	viewer.actions |= src // Move this in
 	ShowTo(viewer)
 
 //Adds our action button to the screen of a player
@@ -168,7 +171,7 @@
 /datum/action/proc/HideFrom(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
 	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
-	LAZYREMOVE(viewer.actions, src)
+	viewer.actions -= src
 	if(button)
 		button.clean_up_keybinds(viewer)
 		qdel(button)
@@ -193,7 +196,7 @@
 		if(action == src) // This could be us, which is dumb
 			continue
 		var/atom/movable/screen/movable/action_button/button = action.viewers[owner.hud_used]
-		if(action.name == name && button.id)
+		if(action.name == name && button?.id)
 			bitfield |= button.id
 
 	bitfield = ~bitfield // Flip our possible ids, so we can check if we've found a unique one
@@ -637,7 +640,7 @@
 
 /datum/action/spell_action/New(Target)
 	..()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = src
 	name = S.name
 	desc = S.desc
@@ -648,35 +651,39 @@
 
 
 /datum/action/spell_action/Destroy()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = null
 	return ..()
+
+/datum/action/spell_action/should_draw_cooldown()
+	var/datum/spell/S = target
+	return S.cooldown_handler.should_draw_cooldown()
 
 /datum/action/spell_action/Trigger(left_click)
 	if(!..())
 		return FALSE
 	if(target)
-		var/obj/effect/proc_holder/spell = target
+		var/datum/spell/spell = target
 		spell.Click()
 		return TRUE
 
 /datum/action/spell_action/AltTrigger()
 	if(target)
-		var/obj/effect/proc_holder/spell/spell = target
+		var/datum/spell/spell = target
 		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()
 	if(!target)
 		return FALSE
-	var/obj/effect/proc_holder/spell/spell = target
+	var/datum/spell/spell = target
 
 	if(owner)
 		return spell.can_cast(owner)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	if(!istype(S))
 		return ..()
 

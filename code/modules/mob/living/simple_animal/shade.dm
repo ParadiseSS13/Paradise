@@ -70,7 +70,7 @@
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
-	AddSpell(new /obj/effect/proc_holder/spell/sentient_sword_lunge)
+	AddSpell(new /datum/spell/sentient_sword_lunge)
 	var/obj/item/nullrod/scythe/talking/host_sword = loc
 	if(istype(host_sword))
 		health = host_sword.obj_integrity

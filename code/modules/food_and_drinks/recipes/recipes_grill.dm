@@ -303,7 +303,6 @@
 	reagents = list("bbqsauce" = 5)
 	items = list(
 		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/meat,
-		/obj/item/stack/rods
+		/obj/item/food/snacks/meat
 	)
 	result = /obj/item/food/snacks/bbqribs

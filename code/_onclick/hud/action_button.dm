@@ -16,6 +16,8 @@
 	var/id
 	/// UID of the last thing we hovered over. Used for managing action button dragging.
 	var/last_hovered_ref
+	/// Whether or not this button is locked, preventing it from being dragged.
+	var/locked = FALSE
 
 /atom/movable/screen/movable/action_button/Destroy()
 	. = ..()
@@ -38,7 +40,7 @@
 // Very much byond logic, but I want nice behavior, so we fake it with drag
 /atom/movable/screen/movable/action_button/MouseDrag(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(!can_use(usr))
+	if(!can_use(usr) || locked)
 		return
 
 
@@ -64,6 +66,10 @@
 	last_hovered_ref = null
 	if(!can_use(usr))
 		return
+	if(locked)
+		fire_action()
+		return
+
 	var/datum/hud/our_hud = usr.hud_used
 	if(over_object == src)
 		our_hud.hide_landings()
@@ -100,6 +106,12 @@
 	var/position_info = SCRN_OBJ_DEFAULT
 	user.hud_used.position_action(src, position_info)
 
+/atom/movable/screen/movable/action_button/proc/fire_action(left_click = TRUE)
+	linked_action.Trigger(left_click)
+	transform = transform.Scale(0.8, 0.8)
+	alpha = 200
+	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
+
 /atom/movable/screen/movable/action_button/Click(location, control, params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
@@ -116,16 +128,21 @@
 		AltClick(usr)
 		return TRUE
 	if(modifiers["middle"])
-		linked_action.Trigger(left_click = FALSE)
+		fire_action(FALSE)
 		return TRUE
 	if(modifiers["ctrl"])
 		CtrlClick(usr)
 		return TRUE
-	linked_action.Trigger(TRUE)
-	transform = transform.Scale(0.8, 0.8)
-	alpha = 200
-	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
+
+	fire_action(TRUE)
 	return TRUE
+
+
+/atom/movable/screen/movable/action_button/CtrlClick(mob/user)
+	if(!can_use(user))
+		return
+	locked = !locked
+	to_chat(user, "<span class='notice'>[src]'s button has been [locked ? "":"un"]locked.</span>")
 
 
 /**
@@ -215,7 +232,7 @@
 
 
 /atom/movable/screen/button_palette
-	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons.<br><b>Ctrl-click</b> this to get a detailed explanation of how to use this."
+	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons.<br><b>Ctrl-click</b> action buttons to lock or unlock them.<br><b>Ctrl-click</b> this to get a detailed explanation of how to use this."
 	icon = 'icons/hud/64x16_actions.dmi'
 	icon_state = "screen_gen_palette"
 	screen_loc = ui_action_palette
