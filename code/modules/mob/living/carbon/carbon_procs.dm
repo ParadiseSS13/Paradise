@@ -335,7 +335,7 @@
 		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
-			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+			status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
 		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"
@@ -348,8 +348,7 @@
 		else
 			status_list += "<span class='info'>You feel fatigued.</span>"
 
-	var/output = status_list.Join("\n")
-	to_chat(src, output)
+	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
@@ -755,19 +754,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	user.set_machine(src)
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><b>Left Hand:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</a></td></tr>
+	<tr><td><b>Right Hand:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</a></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><b>Back:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</a>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<a href='?src=[UID()];internal=[SLOT_HUD_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</a>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><b>Head:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</a></td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><b>Mask:</b></td><td><a href='?src=[UID()];item=[SLOT_HUD_WEAR_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</a></td></tr>"
 
 	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -1383,3 +1382,12 @@ so that different stomachs can handle things in different ways VB*/
 	// keep most of what's passed in, but don't change the angle
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
+
+/mob/living/carbon/rename_character(oldname, newname)
+	. = ..()
+	if(!.)
+		return
+
+	for(var/obj/item/organ/internal/IO in internal_organs)
+		if(IO.dna?.real_name == oldname)
+			IO.dna.real_name = newname

@@ -1,8 +1,5 @@
-# Updating SQL from 53 to 54 -MrRomainzZ
-# Add characther descriptors of height and build to preference menu
+#Updating SQL from 53 to 54 -Wilk
+#Add a choice for what type of brain borgs want to have
 
-ALTER TABLE `player`
-	ADD COLUMN `old_lighting` TINYINT(1) NULL DEFAULT NULL AFTER `viewrange`,
-	ADD COLUMN `glowlevel` TINYINT(1) NULL DEFAULT NULL AFTER `old_lighting`,
-	ADD COLUMN `lampsexposure` TINYINT(1) NULL DEFAULT NULL AFTER `glowlevel`,
-	ADD COLUMN `lampsglare` TINYINT(1) NULL DEFAULT NULL AFTER `lampsexposure`;
+ALTER TABLE `characters`
+	ADD COLUMN `cyborg_brain_type` VARCHAR(11) NOT NULL DEFAULT 'MMI' AFTER `height`;

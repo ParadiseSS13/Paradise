@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/aoe/conjure
+/datum/spell/aoe/conjure
 	desc = "This spell conjures objs of the specified types in range."
 
 	var/list/summon_type = list() //determines what exactly will be summoned
@@ -15,14 +15,14 @@
 
 	var/cast_sound = 'sound/items/welder.ogg'
 
-/obj/effect/proc_holder/spell/aoe/conjure/create_new_targeting()
+/datum/spell/aoe/conjure/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
-/obj/effect/proc_holder/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
+/datum/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
 	var/list/what_conjure_summoned = list()
-	playsound(get_turf(user), cast_sound, 50,1)
+	playsound(get_turf(user), cast_sound, 50, TRUE)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
@@ -57,8 +57,7 @@
 
 	return what_conjure_summoned
 
-/// test purposes
-/obj/effect/proc_holder/spell/aoe/conjure/summonEdSwarm
+/datum/spell/aoe/conjure/summonEdSwarm
 	name = "Dispense Wizard Justice"
 	desc = "This spell dispenses wizard justice."
 	summon_type = list(/mob/living/simple_animal/bot/ed209)

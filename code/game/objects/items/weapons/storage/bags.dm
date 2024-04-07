@@ -67,7 +67,7 @@
 	. = ..()
 	update_weight()
 
-/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, mob/user, prevent_warning)
 	. = ..()
 	update_weight()
 
@@ -273,7 +273,7 @@
 
 
 // Modified handle_item_insertion.  Would prefer not to, but...
-/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
+/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, mob/user, prevent_warning = FALSE)
 	var/obj/item/stack/sheet/S = W
 	if(!istype(S)) return 0
 
@@ -479,8 +479,9 @@
 		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
-			contents.Remove(I)
+			remove_from_storage(I)
+			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
+			I.forceMove(target.loc)
 			dropped_something = TRUE
 			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
