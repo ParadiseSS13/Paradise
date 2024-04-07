@@ -70,7 +70,6 @@
 
 /datum/color_matrix
 	var/list/matrix
-	var/combined = 1
 
 /datum/color_matrix/New(value, contrast = 1, brightness = null)
 	..()
