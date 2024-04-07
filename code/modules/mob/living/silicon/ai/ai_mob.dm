@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/aiEye/eyeobj
+	var/mob/camera/eye/ai/eyeobj
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
@@ -122,7 +122,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/list/all_eyes = list()
 	var/next_text_announcement
 
 	//Used with the hotkeys on 2-5 to store locations.
@@ -229,8 +228,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-
-	create_eye()
+	
+	eyeobj = new(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name
@@ -1474,8 +1473,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 
-/mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
-	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
+// Return to the Core.
+/mob/living/silicon/ai/proc/core()
+	set category = "AI Commands"
+	set name = "AI Core"
+
+	view_core()
+
+/mob/living/silicon/ai/proc/view_core()
+
+	current = null
+	cameraFollow = null
+	unset_machine()
+
+	if(src.eyeobj && src.loc)
+		src.eyeobj.loc = src.loc
+	else
+		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
+		eyeobj = new(loc, name, src, src)
+
+	eyeobj.setLoc(loc)
 
 /mob/living/silicon/ai/handle_fire()
 	return

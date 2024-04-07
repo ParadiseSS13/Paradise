@@ -3,7 +3,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
-	var/mob/camera/aiEye/remote/eyeobj
+	var/mob/camera/eye/abductor/eyeobj
 	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
@@ -11,8 +11,7 @@
 	var/list/actions = list()
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
-	eyeobj = new()
-	eyeobj.origin = src
+	eyeobj = new(loc, name, src, user)
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -32,14 +31,8 @@
 		var/datum/action/A = V
 		A.Remove(user)
 	actions.Cut()
-	if(user.client)
-		user.reset_perspective(null)
-		eyeobj.RemoveImages()
-	eyeobj.eye_user = null
-	user.remote_control = null
-
+	eyeobj.release_control()
 	current_user = null
-	user.unset_machine()
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
@@ -69,23 +62,6 @@
 
 	if(!eyeobj)
 		CreateEye()
-
-	if(!eyeobj.eye_initialized)
-		var/camera_location
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			if(!C.can_use())
-				continue
-			if(length(C.network & networks))
-				camera_location = get_turf(C)
-				break
-		if(camera_location)
-			eyeobj.eye_initialized = 1
-			give_eye_control(user)
-			eyeobj.setLoc(camera_location)
-		else
-			// An abberant case - silent failure is obnoxious
-			to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
-			user.unset_machine()
 	else
 		give_eye_control(user)
 		eyeobj.setLoc(eyeobj.loc)
@@ -93,75 +69,7 @@
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
 	GrantActions(user)
-	current_user = user
-	eyeobj.eye_user = user
-	eyeobj.name = "Camera Eye ([user.name])"
-	user.remote_control = eyeobj
-	user.reset_perspective(eyeobj)
-
-/mob/camera/aiEye/remote
-	name = "Inactive Camera Eye"
-	// Abductors dont trigger the Ai Detector
-	ai_detector_visible = FALSE
-	var/sprint = 10
-	var/cooldown = 0
-	var/acceleration = 1
-	var/mob/living/carbon/human/eye_user = null
-	var/obj/machinery/computer/camera_advanced/origin
-	var/eye_initialized = 0
-	var/visible_icon = 0
-	var/image/user_image = null
-
-/mob/camera/aiEye/remote/Destroy()
-	eye_user = null
-	origin = null
-	return ..()
-
-/mob/camera/aiEye/remote/RemoveImages()
-	..()
-	if(visible_icon)
-		var/client/C = GetViewerClient()
-		if(C)
-			C.images -= user_image
-
-/mob/camera/aiEye/remote/GetViewerClient()
-	if(eye_user)
-		return eye_user.client
-	return null
-
-/mob/camera/aiEye/remote/setLoc(T)
-	if(eye_user)
-		if(!isturf(eye_user.loc))
-			return
-		T = get_turf(T)
-		var/old_loc = loc
-		loc = T
-		Moved(old_loc, get_dir(old_loc, loc))
-		if(use_static)
-			GLOB.cameranet.visibility(src, GetViewerClient())
-		if(visible_icon)
-			if(eye_user.client)
-				eye_user.client.images -= user_image
-				user_image = image(icon,loc,icon_state,FLY_LAYER)
-				eye_user.client.images += user_image
-
-/mob/camera/aiEye/remote/relaymove(mob/user,direct)
-	var/initial = initial(sprint)
-	var/max_sprint = 50
-
-	if(cooldown && cooldown < world.timeofday) // 3 seconds
-		sprint = initial
-
-	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
-		if(step)
-			src.setLoc(step)
-
-	cooldown = world.timeofday + 5
-	if(acceleration)
-		sprint = min(sprint + 0.5, max_sprint)
-	else
-		sprint = initial
+	eyeobj.give_control(user)
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
@@ -171,7 +79,7 @@
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
 	console.remove_eye_control(target)
 
@@ -183,7 +91,7 @@
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
 	var/list/L = list()

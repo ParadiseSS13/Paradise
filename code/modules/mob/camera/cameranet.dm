@@ -32,19 +32,15 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 // Updates what the aiEye can see. It is recommended you use this when the aiEye moves or it's location is set.
 
-/datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes)
+/datum/cameranet/proc/visibility(list/moved_eyes, client/C)
 	if(!islist(moved_eyes))
 		moved_eyes = moved_eyes ? list(moved_eyes) : list()
-	if(islist(other_eyes))
-		other_eyes = (other_eyes - moved_eyes)
-	else
-		other_eyes = list()
 
 	var/list/chunks_pre_seen = list()
 	var/list/chunks_post_seen = list()
 
 	for(var/V in moved_eyes)
-		var/mob/camera/aiEye/eye = V
+		var/mob/camera/eye/eye = V
 		if(C)
 			chunks_pre_seen |= eye.visibleCameraChunks
 		// 0xf = 15
@@ -75,10 +71,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 			chunks_post_seen |= eye.visibleCameraChunks
 
 	if(C)
-		for(var/V in other_eyes)
-			var/mob/camera/aiEye/eye = V
-			chunks_post_seen |= eye.visibleCameraChunks
-
 		var/list/remove = chunks_pre_seen - chunks_post_seen
 		var/list/add = chunks_post_seen - chunks_pre_seen
 

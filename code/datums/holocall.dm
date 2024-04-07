@@ -1,18 +1,10 @@
-/mob/camera/aiEye/remote/holo/setLoc()
-	. = ..()
-	var/obj/machinery/hologram/holopad/H = origin
-	H.move_hologram(eye_user, loc)
-	ai_detector_visible = FALSE // Holocalls dont trigger the Ai Detector
-
-//this datum manages it's own references
-
 /datum/holocall
 	var/mob/living/user	//the one that called
 	var/obj/machinery/hologram/holopad/calling_holopad	//the one that sent the call
 	var/obj/machinery/hologram/holopad/connected_holopad	//the one that answered the call (may be null)
 	var/list/dialed_holopads	//all things called, will be cleared out to just connected_holopad once answered
 
-	var/mob/camera/aiEye/remote/holo/eye	//user's eye, once connected
+	var/mob/camera/eye/eye //eye, once connected
 	var/obj/effect/overlay/holo_pad_hologram/hologram	//user's hologram, once connected
 	var/datum/action/innate/end_holocall/hangup	//hangup action
 
@@ -140,15 +132,7 @@
 	hologram.HC = src
 
 	user.unset_machine(H)
-	//eyeobj code is horrid, this is the best copypasta I could make
-	eye = new()
-	eye.origin = H
-	eye.eye_initialized = TRUE
-	eye.eye_user = user
-	eye.name = "Camera Eye ([user.name])"
-	user.remote_control = eye
-	user.reset_perspective(eye)
-	eye.setLoc(get_turf(H))
+	eye = new(H, user.name, H, user)
 
 	hangup = new(eye,src)
 	hangup.Grant(user)
