@@ -3,8 +3,6 @@
 	if(!text)
 		return text
 	. = text
-	if(!GLOB.configuration.general.enable_ooc_emoji)
-		return
 	var/static/list/emojis = icon_states(icon(EMOJI_SET))
 	var/parsed = ""
 	var/pos = 1
