@@ -62,13 +62,12 @@
 			GLOB.configuration.lighting_effects.exposure_brightness_power = initial(GLOB.configuration.lighting_effects.exposure_brightness_power)
 			GLOB.configuration.lighting_effects.exposure_contrast_base = initial(GLOB.configuration.lighting_effects.exposure_contrast_base)
 			GLOB.configuration.lighting_effects.exposure_contrast_power = initial(GLOB.configuration.lighting_effects.exposure_contrast_power)
-		if("update_lamps") // todo: make this update all objects with glow
+		if("update_lamps")
 			for(var/obj/machinery/light/L in GLOB.machines)
 				if(L.glow_overlay || L.exposure_overlay)
-					L.update_light() // does nothing
-					// L.set_light(0) // so we make this ugly way
-					// L.update()
-					// L.update()
+					// We would use L.update_light() here, but it doesn't work, so we do this instead.
+					L.set_light(0)
+					L.update(FALSE, TRUE, FALSE)
 	return TRUE
 
 /datum/bloom_edit/ui_state(mob/user)
