@@ -211,14 +211,6 @@
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
 
-/datum/design/rice_hat
-	name = "Rice hat"
-	id = "rice_hat"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 300)
-	build_path = /obj/item/clothing/head/rice_hat
-	category = list("initial","Leather and Cloth")
-
 /datum/design/seaweed
 	name = "Seaweed Sheet"
 	id = "seaweed"
