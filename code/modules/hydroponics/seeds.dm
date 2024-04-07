@@ -495,13 +495,15 @@
 		to_chat(user, get_analyzer_text())
 
 /obj/item/seeds/openTip()
-	if(usr in GLOB.huds[DATA_HUD_HYDROPONIC].hudusers)
+	var/datum/atom_hud/hydrohud = GLOB.huds[DATA_HUD_HYDROPONIC]
+	if(usr in hydrohud.hudusers)
 		return  // Suppress the default tooltip.
 	return ..()
 
 /obj/item/seeds/MouseEntered(location, control, params)
 	. = ..()
-	if(usr in GLOB.huds[DATA_HUD_HYDROPONIC].hudusers)
+	var/datum/atom_hud/hydrohud = GLOB.huds[DATA_HUD_HYDROPONIC]
+	if(usr in hydrohud.hudusers)
 		openToolTip(usr, src, params, title = name, content = get_analyzer_text(FALSE))
 
 /obj/item/seeds/should_stack_with(obj/item/O)
