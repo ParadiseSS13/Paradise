@@ -1514,6 +1514,7 @@
 #include "code\modules\asset_cache\assets\asset_materials.dm"
 #include "code\modules\asset_cache\assets\asset_mob_hunt.dm"
 #include "code\modules\asset_cache\assets\asset_nanomap.dm"
+#include "code\modules\asset_cache\assets\asset_orbit_icons.dm"
 #include "code\modules\asset_cache\assets\asset_panels.dm"
 #include "code\modules\asset_cache\assets\asset_paper.dm"
 #include "code\modules\asset_cache\assets\asset_prize_counter.dm"

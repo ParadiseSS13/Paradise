@@ -282,6 +282,8 @@ server_features = "Medium RP, varied species/jobs"
 allow_character_metadata = true
 # Lobby time before roundstart (Seconds)
 lobby_time = 240
+# Default timeout for world reboot (Seconds)
+restart_timeout = 75
 # Forbid people without a BYOND account joining the server
 guest_ban = true
 # Allow players to use antagHUD?

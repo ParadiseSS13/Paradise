@@ -1,5 +1,6 @@
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
+	desc = "For making chemicals, medicine, and explosions."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
