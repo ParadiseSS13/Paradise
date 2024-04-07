@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize(msg, list("\n" = "<BR>"))
 
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
@@ -759,7 +759,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 			return
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = html_encode(msg)
+		msg = msg
 
 		flavor_text = msg
 

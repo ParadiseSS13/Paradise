@@ -818,7 +818,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	to_chat(hearer, "<span class='deadsay'><b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]</span>")
 
 /obj/item/radio/headset/deadsay/talk_into(mob/living/M, list/message_pieces, channel, verbage)
-	var/message = sanitize(copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN))
+	var/message = copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN)
 
 	if(!message)
 		return

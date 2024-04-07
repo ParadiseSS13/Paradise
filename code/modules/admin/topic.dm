@@ -2438,7 +2438,7 @@
 		if(!input)
 			qdel(P)
 			return
-		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
+		input = admin_pencode_to_html(input) // Encode everything from pencode to html
 
 		var/customname = clean_input("Pick a title for the fax.", "Fax Title", null, owner)
 		if(!customname)
@@ -3318,7 +3318,7 @@
 		if(!check_rights(R_EVENT))
 			return
 		var/list/type_choices = typesof(/datum/station_goal) - typesof(/datum/station_goal/secondary)
-		var/picked = input("Choose goal type") in type_choices|null
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3327,11 +3327,12 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter NAS Trurl message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description
 		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_admin("[key_name_admin(usr)] created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
 		modify_goals()
 
@@ -3365,13 +3366,14 @@
 			var/department_choices = list()
 			for(var/obj/machinery/requests_console/RC in GLOB.allRequestConsoles)
 				department_choices |= RC.department
-			var/department = input("Choose goal department") in department_choices|null
+			var/department = input("Choose goal department") as null|anything in department_choices
 			if(!department)
 				return
 			G.department = department
 			G.should_send_crate = alert("Send a personal crate?","Send crate","Yes","No") == "Yes"
 		G.Initialize()
 		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
+		log_admin("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
 		SSticker.mode.secondary_goals += G
 		modify_goals()
 
