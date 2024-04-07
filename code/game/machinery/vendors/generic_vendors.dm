@@ -97,7 +97,7 @@
 
 /obj/machinery/economy/vending/coffee
 	name = "\improper Solar's Best Hot Drinks"
-	desc = "A vending machine which dispenses hot drinks."
+	desc = "A vending machine which dispenses coffee, coffee, hot chocolate, and more coffee!"
 	ads_list = list("Have a drink!",
 					"Drink up!",
 					"It's good for you!",

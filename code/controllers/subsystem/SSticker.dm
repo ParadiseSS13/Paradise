@@ -13,8 +13,6 @@ SUBSYSTEM_DEF(ticker)
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
-	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -84,7 +82,8 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
+			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -726,7 +725,7 @@ SUBSYSTEM_DEF(ticker)
 		delay = max(0, delay)
 	else
 		// Use default restart timeout
-		delay = restart_timeout
+		delay = max(0, GLOB.configuration.general.restart_timeout SECONDS)
 
 	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 

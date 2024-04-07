@@ -38,6 +38,10 @@
 /proc/sanitize(t, list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/// sanitize() with a pre-set list of characters to remove from IC speech.
+/proc/sanitize_for_ic(t)
+	return sanitize(t, list("<" = "", ">" = "", "\[" = "", "]" = "", "{" = "", "}" = ""))
+
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")

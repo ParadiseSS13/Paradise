@@ -83,33 +83,47 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Skipping lavaland ruins...")
 
 	// Now we make a list of areas for teleport locs
+	// Located below is some of the worst code I've ever seen
+	// Checking all areas to see if they have a turf in them? Nice one ssmapping!
+
+	var/list/all_areas = list()
+	for(var/area/areas in world)
+		all_areas += areas
+
 	teleportlocs = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(AR.no_teleportlocs)
 			continue
 		if(teleportlocs[AR.name])
 			continue
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			teleportlocs[AR.name] = AR
 
 	teleportlocs = sortAssoc(teleportlocs)
 
-
 	ghostteleportlocs = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(ghostteleportlocs[AR.name])
 			continue
-		var/list/turfs = get_area_turfs(AR.type)
-		if(turfs.len)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+		if(length(pickable_turfs))
 			ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
-	for(var/area/AR in world)
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+	for(var/area/AR as anything in all_areas)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR
 

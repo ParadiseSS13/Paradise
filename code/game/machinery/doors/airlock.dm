@@ -48,6 +48,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock
 	name = "airlock"
+	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
 	anchored = TRUE
@@ -1277,7 +1278,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			return 0
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'modular_ss220/aesthetics/airlocks/sound/open_force.ogg', 30, 1) // SS220 EDIT: ORIGINAL - 'sound/machines/airlockforced.ogg'
+		playsound(loc, 'sound/machines/airlockforcedopen.ogg', 30, TRUE)
 	else
 		playsound(loc, doorOpen, 30, 1)
 	if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
@@ -1326,7 +1327,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'modular_ss220/aesthetics/airlocks/sound/close_force.ogg', 30, 1) // SS220 EDIT: ORIGINAL - 'sound/machines/airlockforced.ogg'
+		playsound(loc, 'sound/machines/airlockforcedclose.ogg', 30, TRUE)
 	else
 		playsound(loc, doorClose, 30, 1)
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))

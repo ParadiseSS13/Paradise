@@ -41688,7 +41688,7 @@
 /area/space/nearstation)
 "dhk" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/station/engineering/ai_transit_tube)
 "dhp" = (
@@ -42348,11 +42348,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"djM" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube/crossing,
-/turf/space,
-/area/space/nearstation)
 "djO" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -101273,7 +101268,7 @@
 /area/station/maintenance/apmaint)
 "xXe" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "xXt" = (
@@ -142384,11 +142379,11 @@ aab
 aab
 seH
 dkZ
-djM
 dkZ
-djM
 dkZ
-djM
+dkZ
+dkZ
+dkZ
 dkZ
 cCh
 aab
