@@ -62,7 +62,7 @@
 	else if(!check_rights(R_ADMIN|R_MOD)) // Catch any other non-admins trying to use this proc
 		return
 
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
+	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 	log_mentorsay(msg, src)
 	mob.create_log(OOC_LOG, "MSAY: [msg]")
 
