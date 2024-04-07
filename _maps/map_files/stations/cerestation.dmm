@@ -7543,7 +7543,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "aWo" = (
-/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
@@ -13676,7 +13676,7 @@
 	},
 /area/station/engineering/control)
 "bzJ" = (
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
@@ -20227,33 +20227,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
-"cdv" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 6";
-	name = "Cell 6 Locker"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 6";
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/A)
 "cdx" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -20430,6 +20403,30 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"cew" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Cell 6";
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/brig/temp/cell_6,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/station/security/prison/cell_block/A)
 "cex" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -29015,33 +29012,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos)
-"cZn" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 7";
-	name = "Cell 7 Locker"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 7";
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/A)
 "cZr" = (
 /obj/structure/chair{
 	dir = 8
@@ -29445,33 +29415,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/break_room)
-"ddq" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 8";
-	name = "Cell 8 Locker"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 8";
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/A)
 "ddr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -42229,10 +42172,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "gAQ" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -42964,10 +42904,7 @@
 	},
 /area/station/maintenance/asmaint)
 "gME" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -43495,7 +43432,7 @@
 /area/station/hallway/primary/fore/north)
 "gXd" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
 "gXl" = (
@@ -45039,6 +44976,30 @@
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
+"hyJ" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Cell 7";
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/brig/temp/cell_7,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/station/security/prison/cell_block/A)
 "hyR" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -54277,7 +54238,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "ksD" = (
-/obj/structure/safe,
+/obj/structure/safe{
+	known_by = list("captain")
+	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/item/dice/d20{
@@ -73230,10 +73193,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "qrV" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -83159,6 +83119,30 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
+"tJy" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Cell 8";
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/brig/temp/cell_8,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/station/security/prison/cell_block/A)
 "tJP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -94068,10 +94052,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "wYj" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -115861,7 +115842,7 @@ cFf
 qNG
 ejj
 cTe
-cdv
+cew
 aEn
 aWl
 bWx
@@ -116632,7 +116613,7 @@ cFm
 qNG
 ejj
 cTn
-cZn
+hyJ
 aEn
 drB
 bWx
@@ -117403,7 +117384,7 @@ cFT
 qNG
 ejj
 bxL
-ddq
+tJy
 aEn
 drB
 bWx
