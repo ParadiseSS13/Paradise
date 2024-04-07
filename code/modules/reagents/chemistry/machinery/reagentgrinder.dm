@@ -558,7 +558,7 @@
 		if(B.reagents.holder_full())
 			return
 
-// Everything else - Transfers reagents from the items into B
+// Everything else - Transfers reagents from the items into the container
 	for(var/obj/item/O in holdingitems)
 		O.reagents.trans_to(B, O.reagents.total_volume)
 
