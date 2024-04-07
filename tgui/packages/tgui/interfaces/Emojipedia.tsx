@@ -20,13 +20,13 @@ export const Emojipedia = (props, context) => {
   );
 
   return (
-    <Window width={325} height={500}>
+    <Window width={325} height={400}>
       <Window.Content scrollable>
         <Section
           fill
           scrollable
           // required: follow semantic versioning every time you touch this file
-          title={'Emojipedia v1.0'}
+          title={'Emojipedia v1.0.1'}
           buttons={
             <>
               <Input
