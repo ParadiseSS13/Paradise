@@ -1,39 +1,39 @@
-"TGUI":
-- 'tgui/**'
+'TGUI':
+  - 'tgui/**'
 
-"Звук":
-- '**/*.ogg'
+'Звук':
+  - '**/*.ogg'
 
-"Изменение Карты":
-- '**/*.dmm'
+'Изменение Карты':
+  - '**/*.dmm'
 
-"Инструменты":
-- '.gihub/workflows/**'
-- 'tools/**'
+'Инструменты':
+  - '.gihub/workflows/**'
+  - 'tools/**'
 
-"Керберос":
-- '_maps/map_files220/delta/delta.dmm'
+'Керберос':
+  - '_maps/map_files220/stations/deltastation.dmm'
 
-"Кибериада":
-- '_maps/map_files220/cyberiad/cyberiad.dmm'
+'Кибериада':
+  - '_maps/map_files220/stations/boxstation.dmm'
 
-"Цереброн":
-- '_maps/map_files220/MetaStation/MetaStation.dmm'
+'Цереброн':
+  - '_maps/map_files220/stations/metastation.dmm'
 
-"НЕ МОДУЛЬНО":
-- all: ['code/**']
+'НЕ МОДУЛЬНО':
+  - all: ['code/**']
 
-"Спрайты":
-- '**/*.dmi'
+'Спрайты':
+  - '**/*.dmi'
 
-"Требуется изменение конфига":
-- 'config/**'
+'Требуется изменение конфига':
+  - 'config/**'
 
-"Документация":
-- '**/*.md'
+'Документация':
+  - '**/*.md'
 
-"Частичная модульность":
-- all: ['code/**', modular_ss220/**]
+'Частичная модульность':
+  - all: ['code/**', modular_ss220/**]
 
-"SQL":
-- 'SQL/**'
+'SQL':
+  - 'SQL/**'
