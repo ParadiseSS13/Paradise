@@ -377,18 +377,18 @@
 			for(var/I in reagents.reagent_list)
 				var/datum/reagent/R = I
 				if(R.id != "blood")
-					. += "<span class='notice'>[R.volume] units of [R] ([R.volume / one_percent]%)</span>"
+					. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
 				else
 					blood_type = R.data["blood_type"]
-					. += "<span class='notice'>[R.volume] units of [R] ([blood_type ? "[blood_type]" : ""]) ([R.volume / one_percent]%)</span>"
+					. += "<span class='notice'>[R.volume] units of [R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)</span>"
 			return
 		// Opaque containers
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
-				. += "<span class='notice'>[R] ([R.volume / one_percent]%)</span>"
+				. += "<span class='notice'>[R] ([round(R.volume / one_percent)]%)</span>"
 			else
 				blood_type = R.data["blood_type"]
-				. += "<span class='notice'>[R] ([blood_type ? "[blood_type]" : ""]) ([R.volume / one_percent]%)</span>"
+				. += "<span class='notice'>[R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)</span>"
 		return
 
 	if(container_type & TRANSPARENT)
@@ -397,7 +397,7 @@
 			if(container_type & TRANSPARENT)
 				for(var/I in reagents.reagent_list)
 					var/datum/reagent/R = I
-					. += "<span class='notice'>[R.volume] units of [R] ([R.volume / one_percent]%)</span>"
+					. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
 				return
 
 		//Otherwise, just show the total volume
