@@ -396,9 +396,9 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
-				var/hyperspace_progress_sound = sound('modular_ss220/aesthetics_sounds/sound/shuttle/hyperspace_progress_new.ogg') //SS220 EDIT
+				/*var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
-					SEND_SOUND(E, hyperspace_progress_sound)
+					SEND_SOUND(E, hyperspace_progress_sound)*/ // SS220 REMOVAL - hyperspave_progress_sound
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
