@@ -35,8 +35,6 @@
 
 	var/has_gravity = TRUE
 
-	var/no_air = null
-
 	var/air_doors_activated = FALSE
 
 	var/tele_proof = FALSE

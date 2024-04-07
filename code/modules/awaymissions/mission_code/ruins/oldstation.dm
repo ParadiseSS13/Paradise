@@ -141,8 +141,12 @@
 
 /obj/item/paper/fluff/ruins/oldstation/report
 	name = "Crew Reawakening Report"
-	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis on March 10th, 2445.<br><br>Crew were awoken from cryostasis around June, 2557.<br><br> \
-	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after 112 years due to power failure, secondary radiation detectors showed no residual \
+
+/obj/item/paper/fluff/ruins/oldstation/report/Initialize()
+	..()
+	init_current_date_string()
+	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
+	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure, secondary radiation detectors showed no residual \
 	radiation on station. Deduction, primarily detector was malfunctioning and was producing a radiation signal when there was none.<br><br>2: A data burst from a nearby Nanotrasen Space \
 	Station was received, this data burst contained research data that has been uploaded to our RnD labs.<br><br>3: Unknown invasion force has occupied Theta station."
 
@@ -295,7 +299,7 @@
 	desc = "A very large bluespace engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 
 // areas
 //Ruin of ancient Space Station

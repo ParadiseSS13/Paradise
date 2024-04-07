@@ -3,19 +3,40 @@
  * Recipe datum
  */
 /datum/stack_recipe
+	/// Visible title of recipe
 	var/title = "ERROR"
+
+	/// Resulting typepath of crafted atom
 	var/result_type
+
+	/// Required stack amount to make
 	var/req_amount = 1
+
+	/// Amount of atoms made
 	var/res_amount = 1
+
+	/// Maximum amount of atoms made
 	var/max_res_amount = 1
+
+	/// Time to make
 	var/time = 0
-	var/one_per_turf = 0
-	var/on_floor = 0
-	var/on_floor_or_lattice = 0
+
+	/// Only one resulting atom is allowed per turf
+	var/one_per_turf = FALSE
+
+	/// Requires a floor underneath to make
+	var/on_floor = FALSE
+
+	/// Requires a floor OR lattice underneath to make
+	var/on_floor_or_lattice = FALSE
+
+	/// Requires a valid window location to make
 	var/window_checks = FALSE
+
+	/// Resulting atom is a cult structure
 	var/cult_structure = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, on_floor_or_lattice = 0, window_checks = FALSE, cult_structure = FALSE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = FALSE, on_floor = FALSE, on_floor_or_lattice = FALSE, window_checks = FALSE, cult_structure = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount

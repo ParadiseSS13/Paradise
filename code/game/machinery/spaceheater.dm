@@ -110,7 +110,7 @@
 		dat += "<a href='?src=[UID()];op=temp;val=5'>+</a><br>"
 
 		user.set_machine(src)
-		user << browse("<meta charset='utf-8'><head><title>Space Heater Control Panel Панель</title></head><tt>[dat]</tt>", "window=spaceheater")
+		user << browse("<meta charset='utf-8'><head><title>Space Heater Control Panel</title></head><tt>[dat]</tt>", "window=spaceheater")
 		onclose(user, "spaceheater")
 
 	else

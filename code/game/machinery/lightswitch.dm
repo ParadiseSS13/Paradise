@@ -2,7 +2,7 @@
 // can have multiple per area
 /obj/machinery/light_switch
 	name = "light switch"
-	desc = "It turns lights on and off. What are you, simple?"
+	desc = "A switch for turning the lights on and off for an entire room."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
@@ -47,7 +47,7 @@
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
-	. += "A light switch. It is [our_area.lightswitch ? "on" : "off"]."
+	. += "<span class='notice'>It is [our_area.lightswitch ? "on" : "off"].</span>"
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
