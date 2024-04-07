@@ -1,6 +1,14 @@
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Stack } from '../components';
+import {
+  Button,
+  LabeledList,
+  Section,
+  Tabs,
+  Icon,
+  Stack,
+  Box,
+} from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 
@@ -15,6 +23,7 @@ type Data = {
   fingerprint_hash: string;
   photo: string;
   assignment: string;
+  job_icon: string;
   idcards: IDCard[];
 };
 
@@ -71,6 +80,7 @@ export const AgentCardInfo = (props, context) => {
     sex,
     age,
     assignment,
+    job_icon,
     associated_account_number,
     blood_type,
     dna_hash,
@@ -105,9 +115,16 @@ export const AgentCardInfo = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Rank">
               <Button
-                content={assignment ? assignment : '[UNSET]'}
                 onClick={() => act('change_occupation')}
-              />
+                textAlign="middle"
+              >
+                <Box
+                  className={classes(['orbit_job16x16', job_icon])}
+                  verticalAlign="bottom"
+                  my="2px"
+                />{' '}
+                {assignment ? assignment : '[UNSET]'}
+              </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Fingerprints">
               <Button

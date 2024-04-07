@@ -413,6 +413,7 @@
 	data["sex"] = sex
 	data["age"] = age
 	data["assignment"] = assignment
+	data["job_icon"] = ckey(get_job_name())
 	data["associated_account_number"] = associated_account_number
 	data["blood_type"] = blood_type
 	data["dna_hash"] = dna_hash
@@ -434,7 +435,8 @@
 
 /obj/item/card/id/syndicate/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/idcards)
+		get_asset_datum(/datum/asset/spritesheet/idcards),
+		get_asset_datum(/datum/asset/spritesheet/orbit_job),
 	)
 
 /obj/item/card/id/syndicate/ui_state(mob/user)
@@ -471,11 +473,13 @@
 		sex = initial(sex)
 		age = initial(age)
 		assignment = initial(assignment)
+		rank = initial(rank)
 		associated_account_number = initial(associated_account_number)
 		blood_type = initial(blood_type)
 		dna_hash = initial(dna_hash)
 		fingerprint_hash = initial(fingerprint_hash)
 		photo = null
+		registered_human.sec_hud_set_ID()
 		registered_human = null
 		ui.close()
 
@@ -537,51 +541,53 @@
 				"Custom",
 			)
 
-	var/department = tgui_input_list(registered_human, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
 	var/new_job
 	var/new_rank
 
-	if(department == "Custom")
-		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
-		var/department_icon = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
+	var/tgui_message = "What job would you like to put on this card?"
+	var/department = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", departments)
+	if(department != "Custom")
+		switch(department)
+			if("Engineering")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.engineering_positions)
+			if("Medical")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.medical_positions)
+			if("Science")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.science_positions)
+			if("Security")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.security_positions)
+			if("Service")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.service_positions)
+			if("Command")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.command_positions)
+			if("Special")
+				new_job = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
+			if("Assistant")
+				new_job = "Assistant"
+		new_rank = new_job
+	else
+		new_job = sanitize(tgui_input_text(registered_human,"Choose a custom job title:", "Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+		tgui_message = "What SecHUD icon would you like to be shown on this card?"
+		var/department_icon = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", departments)
 		switch(department_icon)
 			if("Engineering")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.engineering_positions)
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.engineering_positions)
 			if("Medical")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.medical_positions)
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.medical_positions)
 			if("Science")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.science_positions)
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.science_positions)
 			if("Security")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.security_positions)
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.security_positions)
 			if("Service")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.service_positions)
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.service_positions)
 			if("Command")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.command_positions)
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", GLOB.command_positions)
 			if("Special")
-				new_rank = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
+				new_rank = tgui_input_list(registered_human, tgui_message, "Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
 			if("Custom")
 				new_rank = null
 			if("Assistant")
 				new_rank = "Assistant"
-	else
-		switch(department)
-			if("Engineering")
-				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.engineering_positions)
-			if("Medical")
-				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.medical_positions)
-			if("Science")
-				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.science_positions)
-			if("Security")
-				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.security_positions)
-			if("Service")
-				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.service_positions)
-			if("Command")
-				new_job = tgui_input_list(registered_human, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", GLOB.command_positions)
-			if("Special")
-				new_job = tgui_input_list(registered_human, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs()))
-			if("Assistant")
-				new_job = "Assistant"
-		new_rank = new_job
 
 	if(!Adjacent(registered_human) || isnull(new_job))
 		return
