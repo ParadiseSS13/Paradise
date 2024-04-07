@@ -521,6 +521,11 @@
 		var/mob/living/sender = user
 		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
+		if(isbrain(sender))
+			var/mob/living/brain/B = user
+			if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+				var/obj/item/mmi/robotic_brain/robobrain = B.container
+				return !robobrain.silenced
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
