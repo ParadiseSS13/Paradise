@@ -67,10 +67,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/UI_style_alpha = 255
 	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
-	var/fuid				// forum userid
+	/// Forum userid
+	var/fuid
+	/// Disables bloom, lamp exposure and bloom when TRUE, just basic lightning.
 	var/old_lighting = FALSE
+	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
 	var/glowlevel = GLOW_MED
+	/// Lamp exposure is enabled when TRUE.
 	var/lampsexposure = TRUE
+	/// Lamp glare is enabled when TRUE.
 	var/lampsglare = FALSE
 
 	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.

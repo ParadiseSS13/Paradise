@@ -131,8 +131,11 @@
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_ADD
 		if(glow_colored)
-			var/datum/ColorMatrix/MATRIX = new(light_color, GLOB.configuration.lighting_effects.glow_contrast_base + GLOB.configuration.lighting_effects.glow_contrast_power * light_power, GLOB.configuration.lighting_effects.glow_brightness_base + GLOB.configuration.lighting_effects.glow_brightness_power * light_power)
-			glow_overlay.color = MATRIX.Get()
+			var/datum/color_matrix/mat = new(
+				light_color,
+				GLOB.configuration.lighting_effects.glow_contrast_base + GLOB.configuration.lighting_effects.glow_contrast_power * light_power,
+				GLOB.configuration.lighting_effects.glow_brightness_base + GLOB.configuration.lighting_effects.glow_brightness_power * light_power)
+			glow_overlay.color = mat.get()
 		add_overlay(glow_overlay)
 
 	if(exposure_icon && exposure_icon_state)
@@ -142,10 +145,10 @@
 		exposure_overlay.blend_mode = BLEND_ADD
 		exposure_overlay.appearance_flags = RESET_ALPHA | RESET_COLOR | KEEP_APART
 
-		var/datum/ColorMatrix/MATRIX = new(1, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
+		var/datum/color_matrix/mat = new(1, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
 		if(exposure_colored)
-			MATRIX.SetColor(light_color, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
-		exposure_overlay.color = MATRIX.Get()
+			mat.set_color(light_color, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
+		exposure_overlay.color = mat.get()
 
 		var/icon/EX = icon(icon = exposure_icon, icon_state = exposure_icon_state)
 		exposure_overlay.pixel_x = 16 - EX.Width() / 2

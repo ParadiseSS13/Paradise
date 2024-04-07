@@ -1,3 +1,7 @@
+#define LUM_R 0.3086 //  or  0.2125
+#define LUM_G 0.6094 //  or  0.7154
+#define LUM_B 0.0820 //  or  0.0721
+
 /matrix/proc/TurnTo(old_angle, new_angle)
 	. = new_angle - old_angle
 	Turn(.) //BYOND handles cases such as -270, 360, 540 etc. DOES NOT HANDLE 180 TURNS WELL, THEY TWEEN AND LOOK LIKE SHIT
@@ -64,84 +68,92 @@
 /matrix/proc/get_y_shift()
 	. = f
 
-/datum/ColorMatrix
+/datum/color_matrix
 	var/list/matrix
 	var/combined = 1
-	var/const/lumR = 0.3086 //  or  0.2125
-	var/const/lumG = 0.6094 //  or  0.7154
-	var/const/lumB = 0.0820 //  or  0.0721
 
-/datum/ColorMatrix/New(mat, contrast = 1, brightness = null)
+/datum/color_matrix/New(value, contrast = 1, brightness = null)
 	..()
-	if(istext(mat))
-		SetColor(mat, contrast, brightness)
-	else if(isnum(mat))
-		SetSaturation(mat, contrast, brightness)
+	if(istext(value))
+		set_color(value, contrast, brightness)
+	else if(isnum(value))
+		set_saturation(value, contrast, brightness)
 	else
-		matrix = mat
+		matrix = value
 
-/datum/ColorMatrix/proc/Reset()
-	matrix=list(1,0,0,
-				0,1,0,
-				0,0,1)
+/datum/color_matrix/proc/reset()
+	matrix=list(1, 0, 0,
+				0, 1, 0,
+				0, 0, 1)
 
-/datum/ColorMatrix/proc/Get(contrast = 1)
+/datum/color_matrix/proc/get(contrast = 1)
 	var/list/mat = matrix
 	mat = mat.Copy()
 
-	for(var/i = 1 to min(mat.len, 12))
+	for(var/i = 1 to min(length(mat), 12))
 		mat[i] *= contrast
 	return mat
 
-/datum/ColorMatrix/proc/SetSaturation(s, c = 1, b = null)
-	var/sr = (1 - s) * lumR
-	var/sg = (1 - s) * lumG
-	var/sb = (1 - s) * lumB
+/datum/color_matrix/proc/set_saturation(saturation, contrast = 1, brightness = null)
+	var/r_adjustment = (1 - saturation) * LUM_R
+	var/g_adjustment = (1 - saturation) * LUM_G
+	var/b_adjustment = (1 - saturation) * LUM_B
 
-	matrix=list(c * (sr + s), c * (sr),     c * (sr),
-				c * (sg),     c * (sg + s), c * (sg),
-				c * (sb),     c * (sb),     c * (sb + s))
-	SetBrightness(b)
+	matrix=list(contrast * (r_adjustment + saturation),	contrast * (r_adjustment),				contrast * (r_adjustment),
+				contrast * (g_adjustment),				contrast * (g_adjustment + saturation),	contrast * (g_adjustment),
+				contrast * (b_adjustment),				contrast * (b_adjustment),				contrast * (b_adjustment + saturation))
+	set_brightness(brightness)
 
-/datum/ColorMatrix/proc/SetBrightness(brightness)
-	if(brightness == null) return
+/datum/color_matrix/proc/set_brightness(brightness)
+	if(isnull(brightness))
+		return
 
 	if(!matrix)
-		Reset()
+		reset()
 
-	if(matrix.len == 9 || matrix.len == 16)
-		matrix += brightness
-		matrix += brightness
-		matrix += brightness
+	// Here we have CCM matrix of type:
+	// | rr rg rb |
+	// | gr gg gb |
+	// | br bg bb |
+	// with no brightness row, just append it.
+	if(length(matrix) == 9)
+		matrix += list(brightness, brightness, brightness)
+	
+	// Here we have CCM matrix of type:
+	// | rr rg rb ra |
+	// | gr gg gb ga |
+	// | br bg bb ba |
+	// | ar ag ab aa |
+	// with no brightness row, just append it.
+	if(length(matrix) == 16)
+		matrix += list(brightness, brightness, brightness, 0)
 
-		if(matrix.len == 16)
-			matrix += 0
-
-	else if(matrix.len == 12)
-		for(var/i = matrix.len to matrix.len - 3 step -1)
+	// We already have brightness row, just override. 
+	else if(length(matrix) == 12)
+		for(var/i = length(matrix) to length(matrix) - 3 step -1)
 			matrix[i] = brightness
 
-	else if(matrix.len == 3)
-		for(var/i = matrix.len - 1 to matrix.len - 4 step -1)
+	// Just brightness matrix, override.
+	else if(length(matrix) == 3)
+		for(var/i = 1 to length(matrix))
 			matrix[i] = brightness
 
-/datum/ColorMatrix/proc/hex2value(hex)
-	var/num1 = copytext(hex, 1, 2)
-	var/num2 = copytext(hex, 2)
-	if(isnum(text2num(num1)))
-		num1 = text2num(num1)
-	else
-		num1 = text2ascii(lowertext(num1)) - 87
-	if(isnum(text2num(num1)))
-		num2 = text2num(num1)
-	else
-		num2 = text2ascii(lowertext(num2)) - 87
-	return num1 * 16 + num2
+	CRASH("Couldn't figure out how to apply brightness to a matrix of length: " + length(matrix))
 
-/datum/ColorMatrix/proc/SetColor(color, contrast = 1, brightness = null)
-	var/rr = hex2value(copytext(color, 2, 4)) / 255
-	var/gg = hex2value(copytext(color, 4, 6)) / 255
-	var/bb = hex2value(copytext(color, 6, 8)) / 255
+/// Handles values from 00 to FF.
+/datum/color_matrix/proc/hex2value(hex)
+	var/const/radix = 16
+	var/num1 = text2num(hex[1], radix)
+	var/num2 = text2num(hex[2], radix)
+	if(!isnum(num1) || !isnum(num2))
+		CRASH("Invalid hex value: " + hex)
+
+	return num1 * radix + num2
+
+/datum/color_matrix/proc/set_color(color_hex, contrast = 1, brightness = null)
+	var/rr = hex2value(copytext(color_hex, 2, 4)) / 255
+	var/gg = hex2value(copytext(color_hex, 4, 6)) / 255
+	var/bb = hex2value(copytext(color_hex, 6, 8)) / 255
 
 	rr = round(rr * 1000) / 1000 * contrast
 	gg = round(gg * 1000) / 1000 * contrast
@@ -151,4 +163,8 @@
 				rr, gg, bb,
 				rr, gg, bb)
 
-	SetBrightness(brightness)
+	set_brightness(brightness)
+
+#undef LUM_R
+#undef LUM_G
+#undef LUM_B

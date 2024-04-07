@@ -26,7 +26,8 @@ GLOBAL_PROTECT(href_token)
 	/// Our index into GLOB.antagonist_teams, so that admins can have pretty tabs in the Check Teams menu.
 	var/team_switch_tab_index = 1
 
-	var/datum/bloom_edit/debug_bloom
+	/// TODO: add some docs
+	var/datum/bloom_edit/edit_bloom
 	
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())

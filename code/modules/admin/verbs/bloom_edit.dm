@@ -1,12 +1,12 @@
-/client/proc/debug_bloom() // todo: make this hidden under debug verbs, we can't trust admins
+/client/proc/debug_bloom()
 	set name = "Bloom Edit"
 	set category = "Debug"
 
-	if(!check_rights(R_VAREDIT)) // todo: debug
+	if(!check_rights(R_VAREDIT))
 		return
-	if(!holder.debug_bloom)
-		holder.debug_bloom = new /datum/bloom_edit(src)
-	holder.debug_bloom.ui_interact(usr)
+	if(!holder.edit_bloom)
+		holder.edit_bloom = new /datum/bloom_edit(src)
+	holder.edit_bloom.ui_interact(usr)
 
 	message_admins("[key_name(src)] opened Bloom Edit panel.")
 	log_admin("[key_name(src)] opened Bloom Edit panel.")
@@ -65,9 +65,10 @@
 		if("update_lamps") // todo: make this update all objects with glow
 			for(var/obj/machinery/light/L in GLOB.machines)
 				if(L.glow_overlay || L.exposure_overlay)
-					//L.update_light() // does nothing
-					L.set_light(0) // so we make this ugly way
-					L.update()
+					L.update_light() // does nothing
+					// L.set_light(0) // so we make this ugly way
+					// L.update()
+					// L.update()
 	return TRUE
 
 /datum/bloom_edit/ui_state(mob/user)
