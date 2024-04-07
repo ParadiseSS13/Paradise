@@ -7543,7 +7543,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "aWo" = (
-/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
@@ -13676,7 +13676,7 @@
 	},
 /area/station/engineering/control)
 "bzJ" = (
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
@@ -20227,20 +20227,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
-"cdv" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 6";
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/brig/temp/cell_6,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/A)
 "cdx" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -29026,20 +29012,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos)
-"cZn" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 7";
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/brig/temp/cell_7,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/A)
 "cZr" = (
 /obj/structure/chair{
 	dir = 8
@@ -29443,20 +29415,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/break_room)
-"ddq" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 8";
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/brig/temp/cell_8,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/A)
 "ddr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -43474,7 +43432,7 @@
 /area/station/hallway/primary/fore/north)
 "gXd" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
 "gXl" = (
