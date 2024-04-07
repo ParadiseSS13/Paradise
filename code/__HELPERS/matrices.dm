@@ -137,7 +137,7 @@
 		for(var/i = 1 to length(matrix))
 			matrix[i] = brightness
 
-	CRASH("Couldn't figure out how to apply brightness to a matrix of length: " + length(matrix))
+	CRASH("Couldn't figure out how to apply brightness to a matrix of length: [matrix_length]")
 
 /// Handles values from 00 to FF.
 /datum/color_matrix/proc/hex2value(hex)
@@ -145,7 +145,7 @@
 	var/num1 = text2num(hex[1], radix)
 	var/num2 = text2num(hex[2], radix)
 	if(!isnum(num1) || !isnum(num2))
-		CRASH("Invalid hex value: " + hex)
+		CRASH("Invalid hex value: [hex]")
 
 	return num1 * radix + num2
 
