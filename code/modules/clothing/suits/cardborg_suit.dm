@@ -20,7 +20,7 @@ CONTENTS:
 	item_state = "cardborg_h"
 	flags = BLOCKHAIR											// Robots don't have air (yet!).
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS	// Robots don't wear masks or ear accessories (yet!).
-	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH				// Robots don't wear masks or glasses (yet!).
+	flags_cover = HEADCOVERSEYES								// Robots don't wear glasses (yet!).
 	var/list/available_disguises = list("Standard") 			// All the sprites you can disguise as. A disguise will be randomly chosen from the list.
 	species_disguise = "High-tech robot"						// You appear to be this when examined instead of your mob's actual species.
 	dog_fashion = /datum/dog_fashion/head/cardborg 				// How this looks on Ian.
