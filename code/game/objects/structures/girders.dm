@@ -86,6 +86,9 @@
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
 			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
 			return
+		if(istype(W, /obj/item/stack/sheet/bamboo)) // pending wall resprite(tm)
+			to_chat(user, "<span class='warning'>The bamboo doesn't seem to fit around the girder.</span>")
+			return
 
 		if(istype(W,/obj/item/stack/rods))
 			var/obj/item/stack/rods/S = W
