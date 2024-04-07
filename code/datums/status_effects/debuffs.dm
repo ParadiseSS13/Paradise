@@ -394,13 +394,13 @@
 /datum/status_effect/pepper_spray/on_apply()
 	. = ..()
 	to_chat(owner, "<span class='danger'>Your throat burns!</span>")
-	owner.AdjustConfused(12 SECONDS)
+	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(40, STAMINA)
 
 /datum/status_effect/pepper_spray/refresh()
 	. = ..()
-	owner.AdjustConfused(12 SECONDS)
+	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(20, STAMINA)
 

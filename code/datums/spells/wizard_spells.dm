@@ -305,7 +305,7 @@
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
+	base_cooldown = 15 SECONDS
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
