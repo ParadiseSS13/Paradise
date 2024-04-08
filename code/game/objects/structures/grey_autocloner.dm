@@ -65,7 +65,7 @@
 
 	H.dna = R.dna.Clone()
 
-	H.set_species(/datum/species/grey) //This is a grey cloner after all. Funnier this way tbh
+	H.set_species(/datum/species/grey, skip_same_check = TRUE) //This is a grey cloner after all. Funnier this way tbh
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
