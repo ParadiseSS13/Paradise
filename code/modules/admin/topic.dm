@@ -1999,7 +1999,7 @@
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
-					P.can_collar = TRUE
+					P.set_can_collar(TRUE)
 					P.faction = list("neutral")
 					var/obj/item/petcollar/C = new
 					P.add_collar(C)
