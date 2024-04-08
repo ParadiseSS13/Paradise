@@ -920,3 +920,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 									"<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
 	SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
 	return TRUE
+
+/obj/item/proc/should_stack_with(obj/item/other)
+	return type == other.type && name == other.name

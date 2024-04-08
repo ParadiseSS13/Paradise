@@ -597,6 +597,7 @@
 	description = "Some kind of nutrient. You can't really tell what it is. You should probably report it, along with how you obtained it."
 	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
+	var/mutation_level = 0
 	taste_description = "puke"
 
 /datum/reagent/plantnutrient/on_mob_life(mob/living/M)
@@ -619,6 +620,7 @@
 	description = "Plant nutrient designed to trigger mild genetic drift."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
+	mutation_level = 10
 	taste_description = "change"
 
 /datum/reagent/plantnutrient/left4zednutrient
@@ -627,6 +629,7 @@
 	description = "Unstable nutrient that makes plants mutate strongly at the cost of minimal yield."
 	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
+	mutation_level = 15
 	taste_description = "evolution"
 
 /datum/reagent/plantnutrient/robustharvestnutrient

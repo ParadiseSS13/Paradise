@@ -3,45 +3,45 @@
 ///Max Cap of the amount of seed we let players dispense at once
 #define MAX_DISPENSE_SEEDS 25
 
-///This proc could probably be scoped better, also it's logic is cursed and hard to understand
-/proc/seedify(obj/item/O, t_max, obj/machinery/seed_extractor/extractor, mob/living/user)
-	var/t_amount = 0
-	if(t_max == -1)
-		if(extractor)
-			t_max = rand(1,4) * extractor.seed_multiplier
-		else
-			t_max = rand(1,4)
-
-	var/seedloc = O.loc
+/// Convert a grown object into seeds.
+/proc/seedify(obj/item/source_item, seed_count, obj/machinery/seed_extractor/extractor, mob/living/user)
+	var/output_loc = source_item.loc
 	if(extractor)
-		seedloc = extractor.loc
+		output_loc = extractor.loc
 
-	if(istype(O, /obj/item/food/snacks/grown))
-		var/obj/item/food/snacks/grown/F = O
-		if(F.seed)
-			if(user && !user.drop_item()) //couldn't drop the item
-				return
-			while(t_amount < t_max)
-				var/obj/item/seeds/t_prod = F.seed.Copy()
-				t_prod.forceMove(seedloc)
-				t_amount++
-			qdel(O)
-			return TRUE
+	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
+		return FALSE
 
-	else if(istype(O, /obj/item/grown))
-		var/obj/item/grown/F = O //someone should really abstract this into its own proc
-		if(F.seed)
-			if(user && !user.drop_item())
-				return
-			while(t_amount < t_max)
-				var/obj/item/seeds/t_prod = F.seed.Copy()
-				t_prod.forceMove(seedloc)
-				t_amount++
-			qdel(O)
-		return TRUE
+	var/original_seed = null
+	if(istype(source_item, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/F = source_item
+		original_seed = F.unsorted_seed || F.seed
+	else if(istype(source_item, /obj/item/grown))
+		var/obj/item/grown/F = source_item
+		original_seed = F.unsorted_seed || F.seed
 
-	return FALSE
+	if(!original_seed)
+		return FALSE
 
+	if(seed_count == -1)
+		if(istype(original_seed, /obj/item/unsorted_seeds))
+			seed_count = 1
+		else
+			seed_count = rand(1,4)
+		if(extractor)
+			seed_count *= extractor.seed_multiplier
+
+	for(var/i in 1 to seed_count)
+		var/obj/item/new_seed
+		if(istype(original_seed, /obj/item/seeds))
+			var/obj/item/seeds/S = original_seed
+			new_seed = S.Copy()
+		else if(istype(original_seed, /obj/item/unsorted_seeds))
+			var/obj/item/unsorted_seeds/S = original_seed
+			new_seed = S.Copy()
+		new_seed.forceMove(output_loc)
+	qdel(source_item)
+	return TRUE
 
 /obj/machinery/seed_extractor
 	name = "seed extractor"
