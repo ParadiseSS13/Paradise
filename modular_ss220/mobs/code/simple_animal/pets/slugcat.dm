@@ -104,39 +104,6 @@
 	drop_hand()
 	. = ..()
 
-/mob/living/simple_animal/pet/slugcat/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	if(stat == DEAD)
-		return 0
-
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				remove_from_head(usr)
-			if("hand")
-				remove_from_hand(usr)
-		show_inv(usr)
-
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-		switch(add_to)
-			if("head")
-				place_on_head(usr.get_active_hand(), usr)
-			if("hand")
-				place_to_hand(usr.get_active_hand(), usr)
-		show_inv(usr)
-
-	if(usr != src)
-		return 1
-
 /mob/living/simple_animal/pet/slugcat/regenerate_icons()
 	overlays.Cut()
 	..()
@@ -201,19 +168,6 @@
 		slugI.pixel_y = hat_offset_y
 		//slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
-
-/mob/living/simple_animal/pet/slugcat/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Hand:</B> <A href='?src=[UID()];[inventory_hand ? "remove_inv=hand'>[inventory_hand]" : "add_inv=hand'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
