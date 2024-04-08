@@ -503,7 +503,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 //the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to 1 if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = 0)
+/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(!M)
 		return 0
 
@@ -928,3 +928,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 									"<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
 	SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
 	return TRUE
+
+/obj/item/proc/canStrip(mob/stripper, mob/owner)
+	SHOULD_BE_PURE(TRUE)
+	return !(flags & NODROP) && !(flags & ABSTRACT)

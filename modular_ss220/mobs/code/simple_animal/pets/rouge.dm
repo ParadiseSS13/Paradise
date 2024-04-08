@@ -112,19 +112,6 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, type)
 	var/armorval = inventory_head?.armor.getRating(type)
 	if(!def_zone)
@@ -132,57 +119,6 @@
 	else if(def_zone != "head")
 		armorval = 0
 	return armorval
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Topic(href, href_list)
-	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	//Removing from inventory
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				if(inventory_head)
-					if(inventory_head.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					drop_item(inventory_head)
-					usr.put_in_hands(inventory_head)
-					inventory_head = null
-					update_snek_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
-			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					drop_item(pcollar)
-					usr.put_in_hands(the_collar)
-					pcollar = null
-					update_snek_fluff()
-					regenerate_icons()
-
-		show_inv(usr)
-
-	//Adding things to inventory
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-
-		switch(add_to)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-				update_snek_fluff()
-
-			if("head")
-				place_on_head(usr.get_active_hand(),usr)
-
-		show_inv(usr)
-	else
-		return ..()
-
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/place_on_head(obj/item/item_to_add, mob/user)
 

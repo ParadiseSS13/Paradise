@@ -839,51 +839,6 @@
 /mob/living/proc/check_ear_prot()
 	return
 
-/**
- * Returns the name override, if any, for the slot somebody is trying to strip
- */
-/mob/living/proc/get_strip_slot_name_override(slot)
-	switch(slot)
-		if(SLOT_HUD_WEAR_PDA)
-			return "PDA"
-
-// The src mob is trying to strip an item from someone
-// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
-	var/item_name = get_strip_slot_name_override(where) || what.name
-	if(what.flags & NODROP)
-		to_chat(src, "<span class='warning'>You can't remove \the [item_name], it appears to be stuck!</span>")
-		return
-	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [item_name].</span>", \
-						"<span class='userdanger'>[src] tries to remove [who]'s [item_name].</span>")
-	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
-		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.unEquip(what)
-			if(silent)
-				put_in_hands(what)
-			add_attack_logs(src, who, "Stripped of [what]")
-
-// The src mob is trying to place an item on someone
-// Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = 0)
-	what = get_active_hand()
-	if(what && (what.flags & NODROP))
-		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
-		return
-	if(what)
-		if(!what.mob_can_equip(who, where, 1))
-			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
-			return
-		if(!silent)
-			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
-		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who) && !(what.flags & NODROP))
-				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
-				add_attack_logs(src, who, "Equipped [what]")
-
 /mob/living/singularity_act()
 	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
 	gib()
