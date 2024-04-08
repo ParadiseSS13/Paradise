@@ -1438,19 +1438,6 @@
 /mob/living/carbon/human/monkey/magic,
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"fA" = (
-/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
-	dir = 8;
-	name = "Mech Bay Power Port"
-	},
-/obj/machinery/door_control/no_emag/no_cyborg{
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/centcom/specops)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -13950,11 +13937,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Xo" = (
-/obj/machinery/door_control/no_emag/no_cyborg{
-	name = "Nanotrasen Asset Protection Shutters";
-	req_access_txt = "114";
-	pixel_y = 24
-	},
 /obj/machinery/door_control/no_emag/no_cyborg{
 	name = "Nanotrasen Asset Protection Shutters";
 	req_access_txt = "114";
@@ -38311,7 +38293,7 @@ ZC
 ZC
 YA
 tQ
-fA
+VS
 VS
 OH
 ZT

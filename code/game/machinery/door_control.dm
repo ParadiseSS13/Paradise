@@ -139,5 +139,5 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door_control/no_emag/no_cyborg/attack_ai(mob/user)
-	to_chat(user, "Error, no route to host.")
+	to_chat(user, "<span class='warning'>Error, no route to host.</span>")
 	return
