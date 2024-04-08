@@ -27,6 +27,9 @@
 		if(!(species in M.client.prefs.species_whitelist))
 			return FALSE
 
+	if(!S.is_available(M))
+		return FALSE
+
 	// SS220 EDIT END
 
 	// No if species is blacklisted

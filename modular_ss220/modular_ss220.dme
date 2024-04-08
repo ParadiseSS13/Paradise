@@ -75,6 +75,7 @@
 #include "mecha_skins/mecha_skins.dme"
 #include "queue/_queue.dme"
 #include "phrases/_phrases.dme"
+#include "species/_species.dme"
 #include "species_whitelist/_species_whitelist.dme"
 #include "antagonists/_antagonists.dme"
 #include "uplink_items/_uplink_items.dme"
