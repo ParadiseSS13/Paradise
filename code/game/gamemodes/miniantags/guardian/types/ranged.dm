@@ -10,7 +10,6 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	damage_transfer = 1
-	can_strip = TRUE
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
@@ -40,7 +39,7 @@
 			alpha = 255
 			range = 13
 			incorporeal_move = 0
-			can_strip = TRUE
+			ADD_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
@@ -52,7 +51,7 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = 1
-			can_strip = FALSE  //spiritual pickpocketting is forbidden
+			REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC) //spiritual pickpocketting is forbidden
 			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
 			toggle = TRUE
 	else
