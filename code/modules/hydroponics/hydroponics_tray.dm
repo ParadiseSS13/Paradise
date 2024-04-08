@@ -1060,3 +1060,9 @@
 	to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
 	to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
 	to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]</span>")
+
+/obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		send_plant_details(user)

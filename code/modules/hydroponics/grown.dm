@@ -92,19 +92,7 @@
 			return ..()
 
 	if(istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
-		if(seed)
-			msg += seed.get_analyzer_text()
-		var/reag_txt = ""
-		if(seed)
-			for(var/reagent_id in seed.reagents_add)
-				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
-				var/amt = reagents.get_reagent_amount(reagent_id)
-				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
-
-		if(reag_txt)
-			msg += reag_txt
-		to_chat(user, msg)
+		send_plant_details(user)
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
@@ -217,3 +205,24 @@
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
 	set_light(0)
+
+/obj/item/food/snacks/grown/proc/send_plant_details(mob/user)
+	var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
+	if(seed)
+		msg += seed.get_analyzer_text()
+	var/reag_txt = ""
+	if(seed)
+		for(var/reagent_id in seed.reagents_add)
+			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
+			var/amt = reagents.get_reagent_amount(reagent_id)
+			reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
+
+	if(reag_txt)
+		msg += reag_txt
+	to_chat(user, msg)
+
+/obj/item/food/snacks/grown/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		send_plant_details(user)
