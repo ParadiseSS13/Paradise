@@ -125,8 +125,7 @@
 	S.use(1)
 	reagents.trans_to(O, reagents.total_volume)
 	qdel(src)
-	if(!user.put_in_active_hand(O))
-		O.forceMove(get_turf(user))
+	user.put_in_active_hand(O))
 
 /obj/item/food/snacks/roastparsnip
 	name = "roast parsnip"
