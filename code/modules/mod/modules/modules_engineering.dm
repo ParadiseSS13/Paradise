@@ -262,7 +262,7 @@
 #undef METAL_FOAM
 
 /obj/item/mod/module/drone
-	name = "MOD Personal Artificial Intelligence Storage"
+	name = "MOD Dron Storage"
 	desc = "A module that can be used to store a personal AI device in. \
 			Will convert the personal AI into a construction drone to help \
 			the owner with any repair work"
@@ -284,6 +284,21 @@
 	clear_references()
 	linked_drone.pathfind_to_dronefab()
 	return ..()
+
+/obj/item/mod/module/drone/examine_more(mob/user)
+	. = ..()
+	. += "<i>A module seamlessly designed to function with a modern MODsuit's framework</i>."
+	. += "<i>During the colonization era of systems including Sol within the Trans-Solar Federation, \
+		stations and colonies demanded engineers to build and construct space stations and colonies.</i>"
+	. += "<i>To enhance engineering safety and efficiency, Electra Dynamics collaborated with Cybersun Incorporated \
+		to design the first artificial drone AIs to serve as construction and design aides for MODsuit equipped engineers.</i>"
+	. += "<i>Despite the success of its development, the partnership was short-lived. \
+		Electra Dynamics and Cybersun argued in TSF court over the ownership rights of the module, leading to a legal battle for the majority share.</i>"
+	. += "<i>Cybersun initially emerged victorious, leaving Electra Dynamics without rights to the technology they had co-developed. \
+		Despite the loss, Electra Dynamics would re-invest to develop its own variant, sparking a second lawsuit between the companies.</i>"
+	. += "<i>The resolution came in Electra Dynamics favor, establishing that Cybersun could not monopolize AI-controlled devices, \
+		thus legitimizing competition in the market. This legal precedent however, had far-reaching consequences that would undermine both companies. \
+		It opened the floodgates for rival corporations to introduce their own MODsuit compatible drone AI models, in which the market would be flooded for the next several decades.</i>"
 
 /obj/item/mod/module/drone/on_use()
 	. = ..()
@@ -311,6 +326,7 @@
 	new_drone.name = to_be_droned.name
 
 	ADD_TRAIT(mod.wearer.mind, TRAIT_CREATED_DRONE, mod.wearer.UID())
+	RegisterSignal(mod.wearer, COMSIG_PARENT_QDELETING, PROC_REF(clear_wearer))
 	summoner = mod.wearer
 	linked_drone = new_drone
 
@@ -332,5 +348,9 @@
 /obj/item/mod/module/drone/proc/clear_references()
 	if(summoner?.mind)
 		REMOVE_TRAIT(summoner.mind, TRAIT_CREATED_DRONE, summoner.UID())
+	summoner = null
 	stored_drone = null
 	linked_drone = null
+
+/obj/item/mod/module/drone/proc/clear_wearer()
+	summoner = null
