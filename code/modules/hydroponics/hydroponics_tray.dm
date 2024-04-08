@@ -436,6 +436,9 @@
 /obj/machinery/hydroponics/proc/get_mutation_level()
 	return nutrient.mutation_level + mutagen + (mut_beamed ? 5 : 0)
 
+/obj/machinery/hydroponics/proc/get_mutation_focus()
+	return doping_effects[doping_chem]
+
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
 	if(weedlevel > 5)
 		QDEL_NULL(myseed)

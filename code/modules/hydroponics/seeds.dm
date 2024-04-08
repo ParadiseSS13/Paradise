@@ -201,7 +201,7 @@
 	if(!mutation_level)
 		return src
 
-	return new /obj/item/unsorted_seeds(src, mutation_level)
+	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
 
 /obj/item/seeds/proc/harvest(mob/user = usr)
 	var/obj/machinery/hydroponics/tray = loc
@@ -611,6 +611,19 @@
 	user.visible_message("<span class='notice'>[user] crudely sorts through [src] by hand.</span>", "<span class='notice'>You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool.")
 	if(do_after(user, 3 SECONDS, TRUE, src, must_be_held = TRUE))
 		sort()
+
+/obj/item/unsorted_seeds/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/plant_analyzer))
+		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		var/text = get_analyzer_text()
+		if(text)
+			to_chat(user, "<span class='notice'>[text]</span>")
+
+		return
+	if(is_pen(O))
+		to_chat(user, "<span class='notice'>Sort it first.</span>")
+		return
+	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
 /obj/item/unsorted_seeds/proc/get_analyzer_text(show_detail = TRUE)
 	var/list/output = list()
