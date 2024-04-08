@@ -11,6 +11,7 @@
  * Brass (clockwork cult)
  * Bones
  * Plastic
+ * Saltpetre Crystal
  */
 
 /*
@@ -689,3 +690,16 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/*
+ * Saltpetre crystal
+ */
+
+/obj/item/stack/sheet/saltpetre_crystal
+	name = "saltpetre crystal"
+	desc = "A bunch of saltpetre crystals"
+	singular_name = "saltpetre crystal"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-saltpetre"
+	item_state = "sheet-saltpetre"
+	origin_tech = "materials=1;biotech=1"

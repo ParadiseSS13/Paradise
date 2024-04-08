@@ -1,6 +1,7 @@
 #define SOIL_COST 25
 #define DECAY 0.2
 #define MIN_CONVERSION 10
+#define BIOMASS_AMMONIA_RATIO 3
 /**
   * # compost bin
   * used to make soil from plants.
@@ -20,10 +21,16 @@
 	var/biomass = 0
 	/// amount of compost in the compost bin
 	var/compost = 0
+	/// amount of ammonia in the compost bin
+	var/ammonia = 0
+	/// amount of saltpetre in the conpost bin
+	var/saltpetre = 0
 	/// The maximum amount of biomass the compost bin can store.
 	var/biomass_capacity = 1500
 	/// The maximum amount of compost the compost bin can store.
 	var/compost_capacity = 1500
+	/// The maximum amount of ammonia the compost bin can store.
+	var/ammonia_capacity = 400
 
 /obj/machinery/compost_bin/on_deconstruction()
 	// returns wood instead of the non-existent components
@@ -87,20 +94,64 @@
 		SStgui.update_uis(src)
 		update_icon_state()
 		return TRUE
+	if(istype(O, /obj/item/reagent_containers))
+		var/proportion = 0
+		var/obj/item/reagent_containers/B = O
+		if(B.reagents.total_volume <= 0)
+			to_chat(user, "<span class='warning'>[B] is empty!</span>")
+			return
+		if(ammonia >= ammonia_capacity)
+			to_chat(user, "<span class='warning'>The contents of [src] are saturated with ammonia!</span>")
+			return
+		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this),ammonia_capacity - ammonia) / B.reagents.total_volume
 
-	to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
+		for(var/E in B.reagents.reagent_list)
+			var/datum/reagent/R = E
+			if(R.id == "ammonia")
+				ammonia += min(R.volume * proportion, ammonia_capacity - ammonia)
+			B.reagents.remove_reagent(R.id, R.volume*proportion)
+		if(proportion == 1)
+			to_chat(user, "<span class='info'>You empty [B] into [src].</span>")
+		else
+			to_chat(user, "<span class='info'>You pour some of [B] into [src].</span>")
+		if(ammonia == ammonia_capacity)
+			to_chat(user, "<span class='info'>You have saturated the contents of [src] with ammonia.</span>")
+		else if(ammonia >= ammonia_capacity * 0.95)
+			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with ammonia.</span>")
+
+		SStgui.update_uis(src)
+		update_icon_state()
+
+		return TRUE
+
+	to_chat(user, "<span class='warning'>You cannot put this in [src]!</span>")
 
 //Compost compostable material if there is any
 /obj/machinery/compost_bin/process()
-	if(compost >= compost_capacity || biomass <= 0)
+	if((compost >= compost_capacity && ammonia <= 0) || biomass <= 0)
 		return
 	process_counter++
 	if(process_counter < 5)
 		return
 	process_counter = 0
-	//converts 20% of the biomass to compost each cycle, unless there isn't enough compost space or there is 10 or less biomass
+	//Converts up to 20% of the biomass to compost each cycle, minimum of 10 converted.
+	//In the presence of ammonia will create saltpetre crystals instead. Using at most the amount of biomass that would've been used for compost
+	//And making compost from whatever part of that amount it didn't use.
 	var/conversion_amount = clamp(DECAY * biomass, min(MIN_CONVERSION, biomass), compost_capacity - compost)
-	biomass -= conversion_amount
+	var/saltpetre_conversion_amont = 0
+	var/used_ammonia = 0
+
+	if(ammonia >= 0)
+		saltpetre_conversion_amont = min(conversion_amount, ammonia * BIOMASS_AMMONIA_RATIO)
+		used_ammonia = saltpetre_conversion_amont / BIOMASS_AMMONIA_RATIO
+		saltpetre += used_ammonia
+		if(saltpetre/4 >= 1)
+			new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre/4))
+		saltpetre -= round(saltpetre)
+		conversion_amount -= saltpetre_conversion_amont
+		ammonia -= used_ammonia
+
+	biomass -= conversion_amount + saltpetre_conversion_amont
 	compost += conversion_amount
 	update_icon_state()
 	SStgui.update_uis(src)
@@ -134,6 +185,8 @@
 	data["biomass_capacity"] = biomass_capacity
 	data["compost"] = compost
 	data["compost_capacity"] = compost_capacity
+	data["ammonia"] = ammonia
+	data["ammonia_capacity"] = ammonia_capacity
 	return data
 
 // calls functions according to ui interaction(just making compost for now)

@@ -12,12 +12,19 @@ import { Window } from '../layouts';
 
 export const CompostBin = (props, context) => {
   const { act, data } = useBackend(context);
-  const { biomass, compost, biomass_capacity, compost_capacity } = data;
+  const {
+    biomass,
+    compost,
+    biomass_capacity,
+    compost_capacity,
+    ammonia,
+    ammonia_capacity,
+  } = data;
 
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
 
   return (
-    <Window width={300} height={175}>
+    <Window width={300} height={250}>
       <Window.Content>
         <Stack fill vertical>
           <Section label="Resources">
@@ -64,6 +71,30 @@ export const CompostBin = (props, context) => {
                     }}
                   >
                     {compost} / {compost_capacity} Units
+                  </ProgressBar>
+                </LabeledList.Item>
+              </LabeledList>
+            </Stack>
+            <Stack>
+              <LabeledList>
+                <LabeledList.Item label="Ammonia">
+                  <ProgressBar
+                    ml={0.5}
+                    mt={1}
+                    width={17}
+                    value={ammonia}
+                    minValue={0}
+                    maxValue={ammonia_capacity}
+                    ranges={{
+                      good: [ammonia_capacity * 0.5, Infinity],
+                      average: [
+                        ammonia_capacity * 0.25,
+                        ammonia_capacity * 0.5,
+                      ],
+                      bad: [-Infinity, ammonia_capacity * 0.25],
+                    }}
+                  >
+                    {ammonia} / {ammonia_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
