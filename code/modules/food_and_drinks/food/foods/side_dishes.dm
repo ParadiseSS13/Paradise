@@ -126,7 +126,7 @@
 	var/obj/item/food/snacks/onigiri/O = new(get_turf(user))
 	reagents.trans_to(O, reagents.total_volume)
 	qdel(src)
-	user.put_in_active_hand(O))
+	user.put_in_active_hand(O)
 
 /obj/item/food/snacks/roastparsnip
 	name = "roast parsnip"
