@@ -611,3 +611,41 @@
 	user.visible_message("<span class='notice'>[user] crudely sorts through [src] by hand.</span>", "<span class='notice'>You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool.")
 	if(do_after(user, 3 SECONDS, TRUE, src, must_be_held = TRUE))
 		sort()
+
+/obj/item/unsorted_seeds/proc/get_analyzer_text(show_detail = TRUE)
+	var/list/output = list()
+	output += seed_data.original_seed.get_analyzer_text(show_detail)
+	output += "- Mutation level: [seed_data.mutation_level]"
+	output += "- Mutation focus: [english_list(seed_data.mutation_focus, "None.")]"
+	output += "<span class='notice'>Data may change after sorting.</span>"
+	return output.Join("<br>")
+
+/obj/item/unsorted_seeds/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		to_chat(user, get_analyzer_text())
+
+/obj/item/unsorted_seeds/openTip()
+	var/datum/atom_hud/hydrohud = GLOB.huds[DATA_HUD_HYDROPONIC]
+	if(usr in hydrohud.hudusers)
+		return  // Suppress the default tooltip.
+	return ..()
+
+/obj/item/unsorted_seeds/MouseEntered(location, control, params)
+	. = ..()
+	var/datum/atom_hud/hydrohud = GLOB.huds[DATA_HUD_HYDROPONIC]
+	if(usr in hydrohud.hudusers)
+		openToolTip(usr, src, params, title = name, content = get_analyzer_text(FALSE))
+
+/obj/item/unsorted_seeds/should_stack_with(obj/item/O)
+	if(!..())
+		return FALSE
+	var/obj/item/unsorted_seeds/other = O
+	if(!seed_data.original_seed.should_stack_with(other.seed_data.original_seed))
+		return FALSE
+	if(seed_data.mutation_level != other.seed_data.mutation_level)
+		return FALSE
+	if(length(seed_data.mutation_focus) != length(other.seed_data.mutation_focus))
+		return FALSE
+	return length(seed_data.mutation_focus - other.seed_data.mutation_focus) == 0
