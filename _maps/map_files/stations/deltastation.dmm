@@ -30010,7 +30010,6 @@
 	},
 /area/station/security/detective)
 "bHQ" = (
-/obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
 /obj/item/pen,
@@ -77023,7 +77022,6 @@
 	},
 /area/station/public/locker)
 "kGo" = (
-/obj/structure/table/glass,
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/plasteel{
