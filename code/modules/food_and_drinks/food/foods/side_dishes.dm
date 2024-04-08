@@ -121,8 +121,9 @@
 	if(!istype(I, /obj/item/stack/seaweed))
 		return ..()
 	var/obj/item/stack/seaweed/S = I
-	var/obj/item/food/snacks/onigiri/O = new
-	S.use(1)
+	if(!S.use(1))
+		return ..()
+	var/obj/item/food/snacks/onigiri/O = new(get_turf(user))
 	reagents.trans_to(O, reagents.total_volume)
 	qdel(src)
 	user.put_in_active_hand(O))
