@@ -1,10 +1,3 @@
-/proc/get_area(atom/A)
-	RETURN_TYPE(/area)
-	if(isarea(A))
-		return A
-	var/turf/T = get_turf(A)
-	return T ? T.loc : null
-
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -403,23 +396,21 @@
 
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
-	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
 		if(client_needed && !M.client)
 			continue
-		if(our_area != get_area(M))
+		if(the_area != get_area(M))
 			continue
 		mobs_found += M
 	return mobs_found
 
 /proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
-	var/area/our_area = get_area(the_area)
 	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
 			continue
-		if(our_area == get_area(C))
+		if(the_area == get_area(C))
 			return 0
 	return 1
 
