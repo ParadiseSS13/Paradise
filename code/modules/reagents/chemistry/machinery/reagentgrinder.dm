@@ -29,7 +29,7 @@
 		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
-		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 4),
+		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
 
 		/obj/item/grown/nettle/basic = list("wasabi" = 0),
 		/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
