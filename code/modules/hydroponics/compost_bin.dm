@@ -46,11 +46,13 @@
 	// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
-// Accepts inserted plants and converts them to biomass
+// Accepts inserted plants and converts them to biomass and ammonia
 /obj/machinery/compost_bin/proc/make_biomass(obj/item/food/snacks/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-	biomass += clamp(plant_biomass * 10, 1, biomass_capacity - biomass)
+	var/plant_ammonia = O.reagents.get_reagent_amount("ammonia")
+	biomass += min(max(plant_biomass * 10, 1), biomass_capacity - biomass)
+	ammonia += min(ammonia_capacity - ammonia, plant_ammonia)
 	//plant delenda est
 	qdel(O)
 
@@ -60,22 +62,29 @@
 		return ..()
 
 	if(istype(O, /obj/item/storage/bag/plants))
-		if(biomass >= biomass_capacity)
-			to_chat(user, "<span class='warning'>[src] can't hold any more biomass!</span>")
+		if(biomass >= biomass_capacity && ammonia >= ammonia_capacity)
+			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated!</span>")
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
 		for(var/obj/item/food/snacks/grown/G in PB.contents)
+			// if the plant contains either ammonia, plantmatter and nutriment and the compost bin has space for any of those.
+			if((G.reagents.get_reagent_amount("ammonia") && ammonia <= ammonia_capacity) || ((G.reagents.get_reagent_amount("plantmatter") || G.reagents.get_reagent_amount("nutriment")) && biomass <= biomass_capacity))
+				PB.remove_from_storage(G, src)
+				make_biomass(G)
 
-			PB.remove_from_storage(G, src)
-			make_biomass(G)
-
-			if(biomass >= biomass_capacity)
-				to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+			if(biomass >= biomass_capacity && ammonia >= ammonia_capacity)
 				break
 
-		if(biomass < biomass_capacity)
+		if(biomass >= biomass_capacity)
+			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+		else
 			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
+
+		if(ammonia == ammonia_capacity)
+			to_chat(user, "<span class='info'>You have saturated the contents of [src] with ammonia.</span>")
+		else if(ammonia >= ammonia_capacity * 0.95)
+			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with ammonia.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
