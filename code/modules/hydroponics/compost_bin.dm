@@ -216,3 +216,4 @@
 #undef SOIL_COST
 #undef DECAY
 #undef MIN_CONVERSION
+#undef BIOMASS_AMMONIA
