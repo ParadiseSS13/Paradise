@@ -45422,10 +45422,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Library Backroom";
-	dir = 4
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -83476,16 +83472,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fore2)
-"otq" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "otH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/light{
@@ -153741,7 +153727,7 @@ aPe
 aSr
 aJx
 aVo
-otq
+aWO
 aJx
 aZK
 bbt
