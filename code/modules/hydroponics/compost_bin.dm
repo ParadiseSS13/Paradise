@@ -103,8 +103,10 @@
 		if(ammonia >= ammonia_capacity)
 			to_chat(user, "<span class='warning'>The contents of [src] are saturated with ammonia!</span>")
 			return
+		// Won't pour in more than the amount of ammonia that can be accepted, even if the beaker is not filled with pure ammonia.
 		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this),ammonia_capacity - ammonia) / B.reagents.total_volume
 
+		// Since the character doesn't know what's in the beaker, I'm assuming it is assuming the beaker is full of pure ammonia and pours according to that.
 		for(var/E in B.reagents.reagent_list)
 			var/datum/reagent/R = E
 			if(R.id == "ammonia")
