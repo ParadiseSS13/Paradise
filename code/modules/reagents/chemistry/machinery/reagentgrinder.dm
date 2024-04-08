@@ -1,4 +1,4 @@
-#define PROCESS_TIME 6
+#define PROCESS_TIME_SECONDS 6
 
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
@@ -14,9 +14,9 @@
 	var/operating = FALSE
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit
-	var/processTime = PROCESS_TIME
+	var/processTime = PROCESS_TIME_SECONDS
 	var/efficiency
-	var/obj/item/reagent_containers/internal = null
+	var/obj/item/reagent_containers/internal
 
 	// IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
 	var/list/blend_items = list (
@@ -118,7 +118,7 @@
 	limit = (internal ? 40 : 10) * H
 	efficiency = 0.8 + T * 0.1
 	//Faster by 1 second for every tier on both manipulators, down to 2 seconds at tier 4
-	processTime = PROCESS_TIME - (internal ? T * 0.5 : 0)
+	processTime = PROCESS_TIME_SECONDS - (internal ? T * 0.5 : 0)
 	//Tank volume doubles with each tier of matter bin, starting at 1000.
 	if(internal)
 		internal.reagents.maximum_volume = 1000 * 2**(H-1)
@@ -139,9 +139,9 @@
 
 /obj/machinery/reagentgrinder/update_icon_state()
 	if(beaker)
-		icon_state = internal?"botanitank_beaker":"juicer1"
+		icon_state = internal ? "botanitank_beaker" : "juicer1"
 	else
-		icon_state = internal?"botanitank_empty":"juicer0"
+		icon_state = internal ? "botanitank_empty" : "juicer0"
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -159,7 +159,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, internal?"botanitank_open":"juicer_open", internal?"botanitank_empty":"juicer0", I)
+	default_deconstruction_screwdriver(user, internal ? "botanitank_open" : "juicer_open", internal?"botanitank_empty":"juicer0", I)
 
 /obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -407,7 +407,7 @@
 	qdel(O)
 
 /obj/machinery/reagentgrinder/proc/juice()
-	var/obj/item/reagent_containers/B = null
+	var/obj/item/reagent_containers/B
 	if(internal)
 		B = internal
 	else
@@ -447,7 +447,7 @@
 			return
 
 /obj/machinery/reagentgrinder/proc/grind()
-	var/obj/item/reagent_containers/B = null
+	var/obj/item/reagent_containers/B
 	if(internal)
 		B = internal
 	else
@@ -581,7 +581,7 @@
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	internal = new /obj/item/reagent_containers/glass/beaker/noreact
-	processTime = PROCESS_TIME
+	processTime = PROCESS_TIME_SECONDS
 
 
 //Empty version
@@ -681,4 +681,4 @@
 		internal.reagents.remove_reagent(E.id,E.volume)
 
 
-#undef PROCESS_TIME
+#undef PROCESS_TIME_SECONDS
