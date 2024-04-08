@@ -19,8 +19,16 @@
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
 	holder_type = /obj/item/holder/drone
+	hat_offset_y = -15
+	is_centered = TRUE
+	can_be_hatted = TRUE
+	can_wear_restricted_hats = TRUE
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
+	/// The linked control mod
+	var/obj/item/mod/control/linked_control_mod
+	/// The original module that was used to summon this drone
+	var/obj/item/mod/module/drone/drone_module
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -45,10 +53,11 @@
 		/obj/item/stack/tile
 	)
 
-	/// The linked control mod
-	var/obj/item/mod/control/linked_control_mod
-	/// The original module that was used to summon this drone
-	var/obj/item/mod/module/drone/drone_module
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/set_mail_tag,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor)
 
 	/// The pathfinding datum for this drone
 	var/datum/pathfinding_mover/pathfinding
@@ -148,6 +157,7 @@
 			overlays += "eyes-repairbot-pathfinding"
 	else
 		overlays -= "eyes"
+	update_hat_icons()
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
@@ -473,3 +483,5 @@
 	pathfinding = new_pathfind
 	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
 	update_icons()
+
+#undef EMAG_TIMER

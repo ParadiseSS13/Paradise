@@ -528,3 +528,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 #undef HOLOPAD_PASSIVE_POWER_USAGE
 #undef HOLOGRAM_POWER_USAGE
+
+#undef RANGE_BASED
+#undef AREA_BASED
+#undef HOLOPAD_MODE

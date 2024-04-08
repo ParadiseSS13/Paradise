@@ -1,6 +1,6 @@
 #define GIBBER_ANIMATION_DELAY 16
 /obj/machinery/gibber
-	name = "Gibber"
+	name = "\improper Gibber"
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
@@ -426,3 +426,5 @@
 			sleep(1)
 	if(spats)
 		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+
+#undef GIBBER_ANIMATION_DELAY

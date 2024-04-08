@@ -134,10 +134,10 @@
 
 	var/dat = {"<table>"}
 
-	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><b>Headset:</b></td><td><a href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</a></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><b>Collar:</b></td><td><a href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</a></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -283,6 +283,10 @@
  */
 /mob/living/simple_animal/parrot/Life(seconds, times_fired)
 	..()
+
+	if(held_item?.loc != src)
+		held_item = null
+		update_held_icon()
 
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
@@ -757,3 +761,11 @@
 
 /mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
 	return is_type_in_typecache(destination, desired_perches)
+
+#undef PARROT_PERCH
+#undef PARROT_SWOOP
+#undef PARROT_WANDER
+#undef PARROT_STEAL
+#undef PARROT_ATTACK
+#undef PARROT_RETURN
+#undef PARROT_FLEE

@@ -17,7 +17,7 @@
 	name = "invasive camera utility"
 	desc = "How did this get here?! Please report this as a bug to github"
 	power_state = NO_POWER_USE
-	requires_power = FALSE
+	interact_offline = TRUE
 	silent_console = TRUE
 
 /obj/item/camera_bug/Initialize(mapload)

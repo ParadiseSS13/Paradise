@@ -213,6 +213,7 @@
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
+	holder_type = /obj/item/holder/chicken
 	can_hide = TRUE
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -233,11 +234,20 @@
 				C.name = name
 			if(mind)
 				mind.transfer_to(C)
+			if(pcollar)
+				var/the_collar = pcollar
+				unEquip(pcollar)
+				C.add_collar(the_collar)
 			qdel(src)
 
 
 /mob/living/simple_animal/chick/npc_safe(mob/user)
 	return TRUE
+
+/mob/living/simple_animal/chick/attack_hand(mob/living/carbon/human/M)
+	if(M.a_intent == INTENT_HELP)
+		get_scooped(M, TRUE)
+	..()
 
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
@@ -522,3 +532,5 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder/cow/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("milk", 20)
+
+#undef MAX_CHICKENS
