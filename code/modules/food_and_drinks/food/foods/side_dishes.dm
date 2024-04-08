@@ -127,7 +127,6 @@
 	qdel(src)
 	if(!user.put_in_active_hand(O))
 		O.forceMove(get_turf(user))
-	return
 
 /obj/item/food/snacks/roastparsnip
 	name = "roast parsnip"
