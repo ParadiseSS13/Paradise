@@ -45,6 +45,13 @@
 	if(.)
 		. = "e[.]"
 
+// Functionally the \a macro, for the cases where you put a bicon between "some [bicon] pop corn"
+/datum/proc/p_a(temp_gender)
+	var/backslash_a = "\a [src]"
+	backslash_a = splittext_char(backslash_a, " ")
+	if(length(backslash_a) >= 2) // ["some", "pop", "corn"], but we dont want "\a ["Thing"]" which is just ["Thing"]
+		. = backslash_a[1]
+
 //like clients, which do have gender.
 /client/p_they(capitalized, temp_gender)
 	if(!temp_gender)
