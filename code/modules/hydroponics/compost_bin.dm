@@ -139,7 +139,7 @@
 	//Converts up to 20% of the biomass to compost each cycle, minimum of 10 converted.
 	//In the presence of ammonia will create saltpetre crystals instead. Using at most the amount of biomass that would've been used for compost
 	//And making compost from whatever part of that amount it didn't use.
-	var/conversion_amount = clamp(DECAY * biomass, min(MIN_CONVERSION, biomass), compost_capacity - compost)
+	var/conversion_amount = max(DECAY * biomass, min(MIN_CONVERSION, biomass))
 	var/saltpetre_conversion_amont = 0
 	var/used_ammonia = 0
 
@@ -152,6 +152,8 @@
 		saltpetre -= round(saltpetre)
 		conversion_amount -= saltpetre_conversion_amont
 		ammonia -= used_ammonia
+
+	conversion_amount = min(conversion_amount, compost_capacity - compost)
 
 	biomass -= conversion_amount + saltpetre_conversion_amont
 	compost += conversion_amount
