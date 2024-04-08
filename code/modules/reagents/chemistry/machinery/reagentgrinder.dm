@@ -584,7 +584,7 @@
 	processTime = PROCESS_TIME
 
 
-//empty version
+//Empty version
 
 /obj/machinery/reagentgrinder/Botanitank/empty
 	icon_state = "botanitank_empty"
