@@ -511,7 +511,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		..()
 		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
-		else if(!is_station_level(z) || isspacearea(get_area(src))
+		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", T)
 		user.visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>",
 							"<span class='cult'>You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
