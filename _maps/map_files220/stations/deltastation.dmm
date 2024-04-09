@@ -254,7 +254,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "adb" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry)
@@ -14411,7 +14411,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "bkd" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin/nanotrasen{
@@ -31549,7 +31549,7 @@
 /area/station/ai_monitored/storage/eva)
 "cxa" = (
 /turf/simulated/wall/r_wall,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cxc" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -31563,7 +31563,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cxd" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -31842,14 +31842,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cyi" = (
 /obj/structure/bookcase,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cyj" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -31861,14 +31861,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cyl" = (
 /obj/machinery/ai_status_display/north,
 /obj/machinery/camera{
 	c_tag = "Public Meeting Room"
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cym" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -31882,7 +31882,7 @@
 "cyn" = (
 /obj/machinery/status_display/directional/north,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cyp" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -31895,7 +31895,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cyr" = (
 /obj/machinery/camera{
 	c_tag = "Expedition Access";
@@ -32352,7 +32352,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -32369,30 +32369,30 @@
 	},
 /obj/effect/landmark/start/vip,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czN" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czO" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/bottle/whiskey,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czP" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
 /obj/effect/landmark/start/vip,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czT" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/cable{
@@ -32409,7 +32409,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "czV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -32749,17 +32749,17 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBo" = (
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBp" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
 /obj/effect/landmark/start/vip,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBq" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar/havana{
@@ -32771,25 +32771,25 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBr" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/pen,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBs" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
 /obj/effect/landmark/start/vip,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBt" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBu" = (
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase,
@@ -32799,7 +32799,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cBv" = (
 /obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
@@ -33074,44 +33074,44 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCM" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCN" = (
 /obj/item/kirbyplants,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCO" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
 /obj/effect/landmark/start/vip,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCP" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCQ" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
 /obj/effect/landmark/start/vip,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCR" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCS" = (
 /obj/structure/table/wood,
 /obj/item/paicard,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCT" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom/directional/east,
@@ -33122,7 +33122,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "cCV" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -48141,7 +48141,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "dZp" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
@@ -56064,7 +56064,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "gzd" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -57171,7 +57171,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "gRS" = (
 /turf/simulated/floor/wood/oak,
 /area/station/service/bar/atrium)
@@ -59698,7 +59698,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "hHk" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/decal/cleanable/dirt,
@@ -63165,7 +63165,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "iJq" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -71654,7 +71654,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "lsa" = (
 /obj/machinery/icemachine,
 /obj/structure/sign/poster/official/random/north,
@@ -77560,7 +77560,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "nnZ" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
@@ -80570,7 +80570,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "oeZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -81238,7 +81238,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "opB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -83187,7 +83187,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "oZd" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -85528,7 +85528,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "pJw" = (
 /obj/machinery/power/rad_collector,
 /obj/structure/cable/yellow{
@@ -86973,7 +86973,7 @@
 "qih" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "qin" = (
 /obj/structure/closet/crate/medical,
 /obj/item/storage/box/beakers{
@@ -92581,7 +92581,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "rVa" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -104023,7 +104023,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "vBV" = (
 /mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plating,
@@ -105123,7 +105123,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "vTJ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -105739,7 +105739,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "wbZ" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
@@ -106239,7 +106239,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "wlm" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -106781,7 +106781,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "wvX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -107467,7 +107467,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "wHH" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -112470,7 +112470,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/wood/oak,
-/area/station/science/robotics/showroom)
+/area/station/public/vacant_office/secondary)
 "yki" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
