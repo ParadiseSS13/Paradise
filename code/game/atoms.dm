@@ -1096,7 +1096,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!message)
 		return
 	var/list/speech_bubble_hearers = list()
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client

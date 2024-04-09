@@ -5521,13 +5521,10 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/security/prison/cell_block/A)
 "atb" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/carpet/cyan,
 /area/station/security/prison/cell_block/A)
 "atc" = (
@@ -5557,13 +5554,10 @@
 	},
 /area/station/security/prison/cell_block/A)
 "ate" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -7807,26 +7801,20 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "azN" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
 	},
 /area/station/security/prison/cell_block/A)
 "azO" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -7890,15 +7878,12 @@
 	},
 /area/station/security/prisonershuttle)
 "azW" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 5";
-	name = "Cell 5 Locker"
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Cell 5";
 	dir = 9
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
 "azX" = (
@@ -59201,7 +59186,7 @@
 /area/station/hallway/primary/central/south)
 "gCu" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "gCE" = (
