@@ -1,10 +1,3 @@
-/proc/get_area(atom/A)
-	RETURN_TYPE(/area)
-	if(isarea(A))
-		return A
-	var/turf/T = get_turf(A)
-	return T ? T.loc : null
-
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -159,30 +152,22 @@
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
 // being unable to hear people due to being in a box within a bag.
 
-/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = 1, sight_check = 1, include_radio = 1)
-
-	//GLOB.debug_mob += O.contents.len
+/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = TRUE, sight_check = TRUE)
 	if(!recursion_limit)
 		return L
 	for(var/atom/A in O.contents)
-
 		if(ismob(A))
 			var/mob/M = A
 			if(client_check && !M.client)
-				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
 				continue
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= M
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && isradio(A))
-			if(sight_check && !isInSight(A, O))
-				continue
-			L |= A
-
 		if(isobj(A) || ismob(A))
-			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
 	return L
 
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
@@ -197,22 +182,16 @@
 	if(!T)
 		return hear
 
-	var/list/range = hear(R, T)
-
-	for(var/atom/A in range)
+	for(var/atom/A in hear(R, T))
 		if(ismob(A))
 			var/mob/M = A
 			if(M.client || include_clientless)
 				hear += M
-			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(isradio(A))
-			hear += A
 
 		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
+			hear |= recursive_mob_check(A, hear, 3, TRUE, FALSE)
 
 	return hear
-
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
@@ -234,7 +213,6 @@
 			if(speaker)
 				for(var/turf/T in hear(R.canhear_range,speaker))
 					speaker_coverage[T] = T
-
 
 	// Try to find all the players who can hear the message
 	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
@@ -345,14 +323,6 @@
 
 	return candidates
 
-/proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
-	if(!isobj(O))	O = new /obj/screen/text()
-	O.maptext = maptext
-	O.maptext_height = maptext_height
-	O.maptext_width = maptext_width
-	O.screen_loc = screen_loc
-	return O
-
 /proc/remove_images_from_clients(image/I, list/show_to)
 	for(var/client/C in show_to)
 		C.images -= I
@@ -426,23 +396,21 @@
 
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
-	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
 		if(client_needed && !M.client)
 			continue
-		if(our_area != get_area(M))
+		if(the_area != get_area(M))
 			continue
 		mobs_found += M
 	return mobs_found
 
 /proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
-	var/area/our_area = get_area(the_area)
 	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
 			continue
-		if(our_area == get_area(C))
+		if(the_area == get_area(C))
 			return 0
 	return 1
 
@@ -511,7 +479,7 @@
 			var/turf/T = get_turf(vent)
 			var/mobs_nearby = FALSE
 			for(var/mob/living/M in orange(7, T))
-				if(M.is_dead()) //we don't care about dead mobs
+				if(M.stat == DEAD) //we don't care about dead mobs
 					continue
 				if(!M.client && !istype(get_area(T), /area/station/science/xenobiology)) //we add an exception here for clientless mobs (apart from ones near xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs)
 					continue

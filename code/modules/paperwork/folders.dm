@@ -1,6 +1,6 @@
 /obj/item/folder
 	name = "folder"
-	desc = "A folder."
+	desc = "A folder for keeping all your important papers and photos."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder"
 	w_class = WEIGHT_CLASS_SMALL
@@ -14,19 +14,19 @@
 		A.emp_act(severity)
 
 /obj/item/folder/blue
-	desc = "A blue folder."
+	desc = "A blue folder for keeping all the blueprints of your great ideas."
 	icon_state = "folder_blue"
 
 /obj/item/folder/red
-	desc = "A red folder."
+	desc = "A red folder for storing all the documents you've \"acquired\"."
 	icon_state = "folder_red"
 
 /obj/item/folder/yellow
-	desc = "A yellow folder."
+	desc = "A yellow folder for keeping all your very important court forms."
 	icon_state = "folder_yellow"
 
 /obj/item/folder/white
-	desc = "A white folder."
+	desc = "A white folder for holding medical records, if anyone ever prints any."
 	icon_state = "folder_white"
 
 /obj/item/folder/update_overlays()
@@ -46,10 +46,10 @@
 		return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = "<title>[name]</title>"
+	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];remove=\ref[P]'>Remove</A> - <A href='?src=[UID()];read=\ref[P]'>[P.name]</A><BR>"
+		dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
 	for(var/obj/item/photo/Ph in src)
 		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/paper_bundle/Pa in src)

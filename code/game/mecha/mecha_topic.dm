@@ -4,7 +4,7 @@
 ////////////////////////////////////
 
 /obj/mecha/proc/get_stats_html()
-	var/output = {"<html>
+	var/output = {"<html><meta charset='utf-8'>
 						<head><title>[name] data</title>
 						<style>
 						body {color: #00ff00; background: #000000; font-family:"Lucida Console",monospace; font-size: 12px;}
@@ -150,7 +150,7 @@
 
 
 /obj/mecha/proc/get_log_html()
-	var/output = "<html><head><title>[name] Log</title></head><body style='font: 13px 'Courier', monospace;'>"
+	var/output = "<html><meta charset='utf-8'><head><title>[name] Log</title></head><body style='font: 13px 'Courier', monospace;'>"
 	for(var/list/entry in log)
 		output += {"<div style='font-weight: bold;'>[time2text(entry["time"],"DDD MMM DD hh:mm:ss")] 2555</div>
 						<div style='margin-left:15px; margin-bottom:10px;'>[entry["message"]]</div>
@@ -169,7 +169,7 @@
 
 /obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user) return
-	var/output = {"<html>
+	var/output = {"<html><meta charset='utf-8'>
 						<head><style>
 						h1 {font-size:15px;margin-bottom:4px;}
 						body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
@@ -199,7 +199,7 @@
 
 /obj/mecha/proc/output_maintenance_dialog(obj/item/card/id/id_card,mob/user)
 	if(!id_card || !user) return
-	var/output = {"<html>
+	var/output = {"<html><meta charset='utf-8'>
 						<head>
 						<style>
 						body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
@@ -331,7 +331,7 @@
 				state = 1
 				to_chat(user, "The securing bolts are now exposed.")
 				if(occupant)
-					occupant.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+					occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 			else if(state==1)
 				state = 0
 				to_chat(user, "The securing bolts are now hidden.")

@@ -239,7 +239,7 @@
 	if(!ishuman(M))
 		return
 
-	if(istype(over, /obj/screen))
+	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
 		switch(over.name)
@@ -496,7 +496,7 @@
 	if(length(cards) <= 2)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	..()
 
 /obj/item/cardhand/update_name()

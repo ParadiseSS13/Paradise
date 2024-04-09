@@ -72,7 +72,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		inv.update_icon()
 
 	if(wear_suit)
@@ -113,15 +113,6 @@
 	else
 		overlays_standing[X_HEAD_LAYER]	= null
 	update_icons()
-
-
-/mob/living/carbon/alien/humanoid/update_inv_pockets()
-	if(l_store)
-		l_store.screen_loc = ui_storage1
-	if(r_store)
-		r_store.screen_loc = ui_storage2
-	update_icons()
-
 
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()
 	..()

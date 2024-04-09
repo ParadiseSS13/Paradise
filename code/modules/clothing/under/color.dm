@@ -13,7 +13,13 @@
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
-	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
+	var/list/excluded = list(/obj/item/clothing/under/color/random,
+							/obj/item/clothing/under/color/blue/dodgeball,
+							/obj/item/clothing/under/color/orange/prison,
+							/obj/item/clothing/under/color/red/dodgeball,
+							/obj/item/clothing/under/color/red/jersey,
+							/obj/item/clothing/under/color/blue/jersey,
+							/obj/item/clothing/under/color/white/enforcer)
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
@@ -125,7 +131,8 @@
 	item_state = "p_suit"
 	item_color = "purple"
 
-/obj/item/clothing/under/color/purple/sensor	//for jani ert
+/// for jani ert
+/obj/item/clothing/under/color/purple/sensor
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 

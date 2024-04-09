@@ -241,9 +241,9 @@
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active)
+	if(!jetpack_active || !isturf(user.loc))
 		return
-	var/turf/T = get_step(src, GetOppositeDir(direction))
+	var/turf/T = get_step(src, reverse_direction(direction))
 	if(!has_gravity(T))
 		new /obj/effect/particle_effect/ion_trails(T, direction)
 
@@ -268,7 +268,7 @@
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
-			if(istype(over_object, /obj/screen/inventory/hand))
+			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				for(var/obj/item/part as anything in mod_parts)
 					if(part.loc != src)
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
@@ -416,7 +416,6 @@
 		..()
 
 /obj/item/mod/control/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
 		bag.forceMove(user)
 		bag.show_to(user)
@@ -428,9 +427,9 @@
 		return bag.can_be_inserted(I, stop_messages)
 	return FALSE
 
-/obj/item/mod/control/proc/handle_item_insertion(I, prevent_warning)
+/obj/item/mod/control/proc/handle_item_insertion(I, mob/user, prevent_warning)
 	if(bag)
-		bag.handle_item_insertion(I, prevent_warning)
+		bag.handle_item_insertion(I, user, prevent_warning)
 
 /obj/item/mod/control/get_cell()
 	if(!open)
@@ -486,7 +485,7 @@
 	return ..()
 
 /obj/item/mod/control/update_icon_state()
-	if(current_disguise)
+	if(current_disguise || isnull(chameleon_action) || active)
 		icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 
@@ -657,7 +656,7 @@
 	if(!wearer)
 		return
 	if(!core)
-		wearer.throw_alert("mod_charge", /obj/screen/alert/nocell)
+		wearer.throw_alert("mod_charge", /atom/movable/screen/alert/nocell)
 		return
 	core.update_charge_alert()
 

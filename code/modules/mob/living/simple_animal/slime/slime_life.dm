@@ -114,7 +114,7 @@
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
 		if(bodytemperature <= (T0C - 40)) // stun temperature
 			Tempstun = TRUE
-			throw_alert("temp", /obj/screen/alert/cold, 3)
+			throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 			to_chat(src,"<span class='userdanger'>You suddenly freeze up, you cannot move!</span>")
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature

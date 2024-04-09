@@ -88,29 +88,23 @@
 	popup.set_content(output)
 	popup.open(FALSE)
 
-/mob/new_player/Stat()
-	..()
-	if(statpanel("Status") && SSticker)
+/mob/new_player/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(SSticker)
 		if(!SSticker.hide_mode)
-			stat("Game Mode: [GLOB.master_mode]")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
-			stat("Game Mode: Secret")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			if(SSticker.ticker_going)
-				stat("Time To Start: [round(SSticker.pregame_timeleft/10)]")
-			else
-				stat("Time To Start:", "DELAYED")
-
-			stat("Players: [totalPlayers]")
+			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
 			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready: [totalPlayersReady]")
-			totalPlayers = 0
+				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key] [(player.ready) ? ("(Playing)") : (null)]")
-				totalPlayers++
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 				if(player.ready)
 					totalPlayersReady++
 
@@ -445,7 +439,7 @@
 	var/mins = (mills % 36000) / 600
 	var/hours = mills / 36000
 
-	var/dat = "<html><body><center>"
+	var/dat = "<html><meta charset='utf-8'><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 	dat += "<b>The station alert level is: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
@@ -557,11 +551,12 @@
 
 	if(mind)
 		mind.active = FALSE					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
-			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+		if(mind.assigned_role == "Clown")
+			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
 			new_character.rename_self("clown")
 		else if(mind.assigned_role == "Mime")
-			new_character.real_name = pick(GLOB.mime_names)
+			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
 			new_character.rename_self("mime")
 		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active

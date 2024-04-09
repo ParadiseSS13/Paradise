@@ -28,6 +28,7 @@
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
@@ -39,19 +40,25 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
-	var/list/mob/dead/observer/spirits
+	/// List of wisps we have active, for cleanup purposes in case a ghost gets randomly deleted.
+	var/list/obj/effect/wisp/ghost/orbs
+	/// List of ghosts currently orbiting us.
+	var/list/mob/dead/observer/ghosts
 
 /obj/item/melee/ghost_sword/New()
 	..()
-	spirits = list()
+	ghosts = list()
+	orbs = list()
 	register_signals(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
-	for(var/mob/dead/observer/G in spirits)
+	for(var/mob/dead/observer/G in ghosts)
 		remove_ghost(G)
-	spirits.Cut()
+	// if there are any orbs left (possibly detached from ghosts) ensure they don't stick around
+	for(var/spirit as anything in orbs)
+		qdel(spirit)
 	remove_signals(src)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.poi_list -= src
@@ -59,8 +66,8 @@
 
 /obj/item/melee/ghost_sword/examine()
 	. = ..()
-	if(length(spirits))
-		. += "It appears to pulse with the power of [length(spirits)] vengeful spirits!"
+	if(length(orbs))
+		. += "It appears to pulse with the power of [length(orbs)] vengeful spirit\s!"
 	else
 		. += "It glows weakly."
 
@@ -83,7 +90,7 @@
 /obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
 	var/mob/dead/observer/ghost = orbiter
-	if(!istype(ghost) || !isobserver(orbiter) || (ghost in spirits))
+	if(!istype(ghost) || !isobserver(orbiter) || (ghost in ghosts))
 		return
 
 	if(!ismob(loc))
@@ -91,23 +98,34 @@
 		// they'll get added to spirits (and turned visible) when the sword enters a mob's hand then
 		return
 
-	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts TODO THIS MIGHT BE THE FUCKIN PROBLEM
+	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts
 
-	spirits |= ghost
-	ghost.invisibility = 0
+
+	var/obj/effect/wisp/ghost/orb = new(src)
+	orb.color = ghost.get_runechat_color()
+	orb.alpha = 128
+	orb.orbit(src, clockwise = FALSE)
+	ghosts[ghost] = orb
+	orbs.Add(orb)
+
+	// if a ghost gets deleted, the orb cleans itself up
+	// which then passes the torch to us to clean ourselves up
+	RegisterSignal(orb, COMSIG_PARENT_QDELETING, PROC_REF(on_orb_qdel))
 
 /obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
 
 	var/mob/dead/observer/ghost = orbiter
 
-	if(!istype(ghost) || !isobserver(ghost) || !(ghost in spirits))
+	if(!istype(ghost) || !(ghost in ghosts))
 		return
 
 	remove_signals(ghost)
 
-	spirits -= ghost
-	ghost.invisibility = initial(ghost.invisibility)
+	var/obj/effect/wisp/ghost/attached_orb = ghosts[ghost]
+	attached_orb.stop_orbit()
+	qdel(attached_orb)
+	ghosts -= ghost
 
 /obj/item/melee/ghost_sword/proc/remove_signals(atom/A)
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_STOP)
@@ -126,7 +144,7 @@
 
 	if(ismob(old_loc))
 		remove_signals(old_loc)
-		for(var/mob/dead/observer/orbiter in spirits)
+		for(var/mob/dead/observer/orbiter in ghosts)
 			remove_ghost(src, orbiter)
 
 	if(ismob(loc))
@@ -135,19 +153,47 @@
 		for(var/mob/dead/observer/orbiter in get_orbiters_up_hierarchy(recursive = TRUE))
 			add_ghost(src, orbiter)
 
+// clean up wisps
+/obj/item/melee/ghost_sword/proc/on_orb_qdel(obj/effect/wisp/ghost/orb)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	orbs -= orb
+	for(var/ghost in ghosts)
+		if(ghosts[ghost] == orb)
+			ghosts -= ghost
+			break
+
+
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
-	var/ghost_counter = length(spirits)
+	var/ghost_counter = length(orbs)
 
 	force = clamp((ghost_counter * 4), 0, 75)
-	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
+	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirit\s!</span>")
 	..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/ghost_counter = length(spirits)
+	var/ghost_counter = length(orbs)
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
+	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghost\s!</span>")
 	return ..()
+
+
+/obj/effect/wisp/ghost
+	name = "mischievous wisp"
+	desc = "A wisp that seems to want to get up to shenanigans. It often seems disappointed, for some reason."
+	light_range = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/wisp/ghost/Initialize(mapload, mob/dead/observer/ghost)
+	. = ..()
+	RegisterSignal(ghost, COMSIG_PARENT_QDELETING, PROC_REF(on_ghost_qdel))
+
+/obj/effect/wisp/ghost/proc/on_ghost_qdel(mob/dead/observer/ghost)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	stop_orbit()
+	// we only live as long as our attached ghost
+	qdel(src)
+
 
 // Blood
 
@@ -171,7 +217,7 @@
 		if(2)
 			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
+				var/datum/spell/shapeshift/dragon/D = new
 				user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")

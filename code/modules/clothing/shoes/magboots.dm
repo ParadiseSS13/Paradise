@@ -52,7 +52,7 @@
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	check_mag_pulse(user)
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
@@ -94,7 +94,8 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
+/// For the Syndicate Strike Team/SolGov/Tactical Teams
+/obj/item/clothing/shoes/magboots/elite
 	name = "elite tactical magboots"
 	desc = "Advanced magboots used by strike teams across the system. Allows for tactical insertion into low-gravity areas of operation."
 	icon_state = "elitemag0"
@@ -143,7 +144,8 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
-/obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
+/// bundled with the wiz hardsuit
+/obj/item/clothing/shoes/magboots/wizard
 	name = "boots of gripping"
 	desc = "These magical boots, once activated, will stay gripped to any surface without slowing you down."
 	icon_state = "wizmag0"
@@ -153,15 +155,16 @@
 	magical = TRUE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
-	if(user)
-		if(user.mind in SSticker.mode.wizards)
-			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-				set_light(0)
-			else
-				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
-			..()
-		else
-			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+	if(!user)
+		return
+	if(!iswizard(user))
+		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+		return
+	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
+		set_light(0)
+	else
+		set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+	..()
 
 
 /obj/item/clothing/shoes/magboots/gravity

@@ -96,21 +96,21 @@
 		var/dat
 		dat = "Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=cellremove'>Installed</a><br>"
 		else
-			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=cellinstall'>Removed</a><br>"
 
-		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
+		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<br><br>"
 
 		dat += "Set Temperature: "
 
-		dat += "<A href='?src=[UID()];op=temp;val=-5'>-</A>"
+		dat += "<a href='?src=[UID()];op=temp;val=-5'>-</a>"
 
 		dat += " [set_temperature]&deg;C "
-		dat += "<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"
+		dat += "<a href='?src=[UID()];op=temp;val=5'>+</a><br>"
 
 		user.set_machine(src)
-		user << browse("<HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=spaceheater")
+		user << browse("<meta charset='utf-8'><head><title>Space Heater Control Panel</title></head><tt>[dat]</tt>", "window=spaceheater")
 		onclose(user, "spaceheater")
 
 	else

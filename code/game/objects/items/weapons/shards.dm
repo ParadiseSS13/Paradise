@@ -21,8 +21,8 @@
 	var/obj/item/stack/sheet/welded_type = /obj/item/stack/sheet/glass
 
 /obj/item/shard/suicide_act(mob/user)
-		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
-									"<span class='danger'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+									"<span class='danger'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 		return BRUTELOSS
 
 /obj/item/shard/proc/set_initial_icon_state()

@@ -45,7 +45,8 @@
 		return ..(active_with_role)
 	return 0*/
 
-/datum/event	//NOTE: Times are measured in master controller ticks!
+/// NOTE: Times are measured in master controller ticks!
+/datum/event
 	/// The human-readable name of the event
 	var/name
 	/// When in the lifetime to call start().

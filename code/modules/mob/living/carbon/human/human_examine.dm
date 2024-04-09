@@ -31,10 +31,10 @@
 				return "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
 		if("eyes")
 			if(HAS_TRAIT(src, SCRYING))
-				if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+				if(IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
 					return "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
 				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
-			if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+			if(IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
 				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	return msg
@@ -140,7 +140,8 @@
 				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
 
 		for(var/obj/item/I in E.embedded_objects)
-			msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</b>\n"
+			// we cant just use \a here, as we want it to appear before the bicon
+			msg += "<b>[p_they(TRUE)] [p_have()] [I.p_a()] [bicon(I)] [I.name] embedded in [p_their()] [E.name]!</b>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.

@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -67,7 +67,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -78,7 +77,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	var/body = "<html><head><title>Options for [M.key]</title></head>"
+	var/body = "<html><meta charset='UTF-8'><head><title>Options for [M.key]</title></head>"
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
@@ -391,7 +390,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc = "Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do."
 	if(!check_rights(R_SERVER))
 		return
-	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
+	var/input = sanitize(copytext_char(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
 
 	if(!input)
 		return
@@ -509,6 +508,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Unable to start the game as it is not set up.")
 		return
 
+	if(!SSticker.ticker_going)
+		alert("Remove the round-start delay first.")
+		return
+
 	if(GLOB.configuration.general.start_now_confirmation)
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
@@ -589,7 +592,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
+	if(!SSticker)
+		alert("Slow down a moment, let the ticker start first!")
+		return
+		
+	if(SSblackbox)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+	if(SSticker.current_state > GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
@@ -605,7 +615,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -644,13 +653,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Head Rev"
 	if(M.mind.has_antag_datum(/datum/antagonist/rev, FALSE))
 		antag_list += "Revolutionary"
-	if(M.mind in SSticker.mode.cult)
+	if(IS_CULTIST(M))
 		antag_list += "Cultist"
 	if(M.mind in SSticker.mode.syndicates)
 		antag_list += "Nuclear Operative"
-	if(M.mind in SSticker.mode.wizards)
+	if(iswizard(M))
 		antag_list += "Wizard"
-	if(M.mind in SSticker.mode.changelings)
+	if(ischangeling(M))
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
@@ -806,7 +815,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 	set name = "\[Admin\] Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -829,13 +837,13 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		toArea = locate(/area/shuttle/gamma/station)
 		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
 			H.open()
-		GLOB.major_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_deploy.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
 		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
 			H.close() //DOOR STUCK
-		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_recall.ogg')
 	fromArea.move_contents_to(toArea)
 
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
@@ -990,3 +998,30 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
+
+/**
+ * Allows admins to safely pick from SSticker.minds for objectives
+ * - caller, mob to ask for results
+ * - blacklist, optional list of targets that are not available
+ * - default_target, the target to show in the list as default
+ */
+/proc/get_admin_objective_targets(mob/caller, list/blacklist, mob/default_target)
+	if(!islist(blacklist))
+		blacklist = list(blacklist)
+
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(!(possible_target in blacklist) && ishuman(possible_target.current))
+			possible_targets += possible_target.current // Allows for admins to pick off station roles
+
+	if(!length(possible_targets))
+		to_chat(caller, "<span class='warning'>No possible target found.</span>")
+		return
+
+	possible_targets = sortAtom(possible_targets)
+
+	var/mob/new_target = input(caller, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	if(!QDELETED(new_target))
+		return new_target.mind
+
+#undef PLAYER_NOTES_ENTRIES_PER_PAGE

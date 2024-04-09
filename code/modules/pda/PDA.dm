@@ -76,7 +76,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// The slot where you can store a pen
 	var/obj/item/held_pen
 	var/retro_mode = 0
-
+	/// What pen is loaded in the PDA
+	var/obj/item/pen/default_pen = /obj/item/pen
 
 /*
  *	The Actual PDA
@@ -90,7 +91,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	add_pen(new /obj/item/pen(src))
+	add_pen(new default_pen(src))
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -123,7 +124,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && can_use())
+	if((!is_screen_atom(over_object)) && can_use())
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
@@ -395,7 +396,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "The PDA softly beeps.")
 		close(user)
 		return TRUE
-
 	ttone = new_tone
 	return TRUE
 

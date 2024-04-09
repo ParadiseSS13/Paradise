@@ -188,7 +188,8 @@
 /obj/effect/hotspot/singularity_pull()
 	return
 
-/obj/effect/hotspot/fake // Largely for the fireflash procs below
+/// Largely for the fireflash procs below
+/obj/effect/hotspot/fake
 	fake = TRUE
 	burn_time = 30
 

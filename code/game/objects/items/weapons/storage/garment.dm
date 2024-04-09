@@ -113,6 +113,7 @@
 	new /obj/item/clothing/head/surgery/green(src)
 	new /obj/item/clothing/head/surgery/purple(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
+	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/under/rank/medical/scrubs(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/green(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)
@@ -136,6 +137,7 @@
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
+	new /obj/item/clothing/glasses/meson/sunglasses(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 
 /obj/item/storage/bag/garment/nanotrasen_representative
@@ -195,16 +197,18 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the quartermaster."
 
 /obj/item/storage/bag/garment/quartermaster/populate_contents()
-	new /obj/item/clothing/under/rank/cargo/quartermaster(src)
-	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/qm(src)
+	new /obj/item/clothing/under/rank/cargo/qm/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/qm/dress(src)
+	new /obj/item/clothing/under/rank/cargo/qm/formal(src)
+	new /obj/item/clothing/under/rank/cargo/qm/whimsy(src)
 	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/suit/hooded/wintercoat/cargo(src)
-	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
-	new /obj/item/clothing/suit/jacket/cargobomber(src)
-	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/head/qm(src)
+	new /obj/item/clothing/head/qm/beret(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/clothing/suit/qmcoat(src)
+	new /obj/item/clothing/suit/mantle/qm(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
-	new /obj/item/clothing/head/soft(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 

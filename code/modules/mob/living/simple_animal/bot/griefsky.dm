@@ -1,4 +1,5 @@
-/mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
+/// This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
+/mob/living/simple_animal/bot/secbot/griefsky
 	name = "\improper General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
 	icon_state = "griefsky0"
@@ -18,7 +19,8 @@
 	var/spam_flag = 0
 	var/frustration_number = 15
 
-/mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
+/// A toy version of general griefsky!
+/mob/living/simple_animal/bot/secbot/griefsky/toy
 	name = "Genewul Giftskee"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
 	spin_icon = "griefskyj-c"

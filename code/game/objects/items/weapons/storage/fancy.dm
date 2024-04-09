@@ -38,6 +38,7 @@
 
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
+	desc = "\"To do, or do nut, the choice is obvious.\""
 	icon_type = "donut"
 	icon_state = "donutbox"
 	storage_slots = 6
@@ -401,7 +402,7 @@
 	icon_state = "vialbox0"
 	item_state = "syringe_kit"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/glass/bottle)
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)

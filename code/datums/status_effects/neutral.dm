@@ -1,6 +1,7 @@
 //entirely neutral or internal status effects go here
 
-/datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
+/// tracks the damage dealt to this mob by kinetic crushers
+/datum/status_effect/crusher_damage
 	id = "crusher_damage"
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE

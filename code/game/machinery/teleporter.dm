@@ -93,8 +93,7 @@
 		data["teleporterhub"] = null
 		data["calibrated"] = null
 	data["regime"] = regime
-	var/area/targetarea = get_area(target)
-	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
+	data["target"] = (!target || !get_turf(target)) ? "None" : sanitize(get_area(target))
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
@@ -711,3 +710,7 @@
 
 	if(!(stat & NOPOWER) && !panel_open)
 		underlays += emissive_appearance(icon, "controller_lightmask")
+
+#undef REGIME_TELEPORT
+#undef REGIME_GATE
+#undef REGIME_GPS

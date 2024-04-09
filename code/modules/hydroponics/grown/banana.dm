@@ -31,7 +31,7 @@
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/food/snacks/grown/banana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
@@ -69,7 +69,7 @@
 	return ..()
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -133,7 +133,8 @@
 	icon_state = "bluenana_peel"
 
 // Other
-/obj/item/grown/bananapeel/specialpeel     //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
+/// used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
+/obj/item/grown/bananapeel/specialpeel
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
