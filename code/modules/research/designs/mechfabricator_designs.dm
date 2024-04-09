@@ -1080,6 +1080,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_abductor_jani
+	name = "Cyborg Upgrade (Abductor Janitorial Equipment)"
+	id = "borg_upgade_abductor_medi"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/abductor_jani
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 7500, MAT_PLASMA = 2500, MAT_TITANIUM = 7500, MAT_DIAMOND = 5000) //Base abductor jani tools *5
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_lavaproof
 	name = "Cyborg Upgrade (Lavaproof Chassis)"
 	id = "borg_upgrade_lavaproof"
