@@ -196,6 +196,7 @@
 			ID.total_mining_points += points
 			to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
 			points = 0
+			SStgui.update_uis(src)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 		return
