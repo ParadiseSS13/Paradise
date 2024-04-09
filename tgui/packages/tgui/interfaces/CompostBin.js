@@ -17,14 +17,14 @@ export const CompostBin = (props, context) => {
     compost,
     biomass_capacity,
     compost_capacity,
-    ammonia,
-    ammonia_capacity,
+    potassium,
+    potassium_capacity,
   } = data;
 
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
 
   return (
-    <Window width={300} height={250}>
+    <Window width={330} height={250}>
       <Window.Content>
         <Stack fill vertical>
           <Section label="Resources">
@@ -33,7 +33,7 @@ export const CompostBin = (props, context) => {
                 <LabeledList.Item label="Biomass">
                   <ProgressBar
                     ml={1}
-                    width={17}
+                    width={20}
                     value={biomass}
                     minValue={0}
                     maxValue={biomass_capacity}
@@ -57,7 +57,7 @@ export const CompostBin = (props, context) => {
                   <ProgressBar
                     ml={0.5}
                     mt={1}
-                    width={17}
+                    width={20}
                     value={compost}
                     minValue={0}
                     maxValue={compost_capacity}
@@ -77,24 +77,24 @@ export const CompostBin = (props, context) => {
             </Stack>
             <Stack>
               <LabeledList>
-                <LabeledList.Item label="Ammonia">
+                <LabeledList.Item label="Potassium">
                   <ProgressBar
                     ml={0.5}
                     mt={1}
-                    width={17}
-                    value={ammonia}
+                    width={20}
+                    value={potassium}
                     minValue={0}
-                    maxValue={ammonia_capacity}
+                    maxValue={potassium_capacity}
                     ranges={{
-                      good: [ammonia_capacity * 0.5, Infinity],
+                      good: [potassium_capacity * 0.5, Infinity],
                       average: [
-                        ammonia_capacity * 0.25,
-                        ammonia_capacity * 0.5,
+                        potassium_capacity * 0.25,
+                        potassium_capacity * 0.5,
                       ],
-                      bad: [-Infinity, ammonia_capacity * 0.25],
+                      bad: [-Infinity, potassium_capacity * 0.25],
                     }}
                   >
-                    {ammonia} / {ammonia_capacity} Units
+                    {potassium} / {potassium_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>

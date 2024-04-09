@@ -1,7 +1,7 @@
 #define SOIL_COST 25
 #define DECAY 0.2
 #define MIN_CONVERSION 10
-#define BIOMASS_AMMONIA_RATIO 3
+#define BIOMASS_POTASSIUM_RATIO 6
 /**
   * # compost bin
   * used to make soil from plants.
@@ -21,16 +21,16 @@
 	var/biomass = 0
 	/// amount of compost in the compost bin
 	var/compost = 0
-	/// amount of ammonia in the compost bin
-	var/ammonia = 0
+	/// amount of potassium in the compost bin
+	var/potassium = 0
 	/// amount of saltpetre in the conpost bin
 	var/saltpetre = 0
 	/// The maximum amount of biomass the compost bin can store.
 	var/biomass_capacity = 1500
 	/// The maximum amount of compost the compost bin can store.
 	var/compost_capacity = 1500
-	/// The maximum amount of ammonia the compost bin can store.
-	var/ammonia_capacity = 400
+	/// The maximum amount of potassium the compost bin can store.
+	var/potassium_capacity = 200
 
 /obj/machinery/compost_bin/on_deconstruction()
 	// returns wood instead of the non-existent components
@@ -46,13 +46,13 @@
 	// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
-// Accepts inserted plants and converts them to biomass and ammonia
+// Accepts inserted plants and converts them to biomass and potassium
 /obj/machinery/compost_bin/proc/make_biomass(obj/item/food/snacks/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-	var/plant_ammonia = O.reagents.get_reagent_amount("ammonia")
+	var/plant_potassium = O.reagents.get_reagent_amount("potassium")
 	biomass += min(max(plant_biomass * 10, 1), biomass_capacity - biomass)
-	ammonia += min(ammonia_capacity - ammonia, plant_ammonia)
+	potassium += min(potassium_capacity - potassium, plant_potassium)
 	//plant delenda est
 	qdel(O)
 
@@ -62,18 +62,18 @@
 		return ..()
 
 	if(istype(O, /obj/item/storage/bag/plants))
-		if(biomass >= biomass_capacity && ammonia >= ammonia_capacity)
+		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated!</span>")
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
 		for(var/obj/item/food/snacks/grown/G in PB.contents)
-			// if the plant contains either ammonia, plantmatter and nutriment and the compost bin has space for any of those.
-			if((G.reagents.get_reagent_amount("ammonia") && ammonia <= ammonia_capacity) || ((G.reagents.get_reagent_amount("plantmatter") || G.reagents.get_reagent_amount("nutriment")) && biomass <= biomass_capacity))
+			// if the plant contains either potassium, plantmatter and nutriment and the compost bin has space for any of those.
+			if((G.reagents.get_reagent_amount("potassium") && potassium <= potassium_capacity) || ((G.reagents.get_reagent_amount("plantmatter") || G.reagents.get_reagent_amount("nutriment")) && biomass <= biomass_capacity))
 				PB.remove_from_storage(G, src)
 				make_biomass(G)
 
-			if(biomass >= biomass_capacity && ammonia >= ammonia_capacity)
+			if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 				break
 
 		if(biomass >= biomass_capacity)
@@ -81,10 +81,10 @@
 		else
 			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
 
-		if(ammonia == ammonia_capacity)
-			to_chat(user, "<span class='info'>You have saturated the contents of [src] with ammonia.</span>")
-		else if(ammonia >= ammonia_capacity * 0.95)
-			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with ammonia.</span>")
+		if(potassium == potassium_capacity)
+			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
+		else if(potassium >= potassium_capacity * 0.95)
+			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
@@ -109,26 +109,26 @@
 		if(B.reagents.total_volume <= 0)
 			to_chat(user, "<span class='warning'>[B] is empty!</span>")
 			return
-		if(ammonia >= ammonia_capacity)
-			to_chat(user, "<span class='warning'>The contents of [src] are saturated with ammonia!</span>")
+		if(potassium >= potassium_capacity)
+			to_chat(user, "<span class='warning'>The contents of [src] are saturated with potassium!</span>")
 			return
-		// Won't pour in more than the amount of ammonia that can be accepted, even if the beaker is not filled with pure ammonia.
-		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this),ammonia_capacity - ammonia) / B.reagents.total_volume
+		// Won't pour in more than the amount of potassium that can be accepted, even if the beaker is not filled with pure potassium.
+		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this),potassium_capacity - potassium) / B.reagents.total_volume
 
-		// Since the character doesn't know what's in the beaker, I'm assuming it is assuming the beaker is full of pure ammonia and pours according to that.
+		// Since the character doesn't know what's in the beaker, I'm assuming it is assuming the beaker is full of pure potassium and pours according to that.
 		for(var/E in B.reagents.reagent_list)
 			var/datum/reagent/R = E
-			if(R.id == "ammonia")
-				ammonia += min(R.volume * proportion, ammonia_capacity - ammonia)
+			if(R.id == "potassium")
+				potassium += min(R.volume * proportion, potassium_capacity - potassium)
 			B.reagents.remove_reagent(R.id, R.volume*proportion)
 		if(proportion == 1)
 			to_chat(user, "<span class='info'>You empty [B] into [src].</span>")
 		else
 			to_chat(user, "<span class='info'>You pour some of [B] into [src].</span>")
-		if(ammonia == ammonia_capacity)
-			to_chat(user, "<span class='info'>You have saturated the contents of [src] with ammonia.</span>")
-		else if(ammonia >= ammonia_capacity * 0.95)
-			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with ammonia.</span>")
+		if(potassium == potassium_capacity)
+			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
+		else if(potassium >= potassium_capacity * 0.95)
+			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
@@ -139,28 +139,28 @@
 
 //Compost compostable material if there is any
 /obj/machinery/compost_bin/process()
-	if((compost >= compost_capacity && ammonia <= 0) || biomass <= 0)
+	if((compost >= compost_capacity && potassium <= 0) || biomass <= 0)
 		return
 	process_counter++
 	if(process_counter < 5)
 		return
 	process_counter = 0
 	//Converts up to 20% of the biomass to compost each cycle, minimum of 10 converted.
-	//In the presence of ammonia will create saltpetre crystals instead. Using at most the amount of biomass that would've been used for compost
+	//In the presence of potassium will create saltpetre crystals instead. Using at most the amount of biomass that would've been used for compost
 	//And making compost from whatever part of that amount it didn't use.
 	var/conversion_amount = max(DECAY * biomass, min(MIN_CONVERSION, biomass))
 	var/saltpetre_conversion_amont = 0
-	var/used_ammonia = 0
+	var/used_potassium = 0
 
-	if(ammonia >= 0)
-		saltpetre_conversion_amont = min(conversion_amount, ammonia * BIOMASS_AMMONIA_RATIO)
-		used_ammonia = saltpetre_conversion_amont / BIOMASS_AMMONIA_RATIO
-		saltpetre += used_ammonia
+	if(potassium >= 0)
+		saltpetre_conversion_amont = min(conversion_amount, potassium * BIOMASS_POTASSIUM_RATIO)
+		used_potassium = saltpetre_conversion_amont / BIOMASS_POTASSIUM_RATIO
+		saltpetre += used_potassium * 2
 		if(saltpetre/4 >= 1)
 			new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre/4))
 		saltpetre -= round(saltpetre)
 		conversion_amount -= saltpetre_conversion_amont
-		ammonia -= used_ammonia
+		potassium -= used_potassium
 
 	conversion_amount = min(conversion_amount, compost_capacity - compost)
 
@@ -198,8 +198,8 @@
 	data["biomass_capacity"] = biomass_capacity
 	data["compost"] = compost
 	data["compost_capacity"] = compost_capacity
-	data["ammonia"] = ammonia
-	data["ammonia_capacity"] = ammonia_capacity
+	data["potassium"] = potassium
+	data["potassium_capacity"] = potassium_capacity
 	return data
 
 // calls functions according to ui interaction(just making compost for now)
@@ -227,4 +227,4 @@
 #undef SOIL_COST
 #undef DECAY
 #undef MIN_CONVERSION
-#undef BIOMASS_AMMONIA_RATIO
+#undef BIOMASS_POTASSIUM_RATIO
