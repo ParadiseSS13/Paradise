@@ -165,13 +165,13 @@
 	overlays += img
 	storedorgan.pixel_x = organ_x
 	storedorgan.pixel_y = organ_y
-	overlays += "organ_extractor_2" //should look nicer for transparent stuff.
+	overlays += "[icon_state]_2" //should look nicer for transparent stuff.
 
 /// Advanced abductor version. Is a lot faster with implanting into others
 /obj/item/organ_extractor/abductor
 	name = "alien organ extractor"
 	origin_tech = "biotech=6;materials=5;alien=4"
-	color = "#1280da"
+	icon_state = "abductor_extractor"
 	insert_time = 3 SECONDS
 	self_insert_time = 1 SECONDS
 	advanced = TRUE
