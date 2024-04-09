@@ -199,6 +199,7 @@
 			SStgui.update_uis(src)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+		add_fingerprint(usr)
 		return
 
 	else if(istype(I, /obj/item/disk/design_disk))
