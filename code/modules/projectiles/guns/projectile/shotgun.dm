@@ -55,7 +55,7 @@
 	COOLDOWN_START(src, pump_cooldown, pump_time)
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
 	pump_unload(M)
 	pump_reload(M)
 
