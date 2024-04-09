@@ -136,7 +136,7 @@
 	var/turf/runeturf = get_turf(user)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(ispath(rune, /obj/effect/rune/summon))
-		if(!is_station_level(runeturf.z) || isspacearea(A)
+		if(!is_station_level(runeturf.z) || isspacearea(A))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 

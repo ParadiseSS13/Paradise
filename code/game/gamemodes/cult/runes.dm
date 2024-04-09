@@ -907,7 +907,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/choice = tgui_alert(user, "You tear open a connection to the spirit realm...", "Invoke", list("Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel"))
 	if(choice == "Summon a Cult Ghost")
-		if(!is_station_level(z) || isspacearea(get_area(src))
+		if(!is_station_level(z) || isspacearea(get_area(src)))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")
 			fail_invoke()
 			log_game("Manifest rune failed - not on station")
