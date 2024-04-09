@@ -3,9 +3,12 @@
 	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
-	var/list/species_restricted = null	// Only these species can wear this kit.
-	var/scan_reagents = FALSE			// Can the wearer see reagents inside transparent containers while it's equipped?
-	var/scan_reagents_advanced = FALSE	// Can the wearer see reagents inside any container and identify blood types while it's equipped?
+	/// Only these species can wear this kit.
+	var/list/species_restricted = null
+	/// Can the wearer see reagents inside transparent containers while it's equipped?
+	var/scan_reagents = FALSE
+	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
+	var/scan_reagents_advanced = FALSE
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
