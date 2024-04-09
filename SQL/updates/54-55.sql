@@ -1,4 +1,4 @@
-# Updating SQL from 53 to 54 -Octus
+# Updating SQL from 54 to 55 -Octus
 # Adds a new cultural_language column to characters
 
 ALTER TABLE `characters`

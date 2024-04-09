@@ -130,7 +130,7 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	// Language/culture vars.
+	/// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
 	/// Default racial language, if any.
 	var/cultural_language                    // A list of languages locked to specific species.
