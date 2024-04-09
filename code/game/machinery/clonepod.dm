@@ -385,7 +385,7 @@
 		return FALSE
 
 	clone.forceMove(loc)
-	new /obj/effect/gibspawner/generic(get_turf(src), clone)
+	new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
@@ -497,7 +497,7 @@
 		to_chat(inserter, "<span class='warning'>[src]'s organ storage is full!</span>")
 		return
 
-	if(is_int_organ(inserted))
+	if(is_internal_organ(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_INTERNAL_ORGANS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
@@ -508,7 +508,7 @@
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
 
-	if(isorgan(inserted))
+	if(is_external_organ(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_LIMBS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
@@ -570,7 +570,7 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	if(is_int_organ(I) || isorgan(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
+	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
 		insert_organ(I, user)
 		return
 
