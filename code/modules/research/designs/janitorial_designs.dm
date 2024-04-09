@@ -70,6 +70,7 @@
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 	build_path = /obj/item/mop/advanced/abductor
 	category = list("Janitorial")
+
 /datum/design/abductor_light_replacer
 	name = "Alien Light Replacer"
 	desc = "An advanced light replacer obtained through Abductor technology."
