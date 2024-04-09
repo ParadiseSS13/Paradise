@@ -58,9 +58,9 @@
 /**
  * Similarly to the function above, this checks for reagents, except instead of being passed a reagent holder, we're passed
  * [reagent_id] = amount as num.
- * Returns 1 if we have the precise amount thats requested.
- * Returns 0 if we do not have enough.
- * Returns -1 if we have MORE than requested.
+ * Returns REAGENT_CHECK_EXACT if we have the precise amount thats requested.
+ * Returns REAGENT_CHECK_FAILURE if we do not have enough.
+ * Returns REAGENT_CHECK_SURPLUS if we have MORE than requested.
  */
 /datum/recipe/proc/check_reagents_assoc_list(list/avail_reagents)
 	. = REAGENT_CHECK_EXACT
@@ -69,7 +69,7 @@
 		if(!provided_reagent_amount)
 			return REAGENT_CHECK_FAILURE
 
-		if(abs(provided_reagent_amount != reagents[required_reagent_id]) >= 0.5) //if NOT equals, 0.5 tolerance.
+		if(abs(provided_reagent_amount - reagents[required_reagent_id]) >= 0.5) // If amount is outside of the 0.5 unit tolerance
 			if(provided_reagent_amount > reagents[required_reagent_id]) // we have more than necessary
 				. = REAGENT_CHECK_SURPLUS
 			else
@@ -102,9 +102,9 @@
 /**
  * Similarly to the function above, this checks for items, except instead of being passed a reagent holder, we're passed
  * [type_path] = amount as num.
- * Returns 1 if we have the precise amount thats requested.
- * Returns 0 if we do not have enough.
- * Returns -1 if we have MORE than requested.
+ * Returns REAGENT_CHECK_EXACT if we have the precise amount thats requested.
+ * Returns REAGENT_CHECK_FAILURE if we do not have enough.
+ * Returns REAGENT_CHECK_SURPLUS if we have MORE than requested.
  */
 /datum/recipe/proc/check_items_assoc_list(list/given_objects)
 	. = REAGENT_CHECK_EXACT
@@ -117,6 +117,7 @@
 		for(var/i in 1 to amount_given)
 			if(I in checklist)
 				checklist -= I
+			else if(I in items) // make sure the recipe requires this item before declaring it surplus
 				. = REAGENT_CHECK_SURPLUS
 	if(length(checklist)) // we didnt get everything
 		return REAGENT_CHECK_FAILURE
