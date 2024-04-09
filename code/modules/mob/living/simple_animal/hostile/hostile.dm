@@ -358,16 +358,6 @@
 		return FALSE
 	LoseTarget()
 
-/mob/living/simple_animal/hostile/proc/summon_backup(distance)
-	do_alert_animation(src)
-	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
-	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
-		if(faction_check_mob(M, TRUE))
-			if(M.AIStatus == AI_OFF)
-				return
-			else
-				M.Goto(src,M.move_to_delay,M.minimum_distance)
-
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
 	if(check_friendly_fire)
 		for(var/turf/T in get_line(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
