@@ -1,6 +1,3 @@
-#define MATTER_100 100
-#define MATTER_500 500
-
 #define TAB_AIRLOCK_TYPE	1
 #define TAB_AIRLOCK_ACCESS	2
 
@@ -234,7 +231,7 @@
 	/// The current amount of matter stored.
 	var/matter = NONE
 	/// The max amount of matter that can be stored.
-	var/max_matter = MATTER_100
+	var/max_matter = 100
 	/// The RCD's current build mode.
 	var/mode = MODE_TURF
 	/// If the RCD can deconstruct reinforced walls.
@@ -663,8 +660,8 @@
 	name = "combat RCD"
 	icon_state = "crcd"
 	item_state = "crcd"
-	max_matter = MATTER_500
-	matter = MATTER_500
+	max_matter = 500
+	matter = 500
 	canRwall = TRUE
 
 /obj/item/rcd_ammo
@@ -688,9 +685,6 @@
 
 /obj/item/rcd_ammo/large
 	ammoamt = 100
-
-#undef MATTER_100
-#undef MATTER_500
 
 #undef TAB_AIRLOCK_TYPE
 #undef TAB_AIRLOCK_ACCESS
