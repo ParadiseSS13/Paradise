@@ -539,7 +539,13 @@
 	colour = "com_srus"
 	key = "?"
 	space_chance = 65
-	english_names = 1
+	partial_understanding = list(
+		/datum/language/common =15,
+		/datum/language/yangyu = 35,
+		/datum/language/trader = 15,
+		/datum/language/euro = 40,
+		/datum/language/spacer = 25
+	)
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
 					"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
 					"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
@@ -550,6 +556,10 @@
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
+/datum/language/com_srus/get_random_name()
+	var/new_name = "[pick(list("Aleksandr", "Anastasia", "Dmitri", "Elena", "Igor", "Irina", "Ivan", "Katya", "Mikhail", "Natalia", "Nikolai", "Olga", "Pavel", "Sergei", "Sofia", "Vladimir", "Yulia", "Boris", "Galina", "Grigori", "Ksenia", "Larisa", "Leonid", "Ludmila", "Maksim", "Marina", "Nikita", "Oleg", "Polina", "Roman", "Ruslan", "Stanislav", "Svetlana", "Tatiana", "Valentina", "Victor", "Yana", "Yaroslav", "Zhanna", "Anton", "Artem", "Danila", "Denis", "Fedor", "Georgi", "Inna", "Karina", "Kirill", "Lidia", "Margarita", "Oksana", "Raisa", "Tamara", "Tatyana", "Valeri", "Vera", "Viktor", "Vitali", "Yekaterina", "Andrei", "Anna", "Christophe", "Elizaveta", "Emil", "Franziska", "Hanna", "Johann", "Karl", "Lieselotte", "Margot", "Nadezhda", "Petra", "Renate", "Sebastian", "Ulrich", "Valerie", "Werner", "Alain", "Beatrice", "Claus", "Diana", "Erwin", "Frieda", "Gustav", "Helene", "Isabelle", "Julien", "Klaus", "Lena", "Monika", "Norbert", "Petra", "Rolf", "Sabine", "Thomas", "Ursula"))]"
+	new_name += "[pick(list( "Ivanov", "Petrov", "Sidorov", "Fedorov", "Popov", "Sokolov", "Mikhailov", "Novikov", "Morozov", "Volkov", "Solovyov", "Vasiliev", "Zaytsev", "Pavlov", "Semyonov", "Golubev", "Vinogradov", "Bogdanov", "Vorobyov", "Fyodorov", "Mironov", "Kuznetsov", "Nikitin", "Sobolev", "Rybakov", "Baranov", "Kulikov", "Alekseev", "Stepanov", "Yakovlev", "Andreev", "Alexandrov", "Yuriev", "Tarasov", "Romanov", "Kozlov", "Dmitriev", "Egorov", "Volkov", "Pavlov", "Grigoriev", "Nikolayev", "Kuzmin", "Maximov", "Fedorov", "Osipov", "Belyaev", "Dorofeyev", "Evdokimov", "Sergeev", "Nikiforov", "Kirillov", "Ulyanov", "Kolesnikov", "Gavrilov", "Rodionov", "Karpov", "Ivanenko", "Vladimirov", "Tikhonov", "Kazakov", "Afanasiev", "Danilov", "Savin", "Timofeev", "Polyakov", "Gordeev", "Voronov", "Kudryashov", "Bykov", "Zinoviev", "Korolev", "Melnikov", "Utkin", "Semyonov", "Nesterov", "Simonyan", "Prokhorov", "Shcheglov", "Makarov", "Bolotov", "Komarov", "Ryabov", "Gerasimov", "Subbotin", "Fomin", "Davydov", "Guryev", "Krupin"))]"
+
 /datum/language/iberian
 	name = "Iberian Mix"
 	desc = "A dialect that emerges from the fusion of Spanish and Northern African languages. Its popularity took root in the Iberian Peninsula and Northern Africa. Over time, Iberian would gradually supersede traditional Spanish and North African languages due to its linguistic simplicity and its ability to harmoniously blend different cultural vowels. Its words tend to flow seamlessly and have a natural rhythm."
@@ -557,8 +567,9 @@
 	key = "i"
 	culture = LANGUAGE_HUMAN
 	partial_understanding = list(
+		/datum/language/common =25,
 		/datum/language/euro = 30,
-		/datum/language/trader = 15,
+		/datum/language/trader = 25,
 		/datum/language/spacer = 20
 	)
 	syllables = list(
@@ -571,10 +582,8 @@
 	)
 
 /datum/language/iberian/get_random_name()
-	var/new_name = "[pick(list("Diego", "Isabella", "Carlos", "Sofia", "Mateo", "Lucia", "Javier", "Elena", "Miguel", "Carmen", "Rafael", "Ana", "Luis", "Maria", "Fernando", "Clara", "Alejandro", "Teresa", "Juan", "Rosa", "Pedro", "Patricia", "Francisco", "Lorena", "Sergio", "Alicia", "Antonio", "Marisol", "Jorge", "Consuelo", "Raul", "Pilar", "Pablo", "Esperanza", "Alberto", "Natalia", "Enrique", "Gabriela", "Manuel", "Raquel", "Ricardo", "Beatriz", "Adrian", "Sonia", "Alvaro", "Silvia", "Oscar", "Cristina", "Victor", "Marta", "Angel", "Yolanda", "José", "Carla", "Eduardo", "Dolores", "Gonzalo", "Irene", "Roberto", "Ana María", "David", "Eva María", "Samuel", "Luisa", "César", "Inés", "Marcos", "Rocío", "Esteban", "Elsa", "Andrés", "Amalia", "Domingo", "Elisa", "Ramón", "Fátima", "José Luis", "Blanca", "Felipe", "Lidia", "Hugo", "Noelia"))]"
-	new_name += " "
-	new_name += "[pick(list("Garcia", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Perez", "Sanchez", "Ramirez", "Torres", "Flores", "Rivera", "Gomez", "Diaz", "Reyes", "Morales", "Cruz", "Ortiz", "Gutierrez", "Ramos", "Ruiz", "Alvarez", "Vasquez", "Castillo", "Santos", "Mendez", "Guerrero", "Ortega", "Castro", "Vargas", "Fernandez", "Garcia", "Jimenez", "Moreno", "Romero", "Herrera", "Medina", "Aguilar", "Alvarado", "Rojas", "Soto", "Delgado", "Pena", "Rios", "Alonso", "Vega", "Suarez", "Dominguez", "Luna", "Navarro", "Campos", "Bautista", "Vazquez", "Molina", "Iglesias", "Silva", "Ortiz", "Nunez", "Aguirre", "Paredes", "Arroyo", "Cordero", "Salazar", "Mora", "Rivas", "Benitez", "Reyes", "Hidalgo", "Merino", "Cano", "Araujo", "Vidal", "Andrade", "Gallegos", "Cuenca", "Montoya", "Calderon", "Esteban", "Cabrera", "Lemos", "Serrano", "Rosales", "Oliveira", "Teixeira", "Correia", "Mendes", "Barros", "Ferreira", "Sousa", "Machado", "Azevedo", "Figueiredo", "Lourenço", "Gomes", "Carvalho", "Costa", "Martins", "Jesus", "Pinto", "Afonso", "Rocha", "Ribeiro", "Dias", "Almeida", "Simões", "Duarte", "Baptista", "Barbosa", "Magalhães", "Leite", "Lima", "Marques", "Nascimento", "Oliveira", "Pereira", "Santos", "Silva", "Soares", "Vieira", "Borges", "Cardoso", "Carneiro", "Cruz", "Domingues", "Fernandes", "Fonseca", "Freitas", "Henriques", "Leal", "Macedo", "Melo", "Mendes", "Miranda", "Monteiro", "Morais", "Moreira", "Moura", "Neves", "Nobre", "Nunes", "Paiva", "Pinheiro", "Quintas", "Ramos", "Reis", "Sampaio", "Santana", "Saraiva", "Serra", "Tavares", "Valente", "Valentim", "Vasconcelos", "Vaz", "Vicente"))]"
-	return new_name
+	var/new_name = "[pick(list("Alejandro", "Amira", "Carlos", "Dalia", "Eduardo", "Fatima", "Gabriel", "Hana", "Isabel", "Jamal", "Karim", "Leila", "Mateo", "Nadia", "Oscar", "Rania", "Sergio", "Talia", "Victor", "Yasmin", "Alonso", "Basma", "Cristian", "Dounia", "Fernando", "Ghita", "Hugo", "Imane", "Javier", "Kenza", "Lorenzo", "Mounir", "Naima", "Pablo", "Rafael", "Samira", "Tariq", "Valeria", "Youssef", "Zahra", "Antonio", "Belén", "Cesar", "Dalila", "Esteban", "Farid", "Gloria", "Hassan", "Ines", "Jose", "Khalid", "Lucia", "Miguel", "Nora", "Pedro", "Ricardo", "Sofia", "Tomas", "Vanesa", "Zakaria", "Amina", "Bruno", "Clara", "Driss", "Elena", "Faisal", "Guillermo", "Hajar", "Ibrahim", "Julia", "Laila", "Marco", "Nabil", "Olivia", "Paula", "Ruben", "Salma", "Yago", "Zineb", "Ahmed", "Blanca", "Camila", "Diego", "Elisa", "Fouad", "Gabriela", "Hamza", "Idris", "Joana", "Lamia", "Manuel", "Nour", "Omar", "Patricia", "Rosa", "Santiago", "Yasmina"))]"
+	new_name += "[pick(list("Martinez", "Garcia", "Lopez", "Hernandez", "Gonzalez", "Perez", "Rodriguez", "Sanchez", "Ramirez", "Cruz", "Fernandez", "Torres", "Ortiz", "Gomez", "Morales", "Diaz", "Alvarez", "Jimenez", "Moreno", "Munoz", "Ruiz", "Romero", "Alonso", "Gutierrez", "Navarro", "Saavedra", "Castro", "Espinoza", "Ramos", "Blanco", "Cortes", "Dominguez", "Aguilar", "Serrano", "Herrera", "Marquez", "Peña", "Rivas", "Santos", "Suarez", "Ortega", "Delgado", "Vargas", "Castillo", "Guerrero", "Reyes", "Salazar", "Cabrera", "Flores", "Campos", "Vega", "Fuentes", "Carrasco", "Duran", "Vidal", "Benitez", "Mendoza", "Molina", "Zamora", "Soto", "Carmona", "Gallego", "Vazquez", "Bravo", "Nunez", "Medina", "Arias", "Miranda", "Herrero", "Kabbaj", "Lozano", "Rojas", "Esteban", "Fathi", "Bouzid", "Prieto", "Haddad", "Andres", "Calderon", "Iglesias", "Reina", "Safi", "Touzani", "Pascual", "Benali", "Gil", "Ait", "Merlo", "Cherkaoui", "Quintana", "El Amin", "Rico", "Hajji", "Pardo", "Zarouali", "Bellido", "Laroui", "Collado", "Boutaleb", "Mas", "Abidi", "Arroyo", "Berrada", "Marti", "Messaoudi", "Cano", "El Kaddouri", "Palacios", "Tazi", "Crespo", "Jabir", "Aguirre", "Lahlou", "Escudero", "Benyahya", "Moya", "El Fassi", "Sierra", "Benjelloun"))]"
 
 /datum/language/euro
 	name = "Euro Accord"
@@ -585,6 +594,7 @@
 	key = "e"
 	culture = LANGUAGE_HUMAN
 	partial_understanding = list(
+		/datum/language/common =25,
 		/datum/language/yangyu = 5,
 		/datum/language/iberian = 30,
 		/datum/language/com_srus = 5,
@@ -601,10 +611,9 @@
 	)
 
 /datum/language/euro/get_random_name()
-	var/new_name = "[pick(list("Emile", "Annette", "Gustav", "Sophie", "Henrik", "Charlotte", "Franz", "Louise", "Maximilian", "Helene", "Wolfgang", "Marie", "Klaus", "Elisabeth", "Otto", "Mathilde", "Rudolf", "Giselle", "Dieter", "Brigitte", "Hans", "Nadine", "Johann", "Klara", "Siegfried", "Hanna", "Gunther", "Margot", "Gerhard", "Ingrid", "Alfred", "Anneliese", "Friedrich", "Ursula", "Ludwig", "Renate", "Erik", "Isabelle", "Martin", "Eva", "Peter", "Liselotte", "Bernd", "Susanne", "Christian", "Caroline", "Paul", "Heike", "Georg", "Sabine", "Alexander", "Birgit", "Thomas", "Daniela", "Andreas", "Petra", "Michael", "Silke", "Stefan", "Monika", "Karl", "Julia", "Rainer", "Katrin", "Oliver", "Kristin", "Manfred", "Sarah", "Norbert", "Laura", "Joachim", "Nicole", "Werner", "Barbara", "Uwe", "Sandra", "Kurt", "Angelika"))]"
-	new_name += " "
-	new_name += "[pick(list("Martin", "Bernard", "Dubois", "Thomas", "Robert", "Richard", "Petit", "Durand", "Leroy", "Moreau", "Simon", "Laurent", "Lefebvre", "Michel", "Garcia", "David", "Bertrand", "Roux", "Vincent", "Fournier", "Morel", "Girard", "Andre", "Lefevre", "Mercier", "Dupont", "Lambert", "Bonnet", "Francois", "Martinez", "Legrand", "Garnier", "Faure", "Rousseau", "Blanc", "Guerin", "Muller", "Henry", "Roussel", "Nicolas", "Perrin", "Morin", "Mathieu", "Clement", "Gauthier", "Dumont", "Lopez", "Fontaine", "Chevalier", "Robin", "Masson", "Sanchez", "Gerard", "Monnier", "Meyer", "Martel", "Marechal", "Deschamps", "Perrot", "Daniel", "Cousin", "Richardson", "Schmidt", "Weber", "Hoffmann", "Klein", "Wagner", "Schneider", "Fischer", "Schmidt", "Schultz", "Werner", "Koch", "Bauer", "Richter", "Klein", "Wolf", "Schröder", "Neumann", "Schwarz", "Zimmermann", "Braun", "Krüger", "Hofmann", "Hartmann", "Lange", "Schmitt", "Werner", "Schmid", "Weiss", "Lang", "Jung", "Hahn", "Schubert", "Vogel", "Friedrich", "Keller", "Günther", "Frank", "Berger", "Winkler", "Roth", "Becker", "Köhler", "Ziegler", "Krause", "Kramer", "Mohr", "Fuchs", "Scholz", "Voigt", "Spencer", "Murray", "Freeman", "Carroll", "Duncan", "Hogan", "McKenna", "Hopkins", "Hawkins", "Willis", "Graham", "Sullivan", "Wallace", "Woods", "Cole", "West", "Jordan", "Owens", "Reynolds", "Fisher", "Ellis", "Harrison", "Gibson", "McDonald", "Cruz", "Marshall", "Ortiz", "Gomez", "Murray", "Freeman", "Wells", "Webb", "Simpson", "Stevens", "Tucker", "Porter", "Hunter", "Hicks", "Crawford", "Henry", "Boyd", "Mason", "Morales", "Kennedy", "Warren", "Dixon", "Ramos", "Reyes", "Burns", "Gordon", "Shaw", "Holmes", "Rice", "Robertson", "Hunt", "Black", "Daniels", "Palmer", "Mills", "Nichols", "Grant", "Knight", "Ferguson", "Rose", "Stone", "Hawkins", "Dunn", "Perkins", "Hudson", "Spencer", "Gardner", "Stephens", "Payne", "Pierce", "Berry", "Matthews", "Arnold", "Wagner", "Willis", "Ray", "Watkins", "Olson", "Carroll", "Duncan", "Snyder", "Hart", "Cunningham", "Bradley", "Lane", "Andrews", "Ruiz", "Harper", "Fox", "Riley", "Armstrong", "Carpenter", "Weaver", "Greene", "Lawrence", "Elliott", "Chavez", "Sims", "Austin", "Peters", "Kelley", "Franklin", "Lawson"))]"
-	return new_name
+	var/new_name = "[pick(list("Adrien", "Annette", "Bernard", "Brigitte", "Christophe", "Claudia", "Dominik", "Elisabeth", "Emil", "Franziska", "Georges", "Hanna", "Ingrid", "Jacques", "Johann", "Karl", "Lieselotte", "Margot", "Niklaus", "Odette", "Pascal", "Renate", "Sebastian", "Therese", "Ulrich", "Valerie", "Werner", "Yvonne", "Zoe", "Alain", "Beatrice", "Claus", "Dietrich", "Erika", "Felix", "Gertrud", "Heinrich", "Isabelle", "Julien", "Katrin", "Ludwig", "Monika", "Norbert", "Olivier", "Petra", "Rolf", "Sabine", "Thomas", "Ursula", "Viktor", "Wilhelm", "Xaver", "Yannick", "Zelda", "Andre", "Birgit", "Carsten", "Diana", "Erwin", "Frieda", "Gustav", "Helene", "Ian", "Jeanne", "Klaus", "Lena", "Marcel", "Nadia", "Otto", "Pauline", "Rudolf", "Stefan", "Ute", "Vera", "Wolfgang", "Xenia", "Yvette", "Zacharias"))]"
+	new_name += "[pick(list("Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Meyer", "Wagner", "Becker", "Schulz", "Hoffmann", "Schäfer", "Koch", "Bauer", "Richter", "Klein", "Wolf", "Schröder", "Neumann", "Schwarz", "Zimmermann", "Braun", "Krüger", "Hofmann", "Hartmann", "Lange", "Schmitt", "Werner", "Schmitz", "Krause", "Meier", "Lehmann", "Schmid", "Schulze", "Maier", "Köhler", "Herrmann", "König", "Walter", "Mayer", "Huber", "Kaiser", "Fuchs", "Peters", "Lang", "Scholz", "Möller", "Weiß", "Jung", "Hahn", "Schubert", "Vogel", "Friedrich", "Keller", "Günther", "Frank", "Berger", "Winkler", "Roth", "Beck", "Lorenz", "Baumann", "Franke", "Albrecht", "Schuster", "Simon", "Ludwig", "Böhm", "Winter", "Kraus", "Martin", "Schumacher", "Krämer", "Vogt", "Stein", "Jäger", "Otto", "Sommer", "Groß", "Seidel", "Heinrich", "Brandt", "Haas", "Schreiber", "Graf", "Schulte", "Dietz", "Ziegler", "Kuhn", "Kühn", "Pohl", "Engel", "Horn", "Busch", "Bergmann", "Thomas", "Voigt", "Sauer", "Arnold", "Wolff", "Pfeiffer"))]"
+
 
 /datum/language/yangyu
 	name = "Yangyu"
@@ -614,6 +623,7 @@
 	culture = LANGUAGE_HUMAN
 	space_chance = 30
 	partial_understanding = list(
+		/datum/language/common =25,
 		/datum/language/euro = 5,
 		/datum/language/trader = 10,
 		/datum/language/spacer = 20
