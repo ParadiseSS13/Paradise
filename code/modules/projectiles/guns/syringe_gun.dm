@@ -414,47 +414,4 @@
 	user.adjustOxyLoss(20)
 	return ..()
 
-/// Version for Malf Borgs
-/obj/item/gun/syringe/malf
-	name = "plasma syringe cannon"
-	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
-	icon_state = "rapidsyringegun"
-	max_syringes = 14
-	fire_delay = 0.75
-
-//Preload Syringes
-/obj/item/gun/syringe/malf/Initialize(mapload)
-	..()
-	while(length(syringes) + (chambered.BB ? 1 : 0) < max_syringes)
-		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
-		S.reagents.add_reagent_list(list("toxin" = 2))
-		syringes.Add(S)
-		process_chamber()
-
-//Recharge syringes in a recharger
-/obj/item/gun/syringe/malf/cyborg_recharge(coeff, emagged)
-	if(length(syringes) < max_syringes)
-		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
-		S.reagents.add_reagent_list(list("toxin" = 2))
-		syringes.Add(S)
-		process_chamber()
-
-//Cannot manually remove syringes
-/obj/item/gun/syringe/malf/attack_self(mob/living/user)
-	return
-
-//Load syringe into the chamber
-/obj/item/gun/syringe/malf/process_chamber()
-	if(!length(syringes) || chambered?.BB)
-		return
-
-	var/obj/item/reagent_containers/syringe/S = syringes[1]
-	if(!S)
-		return
-
-	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
-	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
-	chambered.BB.name = S.name
-	syringes.Remove(S)
-	qdel(S)
 

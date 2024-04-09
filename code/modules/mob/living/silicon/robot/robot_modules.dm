@@ -358,10 +358,10 @@
 		/obj/item/gripper_medical
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/borghypo/syndicate)
-	malf_modules = list(/obj/item/gun/syringe/malf)
+	malf_modules = list(/obj/item/gun/syringemalf)
 	special_rechargables = list(
 		/obj/item/extinguisher/mini,
-		/obj/item/gun/syringe/malf
+		/obj/item/gun/syringemalf
 	)
 
 // Disable safeties on the borg's defib.
@@ -379,6 +379,50 @@
 	for(var/obj/item/reagent_containers/borghypo/F in modules)
 		F.emag_act()
 	return ..()
+
+/// Malf Syringe Gun
+/obj/item/gun/syringemalf
+	name = "plasma syringe cannon"
+	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
+	icon_state = "rapidsyringegun"
+	throw_speed = 3
+	throw_range = 7
+	force = 4
+	fire_sound = 'sound/items/syringeproj.ogg'
+	fire_delay = 0.75
+	var/max_syringes = 14
+	var/current_syringes = 14
+
+//Preload Syringes
+/obj/item/gun/syringemalf/Initialize(mapload)
+	..()
+	chambered = new /obj/item/ammo_casing/syringegun(src)
+	process_chamber()
+
+//Recharge syringes in a recharger
+/obj/item/gun/syringemalf/cyborg_recharge(coeff, emagged)
+	if(current_syringes + (chambered.BB ? 1 : 0) < max_syringes)
+		current_syringes++
+		process_chamber()
+
+//Cannot manually remove syringes
+/obj/item/gun/syringemalf/attack_self(mob/living/user)
+	return
+
+//Load syringe into the chamber
+/obj/item/gun/syringemalf/process_chamber()
+	if(!current_syringes || chambered?.BB)
+		return
+
+	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
+	chambered.BB.reagents.add_reagent_list(list("toxin" = 2))
+	chambered.BB.name = "heavy duty syringe"
+	current_syringes--
+
+/obj/item/gun/syringemalf/examine(mob/user)
+	. = ..()
+	var/num_syringes = current_syringes + (chambered.BB ? 1 : 0)
+	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
 
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
