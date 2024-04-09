@@ -81,7 +81,7 @@
 		matrix = value
 
 /datum/color_matrix/proc/reset()
-	matrix=list(1, 0, 0,
+	matrix = list(1, 0, 0,
 				0, 1, 0,
 				0, 0, 1)
 
@@ -98,7 +98,7 @@
 	var/g_adjustment = (1 - saturation) * LUM_G
 	var/b_adjustment = (1 - saturation) * LUM_B
 
-	matrix=list(contrast * (r_adjustment + saturation),	contrast * (r_adjustment),				contrast * (r_adjustment),
+	matrix = list(contrast * (r_adjustment + saturation),	contrast * (r_adjustment),				contrast * (r_adjustment),
 				contrast * (g_adjustment),				contrast * (g_adjustment + saturation),	contrast * (g_adjustment),
 				contrast * (b_adjustment),				contrast * (b_adjustment),				contrast * (b_adjustment + saturation))
 	set_brightness(brightness)
@@ -164,7 +164,7 @@
 	gg = round(gg * 1000) / 1000 * contrast
 	bb = round(bb * 1000) / 1000 * contrast
 
-	matrix=list(rr, gg, bb,
+	matrix = list(rr, gg, bb,
 				rr, gg, bb,
 				rr, gg, bb)
 
