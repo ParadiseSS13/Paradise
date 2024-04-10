@@ -1331,6 +1331,11 @@
 	)
 	result = /obj/item/food/snacks/boiledspiderleg
 
+/datum/recipe/microwave/boiledspiderleg/make_food(obj/container)
+	var/obj/item/food/snacks/boiledspiderleg/being_cooked = ..()
+	being_cooked.reagents.del_reagent("toxin")
+	return being_cooked
+
 /datum/recipe/microwave/spidereggsham
 	reagents = list("sodiumchloride" = 1)
 	items = list(
