@@ -40,6 +40,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
 	hud_type = /datum/hud/ghost
+	speaks_ooc = TRUE
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -53,7 +54,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
+	AddSpell(new /datum/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER

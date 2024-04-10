@@ -100,6 +100,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		var/mob/M = _I
 		if(is_station_level(M.z))
 			check_station_player(M)
+		else if(!M.loc)
+			stack_trace("[M] ended up without a location!")
 		else if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && istype(get_area(M), SSshuttle.emergency.areaInstance))
 			check_shuttle_player(M)
 
