@@ -2021,7 +2021,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>You can't think of anything to cook with the items around you.</span>")
 		return
 
-	var/list/message = list("You recall your days at the Étoile de la Cuisine for the Celestial Culinary Arts, considering what you could make with the items around you...")
+	var/list/message = list("You draw upon your extensive experience in space food, contemplating what you could make with the items around you...")
 	for(var/datum/recipe/recipe in possible_recipes)
 		var/list/assoc = type_list_to_counted_assoc_list(recipe.items)
 		var/list/ingredient_list = list()
