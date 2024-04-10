@@ -695,8 +695,6 @@ to destroy them and players will be able to make replacements.
 		for(var/name in grinder_names_paths)
 			if(grinder_names_paths[name] == type)
 				board_name = name
-
-
 				break
 	if(board_name == "Botanitank")
 		req_components = regular_components + list(/obj/item/reagent_containers/glass/beaker/noreact = 1)
