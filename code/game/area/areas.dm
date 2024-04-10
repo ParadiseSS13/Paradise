@@ -508,7 +508,9 @@
 
 /proc/has_gravity(atom/AT, turf/T)
 	if(!T)
-		T = get_turf(AT)
+		T = get_turf(AT) // If we still don't have a turf, don't process the other stuff
+		if(!T)
+			return
 	var/area/A = get_area(T)
 	if(isspaceturf(T)) // Turf never has gravity
 		return 0
