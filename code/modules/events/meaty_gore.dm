@@ -33,20 +33,13 @@
 	if(changelings_amount < 1 && TGS_CLIENT_COUNT >= NEED_PLAYERS)
 		changelings_amount = 1
 	spawncount = changelings_amount
-	var/Need = NEED_PLAYERS
 
 	var/image/img = image('icons/mob/actions/actions.dmi', "chameleon_outfit")
 	candidates = SSghost_spawns.poll_candidates("Do you want to play as a Stowaway Changeling?", ROLE_CHANGELING, TRUE, source = img, poll_time = 40 SECONDS)
 
 	if(!length(candidates) || TGS_CLIENT_COUNT < NEED_PLAYERS || GAMEMODE_IS_CULT || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_REVOLUTION) //i just love idea of gamemodes combination, but boring contributors (and some balancers guys) says no...
-		var/the_message = "Stowaway Changelings had no volunteers ([length(candidates)]) or gamemode ([SSticker.mode.name]) is not valid or is too few clients (have [TGS_CLIENT_COUNT] Vs need [Need]) on server and was canceled."
-		message_admins("[the_message]")
-		log_admin("[the_message]")
-
-		for(var/mob/dead/observer/O in GLOB.player_list)
-			if(O.client)
-				to_chat(O, "<span class='ghostalert'>[the_message]</span>")
-
+		message_admins("Stowaway Changelings had no volunteers or gamemode is not valid or is too few clients ([TGS_CLIENT_COUNT]) and was canceled.")
+		log_admin("Stowaway Changelings had no volunteers or gamemode is not valid or is too few clients ([TGS_CLIENT_COUNT]) and was canceled.")
 		//just imagine... CULTIST CHANGELING... NUKIES AND CHANGELINGS... REVOLUTION CHANGELING... eh... SHADOWLING THRALL (yep they're deleted) CHANGELING MUHAHAHAHAHHAHA
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE] //no lings? okay, go and get compensation!
 		EC.next_event_time = world.time + (60 * 10)
