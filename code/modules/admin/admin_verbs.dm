@@ -396,22 +396,14 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
 /client/proc/admin_ghost()
 	set category = "Admin"
 	set name = "Aghost"
 
-	var/is_mentor = check_rights(R_MENTOR)
-	var/is_full_admin = check_rights(R_ADMIN|R_MOD)
-
-	// mentors are allowed only if they have the observe trait, which is given on observe.
-	// they should also not be given this proc.
-	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE) || !is_mentor))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
 	do_aghost()
-
-
 
 /// Allow an admin to observe someone.
 /// mentors are allowed to use this verb while living, but with some stipulations:
