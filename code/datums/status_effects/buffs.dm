@@ -749,7 +749,7 @@
 	alert_type = null
 
 /datum/status_effect/expert_chef
-	duration = 20 SECONDS
+	duration = 5 SECONDS
 	alert_type = null
 
 /datum/status_effect/bearserker_rage
