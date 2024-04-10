@@ -243,6 +243,8 @@
 		return FALSE
 
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user)
+	if(in_thief_mode(user))
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item)
 
 /// Returns the delay of equipping this item to a mob
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
