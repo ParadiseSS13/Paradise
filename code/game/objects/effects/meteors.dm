@@ -132,8 +132,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 	if(istype(src, /obj/effect/meteor/meaty/ling))
 		var/list/turfs = list()
-		for(var/area/station/command/office/captain/C in world) //bridge because this area is often somewhere in center of station in many maps (and this made to prevent ling meteor from flying away to another Z)
-			for(var/turf/T in C)
+		for(var/area/station/S in world)
+			for(var/turf/T in S)
 				turfs += T
 
 		chase_target(pick(turfs))
