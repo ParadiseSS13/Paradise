@@ -498,10 +498,10 @@
 			mutagen += reagents.get_reagent_amount("uranium")
 			mutagen += reagents.get_reagent_amount("radium")
 			mutagen += reagents.get_reagent_amount("mutagen")
-			to_chat(user, "You think the plants in [src] will mutate more now.")
+			to_chat(user, "<span class='notice'>You think the plants in [src] will mutate more now.</span>")
 		mutagen = min(max_mutagen, mutagen)
 		if(mutagen == max_mutagen)
-			to_chat(user, "That seems like enough mutating chemicals.")
+			to_chat(user, "<span class='notice'>That seems like enough mutating chemicals.</span>")
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(reagents.has_reagent("uranium", 1))
@@ -725,6 +725,9 @@
 	reagents.clear_reagents()
 
 /obj/machinery/hydroponics/proc/replace_doping(datum/reagent/new_chem, mob/user)
+	if(new_chem == doping_chem)
+		to_chat(user, "<span class='notice'>[src] already contains [initial(new_chem.name)], adding more won't help.</span>")
+		return
 	var/list/message = list()
 	message += "<span class='notice'>You add [initial(new_chem.name)] to [src]"
 	if(doping_chem)
