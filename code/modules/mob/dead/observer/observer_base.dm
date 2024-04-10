@@ -21,6 +21,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	invisibility = INVISIBILITY_OBSERVER
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	hud_type = /datum/hud/ghost
+	speaks_ooc = TRUE
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -42,9 +43,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/alive_runechat_color = "#FFFFFF"
 	/// UID of the mob which we are currently observing
 	var/mob_observed
-	var/kaboshed_alerts = list()
-	hud_type = /datum/hud/ghost
-	speaks_ooc = TRUE
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -119,10 +117,11 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	if(observ)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	remove_observer_verbs()
+	if(mob_observed)
+		cleanup_observe()
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -873,7 +872,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/get_runechat_color()
 	return alive_runechat_color
 
-
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	set name = "\[Observer\] Observe"
 	set desc = "Observe the target mob."
@@ -899,6 +897,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		// follow the mob so they're technically right there for visible messages n stuff
 		ManualFollow(mob_eye)
 		client.set_eye(mob_eye)
+		log(src, mob_eye, "observed", ATKLOG_ALMOSTALL)
 		client.perspective = EYE_PERSPECTIVE
 		if(mob_eye.hud_used)
 			client.clear_screen()
@@ -916,23 +915,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isnull(mob_observed))
 		return
 	var/mob/target = locateUID(mob_observed)
+	add_attack_logs(src, target, "un-observed", ATKLOG_ALL)
 	mob_observed = null
 	reset_perspective(null)
 	client?.perspective = initial(client.perspective)
 	set_sight(initial(sight))
 	UnregisterSignal(src, COMSIG_ATOM_ORBITER_STOP)
 
-	if(istype(target))
+	if(!QDELETED(target) && istype(target))
 		hide_other_mob_action_buttons(target)
 		target.observers -= src
-		// LAZYREMOVE(target.observers, src)
 
 /mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom/oldloc, direction)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBITER_STOP
 	cleanup_observe()
-
-
-
 
 #undef GHOST_CAN_REENTER
 #undef GHOST_IS_OBSERVER

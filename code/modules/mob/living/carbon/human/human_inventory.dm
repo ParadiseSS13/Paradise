@@ -193,7 +193,6 @@
 			if(observe.client)
 				observe.client.screen -= I
 
-
 	I.forceMove(src)
 	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER

@@ -43,7 +43,6 @@
 	if(!client)
 		return
 	var/atom/movable/screen/fullscreen/screen
-	// var/list/screens = screens
 	for(var/category in screens)
 		screen = screens[category]
 		if(screen.should_show_to(src))
