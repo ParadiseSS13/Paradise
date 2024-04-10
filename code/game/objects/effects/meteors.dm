@@ -15,7 +15,6 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
-
 ///////////////////////////////
 //Meteor spawning global procs
 ///////////////////////////////
@@ -24,7 +23,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	for(var/i = 0; i < number; i++)
 		spawn_meteor(meteortypes)
 
-/proc/spawn_meteor(list/meteortypes)
+/proc/spawn_meteor(list/meteortypes, mob/ling)
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10 //number of tries to spawn meteor.
@@ -39,6 +38,10 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal
+
+	if(istype(M, /obj/effect/meteor/meaty/ling) && ling != null)
+		var/obj/effect/meteor/meaty/ling/L = M
+		L.ling_inside = ling
 
 /proc/spaceDebrisStartLoc(startSide, Z)
 	var/starty
@@ -126,6 +129,14 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	SpinAnimation()
 	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
+
+	if(istype(src, /obj/effect/meteor/meaty/ling))
+		var/list/turfs = list()
+		for(var/area/station/command/office/captain/C in world) //bridge because this area is often somewhere in center of station in many maps (and this made to prevent ling meteor from flying away to another Z)
+			for(var/turf/T in C)
+				turfs += T
+
+		chase_target(pick(turfs))
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
@@ -333,6 +344,79 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /obj/effect/meteor/meaty/xeno/ram_turf(turf/T)
 	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/xeno(T)
+
+/obj/effect/meteor/meaty/ling
+	name = "suspicous meaty ore"
+	icon_state = "meateor"
+	hits = 1
+	heavy = FALSE
+	var/mob/ling_inside
+	dropamt = 1
+	hitpwr = EXPLODE_LIGHT
+
+/obj/effect/meteor/meaty/ling/examine(mob/user)
+	. = ..()
+	if(ling_inside == user && istype(user, /mob/dead/observer))
+		. += "<span class='changeling'>Right now it's us inside.</span>"
+
+/obj/effect/meteor/meaty/ling/Destroy()
+	var/turf/T = get_turf(src)
+	..()
+	var/mob/living/carbon/human/H = new(T)
+	var/list/all_organic_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/diona,
+	/datum/species/moth, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
+	var/obj/item/organ/external/head/he = H.get_organ("head")
+
+	H.set_species(pick(all_organic_species), TRUE)
+	H.gender = (pick(MALE, FEMALE))
+	var/random_name = random_name(H.gender, H.dna.species.name)
+	H.rename_character(H.real_name, random_name)
+	H.cleanSE()
+
+	he.facial_colour =  rand_hex_color()
+	he.sec_facial_colour =  rand_hex_color()
+	he.hair_colour =  rand_hex_color()
+	he.sec_hair_colour =  rand_hex_color()
+	H.change_eye_color(rand_hex_color())
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE|HAS_SKIN_TONE)
+		H.s_tone = random_skin_tone()
+	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+		H.skin_colour = rand_hex_color()
+		if(istype(H.dna.species, /datum/species/slime))
+			var/datum/species/slime/S = H.dna.species
+			S.blend(H)
+	if(prob(80))
+		he.h_style = random_hair_style(H.gender, H.dna.species.name)
+	if(prob(40))
+		he.f_style = random_facial_hair_style(H.gender, H.dna.species.name)
+
+	H.height = pick(GLOB.character_heights)
+	H.physique = pick(GLOB.character_physiques)
+
+	H.regenerate_icons()
+	H.update_body(rebuild_base = TRUE)
+	H.update_dna()
+
+	var/obj/item/thing1 = pick(meteordrop) //This two gibs things need to move to the station, if there's no objects to hook up.
+	var/obj/item/thing2 = pick(meteordrop)
+
+	H.equip_to_slot_or_del(new thing1(H), SLOT_HUD_RIGHT_HAND)
+	H.equip_to_slot_or_del(new thing2(H), SLOT_HUD_LEFT_HAND)
+
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/changeling(H), SLOT_HUD_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/changeling(H), SLOT_HUD_HEAD)
+
+	H.key = ling_inside.key
+
+	H.mind.add_antag_datum(/datum/antagonist/changeling)
+	var/datum/antagonist/changeling/cling = H.mind.has_antag_datum(/datum/antagonist/changeling)
+
+	var/datum/action/changeling/suit/organic_space_suit/space = new()
+	space.dna_cost = 0 // just A LITTLE BUFF and necessity
+	space.power_type = CHANGELING_INNATE_POWER
+
+	cling.give_power(space, H, FALSE)
+	cling.genetic_points += 4 //harder to blend in crew.
 
 //Meteor Ops
 /obj/effect/meteor/goreops
