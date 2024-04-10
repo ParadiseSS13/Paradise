@@ -413,3 +413,13 @@
 	user.adjustStaminaLoss(20, FALSE)
 	user.adjustOxyLoss(20)
 	return ..()
+
+/obj/item/gun/syringe/blowgun/suicide_act(mob/user)
+	if(chambered.BB)
+		visible_message("<span class='suicide'>[usr] puts [src] to [user.p_their()] lips and inhales! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		return BRUTELOSS
+
+	visible_message("<span class='suicide'>[usr] puts [src] to [user.p_their()] lips and begins blowing on it rapid-fire! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(!use_tool(user, user, 3 SECONDS))
+		return SHAME
+	return OXYLOSS
