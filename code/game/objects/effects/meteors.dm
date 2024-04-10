@@ -367,35 +367,44 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	/datum/species/moth, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
 	var/obj/item/organ/external/head/he = H.get_organ("head")
 
-	H.set_species(pick(all_organic_species), TRUE)
-	H.gender = (pick(MALE, FEMALE))
+	H.set_species(pick(all_organic_species))
+	H.change_gender(pick(MALE, FEMALE))
 	var/random_name = random_name(H.gender, H.dna.species.name)
 	H.rename_character(H.real_name, random_name)
 	H.cleanSE()
 
-	he.facial_colour =  rand_hex_color()
-	he.sec_facial_colour =  rand_hex_color()
-	he.hair_colour =  rand_hex_color()
-	he.sec_hair_colour =  rand_hex_color()
+	he.facial_colour = rand_hex_color()
+	he.sec_facial_colour = rand_hex_color()
+	he.hair_colour = rand_hex_color()
+	he.sec_hair_colour = rand_hex_color()
 	H.change_eye_color(rand_hex_color())
+
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE|HAS_SKIN_TONE)
-		H.s_tone = random_skin_tone()
+		H.s_tone = random_skin_tone(H.dna.species.name)
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
 		H.skin_colour = rand_hex_color()
 		if(istype(H.dna.species, /datum/species/slime))
 			var/datum/species/slime/S = H.dna.species
 			S.blend(H)
-	if(prob(80))
+	if(H.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
+		if(prob(40))
+			he.ha_style = random_head_accessory(H.gender, H.dna.species.name)
+			he.headacc_colour = rand_hex_color()
+
+	if(prob(90))
 		he.h_style = random_hair_style(H.gender, H.dna.species.name)
-	if(prob(40))
+	if(prob(30))
 		he.f_style = random_facial_hair_style(H.gender, H.dna.species.name)
 
 	H.height = pick(GLOB.character_heights)
 	H.physique = pick(GLOB.character_physiques)
 
 	H.regenerate_icons()
-	H.update_body(rebuild_base = TRUE)
+	H.update_body()
 	H.update_dna()
+	H.UpdateAppearance()
+	H.overlays.Cut()
+	H.update_mutantrace()
 
 	var/obj/item/thing1 = pick(meteordrop) //This two gibs things need to move to the station, if there's no objects to hook up.
 	var/obj/item/thing2 = pick(meteordrop)
@@ -417,6 +426,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 	cling.give_power(space, H, FALSE)
 	cling.genetic_points += 4 //harder to blend in crew.
+
+	notify_ghosts("Stowaway Changeling [H.real_name] has arrived..", source = H, action = NOTIFY_FOLLOW)
 
 //Meteor Ops
 /obj/effect/meteor/goreops
