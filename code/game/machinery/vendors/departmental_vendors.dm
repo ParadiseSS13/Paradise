@@ -147,6 +147,8 @@
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,
 					/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,
+					/obj/item/reagent_containers/dropper = 5,
+					/obj/item/storage/bag/plants/seed_sorting_tray = 3,
 					/obj/item/storage/bag/plants = 5,
 					/obj/item/cultivator = 3,
 					/obj/item/shovel/spade = 3,
