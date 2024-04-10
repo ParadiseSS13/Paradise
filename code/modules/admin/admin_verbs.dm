@@ -468,6 +468,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	// observers don't need to ghost, so we don't need to worry about adding any traits
 	if(isobserver(mob))
+		var/mob/dead/observer/ghost = mob
 		log_admin("[key_name(src)] has activated Aobserve to follow [target]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
 		ghost.do_observe(target)
@@ -478,7 +479,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!full_admin)
 		// if they're a mentor and they're alive, add the mobserving trait to ensure that they can only go back to their body.
 		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
-		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP, on_mentor_observe_end)
+		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end))
 	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
 
 	do_aghost()
@@ -500,9 +501,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	UnregisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
 
 	if(!ghost.reenter_corpse())
-		log_debug("Mentor [key_name(src)] was unable to re-enter their body after mentor observing")
-		log_and_message_admins("[key_name(src)] was unable to re-enter their body after mentor observing.")
-		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, otherwise you may wish to ahelp.</span>")
+		// tell everyone since this is kinda nasty.
+		log_debug("Mentor [key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		log_and_message_admins("[key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, and you should probably ahelp.</span>")
 
 /client/proc/invisimin()
 	set name = "Invisimin"

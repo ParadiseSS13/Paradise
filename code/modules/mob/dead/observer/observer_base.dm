@@ -494,10 +494,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	GLOB.ghost_crew_monitor.ui_interact(src)
 
 /mob/dead/observer/proc/add_observer_verbs()
-	verbs.Add(/mob/dead/observer/proc/ManualFollow)
+	verbs.Add(
+		/mob/dead/observer/proc/ManualFollow,
+		/mob/dead/observer/proc/observe,
+	)
 
 /mob/dead/observer/proc/remove_observer_verbs()
-	verbs.Remove(/mob/dead/observer/proc/ManualFollow)
+	verbs.Remove(
+		/mob/dead/observer/proc/ManualFollow,
+		/mob/dead/observer/proc/observe,
+	)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
@@ -877,9 +883,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Observe a mob."
 	set category = "Ghost"
 
-	eye_name = tgui_input_list(usr, "Please, select a player!", "Observe", GLOB.player_list)
-
-	do_observe(eye_name)
+	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", GLOB.player_list)
+	if(!istype(target))
+		return
+	do_observe(target)
 
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	set name = "\[Observer\] Observe"
@@ -926,7 +933,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		// mentor observing grants you this trait, and provides its own signal handler for this
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
+			// TODO REMOVE THIS AFTER DEBUGGING
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end))
+		else
+			log_debug("[key_name(src)] has not been granted the mobserve trait while observing. If they are not a mentor, this is most likely an error.")
 
 /// Clean up observing
 /mob/dead/observer/proc/cleanup_observe()

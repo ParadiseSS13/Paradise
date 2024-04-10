@@ -152,7 +152,6 @@
 		real_name = name
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
-	remove_verb(src, /mob/verb/observe)
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
