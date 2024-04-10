@@ -341,18 +341,21 @@
 	. = ..()
 	if(.)
 		return
-	if(internal)
-		return
 
 	switch(action)
 		if("detach")
 			detach(ui.user)
+			return TRUE
 		if("eject")
 			eject(ui.user)
+			return TRUE
 		if("grind")
 			grind()
+			return TRUE
 		if("juice")
 			juice()
+			return TRUE
+	return FALSE
 
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -613,14 +616,6 @@
 		return
 
 	switch(action)
-		if("detach")
-			detach(ui.user)
-		if("eject")
-			eject(ui.user)
-		if("grind")
-			grind()
-		if("juice")
-			juice()
 		if("dispense")
 			var/index = text2num(params["index"])
 			var/amount = text2num(params["amount"])
@@ -652,6 +647,7 @@
 
 	internal.reagents.remove_reagent(K.id,dispensed,1)
 	beaker.reagents.add_reagent(K.id,dispensed)
+	SStgui.update_uis(src)
 
 //dispense a proportional mixture of the stored chems into the inserted beaker.
 
@@ -664,6 +660,7 @@
 		return
 	var/dispensed = min(internal.reagents.total_volume, min(amount, beaker.reagents.maximum_volume - beaker.reagents.total_volume))
 	internal.reagents.trans_to(beaker,dispensed)
+	SStgui.update_uis(src)
 	return
 
 //dump a specified amount of a specified reagent
@@ -673,12 +670,14 @@
 		return FALSE
 	var/dumpAmount = min(amount, internal.reagents.reagent_list[index].volume)
 	internal.reagents.remove_reagent(internal.reagents.reagent_list[index].id, dumpAmount)
+	SStgui.update_uis(src)
 
 //Empties the internal tank completely
 
 /obj/machinery/reagentgrinder/Botanitank/proc/clearTank()
 	for(var/datum/reagent/E in internal.reagents.reagent_list)
 		internal.reagents.remove_reagent(E.id,E.volume)
+		SStgui.update_uis(src)
 
 
 #undef PROCESS_TIME_SECONDS
