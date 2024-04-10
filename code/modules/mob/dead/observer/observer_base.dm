@@ -872,6 +872,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/get_runechat_color()
 	return alive_runechat_color
 
+/mob/dead/observer/verb/observe()
+	set name = "Observe"
+	set desc = "Observe a mob."
+	set category = "Ghost"
+
+	eye_name = tgui_input_list(usr, "Please, select a player!", "Observe", GLOB.player_list)
+
+	do_observe(eye_name)
+
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	set name = "\[Observer\] Observe"
 	set desc = "Observe the target mob."
@@ -880,6 +889,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isnewplayer(mob_eye))
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
 		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
+		return
+
+	if(!mob_eye.mind)
+		to_chat(src, "<span class='notice'>You can only observe mobs that have been or are being inhabited by a player!</span>")
 		return
 
 	if(!isnull(mob_observed))
@@ -891,6 +904,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mob_eye == src)
 		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
 		return
+
+	if(mob_observed)
+		// clean up first
+		stop_orbit()
+		cleanup_observe()
 
 	//Istype so we filter out points of interest that are not mobs
 	if(client && ismob(mob_eye))
@@ -906,7 +924,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			mob_observed = mob_eye.UID()
 
 
-		// other signals get registered where this gets added
+		// mentor observing grants you this trait, and provides its own signal handler for this
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end))
 
@@ -926,7 +944,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		hide_other_mob_action_buttons(target)
 		target.observers -= src
 
-/mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom/oldloc, direction)
+/mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBITER_STOP
 	cleanup_observe()
 
