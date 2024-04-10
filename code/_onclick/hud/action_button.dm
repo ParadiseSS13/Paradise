@@ -20,7 +20,7 @@
 	var/shown_to_observers = FALSE
 	/// Whether or not this button is locked, preventing it from being dragged.
 	var/locked = FALSE
-	
+
 /atom/movable/screen/movable/action_button/Destroy()
 	. = ..()
 	if(our_hud)
@@ -121,6 +121,8 @@
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
 
 /atom/movable/screen/movable/action_button/Click(location, control, params)
+	if(!can_use(usr))
+		return FALSE
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)

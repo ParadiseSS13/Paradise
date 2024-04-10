@@ -410,6 +410,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /// if they attempt to do anything that would stop their orbit, they will immediately be returned to their body.
 /client/proc/admin_observe()
 	set name = "Aobserve"
+	set category = "Admin"
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 
@@ -429,10 +430,24 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	admin_observe_target(target)
 
+/client/proc/cleanup_admin_observe(mob/dead/observer/ghost)
+	if(!ghost.mob_observed || !istype(ghost))
+		return FALSE
+
+	// un-follow them
+	ghost.cleanup_observe()
+	// if it's a mentor, make sure they go back to their body.
+	if(HAS_TRAIT(mob.mind, TRAIT_MOBSERVE))
+		// handler will handle removing the trait
+		mob.stop_orbit()
+	log_admin("[key_name(src)] has de-activated Aobserve")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+	return TRUE
+
 /// targeted form of admin_observe: this should only appear in the right-click menu.
 /client/proc/admin_observe_target(mob/target in view())
 	set name = "\[Admin\] Aobserve"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
@@ -443,6 +458,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
+	if(cleanup_admin_observe(mob))
+		return
+
 	if(isnull(target) || target == src)
 		// let the default one find the target
 		admin_observe()
@@ -450,20 +468,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	// observers don't need to ghost, so we don't need to worry about adding any traits
 	if(isobserver(mob))
-		var/mob/dead/observer/ghost = mob
-		if(ghost.mob_observed)
-			// un-follow them
-			ghost.cleanup_observe()
-			// if it's a mentor, make sure they go back to their body.
-			if(HAS_TRAIT(mob.mind, TRAIT_MOBSERVE))
-				// handler will handle removing the trait
-				mob.stop_orbit()
-			log_admin("[key_name(src)] has de-activated Aobserve")
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
-		else
-			log_admin("[key_name(src)] has activated Aobserve to follow [target]")
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
-			ghost.do_observe(target)
+		log_admin("[key_name(src)] has activated Aobserve to follow [target]")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+		ghost.do_observe(target)
 		return
 
 
@@ -471,7 +478,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!full_admin)
 		// if they're a mentor and they're alive, add the mobserving trait to ensure that they can only go back to their body.
 		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
-		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
+		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP, on_mentor_observe_end)
 	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
 
 	do_aghost()
