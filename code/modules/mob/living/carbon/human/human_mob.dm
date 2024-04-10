@@ -2186,7 +2186,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/expert_chef_knowledge()
 	set name = "Expert Chef Knowledge"
 	set desc = "Examine your surroundings, see what you can cook."
-	set category = "Martial Arts"
+	set category = "IC"
 
 	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
 		return
