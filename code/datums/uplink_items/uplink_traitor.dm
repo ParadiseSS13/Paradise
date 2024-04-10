@@ -178,7 +178,7 @@
 
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, stripping and equipping someone is silent. Pickpocketing someone's pockets will put the item directly into your hands."
+	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
 	reference = "PPG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 30
