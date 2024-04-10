@@ -160,8 +160,8 @@
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
 	Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_help_up = TRUE
-	actions_types = list()	// REMOVE THIS if you add anything to the can_hold list for this gripper!
-	can_hold = null 						// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
+	actions_types = list()		// REMOVE THIS if you add anything to the can_hold list for this gripper!
+	can_hold = null				// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 
 /******************************
 /       SERVICE GRIPPER
@@ -173,15 +173,16 @@
 	can_hold = list(
 		/obj/item/deck,
 		/obj/item/cardhand, 	// For playing card games!
-		/obj/item/paper,	    // The "important" papers and photos you had the borg make shouldn't be sullied on the dirty floor.
+		/obj/item/coin,			// To flip coins.
+		/obj/item/paper,		// The "important" papers and photos you had the borg make shouldn't be sullied on the dirty floor.
 		/obj/item/photo,
-		/obj/item/toy/plushie   // To allow the borg to bring you a soft toy. D'aww!
+		/obj/item/toy/plushie	// To allow the borg to bring you a soft toy. D'aww!
 	)
 
 /******************************
 /     ENGINEERING GRIPPER
 ******************************/
-/obj/item/gripper/engineering   	// For engineering and sabotage borgs, and drones.
+/obj/item/gripper/engineering	// For engineering and sabotage borgs, and drones.
 	name = "engineering gripper"
 	desc = "A grasping tool for cyborgs. This version can hold a wide veriaty of constructon components for use in engineering work."
 	engineering_machine_interaction = TRUE
