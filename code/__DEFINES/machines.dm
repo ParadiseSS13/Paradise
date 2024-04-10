@@ -1,13 +1,13 @@
-#define	IMPRINTER		1	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE		2	//New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE		4	//Uses glass/metal only.
-#define CRAFTLATHE		8	//Uses fuck if I know. For use eventually.
-#define MECHFAB			16 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
-// #define PODFAB			32 	//Used by the spacepod part fabricator. Same idea as the mechfab // AA 2021-10-02 - Removed. Kept for flag consistency.
-#define BIOGENERATOR	64 	//Uses biomass
-#define SMELTER			128 //uses various minerals
+#define	IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
+#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/metal/chemicals
+#define	AUTOLATHE		(1<<2)	//Uses glass/metal only.
+#define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
+#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+// #define PODFAB			(1<<5) 	//Used by the spacepod part fabricator. Same idea as the mechfab // AA 2021-10-02 - Removed. Kept for flag consistency.
+#define BIOGENERATOR	(1<<6) 	//Uses biomass
+#define SMELTER			(1<<7) //uses various minerals
 /// Used for gamma armoury lathe designs
-#define GAMMALATHE		256
+#define GAMMALATHE		(1<<8)
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 

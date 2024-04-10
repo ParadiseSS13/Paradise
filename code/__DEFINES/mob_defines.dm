@@ -173,10 +173,10 @@
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN 	(1<<3)
 
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
-#define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
-#define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
+#define DEFAULT_ITEM_STRIP_DELAY		4 SECONDS  //time taken to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY		2 SECONDS  //time taken to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
 
@@ -241,6 +241,7 @@
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
+#define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
 #define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
@@ -275,8 +276,9 @@
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
-#define isorgan(A)		(istype((A), /obj/item/organ/external))
-#define hasorgans(A)	(iscarbon(A))
+#define is_external_organ(A)		(istype((A), /obj/item/organ/external))
+#define is_internal_organ(A)		(istype((A), /obj/item/organ/internal))
+#define	is_organ(A)				(istype((A), /obj/item/organ))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 

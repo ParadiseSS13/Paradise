@@ -1,19 +1,16 @@
 {
-	"gitlens.advanced.blame.customArguments": [
-		"--ignore-revs-file", "${workspaceRoot}/.git-blame-ignore-revs"
-	],
 	// ESLint settings:
-	"eslint.workingDirectories": [
-		"./tgui"
-	],
-	"search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-	},
+	"eslint.workingDirectories": ["tgui/"],
 	"eslint.nodePath": "tgui/.yarn/sdks",
+	"prettier.configPath": "tgui/.prettierrc.yml",
 	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
 	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"search.exclude": {
+		"**/.yarn": true,
+		"**/.pnp.*": true
+	},
+	"eslint.format.enable": true,
 	"eslint.rules.customizations": [
 		// We really want to fail the CI builds on styling errors,
 		// but it's better to show them as yellow squigglies in IDE
@@ -21,15 +18,36 @@
 		// are actually hard errors.
 		{ "rule": "*", "severity": "warn" }
 	],
-	"eslint.format.enable": true,
+
 	"[javascript]": {
-		"editor.rulers": [80]
+		"editor.rulers": [80],
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.rulers": [80],
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
 	},
 	"[typescript]": {
-		"editor.rulers": [80]
+		"editor.rulers": [80],
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[typescriptreact]": {
+		"editor.rulers": [80],
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
 	},
 	"[scss]": {
-		"editor.rulers": [80]
+		"editor.rulers": [80],
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
 	},
-	"editor.formatOnSave": true
+
+	"editor.formatOnSave": true,
+	"gitlens.advanced.blame.customArguments": [
+		"--ignore-revs-file",
+		"${workspaceRoot}/.git-blame-ignore-revs"
+	],
 }
