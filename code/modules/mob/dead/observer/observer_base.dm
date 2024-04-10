@@ -897,7 +897,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		// follow the mob so they're technically right there for visible messages n stuff
 		ManualFollow(mob_eye)
 		client.set_eye(mob_eye)
-		log(src, mob_eye, "observed", ATKLOG_ALMOSTALL)
+		add_attack_logs(src, mob_eye, "observed", ATKLOG_ALMOSTALL)
 		client.perspective = EYE_PERSPECTIVE
 		if(mob_eye.hud_used)
 			client.clear_screen()
