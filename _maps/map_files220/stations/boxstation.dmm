@@ -44825,7 +44825,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "dvY" = (
 /obj/effect/decal/cleanable/fungus,
@@ -49889,7 +49889,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fpO" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -50822,7 +50822,7 @@
 /area/station/command/office/ntrep)
 "fET" = (
 /obj/machinery/light/small/directional/west,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fFz" = (
 /obj/structure/cable{
@@ -51130,7 +51130,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/bluegrid{
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "fMc" = (
 /turf/simulated/floor/plasteel{
@@ -61831,7 +61835,7 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "jIM" = (
 /obj/machinery/door/airlock/public/glass{
@@ -62150,10 +62154,10 @@
 	},
 /area/station/maintenance/apmaint)
 "jPb" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom{
+/obj/machinery/ai_status_display/east,
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
 	dir = 1
 	},
-/obj/machinery/ai_status_display/east,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "jPi" = (
@@ -63120,10 +63124,10 @@
 "kiq" = (
 /obj/machinery/light_switch/south,
 /obj/machinery/light/directional/south,
-/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "kiu" = (
@@ -72806,7 +72810,7 @@
 /area/station/engineering/supermatter_room)
 "nIF" = (
 /obj/machinery/light/small/directional/east,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "nIM" = (
 /obj/structure/cable{
@@ -81510,7 +81514,11 @@
 "qKZ" = (
 /obj/effect/landmark/spawner/rev,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/bluegrid{
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "qLc" = (
 /obj/item/kirbyplants,
@@ -86357,6 +86365,19 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"sCY" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "sDk" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -89588,7 +89609,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "tMP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -89829,7 +89850,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/bluegrid{
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "tQJ" = (
 /obj/structure/cable{
@@ -95031,12 +95056,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/maintenance/fsmaint)
 "vIW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "vJc" = (
 /obj/structure/closet/secure_closet/mime,
@@ -97641,7 +97661,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "wIv" = (
 /obj/structure/table,
@@ -98211,6 +98231,14 @@
 /obj/effect/spawner/random_spawners/fungus_probably,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
+"wTO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "wUT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -148024,12 +148052,12 @@ cZy
 nqa
 rjK
 cEH
-vIW
+wTO
 kiq
 cBR
-cJK
+vIW
 fET
-cJK
+vIW
 ecZ
 kMc
 uAg
@@ -148281,12 +148309,12 @@ bER
 oLS
 fYu
 jXI
-cNh
+sCY
 oDE
 eBF
 fpG
 fMb
-cJK
+vIW
 oJr
 cQC
 fyM
@@ -148800,7 +148828,7 @@ hOz
 eBF
 dvM
 tQn
-cJK
+vIW
 oJr
 sFy
 fyM
@@ -149055,9 +149083,9 @@ oto
 tPD
 jPb
 cBR
-cJK
+vIW
 nIF
-cJK
+vIW
 ecZ
 bUx
 ayQ
