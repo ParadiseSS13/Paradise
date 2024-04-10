@@ -195,7 +195,8 @@
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
 					custom_emotes=:custom_emotes,
-					cyborg_brain_type=:cyborg_brain_type
+					cyborg_brain_type=:cyborg_brain_type,
+					body_type=:body_type
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -272,7 +273,7 @@
 	qdel(firstquery)
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
-		INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender, body_type,
+		INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 			age, species, language,
 			hair_colour, secondary_hair_colour,
 			facial_hair_colour, secondary_facial_hair_colour,
@@ -297,9 +298,9 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type)
 		VALUES
-			(:ckey, :slot, :metadata, :name, :be_random_name, :gender, :body_type,
+			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
 			:h_colour, :h_sec_colour,
 			:f_colour, :f_sec_colour,
@@ -324,7 +325,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -398,6 +399,10 @@
 	return 1
 
 
+/**
+ * Load in and process the database's information on the player's character save.
+ * The order of indices here is the relative order from get_query() in 20-load-characters.dm.
+ */
 /datum/character_save/proc/load(datum/db_query/query)
 	//Character
 	metadata = query.item[1]
