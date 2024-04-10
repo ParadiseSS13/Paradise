@@ -22,28 +22,13 @@ export const ShuttleManipulator = (props, context) => {
       <Window.Content scrollable>
         <Box fillPositionedParent>
           <Tabs>
-            <Tabs.Tab
-              key="Status"
-              selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}
-              icon="info-circle"
-            >
+            <Tabs.Tab key="Status" selected={0 === tabIndex} onClick={() => setTabIndex(0)} icon="info-circle">
               Status
             </Tabs.Tab>
-            <Tabs.Tab
-              key="Templates"
-              selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}
-              icon="file-import"
-            >
+            <Tabs.Tab key="Templates" selected={1 === tabIndex} onClick={() => setTabIndex(1)} icon="file-import">
               Templates
             </Tabs.Tab>
-            <Tabs.Tab
-              key="Modification"
-              selected={2 === tabIndex}
-              onClick={() => setTabIndex(2)}
-              icon="tools"
-            >
+            <Tabs.Tab key="Modification" selected={2 === tabIndex} onClick={() => setTabIndex(2)} icon="tools">
               Modification
             </Tabs.Tab>
           </Tabs>
@@ -65,24 +50,16 @@ const StatusView = (props, context) => {
         <Section key={s.name} title={s.name}>
           <LabeledList>
             <LabeledList.Item label="ID">{s.id}</LabeledList.Item>
-            <LabeledList.Item label="Shuttle Timer">
-              {s.timeleft}
-            </LabeledList.Item>
+            <LabeledList.Item label="Shuttle Timer">{s.timeleft}</LabeledList.Item>
             <LabeledList.Item label="Shuttle Mode">{s.mode}</LabeledList.Item>
-            <LabeledList.Item label="Shuttle Status">
-              {s.status}
-            </LabeledList.Item>
+            <LabeledList.Item label="Shuttle Status">{s.status}</LabeledList.Item>
             <LabeledList.Item label="Actions">
               <Button
                 content="Jump To"
                 icon="location-arrow"
                 onClick={() => act('jump_to', { type: 'mobile', id: s.id })}
               />
-              <Button
-                content="Fast Travel"
-                icon="fast-forward"
-                onClick={() => act('fast_travel', { id: s.id })}
-              />
+              <Button content="Fast Travel" icon="fast-forward" onClick={() => act('fast_travel', { id: s.id })} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -114,23 +91,13 @@ const TemplatesView = (props, context) => {
         templates[existing_shuttle.id].templates.map((t) => (
           <Section key={t.name} title={t.name}>
             <LabeledList>
-              {t.description && (
-                <LabeledList.Item label="Description">
-                  {t.description}
-                </LabeledList.Item>
-              )}
-              {t.admin_notes && (
-                <LabeledList.Item label="Admin Notes">
-                  {t.admin_notes}
-                </LabeledList.Item>
-              )}
+              {t.description && <LabeledList.Item label="Description">{t.description}</LabeledList.Item>}
+              {t.admin_notes && <LabeledList.Item label="Admin Notes">{t.admin_notes}</LabeledList.Item>}
               <LabeledList.Item label="Actions">
                 <Button
                   content="Load Template"
                   icon="download"
-                  onClick={() =>
-                    act('select_template', { shuttle_id: t.shuttle_id })
-                  }
+                  onClick={() => act('select_template', { shuttle_id: t.shuttle_id })}
                 />
               </LabeledList.Item>
             </LabeledList>
@@ -150,21 +117,13 @@ const ModificationView = (props, context) => {
       {existing_shuttle ? (
         <Section title={'Selected Shuttle: ' + existing_shuttle.name}>
           <LabeledList>
-            <LabeledList.Item label="Status">
-              {existing_shuttle.status}
-            </LabeledList.Item>
-            {existing_shuttle.timer && (
-              <LabeledList.Item label="Timer">
-                {existing_shuttle.timeleft}
-              </LabeledList.Item>
-            )}
+            <LabeledList.Item label="Status">{existing_shuttle.status}</LabeledList.Item>
+            {existing_shuttle.timer && <LabeledList.Item label="Timer">{existing_shuttle.timeleft}</LabeledList.Item>}
             <LabeledList.Item label="Actions">
               <Button
                 content="Jump To"
                 icon="location-arrow"
-                onClick={() =>
-                  act('jump_to', { type: 'mobile', id: existing_shuttle.id })
-                }
+                onClick={() => act('jump_to', { type: 'mobile', id: existing_shuttle.id })}
               />
             </LabeledList.Item>
           </LabeledList>
@@ -176,29 +135,15 @@ const ModificationView = (props, context) => {
       {selected ? (
         <Section title={'Selected Template: ' + selected.name}>
           <LabeledList>
-            {selected.description && (
-              <LabeledList.Item label="Description">
-                {selected.description}
-              </LabeledList.Item>
-            )}
-            {selected.admin_notes && (
-              <LabeledList.Item label="Admin Notes">
-                {selected.admin_notes}
-              </LabeledList.Item>
-            )}
+            {selected.description && <LabeledList.Item label="Description">{selected.description}</LabeledList.Item>}
+            {selected.admin_notes && <LabeledList.Item label="Admin Notes">{selected.admin_notes}</LabeledList.Item>}
             <LabeledList.Item label="Actions">
               <Button
                 content="Preview"
                 icon="eye"
-                onClick={() =>
-                  act('preview', { shuttle_id: selected.shuttle_id })
-                }
+                onClick={() => act('preview', { shuttle_id: selected.shuttle_id })}
               />
-              <Button
-                content="Load"
-                icon="download"
-                onClick={() => act('load', { shuttle_id: selected.shuttle_id })}
-              />
+              <Button content="Load" icon="download" onClick={() => act('load', { shuttle_id: selected.shuttle_id })} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

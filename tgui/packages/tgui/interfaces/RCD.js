@@ -37,9 +37,7 @@ const MatterReadout = (props, context) => {
           value={matter}
           maxValue={max_matter}
         >
-          <Stack.Item textAlign="center">
-            {matter + ' / ' + max_matter + ' units'}
-          </Stack.Item>
+          <Stack.Item textAlign="center">{matter + ' / ' + max_matter + ' units'}</Stack.Item>
         </ProgressBar>
       </Section>
     </Stack.Item>
@@ -122,18 +120,10 @@ const TypesAndAccess = (props, context) => {
     <>
       <Stack.Item textAlign="center">
         <Tabs fluid>
-          <Tabs.Tab
-            icon="cog"
-            selected={tab === 1}
-            onClick={() => act('set_tab', { tab: 1 })}
-          >
+          <Tabs.Tab icon="cog" selected={tab === 1} onClick={() => act('set_tab', { tab: 1 })}>
             Airlock Types
           </Tabs.Tab>
-          <Tabs.Tab
-            selected={tab === 2}
-            icon="list"
-            onClick={() => act('set_tab', { tab: 2 })}
-          >
+          <Tabs.Tab selected={tab === 2} icon="list" onClick={() => act('set_tab', { tab: 2 })}>
             Airlock Access
           </Tabs.Tab>
         </Tabs>

@@ -5,15 +5,7 @@ import { useBackend } from '../backend';
 const BrigCellsTableRow = (properties, context) => {
   const { cell } = properties;
   const { act } = useBackend(context);
-  const {
-    cell_id,
-    occupant,
-    crimes,
-    brigged_by,
-    time_left_seconds,
-    time_set_seconds,
-    ref,
-  } = cell;
+  const { cell_id, occupant, crimes, brigged_by, time_left_seconds, time_set_seconds, ref } = cell;
 
   let className = '';
   if (time_left_seconds > 0) {

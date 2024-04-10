@@ -37,9 +37,7 @@ export const AirlockAccessController = (props, context) => {
         content={'Lock Interior Door'}
         icon={'exclamation-triangle'}
         disabled={processing}
-        color={
-          interior_status === 'open' ? 'red' : processing ? 'yellow' : null
-        }
+        color={interior_status === 'open' ? 'red' : processing ? 'yellow' : null}
         onClick={() => act('force_int')}
       />
     );

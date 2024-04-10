@@ -1,15 +1,6 @@
 import { filter } from 'common/collections';
 import { useBackend, useLocalState } from '../../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Stack,
-} from '../../components';
+import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Stack } from '../../components';
 
 export const pda_messenger = (props, context) => {
   const { act, data } = useBackend(context);
@@ -27,11 +18,7 @@ export const ActiveConversation = (props, context) => {
 
   const { convo_name, convo_job, messages, active_convo } = data;
 
-  const [clipboardMode, setClipboardMode] = useLocalState(
-    context,
-    'clipboardMode',
-    false
-  );
+  const [clipboardMode, setClipboardMode] = useLocalState(context, 'clipboardMode', false);
 
   let body = (
     <Section
@@ -47,21 +34,12 @@ export const ActiveConversation = (props, context) => {
             tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
-          <Button
-            icon="comment"
-            onClick={() => act('Message', { 'target': active_convo })}
-            content="Reply"
-          />
+          <Button icon="comment" onClick={() => act('Message', { 'target': active_convo })} content="Reply" />
         </>
       }
     >
       {filter((im) => im.target === active_convo)(messages).map((im, i) => (
-        <Box
-          textAlign={im.sent ? 'right' : 'left'}
-          position="relative"
-          mb={1}
-          key={i}
-        >
+        <Box textAlign={im.sent ? 'right' : 'left'} position="relative" mb={1} key={i}>
           <Icon
             fontSize={2.5}
             color={im.sent ? '#4d9121' : '#cd7a0d'}
@@ -110,11 +88,7 @@ export const ActiveConversation = (props, context) => {
               tooltipPosition="bottom-start"
               onClick={() => setClipboardMode(!clipboardMode)}
             />
-            <Button
-              icon="comment"
-              onClick={() => act('Message', { 'target': active_convo })}
-              content="Reply"
-            />
+            <Button icon="comment" onClick={() => act('Message', { 'target': active_convo })} content="Reply" />
           </>
         }
       >
@@ -158,8 +132,7 @@ export const MessengerList = (props, context) => {
 
   const data = props.data;
 
-  const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } =
-    data;
+  const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } = data;
 
   const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
@@ -168,25 +141,13 @@ export const MessengerList = (props, context) => {
       <Stack.Item mb={5}>
         <LabeledList>
           <LabeledList.Item label="Messenger Functions">
-            <Button
-              selected={!silent}
-              icon={silent ? 'volume-mute' : 'volume-up'}
-              onClick={() => act('Toggle Ringer')}
-            >
+            <Button selected={!silent} icon={silent ? 'volume-mute' : 'volume-up'} onClick={() => act('Toggle Ringer')}>
               Ringer: {silent ? 'Off' : 'On'}
             </Button>
-            <Button
-              color={toff ? 'bad' : 'green'}
-              icon="power-off"
-              onClick={() => act('Toggle Messenger')}
-            >
+            <Button color={toff ? 'bad' : 'green'} icon="power-off" onClick={() => act('Toggle Messenger')}>
               Messenger: {toff ? 'Off' : 'On'}
             </Button>
-            <Button
-              icon="trash"
-              color="bad"
-              onClick={() => act('Clear', { option: 'All' })}
-            >
+            <Button icon="trash" color="bad" onClick={() => act('Clear', { option: 'All' })}>
               Delete All Conversations
             </Button>
             <Button icon="bell" onClick={() => act('Ringtone')}>
@@ -197,9 +158,7 @@ export const MessengerList = (props, context) => {
                 selected={ringtone}
                 width="100px"
                 options={Object.keys(ringtone_list)}
-                onSelected={(value) =>
-                  act('Available_Ringtones', { selected_ringtone: value })
-                }
+                onSelected={(value) => act('Available_Ringtones', { selected_ringtone: value })}
               />
             </Button>
           </LabeledList.Item>
@@ -209,15 +168,11 @@ export const MessengerList = (props, context) => {
             {!!charges && (
               <Box mt={0.5} mb={1}>
                 <LabeledList>
-                  <LabeledList.Item label="Cartridge Special Function">
-                    {charges} charges left.
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Cartridge Special Function">{charges} charges left.</LabeledList.Item>
                 </LabeledList>
               </Box>
             )}
-            {(!convopdas.length && !pdas.length && (
-              <Box>No current conversations</Box>
-            )) || (
+            {(!convopdas.length && !pdas.length && <Box>No current conversations</Box>) || (
               <Box>
                 Search:{' '}
                 <Input
@@ -239,13 +194,7 @@ export const MessengerList = (props, context) => {
         msgAct="Select Conversation"
         searchTerm={searchTerm}
       />
-      <PDAList
-        title="Other PDAs"
-        pdas={pdas}
-        msgAct="Message"
-        data={data}
-        searchTerm={searchTerm}
-      />
+      <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} searchTerm={searchTerm} />
     </Stack>
   );
 };

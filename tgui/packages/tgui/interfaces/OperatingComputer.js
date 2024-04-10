@@ -1,17 +1,7 @@
 import { round } from 'common/math';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import {
-  Box,
-  Button,
-  Stack,
-  Icon,
-  Knob,
-  LabeledList,
-  Section,
-  Tabs,
-  ProgressBar,
-} from '../components';
+import { Box, Button, Stack, Icon, Knob, LabeledList, Section, Tabs, ProgressBar } from '../components';
 
 const stats = [
   ['good', 'Conscious'],
@@ -31,26 +21,14 @@ const damageRange = {
   bad: [0.5, Infinity],
 };
 
-const tempColors = [
-  'bad',
-  'average',
-  'average',
-  'good',
-  'average',
-  'average',
-  'bad',
-];
+const tempColors = ['bad', 'average', 'average', 'good', 'average', 'average', 'bad'];
 
 export const OperatingComputer = (props, context) => {
   const { act, data } = useBackend(context);
   const { hasOccupant, choice } = data;
   let body;
   if (!choice) {
-    body = hasOccupant ? (
-      <OperatingComputerPatient />
-    ) : (
-      <OperatingComputerUnoccupied />
-    );
+    body = hasOccupant ? <OperatingComputerPatient /> : <OperatingComputerUnoccupied />;
   } else {
     body = <OperatingComputerOptions />;
   }
@@ -60,18 +38,10 @@ export const OperatingComputer = (props, context) => {
         <Stack fill vertical>
           <Stack.Item>
             <Tabs>
-              <Tabs.Tab
-                selected={!choice}
-                icon="user"
-                onClick={() => act('choiceOff')}
-              >
+              <Tabs.Tab selected={!choice} icon="user" onClick={() => act('choiceOff')}>
                 Patient
               </Tabs.Tab>
-              <Tabs.Tab
-                selected={!!choice}
-                icon="cog"
-                onClick={() => act('choiceOn')}
-              >
+              <Tabs.Tab selected={!!choice} icon="cog" onClick={() => act('choiceOn')}>
                 Options
               </Tabs.Tab>
             </Tabs>
@@ -113,13 +83,7 @@ const OperatingComputerPatient = (props, context) => {
             </LabeledList.Item>
             {damages.map((d, i) => (
               <LabeledList.Item key={i} label={d[0] + ' Damage'}>
-                <ProgressBar
-                  key={i}
-                  min="0"
-                  max="100"
-                  value={occupant[d[1]] / 100}
-                  ranges={damageRange}
-                >
+                <ProgressBar key={i} min="0" max="100" value={occupant[d[1]] / 100} ranges={damageRange}>
                   {round(occupant[d[1]])}
                 </ProgressBar>
               </LabeledList.Item>
@@ -151,9 +115,7 @@ const OperatingComputerPatient = (props, context) => {
                     {occupant.bloodPercent}%, {occupant.bloodLevel}cl
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Pulse">
-                  {occupant.pulse} BPM
-                </LabeledList.Item>
+                <LabeledList.Item label="Pulse">{occupant.pulse} BPM</LabeledList.Item>
               </>
             )}
           </LabeledList>
@@ -163,12 +125,8 @@ const OperatingComputerPatient = (props, context) => {
         <Section title="Current Procedure" level="2">
           {occupant.inSurgery ? (
             <LabeledList>
-              <LabeledList.Item label="Procedure">
-                {occupant.surgeryName}
-              </LabeledList.Item>
-              <LabeledList.Item label="Next Step">
-                {occupant.stepName}
-              </LabeledList.Item>
+              <LabeledList.Item label="Procedure">{occupant.surgeryName}</LabeledList.Item>
+              <LabeledList.Item label="Next Step">{occupant.stepName}</LabeledList.Item>
             </LabeledList>
           ) : (
             <Box color="label">No procedure ongoing.</Box>

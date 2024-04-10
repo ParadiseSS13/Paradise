@@ -8,15 +8,7 @@ export const Teleporter = (props, context) => {
   const REGIME_TELEPORT = 0;
   const REGIME_GATE = 1;
   const REGIME_GPS = 2;
-  const {
-    calibrated,
-    calibrating,
-    powerstation,
-    regime,
-    teleporterhub,
-    target,
-    locked,
-  } = data;
+  const { calibrated, calibrating, powerstation, regime, teleporterhub, target, locked } = data;
   return (
     <Window width={350} height={270}>
       <Window.Content>
@@ -25,12 +17,8 @@ export const Teleporter = (props, context) => {
             {(!powerstation || !teleporterhub) && (
               <Section fill title="Error">
                 {teleporterhub}
-                {!powerstation && (
-                  <Box color="bad"> Powerstation not linked </Box>
-                )}
-                {powerstation && !teleporterhub && (
-                  <Box color="bad"> Teleporter hub not linked </Box>
-                )}
+                {!powerstation && <Box color="bad"> Powerstation not linked </Box>}
+                {powerstation && !teleporterhub && <Box color="bad"> Teleporter hub not linked </Box>}
               </Section>
             )}
             {powerstation && teleporterhub && (
@@ -97,9 +85,7 @@ export const Teleporter = (props, context) => {
                       tooltip="One-way teleport."
                       tooltipPosition="top"
                       color={regime === REGIME_TELEPORT ? 'good' : null}
-                      onClick={() =>
-                        act('setregime', { regime: REGIME_TELEPORT })
-                      }
+                      onClick={() => act('setregime', { regime: REGIME_TELEPORT })}
                     />
                   </Stack.Item>
                   <Stack.Item grow textAlign="center">
@@ -122,12 +108,8 @@ export const Teleporter = (props, context) => {
                     {target !== 'None' && (
                       <Stack fill>
                         <Stack.Item width={15.8} textAlign="center" mt={0.5}>
-                          {(calibrating && (
-                            <Box color="average">In Progress</Box>
-                          )) ||
-                            (calibrated && <Box color="good">Optimal</Box>) || (
-                              <Box color="bad">Sub-Optimal</Box>
-                            )}
+                          {(calibrating && <Box color="average">In Progress</Box>) ||
+                            (calibrated && <Box color="good">Optimal</Box>) || <Box color="bad">Sub-Optimal</Box>}
                         </Stack.Item>
                         <Stack.Item grow>
                           <Button
@@ -142,19 +124,12 @@ export const Teleporter = (props, context) => {
                         </Stack.Item>
                       </Stack>
                     )}
-                    {target === 'None' && (
-                      <Box lineHeight="21px">No target set</Box>
-                    )}
+                    {target === 'None' && <Box lineHeight="21px">No target set</Box>}
                   </Stack.Item>
                 </Stack>
               </Section>
             )}
-            {!!(
-              locked &&
-              powerstation &&
-              teleporterhub &&
-              regime === REGIME_GPS
-            ) && (
+            {!!(locked && powerstation && teleporterhub && regime === REGIME_GPS) && (
               <Section title="GPS">
                 <Stack>
                   <Button
@@ -163,12 +138,7 @@ export const Teleporter = (props, context) => {
                     icon="upload"
                     onClick={() => act('load')}
                   />
-                  <Button
-                    content="Eject"
-                    tooltip="Ejects the GPS device"
-                    icon="eject"
-                    onClick={() => act('eject')}
-                  />
+                  <Button content="Eject" tooltip="Ejects the GPS device" icon="eject" onClick={() => act('eject')} />
                 </Stack>
               </Section>
             )}

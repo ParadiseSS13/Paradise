@@ -16,17 +16,11 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css(
-    '../components/Section.scss',
-    $with: ('background-color': #b2ae74)
-  );
+  @include meta.load-css('../components/Section.scss', $with: ('background-color': #b2ae74));
 
   // Layouts
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #35435a)
-  );
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #35435a));
 
   // Interfaces
   @include meta.load-css('../interfaces/Safe.scss');
@@ -53,11 +47,7 @@
       display: block;
       width: 24px;
       height: 40px;
-      background-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        #ffffff 100%
-      );
+      background-image: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
       box-shadow: 1px 1px #111111;
       opacity: 0.2;
       position: absolute;

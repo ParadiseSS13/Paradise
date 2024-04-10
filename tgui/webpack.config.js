@@ -9,7 +9,7 @@ const path = require('path');
 const ExtractCssPlugin = require('mini-css-extract-plugin');
 const { createBabelConfig } = require('./babel.config.js');
 
-const createStats = verbose => ({
+const createStats = (verbose) => ({
   assets: verbose,
   builtAt: verbose,
   cached: false,
@@ -31,27 +31,16 @@ module.exports = (env = {}, argv) => {
     context: path.resolve(__dirname),
     target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
-      'tgui': [
-        './packages/tgui-polyfill',
-        './packages/tgui',
-      ],
-      'tgui-panel': [
-        './packages/tgui-polyfill',
-        './packages/tgui-panel',
-      ],
-      'tgui-say': [
-        './packages/tgui-polyfill',
-        './packages/tgui-say',
-      ],
+      'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
+      'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
+      'tgui-say': ['./packages/tgui-polyfill', './packages/tgui-say'],
     },
     output: {
-      path: argv.useTmpFolder
-        ? path.resolve(__dirname, './public/.tmp')
-        : path.resolve(__dirname, './public'),
+      path: argv.useTmpFolder ? path.resolve(__dirname, './public/.tmp') : path.resolve(__dirname, './public'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
-      hashFunction: "xxhash64",
+      hashFunction: 'xxhash64',
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
@@ -127,10 +116,7 @@ module.exports = (env = {}, argv) => {
   // Add a bundle analyzer to the plugins array
   if (argv.analyze) {
     const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    config.plugins = [
-      ...config.plugins,
-      new BundleAnalyzerPlugin(),
-    ];
+    config.plugins = [...config.plugins, new BundleAnalyzerPlugin()];
   }
 
   // Production build specific options

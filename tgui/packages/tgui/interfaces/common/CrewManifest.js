@@ -45,11 +45,7 @@ const ManifestTable = (group) => {
         </Table.Row>
 
         {group.map((person) => (
-          <Table.Row
-            color={HCC(person.rank)}
-            key={person.name + person.rank}
-            bold={HBC(person.rank)}
-          >
+          <Table.Row color={HCC(person.rank)} key={person.name + person.rank} bold={HBC(person.rank)}>
             <Table.Cell>{decodeHtmlEntities(person.name)}</Table.Cell>
             <Table.Cell>{decodeHtmlEntities(person.rank)}</Table.Cell>
             <Table.Cell>{person.active}</Table.Cell>

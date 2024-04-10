@@ -11,11 +11,7 @@ export const pai_doorjack = (props, context) => {
     cableContent = <Button selected content="Connected" />;
   } else {
     cableContent = (
-      <Button
-        content={cable ? 'Extended' : 'Retracted'}
-        color={cable ? 'orange' : null}
-        onClick={() => act('cable')}
-      />
+      <Button content={cable ? 'Extended' : 'Retracted'} color={cable ? 'orange' : null} onClick={() => act('cable')} />
     );
   }
 
@@ -33,12 +29,7 @@ export const pai_doorjack = (props, context) => {
           maxValue={100}
         />
         {inprogress ? (
-          <Button
-            mt={1}
-            color="red"
-            content="Abort"
-            onClick={() => act('cancel')}
-          />
+          <Button mt={1} color="red" content="Abort" onClick={() => act('cancel')} />
         ) : (
           <Button mt={1} content="Start" onClick={() => act('jack')} />
         )}

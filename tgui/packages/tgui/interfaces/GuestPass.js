@@ -11,18 +11,10 @@ export const GuestPass = (props, context) => {
         <Stack fill vertical>
           <Stack.Item>
             <Tabs>
-              <Tabs.Tab
-                icon="id-card"
-                selected={!data.showlogs}
-                onClick={() => act('mode', { mode: 0 })}
-              >
+              <Tabs.Tab icon="id-card" selected={!data.showlogs} onClick={() => act('mode', { mode: 0 })}>
                 Issue Pass
               </Tabs.Tab>
-              <Tabs.Tab
-                icon="scroll"
-                selected={data.showlogs}
-                onClick={() => act('mode', { mode: 1 })}
-              >
+              <Tabs.Tab icon="scroll" selected={data.showlogs} onClick={() => act('mode', { mode: 1 })}>
                 Records ({data.issue_log.length})
               </Tabs.Tab>
             </Tabs>
@@ -79,14 +71,7 @@ export const GuestPass = (props, context) => {
               <Stack.Item grow>
                 <Section fill>
                   <Stack fill>
-                    <Stack.Item
-                      bold
-                      grow
-                      fontSize={1.5}
-                      textAlign="center"
-                      align="center"
-                      color="label"
-                    >
+                    <Stack.Item bold grow fontSize={1.5} textAlign="center" align="center" color="label">
                       <Icon name="id-card" size={5} color="gray" mb={5} />
                       <br />
                       Please, insert ID Card
@@ -135,12 +120,7 @@ export const GuestPass = (props, context) => {
                 scrollable
                 title="Issuance Log"
                 buttons={
-                  <Button
-                    icon="print"
-                    content={'Print'}
-                    disabled={!data.scan_name}
-                    onClick={() => act('print')}
-                  />
+                  <Button icon="print" content={'Print'} disabled={!data.scan_name} onClick={() => act('print')} />
                 }
               >
                 {(!!data.issue_log.length && (
@@ -151,14 +131,7 @@ export const GuestPass = (props, context) => {
                   </LabeledList>
                 )) || (
                   <Stack fill>
-                    <Stack.Item
-                      bold
-                      grow
-                      fontSize={1.5}
-                      textAlign="center"
-                      align="center"
-                      color="label"
-                    >
+                    <Stack.Item bold grow fontSize={1.5} textAlign="center" align="center" color="label">
                       <Icon.Stack>
                         <Icon name="scroll" size={5} color="gray" />
                         <Icon name="slash" size={5} color="red" />

@@ -1,14 +1,7 @@
 import { map } from 'common/collections';
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Fragment,
-  LabeledList,
-  NumberInput,
-  Section,
-} from '../components';
+import { Box, Button, Fragment, LabeledList, NumberInput, Section } from '../components';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
@@ -25,9 +18,7 @@ export const Radio = (props, context) => {
     loudspeaker,
     has_loudspeaker,
   } = data;
-  const tunedChannel = RADIO_CHANNELS.find(
-    (channel) => channel.freq === frequency
-  );
+  const tunedChannel = RADIO_CHANNELS.find((channel) => channel.freq === frequency);
   let matchedChannel = tunedChannel && tunedChannel.name ? true : false;
   let colorMap = [];
   let rc = [];
@@ -45,10 +36,7 @@ export const Radio = (props, context) => {
     freq: value,
   }))(data.ichannels);
   return (
-    <Window
-      width={375}
-      height={130 + schannels.length * 21.2 + ichannels.length * 11}
-    >
+    <Window width={375} height={130 + schannels.length * 21.2 + ichannels.length * 11}>
       <Window.Content scrollable>
         <Section fill>
           <LabeledList>
@@ -117,9 +105,7 @@ export const Radio = (props, context) => {
                   icon="bullhorn"
                   selected={loudspeaker}
                   content="Loudspeaker"
-                  tooltip={
-                    loudspeaker ? 'Disable Loudspeaker' : 'Enable Loudspeaker'
-                  }
+                  tooltip={loudspeaker ? 'Disable Loudspeaker' : 'Enable Loudspeaker'}
                   onClick={() => act('loudspeaker')}
                 />
               )}
@@ -152,9 +138,7 @@ export const Radio = (props, context) => {
                     key={'i_' + channel.name}
                     icon="arrow-right"
                     content={channel.name}
-                    selected={
-                      matchedChannel && tunedChannel.name === channel.name
-                    }
+                    selected={matchedChannel && tunedChannel.name === channel.name}
                     onClick={() =>
                       act('ichannel', {
                         ichannel: channel.freq,

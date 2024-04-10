@@ -24,9 +24,7 @@ const prevNextCamera = (cameras, activeCamera) => {
   if (!activeCamera) {
     return [];
   }
-  const index = cameras.findIndex(
-    (camera) => camera.name === activeCamera.name
-  );
+  const index = cameras.findIndex((camera) => camera.name === activeCamera.name);
   return [cameras[index - 1]?.name, cameras[index + 1]?.name];
 };
 
@@ -51,10 +49,7 @@ export const CameraConsole = (props, context) => {
   const { act, data, config } = useBackend(context);
   const { mapRef, activeCamera } = data;
   const cameras = selectCameras(data.cameras);
-  const [prevCameraName, nextCameraName] = prevNextCamera(
-    cameras,
-    activeCamera
-  );
+  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
   return (
     <Window width={870} height={708}>
       <div className="CameraConsole__left">
@@ -109,11 +104,7 @@ export const CameraConsoleContent = (props, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input
-          fluid
-          placeholder="Search for a camera"
-          onInput={(e, value) => setSearchText(value)}
-        />
+        <Input fluid placeholder="Search for a camera" onInput={(e, value) => setSearchText(value)} />
       </Stack.Item>
       <Stack.Item grow m={0}>
         <Section fill scrollable>
@@ -127,9 +118,7 @@ export const CameraConsoleContent = (props, context) => {
                 'Button',
                 'Button--fluid',
                 'Button--color--transparent',
-                activeCamera &&
-                  camera.name === activeCamera.name &&
-                  'Button--selected',
+                activeCamera && camera.name === activeCamera.name && 'Button--selected',
               ])}
               onClick={() =>
                 act('switch_camera', {

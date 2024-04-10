@@ -88,26 +88,14 @@ const Story = (props, context) => {
         />
       </Section>
       <Section fitted>
-        <Tabs
-          vertical={tabProps.vertical}
-          fluid={tabProps.fluid}
-          textAlign={tabProps.leftAligned && 'left'}
-        >
+        <Tabs vertical={tabProps.vertical} fluid={tabProps.fluid} textAlign={tabProps.leftAligned && 'left'}>
           {TAB_RANGE.map((text, i) => (
             <Tabs.Tab
               key={i}
               selected={i === tabIndex}
               icon={tabProps.icon && 'info-circle'}
-              leftSlot={
-                tabProps.leftSlot && (
-                  <Button circular compact color="transparent" icon="times" />
-                )
-              }
-              rightSlot={
-                tabProps.rightSlot && (
-                  <Button circular compact color="transparent" icon="times" />
-                )
-              }
+              leftSlot={tabProps.leftSlot && <Button circular compact color="transparent" icon="times" />}
+              rightSlot={tabProps.rightSlot && <Button circular compact color="transparent" icon="times" />}
               onClick={() => setTabIndex(i)}
             >
               {text}

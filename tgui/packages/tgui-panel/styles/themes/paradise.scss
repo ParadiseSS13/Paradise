@@ -28,11 +28,7 @@
   @include meta.load-css('~tgui/styles/components/Section.scss');
   @include meta.load-css(
     '~tgui/styles/components/Button.scss',
-    $with: (
-      'color-default': colors.$primary,
-      'color-selected': #bf6030,
-      'color-danger': #8c1eff
-    )
+    $with: ('color-default': colors.$primary, 'color-selected': #bf6030, 'color-danger': #8c1eff)
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
@@ -51,10 +47,7 @@
   );
 
   // Layouts
-  @include meta.load-css(
-    '~tgui/styles/layouts/Layout.scss',
-    $with: ('scrollbar-color-multiplier': 0.75)
-  );
+  @include meta.load-css('~tgui/styles/layouts/Layout.scss', $with: ('scrollbar-color-multiplier': 0.75));
   @include meta.load-css('~tgui/styles/layouts/Window.scss');
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',

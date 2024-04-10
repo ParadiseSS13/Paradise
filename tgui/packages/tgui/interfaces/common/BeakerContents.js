@@ -11,12 +11,8 @@ export const BeakerContents = (props) => {
   const { beakerLoaded, beakerContents = [], buttons } = props;
   return (
     <Stack vertical>
-      {(!beakerLoaded && (
-        <Stack.Item color="label">No beaker loaded.</Stack.Item>
-      )) ||
-        (beakerContents.length === 0 && (
-          <Stack.Item color="label">Beaker is empty.</Stack.Item>
-        ))}
+      {(!beakerLoaded && <Stack.Item color="label">No beaker loaded.</Stack.Item>) ||
+        (beakerContents.length === 0 && <Stack.Item color="label">Beaker is empty.</Stack.Item>)}
       {beakerContents.map((chemical, i) => (
         <Stack key={chemical.name}>
           <Stack.Item key={chemical.name} color="label" grow>

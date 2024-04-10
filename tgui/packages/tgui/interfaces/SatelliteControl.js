@@ -18,9 +18,7 @@ export const SatelliteControl = (props, context) => {
         {meteor_shield && (
           <Section title="Station Shield Coverage">
             <ProgressBar
-              color={
-                meteor_shield_coverage_percentage >= 100 ? 'good' : 'average'
-              }
+              color={meteor_shield_coverage_percentage >= 100 ? 'good' : 'average'}
               value={meteor_shield_coverage}
               maxValue={meteor_shield_coverage_max}
             >

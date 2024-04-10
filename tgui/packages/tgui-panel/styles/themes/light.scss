@@ -55,10 +55,7 @@
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
-    $with: (
-      'border-color': colors.fg(colors.$label),
-      'background-color': #e6e6e6
-    )
+    $with: ('border-color': colors.fg(colors.$label), 'background-color': #e6e6e6)
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
@@ -67,16 +64,10 @@
   @include meta.load-css('~tgui/styles/components/ProgressBar.scss');
 
   // Components specific to tgui-panel
-  @include meta.load-css(
-    '../components/Chat.scss',
-    $with: ('text-color': #000000)
-  );
+  @include meta.load-css('../components/Chat.scss', $with: ('text-color': #000000));
 
   // Layouts
-  @include meta.load-css(
-    '~tgui/styles/layouts/Layout.scss',
-    $with: ('scrollbar-color-multiplier': -1)
-  );
+  @include meta.load-css('~tgui/styles/layouts/Layout.scss', $with: ('scrollbar-color-multiplier': -1));
   @include meta.load-css('~tgui/styles/layouts/Window.scss');
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',

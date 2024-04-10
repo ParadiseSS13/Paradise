@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Section,
-  Box,
-  Table,
-  ProgressBar,
-} from '../components';
+import { Button, LabeledList, Section, Box, Table, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
 export const SyndicateComputerSimple = (props, context) => {

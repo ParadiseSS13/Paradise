@@ -1,16 +1,7 @@
 import { rad2deg } from 'common/math';
 import { Component, Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  LabeledList,
-  Modal,
-  Section,
-  Tabs,
-} from '../components';
+import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 
@@ -79,20 +70,12 @@ export const Contractor = (properties, context) => {
           <Navigation />
         </Flex.Item>
         <Flex.Item grow="1" overflow="hidden">
-          {data.page === 1 ? (
-            <Contracts height="100%" />
-          ) : (
-            <Hub height="100%" />
-          )}
+          {data.page === 1 ? <Contracts height="100%" /> : <Hub height="100%" />}
         </Flex.Item>
       </>
     );
   }
-  const [viewingPhoto, _setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
+  const [viewingPhoto, _setViewingPhoto] = useLocalState(context, 'viewingPhoto', '');
   return (
     <Window theme="syndicate" width={500} height={600}>
       {viewingPhoto && <PhotoZoom />}
@@ -134,17 +117,12 @@ const Summary = (properties, context) => {
                 />
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="TC Earned">
-              {tc_paid_out} TC
-            </LabeledList.Item>
+            <LabeledList.Item label="TC Earned">{tc_paid_out} TC</LabeledList.Item>
           </LabeledList>
         </Box>
         <Box flexBasis="50%">
           <LabeledList>
-            <LabeledList.Item
-              label="Contracts Completed"
-              verticalAlign="middle"
-            >
+            <LabeledList.Item label="Contracts Completed" verticalAlign="middle">
               <Box height="20px" lineHeight="20px" inline>
                 {completed_contracts}
               </Box>
@@ -193,14 +171,9 @@ const Navigation = (properties, context) => {
 const Contracts = (properties, context) => {
   const { act, data } = useBackend(context);
   const { contracts, contract_active, can_extract } = data;
-  const activeContract =
-    !!contract_active && contracts.filter((c) => c.status === 1)[0];
+  const activeContract = !!contract_active && contracts.filter((c) => c.status === 1)[0];
   const extractionCooldown = activeContract && activeContract.time_left > 0;
-  const [_viewingPhoto, setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
+  const [_viewingPhoto, setViewingPhoto] = useLocalState(context, 'viewingPhoto', '');
   return (
     <Section
       title="Available Contracts"
@@ -212,10 +185,7 @@ const Contracts = (properties, context) => {
           content={[
             'Call Extraction',
             extractionCooldown && (
-              <Countdown
-                timeLeft={activeContract.time_left}
-                format={(v, f) => ' (' + f.substr(3) + ')'}
-              />
+              <Countdown timeLeft={activeContract.time_left} format={(v, f) => ' (' + f.substr(3) + ')'} />
             ),
           ]}
           onClick={() => act('extract')}
@@ -248,9 +218,7 @@ const Contracts = (properties, context) => {
                       icon="camera"
                       mb="-0.5rem"
                       ml="0.5rem"
-                      onClick={() =>
-                        setViewingPhoto('target_photo_' + contract.uid + '.png')
-                      }
+                      onClick={() => setViewingPhoto('target_photo_' + contract.uid + '.png')}
                     />
                   )}
                 </Flex.Item>
@@ -271,13 +239,7 @@ const Contracts = (properties, context) => {
                   </Box>
                 )}
                 {contract.status === 1 && (
-                  <Button.Confirm
-                    icon="ban"
-                    color="bad"
-                    content="Abort"
-                    ml="0.5rem"
-                    onClick={() => act('abort')}
-                  />
+                  <Button.Confirm icon="ban" color="bad" content="Abort" ml="0.5rem" onClick={() => act('abort')} />
                 )}
               </Box>
             }
@@ -295,8 +257,7 @@ const Contracts = (properties, context) => {
                 {!!contract.dead_extraction && (
                   <Box color="bad" mt="0.5rem" bold>
                     <Icon name="exclamation-triangle" mr="0.5rem" />
-                    Telecrystals reward reduced drastically as the target was
-                    dead during extraction.
+                    Telecrystals reward reduced drastically as the target was dead during extraction.
                   </Box>
                 )}
                 {!!contract.fail_reason && (
@@ -316,9 +277,7 @@ const Contracts = (properties, context) => {
                   <Button.Confirm
                     key={key}
                     disabled={!!contract_active}
-                    content={
-                      difficulty.name + ' (' + difficulty.reward + ' TC)'
-                    }
+                    content={difficulty.name + ' (' + difficulty.reward + ' TC)'}
                     onClick={() =>
                       act('activate', {
                         uid: contract.uid,
@@ -356,16 +315,7 @@ const areaArrow = (contract) => {
         <Icon
           name={same_area ? 'dot-circle-o' : 'arrow-alt-circle-right-o'}
           color={same_area ? 'green' : 'yellow'}
-          rotation={
-            same_area
-              ? null
-              : -rad2deg(
-                  Math.atan2(
-                    t_coords[1] - c_coords[1],
-                    t_coords[0] - c_coords[0]
-                  )
-                )
-          }
+          rotation={same_area ? null : -rad2deg(Math.atan2(t_coords[1] - c_coords[1], t_coords[0] - c_coords[0]))}
           lineHeight={same_area ? null : '0.85'} // Needed because it jumps upwards otherwise
           size="1.5"
         />
@@ -395,11 +345,7 @@ const Hub = (properties, context) => {
             }
           />
           {buyable.stock > -1 && (
-            <Box
-              as="span"
-              color={buyable.stock === 0 ? 'bad' : 'good'}
-              ml="0.5rem"
-            >
+            <Box as="span" color={buyable.stock === 0 ? 'bad' : 'good'} ml="0.5rem">
               {buyable.stock} in stock
             </Box>
           )}
@@ -460,21 +406,11 @@ class FakeTerminal extends Component {
 }
 
 const PhotoZoom = (properties, context) => {
-  const [viewingPhoto, setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
+  const [viewingPhoto, setViewingPhoto] = useLocalState(context, 'viewingPhoto', '');
   return (
     <Modal className="Contractor__photoZoom">
       <Box as="img" src={viewingPhoto} />
-      <Button
-        icon="times"
-        content="Close"
-        color="grey"
-        mt="1rem"
-        onClick={() => setViewingPhoto('')}
-      />
+      <Button icon="times" content="Close" color="grey" mt="1rem" onClick={() => setViewingPhoto('')} />
     </Modal>
   );
 };

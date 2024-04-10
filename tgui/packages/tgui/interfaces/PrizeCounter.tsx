@@ -20,9 +20,7 @@ export const PrizeCounter = (props, context) => {
   const { act, data } = useBackend<PrizeData>(context);
   const { tickets, prizes = [] } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const filteredPrizes = prizes.filter((prize) =>
-    prize.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredPrizes = prizes.filter((prize) => prize.name.toLowerCase().includes(searchText.toLowerCase()));
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">
       <Window.Content>
@@ -61,12 +59,7 @@ export const PrizeCounter = (props, context) => {
                 return (
                   <Stack key={prize.name} className="PrizeCounter__Item">
                     <Stack.Item lineHeight="0" align="center">
-                      <div
-                        className={classes([
-                          'prize_counter64x64',
-                          prize.imageID,
-                        ])}
-                      />
+                      <div className={classes(['prize_counter64x64', prize.imageID])} />
                     </Stack.Item>
                     <Stack.Item width="100%">
                       <Stack vertical textAlign="center">
@@ -87,10 +80,7 @@ export const PrizeCounter = (props, context) => {
                         content={prize.cost}
                         tooltip={disabled ? 'Not enough tickets.' : null}
                         tooltipPosition="top-end"
-                        onClick={() =>
-                          !disabled &&
-                          act('purchase', { 'purchase': prize.itemID })
-                        }
+                        onClick={() => !disabled && act('purchase', { 'purchase': prize.itemID })}
                       />
                     </Stack.Item>
                   </Stack>

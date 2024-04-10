@@ -25,35 +25,19 @@ export const removeAllSkiplines = (toSanitize: string) => {
 
 export const TextInputModal = (props, context) => {
   const { act, data } = useBackend<TextInputData>(context);
-  const {
-    max_length,
-    message = '',
-    multiline,
-    placeholder,
-    timeout,
-    title,
-  } = data;
-  const [input, setInput] = useLocalState<string>(
-    context,
-    'input',
-    placeholder || ''
-  );
+  const { max_length, message = '', multiline, placeholder, timeout, title } = data;
+  const [input, setInput] = useLocalState<string>(context, 'input', placeholder || '');
   const onType = (value: string) => {
     if (value === input) {
       return;
     }
-    const sanitizedInput = multiline
-      ? sanitizeMultiline(value)
-      : removeAllSkiplines(value);
+    const sanitizedInput = multiline ? sanitizeMultiline(value) : removeAllSkiplines(value);
     setInput(sanitizedInput);
   };
 
   const visualMultiline = multiline || input.length >= 40;
   // Dynamically changes the window height based on the message.
-  const windowHeight =
-    130 +
-    (message.length > 40 ? Math.ceil(message.length / 4) : 0) +
-    (visualMultiline ? 80 : 0);
+  const windowHeight = 130 + (message.length > 40 ? Math.ceil(message.length / 4) : 0) + (visualMultiline ? 80 : 0);
 
   return (
     <Window title={title} width={325} height={windowHeight}>
@@ -78,10 +62,7 @@ export const TextInputModal = (props, context) => {
               <InputArea input={input} onType={onType} />
             </Stack.Item>
             <Stack.Item>
-              <InputButtons
-                input={input}
-                message={`${input.length}/${max_length}`}
-              />
+              <InputButtons input={input} message={`${input.length}/${max_length}`} />
             </Stack.Item>
           </Stack>
         </Section>

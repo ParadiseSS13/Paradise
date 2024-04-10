@@ -23,9 +23,7 @@ export const pai_main_menu = (props, context) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Available RAM">
-          {available_ram}
-        </LabeledList.Item>
+        <LabeledList.Item label="Available RAM">{available_ram}</LabeledList.Item>
         <LabeledList.Item label="Available Software">
           {available_software
             .filter((s) => !installedSoftwareKeys[s.key])
@@ -38,8 +36,7 @@ export const pai_main_menu = (props, context) => {
                 onClick={() => act('purchaseSoftware', { key: s.key })}
               />
             ))}
-          {available_software.filter((s) => !installedSoftwareKeys[s.key])
-            .length === 0 && 'No software available!'}
+          {available_software.filter((s) => !installedSoftwareKeys[s.key]).length === 0 && 'No software available!'}
         </LabeledList.Item>
         <LabeledList.Item label="Installed Software">
           {installed_software

@@ -77,12 +77,7 @@ export const ComplexModal = (props, context) => {
 
   let modalOnEnter;
   let modalHeader = (
-    <Button
-      className="Button--modal"
-      icon="arrow-left"
-      content="Cancel"
-      onClick={() => modalClose(context)}
-    />
+    <Button className="Button--modal" icon="arrow-left" content="Cancel" onClick={() => modalClose(context)} />
   );
   let modalBody;
   let modalFooter;
@@ -108,12 +103,7 @@ export const ComplexModal = (props, context) => {
     );
     modalFooter = (
       <Box mt="0.5rem">
-        <Button
-          icon="arrow-left"
-          content="Cancel"
-          color="grey"
-          onClick={() => modalClose(context)}
-        />
+        <Button icon="arrow-left" content="Cancel" color="grey" onClick={() => modalClose(context)} />
         <Button
           icon="check"
           content={'Confirm'}
@@ -126,10 +116,7 @@ export const ComplexModal = (props, context) => {
       </Box>
     );
   } else if (type === 'choice') {
-    const realChoices =
-      typeof data.modal.choices === 'object'
-        ? Object.values(data.modal.choices)
-        : data.modal.choices;
+    const realChoices = typeof data.modal.choices === 'object' ? Object.values(data.modal.choices) : data.modal.choices;
     modalBody = (
       <Dropdown
         options={realChoices}
@@ -145,10 +132,7 @@ export const ComplexModal = (props, context) => {
       <Stack spacingPrecise="1" wrap="wrap" my="0.5rem" maxHeight="1%">
         {data.modal.choices.map((c, i) => (
           <Stack.Item key={i} flex="1 1 auto">
-            <Button
-              selected={i + 1 === parseInt(data.modal.value, 10)}
-              onClick={() => modalAnswer(context, id, i + 1)}
-            >
+            <Button selected={i + 1 === parseInt(data.modal.value, 10)} onClick={() => modalAnswer(context, id, i + 1)}>
               <img src={c} />
             </Button>
           </Stack.Item>

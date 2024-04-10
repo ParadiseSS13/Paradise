@@ -16,12 +16,7 @@ export const pda_main_menu = (props, context) => {
               {owner}, {ownjob}
             </LabeledList.Item>
             <LabeledList.Item label="ID">
-              <Button
-                icon="sync"
-                content="Update PDA Info"
-                disabled={!idInserted}
-                onClick={() => act('UpdateInfo')}
-              />
+              <Button icon="sync" content="Update PDA Info" disabled={!idInserted} onClick={() => act('UpdateInfo')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -44,9 +39,7 @@ export const pda_main_menu = (props, context) => {
                         iconSpin={app.uid in notifying}
                         color={app.uid in notifying ? 'red' : 'transparent'}
                         content={app.name}
-                        onClick={() =>
-                          act('StartProgram', { program: app.uid })
-                        }
+                        onClick={() => act('StartProgram', { program: app.uid })}
                       />
                     ))}
                   </LabeledList.Item>
@@ -59,18 +52,8 @@ export const pda_main_menu = (props, context) => {
       <Stack.Item>
         {!!pai && (
           <Section title="pAI">
-            <Button
-              fluid
-              icon="cog"
-              content="Configuration"
-              onClick={() => act('pai', { option: 1 })}
-            />
-            <Button
-              fluid
-              icon="eject"
-              content="Eject pAI"
-              onClick={() => act('pai', { option: 2 })}
-            />
+            <Button fluid icon="cog" content="Configuration" onClick={() => act('pai', { option: 1 })} />
+            <Button fluid icon="eject" content="Eject pAI" onClick={() => act('pai', { option: 2 })} />
           </Section>
         )}
       </Stack.Item>

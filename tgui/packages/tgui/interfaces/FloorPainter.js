@@ -1,14 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Section,
-  Table,
-  Dropdown,
-  Flex,
-  Icon,
-  Box,
-} from '../components';
+import { Button, LabeledList, Section, Table, Dropdown, Flex, Icon, Box } from '../components';
 import { Window } from '../layouts';
 
 const SelectableTile = (props, context) => {
@@ -30,23 +21,14 @@ const SelectableTile = (props, context) => {
 
 export const FloorPainter = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    availableStyles,
-    selectedStyle,
-    selectedDir,
-    directionsPreview,
-    allStylesPreview,
-  } = data;
+  const { availableStyles, selectedStyle, selectedDir, directionsPreview, allStylesPreview } = data;
   return (
     <Window width={405} height={475}>
       <Window.Content scrollable>
         <Section title="Decal setup">
           <Flex>
             <Flex.Item>
-              <Button
-                icon="chevron-left"
-                onClick={() => act('cycle_style', { offset: -1 })}
-              />
+              <Button icon="chevron-left" onClick={() => act('cycle_style', { offset: -1 })} />
             </Flex.Item>
             <Flex.Item>
               <Dropdown
@@ -61,10 +43,7 @@ export const FloorPainter = (props, context) => {
               />
             </Flex.Item>
             <Flex.Item>
-              <Button
-                icon="chevron-right"
-                onClick={() => act('cycle_style', { offset: 1 })}
-              />
+              <Button icon="chevron-right" onClick={() => act('cycle_style', { offset: 1 })} />
             </Flex.Item>
           </Flex>
 
@@ -91,29 +70,25 @@ export const FloorPainter = (props, context) => {
               <Table style={{ display: 'inline' }}>
                 {['north', '', 'south'].map((latitude) => (
                   <Table.Row key={latitude}>
-                    {[latitude + 'west', latitude, latitude + 'east'].map(
-                      (dir) => (
-                        <Table.Cell
-                          key={dir}
-                          style={{
-                            'vertical-align': 'middle',
-                            'text-align': 'center',
-                          }}
-                        >
-                          {dir === '' ? (
-                            <Icon name="arrows-alt" size={3} />
-                          ) : (
-                            <SelectableTile
-                              image={directionsPreview[dir]}
-                              isSelected={dir === selectedDir}
-                              onSelect={() =>
-                                act('select_direction', { direction: dir })
-                              }
-                            />
-                          )}
-                        </Table.Cell>
-                      )
-                    )}
+                    {[latitude + 'west', latitude, latitude + 'east'].map((dir) => (
+                      <Table.Cell
+                        key={dir}
+                        style={{
+                          'vertical-align': 'middle',
+                          'text-align': 'center',
+                        }}
+                      >
+                        {dir === '' ? (
+                          <Icon name="arrows-alt" size={3} />
+                        ) : (
+                          <SelectableTile
+                            image={directionsPreview[dir]}
+                            isSelected={dir === selectedDir}
+                            onSelect={() => act('select_direction', { direction: dir })}
+                          />
+                        )}
+                      </Table.Cell>
+                    ))}
                   </Table.Row>
                 ))}
               </Table>

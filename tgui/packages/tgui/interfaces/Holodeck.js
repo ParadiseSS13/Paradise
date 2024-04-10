@@ -1,27 +1,11 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  Section,
-  Stack,
-  Dimmer,
-  Icon,
-} from '../components';
+import { Box, Button, LabeledList, Section, Stack, Dimmer, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const Holodeck = (props, context) => {
   const { act, data } = useBackend(context);
-  const [currentDeck, setCurrentDeck] = useLocalState(
-    context,
-    'currentDeck',
-    ''
-  );
-  const [showReload, setShowReload] = useLocalState(
-    context,
-    'showReload',
-    false
-  );
+  const [currentDeck, setCurrentDeck] = useLocalState(context, 'currentDeck', '');
+  const [showReload, setShowReload] = useLocalState(context, 'showReload', false);
   const { decks, ai_override, emagged } = data;
 
   const handleSelectDeck = (deck) => {

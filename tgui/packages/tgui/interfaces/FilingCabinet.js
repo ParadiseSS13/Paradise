@@ -13,13 +13,7 @@ export const FilingCabinet = (props, context) => {
           <Section fill scrollable title="Contents">
             {!contents && (
               <Stack fill>
-                <Stack.Item
-                  bold
-                  grow
-                  textAlign="center"
-                  align="center"
-                  color="average"
-                >
+                <Stack.Item bold grow textAlign="center" align="center" color="average">
                   <Icon.Stack>
                     <Icon name="folder-open" size={5} color="gray" />
                     <Icon name="slash" size={5} color="red" />

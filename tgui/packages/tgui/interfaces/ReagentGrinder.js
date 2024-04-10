@@ -102,12 +102,7 @@ const GrinderContents = (props, context) => {
 
 const GrinderReagents = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    beaker_loaded,
-    beaker_current_volume,
-    beaker_max_volume,
-    beaker_contents,
-  } = data;
+  const { beaker_loaded, beaker_current_volume, beaker_max_volume, beaker_contents } = data;
 
   return (
     <Section
@@ -121,19 +116,12 @@ const GrinderReagents = (props, context) => {
             <Box inline color="label" mr={2}>
               {beaker_current_volume} / {beaker_max_volume} units
             </Box>
-            <Button
-              icon="eject"
-              content="Detach Beaker"
-              onClick={() => act('detach')}
-            />
+            <Button icon="eject" content="Detach Beaker" onClick={() => act('detach')} />
           </Box>
         )
       }
     >
-      <BeakerContents
-        beakerLoaded={beaker_loaded}
-        beakerContents={beaker_contents}
-      />
+      <BeakerContents beakerLoaded={beaker_loaded} beakerContents={beaker_contents} />
     </Section>
   );
 };

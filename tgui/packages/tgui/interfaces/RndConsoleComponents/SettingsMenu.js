@@ -66,11 +66,7 @@ export const SettingsMenu = (properties, context) => {
         submenu={SUBMENU.SETTINGS_DEVICES}
         render={() => (
           <Section title="Device Linkage Menu">
-            <Button
-              icon="link"
-              content="Re-sync with Nearby Devices"
-              onClick={() => act('find_device')}
-            />
+            <Button icon="link" content="Re-sync with Nearby Devices" onClick={() => act('find_device')} />
 
             <Box mt="5px">
               <h3>Linked Devices:</h3>
@@ -78,17 +74,10 @@ export const SettingsMenu = (properties, context) => {
             <LabeledList>
               {linked_destroy ? (
                 <LabeledList.Item label="* Destructive Analyzer">
-                  <Button
-                    icon="unlink"
-                    content="Unlink"
-                    onClick={() => act('disconnect', { item: 'destroy' })}
-                  />
+                  <Button icon="unlink" content="Unlink" onClick={() => act('disconnect', { item: 'destroy' })} />
                 </LabeledList.Item>
               ) : (
-                <LabeledList.Item
-                  noColon
-                  label="* No Destructive Analyzer Linked"
-                />
+                <LabeledList.Item noColon label="* No Destructive Analyzer Linked" />
               )}
 
               {linked_lathe ? (
@@ -107,17 +96,10 @@ export const SettingsMenu = (properties, context) => {
 
               {linked_imprinter ? (
                 <LabeledList.Item label="* Circuit Imprinter">
-                  <Button
-                    icon="unlink"
-                    content="Unlink"
-                    onClick={() => act('disconnect', { item: 'imprinter' })}
-                  />
+                  <Button icon="unlink" content="Unlink" onClick={() => act('disconnect', { item: 'imprinter' })} />
                 </LabeledList.Item>
               ) : (
-                <LabeledList.Item
-                  noColon
-                  label="* No Circuit Imprinter Linked"
-                />
+                <LabeledList.Item noColon label="* No Circuit Imprinter Linked" />
               )}
             </LabeledList>
           </Section>

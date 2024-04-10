@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Slider,
-  Button,
-  Section,
-  NumberInput,
-  LabeledList,
-  Flex,
-} from '../components';
+import { Slider, Button, Section, NumberInput, LabeledList, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const ConveyorSwitch = (props, context) => {
@@ -33,17 +26,11 @@ export const ConveyorSwitch = (props, context) => {
               <Flex>
                 <Flex.Item mx="1px">
                   {' '}
-                  <Button
-                    icon="angle-double-left"
-                    onClick={() => act('slowFactor', { value: slowFactor - 5 })}
-                  />{' '}
+                  <Button icon="angle-double-left" onClick={() => act('slowFactor', { value: slowFactor - 5 })} />{' '}
                 </Flex.Item>
                 <Flex.Item mx="1px">
                   {' '}
-                  <Button
-                    icon="angle-left"
-                    onClick={() => act('slowFactor', { value: slowFactor - 1 })}
-                  />{' '}
+                  <Button icon="angle-left" onClick={() => act('slowFactor', { value: slowFactor - 1 })} />{' '}
                 </Flex.Item>
                 <Flex.Item>
                   <Slider
@@ -60,17 +47,11 @@ export const ConveyorSwitch = (props, context) => {
                 </Flex.Item>
                 <Flex.Item mx="1px">
                   {' '}
-                  <Button
-                    icon="angle-right"
-                    onClick={() => act('slowFactor', { value: slowFactor + 1 })}
-                  />{' '}
+                  <Button icon="angle-right" onClick={() => act('slowFactor', { value: slowFactor + 1 })} />{' '}
                 </Flex.Item>
                 <Flex.Item mx="1px">
                   {' '}
-                  <Button
-                    icon="angle-double-right"
-                    onClick={() => act('slowFactor', { value: slowFactor + 5 })}
-                  />{' '}
+                  <Button icon="angle-double-right" onClick={() => act('slowFactor', { value: slowFactor + 5 })} />{' '}
                 </Flex.Item>
               </Flex>
             </LabeledList.Item>

@@ -34,12 +34,7 @@ const TempButton = (properties, context) => {
     act('setTemp', { temp: tempKey });
   };
   return (
-    <Button
-      color="transparent"
-      selected={selected}
-      onClick={setTemp}
-      {...buttonProps}
-    >
+    <Button color="transparent" selected={selected} onClick={setTemp} {...buttonProps}>
       <Icon name={icon} />
       {label}
     </Button>
@@ -49,8 +44,7 @@ const TempButton = (properties, context) => {
 export const PoolController = (properties, context) => {
   const { data } = useBackend(context);
   const { emagged, currentTemp } = data;
-  const { label: currentLabel, color: currentColor } =
-    TEMPS[currentTemp] || TEMPS.normal;
+  const { label: currentLabel, color: currentColor } = TEMPS[currentTemp] || TEMPS.normal;
 
   const visibleTempKeys = [];
   for (const [tempKey, { requireEmag }] of Object.entries(TEMPS)) {
@@ -69,11 +63,7 @@ export const PoolController = (properties, context) => {
                 <Box color={currentColor}>{currentLabel}</Box>
               </LabeledList.Item>
               <LabeledList.Item label="Safety Status">
-                {emagged ? (
-                  <Box color="red">WARNING: OVERRIDDEN</Box>
-                ) : (
-                  <Box color="good">Nominal</Box>
-                )}
+                {emagged ? <Box color="red">WARNING: OVERRIDDEN</Box> : <Box color="good">Nominal</Box>}
               </LabeledList.Item>
             </LabeledList>
           </Section>

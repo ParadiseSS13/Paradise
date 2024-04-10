@@ -1,14 +1,6 @@
 import { round } from 'common/math';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Stack,
-} from '../components';
+import { Box, Button, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 const stats = [
@@ -29,15 +21,7 @@ const damageRange = {
   bad: [0.5, Infinity],
 };
 
-const tempColors = [
-  'bad',
-  'average',
-  'average',
-  'good',
-  'average',
-  'average',
-  'bad',
-];
+const tempColors = ['bad', 'average', 'average', 'good', 'average', 'average', 'bad'];
 
 export const Sleeper = (props, context) => {
   const { act, data } = useBackend(context);
@@ -84,15 +68,9 @@ const SleeperOccupant = (props, context) => {
             icon={auto_eject_dead ? 'toggle-on' : 'toggle-off'}
             selected={auto_eject_dead}
             content={auto_eject_dead ? 'On' : 'Off'}
-            onClick={() =>
-              act('auto_eject_dead_' + (auto_eject_dead ? 'off' : 'on'))
-            }
+            onClick={() => act('auto_eject_dead_' + (auto_eject_dead ? 'off' : 'on'))}
           />
-          <Button
-            icon="user-slash"
-            content="Eject"
-            onClick={() => act('ejectify')}
-          />
+          <Button icon="user-slash" content="Eject" onClick={() => act('ejectify')} />
         </>
       }
     >
@@ -160,13 +138,7 @@ const SleeperDamage = (props, context) => {
       <LabeledList>
         {damages.map((d, i) => (
           <LabeledList.Item key={i} label={d[0]}>
-            <ProgressBar
-              key={i}
-              min="0"
-              max="100"
-              value={occupant[d[1]] / 100}
-              ranges={damageRange}
-            >
+            <ProgressBar key={i} min="0" max="100" value={occupant[d[1]] / 100} ranges={damageRange}>
               {round(occupant[d[1]], 0)}
             </ProgressBar>
           </LabeledList.Item>
@@ -178,13 +150,7 @@ const SleeperDamage = (props, context) => {
 
 const SleeperDialysis = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    hasOccupant,
-    isBeakerLoaded,
-    beakerMaxSpace,
-    beakerFreeSpace,
-    dialysis,
-  } = data;
+  const { hasOccupant, isBeakerLoaded, beakerMaxSpace, beakerFreeSpace, dialysis } = data;
   const canDialysis = dialysis && beakerFreeSpace > 0;
   return (
     <Section
@@ -198,12 +164,7 @@ const SleeperDialysis = (props, context) => {
             content={canDialysis ? 'Active' : 'Inactive'}
             onClick={() => act('togglefilter')}
           />
-          <Button
-            disabled={!isBeakerLoaded}
-            icon="eject"
-            content="Eject"
-            onClick={() => act('removebeaker')}
-          />
+          <Button disabled={!isBeakerLoaded} icon="eject" content="Eject" onClick={() => act('removebeaker')} />
         </>
       }
     >
@@ -258,13 +219,7 @@ const SleeperChemicals = (props, context) => {
         }
         return (
           <Box key={i} backgroundColor="rgba(0, 0, 0, 0.33)" mb="0.5rem">
-            <Section
-              title={chem.title}
-              level="3"
-              mx="0"
-              lineHeight="18px"
-              buttons={odWarning}
-            >
+            <Section title={chem.title} level="3" mx="0" lineHeight="18px" buttons={odWarning}>
               <Stack>
                 <ProgressBar
                   min="0"
@@ -279,20 +234,10 @@ const SleeperChemicals = (props, context) => {
                 {amounts.map((a, i) => (
                   <Button
                     key={i}
-                    disabled={
-                      !chem.injectable ||
-                      chem.occ_amount + a > maxchem ||
-                      occupant.stat === 2
-                    }
+                    disabled={!chem.injectable || chem.occ_amount + a > maxchem || occupant.stat === 2}
                     icon="syringe"
                     content={'Inject ' + a + 'u'}
-                    title={
-                      'Inject ' +
-                      a +
-                      'u of ' +
-                      chem.title +
-                      ' into the occupant'
-                    }
+                    title={'Inject ' + a + 'u of ' + chem.title + ' into the occupant'}
                     mb="0"
                     height="19px"
                     onClick={() =>

@@ -6,21 +6,11 @@ import { MENU, SUBMENU } from '../RndConsole';
 export const MainMenu = (properties, context) => {
   const { data } = useBackend(context);
 
-  const {
-    disk_type,
-    linked_destroy,
-    linked_lathe,
-    linked_imprinter,
-    tech_levels,
-  } = data;
+  const { disk_type, linked_destroy, linked_lathe, linked_imprinter, tech_levels } = data;
 
   return (
     <Section title="Main Menu">
-      <Flex
-        className="RndConsole__MainMenu__Buttons"
-        direction="column"
-        align="flex-start"
-      >
+      <Flex className="RndConsole__MainMenu__Buttons" direction="column" align="flex-start">
         <RndNavButton
           disabled={!disk_type}
           menu={MENU.DISK}
@@ -49,12 +39,7 @@ export const MainMenu = (properties, context) => {
           icon="print"
           content="Circuit Imprinter Menu"
         />
-        <RndNavButton
-          menu={MENU.SETTINGS}
-          submenu={SUBMENU.MAIN}
-          icon="cog"
-          content="Settings"
-        />
+        <RndNavButton menu={MENU.SETTINGS} submenu={SUBMENU.MAIN} icon="cog" content="Settings" />
       </Flex>
 
       <Box mt="12px" />

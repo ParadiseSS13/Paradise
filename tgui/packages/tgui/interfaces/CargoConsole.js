@@ -1,17 +1,7 @@
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useSharedState, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  Section,
-  Dropdown,
-  Input,
-  Table,
-  Modal,
-  Stack,
-} from '../components';
+import { Button, LabeledList, Box, Section, Dropdown, Input, Table, Modal, Stack } from '../components';
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
@@ -32,25 +22,12 @@ export const CargoConsole = (props, context) => {
 };
 
 const ContentsModal = (_properties, context) => {
-  const [contentsModal, setContentsModal] = useLocalState(
-    context,
-    'contentsModal',
-    null
-  );
+  const [contentsModal, setContentsModal] = useLocalState(context, 'contentsModal', null);
 
-  const [contentsModalTitle, setContentsModalTitle] = useLocalState(
-    context,
-    'contentsModalTitle',
-    null
-  );
+  const [contentsModalTitle, setContentsModalTitle] = useLocalState(context, 'contentsModalTitle', null);
   if (contentsModal !== null && contentsModalTitle !== null) {
     return (
-      <Modal
-        maxWidth="75%"
-        width={window.innerWidth + 'px'}
-        maxHeight={window.innerHeight * 0.75 + 'px'}
-        mx="auto"
-      >
+      <Modal maxWidth="75%" width={window.innerWidth + 'px'} maxHeight={window.innerHeight * 0.75 + 'px'} mx="auto">
         <Box width="100%" bold>
           <h1>{contentsModalTitle} contents:</h1>
         </Box>
@@ -103,20 +80,11 @@ const StatusPane = (_properties, context) => {
     <Stack.Item>
       <Section title="Status">
         <LabeledList>
-          <LabeledList.Item label="Shuttle Status">
-            {statusText}
-          </LabeledList.Item>
+          <LabeledList.Item label="Shuttle Status">{statusText}</LabeledList.Item>
           {is_public === 0 && (
             <LabeledList.Item label="Controls">
-              <Button
-                content={shuttleButtonText}
-                disabled={moving}
-                onClick={() => act('moveShuttle')}
-              />
-              <Button
-                content="View Central Command Messages"
-                onClick={() => act('showMessages')}
-              />
+              <Button content={shuttleButtonText} disabled={moving} onClick={() => act('moveShuttle')} />
+              <Button content="View Central Command Messages" onClick={() => act('showMessages')} />
             </LabeledList.Item>
           )}
         </LabeledList>
@@ -128,10 +96,7 @@ const StatusPane = (_properties, context) => {
 const PaymentPane = (properties, context) => {
   const { act, data } = useBackend(context);
   const { accounts } = data;
-  const [selectedAccount, setSelectedAccount] = useLocalState(
-    context,
-    'selectedAccount'
-  );
+  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
 
   let accountMap = [];
   accounts.map((account) => (accountMap[account.name] = account.account_UID));
@@ -142,11 +107,7 @@ const PaymentPane = (properties, context) => {
         <Dropdown
           width="190px"
           options={accounts.map((account) => account.name)}
-          selected={
-            accounts.filter(
-              (account) => account.account_UID === selectedAccount
-            )[0]?.name
-          }
+          selected={accounts.filter((account) => account.account_UID === selectedAccount)[0]?.name}
           onSelected={(val) => setSelectedAccount(accountMap[val])}
         />
         {accounts
@@ -170,43 +131,19 @@ const CataloguePane = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { requests, categories, supply_packs } = data;
 
-  const [category, setCategory] = useSharedState(
-    context,
-    'category',
-    'Emergency'
-  );
+  const [category, setCategory] = useSharedState(context, 'category', 'Emergency');
 
-  const [searchText, setSearchText] = useSharedState(
-    context,
-    'search_text',
-    ''
-  );
+  const [searchText, setSearchText] = useSharedState(context, 'search_text', '');
 
-  const [contentsModal, setContentsModal] = useLocalState(
-    context,
-    'contentsModal',
-    null
-  );
+  const [contentsModal, setContentsModal] = useLocalState(context, 'contentsModal', null);
 
-  const [contentsModalTitle, setContentsModalTitle] = useLocalState(
-    context,
-    'contentsModalTitle',
-    null
-  );
+  const [contentsModalTitle, setContentsModalTitle] = useLocalState(context, 'contentsModalTitle', null);
 
   const packSearch = createSearch(searchText, (crate) => crate.name);
-  const [selectedAccount, setSelectedAccount] = useLocalState(
-    context,
-    'selectedAccount'
-  );
+  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
 
   const cratesToShow = flow([
-    filter(
-      (pack) =>
-        pack.cat ===
-          categories.filter((c) => c.name === category)[0].category ||
-        searchText
-    ),
+    filter((pack) => pack.cat === categories.filter((c) => c.name === category)[0].category || searchText),
     searchText && filter(packSearch),
     sortBy((pack) => pack.name.toLowerCase()),
   ])(supply_packs);
@@ -230,12 +167,7 @@ const CataloguePane = (_properties, context) => {
           />
         }
       >
-        <Input
-          fluid
-          placeholder="Search for..."
-          onInput={(e, v) => setSearchText(v)}
-          mb={1}
-        />
+        <Input fluid placeholder="Search for..." onInput={(e, v) => setSearchText(v)} mb={1} />
         <Box maxHeight={25} overflowY="auto" overflowX="hidden">
           <Table m="0.5rem">
             {cratesToShow.map((c) => (
@@ -332,12 +264,7 @@ const GetRequestNotice = (_properties, context) => {
       <Stack.Item mt={0.5}>Approval Required:</Stack.Item>
       {Boolean(request.req_cargo_approval) && (
         <Stack.Item>
-          <Button
-            color="brown"
-            content="QM"
-            icon="user-tie"
-            tooltip="This Order requires approval from the QM still"
-          />
+          <Button color="brown" content="QM" icon="user-tie" tooltip="This Order requires approval from the QM still" />
         </Stack.Item>
       )}
       {Boolean(request.req_head_approval) && (
@@ -370,12 +297,8 @@ const DetailsPane = (_properties, context) => {
           <Table.Row key={r.ordernum} className="Cargo_RequestList">
             <Table.Cell mb={1}>
               <Box>
-                Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for{' '}
-                <b>{r.orderedby}</b> with{' '}
-                {r.department
-                  ? `The ${r.department} Department`
-                  : 'Their Personal'}{' '}
-                Account
+                Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for <b>{r.orderedby}</b> with{' '}
+                {r.department ? `The ${r.department} Department` : 'Their Personal'} Account
               </Box>
               <Box italic>Reason: {r.comment}</Box>
               <GetRequestNotice request={r} />

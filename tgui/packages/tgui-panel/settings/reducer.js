@@ -62,22 +62,16 @@ export const settingsReducer = (state = initialState, action) => {
     // Lazy init the list for compatibility reasons
     if (!nextState.highlightSettings) {
       nextState.highlightSettings = [defaultHighlightSetting.id];
-      nextState.highlightSettingById[defaultHighlightSetting.id] =
-        defaultHighlightSetting;
+      nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
     }
     // Compensating for mishandling of default highlight settings
     else if (!nextState.highlightSettingById[defaultHighlightSetting.id]) {
-      nextState.highlightSettings = [
-        defaultHighlightSetting.id,
-        ...nextState.highlightSettings,
-      ];
-      nextState.highlightSettingById[defaultHighlightSetting.id] =
-        defaultHighlightSetting;
+      nextState.highlightSettings = [defaultHighlightSetting.id, ...nextState.highlightSettings];
+      nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
     }
     // Update the highlight settings for default highlight
     // settings compatibility
-    const highlightSetting =
-      nextState.highlightSettingById[defaultHighlightSetting.id];
+    const highlightSetting = nextState.highlightSettingById[defaultHighlightSetting.id];
     highlightSetting.highlightColor = nextState.highlightColor;
     highlightSetting.highlightText = nextState.highlightText;
     return nextState;
@@ -135,17 +129,13 @@ export const settingsReducer = (state = initialState, action) => {
       },
     };
     if (id === defaultHighlightSetting.id) {
-      nextState.highlightSettings[defaultHighlightSetting.id] =
-        defaultHighlightSetting;
+      nextState.highlightSettings[defaultHighlightSetting.id] = defaultHighlightSetting;
     } else {
       delete nextState.highlightSettingById[id];
-      nextState.highlightSettings = nextState.highlightSettings.filter(
-        (sid) => sid !== id
-      );
+      nextState.highlightSettings = nextState.highlightSettings.filter((sid) => sid !== id);
       if (!nextState.highlightSettings.length) {
         nextState.highlightSettings.push(defaultHighlightSetting.id);
-        nextState.highlightSettingById[defaultHighlightSetting.id] =
-          defaultHighlightSetting;
+        nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
       }
     }
     return nextState;

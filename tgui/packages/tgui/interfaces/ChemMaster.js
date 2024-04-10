@@ -1,23 +1,9 @@
 import { Component } from 'inferno';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Stack,
-  Slider,
-  Tabs,
-} from '../components';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
-import {
-  ComplexModal,
-  modalOpen,
-  modalRegisterBodyOverride,
-} from './common/ComplexModal';
+import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 import { classes } from 'common/react';
 import { createLogger } from '../logging';
 
@@ -39,13 +25,8 @@ const analyzeModalBodyOverride = (modal, context) => {
             </LabeledList.Item>
             {result.blood_type && (
               <>
-                <LabeledList.Item label="Blood type">
-                  {result.blood_type}
-                </LabeledList.Item>
-                <LabeledList.Item
-                  label="Blood DNA"
-                  className="LabeledList__breakContents"
-                >
+                <LabeledList.Item label="Blood type">{result.blood_type}</LabeledList.Item>
+                <LabeledList.Item label="Blood DNA" className="LabeledList__breakContents">
                   {result.blood_dna}
                 </LabeledList.Item>
               </>
@@ -74,13 +55,7 @@ const analyzeModalBodyOverride = (modal, context) => {
 
 export const ChemMaster = (props, context) => {
   const { data } = useBackend(context);
-  const {
-    condi,
-    beaker,
-    beaker_reagents = [],
-    buffer_reagents = [],
-    mode,
-  } = data;
+  const { condi, beaker, beaker_reagents = [], buffer_reagents = [], mode } = data;
   return (
     <Window width={575} height={650}>
       <ComplexModal />
@@ -92,10 +67,7 @@ export const ChemMaster = (props, context) => {
             bufferNonEmpty={buffer_reagents.length > 0}
           />
           <ChemMasterBuffer mode={mode} bufferReagents={buffer_reagents} />
-          <ChemMasterProduction
-            isCondiment={condi}
-            bufferNonEmpty={buffer_reagents.length > 0}
-          />
+          <ChemMasterProduction isCondiment={condi} bufferNonEmpty={buffer_reagents.length > 0} />
           <ChemMasterCustomization />
         </Stack>
       </Window.Content>
@@ -121,12 +93,7 @@ const ChemMasterBeaker = (props, context) => {
               onClick={() => act('eject')}
             />
           ) : (
-            <Button
-              icon="eject"
-              disabled={!beaker}
-              content="Eject and Clear Buffer"
-              onClick={() => act('eject')}
-            />
+            <Button icon="eject" disabled={!beaker} content="Eject and Clear Buffer" onClick={() => act('eject')} />
           )
         }
       >
@@ -290,11 +257,7 @@ const ChemMasterProduction = (props, context) => {
   return (
     <Stack.Item>
       <Section fill title="Production">
-        {!props.isCondiment ? (
-          <ChemMasterProductionChemical />
-        ) : (
-          <ChemMasterProductionCondiment />
-        )}
+        {!props.isCondiment ? <ChemMasterProductionChemical /> : <ChemMasterProductionCondiment />}
       </Section>
     </Stack.Item>
   );
@@ -373,26 +336,13 @@ class ChemMasterNameInput extends Component {
     const { data } = useBackend(this.context);
     const { maxnamelength } = data;
 
-    return (
-      <Input
-        maxLength={maxnamelength}
-        onMouseUp={this.handleMouseUp}
-        {...this.props}
-      />
-    );
+    return <Input maxLength={maxnamelength} onMouseUp={this.handleMouseUp} {...this.props} />;
   }
 }
 
 const ChemMasterProductionCommon = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    children,
-    maxQuantity,
-    medicineName,
-    placeholderName,
-    productionType,
-    quantity,
-  } = props;
+  const { children, maxQuantity, medicineName, placeholderName, productionType, quantity } = props;
   const { buffer_reagents = [] } = data;
   return (
     <LabeledList>
@@ -402,9 +352,7 @@ const ChemMasterProductionCommon = (props, context) => {
           value={quantity}
           minValue={1}
           maxValue={maxQuantity}
-          onChange={(e, value) =>
-            act(`set_${productionType}_amount`, { amount: value })
-          }
+          onChange={(e, value) => act(`set_${productionType}_amount`, { amount: value })}
         />
       </LabeledList.Item>
       <LabeledList.Item label="Name">
@@ -412,9 +360,7 @@ const ChemMasterProductionCommon = (props, context) => {
           fluid
           value={medicineName}
           placeholder={placeholderName}
-          onChange={(e, value) =>
-            act(`set_${productionType}_name`, { name: value })
-          }
+          onChange={(e, value) => act(`set_${productionType}_name`, { name: value })}
         />
       </LabeledList.Item>
       <LabeledList.Item>
@@ -441,14 +387,7 @@ const SpriteStyleButton = (props, context) => {
 
 const ChemMasterProductionPills = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    maxpills,
-    pillamount,
-    pillname,
-    pillplaceholdername,
-    pillsprite,
-    pillstyles,
-  } = data;
+  const { maxpills, pillamount, pillname, pillplaceholdername, pillsprite, pillstyles } = data;
   const style_buttons = pillstyles.map(({ id, sprite }) => (
     <SpriteStyleButton
       key={id}
@@ -487,14 +426,7 @@ const ChemMasterProductionPatches = (props, context) => {
 
 const ChemMasterProductionBottles = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    bottlesprite,
-    maxbottles,
-    bottleamount,
-    bottlename,
-    bottleplaceholdername,
-    bottlestyles,
-  } = data;
+  const { bottlesprite, maxbottles, bottleamount, bottlename, bottleplaceholdername, bottlestyles } = data;
   const style_buttons = bottlestyles.map(({ id, sprite }) => (
     <SpriteStyleButton
       key={id}
@@ -528,20 +460,14 @@ const ChemMasterProductionCondiment = (props, context) => {
         onClick={() => modalOpen(context, 'create_condi_pack')}
       />
       <br />
-      <Button
-        icon="wine-bottle"
-        content="Create bottle (50u max)"
-        mb="0"
-        onClick={() => act('create_condi_bottle')}
-      />
+      <Button icon="wine-bottle" content="Create bottle (50u max)" mb="0" onClick={() => act('create_condi_bottle')} />
     </>
   );
 };
 
 const ChemMasterCustomization = (props, context) => {
   const { act, data } = useBackend(context);
-  const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } =
-    data;
+  const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } = data;
 
   const style_button_size = { width: '20px', height: '20px' };
   const style_buttons = containerstyles.map(({ color, name }) => {
@@ -590,12 +516,7 @@ const ChemMasterCustomization = (props, context) => {
         fill
         title="Container Customization"
         buttons={
-          <Button
-            icon="eject"
-            disabled={!loaded_pill_bottle}
-            content="Eject Container"
-            onClick={() => act('ejectp')}
-          />
+          <Button icon="eject" disabled={!loaded_pill_bottle} content="Eject Container" onClick={() => act('ejectp')} />
         }
       >
         {!loaded_pill_bottle ? (

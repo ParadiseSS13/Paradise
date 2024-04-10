@@ -9,8 +9,7 @@ import { Component, createRef } from 'inferno';
 import { Box } from './Box';
 import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
 
-export const toInputValue = (value) =>
-  typeof value !== 'number' && typeof value !== 'string' ? '' : String(value);
+export const toInputValue = (value) => (typeof value !== 'number' && typeof value !== 'string' ? '' : String(value));
 
 export class Input extends Component {
   constructor() {

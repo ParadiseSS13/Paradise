@@ -25,8 +25,7 @@ export const gameMiddleware = (store) => {
       return;
     }
     const game = selectGame(state);
-    const pingsAreFailing =
-      lastPingedAt && Date.now() >= lastPingedAt + CONNECTION_LOST_AFTER;
+    const pingsAreFailing = lastPingedAt && Date.now() >= lastPingedAt + CONNECTION_LOST_AFTER;
     if (!game.connectionLostAt && pingsAreFailing) {
       store.dispatch(withTimestamp(connectionLost()));
     }

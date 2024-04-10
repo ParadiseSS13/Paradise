@@ -18,9 +18,7 @@ const NotificationsItem = (props) => {
       <Flex.Item className="Notification__content" grow={1}>
         {children}
       </Flex.Item>
-      {rightSlot && (
-        <Flex.Item className="Notification__rightSlot">{rightSlot}</Flex.Item>
-      )}
+      {rightSlot && <Flex.Item className="Notification__rightSlot">{rightSlot}</Flex.Item>}
     </Flex>
   );
 };

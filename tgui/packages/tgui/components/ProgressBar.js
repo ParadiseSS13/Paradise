@@ -23,8 +23,7 @@ export const ProgressBar = (props) => {
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
   const hasContent = children !== undefined;
-  const effectiveColor =
-    color || keyOfMatchingRange(value, ranges) || 'default';
+  const effectiveColor = color || keyOfMatchingRange(value, ranges) || 'default';
   return (
     <div
       className={classes([
@@ -42,9 +41,7 @@ export const ProgressBar = (props) => {
         }}
       />
       <div className="ProgressBar__content">
-        {hasContent
-          ? children
-          : toFixed(scaledValue * 100, fractionDigits) + '%'}
+        {hasContent ? children : toFixed(scaledValue * 100, fractionDigits) + '%'}
       </div>
     </div>
   );

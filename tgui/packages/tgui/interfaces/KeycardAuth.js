@@ -7,8 +7,8 @@ export const KeycardAuth = (props, context) => {
   let infoBox = (
     <Section title="Keycard Authentication Device">
       <Box>
-        This device is used to trigger certain high security events. It requires
-        the simultaneous swipe of two high-level ID cards.
+        This device is used to trigger certain high security events. It requires the simultaneous swipe of two
+        high-level ID cards.
       </Box>
     </Section>
   );
@@ -23,9 +23,7 @@ export const KeycardAuth = (props, context) => {
                 <Button
                   icon="exclamation-triangle"
                   disabled={!data.redAvailable}
-                  onClick={() =>
-                    act('triggerevent', { 'triggerevent': 'Red Alert' })
-                  }
+                  onClick={() => act('triggerevent', { 'triggerevent': 'Red Alert' })}
                   content="Red Alert"
                 />
               </LabeledList.Item>
@@ -74,8 +72,7 @@ export const KeycardAuth = (props, context) => {
                   icon="door-closed"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent':
-                        'Deactivate Station-Wide Emergency Access',
+                      'triggerevent': 'Deactivate Station-Wide Emergency Access',
                     })
                   }
                   content="Revoke"
@@ -88,24 +85,14 @@ export const KeycardAuth = (props, context) => {
     );
   } else {
     let swipeInfo = <Box color="red">Waiting for YOU to swipe your ID...</Box>;
-    if (
-      !data.hasSwiped &&
-      !data.ertreason &&
-      data.event === 'Emergency Response Team'
-    ) {
-      swipeInfo = (
-        <Box color="red">Fill out the reason for your ERT request.</Box>
-      );
+    if (!data.hasSwiped && !data.ertreason && data.event === 'Emergency Response Team') {
+      swipeInfo = <Box color="red">Fill out the reason for your ERT request.</Box>;
     } else if (data.hasConfirm) {
       swipeInfo = <Box color="green">Request Confirmed!</Box>;
     } else if (data.isRemote) {
-      swipeInfo = (
-        <Box color="orange">Swipe your card to CONFIRM the remote request.</Box>
-      );
+      swipeInfo = <Box color="orange">Swipe your card to CONFIRM the remote request.</Box>;
     } else if (data.hasSwiped) {
-      swipeInfo = (
-        <Box color="orange">Waiting for second person to confirm...</Box>
-      );
+      swipeInfo = <Box color="orange">Waiting for second person to confirm...</Box>;
     }
     return (
       <Window width={540} height={265}>

@@ -35,24 +35,10 @@ type LabeledListItemProps = {
 };
 
 const LabeledListItem = (props: LabeledListItemProps) => {
-  const {
-    className,
-    label,
-    labelColor = 'label',
-    color,
-    textAlign,
-    buttons,
-    tooltip,
-    content,
-    children,
-  } = props;
+  const { className, label, labelColor = 'label', color, textAlign, buttons, tooltip, content, children } = props;
   let listItem = (
     <tr className={classes(['LabeledList__row', className])}>
-      <Box
-        as="td"
-        color={labelColor}
-        className={classes(['LabeledList__cell', 'LabeledList__label'])}
-      >
+      <Box as="td" color={labelColor} className={classes(['LabeledList__cell', 'LabeledList__label'])}>
         {label ? label + ':' : null}
       </Box>
       <Box
@@ -65,9 +51,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         {content}
         {children}
       </Box>
-      {buttons && (
-        <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>
-      )}
+      {buttons && <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>}
     </tr>
   );
 

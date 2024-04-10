@@ -15,8 +15,7 @@ export const RndRoute = (properties, context) => {
     return comparator === item; // strings or ints?
   };
 
-  let match =
-    compare(properties.menu, menu) && compare(properties.submenu, submenu);
+  let match = compare(properties.menu, menu) && compare(properties.submenu, submenu);
 
   if (!match) {
     return null;

@@ -23,9 +23,7 @@ export const VolumeMixer = (properties, context) => {
                         name="volume-off"
                         size="1.5"
                         mt="0.1rem"
-                        onClick={() =>
-                          act('volume', { channel: channel.num, volume: 0 })
-                        }
+                        onClick={() => act('volume', { channel: channel.num, volume: 0 })}
                       />
                     </Button>
                   </Stack.Item>
@@ -35,9 +33,7 @@ export const VolumeMixer = (properties, context) => {
                       maxValue={100}
                       stepPixelSize={3.13}
                       value={channel.volume}
-                      onChange={(e, value) =>
-                        act('volume', { channel: channel.num, volume: value })
-                      }
+                      onChange={(e, value) => act('volume', { channel: channel.num, volume: value })}
                     />
                   </Stack.Item>
                   <Stack.Item>
@@ -46,9 +42,7 @@ export const VolumeMixer = (properties, context) => {
                         name="volume-up"
                         size="1.5"
                         mt="0.1rem"
-                        onClick={() =>
-                          act('volume', { channel: channel.num, volume: 100 })
-                        }
+                        onClick={() => act('volume', { channel: channel.num, volume: 100 })}
                       />
                     </Button>
                   </Stack.Item>

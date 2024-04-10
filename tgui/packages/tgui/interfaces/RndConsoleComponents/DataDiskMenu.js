@@ -19,21 +19,11 @@ const TechSummary = (properties, context) => {
       <LabeledList>
         <LabeledList.Item label="Name">{disk_data.name}</LabeledList.Item>
         <LabeledList.Item label="Level">{disk_data.level}</LabeledList.Item>
-        <LabeledList.Item label="Description">
-          {disk_data.desc}
-        </LabeledList.Item>
+        <LabeledList.Item label="Description">{disk_data.desc}</LabeledList.Item>
       </LabeledList>
       <Box mt="10px">
-        <Button
-          content="Upload to Database"
-          icon="arrow-up"
-          onClick={() => act('updt_tech')}
-        />
-        <Button
-          content="Clear Disk"
-          icon="trash"
-          onClick={() => act('clear_tech')}
-        />
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
+        <Button content="Clear Disk" icon="trash" onClick={() => act('clear_tech')} />
         <EjectDisk />
       </Box>
     </Box>
@@ -57,11 +47,7 @@ const LatheSummary = (properties, context) => {
       <LabeledList>
         <LabeledList.Item label="Name">{name}</LabeledList.Item>
 
-        {lathe_types_str ? (
-          <LabeledList.Item label="Lathe Types">
-            {lathe_types_str}
-          </LabeledList.Item>
-        ) : null}
+        {lathe_types_str ? <LabeledList.Item label="Lathe Types">{lathe_types_str}</LabeledList.Item> : null}
 
         <LabeledList.Item label="Required Materials" />
       </LabeledList>
@@ -76,16 +62,8 @@ const LatheSummary = (properties, context) => {
       ))}
 
       <Box mt="10px">
-        <Button
-          content="Upload to Database"
-          icon="arrow-up"
-          onClick={() => act('updt_design')}
-        />
-        <Button
-          content="Clear Disk"
-          icon="trash"
-          onClick={() => act('clear_design')}
-        />
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_design')} />
+        <Button content="Clear Disk" icon="trash" onClick={() => act('clear_design')} />
         <EjectDisk />
       </Box>
     </Box>
@@ -102,11 +80,7 @@ const EmptyDisk = (properties, context) => {
         <RndNavButton
           submenu={SUBMENU.DISK_COPY}
           icon="arrow-down"
-          content={
-            disk_type === DISK_TYPE_TECH
-              ? 'Load Tech to Disk'
-              : 'Load Design to Disk'
-          }
+          content={disk_type === DISK_TYPE_TECH ? 'Load Tech to Disk' : 'Load Design to Disk'}
         />
         <EjectDisk />
       </Box>
@@ -127,8 +101,7 @@ const EjectDisk = (properties, context) => {
       content="Eject Disk"
       icon="eject"
       onClick={() => {
-        const action =
-          disk_type === DISK_TYPE_TECH ? 'eject_tech' : 'eject_design';
+        const action = disk_type === DISK_TYPE_TECH ? 'eject_tech' : 'eject_design';
         act(action);
       }}
     />

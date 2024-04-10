@@ -1,11 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Stack,
-} from '../components';
+import { Button, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];

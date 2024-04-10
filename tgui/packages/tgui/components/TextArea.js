@@ -94,10 +94,7 @@ export class TextArea extends Component {
         if (keyCode === KEY_TAB) {
           e.preventDefault();
           const { value, selectionStart, selectionEnd } = e.target;
-          e.target.value =
-            value.substring(0, selectionStart) +
-            '\t' +
-            value.substring(selectionEnd);
+          e.target.value = value.substring(0, selectionStart) + '\t' + value.substring(selectionEnd);
           e.target.selectionEnd = selectionStart + 1;
         }
       }
@@ -173,10 +170,7 @@ export class TextArea extends Component {
     // Box props
     const { className, fluid, ...rest } = boxProps;
     return (
-      <Box
-        className={classes(['TextArea', fluid && 'TextArea--fluid', className])}
-        {...rest}
-      >
+      <Box className={classes(['TextArea', fluid && 'TextArea--fluid', className])} {...rest}>
         <textarea
           ref={this.textareaRef}
           className="TextArea__textarea"

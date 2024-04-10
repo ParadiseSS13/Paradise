@@ -108,15 +108,11 @@ const ConfigureDataEntry = (props, context) => {
 };
 
 const RadCounter = (props, context) => {
-  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } =
-    props;
+  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } = props;
   return (
     <Stack fill textAlign="center">
       <Stack.Item grow>
-        <Section
-          title="Radiation Level"
-          color={active && userradiated ? 'bad' : 'good'}
-        >
+        <Section title="Radiation Level" color={active && userradiated ? 'bad' : 'good'}>
           {active && userradiated ? 'IRRADIATED!' : 'RADIATION-FREE'}
         </Section>
       </Stack.Item>
@@ -135,11 +131,7 @@ const RadCounter = (props, context) => {
         </Section>
       </Stack.Item>
       <Stack.Item grow>
-        <Section
-          title="Hazard Level"
-          color={active && threatlevel ? 'bad' : 'good'}
-          bold
-        >
+        <Section title="Hazard Level" color={active && threatlevel ? 'bad' : 'good'} bold>
           {active && threatlevel ? threatlevel : 0}
         </Section>
       </Stack.Item>
@@ -148,15 +140,7 @@ const RadCounter = (props, context) => {
 };
 
 const HealthAnalyzer = (props, context) => {
-  const {
-    active,
-    userhealth,
-    usermaxhealth,
-    userbrute,
-    userburn,
-    usertoxin,
-    useroxy,
-  } = props;
+  const { active, userhealth, usermaxhealth, userbrute, userburn, usertoxin, useroxy } = props;
   return (
     <>
       <Section title="Health">
@@ -254,14 +238,10 @@ const StatusReadout = (props, context) => {
     <>
       <Stack textAlign="center">
         <Stack.Item grow>
-          <Section title="Operation Time">
-            {active ? statustime : '00:00:00'}
-          </Section>
+          <Section title="Operation Time">{active ? statustime : '00:00:00'}</Section>
         </Stack.Item>
         <Stack.Item grow>
-          <Section title="Operation Number">
-            {active ? statusid || '0' : '???'}
-          </Section>
+          <Section title="Operation Number">{active ? statusid || '0' : '???'}</Section>
         </Stack.Item>
       </Stack>
       <Section title="Health">
@@ -339,19 +319,13 @@ const StatusReadout = (props, context) => {
           <Section title="Body Temperature">{active ? statustemp : 0}</Section>
         </Stack.Item>
         <Stack.Item grow>
-          <Section title="Nutrition Status">
-            {active ? statusnutrition : 0}
-          </Section>
+          <Section title="Nutrition Status">{active ? statusnutrition : 0}</Section>
         </Stack.Item>
       </Stack>
       <Section title="DNA">
         <LabeledList>
-          <LabeledList.Item label="Fingerprints">
-            {active ? statusfingerprints : '???'}
-          </LabeledList.Item>
-          <LabeledList.Item label="Unique Enzymes">
-            {active ? statusdna : '???'}
-          </LabeledList.Item>
+          <LabeledList.Item label="Fingerprints">{active ? statusfingerprints : '???'}</LabeledList.Item>
+          <LabeledList.Item label="Unique Enzymes">{active ? statusdna : '???'}</LabeledList.Item>
         </LabeledList>
       </Section>
       {!!active && !!statusviruses && (
@@ -359,36 +333,16 @@ const StatusReadout = (props, context) => {
           <Table>
             <Table.Row header>
               <Table.Cell textAlign="center">
-                <Button
-                  color="transparent"
-                  icon="signature"
-                  tooltip="Name"
-                  tooltipPosition="top"
-                />
+                <Button color="transparent" icon="signature" tooltip="Name" tooltipPosition="top" />
               </Table.Cell>
               <Table.Cell textAlign="center">
-                <Button
-                  color="transparent"
-                  icon="wind"
-                  tooltip="Type"
-                  tooltipPosition="top"
-                />
+                <Button color="transparent" icon="wind" tooltip="Type" tooltipPosition="top" />
               </Table.Cell>
               <Table.Cell textAlign="center">
-                <Button
-                  color="transparent"
-                  icon="bolt"
-                  tooltip="Stage"
-                  tooltipPosition="top"
-                />
+                <Button color="transparent" icon="bolt" tooltip="Stage" tooltipPosition="top" />
               </Table.Cell>
               <Table.Cell textAlign="center">
-                <Button
-                  color="transparent"
-                  icon="flask"
-                  tooltip="Cure"
-                  tooltipPosition="top"
-                />
+                <Button color="transparent" icon="flask" tooltip="Cure" tooltipPosition="top" />
               </Table.Cell>
             </Table.Row>
             {statusviruses.map((virus) => {
@@ -461,12 +415,7 @@ const ConfigureScreen = (props, context) => {
         })}
         <Stack.Item>
           <Box>
-            <Button
-              fluid
-              onClick={props.onExit}
-              icon="times"
-              textAlign="center"
-            >
+            <Button fluid onClick={props.onExit} icon="times" textAlign="center">
               Exit
             </Button>
           </Box>
@@ -489,33 +438,16 @@ const displayText = (param) => {
 
 const ParametersSection = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    active,
-    malfunctioning,
-    locked,
-    open,
-    selected_module,
-    complexity,
-    complexity_max,
-    wearer_name,
-    wearer_job,
-  } = data;
-  const status = malfunctioning
-    ? 'Malfunctioning'
-    : active
-      ? 'Active'
-      : 'Inactive';
+  const { active, malfunctioning, locked, open, selected_module, complexity, complexity_max, wearer_name, wearer_job } =
+    data;
+  const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
   return (
     <Section title="Parameters">
       <LabeledList>
         <LabeledList.Item
           label="Status"
           buttons={
-            <Button
-              icon="power-off"
-              content={active ? 'Deactivate' : 'Activate'}
-              onClick={() => act('activate')}
-            />
+            <Button icon="power-off" content={active ? 'Deactivate' : 'Activate'} onClick={() => act('activate')} />
           }
         >
           {status}
@@ -532,12 +464,8 @@ const ParametersSection = (props, context) => {
         >
           {locked ? 'Locked' : 'Unlocked'}
         </LabeledList.Item>
-        <LabeledList.Item label="Cover">
-          {open ? 'Open' : 'Closed'}
-        </LabeledList.Item>
-        <LabeledList.Item label="Selected Module">
-          {selected_module || 'None'}
-        </LabeledList.Item>
+        <LabeledList.Item label="Cover">{open ? 'Open' : 'Closed'}</LabeledList.Item>
+        <LabeledList.Item label="Selected Module">{selected_module || 'None'}</LabeledList.Item>
         <LabeledList.Item label="Complexity">
           {complexity} ({complexity_max})
         </LabeledList.Item>
@@ -551,28 +479,15 @@ const ParametersSection = (props, context) => {
 
 const HardwareSection = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    active,
-    control,
-    helmet,
-    chestplate,
-    gauntlets,
-    boots,
-    core,
-    charge,
-  } = data;
+  const { active, control, helmet, chestplate, gauntlets, boots, core, charge } = data;
   return (
     <Section title="Hardware">
       <Collapsible title="Parts">
         <LabeledList>
           <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
           <LabeledList.Item label="Helmet">{helmet || 'None'}</LabeledList.Item>
-          <LabeledList.Item label="Chestplate">
-            {chestplate || 'None'}
-          </LabeledList.Item>
-          <LabeledList.Item label="Gauntlets">
-            {gauntlets || 'None'}
-          </LabeledList.Item>
+          <LabeledList.Item label="Chestplate">{chestplate || 'None'}</LabeledList.Item>
+          <LabeledList.Item label="Gauntlets">{gauntlets || 'None'}</LabeledList.Item>
           <LabeledList.Item label="Boots">{boots || 'None'}</LabeledList.Item>
         </LabeledList>
       </Collapsible>
@@ -628,11 +543,7 @@ const InfoSection = (props, context) => {
 const ModuleSection = (props, context) => {
   const { act, data } = useBackend(context);
   const { complexity_max, modules } = data;
-  const [configureState, setConfigureState] = useLocalState(
-    context,
-    'module_configuration',
-    null
-  );
+  const [configureState, setConfigureState] = useLocalState(context, 'module_configuration', null);
   return (
     <Section title="Modules" fill>
       <Stack vertical>
@@ -652,20 +563,10 @@ const ModuleSection = (props, context) => {
                     <Table>
                       <Table.Row header>
                         <Table.Cell textAlign="center">
-                          <Button
-                            color="transparent"
-                            icon="save"
-                            tooltip="Complexity"
-                            tooltipPosition="top"
-                          />
+                          <Button color="transparent" icon="save" tooltip="Complexity" tooltipPosition="top" />
                         </Table.Cell>
                         <Table.Cell textAlign="center">
-                          <Button
-                            color="transparent"
-                            icon="plug"
-                            tooltip="Idle Power Cost"
-                            tooltipPosition="top"
-                          />
+                          <Button color="transparent" icon="plug" tooltip="Idle Power Cost" tooltipPosition="top" />
                         </Table.Cell>
                         <Table.Cell textAlign="center">
                           <Button
@@ -676,46 +577,24 @@ const ModuleSection = (props, context) => {
                           />
                         </Table.Cell>
                         <Table.Cell textAlign="center">
-                          <Button
-                            color="transparent"
-                            icon="bolt"
-                            tooltip="Use Power Cost"
-                            tooltipPosition="top"
-                          />
+                          <Button color="transparent" icon="bolt" tooltip="Use Power Cost" tooltipPosition="top" />
                         </Table.Cell>
                         <Table.Cell textAlign="center">
-                          <Button
-                            color="transparent"
-                            icon="hourglass-half"
-                            tooltip="Cooldown"
-                            tooltipPosition="top"
-                          />
+                          <Button color="transparent" icon="hourglass-half" tooltip="Cooldown" tooltipPosition="top" />
                         </Table.Cell>
                         <Table.Cell textAlign="center">
-                          <Button
-                            color="transparent"
-                            icon="tasks"
-                            tooltip="Actions"
-                            tooltipPosition="top"
-                          />
+                          <Button color="transparent" icon="tasks" tooltip="Actions" tooltipPosition="top" />
                         </Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell textAlign="center">
                           {module.module_complexity}/{complexity_max}
                         </Table.Cell>
+                        <Table.Cell textAlign="center">{module.idle_power}</Table.Cell>
+                        <Table.Cell textAlign="center">{module.active_power}</Table.Cell>
+                        <Table.Cell textAlign="center">{module.use_power}</Table.Cell>
                         <Table.Cell textAlign="center">
-                          {module.idle_power}
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                          {module.active_power}
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                          {module.use_power}
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                          {(module.cooldown > 0 && module.cooldown / 10) || '0'}
-                          /{module.cooldown_time / 10}s
+                          {(module.cooldown > 0 && module.cooldown / 10) || '0'}/{module.cooldown_time / 10}s
                         </Table.Cell>
                         <Table.Cell textAlign="center">
                           <Button

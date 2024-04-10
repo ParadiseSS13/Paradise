@@ -72,9 +72,7 @@ export const Button = (props) => {
         compact && 'Button--compact',
         iconRight && 'Button--iconRight',
         multiLine && 'Button--multiLine',
-        color && typeof color === 'string'
-          ? 'Button--color--' + color
-          : 'Button--color--default',
+        color && typeof color === 'string' ? 'Button--color--' + color : 'Button--color--default',
         className,
       ])}
       tabIndex={!disabled && '0'}
@@ -98,24 +96,12 @@ export const Button = (props) => {
       {...rest}
     >
       {icon && !iconRight && (
-        <Icon
-          name={icon}
-          color={iconColor}
-          rotation={iconRotation}
-          spin={iconSpin}
-          style={iconStyle}
-        />
+        <Icon name={icon} color={iconColor} rotation={iconRotation} spin={iconSpin} style={iconStyle} />
       )}
       {content}
       {children}
       {icon && iconRight && (
-        <Icon
-          name={icon}
-          color={iconColor}
-          rotation={iconRotation}
-          spin={iconSpin}
-          style={iconStyle}
-        />
+        <Icon name={icon} color={iconColor} rotation={iconRotation} spin={iconSpin} style={iconStyle} />
       )}
     </Box>
   );
@@ -135,14 +121,7 @@ Button.defaultHooks = pureComponentHooks;
 
 export const ButtonCheckbox = (props) => {
   const { checked, ...rest } = props;
-  return (
-    <Button
-      color="transparent"
-      icon={checked ? 'check-square-o' : 'square-o'}
-      selected={checked}
-      {...rest}
-    />
-  );
+  return <Button color="transparent" icon={checked ? 'check-square-o' : 'square-o'} selected={checked} {...rest} />;
 };
 
 Button.Checkbox = ButtonCheckbox;
@@ -187,9 +166,7 @@ export class ButtonConfirm extends Component {
         content={this.state.clickedOnce ? confirmContent : content}
         icon={this.state.clickedOnce ? confirmIcon : icon}
         color={this.state.clickedOnce ? confirmColor : color}
-        onClick={() =>
-          this.state.clickedOnce ? onClick() : this.setClickedOnce(true)
-        }
+        onClick={() => (this.state.clickedOnce ? onClick() : this.setClickedOnce(true))}
         {...rest}
       />
     );

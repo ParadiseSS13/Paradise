@@ -30,8 +30,7 @@ const getStatusColor = (val) => {
 
 export const ExternalAirlockController = (props, context) => {
   const { act, data } = useBackend(context);
-  const { chamber_pressure, exterior_status, interior_status, processing } =
-    data;
+  const { chamber_pressure, exterior_status, interior_status, processing } = data;
   return (
     <Window width={330} height={205}>
       <Window.Content>
@@ -52,13 +51,7 @@ export const ExternalAirlockController = (props, context) => {
         <Section
           title="Actions"
           buttons={
-            <Button
-              content={'Abort'}
-              icon={'ban'}
-              color={'red'}
-              disabled={!processing}
-              onClick={() => act('abort')}
-            />
+            <Button content={'Abort'} icon={'ban'} color={'red'} disabled={!processing} onClick={() => act('abort')} />
           }
         >
           <Box>
@@ -82,26 +75,14 @@ export const ExternalAirlockController = (props, context) => {
               width="49%"
               content={'Force Exterior Door'}
               icon={'exclamation-triangle'}
-              color={
-                interior_status === 'open'
-                  ? 'red'
-                  : processing
-                    ? 'yellow'
-                    : null
-              }
+              color={interior_status === 'open' ? 'red' : processing ? 'yellow' : null}
               onClick={() => act('force_ext')}
             />
             <Button
               width="50%"
               content={'Force Interior Door'}
               icon={'exclamation-triangle'}
-              color={
-                interior_status === 'open'
-                  ? 'red'
-                  : processing
-                    ? 'yellow'
-                    : null
-              }
+              color={interior_status === 'open' ? 'red' : processing ? 'yellow' : null}
               onClick={() => act('force_int')}
             />
           </Box>

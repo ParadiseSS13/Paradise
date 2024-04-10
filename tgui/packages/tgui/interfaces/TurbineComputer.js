@@ -5,11 +5,8 @@ import { toFixed } from 'common/math';
 
 export const TurbineComputer = (props, context) => {
   const { act, data } = useBackend(context);
-  const { compressor, compressor_broken, turbine, turbine_broken, online } =
-    data;
-  const operational = Boolean(
-    compressor && !compressor_broken && turbine && !turbine_broken
-  );
+  const { compressor, compressor_broken, turbine, turbine_broken, online } = data;
+  const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
     <Window width={400} height={200}>
       <Window.Content>
@@ -24,11 +21,7 @@ export const TurbineComputer = (props, context) => {
                 disabled={!operational}
                 onClick={() => act('toggle_power')}
               />
-              <Button
-                icon="times"
-                content="Disconnect"
-                onClick={() => act('disconnect')}
-              />
+              <Button icon="times" content="Disconnect" onClick={() => act('disconnect')} />
             </>
           }
         >
@@ -42,20 +35,13 @@ export const TurbineComputer = (props, context) => {
 // Element Tree for if the turbine is broken
 const TurbineBroken = (props, context) => {
   const { data } = useBackend(context);
-  const { compressor, compressor_broken, turbine, turbine_broken, online } =
-    data;
+  const { compressor, compressor_broken, turbine, turbine_broken, online } = data;
   return (
     <LabeledList>
-      <LabeledList.Item
-        label="Compressor Status"
-        color={!compressor || compressor_broken ? 'bad' : 'good'}
-      >
+      <LabeledList.Item label="Compressor Status" color={!compressor || compressor_broken ? 'bad' : 'good'}>
         {compressor_broken ? (compressor ? 'Offline' : 'Missing') : 'Online'}
       </LabeledList.Item>
-      <LabeledList.Item
-        label="Turbine Status"
-        color={!turbine || turbine_broken ? 'bad' : 'good'}
-      >
+      <LabeledList.Item label="Turbine Status" color={!turbine || turbine_broken ? 'bad' : 'good'}>
         {turbine_broken ? (turbine ? 'Offline' : 'Missing') : 'Online'}
       </LabeledList.Item>
     </LabeledList>

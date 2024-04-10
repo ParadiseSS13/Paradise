@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Section,
-  Stack,
-  Icon,
-  Collapsible,
-  LabeledList,
-} from '../components';
+import { Button, Section, Stack, Icon, Collapsible, LabeledList } from '../components';
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 
@@ -56,13 +49,7 @@ const MissingSeed = (props, context) => {
   return (
     <Section fill height="85%">
       <Stack height="100%">
-        <Stack.Item
-          bold
-          grow="1"
-          textAlign="center"
-          align="center"
-          color="green"
-        >
+        <Stack.Item bold grow="1" textAlign="center" align="center" color="green">
           <Icon name="leaf" size={5} mb="10px" />
           <br />
           The plant DNA manipulator is missing a seed.
@@ -92,12 +79,7 @@ const Storage = (props, context) => {
           }}
         />
         <Button content={seed.name} onClick={() => act('eject_seed')} />
-        <Button
-          ml="3px"
-          icon="pen"
-          tooltip="Name Variant"
-          onClick={() => act('variant_name')}
-        />
+        <Button ml="3px" icon="pen" tooltip="Name Variant" onClick={() => act('variant_name')} />
       </Stack.Item>
     );
   } else {
@@ -120,11 +102,7 @@ const Storage = (props, context) => {
         <LabeledList.Item label="Plant Sample">{show_seed}</LabeledList.Item>
         <LabeledList.Item label="Data Disk">
           <Stack.Item>
-            <Button
-              ml={3.3}
-              content={show_disk}
-              onClick={() => act('eject_disk')}
-            />
+            <Button ml={3.3} content={show_disk} onClick={() => act('eject_disk')} />
           </Stack.Item>
         </LabeledList.Item>
       </LabeledList>
@@ -169,26 +147,14 @@ const ReagentGenes = (props, context) => {
   const { data } = useBackend(context);
   const { reagent_genes, has_reagent } = data;
 
-  return (
-    <OtherGenes
-      title="Reagent Genes"
-      gene_set={reagent_genes}
-      do_we_show={has_reagent}
-    />
-  );
+  return <OtherGenes title="Reagent Genes" gene_set={reagent_genes} do_we_show={has_reagent} />;
 };
 
 const TraitGenes = (props, context) => {
   const { data } = useBackend(context);
   const { trait_genes, has_trait } = data;
 
-  return (
-    <OtherGenes
-      title="Trait Genes"
-      gene_set={trait_genes}
-      do_we_show={has_trait}
-    />
-  );
+  return <OtherGenes title="Trait Genes" gene_set={trait_genes} do_we_show={has_trait} />;
 };
 
 const OtherGenes = (props, context) => {
@@ -213,11 +179,7 @@ const OtherGenes = (props, context) => {
               />
             </Stack.Item>
             <Stack.Item>
-              <Button
-                content="Remove"
-                icon="times"
-                onClick={() => act('remove', { id: gene.id })}
-              />
+              <Button content="Remove" icon="times" onClick={() => act('remove', { id: gene.id })} />
             </Stack.Item>
           </Stack>
         ))
