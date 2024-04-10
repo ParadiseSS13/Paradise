@@ -127,10 +127,7 @@ export const map = (iterateeFn) => (collection) => {
  * Given a collection, will run each element through an iteratee function.
  * Will then filter out undefined values.
  */
-export const filterMap = <T, U>(
-  collection: T[],
-  iterateeFn: (value: T) => U | undefined
-): U[] => {
+export const filterMap = <T, U>(collection: T[], iterateeFn: (value: T) => U | undefined): U[] => {
   const finalCollection: U[] = [];
 
   for (const value of collection) {
