@@ -244,6 +244,8 @@
 	justacook.teach(H)
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	ADD_TRAIT(H.mind, TRAIT_EXPERT_CHEF, ROUNDSTART_TRAIT)
+	if(H.mind)
+		H.mind.AddSpell(new /datum/spell/chef/expert_chef(null))
 
 
 /datum/job/hydro

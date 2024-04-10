@@ -548,6 +548,7 @@
 #include "code\datums\spells\charge.dm"
 #include "code\datums\spells\charge_up.dm"
 #include "code\datums\spells\charge_up_bounce.dm"
+#include "code\datums\spells\chef.dm"
 #include "code\datums\spells\cluwne.dm"
 #include "code\datums\spells\conjure.dm"
 #include "code\datums\spells\conjure_item.dm"
