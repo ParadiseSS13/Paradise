@@ -453,7 +453,6 @@
 		var/obj/item/result = recipe.result
 		. += "<span class='notice'>Your expert chef knowledge tells you that this would make \a [initial(result.name)].</span>"
 
-
 /obj/machinery/kitchen_machine/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER) || panel_open || !anchored)
 		return

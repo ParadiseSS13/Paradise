@@ -42,7 +42,7 @@
 	var/duplicate = TRUE
 	var/byproduct		// example: = /obj/item/kitchen/mould		// byproduct to return, such as a mould or trash
 
-/datum/recipe/proc/check_reagents(datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
+/datum/recipe/proc/check_reagents(datum/reagents/avail_reagents)
 	. = INGREDIENT_CHECK_EXACT
 	for(var/r_r in reagents)
 		var/aval_r_amnt = avail_reagents.get_reagent_amount(r_r)
@@ -77,7 +77,7 @@
 
 	if(length(reagents) < length(avail_reagents))
 		return INGREDIENT_CHECK_SURPLUS
-	return .
+	return 
 
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
 	. = INGREDIENT_CHECK_EXACT
@@ -97,7 +97,7 @@
 			. = INGREDIENT_CHECK_SURPLUS
 	if(checklist.len)
 		return INGREDIENT_CHECK_FAILURE
-	return .
+	return 
 
 /**
  * Similarly to the function above, this checks for items, except instead of being passed a reagent holder, we're passed
@@ -121,7 +121,7 @@
 				. = INGREDIENT_CHECK_SURPLUS
 	if(length(checklist)) // we didnt get everything
 		return INGREDIENT_CHECK_FAILURE
-	return .
+	return 
 
 //general version
 /datum/recipe/proc/make(obj/container)
