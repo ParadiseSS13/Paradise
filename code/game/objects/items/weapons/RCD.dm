@@ -358,6 +358,7 @@
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(afterattack(suicide_tile, user, TRUE))
+		user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
 		user.gib()
 		flags &= ~NODROP  // Ensure the RCD doesn't stick to the next person's hand.
 		return OBLITERATION
