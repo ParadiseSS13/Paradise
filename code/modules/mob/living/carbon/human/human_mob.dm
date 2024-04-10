@@ -1967,16 +1967,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	mind.offstation_role = TRUE
 
 /mob/living/carbon/human/proc/expert_chef_knowledge()
-	set name = "Expert Chef Knowledge"
-	set desc = "Examine your surroundings, see what you can cook."
-	set category = "IC"
-
 	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
 		return
-	if(has_status_effect(STATUS_USED_EXPERT_CHEF))
-		to_chat(src, "<span class='warning'>All this thinking makes your head hurt, wait a bit longer.</span>")
-		return
-	apply_status_effect(STATUS_USED_EXPERT_CHEF)
 
 	var/list/possible_cookware = orange(1, src)
 

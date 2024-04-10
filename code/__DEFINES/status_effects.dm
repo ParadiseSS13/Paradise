@@ -108,8 +108,6 @@
 
 #define STATUS_BOOKWYRM /datum/status_effect/bookwyrm
 
-#define STATUS_USED_EXPERT_CHEF /datum/status_effect/used_expert_chef
-
 #define STATUS_EFFECT_ABDUCTOR_COOLDOWN /datum/status_effect/abductor_cooldown //warning status, prevents abductor from being recalled for 10 seconds
 
 #define STATUS_EFFECT_MAGIC_DISGUISE /datum/status_effect/magic_disguise

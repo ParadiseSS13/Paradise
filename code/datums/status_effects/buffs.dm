@@ -752,10 +752,6 @@
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
 
-/datum/status_effect/used_expert_chef
-	duration = 5 SECONDS
-	alert_type = null
-
 /datum/status_effect/bearserker_rage
 	id = "bearserker rage"
 	duration = 5 SECONDS
