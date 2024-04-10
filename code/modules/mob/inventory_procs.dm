@@ -52,6 +52,13 @@
 /mob/proc/get_multitool(if_active=0)
 	return null
 
+/mob/proc/put_in_hand(obj/item/I, slot)
+	switch(slot)
+		if(SLOT_HUD_LEFT_HAND)
+			return put_in_l_hand(I)
+		if(SLOT_HUD_RIGHT_HAND)
+			return put_in_r_hand(I)
+
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
 	if(!put_in_hand_check(W, skip_blocked_hands_check))

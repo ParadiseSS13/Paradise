@@ -40,10 +40,11 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/datum/orbit_menu/orbit_menu
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
-
 	/// UID of the mob which we are currently observing
 	var/mob_observed
 	var/kaboshed_alerts = list()
+	hud_type = /datum/hud/ghost
+	speaks_ooc = TRUE
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -118,6 +119,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	if(observ)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	remove_observer_verbs()

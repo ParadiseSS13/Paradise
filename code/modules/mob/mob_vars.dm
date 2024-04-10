@@ -250,3 +250,6 @@
 	// TODO replace this with something that doesn't actually track mobs
 	/// List of mobs currently observing us.
 	var/list/mob/dead/observer/observers = list()
+	/// Does this mob speak OOC?
+	/// Controls whether they can say some symbols.
+	var/speaks_ooc = FALSE
