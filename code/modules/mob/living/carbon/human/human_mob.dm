@@ -2190,10 +2190,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
 		return
-	if(has_status_effect(STATUS_EXPERT_CHEF))
+	if(has_status_effect(STATUS_USED_EXPERT_CHEF))
 		to_chat(src, "<span class='warning'>All this thinking makes your head hurt, wait a bit longer.</span>")
 		return
-	apply_status_effect(STATUS_EXPERT_CHEF)
+	apply_status_effect(STATUS_USED_EXPERT_CHEF)
 
 	var/list/possible_cookware = orange(1, src)
 
@@ -2222,7 +2222,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(!recipe_type.result)
 			continue
 		var/datum/recipe/recipe = new recipe_type()
-		if(recipe.check_reagents_assoc_list(available_reagents) != REAGENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != REAGENT_CHECK_FAILURE)
+		if(recipe.check_reagents_assoc_list(available_reagents) != INGREDIENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != INGREDIENT_CHECK_FAILURE)
 			if(istype(recipe, /datum/recipe/microwave))
 				possible_recipes[recipe] = RECIPE_MICROWAVE
 			else if(istype(recipe, /datum/recipe/oven))

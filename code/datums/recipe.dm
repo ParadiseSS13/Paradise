@@ -43,50 +43,50 @@
 	var/byproduct		// example: = /obj/item/kitchen/mould		// byproduct to return, such as a mould or trash
 
 /datum/recipe/proc/check_reagents(datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
-	. = REAGENT_CHECK_EXACT
+	. = INGREDIENT_CHECK_EXACT
 	for(var/r_r in reagents)
 		var/aval_r_amnt = avail_reagents.get_reagent_amount(r_r)
 		if(!(abs(aval_r_amnt - reagents[r_r])<0.5)) //if NOT equals
 			if(aval_r_amnt>reagents[r_r])
-				. = REAGENT_CHECK_SURPLUS
+				. = INGREDIENT_CHECK_SURPLUS
 			else
-				return REAGENT_CHECK_FAILURE
+				return INGREDIENT_CHECK_FAILURE
 	if((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
-		return REAGENT_CHECK_SURPLUS
+		return INGREDIENT_CHECK_SURPLUS
 	return .
 
 /**
  * Similarly to the function above, this checks for reagents, except instead of being passed a reagent holder, we're passed
  * [reagent_id] = amount as num.
- * Returns REAGENT_CHECK_EXACT if we have the precise amount thats requested.
- * Returns REAGENT_CHECK_FAILURE if we do not have enough.
- * Returns REAGENT_CHECK_SURPLUS if we have MORE than requested.
+ * Returns INGREDIENT_CHECK_EXACT if we have the precise amount thats requested.
+ * Returns INGREDIENT_CHECK_FAILURE if we do not have enough.
+ * Returns INGREDIENT_CHECK_SURPLUS if we have MORE than requested.
  */
 /datum/recipe/proc/check_reagents_assoc_list(list/avail_reagents)
-	. = REAGENT_CHECK_EXACT
+	. = INGREDIENT_CHECK_EXACT
 	for(var/required_reagent_id in reagents)
 		var/provided_reagent_amount = avail_reagents[required_reagent_id]
 		if(!provided_reagent_amount)
-			return REAGENT_CHECK_FAILURE
+			return INGREDIENT_CHECK_FAILURE
 
 		if(abs(provided_reagent_amount - reagents[required_reagent_id]) >= 0.5) // If amount is outside of the 0.5 unit tolerance
 			if(provided_reagent_amount > reagents[required_reagent_id]) // we have more than necessary
-				. = REAGENT_CHECK_SURPLUS
+				. = INGREDIENT_CHECK_SURPLUS
 			else
-				return REAGENT_CHECK_FAILURE // we don't have enough
+				return INGREDIENT_CHECK_FAILURE // we don't have enough
 
 	if(length(reagents) < length(avail_reagents))
-		return REAGENT_CHECK_SURPLUS
+		return INGREDIENT_CHECK_SURPLUS
 	return .
 
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
-	. = REAGENT_CHECK_EXACT
+	. = INGREDIENT_CHECK_EXACT
 	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/O in container)
 		if(ignored_items && is_type_in_list(O, ignored_items))	//skip if this is something we are ignoring
 			continue
 		if(!items)
-			return REAGENT_CHECK_SURPLUS
+			return INGREDIENT_CHECK_SURPLUS
 		var/found = 0
 		for(var/type in checklist)
 			if(istype(O,type))
@@ -94,33 +94,33 @@
 				found = 1
 				break
 		if(!found)
-			. = REAGENT_CHECK_SURPLUS
+			. = INGREDIENT_CHECK_SURPLUS
 	if(checklist.len)
-		return REAGENT_CHECK_FAILURE
+		return INGREDIENT_CHECK_FAILURE
 	return .
 
 /**
  * Similarly to the function above, this checks for items, except instead of being passed a reagent holder, we're passed
  * [type_path] = amount as num.
- * Returns REAGENT_CHECK_EXACT if we have the precise amount thats requested.
- * Returns REAGENT_CHECK_FAILURE if we do not have enough.
- * Returns REAGENT_CHECK_SURPLUS if we have MORE than requested.
+ * Returns INGREDIENT_CHECK_EXACT if we have the precise amount thats requested.
+ * Returns INGREDIENT_CHECK_FAILURE if we do not have enough.
+ * Returns INGREDIENT_CHECK_SURPLUS if we have MORE than requested.
  */
 /datum/recipe/proc/check_items_assoc_list(list/given_objects)
-	. = REAGENT_CHECK_EXACT
+	. = INGREDIENT_CHECK_EXACT
 	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/item/I as anything in given_objects) // path
 		var/amount_given = given_objects[I]
 		if(!length(checklist))
-			return REAGENT_CHECK_SURPLUS
+			return INGREDIENT_CHECK_SURPLUS
 
 		for(var/i in 1 to amount_given)
 			if(I in checklist)
 				checklist -= I
 			else if(I in items) // make sure the recipe requires this item before declaring it surplus
-				. = REAGENT_CHECK_SURPLUS
+				. = INGREDIENT_CHECK_SURPLUS
 	if(length(checklist)) // we didnt get everything
-		return REAGENT_CHECK_FAILURE
+		return INGREDIENT_CHECK_FAILURE
 	return .
 
 //general version
@@ -144,7 +144,7 @@
 	container.reagents.clear_reagents()
 	return result_obj
 
-/proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = REAGENT_CHECK_EXACT, list/ignored_items = null)
+/proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = INGREDIENT_CHECK_EXACT, list/ignored_items = null)
 	if(!exact)
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new

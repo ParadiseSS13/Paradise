@@ -748,7 +748,7 @@
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
 
-/datum/status_effect/expert_chef
+/datum/status_effect/used_expert_chef
 	duration = 5 SECONDS
 	alert_type = null
 
