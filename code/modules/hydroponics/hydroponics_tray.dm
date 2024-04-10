@@ -1022,7 +1022,10 @@
 	to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
 	to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
 	to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-	to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]</span>")
+	if(self_sustaining)
+		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>Earthsblood<br>&nbsp;&nbsp;This [src.name] has been treated with Earthsblood and constantly produces its own fertilizer. Like E-Z-Nutrient, Earthsblood fertilizer has no particular attributes, it just keeps plants fed.</span>")
+	else
+		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]</span>")
 	to_chat(user, "- Mutagen level: <span class='notice'>[mutagen] / [max_mutagen]</span>")
 
 	var/can_mutate_species = myseed && length(myseed.mutatelist)
