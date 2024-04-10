@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	some_powers += /datum/action/changeling/headslug
 	some_powers += /datum/action/changeling/contort_body
 
-	for(/datum/action/changeling/C in some_powers)
+	for(var/datum/action/changeling/C in some_powers)
 		C.dna_cost = 0
 		C.power_type = CHANGELING_INNATE_POWER
 		cling.give_power(C, H, FALSE)
