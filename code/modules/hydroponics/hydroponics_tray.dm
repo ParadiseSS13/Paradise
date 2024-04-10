@@ -494,10 +494,14 @@
 
 	// Radioactives and mutagen contribute to the mutation level of the tray.
 	if(reagents.has_reagent("mutagen") || reagents.has_reagent("radium") || reagents.has_reagent("uranium"))
-		mutagen += reagents.get_reagent_amount("uranium")
-		mutagen += reagents.get_reagent_amount("radium")
-		mutagen += reagents.get_reagent_amount("mutagen")
+		if(mutagen < max_mutagen)
+			mutagen += reagents.get_reagent_amount("uranium")
+			mutagen += reagents.get_reagent_amount("radium")
+			mutagen += reagents.get_reagent_amount("mutagen")
+			to_chat(user, "You think the plants in [src] will mutate more now.")
 		mutagen = min(max_mutagen, mutagen)
+		if(mutagen == max_mutagen)
+			to_chat(user, "That seems like enough mutating chemicals.")
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(reagents.has_reagent("uranium", 1))
@@ -545,7 +549,9 @@
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(reagents.has_reagent("charcoal", 1))
 		adjustToxic(-round(reagents.get_reagent_amount("charcoal") * 2))
-		doping_chem = null
+		if(doping_chem)
+			to_chat(user, "<span class='notice'>The charcoal soaks up and neutralizes \the [initial(doping_chem.name)].</span>")
+			doping_chem = null
 
 	// BRO, YOU JUST WENT ON FULL STUPID.
 	if(reagents.has_reagent("toxin", 1))
@@ -646,32 +652,32 @@
 	if(reagents.has_reagent("cryoxadone", 1))
 		adjustHealth(round(reagents.get_reagent_amount("cryoxadone") * 3))
 		adjustToxic(-round(reagents.get_reagent_amount("cryoxadone") * 3))
-		doping_chem = /datum/reagent/medicine/cryoxadone
+		replace_doping(/datum/reagent/medicine/cryoxadone, user)
 
 	// Healing
 	if(reagents.has_reagent("omnizine", 1))
 		adjustHealth(round(reagents.get_reagent_amount("omnizine") * 3))
 		adjustToxic(-round(reagents.get_reagent_amount("omnizine") * 3))
-		doping_chem = /datum/reagent/medicine/omnizine
+		replace_doping(/datum/reagent/medicine/omnizine, user)
 
 	// Mild healing
 	if(reagents.has_reagent("salglu_solution", 1))
 		adjustHealth(round(reagents.get_reagent_amount("salglu_solution") * 0.1))
 		adjustToxic(-round(reagents.get_reagent_amount("salglu_solution") * 0.1))
-		doping_chem = /datum/reagent/medicine/salglu_solution
+		replace_doping(/datum/reagent/medicine/salglu_solution, user)
 
 	// Ammonia heals and feeds plants
 	if(reagents.has_reagent("ammonia", 1))
 		adjustHealth(round(reagents.get_reagent_amount("ammonia") * 0.5))
 		adjustNutri(round(reagents.get_reagent_amount("ammonia") * 1))
-		doping_chem = /datum/reagent/ammonia
+		replace_doping(/datum/reagent/ammonia, user)
 
 	// Saltpetre is used for gardening IRL, but for us, it's just another
 	// way to heal plants
 	if(reagents.has_reagent("saltpetre", 1))
 		var/salt = reagents.get_reagent_amount("saltpetre")
 		adjustHealth(round(salt * 0.25))
-		doping_chem = /datum/reagent/saltpetre
+		replace_doping(/datum/reagent/saltpetre, user)
 
 	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
 	if(reagents.has_reagent("ash", 1))
@@ -684,7 +690,7 @@
 		adjustHealth(round(reagents.get_reagent_amount("diethylamine") * 1))
 		adjustNutri(round(reagents.get_reagent_amount("diethylamine") * 2))
 		adjustPests(-rand(1,2))
-		doping_chem = /datum/reagent/diethylamine
+		replace_doping(/datum/reagent/diethylamine, user)
 
 	// Compost, effectively
 	if(reagents.has_reagent("nutriment", 1))
@@ -717,6 +723,21 @@
 		adjustPests(-rand(1,5))
 		adjustWeeds(-rand(1,5))
 	reagents.clear_reagents()
+
+/obj/machinery/hydroponics/proc/replace_doping(datum/reagent/new_chem, mob/user)
+	var/list/message = list()
+	message += "<span class='notice'>You add [initial(new_chem.name)] to [src]"
+	if(doping_chem)
+		message += ", replacing \the [initial(doping_chem.name)]."
+	else
+		message += "."
+	if(get_mutation_level())
+		message += " This should have interesting effects on the plant's seeds."
+	else
+		message += " You don't think this will help without a source of mutations."
+	message += "</span>"
+	to_chat(user, message.Join(""))
+	doping_chem = new_chem
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O

@@ -595,7 +595,7 @@
 	name = "unsorted [template.name]"
 	icon_state = template.icon_state
 	// The grammar looks odd here because template.name is "pack of Xes".
-	desc = "A [template.name] that have mutated and need to be sorted out before use. To sort them, use a plant analyzer on a container that holds them, place them into a sorting tray and use it in hand, or use them directly in hand. The more you sort at once, the stronger the mutations you'll discover."
+	desc = "A [template.name] that have mutated and need to be sorted out before use. The best method is to use a plant analyzer on a bag full of unsorted seed packs. If you don't have a plant analyzer, you can place unsorted seeds into a sorting tray and use it in hand, or even use them directly in hand. The more you sort at once, the stronger the mutations you'll discover."
 
 /obj/item/unsorted_seeds/Destroy()
 	seed_data = null

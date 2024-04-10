@@ -246,6 +246,7 @@
 
 /obj/item/storage/bag/plants/seed_sorting_tray
 	name = "seed sorting tray"
+	desc = "A simple wooden tray with compartments for manually sorting seeds. It's better than nothing, but a plant analyzer would be more effective."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "seed_sorting_tray"
 	can_hold = list(
