@@ -107,7 +107,7 @@
 	user.hud_used.position_action(src, position_info)
 
 /atom/movable/screen/movable/action_button/proc/fire_action(left_click = TRUE)
-	linked_action.Trigger(TRUE)
+	linked_action.Trigger(left_click)
 	transform = transform.Scale(0.8, 0.8)
 	alpha = 200
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
@@ -128,7 +128,7 @@
 		AltClick(usr)
 		return TRUE
 	if(modifiers["middle"])
-		fire_action(TRUE)
+		fire_action(FALSE)
 		return TRUE
 	if(modifiers["ctrl"])
 		CtrlClick(usr)

@@ -321,6 +321,13 @@
 	throwforce = 22
 	armour_penetration_percentage = 15				//Enhanced armor piercing
 
+//Blatant imitation of spear, but all natural. Also not valid for explosive modification.
+/obj/item/spear/bamboo
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	base_icon_state = "bamboo_spear"
+	icon_state = "bamboo_spear0"
+	throwforce = 22
 
 //GREY TIDE
 /obj/item/spear/grey_tide
