@@ -5,7 +5,7 @@
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
-/mob/camera/eye/shuttle_docker/Initialize(mapload, name, origin, mob/living/user)
+/mob/camera/eye/shuttle_docker/Initialize(mapload, owner_name, camera_origin, mob/living/user)
 	..()
 	setLoc(first_active_camera())
 

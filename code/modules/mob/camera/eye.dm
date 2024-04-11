@@ -31,10 +31,10 @@
 	var/cooldown_rate = 5
 	var/acceleration = 1
 
-/mob/camera/eye/Initialize(mapload, name, origin, mob/living/user)
+/mob/camera/eye/Initialize(mapload, owner_name, camera_origin, mob/living/user)
 	. = ..()
-	src.name = "Camera Eye ([name])"
-	src.origin = origin
+	name = "Camera Eye ([owner_name])"
+	origin = camera_origin
 	give_control(user)
 	update_visibility()
 	refresh_visible_icon()
@@ -105,11 +105,11 @@
 		user_previous_remote_control = null
 	user = null
 
-/mob/camera/eye/proc/give_control(mob/user)
-	if(!istype(user))
+/mob/camera/eye/proc/give_control(mob/new_user)
+	if(!istype(new_user))
 		return
 	release_control()
-	src.user = user
+	user = new_user
 	rename_camera(user.name)
 	if(istype(user.remote_control))
 		user_previous_remote_control = user.remote_control
@@ -133,8 +133,8 @@
 
 	if(cooldown && cooldown < world.timeofday)
 		sprint = initial
-
-	for(var/i = 0; i < max(sprint, initial); i += sprint_threshold)
+	
+	for(var/i in 0 to sprint step sprint_threshold)
 		var/turf/next_step= get_turf(get_step(src, direct))
 		if(next_step)
 			src.setLoc(next_step)

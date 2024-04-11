@@ -4,9 +4,9 @@
 	ai_detector_visible = FALSE
 	var/allowed_area = null
 
-/mob/camera/eye/xenobio/Initialize(mapload, name, origin, mob/living/user)
+/mob/camera/eye/xenobio/Initialize(mapload, owner_name, camera_origin, mob/living/user)
 	. = ..()
-	var/area/A = get_area(origin)
+	var/area/A = get_area(camera_origin)
 	allowed_area = A.name
 
 /mob/camera/eye/xenobio/rename_camera(new_name)

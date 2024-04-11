@@ -4,14 +4,14 @@
 	icon_state = "eye"
 	var/mob/living/silicon/ai/ai = null
 
-/mob/camera/eye/ai/Initialize(mapload, name, origin, mob/living/user)
-	..()
+/mob/camera/eye/ai/Initialize(mapload, owner_name, camera_origin, mob/living/user)
+	. = ..()
 	ai = user
 	if(isAIEye(ai.eyeobj))
-		to_chat(user, "<span class='warning'>ERROR: There is an AI Eye already assigned.</span>")
+		stack_trace("Tried to create an AI Eye for [user], but there is one already assigned")
 		qdel(src)
 		return
-	src.name = "[name] (AI Eye)"
+	name = "[owner_name] (AI Eye)"
 
 /mob/camera/eye/ai/setLoc(T)
 	..()

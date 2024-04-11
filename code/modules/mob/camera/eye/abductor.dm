@@ -2,7 +2,7 @@
 	name = "Abductor Camera Eye"
 	ai_detector_visible = FALSE
 
-/mob/camera/eye/abductor/Initialize(mapload, name, origin, user)
+/mob/camera/eye/abductor/Initialize(mapload, owner_name, camera_origin, user)
 	..()
 	setLoc(first_active_camera())
 
