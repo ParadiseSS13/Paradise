@@ -486,6 +486,11 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"cb" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/belt/janitor/abductor/full,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
 "cc" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -46722,7 +46727,7 @@ aN
 aN
 lz
 lz
-nr
+cb
 bK
 nr
 lz
@@ -46736,7 +46741,7 @@ aN
 aN
 lz
 lz
-nr
+cb
 bK
 nr
 lz
@@ -50320,7 +50325,7 @@ aN
 aN
 lz
 lz
-nr
+cb
 bK
 nr
 lz
@@ -50334,7 +50339,7 @@ aN
 aN
 lz
 lz
-nr
+cb
 bK
 nr
 lz
