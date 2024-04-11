@@ -695,13 +695,10 @@ to destroy them and players will be able to make replacements.
 		switch(type)
 			if(/obj/machinery/reagentgrinder/empty)
 				board_name = "All-In-One Grinder"
+				req_components = regular_components
 			if(/obj/machinery/reagentgrinder/Botanitank/empty)
 				board_name = "Botanitank"
-
-	if(board_name == "Botanitank")
-		req_components = regular_components + list(/obj/item/reagent_containers/glass/beaker/noreact = 1)
-	if(board_name == "All-In-One Grinder")
-		req_components = regular_components
+				req_components = regular_components + list(/obj/item/reagent_containers/glass/beaker/noreact = 1)
 	build_path = type
 	format_board_name()
 	if(user)
