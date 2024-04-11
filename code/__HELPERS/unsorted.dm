@@ -765,7 +765,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		areatype = areatemp.type
 
 	var/list/turfs = list()
-	for(var/area/N as anything in GLOB.all_areas)
+	for(var/area/N as anything in world)
 		if(istype(N, areatype))
 			for(var/turf/T in N)
 				turfs += T
