@@ -357,7 +357,6 @@
 		/obj/item/stack/nanopaste/cyborg,
 		/obj/item/gripper_medical
 	)
-	emag_override_modules = list(/obj/item/reagent_containers/borghypo/syndicate)
 	malf_modules = list(/obj/item/gun/syringemalf)
 	special_rechargables = list(
 		/obj/item/extinguisher/mini,
