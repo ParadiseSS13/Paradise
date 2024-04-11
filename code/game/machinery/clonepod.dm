@@ -295,6 +295,9 @@
 				clone.setCloneLoss(0) //get out of the pod!!
 				return
 
+			else
+				clone_progress += 1 // I don't know how we got here but we just keep incrementing
+
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
 /obj/machinery/clonepod/proc/start_cloning(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
