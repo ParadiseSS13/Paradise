@@ -13,16 +13,13 @@
 	name = "Shuttle Docker Camera Eye ([new_name])"
 
 /mob/camera/eye/shuttle_docker/update_visibility()
-	return 0
+	return FALSE
 
 /mob/camera/eye/shuttle_docker/setLoc(T)
 	if(isspaceturf(get_turf(T)) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()
-		return
-	else
-		return
 
 /mob/camera/eye/shuttle_docker/update_remote_sight(mob/living/user)
 	user.sight = SEE_TURFS

@@ -1489,8 +1489,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	cameraFollow = null
 	unset_machine()
 
-	if(src.eyeobj && src.loc)
-		src.eyeobj.loc = src.loc
+	if(eyeobj && loc)
+		eyeobj.loc = loc
 	else
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
@@ -1501,7 +1501,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Toggle Camera Acceleration"
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		return //won't work if dead
 	if(isAIEye(eyeobj))
 		eyeobj.acceleration = !eyeobj.acceleration

@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(holopads)
 //Can we display holos there
 //Area check instead of line of sight check because this is a called a lot if AI wants to move around.
 /obj/machinery/hologram/holopad/proc/validate_location(turf/T, extended_range = 0)
-	if(T.z == z && get_dist(T, src) <= holo_range + extended_range && T.loc == get_area(src))
+	if(T.z == z && (get_dist(T, src) <= holo_range + extended_range) && T.loc == get_area(src))
 		return TRUE
 	return FALSE
 

@@ -103,7 +103,7 @@
 			eye = new /mob/camera/eye/ai(mob.loc, ai.name, ai, ai)
 			if(istype(eye))
 				return eye.relaymove(mob, direct)
-		return 0 // If the AI is outside of its eye or a mech (e.g. carded), it can't move
+		return FALSE // If the AI is outside of its eye or a mech (e.g. carded), it can't move
 
 	if(Process_Grab())
 		return

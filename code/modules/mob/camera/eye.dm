@@ -32,7 +32,7 @@
 	var/acceleration = 1
 
 /mob/camera/eye/Initialize(mapload, name, origin, mob/living/user)
-	..()
+	. = ..()
 	src.name = "Camera Eye ([name])"
 	src.origin = origin
 	give_control(user)
@@ -47,14 +47,11 @@
 		qdel(src)
 
 /mob/camera/eye/proc/first_active_camera()
-	var/camera
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if(!C.can_use())
 			continue
 		if(length(C.network & networks))
-			camera = get_turf(C)
-			break
-	return camera
+			return get_turf(C)
 	
 /mob/camera/eye/proc/update_visibility()
 	GLOB.cameranet.visibility(src, user.client)
@@ -73,7 +70,7 @@
 		refresh_visible_icon()
 
 /mob/camera/eye/Move()
-	return 0
+	return FALSE
 
 /atom/proc/move_camera_by_click()
 	if(isAI(usr))
@@ -84,18 +81,16 @@
 				AI.eyeobj.setLoc(src)
 
 /mob/camera/eye/proc/GetViewerClient()
-	if(user)
-		return user.client
-	return null
+	return user?.client
 
 /mob/camera/eye/proc/RemoveImages()
 	var/client/C = GetViewerClient()
-	if(C)
-		for(var/V in visibleCameraChunks)
-			var/datum/camerachunk/chunk = V
-			C.images -= chunk.obscured
-		if(visible_icon)
-			C.images -= user_image
+	if(!C)
+		return
+	for(var/datum/camerachunk/chunk as anything in visibleCameraChunks)
+		C.images -= chunk.obscured
+	if(visible_icon)
+		C.images -= user_image
 
 /mob/camera/eye/proc/release_control()
 	if(!istype(user))
@@ -125,8 +120,7 @@
 	name = "Camera Eye ([new_name])"
 
 /mob/camera/eye/proc/release_chunks()
-	for(var/V in visibleCameraChunks)
-		var/datum/camerachunk/chunk = V
+	for(var/datum/camerachunk/chunk as anything in visibleCameraChunks)
 		chunk.remove(src)
 
 /mob/camera/eye/Destroy()
@@ -141,9 +135,9 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += sprint_threshold)
-		var/turf/step = get_turf(get_step(src, direct))
-		if(step)
-			src.setLoc(step)
+		var/turf/next_step= get_turf(get_step(src, direct))
+		if(next_step)
+			src.setLoc(next_step)
 
 	cooldown = world.timeofday + cooldown_rate
 	if(acceleration)
@@ -153,5 +147,4 @@
 
 /mob/camera/eye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(relay_speech)
-		var/mob/M = user
-		M.hear_say(message_pieces, verb, italics, speaker, speech_sound, sound_vol, sound_frequency)
+		user.hear_say(message_pieces, verb, italics, speaker, speech_sound, sound_vol, sound_frequency)

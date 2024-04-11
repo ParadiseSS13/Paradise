@@ -10,4 +10,4 @@
 	name = "Syndicate Researcher Camera Eye ([new_name])"
 	
 /mob/camera/eye/syndicate/update_visibility()
-	return 0
+	return FALSE
