@@ -30,9 +30,29 @@
 	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
 /obj/machinery/quantumpad/cere/arrivals_cargo
 	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals
+/obj/machinery/quantumpad/cere/security_medbay
+	preset_target = /obj/machinery/quantumpad/cere/medbay_security
+/obj/machinery/quantumpad/cere/medbay_security
+	preset_target = /obj/machinery/quantumpad/cere/security_medbay
+/obj/machinery/quantumpad/cere/medbay_science
+	preset_target = /obj/machinery/quantumpad/cere/science_medbay
+/obj/machinery/quantumpad/cere/science_medbay
+	preset_target = /obj/machinery/quantumpad/cere/medbay_science
+/obj/machinery/quantumpad/cere/arrivals_service
+	preset_target = /obj/machinery/quantumpad/cere/service_arrivals
+/obj/machinery/quantumpad/cere/service_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_service
+/obj/machinery/quantumpad/cere/cargo_service
+	preset_target = /obj/machinery/quantumpad/cere/service_cargo
+/obj/machinery/quantumpad/cere/service_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_service
+
 
 /obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
+	PopulateParts()
+
+/obj/machinery/quantumpad/proc/PopulateParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
@@ -44,6 +64,15 @@
 /obj/machinery/quantumpad/cere/Initialize(mapload)
 	. = ..()
 	linked_pad = locate(preset_target)
+
+/obj/machinery/quantumpad/cere/PopulateParts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/quantumpad(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
 
 /obj/machinery/quantumpad/Destroy()
 	linked_pad = null
