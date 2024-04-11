@@ -7211,7 +7211,6 @@
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKf" = (
@@ -7227,7 +7226,6 @@
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKg" = (
@@ -57334,7 +57332,7 @@
 /area/station/service/hydroponics)
 "iuj" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /turf/space,
@@ -58857,7 +58855,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "jbB" = (
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /obj/structure/lattice,

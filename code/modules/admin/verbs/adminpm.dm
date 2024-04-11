@@ -27,7 +27,7 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted|null
+	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
 	if(!target)
 		return
 	cmd_admin_pm(targets[target],null)

@@ -266,7 +266,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		connection = radio_connection
 		channel = null
 
-	if(is_type_in_list(get_area(src), blacklisted_areas))
+	if(loc && is_type_in_list(get_area(src), blacklisted_areas))
 		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
 		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
 		return
@@ -818,7 +818,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	to_chat(hearer, "<span class='deadsay'><b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]</span>")
 
 /obj/item/radio/headset/deadsay/talk_into(mob/living/M, list/message_pieces, channel, verbage)
-	var/message = sanitize(copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN))
+	var/message = copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN)
 
 	if(!message)
 		return

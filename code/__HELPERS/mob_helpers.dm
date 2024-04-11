@@ -307,7 +307,11 @@
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
-	var/area/A = get_area(MT)
+	var/area/A
+	if(isatom(MT) && !QDELETED(MT))
+		A = get_area(MT)
+	else 
+		A = get_area(user) 
 	if(A && A.hide_attacklogs)
 		loglevel = ATKLOG_ALL
 	else if(istype(MT))
