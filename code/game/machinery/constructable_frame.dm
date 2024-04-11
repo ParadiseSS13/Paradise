@@ -688,13 +688,14 @@ to destroy them and players will be able to make replacements.
 	set_type(user, choice)
 
 /obj/item/circuitboard/reagentgrinder/proc/set_type(mob/user, type)
-	board_name = type
-	build_path = grinder_names_paths[type]
 	switch(type)
 		if("All-In-One Grinder")
 			req_components = regular_components
 		if("Botanitank")
 			req_components = regular_components + list(/obj/item/reagent_containers/glass/beaker/noreact = 1)
+
+	board_name = type
+	build_path = grinder_names_paths[type]
 	format_board_name()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
