@@ -1503,8 +1503,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(usr.stat == 2)
 		return //won't work if dead
-	acceleration = !acceleration
-	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
+	if(isAIEye(eyeobj))
+		eyeobj.acceleration = !eyeobj.acceleration
+		to_chat(usr, "Camera acceleration has been toggled [eyeobj.acceleration ? "on" : "off"].")
 
 /mob/living/silicon/ai/handle_fire()
 	return
