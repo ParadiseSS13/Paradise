@@ -51,10 +51,6 @@ export const CompostBin = (props, context) => {
                     {biomass} / {biomass_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
-              </LabeledList>
-            </Stack>
-            <Stack>
-              <LabeledList>
                 <LabeledList.Item label="Compost">
                   <ProgressBar
                     ml={0.5}
@@ -75,10 +71,6 @@ export const CompostBin = (props, context) => {
                     {compost} / {compost_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
-              </LabeledList>
-            </Stack>
-            <Stack>
-              <LabeledList>
                 <LabeledList.Item label="Potassium">
                   <ProgressBar
                     ml={0.5}
@@ -99,10 +91,6 @@ export const CompostBin = (props, context) => {
                     {potassium} / {potassium_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
-              </LabeledList>
-            </Stack>
-            <Stack>
-              <LabeledList>
                 <LabeledList.Item label="Potash">
                   <ProgressBar
                     ml={0.5}
