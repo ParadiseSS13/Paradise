@@ -19,9 +19,9 @@
 	data["bots"] = list()
 	for(bot in GLOB.bots_list)
 		if(is_ai_allowed(bot.z) && !bot.remote_disabled)
-			if(!(bot.model in data["bots"]))
-				data["bots"][bot.model] = list()
-			data["bots"][bot.model] += bot.get_bot_data()
+			if(!(bot.bot_type in data["bots"]))
+				data["bots"][bot.bot_type] = list()
+			data["bots"][bot.bot_type] += bot.get_bot_data()
 	return data
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

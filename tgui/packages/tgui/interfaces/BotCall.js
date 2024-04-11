@@ -1,7 +1,7 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
-import { Window } from '../layouts';
-let bot_model = 'Securitron';
+import { useBackend, useLocalState } from "../backend";
+import { Box, Button, Icon, Stack, Table, Tabs } from "../components";
+import { Window } from "../layouts";
+let bot_model = "Security";
 
 const BotStatus = (mode) => {
   if (mode === 0) {
@@ -25,45 +25,37 @@ const BotStatus = (mode) => {
 
 export const BotCall = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState(context, "tabIndex", 0);
   const botNames = {
-    0: 'Security',
-    1: 'Medibot',
-    2: 'Cleanbot',
-    3: 'Floorbot',
-    4: 'MULE',
-    5: 'Honkbot',
-    10: 'Securitron',
-    11: 'ED-209',
+    0: "Security",
+    1: "Medibot",
+    2: "Cleanbot",
+    3: "Floorbot",
+    4: "MULE",
+    5: "Honkbot",
   };
   const decideTab = (index) => {
     switch (index) {
       case 0:
-        bot_model = 'Securitron';
-        return <SecurityTab />;
+        bot_model = "Security";
+        return <BotExists />;
       case 1:
-        bot_model = 'Medibot';
+        bot_model = "Medical";
         return <BotExists />;
       case 2:
-        bot_model = 'Cleanbot';
+        bot_model = "Clean";
         return <BotExists />;
       case 3:
-        bot_model = 'Floorbot';
+        bot_model = "Floor";
         return <BotExists />;
       case 4:
-        bot_model = 'MULE';
+        bot_model = "Mule";
         return <BotExists />;
       case 5:
-        bot_model = 'Honkbot';
+        bot_model = "Honk";
         return <BotExists />;
-      case 10:
-        bot_model = 'Securitron';
-        return <SecurityTab />;
-      case 11:
-        bot_model = 'ED-209';
-        return <SecurityTab />;
       default:
-        return 'This should not happen. Report on Paradise Github';
+        return "This should not happen. Report on Paradise Github";
     }
   };
 
@@ -112,35 +104,6 @@ const NoBot = (_properties, context) => {
   );
 };
 
-const SecurityTab = (_properties, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Tabs fluid textAlign="center">
-          <Tabs.Tab
-            key="Security"
-            selected={tabIndex === 10}
-            onClick={() => setTabIndex(10)}
-          >
-            Securitron
-          </Tabs.Tab>
-          <Tabs.Tab
-            bot_type="ED-209"
-            key="ED-209"
-            selected={tabIndex === 11}
-            onClick={() => setTabIndex(11)}
-          >
-            ED-209
-          </Tabs.Tab>
-        </Tabs>
-      </Stack.Item>
-      <BotExists />
-    </Stack>
-  );
-};
-
 const MapBot = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
@@ -169,7 +132,7 @@ const MapBot = (_properties, context) => {
                 <Button
                   content="Interface"
                   onClick={() =>
-                    act('interface', {
+                    act("interface", {
                       botref: bot.UID,
                     })
                   }
@@ -179,7 +142,7 @@ const MapBot = (_properties, context) => {
                 <Button
                   content="Call"
                   onClick={() =>
-                    act('call', {
+                    act("call", {
                       botref: bot.UID,
                     })
                   }
