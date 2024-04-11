@@ -4,10 +4,13 @@
   ai_detector_visible = FALSE
   var/allowed_area = null
 
-/mob/camera/eye/xenobio/Initialize(mapload)
+/mob/camera/eye/xenobio/Initialize(mapload, name, origin, mob/living/user)
   . = ..()
-  var/area/A = get_area(loc)
+  var/area/A = get_area(origin)
   allowed_area = A.name
+
+/mob/camera/eye/xenobio/rename_camera(new_name)
+  name = "Xenobiology Console ([new_name])"
 
 /mob/camera/eye/xenobio/setLoc(T)
   var/area/new_area = get_area(T)

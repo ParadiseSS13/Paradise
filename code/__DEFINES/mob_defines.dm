@@ -267,6 +267,7 @@
 
 #define iscameramob(A)	(istype((A), /mob/camera))
 #define isAIEye(A)		(istype((A), /mob/camera/eye))
+#define isholo(A)			(istype((A), /mob/camera/eye/hologram))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isSpirit(A)		(istype((A), /mob/spirit))

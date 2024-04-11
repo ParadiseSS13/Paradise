@@ -1000,6 +1000,7 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
+	AI.reset_perspective(src)
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='boldnotice'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
@@ -1280,7 +1281,11 @@
 				return
 			to_chat(AI, "<span class='notice'>Returning to core...</span>")
 			AI.controlled_mech = null
-			AI.remote_control = null
+			if(istype(AI.eyeobj))
+				AI.remote_control = AI.eyeobj
+				AI.reset_perspective(AI.eyeobj)
+			else
+				AI.eyeobj = new /mob/camera/eye/ai(loc, AI.name, AI, AI)
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)

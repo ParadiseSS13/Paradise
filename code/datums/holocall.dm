@@ -129,10 +129,10 @@
 		return
 
 	hologram = H.activate_holo(user)
+	eye = H.eye
 	hologram.HC = src
 
 	user.unset_machine(H)
-	eye = new(H, user.name, H, user)
 
 	hangup = new(eye,src)
 	hangup.Grant(user)

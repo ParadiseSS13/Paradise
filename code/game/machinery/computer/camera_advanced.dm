@@ -11,7 +11,8 @@
 	var/list/actions = list()
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
-	eyeobj = new(loc, name, src, user)
+	eyeobj = new /mob/camera/eye/abductor(loc, name, src, current_user)
+	give_eye_control(current_user)
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -24,15 +25,19 @@
 		jump_action.Grant(user)
 		actions += jump_action
 
-/obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
-	if(!user)
+/obj/machinery/computer/camera_advanced/proc/RemoveActions()
+	if(!istype(current_user))
 		return
 	for(var/V in actions)
 		var/datum/action/A = V
-		A.Remove(user)
+		A.Remove(current_user)
 	actions.Cut()
+
+/obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
+	RemoveActions()
 	eyeobj.release_control()
 	current_user = null
+	user.unset_machine()
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
@@ -47,7 +52,7 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
-	if(M == current_user)
+	if(istype(M) && M == current_user)
 		remove_eye_control(M)
 
 /obj/machinery/computer/camera_advanced/attack_hand(mob/user)
@@ -59,6 +64,7 @@
 	if(..())
 		return
 	user.set_machine(src)
+	current_user = user
 
 	if(!eyeobj)
 		CreateEye()
@@ -66,10 +72,9 @@
 		give_eye_control(user)
 		eyeobj.setLoc(eyeobj.loc)
 
-
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
-	GrantActions(user)
 	eyeobj.give_control(user)
+	GrantActions(user)
 
 /datum/action/innate/camera_off
 	name = "End Camera View"

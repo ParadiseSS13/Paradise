@@ -14,6 +14,7 @@
 	// Decides if it is shown by AI Detector or not
 	var/ai_detector_visible = TRUE
 	var/visible_icon = FALSE
+	var/list/networks = list("SS13")
 	var/image/user_image = null
 
 	// Camera acceleration settings
@@ -30,22 +31,22 @@
 	var/cooldown_rate = 5
 	var/acceleration = 1
 
-/mob/camera/eye/New(loc, name, origin, user)
-	name = "Camera Eye ([name])"
-	origin = origin
-	user = user
-	user_previous_remote_control = user.remote_control
-	user.reset_perspective(src)
-	setLoc(loc)
+/mob/camera/eye/Initialize(mapload, name, origin, mob/living/user)
+	..()
+	src.name = "Camera Eye ([name])"
+	src.origin = origin
+	give_control(user)
+	update_visibility()
+	refresh_visible_icon()
 	validate_active_cameranet()
 
-/mob/camera/eye/validate_active_cameranet(strict = 0)
+/mob/camera/eye/proc/validate_active_cameranet(strict = 0)
 	var/camera = first_active_camera()
 	if(strict && !camera)
 		to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
 		qdel(src)
 
-/mob/camera/eye/first_active_camera()
+/mob/camera/eye/proc/first_active_camera()
 	var/camera
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if(!C.can_use())
@@ -54,22 +55,35 @@
 			camera = get_turf(C)
 			break
 	return camera
+	
+/mob/camera/eye/proc/update_visibility()
+	GLOB.cameranet.visibility(src, user.client)
+
+/mob/camera/eye/proc/refresh_visible_icon()
+	if(visible_icon && user.client)
+		user.client.images -= user_image
+		user_image = image(icon,loc,icon_state,FLY_LAYER)
+		user.client.images += user_image
 
 /mob/camera/eye/setLoc(T, hide_unseen_with_static = 1)
 	if(user)
 		T = get_turf(T)
 		..(T)
-		if(hide_unseen_with_static)
-			GLOB.cameranet.visibility(src, user.client)
-		if(visible_icon && user.client)
-			user.client.images -= user_iamge
-			user_image = image(icon,loc,icon_state,FLY_LAYER)
-			user.client.images += user_image
+		update_visibility()
+		refresh_visible_icon()
 
 /mob/camera/eye/Move()
 	return 0
 
-/mob/camera/eye/GetViewerClient()
+/atom/proc/move_camera_by_click()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
+			AI.cameraFollow = null
+			if(isturf(loc) || isturf(src))
+				AI.eyeobj.setLoc(src)
+
+/mob/camera/eye/proc/GetViewerClient()
 	if(user)
 		return user.client
 	return null
@@ -83,26 +97,41 @@
 		if(visible_icon)
 			C.images -= user_image
 
-/mob/camera/eye/release_control()
+/mob/camera/eye/proc/release_control()
+	if(!istype(user))
+		return
 	if(user.client)
-		user.remote_control = user_previous_remote_control
+		user.reset_perspective(user.client.mob)
+		RemoveImages()
+	user.remote_control = null
+	if(user_previous_remote_control)
 		user.reset_perspective(user_previous_remote_control)
-	user.unset_machine()
+		user.remote_control = user_previous_remote_control
+		user_previous_remote_control = null
 	user = null
 
-/mob/camera/eye/give_control(mob/user)
-	user = user
-	name = "Camera Eye([user.name])"
+/mob/camera/eye/proc/give_control(mob/user)
+	if(!istype(user))
+		return
+	release_control()
+	src.user = user
+	rename_camera(user.name)
+	if(istype(user.remote_control))
+		user_previous_remote_control = user.remote_control
 	user.remote_control = src
 	user.reset_perspective(src)
 
-/mob/camera/eye/Destroy()
-	if(user.client)
-		user.remote_control = user_previous_remote_control
-		user.reset_perspective(user_previous_remote_control)
+/mob/camera/eye/proc/rename_camera(new_name)
+	name = "Camera Eye ([new_name])"
+
+/mob/camera/eye/proc/release_chunks()
 	for(var/V in visibleCameraChunks)
 		var/datum/camerachunk/chunk = V
 		chunk.remove(src)
+
+/mob/camera/eye/Destroy()
+	release_control()
+	release_chunks()
 	return ..()
 
 /mob/camera/eye/relaymove(mob/user,direct)
@@ -113,8 +142,8 @@
 
 	for(var/i = 0; i < max(sprint, initial); i += sprint_threshold)
 		var/turf/step = get_turf(get_step(src, direct))
-			if(step)
-				src.setLoc(step)
+		if(step)
+			src.setLoc(step)
 
 	cooldown = world.timeofday + cooldown_rate
 	if(acceleration)

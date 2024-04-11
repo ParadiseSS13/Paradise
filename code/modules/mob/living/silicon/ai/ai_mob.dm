@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/eye/ai/eyeobj
+	var/mob/camera/eye/ai/eyeobj = null
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
@@ -229,7 +229,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
 	
-	eyeobj = new(loc, name, src, src)
+	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name
@@ -1490,9 +1490,18 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		src.eyeobj.loc = src.loc
 	else
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
-		eyeobj = new(loc, name, src, src)
+		eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	eyeobj.setLoc(loc)
+
+/mob/living/silicon/ai/proc/toggle_acceleration()
+	set category = "AI Commands"
+	set name = "Toggle Camera Acceleration"
+
+	if(usr.stat == 2)
+		return //won't work if dead
+	acceleration = !acceleration
+	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
 /mob/living/silicon/ai/handle_fire()
 	return

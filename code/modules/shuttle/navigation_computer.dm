@@ -55,7 +55,8 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/eye/shuttle_docker(get_turf(locate("landmark*Observer-Start")), src) // There should always be an observer start landmark
+	eyeobj = new /mob/camera/eye/shuttle_docker(get_turf(locate("landmark*Observer-Start")), name, src, current_user) // There should always be an observer start landmark
+	give_eye_control(current_user)
 	var/mob/camera/eye/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
@@ -252,34 +253,6 @@
 		shuttlePortId = "[port.id]_custom"
 	if(dock)
 		jumpto_ports[dock.id] = TRUE
-
-/mob/camera/eye/shuttle_docker
-	visible_icon = FALSE
-	use_static = FALSE
-	simulated = FALSE
-	// The Shuttle Docker does not trigger the AI Detector
-	ai_detector_visible = FALSE
-	var/list/placement_images = list()
-	var/list/placed_images = list()
-
-/mob/camera/eye/shuttle_docker/Initialize(mapload, obj/machinery/computer/camera_advanced/origin)
-	src.origin = origin
-	return ..()
-
-/mob/camera/eye/shuttle_docker/setLoc(T)
-	if(isspaceturf(get_turf(T)) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
-		..()
-		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
-		console.checkLandingSpot()
-		return
-	else
-		return
-
-/mob/camera/eye/shuttle_docker/update_remote_sight(mob/living/user)
-	user.sight = SEE_TURFS
-
-	..()
-	return TRUE
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"

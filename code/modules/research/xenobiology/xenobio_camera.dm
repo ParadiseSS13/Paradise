@@ -31,6 +31,10 @@
 	if(!connected_recycler)
 		locate_recycler()
 
+/obj/machinery/computer/camera_advanced/xenobio/CreateEye()
+	eyeobj = new /mob/camera/eye/xenobio(loc, name, src, current_user)
+	give_eye_control(current_user)
+
 /obj/machinery/computer/camera_advanced/xenobio/proc/locate_recycler()
 	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
 		if(get_area(recycler) == get_area(loc))
