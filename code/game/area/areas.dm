@@ -100,13 +100,13 @@
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
-	..()
+	GLOB.all_areas += src
+	return ..()
 
 /area/Initialize(mapload)
 	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
-	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
