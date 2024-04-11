@@ -1358,7 +1358,7 @@
 	result = /obj/item/food/snacks/sashimi
 
 /datum/recipe/microwave/sashimi/make_food(obj/container)
-	var/obj/item/food/snacks/picoss_kabob/being_cooked = ..()
+	var/obj/item/food/snacks/sashimi/being_cooked = ..()
 	being_cooked.reagents.del_reagent("carpotoxin")
 	being_cooked.reagents.del_reagent("toxin")
 	return being_cooked
