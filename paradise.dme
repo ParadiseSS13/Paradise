@@ -2085,6 +2085,7 @@
 #include "code\modules\mob\camera\eye\ai_eye.dm"
 #include "code\modules\mob\camera\eye\hologram_eye.dm"
 #include "code\modules\mob\camera\eye\shuttle_navigator.dm"
+#include "code\modules\mob\camera\eye\syndicate.dm"
 #include "code\modules\mob\camera\eye\xenobio_eye.dm"
 #include "code\modules\mob\dead\dead.dm"
 #include "code\modules\mob\dead\observer\observer_base.dm"

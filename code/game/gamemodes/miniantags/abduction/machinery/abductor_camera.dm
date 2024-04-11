@@ -23,7 +23,8 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
-	..()
+	eyeobj = new /mob/camera/eye/abductor(loc, name, src, current_user)
+	give_eye_control(current_user)
 	eyeobj.visible_icon = 1
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"

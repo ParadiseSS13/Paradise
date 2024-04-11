@@ -3,7 +3,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
-	var/mob/camera/eye/abductor/eyeobj
+	var/mob/camera/eye/eyeobj
 	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
@@ -11,7 +11,7 @@
 	var/list/actions = list()
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
-	eyeobj = new /mob/camera/eye/abductor(loc, name, src, current_user)
+	eyeobj = new /mob/camera/eye/syndicate(loc, name, src, current_user)
 	give_eye_control(current_user)
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
@@ -84,7 +84,7 @@
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/eye/abductor/remote_eye = C.remote_control
+	var/mob/camera/eye/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
 	console.remove_eye_control(target)
 
@@ -96,7 +96,7 @@
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/eye/abductor/remote_eye = C.remote_control
+	var/mob/camera/eye/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
 	var/list/L = list()
