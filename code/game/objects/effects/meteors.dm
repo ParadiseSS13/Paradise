@@ -426,11 +426,17 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 	var/list/some_powers = list() //can be removed by discussing with other coders
 
-	some_powers += /datum/action/changeling/chameleon_skin
-	some_powers += /datum/action/changeling/headslug
-	some_powers += /datum/action/changeling/contort_body
+	var/datum/action/changeling/chameleon_skin/CH = new()
+	var/datum/action/changeling/headslug/HE = new()
+	var/datum/action/changeling/contort_body/CB = new()
+	var/datum/action/changeling/weapon/shield/OS = new()
 
-	for(var/datum/action/changeling/C in some_powers)
+	some_powers += CH
+	some_powers += HE
+	some_powers += CB
+	some_powers += OS
+
+	for(var/datum/action/changeling/C as anything in some_powers)
 		C.dna_cost = 0
 		C.power_type = CHANGELING_INNATE_POWER
 		cling.give_power(C, H, FALSE)
