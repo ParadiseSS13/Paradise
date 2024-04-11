@@ -563,11 +563,17 @@
 		return
 
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(allowed(user))
-			locked = !locked
-			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-		else
+		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			return
+
+		switch(tgui_alert(user, "Do you want to change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access restrictions", "Emergency ejection")))
+			if("Change access restrictions")
+				locked = !locked
+				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
+			if("Emergency ejection")
+				eject_clone(TRUE) // GET OUT
+				to_chat(user, "<span class='warning'>You force [src] to eject it's clone!</span>")
 		return
 
 	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
