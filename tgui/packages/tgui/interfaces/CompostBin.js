@@ -34,7 +34,8 @@ export const CompostBin = (props, context) => {
               <LabeledList>
                 <LabeledList.Item label="Biomass">
                   <ProgressBar
-                    ml={1}
+                    ml={0.5}
+                    mt={1}
                     width={20}
                     value={biomass}
                     minValue={0}
