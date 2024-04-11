@@ -19,6 +19,8 @@ export const CompostBin = (props, context) => {
     compost_capacity,
     potassium,
     potassium_capacity,
+    potash,
+    potash_capacity,
   } = data;
 
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
@@ -95,6 +97,27 @@ export const CompostBin = (props, context) => {
                     }}
                   >
                     {potassium} / {potassium_capacity} Units
+                  </ProgressBar>
+                </LabeledList.Item>
+              </LabeledList>
+            </Stack>
+            <Stack>
+              <LabeledList>
+                <LabeledList.Item label="Potash">
+                  <ProgressBar
+                    ml={0.5}
+                    mt={1}
+                    width={20}
+                    value={potash}
+                    minValue={0}
+                    maxValue={potash_capacity}
+                    ranges={{
+                      good: [potash_capacity * 0.5, Infinity],
+                      average: [potash_capacity * 0.25, potash_capacity * 0.5],
+                      bad: [-Infinity, potash_capacity * 0.25],
+                    }}
+                  >
+                    {potash} / {potash_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>

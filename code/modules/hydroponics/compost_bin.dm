@@ -1,7 +1,8 @@
 #define SOIL_COST 25
 #define DECAY 0.2
 #define MIN_CONVERSION 10
-#define BIOMASS_POTASSIUM_RATIO 6
+#define BIOMASS_POTASH_RATIO 6
+#define BIOMASS_POTASSIUM_RATIO 8
 /**
   * # compost bin
   * used to make soil from plants.
@@ -23,6 +24,8 @@
 	var/compost = 0
 	/// amount of potassium in the compost bin
 	var/potassium = 0
+	/// amount of potash in the compost bin
+	var/potash = 0
 	/// amount of saltpetre in the conpost bin
 	var/saltpetre = 0
 	/// The maximum amount of biomass the compost bin can store.
@@ -31,6 +34,8 @@
 	var/compost_capacity = 1500
 	/// The maximum amount of potassium the compost bin can store.
 	var/potassium_capacity = 200
+	/// The maximum amount of potassium the compost bin can store.
+	var/potash_capacity = 500
 
 /obj/machinery/compost_bin/on_deconstruction()
 	// returns wood instead of the non-existent components
@@ -51,8 +56,10 @@
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
 	var/plant_potassium = O.reagents.get_reagent_amount("potassium")
+	var/plant_potash = O.reagents.get_reagent_amount("ash")
 	biomass += min(max(plant_biomass * 10, 1), biomass_capacity - biomass)
 	potassium += min(potassium_capacity - potassium, plant_potassium)
+	potash += min(potash_capacity - potash, plant_potash)
 	//plant delenda est
 	qdel(O)
 
@@ -63,7 +70,7 @@
 
 	if(istype(O, /obj/item/storage/bag/plants))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
-			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated!</span>")
+			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated with potassium!</span>")
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
@@ -91,8 +98,8 @@
 		return TRUE
 
 	if(istype(O, /obj/item/food/snacks/grown))
-		if(biomass >= biomass_capacity)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
+		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
+			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated with potassium!</span>")
 			return
 		if(!user.unEquip(O))
 			return
@@ -109,8 +116,8 @@
 		if(B.reagents.total_volume <= 0)
 			to_chat(user, "<span class='warning'>[B] is empty!</span>")
 			return
-		if(potassium >= potassium_capacity)
-			to_chat(user, "<span class='warning'>The contents of [src] are saturated with potassium!</span>")
+		if(potassium >= potassium_capacity && potash >= potash_capacity)
+			to_chat(user, "<span class='warning'>The contents of [src] are saturated with potassium and it cannot hold more potash!</span>")
 			return
 		// Won't pour in more than the amount of potassium that can be accepted, even if the beaker is not filled with pure potassium.
 		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this),potassium_capacity - potassium) / B.reagents.total_volume
@@ -118,9 +125,18 @@
 		// Since the character doesn't know what's in the beaker, I'm assuming it is assuming the beaker is full of pure potassium and pours according to that.
 		for(var/E in B.reagents.reagent_list)
 			var/datum/reagent/R = E
-			if(R.id == "potassium")
-				potassium += min(R.volume * proportion, potassium_capacity - potassium)
+			switch(R.id)
+				if("potassium")
+					potassium += min(R.volume * proportion, potassium_capacity - potassium)
+				if("ash")
+					potash += min(R.volume * proportion, potash_capacity - potash)
+				if("nutriment")
+					biomass += min(R.volume * proportion, biomass_capacity - biomass)
+				if("plantmatter")
+					biomass += min(R.volume * proportion, biomass_capacity - biomass)
+
 			B.reagents.remove_reagent(R.id, R.volume*proportion)
+
 		if(proportion == 1)
 			to_chat(user, "<span class='info'>You empty [B] into [src].</span>")
 		else
@@ -129,6 +145,11 @@
 			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
 		else if(potassium >= potassium_capacity * 0.95)
 			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
+
+		if(potash == potash_capacity)
+			to_chat(user, "<span class='info'>[src] has been filled with potash.</span>")
+		else if(potash >= potash_capacity * 0.95)
+			to_chat(user, "<span class='info'>[src] has been nearly filled with potash.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
@@ -149,22 +170,32 @@
 	//In the presence of potassium will create saltpetre crystals instead. Using at most the amount of biomass that would've been used for compost
 	//And making compost from whatever part of that amount it didn't use.
 	var/conversion_amount = max(DECAY * biomass, min(MIN_CONVERSION, biomass))
-	var/saltpetre_conversion_amont = 0
+	var/potash_saltpetre_conversion = 0
+	var/potassium_saltpetre_conversion = 0
 	var/used_potassium = 0
+	var/used_potash = 0
 
-	if(potassium >= 0)
-		saltpetre_conversion_amont = min(conversion_amount, potassium * BIOMASS_POTASSIUM_RATIO)
-		used_potassium = saltpetre_conversion_amont / BIOMASS_POTASSIUM_RATIO
-		saltpetre += used_potassium * 2
-		if(saltpetre/4 >= 1)
-			new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre/4))
-		saltpetre -= round(saltpetre)
-		conversion_amount -= saltpetre_conversion_amont
+	if(potash > 0)
+		potash_saltpetre_conversion = min(conversion_amount, potash * BIOMASS_POTASH_RATIO)
+		used_potash = potash_saltpetre_conversion / BIOMASS_POTASH_RATIO
+		saltpetre += used_potash * 2
+		conversion_amount -= potash_saltpetre_conversion
+		potash -= used_potash
+
+	if(potassium > 0)
+		potassium_saltpetre_conversion = min(conversion_amount, potassium * BIOMASS_POTASSIUM_RATIO)
+		used_potassium = potassium_saltpetre_conversion / BIOMASS_POTASSIUM_RATIO
+		saltpetre += used_potassium
+		conversion_amount -= potassium_saltpetre_conversion
 		potassium -= used_potassium
+
+	if(saltpetre/4 >= 1)
+		new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre/4))
+		saltpetre -= round(saltpetre)
 
 	conversion_amount = min(conversion_amount, compost_capacity - compost)
 
-	biomass -= conversion_amount + saltpetre_conversion_amont
+	biomass -= conversion_amount + potash_saltpetre_conversion + potassium_saltpetre_conversion
 	compost += conversion_amount
 	update_icon_state()
 	SStgui.update_uis(src)
@@ -200,6 +231,8 @@
 	data["compost_capacity"] = compost_capacity
 	data["potassium"] = potassium
 	data["potassium_capacity"] = potassium_capacity
+	data["potash"] = potash
+	data["potash_capacity"] = potash_capacity
 	return data
 
 // calls functions according to ui interaction(just making compost for now)
@@ -227,4 +260,5 @@
 #undef SOIL_COST
 #undef DECAY
 #undef MIN_CONVERSION
+#undef BIOMASS_POTASH_RATIO
 #undef BIOMASS_POTASSIUM_RATIO
