@@ -496,13 +496,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/add_observer_verbs()
 	verbs.Add(
 		/mob/dead/observer/proc/ManualFollow,
-		/mob/dead/observer/proc/observe,
+		/mob/dead/observer/verb/observe,
 	)
 
 /mob/dead/observer/proc/remove_observer_verbs()
 	verbs.Remove(
 		/mob/dead/observer/proc/ManualFollow,
-		/mob/dead/observer/proc/observe,
+		/mob/dead/observer/verb/observe,
 	)
 
 // This is the ghost's follow verb with an argument
