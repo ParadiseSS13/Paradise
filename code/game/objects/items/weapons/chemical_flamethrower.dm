@@ -310,7 +310,6 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(isitem(AM))
 		var/obj/item/item_to_burn = AM
 		item_to_burn.fire_act(null, temperature)
-		return
 
 /obj/effect/fire/proc/fizzle()
 	playsound(src, 'sound/effects/fire_sizzle.ogg', 50, TRUE)
