@@ -216,6 +216,9 @@
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/abductor/experiment/force_eject_occupant(mob/target)
+	eject_abductee()
+
 /obj/machinery/abductor/experiment/broken
 	stat = BROKEN
 

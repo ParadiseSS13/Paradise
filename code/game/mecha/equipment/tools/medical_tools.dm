@@ -233,6 +233,8 @@
 	chassis.use_power(energy_drain)
 	update_equip_info()
 
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/force_eject_occupant(mob/target)
+	go_out()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
 	name = "exosuit syringe gun"
