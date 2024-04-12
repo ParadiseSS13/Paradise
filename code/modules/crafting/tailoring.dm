@@ -1,3 +1,10 @@
+#define ALLOWED_INGREDIENT_SUNGLASSES list( \
+	/obj/item/clothing/glasses/sunglasses, \
+	/obj/item/clothing/glasses/sunglasses/noir, \
+	/obj/item/clothing/glasses/sunglasses/yeah, \
+	/obj/item/clothing/glasses/sunglasses/big \
+)
+
 /datum/crafting_recipe/durathread_vest
 	name = "Durathread Vest"
 	result = list(/obj/item/clothing/suit/armor/vest/durathread)
@@ -173,7 +180,7 @@
 /datum/crafting_recipe/hudsunsec/New()
 	..()
 	blacklist = subtypesof(/obj/item/clothing/glasses/hud/security) \
-		| subtypesof(/obj/item/clothing/glasses/sunglasses)
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
 
 /datum/crafting_recipe/hudsunsecremoval
 	name = "Security HUD removal"
@@ -196,7 +203,7 @@
 /datum/crafting_recipe/hudsunmed/New()
 	..()
 	blacklist = subtypesof(/obj/item/clothing/glasses/hud/health) \
-		| subtypesof(/obj/item/clothing/glasses/sunglasses)
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
 
 /datum/crafting_recipe/hudsunmedremoval
 	name = "Medical HUD removal"
@@ -219,7 +226,7 @@
 /datum/crafting_recipe/hudsundiag/New()
 	..()
 	blacklist = subtypesof(/obj/item/clothing/glasses/hud/diagnostic) \
-		| subtypesof(/obj/item/clothing/glasses/sunglasses)
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
 
 /datum/crafting_recipe/hudsundiagremoval
 	name = "Diagnostic HUD removal"
@@ -242,7 +249,7 @@
 /datum/crafting_recipe/hudsunjani/New()
 	..()
 	blacklist = subtypesof(/obj/item/clothing/glasses/hud/janitor) \
-		| subtypesof(/obj/item/clothing/glasses/sunglasses)
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
 
 /datum/crafting_recipe/hudsunjaniremoval
 	name = "Janitor HUD sunglasses removal"
@@ -265,7 +272,7 @@
 /datum/crafting_recipe/hudsunmeson/New()
 	..()
 	blacklist = subtypesof(/obj/item/clothing/glasses/meson) \
-		| subtypesof(/obj/item/clothing/glasses/sunglasses)
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
 
 /datum/crafting_recipe/hudsunmesonremoval
 	name = "Meson HUD sunglasses removal"
@@ -288,7 +295,7 @@
 /datum/crafting_recipe/beergoggles/New()
 	..()
 	blacklist = subtypesof(/obj/item/clothing/glasses/science) \
-		| subtypesof(/obj/item/clothing/glasses/sunglasses)
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
 
 /datum/crafting_recipe/beergogglesremoval
 	name = "Sunscanners removal"
@@ -385,3 +392,5 @@
 	time = 2 SECONDS
 	reqs = list(/obj/item/food/snacks/grown/geranium = 5)
 	category = CAT_CLOTHING
+
+#undef ALLOWED_INGREDIENT_SUNGLASSES
