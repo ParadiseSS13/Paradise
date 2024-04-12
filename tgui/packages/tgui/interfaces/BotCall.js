@@ -10,7 +10,7 @@ const BotStatus = (mode) => {
   }
   if (mode >= 1 && mode <= 3) {
     // Secbot Arrest
-    return <Box color="yellow">Arresting</Box>;
+    return <Box color="blue">Arresting</Box>;
   }
   if (mode === 4 || mode === 5) {
     return <Box color="average">Patrolling</Box>;
