@@ -130,7 +130,7 @@
 		previousturf = T
 
 /obj/item/chemical_flamethrower/proc/make_flame(turf/spawn_turf)
-	new /obj/effect/fire(spawn_turf, canister.chem_burn_temp, (canister.chem_burn_duration + rand(1, 3) SECONDS), canister.fire_applications) // For that spicy randomness (and to save your ears from all fires extinguishing at the same time)
+	new /obj/effect/fire(spawn_turf, canister_burn_temp, (canister_burn_duration + rand(1, 3) SECONDS), canister_fire_applications) // For that spicy randomness (and to save your ears from all fires extinguishing at the same time)
 
 /*
   * Uses `amount` ammo from the flamethrower.
