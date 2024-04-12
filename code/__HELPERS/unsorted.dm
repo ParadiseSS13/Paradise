@@ -1363,7 +1363,7 @@ Standard way to write links -Sayu
 /proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
-		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
+		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
