@@ -15,10 +15,16 @@ const BotStatus = (mode) => {
   if (mode === 4 || mode === 5) {
     return <Box color="average">Patrolling</Box>;
   }
-  if (mode === 6) {
+  if (mode === 6 || mode === 11) {
     return <Box color="green">Responding</Box>;
   }
-  if (mode >= 7 && mode <= 19) {
+  if (mode === 12) {
+    return <Box color="blue">Delivering Cargo</Box>;
+  }
+  if (mode === 13) {
+    return <Box color="blue">Returning Home</Box>;
+  }
+  if (mode === 7 || (mode >= 14 && mode <= 19)) {
     return <Box color="blue">Working</Box>;
   }
 };
