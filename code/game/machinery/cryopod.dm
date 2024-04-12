@@ -233,7 +233,8 @@
 		/obj/item/melee/knuckleduster,
 		/obj/item/melee/rapier,
 		/obj/item/storage/belt/rapier,
-		/obj/item/nuke_core
+		/obj/item/nuke_core,
+		/obj/item/nuke_core_container
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
