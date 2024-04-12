@@ -194,6 +194,7 @@
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
+					/obj/item/seeds/lettuce = 3,
 					/obj/item/seeds/lime = 3,
 					/obj/item/seeds/mint = 3,
 					/obj/item/seeds/olive = 3,
