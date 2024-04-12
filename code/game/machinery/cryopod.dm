@@ -230,7 +230,10 @@
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/mod/control,
 		/obj/item/stamp,
-		/obj/item/melee/knuckleduster
+		/obj/item/melee/knuckleduster,
+		/obj/item/melee/rapier,
+		/obj/item/storage/belt/rapier,
+		/obj/item/nuke_core
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
