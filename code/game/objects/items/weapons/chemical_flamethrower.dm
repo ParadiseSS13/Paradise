@@ -53,15 +53,14 @@
 	if(!istype(I, /obj/item/chemical_canister))
 		to_chat(user, "<span class='notice'>You can't fit [I] in there!</span>")
 		return
-	if(canister_2 || (max_canisters == 1 && canister))
+	if(length(canisters) >= max_canisters)
 		to_chat(user, "<span class='notice'>[src] is already full!</span>")
 		return
 
-	if(max_canisters == 2)
-		canister_2 = I
-	else
-		canister = I
-	user.unEquip(I)
+	if(!user.unEquip(I))
+		return
+
+	canisters += I
 	I.forceMove(src)
 
 	get_canister_stats()
@@ -105,7 +104,7 @@
 		if(target_turf)
 			var/turflist = get_line(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
-			flame_turf(turflist, user)
+			INVOKE_ASYNC(src, PROC_REF(flame_turf), turflist, user)
 
 /obj/item/chemical_flamethrower/proc/flame_turf(list/turflist = list(), mob/user)
 	if(!length(turflist))
@@ -313,7 +312,6 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(isitem(AM))
 		var/obj/item/item_to_burn = AM
 		item_to_burn.fire_act(null, temperature)
-		return
 
 /obj/effect/fire/proc/fizzle()
 	playsound(src, 'sound/effects/fire_sizzle.ogg', 50, TRUE)
@@ -321,7 +319,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 
 /obj/effect/fire/proc/merge_flames(obj/effect/fire/merging_flame)
 	duration = min((duration + (merging_flame.duration / 2)), MAX_FIRE_EXIST_TIME)
-	temperature += merging_flame.temperature / 10 // No making a sun by just clicking 10 times on a turf
+	temperature += (merging_flame.temperature) / 10 // No making a sun by just clicking 10 times on a turf
 	merging_flame.fizzle()
 
 #undef MAX_FIRE_EXIST_TIME
