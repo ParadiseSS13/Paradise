@@ -66,7 +66,7 @@
 	get_canister_stats()
 
 /obj/item/chemical_flamethrower/proc/get_canister_stats()
-	if(!length(canister))
+	if(!length(canisters))
 		canister_burn_temp = null
 		canister_burn_duration = null
 		canister_fire_applications = null
@@ -78,6 +78,8 @@
 	var/how_many_canisters = length(canisters)
 
 	for(var/obj/item/chemical_canister/canister as anything in canisters)
+		if(!canister.ammo)
+			continue
 		burn_temp += canister.chem_burn_temp
 		burn_duration += canister.chem_burn_duration
 		fire_applications += canister.fire_applications
@@ -129,6 +131,7 @@
 			break
 
 		make_flame(T)
+		get_canister_stats() // In case we ran out of some fuel this fire
 		sleep(1)
 		previousturf = T
 
@@ -138,38 +141,33 @@
 /*
   * Uses `amount` ammo from the flamethrower.
   * Returns `TRUE` if ammo could be consumed, returns `FALSE` if it failed somehow
+  * It will use up ammo if it failed.
   */
 /obj/item/chemical_flamethrower/proc/use_ammo(amount)
 	var/dual_canisters = (canister && canister_2) ? TRUE : FALSE
 	var/total_ammo
 	for(var/obj/item/chemical_canister/canister as anything in canisters)
-		return
-
-/*	if(dual_canisters)
-		total_ammo += canister_2.ammo
-	if((total_ammo - amount) <= 0)
+		total_ammo += canister.ammo
+	if(total_ammo - amount <= 0)
 		return FALSE
 
-	var/difference
-	if(dual_canisters && canister_2.ammo)
-		difference = canister_2.ammo - amount
-		if(difference >= 0)
-			canister_2.ammo -= amount
-			return TRUE
+	var/length = length(canisters)
+	var/difference = amount
+	for(var/i in 0 to length)
+		var/obj/item/chemical_canister/canister = canisters[length - i]
+		if(canister.ammo - difference <= 0)
+			difference -= canister.ammo
+			canister.ammo = 0
 		else
-			difference -= canister_2.ammo
-			canister_2.ammo = 0
-
-		if(difference < canister.ammo)
 			canister.ammo -= difference
-		else
-			return FALSE
+			difference = 0
 
-	difference = canister.ammo - amount
-	if(difference >= 0)
-		canister.ammo -= amount
-		return TRUE
-	return FALSE */
+		if(!difference)
+			break
+
+	if(difference)
+		return FALSE
+	return TRUE
 
 /obj/item/chemical_flamethrower/extended
 	name = "Extended capacity chemical flamethrower"
