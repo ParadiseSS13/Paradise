@@ -321,3 +321,5 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	duration = min((duration + (merging_flame.duration / 2)), MAX_FIRE_EXIST_TIME)
 	temperature += merging_flame.temperature / 10 // No making a sun by just clicking 10 times on a turf
 	merging_flame.fizzle()
+
+#undef MAX_FIRE_EXIST_TIME
