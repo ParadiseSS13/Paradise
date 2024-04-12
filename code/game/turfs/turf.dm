@@ -56,7 +56,7 @@
 	/// The neighbors of the turf.
 	var/list/atmos_adjacent_turfs = list()
 	/// makes turfs less picky about where they transfer gas. Largely just used in the SM
-	var/atmos_supeconductivity = 0
+	var/atmos_superconductivity = 0
 
 	/*
 	Lighting Vars
