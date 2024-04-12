@@ -105,7 +105,7 @@
 		if(target_turf)
 			var/turflist = get_line(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
-			flame_turf(turflist, user)
+			INVOKE_ASYNC(src, PROC_REF(flame_turf), turflist, user)
 
 /obj/item/chemical_flamethrower/proc/flame_turf(list/turflist = list(), mob/user)
 	if(!length(turflist))
