@@ -278,41 +278,26 @@
 			return TRUE
 		if("scan")
 			if(!COOLDOWN_FINISHED(src, scancooldown))
-				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "average")
+				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "good")
 				return TRUE
 
 			if(!scanner.occupant)
-				return
+				return FALSE
 
-			COOLDOWN_START(src, scancooldown, 5 SECONDS)
-			var/scanner_result = scanner.try_scan(scanner.occupant)
-			switch(scanner_result)
-				if(SCANNER_MISC)
-					feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
-				if(SCANNER_UNCLONEABLE_SPECIES)
-					feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
-				if(SCANNER_HUSKED)
-					feedback = list("text" = "The patient is husked.", "color" = "bad")
-				if(SCANNER_ABSORBED)
-					feedback = list("text" = "The patient cannot be scanned due to a lack of biofluids.", "color" = "bad")
-				if(SCANNER_NO_SOUL)
-					feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
-				if(SCANNER_BRAIN_ISSUE)
-					feedback = list("text" = "The patient's brain is inactive or missing.", "color" = "bad")
-				else
-					var/datum/cloning_data/scan = scanner_result
-					if((scan.mindUID == patient_data?.mindUID) || (scan.mindUID == selected_pod?.patient_data?.mindUID))
-						feedback = list("text" = "Patient has already been scanned.", "color" = "average")
-						return TRUE
-					feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
-					desired_data = generate_healthy_data(scan)
+			scanner.occupant.notify_ghost_cloning()
+			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good")
+			COOLDOWN_START(src, scancooldown, 10 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(do_scan), patient_data), 5 SECONDS)
 			return TRUE
+
 		if("fix_all")
 			desired_data = generate_healthy_data(scanner.last_scan)
 			return TRUE
+
 		if("fix_none")
 			desired_data = extract_damage_data(scanner.last_scan)
 			return TRUE
+
 		if("toggle_limb_repair")
 			switch(params["type"])
 				if("replace")
@@ -365,6 +350,33 @@
 
 
 	add_fingerprint(usr)
+
+/obj/machinery/computer/cloning/proc/do_scan(datum/cloning_data/patient_data)
+	if(!scanner?.occupant)
+		return
+
+	var/scanner_result = scanner.try_scan(scanner.occupant)
+	switch(scanner_result)
+		if(SCANNER_MISC)
+			feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
+		if(SCANNER_UNCLONEABLE_SPECIES)
+			feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
+		if(SCANNER_HUSKED)
+			feedback = list("text" = "The patient is husked.", "color" = "bad")
+		if(SCANNER_ABSORBED)
+			feedback = list("text" = "The patient cannot be scanned due to a lack of biofluids.", "color" = "bad")
+		if(SCANNER_NO_SOUL)
+			feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
+		if(SCANNER_BRAIN_ISSUE)
+			feedback = list("text" = "The patient's brain is inactive or missing.", "color" = "bad")
+		else
+			var/datum/cloning_data/scan = scanner_result
+
+			if((scan.mindUID == patient_data?.mindUID) || (scan.mindUID == selected_pod?.patient_data?.mindUID))
+				feedback = list("text" = "Patient has already been scanned.", "color" = "good")
+				return TRUE
+			feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
+			desired_data = generate_healthy_data(scan)
 
 #undef TAB_MAIN
 #undef TAB_DAMAGES_BREAKDOWN
