@@ -4,29 +4,21 @@ import { Window } from "../layouts";
 let bot_model = "Security";
 
 const BotStatus = (mode) => {
-  if (mode === 0) {
-    // Idle
-    return <Box color="green">Idle</Box>;
-  }
-  if (mode >= 1 && mode <= 3) {
-    // Secbot Arrest
-    return <Box color="blue">Arresting</Box>;
-  }
-  if (mode === 4 || mode === 5) {
-    return <Box color="average">Patrolling</Box>;
-  }
-  if (mode === 6 || mode === 11) {
-    return <Box color="green">Responding</Box>;
-  }
-  if (mode === 12) {
-    return <Box color="blue">Delivering Cargo</Box>;
-  }
-  if (mode === 13) {
-    return <Box color="blue">Returning Home</Box>;
-  }
-  if (mode === 7 || (mode >= 14 && mode <= 19)) {
-    return <Box color="blue">Working</Box>;
-  }
+  const statusMap = [
+    { modeRange: [0], label: "Idle", color: "green" },
+    { modeRange: [1, 2, 3], label: "Arresting", color: "yellow" },
+    { modeRange: [4, 5], label: "Patrolling", color: "average" },
+    { modeRange: [6, 11], label: "Responding", color: "green" },
+    { modeRange: [12], label: "Delivering Cargo", color: "blue" },
+    { modeRange: [13], label: "Returning Home", color: "blue" },
+    { modeRange: [7, 14, 15, 16, 17, 18, 19], label: "Working", color: "blue" },
+  ];
+
+  const matchedStatus = statusMap.find((mapping) =>
+    mapping.modeRange.includes(mode)
+  );
+
+  return <Box color={matchedStatus.color}> {matcheStatus.label} </Box>;
 };
 
 export const BotCall = (props, context) => {
@@ -37,7 +29,7 @@ export const BotCall = (props, context) => {
     1: "Medibot",
     2: "Cleanbot",
     3: "Floorbot",
-    4: "MULE",
+    4: "Mule",
     5: "Honkbot",
   };
   const decideTab = (index) => {
