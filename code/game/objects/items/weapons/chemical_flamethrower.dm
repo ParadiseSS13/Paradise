@@ -114,7 +114,7 @@
 
 	var/turf/previousturf = get_turf(src)
 	for(var/turf/simulated/T in turflist)
-		if(!use_ammo(1))
+		if(!use_ammo(5))
 			to_chat(user, "<span class='warning'>You hear a click!</span>")
 			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 			break // Whoops! No ammo!
