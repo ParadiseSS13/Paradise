@@ -144,7 +144,6 @@
   * It will use up ammo if it failed.
   */
 /obj/item/chemical_flamethrower/proc/use_ammo(amount)
-	var/dual_canisters = (canister && canister_2) ? TRUE : FALSE
 	var/total_ammo
 	for(var/obj/item/chemical_canister/canister as anything in canisters)
 		total_ammo += canister.ammo
