@@ -51,7 +51,6 @@
 		canister.forceMove(get_turf(src))
 		user.put_in_hands(canister)
 		canister = null
-		return
 
 /obj/item/chemical_flamethrower/attackby(obj/item/I, mob/user, params)
 	. = ..()
