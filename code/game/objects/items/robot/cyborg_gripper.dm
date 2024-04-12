@@ -52,8 +52,7 @@
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN // I don't know either - CRUNCH
-/obj/item/gripper/forceMove(atom/destination)
+/obj/item/gripper/forceMove(atom/destination)	// This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
 	return
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
