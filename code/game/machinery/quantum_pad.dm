@@ -66,13 +66,10 @@
 	linked_pad = locate(preset_target)
 
 /obj/machinery/quantumpad/cere/PopulateParts()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/quantumpad(null)
-	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
-	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	RefreshParts()
+	// No parts in Cere telepads, just hardcode the effiencies
+	power_efficiency = 4
+	teleport_speed = 10
+	teleport_cooldown = 0
 
 /obj/machinery/quantumpad/Destroy()
 	linked_pad = null
