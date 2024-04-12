@@ -66,7 +66,7 @@
 	linked_pad = locate(preset_target)
 
 /obj/machinery/quantumpad/cere/PopulateParts()
-	// No parts in Cere telepads, just hardcode the effiencies
+	// No parts in Cere telepads, just hardcode the efficiencies
 	power_efficiency = 4
 	teleport_speed = 10
 	teleport_cooldown = 0
