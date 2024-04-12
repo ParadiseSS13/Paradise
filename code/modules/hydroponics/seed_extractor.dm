@@ -112,9 +112,6 @@
 				seedify(thing,-1, src, user)
 		return
 
-	else if(seedify(O,-1, src, user))
-		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
-		return
 	else if(istype(O, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
 		return
@@ -122,6 +119,9 @@
 		if(add_seed(O, user))
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 			updateUsrDialog()
+		return
+	else if(seedify(O,-1, src, user))
+		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
