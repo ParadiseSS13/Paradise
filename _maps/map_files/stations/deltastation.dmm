@@ -29814,7 +29814,6 @@
 	},
 /area/station/security/detective)
 "bHQ" = (
-/obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
 /obj/item/pen,
@@ -45086,10 +45085,6 @@
 "cwE" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Library Backroom";
-	dir = 4
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -76461,7 +76456,6 @@
 /area/station/public/locker)
 "kGo" = (
 /obj/structure/table/glass,
-/obj/structure/table/glass,
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -82884,16 +82878,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fore2)
-"otq" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "otH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/light{
@@ -153037,7 +153021,7 @@ aPe
 aSr
 aJx
 aVo
-otq
+aWO
 aJx
 aZK
 bbt
