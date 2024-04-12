@@ -17,11 +17,9 @@
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 
 	/// How many canisters fit in our flamethrower?
-	var/canister_max = 1
-	/// The first loaded canister
-	var/obj/item/chemical_canister/canister
-	/// The second loaded canister. Should only be filled if `canister_max` is 2
-	var/obj/item/chemical_canister/canister_2
+	var/max_canisters = 1
+	/// All our loaded canisters in a list
+	var/list/canisters = list()
 
 	/// The burn temperature of our currently stored chemical in the canister
 	var/canister_burn_temp = T0C + 300
@@ -32,7 +30,8 @@
 
 /obj/item/chemical_flamethrower/Initialize(mapload)
 	. = ..()
-	canister = new()
+	if(!length(canisters))
+		canisters += new /obj/item/chemical_canister
 	get_canister_stats()
 
 /obj/item/chemical_flamethrower/attack_self(mob/user)
@@ -41,28 +40,24 @@
 		unequip_canisters(user)
 
 /obj/item/chemical_flamethrower/proc/unequip_canisters(mob/user)
-	if(canister_2)
-		canister_2.forceMove(get_turf(src))
-		user.put_in_hands(canister_2)
-		canister_2 = null
+	if(!length(canisters))
 		return
 
-	if(canister)
-		canister.forceMove(get_turf(src))
-		user.put_in_hands(canister)
-		canister = null
-		return
+	var/obj/item/chemical_canister/canister_to_remove = canisters[length(canisters)]
+	canister_to_remove.forceMove(get_turf(src))
+	user.put_in_hands(canister_to_remove)
+	canisters -= canister_to_remove
 
 /obj/item/chemical_flamethrower/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!istype(I, /obj/item/chemical_canister))
 		to_chat(user, "<span class='notice'>You can't fit [I] in there!</span>")
 		return
-	if(canister_2 || (canister_max == 1 && canister))
+	if(canister_2 || (max_canisters == 1 && canister))
 		to_chat(user, "<span class='notice'>[src] is already full!</span>")
 		return
 
-	if(canister_max == 2)
+	if(max_canisters == 2)
 		canister_2 = I
 	else
 		canister = I
@@ -72,21 +67,25 @@
 	get_canister_stats()
 
 /obj/item/chemical_flamethrower/proc/get_canister_stats()
-	if(!canister)
+	if(!length(canister))
 		canister_burn_temp = null
 		canister_burn_duration = null
 		canister_fire_applications = null
 		return
 
-	var/dual_canisters = (canister && canister_2) ? TRUE : FALSE
-	if(dual_canisters)
-		canister_burn_temp = round((canister.chem_burn_temp + canister_2.chem_burn_temp) / 2, 1)
-		canister_burn_duration = round((canister.chem_burn_duration + canister_2.chem_burn_duration) / 2, 1)
-		canister_fire_applications = round((canister.fire_applications + canister_2.fire_applications) / 2, 1)
-	else
-		canister_burn_temp = canister.chem_burn_temp
-		canister_burn_duration = canister.chem_burn_duration
-		canister_fire_applications = canister.fire_applications
+	var/burn_temp
+	var/burn_duration
+	var/fire_applications
+	var/how_many_canisters = length(canisters)
+
+	for(var/obj/item/chemical_canister/canister as anything in canisters)
+		burn_temp += canister.chem_burn_temp
+		burn_duration += canister.chem_burn_duration
+		fire_applications += canister.fire_applications
+
+	canister_burn_temp = round(burn_temp / how_many_canisters, 1)
+	canister_burn_duration = round(burn_duration / how_many_canisters, 1)
+	canister_fire_applications = round(fire_applications / how_many_canisters, 1)
 
 /obj/item/chemical_flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
@@ -143,8 +142,11 @@
   */
 /obj/item/chemical_flamethrower/proc/use_ammo(amount)
 	var/dual_canisters = (canister && canister_2) ? TRUE : FALSE
-	var/total_ammo = canister.ammo
-	if(dual_canisters)
+	var/total_ammo
+	for(var/obj/item/chemical_canister/canister as anything in canisters)
+		return
+
+/*	if(dual_canisters)
 		total_ammo += canister_2.ammo
 	if((total_ammo - amount) <= 0)
 		return FALSE
@@ -168,12 +170,12 @@
 	if(difference >= 0)
 		canister.ammo -= amount
 		return TRUE
-	return FALSE
+	return FALSE */
 
 /obj/item/chemical_flamethrower/extended
 	name = "Extended capacity chemical flamethrower"
 	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires."
-	canister_max = 2
+	max_canisters = 2
 
 /obj/item/chemical_canister
 	name = "Chemical canister"
