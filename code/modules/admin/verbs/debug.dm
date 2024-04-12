@@ -914,7 +914,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	GLOB.error_cache.showTo(usr)
 
-/client/proc/allow_browser_inspect
+/client/proc/allow_browser_inspect()
 	set category = "Debug"
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
@@ -922,7 +922,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_MAINTAINER))
 		return
 
-	winset(player, "", "browser-options=find,devtools")
+	winset(usr, "", "browser-options=find,devtools")
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
