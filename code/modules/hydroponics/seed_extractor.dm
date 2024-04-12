@@ -88,7 +88,7 @@
 	if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/P = O
 		var/loaded = 0
-		for(var/obj/item/seeds/G in P.contents)
+		for(var/obj/item/seeds/G in P)
 			if(length(contents) >= max_seeds)
 				break
 			loaded++
@@ -97,12 +97,25 @@
 		if(loaded)
 			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
 		else
-			to_chat(user, "<span class='notice'>There are no seeds in [O].</span>")
+			var/seedable = 0
+			for(var/obj/item/food/snacks/grown/ignored in P)
+				seedable++
+			for(var/obj/item/grown/ignored in P)
+				seedable++
+			if(!seedable)
+				to_chat(user, "<span class='notice'>There are no seeds or plants in [O].</span>")
+			to_chat(user, "<span class='notice'>You dump the plants in [O] into [src].</span>")
+			if(!O.use_tool(src, user, min(5, seedable/2) SECONDS))
+				return
+			for(var/thing in P)
+				seedify(thing,-1, src, user)
 		return
 
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
+	else if(istype(O, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
 	else if(istype(O,/obj/item/seeds))
 		if(add_seed(O, user))
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")

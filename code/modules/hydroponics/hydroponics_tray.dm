@@ -398,28 +398,34 @@
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = FALSE
 	var/oldPlantName
+	var/kudzu = FALSE
 	if(myseed) // In case there's nothing in the tray beforehand
+		if(istype(myseed, /obj/item/seeds/soya))
+			kudzu = TRUE
 		oldPlantName = myseed.plantname
 		QDEL_NULL(myseed)
 	else
 		oldPlantName = "[name]"
-	switch(rand(1,18))		// randomly pick predominative weed
-		if(16 to 18)
-			myseed = new /obj/item/seeds/reishi(src)
-		if(14 to 15)
-			myseed = new /obj/item/seeds/nettle(src)
-		if(12 to 13)
-			myseed = new /obj/item/seeds/harebell(src)
-		if(10 to 11)
-			myseed = new /obj/item/seeds/amanita(src)
-		if(8 to 9)
-			myseed = new /obj/item/seeds/chanter(src)
-		if(6 to 7)
-			myseed = new /obj/item/seeds/tower(src)
-		if(4 to 5)
-			myseed = new /obj/item/seeds/plump(src)
-		else
-			myseed = new /obj/item/seeds/starthistle(src)
+	if(kudzu)
+		myseed = new /obj/item/seeds/kudzu(src)
+	else
+		switch(rand(1,18))		// randomly pick predominative weed
+			if(16 to 18)
+				myseed = new /obj/item/seeds/reishi(src)
+			if(14 to 15)
+				myseed = new /obj/item/seeds/nettle(src)
+			if(12 to 13)
+				myseed = new /obj/item/seeds/harebell(src)
+			if(10 to 11)
+				myseed = new /obj/item/seeds/amanita(src)
+			if(8 to 9)
+				myseed = new /obj/item/seeds/chanter(src)
+			if(6 to 7)
+				myseed = new /obj/item/seeds/tower(src)
+			if(4 to 5)
+				myseed = new /obj/item/seeds/plump(src)
+			else
+				myseed = new /obj/item/seeds/starthistle(src)
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
@@ -431,7 +437,10 @@
 	yield_beamed = FALSE
 	plant_hud_set_health()
 	plant_hud_set_status()
-	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
+	if(kudzu)
+		visible_message("<span class='warning'>The [oldPlantName] cross-breeds with weeds and mutates into [myseed.plantname]!</span>")
+	else
+		visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
 
 /obj/machinery/hydroponics/proc/get_mutation_level()
 	return nutrient.mutation_level + mutagen + (mut_beamed ? 5 : 0)
@@ -715,6 +724,16 @@
 	if(reagents.has_reagent("lazarus_reagent", 1))
 		spawnplant()
 
+	// Begone, mutagen!
+	if(reagents.has_reagent("potass_iodide", 1))
+		if(mutagen)
+			to_chat(user, "<span class='notice'>The potassium iodide neutralizes the mutating agents in [src].</span>")
+			mutagen = 0
+	if(reagents.has_reagent("pen_acid", 1))
+		if(mutagen)
+			to_chat(user, "<span class='notice'>The pentetic acid neutralizes the mutating agents in [src].</span>")
+			mutagen = 0
+
 	// The best stuff there is. For testing/debugging.
 	if(reagents.has_reagent("adminordrazine", 1))
 		adjustWater(round(reagents.get_reagent_amount("adminordrazine") * 1))
@@ -794,6 +813,9 @@
 		var/message = "[user] composts [O], spreading it through [target]"
 		add_compost(O, user, transfer, message)
 		return TRUE
+
+	else if(istype(O, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)

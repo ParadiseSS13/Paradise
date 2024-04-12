@@ -356,7 +356,11 @@
 	if(potency != -1)
 		text += "- Potency: [potency]"
 	if(yield != -1)
-		text += "- Yield: [yield]"
+		var/obj/machinery/hydroponics/tray = loc
+		if(istype(tray) && tray.yield_beamed)
+			text += "- Yield: [yield] (+1-3 from somatoray)"
+		else
+			text += "- Yield: [yield]"
 	text += "- Maturation speed: [maturation]"
 	if(yield != -1)
 		text += "- Production speed: [production]"
