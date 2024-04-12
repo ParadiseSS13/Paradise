@@ -104,6 +104,7 @@
 				seedable++
 			if(!seedable)
 				to_chat(user, "<span class='notice'>There are no seeds or plants in [O].</span>")
+				return
 			to_chat(user, "<span class='notice'>You dump the plants in [O] into [src].</span>")
 			if(!O.use_tool(src, user, min(5, seedable/2) SECONDS))
 				return
@@ -116,7 +117,7 @@
 		return
 	else if(istype(O, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
-		return ..()
+		return
 	else if(istype(O,/obj/item/seeds))
 		if(add_seed(O, user))
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
