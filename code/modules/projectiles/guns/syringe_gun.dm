@@ -413,3 +413,5 @@
 		user.adjustStaminaLoss(20, FALSE)
 		user.adjustOxyLoss(20)
 	return ..()
+
+
