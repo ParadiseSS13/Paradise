@@ -1,6 +1,6 @@
 import { createPopper, VirtualElement } from '@popperjs/core';
 import { classes } from 'common/react';
-import { Component, findDOMfromVNode, InfernoNode, render } from 'inferno';
+import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
 import { Box, BoxProps } from './Box';
 import { Icon } from './Icon';
 
@@ -82,7 +82,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   };
 
   getDOMNode() {
-    return findDOMfromVNode(this.$LI, true);
+    return findDOMFromVNode(this.$LI, true);
   }
 
   componentDidMount() {
