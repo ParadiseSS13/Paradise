@@ -435,20 +435,18 @@
 	if(!istype(H) || !Adjacent(H))
 		return ..()
 	if(usr == src)
-		if(Adjacent(H))
-			get_scooped(H)
-		else
-			return ..()
-		return
-
-	switch(tgui_alert(H, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
-		if("Yes")
-			if(Adjacent(H))
-				get_scooped(H)
-			else
-				to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
-		if("No")
-			to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+		switch(tgui_alert(H, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
+			if("Yes")
+				if(Adjacent(H))
+					get_scooped(H)
+				else
+					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+			if("No")
+				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+	else if(Adjacent(H))
+		get_scooped(H)
+	else
+		return ..()
 
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)
