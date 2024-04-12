@@ -61,11 +61,12 @@
 		to_chat(user, "<span class='notice'>[src] is already full!</span>")
 		return
 
+	if(!user.unEquip(I))
+		return
 	if(canister_max == 2)
 		canister_2 = I
 	else
 		canister = I
-	user.unEquip(I)
 	I.forceMove(src)
 
 	get_canister_stats()
