@@ -228,7 +228,6 @@
 		/obj/item/autopsy_scanner,
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
-		/obj/item/rcd,
 		/obj/item/rpd,
 		/obj/item/mod/control,
 		/obj/item/stamp
