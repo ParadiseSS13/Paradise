@@ -3,9 +3,11 @@
 
 $window-color: #2b0f0c;
 $background-color: #824b28;
+$paper-color: #f2f2f2;
 
 @use '../base.scss' with (
-  $color-bg: $window-color
+  $color-bg: $window-color,
+  $color-bg-grad-spread: 0%
 );
 
 .theme-noticeboard {
@@ -15,7 +17,7 @@ $background-color: #824b28;
   // Components
   @include meta.load-css(
     '../components/Section.scss',
-    $with: ('background-color': #ffffff)
+    $with: ('background-color': $paper-color)
   );
 
   // Layouts
@@ -31,13 +33,13 @@ $background-color: #824b28;
 
   .Layout,
   .Layout * {
-    scrollbar-base-color: #ffffff;
+    scrollbar-base-color: $paper-color;
     scrollbar-face-color: #e1e1e1;
-    scrollbar-3dlight-color: #ffffff;
+    scrollbar-3dlight-color: $paper-color;
     scrollbar-highlight-color: #c8c8c8;
-    scrollbar-track-color: #ffffff;
+    scrollbar-track-color: $paper-color;
     scrollbar-arrow-color: #969696;
-    scrollbar-shadow-color: #ffffff;
+    scrollbar-shadow-color: $paper-color;
   }
 
   .Layout__content {
@@ -46,12 +48,11 @@ $background-color: #824b28;
 
   .Window__contentPadding {
     background-color: $background-color;
-    box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
     border-radius: 1em;
   }
 
   .Stack--horizontal > .Stack__item {
-    height: 85%;
     margin-left: 1em;
 
     &:last-child {
@@ -66,19 +67,11 @@ $background-color: #824b28;
     color: black;
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.5);
     border-radius: 100px 100px 200px 200px / 10px 10px 10px 10px;
-    vertical-align: middle;
     transition: all 100ms ease-in-out;
 
     & > .Section__rest > .Section__content {
       overflow-y: hidden;
       overflow-x: hidden;
-    }
-
-    &:hover {
-      transform: scale(1.15);
-      border-radius: 1em;
-      box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.33);
-      z-index: 2;
     }
 
     &__content {
@@ -93,6 +86,13 @@ $background-color: #824b28;
 
     &__titleText {
       color: black;
+    }
+
+    &:hover {
+      transform: scale(1.15);
+      border-radius: 1em;
+      box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.33);
+      z-index: 2;
     }
 
     &:before {

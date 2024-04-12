@@ -25,6 +25,7 @@ export const Noticeboard = (props, context) => {
               key={paper.ref}
               align={'center'}
               width={'22.45%'}
+              height={'85%'}
               onClick={() => act('interact', { paper: paper.ref })}
               onContextMenu={(event) => {
                 event.preventDefault();
