@@ -42,11 +42,13 @@
 		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
 		if(!pocket.held_item)
 			return
-		user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
-							"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
+		if(!in_thief_mode(user))
+			user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
+								"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
 		if(do_mob(user, source, POCKET_STRIP_DELAY))
-			user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
-								"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
+			if(!in_thief_mode(user))
+				user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
+									"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
 			pocket.empty_contents()
 			add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
 		return
@@ -61,8 +63,9 @@
 		to_chat(user, "You lack the ability to manipulate the lock.")
 		return
 
-	muzzle.visible_message("<span class='danger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>", \
-					"<span class='userdanger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>")
+	if(!in_thief_mode(user))
+		muzzle.visible_message("<span class='danger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>", \
+						"<span class='userdanger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>")
 	if(!do_mob(user, source, POCKET_STRIP_DELAY))
 		return
 
@@ -74,8 +77,9 @@
 
 	if(!success)
 		return
-	muzzle.visible_message("<span class='danger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>", \
-					"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
+	if(!in_thief_mode(user))
+		muzzle.visible_message("<span class='danger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>", \
+						"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
 
 
 /datum/strippable_item/mob_item_slot/handcuffs
