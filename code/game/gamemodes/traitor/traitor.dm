@@ -107,7 +107,7 @@
 		if(!length(potential_recruits))
 			return ..()
 
-		log_admin("Attempting to add [length(potential_recruits)] traitors to the round.")
+		log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
 
 		for(var/i in 1 to traitors_to_add)
 			var/datum/mind/traitor = pick_n_take(potential_recruits)
