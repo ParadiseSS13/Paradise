@@ -17,8 +17,6 @@
 
 	var/obj/effect/light_emitter/tendril/emitted_light
 
-	COOLDOWN_DECLARE(last_rally)
-
 /obj/structure/spawner/lavaland/goliath
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
 
@@ -44,26 +42,14 @@ GLOBAL_LIST_EMPTY(tendrils)
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
-/obj/structure/spawner/lavaland/proc/rally_towards(mob/living/target)
-	var/datum/component/spawner/spawn_component = GetComponent(/datum/component/spawner)
-	if(spawn_component && COOLDOWN_FINISHED(src, last_rally))
-		if(length(spawn_component.spawned_mobs))
-			// start the cooldown first, because a rallied mob might fire on
-			// ourselves while this is happening, causing confusion
-			COOLDOWN_START(src, last_rally, 30 SECONDS)
-			for(var/mob/living/simple_animal/hostile/rallied in spawn_component.spawned_mobs)
-				rallied.FindTarget(list(target), TRUE)
-				rallied.MoveToTarget(list(target))
-
 /obj/structure/spawner/lavaland/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
-	rally_towards(user)
+	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
 /obj/structure/spawner/lavaland/bullet_act(obj/item/projectile/P)
 	. = ..()
 	if(P.firer)
-		rally_towards(P.firer)
-
+		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/lavaland/Destroy()
 	GLOB.tendrils -= src
