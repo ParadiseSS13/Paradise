@@ -1147,11 +1147,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 
-	var/dat = ""
+	var/list/dat = list()
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
-	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
-	usr << browse(dat, "window=goals;size=400x400")
+		dat += "[S.name][S.completed ? " (C)" : ""] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a>"
+	dat += ""
+	dat += "<a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
+	dat += ""
+	dat += "<b>Secondary goals</b>"
+	for(var/datum/station_goal/secondary/SG in SSticker.mode.secondary_goals)
+		dat += "[SG.admin_desc][SG.completed ? " (C)" : ""] for [SG.requester_name || SG.department] - <a href='?src=[SG.UID()];announce=1'>Announce</a> | <a href='?src=[SG.UID()];remove=1'>Remove</a> | <a href='?src=[SG.UID()];mark_complete=1'>Mark complete</a> | <a href='?src=[SG.UID()];reset_progress=1'>Reset progress</a>"
+	dat += "<a href='?src=[UID()];add_secondary_goal=1'>Add New Secondary Goal</a>"
+
+	usr << browse(dat.Join("<br>"), "window=goals;size=400x400")
 
 /// Allow admin to add or remove traits of datum
 /datum/admins/proc/modify_traits(datum/D)

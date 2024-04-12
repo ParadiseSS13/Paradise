@@ -1,6 +1,6 @@
 /obj/item/mmi/robotic_brain
 	name = "robotic brain"
-	desc = "An advanced circuit, capable of housing a non-sentient synthetic intelligence."
+	desc = "A Beta-level artifical intelligence core containing a non-sapient mechanical mind."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "boris_blank"
 	var/blank_icon = "boris_blank"
@@ -191,7 +191,7 @@
 
 /obj/item/mmi/robotic_brain/New()
 	brainmob = new(src)
-	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
+	brainmob.name = "[pick("PBU", "HIU", "SINA", "ARMA", "OSI")]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
 	brainmob.container = src
 	brainmob.forceMove(src)

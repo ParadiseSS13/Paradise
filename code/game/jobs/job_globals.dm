@@ -55,8 +55,7 @@ GLOBAL_LIST_INIT(science_positions, list(
 	"Roboticist",
 ))
 
-//BS12 EDIT
-GLOBAL_LIST_INIT(support_positions, list(
+GLOBAL_LIST_INIT(service_positions, list(
 	"Head of Personnel",
 	"Bartender",
 	"Botanist",
@@ -75,8 +74,6 @@ GLOBAL_LIST_INIT(supply_positions, list(
 	"Cargo Technician",
 	"Shaft Miner"
 ))
-
-GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positions - supply_positions)))
 
 /// Roles that include any semblence of security, mostly for jobbans
 GLOBAL_LIST_INIT(security_positions, list(
@@ -133,7 +130,7 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
-	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | assistant_positions | list("AI","Cyborg")), // crew positions
+	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | service_positions | supply_positions | security_positions | assistant_positions | list("AI","Cyborg")), // crew positions
 	EXP_TYPE_SPECIAL = list(), // antags, ERT, etc
 	EXP_TYPE_GHOST = list(), // dead people, observers
 	EXP_TYPE_COMMAND = list(titles = command_head_positions),
