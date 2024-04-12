@@ -750,13 +750,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 		return
 
-
-	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in GLOB.bots_list
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return
-		Bot.attack_ai(src)
-
 	if(href_list["ai_take_control"]) //Mech domination
 
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
