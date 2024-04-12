@@ -55,6 +55,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
+	var/public_mode = FALSE // Calls will be automatically answered immediately, set via multitool
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
 	var/dialling_input = FALSE //The user is currently selecting where to send their call
@@ -119,6 +120,13 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(exchange_parts(user, I))
 		return
 	return ..()
+
+/obj/machinery/hologram/holopad/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	public_mode = !public_mode
+	to_chat(user, "<span class='notice'>You [public_mode ? "enable" : "disable"] the holopad's public mode setting.</span>")
 
 /obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -296,7 +304,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			continue
 
 		if(HC.connected_holopad != src)
-			if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
+			if((force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2))) || public_mode)
 				HC.Answer(src)
 				break
 			if(outgoing_call)
