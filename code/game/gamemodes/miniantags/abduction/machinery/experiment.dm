@@ -1,7 +1,3 @@
-/// Probability of an abductee getting out = 1 - INJECTION_PROBABILITY - ELECTROCUTION_PROBABILITY
-#define INJECTION_PROBABILITY 0.33
-#define ELECTROCUTION_PROBABILITY 0.33
-
 /obj/machinery/abductor/experiment
 	name = "experimentation machine"
 	desc = "A large man-sized tube sporting a complex array of surgical apparatus."
@@ -227,24 +223,31 @@
 	if(do_after(occupant, 30 SECONDS, FALSE, src))
 		if(!occupant)
 			return
-		var/mashing_result = rand()
-		if(mashing_result < INJECTION_PROBABILITY)
-			to_chat(occupant, "<span class='warning'>Something is electrifying!</span>")
-			sleep(1 SECONDS)
-			occupant.electrocute_act(10, src)
-			do_sparks(5, TRUE, src)
-		else if(mashing_result - INJECTION_PROBABILITY < ELECTROCUTION_PROBABILITY)
-			to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
-			occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
-			occupant.reagents.add_reagent("ether", 5)
-		else
-			eject_abductee()
+		var/list/possible_results = list(
+			CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
+			CALLBACK(src, PROC_REF(sedate_abductee)) = 1,
+			CALLBACK(src, PROC_REF(eject_abductee)) = 1
+		)
+		var/datum/callback/result = pickweight(possible_results)
+		result.Invoke()
+
+/obj/machinery/abductor/experiment/proc/electrocute_abductee()
+	if(!occupant)
+		return
+	to_chat(occupant, "<span class='warning'>Something is electrifying!</span>")
+	sleep(1 SECONDS)
+	occupant.electrocute_act(10, src)
+	do_sparks(5, TRUE, src)
+
+/obj/machinery/abductor/experiment/proc/sedate_abductee()
+	if(!occupant)
+		return
+	to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
+	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	occupant.reagents.add_reagent("ether", 5)
 
 /obj/machinery/abductor/experiment/broken
 	stat = BROKEN
 
 /obj/machinery/abductor/experiment/broken/MouseDrop_T(mob/living/carbon/human/target, mob/user)
 	return
-
-#undef INJECTION_PROBABILITY
-#undef ELECTROCUTION_PROBABILITY
