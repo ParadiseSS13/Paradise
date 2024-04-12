@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/pick_icon,
 	/mob/living/silicon/ai/proc/sensor_mode,
 	/mob/living/silicon/ai/proc/show_laws_verb,
+	/mob/living/silicon/ai/proc/toggle_fast_holograms,
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
@@ -105,9 +106,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/machinery/hologram/holopad/holo = null
 	var/mob/camera/eye/ai/eyeobj = null
-	var/sprint = 10
-	var/cooldown = 0
-	var/acceleration = 1
+	var/fast_holograms = TRUE
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
 	/// If true, this AI core can use the teleporter.
@@ -1496,6 +1495,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	eyeobj.setLoc(loc)
+
+/mob/living/silicon/ai/proc/toggle_fast_holograms()
+	set category = "AI Commands"
+	set name = "Toggle Fast Holograms"
+	
+	if(usr.stat == DEAD || !isAIEye(eyeobj))
+		return
+	fast_holograms = !fast_holograms
+	to_chat(usr, "Fast holograms have been toggled [fast_holograms ? "on" : "off"].")
 
 /mob/living/silicon/ai/proc/toggle_acceleration()
 	set category = "AI Commands"

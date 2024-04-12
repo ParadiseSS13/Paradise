@@ -16,6 +16,9 @@
 // Hologram eye relaymove code is sinfully and shamelessly ripped
 // directly from /client/Move to mimic normal run speed
 /mob/camera/eye/hologram/relaymove(mob/user, direct)
+	var/mob/living/silicon/ai/ai = user
+	if(istype(ai) && ai.fast_holograms)
+		return ..()
 	var/turf/next_step = get_turf(get_step(src, direct))
 	var/old_move_delay = user.client.move_delay
 	user.client.move_delay = world.time + world.tick_lag
