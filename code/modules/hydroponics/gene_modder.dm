@@ -129,6 +129,7 @@
 		add_seed(I, user)
 	else if(istype(I, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
+		return ..()
 	else if(istype(I, /obj/item/disk/plantgene))
 		add_disk(I, user)
 	else

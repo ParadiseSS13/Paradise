@@ -816,6 +816,7 @@
 
 	else if(istype(O, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
+		return ..()
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
