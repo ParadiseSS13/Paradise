@@ -225,6 +225,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[active_character.nanotrasen_relation]</a><br>"
 			dat += "<b>Physique:</b> <a href='?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
 			dat += "<b>Height:</b> <a href ='?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
+			dat += "<b>Cyborg Brain Type:</b> <a href= '?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
@@ -373,8 +374,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!ind)	dat += "\[...\]<br>"
 			else		dat += "<br>"
 
-			dat += "<h2>Cyborg Brain Type</h2>"
-			dat += "<a href= '?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><BR>"
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
 				dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[active_character.underwear]</a><BR>"
