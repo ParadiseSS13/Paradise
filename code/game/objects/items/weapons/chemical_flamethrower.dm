@@ -36,7 +36,7 @@
 
 /obj/item/chemical_flamethrower/attack_self(mob/user)
 	. = ..()
-	if(canister)
+	if(length(canisters))
 		unequip_canisters(user)
 
 /obj/item/chemical_flamethrower/proc/unequip_canisters(mob/user)
