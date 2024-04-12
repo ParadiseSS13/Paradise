@@ -164,8 +164,8 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define METAL_FOAM_ALUMINUM 	1
+#define METAL_FOAM_IRON 		2
 
 //Human Overlays Indexes/////////
 #define EYES_OVERLAY_LAYER		42

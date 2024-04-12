@@ -363,17 +363,18 @@
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
-	var/metal = MFOAM_ALUMINUM
+	/// which kind of metal this will turn into
+	var/metal = METAL_FOAM_ALUMINUM
 
 /turf/simulated/floor/plating/metalfoam/iron
 	icon_state = "ironfoam"
-	metal = MFOAM_IRON
+	metal = METAL_FOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
-		if(MFOAM_ALUMINUM)
+		if(METAL_FOAM_ALUMINUM)
 			icon_state = "metalfoam"
-		if(MFOAM_IRON)
+		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
 /turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)

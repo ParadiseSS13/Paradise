@@ -38,7 +38,7 @@
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
 	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
+	s.set_up(created_volume, location, holder, METAL_FOAM_ALUMINUM)
 	s.start()
 
 
@@ -55,7 +55,7 @@
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
 	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_IRON)
+	s.set_up(created_volume, location, holder, METAL_FOAM_IRON)
 	s.start()
 
 
