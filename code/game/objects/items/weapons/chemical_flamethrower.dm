@@ -122,7 +122,12 @@
 		if(T == previousturf)
 			continue	// So we don't burn the tile we be standin on
 
-		if(is_blocked_turf(T, FALSE, list(/obj/structure/table)))
+		var/found_obstruction = FALSE
+		for(var/obj/thing in T)
+			if(thing.density && !istype(thing, /obj/structure/table))
+				found_obstruction = TRUE
+				break
+		if(found_obstruction)
 			break
 
 		make_flame(T)
@@ -147,8 +152,8 @@
 	var/difference
 	if(dual_canisters && canister_2.ammo)
 		difference = canister_2.ammo - amount
-		if(difference < canister_2.ammo)
-			canister_2.ammo -= difference
+		if(difference >= 0)
+			canister_2.ammo -= amount
 			return TRUE
 		else
 			difference -= canister_2.ammo
@@ -160,8 +165,8 @@
 			return FALSE
 
 	difference = canister.ammo - amount
-	if(difference < canister.ammo)
-		canister.ammo -= difference
+	if(difference >= 0)
+		canister.ammo -= amount
 		return TRUE
 	return FALSE
 
@@ -264,6 +269,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 			var/mob/living/mob_to_burn = thing_to_burn
 			mob_to_burn.adjustFireLoss(temperature / 100)
 			mob_to_burn.adjust_fire_stacks(application_stacks)
+			mob_to_burn.IgniteMob()
 			continue
 
 		if(isobj(thing_to_burn))
@@ -298,6 +304,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		var/mob/living/mob_to_burn = AM
 		mob_to_burn.adjustFireLoss(temperature / 100)
 		mob_to_burn.adjust_fire_stacks(application_stacks)
+		mob_to_burn.IgniteMob()
 		to_chat(mob_to_burn, "<span class='warning'>[src] burns you!</span>")
 		return
 
