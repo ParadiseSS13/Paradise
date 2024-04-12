@@ -15,26 +15,23 @@
 	gender = PLURAL
 	layer = OBJ_LAYER + 0.9
 	animate_movement = 0
-	/// Whether or not we spread other reagents from ourselves on init
 	/// How many times this one bit of foam can spread around itself
 	var/spread_amount = 3
 	/// How long it takes this to initially start spreading after being dispersed
 	var/spread_time = 0.9 SECONDS
 	/// How long it takes this, once it's spread, to stop spreading and disperse its chems
-	var/solidify_time = 1.2 SECONDS
+	var/solidify_time = 12 SECONDS
 	/// Whether it reacts on or after dispersion (or both)
 	var/react_mode = FOAM_REACT_BEFORE_SPREAD
 	/// Maximum amount of reagents gained by spreading onto a foamed tile
-	var/max_amount_on_spread = 27  // arbitrary
-
-// /obj/effect/particle_effect/foam/proc/spread_time
+	var/max_amount_on_spread = 27
 
 
 
-/obj/effect/particle_effect/foam/Initialize(mapload, loc, ismetal = FALSE)
+/obj/effect/particle_effect/foam/Initialize(mapload, loc)
 	. = ..()
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
-	addtimer(CALLBACK(src, PROC_REF(initial_process), spread_time))
+	addtimer(CALLBACK(src, PROC_REF(initial_process)), spread_time)
 
 /obj/effect/particle_effect/foam/proc/disperse_reagents()
 	if(!reagents)
@@ -49,21 +46,19 @@
 
 /obj/effect/particle_effect/foam/proc/initial_process()
 	process()
-	flick("[icon_state]-disolve", src)
-	addtimer(CALLBACK(src, PROC_REF(disperse), solidify_time))
+	addtimer(CALLBACK(src, PROC_REF(stop_processing)), solidify_time)
+	addtimer(CALLBACK(src, PROC_REF(disperse)), solidify_time + 3 SECONDS)
 
+/obj/effect/particle_effect/foam/proc/stop_processing()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/effect/particle_effect/foam/proc/disperse()
-	STOP_PROCESSING(SSobj, src)
-	sleep(3 SECONDS)  // i'll get you
+
 	if(react_mode & FOAM_REACT_AFTER_SPREAD)
+		disperse
 		addtimer(CALLBACK(src, PROC_REF(disperse_reagents)), 0.3 SECONDS)
 	flick("[icon_state]-disolve", src)
-	QDEL_IN(src, 1 SECONDS)
-
-// on delete, transfer any reagents to the floor
-/obj/effect/particle_effect/foam/Destroy()
-	return ..()
+	QDEL_IN(src, 0.5 SECONDS)
 
 /obj/effect/particle_effect/foam/proc/generate_color()
 	color = mix_color_from_reagents(reagents.reagent_list)
@@ -85,7 +80,8 @@
 		new_foam = locate() in T
 		if(new_foam)
 			new_foam.spread_amount = min(spread_amount + new_foam.spread_amount, max_amount_on_spread)
-			new_foam.disperse_reagents()
+			if(react_mode & FOAM_REACT_DURING_SPREAD)
+				new_foam.disperse_reagents()
 			continue
 
 		// just so it's clear
@@ -132,6 +128,7 @@
 	name = "metal foam"
 	icon_state = "mfoam"  // finally mentor foam
 	spread_time = 12 SECONDS
+	react_mode = FOAM_REACT_AFTER_SPREAD
 	/// Represents the icon state that we'll become when we solidify
 	var/metal = METAL_FOAM_ALUMINUM
 
