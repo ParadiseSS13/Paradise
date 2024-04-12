@@ -107,6 +107,8 @@
 		if(!length(potential_recruits))
 			return ..()
 
+		log_admin("Attempting to add [length(potential_recruits)] traitors to the round.")
+
 		for(var/i in 1 to traitors_to_add)
 			var/datum/mind/traitor = pick_n_take(potential_recruits)
 			traitor.special_role = SPECIAL_ROLE_TRAITOR

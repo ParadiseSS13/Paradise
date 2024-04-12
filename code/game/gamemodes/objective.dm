@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinate/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to assassinate another crewmember. Please hold for further details."
+		explanation_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
 		return
 
 	if(target?.current)
@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinateonce/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to teach another crewmember a lesson. Please hold for further details."
+		explanation_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
 		return
 
 	if(target?.current)
@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. Please hold for further details."
+		explanation_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 		return
 
 	if(target?.current)
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/debrain/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to steal another crewmember's brain. Please hold for further details."
+		explanation_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 		return
 
 	if(target?.current)
@@ -609,7 +609,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to steal a high-value item. Please hold for further details."
+		explanation_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 		return
 
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
@@ -722,7 +722,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/destroy/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to either destroy or steal an Artificial Intelligence. Please hold for further details."
+		explanation_text = "Your objective is to either destroy or steal an Artificial Intelligence. You will receive further information in a few minutes."
 		return
 
 	if(target?.current)
