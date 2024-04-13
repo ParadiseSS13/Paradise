@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", null, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", null, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_species_prefs), GLOB.response_team_members, ert_gender_prefs), 5 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_species_prefs), GLOB.response_team_members, ert_gender_prefs), 10 SECONDS)
 
 /proc/get_ert_species_prefs(list/response_team_members, list/ert_gender_prefs)
 	for(var/datum/async_input/A in ert_gender_prefs)
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Slime People", "Machine", "Plasmaman", "Random")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 5 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
 	var/list/ert_role_prefs = list()
@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 5 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 10 SECONDS)
 
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_species_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
