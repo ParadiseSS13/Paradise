@@ -334,7 +334,7 @@
 		return
 	if(!(container ? container : src).Adjacent(user)) // Is the user next to the seed/container?
 		return
-	variant = copytext(sanitize(html_encode(trim(V))), 1, 64) // Sanitization must happen after null check because it converts nulls to empty strings
+	variant = html_encode(copytext(trim(V), 1, 64))
 	if(variant == "")
 		variant = null
 	if(prev != variant)

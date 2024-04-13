@@ -1039,5 +1039,8 @@
 // Use to send summary messages for items that sell in bulk.
 #define COMSIG_CARGO_END_SELL			"end_sell"
 
+///from of mob/MouseDrop(): (/atom/over, /mob/user)
+#define COMSIG_DO_MOB_STRIP "do_mob_strip"
+
 /// from /mob/living/simple_animal/hostile/construct/proc/init_construct()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
