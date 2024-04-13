@@ -6,17 +6,21 @@
 4. ENGINEERING GRIPPER
 */
 
-/obj/item/gripper   // Generic gripper. This should never appear anywhere.
+// Generic gripper. This should never appear anywhere.
+/obj/item/gripper
 	name = "generic gripper item"
 	desc = "If you can see this, make an issue report to Github. Something has gone wrong!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
-	var/engineering_machine_interaction = FALSE	// Used to stop non-engi grippers from grabbing cells and lightbulbs from certain machines.
-	var/can_help_up = FALSE	// Used to stop non-medical/service grippers from shaking people awake or helping them up.
+	// Set to TRUE to allow interaction with light fixtures and cell-containing machinery.
+	var/engineering_machine_interaction = FALSE
+	// Set to TRUE to allow the gripper to shake people awake/help them up.
+	var/can_help_up = FALSE
+	// Defines what items the gripper can carry.
 	var/list/can_hold = list()
-
-	var/obj/item/gripped_item    // Item currently being held.
+	// The item currently being held.
+	var/obj/item/gripped_item
 
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
@@ -50,14 +54,16 @@
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/obj/item/gripper/forceMove(atom/destination)	// This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
+// This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
+/obj/item/gripper/forceMove(atom/destination)
 	return
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!target || !proximity) //Target is invalid or we are not adjacent.
+	//Target is invalid or we are not adjacent.
+	if(!target || !proximity)
 		return FALSE
-
-	if(ishuman(target) && can_help_up)	// Shake people awake, get them on their feet.
+	// Shake people awake, get them on their feet.
+	if(ishuman(target) && can_help_up)
 		var/mob/living/carbon/human/pickup_target = target
 		if(!IS_HORIZONTAL(pickup_target))
 			return
@@ -75,8 +81,8 @@
 			"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>"
 			)
 		return FALSE
-
-	if(gripped_item) //Already have an item.
+	//Already have an item.
+	if(gripped_item)
 
 		//Pass the attack on to the target. This might delete/relocate gripped_item.
 		if(!target.attackby(gripped_item, user, params))
@@ -91,9 +97,11 @@
 		else if(gripped_item && !contents.len)
 			gripped_item = null
 
-	else if(isitem(target)) //Check that we're not pocketing a mob.
+	//Check that we're not pocketing a mob.
+	else if(isitem(target))
 		var/obj/item/I = target
-		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
+		// Make sure the item is something the gripper can hold
+		if(is_type_in_typecache(I, can_hold))
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
@@ -102,7 +110,8 @@
 		to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
 		return FALSE
 
-	if(!engineering_machine_interaction)	// Everything past this point requires being able to engineer.
+	// Everything past this point requires being able to engineer.
+	if(!engineering_machine_interaction)
 		return
 
 	if(istype(target, /obj/machinery/power/apc))
@@ -144,7 +153,8 @@
 /obj/item/gripper/universal		
 	name = "cyborg gripper"
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
-	engineering_machine_interaction = TRUE	// It's UNIVERSAL so it can do both of these things.
+	// It's UNIVERSAL so it has all functions enabled.
+	engineering_machine_interaction = TRUE
 	can_help_up = TRUE
 	can_hold = list(
 		/obj/item
@@ -153,34 +163,40 @@
 /******************************
 /       MEDICAL GRIPPER
 ******************************/
-/obj/item/gripper/medical  		// For medical borgs, for doing medical stuff!
+// For medical borgs, for doing medical stuff!
+// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
+/obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
 	Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_help_up = TRUE
-	actions_types = list()		// REMOVE THIS if you add anything to the can_hold list for this gripper!
-	can_hold = null				// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
+	// REMOVE actions_types from here if you add a can_hold list for this gripper!
+	actions_types = list()
 
 /******************************
 /       SERVICE GRIPPER
 ******************************/
-/obj/item/gripper/service   	// For service borgs. To make them slightly better at their job.
+// For service borgs. To make them slightly better at their job.
+/obj/item/gripper/service
 	name = "service gripper"
 	desc = "A grasping tool for cyborgs. This version is made from hygenic easy-clean material. Maybe some day you'll be able to grab food with it..."
-	can_help_up = TRUE			// For waking up drunkards.
+	// For waking up drunkards.
+	can_help_up = TRUE
+	// Everything in this list is currently for either playing games or otherwise assisting the crew in mundane, non-impactful ways.
 	can_hold = list(
 		/obj/item/deck,
-		/obj/item/cardhand, 	// For playing card games!
-		/obj/item/coin,			// To flip coins.
-		/obj/item/paper,		// The "important" papers and photos you had the borg make shouldn't be sullied on the dirty floor.
+		/obj/item/cardhand,
+		/obj/item/coin,
+		/obj/item/paper,
 		/obj/item/photo,
-		/obj/item/toy/plushie	// To allow the borg to bring you a soft toy. D'aww!
+		/obj/item/toy/plushie
 	)
 
 /******************************
 /     ENGINEERING GRIPPER
 ******************************/
-/obj/item/gripper/engineering	// For engineering and sabotage borgs, and drones.
+// For engineering and sabotage borgs, and drones.
+/obj/item/gripper/engineering
 	name = "engineering gripper"
 	desc = "A grasping tool for cyborgs. This version can hold a wide veriaty of constructon components for use in engineering work."
 	engineering_machine_interaction = TRUE
