@@ -21066,9 +21066,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -46761,8 +46758,9 @@
 /area/station/supply/office)
 "hZL" = (
 /obj/machinery/camera{
-	c_tag = "Docking Quantum Pad";
-	dir = 8
+	c_tag = "Robotics Surgery";
+	dir = 8;
+	network = list("SS13","RD")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -49901,6 +49899,17 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
+"iWX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/aft/east)
 "iXc" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -70654,6 +70663,9 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -76728,7 +76740,6 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/machinery/light,
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -122065,7 +122076,7 @@ rAM
 wZQ
 chX
 ciG
-gPL
+iWX
 pQN
 sKh
 nta
