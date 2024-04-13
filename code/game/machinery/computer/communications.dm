@@ -562,7 +562,7 @@
 		return
 
 	if(!sanitized)
-		reason = trim_strip_html_properly(reason, allow_lines = TRUE)
+		reason = trim_strip_html_tags(reason, allow_lines = TRUE)
 
 	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")

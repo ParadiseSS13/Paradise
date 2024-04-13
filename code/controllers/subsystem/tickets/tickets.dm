@@ -738,7 +738,7 @@ UI STUFF
 		for(var/datum/ticket_response/TR in T.ticket_responses)
 			var/list/this_response = list()
 			this_response["ckey"] = TR.response_user
-			this_response["text"] = strip_html_tags(TR.response_text) // Dont want to save HTML tags in the thing
+			this_response["text"] = html_decode(strip_html_tags(TR.response_text)) // Dont want to save HTML stuff to the DB
 			this_response["time"] = TR.response_time
 
 			raw_responses += list(this_response)
