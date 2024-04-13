@@ -52970,7 +52970,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -74884,7 +74883,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "owP" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/asmaint)
