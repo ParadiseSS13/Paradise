@@ -220,6 +220,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	var/rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")
 	var/gen
+	var/datum/response_team/T = new()
 	if(new_gender == "Male")
 		gen = "M"
 	else
@@ -250,8 +251,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 			if(prob(50))
 				M.age += rand(0,50)
 		if("Kidan")
-			var/datum/language/kidan/K = new()
-			M.rename_character(null, "[rank] [K.get_random_ert_name(role)]")
+			M.rename_character(null, "[rank] [T.generate_ert_name(role, species)]")
 		if("Tajaran")
 			M.rename_character(null, "[rank] [pick("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan")]")
 		if("Drask")
@@ -259,8 +259,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 			if(prob(50))
 				M.age += rand(0,60)
 		if("Nian")
-			var/datum/language/moth/MO = new()
-			M.rename_character(null, "[rank] [MO.get_random_ert_name(role)]")
+			M.rename_character(null, "[rank] [T.generate_ert_name(role, species)]")
 		if("Human")
 			M.rename_character(null, "[rank] [pick(GLOB.last_names)]")
 		if("Skrell")
@@ -318,6 +317,44 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.equip_officer(role, M)
 
 	return M
+
+/datum/response_team/proc/generate_ert_name(role, species)
+	var/new_name
+
+	if(istype(species, /datum/species/kidan))
+		new_name = "[pick("Vrax", "Krek", "Krekk", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx", "Vrik", "Vrek", "Krax", "Varak", "Zavak", "Vrexx", "Drevk", "Krik", "Karak", "Krexx", "Zrax", "Zrexx", "Zrek", "Verk", "Drek", "Drikk", "Zvik", "Vzik", "Kviz", "Vrizk", "Vrizzk", "Krix", "Krixx", "Zark", "Xark", "Xarkk", "Xerx", "Xarak", "Karax", "Varak", "Vazak", "Vazzak", "Zirk", "Krak", "Xakk", "Zakk", "Vekk")]"
+		if(prob(67))
+			new_name += ", "
+			switch(role)
+				if("Commander")
+					new_name += "[pick("Noble", "Marshall", "Grandee", "Dignitary", "Official", "Chamberlain", "Duke")]"
+				if("Security")
+					new_name += "[pick("Scout", "Soldier", "Guard", "Hunter")]"
+				if("Medic")
+					new_name += "[pick("Healer", "Medic", "Physician", "Doctor")]"
+				if("Engineer")
+					new_name += "[pick("Engineer", "Carpenter", "Worker", "Crafter", "Mason", "Hauler", "Cooper")]"
+				if("Paranormal")
+					new_name += "[pick("Priest", "Chaplain", "Cleric")]"
+			new_name += " of Clan "
+			new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
+
+	if(istype(species, /datum/species/moth))
+		switch(role)
+			if("Commander")
+				new_name += "[pick("Noble", "Marshall", "Grandee", "Dignitary", "Official", "Director", "Chamerlain", "Duke", "Seer")]"
+			if("Security")
+				new_name += "[pick("Guardian", "Archer", "Voidhunter", "Knight")]"
+			if("Medic")
+				new_name += "[pick("Healer", "Medic", "Physician", "Doctor", "Biologist")]"
+			if("Engineer")
+				new_name += "[pick("Engineer", "Carpenter", "Worker", "Crafter", "Mason", "Hauler", "Mechanic")]"
+			if("Paranormal")
+				new_name += "[pick("Abbot", "Priest", "Chaplain", "Cleric")]"
+		new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
+		new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
+
+	return new_name
 
 /mob/proc/remove_from_ert_list(ghost)
 	SIGNAL_HANDLER

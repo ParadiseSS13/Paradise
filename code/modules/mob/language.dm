@@ -314,26 +314,6 @@
 		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
 	return new_name
 
-/datum/language/kidan/proc/get_random_ert_name(role) //I made it only because of merge conflict
-	var/new_name = "[pick("Vrax", "Krek", "Krekk", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx", "Vrik", "Vrek", "Krax", "Varak", "Zavak", "Vrexx", "Drevk", "Krik", "Karak", "Krexx", "Zrax", "Zrexx", "Zrek", "Verk", "Drek", "Drikk", "Zvik", "Vzik", "Kviz", "Vrizk", "Vrizzk", "Krix", "Krixx", "Zark", "Xark", "Xarkk", "Xerx", "Xarak", "Karax", "Varak", "Vazak", "Vazzak", "Zirk", "Krak", "Xakk", "Zakk", "Vekk")]"
-	if(prob(67))
-		new_name += ", "
-		switch(role)
-			if("Commander")
-				new_name += "[pick("Noble", "Marshall", "Grandee", "Dignitary", "Official", "Chamberlain", "Duke")]"
-			if("Security")
-				new_name += "[pick("Scout", "Soldier", "Guard", "Hunter")]"
-			if("Medic")
-				new_name += "[pick("Healer", "Medic", "Physician", "Doctor")]"
-			if("Engineer")
-				new_name += "[pick("Engineer", "Carpenter", "Worker", "Crafter", "Mason", "Hauler", "Cooper")]"
-			if("Paranormal")
-				new_name += "[pick("Priest", "Chaplain", "Cleric")]"
-		new_name += " of Clan "
-		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
-
-	return new_name
-
 /datum/language/slime
 	name = "Bubblish"
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
