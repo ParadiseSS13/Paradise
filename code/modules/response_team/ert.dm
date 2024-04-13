@@ -265,13 +265,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 			var/datum/language/moth/MO = new()
 			M.rename_character(null, "[rank] [MO.get_random_name(TRUE, role)]")
 		if("Human")
-			var/last_name
-			if(gend == MALE)
-				last_name = pick(GLOB.last_names)
-			else
-				last_name = pick(GLOB.last_names_female)
-
-			M.rename_character(null, "[rank] [last_name]")
+			M.rename_character(null, "[rank] [pick(GLOB.last_names)]")
 		if("Skrell")
 			var/datum/language/skrell/SK = new()
 			var/count = rand(4,8)
