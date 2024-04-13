@@ -138,14 +138,13 @@
 			H.unEquip(H.r_hand)
 			H.equip_or_collect(internal_tank, SLOT_HUD_RIGHT_HAND)
 		H.internal = internal_tank
-	else if(istype(H.dna.species, /datum/species/machine))
+
+	if(istype(H.dna.species, /datum/species/machine))
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.emp_proof = TRUE
 
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.emp_proof = TRUE
-	else
-		return
 
 //////////////////// COMMANDER ///////////////////
 
