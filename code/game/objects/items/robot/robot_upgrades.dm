@@ -364,7 +364,7 @@
 /***********************/
 
 /obj/item/borg/upgrade/floorbuffer
-	name = "janitor cyborg floor buffer upgrade"
+	name = "janitorial floor buffer upgrade"
 	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs and mobile janicarts."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "upgrade"
