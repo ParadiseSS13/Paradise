@@ -71,13 +71,12 @@ export const PrizeCounter = (props, context) => {
                       bold
                       width={'64px'}
                       fontSize={1.5}
-                      textColor={disabled ? 'gray' : ''}
+                      textColor={disabled && 'gray'}
                       content={prize.cost}
                       icon={'ticket'}
                       iconSize={1.6}
                       iconColor={disabled ? 'bad' : 'good'}
-                      tooltip={disabled ? 'Not enough tickets' : null}
-                      tooltipPosition="top-end"
+                      tooltip={disabled && 'Not enough tickets'}
                       disabled={disabled}
                       onClick={() =>
                         act('purchase', { 'purchase': prize.itemID })

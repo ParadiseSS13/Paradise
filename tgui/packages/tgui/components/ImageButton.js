@@ -150,6 +150,7 @@ export const ImageButtonItem = (props) => {
     className,
     color,
     content,
+    horizontal,
     selected,
     disabled,
     disabledContent,
@@ -185,8 +186,14 @@ export const ImageButtonItem = (props) => {
         tabIndex={!disabled && '0'}
         {...computeBoxProps(rest)}
       >
-        <div>
-          {icon && iconPosition === 'top' && (
+        <div
+          className={classes([
+            horizontal && 'ImageButton__item--icon--horizontal',
+            computeBoxClassName(rest),
+            className,
+          ])}
+        >
+          {icon && (iconPosition === 'top' || iconPosition === 'left') && (
             <Icon
               mb={0.5}
               name={icon}
@@ -199,7 +206,7 @@ export const ImageButtonItem = (props) => {
             {disabled && disabledContent ? disabledContent : content}
             {children}
           </div>
-          {icon && iconPosition !== 'top' && (
+          {icon && !(iconPosition === 'top' || iconPosition === 'left') && (
             <Icon
               mt={0.5}
               name={icon}
