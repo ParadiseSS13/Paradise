@@ -13,6 +13,18 @@
 (function () {
   // Utility functions
   var hasOwn = Object.prototype.hasOwnProperty;
+  // Remove with 516
+  var assign = function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (hasOwn.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
   var parseMetaTag = function (name) {
     var content = document.getElementById(name).getAttribute('content');
     if (content === '[' + name + ']') {
@@ -39,13 +51,6 @@
     return majorVersion ? parseInt(majorVersion, 10) : null;
   })();
 
-  // Blink engine version
-  Byond.BLINK = (function () {
-    let groups = navigator.userAgent.match(/Chrome\/(\d+)\./);
-    let majorVersion = groups && groups[1];
-    return majorVersion ? parseInt(majorVersion, 10) : null;
-  })();
-
   // Remove with 516
   // Trident engine version
   Byond.TRIDENT = (function () {
@@ -57,7 +62,7 @@
   })();
 
   // Basic checks to detect whether this page runs in BYOND
-  var isByond = (Byond.TRIDENT !== null ||Byond.BLINK !== null || window.cef_to_byond)
+  var isByond = (Byond.TRIDENT !== null || Byond.BLINK !== null || window.cef_to_byond)
     && location.hostname === '127.0.0.1'
     && location.search !== '?external';
 
@@ -130,9 +135,17 @@
     var promise = new window.Promise(function (resolve) {
       Byond.__callbacks__.push(resolve);
     });
-    Byond.call(path, Object.assign({}, params, {
-      callback: 'Byond.__callbacks__[' + index + ']',
-    }));
+    // Remove with 516
+    if(Byond.TRIDENT !== null) {
+      Byond.call(path, assign({}, params, {
+        callback: 'Byond.__callbacks__[' + index + ']',
+      }));
+    }
+    else {
+      Byond.call(path, Object.assign({}, params, {
+        callback: 'Byond.__callbacks__[' + index + ']',
+      }));
+    }
     return promise;
   };
 
@@ -176,7 +189,12 @@
       props[propName] = propValue;
     }
     else {
-      Object.assign(props, propName);
+      if (Byond.TRIDENT !== null) {
+        Object.assign(props, propName);
+      }
+      else {
+        assign(props, propName);
+      }
     }
     props.id = id;
     return Byond.call('winset', props);
@@ -199,11 +217,20 @@
     if (message.payload !== null && message.payload !== undefined) {
       message.payload = JSON.stringify(message.payload);
     }
-    // Append an identifying header
-    Object.assign(message, {
-      tgui: 1,
-      window_id: Byond.windowId,
-    });
+    // Append an identifying heade
+    // Remove with 516
+    if(Byond.TRIDENT !== null) {
+      assign(message, {
+        tgui: 1,
+        window_id: Byond.windowId,
+      });
+    }
+    else {
+      Object.assign(message, {
+        tgui: 1,
+        window_id: Byond.windowId,
+      });
+    }
     Byond.topic(message);
   };
 
