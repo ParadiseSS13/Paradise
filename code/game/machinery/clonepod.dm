@@ -567,8 +567,8 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
 
-		switch(tgui_alert(user, "Do you want to change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access restrictions", "Emergency ejection")))
-			if("Change access restrictions")
+		switch(tgui_alert(user, "Change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access", "Emergency ejection")))
+			if("Change access")
 				locked = !locked
 				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
 			if("Emergency ejection")
