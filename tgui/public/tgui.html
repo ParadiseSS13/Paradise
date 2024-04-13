@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
 
 <!-- Inlined metadata -->
@@ -13,17 +12,6 @@
 (function () {
   // Utility functions
   var hasOwn = Object.prototype.hasOwnProperty;
-  var assign = function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (hasOwn.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
   var parseMetaTag = function (name) {
     var content = document.getElementById(name).getAttribute('content');
     if (content === '[' + name + ']') {
@@ -43,13 +31,11 @@
   // Backwards compatibility
   window.__windowId__ = Byond.windowId;
 
-  // Trident engine version
-  Byond.TRIDENT = (function () {
-    var groups = navigator.userAgent.match(/Trident\/(\d+).+?;/i);
+  // Blink engine version
+  Byond.BLINK = (function () {
+    var groups = navigator.userAgent.match(/Chrome\/(\d+)\./);
     var majorVersion = groups && groups[1];
-    return majorVersion
-      ? parseInt(majorVersion, 10)
-      : null;
+    return majorVersion ? parseInt(majorVersion, 10) : null;
   })();
 
   // Blink engine version
@@ -60,7 +46,7 @@
   })();
 
   // Basic checks to detect whether this page runs in BYOND
-  var isByond = (Byond.TRIDENT !== null || Byond.BLINK !== null || window.cef_to_byond)
+  var isByond = (Byond.BLINK !== null || window.cef_to_byond)
     && location.hostname === '127.0.0.1'
     && location.search !== '?external';
 
@@ -133,7 +119,7 @@
     var promise = new window.Promise(function (resolve) {
       Byond.__callbacks__.push(resolve);
     });
-    Byond.call(path, assign({}, params, {
+    Byond.call(path, Object.assign({}, params, {
       callback: 'Byond.__callbacks__[' + index + ']',
     }));
     return promise;
@@ -179,7 +165,7 @@
       props[propName] = propValue;
     }
     else {
-      assign(props, propName);
+      Object.assign(props, propName);
     }
     props.id = id;
     return Byond.call('winset', props);
@@ -203,7 +189,7 @@
       message.payload = JSON.stringify(message.payload);
     }
     // Append an identifying header
-    assign(message, {
+    Object.assign(message, {
       tgui: 1,
       window_id: Byond.windowId,
     });

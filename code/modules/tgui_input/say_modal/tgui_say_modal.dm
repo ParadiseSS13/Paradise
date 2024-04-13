@@ -38,9 +38,6 @@
  * the window to listen for open commands.
  */
 /datum/tgui_say/proc/initialize()
-	set waitfor = FALSE
-	// Sleep to defer initialization to after client constructor
-	sleep(3)
 	window.initialize(
 			strict_mode = TRUE,
 			fancy = TRUE,

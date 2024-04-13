@@ -1,11 +1,32 @@
+@use 'sass:color';
+@use './colors.scss';
+
+* {
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: color.scale(
+      colors.$button,
+      $lightness: -25% * colors.$scrollbar-color-multiplier
+    );
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: color.scale(
+      colors.$button,
+      $lightness: 10% * colors.$scrollbar-color-multiplier
+    );
+  }
+}
+
 .textarea {
-  align-items: center;
   background: transparent;
   border: none;
-  display: flex;
-  flex-grow: 4;
+  flex-grow: 8;
   font-family: inherit;
   font-size: 1.1rem;
-  overflow: hidden;
-  margin: 0.1rem 0 0 0.4rem;
+  outline: none;
+  resize: none;
 }
