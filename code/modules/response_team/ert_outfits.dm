@@ -131,7 +131,9 @@
 	. = ..()
 	if(istype(H.dna.species, /datum/species/plasmaman))
 		var/obj/item/tank/internals/plasmaman/belt/full/internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
-		H.put_in_any_hand_if_possible(internal_tank)
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.unEquip(H.r_hand)
+			H.equip_or_collect(internal_tank, SLOT_HUD_RIGHT_HAND)
 		H.internal = internal_tank
 
 //////////////////// COMMANDER ///////////////////
