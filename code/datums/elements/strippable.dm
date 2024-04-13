@@ -288,7 +288,7 @@
 /datum/strip_menu/Destroy()
 	owner = null
 	strippable = null
-	base64_cache.len = 0 // remove all elements
+	base64_cache.Cut()
 
 	return ..()
 
