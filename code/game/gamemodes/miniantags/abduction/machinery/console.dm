@@ -65,12 +65,13 @@
 		dat += "Collected Samples : [points] <br>"
 		dat += "Gear Credits: [credits] <br>"
 		dat += "<b>Transfer data in exchange for supplies:</b><br>"
-		dat += "<a href='?src=[UID()];dispense=baton'>Advanced Baton</A><br>"
-		dat += "<a href='?src=[UID()];dispense=helmet'>Agent Helmet</A><br>"
-		dat += "<a href='?src=[UID()];dispense=vest'>Agent Vest</A><br>"
-		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
-		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</A><br>"
-		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device</A><br>"
+		dat += "<a href='?src=[UID()];dispense=baton'>Advanced Baton (2)</a><br>"
+		dat += "<a href='?src=[UID()];dispense=helmet'>Agent Helmet</a><br>"
+		dat += "<a href='?src=[UID()];dispense=vest'>Agent Vest</a><br>"
+		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</a><br>"
+		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</a><br>"
+		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device (2)</a><br>"
+		dat += "<a href='?src=[UID()];dispense=organ_extractor'>Organ Extractor (2)</a><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
@@ -134,6 +135,8 @@
 				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
 			if("mind_device")
 				Dispense(/obj/item/abductor/mind_device, cost = 2)
+			if("organ_extractor")
+				Dispense(/obj/item/organ_extractor/abductor, cost = 2)
 	updateUsrDialog()
 
 
