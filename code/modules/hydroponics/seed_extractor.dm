@@ -148,6 +148,7 @@
 /obj/machinery/seed_extractor/ui_data(mob/user)
 	var/list/data = list()
 
+	data["seeds"] = list()
 	for(var/datum/seed_pile/O in piles)
 		var/obj/item/I = O.path
 		var/list/seed_info = list(
