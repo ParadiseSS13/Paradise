@@ -42,6 +42,7 @@
 
 	return FALSE
 
+
 /obj/machinery/seed_extractor
 	name = "seed extractor"
 	desc = "Extracts and bags seeds from produce."
