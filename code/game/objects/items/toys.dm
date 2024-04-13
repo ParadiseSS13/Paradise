@@ -815,7 +815,7 @@
 	if(!COOLDOWN_FINISHED(src, hug_sound))
 		..()
 		return
-	playsound(user, 'sound/voice/weh.ogg', 10, 0)
+	playsound(user, 'sound/voice/weh.ogg', 10, FALSE)
 	visible_message("<span class='danger'>Weh!</span>")
 	COOLDOWN_START(src, hug_sound, 3 SECONDS)
 
