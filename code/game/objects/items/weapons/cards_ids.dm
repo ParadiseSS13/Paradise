@@ -499,7 +499,7 @@
 							var/mob/living/carbon/human/H = user
 							default = H.age
 						var/new_age = tgui_input_number(user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
-						if(!Adjacent(user) || !new_age)
+						if(!Adjacent(user) || isnull(new_age))
 							return
 						age = new_age
 						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
@@ -535,7 +535,7 @@
 
 					if("Money Account")
 						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345, max_value = 9999999)
-						if(!Adjacent(user) || !new_account)
+						if(!Adjacent(user) || isnull(new_account))
 							return
 						associated_account_number = new_account
 						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")

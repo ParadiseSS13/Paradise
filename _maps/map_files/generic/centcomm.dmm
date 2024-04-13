@@ -1963,7 +1963,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "hm" = (
-/obj/machinery/door_control/no_emag{
+/obj/machinery/door_control/no_emag/no_cyborg{
 	pixel_y = 24;
 	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
@@ -2930,7 +2930,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ko" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/bsg/prebuilt{
 	pixel_x = 3;
 	pixel_y = -3
@@ -2940,6 +2939,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -3214,7 +3214,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "ln" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/immolator/multi{
 	pixel_x = -4;
 	pixel_y = 4
@@ -3224,6 +3223,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -4678,7 +4678,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "pT" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/pulse/pistol{
 	pixel_x = -3;
 	pixel_y = 3
@@ -4688,6 +4687,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -7284,6 +7284,15 @@
 /obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"zK" = (
+/obj/machinery/door_control/no_emag/no_cyborg{
+	pixel_x = 24;
+	req_access_txt = "114";
+	name = "Specops Teleporter Shutters";
+	id = "CCTELE"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
 "zL" = (
 /obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
@@ -13953,10 +13962,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Xo" = (
-/obj/machinery/door_control/no_emag{
-	id = "SPECOPS";
+/obj/machinery/door_control/no_emag/no_cyborg{
 	name = "Nanotrasen Asset Protection Shutters";
-	pixel_y = -24
+	req_access_txt = "114";
+	pixel_y = -24;
+	id = "SPECOPS"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -14500,16 +14510,6 @@
 "Ze" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"Zg" = (
-/obj/machinery/door_control/no_emag{
-	id = "CCTELE";
-	name = "Specops Teleporter Shutters";
-	pixel_x = 24;
-	pixel_y = null;
-	req_access_txt = "114"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/specops)
 "Zi" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
@@ -14564,7 +14564,6 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "Zt" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/ammo_box/magazine/smgm9mm/toxin,
 /obj/item/ammo_box/magazine/smgm9mm/toxin,
 /obj/item/ammo_box/magazine/smgm9mm/toxin,
@@ -14586,6 +14585,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -14599,7 +14599,6 @@
 /turf/simulated/floor/beach/coastline,
 /area/holodeck/source_beach)
 "Zw" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/plasma_pistol{
 	pixel_x = -3;
 	pixel_y = 3
@@ -14609,6 +14608,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -14629,7 +14629,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "ZD" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/mindflayer{
 	pixel_x = -3;
 	pixel_y = 3
@@ -14639,6 +14638,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -35744,7 +35744,7 @@ Ra
 Xz
 Zr
 Zm
-Zg
+zK
 Ra
 Ra
 Ra

@@ -7,7 +7,7 @@
 
 /datum/objective/abductee/steal/New()
 	..()
-	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs"))
+	var/target = pick("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs")
 	explanation_text +=" [target]."
 
 /datum/objective/abductee/paint
@@ -15,7 +15,7 @@
 
 /datum/objective/abductee/paint/New()
 	..()
-	var/color = pick(list("red", "blue", "green", "yellow", "orange", "purple", "black", "in rainbows", "in blood"))
+	var/color = pick("red", "blue", "green", "yellow", "orange", "purple", "black", "in rainbows", "in blood")
 	explanation_text += " [color]!"
 
 /datum/objective/abductee/speech
@@ -23,7 +23,7 @@
 
 /datum/objective/abductee/speech/New()
 	..()
-	var/style = pick(list("pantomime", "rhyme", "haiku", "extended metaphors", "riddles", "extremely literal terms", "sound effects", "military jargon"))
+	var/style = pick("pantomime", "rhyme", "haiku", "extended metaphors", "riddles", "extremely literal terms", "sound effects", "military jargon")
 	explanation_text += " [style]."
 
 /datum/objective/abductee/capture
@@ -154,7 +154,7 @@
 
 /datum/objective/abductee/forbiddennumber/New()
 	..()
-	var/number = pick(list("two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"))
+	var/number = pick("two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
 	explanation_text +=" [number], they don't exist."
 
 /datum/objective/abductee/buddy
