@@ -48,7 +48,7 @@
 	if(bayonet && can_bayonet)
 		. += knife_overlay
 
-/obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
+/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	var/obj/item/ammo_casing/ammo_chambered = chambered //Find chambered round
 	if(!istype(ammo_chambered))
 		chamber_round()

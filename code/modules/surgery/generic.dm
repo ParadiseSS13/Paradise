@@ -39,6 +39,7 @@
 		"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>"
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
+	target.resume_bleeding()
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

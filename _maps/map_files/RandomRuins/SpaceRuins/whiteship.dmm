@@ -1,41 +1,282 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/turf/template_noop,
-/area/template_noop)
-"ab" = (
+"at" = (
+/obj/structure/sign/vacuum/external{
+	pixel_y = -32
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"cf" = (
+/obj/effect/spawner/random_spawners/oil_often,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"cA" = (
+/obj/structure/table,
+/obj/item/scalpel{
+	pixel_y = 7
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
+"em" = (
+/obj/effect/spawner/airlock/w_to_e/long/square{
+	req_access_txt = null
+	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/abandoned)
-"ae" = (
+"eo" = (
+/obj/structure/sign/greencross,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/abandoned)
+"ez" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"eE" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"eW" = (
+/obj/structure/table,
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/radio{
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"af" = (
-/obj/machinery/sleeper,
-/obj/machinery/light{
+"fI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"ak" = (
+"gd" = (
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
+"hz" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
-"am" = (
-/obj/machinery/computer/med_data,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"an" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 6;
-	pixel_y = -5
+"jk" = (
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"aq" = (
+"jn" = (
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
+"ka" = (
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
+"kO" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"nC" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_y = 0
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
+"oh" = (
+/obj/structure/table,
+/obj/item/tank/internals/oxygen{
+	pixel_y = 1;
+	pixel_x = -2
+	},
+/obj/item/tank/internals/oxygen{
+	pixel_x = 3;
+	pixel_y = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
+"qm" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/abandoned)
+"qF" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
+"qK" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/energy/laser/retro,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"ri" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool{
+	pixel_x = -6
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"rB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"sk" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"sm" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"sK" = (
+/obj/structure/table/wood/poker,
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
+"tV" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"uo" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_y = 2
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
+"ux" = (
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"uA" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"vz" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"vB" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"wh" = (
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"ws" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
+"wF" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"wN" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/metal{
+	amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"ys" = (
+/obj/structure/table,
+/obj/item/storage/box/lights/mixed,
+/obj/item/stock_parts/cell{
+	charge = 100;
+	maxcharge = 15000;
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"yC" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_away";
+	name = "Deep Space"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	id = "whiteship";
+	name = "NEV Cherub";
+	dwidth = 6;
+	height = 19;
+	width = 12
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"yF" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"zH" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"zM" = (
+/turf/template_noop,
+/area/template_noop)
+"zO" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/abandoned)
+"zV" = (
+/obj/structure/closet/crate,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare/glowstick/blue,
+/obj/item/flashlight/flare/glowstick/blue,
+/obj/item/flashlight/flare/glowstick/blue,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"AS" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"Ct" = (
+/obj/structure/table/wood/poker,
+/obj/item/deck/cards,
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
+"CE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
@@ -44,1095 +285,385 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
-"ar" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless,
-/area/shuttle/abandoned)
-"at" = (
-/obj/item/scalpel,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"av" = (
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"aw" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"ax" = (
+"Fr" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"aA" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Hibernation Pods"
-	},
-/turf/simulated/floor/mineral/titanium,
+"Gs" = (
+/obj/structure/table/reinforced,
+/obj/item/analyzer,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"aB" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"aC" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aD" = (
-/obj/structure/table,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aF" = (
-/obj/item/multitool,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aG" = (
-/obj/item/stock_parts/cell{
-	charge = 100;
-	maxcharge = 15000
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aH" = (
+"GX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"aJ" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "burst_l"
-	},
-/turf/simulated/floor/plating/airless,
+"Jf" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
-"aK" = (
-/obj/machinery/door/airlock/titanium,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 10;
-	height = 35;
-	id = "whiteship";
-	name = "NT Medical Ship";
-	width = 21
-	},
-/obj/docking_port/stationary/whiteship{
-	dir = 8;
-	id = "whiteship_away";
-	name = "Deep Space"
-	},
+"Kd" = (
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"aM" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aO" = (
-/obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aP" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 27
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aQ" = (
-/obj/machinery/atmospherics/portable/scrubber,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aS" = (
+"KX" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
-"aT" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aU" = (
-/obj/structure/table,
-/obj/item/gun/energy/laser/retro,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aV" = (
-/obj/machinery/computer/shuttle/white_ship,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aX" = (
+"Mj" = (
 /obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"aY" = (
-/obj/structure/table,
-/obj/item/tank/internals/oxygen,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"ba" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bb" = (
-/obj/structure/table,
-/obj/item/analyzer,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bc" = (
-/obj/effect/decal/remains/human,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bd" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Living Module"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"be" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bf" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bg" = (
-/turf/template_noop,
-/area/shuttle/abandoned)
-"bh" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bi" = (
-/obj/machinery/atmospherics/portable/canister/oxygen,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bm" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 27
-	},
-/obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
-"bn" = (
+"Mp" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet,
 /obj/item/gps/ruin{
 	gpstag = "NT Medical Ship";
 	pixel_x = -32
 	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"ML" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"bo" = (
-/obj/item/shard,
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium,
+"Of" = (
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
-"bp" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium,
+"Pe" = (
+/obj/structure/chair/wood,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
-"bq" = (
-/obj/structure/computerframe,
-/obj/item/stack/cable_coil/cut,
-/turf/simulated/floor/mineral/titanium,
+"Pi" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
-"br" = (
-/obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/mineral/titanium,
+"Pu" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"bs" = (
-/obj/structure/rack,
-/obj/item/mod/control/pre_equipped/medical,
-/obj/item/clothing/mask/breath,
-/turf/simulated/floor/mineral/titanium,
+"Ro" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
-"bt" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/syndicate/black/med,
-/obj/item/clothing/head/helmet/space/syndicate/black/med,
-/turf/simulated/floor/mineral/titanium,
+"SS" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"bu" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/mineral/titanium,
+"Vd" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"bx" = (
-/obj/effect/decal/cleanable/blood{
-	amount = 0
+"VD" = (
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"by" = (
-/obj/machinery/door_control{
-	id = "whiteshippoddoor";
-	name = "Pod Door Control";
-	pixel_x = -24;
-	pixel_y = 24
+"WJ" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bz" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Pod Bay"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bB" = (
-/obj/effect/decal/remains/human,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"bC" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	id_tag = "whiteshippoddoor"
+"WX" = (
+/obj/machinery/sleeper{
+	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
-"bD" = (
-/obj/machinery/door_control{
-	id = "whiteshippoddoor";
-	name = "Pod Door Control";
-	pixel_y = -24
+"Xq" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"Yr" = (
+/obj/machinery/computer/shuttle/white_ship{
+	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bE" = (
-/obj/structure/table,
-/obj/item/screwdriver,
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"bF" = (
-/obj/structure/table,
-/obj/item/radio,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ax
-ax
-ax
-ax
-ax
-ax
-ax
-ab
-ab
-ab
-aa
-aa
-aa
-aa
+zM
+zM
+zM
+zM
+zO
+Fr
+Fr
+zO
+zM
+zM
+zM
+zM
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-ab
-ab
-ab
-ae
-ae
-ae
-aU
-bb
-aD
-ae
-ae
-bn
-ab
-ab
-aa
-aa
-aa
-aa
+zM
+zM
+zM
+zO
+zO
+eE
+Yr
+zO
+zO
+zM
+zM
+zM
 "}
 (3,1,1) = {"
-aa
-aa
-ab
-ab
-ab
-ae
-ae
-ae
-ae
-aV
-bc
-aD
-ae
-ae
-bo
-aw
-ab
-aa
-aa
-aa
-aa
+zM
+zM
+zM
+zO
+Gs
+SS
+SS
+qK
+zO
+zM
+zM
+zM
 "}
 (4,1,1) = {"
-aa
-ab
-ab
-ab
-aw
-aC
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-bp
-bq
-ab
-by
-bC
-ab
-aa
+zM
+zM
+zM
+zO
+rB
+wF
+wF
+SS
+zO
+zM
+zM
+zM
 "}
 (5,1,1) = {"
-aa
-ab
-am
-ab
-ab
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ab
-ab
-ae
-ae
-ab
-aa
+zM
+zO
+zO
+zO
+zO
+wF
+tV
+zO
+zO
+zO
+zO
+zM
 "}
 (6,1,1) = {"
-ab
-ab
-ae
-ae
-ab
-aD
-aD
-aM
-ae
-ae
-ae
-ae
-ae
-bm
-ab
-ab
-ab
-ae
-bD
-ab
-ab
+zM
+zO
+eW
+zV
+zO
+jk
+vB
+zO
+WX
+cA
+zO
+zM
 "}
 (7,1,1) = {"
-ab
-ae
-ae
-ae
-ab
-ab
-ab
-ab
-ab
-ax
-aO
-ax
-ab
-ab
-ab
-ab
-ae
-ae
-ae
-ab
-ab
+zM
+zO
+AS
+vB
+wh
+vB
+vB
+zO
+Of
+Of
+zO
+zM
 "}
 (8,1,1) = {"
-ab
-ae
-ae
-ae
-ax
-aF
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ab
-ab
-br
-ae
-ae
-ae
-ae
-ab
+zO
+zO
+zO
+zO
+zO
+kO
+vB
+gd
+Of
+Of
+zO
+zO
 "}
 (9,1,1) = {"
-ab
-af
-ae
-ae
-ax
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ab
-bs
-ae
-ae
-ae
-bE
-ab
+Fr
+uo
+qF
+Pi
+zO
+uA
+vB
+eo
+ws
+Of
+nC
+zO
 "}
 (10,1,1) = {"
-ab
-ae
-ae
-at
-ax
-aG
-ae
-ab
-ab
-ab
-ab
-ab
-ab
-ae
-ab
-bt
-ae
-ae
-ae
-bF
-ab
+Fr
+ka
+ka
+ka
+jn
+vB
+yF
+zO
+KX
+KX
+oh
+zO
 "}
 (11,1,1) = {"
-ab
-ab
-ae
-ae
-ab
-ae
-ae
-aO
-ae
-aX
-ae
-bh
-ab
-ae
-ab
-ab
-ae
-ae
-ae
-ab
-ab
+zO
+Pe
+sK
+sK
+zO
+vB
+vB
+zO
+zO
+zO
+zO
+zO
 "}
 (12,1,1) = {"
-ab
-ab
-an
-ae
-ab
-ae
-ae
-ab
-aS
-aY
-ae
-aS
-ab
-ae
-ab
-ab
-ab
-bz
-ab
-ab
-ab
+Fr
+Jf
+Ct
+sK
+zO
+vB
+vB
+zO
+Mp
+VD
+Xq
+zO
 "}
 (13,1,1) = {"
-aa
-ab
-ab
-ae
-aA
-ae
-ae
-ab
-ae
-aP
-ae
-ae
-aO
-ae
-ae
-ae
-ae
-bh
-ab
-ab
-aa
+Fr
+Mj
+Ro
+Ro
+zO
+vB
+sk
+zO
+Xq
+ux
+Xq
+zO
 "}
 (14,1,1) = {"
-aa
-ab
-ab
-ab
-ab
-ae
-ae
-ab
-ab
-ab
-ab
-ab
-ab
-ae
-ae
-ae
-ae
-ab
-ab
-ab
-aa
+zO
+zO
+zO
+zO
+zO
+jk
+ML
+GX
+ez
+ux
+zO
+zO
 "}
 (15,1,1) = {"
-aa
-aa
-ab
-ab
-ab
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-aG
-ab
-ab
-ab
-aa
-aa
+zM
+zO
+ri
+cf
+sm
+Kd
+vz
+zO
+fI
+ux
+zO
+zM
 "}
 (16,1,1) = {"
-aa
-aa
-aa
-ab
-ab
-ae
-ae
-aP
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-bu
-ab
-ab
-aa
-aa
-aa
+zM
+zO
+ys
+zH
+zO
+Vd
+Vd
+em
+WJ
+wN
+zO
+zM
 "}
 (17,1,1) = {"
-aa
-aa
-aa
-ab
-ab
-aH
-ab
-ab
-ab
-ax
-bd
-ax
-ab
-ab
-ab
-aH
-ab
-ab
-aa
-aa
-aa
+zM
+zO
+CE
+CE
+zO
+Vd
+Vd
+zO
+CE
+CE
+zO
+zM
 "}
 (18,1,1) = {"
-aa
-aa
-ab
-ab
-aB
-av
-ab
-aQ
-aT
-ae
-ae
-ae
-aT
-ae
-ab
-av
-aB
-ab
-ab
-aa
-aa
+zM
+zO
+hz
+hz
+zO
+Pu
+at
+zO
+hz
+hz
+zO
+zM
 "}
 (19,1,1) = {"
-aa
-ab
-ab
-av
-av
-ab
-ab
-ab
-ae
-ae
-ae
-ae
-ae
-ab
-ab
-ab
-bx
-bB
-ab
-ab
-aa
-"}
-(20,1,1) = {"
-ab
-ab
-aq
-aq
-aq
-ab
-ab
-ab
-ae
-ae
-ae
-ae
-ae
-ab
-ab
-ab
-aq
-aq
-aq
-ab
-ab
-"}
-(21,1,1) = {"
-ab
-ak
-ar
-ar
-ar
-aJ
-bg
-ab
-ab
-ae
-ae
-ae
-ab
-ab
-bg
-ak
-ar
-ar
-ar
-aJ
-ab
-"}
-(22,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ae
-ab
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(23,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-be
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(24,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-bf
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(25,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-be
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(26,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ae
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(27,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ae
-ae
-ae
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(28,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ae
-ae
-ae
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(29,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ae
-ae
-ae
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(30,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ba
-ae
-ae
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(31,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ae
-ae
-ae
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(32,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ae
-ae
-ae
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(33,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ae
-ae
-bi
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(34,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ae
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(35,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-aK
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+zM
+zM
+zM
+zM
+qm
+yC
+ux
+qm
+zM
+zM
+zM
+zM
 "}

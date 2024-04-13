@@ -1,6 +1,7 @@
 /*****************Pickaxes & Drills & Shovels****************/
 /obj/item/pickaxe
 	name = "pickaxe"
+	desc = "A tool for digging rock and stone. Better get to work."
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
@@ -121,6 +122,7 @@
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1 //the epitome of powertools. extremely fast mining, laughs at puny walls
+	force = 20 //This thing breaks rwalls, it should be able to hit harder than a DIY bone pickaxe.
 
 /obj/item/shovel
 	name = "shovel"
