@@ -412,23 +412,6 @@
 	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
-/datum/language/moth/proc/get_random_ert_name(role)
-	var/new_name
-	switch(role)
-		if("Commander")
-			new_name += "[pick("Noble", "Marshall", "Grandee", "Dignitary", "Official", "Director", "Chamerlain", "Duke", "Seer")]"
-		if("Security")
-			new_name += "[pick("Guardian", "Archer", "Voidhunter", "Knight")]"
-		if("Medic")
-			new_name += "[pick("Healer", "Medic", "Physician", "Doctor", "Biologist")]"
-		if("Engineer")
-			new_name += "[pick("Engineer", "Carpenter", "Worker", "Crafter", "Mason", "Hauler", "Mechanic")]"
-		if("Paranormal")
-			new_name += "[pick("Abbot", "Priest", "Chaplain", "Cleric")]"
-	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
-	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
-	return new_name
-
 /datum/language/common
 	name = "Galactic Common"
 	desc = "The common galactic tongue."
