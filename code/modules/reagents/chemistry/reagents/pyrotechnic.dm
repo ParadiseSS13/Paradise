@@ -6,6 +6,8 @@
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 20 SECONDS
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -44,7 +46,6 @@
 	size_divisor = 80
 	mob_burning = 3 // 15
 	burn_temperature = T0C + 700
-	burn_duration = 20 SECONDS
 
 /datum/reagent/napalm
 	name = "Napalm"

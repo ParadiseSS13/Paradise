@@ -227,7 +227,7 @@
 	name = "Extended capacity chemical canister"
 	desc = "A specialized canister designed to accept certain pyrotechnics."
 	ammo = 150
-	accepted_chemicals = list("phlogiston_dust", "napalm", "fuel", "thermite", "clf3", "plasma")
+	accepted_chemicals = list("phlogiston", "phlogiston_dust", "napalm", "fuel", "thermite", "clf3", "plasma")
 
 GLOBAL_LIST_EMPTY(flame_effects)
 #define MAX_FIRE_EXIST_TIME 10 MINUTES // That's a lot of fuel, but you are not gonna make it last for longer
