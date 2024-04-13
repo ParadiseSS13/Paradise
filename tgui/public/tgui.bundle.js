@@ -331,5 +331,3 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */r.perf.mark("inception",(N=window.performance)==null||(N=N.timing)==null?void 0:N.navigationStart),r.perf.mark("init");var k=(0,o.configureStore)(),S=(0,t.createRenderer)(function(){var p=Y(91807),l=p.getRoutedComponent,c=l(k);return(0,L.createComponentVNode)(2,o.StoreProvider,{store:k,children:(0,L.createComponentVNode)(2,c)})}),y=function p(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",p);return}(0,m.setupGlobalEvents)(),(0,e.setupHotKeys)(),(0,a.captureExternalLinks)(),k.subscribe(S),Byond.subscribe(function(l,c){return k.dispatch({type:l,payload:c})})};y()}()})();})();
-
-//# sourceMappingURL=tgui.bundle.js.map
