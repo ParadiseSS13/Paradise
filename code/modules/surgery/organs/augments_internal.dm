@@ -579,6 +579,9 @@
 		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
 		owner.AdjustLoseBreath(4 SECONDS)
 
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube/hardened
+	emp_proof = TRUE
+
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
@@ -751,6 +754,9 @@
 		return
 	crit_fail = TRUE
 	addtimer(VARSET_CALLBACK(src, crit_fail, FALSE), 30 SECONDS / severity)
+
+/obj/item/organ/internal/cyberimp/chest/ipc_repair/hardened
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints
 	name = "IPC ER-OR Joint Implant"

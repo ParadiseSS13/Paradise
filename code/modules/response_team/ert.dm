@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", null, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", null, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -91,15 +91,15 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_species_prefs), GLOB.response_team_members, ert_gender_prefs), 10 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_species_prefs), GLOB.response_team_members, ert_gender_prefs), 5 SECONDS)
 
 /proc/get_ert_species_prefs(list/response_team_members, list/ert_gender_prefs)
 	for(var/datum/async_input/A in ert_gender_prefs)
 		A.close()
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Random")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Slime People", "Machine", "Plasmaman", "Random")))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 5 SECONDS)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
 	var/list/ert_role_prefs = list()
@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 20 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 5 SECONDS)
 
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_species_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
-		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Slime People", "Machine", "Plasmaman")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
@@ -194,16 +194,119 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 				M.skin_colour = hair_c_su
 			else
 				M.skin_colour = pick(su) //Pick a diffrent colour for body.
-
+		if("Slime People")
+			var/new_slime_skin_color
+			if(prob(60))
+				new_slime_skin_color = rand_hex_color()
+			else
+				new_slime_skin_color = pick("#3d7cc2", "#0a4db1", "5975c2", "#2b3363", "#185e9c", "#0e6dd8", "#285ef2") //NT Colors
+			M.skin_colour = new_slime_skin_color
+			var/datum/species/slime/SL = M.dna.species
+			SL.blend(M)
 
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
+	if(new_species == "Human" || new_species == "Drask")
+		M.s_tone = random_skin_tone(new_species)
 	head_organ.headacc_colour = pick("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+	if(prob(40))
+		head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
-	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
+	if(M.dna.species.bodyflags & HAS_HEAD_ACCESSORY && prob(60))
+		head_organ.ha_style = random_head_accessory(new_species)
+
 	M.age = rand(23,35)
+
+	var/rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")
+	var/gend
+	var/gen
+	if(new_gender == "Male")
+		gend = MALE
+		gen = "M"
+	else
+		gend = FEMALE
+		gen = "F"
+	switch(new_species)
+		if("Slime People")
+			M.rename_character(null, "[rank] [pick(GLOB.last_names_slime)]")
+			M.change_eye_color("#e2e9f2")
+
+			if(prob(50))
+				M.age += rand(0,40)
+		if("Vulpkanin")
+			M.rename_character(null, "[rank] [pick(GLOB.last_names_vulp)]")
+		if("Machine")
+			var/datum/response_team/ert = GLOB.active_team
+			var/team_type
+			if(istype(ert, /datum/response_team/amber))
+				team_type = "Amber"
+			if(istype(ert, /datum/response_team/red))
+				team_type = "Red"
+			if(istype(ert, /datum/response_team/gamma))
+				team_type = "Gamma"
+
+			M.rename_character(null, "[rank] NT RK-[gen]-[team_type]-[role]-[pick(GLOB.alphabet_uppercase)][pick(GLOB.alphabet_uppercase)]-[rand(1,999)]")
+		if("Diona")
+			var/datum/language/diona/D = new()
+			M.rename_character(null, "[rank] [D.get_random_name()]")
+			if(prob(50))
+				M.age += rand(0,50)
+		if("Kidan")
+			var/datum/language/kidan/K = new()
+			M.rename_character(null, "[rank] [K.get_random_name(TRUE, role)]")
+		if("Tajaran")
+			M.rename_character(null, "[rank] [pick("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan")]")
+		if("Drask")
+			M.rename_character(null, "[rank] [pick("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum")]")
+			if(prob(50))
+				M.age += rand(0,60)
+		if("Nian")
+			var/datum/language/moth/MO = new()
+			M.rename_character(null, "[rank] [MO.get_random_name(TRUE, role)]")
+		if("Human")
+			var/last_name
+			if(gend == MALE)
+				last_name = pick(GLOB.last_names)
+			else
+				last_name = pick(GLOB.last_names_female)
+
+			M.rename_character(null, "[rank] [last_name]")
+		if("Skrell")
+			var/datum/language/skrell/SK = new()
+			var/count = rand(4,8)
+
+			var/skrell_name
+
+			while(count)
+				skrell_name += pick(SK.syllables)
+				if(count == 2 || count == 5 && prob(40))
+					skrell_name += "'"
+				count--
+
+			skrell_name = capitalize(skrell_name)
+			M.rename_character(null, "[rank] [skrell_name]")
+		if("Unathi")
+			var/datum/language/unathi/SU = new()
+			var/count = rand(2,5)
+
+			var/unathi_name
+
+			while(count)
+				unathi_name += pick(SU.syllables)
+				count--
+
+			unathi_name = capitalize(unathi_name)
+			M.rename_character(null, "[rank] [unathi_name]")
+		if("Grey")
+			var/grey_name = pick(GLOB.greek_letters)
+			M.rename_character(null, "[rank] [pick(GLOB.alphabet_uppercase)]-[grey_name]")
+		if("Plasmaman")
+			M.rename_character(null, "[rank] [pick("Argon", "Hydrogen", "Nitrogen", "Boron", "Dihydrogen", "Radium", "Monoxide", "Plasma")] [pick(rand(1,999))]")
+
+			if(prob(50))
+				M.age += rand(0,30)
+
 	M.regenerate_icons()
 	M.update_body()
 

@@ -1071,6 +1071,27 @@
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
+/obj/item/storage/box/responseteam/machine/populate_contents()
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/crowbar/small(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/radio/centcom(src)
+	new /obj/item/weldingtool/experimental(src)
+	new /obj/item/stack/cable_coil(src)
+
+/obj/item/storage/box/responseteam/plasmaman/populate_contents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/plasmaman/belt(src)
+	new /obj/item/crowbar/small(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/radio/centcom(src)
+	new /obj/item/reagent_containers/patch/synthflesh(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/extinguisher_refill(src)
+
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
 	icon_state = "doom_box"

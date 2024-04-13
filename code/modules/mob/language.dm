@@ -302,12 +302,26 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
 
-/datum/language/kidan/get_random_name()
+/datum/language/kidan/get_random_name(ert_name = FALSE, role)
 	var/new_name = "[pick(list("Vrax", "Krek", "Krekk", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx", "Vrik", "Vrek", "Krax", "Varak", "Zavak", "Vrexx", "Drevk", "Krik", "Karak", "Krexx", "Zrax", "Zrexx", "Zrek", "Verk", "Drek", "Drikk", "Zvik", "Vzik", "Kviz", "Vrizk", "Vrizzk", "Krix", "Krixx", "Zark", "Xark", "Xarkk", "Xerx", "Xarak", "Karax", "Varak", "Vazak", "Vazzak", "Zirk", "Krak", "Xakk", "Zakk", "Vekk"))]"
 	if(prob(67))
-		if(prob(50))
+		if(prob(50) && !ert_name)
 			new_name += ", "
 			new_name += "[pick(list("Noble", "Worker", "Scout", "Carpenter", "Farmer", "Gatherer", "Soldier", "Guard", "Miner", "Priest", "Merchant", "Crafter", "Alchemist", "Historian", "Hunter", "Scholar", "Caretaker", "Artist", "Bard", "Blacksmith", "Brewer", "Mason", "Baker", "Prospector", "Laborer", "Hauler", "Servant"))]"
+			new_name += " of Clan "
+		else if(ert_name)
+			new_name += ", "
+			switch(role)
+				if("Commander")
+					new_name += "[pick("Noble", "Marshall", "Grandee", "Dignitary", "Official", "Chamberlain", "Duke")]"
+				if("Security")
+					new_name += "[pick("Scout", "Soldier", "Guard", "Hunter")]"
+				if("Medic")
+					new_name += "[pick("Healer", "Medic", "Physician", "Doctor")]"
+				if("Engineer")
+					new_name += "[pick("Engineer", "Carpenter", "Worker", "Crafter", "Mason", "Hauler", "Cooper")]"
+				if("Paranormal")
+					new_name += "[pick("Priest", "Chaplain", "Cleric")]"
 			new_name += " of Clan "
 		else
 			new_name += " "
@@ -405,8 +419,22 @@
 					"må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
 					"huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
 
-/datum/language/moth/get_random_name()
-	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
+/datum/language/moth/get_random_name(ert_name = FALSE, role)
+	var/new_name
+	if(!ert_name)
+		new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
+	else if(ert_name)
+		switch(role)
+			if("Commander")
+				new_name += "[pick("Noble", "Marshall", "Grandee", "Dignitary", "Official", "Director", "Chamerlain", "Duke", "Seer")]"
+			if("Security")
+				new_name += "[pick("Guardian", "Archer", "Voidhunter", "Knight")]"
+			if("Medic")
+				new_name += "[pick("Healer", "Medic", "Physician", "Doctor", "Biologist")]"
+			if("Engineer")
+				new_name += "[pick("Engineer", "Carpenter", "Worker", "Crafter", "Mason", "Hauler", "Mechanic")]"
+			if("Paranormal")
+				new_name += "[pick("Abbot", "Priest", "Chaplain", "Cleric")]"
 	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
 	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name

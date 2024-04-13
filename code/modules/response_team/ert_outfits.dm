@@ -28,6 +28,107 @@
 
 	H.job = rt_mob_job
 
+	if(istype(H.dna.species, /datum/species/plasmaman))
+		var/obj/item/organ/internal/cyberimp/mouth/breathing_tube/hardened/BT = new /obj/item/organ/internal/cyberimp/mouth/breathing_tube/hardened(H)
+		BT.insert(H)
+
+		r_hand = /obj/item/tank/internals/plasmaman/belt
+
+		if(findtext(H.job, "Commander"))
+			head = /obj/item/clothing/head/helmet/space/plasmaman/captain
+			uniform = /obj/item/clothing/under/plasmaman/captain
+		if(findtext(H.job, "Security"))
+			head = /obj/item/clothing/head/helmet/space/plasmaman/security/hos
+			uniform = /obj/item/clothing/under/plasmaman/security/hos
+		if(findtext(H.job, "Medic"))
+			head = /obj/item/clothing/head/helmet/space/plasmaman/cmo
+			uniform = /obj/item/clothing/under/plasmaman/cmo
+		if(findtext(H.job, "Engineer"))
+			head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
+			uniform = /obj/item/clothing/under/plasmaman/engineering/ce
+			suit_store = /obj/item/tank/internals/plasmaman/full
+		if(findtext(H.job, "Paranormal"))
+			head = /obj/item/clothing/head/helmet/space/plasmaman/chaplain
+			uniform = /obj/item/clothing/under/plasmaman/chaplain
+		if(findtext(H.job, "Janitor"))
+			head = /obj/item/clothing/head/helmet/space/plasmaman/janitor
+			uniform = /obj/item/clothing/under/plasmaman/janitor
+
+		box = /obj/item/storage/box/responseteam/plasmaman
+		var/obj/item/clothing/under/plasmaman/U = H.w_uniform
+		U.extinguish_cooldown -= 50
+		U.extinguishes_left += 5
+		U.strip_delay += 80
+		U.armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+
+		var/obj/item/clothing/head/helmet/space/plasmaman/L = H.head
+		L.brightness_on += 4
+		L.strip_delay += 80
+
+		var/obj/item/tank/internals/plasmaman/belt/int = H.r_hand
+		H.internal = int
+
+		H.update_action_buttons_icon()
+		H.rejuvenate()
+
+	if(istype(H.dna.species, /datum/species/machine))
+		box = /obj/item/storage/box/responseteam/machine
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		H.set_nutrition(NUTRITION_LEVEL_FULL)
+
+		if(prob(40))
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				E.robotize("Hesphiastos Industries")
+			head_organ.robotize("Hesphiastos Industries alt.")
+
+		var/color
+
+		if(findtext(H.job, "Commander"))
+			color = pick("#2a59b6", "#0e35cf")
+
+		if(findtext(H.job, "Security"))
+			color = pick("#8a1139", "#630a28", "#cb1717", "#750d0d", "#75221d", "#dc4040")
+
+		if(findtext(H.job, "Medic"))
+			color = pick("#cae3e9", "#9aa6a9", "#a5bccb")
+
+		if(findtext(H.job, "Engineer"))
+			color = pick("#c25d1a", "#ad3b02", "#b1563f", "#e54e17", "#d4ac40", "#ad9708", "#ad9708")
+
+		if(findtext(H.job, "Paranormal"))
+			color = pick("#ad9708", "#5aa44e", "#1e861e", "#43cf5f", "#395f36", "#0a4e18")
+
+		if(findtext(H.job, "Janitor"))
+			color = pick("#4b3075", "#22174e", "#320970", "#3d234e")
+
+		if(prob(30)) //nah, just nt color
+			color = pick("#3d7cc2", "#0a4db1", "5975c2", "#2b3363", "#185e9c", "#0e6dd8", "#285ef2")
+
+		H.skin_colour = color
+		head_organ.hair_colour = color
+
+		var/obj/item/organ/internal/cyberimp/chest/ipc_repair/hardened/R = new
+		R.insert(H)
+
+		var/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic/DI = new
+		DI.insert(H)
+
+	if(istype(H.dna.species, /datum/species/skrell))
+		if(findtext(H.job, "Commander"))
+			H.skin_colour = pick("#b6eecc", "#84e9ba", "#a2d4a6")
+		if(findtext(H.job, "Engineer"))
+			H.skin_colour = pick("#cf354a", "#b65e12", "#d8d062", "#26242b")
+		if(findtext(H.job, "Security"))
+			H.skin_colour = pick("#28ad31", "#4646cb", "#342b2c", "#ba1313", "#ba1313", "#bac245")
+
+	if(findtext(H.job, "Medic") && !istype(H.dna.species, /datum/species/machine))
+		var/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic/DI = new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(H)
+		DI.insert(H)
+
+
+	H.regenerate_icons()
+	H.update_body()
+
 //////////////////// COMMANDER ///////////////////
 
 /datum/outfit/job/centcom/response_team/commander
@@ -45,8 +146,16 @@
 /datum/outfit/job/centcom/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
-	H.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
-	H.age = rand(35, 45)
+	var/list/low_ranks = list("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")
+
+	H.age += rand(15, 25)
+
+	while(length(low_ranks))
+		var/the_rank = pick_n_take(low_ranks)
+		if(findtext(H.real_name, the_rank))
+			var/new_name = replacetext(H.real_name, the_rank, pick("Lieutenant", "Captain", "Major"))
+			H.rename_character(null, new_name)
+			break
 
 /datum/outfit/job/centcom/response_team/commander/amber
 	name = "RT Commander (Amber)"
@@ -236,6 +345,11 @@
 		/obj/item/flashlight = 1,
 		/obj/item/rpd = 1,
 		/obj/item/storage/bag/construction = 1
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
+		/obj/item/organ/internal/eyes/cybernetic/shield
 	)
 
 	cybernetic_implants = list(
