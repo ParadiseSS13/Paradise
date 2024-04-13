@@ -365,9 +365,10 @@
 
 /obj/item/borg/upgrade/floorbuffer
 	name = "janitor cyborg floor buffer upgrade"
-	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs."
+	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs and mobile janicarts."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "upgrade"
+	origin_tech = "materials=3;engineering=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	/// How much speed the cyborg loses while the buffer is active
