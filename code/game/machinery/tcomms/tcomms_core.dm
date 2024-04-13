@@ -286,7 +286,7 @@
 		// Imports and exports
 		if("import")
 			var/json = tgui_input_text(usr, "Provide configuration JSON below.", "Load Config", nttc.nttc_serialize(), multiline = TRUE, encode = FALSE)
-			if(!json)
+			if(isnull(json))
 				return
 			if(nttc.nttc_deserialize(json, usr.ckey))
 				log_action(usr, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)

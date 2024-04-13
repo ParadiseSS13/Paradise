@@ -195,7 +195,7 @@
 		return
 
 	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
-	if(!(msg))
+	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
