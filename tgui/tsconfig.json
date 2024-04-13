@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "ES6"
+    "target": "ES5"
   },
   "include": ["./*.d.ts", "./packages"]
 }

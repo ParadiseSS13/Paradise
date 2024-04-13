@@ -29,7 +29,7 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es6', 'browserslist:edge 120'],
+    target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
       'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
       'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
@@ -126,7 +126,7 @@ module.exports = (env = {}, argv) => {
     const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
       new EsbuildPlugin({
-        target: 'edge120',
+        target: 'ie11',
         css: true,
       }),
     ];
