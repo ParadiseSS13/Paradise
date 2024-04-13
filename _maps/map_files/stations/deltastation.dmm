@@ -18924,6 +18924,7 @@
 "bgB" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19245,6 +19246,13 @@
 /area/station/hallway/primary/fore/south)
 "bhH" = (
 /obj/machinery/smartfridge,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "kitchen ingrediant storage"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (
@@ -19323,6 +19331,7 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20746,8 +20755,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blk" = (
-/obj/item/food/snacks/mint,
-/obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/reagentgrinder,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -98417,7 +98424,9 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/reinforced/normal,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
