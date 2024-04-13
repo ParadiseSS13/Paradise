@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/projectile/magic_missile
+/datum/spell/projectile/magic_missile
 	name = "Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
@@ -12,7 +12,7 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
-	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile"
+	proj_type = /obj/item/projectile/magic/magic_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 2
@@ -25,33 +25,33 @@
 
 	sound = 'sound/magic/magic_missile.ogg'
 
-/obj/effect/proc_holder/spell/projectile/magic_missile/create_new_targeting()
+/datum/spell/projectile/magic_missile/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living
 	T.max_targets = INFINITY
 	return T
 
-/obj/effect/proc_holder/spell/inflict_handler/magic_missile
-	amt_weakened = 6 SECONDS
-	sound = 'sound/magic/mm_hit.ogg'
+/obj/item/projectile/magic/magic_missile
+	name = "Magic Missile"
+	hitsound = 'sound/magic/mm_hit.ogg'
+	weaken = 6 SECONDS
 
-
-/obj/effect/proc_holder/spell/projectile/honk_missile
+/datum/spell/projectile/honk_missile
 	name = "Honk Missile"
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
 	school = "evocation"
-	base_cooldown = 60
+	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
 	invocation_type = "shout"
-	cooldown_min = 60 //35 deciseconds reduction per rank
+	cooldown_min = 6 SECONDS
 
 	proj_icon = 'icons/obj/items.dmi'
 	proj_icon_state = "bike_horn"
 	proj_name = "A bike horn"
 	proj_lingering = 1
-	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/honk_missile"
+	proj_type = /obj/item/projectile/magic/magic_missile/honk_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 5
@@ -65,25 +65,25 @@
 
 	sound = 'sound/items/bikehorn.ogg'
 
-/obj/effect/proc_holder/spell/projectile/honk_missile/create_new_targeting()
+/datum/spell/projectile/honk_missile/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living
 	T.max_targets = INFINITY
 	return T
 
-/obj/effect/proc_holder/spell/inflict_handler/honk_missile
-	amt_weakened = 6 SECONDS
-	sound = 'sound/items/bikehorn.ogg'
+/obj/item/projectile/magic/magic_missile/honk_missile
+	name = "Funny Missile"
+	hitsound = 'sound/items/bikehorn.ogg'
 
-/obj/effect/proc_holder/spell/noclothes
+/datum/spell/noclothes
 	name = "No Clothes"
 	desc = "This always-on spell allows you to cast magic without your garments."
 	action_icon_state = "no_clothes"
 
-/obj/effect/proc_holder/spell/noclothes/create_new_targeting()
+/datum/spell/noclothes/create_new_targeting()
 	return new /datum/spell_targeting/self // Dummy value
 
-/obj/effect/proc_holder/spell/genetic/mutate
+/datum/spell/genetic/mutate
 	name = "Mutate"
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
 
@@ -102,14 +102,14 @@
 	action_icon_state = "mutate"
 	sound = 'sound/magic/mutate.ogg'
 
-/obj/effect/proc_holder/spell/genetic/mutate/Initialize(mapload)
-	. = ..()
+/datum/spell/genetic/mutate/New()
+	..()
 	mutations = list(GLOB.hulkblock)
 
-/obj/effect/proc_holder/spell/genetic/mutate/create_new_targeting()
+/datum/spell/genetic/mutate/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/smoke
+/datum/spell/smoke
 	name = "Smoke"
 	desc = "This spell spawns a cloud of choking smoke at your location and does not require wizard garb."
 
@@ -125,13 +125,13 @@
 
 	action_icon_state = "smoke"
 
-/obj/effect/proc_holder/spell/smoke/create_new_targeting()
+/datum/spell/smoke/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/emplosion/disable_tech
+/datum/spell/emplosion/disable_tech
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
-	base_cooldown = 400
+	base_cooldown = 40 SECONDS
 	clothes_req = TRUE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
@@ -142,7 +142,7 @@
 
 	sound = 'sound/magic/disable_tech.ogg'
 
-/obj/effect/proc_holder/spell/turf_teleport/blink
+/datum/spell/turf_teleport/blink
 	name = "Blink"
 	desc = "This spell randomly teleports you a short distance."
 
@@ -167,10 +167,10 @@
 	sound1 = 'sound/magic/blink.ogg'
 	sound2 = 'sound/magic/blink.ogg'
 
-/obj/effect/proc_holder/spell/turf_teleport/blink/create_new_targeting()
+/datum/spell/turf_teleport/blink/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/area_teleport/teleport
+/datum/spell/area_teleport/teleport
 	name = "Teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 
@@ -187,10 +187,10 @@
 	sound1 = 'sound/magic/teleport_diss.ogg'
 	sound2 = 'sound/magic/teleport_app.ogg'
 
-/obj/effect/proc_holder/spell/area_teleport/teleport/create_new_targeting()
+/datum/spell/area_teleport/teleport/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/return_to_teacher
+/datum/spell/return_to_teacher
 	name = "Return to Teacher"
 	desc = "This spell teleports you back to your teacher."
 
@@ -204,16 +204,16 @@
 	action_icon_state = "spell_teleport"
 	var/datum/mind/teacher
 
-/obj/effect/proc_holder/spell/return_to_teacher/create_new_targeting()
+/datum/spell/return_to_teacher/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/return_to_teacher/cast(list/targets, mob/living/user = usr)
+/datum/spell/return_to_teacher/cast(list/targets, mob/living/user = usr)
 	if(!(teacher && teacher.current))
 		to_chat(user, "<span class='danger'>The link to your teacher is broken!</span>")
 		return
 	do_teleport(user, teacher.current, 1, sound_in = 'sound/magic/blink.ogg', sound_out = 'sound/magic/blink.ogg', safe_turf_pick = TRUE)
 
-/obj/effect/proc_holder/spell/forcewall
+/datum/spell/forcewall
 	name = "Force Wall"
 	desc = "This spell creates a 3 tile wide unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
@@ -227,10 +227,10 @@
 	cooldown_min = 5 SECONDS //25 deciseconds reduction per rank
 	var/wall_type = /obj/effect/forcefield/wizard
 
-/obj/effect/proc_holder/spell/forcewall/create_new_targeting()
+/datum/spell/forcewall/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/forcewall/cast(list/targets, mob/user = usr)
+/datum/spell/forcewall/cast(list/targets, mob/user = usr)
 	new wall_type(get_turf(user), user)
 	if(user.dir == SOUTH || user.dir == NORTH)
 		new wall_type(get_step(user, EAST), user)
@@ -239,10 +239,10 @@
 		new wall_type(get_step(user, NORTH), user)
 		new wall_type(get_step(user, SOUTH), user)
 
-/obj/effect/proc_holder/spell/aoe/conjure/timestop
+/datum/spell/aoe/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
-	base_cooldown = 500
+	base_cooldown = 50 SECONDS
 	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
@@ -255,7 +255,7 @@
 	aoe_range = 0
 
 
-/obj/effect/proc_holder/spell/aoe/conjure/carp
+/datum/spell/aoe/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
 
@@ -270,7 +270,7 @@
 	cast_sound = 'sound/magic/summon_karp.ogg'
 	aoe_range = 1
 
-/obj/effect/proc_holder/spell/aoe/conjure/construct
+/datum/spell/aoe/conjure/construct
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
 
@@ -286,7 +286,7 @@
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 0
 
-/obj/effect/proc_holder/spell/aoe/conjure/creature
+/datum/spell/aoe/conjure/creature
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
 
@@ -301,41 +301,32 @@
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
-/obj/effect/proc_holder/spell/trigger/blind
+/datum/spell/genetic/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
-
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
+	base_cooldown = 15 SECONDS
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
 	cooldown_min = 2 SECONDS
+	traits = list(TRAIT_BLIND)
 
-	starting_spells = list("/obj/effect/proc_holder/spell/inflict_handler/blind","/obj/effect/proc_holder/spell/genetic/blind")
+	duration = 30 SECONDS
+	sound = 'sound/magic/blind.ogg'
 
-	action_icon_state = "blind"
-
-/obj/effect/proc_holder/spell/trigger/blind/create_new_targeting()
+/datum/spell/genetic/blind/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
 	C.allowed_type = /mob/living
 	return C
 
-/obj/effect/proc_holder/spell/inflict_handler/blind
-	amt_eye_blind = 10
-	amt_eye_blurry = 20
-	sound = 'sound/magic/blind.ogg'
+/datum/spell/genetic/blind/do_additional_effects(mob/living/target)
+	target.EyeBlurry(20 SECONDS)
+	target.EyeBlind(10 SECONDS)
+	SEND_SOUND(target, sound('sound/magic/blind.ogg'))
 
-/obj/effect/proc_holder/spell/genetic/blind
-	traits = list(TRAIT_BLIND)
-	duration = 300
-	sound = 'sound/magic/blind.ogg'
-
-/obj/effect/proc_holder/spell/genetic/blind/create_new_targeting()
-	return new /datum/spell_targeting/self // Dummy value since it is never used by an user directly
-
-/obj/effect/proc_holder/spell/fireball
+/datum/spell/fireball
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
@@ -355,21 +346,21 @@
 
 	active = FALSE
 
-/obj/effect/proc_holder/spell/fireball/apprentice
+/datum/spell/fireball/apprentice
 	centcom_cancast = FALSE
 
-/obj/effect/proc_holder/spell/fireball/create_new_targeting()
+/datum/spell/fireball/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/external/C = new()
 	C.range = 20
 	return C
 
-/obj/effect/proc_holder/spell/fireball/update_icon_state()
+/datum/spell/fireball/update_spell_icon()
 	if(!action)
 		return
 	action.button_icon_state = "fireball[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
-/obj/effect/proc_holder/spell/fireball/cast(list/targets, mob/living/user = usr)
+/datum/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
@@ -386,7 +377,7 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/fireball/toolbox
+/datum/spell/fireball/toolbox
 	name = "Homing Toolbox"
 	desc = "This spell summons and throws a magical homing toolbox at your opponent."
 	sound = 'sound/weapons/smash.ogg'
@@ -396,7 +387,7 @@
 	selection_activated_message		= "<span class='notice'>You prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You unrobust your toolbox...for now.</span>"
 
-/obj/effect/proc_holder/spell/fireball/homing
+/datum/spell/fireball/homing
 	name = "Greater Homing Fireball"
 	desc = "This spell fires a strong homing fireball at a target."
 	invocation = "ZI-ONI SOMA"
@@ -405,10 +396,10 @@
 	selection_activated_message = "<span class='notice'>You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B></span>"
 	base_cooldown = 6 SECONDS
 
-/obj/effect/proc_holder/spell/aoe/repulse
+/datum/spell/aoe/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
-	base_cooldown = 400
+	base_cooldown = 40 SECONDS
 	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
@@ -419,12 +410,12 @@
 	action_icon_state = "repulse"
 	aoe_range = 5
 
-/obj/effect/proc_holder/spell/aoe/repulse/create_new_targeting()
+/datum/spell/aoe/repulse/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
-/obj/effect/proc_holder/spell/aoe/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
+/datum/spell/aoe/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
@@ -455,26 +446,71 @@
 			spawn(0)
 				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
-/obj/effect/proc_holder/spell/sacred_flame
+/datum/spell/sacred_flame
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
-	base_cooldown = 60
+	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"
 	action_icon_state = "sacredflame"
 	sound = 'sound/magic/fireball.ogg'
 
-/obj/effect/proc_holder/spell/sacred_flame/create_new_targeting()
+/datum/spell/sacred_flame/create_new_targeting()
 	var/datum/spell_targeting/aoe/A = new()
 	A.include_user = TRUE
 	A.range = 6
 	A.allowed_type = /mob/living
 	return A
 
-/obj/effect/proc_holder/spell/sacred_flame/cast(list/targets, mob/user = usr)
+/datum/spell/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
 		L.adjust_fire_stacks(20)
 	if(isliving(user))
 		var/mob/living/U = user
 		U.IgniteMob()
+
+/datum/spell/corpse_explosion
+	name = "Corpse Explosion"
+	desc = "Fills a corpse with energy, causing it to explode violently."
+	school = "evocation"
+	base_cooldown = 5 SECONDS
+	clothes_req = TRUE
+	invocation = "JAH ITH BER"
+	invocation_type = "whisper"
+	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the spell.</span>"
+	action_icon_state = "corpse_explosion"
+
+/datum/spell/corpse_explosion/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.try_auto_target = FALSE
+	T.allowed_type = /mob/living
+	return T
+
+/datum/spell/corpse_explosion/cast(list/targets, mob/user)
+	var/mob/living/target = targets[1]
+	if(!target || target.stat != DEAD)
+		return
+	var/turf/corpse_turf = get_turf(target)
+	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
+	target.gib()
+	explosion(corpse_turf, 0, 0, 0, 0, silent = TRUE, breach = FALSE)
+	for(var/mob/living/M in range(4, corpse_turf))
+		if(M == user)
+			continue
+		var/range = get_dist_euclidian(M, corpse_turf)
+		range = max(1, range)
+		M.apply_damage(100 / range, BRUTE)
+		if(issilicon(M))
+			to_chat(M, "<span class='userdanger'>Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!</span>")
+			M.Weaken(6 SECONDS / range)
+			continue
+
+		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		if(ishuman(M))
+			if(range < 4)
+				M.KnockDown(4 SECONDS / range)
+			M.EyeBlurry(40 SECONDS / range)
+			M.AdjustConfused(6 SECONDS / range)

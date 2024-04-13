@@ -85,6 +85,10 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/enabled_waddle = TRUE
+	// "Dyeable" in this case is a bit of an understatement, washing these
+	// with a crayon will give them the appearance and name of normal
+	// shoes, but the functionality of clown shoes.
+	dyeable = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
@@ -116,11 +120,13 @@
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
+	dyeable = FALSE
 	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
+	dyeable = FALSE
 	magical = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/magical/nodrop
@@ -131,6 +137,7 @@
 	actions_types = list(/datum/action/item_action/slipping)
 	enabled_waddle = FALSE
 	slowdown = 0
+	dyeable = FALSE
 	var/slide_distance = 6
 	var/recharging_rate = 8 SECONDS
 	var/recharging_time = 0
@@ -332,6 +339,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
