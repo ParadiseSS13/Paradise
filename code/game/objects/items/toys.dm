@@ -809,6 +809,16 @@
 	desc = "An adorable stuffed toy that resembles a lizardperson."
 	icon_state = "plushie_lizard"
 	item_state = "plushie_lizard"
+	var/cooldown = 0
+
+/obj/item/toy/plushie/lizardplushie/attack_self(mob/user)
+	if(!cooldown)
+		playsound(user, 'sound/voice/weh.ogg', 10, 0)
+		visible_message("<span class='danger'>Weh!</span>")
+		cooldown = 1
+		spawn(30) cooldown = 0
+		return
+	..()
 
 /obj/item/toy/plushie/snakeplushie
 	name = "snake plushie"
