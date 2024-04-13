@@ -9,9 +9,6 @@
 	if(extractor)
 		output_loc = extractor.loc
 
-	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
-		return FALSE
-
 	var/original_seed = null
 	if(istype(source_item, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/F = source_item
@@ -21,6 +18,9 @@
 		original_seed = F.unsorted_seed || F.seed
 
 	if(!original_seed)
+		return FALSE
+
+	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
 		return FALSE
 
 	if(seed_count == -1)
@@ -125,8 +125,7 @@
 		return
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/seed_extractor/attack_ai(mob/user)
 	ui_interact(user)
