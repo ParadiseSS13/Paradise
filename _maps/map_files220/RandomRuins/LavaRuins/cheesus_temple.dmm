@@ -4,92 +4,92 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "bd" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "fancy-wood-oak-broken2"
-	},
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/grass/lavaland_air,
 /area/lavaland/surface/outdoors)
 "be" = (
-/obj/effect/turf_decal/siding/yellow{
-	dir = 5
-	},
-/mob/living/simple_animal/mouse,
+/obj/structure/statue/cheese/cheesus,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "bI" = (
 /obj/machinery/light/directional/south,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "cn" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "cr" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "cV" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/structure/mineral_door/wood,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "dk" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "dm" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "dp" = (
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "dq" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
-/turf/simulated/floor/wood/lavaland_air{
-	icon = 'icons/turf/floors/grass.dmi';
-	icon_state = "grass"
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 1
 	},
-/area/lavaland/surface/outdoors)
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
 "dC" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "dF" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "ei" = (
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "en" = (
 /obj/structure/chair/sofa/pew/left,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "eW" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/effect/turf_decal/siding/yellow/corner,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
+"eX" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/lavaland/surface/outdoors)
 "fk" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "fK" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/spawner/lootdrop/trash,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "gh" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/turf_decal/siding/yellow{
@@ -97,11 +97,11 @@
 	},
 /obj/item/food/snacks/sliceable/cheesecake,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "gV" = (
 /obj/structure/chair/sofa/pew,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "gX" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed{
@@ -112,14 +112,12 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "hZ" = (
-/obj/effect/turf_decal/siding/yellow{
-	dir = 5
-	},
-/obj/effect/spawner/lootdrop/trash,
+/mob/living/simple_animal/mouse,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "js" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency/old{
@@ -139,24 +137,28 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "ks" = (
 /turf/simulated/floor/plasteel/stairs/right,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "kG" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
+"kJ" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
 "ln" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "lv" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "lA" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/large{
@@ -169,54 +171,43 @@
 	pixel_x = 9
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "mn" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/wrench,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "mo" = (
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/stairs/left,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "mO" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"mU" = (
-/obj/effect/turf_decal/siding/yellow/corner{
-	dir = 8
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken2"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "nA" = (
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "pm" = (
-/obj/effect/turf_decal/siding/yellow/corner{
-	dir = 1
+/obj/effect/turf_decal/siding/yellow{
+	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "pQ" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/wood/fancy/oak/lavaland_air,
 /area/lavaland/surface/outdoors)
 "qq" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken2"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
 "qw" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/floor/grass/lavaland_air,
 /area/lavaland/surface/outdoors)
 "qK" = (
 /obj/effect/turf_decal/siding/yellow{
@@ -225,7 +216,7 @@
 /mob/living/simple_animal/mouse,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "qQ" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/turf_decal/siding/yellow{
@@ -235,89 +226,66 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"rC" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "rW" = (
-/obj/effect/turf_decal/siding/yellow,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"st" = (
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "tw" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 9
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "tQ" = (
 /obj/effect/turf_decal/siding/yellow/corner,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"uY" = (
-/obj/effect/turf_decal/siding/yellow{
-	dir = 1
-	},
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken2"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "vk" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"vK" = (
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken2"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "wp" = (
 /obj/structure/chair/comfy/yellow{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "wr" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "xk" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "xv" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "xT" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "yi" = (
 /obj/machinery/light/directional/north,
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "yM" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/book/granter/spell/summon_cheese{
@@ -327,11 +295,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "zt" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "fancy-wood-oak-broken3"
-	},
+/obj/structure/girder,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Am" = (
 /obj/structure/table/wood/fancy/orange,
@@ -343,7 +310,7 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "AH" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/kirbyplants{
@@ -351,28 +318,33 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Cn" = (
 /obj/effect/spawner/window/shuttle,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "CW" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Dm" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
+"DW" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
 "Eo" = (
 /turf/simulated/floor/plasteel/stairs/left,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Ex" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "EE" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda{
@@ -380,12 +352,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"Gz" = (
+/area/ruin/powered/cheesus)
+"Ga" = (
 /mob/living/simple_animal/mouse,
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
+"Gz" = (
+/obj/effect/turf_decal/siding/yellow/corner,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
 "Hh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -394,109 +373,101 @@
 	pixel_x = -9
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Hp" = (
 /obj/machinery/light/directional/north,
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Hv" = (
 /turf/simulated/wall/mineral/titanium,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "HV" = (
 /obj/machinery/light/small/directional/west,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"JG" = (
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken3"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Ka" = (
 /turf/template_noop,
 /area/template_noop)
 "Km" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "fancy-wood-oak"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/fancy/oak/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Md" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "fancy-wood-oak-broken"
+/obj/effect/turf_decal/siding/yellow{
+	dir = 5
 	},
-/area/lavaland/surface/outdoors)
+/mob/living/simple_animal/mouse,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
 "Nc" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "NG" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 6
 	},
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Ou" = (
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/stairs/right,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "OJ" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "OS" = (
 /obj/structure/chair/sofa/pew/right,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Ps" = (
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Sv" = (
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Ud" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Uu" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "UX" = (
-/obj/structure/statue/cheese/cheesus,
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Vn" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
-"VI" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/fancy/oak{
-	icon_state = "fancy-wood-oak-broken2"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "VZ" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Xw" = (
 /obj/structure/chair/comfy/yellow{
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "XT" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/stack/sheet/cheese/fifteen{
@@ -513,7 +484,7 @@
 	},
 /obj/effect/turf_decal/siding/yellow,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "Yy" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/turf_decal/siding/yellow{
@@ -522,16 +493,14 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/item/food/snacks/sliceable/cheesewheel,
 /turf/simulated/floor/wood/fancy/oak,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "ZK" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass/no_creep,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/cheesus)
 "ZV" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon = 'icons/turf/floors/grass.dmi';
-	icon_state = "grass"
-	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
@@ -552,9 +521,11 @@ Ka
 Ka
 Ka
 Ka
-Ka
-Ka
-Ka
+ZV
+ZV
+ZV
+ZV
+ZV
 Ka
 Ka
 Ka
@@ -578,11 +549,13 @@ Ka
 Ka
 Ka
 Ka
-Ka
-Km
-Km
-Ka
-Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
 Ka
 Ka
 Ka
@@ -605,13 +578,15 @@ Ka
 Ka
 Ka
 Ka
-Km
-Md
-pQ
 ZV
+Km
+Km
 Ka
 Ka
-Ka
+ZV
+ZV
+ZV
+ZV
 Ka
 Ka
 "}
@@ -629,17 +604,19 @@ Ka
 Ka
 Ka
 Ka
-ZV
-ZV
+Ka
+Ka
+Ka
 pQ
-zt
 Km
+zt
 qw
+Ka
+Ka
 ZV
 ZV
-Ka
-Ka
-Ka
+ZV
+ZV
 Ka
 "}
 (5,1,1) = {"
@@ -655,19 +632,21 @@ Ka
 Ka
 Ka
 Ka
-ZV
-ZV
-ZV
-dm
-Vn
-Vn
-dm
-dm
-dm
-ZV
+Ka
+qw
+qw
+zt
+Km
+pQ
+eX
+qw
+qw
 Ka
 Ka
 Ka
+ZV
+ZV
+ZV
 "}
 (6,1,1) = {"
 Ka
@@ -681,20 +660,22 @@ Ka
 Ka
 Ka
 Ka
-ZV
-ZV
-ZV
-ZV
+Ka
+qw
+qw
+qw
 dm
-Sv
-Sv
-Gz
-fK
-VZ
+cV
+cV
+dm
+dm
+dm
+qw
+Ka
+Ka
+Ka
 ZV
-Ka
-Ka
-Ka
+ZV
 "}
 (7,1,1) = {"
 Ka
@@ -702,51 +683,55 @@ Ka
 Ka
 Ka
 Ka
-ZV
-ZV
-ZV
 Ka
 Ka
-ZV
-ZV
-dq
-ZV
-dm
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+qw
 dm
 Sv
-vK
-Ud
-AH
-Cn
-ZV
-ZV
+rW
+Ga
+fK
+VZ
+qw
 Ka
 Ka
+Ka
+Ka
+ZV
 "}
 (8,1,1) = {"
 Ka
 Ka
 Ka
-ZV
-ZV
-ZV
-ZV
-ZV
-ZV
-ZV
-ZV
+Ka
+Ka
+qw
+qw
+qw
+Ka
+Ka
+qw
+qw
+qw
+qw
 dm
-VZ
-Cn
 dm
-mn
-JG
+Sv
 Sv
 Ud
-Ex
-VZ
-dq
-ZV
+AH
+Cn
+qw
+qw
+Ka
+Ka
 Ka
 Ka
 "}
@@ -754,9 +739,38 @@ Ka
 Ka
 Ka
 Ka
-ZV
-ZV
-ZV
+qw
+qw
+qw
+qw
+qw
+qw
+qw
+qw
+dm
+VZ
+Cn
+dm
+mn
+rW
+Sv
+Ud
+Ex
+VZ
+qw
+qw
+qw
+Ka
+Ka
+Ka
+"}
+(10,1,1) = {"
+Ka
+Ka
+Ka
+qw
+qw
+qw
 dm
 VZ
 Cn
@@ -774,14 +788,16 @@ dm
 dm
 dm
 dm
+qw
+Ka
 Ka
 Ka
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 Ka
 Ka
-ZV
-ZV
+qw
+qw
 dm
 VZ
 VZ
@@ -793,7 +809,7 @@ dm
 Uu
 eW
 ks
-Sv
+rW
 Ud
 Sv
 mO
@@ -801,13 +817,15 @@ dm
 HV
 js
 dm
+qw
+qw
 Ka
 Ka
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 Ka
 Ka
-ZV
+qw
 dm
 dm
 Hp
@@ -818,20 +836,22 @@ dk
 dp
 dm
 qK
-rW
+UX
 Hv
 dm
 kG
-Sv
+rW
 mO
 dm
 Ud
 gX
 dm
+qw
+Ka
 Ka
 Ka
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 Ka
 Ka
 Ka
@@ -840,11 +860,11 @@ dF
 CW
 vk
 ln
-rC
-mU
+DW
+xT
 cn
 cn
-pm
+dq
 xT
 Am
 Hv
@@ -855,47 +875,51 @@ dm
 Vn
 dm
 dm
-Ka
-Ka
-"}
-(13,1,1) = {"
-Ka
-Ka
-ZV
-VZ
-ZK
-dp
-yM
-Ud
-UX
-Ud
-Ex
-Ud
-Ud
-cV
-XT
-VZ
-gV
-Ud
-dm
-kG
-Sv
-dm
-dq
+qw
+qw
 Ka
 Ka
 "}
 (14,1,1) = {"
 Ka
-ZV
-ZV
+Ka
+qw
+VZ
+ZK
+dp
+yM
+kJ
+be
+Ud
+Ex
+Ud
+Ud
+Ud
+XT
+VZ
+gV
+DW
+dm
+kG
+Sv
+dm
+bd
+qw
+qw
+qw
+Ka
+"}
+(15,1,1) = {"
+Ka
+qw
+qw
 Cn
 dp
 lv
-be
+Md
 wr
 Sv
-tQ
+Gz
 Nc
 Nc
 wr
@@ -906,16 +930,18 @@ OS
 Ud
 dm
 Ps
-nA
+hZ
 dm
 dm
+qw
+qw
 Ka
 Ka
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 Ka
-ZV
-ZV
+qw
+qw
 dm
 dm
 Hp
@@ -925,7 +951,7 @@ dC
 NG
 CW
 dm
-uY
+aV
 qq
 Hv
 dm
@@ -936,14 +962,16 @@ Sv
 Ud
 wp
 VZ
+qw
+qw
 Ka
 Ka
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 Ka
 Ka
-ZV
-ZV
+qw
+qw
 dm
 Cn
 Cn
@@ -955,31 +983,33 @@ dm
 aV
 xk
 Eo
-Sv
+rW
 Sv
 Sv
 Vn
-st
-VI
+Sv
+Ud
 fk
 VZ
+qw
+qw
 Ka
 Ka
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 Ka
 Ka
-ZV
-ZV
-ZV
-ZV
+qw
+qw
+qw
+qw
 dm
 VZ
 VZ
 VZ
 Cn
 dm
-hZ
+pm
 dC
 Ou
 nA
@@ -992,31 +1022,6 @@ Hh
 Cn
 Ka
 Ka
-"}
-(18,1,1) = {"
-Ka
-Ka
-Ka
-ZV
-Ka
-ZV
-ZV
-ZV
-ZV
-ZV
-ZV
-dm
-VZ
-VZ
-dm
-mO
-Sv
-st
-dm
-Sv
-cr
-Xw
-Cn
 Ka
 Ka
 "}
@@ -1024,26 +1029,28 @@ Ka
 Ka
 Ka
 Ka
+qw
 Ka
-Ka
-Ka
-Ka
-ZV
-ZV
-ZV
-ZV
-ZV
-dq
-ZV
+qw
+qw
+qw
+qw
+qw
+qw
 dm
+VZ
+VZ
+dm
+mO
+Sv
+rW
 dm
 Sv
-Sv
-dm
-yi
-Ud
-dm
-dm
+cr
+Xw
+Cn
+qw
+Ka
 Ka
 Ka
 "}
@@ -1055,22 +1062,24 @@ Ka
 Ka
 Ka
 Ka
-Ka
-Ka
-Ka
-Ka
-ZV
-ZV
-ZV
-ZV
+qw
+qw
+qw
+qw
+qw
+qw
+qw
+dm
 dm
 Sv
 Sv
 dm
-EE
-lA
+yi
+Ud
 dm
-dq
+dm
+qw
+qw
 Ka
 Ka
 "}
@@ -1086,20 +1095,22 @@ Ka
 Ka
 Ka
 Ka
-ZV
-ZV
-ZV
-ZV
+qw
+qw
+qw
+qw
 dm
-Vn
-Vn
+rW
+Sv
 dm
+EE
+lA
 dm
-dm
-dm
-ZV
+qw
+qw
 Ka
 Ka
+ZV
 "}
 (22,1,1) = {"
 Ka
@@ -1113,20 +1124,22 @@ Ka
 Ka
 Ka
 Ka
-Ka
-Ka
-ZV
-ZV
 qw
-Km
-zt
 qw
-ZV
-ZV
-ZV
+qw
+qw
+dm
+cV
+cV
+dm
+dm
+dm
+dm
+qw
 Ka
 Ka
-Ka
+ZV
+ZV
 "}
 (23,1,1) = {"
 Ka
@@ -1142,18 +1155,20 @@ Ka
 Ka
 Ka
 Ka
-Ka
-Ka
-pQ
-Md
-bd
 qw
+qw
+eX
+pQ
+pQ
+eX
+qw
+qw
+qw
+Ka
+Ka
 ZV
 ZV
-Ka
-Ka
-Ka
-Ka
+ZV
 "}
 (24,1,1) = {"
 Ka
@@ -1171,15 +1186,17 @@ Ka
 Ka
 Ka
 Ka
-Ka
-Km
-Km
+zt
 pQ
+Km
+eX
+qw
+qw
 Ka
-Ka
-Ka
-Ka
-Ka
+ZV
+ZV
+ZV
+ZV
 Ka
 "}
 (25,1,1) = {"
@@ -1198,11 +1215,71 @@ Ka
 Ka
 Ka
 Ka
+ZV
+Km
+pQ
+zt
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+"}
+(26,1,1) = {"
 Ka
 Ka
 Ka
 Ka
 Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+Ka
+Ka
+"}
+(27,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
 Ka
 Ka
 Ka

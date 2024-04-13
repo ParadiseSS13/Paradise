@@ -6,7 +6,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "be" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/directional/east,
@@ -14,87 +14,87 @@
 	icon_state = "darkblue";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "bf" = (
 /obj/effect/landmark/burnturf,
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "bp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/britcup,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "bx" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "bI" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ca" = (
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/carp/eyeball,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ce" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "cj" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "de" = (
 /obj/structure/sign/directions/engineering,
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "em" = (
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "et" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 8
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ey" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "eY" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 9
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "fe" = (
 /obj/structure/table,
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "fu" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dust,
 /obj/item/ammo_casing/c9mm,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "fw" = (
 /obj/structure/chair{
 	dir = 4
@@ -103,29 +103,29 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "fH" = (
 /obj/structure/girder/reinforced,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "fN" = (
 /obj/machinery/light/directional/west,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "fS" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "gu" = (
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "gz" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
@@ -133,13 +133,13 @@
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "gZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "hf" = (
 /turf/simulated/mineral/random,
 /area/lavaland/surface/outdoors)
@@ -149,14 +149,14 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ig" = (
 /obj/structure/table/reinforced,
 /obj/item/melee/baton/loaded,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ir" = (
 /obj/effect/mapping_helpers/no_lava,
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
@@ -170,43 +170,43 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "iN" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "jQ" = (
 /obj/machinery/washing_machine,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "whiteblue"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "kf" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ki" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "kw" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "kC" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 5
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "lB" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 10
@@ -215,18 +215,18 @@
 	icon_state = "darkred";
 	dir = 8
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "lC" = (
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "lI" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "my" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/reinforced,
@@ -236,7 +236,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "mE" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
@@ -244,7 +244,7 @@
 	icon_state = "darkblue";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "mV" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
@@ -253,7 +253,7 @@
 	icon_state = "darkred";
 	dir = 8
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "nn" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood,
@@ -261,18 +261,18 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "nr" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "nz" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "nG" = (
 /obj/structure/table/reinforced,
 /obj/item/pizzabox/infinite{
@@ -281,24 +281,24 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "nO" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "oL" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "oN" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkbluefull"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "oY" = (
 /obj/structure/computerframe{
 	dir = 8
@@ -307,47 +307,47 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkbluefull"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "pb" = (
 /obj/structure/rack,
 /obj/item/storage/box/handcuffs,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "pm" = (
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "pv" = (
 /obj/machinery/light/directional/west,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "pw" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "pR" = (
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "qK" = (
 /mob/living/simple_animal/hostile/abomination/altform2,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "rv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "rA" = (
 /obj/structure/sign/radiation,
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "rB" = (
 /obj/structure/chair{
 	dir = 8
@@ -356,24 +356,24 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "rP" = (
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "sa" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "sf" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "si" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/built/east,
@@ -381,7 +381,7 @@
 	icon_state = "darkred";
 	dir = 8
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "st" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/airlock{
@@ -390,12 +390,12 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "sy" = (
 /obj/structure/barricade/security,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "sT" = (
 /obj/structure/chair{
 	dir = 4
@@ -403,7 +403,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "sY" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
@@ -411,7 +411,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkbluefull"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "tP" = (
 /turf/template_noop,
 /area/template_noop)
@@ -420,18 +420,18 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "uY" = (
 /obj/machinery/economy/vending/snack,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "vd" = (
 /obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "vs" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/decal/cleanable/blood/writing{
@@ -445,37 +445,37 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "vL" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkblue";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "vR" = (
 /mob/living/simple_animal/hostile/tree,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "wa" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "wm" = (
 /obj/structure/girder/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "wE" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/paper/scp/research_notes,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkbluefull"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "wK" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -484,50 +484,50 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "wP" = (
 /obj/structure/sign/directions/medical{
 	dir = 4
 	},
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "xi" = (
 /obj/structure/rack,
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "xG" = (
 /obj/structure/table,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "xT" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ym" = (
 /obj/structure/sign/xeno_warning_mining,
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "yw" = (
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "yE" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "yF" = (
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "yI" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "zg" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/fire{
@@ -535,24 +535,24 @@
 	},
 /obj/item/extinguisher,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "zh" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "zl" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "zs" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "zB" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/bulletproof{
@@ -562,7 +562,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "zQ" = (
 /obj/structure/computerframe,
 /obj/effect/decal/cleanable/cobweb2,
@@ -570,19 +570,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "AT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/built/west,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Bd" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Bx" = (
 /obj/item/chair{
 	dir = 4;
@@ -592,7 +592,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "BI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -601,42 +601,42 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "BX" = (
 /obj/structure/table/glass/plasma,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ci" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder/displaced,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Cq" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkbluecorners"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Cv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Cz" = (
 /obj/structure/barricade/security,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "CI" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/l3closet,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Di" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -646,7 +646,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "DE" = (
 /obj/item/chair{
 	pixel_y = -6;
@@ -655,13 +655,13 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "DH" = (
 /obj/structure/girder/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "DJ" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
@@ -671,10 +671,10 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "DZ" = (
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "En" = (
 /obj/structure/rack,
 /obj/item/flash{
@@ -688,7 +688,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "EL" = (
 /obj/machinery/floodlight,
 /obj/effect/turf_decal/stripes/line{
@@ -696,12 +696,12 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "EX" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ff" = (
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/faithless,
@@ -712,11 +712,9 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Fh" = (
-/turf/simulated/wall/indestructible/rock/mineral{
-	color = "#464646"
-	},
+/turf/simulated/wall/indestructible/rock/mineral,
 /area/lavaland/surface/outdoors)
 "Fr" = (
 /obj/structure/table/glass/plasma,
@@ -726,14 +724,14 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Fy" = (
 /obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "whiteblue"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "FK" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
@@ -741,35 +739,33 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "FQ" = (
 /obj/item/analyzer,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Gg" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Gk" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/ammo_casing/c9mm,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "GX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "GZ" = (
-/turf/simulated/wall/indestructible/rock/mineral{
-	color = "#464646"
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/wall/indestructible/rock/mineral,
+/area/ruin/powered/scpfacility)
 "Ha" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -777,14 +773,14 @@
 "Hh" = (
 /obj/structure/sign/science,
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Hk" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Hl" = (
 /obj/structure/table/glass/plasma,
 /obj/item/reagent_containers/drinks/coffee{
@@ -794,7 +790,7 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ho" = (
 /obj/structure/rack,
 /obj/item/grenade/barrier{
@@ -803,13 +799,13 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Hu" = (
 /obj/structure/computerframe{
 	dir = 8
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Hy" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/hooded/cultrobes,
@@ -817,14 +813,14 @@
 	pixel_y = 12
 	},
 /turf/simulated/floor/engine/cult/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Hz" = (
 /obj/structure/closet/wardrobe/medic_white,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "HJ" = (
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
@@ -834,30 +830,30 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "HS" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ir" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Jj" = (
 /obj/structure/rack,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Jm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Jp" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -867,14 +863,14 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Jv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Jx" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -884,100 +880,100 @@
 	icon_state = "darkblue";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "JM" = (
 /obj/structure/sign/directions/evac{
 	dir = 1
 	},
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "JO" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 1
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "JV" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/mask/cursedclown,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ki" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "whiteblue"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "KE" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "KK" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "KP" = (
 /obj/machinery/light/directional/east,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "KS" = (
 /obj/structure/rack,
 /obj/item/gun/energy/e_gun,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Lj" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 4
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ML" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ng" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "NT" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 8
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "OE" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "OX" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Pc" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Pr" = (
 /obj/machinery/doppler_array{
 	name = "Система Сейсмического Оповещения";
@@ -985,7 +981,7 @@
 	},
 /obj/item/paper/scp/seismic_warning,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Pt" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
@@ -993,40 +989,40 @@
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "PG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "PI" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Qm" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "QW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_casing/c9mm,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Rh" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Rt" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Rw" = (
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
 /area/lavaland/surface/outdoors)
@@ -1034,67 +1030,67 @@
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/abomination/altform4,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Sa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Ss" = (
 /obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Sv" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "SG" = (
 /obj/structure/girder/displaced,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "SU" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "SV" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "SZ" = (
 /turf/simulated/floor/engine/cult/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Tk" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkblue"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Tl" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/ammo_casing/shotgun/buckshot,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "To" = (
 /mob/living/simple_animal/hostile/abomination,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "TC" = (
 /obj/item/stack/cable_coil/yellow,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "TD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "TJ" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
@@ -1104,13 +1100,13 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Uq" = (
 /mob/living/simple_animal/hostile/abomination/super,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "UM" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/decal/cleanable/blood/gibs/body,
@@ -1127,56 +1123,56 @@
 	icon_state = "darkred";
 	dir = 1
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "VF" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "VG" = (
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "VO" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 8
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Wa" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mob_spawn/human/corpse/scientist,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "WV" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Xd" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "XD" = (
 /obj/machinery/computer/arcade,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "XO" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "XS" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
@@ -1184,41 +1180,41 @@
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "XW" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Yp" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dust,
 /obj/item/ammo_casing/shotgun/buckshot,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Yu" = (
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "Yz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "YD" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkblue"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "YW" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkbluefull"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ZD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -1226,13 +1222,13 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 "ZE" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/scpfacility)
 
 (1,1,1) = {"
 tP
@@ -3385,7 +3381,7 @@ hf
 Ha
 Fh
 Fh
-Fh
+GZ
 Rt
 Fh
 Fh

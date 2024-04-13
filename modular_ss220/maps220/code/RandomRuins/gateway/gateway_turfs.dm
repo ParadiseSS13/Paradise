@@ -75,13 +75,6 @@
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/water/drop_no_overlay/dense
 
-/* Lavaland */
-/turf/simulated/floor/plasteel/lavaland_air
-	name = "floor"
-	temperature = 500
-	oxygen = 8
-	nitrogen = 14
-
 /* Indestructible */
 /turf/simulated/floor/indestructible/grass
 	name = "grass patch"

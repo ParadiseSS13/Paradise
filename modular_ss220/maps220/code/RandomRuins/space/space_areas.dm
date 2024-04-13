@@ -7,8 +7,6 @@
 	report_alerts = FALSE
 
 /* Twin-Nexus Space Hotel */
-// area zones for twin nexus space hotel
-
 /area/ruin/space/spacehotelv1
 	report_alerts = FALSE
 	requires_power = TRUE
@@ -100,8 +98,3 @@
 /area/ruin/space/spacehotelv1/barber
 	name = "Hotel Barber"
 	icon_state = "awaycontent22"
-
-/area/lavaland/surface/outdoors/legion
-	name = "Necropolis"
-	no_teleportlocs = TRUE
-	tele_proof = TRUE
