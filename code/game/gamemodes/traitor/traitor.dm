@@ -86,10 +86,11 @@
 			continue
 		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
 			for(var/datum/objective/objective in traitor_datum.objective_holder.objectives)
+				if(istype(objective, /datum/objective/hijack)) // This should have been shown already. Next objective.
+					continue
 				objective.delayed_objective = FALSE
-				var/datum/objective/steal/possible_steal_objective = objective
-				if(istype(possible_steal_objective) && possible_steal_objective.steal_target.special_equipment)
-					possible_steal_objective.give_kit(possible_steal_objective.steal_target.special_equipment)
+				objective.find_target(traitor_datum.objective_holder.assigned_targets)
+				SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
 				objective.update_explanation_text()
 
 		var/list/messages = traitor_mind.prepare_announce_objectives()
