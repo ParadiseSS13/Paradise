@@ -219,13 +219,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.age = rand(23,35)
 
 	var/rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")
-	var/gend
 	var/gen
 	if(new_gender == "Male")
-		gend = MALE
 		gen = "M"
 	else
-		gend = FEMALE
 		gen = "F"
 	switch(new_species)
 		if("Slime People")
