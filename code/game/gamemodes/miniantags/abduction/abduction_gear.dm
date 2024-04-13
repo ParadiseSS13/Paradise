@@ -847,6 +847,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	new /obj/item/lightreplacer/bluespace/abductor(src)
 	new /obj/item/storage/bag/trash/bluespace(src)
 	new /obj/item/melee/flyswatter/abductor(src)
+	new /obj/item/reagent_containers/spray/cleaner/safety/abductor(src)
+	new /obj/item/holosign_creator/janitor(src)
 
 /////////////////////////////////////////
 /////////////// STRUCTURES //////////////
