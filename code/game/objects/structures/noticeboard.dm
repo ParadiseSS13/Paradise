@@ -39,10 +39,10 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/noticeboard/update_icon_state()
-	if(notices > 0)
+	if(notices)
 		icon_state = "noticeboard-[notices]"
-	else
-		icon_state = "noticeboard"
+		return
+	icon_state = "noticeboard"
 
 /obj/structure/noticeboard/attack_hand(mob/user)
 	ui_interact(user)
