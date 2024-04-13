@@ -7107,7 +7107,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/machinery/power/apc/off_station/empty_charge/east,
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -9564,7 +9564,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/empty_charge/south,
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

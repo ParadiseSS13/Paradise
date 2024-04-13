@@ -218,7 +218,7 @@
 /area/ruin/space/spacehotelv1/engi2)
 "bC" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/dresser,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
@@ -281,7 +281,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "cb" = (
-/obj/machinery/power/apc/off_station/west,
+/obj/machinery/power/apc/off_station/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -374,7 +374,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/table/wood/fancy/blue,
 /obj/item/bee_briefcase,
 /turf/simulated/floor/carpet/royalblack,
@@ -656,7 +656,7 @@
 /obj/structure/railing/cap{
 	dir = 10
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -1380,7 +1380,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/chair/wood{
 	dir = 1
 	},
@@ -1560,7 +1560,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/table/reinforced/brass,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
@@ -1677,7 +1677,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1992,7 +1992,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
@@ -2483,7 +2483,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/west,
+/obj/machinery/power/apc/off_station/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -2869,7 +2869,7 @@
 /area/ruin/space/spacehotelv1/engi1)
 "uI" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /obj/machinery/light_switch{
 	dir = 8;
 	pixel_x = 24
@@ -3088,7 +3088,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/east,
+/obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -3472,7 +3472,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/west,
+/obj/machinery/power/apc/off_station/directional/west,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
@@ -4228,7 +4228,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
@@ -4501,7 +4501,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "FP" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/east,
+/obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5094,7 +5094,7 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ki" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
@@ -5292,7 +5292,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
 "Lw" = (
@@ -5721,7 +5721,7 @@
 /area/ruin/space/spacehotelv1/guestroom6)
 "Oy" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/south,
+/obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
@@ -5832,7 +5832,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -5888,7 +5888,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plating,
@@ -5979,7 +5979,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/east,
+/obj/machinery/power/apc/off_station/directional/east,
 /obj/vehicle/janicart,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/janitor)
@@ -6029,7 +6029,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/economy/atm/west,
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "QO" = (
@@ -6348,7 +6348,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "TN" = (
@@ -6624,7 +6624,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/north,
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "VH" = (
@@ -7010,7 +7010,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/east,
+/obj/machinery/power/apc/off_station/directional/east,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)

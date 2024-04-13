@@ -33,25 +33,6 @@
 /obj/machinery/economy/vending/wallmed/directional/east
 	pixel_x = 24
 
-/* Air Alarm */
-/obj/machinery/alarm/directional
-	name = "\improper air alarm"
-
-/obj/machinery/alarm/directional/south
-	pixel_y = -24
-	dir = 1
-
-/obj/machinery/alarm/directional/north
-	pixel_y = 24
-
-/obj/machinery/alarm/directional/west
-	pixel_x = -24
-	dir = 4
-
-/obj/machinery/alarm/directional/east
-	pixel_x = 24
-	dir = 8
-
 /* Fire Alarm */
 /obj/machinery/firealarm/directional
 	name = "\improper fire alarm"
@@ -387,147 +368,6 @@
 	pixel_x = 24
 	dir = 8
 
-/* APC */
-/obj/machinery/power/apc/directional
-	name = "\improper Area Power Controller"
-
-/obj/machinery/power/apc/directional/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/directional/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/directional/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/directional/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/engineering
-	name = "\improper Engineering APC"
-	shock_proof = TRUE
-
-/obj/machinery/power/apc/engineering/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/engineering/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/engineering/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/engineering/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/super
-	name = "\improper Super APC"
-	cell_type = 25000
-	shock_proof = TRUE
-
-/obj/machinery/power/apc/super/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/super/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/super/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/super/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/cryo
-	name = "\improper Cryo and Arrivals Super APC"
-	cell_type = 20000
-
-/obj/machinery/power/apc/cryo/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/cryo/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/cryo/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/cryo/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/important
-	name = "\improper Important APC"
-	cell_type = 5000
-
-/obj/machinery/power/apc/important/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/important/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/important/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/important/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/worn_out/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/worn_out/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/worn_out/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/worn_out/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/off_station/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/off_station/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/off_station/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/off_station/east
-	pixel_x = 24
-	dir = 4
-
-/obj/machinery/power/apc/off_station/empty_charge/south
-	pixel_y = -24
-
-/obj/machinery/power/apc/off_station/empty_charge/north
-	pixel_y = 24
-	dir = 1
-
-/obj/machinery/power/apc/off_station/empty_charge/west
-	pixel_x = -24
-	dir = 8
-
-/obj/machinery/power/apc/off_station/empty_charge/east
-	pixel_x = 24
-	dir = 4
-
 /* Wall Tanks */
 /obj/structure/reagent_dispensers/fueltank/chem
 	name = "\improper fuel tank"
@@ -767,19 +607,6 @@
 	pixel_x = -32
 
 /obj/machinery/computer/security/telescreen/entertainment/directional/east
-	pixel_x = 32
-
-/* ATM */
-/obj/machinery/economy/atm/south
-	pixel_y = -32
-
-/obj/machinery/economy/atm/north
-	pixel_y = 32
-
-/obj/machinery/economy/atm/west
-	pixel_x = -32
-
-/obj/machinery/economy/atm/east
 	pixel_x = 32
 
 /* Airlock Cycle Button */

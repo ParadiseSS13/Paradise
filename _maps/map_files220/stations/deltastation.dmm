@@ -1122,7 +1122,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "ait" = (
-/obj/machinery/economy/atm/south,
+/obj/machinery/economy/atm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1783,7 +1783,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "anp" = (
-/obj/machinery/power/apc/cryo/north,
+/obj/machinery/power/apc/critical/directional/north,
 /obj/machinery/camera{
 	c_tag = "Arrivals Hall Center"
 	},
@@ -10071,7 +10071,7 @@
 	},
 /area/station/maintenance/disposal/west)
 "aRS" = (
-/obj/machinery/power/apc/engineering/east,
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -13570,7 +13570,7 @@
 	},
 /area/station/engineering/atmos)
 "bhl" = (
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -13871,7 +13871,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -17833,7 +17833,7 @@
 "bzn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -23827,7 +23827,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bSK" = (
-/obj/machinery/power/apc/important/south,
+/obj/machinery/power/apc/important/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
@@ -24717,7 +24717,7 @@
 /area/station/hallway/secondary/bridge)
 "bVB" = (
 /obj/item/kirbyplants,
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -27460,7 +27460,7 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 1
 	},
-/obj/machinery/power/apc/engineering/south,
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -28652,7 +28652,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjO" = (
-/obj/machinery/power/apc/engineering/east,
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -46288,7 +46288,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/service/theatre)
 "dRT" = (
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -46589,7 +46589,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/economy/atm/north,
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -51493,7 +51493,7 @@
 /obj/item/stack/rods,
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/south,
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -52566,7 +52566,7 @@
 "ftv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc/engineering/south,
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"
@@ -55013,7 +55013,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/fitness)
 "ghJ" = (
-/obj/machinery/economy/atm/east,
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -55191,9 +55191,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "gkj" = (
-/obj/machinery/power/apc/critical/directional/east{
-	shock_proof = 1
-	},
+/obj/machinery/power/apc/critical/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -55963,9 +55961,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/alarm/engine{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/engine/directional/north,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
@@ -56520,7 +56516,7 @@
 /obj/effect/turf_decal{
 	dir = 6
 	},
-/obj/machinery/power/apc/engineering/east,
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -60058,7 +60054,7 @@
 	c_tag = "Research Toxin Mixing";
 	network = list("Research","SS13")
 	},
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -62065,7 +62061,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard2)
 "iri" = (
-/obj/machinery/economy/atm/north,
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -66615,7 +66611,7 @@
 /area/space/nearstation)
 "jMV" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/engineering/south,
+/obj/machinery/power/apc/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -67643,7 +67639,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "kdm" = (
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/light/directional/east,
 /obj/structure/cable{
@@ -73757,7 +73753,7 @@
 /area/station/maintenance/port)
 "maI" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/cryo/south,
+/obj/machinery/power/apc/critical/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -74326,7 +74322,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/machinery/power/apc/engineering/east,
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/station/service/bar/atrium)
@@ -75647,7 +75643,7 @@
 	},
 /area/station/engineering/mechanic)
 "mKB" = (
-/obj/machinery/economy/atm/west,
+/obj/machinery/economy/atm/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -75876,7 +75872,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/engineering/north,
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "mPY" = (
@@ -82418,7 +82414,7 @@
 /obj/machinery/camera{
 	c_tag = "Locker Room North"
 	},
-/obj/machinery/economy/atm/north,
+/obj/machinery/economy/atm/directional/north,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall9f";
 	location = "hall9e"
@@ -82897,7 +82893,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/super/north,
+/obj/machinery/power/apc/critical/directional/north,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -85382,7 +85378,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/old_kitchen)
 "pGV" = (
-/obj/machinery/economy/atm/north,
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93491,7 +93487,7 @@
 /area/station/command/office/hos)
 "sjT" = (
 /obj/item/flag/clown,
-/obj/machinery/power/apc/engineering/east,
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -102728,7 +102724,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "vei" = (
-/obj/machinery/economy/atm/east,
+/obj/machinery/economy/atm/directional/east,
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway East";
 	dir = 8
@@ -102755,9 +102751,7 @@
 /obj/structure/table/wood,
 /obj/item/food/snacks/grown/geranium,
 /obj/item/soap/deluxe,
-/obj/machinery/power/apc/critical/directional/east{
-	shock_proof = 1
-	},
+/obj/machinery/power/apc/critical/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -103547,9 +103541,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/critical/directional/east{
-	shock_proof = 1
-	},
+/obj/machinery/power/apc/critical/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/starboard)
 "vsc" = (
@@ -111355,9 +111347,7 @@
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/machinery/power/apc/critical/directional/east{
-	shock_proof = 1
-	},
+/obj/machinery/power/apc/critical/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"

@@ -5378,7 +5378,7 @@
 /area/centcom/ss220/park)
 "dHo" = (
 /obj/machinery/light/spot,
-/obj/machinery/economy/atm/south,
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "dHB" = (
@@ -12028,7 +12028,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/machinery/economy/atm/north,
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "hWx" = (
