@@ -32,8 +32,6 @@
 		var/obj/item/organ/internal/cyberimp/mouth/breathing_tube/hardened/BT = new /obj/item/organ/internal/cyberimp/mouth/breathing_tube/hardened(H)
 		BT.insert(H)
 
-		r_hand = /obj/item/tank/internals/plasmaman/belt
-
 		if(findtext(H.job, "Commander"))
 			head = /obj/item/clothing/head/helmet/space/plasmaman/captain
 			uniform = /obj/item/clothing/under/plasmaman/captain
@@ -128,6 +126,13 @@
 
 	H.regenerate_icons()
 	H.update_body()
+
+/datum/outfit/job/centcom/response_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(istype(H.dna.species, /datum/species/plasmaman))
+		var/obj/item/tank/internals/plasmaman/belt/full/internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
+		H.put_in_any_hand_if_possible(internal_tank)
+		H.internal = internal_tank
 
 //////////////////// COMMANDER ///////////////////
 
