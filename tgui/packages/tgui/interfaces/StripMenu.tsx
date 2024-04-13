@@ -4,7 +4,6 @@ import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
-import { InfernoNode } from 'inferno';
 
 const ROWS = 5;
 const COLUMNS = 5;
@@ -20,7 +19,7 @@ const getGridSpotKey = (spot: [number, number]): GridSpotKey => {
 const CornerText = (props: {
   align: 'left' | 'right';
   children: string;
-}): InfernoNode => {
+}): JSX.Element => {
   const { align, children } = props;
 
   return (
@@ -86,7 +85,7 @@ const SLOTS: Record<
     displayName: string;
     gridSpot: GridSpotKey;
     image?: string;
-    additionalComponent?: InfernoNode;
+    additionalComponent?: JSX.Element;
   }
 > = {
   eyes: {

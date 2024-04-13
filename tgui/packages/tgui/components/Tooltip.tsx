@@ -1,5 +1,5 @@
 import { createPopper, Placement, VirtualElement } from '@popperjs/core';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
+import { Component, findDOMfromVNode, InfernoNode, render } from 'inferno';
 
 type TooltipProps = {
   children?: InfernoNode;
@@ -57,7 +57,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
     // This code is copied from `findDOMNode` in inferno-extras.
     // Because this component is written in TypeScript, we will know
     // immediately if this internal variable is removed.
-    return findDOMFromVNode(this.$LI, true);
+    return findDOMfromVNode(this.$LI, true);
   }
 
   componentDidMount() {

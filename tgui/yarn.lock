@@ -3577,7 +3577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.1.2, csstype@npm:^3.1.3":
+"csstype@npm:^3.1.3":
   version: 3.1.3
   resolution: "csstype@npm:3.1.3"
   checksum: 10/f593cce41ff5ade23f44e77521e3a1bcc2c64107041e1bf6c3c32adc5187d0d60983292fda326154d20b01079e24931aa5b08e4467cc488b60bb1e7f6d478ade
@@ -3769,10 +3769,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "dompurify@npm:3.1.0"
-  checksum: 10/a8788d3510b0a5e26ae8f1beb3f079be63f417be0f7259918c273bd53f9b9eab50a0708e065caff9904ae97895cc4a7d4c66a1076021a9be0685389ad8ae4d2d
+"dompurify@npm:2.5.0":
+  version: 2.5.0
+  resolution: "dompurify@npm:2.5.0"
+  checksum: 10/83132070ecaa31696b017d0c3545db78f4f1263c3fdf0a94e95da9e0eb64d7a52fce95b16938e686457e3986be1054e80aef1730a04df125398d29231bc2c9f8
   languageName: node
   linkType: hard
 
@@ -5103,21 +5103,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inferno-vnode-flags@npm:8.2.3, inferno-vnode-flags@npm:^8.2.3":
-  version: 8.2.3
-  resolution: "inferno-vnode-flags@npm:8.2.3"
-  checksum: 10/4618a7598b5471ec71bb4972a8ff57dd6718d55624d9c1ae6336416f8d3c47002b2d8b088b0e976ef07bd239a057f87f16ad1238ae7dafd1c5c4d6644f1dabbc
+"inferno-shared@npm:7.4.11":
+  version: 7.4.11
+  resolution: "inferno-shared@npm:7.4.11"
+  checksum: 10/0f2fca612fdcce97445655b363afe7a65f6ad201f7c2f4055eef0a49f7975ec790bf21f047c644a15550c62e35d189ea3634390984efac57265e7e496000df02
   languageName: node
   linkType: hard
 
-"inferno@npm:^8.2.3":
-  version: 8.2.3
-  resolution: "inferno@npm:8.2.3"
+"inferno-vnode-flags@npm:7.4.11, inferno-vnode-flags@npm:^7.4.11":
+  version: 7.4.11
+  resolution: "inferno-vnode-flags@npm:7.4.11"
+  checksum: 10/4783c5d9f53232010684a850ddac57fd2b88986045ae9f72472abccc6e920b720be5eb594f98ab16233dd264ce3fea11cd5fda847905c3f4299921cf534ecf30
+  languageName: node
+  linkType: hard
+
+"inferno@npm:^7.4.11":
+  version: 7.4.11
+  resolution: "inferno@npm:7.4.11"
   dependencies:
-    csstype: "npm:^3.1.2"
-    inferno-vnode-flags: "npm:8.2.3"
+    inferno-shared: "npm:7.4.11"
+    inferno-vnode-flags: "npm:7.4.11"
     opencollective-postinstall: "npm:^2.0.3"
-  checksum: 10/87245ed89ce70689386d15c7af5ef1bbb6b3d8845fb430edf2ee2b3688713572c757b7e53838ac632716df356e3e8554867eaea60a423f1125e6dbb0608bdb58
+  checksum: 10/df5a0139a0bfba0493658184fc7bea365e53a1b592f296fa3c9099ae66c3b6867b1eec7428502e4fc0a1f84114a520668a37670fa89a16d75afe9d013f9de571
   languageName: node
   linkType: hard
 
@@ -8106,8 +8113,8 @@ __metadata:
   resolution: "tgui-panel@workspace:packages/tgui-panel"
   dependencies:
     common: "workspace:*"
-    dompurify: "npm:^3.1.0"
-    inferno: "npm:^8.2.3"
+    dompurify: "npm:2.5.0"
+    inferno: "npm:^7.4.11"
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
@@ -8130,7 +8137,7 @@ __metadata:
   resolution: "tgui-say@workspace:packages/tgui-say"
   dependencies:
     common: "workspace:*"
-    inferno: "npm:^8.2.3"
+    inferno: "npm:^7.4.11"
     tgui: "workspace:*"
     tgui-polyfill: "workspace:*"
   languageName: unknown
@@ -8190,10 +8197,10 @@ __metadata:
     "@types/marked": "npm:^6.0.0"
     common: "workspace:*"
     csstype: "npm:^3.1.3"
-    dompurify: "npm:^3.1.0"
+    dompurify: "npm:2.5.0"
     highlight.js: "npm:^11.9.0"
-    inferno: "npm:^8.2.3"
-    inferno-vnode-flags: "npm:^8.2.3"
+    inferno: "npm:^7.4.11"
+    inferno-vnode-flags: "npm:^7.4.11"
     js-yaml: "npm:^4.1.0"
     prop-types: "npm:^15.8.1"
     tgui-dev-server: "workspace:*"

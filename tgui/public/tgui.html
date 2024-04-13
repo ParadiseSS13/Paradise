@@ -192,10 +192,11 @@
     else {
       // Remove first half with 516
       if (Byond.TRIDENT !== null) {
-        Object.assign(props, propName);
+        assign(props, propName);
+
       }
       else {
-        assign(props, propName);
+        Object.assign(props, propName);
       }
     }
     props.id = id;

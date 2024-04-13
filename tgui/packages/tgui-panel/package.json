@@ -4,8 +4,8 @@
   "version": "4.5.0-paradise",
   "dependencies": {
     "common": "workspace:*",
-    "dompurify": "^3.1.0",
-    "inferno": "^8.2.3",
+    "dompurify": "2.5.0",
+    "inferno": "^7.4.11",
     "tgui": "workspace:*",
     "tgui-dev-server": "workspace:*",
     "tgui-polyfill": "workspace:*"
