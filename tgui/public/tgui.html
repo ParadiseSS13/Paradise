@@ -62,6 +62,7 @@
   })();
 
   // Basic checks to detect whether this page runs in BYOND
+  // Remove TRIDENT with 516
   var isByond = (Byond.TRIDENT !== null || Byond.BLINK !== null || window.cef_to_byond)
     && location.hostname === '127.0.0.1'
     && location.search !== '?external';
@@ -135,7 +136,7 @@
     var promise = new window.Promise(function (resolve) {
       Byond.__callbacks__.push(resolve);
     });
-    // Remove with 516
+    // Remove first half with 516
     if(Byond.TRIDENT !== null) {
       Byond.call(path, assign({}, params, {
         callback: 'Byond.__callbacks__[' + index + ']',
@@ -189,6 +190,7 @@
       props[propName] = propValue;
     }
     else {
+      // Remove first half with 516
       if (Byond.TRIDENT !== null) {
         Object.assign(props, propName);
       }
@@ -218,7 +220,7 @@
       message.payload = JSON.stringify(message.payload);
     }
     // Append an identifying heade
-    // Remove with 516
+    // Remove first half with 516
     if(Byond.TRIDENT !== null) {
       assign(message, {
         tgui: 1,
