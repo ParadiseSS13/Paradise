@@ -105,7 +105,7 @@
 	if(!engineering_machine_interaction)	// Everything past this point requires being able to engineer.
 		return
 
-	else if(istype(target, /obj/machinery/power/apc))
+	if(istype(target, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened && A.cell)
 			gripped_item = A.cell
@@ -140,7 +140,8 @@
 /******************************
 /     UNIVERSAL GRIPPER
 ******************************/
-/obj/item/gripper/universal		// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
+/// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
+/obj/item/gripper/universal		
 	name = "cyborg gripper"
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
 	engineering_machine_interaction = TRUE	// It's UNIVERSAL so it can do both of these things.
