@@ -47,18 +47,29 @@ GLOBAL_LIST_EMPTY(holopads)
 	max_integrity = 300
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 50, acid = 0)
 
-	var/list/masters = list()//List of living mobs that use the holopad
-	var/list/holorays = list()//Holoray-mob link.
-	var/last_request = 0 //to prevent request spam. ~Carn
-	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
+	/// List of living mobs that use the holopad
+	var/list/masters = list()
+	/// Holoray-mob link.
+	var/list/holorays = list()
+	/// Last request time, to prevent request spam. ~Carn
+	var/last_request = 0 
+	/// Change to change how far the AI can move away from the holopad before deactivating.
+	var/holo_range = 5
 	var/temp = ""
-	var/list/holo_calls	//array of /datum/holocalls
-	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
-	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
-	var/public_mode = FALSE // Calls will be automatically answered immediately, set via multitool
+	/// A list of holocalls associated with this holopad.
+	var/list/holo_calls
+	/// The outgoing holocall currently being processed by this holopad.
+	var/datum/holocall/outgoing_call
+	/// Universal debug toggle for whether holopads will automatically answer calls after a few rings.
+	var/static/force_answer_call = FALSE
+	/// Toggle for auto-answering  calls immediately, set via multitool
+	var/public_mode = FALSE
+	/// The ray effect emanating from this holopad to the produced hologram.
 	var/obj/effect/overlay/holoray/ray
+	/// Whether or not this holopad is currently ringing, from being called by another pad.
 	var/ringing = FALSE
-	var/dialling_input = FALSE //The user is currently selecting where to send their call
+	/// Whether or not the user is currently selecting where to send their call.
+	var/dialling_input = FALSE
 
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
