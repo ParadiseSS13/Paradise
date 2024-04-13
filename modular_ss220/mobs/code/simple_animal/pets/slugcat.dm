@@ -171,27 +171,30 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] похлопывает по голове [src.name].</span>", "<span class='notice'>Вы положили руку на голову [src.name].</span>")
+		user.visible_message(
+			span_notice("[user] похлопывает по голове [src.name]."),
+			span_notice("Вы положили руку на голову [src.name]."))
 		if(flags_2 & HOLOGRAM_2)
 			return 0
 		return 0
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
-		to_chat(user, "<span class='warning'>[item_to_add.name] нельзя надеть на голову [src.name]!</span>")
+		to_chat(user, span_warning("[item_to_add.name] нельзя надеть на голову [src.name]!"))
 		return 0
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src.name]!</span>")
+			to_chat(user, span_warning("Нельзя надеть больше одного головного убора на голову [src.name]!"))
 		return 0
 
 	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>[item_to_add.name] застрял в ваших руках, вы не можете его надеть на голову [src.name]!</span>")
+		to_chat(user, span_warning("[item_to_add.name] застрял в ваших руках, вы не можете его надеть на голову [src.name]!"))
 		return 0
 
-	user.visible_message("<span class='notice'>[user] надевает [item_to_add].name на голову [real_name].</span>",
-		"<span class='notice'>Вы надеваете [item_to_add.name] на голову [real_name].</span>",
-		"<span class='italics'>Вы слышите как что-то нацепили.</span>")
+	user.visible_message(
+		span_notice("[user] надевает [item_to_add].name на голову [real_name]."),
+		span_notice("Вы надеваете [item_to_add.name] на голову [real_name]."),
+		span_italics("Вы слышите как что-то нацепили."))
 	inventory_head = item_to_add
 	regenerate_icons()
 
@@ -200,10 +203,10 @@
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(inventory_head.flags & NODROP)
-			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src.name]! Его невозможно снять!</span>")
+			to_chat(user, span_warning("[inventory_head.name] застрял на голове [src.name]! Его невозможно снять!"))
 			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src.name].</span>")
+		to_chat(user, span_warning("Вы сняли [inventory_head.name] с головы [src.name]."))
 		drop_item(inventory_head)
 		user.put_in_hands(inventory_head)
 
@@ -211,7 +214,7 @@
 
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>На голове [src.name] нет головного убора!</span>")
+		to_chat(user, span_warning("На голове [src.name] нет головного убора!"))
 		return FALSE
 
 	return TRUE
@@ -230,35 +233,38 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] пощупал лапки [src].</span>", "<span class='notice'>Вы пощупали лапки [src].</span>")
+		user.visible_message(
+			span_notice("[user] пощупал лапки [src]."),
+			span_notice("Вы пощупали лапки [src]."))
 		if(flags_2 & HOLOGRAM_2)
 			return 0
 		return 0
 
 	if(resting)
-		to_chat(user, "<span class='warning'>[src.name] спит и не принимает [item_to_add.name]!</span>")
+		to_chat(user, span_warning("[src.name] спит и не принимает [item_to_add.name]!"))
 		return 0
 
 	if(!istype(item_to_add, /obj/item/spear))
-		to_chat(user, "<span class='warning'>[src.name] не принимает [item_to_add.name]!</span>")
+		to_chat(user, span_warning("[src.name] не принимает [item_to_add.name]!"))
 		return 0
 
 	if(inventory_hand)
 		if(user)
-			to_chat(user, "<span class='warning'>Лапки [src.name] заняты [inventory_hand.name]!</span>")
+			to_chat(user, span_warning("Лапки [src.name] заняты [inventory_hand.name]!"))
 		return 0
 
 	if(user && !user.drop_item(item_to_add))
-		to_chat(user, "<span class='warning'>[item_to_add.name] застрял в ваших руках, вы не можете его дать [src.name]!</span>")
+		to_chat(user, span_warning("[item_to_add.name] застрял в ваших руках, вы не можете его дать [src.name]!"))
 		return 0
 
 	if(is_pacifist)
-		to_chat(user, "<span class='warning'>[src.name] пацифист и не пользуется [item_to_add.name]!</span>")
+		to_chat(user, span_warning("[src.name] пацифист и не пользуется [item_to_add.name]!"))
 		return 0
 
-	user.visible_message("<span class='notice'>[real_name] выхватывает [item_to_add] с рук [user].</span>",
-		"<span class='notice'>[real_name] выхватывает [item_to_add] с ваших рук.</span>",
-		"<span class='italics'>Вы видите довольные глаза.</span>")
+	user.visible_message(
+		span_notice("[real_name] выхватывает [item_to_add] с рук [user]."),
+		span_notice("[real_name] выхватывает [item_to_add] с ваших рук."),
+		span_italics("Вы видите довольные глаза."))
 	move_item_to_hand(item_to_add)
 
 	return 1
@@ -271,10 +277,10 @@
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
 		if(inventory_hand.flags & NODROP)
-			to_chat(user, "<span class='warning'>[inventory_hand.name] застрял в лапах [src]! Его невозможно отнять!</span>")
+			to_chat(user, span_warning("[inventory_hand.name] застрял в лапах [src]! Его невозможно отнять!"))
 			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы забрали [inventory_hand.name] с лап [src].</span>")
+		to_chat(user, span_warning("Вы забрали [inventory_hand.name] с лап [src]."))
 		drop_item(inventory_hand)
 		user.put_in_hands(inventory_hand)
 
@@ -282,7 +288,7 @@
 
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>В лапах [src] нечего отбирать!</span>")
+		to_chat(user, span_warning("В лапах [src] нечего отбирать!"))
 		return FALSE
 
 	return TRUE

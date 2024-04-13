@@ -79,7 +79,9 @@
 				// Прописываю это здесь ибо иначе хомяки будут отмечаться кровавыми в игре
 				blood_DNA = "Plush hampter's paint"
 
-				user.visible_message("<span class='warning'>[user] раздавил хамптера в своей руке!</span>", "<span class='warning'>Вы раздавили хамптера в своей руке!</span>")
+				user.visible_message(
+					span_warning("[user] раздавил хамптера в своей руке!"),
+					span_warning("Вы раздавили хамптера в своей руке!"))
 				playsound(get_turf(src), "bonebreak", 50, TRUE, -10)
 
 				user.hand_blood_color = blood_color

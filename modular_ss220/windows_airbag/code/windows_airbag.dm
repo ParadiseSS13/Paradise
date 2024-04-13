@@ -46,7 +46,9 @@
 	INVOKE_ASYNC(src, PROC_REF(disarm_airbag), clicked_atom, clicker)
 
 /datum/element/airbag/proc/disarm_airbag(atom/movable/clicked_atom, mob/living/clicker)
-	clicker.visible_message(span_notice("[clicker] starts disarming the airbag..."), span_notice("You start disarming the airbag..."))
+	clicker.visible_message(
+		span_notice("[clicker] starts disarming the airbag..."),
+		span_notice("You start disarming the airbag..."))
 	clicked_atom.add_fingerprint(clicker)
 	if(do_after_once(clicker, DISARM_TIME, target = clicked_atom, progress = TRUE))
 		new disarmed_type(get_turf(clicked_atom))

@@ -198,7 +198,7 @@
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
 			M.adjustFireLoss(-volume * 0.7)
-			to_chat(M, "<span class='notice'>The diluted silver sulfadiazine soothes your burns.</span>")
+			to_chat(M, span_notice("The diluted silver sulfadiazine soothes your burns."))
 	return STATUS_UPDATE_NONE
 
 /datum/chemical_reaction/alcomender
@@ -379,7 +379,7 @@
 	. = ..()
 	if(volume > 20)
 		if(prob(50)) //no spam here :p
-			M.visible_message("<span class='warning'>Глаза [M] ослепительно вспыхивают!</span>")
+			M.visible_message(span_warning("Глаза [M] ослепительно вспыхивают!"))
 
 /datum/chemical_reaction/vampiro
 	name = "Vampiro"
@@ -552,7 +552,7 @@
 			if(prob(10))
 				M.emote(pick("twitch","giggle"))
 			if(prob(5))
-				to_chat(M, "<span class='notice'>Rebooting..</span>")
+				to_chat(M, span_notice("Rebooting.."))
 		if(14)
 			playsound(get_turf(M),'modular_ss220/food/sound/restart-shutdown.ogg', 200, 1)
 		if(15 to 23)

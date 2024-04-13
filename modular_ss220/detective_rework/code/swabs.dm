@@ -58,7 +58,7 @@
 				to_chat(user, span_warning("У него нет рта."))
 				inuse = FALSE
 				return
-			user.visible_message("[user] берёт мазок изо рта [H] для анализа.")
+			user.visible_message(span_notice("[user] берёт мазок изо рта [H] для анализа."))
 			target_dna = list(H.dna.unique_enzymes)
 			sample_type = "DNA"
 
@@ -75,7 +75,7 @@
 				to_chat(user, span_warning("Он безрукий."))
 				inuse = FALSE
 				return
-			user.visible_message("[user] берёт мазок с ладони [H] для анализа.")
+			user.visible_message(span_notice("[user] берёт мазок с ладони [H] для анализа."))
 			sample_type = "GSR"
 			target_gsr = H.gunshot_residue
 		else
@@ -153,7 +153,9 @@
 			sample_type = "порох"
 
 		if(sample_type)
-			user.visible_message("[user] берёт мазок с [A] для анализа.", "Вы берёте мазок с [A] для анализа.")
+			user.visible_message(
+				span_notice("[user] берёт мазок с [A] для анализа."),
+				span_notice("Вы берёте мазок с [A] для анализа."))
 			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr

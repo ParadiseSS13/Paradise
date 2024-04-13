@@ -57,7 +57,7 @@
 			else if(linked_account)
 				transaction_locked = TRUE
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
+				to_chat(user, span_warning("[bicon(src)]No account connected to send transactions to.<"))
 			return TRUE
 		// if(isrobot(user))
 		// 	card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)

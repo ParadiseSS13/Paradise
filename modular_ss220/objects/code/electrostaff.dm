@@ -63,10 +63,10 @@
 
 /obj/item/melee/baton/electrostaff/examine(mob/user)
 	. = ..()
-	. -= "<span class='notice'>This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
-	. += "<span class='notice'>Данный предмет не имеет внешних разъемов для зарядки. Используйте <b>отвертку</b> для доступа к внутренней батарее, чтобы заменить или зарядить её.</span>"
+	. -= span_notice("This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.")
+	. += span_notice("Данный предмет не имеет внешних разъемов для зарядки. Используйте <b>отвертку</b> для доступа к внутренней батарее, чтобы заменить или зарядить её.")
 	if(unique_reskin)
-		. += "<span class='notice'>Alt-клик, чтобы изменить свечение.</span>"
+		. += span_notice("Alt-клик, чтобы изменить свечение.")
 
 /obj/item/melee/baton/electrostaff/attack_self(mob/user)
 	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
@@ -91,13 +91,13 @@
 	if(cell?.charge >= hitcost)
 		if(to_turn_on)
 			turned_on = TRUE
-		to_chat(user, "<span class='notice'>[src] [turned_on ? "включен" : "выключен"].</span>")
+		to_chat(user, span_notice("[src] [turned_on ? "включен" : "выключен"]."))
 		playsound(src, turned_on ? sound_on : "sparks", 75, TRUE, -1)
 	else
 		if(!cell)
-			to_chat(user, "<span class='warning'>[src] не имеет источников питания!</span>")
+			to_chat(user, span_warning("[src] не имеет источников питания!"))
 		else
-			to_chat(user, "<span class='warning'>[src] обесточен.</span>")
+			to_chat(user, span_warning("[src] обесточен."))
 	update_icon()
 	add_fingerprint(user)
 
@@ -111,7 +111,7 @@
 /obj/item/melee/baton/electrostaff/AltClick(mob/user)
 	. = ..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>Вы не можете этого сделать прямо сейчас!</span>")
+		to_chat(user, span_warning("Вы не можете этого сделать прямо сейчас!"))
 		return
 	if(unique_reskin && loc == user)
 		reskin_staff(user)

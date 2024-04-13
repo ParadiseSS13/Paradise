@@ -66,7 +66,9 @@
 		return FALSE
 
 	if(user.nutrition <= NUTRITION_LEVEL_STARVING)
-		user.visible_message(span_warning("[user.name] слабо давит на [src], но бесполезно: слишком мало сил!"), span_notice("Вы пытаетесь надавить на рычаг зарядки [src], но не можете из-за голода и усталости!"))
+		user.visible_message(
+			span_warning("[user.name] слабо давит на [src], но бесполезно: слишком мало сил!"),
+			span_notice("Вы пытаетесь надавить на рычаг зарядки [src], но не можете из-за голода и усталости!"))
 		return FALSE
 
 	user.visible_message(msg_recharge_all, msg_recharge_user)

@@ -24,7 +24,7 @@
 /obj/item/card/id/examine(mob/user)
 	. = ..()
 	if(skin_applied)
-		. += "<span class='notice'>Нажмите <b>Alt-Click</b> на карту, чтобы снять наклейку."
+		. += span_notice("Нажмите <b>Alt-Click</b> на карту, чтобы снять наклейку.")
 
 /obj/item/card/id/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())

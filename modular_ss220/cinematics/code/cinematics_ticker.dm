@@ -7,7 +7,7 @@
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
-					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
+					to_chat(M, span_danger("<B>The blast wave from the explosion tears you atom from atom!</B>"))
 					M.ghostize()
 					M.dust() // No mercy
 					CHECK_TICK

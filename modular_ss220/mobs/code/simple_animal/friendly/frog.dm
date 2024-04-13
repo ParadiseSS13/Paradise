@@ -69,7 +69,7 @@
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] квакнул!</span>")
+			to_chat(M, span_notice("[bicon(src)] квакнул!"))
 	..()
 
 // Toxic frog procs
@@ -79,7 +79,7 @@
 			for(var/obj/item/organ/external/A in H.bodyparts)
 				if(!A.is_robotic())
 					if((A.body_part == HAND_LEFT) || (A.body_part == HAND_RIGHT))
-						to_chat(H, "<span class='warning'>Дотронувшись до [src.name], ваша кожа начинает чесаться!</span>")
+						to_chat(H, span_warning("Дотронувшись до [src.name], ваша кожа начинает чесаться!"))
 						toxin_affect(H)
 						if(H.a_intent == INTENT_DISARM || H.a_intent == INTENT_HARM)
 							..()
@@ -93,7 +93,7 @@
 				if(!F.is_robotic())
 					if((F.body_part == FOOT_LEFT) || (F.body_part == FOOT_RIGHT))
 						toxin_affect(H)
-						to_chat(H, "<span class='warning'>Ваши ступни начинают чесаться!</span>")
+						to_chat(H, span_warning("Ваши ступни начинают чесаться!"))
 	..()
 
 /mob/living/simple_animal/frog/toxic/proc/toxin_affect(mob/living/carbon/human/M as mob)

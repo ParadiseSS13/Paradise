@@ -90,7 +90,7 @@
 			return
 		item.forceMove(src)
 		payment = item
-		to_chat(user, "<span class='notice'>Вы вставили [item] в музыкальный автомат.</span>")
+		to_chat(user, span_notice("Вы вставили [item] в музыкальный автомат."))
 		playsound(src, 'modular_ss220/aesthetics_sounds/sound/coin_accept.ogg', 50, TRUE)
 		ui_interact(user)
 		add_fingerprint(user)

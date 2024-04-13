@@ -117,7 +117,7 @@
 		if(!do_after(user, 2 SECONDS, target = user))
 			return FALSE
 
-		user.visible_message("[user] делает копию отмечатков [H].")
+		user.visible_message(span_notice("[user] делает копию отмечатков [H]."))
 		var/fullprint = H.get_full_print()
 		evidence[fullprint] = fullprint
 		copy_evidence(src)

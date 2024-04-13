@@ -140,8 +140,9 @@
 			return
 
 /obj/item/card/id/proc/flash_card(mob/user)
-	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message(
+		span_notice("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]."),
+		span_notice("You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]."))
 	if(mining_points)
 		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
 	src.add_fingerprint(user)

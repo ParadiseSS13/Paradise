@@ -297,7 +297,7 @@
 
 	else
 		undead.set_species(/datum/species/skeleton) // OP skellybones
-		undead.visible_message(span_warning ("[undead] отторгает бренную оболочку и предстает в виде скелета!"))
+		undead.visible_message(span_warning("[undead] отторгает бренную оболочку и предстает в виде скелета!"))
 		undead.grab_ghost() // yoinks the ghost if its not in the body
 		undead.revive()
 		equip_undead(undead)

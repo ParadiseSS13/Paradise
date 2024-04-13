@@ -68,7 +68,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 
 /mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(show_message)
-		to_chat(src, "<span class='warning'>Вы слишком малы чтобы что-то тащить.</span>")
+		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
 	return
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
@@ -85,7 +85,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
+			to_chat(M, span_notice("[bicon(src)] раздавлен!"))
 			death()
 			splat(user = AM)
 	..()

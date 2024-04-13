@@ -190,7 +190,7 @@
 /obj/item/clothing/head/helmet/hev_helmet/extinguish_light(force = FALSE)
 	if(on)
 		light_toggle()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(span_danger("[src]'s light fades and turns off."))
 
 #undef MORPHINE_INJECTION_DELAY
 #undef SOUND_BEEP

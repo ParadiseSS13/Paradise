@@ -35,7 +35,7 @@
 		if(times_fired % 4 == 0)
 			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
-					visible_message("<span class='danger'>[src] consumes [K] whole!</span>")
+					visible_message(span_danger("[src] consumes [K] whole!"))
 					if(health < maxHealth)
 						health += 10
 					qdel(K)
@@ -49,7 +49,7 @@
 					continue
 				if(faction_check_mob(L) && !attack_same)
 					return
-	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+	visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
@@ -84,7 +84,7 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message(span_warning("The corpse of [H.name] suddenly rises!"))
 
 /mob/living/simple_animal/hostile/blackmesa/xen/headcrab/death()
 	..()
@@ -191,4 +191,4 @@
 		if(C.IsStunned() || C.can_inject(null, FALSE, inject_target, FALSE))
 			if(C.AmountEyeBlurry() < 60)
 				C.AdjustEyeBlurry(10)
-				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+				visible_message(span_danger("[src] buries its fangs deep into the [inject_target] of [target]!"))

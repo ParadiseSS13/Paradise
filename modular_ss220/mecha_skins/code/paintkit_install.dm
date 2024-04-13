@@ -17,7 +17,9 @@
 		to_chat(user, span_warning("Этот комплект не предназначен для использования на экзокостюме данного класса."))
 		return
 
-	user.visible_message(span_notice("[user] открывает [P] и проводит некоторое время за кастомизацией [src]."), span_notice("Вы открываете [P] и начинаете кастомизировать [src]."))
+	user.visible_message(
+		span_notice("[user] открывает [P] и проводит некоторое время за кастомизацией [src]."),
+		span_notice("Вы открываете [P] и начинаете кастомизировать [src]."))
 	if(!do_after_once(user, 3 SECONDS, target = src))
 		to_chat(user, span_warning("Вы должны стоять смирно при настройке экзокостюма!"))
 		return
