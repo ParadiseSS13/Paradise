@@ -812,12 +812,12 @@
 	COOLDOWN_DECLARE(hug_sound)
 
 /obj/item/toy/plushie/lizardplushie/attack_self(mob/user)
-	if(COOLDOWN_FINISHED(src, hug_sound))
-		playsound(user, 'sound/voice/weh.ogg', 10, 0)
-		visible_message("<span class='danger'>Weh!</span>")
-		COOLDOWN_START(src, hug_sound, 3 SECONDS)
+	if(!COOLDOWN_FINISHED(src, hug_sound))
+		..()
 		return
-	..()
+	playsound(user, 'sound/voice/weh.ogg', 10, 0)
+	visible_message("<span class='danger'>Weh!</span>")
+	COOLDOWN_START(src, hug_sound, 3 SECONDS)
 
 /obj/item/toy/plushie/snakeplushie
 	name = "snake plushie"
