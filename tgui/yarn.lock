@@ -3665,10 +3665,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^2.4.7":
-  version: 2.4.7
-  resolution: "dompurify@npm:2.4.7"
-  checksum: 10/bf223b4608204b0f4ded4cad2e7711b9afbe4dc9646f645601463629484a6ccc83906571d24340c0df7776a147ceb6d42cc36697e514aa72c865662977164784
+"dompurify@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "dompurify@npm:3.1.0"
+  checksum: 10/a8788d3510b0a5e26ae8f1beb3f079be63f417be0f7259918c273bd53f9b9eab50a0708e065caff9904ae97895cc4a7d4c66a1076021a9be0685389ad8ae4d2d
   languageName: node
   linkType: hard
 
@@ -6911,12 +6911,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.1.1":
-  version: 3.1.1
-  resolution: "prettier@npm:3.1.1"
+"prettier@npm:3.2.5":
+  version: 3.2.5
+  resolution: "prettier@npm:3.2.5"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/26a249f321b97d26c04483f1bf2eeb22e082a76f4222a2c922bebdc60111691aad4ec3979610e83942e0b956058ec361d9e9c81c185172264eb6db9aa678082b
+  checksum: 10/d509f9da0b70e8cacc561a1911c0d99ec75117faed27b95cc8534cb2349667dee6351b0ca83fa9d5703f14127faa52b798de40f5705f02d843da133fc3aa416a
   languageName: node
   linkType: hard
 
@@ -7912,7 +7912,7 @@ __metadata:
   resolution: "tgui-panel@workspace:packages/tgui-panel"
   dependencies:
     common: "workspace:*"
-    dompurify: "npm:^2.4.7"
+    dompurify: "npm:^3.1.0"
     inferno: "npm:^8.2.3"
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
@@ -7976,7 +7976,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     jsdom: "npm:^23.1.0"
     mini-css-extract-plugin: "npm:^2.7.6"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.5"
     sass: "npm:^1.69.7"
     sass-loader: "npm:^13.3.2"
     style-loader: "npm:^3.3.3"
@@ -7996,7 +7996,7 @@ __metadata:
     "@types/marked": "npm:^6.0.0"
     common: "workspace:*"
     csstype: "npm:^3.1.3"
-    dompurify: "npm:^2.4.7"
+    dompurify: "npm:^3.1.0"
     highlight.js: "npm:^11.9.0"
     inferno: "npm:^8.2.3"
     inferno-vnode-flags: "npm:^8.2.3"
