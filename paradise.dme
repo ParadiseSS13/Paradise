@@ -19,6 +19,7 @@
 #include "code\world_definition.dm"
 #include "code\__DEFINES\_click.dm"
 #include "code\__DEFINES\_globals.dm"
+#include "code\__DEFINES\_hydroponics.dm"
 #include "code\__DEFINES\_init.dm"
 #include "code\__DEFINES\_math.dm"
 #include "code\__DEFINES\_protection.dm"
