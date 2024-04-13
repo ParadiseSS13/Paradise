@@ -809,14 +809,13 @@
 	desc = "An adorable stuffed toy that resembles a lizardperson."
 	icon_state = "plushie_lizard"
 	item_state = "plushie_lizard"
-	var/cooldown = 0
+	COOLDOWN_DECLARE(hug_sound)
 
 /obj/item/toy/plushie/lizardplushie/attack_self(mob/user)
-	if(!cooldown)
+	if(COOLDOWN_FINISHED(src, hug_sound))
 		playsound(user, 'sound/voice/weh.ogg', 10, 0)
 		visible_message("<span class='danger'>Weh!</span>")
-		cooldown = 1
-		spawn(30) cooldown = 0
+		COOLDOWN_START(src, hug_sound, 3 SECONDS)
 		return
 	..()
 
