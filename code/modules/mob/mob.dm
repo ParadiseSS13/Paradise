@@ -752,22 +752,20 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 
-	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE, encode = FALSE)
-
-	if(msg != null)
-		if(stat)
-			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
-			return
-		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = msg
-
-		flavor_text = msg
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
+	if(isnull(msg))
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	flavor_text = msg
 
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 

@@ -1138,7 +1138,7 @@
 
 				if("screentip_mode")
 					var/desired_screentip_mode = tgui_input_number(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size", screentip_mode, 20, 0)
-					if(!desired_screentip_mode)
+					if(isnull(desired_screentip_mode))
 						return
 					screentip_mode = desired_screentip_mode
 
