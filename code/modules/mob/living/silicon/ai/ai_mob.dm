@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<!DOCTYPE html><meta charset='utf-8'><head><title>Current Station Alerts</title><meta http-equiv='Refresh' content='10'></head><body>\n")
-	dat += "<a href='?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
+	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))

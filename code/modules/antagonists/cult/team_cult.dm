@@ -556,13 +556,13 @@
 	content += "<br>Sacrifice required for summoning: [sacrifices_required]<br>"
 	if(obj_summon)
 		content += "<br>Summoning locations: [english_list(obj_summon.summon_spots)]"
-		content += "<br><a href='?src=[UID()];cult_command=cult_newsummonlocations'>Reroll summoning locations</a>"
+		content += "<br><a href='byond://?src=[UID()];cult_command=cult_newsummonlocations'>Reroll summoning locations</a>"
 	else
 		content += "<br>Summoning locations: None, Cult has not yet reached the summoning stage."
 	content += "<br>"
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE)
-		content += "<br><a href='?src=[UID()];cult_command=cult_adjustsacnumber'>Modify amount of sacrifices required</a>"
-		content += "<br><a href='?src=[UID()];cult_command=cult_newtarget'>Reroll sacrifice target</a>"
+		content += "<br><a href='byond://?src=[UID()];cult_command=cult_adjustsacnumber'>Modify amount of sacrifices required</a>"
+		content += "<br><a href='byond://?src=[UID()];cult_command=cult_newtarget'>Reroll sacrifice target</a>"
 	else
 		content += "<br>Cannot modify amount of sacrifices required (Summon available!)"
 		content += "<br>Cannot reroll sacrifice target (Summon available!)"

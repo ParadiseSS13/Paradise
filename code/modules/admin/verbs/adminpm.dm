@@ -166,14 +166,14 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
-	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
-			window_link = "(<a href='?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
+			window_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
 		else
-			window_link = "(<a href='?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
+			window_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [window_link] [alert_link]" : ""]</span>"
@@ -330,10 +330,10 @@
 
 	// If it was forced open, make them use a special close button that alerts admins to closure
 	if(forced)
-		dat += "<div style='float: right'><big><a href='?src=[UID()];altclose=1'>Close</a></big></div>"
+		dat += "<div style='float: right'><big><a href='byond://?src=[UID()];altclose=1'>Close</a></big></div>"
 
-	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
-	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<a href='byond://?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
 	for(var/title in pms)
 		if(pms[title].archived && !show_archived)
@@ -345,7 +345,7 @@
 			class = "linkOn"
 		else if(!pms[title].read)
 			label = "<i>*[label]</i>"
-		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
+		dat += "<a class='[class]' href='byond://?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
@@ -375,10 +375,10 @@
 			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
 		dat += "<br>"
 		dat += "</h4>"
-		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
-		dat += "<a href='?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
+		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"
+		dat += "<a href='byond://?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
 		if(check_rights(R_ADMIN, FALSE, user))
-			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
+			dat += "<a href='byond://?src=[UID()];ping=[current_title]'>Ping</a>"
 
 	popup.set_content(dat)
 	popup.open()

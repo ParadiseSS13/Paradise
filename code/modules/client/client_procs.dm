@@ -683,7 +683,7 @@
 		if(living_hours < 20)
 			return
 
-	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
+	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
@@ -1209,7 +1209,7 @@
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
 		return
-	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
 
 /**
  * Handles incoming messages from the stat-panel TGUI.

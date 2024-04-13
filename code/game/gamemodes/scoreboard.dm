@@ -309,7 +309,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/mob/E in GLOB.player_list)
 		if(E.client)
 			to_chat(E, "<b>The crew's final score is:</b>")
-			to_chat(E, "<b><font size='4'><a href='?src=[E.UID()];scoreboard=1'>[crewscore]</a></font></b>")
+			to_chat(E, "<b><font size='4'><a href='byond://?src=[E.UID()];scoreboard=1'>[crewscore]</a></font></b>")
 			if(!E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
 				E << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
