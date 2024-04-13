@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 #define MAX_FIRE_EXIST_TIME 10 MINUTES // That's a lot of fuel, but you are not gonna make it last for longer
 
 /obj/effect/fire
-	name = "Fire"
+	name = "\improper Fire"
 	desc = "You don't think you should touch this."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unathi"
