@@ -44,6 +44,7 @@
 	C.forceMove(src)
 	case = C
 	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
 
 /obj/item/bio_chip_pad/proc/eject_case(mob/user)
 	if(!case)
@@ -52,13 +53,9 @@
 		if(user.put_in_hands(case))
 			add_fingerprint(user)
 			case.add_fingerprint(user)
-			case = null
-			update_icon(UPDATE_ICON_STATE)
-			return
-
-	case.forceMove(get_turf(src))
 	case = null
 	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
 
 /obj/item/bio_chip_pad/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -73,6 +70,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BioChipPad", name)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/item/bio_chip_pad/ui_data(mob/user)
@@ -92,7 +90,7 @@
 /obj/item/bio_chip_pad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-
+	. = TRUE
 	switch(action)
 		if("eject_case")
 			eject_case(ui.user)
