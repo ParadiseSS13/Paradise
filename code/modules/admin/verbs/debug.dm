@@ -919,10 +919,15 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
 
-	if(!check_rights(R_MAINTAINER))
+	if(!check_rights(R_MAINTAINER) || !isclient(src))
 		return
 
-	winset(usr, "", "browser-options=find,devtools")
+	if(!byond_version < 516)
+		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
+		return
+
+	to_chat(src, "<span class='warning'>You can now right click to use inspect on browsers.</span>")
+	winset(src, "", "browser-options=find,devtools")
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
