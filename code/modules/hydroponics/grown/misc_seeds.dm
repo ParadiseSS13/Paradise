@@ -27,11 +27,39 @@
 
 	parent.update_tray()
 
+// Lettuce
+/obj/item/seeds/lettuce
+	name = "pack of lettuce seeds"
+	desc = "These seeds grow into lettuces."
+	icon_state = "seed-lettuce"
+	species = "cabbage"
+	plantname = "Lettuces"
+	product = /obj/item/food/snacks/grown/lettuce
+	lifespan = 50
+	endurance = 25
+	maturation = 3
+	production = 5
+	yield = 4
+	growthstages = 1
+	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
+
+/obj/item/food/snacks/grown/lettuce
+	seed = /obj/item/seeds/lettuce
+	name = "lettuce"
+	desc = "Often confused with cabbages."
+	icon_state = "lettuce"
+	filling_color = "#419541"
+	bitesize_mod = 2
+	tastes = list("lettuce" = 1)
+	wine_power = 0.2
+
 // Cabbage
 /obj/item/seeds/cabbage
 	name = "pack of cabbage seeds"
 	desc = "These seeds grow into cabbages."
-	icon_state = "seed-cabbage"
+	icon_state = "seed-lettuce"
 	species = "cabbage"
 	plantname = "Cabbages"
 	product = /obj/item/food/snacks/grown/cabbage
@@ -83,6 +111,32 @@
 	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
 
+/obj/item/seeds/bamboo
+	name = "pack of bamboo seeds"
+	desc = "A plant known for its flexible and resistant logs."
+	icon_state = "seed-bamboo"
+	species = "bamboo"
+	plantname = "Bamboo"
+	product = /obj/item/grown/log/bamboo
+	lifespan = 80
+	endurance = 70
+	maturation = 15
+	production = 2
+	yield = 5
+	potency = 50
+	growthstages = 3
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	icon_dead = "bamboo-dead"
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	mutatelist = null
+
+/obj/item/grown/log/bamboo
+	seed = /obj/item/seeds/bamboo
+	name = "bamboo log"
+	desc = "A long and resistant bamboo log."
+	icon_state = "bamboo"
+	plank_type = /obj/item/stack/sheet/bamboo // this needs to get datumized :)
+	plank_name = "bamboo sticks"
 
 // Gatfruit
 /obj/item/seeds/gatfruit

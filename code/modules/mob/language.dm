@@ -190,7 +190,7 @@
 /datum/language/tajaran/get_random_name(gender)
 	var/new_name = ..(gender,1)
 	if(prob(80))
-		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
+		new_name += " [pick("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan")]"
 	else
 		new_name += " [..(gender,1)]"
 	return new_name
@@ -263,8 +263,8 @@
 	syllables = list("hs","zt","kr","st","sh")
 
 /datum/language/diona/get_random_name()
-	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of"))]"
-	new_name += " [pick(list("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum"))]"
+	var/new_name = "[pick("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of")]"
+	new_name += " [pick("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum")]"
 	return new_name
 
 /datum/language/trinary
@@ -286,7 +286,7 @@
 /datum/language/trinary/get_random_name()
 	var/new_name
 	if(prob(70))
-		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+		new_name = "[pick("PBU","HIU","SINA","ARMA","OSI")]-[rand(100, 999)]"
 	else
 		new_name = pick(GLOB.ai_names)
 	return new_name
@@ -307,11 +307,11 @@
 	if(prob(67))
 		if(prob(50))
 			new_name += ", "
-			new_name += "[pick(list("Noble", "Worker", "Scout", "Carpenter", "Farmer", "Gatherer", "Soldier", "Guard", "Miner", "Priest", "Merchant", "Crafter", "Alchemist", "Historian", "Hunter", "Scholar", "Caretaker", "Artist", "Bard", "Blacksmith", "Brewer", "Mason", "Baker", "Prospector", "Laborer", "Hauler", "Servant"))]"
+			new_name += "[pick("Noble", "Worker", "Scout", "Carpenter", "Farmer", "Gatherer", "Soldier", "Guard", "Miner", "Priest", "Merchant", "Crafter", "Alchemist", "Historian", "Hunter", "Scholar", "Caretaker", "Artist", "Bard", "Blacksmith", "Brewer", "Mason", "Baker", "Prospector", "Laborer", "Hauler", "Servant")]"
 			new_name += " of Clan "
 		else
 			new_name += " "
-		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
+		new_name += "[pick("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan")]"
 	return new_name
 
 /datum/language/slime
@@ -384,9 +384,9 @@
 	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
 
 /datum/language/drask/get_random_name()
-	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
-	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
-	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	var/new_name = "[pick("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum")]"
+	new_name += "-[pick("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum")]"
+	new_name += "-[pick("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum")]"
 	return new_name
 
 /datum/language/moth

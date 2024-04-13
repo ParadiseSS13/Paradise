@@ -23,14 +23,14 @@
 		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(in_range(user, src))
-		playsound(src.loc, "rustle", 50, 1, -5)
+	if(Adjacent(user))
+		playsound(src.loc, "rustle", 50, TRUE, -5)
 		return ..()
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
 	. = ..()
-	if(in_range(user, src))
+	if(Adjacent(user))
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
@@ -454,7 +454,7 @@
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
-/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, mob/user, prevent_warning, bypass_zip = FALSE)
 	if(bypass_zip)
 		return ..()
 

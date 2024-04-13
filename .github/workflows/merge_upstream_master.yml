@@ -1,7 +1,7 @@
 name: Merge Upstream Master
 on:
   issue_comment:
-    types: [created]
+    types: created
 
 jobs:
   merge-upstream:
@@ -15,17 +15,41 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - id: create_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - run: echo "GH_TOKEN=${{ steps.create_token.outputs.token }}" >> "$GITHUB_ENV"
+      - run: echo "FAIL_NOTIFIED=false" >> "$GITHUB_ENV"
+
+      - name: Like the comment
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/ParadiseSS13/Paradise/issues/comments/${{ github.event.comment.id }}/reactions \
+            -f content='+1'
+
       - name: PR Data
         run: |
-          curl -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }} > pr.json
-          echo "PR_REPO=`jq -r '.head.repo.full_name' < pr.json`" >> $GITHUB_ENV
-          echo "PR_BRANCH=`jq -r '.head.ref' < pr.json`" >> $GITHUB_ENV
+          pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
+          if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
+            gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
+            echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
+            exit 1
+          fi
+          echo "PR_REPO=`jq -r '.head.repo.full_name' <<<$pr_json`" >> $GITHUB_ENV
+          echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
+          echo "PR_HEAD_LABEL=`jq -r '.head.label' <<<$pr_json`" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
         with:
           repository: ${{ env.PR_REPO }}
           ref: ${{ env.PR_BRANCH }}
-          fetch-depth: 0
+          token: ${{ env.GH_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -39,20 +63,53 @@ jobs:
           cache: 'pip'
 
       - name: Perform Merge
+        env:
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          BASE_REPOSITORY: ${{ github.repository }}
         run: |
+          # Compare head branch and base branch
+          compare_result=$(curl -L -s --fail-with-body \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$BASE_REPOSITORY/compare/$BASE_BRANCH...$PR_HEAD_LABEL")
+          # Assign multiple variables with one jq execution
+          if IFS=$'\n' read -d '' -r behind_by ahead_by <<<$(jq '.behind_by, .ahead_by' <<<$compare_result) ; [ -z "$behind_by" ] || [ -z "$ahead_by" ] ; then
+            echo '- Unable to determine the distance between the head branch and the base branch.' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          if [ "$behind_by" -le 0 ] ; then
+            echo '- Skipping merge. Up-to-date with base branch.' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          else
+            echo '- Merging base branch. Head branch is behind by '"$behind_by"' commits and ahead by '"$ahead_by"' commits.' | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # Install Tools
           chmod +x tools/bootstrap/python
           bash tools/hooks/install.sh
           bash tgui/bin/tgui --install-git-hooks
           chmod +x tools/hooks/*.merge tgui/bin/tgui
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git remote add upstream "https://github.com/${{ github.repository }}.git"
-          git fetch upstream master
-          git merge upstream/master && git push origin
+
+          # Actual Merge
+          git config user.name paradisess13[bot]
+          git config user.email "165046124+paradisess13[bot]@users.noreply.github.com"
+          git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
+
+          git fetch origin "$PR_BRANCH" --depth=$((ahead_by + 1))
+          git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
+
+          # Check if a workflow file would be modified by the merge (permissions prevent pushes if so)
+          latest_workflow_commit=$(git log -n 1 --pretty=format:"%H" upstream/$BASE_BRANCH -- .github/workflows)
+          if ! git branch --contains $latest_workflow_commit | grep -q "$(git rev-parse --abbrev-ref HEAD)"; then
+            gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not push to this branch as workflow files have been changed since your branch was last updated. Please update your branch past https://github.com/ParadiseSS13/Paradise/commit/$latest_workflow_commit before using this command again."#
+            echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
+            exit 1
+          fi
+
+          git merge FETCH_HEAD
+          git push origin
 
       - name: Notify Failure
-        if: failure()
+        if: failure() && env.FAIL_NOTIFIED != 'true'
         run: |
-          curl -s -H "Authorization: token ${{ github.token }}" \
-            -X POST -d '{"body": "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
+          gh pr comment ${{ github.event.issue.html_url }} -b 'Merging upstream failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
