@@ -922,11 +922,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_MAINTAINER) || !isclient(src))
 		return
 
-	if(!byond_version < 516)
+	if(byond_version < 516)
 		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
 		return
 
-	to_chat(src, "<span class='warning'>You can now right click to use inspect on browsers.</span>")
+	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
 	winset(src, "", "browser-options=find,devtools")
 
 /client/proc/visualise_active_turfs()
