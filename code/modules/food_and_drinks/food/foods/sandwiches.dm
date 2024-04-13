@@ -79,7 +79,7 @@
 	filling_color = "#CCCCCC"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
+	tastes = list("bun" = 4, "metal" = 2, "sludge" = 1)
 
 /obj/item/food/snacks/burger/hamborger/Initialize(mapload)
 	. = ..()

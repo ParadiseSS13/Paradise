@@ -214,7 +214,7 @@
 	switch(choice)
 		if("Title")
 			var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
-			if(!newtitle)
+			if(isnull(newtitle))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
@@ -223,13 +223,13 @@
 			title = newtitle
 		if("Author")
 			var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
-			if(!newauthor)
+			if(isnull(newauthor))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			author = newauthor
 		if("Summary")
 			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN, multiline = TRUE)
-			if(!newsummary)
+			if(isnull(newsummary))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			summary = newsummary
@@ -245,7 +245,7 @@
 				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
 				return
 			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE, multiline = TRUE)
-			if(!content)
+			if(isnull(content))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
@@ -268,7 +268,7 @@
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
 			var/page_choice = tgui_input_number(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", max_value = length(pages))
-			if(!page_choice)
+			if(isnull(page_choice))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			if(page_choice <= 0 || page_choice > length(pages))
