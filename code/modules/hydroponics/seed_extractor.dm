@@ -164,9 +164,8 @@
 			"potency" = O.potency,
 			"amount" = O.amount,
 		)
-		data["stored_seeds"] += list(seed_info)
+		data["seeds"] += list(seed_info)
 
-	data["vend_amount"] = vend_amount
 	return data
 
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -175,7 +174,7 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(params["seedid"], params["seedvariant"], vend_amount)
+			vend_seed(params["seed_id"], params["seed_variant"], params["vend_amount"])
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
