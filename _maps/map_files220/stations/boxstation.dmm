@@ -21298,7 +21298,7 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/medical/morgue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "bFW" = (
@@ -22788,7 +22788,6 @@
 	name = "Body delivery system"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -58475,7 +58474,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/access/any/medical/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -101496,9 +101494,6 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue{
 	dir = 4

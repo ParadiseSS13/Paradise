@@ -27736,7 +27736,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "bVg" = (
@@ -36877,7 +36877,7 @@
 /obj/machinery/door/airlock/medical,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/medical/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -37756,7 +37756,6 @@
 	id = "clon"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -38440,7 +38439,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cGo" = (
@@ -49309,7 +49308,7 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/medical/morgue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "fza" = (
@@ -57495,7 +57494,6 @@
 	},
 /obj/effect/turf_decal/siding,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "jrp" = (
@@ -67538,7 +67536,6 @@
 	opacity = 0
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "nLV" = (
