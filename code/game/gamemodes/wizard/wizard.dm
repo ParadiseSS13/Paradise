@@ -49,8 +49,7 @@
 	for(var/datum/mind/wizard in (wizards + apprentices)) // yes, this works so it iterates through wizards, then apprentices
 		var/datum/antagonist/wizard/datum_wizard = wizard.has_antag_datum(/datum/antagonist/wizard)
 		if(datum_wizard?.wizard_is_alive())
-			return
-		return ..()
+			return ..()
 
 	finished = TRUE
 	return TRUE
