@@ -419,7 +419,7 @@
 	"Fire Resistance" = /datum/plant_gene/trait/fire_resistance,
 	)
 	for(var/i in 1 to amount_random_traits)
-		var/list/possible_traits = (subtypesof(/datum/plant_gene/trait)-typesof(/datum/plant_gene/trait/plant_type))
+		var/list/possible_traits = (subtypesof(/datum/plant_gene/trait) - typesof(/datum/plant_gene/trait/plant_type))
 		//removing existing traits and conflicting traits be added from the list of traits to choose from
 		for(var/datum/plant_gene/trait/j in genes)
 			var/trait_name = j.name
