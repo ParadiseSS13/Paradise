@@ -186,7 +186,7 @@
 		recieve_message = chat_box_mhelp(recieve_message)
 	else
 		recieve_message = chat_box_ahelp(recieve_message)
-	to_chat(C, receive_message)
+	to_chat(C, recieve_message)
 	if(C != src)
 		var/send_window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
 		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
