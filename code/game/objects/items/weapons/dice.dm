@@ -150,7 +150,7 @@
 /obj/item/dice/d20/fate/diceroll(mob/user)
 	. = ..()
 	if(!used)
-		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		if(!ishuman(user) || !user.mind || iswizard(user))
 			to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
 			return
 
@@ -163,7 +163,7 @@
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
-	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+	if(!ishuman(user) || !user.mind || iswizard(user))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
 		user.unEquip(src)
 
@@ -302,7 +302,7 @@
 				dust_if_respawnable(C)
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
-			var/obj/effect/proc_holder/spell/summonmob/S = new
+			var/datum/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
 		if(17)

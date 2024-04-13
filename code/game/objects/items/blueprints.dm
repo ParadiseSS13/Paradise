@@ -55,9 +55,9 @@
 
 /obj/item/areaeditor/permit/attack_self(mob/user)
 	. = ..()
-	var/area/A = get_area()
+	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(our_area.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -77,9 +77,9 @@
 
 /obj/item/areaeditor/golem/attack_self(mob/user)
 	. = ..()
-	var/area/A = get_area()
+	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(our_area.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -104,9 +104,9 @@
 
 /obj/item/areaeditor/blueprints/attack_self(mob/user)
 	. = ..()
-	var/area/A = get_area()
+	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(our_area.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
 		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
@@ -166,13 +166,9 @@
 	..()
 	clear_viewer()
 
-/obj/item/areaeditor/proc/get_area()
-	var/turf/T = get_turf(usr)
-	var/area/A = T.loc
-	return A
-
-
-/obj/item/areaeditor/proc/get_area_type(area/A = get_area())
+/obj/item/areaeditor/proc/get_area_type(area/A)
+	if(!A)
+		A = get_area(src)
 	if(A.outdoors)
 		return AREA_SPACE
 	var/list/SPECIALS = list(
@@ -234,23 +230,22 @@
 	return area_created
 
 /obj/item/areaeditor/proc/edit_area()
-	var/area/A = get_area()
-	var/prevname = "[sanitize(A.name)]"
+	var/area/our_area = get_area(src)
+	var/prevname = "[sanitize(our_area.name)]"
 	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN, encode = FALSE)
 	if(!str || !length(str) || str == prevname) // Cancel
 		return
-	set_area_machinery_title(A,str,prevname)
-	A.name = str
-	if(A.firedoors)
-		for(var/D in A.firedoors)
+	set_area_machinery_title(our_area, str, prevname)
+	our_area.name = str
+	if(our_area.firedoors)
+		for(var/D in our_area.firedoors)
 			var/obj/machinery/door/firedoor/FD = D
 			FD.CalculateAffectingAreas()
 	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
 	message_admins("A room was renamed by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
 	log_game("A room was renamed by [key_name(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")
-	return 1
-
+	return TRUE
 
 /obj/item/areaeditor/proc/set_area_machinery_title(area/A, title, oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop

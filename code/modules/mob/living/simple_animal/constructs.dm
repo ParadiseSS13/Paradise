@@ -48,11 +48,13 @@
 
 /mob/living/simple_animal/hostile/construct/Destroy()
 	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
 	remove_held_body()
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode?.cult_team?.add_cult_immunity(held_body)
@@ -137,6 +139,7 @@
 	desc = "A possessed suit of armour driven by the will of the restless dead"
 	icon_state = "behemoth"
 	icon_living = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	maxHealth = 250
 	health = 250
 	response_harm   = "harmlessly punches"
@@ -152,7 +155,7 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
+	construct_spells = list(/datum/spell/night_vision, /datum/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls.</b>"
@@ -180,6 +183,7 @@
 	desc = "A wicked bladed shell contraption piloted by a bound spirit"
 	icon_state = "floating"
 	icon_living = "floating"
+	hud_type = /datum/hud/construct/wraith
 	maxHealth = 75
 	health = 75
 	melee_damage_lower = 25
@@ -187,7 +191,7 @@
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "wraith"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	construct_spells = list(/datum/spell/night_vision, /datum/spell/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
@@ -209,6 +213,7 @@
 	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
 	icon_state = "artificer"
 	icon_living = "artificer"
+	hud_type = /datum/hud/construct/builder
 	maxHealth = 50
 	health = 50
 	response_harm = "viciously beats"
@@ -222,13 +227,13 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
+	construct_spells = list(/datum/spell/night_vision,
+							/datum/spell/projectile/magic_missile/lesser,
+							/datum/spell/aoe/conjure/construct/lesser,
+							/datum/spell/aoe/conjure/build/wall,
+							/datum/spell/aoe/conjure/build/floor,
+							/datum/spell/aoe/conjure/build/pylon,
+							/datum/spell/aoe/conjure/build/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -302,6 +307,7 @@
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
 	construct_type = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	var/energy = 0
 	var/max_energy = 1000
 
@@ -319,6 +325,7 @@
 	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
+	hud_type = /datum/hud/construct/harvester
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 20
@@ -327,10 +334,10 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/smoke/disable)
+	construct_spells = list(/datum/spell/night_vision,
+							/datum/spell/aoe/conjure/build/wall,
+							/datum/spell/aoe/conjure/build/floor,
+							/datum/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
