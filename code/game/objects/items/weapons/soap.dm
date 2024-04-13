@@ -102,7 +102,7 @@
 	return
 
 /obj/item/soap/deluxe
-	desc = "A luxury bar of soap. Smells of honey."
+	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
 	icon_state = "soapdeluxe"
 	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
 

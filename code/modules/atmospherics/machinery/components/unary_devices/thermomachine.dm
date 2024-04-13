@@ -95,14 +95,7 @@
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()
 	..()
 	if(!on)
-		return
-
-	// Coolers don't heat.
-	if(air_contents.temperature <= target_temperature && cooling)
-		return
-	// Heaters don't cool.
-	if(air_contents.temperature >= target_temperature && !cooling)
-		return
+		return 0
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
@@ -122,7 +115,7 @@
 		parent.update = TRUE
 	else
 		change_power_mode(IDLE_POWER_USE)
-	return
+	return 1
 
 /obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))

@@ -485,12 +485,12 @@
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/current = M
-	while(current?.loc && !isturf(current.loc))
-		current = current.loc
-		if(stop_type && istype(current, stop_type))
+	var/atom/loc = M
+	while(loc?.loc && !isturf(loc.loc))
+		loc = loc.loc
+		if(stop_type && istype(loc, stop_type))
 			break
-	return current
+	return loc
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -578,42 +578,6 @@ Returns 1 if the chain up to the area contains the given typepath
 		starting_turf = check
 
 	return starting_turf
-
-// returns turf relative to A for a given clockwise angle at set range
-// result is bounded to map size
-/proc/get_angle_target_turf(atom/A, angle, range)
-	if(!istype(A))
-		return null
-	var/x = A.x
-	var/y = A.y
-
-	x += range * sin(angle)
-	y += range * cos(angle)
-
-	//Restricts to map boundaries while keeping the final angle the same
-	var/dx = A.x - x
-	var/dy = A.y - y
-	var/ratio
-	if(dy == 0) //prevents divide-by-zero errors
-		ratio = INFINITY
-	else
-		ratio = dx / dy
-
-	if(x < 1)
-		y += (1 - x) / ratio
-		x = 1
-	else if(x > world.maxx)
-		y += (world.maxx - x) / ratio
-		x = world.maxx
-
-	if(y < 1)
-		x += (1 - y) * ratio
-		y = 1
-	else if(y > world.maxy)
-		x += (world.maxy - y) * ratio
-		y = world.maxy
-
-	return locate(round(x, 1), round(y, 1), A.z)
 
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
@@ -756,19 +720,16 @@ Returns 1 if the chain up to the area contains the given typepath
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
 /proc/get_area_turfs(areatype)
-	if(!areatype)
-		return
-	if(istext(areatype))
-		areatype = text2path(areatype)
+	if(!areatype) return null
+	if(istext(areatype)) areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
 	var/list/turfs = list()
-	for(var/area/N as anything in GLOB.all_areas)
+	for(var/area/N in world)
 		if(istype(N, areatype))
-			for(var/turf/T in N)
-				turfs += T
+			for(var/turf/T in N) turfs += T
 	return turfs
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -793,7 +754,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y_pos
 	var/z_pos
 
-/area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
+/area/proc/move_contents_to(area/A, turf_to_leave, direction)
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -802,7 +763,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(!A || !src) return 0
 
-	var/list/turfs_src = get_area_turfs(type)
+	var/list/turfs_src = get_area_turfs(src.type)
 	var/list/turfs_trg = get_area_turfs(A.type)
 
 	var/src_min_x = 0
@@ -1163,20 +1124,32 @@ Returns 1 if the chain up to the area contains the given typepath
 		loc = loc.loc
 	return null
 
-//For objects that should embed, but make no sense being sharp or is_pointed()
+/proc/get_turf_or_move(turf/location)
+	return get_turf(location)
+
+
+//For objects that should embed, but make no sense being is_sharp or is_pointed()
 //e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
 	/obj/item/pipe)))
 
 /proc/can_embed(obj/item/W)
-	if(W.sharp)
-		return TRUE
+	if(is_sharp(W))
+		return 1
 	if(is_pointed(W))
-		return TRUE
+		return 1
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return TRUE
+		return 1
+
+//Whether or not the given item counts as sharp in terms of dealing damage
+/proc/is_sharp(obj/O)
+	if(!O)
+		return 0
+	if(O.sharp)
+		return 1
+	return 0
 
 /proc/reverse_direction(dir)
 	switch(dir)
@@ -1363,7 +1336,7 @@ Standard way to write links -Sayu
 /proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
-		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
+		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
@@ -1635,18 +1608,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
-	if(!skip_filter)
-		if(!value) //nothing should be calling us with a number, so this is safe
-			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-			if(isnull(value))
-				return
-		value = trim(value)
-		if(!isnull(value) && value != "")
-			matches = filter_fancy_list(matches, value)
-
-		if(!length(matches))
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
+	if(!value) //nothing should be calling us with a number, so this is safe
+		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+		if(isnull(value))
 			return
+	value = trim(value)
+	if(!isnull(value) && value != "")
+		matches = filter_fancy_list(matches, value)
+
+	if(!length(matches))
+		return
 
 	var/chosen
 	if(length(matches) == 1)
@@ -1742,8 +1714,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
-			/datum/station_goal/secondary = "S_GOAL",
-			/datum/station_goal = "GOAL",
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",

@@ -2,7 +2,7 @@
 // can have multiple per area
 /obj/machinery/light_switch
 	name = "light switch"
-	desc = "A switch for turning the lights on and off for an entire room."
+	desc = "It turns lights on and off. What are you, simple?"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
@@ -31,8 +31,7 @@
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 		return
-	var/area/our_area = get_area(src)
-	icon_state = "light[our_area.lightswitch]"
+	icon_state = "light[get_area(src).lightswitch]"
 
 /obj/machinery/light_switch/update_overlays()
 	. = ..()
@@ -40,14 +39,13 @@
 
 	if(stat & NOPOWER)
 		return
-	var/area/our_area = get_area(src)
-	. += "light[our_area.lightswitch]"
+
+	. += "light[get_area(src).lightswitch]"
 	underlays += emissive_appearance(icon, "light_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	var/area/our_area = get_area(src)
-	. += "<span class='notice'>It is [our_area.lightswitch ? "on" : "off"].</span>"
+	. += "A light switch. It is [get_area(src).lightswitch ? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

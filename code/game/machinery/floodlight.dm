@@ -1,6 +1,5 @@
 /obj/machinery/floodlight
 	name = "emergency floodlight"
-	desc = "An artificial sun, except a lot smaller and a lot less powerful."
 	icon = 'icons/obj/machines/floodlight.dmi'
 	icon_state = "flood00"
 	anchored = FALSE

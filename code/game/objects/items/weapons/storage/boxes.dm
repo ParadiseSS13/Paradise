@@ -1021,7 +1021,7 @@
 		design = switchDesign
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
-	else if(W.sharp)
+	else if(is_sharp(W))
 		if(!contents.len)
 			if(item_state == "paperbag_None")
 				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")

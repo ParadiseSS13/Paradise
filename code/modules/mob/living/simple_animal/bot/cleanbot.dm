@@ -3,7 +3,7 @@
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "cleanbot"
+	icon_state = "cleanbot0"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -29,7 +29,6 @@
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
-	var/area/area_locked
 	var/static/list/clean_dirt = list(
 		/obj/effect/decal/cleanable/vomit,
 		/obj/effect/decal/cleanable/blood/gibs/robot,
@@ -42,8 +41,7 @@
 		/obj/effect/decal/cleanable/flour,
 		/obj/effect/decal/cleanable/ash,
 		/obj/effect/decal/cleanable/greenglow,
-		/obj/effect/decal/cleanable/dirt,
-		/obj/effect/decal/cleanable/glass
+		/obj/effect/decal/cleanable/dirt
 	)
 	var/static/list/clean_blood = list(
 		/obj/effect/decal/cleanable/blood,
@@ -52,7 +50,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
-	update_icon(UPDATE_OVERLAYS)
+	icon_state = "cleanbot[on]"
 
 	clean_dirt = typecacheof(clean_dirt)
 	clean_blood = typecacheof(clean_blood)
@@ -61,26 +59,19 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/cleanbot/update_icon_state()
-	return
+/mob/living/simple_animal/bot/cleanbot/turn_on()
+	..()
+	icon_state = "cleanbot[on]"
 
-/mob/living/simple_animal/bot/cleanbot/update_overlays()
-	. = ..()
-	if(!on)
-		. += "clean_off"
-		return
-	if(mode == BOT_CLEANING)
-		. += "clean_brush"
-		. += "clean[area_locked ? "_restrict" : ""]_work"
-		return
-	. += "clean_[area_locked ? "restrict" : "on"]"
+/mob/living/simple_animal/bot/cleanbot/turn_off()
+	..()
+	icon_state = "cleanbot[on]"
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
 	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
 	target = null
 	oldloc = null
-	area_locked = null
 
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "You corrupt [name]'s cleaning software."
@@ -109,14 +100,8 @@
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
-	if(!(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood)))
-		return FALSE
-	if(!area_locked)
+	if(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood))
 		return D
-	var/area/target_area = get_area(D)
-	if(target_area == area_locked)
-		return D
-	return FALSE
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
 	if(!..())
@@ -172,18 +157,11 @@
 
 	oldloc = loc
 
-/mob/living/simple_animal/bot/cleanbot/proc/assign_area()
-	if(area_locked)
-		area_locked = null
-	else
-		area_locked = get_area(loc)
-	update_icon(UPDATE_OVERLAYS)
-
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
+	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
@@ -192,7 +170,7 @@
 		QDEL_NULL(target)
 		anchored = FALSE
 	mode = BOT_IDLE
-	update_icon(UPDATE_OVERLAYS)
+	icon_state = "cleanbot[on]"
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
@@ -222,7 +200,6 @@
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["cleanblood"] = blood
-	data["area"] = get_area_name(area_locked)
 	return data
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
@@ -248,8 +225,6 @@
 			remote_disabled = !remote_disabled
 		if("blood")
 			blood =!blood
-		if("area")
-			assign_area()
 		if("ejectpai")
 			ejectpai()
 

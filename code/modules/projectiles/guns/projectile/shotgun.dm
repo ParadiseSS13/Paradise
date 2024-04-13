@@ -15,9 +15,8 @@
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
-	var/pump_time = 1 SECONDS // To prevent spammage
-	COOLDOWN_DECLARE(pump_cooldown)
 
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
@@ -38,32 +37,37 @@
 
 
 /obj/item/gun/projectile/shotgun/process_chamber()
-	return ..(FALSE, FALSE)
+	return ..(0, 0)
 
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
 
 /obj/item/gun/projectile/shotgun/can_shoot()
 	if(!chambered)
-		return FALSE
-	return chambered.BB
+		return 0
+	return (chambered.BB ? 1 : 0)
 
 /obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
-	if(!COOLDOWN_FINISHED(src, pump_cooldown))
+	if(recentpump)
 		return
 	pump(user)
-	COOLDOWN_START(src, pump_cooldown, pump_time)
+	recentpump = 1
+	spawn(10)
+		recentpump = 0
+	return
+
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
 	pump_unload(M)
 	pump_reload(M)
+	return 1
 
 /obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
 	if(chambered)//We have a shell in the chamber
-		chambered.forceMove(get_turf(src))
+		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.casing_drop_sound, 60, TRUE)
+		playsound(src, chambered.casing_drop_sound, 60, 1)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -319,16 +323,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_BULKY
 	execution_speed = 5 SECONDS
-
-/// Service Malfunction Borg Combat Shotgun Variant
-/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
-	name = "cyborg shotgun"
-	desc = "Get those organics off your station. Holds eight shots. Can only reload in a recharge station."
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/malf
-
-/obj/item/gun/projectile/shotgun/automatic/combat/cyborg/cyborg_recharge(coeff, emagged)
-	if(magazine.ammo_count() < magazine.max_ammo)
-		magazine.stored_ammo.Add(new /obj/item/ammo_casing/shotgun/lasershot)
 
 //Dual Feed Shotgun
 

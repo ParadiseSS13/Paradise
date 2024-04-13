@@ -249,8 +249,7 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	var/area/our_area = get_area(src)
-	for(var/obj/machinery/computer/cryopod/C in our_area)
+	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
 		if(C.type == console_type)
 			control_computer = C
 			break

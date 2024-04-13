@@ -540,7 +540,7 @@
 	glass = stealth_glass
 	airlock_material = stealth_airlock_material
 	name = "airlock"
-	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
+	desc = "It opens and closes."
 	stealthy = TRUE
 	update_icon()
 

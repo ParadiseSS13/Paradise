@@ -1,6 +1,5 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
-	desc = "A chef's 9th most powerful weapon, right after the grill. Used for grinding items into reagents."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
@@ -55,8 +54,7 @@
 		/obj/item/slime_extract = list(),
 		/obj/item/food = list(),
 		/obj/item/reagent_containers/pill = list(),
-		/obj/item/reagent_containers/patch = list(),
-		/obj/item/clothing/mask/cigarette = list()
+		/obj/item/reagent_containers/patch = list()
 	)
 
 	var/list/juice_items = list (
@@ -522,9 +520,10 @@
 		if(beaker.reagents.holder_full())
 			return
 
-	// Everything else - Transfers reagents from the items into the beaker
-	for(var/obj/item/O in holdingitems)
+	// Everything else - Transfers reagents from it into beaker
+	for(var/obj/item/reagent_containers/O in holdingitems)
 		O.reagents.trans_to(beaker, O.reagents.total_volume)
+
 		if(!O.reagents.total_volume)
 			remove_object(O)
 		if(beaker.reagents.holder_full())

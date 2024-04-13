@@ -404,7 +404,7 @@
 		//Does particate in air exchange so only consider directions not considered during process_cell()
 		for(var/direction in GLOB.cardinal)
 			var/turf/T = get_step(src, direction)
-			if(!(T in atmos_adjacent_turfs) && !(atmos_superconductivity & direction))
+			if(!(T in atmos_adjacent_turfs) && !(atmos_supeconductivity & direction))
 				conductivity_directions += direction
 
 	if(conductivity_directions > 0)

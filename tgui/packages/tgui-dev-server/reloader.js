@@ -121,17 +121,10 @@ export const reloadByondCache = async (bundleDir) => {
   if (dss.length > 0) {
     logger.log(`notifying dreamseeker`);
     for (let dreamseeker of dss) {
-      try {
-        await dreamseeker.topic({
-          tgui: 1,
-          type: 'cacheReloaded',
-        });
-      } catch (error) {
-        logger.error(
-          `Unable to broadcast reload to ${dreamseeker.addr}@${dreamseeker.pid}`,
-          error
-        );
-      }
+      dreamseeker.topic({
+        tgui: 1,
+        type: 'cacheReloaded',
+      });
     }
   }
 };

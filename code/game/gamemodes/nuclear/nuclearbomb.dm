@@ -440,14 +440,13 @@ GLOBAL_VAR(bomb_set)
 				return
 			// If no code set, enter new one
 			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
-			if(isnull(tempcode))
-				return
-			code = tempcode
-			if(code == r_code)
-				yes_code = TRUE
-				code = null
-			else
-				code = "ERROR"
+			if(tempcode)
+				code = tempcode
+				if(code == r_code)
+					yes_code = TRUE
+					code = null
+				else
+					code = "ERROR"
 			return
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
@@ -480,7 +479,7 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("set_time")
 			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
-			if(isnull(time))
+			if(!time)
 				return
 			timeleft = time
 		if("toggle_safety")

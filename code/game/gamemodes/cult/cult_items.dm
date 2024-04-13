@@ -633,7 +633,6 @@
 	button_icon_state = "bloodspear"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
-	default_button_position = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
@@ -776,7 +775,7 @@
 
 	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(R.z) || isspacearea(get_area(src)))
+	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
 		actual_selected_rune.handle_portal("space", T)
 	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
 	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")

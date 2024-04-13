@@ -1,4 +1,4 @@
-/datum/spell/mind_transfer
+/obj/effect/proc_holder/spell/mind_transfer
 	name = "Mind Transfer"
 	desc = "This spell allows the user to switch bodies with a target."
 
@@ -15,14 +15,14 @@
 	var/paralysis_amount_victim = 40 SECONDS //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"
 
-/datum/spell/mind_transfer/create_new_targeting()
+/obj/effect/proc_holder/spell/mind_transfer/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
 	T.range = 1
 	T.click_radius = 0
 	return T
 
-/datum/spell/mind_transfer/valid_target(mob/living/target, mob/user)
+/obj/effect/proc_holder/spell/mind_transfer/valid_target(mob/living/target, mob/user)
 	return target.stat != DEAD && target.key && target.mind
 
 /*
@@ -30,7 +30,7 @@ Urist: I don't feel like figuring out how you store object spells so I'm leaving
 Make sure spells that are removed from spell_list are actually removed and deleted when mind transfering.
 Also, you never added distance checking after target is selected. I've went ahead and did that.
 */
-/datum/spell/mind_transfer/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/mind_transfer/cast(list/targets, mob/user = usr)
 
 	var/mob/living/target = targets[1]
 

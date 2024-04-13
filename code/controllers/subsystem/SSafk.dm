@@ -63,8 +63,7 @@ SUBSYSTEM_DEF(afk)
 									After being AFK for another [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. \
 									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
 						else
-							var/area/our_area = get_area(T)
-							message_admins("[key_name_admin(H)] at ([our_area.name] [ADMIN_JMP(T)]) is AFK for [mins_afk] and can't be automatically cryod due to it's antag status: ([H.mind.special_role]).")
+							message_admins("[key_name_admin(H)] at ([get_area(T).name] [ADMIN_JMP(T)]) is AFK for [mins_afk] and can't be automatically cryod due to it's antag status: ([H.mind.special_role]).")
 							afk_players[H.ckey] = AFK_ADMINS_WARNED
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= GLOB.configuration.afk.auto_despawn_minutes)

@@ -256,7 +256,6 @@
 // Kirby plants
 /obj/item/kirbyplants
 	name = "potted plant"
-	desc = "Some greenery, how nice."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "random_plant"
 	anchored = FALSE

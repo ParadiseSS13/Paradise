@@ -201,7 +201,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/bacon
 	name = "bacon"
@@ -210,7 +209,6 @@
 	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 	tastes = list("bacon" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/telebacon
 	name = "tele bacon"
@@ -220,7 +218,6 @@
 	var/obj/item/radio/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/telebacon/Initialize(mapload)
 	. = ..()
@@ -253,7 +250,6 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
 	tastes = list("meat" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/cutlet
 	name = "cutlet"
@@ -262,7 +258,6 @@
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
 	tastes = list("meat" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/spidereggsham
 	name = "green eggs and ham"
@@ -466,7 +461,6 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/boiledegg
 	name = "boiled egg"
@@ -475,7 +469,6 @@
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/chocolateegg
 	name = "chocolate egg"
@@ -484,7 +477,6 @@
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/omelette
 	name = "omelette du fromage"
@@ -496,7 +488,6 @@
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
 	tastes = list("egg" = 1, "cheese" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/benedict
 	name = "eggs benedict"
@@ -506,7 +497,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////
@@ -521,7 +511,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
 	tastes = list("bun" = 3, "meat" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/meatbun
 	name = "meat bun"
@@ -531,7 +520,6 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("bun" = 3, "meat" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/sliceable/turkey
 	name = "turkey"
@@ -551,7 +539,6 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
 	tastes = list("turkey" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/snacks/organ
 	name = "organ"
@@ -586,4 +573,3 @@
 	list_reagents = list("nutriment" = 3, "protein" = 10, "bbqsauce" = 10)
 	filling_color = "#FF1C1C"
 	bitesize = 3
-	goal_difficulty = FOOD_GOAL_NORMAL

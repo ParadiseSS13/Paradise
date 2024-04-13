@@ -136,7 +136,7 @@ const CrewMonitorDataView = (_properties, context) => {
               <Box inline color={getStatColor(cm, data.critThreshold)}>
                 {getStatText(cm, data.critThreshold)}
               </Box>
-              {cm.sensor_type >= 2 || data.ignoreSensors ? (
+              {cm.sensor_type >= 2 ? (
                 <Box inline ml={1}>
                   {'('}
                   <Box inline color={COLORS.damageType.oxy}>
@@ -159,8 +159,8 @@ const CrewMonitorDataView = (_properties, context) => {
               ) : null}
             </TableCell>
             <TableCell>
-              {cm.sensor_type === 3 || data.ignoreSensors ? (
-                data.isAI || data.isObserver ? (
+              {cm.sensor_type === 3 ? (
+                data.isAI ? (
                   <Button
                     fluid
                     icon="location-arrow"
@@ -188,13 +188,13 @@ const CrewMonitorDataView = (_properties, context) => {
 };
 
 const CrewMonitorMapView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap onZoom={(v) => setZoom(v)}>
         {data.crewmembers
-          .filter((x) => x.sensor_type === 3 || data.ignoreSensors)
+          .filter((x) => x.sensor_type === 3)
           .map((cm) => (
             <NanoMap.Marker
               key={cm.ref}
@@ -204,13 +204,6 @@ const CrewMonitorMapView = (_properties, context) => {
               icon="circle"
               tooltip={cm.name + ' (' + cm.assignment + ')'}
               color={getStatColor(cm, data.critThreshold)}
-              onClick={() =>
-                data.isObserver
-                  ? act('track', {
-                      track: cm.ref,
-                    })
-                  : null
-              }
             />
           ))}
       </NanoMap>

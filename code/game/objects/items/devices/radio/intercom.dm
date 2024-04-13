@@ -1,6 +1,6 @@
 /obj/item/radio/intercom
 	name = "station intercom (General)"
-	desc = "A reliable form of communication even during local communication blackouts."
+	desc = "Talk through this."
 	icon_state = "intercom"
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
@@ -85,7 +85,7 @@
 
 /obj/item/radio/intercom/syndicate
 	name = "illicit intercom"
-	desc = "Communicate with your minions. Evilly"
+	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
@@ -245,9 +245,9 @@
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
-	if(!loc) // We init a few radios in nullspace to prevent them from needing power. 
-		return
 	var/area/current_area = get_area(src)
+	if(!current_area)
+		return
 	if(on)
 		RegisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(local_powernet_check))
 	else
@@ -296,7 +296,7 @@
 
 /obj/item/radio/intercom/locked/prison
 	name = "prison intercom"
-	desc = "A reliable form of communication even during local communication blackouts. It looks like it has been modified to not broadcast. Not so reliable, I guess..."
+	desc = "Talk through this. It looks like it has been modified to not broadcast."
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()

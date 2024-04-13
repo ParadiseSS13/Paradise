@@ -84,7 +84,6 @@
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
-	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
 
 	hud_possible = list(SPECIALROLE_HUD)
@@ -121,9 +120,6 @@
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
 	var/move_on_shuttle = TRUE // Can move on the shuttle.
-
-	/// The type of HUD that this mob uses. Not to
-	var/hud_type = /datum/hud
 
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = TRUE //all mobs can change intents by default.
@@ -197,7 +193,7 @@
 
 	var/registered_z
 
-	var/datum/spell/ranged_ability //Any ranged ability the mob has, as a click override
+	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
@@ -246,7 +242,3 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
-
-	/// Does this mob speak OOC?
-	/// Controls whether they can say some symbols.
-	var/speaks_ooc = FALSE

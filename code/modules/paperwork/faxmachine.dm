@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
-	desc = "Because just talking to your coworkers is too efficient."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
@@ -60,7 +59,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
-	desc = "A fax machine of the ancient days, now using modern entanglement networks, all the better to snitch on your coworkers."
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
@@ -70,7 +68,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
-	desc = "For requesting supplies from your benefactors, not that they'll send you any."
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)

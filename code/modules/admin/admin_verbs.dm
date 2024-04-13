@@ -546,16 +546,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			explosion(epicenter, 3, 5, 7, 5)
 		if("Custom Bomb")
 			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(devastation_range))
+			if(devastation_range == null)
 				return
 			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(heavy_impact_range))
+			if(heavy_impact_range == null)
 				return
 			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(light_impact_range))
+			if(light_impact_range == null)
 				return
 			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(flash_range))
+			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
@@ -571,10 +571,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	var/list/spell_list = list()
-	var/type_length = length("/datum/spell") + 2
+	var/type_length = length("/obj/effect/proc_holder/spell") + 2
 	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
-	var/datum/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
+	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
 	if(!S)
 		return
 	S = spell_list[S]

@@ -256,9 +256,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
-/obj/item/projectile/bullet/dart/syringe/heavyduty
-	damage = 20
-
 /obj/item/projectile/bullet/dart/syringe/pierce_ignore
 	piercing = TRUE
 

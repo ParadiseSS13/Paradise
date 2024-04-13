@@ -92,17 +92,13 @@
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		var/obj/item/mmi/new_mmi
-		switch(O.client.prefs.active_character.cyborg_brain_type)
-			if(ROBOBRAIN_BORG)
+		switch(O.mind.role_alt_title)
+			if("Robot")
 				new_mmi = new /obj/item/mmi/robotic_brain(O)
 				if(new_mmi.brainmob)
 					new_mmi.brainmob.name = O.name
-			if(MMI_BORG)
+			if("Cyborg")
 				new_mmi = new /obj/item/mmi(O)
-			if(POSITRONIC_BORG)
-				new_mmi = new /obj/item/mmi/robotic_brain/positronic(O)
-				if(new_mmi.brainmob)
-					new_mmi.brainmob.name = O.name
 			else
 				// This should never happen, but oh well
 				new_mmi = new /obj/item/mmi(O)

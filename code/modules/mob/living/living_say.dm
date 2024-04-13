@@ -79,7 +79,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			verb = "slurs"
 
 		if(AmountStuttering())
-			S.message = stutter(S.message, getStaminaLoss(), robot)
+			if(robot)
+				S.message = robostutter(S.message)
+			else
+				S.message = stutter(S.message)
 			verb = "stammers"
 
 		if(AmountCultSlurring())
@@ -112,10 +115,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return FALSE
 
 	if(sanitize)
-		if(speaks_ooc)
-			message = sanitize(message)
-		else
-			message = sanitize_for_ic(message)
+		message = trim_strip_html_properly(message)
 
 	if(stat)
 		if(stat == DEAD)

@@ -59,8 +59,6 @@
 /obj/machinery/clonescanner/Destroy()
 	if(console)
 		console.scanner = null
-	if(occupant)
-		remove_mob(occupant)
 	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
@@ -98,6 +96,8 @@
 /obj/machinery/clonescanner/proc/try_scan(mob/living/carbon/human/scanned)
 	if(!scanned)
 		return
+
+	occupant.notify_ghost_cloning()
 
 	has_scanned = TRUE
 

@@ -548,7 +548,7 @@
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
 
 /atom/movable/screen/healthdoll/Click()
-	if(ishuman(usr) && usr.stat != DEAD)
+	if(ishuman(usr) && !usr.is_dead())
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 

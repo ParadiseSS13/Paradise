@@ -51,6 +51,3 @@
 			. += "off"
 		else if(locked)
 			. += "locked"
-
-/obj/structure/closet/secure_closet/guncabinet/cc
-	req_access = list(ACCESS_CENT_SPECOPS_COMMANDER)

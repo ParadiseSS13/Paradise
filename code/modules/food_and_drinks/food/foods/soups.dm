@@ -20,7 +20,6 @@
 	filling_color = "#785210"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
 	tastes = list("meatball" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/slimesoup
 	name = "slime soup"
@@ -29,7 +28,6 @@
 	filling_color = "#C4DBA0"
 	list_reagents = list("nutriment" = 5, "slimejelly" = 5, "water" = 5, "vitamin" = 4)
 	tastes = list("slime" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/bloodsoup
 	name = "tomato soup"
@@ -38,7 +36,6 @@
 	filling_color = "#FF0000"
 	list_reagents = list("nutriment" = 2, "blood" = 10, "water" = 5, "vitamin" = 4)
 	tastes = list("iron" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/clownstears
 	name = "clown's tears"
@@ -55,7 +52,6 @@
 	filling_color = "#AFC4B5"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
 	tastes = list("vegetables" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/nettlesoup
 	name = "nettle soup"
@@ -64,7 +60,6 @@
 	filling_color = "#AFC4B5"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
 	tastes = list("nettles" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/mysterysoup
 	name = "mystery soup"
@@ -73,7 +68,6 @@
 	var/extra_reagent = null
 	list_reagents = list("nutriment" = 6)
 	tastes = list("chaos" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/mysterysoup/Initialize(mapload)
 	. = ..()
@@ -102,7 +96,6 @@
 	filling_color = "#D92929"
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
 	tastes = list("tomato" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/misosoup
 	name = "miso soup"
@@ -110,7 +103,6 @@
 	icon_state = "misosoup"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 	tastes = list("miso" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/mushroomsoup
 	name = "chantrelle soup"
@@ -119,7 +111,6 @@
 	filling_color = "#E386BF"
 	list_reagents = list("nutriment" = 8, "vitamin" = 4)
 	tastes = list("mushroom" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/beetsoup
 	name = "beet soup"
@@ -128,7 +119,6 @@
 	filling_color = "#FAC9FF"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 	tastes = list("beet" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/beetsoup/Initialize(mapload)
 	. = ..()
@@ -141,7 +131,6 @@
 	filling_color = "#E386BF"
 	list_reagents = list("nutriment" = 7, "protein" = 2)
 	tastes = list("squirming" = 2, "tomato" = 2)
-	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/snacks/soup/sweetpotatosoup
 	name = "sweet potato soup"
@@ -149,7 +138,6 @@
 	icon_state = "sweetpotatosoup"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("sweet potato" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soup/redbeetsoup
 	name = "red beet soup"
@@ -157,8 +145,6 @@
 	icon_state = "redbeetsoup"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("red beet" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/frenchonionsoup
 	name = "french onion soup"
@@ -166,8 +152,6 @@
 	icon_state = "onionsoup"
 	list_reagents = list("nutriment" = 8)
 	tastes = list("caramelized onions" = 3, "cheese" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/zurek
 	name = "zurek"
@@ -175,8 +159,6 @@
 	icon_state = "zurek"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("creamy vegetables" = 3, "sausage" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/cullenskink
 	name = "cullen skink"
@@ -184,8 +166,6 @@
 	icon_state = "cullen_skink"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("creamy broth" = 2, "fish" = 2, "vegetables" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/chicken_noodle_soup
 	name = "chicken noodle soup"
@@ -193,8 +173,6 @@
 	icon_state = "chicken_noodle_soup"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("broth" = 1, "chicken" = 1, "carrots" = 1, "noodles" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/cornchowder
 	name = "corn chowder"
@@ -202,8 +180,6 @@
 	icon_state = "corn_chowder"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("creamy broth" = 1, "bacon" = 1, "mixed vegetables" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/meatball_noodles
 	name = "meatball noodle soup"
@@ -211,8 +187,6 @@
 	icon_state = "meatball_noodles"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("bone broth" = 1, "meat" = 1, "gnocchi" = 1, "peanuts" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/seedsoup
 	name = "Misklmæsch" //miskl = seed, mæsch = soup
@@ -221,8 +195,6 @@
 	icon_state = "moth_seed_soup"
 	list_reagents = list("nutriment" = 6)
 	tastes = list("bitterness" = 1, "sourness" = 1, "nature" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 //////////////////////
 //		Stews		//
@@ -236,8 +208,6 @@
 	bitesize = 7
 	list_reagents = list("nutriment" = 10, "oculine" = 5, "tomatojuice" = 5, "vitamin" = 5)
 	tastes = list("tomato" = 1, "carrot" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/stewedsoymeat
 	name = "stewed soy meat"
@@ -247,8 +217,6 @@
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 8)
 	tastes = list("soy" = 1, "vegetables" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/beanstew
 	name = "Prickeldröndolhaskl" //prickeld = spicy, röndol = bean, haskl = stew
@@ -256,8 +224,6 @@
 	icon_state = "moth_bean_stew"
 	list_reagents = list("nutriment" = 10)
 	tastes = list("beans" = 1, "cabbage" = 1, "spicy sauce" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/oatstew
 	name = "Häfmisklhaskl" //häfmiskl = oat (häf from German hafer meaning oat, miskl meaning seed), haskl = stew
@@ -265,8 +231,6 @@
 	icon_state = "moth_oat_stew"
 	list_reagents = list("nutriment" = 10)
 	tastes = list("oats" = 1, "sweet potato" = 1, "carrot" = 1, "pumpkin" = 1, "parsnip" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/hong_kong_borscht
 	name = "hong kong borscht"
@@ -274,8 +238,6 @@
 	icon_state = "hong_kong_borscht"
 	list_reagents = list("nutriment" = 10, "protein" = 2)
 	tastes = list("tomato" = 1, "cabbage" = 1, "meat" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/hong_kong_macaroni
 	name = "hong kong macaroni"
@@ -283,8 +245,6 @@
 	icon_state = "hong_kong_macaroni"
 	list_reagents = list("nutriment" = 8, "protein" = 2)
 	tastes = list("cream" = 1, "chicken" = 1, "pasta" = 1, "ham" =1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 //////////////////////
 //		Chili		//
@@ -297,8 +257,6 @@
 	filling_color = "#FF3C00"
 	list_reagents = list("nutriment" = 5, "capsaicin" = 1, "tomatojuice" = 2, "vitamin" = 2)
 	tastes = list("hot peppers" = 1, "tomato" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/coldchili
 	name = "cold chili"
@@ -307,8 +265,6 @@
 	filling_color = "#2B00FF"
 	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)
 	tastes = list("tomato" = 1, "mint" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
-
 
 /obj/item/food/snacks/soup/clownchili
 	name = "chili con carnival"

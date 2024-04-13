@@ -163,10 +163,9 @@ Transponder Codes:<UL>"}
 
 		if(href_list["locedit"])
 			var/newloc = tgui_input_text(usr, "Enter New Location", "Navigation Beacon", location)
-			if(!newloc)
-				return
-			location = newloc
-			updateDialog()
+			if(newloc)
+				location = newloc
+				updateDialog()
 
 		else if(href_list["edit"])
 			var/codekey = href_list["code"]

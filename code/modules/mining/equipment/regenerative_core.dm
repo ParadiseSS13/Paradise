@@ -129,7 +129,7 @@
 		. += "legion_soul_crackle"
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtons()
+		A.UpdateButtonIcon()
 
 /obj/item/organ/internal/regenerative_core/legion/go_inert()
 	..()

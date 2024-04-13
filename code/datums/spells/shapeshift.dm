@@ -1,4 +1,4 @@
-/datum/spell/shapeshift
+/obj/effect/proc_holder/spell/shapeshift
 	name = "Shapechange"
 	desc = "Take on the shape of another for a time to use their natural abilities. Once you've made your choice it cannot be changed."
 	clothes_req = FALSE
@@ -17,10 +17,10 @@
 		/mob/living/simple_animal/bot/ed209,
 		/mob/living/simple_animal/hostile/construct/armoured)
 
-/datum/spell/shapeshift/create_new_targeting()
+/obj/effect/proc_holder/spell/shapeshift/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/shapeshift/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/shapeshift/cast(list/targets, mob/user = usr)
 	for(var/mob/living/M in targets)
 		if(!shapeshift_type)
 			var/list/animal_list = list()
@@ -36,7 +36,7 @@
 		else
 			Shapeshift(M)
 
-/datum/spell/shapeshift/proc/Shapeshift(mob/living/caster)
+/obj/effect/proc_holder/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/M in caster)
 		if(M.status_flags & GODMODE)
 			to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
@@ -53,7 +53,7 @@
 
 	caster.mind.transfer_to(shape)
 
-/datum/spell/shapeshift/proc/Restore(mob/living/shape)
+/obj/effect/proc_holder/spell/shapeshift/proc/Restore(mob/living/shape)
 	var/mob/living/caster
 	for(var/mob/living/M in shape)
 		if(M in current_casters)
@@ -72,7 +72,7 @@
 	shape.mind.transfer_to(caster)
 	qdel(shape) //Gib it maybe ?
 
-/datum/spell/shapeshift/dragon
+/obj/effect/proc_holder/spell/shapeshift/dragon
 	name = "Dragon Form"
 	desc = "Take on the shape a lesser ash drake after a short delay."
 	invocation = "*scream"
@@ -82,7 +82,7 @@
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 
-/datum/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
+/obj/effect/proc_holder/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
 	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
 		"<span class='danger'>You begin channeling the transformation.</span>")
 	if(!do_after(caster, 5 SECONDS, FALSE, caster))
@@ -90,7 +90,7 @@
 		return
 	return ..()
 
-/datum/spell/shapeshift/bats
+/obj/effect/proc_holder/spell/shapeshift/bats
 	name = "Bat Form"
 	desc = "Take on the shape of a swarm of bats."
 	invocation = "none"
@@ -103,7 +103,7 @@
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
 
-/datum/spell/shapeshift/hellhound
+/obj/effect/proc_holder/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
 	desc = "Take on the shape of a Hellhound."
 	invocation = "none"
@@ -117,7 +117,7 @@
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
 
-/datum/spell/shapeshift/hellhound/greater
+/obj/effect/proc_holder/spell/shapeshift/hellhound/greater
 	name = "Greater Hellhound Form"
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound/greater
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)

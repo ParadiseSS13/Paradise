@@ -185,7 +185,6 @@
 			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
 		return TRUE
-	return ..()
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -630,7 +629,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	var/mob/living/carbon/C = owner
 
-	if(!iscarbon(C))
+	if(!hasorgans(C))
 		return
 
 	var/organ_spilled = FALSE

@@ -16,7 +16,6 @@
 #define MESSAGE_TYPE_DEADCHAT "deadchat"
 #define MESSAGE_TYPE_OOC "ooc"
 #define MESSAGE_TYPE_ADMINPM "adminpm"
-#define MESSAGE_TYPE_MENTORPM "mentorpm"
 #define MESSAGE_TYPE_COMBAT "combat"
 #define MESSAGE_TYPE_ADMINCHAT "adminchat"
 #define MESSAGE_TYPE_MENTORCHAT "mentorchat"

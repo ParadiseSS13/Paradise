@@ -191,8 +191,8 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
-	if(isnull(dcard))
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", max_value = length(cards))
+	if(!dcard)
 		return
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
@@ -496,7 +496,7 @@
 	if(length(cards) <= 2)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtons()
+			A.UpdateButtonIcon()
 	..()
 
 /obj/item/cardhand/update_name()

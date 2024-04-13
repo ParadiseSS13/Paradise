@@ -3,7 +3,6 @@
 	id = "medicine"
 	taste_description = "bitterness"
 	harmless = TRUE
-	goal_department = "Medbay"
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
@@ -23,7 +22,6 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "numbness"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
 	var/update_flags = STATUS_UPDATE_HEALTH
@@ -36,7 +34,6 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "antiseptic"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 	//makes you squeaky clean
 /datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -100,7 +97,6 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "nurturing"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -128,7 +124,6 @@
 	color = "#0000C8" // rgb: 200, 165, 220
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
 	if(iscarbon(M))
@@ -166,7 +161,6 @@
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "reformation"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -196,7 +190,6 @@
 	color = "#0AB478"
 	metabolization_rate = 0.2
 	taste_description = "antibiotics"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
 	var/list/organs_list = list()
@@ -230,7 +223,6 @@
 	penetrates_skin = TRUE
 	metabolization_rate = 0.15
 	taste_description = "salt"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -294,7 +286,6 @@
 	color = "#FFEBEB"
 	penetrates_skin = TRUE
 	taste_description = "blood"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	var/mob/living/carbon/human/H = M
@@ -329,7 +320,6 @@
 	metabolization_rate = 3
 	harmless = FALSE
 	taste_description = "wound cream"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -363,7 +353,6 @@
 	metabolization_rate = 3
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -394,7 +383,6 @@
 	reagent_state = LIQUID
 	color = "#000000"
 	taste_description = "dust"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -476,7 +464,6 @@
 	metabolization_rate = 0.8
 	harmless = FALSE
 	taste_description = "a painful cleansing"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -496,7 +483,6 @@
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "cleansing"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	M.radiation = max(0, M.radiation - 25)
@@ -510,7 +496,6 @@
 	color = "#C8A5DC"
 	harmless = FALSE
 	taste_description = "a purge"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -536,7 +521,6 @@
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "relief"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -571,7 +555,6 @@
 	color = "#00FFFF"
 	metabolization_rate = 0.2
 	taste_description = "safety"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -593,7 +576,6 @@
 	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "oxygenation"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -619,7 +601,6 @@
 	overdose_threshold = 35
 	harmless = FALSE
 	taste_description = "stimulation"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 //super weak antistun chem, barely any downside
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
@@ -675,7 +656,6 @@
 	overdose_threshold = 35
 	harmless = FALSE
 	taste_description = "antihistamine"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-40 SECONDS)
@@ -763,7 +743,6 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "clarity"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -796,7 +775,6 @@
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "a moment of respite"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -826,7 +804,6 @@
 	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "borrowed time"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -879,7 +856,6 @@
 	taste_description = "life"
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/lazarus_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -950,7 +926,6 @@
 	taste_description = "coppery fuel"
 	harmless = FALSE
 	overdose_threshold = 15
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
 	if(!ishuman(M))
@@ -1006,7 +981,6 @@
 	taste_description = "chunky marrow"
 	harmless = FALSE
 	overdose_threshold = 30 //so a single shotgun dart can't cause the tumor effect
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/osseous_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1030,7 +1004,6 @@
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
 	taste_description = "sweetness"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1043,7 +1016,6 @@
 	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
 	color = "#5096C8"
 	taste_description = "cleanliness"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
@@ -1073,7 +1045,6 @@
 	description = "A medicine which quickly eliminates alcohol in the body."
 	color = "#009CA8"
 	taste_description = "sobriety"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1189,7 +1160,6 @@
 	color = "#eee6da"
 	overdose_threshold = 20
 	taste_description = "bitterness"
-	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/heparin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("cholesterol", 2)
@@ -1230,7 +1200,6 @@
 	addiction_threshold = 10
 	overdose_threshold = 50
 	taste_description = "warmth and stability"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/teporone/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 310)
@@ -1248,7 +1217,6 @@
 	taste_description = "stability"
 	harmless = FALSE
 	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1278,7 +1246,6 @@
 	metabolization_rate = 0.1
 	harmless = FALSE
 	taste_description = "sleepiness"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1359,7 +1326,6 @@
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
 	taste_description = "overclocking"
-	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1388,7 +1354,6 @@
 	color = "#D7B395"
 	process_flags = SYNTHETIC
 	taste_description = "heavy metals"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

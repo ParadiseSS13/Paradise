@@ -1277,6 +1277,10 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "eg" = (
@@ -1597,6 +1601,7 @@
 	name = "power storage unit";
 	outputting = 0
 	},
+/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)

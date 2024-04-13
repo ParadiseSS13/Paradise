@@ -60,8 +60,7 @@
 		hair_gradient_alpha,
 		custom_emotes,
 		physique,
-		height,
-		cyborg_brain_type
+		height
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

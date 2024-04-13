@@ -33,7 +33,7 @@ export const ReconnectButton = () => {
           icon="power-off"
           color="white"
           tooltip="Restart game"
-          tooltipPosition="bottom-end"
+          tooltipPosition="top-end"
           onClick={() => {
             Byond.command('.quit');
           }}

@@ -12,8 +12,6 @@
 	pass_flags = PASSBLOB
 	faction = list(ROLE_BLOB)
 
-	hud_type = /datum/hud/blob_overmind
-
 	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
 	var/max_blob_points = 100
@@ -92,7 +90,7 @@
 /mob/camera/blob/proc/blob_talk(message)
 	log_say("(BLOB) [message]", src)
 
-	message = sanitize_for_ic(trim(copytext(message, 1, MAX_MESSAGE_LEN)))
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 	if(!message)
 		return

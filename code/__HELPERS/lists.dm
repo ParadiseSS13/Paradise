@@ -671,12 +671,11 @@
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
-#define LAZYINITLIST(L) if(!L) { L = list() }
+#define LAZYINITLIST(L) if(!L) L = list()
 
 #define UNSETEMPTY(L) if(L && !L.len) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
-#define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
 /// Adds I to L, initializing L if necessary, if I is not already in L
 #define LAZYDISTINCTADD(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
@@ -696,11 +695,6 @@
 #define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))
 ///If the lazy list is currently initialized find item I in list L
 #define LAZYIN(L, I) (L && (I in L))
-/// Performs an insertion on the given lazy list with the given key and value. If the value already exists, a new one will not be made.
-#define LAZYORASSOCLIST(lazy_list, key, value) \
-	LAZYINITLIST(lazy_list); \
-	LAZYINITLIST(lazy_list[key]); \
-	lazy_list[key] |= value;
 
 //same, but returns nothing and acts on list in place
 /proc/shuffle_inplace(list/L)

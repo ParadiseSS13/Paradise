@@ -46,8 +46,7 @@ FIRE ALARM
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
-	var/area/our_area = get_area(src)
-	LAZYADD(our_area.firealarms, src)
+	LAZYADD(get_area(src).firealarms, src)
 
 	if(is_station_contact(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
@@ -229,8 +228,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		var/area/our_area = get_area(src)
-		LAZYREMOVE(our_area.firealarms, src)
+		LAZYREMOVE(get_area(src).firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -332,8 +330,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	var/area/our_area = get_area(src)
-	LAZYREMOVE(our_area.firealarms, src)
+	LAZYREMOVE(get_area(src).firealarms, src)
 	return ..()
 
 /*

@@ -105,7 +105,7 @@
 	if(href_list["priv_msg"])
 		var/ckey_txt = href_list["priv_msg"]
 
-		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
+		cmd_admin_pm(ckey_txt, null, href_list["type"])
 		return
 
 	if(href_list["discord_msg"])
@@ -261,9 +261,6 @@
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
-
-	// Create a PM tracker bound to this ckey.
-	pm_tracker = new(ckey)
 
 	tgui_panel = new(src, "browseroutput")
 	tgui_say = new(src, "tgui_say")
@@ -535,8 +532,7 @@
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
 			var/mentor_count = mentorcounter[1]
-			if(!(holder.fakekey || is_afk()))
-				mentor_count-- // Exclude ourself
+			mentor_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -548,8 +544,7 @@
 		if(SSredis.connected)
 			var/list/admincounter = staff_countup(R_BAN)
 			var/admin_count = admincounter[1]
-			if(!(holder.fakekey || is_afk()))
-				admin_count-- // Exclude ourself
+			admin_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -593,9 +588,6 @@
 		if(check_randomizer(connectiontopic))
 			return
 
-	var/client_address = address
-	if(!client_address) // Localhost can sometimes have no address set
-		client_address = "127.0.0.1"
 
 	if(sql_id)
 		//Just the standard check to see if it's actually a number
@@ -603,6 +595,10 @@
 			sql_id = text2num(sql_id)
 		if(!isnum(sql_id))
 			return // Return here because if we somehow didnt pull a number from an INT column, EVERYTHING is breaking
+
+		var/client_address = address
+		if(!client_address) // Localhost can sometimes have no address set
+			client_address = "127.0.0.1"
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
@@ -624,7 +620,7 @@
 		//New player!! Need to insert all the stuff
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = client_address,
+			"ip" = address,
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))
@@ -1179,11 +1175,6 @@
 /client/proc/maxview()
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
-
-/client/Click(object, location, control, params)
-	. = ..()
-	// please yell at me if this is Too Much
-	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
 
 /// Compiles a full list of verbs and sends it to the browser
 /client/proc/init_verbs()

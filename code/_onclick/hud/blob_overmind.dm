@@ -1,3 +1,7 @@
+/mob/camera/blob/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/blob_overmind(src)
+
 /atom/movable/screen/blob
 	icon = 'icons/mob/blob.dmi'
 

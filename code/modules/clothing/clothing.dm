@@ -62,7 +62,7 @@
 		C.head_update(src, forced = 1)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtons()
+		A.UpdateButtonIcon()
 	return TRUE
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
@@ -83,38 +83,38 @@
 	return FALSE
 
 //BS12: Species-restricted clothing check.
-/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE)
+/obj/item/clothing/mob_can_equip(M as mob, slot)
 
 	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
-		return FALSE
+		return 0
 
 	// Skip species restriction checks on non-equipment slots
 	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
-		return TRUE
+		return 1
 
 	if(species_restricted && ishuman(M))
 
-		var/wearable = FALSE
-		var/exclusive = FALSE
+		var/wearable = null
+		var/exclusive = null
 		var/mob/living/carbon/human/H = M
 
 		if("exclude" in species_restricted)
-			exclusive = TRUE
+			exclusive = 1
 
 		if(H.dna.species)
 			if(exclusive)
 				if(!(H.dna.species.name in species_restricted))
-					wearable = TRUE
+					wearable = 1
 			else
 				if(H.dna.species.name in species_restricted)
-					wearable = TRUE
+					wearable = 1
 
 			if(!wearable)
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
-				return FALSE
+				return 0
 
-	return TRUE
+	return 1
 
 /obj/item/clothing/proc/refit_for_species(target_species)
 	//Set icon
@@ -446,7 +446,7 @@
 	usr.update_inv_head()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtons()
+		A.UpdateButtonIcon()
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
@@ -646,7 +646,7 @@
 		to_chat(user, "You [flavour] \the [src].")
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtons()
+			A.UpdateButtonIcon()
 	else
 		var/flavour = "open"
 		icon_state += "_open"
@@ -656,7 +656,7 @@
 		to_chat(user, "You [flavour] \the [src].")
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtons()
+			A.UpdateButtonIcon()
 
 	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)

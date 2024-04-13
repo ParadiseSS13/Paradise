@@ -58,7 +58,7 @@
 	..()
 
 /obj/item/staff/broom/dropped(mob/user)
-	if(iswizard(user) && user.flying)
+	if((user.mind in SSticker.mode.wizards) && user.flying)
 		user.flying = FALSE
 	..()
 

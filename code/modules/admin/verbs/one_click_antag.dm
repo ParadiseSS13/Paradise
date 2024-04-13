@@ -147,11 +147,10 @@
 		candidates -= selected
 
 		var/mob/living/carbon/human/new_character = makeBody(selected)
-		new_character.mind.add_antag_datum(/datum/antagonist/wizard)
-		new_character.forceMove(pick(GLOB.wizardstart))
+		new_character.mind.make_Wizard()
 		dust_if_respawnable(selected)
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 
 /datum/admins/proc/makeCult()

@@ -32,7 +32,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtons()
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"

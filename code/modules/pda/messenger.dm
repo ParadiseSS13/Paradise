@@ -122,6 +122,8 @@
 
 /datum/data/pda/app/messenger/proc/create_message(mob/living/U, obj/item/pda/P)
 	var/t = tgui_input_text(U, "Please enter your message", name)
+	if(!t)
+		return
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)

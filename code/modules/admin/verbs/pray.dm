@@ -60,7 +60,7 @@
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/ERT_Announce(text, mob/Sender, repeat_warning)
-	var/msg = sanitize(text)
+	var/msg = sanitizeSafe(text)
 	var/insert_this = list(list(
 		"time" = station_time_timestamp(),
 		"sender_real_name" = "[Sender.real_name ? Sender.real_name : Sender.name]",

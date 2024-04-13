@@ -1,4 +1,4 @@
-/datum/spell/turf_teleport
+/obj/effect/proc_holder/spell/turf_teleport
 	name = "Turf Teleport"
 	desc = "This spell teleports the target to the turf in range."
 	nonabstract_req = TRUE
@@ -14,12 +14,12 @@
 	var/sound1 = 'sound/weapons/zapbang.ogg'
 	var/sound2 = 'sound/weapons/zapbang.ogg'
 
-/datum/spell/turf_teleport/create_new_targeting()
+/obj/effect/proc_holder/spell/turf_teleport/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/turf_teleport/cast(list/targets,mob/living/user = usr)
+/obj/effect/proc_holder/spell/turf_teleport/cast(list/targets,mob/living/user = usr)
 	if(sound1)
-		playsound(get_turf(user), sound1, 50, TRUE)
+		playsound(get_turf(user), sound1, 50,1)
 
 	for(var/mob/living/target in targets)
 		var/list/turfs = new/list()

@@ -93,7 +93,8 @@
 		data["teleporterhub"] = null
 		data["calibrated"] = null
 	data["regime"] = regime
-	data["target"] = (!target || !get_turf(target)) ? "None" : sanitize(get_area(target))
+	var/area/targetarea = get_area(target)
+	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null

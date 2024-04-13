@@ -14,7 +14,6 @@
 	var/max_grown = 200
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
-	hud_type = /datum/hud/larva
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
@@ -25,7 +24,7 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /datum/spell/alien_spell/evolve_larva)
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
 	var/datum/action/innate/hide/alien_larva_hide/hide = new()
 	hide.Grant(src)
 
@@ -82,6 +81,9 @@
 
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
+
+/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
+	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE

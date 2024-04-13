@@ -103,6 +103,7 @@
 /datum/tgui_list_input/Destroy(force)
 	SStgui.close_uis(src)
 	state = null
+	QDEL_NULL(items)
 	return ..()
 
 /**

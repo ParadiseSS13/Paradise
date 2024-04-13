@@ -24,7 +24,6 @@
 	icon_state = "margheritapizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Meat Pizza
 /obj/item/food/snacks/sliceable/pizza/meatpizza
@@ -42,7 +41,6 @@
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Mushroom Pizza
 /obj/item/food/snacks/sliceable/pizza/mushroompizza
@@ -60,7 +58,6 @@
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Vegetable Pizza
 /obj/item/food/snacks/sliceable/pizza/vegetablepizza
@@ -78,7 +75,6 @@
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Hawaiian Pizza
 /obj/item/food/snacks/sliceable/pizza/hawaiianpizza
@@ -96,7 +92,6 @@
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
 	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Mac 'n' Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/macpizza
@@ -115,7 +110,6 @@
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Pepperoni Pizza
 /obj/item/food/snacks/sliceable/pizza/pepperonipizza
@@ -134,7 +128,6 @@
 	icon_state = "pepperonipizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/cheesepizza
@@ -151,7 +144,6 @@
 	icon_state = "cheesepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 3)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Donk-pocket Pizza
 /obj/item/food/snacks/sliceable/pizza/donkpocketpizza
@@ -169,7 +161,6 @@
 	icon_state = "donkpocketpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Dank Pizza
 /obj/item/food/snacks/sliceable/pizza/dankpizza
@@ -187,7 +178,6 @@
 	icon_state = "dankpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Firecracker Pizza
 /obj/item/food/snacks/sliceable/pizza/firecrackerpizza
@@ -205,7 +195,6 @@
 	icon_state = "firecrackerpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // "Pesto" Pizza
 /obj/item/food/snacks/sliceable/pizza/pestopizza
@@ -223,7 +212,6 @@
 	icon_state = "pestopizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 // Garlic Pizza
 /obj/item/food/snacks/sliceable/pizza/garlicpizza
@@ -241,7 +229,6 @@
 	icon_state = "garlicpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
-	goal_difficulty = FOOD_GOAL_EASY
 
 
 //////////////////////
@@ -474,7 +461,7 @@
 		icon_state = "pizzabox_bomb"
 		timer_set = TRUE
 		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
-		if(isnull(new_timer))
+		if(!new_timer)
 			return
 		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
 			timer_set = FALSE

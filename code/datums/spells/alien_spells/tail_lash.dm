@@ -1,13 +1,13 @@
-/datum/spell/alien_spell/tail_lash
+/obj/effect/proc_holder/spell/alien_spell/tail_lash
 	name = "Tail lash"
 	desc = "Knocks down anyone around you."
 	action_icon_state = "tailsweep"
 	base_cooldown = 10 SECONDS
 
-/datum/spell/alien_spell/tail_lash/create_new_targeting()
+/obj/effect/proc_holder/spell/alien_spell/tail_lash/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/alien_spell/tail_lash/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/alien_spell/tail_lash/cast(list/targets, mob/user)
 	var/turf/T = user.loc
 	var/cast_resolved = FALSE
 	if(!istype(T))

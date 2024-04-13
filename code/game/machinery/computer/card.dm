@@ -676,7 +676,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("account") // card account number
 			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 9999999, 1000000)
-			if(isnull(account_num) || !scan || !modify)
+			if(!scan || !modify || !account_num)
 				return FALSE
 			modify.associated_account_number = account_num
 			//for future reference, you should never be able to modify the money account datum through the card computer

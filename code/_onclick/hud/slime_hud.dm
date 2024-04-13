@@ -2,3 +2,7 @@
 	..()
 	mymob.healths = new /atom/movable/screen/healths/slime()
 	infodisplay += mymob.healths
+
+/mob/living/simple_animal/slime/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/slime(src)

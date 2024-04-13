@@ -1,6 +1,6 @@
 /obj/machinery/camera
 	name = "security camera"
-	desc = "Used by security teams and annoying AIs to watch over you."
+	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
 	power_state = ACTIVE_POWER_USE
@@ -50,8 +50,7 @@
 	if(part_of_camera_network)
 		GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
-		var/area/our_area = get_area(src)
-		LAZYADD(our_area.cameras, UID())
+		LAZYADD(get_area(src).cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		turn_off(null, FALSE)
 		wires.cut_all()
@@ -69,9 +68,8 @@
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
 	GLOB.cameranet.cameras -= src
-	var/area/our_area = get_area(src)
-	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
-		LAZYREMOVE(our_area.cameras, UID())
+	if(isarea(get_area(src)))
+		LAZYREMOVE(get_area(src).cameras, UID())
 	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
@@ -273,8 +271,7 @@
 		return
 	status = TRUE
 	if(!emp_recover && isturf(loc))
-		var/area/our_area = get_area(src)
-		LAZYADD(our_area.cameras, UID())
+		LAZYADD(get_area(src).cameras, UID())
 
 	if(display_message)
 		if(user)
@@ -292,9 +289,8 @@
 
 	if(!emped)
 		status = FALSE
-		var/area/our_area = get_area(src)
-		if(our_area)
-			LAZYREMOVE(our_area.cameras, UID())
+		if(isarea(get_area(src)))
+			LAZYREMOVE(get_area(src).cameras, UID())
 
 	set_light(0)
 

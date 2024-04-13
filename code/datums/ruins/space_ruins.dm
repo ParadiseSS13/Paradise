@@ -124,9 +124,10 @@
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
-	name = "Cybersun Exosuit Factory Ship"
-	description = "A crashed mobile mech factory under security lockdown."
-	allow_duplicates = FALSE
+	name = "CF Corsair"
+	description = "Well, when is it getting here? I have bills to pay; very \
+		well-armed clients who want their shipments as soon as possible! I \
+		don't care, just find it!"
 
 /datum/map_template/ruin/space/onehalf
 	id = "onehalf"
@@ -245,8 +246,8 @@
 /datum/map_template/ruin/space/whiteship
 	id = "whiteship"
 	suffix = "whiteship.dmm"
-	name = "NEV Limulus"
-	description = "A small expeditionary ship for use in local space exploration and salvaging."
+	name = "NT Medical Ship"
+	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
 	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost
