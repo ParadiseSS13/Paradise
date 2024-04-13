@@ -474,7 +474,7 @@
 		icon_state = "pizzabox_bomb"
 		timer_set = TRUE
 		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
-		if(!new_timer)
+		if(isnull(new_timer))
 			return
 		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
 			timer_set = FALSE
