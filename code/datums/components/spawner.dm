@@ -52,7 +52,7 @@
 	L.faction = src.faction
 	P.visible_message("<span class='danger'>[L] [spawn_text] [P].</span>")
 
-/datum/component/spawner/proc/rally_spawned_mobs(mob/living/target)
+/datum/component/spawner/proc/rally_spawned_mobs(parent, mob/living/target)
 	SIGNAL_HANDLER // COMSIG_SPAWNER_SET_TARGET
 
 	if(COOLDOWN_FINISHED(src, last_rally) && length(spawned_mobs))
