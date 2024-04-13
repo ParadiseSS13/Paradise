@@ -54,17 +54,20 @@
 
 		box = /obj/item/storage/box/responseteam/plasmaman
 		var/obj/item/clothing/under/plasmaman/U = H.w_uniform
+		var/obj/item/clothing/head/helmet/E = H.head
 		U.extinguish_cooldown -= 50
 		U.extinguishes_left += 5
 		U.strip_delay += 80
-		U.armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+
+		var/datum/armor/current_armor = U.armor
+		var/datum/armor/current_helmet = E.armor
+
+		current_armor.setRating(15, 15, 15, 15, 15, 15, INFINITY, INFINITY)
+		current_helmet.setRating(20, 20, 20, 20, 20, 20, INFINITY, INFINITY)
 
 		var/obj/item/clothing/head/helmet/space/plasmaman/L = H.head
 		L.brightness_on += 4
 		L.strip_delay += 80
-
-		var/obj/item/tank/internals/plasmaman/belt/int = H.r_hand
-		H.internal = int
 
 		H.update_action_buttons_icon()
 		H.rejuvenate()
@@ -123,25 +126,26 @@
 		var/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic/DI = new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(H)
 		DI.insert(H)
 
-
 	H.regenerate_icons()
 	H.update_body()
 
 /datum/outfit/job/centcom/response_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+
 	if(istype(H.dna.species, /datum/species/plasmaman))
 		var/obj/item/tank/internals/plasmaman/belt/full/internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.r_hand)
 			H.equip_or_collect(internal_tank, SLOT_HUD_RIGHT_HAND)
 		H.internal = internal_tank
-
-	if(istype(H.dna.species, /datum/species/machine))
+	else if(istype(H.dna.species, /datum/species/machine))
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.emp_proof = TRUE
 
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.emp_proof = TRUE
+	else
+		return
 
 //////////////////// COMMANDER ///////////////////
 
