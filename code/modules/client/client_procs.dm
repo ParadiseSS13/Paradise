@@ -262,6 +262,9 @@
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
+
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 	TopicData = null							//Prevent calls to client.Topic from connect
