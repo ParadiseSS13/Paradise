@@ -19246,12 +19246,18 @@
 /area/station/hallway/primary/fore/south)
 "bhH" = (
 /obj/machinery/smartfridge,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "kitchen ingrediant storage"
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
 	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 8;
+	name = "kitchen ingredient storage"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
