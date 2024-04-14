@@ -586,10 +586,10 @@
 	lootcount = 4
 	loot = list(
 				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 20,
-				/obj/item/organ/internal/cyberimp/arm/esword = 30,
+				/obj/item/organ/internal/cyberimp/arm/esword = 10,
 				/obj/item/organ/internal/cyberimp/arm/flash = 50,
 				/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened = 50,
-				/obj/item/organ/internal/cyberimp/arm/telebaton = 20, //Security'll love this one
+				/obj/item/organ/internal/cyberimp/arm/telebaton = 25, //Security'll love this one
 				/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
 				/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
 				/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened = 20,
@@ -620,7 +620,7 @@
 	loot = list(
 				/obj/item/storage/box/vox_spacesuit = 20,
 				/obj/item/storage/box/syndie_kit/chameleon = 50,
-				/obj/item/organ/internal/cyberimp/arm/esword = 30,
+				/obj/item/organ/internal/cyberimp/arm/esword = 10,
 				/obj/item/gun/energy/spikethrower = 20,
 				/obj/item/organ/internal/cyberimp/arm/medibeam = 50,
 				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 50,
