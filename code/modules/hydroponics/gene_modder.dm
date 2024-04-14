@@ -506,7 +506,7 @@
 		name += " (plant data disk)"
 
 		if(seeds_scanned < seeds_needed)
-			ui_name +=  " ([round(seeds_scanned/seeds_needed*100,1)]%)"
+			ui_name +=  " ([round(seeds_scanned / seeds_needed * 100, 1)]%)"
 	else
 		name = "plant data disk"
 		ui_name = "Empty Disk"
