@@ -94,10 +94,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"eq" = (
-/obj/structure/shuttle/engine/huge,
-/turf/simulated/floor/plating/airless,
-/area/shuttle/escape)
 "ew" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -346,7 +342,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "ob" = (
-/obj/machinery/economy/vending/medical,
+/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -373,6 +369,16 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"qb" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
 "qk" = (
 /obj/structure/marker_beacon/dock_marker,
 /turf/simulated/floor/catwalk,
@@ -389,7 +395,10 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
 /area/shuttle/escape)
 "rg" = (
 /obj/structure/rack,
@@ -410,15 +419,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
-"rw" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
 /area/shuttle/escape)
 "rX" = (
 /obj/structure/chair/comfy/shuttle{
@@ -662,6 +662,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/assembly/signaler,
+/obj/item/assembly/signaler,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Bi" = (
@@ -685,6 +687,17 @@
 /obj/effect/turf_decal/blue_corner{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluecorners"
+	},
+/area/shuttle/escape)
+"Cl" = (
+/obj/effect/turf_decal/blue_corner{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -821,6 +834,10 @@
 	},
 /area/shuttle/escape)
 "IN" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "Jb" = (
@@ -857,7 +874,10 @@
 	dir = 8;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
 /area/shuttle/escape)
 "Ky" = (
 /obj/machinery/light/small,
@@ -869,6 +889,10 @@
 	},
 /obj/machinery/shieldgen/raven,
 /obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"KL" = (
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "KQ" = (
@@ -965,7 +989,10 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
 /area/shuttle/escape)
 "PK" = (
 /obj/machinery/power/port_gen/pacman/upgraded{
@@ -1078,10 +1105,6 @@
 "VM" = (
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"VU" = (
-/obj/structure/shuttle/engine/large,
-/turf/simulated/floor/plating/airless,
-/area/shuttle/escape)
 "Wk" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1142,6 +1165,16 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
+/area/shuttle/escape)
+"Zg" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -1281,7 +1314,7 @@ iJ
 bO
 kO
 OD
-rw
+zb
 zb
 zb
 Iu
@@ -1333,10 +1366,10 @@ iJ
 lj
 kO
 rd
-uc
 UY
 UY
 UY
+Cl
 fR
 av
 av
@@ -1385,7 +1418,7 @@ iJ
 vF
 kO
 Ko
-yg
+lH
 lH
 lH
 iY
@@ -1431,7 +1464,7 @@ av
 av
 gZ
 av
-fE
+jK
 iJ
 iJ
 iJ
@@ -1504,8 +1537,8 @@ WU
 WU
 Jb
 av
-IN
-VU
+dP
+iJ
 iJ
 "}
 (8,1,1) = {"
@@ -1555,9 +1588,9 @@ Wk
 WU
 kr
 xI
-Je
-IN
-IN
+av
+Zg
+dP
 iJ
 "}
 (9,1,1) = {"
@@ -1607,10 +1640,10 @@ Iu
 Iu
 Wk
 Rc
-Je
+av
+av
 IN
-IN
-eq
+dP
 "}
 (10,1,1) = {"
 yD
@@ -1659,10 +1692,10 @@ yg
 Wk
 WU
 ob
-Je
+KL
+av
 IN
-IN
-IN
+dP
 "}
 (11,1,1) = {"
 jK
@@ -1711,10 +1744,10 @@ lH
 lH
 YC
 Rc
-Je
+av
+av
 IN
-IN
-IN
+dP
 "}
 (12,1,1) = {"
 iJ
@@ -1763,9 +1796,9 @@ WU
 yg
 jp
 xI
-Je
-IN
-VU
+av
+qb
+dP
 iJ
 "}
 (13,1,1) = {"
@@ -1816,8 +1849,8 @@ WU
 yg
 Jb
 av
-IN
-IN
+dP
+iJ
 iJ
 "}
 (14,1,1) = {"
@@ -1847,7 +1880,7 @@ av
 av
 gZ
 av
-fE
+jK
 iJ
 iJ
 iJ

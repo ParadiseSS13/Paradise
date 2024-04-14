@@ -342,15 +342,26 @@
 	// The emergency shuttle doesn't work like others so this
 	// ripple check is slightly different
 	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
-		var/destination
+		var/obj/docking_port/stationary/destination
 		if(mode == SHUTTLE_CALL)
 			destination = SSshuttle.getDock("emergency_home")
 		else if(mode == SHUTTLE_ESCAPE)
 			destination = SSshuttle.getDock("emergency_away")
 		if(lance_docking && !destination)
-			destination  = random_docking_go()
+			destination = random_docking_go()
 		create_ripples(destination)
-
+		if(lance_docking && is_station_level(destination.z))
+			var/list/L2 = list()
+			switch(destination.dir)
+				if(NORTH)
+					L2 = block(locate(destination.x-9, destination.y+36, destination.z), locate(destination.x+9, 255, destination.z))
+				if(SOUTH)
+					L2 = block(locate(destination.x-9, 1, destination.z), locate(destination.x+9, destination.y-36, destination.z))
+				if(EAST)
+					L2 = block(locate(destination.x+36, destination.y-9, destination.z), locate(255, destination.y+9, destination.z))
+				if(WEST)
+					L2 = block(locate(1, destination.y-9, destination.z), locate(destination.x-36, destination.y+9, destination.z))
+			create_lance_ripples(L2, destination)
 
 	switch(mode)
 		if(SHUTTLE_RECALL)
@@ -492,6 +503,9 @@
 		port.register()
 		return port
 
+/obj/docking_port/mobile/emergency/proc/create_lance_ripples(list/L2, obj/docking_port/stationary/S1)
+	for(var/turf/T in L2)
+		ripples += new /obj/effect/temp_visual/ripple/lance_crush(T)
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
