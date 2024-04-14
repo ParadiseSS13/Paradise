@@ -349,8 +349,7 @@
 	walk(src, 0)
 	LoseAggro()
 
-/// Shortcut proc to allow initiating combat slightly faster than waiting for
-/// normal processing.
+/// Shortcut proc to allow initiating combat slightly faster than waiting for normal processing.
 /mob/living/simple_animal/hostile/proc/aggro_fast(known_target)
 	FindTarget(list(known_target), TRUE)
 	MoveToTarget(list(known_target))
