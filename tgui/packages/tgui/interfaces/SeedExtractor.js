@@ -123,7 +123,7 @@ const seedFilter = (searchText) => {
 
 const SeedList = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { seeds, vend_amount } = data;
+  const { icons, seeds, vend_amount } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [vendAmount, setVendAmount] = useLocalState(context, 'vendAmount', 1);
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
@@ -166,7 +166,7 @@ const SeedList = (properties, context) => {
                   >
                     <Table.Cell>
                       <img
-                        src={`data:image/jpeg;base64,${seed.image}`}
+                        src={`data:image/jpeg;base64,${icons[seed.image]}`}
                         style={{
                           'vertical-align': 'middle',
                           width: '32px',

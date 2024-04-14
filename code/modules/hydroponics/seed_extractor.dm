@@ -148,6 +148,7 @@
 /obj/machinery/seed_extractor/ui_data(mob/user)
 	var/list/data = list()
 
+	data["icons"] = list()
 	data["seeds"] = list()
 	for(var/datum/seed_pile/O in piles)
 		var/obj/item/I = O.path
@@ -155,8 +156,9 @@
 		if(!base64icon)
 			base64icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))
 			GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
+		data["icons"]["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
 		var/list/seed_info = list(
-			"image" = "[base64icon]",
+			"image" = "[initial(I.icon)][initial(I.icon_state)]",
 			"id" = O.id,
 			"name" = O.name,
 			"variant" = O.variant,
