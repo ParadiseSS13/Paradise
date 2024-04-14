@@ -1080,9 +1080,9 @@
 	var/mutation_comment = ""
 	if(mutation_level >= 30 && can_mutate_species)
 		mutation_comment = " (will change species)"
-	else if(mutation_level > 25 && can_mutate_species)
+	else if(mutation_level > 20 && can_mutate_species)
 		mutation_comment = " (may add traits or change species)"
-	else if(mutation_level > 25)
+	else if(mutation_level > 20)
 		mutation_comment = " (may add traits)"
 	else if(mutation_level > 10 && can_mutate_species)
 		mutation_comment = " (may change species)"

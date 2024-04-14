@@ -131,7 +131,7 @@
 			mutate_stat(stat, level / 2, stat_mutation_sizes[stat])
 		else
 			mutate_stat(stat, level, stat_mutation_sizes[stat])
-	if(prob(level - 50))
+	if(prob(level - 40))
 		add_random_traits(1, 1)
 
 /obj/item/seeds/proc/mutate_stat(stat, level, mutation_size)
