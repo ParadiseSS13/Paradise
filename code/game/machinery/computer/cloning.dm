@@ -280,7 +280,7 @@
 			return TRUE
 		if("scan")
 			if(!COOLDOWN_FINISHED(src, scancooldown))
-				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "good", "scan_succeeded" = FALSE)
+				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "average", "scan_succeeded" = FALSE)
 				return TRUE
 
 			if(!scanner.occupant)
