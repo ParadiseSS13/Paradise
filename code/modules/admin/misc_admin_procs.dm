@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
+					SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
 				window_flash(C)
 
 /proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
@@ -508,6 +508,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Unable to start the game as it is not set up.")
 		return
 
+	if(!SSticker.ticker_going)
+		alert("Remove the round-start delay first.")
+		return
+
 	if(GLOB.configuration.general.start_now_confirmation)
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
@@ -588,7 +592,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
+	if(!SSticker)
+		alert("Slow down a moment, let the ticker start first!")
+		return
+		
+	if(SSblackbox)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+	if(SSticker.current_state > GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
@@ -604,7 +615,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -827,13 +837,13 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		toArea = locate(/area/shuttle/gamma/station)
 		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
 			H.open()
-		GLOB.major_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_deploy.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
 		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
 			H.close() //DOOR STUCK
-		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/gamma_recall.ogg')
 	fromArea.move_contents_to(toArea)
 
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
