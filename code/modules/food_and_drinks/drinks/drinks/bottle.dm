@@ -286,6 +286,7 @@
 	item_state = "carton"
 	throwforce = 0
 	is_glass = FALSE
+	gender = PLURAL
 	list_reagents = list("orangejuice" = 100)
 
 /obj/item/reagent_containers/drinks/bottle/cream
@@ -295,6 +296,7 @@
 	item_state = "carton"
 	throwforce = 0
 	is_glass = FALSE
+	gender = PLURAL
 	list_reagents = list("cream" = 100)
 
 /obj/item/reagent_containers/drinks/bottle/tomatojuice
@@ -304,6 +306,7 @@
 	item_state = "carton"
 	throwforce = 0
 	is_glass = FALSE
+	gender = PLURAL
 	list_reagents = list("tomatojuice" = 100)
 
 /obj/item/reagent_containers/drinks/bottle/limejuice
@@ -313,6 +316,7 @@
 	item_state = "carton"
 	throwforce = 0
 	is_glass = FALSE
+	gender = PLURAL
 	list_reagents = list("limejuice" = 100)
 
 /obj/item/reagent_containers/drinks/bottle/milk
@@ -322,6 +326,7 @@
 	item_state = "carton"
 	throwforce = 0
 	is_glass = FALSE
+	gender = PLURAL
 	list_reagents = list("milk" = 100)
 
 ////////////////////////// MOLOTOV ///////////////////////

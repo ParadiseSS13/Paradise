@@ -25,7 +25,7 @@
 		/obj/item/bio_chip
 	)
 
-/datum/spell_targeting/matter_eater/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/matter_eater/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	var/list/possible_targets = list()
 
 	for(var/atom/movable/O in view_or_range(range, user, selection_type))

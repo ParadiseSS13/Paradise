@@ -171,12 +171,11 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			if(HAS_TRAIT(user, TRAIT_BADASS))
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
 				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
 			else
 				handle_suicide(user, target, params)
 			return
-
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)

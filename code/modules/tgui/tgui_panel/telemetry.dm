@@ -69,7 +69,7 @@
 		// Check for a malformed history object
 		if(!row || row.len < 3 || (!row["ckey"] || !row["address"] || !row["computer_id"]))
 			return
-		if(world.IsBanned(row["ckey"], row["address"], row["computer_id"]))
+		if(world.IsBanned(row["ckey"], row["address"], row["computer_id"], FALSE, FALSE, FALSE, FALSE, FALSE))
 			found = row
 			break
 		CHECK_TICK
