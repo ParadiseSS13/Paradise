@@ -357,8 +357,11 @@
 		/obj/item/stack/nanopaste/cyborg,
 		/obj/item/gripper_medical
 	)
-	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
-	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
+	malf_modules = list(/obj/item/gun/syringemalf)
+	special_rechargables = list(
+		/obj/item/extinguisher/mini,
+		/obj/item/gun/syringemalf
+	)
 
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
@@ -375,6 +378,50 @@
 	for(var/obj/item/reagent_containers/borghypo/F in modules)
 		F.emag_act()
 	return ..()
+
+/// Malf Syringe Gun
+/obj/item/gun/syringemalf
+	name = "plasma syringe cannon"
+	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
+	icon_state = "rapidsyringegun"
+	throw_speed = 3
+	throw_range = 7
+	force = 4
+	fire_sound = 'sound/items/syringeproj.ogg'
+	fire_delay = 0.75
+	var/max_syringes = 14
+	var/current_syringes = 14
+
+//Preload Syringes
+/obj/item/gun/syringemalf/Initialize(mapload)
+	..()
+	chambered = new /obj/item/ammo_casing/syringegun(src)
+	process_chamber()
+
+//Recharge syringes in a recharger
+/obj/item/gun/syringemalf/cyborg_recharge(coeff, emagged)
+	if(current_syringes + (chambered.BB ? 1 : 0) < max_syringes)
+		current_syringes++
+		process_chamber()
+
+//Cannot manually remove syringes
+/obj/item/gun/syringemalf/attack_self(mob/living/user)
+	return
+
+//Load syringe into the chamber
+/obj/item/gun/syringemalf/process_chamber()
+	if(!current_syringes || chambered?.BB)
+		return
+
+	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
+	chambered.BB.reagents.add_reagent_list(list("toxin" = 2))
+	chambered.BB.name = "heavy duty syringe"
+	current_syringes--
+
+/obj/item/gun/syringemalf/examine(mob/user)
+	. = ..()
+	var/num_syringes = current_syringes + (chambered.BB ? 1 : 0)
+	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
 
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
@@ -470,10 +517,12 @@
 		/obj/item/extinguisher/mini
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
+	malf_modules = list(/obj/item/stack/cyborg_mine)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
+		/obj/item/reagent_containers/spray/cyborg_facid,
 		/obj/item/extinguisher/mini
 	)
 
@@ -514,6 +563,30 @@
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 
+
+/obj/item/malfbroom
+	name = "cyborg combat broom"
+	desc = "A steel-core push broom for the hostile cyborg. The firm bristles make it more suitable for fighting than cleaning."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "broom0"
+	base_icon_state = "broom"
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
+	force = 20
+
+/obj/item/malfbroom/attack(mob/target, mob/user)
+	if(!ishuman(target))
+		return ..()
+	var/mob/living/carbon/human/H = target
+	if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
+		return ..()
+	H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
+						"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+						"<span class='italics'>You hear sweeping.</span>")
+	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	H.apply_damage(20, BRUTE)
+	H.KnockDown(4 SECONDS)
+	add_attack_logs(user, H, "Leg swept with cyborg combat broom", ATKLOG_ALL)
+
 // Service cyborg module.
 /obj/item/robot_module/butler
 	name = "service robot module"
@@ -535,10 +608,12 @@
 		/obj/item/reagent_containers/drinks/shaker
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
+	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
-		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
+		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+		/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
 	)
 
 
@@ -595,23 +670,9 @@
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/pickaxe/drill/jackhammer)
+	malf_modules = list(/obj/item/gun/energy/kinetic_accelerator/cyborg/malf)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
-
-// Replace their normal drill with a diamond drill.
-/obj/item/robot_module/miner/emag_act()
-	. = ..()
-	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
-		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
-		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
-			qdel(D)
-			basic_modules -= D // Remove it from this list so it doesn't get added in the rebuild.
-
-// Readd the normal drill
-/obj/item/robot_module/miner/unemag()
-	var/obj/item/pickaxe/drill/cyborg/C = new(src)
-	basic_modules += C
-	return ..()
 
 // This makes it so others can crowbar out KA upgrades from the miner borg.
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
@@ -957,6 +1018,13 @@
 /datum/robot_storage/energy/medical/nanopaste/syndicate
 	max_amount = 25
 
+//Energy stack for landmines
+/datum/robot_storage/energy/janitor/landmine
+	name = "Landmine Synthesizer"
+	statpanel_name = "Landmines"
+	max_amount = 4
+	recharge_rate = 0.2
+
 /// This datum is an alternative to the energy storages, instead being recharged in different ways
 /datum/robot_storage/material
 	name = "Generic material storage"
@@ -986,3 +1054,4 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
+

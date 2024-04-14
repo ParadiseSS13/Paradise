@@ -293,7 +293,7 @@
 	var/min = 0
 	var/max = get_amount()
 	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack? (Max: [max])", "Stack Split", max_value = max)
-	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
+	if(isnull(stackmaterial) || stackmaterial <= min || stackmaterial > get_amount())
 		return
 	if(!Adjacent(user, 1))
 		return

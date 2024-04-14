@@ -116,7 +116,7 @@
 
 			var/obj/item/organ/external/affecting
 
-			switch(pick(list("ankle","wrist","head","knee","elbow")))
+			switch(pick("ankle","wrist","head","knee","elbow"))
 				if("ankle")
 					affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if("knee")
