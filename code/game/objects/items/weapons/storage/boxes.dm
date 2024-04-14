@@ -926,7 +926,7 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
 /obj/item/storage/box/enforcer_lethal
-	name = "Enforcer pistol kit (lethal)"
+	name = "\improper Enforcer pistol kit (lethal)"
 	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'LETHAL'."
 	icon_state = "ert_box"
 
