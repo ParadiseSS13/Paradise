@@ -419,7 +419,6 @@
 	name = "11. trans-solar federation small gear"
 	loot = list(
 				/obj/item/storage/box/enforcer_rubber = 50,
-				/obj/item/storage/box/buck = 30, //Only seven shots, make them count
 				/obj/item/lighter/zippo/gonzofist = 50,
 				/obj/item/clothing/glasses/welding/superior = 50,
 				/obj/item/clothing/suit/armor/bulletproof = 50,
@@ -427,6 +426,7 @@
 				/obj/item/clothing/gloves/combat = 50,
 				/obj/item/storage/belt/military/assault = 50,
 				/obj/item/clothing/under/solgov = 50,
+				/obj/item/mod/module/dispenser = 50,
 				/obj/item/flag/solgov = 30
 				)
 
@@ -439,7 +439,7 @@
 				/obj/item/melee/baseball_bat/homerun = 50,
 				/obj/item/rcd/combat = 50,
 				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50,
-				/obj/item/mod/module/dispenser = 50,
+				/obj/item/storage/box/buck = 30, //Only seven shots, make them count
 				/obj/item/mod/module/noslip = 40,
 				/obj/item/clothing/mask/holo_cigar = 50
 				)
@@ -450,7 +450,7 @@
 				/obj/item/storage/box/syndidonkpockets = 50,
 				/obj/item/clothing/suit/jacket/syndicatebomber = 50,
 				/obj/item/storage/box/syndie_kit/space = 50,
-				/obj/item/clothing/glasses/meson/cyber = 50,
+				/obj/item/clothing/glasses/meson/sunglasses = 50,
 				/obj/item/storage/pill_bottle/zoom = 50,
 				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 50,
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 30,
@@ -565,7 +565,7 @@
 	name = "11. synthetic union small gear"
 	lootcount = 8 //A lot of these are available on station, so the amount of items spawned here is increased
 	loot = list(
-				/obj/item/clothing/glasses/meson/cyber = 50,
+				/obj/item/clothing/glasses/meson/sunglasses = 50,
 				/obj/item/clothing/glasses/thermal/monocle = 50,
 				/obj/item/organ/internal/cyberimp/arm/toolset = 50,
 				/obj/item/organ/internal/cyberimp/arm/surgery = 50,
@@ -600,7 +600,7 @@
 /obj/effect/spawner/lootdrop/trade_sol/skipjack_minor
 	name = "11. skipjack small gear"
 	loot = list(
-				/obj/item/clothing/glasses/meson/cyber = 50,
+				/obj/item/clothing/glasses/meson/gar = 50,
 				/obj/item/clothing/glasses/thermal/eyepatch = 50,
 				/obj/item/melee/energy/sword/pirate = 50,
 				/obj/item/clothing/suit/hooded/vox_robes = 30,
