@@ -71,6 +71,8 @@
 		/datum/reagent/medicine/cryoxadone = list("endurance"),
 		/datum/reagent/medicine/omnizine = list("lifespan"),
 		/datum/reagent/medicine/salglu_solution = list("weed rate", "weed count"))
+	/// What do we call the mutagen tank?
+	var/mutagen_tank_name = "Mutagen tank"
 
 /obj/machinery/hydroponics/Initialize(mapload)
 	. = ..()
@@ -1014,6 +1016,7 @@
 	density = FALSE
 	power_state = NO_POWER_USE
 	wrenchable = FALSE
+	mutagen_tank_name = "Mutagen pool"
 
 /obj/machinery/hydroponics/soil/update_icon_state()
 	return // Has no hoses
@@ -1073,7 +1076,7 @@
 		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>Earthsblood<br>&nbsp;&nbsp;This [src.name] has been treated with Earthsblood and constantly produces its own fertilizer. Like E-Z-Nutrient, Earthsblood fertilizer has no particular attributes, it just keeps plants fed.</span>")
 	else
 		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]</span>")
-	to_chat(user, "- Mutagen level: <span class='notice'>[mutagen] / [max_mutagen]</span>")
+	to_chat(user, "- [mutagen_tank_name]: <span class='notice'>[mutagen] / [max_mutagen]</span>")
 
 	var/can_mutate_species = myseed && length(myseed.mutatelist)
 	var/mutation_level = get_mutation_level()
