@@ -124,13 +124,20 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 //Datums that handle the various announcements, species, outfits, and item lists.
 /datum/traders
-	var/trader_type	//What faction the trader is
-	var/trader_location //Where the traders originate from
-	var/dock_site //What specific station the traders came from
-	var/trader_species //What species the traders consist of
-	var/trader_outfit //What outfit do the traders spawn with
-	var/trader_minor_special //What standard faction gear do they start with
-	var/trader_major_special //What big ticket faction gear do they start with
+	/// What faction the trader is
+	var/trader_type
+	/// Where the traders originate from
+	var/trader_location
+	/// What specific station the traders came from
+	var/dock_site
+	/// What species the traders consist of
+	var/trader_species
+	/// What outfit do the traders spawn with
+	var/trader_outfit
+	/// What standard faction gear do they start with
+	var/trader_minor_special
+	/// What big ticket faction gear do they start with
+	var/trader_major_special
 
 /datum/traders/sol
 	trader_type = "Trans-Solar Federation"
