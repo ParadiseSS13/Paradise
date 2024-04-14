@@ -963,7 +963,7 @@
 
 /obj/item/storage/box/deagle
 	name = "desert eagle handcannon kit"
-	desc = "A box marked with pictures of the iconic Deseart Eagle pistol, one ammo clip, and the word 'LETHAL'."
+	desc = "A box marked with pictures of the iconic Desert Eagle pistol, one ammo clip, and the word 'LETHAL'."
 	icon_state = "ert_box"
 
 /obj/item/storage/box/deagle/populate_contents()
