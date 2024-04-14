@@ -176,7 +176,7 @@
 			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	var/recieve_window_link = "(<a href='?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/recieve_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
 		recieve_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
@@ -187,7 +187,7 @@
 	else
 		recieve_message = chat_box_ahelp(recieve_message)
 	to_chat(C, recieve_message)
-	var/send_window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
 		send_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
