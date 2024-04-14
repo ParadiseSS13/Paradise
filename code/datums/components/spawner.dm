@@ -23,7 +23,7 @@
 		max_mobs=_max_mobs
 
 	RegisterSignal(parent, list(COMSIG_PARENT_QDELETING), PROC_REF(stop_spawning))
-	RegisterSignal(parent, list(COMSIG_SPAWNER_SET_TARGET), PROC_REF(rally_spawned_mobs))
+	RegisterSignal(parent, COMSIG_SPAWNER_SET_TARGET, PROC_REF(rally_spawned_mobs))
 	START_PROCESSING(SSprocessing, src)
 
 /datum/component/spawner/process()
@@ -60,4 +60,4 @@
 		// ourselves while this is happening, causing confusion
 		COOLDOWN_START(src, last_rally, 30 SECONDS)
 		for(var/mob/living/simple_animal/hostile/rallied in spawned_mobs)
-			INVOKE_ASYNC(rallied, TYPE_PROC_REF(/mob/living/simple_animal/hostile, FindTarget), list(target), TRUE)
+			INVOKE_ASYNC(rallied, TYPE_PROC_REF(/mob/living/simple_animal/hostile, aggro_fast), target)
