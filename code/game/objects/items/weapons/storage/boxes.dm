@@ -938,7 +938,6 @@
 /obj/item/storage/box/hydroponics_starter
 	name = "hydroponics starter kit"
 	desc = "Everything you need to start your own botany lab."
-	icon_state = "ert_box"
 
 /obj/item/storage/box/hydroponics_starter/populate_contents()
 	for(var/I in 1 to 2)
@@ -951,7 +950,6 @@
 /obj/item/storage/box/turbine_kit
 	name = "turbine kit"
 	desc = "Somehow, they managed to fit almost an entire turbine assembly into this box."
-	icon_state = "ert_box"
 
 /obj/item/storage/box/turbine_kit/populate_contents()
 	new /obj/item/circuitboard/turbine_computer(src)
@@ -964,7 +962,7 @@
 /obj/item/storage/box/deagle
 	name = "desert eagle handcannon kit"
 	desc = "A box marked with pictures of the iconic Desert Eagle pistol, one ammo clip, and the word 'LETHAL'."
-	icon_state = "ert_box"
+	icon_state = "doom_box"
 
 /obj/item/storage/box/deagle/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
