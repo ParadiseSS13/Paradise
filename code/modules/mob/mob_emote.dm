@@ -134,8 +134,12 @@
 	var/mob/living/L = user
 
 	if(IS_HORIZONTAL(L))
-		message = "flops and flails around on the floor."
-		return ..()
+		var/turf = get_turf(L)
+		if(isspaceturf(turf))
+			message = "flops and flails around in space"
+		else
+		 message = "flops and flails around on the floor."
+			return ..()
 	else if(params)
 		message_param = "flips in %t's general direction."
 	else if(ishuman(user))
@@ -166,11 +170,15 @@
 							"<span class='warning'>As you flip your hat falls off!</span>")
 
 	if(prob(5) && ishuman(user))
-		message = "attempts a flip and crashes to the floor!"
-		sleep(0.3 SECONDS)
+		var/turf = get_turf(L)
+		if(isspaceturf(turf))
+			message = "attempts a flip and loses balance!"
+		else
+			message = "attempts a flip and crashes to the floor!"
 		if(istype(L))
+			sleep(0.3 SECONDS)
 			L.Weaken(4 SECONDS)
-		return ..()
+			return ..()
 
 	. = ..()
 
