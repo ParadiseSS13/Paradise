@@ -207,7 +207,7 @@
 	mode = BOT_ARREST
 	sleep(1 SECONDS)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
+	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 	if(!do_after(src, 6 SECONDS, target = C) || !on)
 		mode = BOT_IDLE
@@ -250,7 +250,7 @@
 		threatlevel = 6 // will never let you go
 	addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	add_attack_logs(src, C, "honked by [src]")
-	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
+	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",
 			"<span class='userdanger'>[src] has honked you!</span>")
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
