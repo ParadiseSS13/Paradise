@@ -968,39 +968,44 @@
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 
-/obj/item/storage/box/skrell_suit_white
-	name = "white skrellian suit box"
-	desc = "A box containing a skrell-designed medical spacesuit. This one is white."
+/obj/item/storage/box/skrell_suit/
+	name = "skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit."
 	icon_state = "doom_box"
 
-/obj/item/storage/box/skrell_suit_white/populate_contents()
+/obj/item/storage/box/skrell_suit/white
+	name = "white skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is white."
+
+/obj/item/storage/box/skrell_suit/white/populate_contents()
 	new /obj/item/clothing/head/helmet/space/skrell/white(src)
 	new /obj/item/clothing/suit/space/skrell/white(src)
 
-/obj/item/storage/box/skrell_suit_black
+/obj/item/storage/box/skrell_suitblack
 	name = "black skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit. This one is black."
-	icon_state = "doom_box"
 
-/obj/item/storage/box/skrell_suit_black/populate_contents()
+/obj/item/storage/box/skrell_suit/black/populate_contents()
 	new /obj/item/clothing/head/helmet/space/skrell/black(src)
 	new /obj/item/clothing/suit/space/skrell/black(src)
 
-/obj/item/storage/box/breacher_suit_cheap
-	name = "cheap breacher suit box"
-	desc = "A box containing a knock-off unathi battlesuit."
+/obj/item/storage/box/breacher
+	name = "breacher suit box"
+	desc = "A box containing a unathi battlesuit."
 	icon_state = "doom_box"
 
-/obj/item/storage/box/breacher_suit_cheap/populate_contents()
+/obj/item/storage/box/breacher/cheap
+	name = "cheap breacher suit box"
+	desc = "A box containing a knock-off unathi battlesuit."
+
+/obj/item/storage/box/breacher/cheap/populate_contents()
 	new /obj/item/clothing/suit/space/unathi/rig_cheap(src)
 	new /obj/item/clothing/head/helmet/space/unathi/helmet_cheap(src)
 
-/obj/item/storage/box/breacher_suit
-	name = "breacher suit box"
+/obj/item/storage/box/breacher/full
 	desc = "A box containing a bulky unathi battlesuit."
-	icon_state = "doom_box"
 
-/obj/item/storage/box/breacher_suit/populate_contents()
+/obj/item/storage/box/breacher/full/populate_contents()
 	new /obj/item/clothing/suit/space/unathi/breacher(src)
 	new /obj/item/clothing/head/helmet/space/unathi/breacher(src)
 

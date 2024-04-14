@@ -515,7 +515,7 @@
 				/obj/item/flag/species/unathi = 20,
 				/obj/item/clothing/suit/armor/riot/knight/templar = 40,
 				/obj/item/clothing/head/helmet/riot/knight/templar = 40,
-				/obj/item/storage/box/breacher_suit_cheap = 30,
+				/obj/item/storage/box/breacher/cheap = 30,
 				/obj/item/clothing/suit/unathi/robe = 20
 				)
 
@@ -524,7 +524,7 @@
 	lootcount = 3
 	loot = list(
 				/obj/item/melee/energy/sword/pirate = 30,
-				/obj/item/storage/box/breacher_suit = 30,
+				/obj/item/storage/box/breacher/full = 30,
 				/obj/item/fireaxe = 50,
 				/obj/item/fireaxe/boneaxe = 50,
 				/obj/item/gun/energy/kinetic_accelerator/crossbow/large = 10 //Big ebow.
@@ -625,7 +625,7 @@
 				/obj/item/organ/internal/cyberimp/arm/medibeam = 50,
 				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 50,
 				/obj/item/organ/internal/cyberimp/arm/gun/laser = 30,
-				/obj/item/storage/box/breacher_suit_cheap = 10,
+				/obj/item/storage/box/breacher/cheap = 10,
 				/obj/item/gun/projectile/revolver/nagant = 10,
 				/obj/item/bio_chip/storage = 10,
 				/obj/item/rcd/combat = 10
@@ -657,8 +657,8 @@
 				/obj/item/reagent_containers/applicator/dual/syndi = 50, //Same as the above but comes emagged
 				/obj/item/gun/medbeam = 30,
 				/obj/item/gun/syringe/syndicate = 50,
-				/obj/item/storage/box/skrell_suit_black = 30,
-				/obj/item/storage/box/skrell_suit_white = 30,
+				/obj/item/storage/box/skrell_suit/black = 30,
+				/obj/item/storage/box/skrell_suit/white = 30,
 				/obj/item/rod_of_asclepius = 20
 				)
 
