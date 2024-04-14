@@ -63,7 +63,7 @@ function task-test {
 }
 
 function task-prettier {
-  npx prettier --check packages --write @Args
+  npx prettier --check packages @Args
 }
 
 function task-polyfill {
@@ -177,7 +177,7 @@ if ($Args.Length -gt 0) {
   ## ## Run prettier
   if ($Args[0] -eq "--prettier") {
     $Rest = $Args | Select-Object -Skip 1
-    task-prettier @Rest
+    task-prettier --write
     exit 0
   }
 
@@ -194,7 +194,6 @@ if ($Args.Length -gt 0) {
 if ($Args.Length -eq 0) {
   task-install
   task-lint --fix
-  task-prettier
   task-webpack --mode=production
   exit 0
 }

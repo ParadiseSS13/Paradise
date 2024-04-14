@@ -29,6 +29,7 @@ stddef.dm
 *.vscode/*
 !/.vscode/extensions.json
 !/.vscode/tasks.json
+!/.vscode/launch.json
 
 # ignore DMI tool build cache
 /tools/dmitool/bin/

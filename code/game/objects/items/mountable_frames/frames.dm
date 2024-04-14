@@ -32,7 +32,7 @@
 		return
 	if(mount_requirements & MOUNTED_FRAME_NOSPACE)
 		var/area/my_area = get_area(build_turf)
-		if(!istype(my_area) || !my_area.requires_power || istype(my_area, /area/space))
+		if(!istype(my_area) || !my_area.requires_power || isspacearea(my_area))
 			to_chat(user, "<span class='warning'>[src] cannot be placed in this area.</span>")
 			return
 	return TRUE

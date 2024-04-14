@@ -26,10 +26,6 @@
 /obj/item/radio/beacon/hear_talk()
 	return
 
-
-/obj/item/radio/beacon/send_hear()
-	return null
-
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/radio/beacon/bacon
 
@@ -76,7 +72,8 @@
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
-		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid)
+		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
+		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot)
 	var/list/selected = list()
 	var/list/unselected = list()
 

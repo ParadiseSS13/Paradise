@@ -16,7 +16,6 @@
 	has_unlimited_silicon_privilege = TRUE
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = 0 						// No default canpush
-	can_strip = FALSE
 	hud_type = /datum/hud/bot
 
 	speak_emote = list("states")
@@ -208,7 +207,7 @@
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
 	return TRUE
@@ -218,7 +217,7 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() // Resets an AI's call, should it exist.
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon()
 	update_controls()
 
 /mob/living/simple_animal/bot/Initialize(mapload)
@@ -248,6 +247,7 @@
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return // We use a different hud
@@ -907,9 +907,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
-
-/mob/living/simple_animal/bot/show_inv()
-	return
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M

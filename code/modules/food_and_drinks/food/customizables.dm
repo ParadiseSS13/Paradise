@@ -515,7 +515,7 @@ do {\
 		sendback += basename
 
 	if(length(sendback) > 80)
-		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
+		sendback = "[pick("absurd", "colossal", "enormous", "ridiculous", "massive", "oversized", "cardiac-arresting", "pipe-clogging", "edible but sickening", "sickening", "gargantuan", "mega", "belly-burster", "chest-burster")] [basename]"
 	return sendback
 
 /obj/item/food/snacks/customizable/proc/sortlist(list/unsorted, highest)

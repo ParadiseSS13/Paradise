@@ -266,7 +266,7 @@
 		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) // Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
-	return !istype(get_area(t), /area/space)
+	return !isspacearea(get_area(t))
 
 // Floorbots, having several functions, need sort out special conditions here.
 /mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)
