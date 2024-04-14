@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use './colors.scss';
 
-@supports (not (-webkit-hyphens:none)) and (not (-moz-appearance:none)) {
+@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
   * {
     &::-webkit-scrollbar {
       width: 0.8rem;
@@ -31,7 +31,21 @@
 }
 
 // Remove conditionals with 516
-@supports (not (-webkit-hyphens:none)) and (not (-moz-appearance:none)) { .textarea { flex-grow: 8; outline: none; resize: none; } }
+@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+  .textarea {
+    flex-grow: 8;
+    outline: none;
+    resize: none;
+  }
+}
 
 // Remove with 516
-@media screen and (-ms-high-contrast:active), (-ms-high-contrast:none) { .textarea { align-items: center; display: flex; flex-grow: 4; overflow: hidden; margin: 0.1rem 0 0 0.4rem; } }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .textarea {
+    align-items: center;
+    display: flex;
+    flex-grow: 4;
+    overflow: hidden;
+    margin: 0.1rem 0 0 0.4rem;
+  }
+}
