@@ -138,7 +138,7 @@
 	cell = C
 	visible_message("[user] inserts a cell into [src].",
 					"<span class='notice'>You insert the new cell into [src].</span>")
-	return
+	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/proc/cell_remove(obj/item/I, mob/user)
 	cell.add_fingerprint(user)
@@ -146,7 +146,7 @@
 	cell = null
 	visible_message("[user] crowbars out the power cell from [src].",
 					"<span class='notice'>You pry the powercell out of [src].</span>")
-	return
+	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
 	if(allowed(user))
