@@ -468,7 +468,7 @@
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 0.1 * REAGENTS_METABOLISM
+	metabolization_rate = 0.1
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"

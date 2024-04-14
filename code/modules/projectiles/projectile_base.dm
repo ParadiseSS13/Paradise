@@ -264,7 +264,7 @@
 		if(get_dist(A, original) <= 1)
 			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 		else
-			def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = pick("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg") // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
