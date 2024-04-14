@@ -189,8 +189,12 @@
 	data["seed"] = list()
 
 	if(seed)
+		var/icon/base64icon = GLOB.seeds_cached_base64_icons["[initial(seed.icon)][initial(seed.icon_state)]"]
+		if(!base64icon)
+			base64icon = icon2base64(icon(initial(seed.icon), initial(seed.icon_state), SOUTH, 1))
+			GLOB.seeds_cached_base64_icons["[initial(seed.icon)][initial(seed.icon_state)]"] = base64icon
 		data["seed"] = list(
-			"image" = "[icon2base64(icon(initial(seed.icon), initial(seed.icon_state), SOUTH, 1))]",
+			"image" = "[base64icon]",
 			"name" = seed.name,
 			"variant" = seed.variant
 		)
