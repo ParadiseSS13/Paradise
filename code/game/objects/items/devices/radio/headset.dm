@@ -395,7 +395,7 @@
 			return
 
 		if(!user.drop_item())
-			to_chat(usr, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src]</span>")
+			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
 			return
 
 		key.forceMove(src)
