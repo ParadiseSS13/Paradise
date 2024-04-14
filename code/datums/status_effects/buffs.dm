@@ -857,7 +857,7 @@
 /datum/status_effect/reversed_sun/on_remove()
 	. = ..()
 	owner.remove_light()
-	owner.cure_nearsighted()
+	owner.cure_nearsighted("REVERSED_SUN")
 	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
 	owner.update_sight()
 
