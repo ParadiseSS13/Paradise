@@ -138,7 +138,7 @@
 		if(isspaceturf(turf))
 			message = "flops and flails around in space"
 		else
-		 message = "flops and flails around on the floor."
+		message = "flops and flails around on the floor."
 			return ..()
 	else if(params)
 		message_param = "flips in %t's general direction."
