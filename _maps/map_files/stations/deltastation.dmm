@@ -64684,12 +64684,8 @@
 /area/station/hallway/primary/central)
 "dUY" = (
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dUZ" = (
@@ -88225,25 +88221,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
-"rCG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/chair,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light,
-/obj/machinery/alarm/directional/south,
-/obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/station/hallway/secondary/exit)
 "rDQ" = (
 /mob/living/carbon/human/monkey,
@@ -138769,7 +138746,7 @@ dOw
 joI
 dNc
 dNQ
-rCG
+dOw
 dUY
 dIH
 abj
