@@ -177,7 +177,7 @@
 			message = "attempts a flip and crashes to the floor!"
 		if(istype(L))
 			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS)
-			return ..()
+		return ..()
 
 	. = ..()
 
