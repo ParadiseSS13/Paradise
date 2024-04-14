@@ -403,7 +403,7 @@
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
-	flags |= NOJAUNT
+	flags |= BLESSED_TILE
 
 /turf/proc/clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)

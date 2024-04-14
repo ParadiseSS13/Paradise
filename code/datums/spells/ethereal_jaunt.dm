@@ -120,8 +120,6 @@
 	to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)
-	if(T.flags & NOJAUNT)
-		return FALSE
 	return TRUE
 
 /obj/effect/dummy/spell_jaunt/ex_act(blah)
