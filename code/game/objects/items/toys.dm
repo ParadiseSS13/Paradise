@@ -813,8 +813,7 @@
 
 /obj/item/toy/plushie/lizardplushie/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, hug_sound))
-		..()
-		return
+		return ..()
 	playsound(user, 'sound/voice/weh.ogg', 10, FALSE)
 	visible_message("<span class='danger'>Weh!</span>")
 	COOLDOWN_START(src, hug_sound, 3 SECONDS)
