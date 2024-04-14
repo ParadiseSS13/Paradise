@@ -45501,6 +45501,7 @@
 	name = "processing tint control";
 	pixel_x = -6;
 	pixel_y = 24;
+	range = 4;
 	req_access_txt = "63"
 	},
 /obj/machinery/light_switch{
