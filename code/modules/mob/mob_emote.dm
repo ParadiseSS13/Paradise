@@ -176,8 +176,7 @@
 		else
 			message = "attempts a flip and crashes to the floor!"
 		if(istype(L))
-			sleep(0.3 SECONDS)
-			L.Weaken(4 SECONDS)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS)
 			return ..()
 
 	. = ..()
