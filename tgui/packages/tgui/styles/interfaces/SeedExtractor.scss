@@ -3,10 +3,6 @@
 @use '../functions.scss' as *;
 
 .SeedExtractor__list {
-  tr > td {
-    text-align: center;
-  }
-
   tr:not(:first-child) {
     height: 24px;
     line-height: 24px;
