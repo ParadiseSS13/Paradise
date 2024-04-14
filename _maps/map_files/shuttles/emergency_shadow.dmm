@@ -806,12 +806,9 @@
 "Hh" = (
 /obj/structure/rack,
 /obj/item/soap/nanotrasen,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/item/grenade/chem_grenade/metalfoam,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
