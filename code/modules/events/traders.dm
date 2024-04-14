@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_major_special = /obj/effect/spawner/lootdrop/trade_sol/federation_major
 
 /datum/traders/cyber
-	trader_type = "Robomoon Industries" //Cybersun, but *legally distinct*
+	trader_type = "Cybersun Industries"
 	trader_location = "-=ERROR: Unregisted Station Charter=-"
 	dock_site = "an undercover robotics factory"
 	trader_species = /mob/living/carbon/human
