@@ -19249,12 +19249,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
-	dir = 8
-	},
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 8;
 	name = "kitchen ingredient storage"
@@ -98430,9 +98424,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8
-	},
+/obj/machinery/door/window/reinforced/normal,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
