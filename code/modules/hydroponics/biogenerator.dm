@@ -31,11 +31,11 @@
 	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
 	var/static/list/acceptable_items = typecacheof(list(
 		/obj/item/seeds,
+		/obj/item/unsorted_seeds,
 		/obj/item/food/snacks/grown,
 		/obj/item/grown,
 		/obj/item/food/snacks/grown/ash_flora,
 		/obj/item/food/snacks/honeycomb))
-
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
