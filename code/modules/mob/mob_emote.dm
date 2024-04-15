@@ -135,11 +135,8 @@
 
 	if(IS_HORIZONTAL(L))
 		var/turf = get_turf(L)
-		if(isspaceturf(turf))
-			message = "flops and flails around in space"
-		else
-		message = "flops and flails around on the floor."
-			return ..()
+		message = "flops and flails around [isspaceturf(turf) ? "in space" : "on the floor"]."
+		return ..()
 	else if(params)
 		message_param = "flips in %t's general direction."
 	else if(ishuman(user))
@@ -171,14 +168,8 @@
 
 	if(prob(5) && ishuman(user))
 		var/turf = get_turf(L)
-		if(isspaceturf(turf))
-			message = "attempts a flip and loses balance!"
-		else
-			message = "attempts a flip and crashes to the floor!"
-		if(istype(L))
-			sleep(0.3 SECONDS)
-			L.Weaken(4 SECONDS)
-			return ..()
+		message = "attempts a flip and [isspaceturf(turf) ? "loses balance" : "crashes to the floor"]!"
+		return ..()
 
 	. = ..()
 
