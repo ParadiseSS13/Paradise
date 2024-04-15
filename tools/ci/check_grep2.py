@@ -146,7 +146,7 @@ def check_datum_loops(idx, line):
             "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
         )
 
-HREF_OLD_STYLE = re.compile(r"href='\?")
+HREF_OLD_STYLE = re.compile(r"href='?\?")
 def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
