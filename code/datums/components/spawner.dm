@@ -61,5 +61,5 @@
 	// start the cooldown first, because a rallied mob might fire on
 	// ourselves while this is happening, causing confusion
 	COOLDOWN_START(src, last_rally, 30 SECONDS)
-	for(var/mob/living/simple_animal/hostile/rallied in spawned_mobs)
+	for(var/mob/living/simple_animal/hostile/rallied as anything in spawned_mobs)
 		INVOKE_ASYNC(rallied, TYPE_PROC_REF(/mob/living/simple_animal/hostile, aggro_fast), target)
