@@ -235,7 +235,8 @@
 		/obj/item/storage/belt/rapier,
 		/obj/item/nuke_core,
 		/obj/item/nuke_core_container,
-		/obj/item/documents
+		/obj/item/documents,
+		/obj/item/clothing/gloves/color/black/krav_maga
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
