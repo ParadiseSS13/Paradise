@@ -68,8 +68,6 @@
 
 		. += "/([name])"
 
-	return .
-
 /proc/key_name_admin(whom)
 	if(whom)
 		var/datum/whom_datum = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
