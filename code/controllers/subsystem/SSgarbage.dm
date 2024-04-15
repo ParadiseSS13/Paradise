@@ -259,7 +259,7 @@ SUBSYSTEM_DEF(garbage)
 
 	I.hard_deletes++
 	I.hard_delete_time += TICK_DELTA_TO_MS(tick)
-	I.reference_average =  (refcount(I) + I.reference_average) / I.hard_deletes
+	I.reference_average = (refcount(I) + I.reference_average) / I.hard_deletes
 
 
 	if(tick > highest_del_tickusage)
