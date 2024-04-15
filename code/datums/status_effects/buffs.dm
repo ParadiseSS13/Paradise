@@ -62,6 +62,7 @@
 	id = "shadow_mend"
 	duration = 3 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
+	/// If this is true, the status effect will try to apply the debuff to others, rather than the user
 	var/devil = FALSE
 
 /datum/status_effect/shadow_mend/devil

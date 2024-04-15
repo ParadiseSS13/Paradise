@@ -318,11 +318,13 @@
 	card_icon = "the_hierophant"
 
 /datum/tarot/the_hierophant/activate(mob/living/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.wear_suit)
-			H.wear_suit.setup_hierophant_shielding()
-			H.update_appearance(UPDATE_ICON)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(!H.wear_suit)
+		return
+	H.wear_suit.setup_hierophant_shielding()
+	H.update_appearance(UPDATE_ICON)
 
 /datum/tarot/the_lovers
 	name = "VI - The Lovers"
@@ -432,22 +434,23 @@
 	card_icon = "temperance"
 
 /datum/tarot/temperance/activate(mob/living/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/internal/body_egg/egg = H.get_int_organ(/obj/item/organ/internal/body_egg)
-		if(egg)
-			egg.remove(H)
-			H.vomit()
-			egg.forceMove(get_turf(H))
-		H.reagents.add_reagent("mutadone", 1)
-		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.heal_internal_damage(60)
-		H.apply_status_effect(STATUS_EFFECT_PANACEA)
-		for(var/thing in H.viruses)
-			var/datum/disease/D = thing
-			if(D.severity == NONTHREAT)
-				continue
-			D.cure()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/internal/body_egg/egg = H.get_int_organ(/obj/item/organ/internal/body_egg)
+	if(egg)
+		egg.remove(H)
+		H.vomit()
+		egg.forceMove(get_turf(H))
+	H.reagents.add_reagent("mutadone", 1)
+	for(var/obj/item/organ/internal/I in H.internal_organs)
+		I.heal_internal_damage(60)
+	H.apply_status_effect(STATUS_EFFECT_PANACEA)
+	for(var/thing in H.viruses)
+		var/datum/disease/D = thing
+		if(D.severity == NONTHREAT)
+			continue
+		D.cure()
 
 /datum/tarot/the_devil
 	name = "XV - The Devil"
