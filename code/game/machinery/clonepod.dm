@@ -170,12 +170,12 @@
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin/)) //Matter bins for storage modifier
-			storage_modifier = round(10 * (SP.rating / 2)) //5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+		if(istype(SP, /obj/item/stock_parts/matter_bin/)) // Matter bins for storage modifier
+			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
-			price_modifier = -(SP.rating / 10) + 1.2 //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
-			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
+			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
 
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
@@ -184,9 +184,7 @@
 	organ_storage_capacity = storage_modifier
 	biomass_storage_capacity = storage_modifier * 400
 
-
-
-//Process
+// Process
 /obj/machinery/clonepod/process()
 
 	//Basically just isolate_reagent() with extra functionality.
@@ -239,7 +237,7 @@
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
 				clone_progress += speed_modifier
 				return
-			if(11 to 90)
+			if(10 to 90)
 				clone_progress += speed_modifier
 				if(!clone)
 					create_clone()
@@ -282,7 +280,7 @@
 					clone.regenerate_icons()
 					return
 
-			if(91 to 100)
+			if(90 to 100)
 				if(length(limbs_to_grow) || current_limb) //This shouldn't happen, but just in case.. (no more feetless clones)
 					clone_progress -= 5
 				if(eject_clone())
@@ -291,11 +289,14 @@
 				desc_flavor = "You see [src] finalizing the cloning process."
 				clone_progress += speed_modifier
 				return
-			if(101 to INFINITY) //this state can be reached with an upgraded cloner
+			if(100 to INFINITY) //this state can be reached with an upgraded cloner
 				if(eject_clone())
 					return
 				clone.setCloneLoss(0) //get out of the pod!!
 				return
+
+			else
+				clone_progress += 1 // I don't know how we got here but we just keep incrementing
 
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
