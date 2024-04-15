@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/obj/item/bio_chip_case/case
+	var/static/list/cached_base64_icons = list()
 
 /obj/item/bio_chip_pad/Destroy()
 	if(case)
@@ -80,6 +81,10 @@
 	data["contains_case"] = case ? TRUE : FALSE
 	if(case && case.imp)
 		var/datum/implant_fluff/implant_data = case.imp.implant_data
+		var/icon/base64icon = cached_base64_icons["[initial(case.imp.icon)][initial(case.imp.icon_state)]"]
+		if(!base64icon)
+			base64icon = "[icon2base64(icon(initial(case.imp.icon), initial(case.imp.icon_state), SOUTH, 1))]"
+			cached_base64_icons["[initial(case.imp.icon)][initial(case.imp.icon_state)]"] = base64icon
 		data["implant"] = list(
 			"name" = implant_data.name,
 			"life" = implant_data.life,

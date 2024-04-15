@@ -147,55 +147,60 @@
 
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
-	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
+	desc = "An outdated medical apparatus, used to get a rough idea of the condition of the heart and lungs. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
 	item_color = "stethoscope"
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
-	if(ishuman(M) && isliving(user))
-		if(user == M)
-			user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
-		else
-			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
-		var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
-		var/obj/item/organ/internal/H = heart_datum.linked_organ
-		var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
-		var/obj/item/organ/internal/L = lung_datum.linked_organ
-		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
-			var/color = "notice"
-			if(H)
-				var/heart_sound
-				switch(H.damage)
-					if(0 to 1)
-						heart_sound = "healthy"
-					if(1 to 25)
-						heart_sound = "offbeat"
-					if(25 to 50)
-						heart_sound = "uneven"
-						color = "warning"
-					if(50 to INFINITY)
-						heart_sound = "weak, unhealthy"
-						color = "warning"
-				to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
-			if(L)
-				var/lung_sound
-				switch(L.damage)
-					if(0 to 1)
-						lung_sound = "healthy respiration"
-					if(1 to 25)
-						lung_sound = "labored respiration"
-					if(25 to 50)
-						lung_sound = "pained respiration"
-						color = "warning"
-					if(50 to INFINITY)
-						lung_sound = "gurgling"
-						color = "warning"
-				to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
-		else
-			to_chat(user, "<span class='warning'>You don't hear anything.</span>")
-		return
-	return ..(M,user)
+	if(!ishuman(M) || !isliving(user))
+		return ..(M, user)
 
+	if(user == M)
+		user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
+	else
+		user.visible_message("[user] places [src] against [M]'s chest and listens attentively.", "You place [src] against [M]'s chest...")
+	var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(!lung_datum || !heart_datum)
+		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		return
+
+	var/obj/item/organ/internal/H = heart_datum.linked_organ
+	var/obj/item/organ/internal/L = lung_datum.linked_organ
+	if(!M.pulse || (!H || !(L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
+		to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+		return
+
+	var/color = "notice"
+	if(H)
+		var/heart_sound
+		switch(H.damage)
+			if(0 to 1)
+				heart_sound = "healthy"
+			if(1 to 25)
+				heart_sound = "offbeat"
+			if(25 to 50)
+				heart_sound = "uneven"
+				color = "warning"
+			if(50 to INFINITY)
+				heart_sound = "weak, unhealthy"
+				color = "warning"
+		to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
+
+	if(L)
+		var/lung_sound
+		switch(L.damage)
+			if(0 to 1)
+				lung_sound = "healthy respiration"
+			if(1 to 25)
+				lung_sound = "labored respiration"
+			if(25 to 50)
+				lung_sound = "pained respiration"
+				color = "warning"
+			if(50 to INFINITY)
+				lung_sound = "gurgling"
+				color = "warning"
+		to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
 
 //Medals
 /obj/item/clothing/accessory/medal

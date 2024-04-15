@@ -400,9 +400,9 @@
 	if(SS.purified)
 		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
-		if(is_type_in_list(/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone, mob_spell_list))
-			RemoveSpell(/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
-			AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy)
+		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
+			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
+			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/holy)
 
 	else if(mind.has_antag_datum(/datum/antagonist/cultist)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new

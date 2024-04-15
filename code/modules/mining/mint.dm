@@ -45,20 +45,20 @@
 		if(chosen == mat_id)
 			dat += "<b>Chosen</b>"
 		else
-			dat += "<A href='?src=[UID()];choose=[mat_id]'>Choose</A>"
+			dat += "<A href='byond://?src=[UID()];choose=[mat_id]'>Choose</A>"
 
 	var/datum/material/M = materials.materials[chosen]
 
 	dat += "<br><br>Will produce [coinsToProduce] [lowertext(M.name)] coins if enough materials are available.<br>"
-	dat += "<A href='?src=[UID()];chooseAmt=-10'>-10</A> "
-	dat += "<A href='?src=[UID()];chooseAmt=-5'>-5</A> "
-	dat += "<A href='?src=[UID()];chooseAmt=-1'>-1</A> "
-	dat += "<A href='?src=[UID()];chooseAmt=1'>+1</A> "
-	dat += "<A href='?src=[UID()];chooseAmt=5'>+5</A> "
-	dat += "<A href='?src=[UID()];chooseAmt=10'>+10</A> "
+	dat += "<A href='byond://?src=[UID()];chooseAmt=-10'>-10</A> "
+	dat += "<A href='byond://?src=[UID()];chooseAmt=-5'>-5</A> "
+	dat += "<A href='byond://?src=[UID()];chooseAmt=-1'>-1</A> "
+	dat += "<A href='byond://?src=[UID()];chooseAmt=1'>+1</A> "
+	dat += "<A href='byond://?src=[UID()];chooseAmt=5'>+5</A> "
+	dat += "<A href='byond://?src=[UID()];chooseAmt=10'>+10</A> "
 
 	dat += "<br><br>In total this machine produced <font color='green'><b>[newCoins]</b></font> coins."
-	dat += "<br><A href='?src=[UID()];makeCoins=[1]'>Make coins</A>"
+	dat += "<br><A href='byond://?src=[UID()];makeCoins=[1]'>Make coins</A>"
 	user << browse(dat, "window=mint")
 
 /obj/machinery/mineral/mint/Topic(href, href_list)
