@@ -247,7 +247,7 @@
 					to_chat(ui.user, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
 				var/input = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.", encode = FALSE)
-				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(ui.user, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")

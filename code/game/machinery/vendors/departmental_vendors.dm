@@ -142,6 +142,7 @@
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,
+					/obj/item/reagent_containers/glass/bottle/nutrient/mut = 15,
 					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,
 					/obj/item/reagent_containers/spray/pestspray = 20,
@@ -175,6 +176,7 @@
 	products = list(/obj/item/seeds/aloe = 3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
+					/obj/item/seeds/bamboo = 3,
 					/obj/item/seeds/banana = 3,
 					/obj/item/seeds/berry = 3,
 					/obj/item/seeds/cabbage = 3,
@@ -194,6 +196,7 @@
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
+					/obj/item/seeds/lettuce = 3,
 					/obj/item/seeds/lime = 3,
 					/obj/item/seeds/mint = 3,
 					/obj/item/seeds/olive = 3,
@@ -208,7 +211,6 @@
 					/obj/item/seeds/wheat/rice = 3,
 					/obj/item/seeds/soya = 3,
 					/obj/item/seeds/sugarcane = 3,
-					/obj/item/seeds/bamboo = 3,
 					/obj/item/seeds/sunflower = 3,
 					/obj/item/seeds/tea = 3,
 					/obj/item/seeds/tobacco = 3,

@@ -40,8 +40,8 @@
 
 /obj/item/seeds/New(loc, nogenes = 0)
 	..()
-	pixel_x = rand(-8, 8)
-	pixel_y = rand(-8, 8)
+	pixel_x = rand(-6, 6)
+	pixel_y = rand(-6, 6)
 
 	if(!icon_grow)
 		icon_grow = "[species]-grow"
@@ -132,8 +132,8 @@
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
 
-	var/obj/machinery/hydroponics/parent = loc
 	if(istype(loc, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/parent = loc
 		if(parent.yieldmod == 0)
 			return_yield = min(return_yield, 1) // 1 if above zero, 0 otherwise
 		else
@@ -418,3 +418,9 @@
 			genes += P
 		else
 			qdel(P)
+
+/obj/item/seeds/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		to_chat(user, get_analyzer_text())
