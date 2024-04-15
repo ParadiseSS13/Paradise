@@ -166,7 +166,7 @@
 	if(prob(5))
 		owner.Hallucinate(60 SECONDS)
 		to_chat(owner, "<span class='warning'>You start losing your grip on reality.</span>")
-	else if(prob(5))
+	else if(prob(3))
 		owner.Drowsy(20 SECONDS)
 		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
 	else if(prob(2))
