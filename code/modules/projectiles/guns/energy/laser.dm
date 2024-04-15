@@ -30,11 +30,18 @@
 	needs_permit = FALSE
 
 /obj/item/gun/energy/laser/retro
-	name ="retro laser gun"
+	name ="L-1-retro laser gun"
 	icon_state = "retro"
 	item_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
+
+/obj/item/gun/energy/laser/captain/examine_more(mob/user)
+	. = ..()
+	. += "The L-1 Laser Gun was among the earliest practical man-portable laser weapons on the market, produced by the now-defunct Starstrike Systems company. \
+	The weapon was designed with reliability in mind, and features a heavy metal frame enclosing a relatively simple (yet powerful) carbon dioxide laser assembly. \
+	They were produced in great quantities until Starstrike Systems was acquired by Shellguard Munitions in a hostile takeover bid. Shellguard would then use the technology of the L-1 as the basis for its own LG line of laser rifles. \
+	Despite no longer being in production, ease of maintenance and a plentiful supply of spare components has allowed the L-1 to remain in use even to the present day, mostly among spacers and colonists on the frontier; and various outlaw groups."
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -319,7 +326,7 @@
 	return
 
 /// Special version given by the Safety Override upgrade and as a standard module for ERT engiborgs.
-/obj/item/gun/energy/emitter/cyborg/proto	
+/obj/item/gun/energy/emitter/cyborg/proto
 	name = "mobile proto-emitter"
 	desc = "An emitter removed from its base and attached to a laser cannon frame. This one operates on unoptimised software, reducing its effectiveness."
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg/proto)
