@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return completed
 
 /datum/objective/proc/found_target()
-	return (delayed_objective ? TRUE : target)
+	return target
 
 /**
  * This is for objectives that need to register signals, so place them in here.
@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/proc/find_target(list/target_blacklist)
-	if(!needs_target || delayed_objective)
+	if(!needs_target)
 		return
 
 	var/list/possible_targets = list()
