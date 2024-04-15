@@ -291,7 +291,7 @@
 				prev_seeds = disk.seeds_scanned
 			if(seeds_for_bulk_core > prev_seeds + 1)
 				var/remaining = seeds_for_bulk_core - prev_seeds - 1
-				dat += " This device needs [seeds_for_bulk_core] samples to produce a usable core gene disk. You will need [remaining] more samples with identical core genes."
+				dat += " This device needs [seeds_for_bulk_core] samples to produce a usable core gene disk. You will need [remaining] more sample[ remaining > 1 ? "s" : ""] with identical core genes."
 
 			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate = PROC_REF(bulk_extract_core))
 
