@@ -43,8 +43,8 @@
 	var/lastproduce = 0
 	/// Used for timing of cycles.
 	var/lastcycle = 0
-	/// About 10 seconds / cycle
-	var/cycledelay = 200
+	/// Amount of time per plant cycle
+	var/cycledelay = 20 SECONDS
 	/// Ready to harvest?
 	var/harvest = FALSE
 	/// The currently planted seed
@@ -185,7 +185,7 @@
 		myseed.forceMove(src)
 
 	if(self_sustaining)
-		// Always use EZ for self-sustaining trays.
+		// Always use Earthsblood (which is really just EZ with a fake moustache) for self-sustaining trays.
 		// Want more mutations or increased yield? Take care of your trays.
 		yieldmod = 1
 		nutrient = /datum/reagent/plantnutrient/eznutrient
@@ -1058,7 +1058,7 @@
 
 /obj/machinery/hydroponics/proc/send_plant_details(mob/user)
 	if(myseed)
-		to_chat(user, "*** <B>[myseed.plantname]</B> ***")
+		to_chat(user, "*** <b>[myseed.plantname]</b> ***")
 		to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
 		var/next_harvest = (age <= myseed.maturation ? myseed.maturation : lastproduce) + myseed.production
 		to_chat(user, "- Next Harvest At: <span class='notice'>[next_harvest]</span>")
@@ -1066,7 +1066,7 @@
 		if(text_string)
 			to_chat(user, text_string)
 	else
-		to_chat(user, "<B>No plant found.</B>")
+		to_chat(user, "<b>No plant found.</b>")
 	to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
 	to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
 	to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")

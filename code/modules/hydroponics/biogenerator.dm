@@ -282,7 +282,7 @@
 	biomass += new_biomass * 10 * productivity
 
 	stored_plants.Cut()
-	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
+	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(plants_processed * 150)
 	addtimer(CALLBACK(src, PROC_REF(end_processing)), min(20 SECONDS, new_biomass))
 

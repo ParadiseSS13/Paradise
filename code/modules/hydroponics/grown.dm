@@ -213,7 +213,7 @@
 	set_light(0)
 
 /obj/item/food/snacks/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
+	var/msg = "<span class='info'>This is \a </span><span class='name'>[src].</span>\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	var/reag_txt = ""

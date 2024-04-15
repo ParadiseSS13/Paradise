@@ -288,10 +288,10 @@ Usage of this system is mandatory for any `Topic()` calls, and will produce erro
 
 ```dm
 //Bad
-"<a href='?src=\ref[src];'>Link!</a>"
+"<a href='byond://?src=\ref[src];'>Link!</a>"
 
 //Good
-"<a href='?src=[UID()];'>Link!</a>"
+"<a href='byond://?src=[UID()];'>Link!</a>"
 ```
 
 ### Use `var/name` format when declaring variables
