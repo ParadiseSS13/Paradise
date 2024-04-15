@@ -7,14 +7,14 @@
 
  //No longer needed, but I'll leave it here incase we plan to re-use it.
 /mob/living/silicon/robot/movement_delay()
-	. = 0
-	. += GLOB.configuration.movement.robot_delay
-	if(!has_gravity(src))
-		return
+	. = ..()
 	. += speed
+	//Counteract magboot slow in 0G
+	if(!has_gravity(src) && HAS_TRAIT(src, TRAIT_MAGPULSE))
+		. -= 2
 	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
 		. -= 3
-
+	. += GLOB.configuration.movement.robot_delay
 
 /mob/living/silicon/robot/mob_negates_gravity()
 	return HAS_TRAIT(src, TRAIT_MAGPULSE)
