@@ -1,9 +1,9 @@
 /mob/living/silicon/robot/Process_Spacemove(movement_dir = 0)
 	if(ionpulse())
-		return 1
+		return TRUE
 	if(..())
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
  //No longer needed, but I'll leave it here incase we plan to re-use it.
 /mob/living/silicon/robot/movement_delay()
