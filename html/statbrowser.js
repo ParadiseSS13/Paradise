@@ -14,6 +14,11 @@ if (!String.prototype.trim) {
 	};
 }
 
+// For sending BYOND debug logs -----------------------------------------------
+function log_debug(data) {
+	Byond.sendMessage("Statpanel-Debug", JSON.stringify(data));
+}
+
 // Status panel implementation ------------------------------------------------
 var status_tab_parts = [["Loading...", ""]];
 var current_tab = null;
@@ -22,7 +27,12 @@ var href_token = null;
 var verb_tabs = [];
 var verbs = [["", ""]]; // list with a list inside
 var permanent_tabs = []; // tabs that won't be cleared by wipes
-var turfcontents = [];
+var turf_row_inner_height = 33;
+var turf_row_outer_height = 35;
+var turf_rows = {};
+var turf_incomplete_rows = {};
+var turf_size = 0;
+var turfcontents = {"total": 0};
 var turfname = "";
 var imageRetryDelay = 500;
 var imageRetryLimit = 50;
@@ -371,79 +381,214 @@ function draw_mc() {
 	document.getElementById("statcontent").appendChild(table);
 }
 
-function iconError(e) {
-	if(current_tab != turfname) {
+function listedturf_add_row(table, table_index, true_index) {
+	let row = table.insertRow(table_index);
+	row.style.height = turf_row_inner_height + "px"
+	row.style.padding = "0px"
+	row.style.margin = "0px"
+	turf_rows[true_index] = row;
+	turf_incomplete_rows[true_index] = true_index + 1;
+}
+
+function listedturf_fill_row(row, item_index) {
+	let part = turfcontents["" + item_index];
+	if(!part) {
+		return false;
+	}
+
+	let cell = document.createElement("td");
+	cell.style.height = turf_row_inner_height + "px"
+	cell.style.padding = "0px"
+	cell.style.margin = "0px"
+	row.appendChild(cell)
+
+	var button = document.createElement("div");
+	button.className = "listedturf_link";
+	var clickcatcher = "";
+	button.onmousedown = function (part) {
+		// The outer function is used to close over a fresh "part" variable,
+		// rather than every onmousedown getting the "part" of the last entry.
+		return function (e) {
+			e.preventDefault();
+			clickcatcher = "?src=" + part[1];
+			switch (e.button) {
+				case 1:
+					clickcatcher += ";statpanel_item_click=middle"
+					break;
+				case 2:
+					clickcatcher += ";statpanel_item_click=right"
+					break;
+				default:
+					clickcatcher += ";statpanel_item_click=left"
+			}
+			if (e.shiftKey) {
+				clickcatcher += ";statpanel_item_shiftclick=1";
+			}
+			if (e.ctrlKey) {
+				clickcatcher += ";statpanel_item_ctrlclick=1";
+			}
+			if (e.altKey) {
+				clickcatcher += ";statpanel_item_altclick=1";
+			}
+			window.location.href = clickcatcher;
+		}
+	}(part);
+	cell.appendChild(button);
+
+	let img = document.createElement("img");
+	if (storedimages[part[1]] == null && part[2]) {
+		img.src = part[2];
+		img.id = part[1];
+		storedimages[part[1]] = part[2];
+	} else {
+		img.src = storedimages[part[1]];
+		img.id = part[1];
+	}
+	img.style.verticalAlign = "middle";
+	button.appendChild(img);
+
+	var label = document.createElement("span");
+	label.style.marginLeft = "5px";
+	label.textContent = part[0];
+	button.appendChild(label);
+
+	return true;
+}
+
+function listedturf_fill_all() {
+	for(let i in turf_incomplete_rows) {
+		let item_index = turf_incomplete_rows[i];
+		if(!turf_rows[i] || listedturf_fill_row(turf_rows[i], item_index)) {
+			delete turf_incomplete_rows[i];
+		}
+	}
+	for(let item in turfcontents) {
+		let part = turfcontents["" + item_index];
+		if(!part) {
+			continue;
+		}
+
+	    if (storedimages[part[1]] == null && part[2]) {
+			img = document.getElementById(part[1]);
+			img.src = part[2];
+			storedimages[part[1]] = part[2];
+		}
+	}
+}
+
+var suppress_next_scroll_message = false;
+/* We keep a sliding "window" of listedturf items loded. On scroll, we add and
+ * remove table rows to maintain that window, and update the size of the
+ * padding row at the top of the table to keep them in the right spot.
+ */
+function listedturf_scrolled() {
+	let top_edge = document.documentElement.scrollTop;
+	let height = document.documentElement.clientHeight;
+	let bottom_edge = top_edge + height;
+	let total = document.documentElement.scrollHeight;
+	let table = document.getElementById("listedturf_table");
+	let padding = document.getElementById("listedturf_padding");
+
+	if (!turf_rows.initialized) {
+		turf_rows = {
+			initialized: true,
+			min_row: 0,
+			max_row: 0,
+		};
+	}
+
+	if (turf_size === 0) {
 		return;
 	}
-	setTimeout(function () {
-		var node = e.target;
-		var current_attempts = Number(node.getAttribute("data-attempts")) || 0
-		if (current_attempts > imageRetryLimit) {
-			return;
+
+	let desired_min_row = Math.min(turf_size, Math.max(0, Math.floor(top_edge / turf_row_outer_height) - 10));
+	let desired_max_row = Math.min(turf_size, desired_min_row + Math.ceil(height / turf_row_outer_height) + 21);
+	padding.style.height = (desired_min_row * turf_row_outer_height) + "px";
+	if(desired_min_row == turf_rows.min_row && desired_max_row == turf_rows.max_row) {
+		listedturf_fill_all();
+		suppress_next_scroll_message = false;
+		return;
+	}
+
+	if (desired_min_row < turf_rows.min_row) {
+		for (let i = desired_min_row; i < turf_rows.min_row; i++) {
+			listedturf_add_row(table, i - desired_min_row + 1, i);
 		}
-		var src = node.src;
-		node.src = null;
-		node.src = src + '#' + current_attempts;
-		node.setAttribute("data-attempts", current_attempts + 1)
-		draw_listedturf();
-	}, imageRetryDelay);
+	} else if (desired_min_row > turf_rows.min_row) {
+		for (let i = turf_rows.min_row; i < desired_min_row && i < turf_rows.max_row; i++) {
+			if(turf_rows[i]) {
+				turf_rows[i].remove();
+				delete turf_rows[i];
+			}
+		}
+	}
+	turf_rows.min_row = desired_min_row;
+
+	padding.style.height = turf_rows.min_row * turf_row_outer_height + "px"
+
+
+	if (desired_max_row < turf_rows.max_row) {
+		for (let i = Math.max(desired_max_row, turf_rows.min_row); i < turf_rows.max_row; i++) {
+			if(turf_rows[i]) {
+				turf_rows[i].remove();
+				delete turf_rows[i];
+			}
+		}
+	} else if (desired_max_row > turf_rows.max_row) {
+		for (let i = Math.max(turf_rows.min_row, turf_rows.max_row); i < desired_max_row; i++) {
+			listedturf_add_row(table, i - turf_rows.min_row + 1, i);
+		}
+	}
+	turf_rows.max_row = desired_max_row;
+
+	listedturf_fill_all();
+
+	if (!suppress_next_scroll_message) {
+		Byond.sendMessage("Listedturf-Scroll", {"min": turf_rows.min_row, "max": turf_rows.max_row})
+	}
+	suppress_next_scroll_message = false;
 }
 
 function draw_listedturf() {
-	statcontentdiv.textContent = "";
-	var table = document.createElement("table");
-	for (var i = 0; i < turfcontents.length; i++) {
-		var part = turfcontents[i];
-		if (storedimages[part[1]] == null && part[2]) {
-			var img = document.createElement("img");
-			img.src = part[2];
-			img.id = part[1];
-			storedimages[part[1]] = part[2];
-			img.onerror = iconError;
-			table.appendChild(img);
-		} else {
-			var img = document.createElement("img");
-			img.onerror = iconError;
-			img.src = storedimages[part[1]];
-			img.id = part[1];
-			table.appendChild(img);
-		}
-		var b = document.createElement("div");
-		var clickcatcher = "";
-		b.className = "link";
-		b.onmousedown = function (part) {
-			// The outer function is used to close over a fresh "part" variable,
-			// rather than every onmousedown getting the "part" of the last entry.
-			return function (e) {
-				e.preventDefault();
-				clickcatcher = "?src=" + part[1];
-				switch (e.button) {
-					case 1:
-						clickcatcher += ";statpanel_item_click=middle"
-						break;
-					case 2:
-						clickcatcher += ";statpanel_item_click=right"
-						break;
-					default:
-						clickcatcher += ";statpanel_item_click=left"
-				}
-				if (e.shiftKey) {
-					clickcatcher += ";statpanel_item_shiftclick=1";
-				}
-				if (e.ctrlKey) {
-					clickcatcher += ";statpanel_item_ctrlclick=1";
-				}
-				if (e.altKey) {
-					clickcatcher += ";statpanel_item_altclick=1";
-				}
-				window.location.href = clickcatcher;
-			}
-		}(part);
-		b.textContent = part[0];
-		table.appendChild(b);
-		table.appendChild(document.createElement("br"));
+	if(document.getElementById("listedturf_div")) {
+		let div = document.getElementById("listedturf_div");
+		div.style.height = (turf_row_outer_height * turf_size) + "px";
+		suppress_next_scroll_message = true;
+		listedturf_scrolled();
+		return
 	}
-	document.getElementById("statcontent").appendChild(table);
+
+	statcontentdiv.textContent = "";
+	turf_rows = {};
+	window.onscroll = function() { listedturf_scrolled(); };
+
+	let div = document.createElement("div");
+	div.id = "listedturf_div";
+	div.style.height = (turf_row_outer_height * turf_size) + "px";
+	document.getElementById("statcontent").appendChild(div);
+
+	let table = document.createElement("table");
+	table.id = "listedturf_table";
+	table.style.width = "100%"
+	table.style.height = "100%"
+	div.appendChild(table)
+
+	let padding = document.createElement("tr");
+	padding.id = "listedturf_padding";
+	padding.style.height = "0px";
+	padding.style.padding = "0px"
+	padding.style.margin = "0px"
+	table.appendChild(padding);
+
+	let end_flex = document.createElement("tr");
+	end_flex.id = "listedturf_end_flex";
+	end_flex.style.height = "100%";
+	end_flex.style.padding = "0px"
+	end_flex.style.margin = "0px"
+	table.appendChild(end_flex);
+
+	suppress_next_scroll_message = true;
+	listedturf_scrolled();
 }
 
 function remove_listedturf() {
@@ -452,6 +597,14 @@ function remove_listedturf() {
 	if (current_tab == turfname) {
 		tab_change("Status");
 	}
+	if(document.getElementById("listedturf_div")) {
+		document.getElementById("listedturf_div").remove();
+	}
+	turf_rows = {};
+	turf_incomplete_rows = {};
+	turf_size = 0;
+	turfcontents = {"total": 0};
+	turfname = "";
 }
 
 function remove_mc() {
@@ -738,6 +891,7 @@ Byond.subscribeTo('remove_mc_tab', function (removeHref) {
 
 Byond.subscribeTo('update_listedturf', function (TC) {
 	turfcontents = TC;
+	turf_size = TC["total"];
 	if (current_tab == turfname) {
 		draw_listedturf();
 	}

@@ -1230,6 +1230,14 @@
 		if("Set-Tab")
 			stat_tab = payload["tab"]
 			SSstatpanels.immediate_send_stat_data(src)
+		if("Listedturf-Scroll")
+			if (payload["min"] == payload["max"])
+				// Not properly loaded yet, send the default set.
+				SSstatpanels.refresh_client_obj_view(src)
+			else
+				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
+		if("Statpanel-Debug")
+			log_debug(payload)
 		if("Debug-Stat-Entry")
 			var/stat_item = locateUID(payload["stat_item_uid"])
 			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
