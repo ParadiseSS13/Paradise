@@ -367,6 +367,8 @@
 	screen_loc = ui_crafting
 
 /atom/movable/screen/craft/Click()
+	if(!isliving(usr))
+		return
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
 

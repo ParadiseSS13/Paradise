@@ -497,12 +497,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	verbs.Add(
 		/mob/dead/observer/proc/ManualFollow,
 		/mob/dead/observer/proc/observe,
+		/mob/dead/observer/proc/do_observe
 	)
 
 /mob/dead/observer/proc/remove_observer_verbs()
 	verbs.Remove(
 		/mob/dead/observer/proc/ManualFollow,
 		/mob/dead/observer/proc/observe,
+		/mob/dead/observer/proc/do_observe
 	)
 
 // This is the ghost's follow verb with an argument
@@ -878,7 +880,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/get_runechat_color()
 	return alive_runechat_color
 
-/mob/dead/observer/verb/observe()
+/mob/dead/observer/proc/observe()
 	set name = "Observe"
 	set desc = "Observe a mob."
 	set category = "Ghost"
@@ -891,7 +893,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	set name = "\[Observer\] Observe"
 	set desc = "Observe the target mob."
-	set category = "Ghost"
+	set category = null
 
 	if(isnewplayer(mob_eye))
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")

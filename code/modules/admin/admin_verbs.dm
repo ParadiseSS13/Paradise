@@ -431,7 +431,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	admin_observe_target(target)
 
 /client/proc/cleanup_admin_observe(mob/dead/observer/ghost)
-	if(!ghost.mob_observed || !istype(ghost))
+	if(!istype(ghost) || !ghost.mob_observed)
 		return FALSE
 
 	// un-follow them
