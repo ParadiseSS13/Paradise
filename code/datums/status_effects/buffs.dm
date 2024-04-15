@@ -129,7 +129,7 @@
 	tick_interval = 0
 	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
-	//If this is the chariot subtype, which grants pacifism while the effect is active.
+	// If this is the chariot subtype, which grants pacifism while the effect is active.
 	var/chariot = FALSE
 
 /datum/status_effect/blooddrunk/chariot

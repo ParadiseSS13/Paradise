@@ -54,10 +54,8 @@
 	user.visible_message("<span class='notice'>[user] tears open [src].</span>", \
 						"<span class='hierophant'>You tear open [src]!</span>")
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
-	var/prints = 0
-	while(prints < cards)
+	for(var/i in 1 to cards)
 		new /obj/item/magic_tarot_card(get_turf(src))
-		prints++
 	qdel(src)
 
 /obj/item/tarot_card_pack/jumbo
@@ -84,7 +82,7 @@
 	throwforce = 0
 	force = 0
 	resistance_flags = FLAMMABLE
-	///If a person can choose what the card produces. No cost if they can choose.
+	/// If a person can choose what the card produces. No cost if they can choose.
 	var/let_people_choose = FALSE
 
 /obj/item/blank_tarot_card/examine(mob/user)
@@ -783,7 +781,6 @@
 		R.add_reagent(get_unrestricted_random_reagent_id(), 10)
 		R.reaction(H, REAGENT_INGEST)
 		R.trans_to(H, 10)
-		i++
 	target.visible_message("<span class='warning'>[target] consumes 5 pills rapidly!</span>")
 
 /datum/tarot/reversed/the_devil
