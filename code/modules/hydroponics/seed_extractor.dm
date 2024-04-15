@@ -136,8 +136,12 @@
 
 	for(var/datum/seed_pile/O in piles)
 		var/obj/item/I = O.path
+		var/icon/base64icon = GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"]
+		if(!base64icon)
+			base64icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))
+			GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
 		var/list/seed_info = list(
-			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]",
+			"image" = "[base64icon]",
 			"id" = O.id,
 			"name" = O.name,
 			"variant" = O.variant,
@@ -248,3 +252,6 @@
 	src.yield = yield
 	src.potency = potency
 	src.amount = amount
+
+#undef BASE_MAX_SEEDS
+#undef MAX_DISPENSE_SEEDS

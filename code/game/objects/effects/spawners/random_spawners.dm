@@ -202,7 +202,6 @@
 	result = list(/datum/nothing = 1,
 		/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1)
 
-
 // Traps
 
 /obj/effect/spawner/random_spawners/syndicate/trap

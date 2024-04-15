@@ -161,7 +161,7 @@
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
 		if(job_ban)
-			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","servicedept","supplydept","nonhumandept"))
 				multi_job = TRUE
 				switch(banjob)
 					if("commanddept")
@@ -194,8 +194,14 @@
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
 							if(!temp) continue
 							jobs_to_ban += temp.title
-					if("supportdept")
-						for(var/jobPos in GLOB.support_positions)
+					if("servicedept")
+						for(var/jobPos in GLOB.service_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supplydept")
+						for(var/jobPos in GLOB.supply_positions)
 							if(!jobPos)	continue
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
 							if(!temp) continue
@@ -343,13 +349,12 @@
 			if("2")
 				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 					return
+				SSshuttle.emergency.cancel(byCC = TRUE)
 				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_CALL)
-						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] sent the Emergency Shuttle back")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] sent the Emergency Shuttle back</span>")
 					else
-						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] called the Emergency Shuttle")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
@@ -359,11 +364,11 @@
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
 
-		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
-		SSshuttle.emergency.setTimer(timer*10)
-		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
+		var/timer = input("Enter new shuttle duration (minutes):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft(600)) as num
+		SSshuttle.emergency.setTimer(timer MINUTES)
+		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes")
 		GLOB.minor_announcement.Announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes</span>")
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["delay_round_end"])
@@ -554,11 +559,32 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Support (Grey)
+	//Service (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.support_positions)]'><a href='?src=[UID()];jobban3=supportdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Support Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in GLOB.support_positions)
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.service_positions)]'><a href='?src=[UID()];jobban3=servicedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Service Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.service_positions)
+			if(!jobPos)	continue
+			var/datum/job/job = SSjobs.GetJob(jobPos)
+			if(!job) continue
+
+			if(jobban_isbanned(M, job.title))
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				counter++
+			else
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				counter++
+
+			if(counter >= 5) //So things dont get squiiiiished!
+				jobs += "</tr><tr align='center'>"
+				counter = 0
+		jobs += "</tr></table>"
+
+	//Supply (Brown)
+		counter = 0
+		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		jobs += "<tr bgcolor='e2c59d'><th colspan='[length(GLOB.supply_positions)]'><a href='?src=[UID()];jobban3=supplydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Supply Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.supply_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
@@ -669,7 +695,7 @@
 			to_chat(usr, "<span class='warning'>SSjobs has not been setup!</span>")
 			return
 
-		//get jobs for department if specified, otherwise just returnt he one job in a list.
+		//get jobs for department if specified, otherwise just return the one job in a list.
 		var/list/joblist = list()
 		switch(href_list["jobban3"])
 			if("commanddept")
@@ -702,8 +728,14 @@
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
-			if("supportdept")
-				for(var/jobPos in GLOB.support_positions)
+			if("servicedept")
+				for(var/jobPos in GLOB.service_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("supplydept")
+				for(var/jobPos in GLOB.supply_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
@@ -726,7 +758,7 @@
 
 		//Banning comes first
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
-			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
+			switch(alert("Temporary Ban of [M.ckey]?", null,"Yes","No", "Cancel"))
 				if("Yes")
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
@@ -789,7 +821,7 @@
 		if(C == null)
 			to_chat(usr, "<span class='warning'>Mob has no client to kick.</span>")
 			return
-		if(alert("Kick [C.ckey]?",,"Yes","No") == "Yes")
+		if(alert("Kick [C.ckey]?", null,"Yes","No") == "Yes")
 			if(C && C.holder && (C.holder.rights & R_BAN))
 				to_chat(usr, "<span class='warning'>[key_name_admin(C)] cannot be kicked from the server.</span>")
 				return
@@ -834,7 +866,7 @@
 		var/target_ckey = href_list["webtools"]
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			var/url_to_open = "[GLOB.configuration.url.forum_playerinfo_url][target_ckey]"
-			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
+			if(alert("Open [url_to_open]", null,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
 	else if(href_list["shownoteckey"])
@@ -870,7 +902,7 @@
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
-		switch(alert("Temporary Ban of [M.ckey] / [ban_ckey_param]?",,"Yes","No", "Cancel"))
+		switch(alert("Temporary Ban of [M.ckey] / [ban_ckey_param]?", null,"Yes","No", "Cancel"))
 			if("Yes")
 				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 				if(!mins)
@@ -1036,7 +1068,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make monkey?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make monkey?", null, "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] attempting to monkeyize [key_name(H)]")
@@ -1052,7 +1084,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		if(alert(usr, "Confirm make corgi?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make corgi?", null, "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] attempting to corgize [key_name(H)]")
@@ -1066,15 +1098,15 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make pai?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make pai?", null, "Yes", "No") != "Yes")
 			return
 
 		var/painame = "Default"
 		var/name = ""
 		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
-			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+			name = sanitize(copytext_char(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
 		else
-			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+			name = sanitize(copytext_char(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
 
 		if(!name)
 			name = painame
@@ -1477,7 +1509,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		if(alert(usr, "Confirm make ai?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make ai?", null, "Yes", "No") != "Yes")
 			return
 
 		message_admins("<span class='warning'>Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!</span>", 1)
@@ -1492,7 +1524,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make alien?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make alien?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_alienize(H)
@@ -1504,7 +1536,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make slime?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make slime?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_slimeize(H)
@@ -1517,7 +1549,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		if(alert(usr, "Confirm make superhero?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make superhero?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_super(H)
@@ -1529,7 +1561,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make robot?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make robot?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_robotize(H)
@@ -1541,7 +1573,7 @@
 		if(isnewplayer(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>")
 			return
-		if(alert(usr, "Confirm make animal?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make animal?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)
@@ -1617,12 +1649,30 @@
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))
 			return
+		if(href_list["team_command"] == "reload") // reload the panel
+			check_teams()
+			return
+
 		var/datum/team/team
 		if(href_list["team_command"] == "new_custom_team") // this needs to be handled before all the other stuff, as the team doesn't exist yet
-			message_admins("[key_name_admin(usr)] created a new custom team.")
-			log_admin("[key_name(usr)] created a new custom team.")
-			team = new()
-			team.admin_rename_team(usr)
+			var/list/possible_teams = list()
+			for(var/datum/team/team_path as anything in typesof(/datum/team))
+				possible_teams[initial(team_path.name)] = team_path
+
+			var/chosen_team_name = input("Select a team type: (Creating a duplicate of a non-generic team may produce runtimes!)", "Team Type") as null|anything in possible_teams
+			if(!chosen_team_name)
+				return
+
+			var/chosen_team_path = possible_teams[chosen_team_name]
+			team = new chosen_team_path()
+			log_and_message_admins("created a new team '[team]' ([chosen_team_path]).")
+			if(chosen_team_path == /datum/team)
+				team.admin_rename_team(usr) // this has to come after, because the admin log could be delayed indefinitely.
+			check_teams()
+			return
+
+		if(href_list["team_command"] == "switch_team_tab")
+			team_switch_tab_index = clamp(text2num(href_list["team_index"]), 1, length(GLOB.antagonist_teams))
 			check_teams()
 			return
 
@@ -1678,13 +1728,16 @@
 			SStickets.resolveTicket(index)
 
 	else if(href_list["autorespond"])
+		var/datum/controller/subsystem/tickets/ticketSystem
 		if(href_list["is_mhelp"])
-			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
+			ticketSystem = SSmentor_tickets
+		else //Ahelp
+			ticketSystem = SStickets
+
+		if(!check_rights(ticketSystem.rights_needed))
 			return
 		var/index = text2num(href_list["autorespond"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-		SStickets.autoRespond(index)
+		ticketSystem.autoRespond(index)
 
 	if(href_list["convert_ticket"])
 		var/indexNum = text2num(href_list["convert_ticket"])
@@ -1692,65 +1745,6 @@
 			SSmentor_tickets.convert_to_other_ticket(indexNum)
 		else
 			SStickets.convert_to_other_ticket(indexNum)
-
-	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
-		if(!input)
-			return
-
-		for(var/datum/mind/H in SSticker.mode.cult)
-			if(H.current)
-				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
-
-		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
-
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
-
-	else if(href_list["cult_adjustsacnumber"])
-		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
-		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.cult_objs.sacrifices_required
-			gamemode.cult_objs.sacrifices_required = amount
-			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
-			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
-
-	else if(href_list["cult_newtarget"])
-		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(!gamemode.cult_objs.find_new_sacrifice_target())
-			gamemode.cult_objs.ready_to_summon()
-
-		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-
-	else if(href_list["cult_newsummonlocations"])
-		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
-		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
-			for(var/datum/mind/cult_mind in gamemode.cult)
-				if(cult_mind && cult_mind.current)
-					to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
-					to_chat(cult_mind.current, "<span class='cult'>Current goal : [gamemode.cult_objs.obj_summon.explanation_text]</span>")
-
-		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-
-	else if(href_list["cult_unlocknarsie"])
-		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_objs.ready_to_summon()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		var/client/C = usr.client
@@ -1886,7 +1880,7 @@
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
-		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", , owner)
+		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", null, owner)
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
@@ -1896,7 +1890,7 @@
 		P.info = "<b>You <i>really</i> should've known better.</b>"
 		P.myeffect = eviltype
 		P.mytarget = H
-		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
+		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?", null,"Yes", "No") == "Yes")
 			P.activate_on_timeout = TRUE
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)
@@ -2005,7 +1999,7 @@
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
-					P.can_collar = TRUE
+					P.set_can_collar(TRUE)
 					P.faction = list("neutral")
 					var/obj/item/petcollar/C = new
 					P.add_collar(C)
@@ -2017,7 +2011,7 @@
 						D.assignment = "Pet"
 						C.access_id = D
 					spawn(30)
-						var/newname = sanitize(copytext(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+						var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text, 1, MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
@@ -2420,7 +2414,7 @@
 		if(sender)
 			message_admins("[key_name_admin(owner)] has started replying to a fax message from [key_name_admin(sender)]")
 
-		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.", null,"Nanotrasen","Syndicate", "No")
 		switch(use_letterheard)
 			if("Nanotrasen")
 				P = new /obj/item/paper/central_command(null)
@@ -2444,9 +2438,9 @@
 		if(!input)
 			qdel(P)
 			return
-		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
+		input = admin_pencode_to_html(input) // Encode everything from pencode to html
 
-		var/customname = clean_input("Pick a title for the fax.", "Fax Title", , owner)
+		var/customname = clean_input("Pick a title for the fax.", "Fax Title", null, owner)
 		if(!customname)
 			customname = "paper"
 
@@ -2479,14 +2473,14 @@
 						if("clown")
 							stampvalue = "clown"
 				else if(stamptype == "text")
-					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
+					stampvalue = clean_input("What should the stamp say?", "Stamp Text", null, owner)
 				else if(stamptype == "none")
 					stamptype = ""
 				else
 					qdel(P)
 					return
 
-				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", , owner)
+				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", null, owner)
 
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
@@ -2950,7 +2944,7 @@
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
-				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
+				var/objective = sanitize(copytext_char(input("Enter an objective"), 1, MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
@@ -3107,7 +3101,7 @@
 			if("guns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
-				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+				switch(alert("Do you want this to create survivors antagonists?", null, "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3117,7 +3111,7 @@
 			if("magic")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
-				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+				switch(alert("Do you want this to create survivors antagonists?", null, "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3323,8 +3317,8 @@
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
 			return
-		var/list/type_choices = typesof(/datum/station_goal)
-		var/picked = input("Choose goal type") in type_choices|null
+		var/list/type_choices = typesof(/datum/station_goal) - typesof(/datum/station_goal/secondary)
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3333,19 +3327,61 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter NAS Trurl message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description
 		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_admin("[key_name_admin(usr)] created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
+		modify_goals()
+
+	else if(href_list["add_secondary_goal"])
+		if(!check_rights(R_EVENT))
+			return
+		var/list/type_choices = typesof(/datum/station_goal/secondary)
+		for(var/T in type_choices)
+			if(T == /datum/station_goal/secondary)
+				continue
+			var/datum/station_goal/secondary/SG = T
+			if(initial(SG.abstract))
+				type_choices -= SG
+		var/picked = pick_closest_path(FALSE, make_types_fancy(type_choices), skip_filter = TRUE)
+		if(!picked)
+			return
+		var/datum/station_goal/secondary/G = new picked()
+		if(picked == /datum/station_goal/secondary)
+			var/newname = clean_input("Enter goal name:")
+			if(!newname)
+				return
+			G.name = newname
+			var/description = input("Enter A.L.I.C.E message contents:") as message|null
+			if(!description)
+				return
+			G.report_message = description
+			var/admin_description = input("Enter description for admins:") as message|null
+			if(!admin_description)
+				return
+			G.admin_desc = admin_description
+			var/department_choices = list()
+			for(var/obj/machinery/requests_console/RC in GLOB.allRequestConsoles)
+				department_choices |= RC.department
+			var/department = input("Choose goal department") as null|anything in department_choices
+			if(!department)
+				return
+			G.department = department
+			G.should_send_crate = alert("Send a personal crate?","Send crate","Yes","No") == "Yes"
+		G.Initialize()
+		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
+		log_admin("[key_name_admin(usr)] created \"[G.name]\" station goal. Description: [G.admin_desc]")
+		SSticker.mode.secondary_goals += G
 		modify_goals()
 
 	else if(href_list["showdetails"])
 		if(!check_rights(R_ADMIN))
 			return
 		var/text = html_decode(href_list["showdetails"])
-		usr << browse("<HTML><HEAD><TITLE>Details</TITLE></HEAD><BODY><TT>[replacetext(text, "\n", "<BR>")]</TT></BODY></HTML>",
+		usr << browse("<html><meta charset='utf-8'><head><title>Details</title></head><body><tt>[replacetext(text, "\n", "<BR>")]</tt></body></html>",
 			"window=show_details;size=500x200")
 
 	else if(href_list["create_outfit_finalize"])

@@ -1,6 +1,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/carp
-	name = "\improper sea carp"
+	name = "sea carp"
 	desc = "A large fish bearing similarities to a certain space-faring menace."
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "carp"

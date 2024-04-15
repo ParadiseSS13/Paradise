@@ -34,7 +34,6 @@
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
 	. = ..()
 
-
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -60,6 +59,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
+		H.update_int_organs()
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
@@ -71,6 +71,10 @@
 	if(vital)
 		M.update_stat("Vital organ inserted")
 	STOP_PROCESSING(SSobj, src)
+	if(owner.stat == DEAD)
+		ADD_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_revival))
+
 
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
@@ -79,6 +83,9 @@
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
+	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -395,3 +402,8 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			receive_damage(1, silent = prob(30))
+
+/obj/item/organ/internal/proc/on_revival() //The goal of this proc / trait is to prevent one implanting organs in a corpse, in order to remove them with the organ extractor. Has to be legitimently implanted, or on just a living person, which has risk
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)

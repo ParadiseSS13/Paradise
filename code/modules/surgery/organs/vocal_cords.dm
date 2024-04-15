@@ -35,7 +35,8 @@ GLOBAL_DATUM_INIT(clap_words, /regex, regex("clap|applaud"))
 GLOBAL_DATUM_INIT(honk_words, /regex, regex("ho+nk")) //hooooooonk
 GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
-/obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
+/// organs that are activated through speech with the :x channel
+/obj/item/organ/internal/vocal_cords
 	name = "vocal cords"
 	icon_state = "appendix"
 	slot = "vocal_cords"
@@ -67,7 +68,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click)
 	if(!IsAvailable())
 		return
-	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
+	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".~[message]")
@@ -123,7 +124,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		if(world.time < cords.next_command)
 			to_chat(owner, "<span class='notice'>You must wait [(cords.next_command - world.time)/10] seconds before Speaking again.</span>")
 		return
-	var/command = input(owner, "Speak with the Voice of God", "Command")
+	var/command = tgui_input_text(owner, "Speak with the Voice of God", "Command")
 	if(!command)
 		return
 	owner.say(".~[command]")
@@ -149,17 +150,17 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		spans += "narsiesmall"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)
 	message = lowertext(message)
-	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
+	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
-	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
+	for(var/mob/living/L as anything in get_mobs_in_view(8, owner, TRUE))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
@@ -185,7 +186,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		power_multiplier *= 2
 
 	//It's magic, they are a wizard.

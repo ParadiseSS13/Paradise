@@ -28,8 +28,6 @@
 	else if(stat == UNCONSCIOUS || IsWeakened())
 		icon_state = "alien[caste]_unconscious"
 		pixel_y = 0
-	else if(leap_on_click)
-		icon_state = "alien[caste]_pounce"
 
 	else if(IS_HORIZONTAL(src))
 		icon_state = "alien[caste]_sleep"
@@ -38,21 +36,12 @@
 	else
 		icon_state = "alien[caste]_s"
 
-	if(leaping)
-		if(alt_icon == initial(alt_icon))
-			var/old_icon = icon
-			icon = alt_icon
-			alt_icon = old_icon
-		icon_state = "alien[caste]_leap"
-		pixel_x = -32
-		pixel_y = -32
-	else
-		if(alt_icon != initial(alt_icon))
-			var/old_icon = icon
-			icon = alt_icon
-			alt_icon = old_icon
-		pixel_x = get_standard_pixel_x_offset()
-		pixel_y = get_standard_pixel_y_offset()
+	if(alt_icon != initial(alt_icon))
+		var/old_icon = icon
+		icon = alt_icon
+		alt_icon = old_icon
+	pixel_x = get_standard_pixel_x_offset()
+	pixel_y = get_standard_pixel_y_offset()
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
@@ -83,7 +72,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		inv.update_icon()
 
 	if(wear_suit)
@@ -124,15 +113,6 @@
 	else
 		overlays_standing[X_HEAD_LAYER]	= null
 	update_icons()
-
-
-/mob/living/carbon/alien/humanoid/update_inv_pockets()
-	if(l_store)
-		l_store.screen_loc = ui_storage1
-	if(r_store)
-		r_store.screen_loc = ui_storage2
-	update_icons()
-
 
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()
 	..()

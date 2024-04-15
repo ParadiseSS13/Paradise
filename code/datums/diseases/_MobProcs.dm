@@ -2,9 +2,9 @@
 /mob/proc/HasDisease(datum/disease/D)
 	for(var/thing in viruses)
 		var/datum/disease/DD = thing
-		if(D.IsSame(DD))
-			return 1
-	return 0
+		if(DD.IsSame(D))
+			return TRUE
+	return FALSE
 
 
 /mob/proc/CanContractDisease(datum/disease/D)

@@ -67,7 +67,7 @@
 	. = ..()
 	update_weight()
 
-/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, mob/user, prevent_warning)
 	. = ..()
 	update_weight()
 
@@ -134,11 +134,10 @@
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
-/obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
-
-	if(slot==SLOT_HUD_HEAD && contents.len)
+/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
+	if(slot == SLOT_HUD_HEAD && length(contents))
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
-		return 0
+		return FALSE
 	return ..()
 
 
@@ -182,7 +181,8 @@
 	name = "cyborg mining satchel"
 	flags = NODROP
 
-/obj/item/storage/bag/ore/holding //miners, your messiah has arrived
+/// miners, your messiah has arrived
+/obj/item/storage/bag/ore/holding
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
@@ -202,8 +202,8 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
-	storage_slots = 100 //the number of plant pieces it can carry.
-	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
+	storage_slots = 40 //the number of plant pieces it can carry.
+	max_combined_w_class = 40 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/food/snacks/grown/ash_flora,/obj/item/food/snacks/honeycomb)
@@ -244,7 +244,8 @@
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/storage/bag/sheetsnatcher // what is this even used for
+/// what is this even used for
+/obj/item/storage/bag/sheetsnatcher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"
@@ -271,7 +272,7 @@
 
 
 // Modified handle_item_insertion.  Would prefer not to, but...
-/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
+/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, mob/user, prevent_warning = FALSE)
 	var/obj/item/stack/sheet/S = W
 	if(!istype(S)) return 0
 
@@ -477,8 +478,9 @@
 		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
-			contents.Remove(I)
+			remove_from_storage(I)
+			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
+			I.forceMove(target.loc)
 			dropped_something = TRUE
 			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
@@ -557,4 +559,20 @@
 	max_combined_w_class = 28
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper, /obj/item/mail_scanner)
+	resistance_flags = FLAMMABLE
+
+/*
+ *	Construction bag
+ */
+
+/obj/item/storage/bag/construction
+	name = "construction bag"
+	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "construction_bag"
+	item_state = "construction_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE

@@ -2,7 +2,6 @@
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
@@ -63,8 +62,9 @@
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)
-		do_sparks(5, 0, T)
+		do_sparks(5, FALSE, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return TRUE
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
@@ -85,7 +85,7 @@
 		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
-			L.Weaken(12 SECONDS)
+			L.KnockDown(12 SECONDS)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
 				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 20)
@@ -122,7 +122,9 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = input("Please select a location to target.", "Flare Target Interface") in L
+	var/desc = tgui_input_list(user, "Please select a location to target.", "Flare Target Interface", L)
+	if(!desc)
+		return
 	destination = L[desc]
 
 /obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
@@ -165,7 +167,8 @@
 /obj/effect/portal/advanced/getaway
 	one_use = TRUE
 
-/obj/effect/temp_visual/getaway_flare // Because the original contractor flare is not a temp visual, for some reason.
+/// Because the original contractor flare is not a temp visual, for some reason.
+/obj/effect/temp_visual/getaway_flare
 	name = "contractor extraction flare"
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flare-contractor-on"

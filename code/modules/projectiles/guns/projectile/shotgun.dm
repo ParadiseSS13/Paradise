@@ -15,8 +15,9 @@
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
-	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
+	var/pump_time = 1 SECONDS // To prevent spammage
+	COOLDOWN_DECLARE(pump_cooldown)
 
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
@@ -37,37 +38,32 @@
 
 
 /obj/item/gun/projectile/shotgun/process_chamber()
-	return ..(0, 0)
+	return ..(FALSE, FALSE)
 
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
 
 /obj/item/gun/projectile/shotgun/can_shoot()
 	if(!chambered)
-		return 0
-	return (chambered.BB ? 1 : 0)
+		return FALSE
+	return chambered.BB
 
 /obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
-	if(recentpump)
+	if(!COOLDOWN_FINISHED(src, pump_cooldown))
 		return
 	pump(user)
-	recentpump = 1
-	spawn(10)
-		recentpump = 0
-	return
-
+	COOLDOWN_START(src, pump_cooldown, pump_time)
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
 	pump_unload(M)
 	pump_reload(M)
-	return 1
 
 /obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
 	if(chambered)//We have a shell in the chamber
-		chambered.loc = get_turf(src)//Eject casing
+		chambered.forceMove(get_turf(src))
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.casing_drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -86,9 +82,10 @@
 
 // RIOT SHOTGUN //
 
-/obj/item/gun/projectile/shotgun/riot //for spawn in the armory
-	name = "riot shotgun"
-	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
+/// for spawn in the armory
+/obj/item/gun/projectile/shotgun/riot
+	name = "\improper M500 riot shotgun"
+	desc = "A sturdy shotgun by Starstrike Arms, featuring a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
 	item_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
@@ -207,7 +204,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
-	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
+	desc = "An ancient design commonly used by the conscript forces of the USSP. Chambered in 7.62mm. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -314,8 +311,8 @@
 	pump(user)
 
 /obj/item/gun/projectile/shotgun/automatic/combat
-	name = "combat shotgun"
-	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
+	name = "\improper M600 combat shotgun"
+	desc = "A semi automatic shotgun by Starstrike Arms, with tactical furniture and a six-shell magazine capacity."
 	icon_state = "cshotgun"
 	item_state = "shotgun_combat"
 	origin_tech = "combat=6"
@@ -323,11 +320,21 @@
 	w_class = WEIGHT_CLASS_BULKY
 	execution_speed = 5 SECONDS
 
+/// Service Malfunction Borg Combat Shotgun Variant
+/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
+	name = "cyborg shotgun"
+	desc = "Get those organics off your station. Holds eight shots. Can only reload in a recharge station."
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/malf
+
+/obj/item/gun/projectile/shotgun/automatic/combat/cyborg/cyborg_recharge(coeff, emagged)
+	if(magazine.ammo_count() < magazine.max_ammo)
+		magazine.stored_ammo.Add(new /obj/item/ammo_casing/shotgun/lasershot)
+
 //Dual Feed Shotgun
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube
-	name = "cycler shotgun"
-	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
+	name = "\improper XM800 cycler shotgun"
+	desc = "A prototype shotgun by Starstrike Arms with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32

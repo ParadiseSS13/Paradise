@@ -71,6 +71,8 @@ SUBSYSTEM_DEF(throwing)
 	///When this variable is false, non dense mobs will be hit by a thrown item. useful for things that you dont want to be cheesed by crawling, EG. gravitational anomalies
 	var/dodgeable = TRUE
 	/// Can a thrown mob move themselves to stop the throw?
+	var/should_block_movement = TRUE
+	/// Will thrownthing datum actually block movement? this might be FALSE with some circumstances even if var/should_block_movement is TRUE. This variable change automatically during the throw
 	var/block_movement = TRUE
 
 /datum/thrownthing/proc/tick()
@@ -94,7 +96,19 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+		var/gravity
+		if(ismob(AM))
+			var/mob/mob = AM
+			gravity = mob.mob_has_gravity(mob.loc)
+		else
+			gravity = has_gravity(AM, AM.loc)
+
+		if(!gravity)
+			block_movement = FALSE // you should be able to move if there is no gravity, supports jetpack movement during throw
+		else
+			block_movement = should_block_movement
+
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && gravity)
 			hitcheck() //Just to be sure
 			finalize()
 			return
@@ -158,3 +172,6 @@ SUBSYSTEM_DEF(throwing)
 		if((AM.density || isliving(AM) && !dodgeable && !HAS_TRAIT(AM, TRAIT_DODGE_ALL_OBJECTS)) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE
+
+#undef MAX_THROWING_DIST
+#undef MAX_TICKS_TO_MAKE_UP

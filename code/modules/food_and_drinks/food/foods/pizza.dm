@@ -24,6 +24,7 @@
 	icon_state = "margheritapizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Meat Pizza
 /obj/item/food/snacks/sliceable/pizza/meatpizza
@@ -41,6 +42,7 @@
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Mushroom Pizza
 /obj/item/food/snacks/sliceable/pizza/mushroompizza
@@ -58,6 +60,7 @@
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Vegetable Pizza
 /obj/item/food/snacks/sliceable/pizza/vegetablepizza
@@ -75,6 +78,7 @@
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Hawaiian Pizza
 /obj/item/food/snacks/sliceable/pizza/hawaiianpizza
@@ -92,6 +96,7 @@
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
 	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Mac 'n' Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/macpizza
@@ -110,6 +115,7 @@
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Pepperoni Pizza
 /obj/item/food/snacks/sliceable/pizza/pepperonipizza
@@ -128,6 +134,7 @@
 	icon_state = "pepperonipizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/cheesepizza
@@ -144,6 +151,7 @@
 	icon_state = "cheesepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 3)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Donk-pocket Pizza
 /obj/item/food/snacks/sliceable/pizza/donkpocketpizza
@@ -161,6 +169,7 @@
 	icon_state = "donkpocketpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Dank Pizza
 /obj/item/food/snacks/sliceable/pizza/dankpizza
@@ -178,6 +187,7 @@
 	icon_state = "dankpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Firecracker Pizza
 /obj/item/food/snacks/sliceable/pizza/firecrackerpizza
@@ -195,6 +205,7 @@
 	icon_state = "firecrackerpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // "Pesto" Pizza
 /obj/item/food/snacks/sliceable/pizza/pestopizza
@@ -212,6 +223,7 @@
 	icon_state = "pestopizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Garlic Pizza
 /obj/item/food/snacks/sliceable/pizza/garlicpizza
@@ -229,6 +241,7 @@
 	icon_state = "garlicpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 
 //////////////////////
@@ -372,7 +385,9 @@
 	if(is_pen(I))
 		if(open)
 			return
-		var/t = clean_input("Enter what you want to set the tag to:", "Write", null)
+		var/t = tgui_input_text(usr, "Enter what you want to set the tag to:", "Write")
+		if(!t)
+			return
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
@@ -458,14 +473,16 @@
 		desc = "It seems inactive."
 		icon_state = "pizzabox_bomb"
 		timer_set = TRUE
-		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) SECONDS
+		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
+		if(isnull(new_timer))
+			return
 		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
 			timer_set = FALSE
 			name = "pizza box"
 			desc = "A box suited for pizzas."
 			icon_state = "pizzabox1"
 			return
-		timer = clamp(timer, 1 SECONDS, 10 SECONDS)
+		timer = new_timer SECONDS
 		icon_state = "pizzabox1"
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing [src].")
 		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
@@ -515,8 +532,8 @@
 /obj/item/pizzabox/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
-		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
-		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
+		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
+		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
 			return
 		playsound(src, I.usesound, 50, 1, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")

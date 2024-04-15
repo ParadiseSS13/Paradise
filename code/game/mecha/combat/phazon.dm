@@ -9,7 +9,7 @@
 	normal_step_energy_drain = 3
 	max_integrity = 200
 	deflect_chance = 30
-	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, RAD = 50, FIRE = 100, ACID = 75)
 	max_temperature = 25000
 	infra_luminosity = 3
 	wreckage = /obj/structure/mecha_wreckage/phazon

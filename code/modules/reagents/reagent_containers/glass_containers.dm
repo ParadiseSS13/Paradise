@@ -165,7 +165,7 @@
 
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
-		if(blocks_emissive == FALSE)
+		if(!blocks_emissive)
 			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
 	if(assembly)
 		. += "assembly"
@@ -290,8 +290,8 @@
 	list_reagents = list("methamphetamine" = 10)
 
 /obj/item/reagent_containers/glass/bucket
-	desc = "It's a bucket."
 	name = "bucket"
+	desc = "Useful for moving liquids, or having a helmet in the zombie apocalypse."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"

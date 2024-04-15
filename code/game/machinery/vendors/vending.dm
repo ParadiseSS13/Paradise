@@ -238,12 +238,10 @@
 
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
-		set_light(0)
 		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
-		set_light(light_range_on, light_power_on)
 		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
 	update_icon(UPDATE_OVERLAYS)
@@ -552,6 +550,7 @@
 /obj/machinery/economy/vending/emag_act(mob/user)
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
+	return TRUE
 
 /obj/machinery/economy/vending/ex_act(severity)
 	. = ..()
@@ -961,6 +960,7 @@
 		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
 		if(.)
 			tilted = TRUE
+			anchored = FALSE
 			layer = ABOVE_MOB_LAYER
 
 	var/should_throw_at_target = TRUE

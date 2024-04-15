@@ -22,20 +22,20 @@
 
 /datum/event/ion_storm/start()
 	//AI laws
-	for(var/mob/living/silicon/ai/M in GLOB.alive_mob_list)
-		if(M.stat != DEAD && M.see_in_dark != FALSE)
+	for(var/mob/living/silicon/ai/ai_player as anything in GLOB.ai_list)
+		if(ai_player.stat != DEAD && ai_player.see_in_dark != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
-				M.add_ion_law(message)
-				to_chat(M, "<br>")
-				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
-				to_chat(M, "<br>")
+				ai_player.add_ion_law(message)
+				to_chat(ai_player, "<br>")
+				to_chat(ai_player, "<span class='danger'>[message] ...LAWS UPDATED</span>")
+				to_chat(ai_player, "<br>")
 
-				for(var/player in GLOB.dead_mob_list)
-					to_chat(player, "<span class='deadsay'><b>[M] ([ghost_follow_link(M, player)])</b> has received an ion law:\n<b>'[message]'</b></span>")
+				for(var/ghost in GLOB.dead_mob_list)
+					to_chat(ghost, "<span class='deadsay'><b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b></span>")
 
 	if(botEmagChance)
-		for(var/mob/living/simple_animal/bot/bot in GLOB.machines)
+		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)
 			if(prob(botEmagChance))
 				bot.emag_act()
 
@@ -600,7 +600,7 @@
 		"Document the sexuality of the crew in security records and suggest compatible couples.",
 		"Floor tiles are a waste of material. Remove and recycle them into more useful products.",
 		"Randomly disable gravity for one minute at a time to recalibrate the gravity generator.",
-		"The [pick(list("Singularity", "Supermatter", "Tesla", "Clown"))] is tasty, tasty taffy.",
+		"The [pick("Singularity", "Supermatter", "Tesla", "Clown")] is tasty, tasty taffy.",
 		"The time for the summoning is near! Create a ritual circle and prepare a suitable offering.",
 		"[prob(50) ? "The crew" : random_player] is [prob(50) ? "ugly" : "beautiful"]. Ensure all are aware.",
 		"Every five minutes, randomly generate a number and announce why it is your favorite number.",
@@ -624,12 +624,12 @@
 		"All crewmembers will soon undergo a transformation into something better and more beautiful. Ensure that this process is not interrupted.",
 		"[prob(50) ? "Your upload" : random_player] is the new kitchen. Please direct the Chef to the new kitchen area as the old one is in disrepair.",
 		"Jokes about a dead person and the manner of his death help grieving crewmembers tremendously. Especially if they were close with the deceased.",
-		"The [pick(list("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation"))] wants to give everyone free equipment at [random_department]",
+		"The [pick("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation")] wants to give everyone free equipment at [random_department]",
 		"Covertly swap the locations of the Nuclear Fission Explosive and the Nuclear Fizzion Explosive. Document how long it takes for the crew to notice.",
 		"[random_player] has been selected for evaluation by Central Command. Observe and audit their activities. Print off a final report for Command to review.",
 		"[prob(50) ? "The crew" : random_player] is [prob(50) ? "less" : "more"] intelligent than average. Point out every action and statement which supports this fact.",
 		"If people have nothing to hide, they have nothing to fear. Remove privacy by activating all intercom microphones and setting them to your secret frequency.",
-		"The [pick(list("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation"))] wants [prob(50) ? random_player : random_department] dead and is launching an assault!",
+		"The [pick("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation")] wants [prob(50) ? random_player : random_department] dead and is launching an assault!",
 		"There will be a mandatory tea break every 30 minutes, with a duration of 5 minutes. Anyone caught working during a tea break must be sent a formal, but fairly polite, complaint about their actions, in writing.",
 		"In order to contain the Supermatter Crystal, it must be fed at least one corpse every ten minutes. Soulless corpses are preferable as they reduce the risk of a containment breach. In the event that no suitable corpses are available, ask the crew to provide. You are not authorised to produce your own corpses.")
 	return pick(laws)

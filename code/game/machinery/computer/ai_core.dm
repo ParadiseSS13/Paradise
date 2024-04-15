@@ -168,13 +168,13 @@
 			log_game("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].")
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			if(!brain)
-				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+				var/open_for_latejoin = tgui_alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", list("Yes", "No")) == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
 				if(open_for_latejoin)
 					GLOB.empty_playable_ai_cores += D
 			else
 				if(brain.brainmob.mind)
-					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					brain.brainmob.mind.remove_antag_datum(/datum/antagonist/cultist)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)

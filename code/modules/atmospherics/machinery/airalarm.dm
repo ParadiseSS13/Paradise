@@ -29,16 +29,6 @@
 	max1 = other.max1
 	max2 = other.max2
 
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
-#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
-#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
-#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
-#define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
-
 #define AALARM_PRESET_HUMAN     1 // Default
 #define AALARM_PRESET_VOX       2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
@@ -56,12 +46,6 @@
 
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
-
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
-	var/list/obj/machinery/atmospherics/unary/vent_scrubber/scrubbers = list()
 
 /obj/machinery/alarm
 	name = "air alarm"
@@ -111,13 +95,13 @@
 	report_danger_level = FALSE
 
 /obj/machinery/alarm/engine
-	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
-	custom_name = TRUE
+	custom_name = "engine air alarm"
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
-/obj/machinery/alarm/syndicate //general syndicate access
+/// general syndicate access
+/obj/machinery/alarm/syndicate
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
@@ -208,13 +192,21 @@
 
 /obj/machinery/alarm/Initialize(mapload, direction, building = 0)
 	. = ..()
+
+	alarm_area = get_area(src)
+
+	if(custom_name)
+		name = custom_name
+	else
+		name = "[alarm_area.name] Air Alarm"
+
 	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
 		if(direction)
 			setDir(direction)
 
 		buildstage = 0
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(-24, 24, -24, 24)
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -236,9 +228,6 @@
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
-	alarm_area = get_area(src)
-	if(!custom_name)
-		name = "[alarm_area.name] Air Alarm"
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
@@ -334,7 +323,7 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state == TRUE)
+			if(!regulating_temperature && thermostat_state)
 				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
@@ -344,7 +333,7 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			if(thermostat_state == TRUE)
+			if(thermostat_state)
 				var/heat_capacity = gas.heat_capacity()
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
@@ -864,14 +853,9 @@
 					"direction")
 					var/val = isnum(params["val"]) ? params["val"] : text2num(params["val"])
 					if(isnull(val))
-						var/newval = input("Enter new value") as num|null
+						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
-						if(params["cmd"] == "set_external_pressure")
-							if(newval > 1000 + ONE_ATMOSPHERE)
-								newval = 1000 + ONE_ATMOSPHERE
-							if(newval < 0)
-								newval = 0
 						val = newval
 
 					// Figure out what it is
@@ -937,10 +921,8 @@
 					if(!(varname in list("min1", "min2", "max1", "max2"))) // uh oh
 						message_admins("[key_name_admin(usr)] attempted to href edit vars on [src]!!!")
 						return
-
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
-
+					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
 					if(newval < 0)
@@ -987,7 +969,7 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			var/input_temperature = tgui_input_number(usr, "What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls", target_temperature - T0C, max_temperature_c, min_temperature_c)
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C
@@ -1005,7 +987,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+		return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -1162,12 +1144,18 @@
 		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
-	name = "all-access air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. Its access restrictions appear to have been removed."
 	locked = FALSE
-	custom_name = TRUE
+	custom_name = "all-access air alarm"
 	req_access = null
 	req_one_access = null
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 24, 24)
 
 /*
 AIR ALARM CIRCUIT
@@ -1183,3 +1171,16 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+#undef AALARM_PRESET_HUMAN
+#undef AALARM_PRESET_VOX
+#undef AALARM_PRESET_COLDROOM
+#undef AALARM_PRESET_SERVER
+#undef AALARM_PRESET_DISABLED
+#undef AALARM_REPORT_TIMEOUT
+#undef RCON_NO
+#undef RCON_AUTO
+#undef RCON_YES
+#undef MAX_ENERGY_CHANGE
+#undef MAX_TEMPERATURE
+#undef MIN_TEMPERATURE

@@ -33,7 +33,7 @@
 	var/preset_message_index = 0
 
 /obj/item/toy/crayon/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|OXYLOSS
 
 /obj/item/toy/crayon/New()
@@ -200,7 +200,7 @@
 	colourName = "purple"
 
 /obj/item/toy/crayon/random/New()
-	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
+	icon_state = pick("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple")
 	switch(icon_state)
 		if("crayonred")
 			name = "red crayon"
@@ -239,6 +239,12 @@
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
+
+/obj/item/toy/crayon/white/chalk
+	name = "detective's chalk"
+	desc = "A stick of white chalk for marking crime scenes."
+	gender = PLURAL
+	toolspeed = 0.25
 
 /obj/item/toy/crayon/mime
 	name = "mime crayon"
@@ -306,8 +312,8 @@
 	..()
 	update_icon()
 
-/obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
-	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
+/obj/item/toy/crayon/spraycan/attack_self(mob/living/user)
+	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")

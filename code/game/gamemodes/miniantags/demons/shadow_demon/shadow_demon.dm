@@ -147,8 +147,8 @@
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
-	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/S = new
+	AddSpell(new /datum/spell/fireball/shadow_grapple)
+	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
@@ -164,7 +164,7 @@
 	if(lum_count > 0.2)
 		if(!thrown_alert)
 			thrown_alert = TRUE
-			throw_alert("light", /obj/screen/alert/lightexposure)
+			throw_alert("light", /atom/movable/screen/alert/lightexposure)
 		alpha = 255
 		speed = initial(speed)
 	else
@@ -176,7 +176,7 @@
 	return lum_count
 
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple
+/datum/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
 	base_cooldown = 10 SECONDS
@@ -193,7 +193,7 @@
 	invocation_type = "none"
 	invocation = null
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
+/datum/spell/fireball/shadow_grapple/update_spell_icon()
 	return
 
 /obj/item/projectile/magic/shadow_hand
@@ -239,9 +239,9 @@
 /obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+		M.mind.AddSpell(new /datum/spell/fireball/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+		M.mind.RemoveSpell(/datum/spell/fireball/shadow_grapple)

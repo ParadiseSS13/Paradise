@@ -345,7 +345,10 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				prisoner_name = input("Prisoner Name:", name, prisoner_name) as text|null
+				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
+				if(isnull(new_name))
+					return
+				prisoner_name = new_name
 			if(prisoner_name)
 				var/datum/data/record/R = find_security_record("name", prisoner_name)
 				if(istype(R))
@@ -353,10 +356,15 @@
 				else
 					prisoner_hasrecord = FALSE
 		if("prisoner_charge")
-			prisoner_charge = input("Prisoner Charge:", name, prisoner_charge) as text|null
+			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge, encode = FALSE)
+			if(isnull(new_charge))
+				return
+			prisoner_charge = new_charge
 		if("prisoner_time")
-			prisoner_time = input("Prisoner Time (in minutes):", name, prisoner_time) as num|null
-			prisoner_time = min(max(round(prisoner_time), 0), 60)
+			var/new_time = tgui_input_number(usr, "Prisoner Time (in minutes):", name, prisoner_time, 60)
+			if(isnull(new_time))
+				return
+			prisoner_time = new_time
 		if("start")
 			if(!prisoner_name || !prisoner_charge || !prisoner_time)
 				return FALSE
@@ -371,7 +379,7 @@
 			update_icon(UPDATE_ICON_STATE)
 		if("restart_timer")
 			if(timing)
-				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/reset_reason = tgui_input_text(usr, "Reason for resetting timer:", name)
 				if(!reset_reason)
 					to_chat(usr, "<span class='warning'>Cancelled reset: reason field is required.</span>")
 					return FALSE

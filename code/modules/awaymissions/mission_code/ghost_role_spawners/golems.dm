@@ -135,8 +135,8 @@
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
+			H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+			H.mind.AddSpell(new /datum/spell/mime/speak(null))
 			H.mind.miming = TRUE
 
 	if(has_owner)
@@ -156,7 +156,7 @@
 		else
 			has_owner = FALSE
 			owner = null
-		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		var/transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes","No"))
 		if(transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)
@@ -165,13 +165,12 @@
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
-		return
 
 /obj/effect/mob_spawn/human/alive/golem/attackby(obj/item/I, mob/living/carbon/user, params)
 	if(!istype(I, /obj/item/slimepotion/transference))
 		return ..()
 	if(iscarbon(user) && can_transfer)
-		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)", null, "Yes", "No")
+		var/human_transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes", "No"))
 		if(human_transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))

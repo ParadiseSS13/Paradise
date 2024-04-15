@@ -95,7 +95,14 @@
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return
+
+	// Coolers don't heat.
+	if(air_contents.temperature <= target_temperature && cooling)
+		return
+	// Heaters don't cool.
+	if(air_contents.temperature >= target_temperature && !cooling)
+		return
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
@@ -115,7 +122,7 @@
 		parent.update = TRUE
 	else
 		change_power_mode(IDLE_POWER_USE)
-	return 1
+	return
 
 /obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -140,7 +147,9 @@
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
+	if(!selected)
+		return
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir

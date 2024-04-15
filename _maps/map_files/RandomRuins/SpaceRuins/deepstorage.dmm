@@ -667,11 +667,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bG" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
+/obj/machinery/power/apc/off_station/directional/west{
 	keep_preset_name = 1;
-	name = "Bunker APC";
-	pixel_x = -24
+	name = "Bunker APC"
 	},
 /obj/structure/cable{
 	d2 = 4;

@@ -18,6 +18,7 @@
 
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
+	desc = "Used to turn reagents into pills, patches, and store them in bottles."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -56,7 +57,7 @@
 	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
-									"mitocholide", "rezadone", "menthol")
+									"mitocholide", "rezadone", "menthol", "diphenhydramine", "ephedrine", "iron", "sanguine_reagent")
 
 /obj/machinery/chem_master/Initialize(mapload)
 	. = ..()
@@ -173,7 +174,7 @@
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	default_unfasten_wrench(user, I, 4 SECONDS)
+	return default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_master/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -608,6 +609,7 @@
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
+	desc = "Used to remove reagents from that single beaker you're using, or create condiment packs and bottles; your choice."
 	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)

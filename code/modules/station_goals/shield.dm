@@ -202,3 +202,4 @@
 		emagged = TRUE
 		if(active)
 			change_meteor_chance(2)
+		return TRUE

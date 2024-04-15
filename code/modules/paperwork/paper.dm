@@ -39,8 +39,10 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
-	var/paper_width = 400//Width of the window that opens
-	var/paper_height = 400//Height of the window that opens
+	/// Width of the window that opens
+	var/paper_width = 600
+	/// Height of the window that opens
+	var/paper_height = 750
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -82,7 +84,7 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", null, paper_width, paper_height)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
@@ -288,7 +290,7 @@
 
 
 /obj/item/paper/proc/openhelp(mob/user as mob)
-	user << browse({"<HTML><HEAD><TITLE>Pen Help</TITLE></HEAD>
+	user << browse({"<html><meta charset='utf-8'><head><title>Pen Help</title></head>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>
@@ -373,7 +375,7 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
+		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
@@ -484,6 +486,9 @@
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(obj/item/stamp/S)
+	if(length(stamp_overlays) > 49) //Do not remove this cap or you'll unleash evil upon the world
+		return
+
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
@@ -585,6 +590,7 @@
 /obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
+	paper_width = 400
 	paper_height = 150
 
 /obj/item/paper/fortune/New()
@@ -699,11 +705,11 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tank <br>- 4 breathing masks <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator has sent you to planet SN-856B in the Jansev4 system to perform terraforming. <br>To assist you in your task, we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tanks <br>- 4 breathing masks <br>- 4 bee starter kits <br>- A fully functional botanical setup <br><br>You will find an Introduction for Experimental Terraforming inside the cockpit."
 
-/obj/item/paper/seed_vault/terraformation
+/obj/item/paper/seed_vault/terraforming_introduction
 	name = "Terraformation Experiment for SN-856B"
-	info = "Thanks to genetic engineering, we modified this grass to be able grow on a rocky, waterless environment. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass; after you place them down, anchor it down to the terrain so they will start to spread roots deep inside. After all steps are done, repeat it until you cover as much ground as possible. After a certain amount of time it will start producing oxygen, with will begin to increase the density of the atmosphere."
+	info = "Thanks to genetic engineering, we modified this grass to be able grow in rocky, waterless environments. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass. Cover as much ground with these patches as you can, and with time it will start producing oxygen, which will begin to increase the density of the atmosphere."
 
 /obj/item/paper/seed_vault/autopilot_logs
 	name = "Automatical Logs Printout"
@@ -834,14 +840,15 @@
 	qdel(src)
 
 /obj/item/paper/pickup(user)
-	if(contact_poison && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/clothing/gloves/G = H.gloves
-		if(!istype(G) || !G.safe_from_poison)
-			H.reagents.add_reagent(contact_poison, contact_poison_volume)
-			add_attack_logs(src, user, "Picked up [src], coated with [contact_poison] by [contact_poison_poisoner]")
-			contact_poison = null
-	. = ..()
+	..()
+	if(!contact_poison || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	var/obj/item/clothing/gloves/G = H.gloves
+	if(!istype(G) || !G.safe_from_poison)
+		H.reagents.add_reagent(contact_poison, contact_poison_volume)
+		add_attack_logs(src, user, "Picked up [src], coated with [contact_poison] by [contact_poison_poisoner]")
+		contact_poison = null
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"

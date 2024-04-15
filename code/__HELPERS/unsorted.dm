@@ -300,18 +300,18 @@
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
 
-//When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
-/proc/freeborg()
+// Selects an unlinked borg, used in the robot upload console
+/proc/freeborg(mob/user)
 	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
 	if(length(borgs))
-		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to
@@ -338,10 +338,12 @@
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(length(ais))
-		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
-		else		. = pick(ais)
-	return .
+	if(!length(ais))
+		return
+	if(user)
+		return tgui_input_list(user, "AI signals detected:", "AI selection", ais)
+	else
+		return pick(ais)
 
 /proc/get_sorted_mobs()
 	var/list/old_list = getmobs()
@@ -483,12 +485,12 @@
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc?.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/current = M
+	while(current?.loc && !isturf(current.loc))
+		current = current.loc
+		if(stop_type && istype(current, stop_type))
 			break
-	return loc
+	return current
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -508,46 +510,50 @@ Returns 1 if the chain up to the area contains the given typepath
 // otherwise, just reset the client mob's machine var.
 
 
-// returns the turf located at the map edge in the specified direction relative to A
-// used for mass driver
-/proc/get_edge_target_turf(atom/A, direction)
-
-	var/turf/target = locate(A.x, A.y, A.z)
-	if(!A || !target)
-		return 0
-		//since NORTHEAST == NORTH & EAST, etc, doing it this way allows for diagonal mass drivers in the future
+/// Returns the turf located at the map edge in the specified direction relative to target_atom used for mass driver
+/proc/get_edge_target_turf(atom/target_atom, direction)
+	if(!target_atom)
+		return FALSE
+	var/turf/target = get_turf(target_atom)
+	if(!target)
+		return FALSE
+		//since NORTHEAST == NORTH|EAST, etc, doing it this way allows for diagonal mass drivers in the future
 		//and isn't really any more complicated
 
-		// Note diagonal directions won't usually be accurate
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
-		target = locate(target.x, world.maxy, target.z)
-	if(direction & SOUTH)
-		target = locate(target.x, 1, target.z)
+		y = world.maxy
+	else if(direction & SOUTH) //you should not have both NORTH and SOUTH in the provided direction
+		y = 1
 	if(direction & EAST)
-		target = locate(world.maxx, target.y, target.z)
-	if(direction & WEST)
-		target = locate(1, target.y, target.z)
+		x = world.maxx
+	else if(direction & WEST)
+		x = 1
+	if(IS_DIR_DIAGONAL(direction)) //let's make sure it's accurately-placed for diagonals
+		var/lowest_distance_to_map_edge = min(abs(x - target_atom.x), abs(y - target_atom.y))
+		return get_ranged_target_turf(target_atom, direction, lowest_distance_to_map_edge)
+	return locate(x, y, target_atom.z)
 
-	return target
-
-// returns turf relative to A in given direction at set range
+/** returns turf relative to A in given direction at set range
 // result is bounded to map size
 // note range is non-pythagorean
 // used for disposal system
-/proc/get_ranged_target_turf(atom/A, direction, range)
+*/
+/proc/get_ranged_target_turf(atom/target_atom, direction, range)
 
-	var/x = A.x
-	var/y = A.y
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
 		y = min(world.maxy, y + range)
-	if(direction & SOUTH)
+	else if(direction & SOUTH)
 		y = max(1, y - range)
 	if(direction & EAST)
 		x = min(world.maxx, x + range)
-	if(direction & WEST)
+	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,A.z)
+	return locate(x, y, target_atom.z)
 
 /**
  * Get ranged target turf, but with direct targets as opposed to directions
@@ -572,6 +578,42 @@ Returns 1 if the chain up to the area contains the given typepath
 		starting_turf = check
 
 	return starting_turf
+
+// returns turf relative to A for a given clockwise angle at set range
+// result is bounded to map size
+/proc/get_angle_target_turf(atom/A, angle, range)
+	if(!istype(A))
+		return null
+	var/x = A.x
+	var/y = A.y
+
+	x += range * sin(angle)
+	y += range * cos(angle)
+
+	//Restricts to map boundaries while keeping the final angle the same
+	var/dx = A.x - x
+	var/dy = A.y - y
+	var/ratio
+	if(dy == 0) //prevents divide-by-zero errors
+		ratio = INFINITY
+	else
+		ratio = dx / dy
+
+	if(x < 1)
+		y += (1 - x) / ratio
+		x = 1
+	else if(x > world.maxx)
+		y += (world.maxx - x) / ratio
+		x = world.maxx
+
+	if(y < 1)
+		x += (1 - y) * ratio
+		y = 1
+	else if(y > world.maxy)
+		x += (world.maxy - y) * ratio
+		y = world.maxy
+
+	return locate(round(x, 1), round(y, 1), A.z)
 
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
@@ -714,16 +756,19 @@ Returns 1 if the chain up to the area contains the given typepath
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
 /proc/get_area_turfs(areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
+	if(!areatype)
+		return
+	if(istext(areatype))
+		areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
 	var/list/turfs = list()
-	for(var/area/N in world)
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype))
-			for(var/turf/T in N) turfs += T
+			for(var/turf/T in N)
+				turfs += T
 	return turfs
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -742,12 +787,13 @@ Returns 1 if the chain up to the area contains the given typepath
 				atoms += A
 	return atoms
 
-/datum/coords //Simple datum for storing coordinates.
+/// Simple datum for storing coordinates.
+/datum/coords
 	var/x_pos
 	var/y_pos
 	var/z_pos
 
-/area/proc/move_contents_to(area/A, turf_to_leave, direction)
+/area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -756,7 +802,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(!A || !src) return 0
 
-	var/list/turfs_src = get_area_turfs(src.type)
+	var/list/turfs_src = get_area_turfs(type)
 	var/list/turfs_trg = get_area_turfs(A.type)
 
 	var/src_min_x = 0
@@ -1117,32 +1163,20 @@ Returns 1 if the chain up to the area contains the given typepath
 		loc = loc.loc
 	return null
 
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed()
+//For objects that should embed, but make no sense being sharp or is_pointed()
 //e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
 	/obj/item/pipe)))
 
 /proc/can_embed(obj/item/W)
-	if(is_sharp(W))
-		return 1
+	if(W.sharp)
+		return TRUE
 	if(is_pointed(W))
-		return 1
+		return TRUE
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
-//Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	if(!O)
-		return 0
-	if(O.sharp)
-		return 1
-	return 0
+		return TRUE
 
 /proc/reverse_direction(dir)
 	switch(dir)
@@ -1329,7 +1363,7 @@ Standard way to write links -Sayu
 /proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
-		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
+		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
@@ -1379,6 +1413,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 	SHOULD_CALL_PARENT(FALSE)
+	return
 
 /mob/dview/Destroy()
 	SHOULD_CALL_PARENT(FALSE)
@@ -1600,17 +1635,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(value == FALSE) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-		if(isnull(value))
-			return
-	value = trim(value)
-	if(!isnull(value) && value != "")
-		matches = filter_fancy_list(matches, value)
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
+	if(!skip_filter)
+		if(!value) //nothing should be calling us with a number, so this is safe
+			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+			if(isnull(value))
+				return
+		value = trim(value)
+		if(!isnull(value) && value != "")
+			matches = filter_fancy_list(matches, value)
 
-	if(!length(matches))
-		return
+		if(!length(matches))
+			return
 
 	var/chosen
 	if(length(matches) == 1)
@@ -1706,6 +1742,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
+			/datum/station_goal/secondary = "S_GOAL",
+			/datum/station_goal = "GOAL",
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",

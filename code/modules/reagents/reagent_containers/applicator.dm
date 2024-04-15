@@ -26,6 +26,7 @@
 		emagged = TRUE
 		ignore_flags = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		return TRUE
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
@@ -124,7 +125,7 @@
 /obj/item/reagent_containers/applicator/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(user, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "Are you sure you want to empty [src]?", "Empty Applicator", list("Yes", "No")) != "Yes")
 		return
 	if(!user.incapacitated() && isturf(user.loc) && loc == user)
 		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
@@ -143,5 +144,6 @@
 	name = "dual auto-mender"
 	list_reagents = list("synthflesh" = 200)
 
-/obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.
+/// It magically goes through hardsuits. Don't ask how.
+/obj/item/reagent_containers/applicator/dual/syndi
 	ignore_flags = TRUE

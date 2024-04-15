@@ -1071,7 +1071,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered)
 "dh" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -2307,7 +2307,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -3170,7 +3170,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -6141,8 +6141,8 @@
 "vh" = (
 /obj/structure/rack,
 /obj/item/mecha_parts/core,
-/obj/item/stock_parts/cell/infinite,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/stock_parts/cell/infinite/abductor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6367,7 +6367,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wk" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "wl" = (
@@ -6431,7 +6431,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6736,7 +6736,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "yc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6864,10 +6864,8 @@
 "yD" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 24
+/obj/machinery/alarm/monitor/directional/east{
+	locked = 0
 	},
 /obj/item/analyzer,
 /turf/simulated/floor/plasteel{
@@ -8441,7 +8439,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Ff" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8816,7 +8814,7 @@
 	},
 /area/ruin/space/moonbase19)
 "GP" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -9476,13 +9474,9 @@
 /area/ruin/space/moonbase19)
 "JU" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/off_station/empty_charge{
+/obj/machinery/power/apc/off_station/empty_charge/directional/north{
 	cell_type = 15000;
-	locked = 0;
-	name = "Outpost APC";
-	req_access = null;
-	pixel_y = 24;
-	dir = 1
+	locked = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -10526,9 +10520,7 @@
 	},
 /area/ruin/space/moonbase19)
 "On" = (
-/obj/structure/safe/floor{
-	known_by = list("captain")
-	},
+/obj/structure/safe/floor,
 /obj/structure/sign/singulo{
 	pixel_y = 32
 	},
@@ -11565,7 +11557,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Tc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12230,7 +12222,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "VO" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -12545,7 +12537,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Xi" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -13121,7 +13113,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Zu" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

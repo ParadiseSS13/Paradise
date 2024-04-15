@@ -104,7 +104,10 @@
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	if(!new_heldname)
+		return
+	heldname = new_heldname
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
@@ -199,7 +202,7 @@
 		icon_state = "selfrepair_[on ? "on" : "off"]"
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	else
 		icon_state = "cyborg_upgrade5"
 
@@ -261,21 +264,7 @@
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
 
-	for(var/obj/item/borg/upgrade/floorbuffer/U in R.contents)
-		if(R.floorbuffer)
-			R.floorbuffer = FALSE
-			R.speed -= U.buffer_speed
-
-	for(var/datum/action/innate/robot_magpulse/magpulse in R.module_actions)
-		if(magpulse.active)
-			REMOVE_TRAIT(R, TRAIT_MAGPULSE, "innate boots")
-			to_chat(R, "You turn your magboots off.")
-			R.speed -= magpulse.slowdown_active
-			magpulse.button_icon_state = initial(magpulse.button_icon_state)
-			magpulse.active = FALSE
-
-	R.speed = -1 // Gotta go fast.
-
+	R.speed -= 1 // Gotta go fast.
 	return TRUE
 
 /***********************/

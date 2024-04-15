@@ -32,7 +32,7 @@
 	..()
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
-	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
+	var/datum/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = TRUE
@@ -86,7 +86,8 @@
 	health = 170
 
 // Cult slaughter demon
-/mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
+/// Summoned as part of the cult objective "Bring the Slaughter"
+/mob/living/simple_animal/demon/slaughter/cult
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
@@ -101,7 +102,7 @@
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
 	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
 
-/obj/effect/proc_holder/spell/sense_victims
+/datum/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
 	base_cooldown = 0
@@ -112,13 +113,13 @@
 	action_background_icon_state = "bg_cult"
 	panel = "Demon"
 
-/obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
+/datum/spell/sense_victims/create_new_targeting()
 	return new /datum/spell_targeting/alive_mob_list
 
-/obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
-	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
+/datum/spell/sense_victims/valid_target(mob/living/target, user)
+	return target.stat == CONSCIOUS && target.key && !IS_CULTIST(target) // Only conscious, non cultist players
 
-/obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
+/datum/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
 	victim.Stun(6 SECONDS) //HUE
@@ -151,8 +152,8 @@
 		S.mind.assigned_role = "Harbinger of the Slaughter"
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
-		SSticker.mode.add_cultist(S.mind)
-		var/obj/effect/proc_holder/spell/sense_victims/SV = new
+		S.mind.add_antag_datum(/datum/antagonist/cultist)
+		var/datum/spell/sense_victims/SV = new
 		AddSpell(SV)
 
 		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
@@ -166,7 +167,7 @@
 
 /datum/action/innate/demon/whisper
 	name = "Demonic Whisper"
-	button_icon_state = "cult_comms"
+	button_icon_state = "demon_comms"
 	background_icon_state = "bg_demon"
 
 /datum/action/innate/demon/whisper/IsAvailable()
@@ -193,8 +194,8 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
-	if(!(msg))
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
+	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
@@ -256,14 +257,14 @@
 /obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+		M.mind.AddSpell(new /datum/spell/bloodcrawl(null))
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
+		M.mind.RemoveSpell(/datum/spell/bloodcrawl)
 
 /mob/living/simple_animal/demon/slaughter/laughter
 	// The laughter demon! It's everyone's best friend! It just wants to hug

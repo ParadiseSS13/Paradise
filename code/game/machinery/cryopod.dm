@@ -158,9 +158,10 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
 	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
+	return TRUE
 
 /obj/item/circuitboard/cryopodcontrol
 	board_name = "Cryogenic Oversight Console"
@@ -248,7 +249,8 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
+	var/area/our_area = get_area(src)
+	for(var/obj/machinery/computer/cryopod/C in our_area)
 		if(C.type == console_type)
 			control_computer = C
 			break
@@ -328,11 +330,6 @@
 		I.forceMove(src)
 		handle_contents(I)
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/dna2/record/R in cloner.records)
-			if(occupant.mind == locate(R.mind))
-				cloner.records.Remove(R)
-
 	//Delete all items not on the preservation list.
 	var/list/items = contents
 	items -= occupant // Don't delete the occupant
@@ -358,9 +355,8 @@
 			I.forceMove(loc)
 
 	// Find a new sacrifice target if needed, if unable allow summoning
-	if(is_sacrifice_target(occupant.mind))
-		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
-			SSticker.mode.cult_objs.ready_to_summon()
+	if(IS_SACRIFICE_TARGET(occupant.mind))
+		SSticker.mode.cult_team.find_new_sacrifice_target()
 
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)
@@ -448,7 +444,6 @@
 
 
 /obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
-
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 
@@ -471,8 +466,9 @@
 			return
 
 		if(M.client)
-			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
-				if(!M || !G || !G.affecting) return
+			if(tgui_alert(M, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
+				if(!M || !G || !G.affecting)
+					return
 				willing = willing_time_divisor
 		else
 			willing = 1
@@ -546,8 +542,9 @@
 	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
-		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
-			if(!L) return
+		if(tgui_alert(L, "Would you like to enter cryosleep?", "Cryosleep", list("Yes", "No")) == "Yes")
+			if(!L)
+				return
 			willing = willing_time_divisor
 	else
 		willing = 1
@@ -574,6 +571,7 @@
 		return
 	if(!E)
 		return
+	QDEL_LIST_CONTENTS(E.grabbed_by)
 	E.forceMove(src)
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	icon_state = occupied_icon_state

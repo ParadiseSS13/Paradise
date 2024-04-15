@@ -20,7 +20,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	circuit = /obj/item/circuitboard/arcade/recruiter
 	var/candidate_name
-	var/candidate_gender
+	var/candidate_birth
 	var/age
 	var/datum/species/cand_species
 	var/planet_of_origin
@@ -53,9 +53,9 @@
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
 							"Has proven knowledge of SOP, but no working experience", "Has worked at Mr Changs",
 							"Spent 2 years as a freelance journalist", "Known as a hero for keeping stations clean during attacks",
-							"Worked as a bureaucrat for SolGov", "Worked in Donk Corporation's R&D department",
+							"Worked as a bureaucrat for SolGov", "Worked in Donk Corporation's toy R&D department",
 							"Did work for USSP as an translator", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
-							"Served for 4 years as a soldier of the Prospero Order", "Traveled through various systems as a businessman",
+							"Did maintenance on multiple cybernetic limbs over Biotech Solutions", "Traveled through various systems as a businessman",
 							"Worked as a waiter for one year", "Has previous experience as a cameraman",
 							"Spent years of their life being a janitor at Clown College", "Was given numerous good reviews for delivering cargo requests on time",
 							"Helped old people cross the holostreet", "Has proven ability to read", "Served 4 years in NT navy",
@@ -68,7 +68,9 @@
 							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Space Law or SOP breakage to the relevant authorities",
 							"As Chef, adapted their menus in order to appeal all stationed species",
 							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
-							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties")
+							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties",
+							"Did multiple cargo transport jobs for the Port Royal Inc", "Been a test pilot for the new Einstein Engines Inc prototype engines",
+							"Manufactured multiple energy guns at Shellguard Munitions", "Spent years cleaning Aussec Armory guns")
 
 	var/list/incorrect_records = list("Caught littering on the NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
@@ -105,24 +107,25 @@
 	else
 		cand_species = pick(hirable_species)
 
-	candidate_gender = pick(MALE, FEMALE, NEUTER) // Gender
-
-	if(candidate_gender == NEUTER && initial(cand_species.has_gender)) // If the species has a gender it cannot be neuter!
-		good_candidate = FALSE
-
 	if(prob(PROB_CANDIDATE_ERRORS)) // Age
 		age = pick(initial(cand_species.max_age) + rand(20, 100), (initial(cand_species.min_age) - rand(1, 7))) // Its either too young or too old for the job
 		good_candidate = FALSE
 	else
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
 
+	if(prob(PROB_CANDIDATE_ERRORS)) // Date of birth
+		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age + pick(-400, -300, -200, -100, 50, 100, 150)]" // The age doesn't match with the date of birth
+		good_candidate = FALSE
+	else
+		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age]"
+
 	if(prob(PROB_CANDIDATE_ERRORS)) // Name
 		// Lets pick all species with a naming scheme and remove the selected one so we can have a mismatch
 		var/datum/species/wrong_species = pick((hirable_species + /datum/species/monkey + /datum/species/golem - cand_species))
-		candidate_name = random_name(candidate_gender, initial(wrong_species.name))
+		candidate_name = random_name(species = initial(wrong_species.name))
 		good_candidate = FALSE
 	else
-		candidate_name = random_name(candidate_gender, initial(cand_species.name))
+		candidate_name = random_name(species = initial(cand_species.name))
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Planet
 		planet_of_origin = pick(incorrect_planets)
@@ -150,31 +153,31 @@
 	switch(unique_candidate)
 		if(UNIQUE_STEVE) // Steve is special
 			candidate_name = "Steve"
-			candidate_gender = MALE
 			age = "30"
+			candidate_birth = "12/[GLOB.game_year - 30]"
 			cand_species = /datum/species/human
 			planet_of_origin = "Unknown"
 			job_requested = "Central Command Intern"
 			employment_records = "Experience in pressing buttons"
 		if(UNIQUE_MIME) // Only hire mimes that don't fill their employment application
 			candidate_name = "..."
-			candidate_gender = "..."
+			candidate_birth = "..."
 			age = "..."
 			planet_of_origin = "..."
 			job_requested = "Mime"
 			employment_records = "..."
 		if(UNIQUE_CEO_CHILD) // Hes the son of the CEO, what do you expect?
 			candidate_name = "Johnny Nanotrasen, Jr."
-			candidate_gender = MALE
 			age = "12"
+			candidate_birth = "1/[GLOB.game_year - 12]"
 			cand_species = /datum/species/human
 			planet_of_origin = "Unknown"
 			job_requested = "Captain"
 			employment_records = "Whatever"
 		if(UNIQUE_VIGILANTE) // For some reason vigilantes do get inside NT stations, let them slip in
 			candidate_name = "Owlman"
-			candidate_gender = MALE
 			age = "38"
+			candidate_birth = "6/[GLOB.game_year - 38]"
 			cand_species = /datum/species/human
 			planet_of_origin = "Unknown"
 			job_requested = "Assistant"
@@ -204,7 +207,7 @@
 		"gamestatus" = game_status,
 
 		"cand_name" = candidate_name,
-		"cand_gender" = capitalize(candidate_gender),
+		"cand_birth" = candidate_birth,
 		"cand_age" = age,
 		"cand_species" = initial(cand_species.name),
 		"cand_planet" = planet_of_origin,
@@ -312,6 +315,7 @@
 	desc = "The advanced version of Nanotrasen's recruiting simulator, used to train the highest echelon of Nanotrasen recruiters. Has double the application count, and supposedly includes some routines to weed out the less skilled."
 	total_curriculums = 14
 	emagged = TRUE
+	return TRUE
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE

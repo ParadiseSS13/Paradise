@@ -8,6 +8,7 @@
 			if(AM.GetComponent(/datum/component/two_handed))
 				if(get_inactive_hand())
 					return FALSE
+
 			throw_mode_off()
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")

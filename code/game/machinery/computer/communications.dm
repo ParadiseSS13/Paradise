@@ -186,7 +186,7 @@
 			if(isAI(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>")
 				return
-			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
+			var/response = tgui_alert(usr, "Are you sure you wish to recall the shuttle?", "Confirm", list("Yes", "No"))
 			if(response == "Yes")
 				cancel_call_proc(ui.user)
 				if(SSshuttle.emergency.timer)
@@ -234,11 +234,11 @@
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = clean_input("Line 1", "Enter Message Text", stat_msg1)
+			stat_msg1 = tgui_input_text(ui.user, "Line 1", stat_msg1, "Enter Message Text", encode = FALSE)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = clean_input("Line 2", "Enter Message Text", stat_msg2)
+			stat_msg2 = tgui_input_text(ui.user, "Line 2", stat_msg2, "Enter Message Text", encode = FALSE)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -246,8 +246,8 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
-				var/input = stripped_input(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
-				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				var/input = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.", encode = FALSE)
+				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(ui.user, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -264,7 +264,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
-				var/input = stripped_input(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "CentComm Message", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -283,7 +283,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Arrays recycling.  Please stand by.")
 					return
-				var/input = stripped_input(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement. Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "Send Message", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -401,6 +401,7 @@
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)
+		return TRUE
 
 /obj/machinery/computer/communications/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -647,3 +648,15 @@
 			C.messagetext.Add(text)
 
 #undef ADMIN_CHECK
+
+#undef COMM_SCREEN_MAIN
+#undef COMM_SCREEN_STAT
+#undef COMM_SCREEN_MESSAGES
+#undef COMM_SCREEN_ANNOUNCER
+#undef COMM_AUTHENTICATION_NONE
+#undef COMM_AUTHENTICATION_HEAD
+#undef COMM_AUTHENTICATION_CAPT
+#undef COMM_AUTHENTICATION_CENTCOM
+#undef COMM_AUTHENTICATION_AGHOST
+#undef COMM_MSGLEN_MINIMUM
+#undef COMM_CCMSGLEN_MINIMUM

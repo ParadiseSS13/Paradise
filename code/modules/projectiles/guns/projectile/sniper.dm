@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle
-	name = "sniper rifle"
-	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
+	name = "\improper SR-31C sniper rifle"
+	desc = "A powerful anti-materiel rifle produced by Aussec Armory, chambered in devastating .50 BMG."
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2
@@ -30,8 +30,8 @@
 	return ..()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	name = "syndicate sniper rifle"
-	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
+	name = "\improper SR-31C (S) Sniper Rifle"
+	desc = "A powerful anti-materiel rifle by Aussec Armory, chambered in devastating .50 BMG. This model is engraved with superficial Syndicate iconography."
 	origin_tech = "combat=7;syndicate=6"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
@@ -56,7 +56,8 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/ammo_casing/point50
-	desc = "A .50 bullet casing."
+	name = ".50 BMG round"
+	desc = "A .50 BMG rifle cartridge, commonly used in anti-materiel rifles and heavy machine guns."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -79,7 +80,8 @@
 	ammo_type = /obj/item/ammo_casing/antimatter
 
 /obj/item/ammo_casing/antimatter
-	desc = "A .50 antimatter bullet casing, designed to cause massive damage to whatever is hit."
+	name = ".50 BMG anti-matter round"
+	desc = "A .50 BMG high-explosive cartridge. Does not actually contain antimatter."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/antimatter
 	icon_state = ".50"
@@ -105,7 +107,8 @@
 	max_ammo = 3
 
 /obj/item/ammo_casing/soporific
-	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
+	name = ".50 BMG soporific round"
+	desc = "A .50 BMG hypodermic cartridge, loaded with sedatives for instant incapacitation."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
 	icon_state = ".50"
@@ -132,7 +135,8 @@
 	max_ammo = 5
 
 /obj/item/ammo_casing/haemorrhage
-	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
+	name = ".50 BMG shredder round"
+	desc = "A .50 BMG 'Shredder' cartridge, with a heavily serrated bullet intended to cause massive blood loss."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
 	icon_state = ".50"
@@ -159,7 +163,8 @@
 	max_ammo = 5
 
 /obj/item/ammo_casing/penetrator
-	desc = "A .50 caliber penetrator round casing."
+	name = ".50 BMG sabot round"
+	desc = "A .50 BMG Sabot Penetrator cartridge, capable of punching through just about anything."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
 	icon_state = ".50"

@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
+	desc = "Because just talking to your coworkers is too efficient."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
@@ -59,6 +60,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
+	desc = "A fax machine of the ancient days, now using modern entanglement networks, all the better to snitch on your coworkers."
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
@@ -68,6 +70,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
+	desc = "For requesting supplies from your benefactors, not that they'll send you any."
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
@@ -107,6 +110,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		emagged = TRUE
 		req_one_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
@@ -200,7 +204,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
-				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
+				var/n_name = tgui_input_text(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)
+				if(!n_name)
+					return
 				if(copyitem && copyitem.loc == src && usr.stat == 0)
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? "[n_name]" : initial(copyitem.name))]"

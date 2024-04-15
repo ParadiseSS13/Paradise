@@ -2,7 +2,7 @@
 "aa" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="cautionfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -479,10 +479,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bp" = (
@@ -621,7 +618,7 @@
 /area/ruin/space/derelict/bridge)
 "bE" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="dark");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/arrival)
@@ -1535,10 +1532,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -1704,10 +1698,7 @@
 	pixel_y = 1
 	},
 /obj/structure/musician/piano,
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "em" = (
@@ -1942,7 +1933,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "eM" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="purplefull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "purplefull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -2055,7 +2046,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "eZ" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="cautionfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -2734,10 +2725,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -2969,7 +2957,7 @@
 	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="whiteredfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -3022,20 +3010,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
-"hp" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/ruin/space/derelict/solar_control)
 "hq" = (
 /obj/item/stack/ore/uranium,
 /turf/template_noop,
@@ -3529,7 +3503,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "iD" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="engine");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "engine");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -5537,7 +5511,7 @@
 	dir = 8
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="whiteredfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -5707,7 +5681,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nU" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="hydrofloor");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "hydrofloor");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -6194,7 +6168,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pj" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="orangefull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "orangefull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -6566,7 +6540,7 @@
 /area/ruin/space/derelict/arrival)
 "qk" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="redfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "redfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/arrival)
@@ -6757,7 +6731,7 @@
 /obj/item/trash/tapetrash,
 /obj/item/trash/pistachios,
 /obj/item/reagent_containers/syringe/charcoal{
-	list_reagents = list("charcoal"=13,"salmonella"=2)
+	list_reagents = list("charcoal" = 13, "salmonella" = 2)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -7514,7 +7488,6 @@
 "sp" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -7549,7 +7522,6 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "st" = (
-/obj/structure/cable,
 /obj/machinery/power/tracker,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -7587,6 +7559,13 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"NK" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/template_noop,
+/area/template_noop)
 "Oh" = (
 /obj/effect/spawner/airlock/w_to_e{
 	req_access_txt = 0
@@ -14178,7 +14157,7 @@ ac
 ac
 ac
 ac
-ac
+NK
 ac
 ac
 ac
@@ -14368,18 +14347,18 @@ ac
 ac
 ac
 ac
-hp
-hp
-hp
-hp
-hp
+hs
+hs
+hs
+hs
+hs
 ac
 jO
 ac
 jO
 ag
 hs
-hp
+hs
 hs
 hs
 hs

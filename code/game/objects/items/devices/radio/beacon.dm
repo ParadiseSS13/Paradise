@@ -21,15 +21,13 @@
 		emagged = TRUE
 		syndicate = TRUE
 		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		return TRUE
 
 /obj/item/radio/beacon/hear_talk()
 	return
 
-
-/obj/item/radio/beacon/send_hear()
-	return null
-
-/obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
+/// Probably a better way of doing this, I'm lazy.
+/obj/item/radio/beacon/bacon
 
 /obj/item/radio/beacon/bacon/proc/digest_delay()
 	QDEL_IN(src, 600)
@@ -74,7 +72,8 @@
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
-		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid)
+		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
+		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot)
 	var/list/selected = list()
 	var/list/unselected = list()
 

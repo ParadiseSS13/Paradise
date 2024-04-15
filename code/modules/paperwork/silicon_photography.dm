@@ -10,13 +10,16 @@
 	var/photos_taken = 0
 	var/list/aipictures = list()
 
-/obj/item/camera/siliconcam/ai_camera //camera AI can take pictures with
+/// camera AI can take pictures with
+/obj/item/camera/siliconcam/ai_camera
 	name = "AI photo camera"
 
-/obj/item/camera/siliconcam/robot_camera //camera cyborgs can take pictures with
+/// camera cyborgs can take pictures with
+/obj/item/camera/siliconcam/robot_camera
 	name = "Cyborg photo camera"
 
-/obj/item/camera/siliconcam/drone_camera //currently doesn't offer the verbs, thus cannot be used
+/// currently doesn't offer the verbs, thus cannot be used
+/obj/item/camera/siliconcam/drone_camera
 	name = "Drone photo camera"
 
 /obj/item/camera/siliconcam/proc/injectaialbum(datum/picture/P, sufix = "") //stores image information to a list similar to that of the datacore
@@ -106,7 +109,6 @@
 	set category = "AI Commands"
 	set name = "Take Image"
 	set desc = "Takes an image"
-	set src in usr
 
 	toggle_camera_mode()
 
@@ -114,7 +116,6 @@
 	set category = "AI Commands"
 	set name = "View Images"
 	set desc = "View images"
-	set src in usr
 
 	viewpictures()
 
@@ -122,7 +123,6 @@
 	set category = "AI Commands"
 	set name = "Delete Image"
 	set desc = "Delete image"
-	set src in usr
 
 	deletepicture(src)
 
@@ -130,7 +130,6 @@
 	set category ="Robot Commands"
 	set name = "Take Image"
 	set desc = "Takes an image"
-	set src in usr
 
 	toggle_camera_mode()
 
@@ -138,7 +137,6 @@
 	set category ="Robot Commands"
 	set name = "View Images"
 	set desc = "View images"
-	set src in usr
 
 	viewpictures()
 
@@ -146,7 +144,6 @@
 	set category = "Robot Commands"
 	set name = "Delete Image"
 	set desc = "Delete a local image"
-	set src in usr
 
 	// Explicitly only allow deletion from the local camera
 	deletepicture(src)

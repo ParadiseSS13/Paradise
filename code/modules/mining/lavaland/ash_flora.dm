@@ -75,7 +75,8 @@
 	else
 		..()
 
-/obj/structure/flora/ash/tall_shroom //exists only so that the spawning check doesn't allow these spawning near other things
+/// exists only so that the spawning check doesn't allow these spawning near other things
+/obj/structure/flora/ash/tall_shroom
 	regrowth_time_low = 4200
 
 /obj/structure/flora/ash/leaf_shroom
@@ -144,9 +145,7 @@
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
 	. = ..()
-	// min dmg 3, max dmg 6, prob(70)
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
-
 
 /*********
  * Rocks *
@@ -197,7 +196,8 @@
 	pixel_x = rand(-4, 4)
 	pixel_y = rand(-4, 4)
 
-/obj/item/food/snacks/grown/ash_flora/shavings //for actual crafting
+/// for actual crafting
+/obj/item/food/snacks/grown/ash_flora/shavings
 
 /obj/item/food/snacks/grown/ash_flora/mushroom_leaf
 	name = "mushroom leaf"

@@ -302,7 +302,8 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/fullycustom // In the event you fuckers find something I forgot to add a customizable food for.
+/// In the event you fuckers find something I forgot to add a customizable food for.
+/obj/item/food/snacks/customizable/fullycustom
 	name = "on a plate"
 	desc = "A unique dish."
 	icon_state = "fullycustom"
@@ -335,6 +336,12 @@ do {\
 
 
 /obj/item/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		if(!isnull(new_name))
+			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
+			return
+
 	if(!istype(I, /obj/item/food/snacks))
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
 		return
@@ -508,7 +515,7 @@ do {\
 		sendback += basename
 
 	if(length(sendback) > 80)
-		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
+		sendback = "[pick("absurd", "colossal", "enormous", "ridiculous", "massive", "oversized", "cardiac-arresting", "pipe-clogging", "edible but sickening", "sickening", "gargantuan", "mega", "belly-burster", "chest-burster")] [basename]"
 	return sendback
 
 /obj/item/food/snacks/customizable/proc/sortlist(list/unsorted, highest)

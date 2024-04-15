@@ -1,5 +1,7 @@
 GLOBAL_LIST_EMPTY(antagonists)
 
+#define SUCCESSFUL_DETACH "dont touch this string numbnuts"
+
 /datum/antagonist
 	/// The name of the antagonist.
 	var/name = "Antagonist"
@@ -33,6 +35,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
+	/// The spawn class to use for gain/removal clown text
+	var/clown_text_span_class = "boldnotice"
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
 
@@ -56,8 +60,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/Destroy(force, ...)
 	qdel(objective_holder)
 	GLOB.antagonists -= src
-	if(!QDELETED(owner))
-		detach_from_owner()
+	if(!QDELETED(owner) && detach_from_owner() != SUCCESSFUL_DETACH)
+		stack_trace("[src] ([type]) failed to detach from owner! This is very bad!")
 
 	return ..()
 
@@ -79,6 +83,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	LAZYREMOVE(owner.antag_datums, src)
 	restore_last_hud_and_role()
 	owner = null
+	return SUCCESSFUL_DETACH
 
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
@@ -408,3 +413,5 @@ GLOBAL_LIST_EMPTY(antagonists)
 /// This is the custom blurb message used on login for an antagonist.
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
+
+#undef SUCCESSFUL_DETACH

@@ -10,12 +10,6 @@
 */
 
 // Nice way to format logs
-#define LOG_MAZE_PROGRESS(proc2run, opname) \
-do { \
-	var/timer = start_watch(); \
-	proc2run ;\
-	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
-} while(FALSE)
 
 
 // These defines are used to mark the cells as explored or not
@@ -127,7 +121,7 @@ do { \
 
 			// On both tiles
 			for(var/obj/structure/window/reinforced/mazeglass/W in T3)
-				if(W.dir == GetOppositeDir(text2num(D)))
+				if(W.dir == reverse_direction(text2num(D)))
 					qdel(W)
 
 			// Mark as visited
