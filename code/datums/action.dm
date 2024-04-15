@@ -121,7 +121,7 @@
 	if(!status_only)
 		button.name = name
 		if(desc)
-			button.desc =  "[desc] [initial(button.desc)]"
+			button.desc = "[desc] [initial(button.desc)]"
 		if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
 			var/list/settings = owner.hud_used.get_action_buttons_icons()
 			if(button.icon != settings["bg_icon"])
