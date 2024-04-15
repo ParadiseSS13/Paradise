@@ -44,10 +44,16 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)
-	message_mentorTicket(msg, important)
+	message_mentorTicket(chat_box_mhelp(msg), important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
 	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.title)
+
+/datum/controller/subsystem/tickets/mentor_tickets/sendFollowupToDiscord(datum/ticket/T, who, message)
+	GLOB.discord_manager.send2discord_simple_mentor("Ticket [T.ticketNum], [who]: [message]")
+
+/datum/controller/subsystem/tickets/mentor_tickets/sendAmbiguousFollowupToDiscord(list/ticket_numbers, who, message)
+	GLOB.discord_manager.send2discord_simple_mentor("Ticket [ticket_numbers.Join(", ")] (ambiguous), [who]: [message]")
 
 /datum/controller/subsystem/tickets/mentor_tickets/autoRespond(N)
 	if(!check_rights(rights_needed))
