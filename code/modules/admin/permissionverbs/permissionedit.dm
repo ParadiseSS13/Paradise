@@ -24,7 +24,7 @@
 <div id='main'><table id='searchable' cellspacing='0'>
 <tr class='title'>
 <th style='width:20%;text-align:right;'>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
-<th style='width:20%;'>RANK</th><th style='width:80%;'>PERMISSIONS</th>
+<th style='width:20%;'>RANK</th><th style='width:60%;'>PERMISSIONS</th>
 </tr>
 "}
 
