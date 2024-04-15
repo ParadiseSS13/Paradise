@@ -147,7 +147,7 @@
 	var/total_ammo
 	for(var/obj/item/chemical_canister/canister as anything in canisters)
 		total_ammo += canister.ammo
-	if(total_ammo - amount <= 0)
+	if(total_ammo - amount < 0)
 		return FALSE
 
 	var/length = length(canisters)
@@ -235,8 +235,8 @@ GLOBAL_LIST_EMPTY(flame_effects)
 /obj/effect/fire
 	name = "\improper Fire"
 	desc = "You don't think you should touch this."
-	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "match_unathi"
+	icon = 'icons/effects/chemical_fire.dmi'
+	icon_state = "fire1"
 
 	/// How hot is our fire?
 	var/temperature
