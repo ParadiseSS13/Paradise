@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return completed
 
 /datum/objective/proc/found_target()
-	return target
+	return (delayed_objective ? TRUE : target)
 
 /**
  * This is for objectives that need to register signals, so place them in here.
@@ -113,11 +113,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/proc/find_target(list/target_blacklist)
-	if(!needs_target)
+	if(!needs_target || delayed_objective)
 		return
-	if(delayed_objective)
-		target = TRUE // To fool `found_target`
-		return
+
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
@@ -557,12 +555,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target(list/target_blacklist)
-	if(delayed_objective)
-		steal_target = TRUE // To fool that pesky `found_target`
-		update_explanation_text()
-		return
-
-	steal_target = null // In case it was set to `TRUE` from being a delayed objective.
 	var/potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
