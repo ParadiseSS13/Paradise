@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Plasma Tank:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large Plasma Tank" : "Specialized Plasma Tank"]</a><br>"
 			if(active_character.species == "Grey")
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
-				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"
+				dat += "<b>Voice Translator:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='byond://?_src_=prefs;preference=language;task=input'>[active_character.language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='byond://?_src_=prefs;preference=autohiss_mode;task=input'>[active_character.autohiss_mode == AUTOHISS_FULL ? "Full" : (active_character.autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
@@ -222,9 +222,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Skin Tone:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='byond://?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
-			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[active_character.nanotrasen_relation]</a><br>"
+			dat += "<b>Nanotrasen Relation:</b> <ahref ='byond://?_src_=prefs;preference=nt_relation;task=input'>[active_character.nanotrasen_relation]</a><br>"
 			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
-			dat += "<b>Height:</b> <a href ='?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
+			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
@@ -374,15 +374,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			else		dat += "<br>"
 
 			dat += "<h2>Cyborg Brain Type</h2>"
-			dat += "<a href= '?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><BR>"
+			dat += "<a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><BR>"
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
-				dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[active_character.underwear]</a><BR>"
+				dat += "<b>Underwear:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[active_character.underwear]</a><BR>"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
-				dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
+				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
 			if(S.clothing_flags & HAS_SOCKS)
-				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
+				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
+			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
