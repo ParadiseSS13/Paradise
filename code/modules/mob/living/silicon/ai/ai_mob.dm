@@ -1547,7 +1547,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)
 	. = ..()
-	if(isobserver(.))
+	if(isobserver(.) && old_turf)
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
 
