@@ -136,7 +136,7 @@
 	if(IS_HORIZONTAL(L))
 		var/turf = get_turf(L)
 		if(isspaceturf(turf))
-			message = "flops and flails around in space"
+			message = "flops and flails around in space."
 		else
 			message = "flops and flails around on the floor."
 		return ..()
