@@ -399,7 +399,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		SSblackbox.record_feedback("tally", "ai_controlled_elite_win", 1, mychild.name)
 	if(times_won == 1)
 		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-		to_chat(mychild, "<span class='warning'><As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
+		to_chat(mychild, "<span class='warning'>As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
 			Despite this inferno being your home, you feel as if you aren't welcome here anymore.\n\
 			Without any guidance, your purpose is now for you to decide.</span>")
 		to_chat(mychild, "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.\n\
