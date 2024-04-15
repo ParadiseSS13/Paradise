@@ -9,9 +9,9 @@
 /mob/living/silicon/robot/movement_delay()
 	. = ..()
 	. += speed
-	//Counteract magboot slow in 0G
+	// Counteract magboot slow in 0G.
 	if(!has_gravity(src) && HAS_TRAIT(src, TRAIT_MAGPULSE))
-		. -= 2
+		. -= 2	// The slowdown value on the borg magpulse.
 	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
 		. -= 3
 	. += GLOB.configuration.movement.robot_delay
