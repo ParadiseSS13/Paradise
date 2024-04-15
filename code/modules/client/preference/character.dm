@@ -1618,7 +1618,7 @@
 	return 0
 
 /datum/character_save/proc/ShowDisabilityState(mob/user, flag, label)
-	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
+	return "<li><b>[label]:</b> <a href='byond://?_src_=prefs;task=input;preference=disabilities;disability=[flag]'>[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/character_save/proc/SetDisabilities(mob/user)
 	var/datum/species/S = GLOB.all_species[species]
@@ -1642,8 +1642,8 @@
 
 
 	HTML += {"</ul>
-		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
-		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
+		<a href='byond://?_src_=prefs;task=close;preference=disabilities'>\[Done\]</a>
+		<a href='byond://?_src_=prefs;task=reset;preference=disabilities'>\[Reset\]</a>
 		</center></tt>"}
 
 	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 380)
@@ -2015,7 +2015,7 @@
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
-				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
+				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
 			lastJob = job
