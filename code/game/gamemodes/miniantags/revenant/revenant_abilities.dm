@@ -163,6 +163,9 @@
 		name = "[initial(name)] ([unlock_amount]E)"
 	else
 		name = "[initial(name)] ([cast_amount]E)"
+	action.name = name
+	action.desc = desc
+	action.UpdateButtons()
 
 /datum/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
@@ -176,7 +179,7 @@
 	if(cooldown_handler.is_on_cooldown())
 		return FALSE
 	if(locked)
-		if(user.essence <= unlock_amount)
+		if(user.essence < unlock_amount)
 			return FALSE
 	if(user.essence <= cast_amount)
 		return FALSE
