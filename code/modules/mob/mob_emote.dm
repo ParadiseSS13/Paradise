@@ -169,6 +169,8 @@
 	if(prob(5) && ishuman(user))
 		var/turf = get_turf(L)
 		message = "attempts a flip and [isspaceturf(turf) ? "loses balance" : "crashes to the floor"]!"
+		if(istype(L))
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS)
 		return ..()
 
 	. = ..()
