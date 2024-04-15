@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Table, Flex, Icon, Dimmer } from '../components';
+import { Button, Section, Table, Stack, Icon, Dimmer } from '../components';
 import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
@@ -9,30 +9,32 @@ export const KitchenMachine = (props, context) => {
   const { title } = config;
 
   return (
-    <Window resizable>
-      <Window.Content
-        scrollable
-        display="flex"
-        className="Layout__content--flexColumn"
-      >
-        <Operating operating={operating} name={title} />
-        <KitchenTop />
-        <Section title="Ingredients" flexGrow={1}>
-          <Table className="Ingredient__Table">
-            {ingredients.map((product) => (
-              <Table.Row tr={5} key={product.name}>
-                <td>
-                  <Table.Cell bold>{product.name}</Table.Cell>
-                </td>
-                <td>
-                  <Table.Cell collapsing textAlign="center">
-                    {product.amount} {product.units}
-                  </Table.Cell>
-                </td>
-              </Table.Row>
-            ))}
-          </Table>
-        </Section>
+    <Window width={400} height={320}>
+      <Window.Content>
+        <Stack fill vertical>
+          <Operating operating={operating} name={title} />
+          <Stack.Item>
+            <KitchenTop />
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section fill scrollable title="Ingredients">
+              <Table className="Ingredient__Table">
+                {ingredients.map((product) => (
+                  <Table.Row tr={5} key={product.name}>
+                    <td>
+                      <Table.Cell bold>{product.name}</Table.Cell>
+                    </td>
+                    <td>
+                      <Table.Cell collapsing textAlign="center">
+                        {product.amount} {product.units}
+                      </Table.Cell>
+                    </td>
+                  </Table.Row>
+                ))}
+              </Table>
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -44,8 +46,8 @@ const KitchenTop = (props, context) => {
 
   return (
     <Section title="Controls">
-      <Flex>
-        <Flex.Item width="50%" mr="3px">
+      <Stack>
+        <Stack.Item width="50%">
           <Button
             fluid
             textAlign="center"
@@ -56,8 +58,8 @@ const KitchenTop = (props, context) => {
             content="Activate"
             onClick={() => act('cook')}
           />
-        </Flex.Item>
-        <Flex.Item width="50%">
+        </Stack.Item>
+        <Stack.Item width="50%">
           <Button
             fluid
             textAlign="center"
@@ -68,8 +70,8 @@ const KitchenTop = (props, context) => {
             content="Eject Contents"
             onClick={() => act('eject')}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

@@ -6,7 +6,7 @@ export const WizardApprenticeContract = (props, context) => {
   const { act, data } = useBackend(context);
   const { used } = data;
   return (
-    <Window resizable>
+    <Window width={500} height={555}>
       <Window.Content scrollable>
         <Section title="Contract of Apprenticeship">
           Using this contract, you may summon an apprentice to aid you on your
@@ -65,8 +65,8 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Stealth">
               Your apprentice is learning the art of infiltrating mundane
               facilities. <br />
-              They know Mindswap, Knock, Homing Toolbox, and Instant Summons,
-              all of which can be cast without robes. They also join you in a
+              They know Mindswap, Knock, Homing Toolbox, and Disguise Self, all
+              of which can be cast without robes. They also join you in a
               Maintenance Dweller disguise, complete with Gloves of Shock
               Immunity and a Belt of Tools.
               <br />

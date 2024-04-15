@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 /client/proc/freeze(atom/movable/M)
 	set name = "\[Admin\] Freeze"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -63,8 +62,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		adjustHealth(1000) //arbitrary large value
 	else
 		revive()
-
-/mob/living/simple_animal/var/admin_prev_health = null
 
 /mob/living/simple_animal/admin_Freeze(admin)
 	if(..()) // The result of the parent call here will be the value of the mob's `frozen` variable after they get (un)frozen.

@@ -36,23 +36,25 @@
 #define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS 1
-#define FIRELOSS 2
-#define TOXLOSS 4
-#define OXYLOSS 8
-#define SHAME 16
-#define OBLITERATION 32
+#define BRUTELOSS		(1<<0)
+#define FIRELOSS		(1<<1)
+#define TOXLOSS			(1<<2)
+#define OXYLOSS			(1<<3)
+/// Stam crits the effected mob, as well as ensures they dont die from suicide
+#define SHAME 			(1<<4)
+#define OBLITERATION 	(1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN			1
-#define CANWEAKEN		2
-#define CANPARALYSE		4
-#define CANPUSH			8
-#define PASSEMOTES		16 //Mob has holders inside of it that need to see emotes.
-#define GODMODE			32
+#define CANSTUN			(1<<0)
+#define CANWEAKEN		(1<<1)
+#define CANPARALYSE		(1<<2)
+#define CANPUSH			(1<<3)
+#define PASSEMOTES		(1<<4) //Mob has holders inside of it that need to see emotes.
+#define GODMODE			(1<<5)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_KNOCKOUT -50
 #define HEALTH_THRESHOLD_DEAD -100
 
 //Grab levels

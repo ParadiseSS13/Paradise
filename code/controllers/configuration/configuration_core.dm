@@ -46,6 +46,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/url_configuration/url
 	/// Holder for the voting configuration datum
 	var/datum/configuration_section/vote_configuration/vote
+	/// Holder for the asset cache configuration datum
+	var/datum/configuration_section/asset_cache_configuration/asset_cache
 	/// Raw data. Stored here to avoid passing data between procs constantly
 	var/list/raw_data = list()
 
@@ -92,6 +94,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	system = new()
 	url = new()
 	vote = new()
+	asset_cache = new()
 
 	// Load our stuff up
 	var/config_file = "config/config.toml"
@@ -129,6 +132,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(system, "system_configuration")
 	safe_load(url, "url_configuration")
 	safe_load(vote, "voting_configuration")
+	safe_load(asset_cache, "asset_cache_configuration")
 
 // Proc to load up instance-specific overrides
 /datum/server_configuration/proc/load_overrides()

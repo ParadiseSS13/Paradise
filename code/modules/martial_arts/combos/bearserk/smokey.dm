@@ -10,8 +10,11 @@
 	target.visible_message("<span class='warning'>[user] sets [target] on fire with otherwordly powers!</span>", \
 						"<span class='userdanger'>As [user] punches you with a searing fist, these words echo in your mind; \"remember... only YOU can prevent forest fires!\"</span>")
 	target.apply_damage(10, BURN, user.zone_selected)
-	playsound(get_turf(user), 'sound/weapons/punch1.ogg', 25, vary = TRUE, extrarange = -1)
+	playsound(get_turf(user), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	target.adjust_fire_stacks(1.5)
 	target.IgniteMob()
+	if(isliving(target) && target.stat != DEAD)
+		user.adjustStaminaLoss(-40)
+		user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Smokey", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

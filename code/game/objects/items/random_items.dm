@@ -25,11 +25,11 @@
 	new T(loc)
 	qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink
+/obj/item/reagent_containers/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
+/obj/item/reagent_containers/drinks/bottle/random_drink/Initialize(mapload)
 	. = ..()
 	var/list/possible_drinks = GLOB.drinks.Copy()
 	if(prob(50))

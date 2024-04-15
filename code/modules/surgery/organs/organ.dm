@@ -40,6 +40,8 @@
 	var/last_pain_message
 	/// When can we get the next pain message?
 	var/next_pain_time
+	/// What level of upgrades are needed to detect this. Level 0 is default. 1 is hidden from health analysers. 2 is hidden from cyborg analysers, and the body scanner at level 1. 4 is the highest level the body scanner can reach.
+	var/stealth_level = 0
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -137,6 +139,8 @@
 		return TRUE
 	if(is_found_within(/obj/machinery/clonepod))
 		return TRUE
+	if(is_found_within(/obj/item/organ_extractor))
+		return TRUE
 	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
@@ -217,6 +221,7 @@
 	if(tough)
 		return
 	damage = clamp(damage + amount, 0, max_damage)
+	damage = round_health(damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ && amount > 0)

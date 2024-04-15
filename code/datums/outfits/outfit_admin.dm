@@ -50,7 +50,7 @@
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/card/emag = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1
+		/obj/item/food/snacks/syndidonkpocket = 1
 	)
 
 	var/id_icon = "syndie"
@@ -103,7 +103,7 @@
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
+		/obj/item/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/shoes/combat = 1
 	)
@@ -377,13 +377,13 @@
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id
-	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
+	l_pocket = /obj/item/food/snacks/grown/banana
 	r_pocket = /obj/item/bikehorn
 	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/drinks/bottle/bottleofbanana = 1,
 		/obj/item/grenade/clown_grenade = 1,
 		/obj/item/melee/baton/cattleprod = 1,
 		/obj/item/stock_parts/cell/super = 1,
@@ -416,14 +416,14 @@
 	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/drinks/bottle/bottleofnothing = 1,
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/suppressor = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/radio/uplink = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
+		/obj/item/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -950,9 +950,10 @@
 	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/modsuit/wizard // Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
+/// Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
+/datum/outfit/admin/modsuit/wizard
 	name = "Hardsuit - Wizard"
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	suit = /obj/item/clothing/suit/space/hardsuit/wizard
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
 /datum/outfit/admin/modsuit/medical
@@ -980,7 +981,8 @@
 	name = "Tournament Standard Green"
 	uniform = /obj/item/clothing/under/color/green
 
-/datum/outfit/admin/tournament/tournament_gangster //gangster are supposed to fight each other. --rastaf0
+/// gangster are supposed to fight each other. --rastaf0
+/datum/outfit/admin/tournament/tournament_gangster
 	name = "Tournament Gangster"
 
 	uniform = /obj/item/clothing/under/rank/security/detective
@@ -991,7 +993,8 @@
 	l_pocket = /obj/item/ammo_box/a357
 	r_hand = /obj/item/gun/projectile/automatic/proto
 
-/datum/outfit/admin/tournament/tournament_chef //Steven Seagal FTW
+/// Steven Seagal FTW
+/datum/outfit/admin/tournament/tournament_chef
 	name = "Tournament Chef"
 
 	uniform = /obj/item/clothing/under/rank/civilian/chef
@@ -1236,7 +1239,7 @@
 	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch = 1,
+		/obj/item/clothing/suit/space/hardsuit/wizard/arch = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,
@@ -1307,7 +1310,7 @@
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/snacks/grown/banana = 1,
 	)
 
 	shoes = /obj/item/clothing/shoes/clown_shoes
@@ -1407,8 +1410,8 @@
 	box = /obj/item/storage/box/wizard
 
 	//The spells that the enforcer has.
-	var/list/spell_paths = list(/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter,
-										/obj/effect/proc_holder/spell/charge_up/bounce/lightning, /obj/effect/proc_holder/spell/summonitem)
+	var/list/spell_paths = list(/datum/spell/aoe/conjure/summon_supermatter,
+										/datum/spell/charge_up/bounce/lightning, /datum/spell/summonitem)
 
 /datum/outfit/admin/enforcer/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -1428,3 +1431,72 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")
+
+/datum/outfit/admin/viper
+	name = "Solar Federation Viper Infiltrator"
+
+	uniform = /obj/item/clothing/under/solgov/viper
+	back = /obj/item/storage/backpack/satchel
+	belt = /obj/item/storage/belt/viper
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	head = null // will end up being the bandana
+	mask = /obj/item/clothing/mask/bandana/black // will end up being a cigar
+	l_ear = /obj/item/radio/headset/ert/alt/solgov
+	glasses = /obj/item/clothing/glasses/thermal/eyepatch
+	id = /obj/item/card/id
+	l_pocket = /obj/item/kitchen/knife/combat
+	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	box = /obj/item/storage/box/responseteam
+
+	backpack_contents = list(
+		/obj/item/storage/box/smoke_grenades = 1,
+		/obj/item/lighter/zippo = 1,
+		/obj/item/clothing/mask/cigarette/cigar = 3,
+		/obj/item/clothing/mask/gas/explorer = 1
+	)
+
+	bio_chips = list(/obj/item/bio_chip/stealth)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	)
+
+/datum/outfit/admin/viper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/codename = pick("Viper", "Serpent", "Python", "Boa", "Basilisk", "Snake", "Mamba", "Sidewinder")
+	if(prob(50))
+		var/codename_prefix = pick("Exposed", "Unveiled", "Phantom", "Mirage", "Punished", "Invisible", "Swift")
+		codename = "[codename_prefix] [codename]"
+	H.rename_character(null, codename)
+
+	var/hair_color = "#361A00"
+
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	head_organ.h_style = "Bedhead 2"
+	head_organ.f_style = "Full Beard"
+	head_organ.hair_colour = hair_color
+	head_organ.sec_facial_colour = hair_color
+	head_organ.facial_colour = hair_color
+	head_organ.sec_hair_colour = hair_color
+	H.update_hair()
+	H.update_fhair()
+	H.update_dna()
+
+	H.wear_mask.adjustmask(H) // push it back on the head
+	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, SLOT_HUD_WEAR_MASK) // get them their cigar
+	if(istype(H.glasses, /obj/item/clothing/glasses)) // this is gonna be always true
+		var/obj/item/clothing/glasses/glassass = H.glasses
+		glassass.over_mask = TRUE
+		H.update_inv_glasses()
+	H.gloves.siemens_coefficient = 0 // black "insulated" gloves, since combat gloves look kinda shit
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "lifetimeid")
+
+	qdel(H.GetComponent(/datum/component/footstep)) // they're literally stealth
+	var/datum/martial_art/cqc/CQC = new()
+	CQC.teach(H)

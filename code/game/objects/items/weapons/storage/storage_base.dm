@@ -26,8 +26,8 @@
 	var/max_combined_w_class = 14
 	/// The number of storage slots in this container.
 	var/storage_slots = 7
-	var/obj/screen/storage/boxes = null
-	var/obj/screen/close/closer = null
+	var/atom/movable/screen/storage/boxes = null
+	var/atom/movable/screen/close/closer = null
 
 	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup = FALSE
@@ -59,19 +59,21 @@
 
 	populate_contents()
 
-	boxes = new /obj/screen/storage()
+	boxes = new /atom/movable/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
 	boxes.icon_state = "block"
 	boxes.screen_loc = "7,7 to 10,8"
 	boxes.layer = HUD_LAYER
 	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close()
+	closer = new /atom/movable/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
+
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
@@ -123,7 +125,7 @@
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)
 				return // Can only empty containers onto the floor under you
-			if(alert(M, "Empty [src] onto [T]?", "Confirm", "Yes", "No") != "Yes")
+			if(tgui_alert(M, "Empty [src] onto [T]?", "Confirm", list("Yes", "No")) != "Yes")
 				return
 			if(!(M && over_object && length(contents) && loc == M && !M.stat && !M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && get_turf(M) == T))
 				return // Something happened while the player was thinking
@@ -136,7 +138,7 @@
 		update_icon() // For content-sensitive icons
 		return
 
-	if(!(istype(over_object, /obj/screen)))
+	if(!is_screen_atom(over_object))
 		return ..()
 	if(!(loc == M) || (loc && loc.loc == M))
 		return
@@ -158,7 +160,6 @@
 		open(usr)
 
 /obj/item/storage/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		open(user)
 		add_fingerprint(user)
@@ -233,9 +234,15 @@
 /obj/item/storage/proc/update_viewers()
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+		if(!QDELETED(M) && M.s_active == src && Adjacent(M))
 			continue
 		hide_from(M)
+	for(var/obj/item/storage/child in src)
+		child.update_viewers()
+
+/obj/item/storage/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound && isliving(user))
@@ -424,18 +431,21 @@
   * This doesn't perform any checks of whether an item can be inserted. That's done by [/obj/item/storage/proc/can_be_inserted]
   * Arguments:
   * * obj/item/I - The item to be inserted
+  * * mob/user - The mob performing the insertion
   * * prevent_warning - Stop the insertion message being displayed. Intended for cases when you are inserting multiple items at once.
   */
-/obj/item/storage/proc/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
+/obj/item/storage/proc/handle_item_insertion(obj/item/I, mob/user, prevent_warning = FALSE)
 	if(!istype(I))
 		return FALSE
-	if(usr)
-		if(!usr.unEquip(I, silent = TRUE))
+	if(user)
+		if(!Adjacent(user) && !isnewplayer(user))
 			return FALSE
-		usr.update_icons()	//update our overlays
+		if(!user.unEquip(I, silent = TRUE))
+			return FALSE
+		user.update_icons()	//update our overlays
 	if(QDELING(I))
 		return FALSE
-	if(silent)
+	if(silent || HAS_TRAIT(I, TRAIT_SILENT_INSERTION))
 		prevent_warning = TRUE
 	I.forceMove(src)
 	if(QDELING(I))
@@ -446,25 +456,34 @@
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
 			M.client.screen += I
+	if(user)
+		if(user.client && user.s_active != src)
+			user.client.screen -= I
+		I.dropped(user, TRUE)
+	add_fingerprint(user)
 
-	if(usr)
-		if(usr.client && usr.s_active != src)
-			usr.client.screen -= I
-		I.dropped(usr, TRUE)
-		add_fingerprint(usr)
+	if(!prevent_warning)
+		// all mobs with clients attached, sans the item's user
+		var/viewer_list = GLOB.player_list - user
 
-		if(!prevent_warning && !istype(I, /obj/item/gun/energy/kinetic_accelerator/crossbow))
-			for(var/mob/M in viewers(usr, null))
-				if(M == usr)
-					to_chat(usr, "<span class='notice'>You put [I] into [src].</span>")
-				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
-				else if(I && I.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
+		// the item's user will always get a notification
+		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 
-		orient2hud(usr)
-		if(usr.s_active)
-			usr.s_active.show_to(usr)
+		// if the item less than normal sized, only people within 1 tile get the message, otherwise, everybody in view gets it
+		if(I.w_class < WEIGHT_CLASS_NORMAL)
+			for(var/mob/M in viewer_list)
+				if(in_range(M, user))
+					M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+		else
+			// restrict player list to include only those in view
+			viewer_list = viewer_list & viewers(world.view, user)
+			for(var/mob/M in viewer_list)
+				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+
+	orient2hud(user)
+	if(user.s_active)
+		user.s_active.show_to(user)
+
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	I.in_inventory = TRUE
 	update_icon()
@@ -544,7 +563,7 @@
 			return TRUE
 		return FALSE
 
-	handle_item_insertion(I)
+	handle_item_insertion(I, user)
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))

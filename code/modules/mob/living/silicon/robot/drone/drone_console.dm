@@ -31,10 +31,13 @@
 	ui_interact(user)
 
 // tgui\packages\tgui\interfaces\DroneConsole.js
-/obj/machinery/computer/drone_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/drone_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/drone_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DroneConsole", "Drone Control Console", 420, 500, master_ui, state)
+		ui = new(user, src, "DroneConsole", "Drone Control Console")
 		ui.open()
 
 /obj/machinery/computer/drone_control/ui_data(mob/user)
@@ -63,7 +66,8 @@
 			health = round(D.health / D.maxHealth, 0.1),
 			charge = round(D.cell.charge / D.cell.maxcharge, 0.1),
 			location = "[A] ([T.x], [T.y])",
-			sync_cd = D.sync_cooldown > world.time ? TRUE : FALSE
+			sync_cd = D.sync_cooldown > world.time ? TRUE : FALSE,
+			pathfinding = D.pathfinding
 		)
 		data["drones"] += list(drone_data)
 	return data
@@ -110,13 +114,14 @@
 				to_chat(usr, "<span class='notice'>You issue a law synchronization directive for the drone.</span>")
 				D.law_resync()
 
-		if("shutdown")
+		if("recall")
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
-				to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
+				to_chat(usr, "<span class='warning'>You issue a recall command for the unfortunate drone.</span>")
 				if(D != usr) // Don't need to bug admins about a suicide
-					message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
-				log_game("[key_name(usr)] issued kill order for [key_name(D)] from control console.")
+					message_admins("[key_name_admin(usr)] issued recall order for drone [key_name_admin(D)] from control console.")
+				log_game("[key_name(usr)] issued recall order for [key_name(D)] from control console.")
+				// Yes, I know this proc is called shut_down, I've kept the name the same because emagged drones use it for death
 				D.shut_down()
 
 /obj/machinery/computer/drone_control/proc/find_fab(mob/user)

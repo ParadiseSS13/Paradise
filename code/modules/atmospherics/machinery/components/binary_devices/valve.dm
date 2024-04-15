@@ -73,7 +73,8 @@
 		open()
 	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] [src].</span>")
 
-/obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
+/// can be controlled by AI
+/obj/machinery/atmospherics/binary/valve/digital
 	name = "digital valve"
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_valve.dmi'

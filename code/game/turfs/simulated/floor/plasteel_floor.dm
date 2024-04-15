@@ -19,7 +19,8 @@
 	. = ..()
 	name = "floor"
 
-/turf/simulated/floor/plasteel/airless/indestructible // For bomb testing range
+/// For bomb testing range
+/turf/simulated/floor/plasteel/airless/indestructible
 
 /turf/simulated/floor/plasteel/airless/indestructible/ex_act(severity)
 	return

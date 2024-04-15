@@ -13,8 +13,6 @@ SUBSYSTEM_DEF(ticker)
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
-	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -37,8 +35,8 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_name
 	/// Name of the bible deity
 	var/Bible_deity_name
-	/// Cult data. Here instead of cult for adminbus purposes
-	var/datum/cult_info/cultdat = null
+	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
+	var/datum/cult_info/cult_data
 	/// If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
 	var/random_players = FALSE
 	/// Did we broadcast the tip of the round yet?
@@ -54,7 +52,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Holder for inital autotransfer vote timer
 	var/next_autotransfer = 0
 	/// Used for station explosion cinematic
-	var/obj/screen/cinematic = null
+	var/atom/movable/screen/cinematic = null
 	/// Spam Prevention. Announce round end only once.
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
@@ -84,7 +82,8 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
+			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -159,7 +158,8 @@ SUBSYSTEM_DEF(ticker)
 		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
-	cultdat = setupcult()
+	var/random_cult = pick(typesof(/datum/cult_info))
+	cult_data = new random_cult()
 	score = new()
 
 	// Create and announce mode
@@ -296,9 +296,25 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate code phrases and responses
 	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase = generate_code_phrase()
+		var/temp_syndicate_code_phrase = generate_code_phrase(return_list = TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_phrase, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_phrase_regex = codeword_match
+		temp_syndicate_code_phrase = jointext(temp_syndicate_code_phrase, ", ")
+		GLOB.syndicate_code_phrase = temp_syndicate_code_phrase
+
+
 	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response = generate_code_phrase()
+		var/temp_syndicate_code_response = generate_code_phrase(return_list = TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_response, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_response_regex = codeword_match
+		temp_syndicate_code_response = jointext(temp_syndicate_code_response, ", ")
+		GLOB.syndicate_code_response = temp_syndicate_code_response
 
 	// Run post setup stuff
 	mode.post_setup()
@@ -348,7 +364,7 @@ SUBSYSTEM_DEF(ticker)
 
 	auto_toggle_ooc(TRUE) // Turn it on
 	//initialise our cinematic screen object
-	cinematic = new /obj/screen(src)
+	cinematic = new /atom/movable/screen(src)
 	cinematic.icon = 'icons/effects/station_explosion.dmi'
 	cinematic.icon_state = "station_intact"
 	cinematic.layer = 21
@@ -697,24 +713,26 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
 	// Admins delayed round end. Just alert and dont bother with anything else.
 	if(delay_end)
-		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
+		to_chat(world, "<span class='boldannounceooc'>An admin has delayed the round end.</span>")
 		return
+	if(delay)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_server_restart_blurb), reason)
 
 	if(!isnull(delay))
 		// Delay time was present. Use that.
 		delay = max(0, delay)
 	else
 		// Use default restart timeout
-		delay = restart_timeout
+		delay = max(0, GLOB.configuration.general.restart_timeout SECONDS)
 
-	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here
 
 	// And if we re-delayed, bail again
 	if(delay_end)
-		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		to_chat(world, "<span class='boldannounceooc'>Reboot was cancelled by an admin.</span>")
 		return
 
 	if(end_string)

@@ -1,6 +1,6 @@
 /obj/machinery/door/window
 	name = "interior door"
-	desc = "A strong door."
+	desc = "A door that's also a window, isn't that amazing?"
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
@@ -135,7 +135,7 @@
 /obj/machinery/door/window/unrestricted_side(mob/M)
 	var/mob_dir = get_dir(src, M)
 	if(mob_dir == 0) // If the mob is inside the tile
-		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+		mob_dir = reverse_direction(dir) // Set it to the inside direction of the windoor
 
 	return mob_dir & unres_sides
 
@@ -290,7 +290,7 @@
 		sleep(6)
 		operating = NONE
 		open(2)
-		return 1
+		return TRUE
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -401,6 +401,7 @@
 
 /obj/machinery/door/window/reinforced
 	name = "Branch, do not add stuff here"
+	desc = "A stronger version of the common windoor, often used by authority figures denying assistants their rightful access."
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
@@ -435,8 +436,8 @@
 	base_state = "right"
 
 /obj/machinery/door/window/antitheft
-	desc = "Better do not try to steal, pal, lube off."
 	name = "Branch, do not add stuff here"
+	desc = "Better do not try to steal, pal, lube off."
 
 /obj/machinery/door/window/antitheft/normal
 	name = ".custom placement"
@@ -448,6 +449,7 @@
 
 /obj/machinery/door/window/brigdoor
 	name = "Do not make stuff here, its needed for code to not collapse"
+	desc = "A stronger version of the common windoor, often used by authority figures denying assistants their rightful access."
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)

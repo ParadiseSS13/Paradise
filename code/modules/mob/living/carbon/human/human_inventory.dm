@@ -399,24 +399,6 @@
 		l_ear,
 		)
 
-// humans have their pickpocket gloves, so they get no message when stealing things
-/mob/living/carbon/human/stripPanelUnequip(obj/item/what, mob/who, where)
-	var/is_silent = 0
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
-// humans have their pickpocket gloves, so they get no message when stealing things
-/mob/living/carbon/human/stripPanelEquip(obj/item/what, mob/who, where)
-	var/is_silent = 0
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE)
 	return dna.species.can_equip(I, slot, disable_warning, src)
 
@@ -446,12 +428,12 @@
 		return
 	if(ismodcontrol(equipped_item)) // Check if the item is a MODsuit
 		if(thing && equipped_item.can_be_inserted(thing)) // Check if the item can be inserted into the MODsuit
-			equipped_item.handle_item_insertion(thing) // Insert the item into the MODsuit
+			equipped_item.handle_item_insertion(thing, src) // Insert the item into the MODsuit
 			playsound(loc, "rustle", 50, TRUE, -5)
 			return
 	if(!istype(equipped_item)) // We also let you equip things like this
 		equip_to_slot_if_possible(thing, slot_item)
 		return
 	if(thing && equipped_item.can_be_inserted(thing)) // put thing in belt or bag
-		equipped_item.handle_item_insertion(thing)
+		equipped_item.handle_item_insertion(thing, src)
 		playsound(loc, "rustle", 50, 1, -5)

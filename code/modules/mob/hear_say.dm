@@ -42,11 +42,18 @@
 	if(msg == "")
 		// There is literally no content left in this message, we need to shut this shit down
 		. = "" // hear_say will suppress it
+		return
+	if(isliving(src))
+		for(var/datum/component/codeword_hearing/hearing_datum in GetComponents(/datum/component/codeword_hearing))
+			var/tmp_msg = hearing_datum.handle_hearing(msg)
+			if(!tmp_msg)
+				continue
+			msg = tmp_msg
+
+	if(verb)
+		. = "[verb], \"[trim(msg)]\""
 	else
-		if(verb)
-			. = "[verb], \"[trim(msg)]\""
-		else
-			. = trim(msg)
+		. = trim(msg)
 
 /mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)

@@ -58,60 +58,69 @@
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
+	var/list/messages = list()
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!istype(H.dna, /datum/dna))
-			to_chat(user, "<span class='notice'>No fingerprints found on [H]</span>")
+			messages.Add("<span class='notice'>No fingerprints found on [H]</span>")
 		else
-			to_chat(user, "<span class='notice'>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>")
+			messages.Add("<span class='notice'>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>")
+	if(length(messages))
+		to_chat(user, chat_box_regular(messages.Join("<br>")))
 	scan_blood(C, user)
 
 /datum/data/pda/utility/scanmode/dna/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	scan_blood(A, user)
 
 /datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
+	var/list/messages = list()
 	if(!A.blood_DNA)
-		to_chat(user, "<span class='notice'>No blood found on [A]</span>")
+		messages.Add("<span class='notice'>No blood found on [A]</span>")
 		if(A.blood_DNA)
 			qdel(A.blood_DNA)
 	else
-		to_chat(user, "<span class='notice'>Blood found on [A]. Analysing...</span>")
+		messages.Add("<span class='notice'>Blood found on [A]. Analysing...</span>")
 		spawn(15)
-			for(var/blood in A.blood_DNA)
-				to_chat(user, "<span class='notice'>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
+		for(var/blood in A.blood_DNA)
+			messages.Add("<span class='notice'>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
+	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/halogen
 	base_name = "Halogen Counter"
 	icon = "exclamation-circle"
 
 /datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
+	var/list/messages = list()
 	C.visible_message("<span class='warning'>[user] has analyzed [C]'s radiation levels!</span>")
 
-	user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
+	messages.Add("<span class='notice'>Analyzing Results for [C]:</span>")
 	if(C.radiation)
-		user.show_message("<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
+		messages.Add("<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
 	else
-		user.show_message("<span class='notice'>No radiation detected.</span>")
+		messages.Add("<span class='notice'>No radiation detected.</span>")
+	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/reagent
 	base_name = "Reagent Scanner"
 	icon = "flask"
 
 /datum/data/pda/utility/scanmode/reagent/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
+	var/list/messages = list()
 	if(!isnull(A.reagents))
 		if(A.reagents.reagent_list.len > 0)
 			var/reagents_length = A.reagents.reagent_list.len
-			to_chat(user, "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
+			messages.Add("<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
 			for(var/datum/reagent/R in A.reagents.reagent_list)
 				if(R.id != "blood")
-					to_chat(user, "<span class='notice'>\t [R]</span>")
+					messages.Add("<span class='notice'>\t [R]</span>")
 				else
 					var/blood_type = R.data["blood_type"]
-					to_chat(user, "<span class='notice'>\t [R] [blood_type]</span>")
+					messages.Add("<span class='notice'>\t [R] [blood_type]</span>")
 		else
-			to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
+			messages.Add("<span class='notice'>No active chemical agents found in [A].</span>")
 	else
-		to_chat(user, "<span class='notice'>No significant chemical agents found in [A].</span>")
+		messages.Add("<span class='notice'>No significant chemical agents found in [A].</span>")
+	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Gas Scanner"

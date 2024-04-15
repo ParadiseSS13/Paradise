@@ -51,10 +51,7 @@
 			var/contained = english_list(injected)
 
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-			for(var/datum/reagent/R as anything in reagents.reagent_list)
-				if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-					continue
-				reagents.reaction(M, REAGENT_INGEST, 0.1)
+			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
@@ -62,6 +59,18 @@
 
 /obj/item/reagent_containers/hypospray/attack_self(mob/user)
 	return apply(user, user)
+
+/obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		rename_interactive(user, I, use_prefix = TRUE, prompt = "Give [src] a title.")
+		return TRUE
+
+	return ..()
+
+/obj/item/reagent_containers/hypospray/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can use a pen to add a label to [src].</span>"
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
@@ -81,6 +90,7 @@
 		emagged = TRUE
 		ignore_flags = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		return TRUE
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
@@ -118,7 +128,8 @@
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
-/obj/item/reagent_containers/hypospray/autoinjector // This is an empty variant
+/// This is an empty variant
+/obj/item/reagent_containers/hypospray/autoinjector
 	name = "empty autoinjector"
 	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."
 	icon_state = "autoinjector"
@@ -162,13 +173,15 @@
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	list_reagents = list("epinephrine" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
+/// basilisks
+/obj/item/reagent_containers/hypospray/autoinjector/teporone
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
 	icon_state = "lepopen"
 	list_reagents = list("teporone" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
+/// goliath kiting
+/obj/item/reagent_containers/hypospray/autoinjector/stimpack
 	name = "stimpack autoinjector"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
 	icon_state = "stimpen"

@@ -1,5 +1,6 @@
 /obj/item/paper_bin
 	name = "paper bin"
+	desc = "The second-most important part of bureaucracy, after the pen of course."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
 	item_state = "sheet-metal"
@@ -39,7 +40,7 @@
 			M.unEquip(src)
 		M.put_in_hands(src)
 
-	else if(istype(over_object, /obj/screen))
+	else if(is_screen_atom(over_object))
 		switch(over_object.name)
 			if("r_hand")
 				if(!remove_item_from_storage(M))
@@ -72,7 +73,7 @@
 			P = papers[papers.len]
 			papers.Remove(P)
 		else
-			if(letterhead_type && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
+			if(letterhead_type && alert("Choose a style", null,"Letterhead","Blank")=="Letterhead")
 				P = new letterhead_type
 			else
 				P = new /obj/item/paper

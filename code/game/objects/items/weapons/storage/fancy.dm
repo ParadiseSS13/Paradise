@@ -38,10 +38,11 @@
 
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
+	desc = "\"To do, or do nut, the choice is obvious.\""
 	icon_type = "donut"
 	icon_state = "donutbox"
 	storage_slots = 6
-	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
+	can_hold = list(/obj/item/food/snacks/donut)
 	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
@@ -49,7 +50,7 @@
 /obj/item/storage/fancy/donut_box/update_overlays()
 	. = ..()
 	for(var/I = 1 to length(contents))
-		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[I]
+		var/obj/item/food/snacks/donut/donut = contents[I]
 		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "[(I - 1)]donut[donut.donut_sprite_type]")
 		. += new_donut_icon
 
@@ -58,7 +59,7 @@
 
 /obj/item/storage/fancy/donut_box/populate_contents()
 	for(var/I in 1 to storage_slots)
-		new /obj/item/reagent_containers/food/snacks/donut(src)
+		new /obj/item/food/snacks/donut(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/fancy/donut_box/empty/populate_contents()
@@ -82,11 +83,11 @@
 	item_state = "eggbox"
 	name = "egg box"
 	storage_slots = 12
-	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
+	can_hold = list(/obj/item/food/snacks/egg)
 
 /obj/item/storage/fancy/egg_box/populate_contents()
 	for(var/I in 1 to storage_slots)
-		new /obj/item/reagent_containers/food/snacks/egg(src)
+		new /obj/item/food/snacks/egg(src)
 
 /*
  * Candle Box
@@ -401,7 +402,7 @@
 	icon_state = "vialbox0"
 	item_state = "syringe_kit"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/glass/bottle)
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)

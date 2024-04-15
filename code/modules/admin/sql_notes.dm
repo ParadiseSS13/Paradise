@@ -3,7 +3,7 @@
 		return
 	if(IsAdminAdvancedProcCall() && !sanitise_html)
 		// *sigh*
-		to_chat(usr, "<span class='boldannounce'>Unsanitized note add blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Unsanitized note add blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
 		return
@@ -179,7 +179,7 @@
 	var/navbar
 	var/ruler
 	ruler = "<hr style='background:#000000; border:0; height:3px'>"
-	navbar = "<a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
+	navbar = "<meta charset='UTF-8'><a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
 		navbar += "|<a href='?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
 	navbar += "<br><form method='GET' name='search' action='?'>\

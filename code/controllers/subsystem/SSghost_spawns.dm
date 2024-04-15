@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 		// If we somehow send two polls for the same mob type, but with a duration on the second one shorter than the time left on the first one,
 		// we need to keep the first one's timeout rather than use the shorter one
-		var/obj/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
+		var/atom/movable/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
 		var/alert_time = poll_time
 		var/alert_poll = P
 		if(current_alert && current_alert.timeout > (world.time + poll_time - world.tick_lag))
@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			alert_poll = current_alert.poll
 
 		// Send them an on-screen alert
-		var/obj/screen/alert/notify_action/A = M.throw_alert(category, /obj/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
+		var/atom/movable/screen/alert/notify_action/A = M.throw_alert(category, /atom/movable/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
 		if(!A)
 			continue
 
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(P != P2 && P.hash == P2.hash)
 				// If there's already a poll for an identical mob type ongoing and the client is signed up for it, sign them up for this one
 				if(!inherited_sign_up && (M in P2.signed_up) && P.sign_up(M, TRUE))
-					A.update_signed_up_alert()
+					A.update_signed_up_alert(M)
 					inherited_sign_up = TRUE
 				// This number is used to display the number of polls the alert regroups
 				num_stack++

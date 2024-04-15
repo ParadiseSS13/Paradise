@@ -8,6 +8,7 @@
 			if(AM.GetComponent(/datum/component/two_handed))
 				if(get_inactive_hand())
 					return FALSE
+
 			throw_mode_off()
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
@@ -53,7 +54,7 @@
 	if(..()) //successful slime attack
 		if(M.powerlevel > 0)
 			do_sparks(5, TRUE, src)
-			adjustStaminaLoss(M.powerlevel * 5) //5-50 stamina damage, at starting power level 10 this means 50, 35, 20 on consecutive hits - stamina crit in 3 hits
+			apply_damage(M.powerlevel * 5, STAMINA) //5-50 stamina damage, at starting power level 10 this means 50, 35, 20 on consecutive hits - stamina crit in 3 hits
 			KnockDown(M.powerlevel SECONDS)
 			Stuttering(M.powerlevel SECONDS)
 			visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")

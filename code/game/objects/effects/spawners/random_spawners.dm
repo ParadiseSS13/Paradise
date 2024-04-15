@@ -202,7 +202,6 @@
 	result = list(/datum/nothing = 1,
 		/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1)
 
-
 // Traps
 
 /obj/effect/spawner/random_spawners/syndicate/trap
@@ -266,7 +265,7 @@
 	spawn_inside = null
 	result = list(/datum/nothing = 1,
 		/obj/item/wrench = 1,
-		/obj/item/reagent_containers/food/snacks/syndicake = 1,
+		/obj/item/food/snacks/syndicake = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1)
 

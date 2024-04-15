@@ -5,18 +5,16 @@
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
-	dna = null
 
 	var/nightvision = TRUE
 	see_in_dark = 4
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
-	var/move_delay_add = FALSE // movement delay to add
+	var/move_delay_add = 0 // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-	var/large = FALSE
 	var/loudspeaker = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
@@ -27,8 +25,6 @@
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
-	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/rest
 
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
@@ -50,17 +46,17 @@
 	return GLOB.all_languages["Xenomorph"]
 
 /mob/living/carbon/alien/say_quote(message, datum/language/speaking = null)
-	var/verb = "hisses"
+	var/speech_verb = "hisses"
 	var/ending = copytext(message, length(message))
 
 	if(speaking && (speaking.name != "Galactic Common")) //this is so adminbooze xenos speaking common have their custom verbs,
-		verb = speaking.get_spoken_verb(ending)          //and use normal verbs for their own languages and non-common languages
+		speech_verb = speaking.get_spoken_verb(ending)          //and use normal verbs for their own languages and non-common languages
 	else
-		if(ending=="!")
-			verb = "roars"
-		else if(ending=="?")
-			verb = "hisses curiously"
-	return verb
+		if(ending == "!")
+			speech_verb = "roars"
+		else if(ending== "?")
+			speech_verb = "hisses curiously"
+	return speech_verb
 
 
 /mob/living/carbon/alien/adjustToxLoss(amount)
@@ -68,7 +64,7 @@
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
 	if(amount > 0)
-		return ..(amount * 2)
+		return ..(amount * 1.5)
 	else
 		return ..(amount)
 
@@ -77,17 +73,11 @@
 	return 2
 
 /mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
-
 	if(!environment)
 		return
 
 	var/loc_temp = get_temperature(environment)
 
-//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Fire protection: [heat_protection] - Location: [loc] - src: [src]")
-
-	// Aliens are now weak to fire.
-
-	//After then, it reacts to the surrounding atmosphere based on your thermal protection
 	if(!on_fire) // If you're on fire, ignore local air temperature
 		if(loc_temp > bodytemperature)
 			//Place is hotter than we are
@@ -101,7 +91,7 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > 360.15)
 		//Body temperature is too hot.
-		throw_alert("alien_fire", /obj/screen/alert/alien_fire)
+		throw_alert("alien_fire", /atom/movable/screen/alert/alien_fire)
 		switch(bodytemperature)
 			if(360 to 400)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
@@ -118,12 +108,11 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Intent: [a_intent]")
-		stat(null, "Move Mode: [m_intent]")
-		show_stat_emergency_shuttle_eta()
+/mob/living/carbon/alien/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
 /mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()
@@ -141,26 +130,8 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
-/mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Toggle Night Vision"
-	set category = "Alien"
-
-	if(!nightvision)
-		see_in_dark = 8
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		nightvision = TRUE
-		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
-	else if(nightvision)
-		see_in_dark = initial(see_in_dark)
-		lighting_alpha = initial(lighting_alpha)
-		nightvision = FALSE
-		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
-
-	update_sight()
-
-
 /mob/living/carbon/alien/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged == 2)
+	if(judgebot.emagged)
 		return 10 //Everyone is a criminal!
 	var/threatcount = 0
 
@@ -209,34 +180,31 @@
 /mob/living/carbon/alien/proc/deathrattle_message()
 	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
 
-/mob/living/carbon/alien/CanContractDisease(datum/disease/D)
-	return FALSE
-
 /*----------------------------------------
 Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
-	if(client)
-		for(var/mob/living/C in GLOB.mob_list)
-			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
-				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-				if(A)
-					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
-					client.images += I
-	return
-
+	if(!client)
+		return
+	for(var/mob/living/C in GLOB.mob_list)
+		if(HAS_TRAIT(C, TRAIT_XENO_HOST))
+			var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
+			if(!A)
+				continue
+			var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
+			client.images += I
 
 /*----------------------------------------
 Proc: RemoveInfectionImages()
 Des: Removes all infected images from the alien.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/RemoveInfectionImages()
-	if(client)
-		for(var/image/I in client.images)
-			if(dd_hasprefix_case(I.icon_state, "infected"))
-				qdel(I)
-	return
+	if(!client)
+		return
+	for(var/image/I in client.images)
+		if(dd_hasprefix_case(I.icon_state, "infected"))
+			qdel(I)
 
 /mob/living/carbon/alien/canBeHandcuffed()
 	return TRUE
@@ -245,7 +213,7 @@ Des: Removes all infected images from the alien.
 and carry the owner just to make sure*/
 /mob/living/carbon/proc/update_plasma_display(mob/owner)
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 	if(!hud_used || !isalien(owner)) //clientless aliens or non aliens
 		return
 	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[get_plasma()]</font></div>"
@@ -291,21 +259,7 @@ and carry the owner just to make sure*/
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl
 
-/mob/living/carbon/alien/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user)
-	var/apply_method = "swallow"
-	var/how_many_reagents = medicine.reagents.total_volume
-	var/reagent_application = REAGENT_INGEST
-	if(ispatch(medicine))
-		apply_method = "apply"
-		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2)
-		reagent_application = REAGENT_TOUCH
-
-	visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
-	if(!do_after(user, 5 SECONDS, TRUE, src)) // You try feeding a xenomorph a pill
-		return
-
-	visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
-	var/fraction = min(1 / medicine.reagents.total_volume, 1)
-	medicine.reagents.reaction(src, reagent_application, fraction)
-	medicine.reagents.trans_to(src, how_many_reagents)
-	return TRUE
+/mob/living/carbon/alien/update_stat(reason)
+	if(health <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
+		KnockOut()
+	return ..()

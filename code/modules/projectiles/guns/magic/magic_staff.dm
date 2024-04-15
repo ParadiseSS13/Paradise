@@ -35,13 +35,13 @@
 
 /obj/item/gun/magic/staff/chaos
 	name = "staff of chaos"
-	desc = "An artefact that spits bolts of chaotic magic that can potentially do anything."
+	desc = "Random bullshit go!"
 	ammo_type = /obj/item/ammo_casing/magic/chaos
 	icon_state = "staffofchaos"
 	item_state = "staffofchaos"
 	max_charges = 10
 	recharge_rate = 2
-	no_den_usage = 1
+	no_den_usage = TRUE
 	fire_sound = 'sound/magic/staff_chaos.ogg'
 
 /obj/item/gun/magic/staff/door

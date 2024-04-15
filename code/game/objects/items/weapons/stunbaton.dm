@@ -1,7 +1,7 @@
 /obj/item/melee/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
-	icon = 'icons/obj/baton.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = null
@@ -57,7 +57,7 @@
 		cell = new(src)
 
 /obj/item/melee/baton/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
 /obj/item/melee/baton/update_icon_state()
@@ -83,11 +83,11 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
 	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
-	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
+	return ..()
 
 /obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
 	if(turned_on)
@@ -187,6 +187,7 @@
 		return ..() // Whack them too if in harm intent
 
 	if(!turned_on)
+		user.do_attack_animation(L)
 		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
@@ -211,7 +212,7 @@
 			return FALSE
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
-		H.adjustStaminaLoss(stam_damage)
+		H.apply_damage(stam_damage, STAMINA)
 		H.SetStuttering(10 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
@@ -248,7 +249,7 @@
 		return FALSE
 	L.Confused(4 SECONDS)
 	L.Jitter(4 SECONDS)
-	L.adjustStaminaLoss(30)
+	L.apply_damage(30, STAMINA)
 	L.SetStuttering(4 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
@@ -280,6 +281,11 @@
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()
+
+/// baton used for security bots
+/obj/item/melee/baton/infinite_cell
+	hitcost = 0
+	turned_on = TRUE
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod

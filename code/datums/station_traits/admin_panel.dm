@@ -80,10 +80,8 @@
 
 			var/list/new_future_traits = list()
 			var/list/station_trait_names = list()
-			var/station_trait_text = params["station_traits"]
-			var/list/temp_list = splittext(station_trait_text, ",")
-			for(var/thing in temp_list) //TODO QWERTY / HI REVIEWERS NAME THIS BETTER BUT ITS ALMOST MIDNIGHT AND i HATE MYSELF
-				var/datum/station_trait/station_trait_path = text2path(thing)
+			for(var/station_trait_text in params["station_traits"])
+				var/datum/station_trait/station_trait_path = text2path(station_trait_text)
 				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
 					log_admin("[key_name(ui.user)] tried to set an invalid future station trait: [station_trait_text]")
 					to_chat(ui.user, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
@@ -126,8 +124,11 @@
 /datum/ui_module/station_traits_panel/proc/too_late_to_revert()
 	return SSticker.current_state >= GAME_STATE_PLAYING
 
-/datum/ui_module/station_traits_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/station_traits_panel/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/ui_module/station_traits_panel/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "StationTraitsPanel", "Station Traits Panel", 700, 600, master_ui, state = state)
+		ui = new(user, src, "StationTraitsPanel")
 		ui.open()

@@ -4,6 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
+	desc = "For making copies of important documents, or more likely, your ass."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 
@@ -46,7 +47,7 @@
 	return attack_hand(user)
 
 /obj/machinery/photocopier/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/photocopier/attack_hand(mob/user)
 	if(..())
@@ -365,10 +366,13 @@
 		copy(document, scancopy = TRUE)
 
 
-/obj/machinery/photocopier/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/photocopier/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Photocopier", name, 402, 368, master_ui, state)
+		ui = new(user, src, "Photocopier", name)
 		ui.open()
 
 /obj/machinery/photocopier/ui_data(mob/user)
@@ -432,7 +436,7 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = input("Enter what you want to write:", "Write", null, null) as message
+	var/text = tgui_input_text(user, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE)
 	if(!text)
 		return
 	if(toner < 1 || !user)
@@ -567,6 +571,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
@@ -575,6 +580,7 @@
 
 /obj/item/toner
 	name = "toner cartridge"
+	desc = "Has 140 papers worth of ink in it! Shame you can only use 30 before it runs out of cyan..."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30

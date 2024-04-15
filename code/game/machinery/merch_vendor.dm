@@ -19,6 +19,9 @@
 /obj/machinery/economy/merch/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/economy/merch/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/economy/merch/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -74,10 +77,13 @@
 	user.put_in_hands(D)
 	SSeconomy.total_vendor_transactions++
 
-/obj/machinery/economy/merch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/economy/merch/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/economy/merch/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MerchVendor", name, 450, 500, master_ui, state)
+		ui = new(user, src, "MerchVendor", name)
 		ui.open()
 
 /obj/machinery/economy/merch/ui_data(mob/user)

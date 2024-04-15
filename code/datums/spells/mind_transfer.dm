@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/mind_transfer
+/datum/spell/mind_transfer
 	name = "Mind Transfer"
 	desc = "This spell allows the user to switch bodies with a target."
 
@@ -15,14 +15,14 @@
 	var/paralysis_amount_victim = 40 SECONDS //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"
 
-/obj/effect/proc_holder/spell/mind_transfer/create_new_targeting()
+/datum/spell/mind_transfer/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
 	T.range = 1
 	T.click_radius = 0
 	return T
 
-/obj/effect/proc_holder/spell/mind_transfer/valid_target(mob/living/target, mob/user)
+/datum/spell/mind_transfer/valid_target(mob/living/target, mob/user)
 	return target.stat != DEAD && target.key && target.mind
 
 /*
@@ -30,7 +30,7 @@ Urist: I don't feel like figuring out how you store object spells so I'm leaving
 Make sure spells that are removed from spell_list are actually removed and deleted when mind transfering.
 Also, you never added distance checking after target is selected. I've went ahead and did that.
 */
-/obj/effect/proc_holder/spell/mind_transfer/cast(list/targets, mob/user = usr)
+/datum/spell/mind_transfer/cast(list/targets, mob/user = usr)
 
 	var/mob/living/target = targets[1]
 
@@ -52,18 +52,18 @@ Also, you never added distance checking after target is selected. I've went ahea
 	//MIND TRANSFER BEGIN
 	if(caster.mind.special_verbs.len)//If the caster had any special verbs, remove them from the mob verb list.
 		for(var/V in caster.mind.special_verbs)//Since the caster is using an object spell system, this is mostly moot.
-			caster.verbs -= V//But a safety nontheless.
+			remove_verb(caster, V) //But a safety nontheless.
 
 	if(victim.mind.special_verbs.len)//Now remove all of the victim's verbs.
 		for(var/V in victim.mind.special_verbs)
-			victim.verbs -= V
+			remove_verb(victim, V)
 
 	var/mob/dead/observer/ghost = victim.ghostize(0)
 	caster.mind.transfer_to(victim)
 
 	if(victim.mind.special_verbs.len)//To add all the special verbs for the original caster.
 		for(var/V in caster.mind.special_verbs)//Not too important but could come into play.
-			caster.verbs += V
+			add_verb(caster, V)
 
 	ghost.mind.transfer_to(caster)
 	if(ghost.key)
@@ -73,7 +73,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	if(caster.mind.special_verbs.len)//If they had any special verbs, we add them here.
 		for(var/V in caster.mind.special_verbs)
-			caster.verbs += V
+			add_verb(caster, V)
 	//MIND TRANSFER END
 
 	//Here we paralyze both mobs and knock them out for a time.

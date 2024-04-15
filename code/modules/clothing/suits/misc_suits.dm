@@ -153,7 +153,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/chickensuit
 	name = "chicken suit"
@@ -173,7 +173,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero
@@ -182,7 +182,7 @@
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
@@ -220,7 +220,7 @@
 	item_state = "holidaypriest"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
@@ -325,7 +325,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/suit/hooded/bee_costume // It's Hip!
+/// It's Hip!
+/obj/item/clothing/suit/hooded/bee_costume
 	name = "bee costume"
 	desc = "Bee the true Queen!"
 	icon_state = "bee"
@@ -344,14 +345,16 @@
 	flags_inv = HIDEEARS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-/obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
+/// OH MY GOD WHAT HAVE YOU DONE!?!?!?
+/obj/item/clothing/suit/bloated_human
 	name = "bloated human suit"
 	desc = "A horribly bloated suit made from human skins."
 	icon_state = "lingspacesuit"
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/suit/draculacoat // Bleh!
+/// Bleh!
+/obj/item/clothing/suit/draculacoat
 	name = "transylvanian coat"
 	desc = "<i>What is a spessman? A miserable little pile of secrets.</i>"
 	icon_state = "draculacoat"
@@ -756,6 +759,9 @@
 	actions_types = list()
 	adjust_flavour = null
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy,/obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/energy/detective)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -978,6 +984,9 @@
 	actions_types = list()
 	adjust_flavour = null
 	resistance_flags = NONE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/motojacket
 	name = "leather motorcycle jacket"
@@ -1001,6 +1010,9 @@
 	icon_state = "leathercoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/officercoat
 	name = "clown officer's coat"
@@ -1073,7 +1085,7 @@
 	usr.update_inv_wear_suit()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/lordadmiral
 	name = "lord admiral's coat"
@@ -1261,7 +1273,7 @@
 	icon_state = "abaya"
 	item_state = "abaya"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/screened_niqab
 	flags_inv = HIDEJUMPSUIT
 	var/list/options = list(

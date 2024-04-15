@@ -27,7 +27,8 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "simple"
 	rpd_dispensable = TRUE
 
-/datum/pipes/atmospheric/bent //Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
+/// Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
+/datum/pipes/atmospheric/bent
 	pipe_name = "bent pipe"
 	pipe_id = PIPE_SIMPLE_BENT
 	orientations = 4
@@ -228,7 +229,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "passive vent"
 	pipe_id = PIPE_PASV_VENT
 	orientations = 4
-	pipe_icon = "passive vent"
+	pipe_icon = "passive_vent"
 	pipe_category = RPD_DEVICES
 	rpd_dispensable = TRUE
 
@@ -336,21 +337,75 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "pipe-j1s"
 	rpd_dispensable = TRUE
 
+
+/// Pipe types for transit tubes.
+/datum/pipes/transit
+	pipe_type = PIPETYPE_TRANSIT
+	/// The type of the object that results from dispensing this datum from the RPD.
+	var/construction_type = null
+
+/datum/pipes/transit/tube
+	pipe_name = "transit tube"
+	construction_type = /obj/structure/transit_tube_construction/straight
+	pipe_id = PIPE_TRANSIT_TUBE
+	orientations = 2
+	pipe_icon = "transit_straight"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/diagonal
+	pipe_name = "diagonal transit tube"
+	construction_type = /obj/structure/transit_tube_construction/diagonal
+	pipe_id = PIPE_TRANSIT_TUBE_DIAGONAL
+	orientations = 2
+	pipe_icon = "transit_diagonal"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/curved
+	pipe_name = "curved transit tube"
+	construction_type = /obj/structure/transit_tube_construction/curved
+	pipe_id = PIPE_TRANSIT_TUBE_CURVED
+	orientations = 4
+	pipe_icon = "transit_curved"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/junction
+	pipe_name = "junction transit tube"
+	construction_type = /obj/structure/transit_tube_construction/junction
+	pipe_id = PIPE_TRANSIT_TUBE_JUNCTION
+	orientations = 4
+	pipe_icon = "transit_junction"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/terminus_dispenser_station
+	pipe_name = "terminus dispenser tube station"
+	construction_type = /obj/structure/transit_tube_construction/terminus/dispenser
+	pipe_id = PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER
+	orientations = 4
+	pipe_icon = "transit_dispenser_terminus"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/dispenser_station
+	pipe_name = "dispenser tube station"
+	pipe_id = PIPE_TRANSIT_TUBE_DISPENSER_STATION
+	construction_type = /obj/structure/transit_tube_construction/station/dispenser
+	orientations = 4
+	pipe_icon = "transit_dispenser_station"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/station
+	pipe_name = "transit tube station"
+	construction_type = /obj/structure/transit_tube_construction/station
+	pipe_id = PIPE_TRANSIT_TUBE_STATION
+	orientations = 4
+	pipe_icon = "transit_station"
+	rpd_dispensable = TRUE
+
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
 /datum/pipes/atmospheric/circulator
 	pipe_name = "circulator / heat exchanger"
 	pipe_id = PIPE_CIRCULATOR
 	pipe_icon = "circ"
-
-/datum/pipes/atmospheric/insulated
-	pipe_name = "insulated pipe"
-	pipe_id = PIPE_INSULATED_STRAIGHT
-	pipe_icon = "insulated"
-
-/datum/pipes/atmospheric/insulated/bent
-	pipe_name = "bent insulated pipe"
-	pipe_id = PIPE_INSULATED_BENT
 
 /datum/pipes/disposal/left_sortjunction
 	pipe_name = "disposals sort junction left"

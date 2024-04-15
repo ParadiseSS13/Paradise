@@ -9,7 +9,6 @@
 	supervisors = "the admins"
 	selection_color = "#ffdddd"
 	access = list()
-	minimal_access = list()
 	admin_only = TRUE
 	outfit = /datum/outfit/job/ntnavyofficer
 
@@ -58,7 +57,6 @@
 	supervisors = "the admins"
 	selection_color = "#ffdddd"
 	access = list()
-	minimal_access = list()
 	admin_only = TRUE
 	spawn_ert = 1
 	outfit = /datum/outfit/job/ntspecops

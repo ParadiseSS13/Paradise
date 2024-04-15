@@ -145,6 +145,10 @@
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
@@ -178,6 +182,7 @@
 	item_state = "plasmacutter"
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
+	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
@@ -289,6 +294,15 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
+
+/obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	if(!do_after(user, 0.5 SECONDS, target = user)) // touch/looking doesn't take that long, but still probably good for a delay to exist for shoving and whatnot
+		return SHAME
+	user.dust()
+	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
+	return OBLITERATION
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -612,10 +626,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/gun/energy/temperature/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gun/energy/temperature/ui_state(mob/user)
+	return GLOB.deep_inventory_state
+
+/obj/item/gun/energy/temperature/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TempGun", name, 250, 130, master_ui, state)
+		ui = new(user, src, "TempGun", name)
 		ui.open()
 
 /obj/item/gun/energy/temperature/ui_data(mob/user)
@@ -640,6 +657,7 @@
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
+		return TRUE
 
 /obj/item/gun/energy/temperature/process()
 	..()
@@ -788,11 +806,11 @@
 		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
-		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the tracker?", "Tracker reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
 			stop_pointing()
 	if(linked_pinpointer_UID)
-		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the linked pinpointer?", "Pinpointer reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			unlink()
 
@@ -804,7 +822,7 @@
 	if(!C)
 		return
 	C.linked_gun_UID = null
-	if(C.mode == MODE_DET)
+	if(C.mode == PINPOINTER_MODE_DET)
 		C.stop_tracking()
 	linked_pinpointer_UID = null
 	tracking_target_UID = null
@@ -872,12 +890,13 @@
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)
 		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-		if(C?.mode == MODE_DET)
+		if(C?.mode == PINPOINTER_MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
 
 
-/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
+/// It's like the cyborg LMG, uses energy to make spikes
+/obj/item/gun/energy/spikethrower
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/guns/projectile.dmi'
@@ -927,3 +946,73 @@
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT
+
+/obj/item/gun/energy/vortex_shotgun
+	name = "reality vortex wrist mounted shotgun"
+	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
+	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	flags = NODROP
+	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
+	fire_sound = 'sound/weapons/bladeslice.ogg'
+	cell_type = /obj/item/stock_parts/cell/infinite
+
+/obj/item/ammo_casing/energy/vortex_blast
+	projectile_type = /obj/item/projectile/energy/vortex_blast
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	variance = 70
+	pellets = 8
+	e_cost = 100
+	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
+	select_name = "vortex blast"
+	fire_sound = 'sound/weapons/wave.ogg'
+
+/obj/item/projectile/energy/vortex_blast
+	name = "vortex blast"
+	hitscan = TRUE
+	damage = 2
+	range = 5
+	icon_state = "magspear"
+	hitsound = 'sound/weapons/sear.ogg' //Gets a bit spamy, suppressed is needed to suffer less
+	hitsound_wall = null
+	suppressed = TRUE
+
+/obj/item/projectile/energy/vortex_blast/prehit(atom/target)
+	. = ..()
+	if(ishuman(target))
+		return
+	if(isliving(target))
+		damage *= 4 //Up damage if not a human as we are not doing shenanigins
+		return
+	damage *= 6 //objects tend to fall apart as atoms are ripped up
+
+/obj/item/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
+	if(blocked >= 100)
+		return ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/L = target
+		var/obj/item/organ/external/affecting = L.get_organ(ran_zone(def_zone))
+		L.apply_damage(2, BRUTE, affecting, L.run_armor_check(affecting, ENERGY))
+		L.apply_damage(2, TOX, affecting, L.run_armor_check(affecting, ENERGY))
+		L.apply_damage(2, CLONE, affecting, L.run_armor_check(affecting, ENERGY))
+		L.adjustBrainLoss(3)
+	..()
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	invisibility = 100 // visual is from effect
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast/Initialize(mapload, atom/target, duration_override)
+	. = ..()
+	if(target)
+		new /obj/effect/warp_effect/vortex_blast(loc, target)
+
+/obj/effect/warp_effect/vortex_blast
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "vortex_shotgun"
+
+/obj/effect/warp_effect/vortex_blast/Initialize(mapload, target)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	M.Turn(get_angle(src, target) - 45)
+	transform = M
+	animate(src, transform = M * 10, time = 0.3 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.3 SECONDS)

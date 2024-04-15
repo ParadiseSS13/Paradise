@@ -34,10 +34,10 @@
 	return ..()
 
 /obj/structure/noticeboard/attack_hand(user as mob)
-	var/dat = "<B>Noticeboard</B><BR>"
+	var/dat = "<b>Noticeboard</b><br>"
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];read=\ref[P]'>[P.name]</A> <A href='?src=[UID()];write=\ref[P]'>Write</A> <A href='?src=[UID()];remove=\ref[P]'>Remove</A><BR>"
-	user << browse("<HEAD><TITLE>Notices</TITLE></HEAD>[dat]","window=noticeboard")
+		dat += "<a href='?src=[UID()];read=\ref[P]'>[P.name]</a> <a href='?src=[UID()];write=\ref[P]'>Write</a> <a href='?src=[UID()];remove=\ref[P]'>Remove</a><br>"
+	user << browse("<meta charset='utf-8'><head><title>Notices</title></head>[dat]","window=noticeboard")
 	onclose(user, "noticeboard")
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)
@@ -52,7 +52,7 @@
 		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
 			return
 		var/obj/item/P = locate(href_list["remove"])
-		if((P && P.loc == src))
+		if(P && P.loc == src)
 			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
 			P.add_fingerprint(usr)
 			add_fingerprint(usr)
@@ -77,6 +77,6 @@
 
 	if(href_list["read"])
 		var/obj/item/paper/P = locate(href_list["read"])
-		if((P && P.loc == src))
+		if(P && P.loc == src)
 			P.show_content(usr)
 	return

@@ -12,7 +12,8 @@
 /datum/reagent/blob/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag) //when the blob takes damage, do this
 	return damage
 
-/datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
+/// does brute and a little stamina damage
+/datum/reagent/blob/ripping_tendrils
 	name = "Ripping Tendrils"
 	description = "Deals High Brute damage, as well as Stamina damage."
 	id = "ripping_tendrils"
@@ -24,11 +25,12 @@
 	if(method == REAGENT_TOUCH)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
-		M.adjustStaminaLoss(volume)
+		M.apply_damage(volume, STAMINA)
 		if(iscarbon(M))
 			M.emote("scream")
 
-/datum/reagent/blob/boiling_oil //sets you on fire, does burn damage
+/// sets you on fire, does burn damage
+/datum/reagent/blob/boiling_oil
 	name = "Boiling Oil"
 	description = "Deals High Burn damage, and sets the victim aflame."
 	id = "boiling_oil"
@@ -45,7 +47,8 @@
 		M.IgniteMob()
 		M.emote("scream")
 
-/datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
+/// toxin, hallucination, and some bonus spore toxin
+/datum/reagent/blob/envenomed_filaments
 	name = "Envenomed Filaments"
 	description = "Deals High Toxin damage, causes Hallucinations, and injects Spores into the bloodstream."
 	id = "envenomed_filaments"
@@ -61,7 +64,8 @@
 		if(M.reagents)
 			M.reagents.add_reagent("spore", 0.4*volume)
 
-/datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
+/// does tons of oxygen damage and a little brute
+/datum/reagent/blob/lexorin_jelly
 	name = "Lexorin Jelly"
 	description = "Deals Medium Brute damage, but massive amounts of Respiration Damage."
 	id = "lexorin_jelly"
@@ -77,7 +81,8 @@
 		M.AdjustLoseBreath(round(0.6 SECONDS * volume))
 
 
-/datum/reagent/blob/kinetic //does semi-random brute damage
+/// does semi-random brute damage
+/datum/reagent/blob/kinetic
 	name = "Kinetic Gelatin"
 	description = "Deals Randomized damage, between 0.33 to 2.33 times the standard amount."
 	id = "kinetic"
@@ -91,7 +96,8 @@
 		var/damage = rand(5, 35)/25
 		M.apply_damage(damage*volume, BRUTE)
 
-/datum/reagent/blob/cryogenic_liquid //does low burn damage and stamina damage and cools targets down
+/// does low burn damage and stamina damage and cools targets down
+/datum/reagent/blob/cryogenic_liquid
 	name = "Cryogenic Liquid"
 	description = "Deals Medium Brute damage, Stamina Damage, and injects Frost Oil into its victims, freezing them to death."
 	id = "cryogenic_liquid"
@@ -104,7 +110,7 @@
 	if(method == REAGENT_TOUCH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
-		M.adjustStaminaLoss(volume)
+		M.apply_damage(volume, STAMINA)
 		if(M.reagents)
 			M.reagents.add_reagent("frostoil", 0.4*volume)
 

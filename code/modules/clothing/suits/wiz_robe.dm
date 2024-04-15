@@ -184,38 +184,32 @@
 
 //Shielded Armour
 
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard
+/obj/item/clothing/suit/space/hardsuit/wizard
 	name = "battlemage armor"
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
-	recharge_rate = 0
-	///The amount of charges the suit currently has
-	current_charges = 15
-	///The max number of charges the suit can hold
-	max_charges = 15
-	shield_state = "shield-red"
-	shield_on = "shield-red"
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch
+/obj/item/clothing/suit/space/hardsuit/wizard/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS)
+
+/obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
-	recharge_rate = 5
-	recharge_cooldown = 0 SECONDS
-	current_charges = 15
-	max_charges = 15
-	recharge_delay = 1 SECONDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+/obj/item/clothing/suit/space/hardsuit/wizard/arch/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS)
+
+/obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "battlemage helmet"
 	desc = "A suitably impressive helmet."
 	icon_state = "hardsuit0-wiz"
@@ -228,10 +222,10 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 	desc = "A truly protective helmet."
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT

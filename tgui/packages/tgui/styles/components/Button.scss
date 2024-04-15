@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -17,26 +22,19 @@ $bg-map: colors.$bg-map !default;
   $text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
 
   transition:
-    color 50ms,
-    background-color 50ms;
+    color 100ms,
+    background-color 100ms;
   background-color: $color;
   color: $text-color;
 
+  &:focus {
+    transition:
+      color 250ms,
+      background-color 250ms;
+  }
+
   &:hover {
-    transition:
-      color 0ms,
-      background-color 0ms;
-  }
-
-  &:focus {
-    transition:
-      color 100ms,
-      background-color 100ms;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: lighten($color, 15%);
+    background-color: lighten($color, 25%);
     color: $text-color;
   }
 }
@@ -44,27 +42,28 @@ $bg-map: colors.$bg-map !default;
 .Button {
   position: relative;
   display: inline-block;
-  line-height: 20px;
-  padding: 0 6px;
-  margin-right: 2px;
+  line-height: 1.667em;
+  padding: 0 0.5em;
+  margin-right: base.em(2px);
   white-space: nowrap;
   outline: 0;
   border-radius: $border-radius;
-  margin-bottom: 2px;
+  margin-bottom: base.em(2px);
   // Disable selection in buttons
   user-select: none;
   -ms-user-select: none;
 
   &:last-child {
     margin-right: 0;
+    margin-bottom: 0;
   }
 
   .fa,
   .fas,
   .far {
-    margin-left: -3px;
-    margin-right: -3px;
-    min-width: 16px;
+    margin-left: -0.25em;
+    margin-right: -0.25em;
+    min-width: 1.333em;
     text-align: center;
   }
 }
@@ -74,7 +73,7 @@ $bg-map: colors.$bg-map !default;
   .fa,
   .fas,
   .far {
-    margin-right: 3px;
+    margin-right: 0.25em;
   }
 }
 
@@ -82,11 +81,10 @@ $bg-map: colors.$bg-map !default;
   .fa,
   .fas,
   .far {
-    margin-right: 0px;
-    margin-left: 3px;
+    margin-right: 0;
+    margin-left: 0.25em;
   }
 }
-
 .Button--ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -96,14 +94,21 @@ $bg-map: colors.$bg-map !default;
   display: block;
   margin-left: 0;
   margin-right: 0;
-  // padding: 3px 6px;
+}
+
+.Button--circular {
+  border-radius: 50%;
+}
+
+.Button--compact {
+  padding: 0 0.25em;
+  line-height: 1.333em;
 }
 
 .Button--multiLine {
   white-space: normal;
   word-wrap: break-word;
 }
-
 @each $color-name, $color-value in $bg-map {
   .Button--color--#{$color-name} {
     @include button-color($color-value);
@@ -128,10 +133,22 @@ $bg-map: colors.$bg-map !default;
   color: $color-transparent-text;
 }
 
+.Button--color--translucent {
+  @include button-color(base.$color-bg);
+  background-color: rgba(base.$color-bg, 0.6);
+  color: $color-transparent-text;
+}
+
 .Button--disabled {
   background-color: $color-disabled !important;
 }
 
 .Button--selected {
   @include button-color($color-selected);
+}
+
+.Button--modal {
+  float: right;
+  z-index: 1;
+  margin-top: -0.5rem;
 }

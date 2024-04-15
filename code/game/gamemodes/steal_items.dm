@@ -150,6 +150,12 @@
 	protected_jobs = list("Quartermaster")
 	job_possession = FALSE
 
+/datum/theft_objective/engraved_dusters
+	name = "the quartermaster's engraved knuckledusters"
+	typepath = /obj/item/melee/knuckleduster/nanotrasen
+	protected_jobs = list("Quartermaster")
+	location_override = "the Quartermaster's Cargo Office"
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
@@ -193,3 +199,6 @@
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
 	location_override = "a Syndicate agent's possession"
+
+#undef THEFT_FLAG_SPECIAL
+#undef THEFT_FLAG_UNIQUE

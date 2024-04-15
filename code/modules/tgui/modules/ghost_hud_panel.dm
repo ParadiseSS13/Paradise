@@ -16,10 +16,13 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED
 	)
 
-/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui)
+/datum/ui_module/ghost_hud_panel/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 207, master_ui, state)
+		ui = new(user, src, "GhostHudPanel", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -63,8 +66,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
 			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.is_roundstart_observer() && GLOB.configuration.general.restrict_antag_hud_rejoin && !ghost.has_ahudded())
-				var/response = alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", "Yes", "No")
-				if(response == "No")
+				var/response = tgui_alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", list("Yes", "No"))
+				if(response != "Yes")
 					return FALSE
 
 				ghost.can_reenter_corpse = FALSE

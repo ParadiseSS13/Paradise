@@ -11,7 +11,7 @@
 						"<span class='userdanger'>[user] leaps onto you and bites you like a real savage!</span>")
 		target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
 		if(isliving(target) && target.stat != DEAD)
-			user.adjustStaminaLoss(-30)
+			user.adjustStaminaLoss(-60)
 			user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
@@ -20,7 +20,7 @@
 					"<span class='userdanger'>[user] [atk_verb] you!</span>")
 	target.apply_damage(10, BRUTE, user.zone_selected, sharp = TRUE)
 	if(isliving(target) && target.stat != DEAD)
-		user.adjustStaminaLoss(-15)
+		user.adjustStaminaLoss(-40)
 		user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

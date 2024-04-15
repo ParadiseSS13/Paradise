@@ -119,14 +119,7 @@
 	damage_type = BURN
 	nodamage = FALSE
 	temperature = 500 //Heats you up!
-
-/obj/item/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(.)
-		var/mob/living/L = target
-		if(istype(L))
-			L.adjust_fire_stacks(0.1)
-			L.IgniteMob()
+	immolate = 1
 
 /obj/item/projectile/temp/basilisk/icewing
 	damage = 5

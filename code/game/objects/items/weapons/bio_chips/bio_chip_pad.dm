@@ -66,10 +66,13 @@
 
 	eject_case(user)
 
-/obj/item/bio_chip_pad/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/bio_chip_pad/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/bio_chip_pad/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ImplantPad", name, 410, 400, master_ui, state)
+		ui = new(user, src, "BioChipPad", name)
 		ui.open()
 
 /obj/item/bio_chip_pad/ui_data(mob/user)

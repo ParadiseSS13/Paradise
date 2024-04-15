@@ -5,23 +5,23 @@
 Basic tgui backend code consists of the following vars and procs:
 
 ```
-ui_interact(mob/user, ui_key, datum/tgui/ui, force_open,
-  datum/tgui/master_ui, datum/ui_state/state)
+ui_interact(mob/user, datum/tgui/ui)
 ui_data(mob/user)
 ui_act(action, params)
+ui_state()
 ```
 
 - `src_object` - The atom, which UI corresponds to in the game world.
 - `ui_interact` - The proc where you will handle a request to open an
-  interface. Typically, you would update an existing UI (if it exists),
-  or set up a new instance of UI by calling the `SStgui` subsystem.
+interface. Typically, you would update an existing UI (if it exists),
+or set up a new instance of UI by calling the `SStgui` subsystem.
 - `ui_data` - In this proc you munges whatever complex data your `src_object`
-  has into an associative list, which will then be sent to UI as a JSON string.
+has into an associative list, which will then be sent to UI as a JSON string.
 - `ui_act` - This proc receives user actions and reacts to them by changing
-  the state of the game.
-- `ui_state` (set in `ui_interact`) - This var dictates under what conditions
-  a UI may be interacted with. This may be the standard checks that check if
-  you are in range and conscious, or more.
+the state of the game.
+- `ui_state` - This proc dictates under what conditions a UI may be interacted
+with. This may be the standard checks that check if you are in range and
+conscious, or more.
 
 Once backend is complete, you create an new interface component on the
 frontend, which will receive this JSON data and render it on screen.
@@ -37,10 +37,10 @@ powerful interactions for embedded objects or remote access.
 Let's start with a very basic hello world.
 
 ```dm
-/obj/machinery/my_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-  ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/my_machine/ui_interact(mob/user, datum/tgui/ui)
+  ui = SStgui.try_update_ui(user, src, ui)
   if(!ui)
-    ui = new(user, src, ui_key, "my_machine", name, 300, 300, master_ui, state)
+    ui = new(user, src, "MyMachine")
     ui.open()
 ```
 
@@ -48,9 +48,7 @@ This is the proc that defines our interface. There's a bit going on here, so
 let's break it down. First, we override the ui_interact proc on our object. This
 will be called by `interact` for you, which is in turn called by `attack_hand`
 (or `attack_self` for items). `ui_interact` is also called to update a UI (hence
-the `try_update_ui`), so we accept an existing UI to update. The `state` is a
-default argument so that a caller can overload it with named arguments
-(`ui_interact(state = overloaded_state)`) if needed.
+the `try_update_ui`), so we accept an existing UI to update.
 
 Inside the `if(!ui)` block (which means we are creating a new UI), we choose our
 template, title, and size; we can also set various options like `style` (for
@@ -124,19 +122,25 @@ import { Window } from '../layouts';
 export const SampleInterface = (props, context) => {
   const { act, data } = useBackend(context);
   // Extract `health` and `color` variables from the `data` object.
-  const { health, color } = data;
+  const {
+    health,
+    color,
+  } = data;
   return (
     <Window resizable>
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>
-            <LabeledList.Item label="Health">{health}</LabeledList.Item>
-            <LabeledList.Item label="Color">{color}</LabeledList.Item>
+            <LabeledList.Item label="Health">
+              {health}
+            </LabeledList.Item>
+            <LabeledList.Item label="Color">
+              {color}
+            </LabeledList.Item>
             <LabeledList.Item label="Button">
               <Button
                 content="Dispatch a 'test' action"
-                onClick={() => act('test')}
-              />
+                onClick={() => act('test')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -149,22 +153,22 @@ export const SampleInterface = (props, context) => {
 Here are the key variables you get from a `useBackend(context)` function:
 
 - `config` is part of core tgui. It contains meta-information about the
-  interface and who uses it, BYOND refs to various objects, and so forth.
-  You are rarely going to use it, but sometimes it can be used to your
-  advantage when doing complex UIs.
+interface and who uses it, BYOND refs to various objects, and so forth.
+You are rarely going to use it, but sometimes it can be used to your
+advantage when doing complex UIs.
 - `data` is the data returned from `ui_data` and `ui_static_data` procs in
-  your DM code. Pretty straight forward.
+your DM code. Pretty straight forward.
   - Note, that javascript doesn't have associative arrays, so when you
-    return an associative list from DM, it will be available in `data` as a
-    javascript object instead of an array. You can use it normally
-    like so: `object.key`, so it's not a problem if it's representing a
-    data structure, but common `Array` methods, such as `array.map(item => ...)`,
-    are not available on it. Always prefer returning clean arrays from your
-    code, since arrays are easier to work with in javascript!
+  return an associative list from DM, it will be available in `data` as a
+  javascript object instead of an array. You can use it normally
+  like so: `object.key`, so it's not a problem if it's representing a
+  data structure, but common `Array` methods, such as `array.map(item => ...)`,
+  are not available on it. Always prefer returning clean arrays from your
+  code, since arrays are easier to work with in javascript!
 - `act(name, params)` is a function, which you can call to dispatch an action
-  to your DM code. It will be processed in `ui_act` proc. Action name will be
-  available in `params["action"]`, mixed together with the rest of parameters
-  you have passed in `params` object.
+to your DM code. It will be processed in `ui_act` proc. Action name will be
+available in `params["action"]`, mixed together with the rest of parameters
+you have passed in `params` object.
 
 **Let's talk about the syntax.**
 
@@ -175,19 +179,17 @@ expressions that look like html, and turns them into function calls.
 Take a look at this example:
 
 ```jsx
-<div className={'color-' + status}>You are in {status} condition!</div>
+<div className={'color-' + status}>
+  You are in {status} condition!
+</div>
 ```
 
 After compiling the code above, this is what it becomes:
 
 ```js
-createElement(
-  'div',
+createElement('div',
   { className: 'color-' + status },
-  'You are in ',
-  status,
-  ' condition!'
-);
+  'You are in ', status, ' condition!');
 ```
 
 It is very important to remember, that JSX is just a javascript expression
@@ -208,7 +210,11 @@ to a `<ProgressBar />` element. If `showProgress` is `false`, the whole
 expression evaluates to `false`, and `false` is not rendered by React.
 
 ```jsx
-<Box>{showProgress && <ProgressBar value={progress} />}</Box>
+<Box>
+  {showProgress && (
+    <ProgressBar value={progress} />
+  )}
+</Box>
 ```
 
 You can also use the `||` operator (the logical OR), which works the same way,
@@ -221,8 +227,10 @@ and builds a new array based on what was returned by that function.
 
 ```jsx
 <LabeledList>
-  {items.map((item) => (
-    <LabeledList.Item key={item.id} label={item.label}>
+  {items.map(item => (
+    <LabeledList.Item
+      key={item.id}
+      label={item.label}>
       {item.content}
     </LabeledList.Item>
   ))}
@@ -255,13 +263,22 @@ export const SampleInterface = (props, context) => {
 
 const HealthStatus = (props, context) => {
   const { act, data } = useBackend(context);
-  const { user } = props;
-  const { health, color } = data;
+  const {
+    user,
+  } = props;
+  const {
+    health,
+    color,
+  } = data;
   return (
-    <Section title={'Health status of: ' + user}>
+    <Section title={"Health status of: " + user}>
       <LabeledList>
-        <LabeledList.Item label="Health">{health}</LabeledList.Item>
-        <LabeledList.Item label="Color">{color}</LabeledList.Item>
+        <LabeledList.Item label="Health">
+          {health}
+        </LabeledList.Item>
+        <LabeledList.Item label="Color">
+          {color}
+        </LabeledList.Item>
       </LabeledList>
     </Section>
   );
@@ -275,10 +292,10 @@ here's what you need (note that you'll probably be forced to clean your shit up
 upon code review):
 
 ```dm
-/obj/copypasta/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state) // Remember to use the appropriate state.
-  ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/copypasta/ui_interact(mob/user, datum/tgui/ui)
+  ui = SStgui.try_update_ui(user, src, ui)
   if(!ui)
-    ui = new(user, src, ui_key, "copypasta", name, 300, 300, master_ui, state)
+    ui = new(user, src, "copypasta")
     ui.open()
 
 /obj/copypasta/ui_data(mob/user)
@@ -308,19 +325,25 @@ import { Window } from '../layouts';
 export const SampleInterface = (props, context) => {
   const { act, data } = useBackend(context);
   // Extract `health` and `color` variables from the `data` object.
-  const { health, color } = data;
+  const {
+    health,
+    color,
+  } = data;
   return (
     <Window resizable>
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>
-            <LabeledList.Item label="Health">{health}</LabeledList.Item>
-            <LabeledList.Item label="Color">{color}</LabeledList.Item>
+            <LabeledList.Item label="Health">
+              {health}
+            </LabeledList.Item>
+            <LabeledList.Item label="Color">
+              {color}
+            </LabeledList.Item>
             <LabeledList.Item label="Button">
               <Button
                 content="Dispatch a 'test' action"
-                onClick={() => act('test')}
-              />
+                onClick={() => act('test')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

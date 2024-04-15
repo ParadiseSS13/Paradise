@@ -23,8 +23,8 @@
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/coin/antagtoken/syndicate,
 		/obj/item/poster/syndicate_recruitment,
-		/obj/item/reagent_containers/food/snacks/syndicake,
-		/obj/item/reagent_containers/food/snacks/tatortot,
+		/obj/item/food/snacks/syndicake,
+		/obj/item/food/snacks/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 		/obj/item/toy/figure/crew/syndie,
@@ -422,7 +422,7 @@
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/reagent_containers/food/snacks/breadslice/food = new(get_turf(M))
+	var/obj/item/food/snacks/breadslice/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
@@ -432,7 +432,7 @@
 		food.name = "moldy bread"
 		food.reagents.add_reagent("fungus", 1)
 
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
+	var/obj/item/reagent_containers/drinks/drinkingglass/drink = new(get_turf(M))
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 
 	var/obj/item/coin/antagtoken/passingtime = new(get_turf(M))

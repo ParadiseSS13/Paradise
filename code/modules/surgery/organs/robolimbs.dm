@@ -123,7 +123,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
 /datum/robolimb/shellguard
 	company = "Shellguard Munitions Standard Series"
-	desc = "This limb features exposed robust steel and paint to match Shellguards motifs"
+	desc = "This limb features exposed robust steel and paint to match Shellguards motifs."
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
 	has_subtypes = 1
 
