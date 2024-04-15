@@ -288,24 +288,30 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
-	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	desc = "Contains a basic fertilizer with no special traits."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
-	list_reagents = list("eznutriment" = 80)
+	list_reagents = list("eznutrient" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/mut
+	name = "jug of Mutrient"
+	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	icon_state = "plastic_jug_mut"
+	list_reagents = list("mutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
-	list_reagents = list("left4zednutriment" = 80)
+	list_reagents = list("left4zednutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
-	list_reagents = list("robustharvestnutriment" = 80)
+	list_reagents = list("robustharvestnutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	icon = 'icons/obj/chemical.dmi'

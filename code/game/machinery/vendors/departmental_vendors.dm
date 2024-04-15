@@ -142,6 +142,7 @@
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,
+					/obj/item/reagent_containers/glass/bottle/nutrient/mut = 15,
 					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,
 					/obj/item/reagent_containers/spray/pestspray = 20,

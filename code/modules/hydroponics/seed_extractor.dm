@@ -134,14 +134,17 @@
 /obj/machinery/seed_extractor/ui_data(mob/user)
 	var/list/data = list()
 
+	data["icons"] = list()
+	data["seeds"] = list()
 	for(var/datum/seed_pile/O in piles)
 		var/obj/item/I = O.path
 		var/icon/base64icon = GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"]
 		if(!base64icon)
 			base64icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))
 			GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
+		data["icons"]["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
 		var/list/seed_info = list(
-			"image" = "[base64icon]",
+			"image" = "[initial(I.icon)][initial(I.icon_state)]",
 			"id" = O.id,
 			"name" = O.name,
 			"variant" = O.variant,
@@ -153,9 +156,8 @@
 			"potency" = O.potency,
 			"amount" = O.amount,
 		)
-		data["stored_seeds"] += list(seed_info)
+		data["seeds"] += list(seed_info)
 
-	data["vend_amount"] = vend_amount
 	return data
 
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -164,7 +166,7 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(params["seedid"], params["seedvariant"], vend_amount)
+			vend_seed(params["seed_id"], params["seed_variant"], params["vend_amount"])
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
