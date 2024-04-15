@@ -9,7 +9,7 @@ emp_act
 
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-	if(!dna.species.bullet_act(P, src))
+	if(!dna.species.bullet_act(P, src, def_zone))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		P.reflect_back(src) //It has to be here, not on species. Why? Who knows. Testing showed me no reason why it doesn't work on species, and neither did tracing. It has to be here, or it gets qdel'd by bump.
 		return -1

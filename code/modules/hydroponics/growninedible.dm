@@ -39,12 +39,7 @@
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if(istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
-		if(seed)
-			msg += seed.get_analyzer_text()
-		msg += "</span>"
-		to_chat(usr, msg)
-		return
+		send_plant_details(user)
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)
@@ -69,3 +64,17 @@
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
 	set_light(0)
+
+/obj/item/grown/proc/send_plant_details(mob/user)
+	var/msg = "<span class='info'>This is \a </span><span class='name'>[src]</span>\n"
+	if(seed)
+		msg += seed.get_analyzer_text()
+	msg += "</span>"
+	to_chat(usr, msg)
+	return
+
+/obj/item/grown/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		send_plant_details(user)
