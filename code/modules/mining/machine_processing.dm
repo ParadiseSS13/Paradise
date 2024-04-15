@@ -138,7 +138,7 @@
 		if(selected_material == mat_id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[console.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
+			dat += " <A href='byond://?src=[console.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
@@ -150,16 +150,16 @@
 		if(selected_alloy == D.id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[console.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
+			dat += " <A href='byond://?src=[console.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
 	//On or off
 	dat += "Machine is currently "
 	if(on)
-		dat += "<A href='?src=[console.UID()];set_on=off'>On</A> "
+		dat += "<A href='byond://?src=[console.UID()];set_on=off'>On</A> "
 	else
-		dat += "<A href='?src=[console.UID()];set_on=on'>Off</A> "
+		dat += "<A href='byond://?src=[console.UID()];set_on=on'>Off</A> "
 
 	return dat
 
