@@ -179,7 +179,7 @@
 	if(cooldown_handler.is_on_cooldown())
 		return FALSE
 	if(locked)
-		if(user.essence =< unlock_amount)
+		if(user.essence <= unlock_amount)
 			return FALSE
 	if(user.essence <= cast_amount)
 		return FALSE
