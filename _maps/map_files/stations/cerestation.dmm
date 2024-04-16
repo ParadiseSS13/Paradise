@@ -96434,6 +96434,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/gambling_den)
+"xEX" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/asmaint)
 "xFn" = (
 /obj/structure/table,
 /obj/item/mmi/robotic_brain,
@@ -145838,8 +145842,8 @@ mJk
 mJk
 mJk
 cdj
-vpJ
-vpJ
+vRX
+xEX
 vpJ
 dkc
 djw
