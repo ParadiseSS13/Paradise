@@ -157,7 +157,7 @@
 	else
 		objective_to_add = /datum/objective/steal
 
-	add_antag_objective(objective_to_add, should_delay_objective = delayed_objectives)
+	add_antag_objective(objective_to_add)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.

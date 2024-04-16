@@ -87,9 +87,16 @@
 		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
 			for(var/datum/objective/objective in traitor_datum.objective_holder.objectives)
 				objective.delayed_objective = FALSE
+				objective.target = null
+
 				var/datum/objective/steal/possible_steal_objective = objective
-				if(istype(possible_steal_objective) && possible_steal_objective.steal_target.special_equipment)
-					possible_steal_objective.give_kit(possible_steal_objective.steal_target.special_equipment)
+				if(istype(possible_steal_objective))
+					possible_steal_objective.steal_target = null
+
+				traitor_datum.objective_holder.assigned_targets = list()
+				objective.find_target()
+
+				SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
 				objective.update_explanation_text()
 
 		var/list/messages = traitor_mind.prepare_announce_objectives()
