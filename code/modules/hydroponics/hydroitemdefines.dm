@@ -1,7 +1,7 @@
 // Plant analyzer
 /obj/item/plant_analyzer
 	name = "plant analyzer"
-	desc = "A scanner used to evaluate a plant's various areas of growth."
+	desc = "A versatile scanner for analyzing plants, plant produce, and seeds. Can be used on a bag holding unsorted seeds to quickly and thorougly sort them into usable packs."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
@@ -9,6 +9,24 @@
 	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
+
+/obj/item/plant_analyzer/pre_attack(atom/target, mob/user, params)
+	if(!istype(target, /obj/item))
+		return ..()
+
+	var/found_unsorted_seeds = FALSE
+	var/depth = 0
+	for(var/obj/item/unsorted_seeds/unsorted in target)
+		found_unsorted_seeds = TRUE
+		if(!use_tool(target, user, 0.5 SECONDS))
+			break
+		depth++
+		unsorted.sort(depth)
+
+	if(found_unsorted_seeds)
+		return FALSE
+	return ..()
+
 
 // *************************************
 // Hydroponics Tools

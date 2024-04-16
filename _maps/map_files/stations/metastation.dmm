@@ -22737,6 +22737,7 @@
 	},
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/plantbgone,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bBN" = (
@@ -23450,17 +23451,6 @@
 	dir = 9;
 	icon_state = "neutral"
 	},
-/area/station/hallway/secondary/garden)
-"bDJ" = (
-/obj/structure/table,
-/obj/item/hatchet,
-/obj/item/crowbar,
-/obj/item/plant_analyzer,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/cultivator,
-/obj/item/paper/hydroponics,
-/obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bDL" = (
 /obj/structure/cable{
@@ -45501,6 +45491,7 @@
 	name = "processing tint control";
 	pixel_x = -6;
 	pixel_y = 24;
+	range = 4;
 	req_access_txt = "63"
 	},
 /obj/machinery/light_switch{
@@ -55721,6 +55712,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"hUK" = (
+/obj/structure/table,
+/obj/item/hatchet,
+/obj/item/crowbar,
+/obj/item/plant_analyzer,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/cultivator,
+/obj/item/paper/hydroponics,
+/obj/item/storage/bag/plants/seed_sorting_tray,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/garden)
 "hVa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -85659,6 +85662,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -111884,7 +111888,7 @@ cdT
 cdT
 cdT
 cdT
-bDJ
+hUK
 bBK
 iWb
 uiO

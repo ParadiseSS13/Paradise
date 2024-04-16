@@ -147,13 +147,17 @@
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,
 					/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,
+					/obj/item/reagent_containers/dropper = 5,
+					/obj/item/storage/bag/plants/seed_sorting_tray = 3,
 					/obj/item/storage/bag/plants = 5,
 					/obj/item/cultivator = 3,
 					/obj/item/shovel/spade = 3,
 					/obj/item/plant_analyzer = 4)
 
-	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,
-					/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	contraband = list(/obj/item/reagent_containers/glass/bottle/ash = 10,
+					/obj/item/reagent_containers/glass/bottle/saltpetre = 2,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 2,
+					/obj/item/reagent_containers/glass/bottle/mutagen = 2)
 
 	refill_canister = /obj/item/vending_refill/hydronutrients
 

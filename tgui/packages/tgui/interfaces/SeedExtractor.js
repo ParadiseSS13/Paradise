@@ -142,7 +142,7 @@ const SeedList = (properties, context) => {
             <SortButton id="potency">Potency</SortButton>
             <SortButton id="amount">Stock</SortButton>
           </Table.Row>
-          {!seeds
+          {seeds.lenth === 0
             ? 'No seeds present.'
             : seeds
                 .filter(seedFilter(searchText))
