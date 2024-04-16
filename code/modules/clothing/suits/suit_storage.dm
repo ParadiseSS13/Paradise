@@ -8,6 +8,7 @@
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
 	pockets.max_combined_w_class = 4
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/suit/storage/Destroy()
 	QDEL_NULL(pockets)
@@ -25,15 +26,9 @@
 	..()
 	pockets?.update_viewers()
 
-/obj/item/clothing/suit/storage/forceMove(atom/destination)
+/obj/item/clothing/suit/storage/Moved(atom/oldloc, dir, forced = FALSE)
 	. = ..()
-	if(ismob(destination.loc) || isnull(pockets))
-		return
-		
-	for(var/mob/player in pockets.mobs_viewing)
-		if(player == destination)
-			continue
-		pockets.hide_from(player)
+	pockets?.update_viewers()
 
 /obj/item/clothing/suit/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
@@ -42,6 +37,12 @@
 		return
 	if(isobserver(user))
 		pockets?.show_to(user)
+
+/obj/item/clothing/suit/storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		pockets.show_to(user)
+	return ..()
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

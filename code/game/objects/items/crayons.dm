@@ -200,7 +200,7 @@
 	colourName = "purple"
 
 /obj/item/toy/crayon/random/New()
-	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
+	icon_state = pick("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple")
 	switch(icon_state)
 		if("crayonred")
 			name = "red crayon"
