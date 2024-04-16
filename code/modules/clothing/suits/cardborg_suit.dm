@@ -214,50 +214,44 @@ CONTENTS:
 	if(!istype(H) || !istype(borghead))
 		return
 	if(species_disguise != borghead.species_disguise)	// Ensure the head and body are the same colour.
-		to_chat(usr, "<span class='warning'>The colours of the disguise do not match, it's not convincing enough to work!</span>")
+		to_chat(usr, "<span class='warning'>The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!</span>")
 		return
 	var/borg_disguise_variant
 	var/disguise_eyes
+	var/static/borg_eye_list = list(
+		"Standard" = "eyes-Standard",
+		"Standard-Secy" = "eyes-Standard",
+		"Standard-Engi" = "eyes-Standard",
+		"Standard-Mine" = "eyes-Standard",
+		"Standard-Serv" = "eyes-Standard",
+		"Standard-Jani" = "eyes-Standard",
+		"Cricket-SEC" = "eyes-Cricket",
+		"Cricket-ENGI" = "eyes-Cricket",
+		"Cricket-MINE" = "eyes-Cricket",
+		"Cricket-SERV" = "eyes-Cricket",
+		"Cricket-MEDI" = "eyes-Cricket",
+		"Cricket-Jani" = "eyes-Cricket",
+		"ertgamma" = "eyes-ertgamma",
+		"bloodhound" = "eyes-bloodhound",
+		"nano_bloodhound" = "eyes-bloodhound",
+		"syndie_bloodhound" = "eyes-syndie_bloodhound",
+		"syndi-engi" = "eyes-syndi-engi",
+		"lavaland" = "eyes-lavaland",
+		"Miner" = "eyes-Miner",
+		"droid-miner" = "eyes-droid-miner",
+		"droid-medical" = "eyes-droid-medical",
+		"landmate" = "eyes-landmate",
+		"Engineering" = "eyes-Engineering",
+		"surgeon" = "eyes-surgeon",
+		"mopgearrex" = "eyes-mopgearrex",
+		"toiletbot" = "eyes-toiletbot",
+		"qualified_doctor" = "eyes-qualified_doctor",
+		"custodiborg" = "eyes-custodiborg",
+		"heavySec" = "eyes-heavySec",
+		"squatminer" = "eyes-squatminer"
+	)
 	borg_disguise_variant = pick(borghead.available_disguises)
-	switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
-		if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
-			disguise_eyes = "eyes-Standard"
-		if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
-			disguise_eyes = "eyes-Cricket"
-		if("ertgamma", "nano_bloodhound")
-			disguise_eyes = "eyes-ertgamma"
-		if("bloodhound")
-			disguise_eyes = "eyes-bloodhound"
-		if("syndie_bloodhound")
-			disguise_eyes = "eyes-syndie_bloodhound"
-		if("syndi-engi")
-			disguise_eyes = "eyes-syndi-engi"
-		if("lavaland")
-			disguise_eyes = "eyes-lavaland"
-		if("Miner")
-			disguise_eyes = "eyes-Miner"
-		if("droid-miner")
-			disguise_eyes = "eyes-droid-miner"
-		if("droid-medical")
-			disguise_eyes = "eyes-droid-medical"
-		if("landmate")
-			disguise_eyes = "eyes-landmate"
-		if("Engineering")
-			disguise_eyes = "eyes-Engineering"
-		if("surgeon")
-			disguise_eyes = "eyes-surgeon"
-		if("mopgearrex")
-			disguise_eyes = "eyes-mopgearrex"
-		if("toiletbot")
-			disguise_eyes = "eyes-toiletbot"
-		if("qualified_doctor")
-			disguise_eyes = "eyes-qualified_doctor"
-		if("custodiborg")
-			disguise_eyes = "eyes-custodiborg"
-		if("heavySec")
-			disguise_eyes = "eyes-heavySec"
-		if("squatminer")
-			disguise_eyes = "eyes-squatminer"
+	disguise_eyes = borg_eye_list[borg_disguise_variant]
 	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
 	I.override = 1
 	if(disguise_eyes)
