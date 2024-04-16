@@ -29,7 +29,7 @@
 	switch(get_area_type())
 		if(AREA_SPACE)
 			text += "<p>According to [src], you are now in <b>outer space</b>. Hold your breath.</p> \
-			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
+			<p><a href='byond://?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
 		if(AREA_SPECIAL)
 			text += "<p>This place is not noted on [src].</p>"
 	return text
@@ -107,12 +107,12 @@
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to [src], you are now in <b>\"[sanitize(our_area.name)]\"</b>.</p>"
-		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
+		. += "<p>You may <a href='byond://?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
-		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
+		. += "<p><a href='byond://?src=[UID()];view_blueprints=1'>View structural data</a></p>"
 	else
-		. += "<p><a href='?src=[UID()];refresh=1'>Refresh structural data</a></p>"
-		. += "<p><a href='?src=[UID()];hide_blueprints=1'>Hide structural data</a></p>"
+		. += "<p><a href='byond://?src=[UID()];refresh=1'>Refresh structural data</a></p>"
+		. += "<p><a href='byond://?src=[UID()];hide_blueprints=1'>Hide structural data</a></p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()

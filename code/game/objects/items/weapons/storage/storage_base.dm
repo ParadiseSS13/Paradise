@@ -335,7 +335,7 @@
 		for(var/obj/item/I in contents)
 			var/found = FALSE
 			for(var/datum/numbered_display/ND in numbered_contents)
-				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
+				if(ND.sample_object.should_stack_with(I))
 					ND.number++
 					found = TRUE
 					break
