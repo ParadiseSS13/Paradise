@@ -38,6 +38,7 @@
 
 /obj/structure/blob/core/Destroy()
 	if(overmind)
+		SSticker.mode.blob_overminds -= overmind
 		overmind.blob_core = null
 	overmind = null
 	STOP_PROCESSING(SSobj, src)
