@@ -51,9 +51,8 @@
 				. = INGREDIENT_CHECK_SURPLUS
 			else
 				return INGREDIENT_CHECK_FAILURE
-	if((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
+	if((reagents?(reagents.len):(0)) < length(avail_reagents.reagent_list))
 		return INGREDIENT_CHECK_SURPLUS
-	return .
 
 /**
  * Similarly to the function above, this checks for reagents, except instead of being passed a reagent holder, we're passed
@@ -77,7 +76,6 @@
 
 	if(length(reagents) < length(avail_reagents))
 		return INGREDIENT_CHECK_SURPLUS
-	return 
 
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
 	. = INGREDIENT_CHECK_EXACT
@@ -95,9 +93,8 @@
 				break
 		if(!found)
 			. = INGREDIENT_CHECK_SURPLUS
-	if(checklist.len)
+	if(length(checklist))
 		return INGREDIENT_CHECK_FAILURE
-	return 
 
 /**
  * Similarly to the function above, this checks for items, except instead of being passed a reagent holder, we're passed
@@ -121,7 +118,6 @@
 				. = INGREDIENT_CHECK_SURPLUS
 	if(length(checklist)) // we didnt get everything
 		return INGREDIENT_CHECK_FAILURE
-	return 
 
 //general version
 /datum/recipe/proc/make(obj/container)
