@@ -1330,6 +1330,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "dT" = (
@@ -4192,6 +4193,7 @@
 /obj/item/reagent_containers/spray/weedspray,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "kh" = (

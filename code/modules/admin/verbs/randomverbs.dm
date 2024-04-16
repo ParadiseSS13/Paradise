@@ -1042,9 +1042,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string][obj_string]</TD>"
 		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
 		else
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE><br></BODY></HTML>"
 
@@ -1082,9 +1082,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
 		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
 		else
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
@@ -1147,16 +1147,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 
-	var/list/dat = list()
+	var/list/dat = list("<!DOCTYPE html>")
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name][S.completed ? " (C)" : ""] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a>"
+		dat += "[S.name][S.completed ? " (C)" : ""] - <a href='byond://?src=[S.UID()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];remove=1'>Remove</a>"
 	dat += ""
-	dat += "<a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
+	dat += "<a href='byond://?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	dat += ""
 	dat += "<b>Secondary goals</b>"
 	for(var/datum/station_goal/secondary/SG in SSticker.mode.secondary_goals)
-		dat += "[SG.admin_desc][SG.completed ? " (C)" : ""] for [SG.requester_name || SG.department] - <a href='?src=[SG.UID()];announce=1'>Announce</a> | <a href='?src=[SG.UID()];remove=1'>Remove</a> | <a href='?src=[SG.UID()];mark_complete=1'>Mark complete</a> | <a href='?src=[SG.UID()];reset_progress=1'>Reset progress</a>"
-	dat += "<a href='?src=[UID()];add_secondary_goal=1'>Add New Secondary Goal</a>"
+		dat += "[SG.admin_desc][SG.completed ? " (C)" : ""] for [SG.requester_name || SG.department] - <a href='byond://?src=[SG.UID()];announce=1'>Announce</a> | <a href='byond://?src=[SG.UID()];remove=1'>Remove</a> | <a href='byond://?src=[SG.UID()];mark_complete=1'>Mark complete</a> | <a href='byond://?src=[SG.UID()];reset_progress=1'>Reset progress</a>"
+	dat += "<a href='byond://?src=[UID()];add_secondary_goal=1'>Add New Secondary Goal</a>"
 
 	usr << browse(dat.Join("<br>"), "window=goals;size=400x400")
 
