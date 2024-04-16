@@ -15,6 +15,7 @@
 	var/datum/antagonist/mindflayer/flayer
 	///The text shown to the player character when bought
 	var/gain_text = "Someone forgot to add this text"
+	///Uses a power type define, should be FLAYER_UNOBTAINABLE_POWER, FLAYER_PURCHASABLE_POWER, or FLAYER_INNATE_POWER
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	///How much it will cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
 	var/cost = 30
@@ -166,3 +167,40 @@
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
 		flayer.adjustFireLoss(-level, robotic = TRUE)
+
+/datum/mindflayer_passive/eye_enhancement
+	name = "Enhanced Optical Sensitivity"
+	purchase_text = "Level 1 grants night vision, level 2 lets you see creatures through walls."
+	gain_text = "Focusing optics lens apeture."
+	upgrade_text = "Increasing visible wavelength to infrared."
+	power_type = FLAYER_PURCHASABLE_POWER
+	max_level = 2
+	cost = 50
+
+/datum/mindflayer_passive/eye_enhancement/on_apply()
+	..()
+	switch(level)
+		if(1)
+			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, src)
+		if(2)
+			ADD_TRAIT(owner, TRAIT_THERMAL_VISION, src)
+
+/datum/mindflayer_passive/eye_enhancement/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, src)
+	REMOVE_TRAIT(owner, TRAIT_THERMAL_VISION, src)
+
+/datum/mindflayer_passive/drain_speed
+	name = "Swarm Absorbtion Efficiency"
+	purchase_text = "Adds a multiplier to the amount of swarms you drain per second."
+	gain_text = "something something efficiency WIP"
+	upgrade_text = "MORE EFFICIENCY IS MORE GOOD WIP"
+	power_type = FLAYER_PURCHASABLE_POWER
+	max_level = 3
+	cost = 50
+
+/datum/mindflayer_passive/drain_speed/on_apply()
+	..()
+	flayer.drain_multiplier++
+
+/datum/mindflayer_passive/on_remove()
+	flayer.drain_multiplier = initial(flayer.drain_multiplier)
