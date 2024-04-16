@@ -6,7 +6,7 @@ CONTENTS:
 */
 
 /*
- / Cardborg Helmets.
+ * Cardborg Helmets.
 */
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
@@ -106,7 +106,7 @@ CONTENTS:
 	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
 
 /*
- / Cardborg Suits.
+ * Cardborg Suits.
 */
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
@@ -183,9 +183,9 @@ CONTENTS:
 	species_disguise = "High-tech killer robot"
 
 /*
- / Disguise code.
+ * Disguise code.
 */
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)	// Attempt to disguise when you put on the helmet.
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
 	..()
 	if(ishuman(user) && slot == SLOT_HUD_HEAD)
 		var/mob/living/carbon/human/H = user
@@ -193,16 +193,16 @@ CONTENTS:
 			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
 			CB.apply_borg_disguise(user, src)
 
-/obj/item/clothing/head/cardborg/dropped(mob/living/user)			// You stop being a robot if you remove your helmet.
+/obj/item/clothing/head/cardborg/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("borg_disguise_variant")
 
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)	// Attempt to disguise when you put on the suit.
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
 	if(slot == SLOT_HUD_OUTER_SUIT)
 		apply_borg_disguise(user)
 
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)			// You stop being a robot if you remove your suit.
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user)	
 	..()
 	user.remove_alt_appearance("borg_disguise_variant")
 

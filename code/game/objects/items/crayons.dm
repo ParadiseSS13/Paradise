@@ -365,7 +365,7 @@
 	I.color = colour
 	. += I
 
-/obj/item/toy/crayon/spraycan/proc/cardborg_recolour(obj/target)
+/obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target)
 	var/is_cardborg_head = FALSE
 	if(istype(target, /obj/item/clothing/head/cardborg))	// Differentiating between head and body.
 		is_cardborg_head = TRUE
@@ -429,7 +429,6 @@
 
 	playsound(usr, 'sound/effects/spray.ogg', 5, TRUE, 5)
 	new selected_disguise(get_turf(target)) 	// Spawn the desired cardborg item.
-	QDEL_NULL(target)							// Get rid of the old one.
-	return
+	qdel(target)							// Get rid of the old one.
 
 #undef CRAYON_MESSAGE_MAX_LENGTH
