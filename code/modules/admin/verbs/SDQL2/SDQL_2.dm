@@ -103,7 +103,7 @@
 					var/text = ""
 					for(var/o in objs)
 						var/datum/t = o
-						text += "<A HREF='?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
+						text += "<A href='byond://?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
 						if(istype(t, /atom))
 							var/atom/a = t
 

@@ -26,7 +26,6 @@
 /datum/keybinding/lock
 	name = "Movement Lock (Prevents Moving When Held)"
 	category = KB_CATEGORY_MOVEMENT
-	keys = list("Ctrl")
 
 /datum/keybinding/lock/down(client/C)
 	. = ..()

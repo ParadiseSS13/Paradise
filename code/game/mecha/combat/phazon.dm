@@ -41,7 +41,7 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Special</div>
 						<div class='links'>
-						<a href='?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
+						<a href='byond://?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
 						</div>
 						</div>
 						"}

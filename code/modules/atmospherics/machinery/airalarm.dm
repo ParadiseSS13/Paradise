@@ -95,10 +95,9 @@
 	report_danger_level = FALSE
 
 /obj/machinery/alarm/engine
-	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
-	custom_name = TRUE
+	custom_name = "engine air alarm"
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 /// general syndicate access
@@ -193,13 +192,21 @@
 
 /obj/machinery/alarm/Initialize(mapload, direction, building = 0)
 	. = ..()
+
+	alarm_area = get_area(src)
+
+	if(custom_name)
+		name = custom_name
+	else
+		name = "[alarm_area.name] Air Alarm"
+
 	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
 		if(direction)
 			setDir(direction)
 
 		buildstage = 0
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(-24, 24, -24, 24)
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -221,9 +228,6 @@
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
-	alarm_area = get_area(src)
-	if(!custom_name)
-		name = "[alarm_area.name] Air Alarm"
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
@@ -917,10 +921,8 @@
 					if(!(varname in list("min1", "min2", "max1", "max2"))) // uh oh
 						message_admins("[key_name_admin(usr)] attempted to href edit vars on [src]!!!")
 						return
-
 					var/datum/tlv/tlv = TLV[env]
 					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
-
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
 					if(newval < 0)
@@ -1142,12 +1144,18 @@
 		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
-	name = "all-access air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. Its access restrictions appear to have been removed."
 	locked = FALSE
-	custom_name = TRUE
+	custom_name = "all-access air alarm"
 	req_access = null
 	req_one_access = null
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 24, 24)
 
 /*
 AIR ALARM CIRCUIT
