@@ -957,7 +957,7 @@
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
-	var/list/available_targets = list()
+	var/list/expanded_minds = list()
 
 /datum/spell/mindscan/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
@@ -970,43 +970,50 @@
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<i><span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span></i>")
-		target.show_message("<i><span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span></i>")
-		available_targets += target
-		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
+		target.show_message("<i><span class='abductor'><a href='byond://?src=[UID()];from=[target.UID()];to=[user.UID()]'>[message]</a></span></i>")
+		expanded_minds += target
+		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 10 SECONDS)
 
 /datum/spell/mindscan/proc/removeAvailability(mob/living/target)
-	if(target in available_targets)
-		available_targets -= target
-		if(!(target in available_targets))
+	if(target in expanded_minds)
+		expanded_minds -= target
+		if(!(target in expanded_minds))
 			target.show_message("<i><span class='abductor'>You feel the sensation fade...</span></i>")
 
 /datum/spell/mindscan/Topic(href, href_list)
-	var/mob/living/user
-	if(href_list["user"])
-		user = locateUID(href_list["user"])
-	if(href_list["target"])
-		if(!user)
-			return
-		var/mob/living/target = locateUID(href_list["target"])
-		if(!(target in available_targets))
-			return
-		available_targets -= target
-		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
-		if(!say)
-			return
-		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
-		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
-		log_say("(TPATH to [key_name(target)]) [say]", user)
-		if(target.dna?.GetSEState(GLOB.remotetalkblock))
-			target.show_message("<i><span class='abductor'>You project your mind into [user.name]: [say]</span></i>")
-		else
-			target.show_message("<i><span class='abductor'>You fill the space in your thoughts: [say]</span></i>")
-		user.show_message("<i><span class='abductor'>You hear [target.name]'s voice: [say]</span></i>")
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
+	var/mob/living/message_source
+	message_source = locateUID(href_list["from"])
+	if(!message_source)
+		return
+	if(!message_source || !(message_source in expanded_minds))
+		return
+
+	expanded_minds -= message_source
+
+	var/mob/living/message_target = locateUID(href_list["to"])
+	if(!message_target)
+		return
+
+	var/say = tgui_input_text(message_source, "What do you wish to say?", "Expanded Mind")
+	if(!say)
+		return
+	say = pencode_to_html(say, message_source, format = FALSE, fields = FALSE)
+
+	message_source.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", message_target)
+	log_say("(TPATH to [key_name(message_target)]) [say]", message_source)
+
+	if(message_source.dna?.GetSEState(GLOB.remotetalkblock))
+		message_source.show_message("<i><span class='abductor'>You project your mind into [message_target]: [say]</span></i>")
+	else
+		message_source.show_message("<i><span class='abductor'>You fill the space in your thoughts: [say]</span></i>")
+
+	message_target.show_message("<i><span class='abductor'>You hear [message_source]'s voice: [say]</span></i>")
+
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.show_message("<i>Telepathic response from <b>[message_source]</b> ([ghost_follow_link(message_source, ghost=G)]) to <b>[message_target]</b> ([ghost_follow_link(message_target, ghost=G)]): [say]</i>")
 
 /datum/spell/mindscan/Destroy()
-	available_targets.Cut()
+	expanded_minds.Cut()
 	return ..()
 
 /datum/mutation/grant_spell/remoteview

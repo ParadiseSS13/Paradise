@@ -38,6 +38,7 @@
 
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
+	desc = "\"To do, or do nut, the choice is obvious.\""
 	icon_type = "donut"
 	icon_state = "donutbox"
 	storage_slots = 6

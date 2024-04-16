@@ -196,7 +196,7 @@
 	var/log_msg = "[RelicType] relic used by [key_name(user)] in ([T.x],[T.y],[T.z])"
 
 	if(alert_admins) //For truly dangerous relics that may need an admin's attention. BWOINK!
-		message_admins("[RelicType] relic activated by [key_name_admin(user)] in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
+		message_admins("[RelicType] relic activated by [key_name_admin(user)] in ([T.x], [T.y], [T.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
 
 	log_game(log_msg)
 	investigate_log(log_msg, "experimentor")

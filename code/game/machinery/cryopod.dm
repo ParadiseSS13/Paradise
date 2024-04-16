@@ -249,7 +249,8 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
+	var/area/our_area = get_area(src)
+	for(var/obj/machinery/computer/cryopod/C in our_area)
 		if(C.type == console_type)
 			control_computer = C
 			break
@@ -588,7 +589,7 @@
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
-	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
 
