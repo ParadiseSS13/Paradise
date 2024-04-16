@@ -331,10 +331,10 @@
 	if(capped)
 		return
 	if(istype(target, /obj/item/clothing/head/cardborg))	// Spraypainting your cardborg suit for more fashion options.
-		cardborg_recolour(target)
+		cardborg_recolor(target)
 		return
 	if(istype(target, /obj/item/clothing/suit/cardborg))
-		cardborg_recolour(target)
+		cardborg_recolor(target)
 		return
 	else
 		if(iscarbon(target))

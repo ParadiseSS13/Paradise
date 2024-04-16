@@ -11,27 +11,27 @@ CONTENTS:
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
 	desc = "A helmet made out of a box."
+	icon_state = "cardborg_h"
+	item_state = "cardborg_h"
+	dog_fashion = /datum/dog_fashion/head/cardborg
+	sprite_sheets = list(
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS
+	flags_cover = HEADCOVERSEYES
+	species_disguise = "High-tech robot"	// You appear to be this when examined instead of your mob's actual species.
+	var/list/available_disguises = list("Standard")
 	// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
 	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be percieved as being an actual robot by other robots, \
 	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
 	The wearer may also hallucinate themselves as being a robot as well."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	flags = BLOCKHAIR											// Robots don't have air (yet!).
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS	// Robots don't wear masks or ear accessories (yet!).
-	flags_cover = HEADCOVERSEYES								// Robots don't wear glasses (yet!).
-	var/list/available_disguises = list("Standard") 			// All the sprites you can disguise as. A disguise will be randomly chosen from the list.
-	species_disguise = "High-tech robot"						// You appear to be this when examined instead of your mob's actual species.
-	dog_fashion = /datum/dog_fashion/head/cardborg 				// How this looks on Ian.
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi',		// Greys have big heads and are smelly.
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'			// Vox beaks stick out the normal helmets.
-	)
 
-/obj/item/clothing/head/cardborg/examine_more(mob/user)			// Handles item extended descriptions.
+/obj/item/clothing/head/cardborg/examine_more(mob/user)
 	. = ..()
-	. += extended_desc											// If an extended_desc is added to a subtype, this will handle it.
+	. += extended_desc
 
 /obj/item/clothing/head/cardborg/security
 	name = "red cardborg helmet"
@@ -111,21 +111,20 @@ CONTENTS:
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them."
-	// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
+	icon_state = "cardborg"
+	item_state = "cardborg"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags_inv = HIDEJUMPSUIT
+	species_disguise = "High-tech robot"
+	dog_fashion = /datum/dog_fashion/back
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
 	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be percieved as being an actual robot by other robots, \
 	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
 	The wearer may also hallucinate themselves as being a robot as well."
-	icon_state = "cardborg"
-	item_state = "cardborg"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO		// Robots don't wear clothes (yet)!
-	flags_inv = HIDEJUMPSUIT							// Robots don't wear jumpsuits (yet)!
-	species_disguise = "High-tech robot"				// You appear to be this when examined instead of your mob's actual species.
-	dog_fashion = /datum/dog_fashion/back				// How this looks on Ian. Doesn't need to be defined for the subtypes.
 
-/obj/item/clothing/suit/cardborg/examine_more(mob/user)	// Handles item extended descriptions.
+/obj/item/clothing/suit/cardborg/examine_more(mob/user)
 	. = ..()
-	. += extended_desc									// If an extended_desc is added to a subtype, this will handle it.
+	. += extended_desc
 /obj/item/clothing/suit/cardborg/security
 	name = "red cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted red."
@@ -199,61 +198,46 @@ CONTENTS:
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(slot == SLOT_HUD_OUTER_SUIT)
-		apply_borg_disguise(user)
+	var/mob/living/carbon/human/H = user
+	if(istype(H.head, /obj/item/clothing/head/cardborg))
+		var/obj/item/clothing/head/cardborg/head = H.head
+		src.apply_borg_disguise(user, head)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)	
 	..()
 	user.remove_alt_appearance("borg_disguise_variant")
 
 /obj/item/clothing/suit/cardborg/proc/apply_borg_disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
-	if(!istype(H))
+	if(!istype(H) || !istype(borghead))
 		return
-	if(!borghead)
-		borghead = H.head									// This actually stops the disguise from applying just from having it in your hands AGHHHH!
-	if(istype(borghead, /obj/item/clothing/head/cardborg))	// Why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY!
+	if(species_disguise != borghead.species_disguise)	// Ensure the head and body are the same colour.
+		to_chat(usr, "<span class='warning'>The colours of the disguise do not match, it's not convincing enough to work!</span>")
+		return
 		var/borg_disguise_variant
 		var/disguise_eyes
+		var/borg_eye_list = list(
+			"Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani" = "eyes-Standard",
+			"Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani" = "eyes-Cricket",
+			"ertgamma", "nano_bloodhound" = "eyes_ertgamma",
+			"bloodhound" = "eyes_bloodhound",
+			"syndie_bloodhound" = "eyes-syndie_bloodhound",
+			"syndi_engi" = "eyes-syndi_engi",
+			"lavaland" = "eyes-lavaland",
+			"Miner" = "eyes-Miner",
+			"droid-miner" = "eyes-droid-miner",
+			"droid-medical" = "eyes-droid-medical",
+			"landmate" = "eyes-landmate",
+			"Engineering" = "eyes-engineering",
+			"surgeon" = "eyes-surgeon",
+			"mopgearrex" = "eyes-mopgearrex",
+			"toiletbot" = "eyes-toiletbot",
+			"qualified_doctor" = "eyes-qualified_doctor",
+			"custodiborg" = "eyes_custodiborg",
+			"heavySec" = "eyes-heavySec",
+			"squatminer" = "eyes-squatminer"
+		)
 		borg_disguise_variant = pick(borghead.available_disguises)
-		switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
-			if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
-				disguise_eyes = "eyes-Standard"
-			if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
-				disguise_eyes = "eyes-Cricket"
-			if("ertgamma", "nano_bloodhound")
-				disguise_eyes = "eyes-ertgamma"
-			if("bloodhound")
-				disguise_eyes = "eyes-bloodhound"
-			if("syndie_bloodhound")
-				disguise_eyes = "eyes-syndie_bloodhound"
-			if("syndi-engi")
-				disguise_eyes = "eyes-syndi-engi"
-			if("lavaland")
-				disguise_eyes = "eyes-lavaland"
-			if("Miner")
-				disguise_eyes = "eyes-Miner"
-			if("droid-miner")
-				disguise_eyes = "eyes-droid-miner"
-			if("droid-medical")
-				disguise_eyes = "eyes-droid-medical"
-			if("landmate")
-				disguise_eyes = "eyes-landmate"
-			if("Engineering")
-				disguise_eyes = "eyes-Engineering"
-			if("surgeon")
-				disguise_eyes = "eyes-surgeon"
-			if("mopgearrex")
-				disguise_eyes = "eyes-mopgearrex"
-			if("toiletbot")
-				disguise_eyes = "eyes-toiletbot"
-			if("qualified_doctor")
-				disguise_eyes = "eyes-qualified_doctor"
-			if("custodiborg")
-				disguise_eyes = "eyes-custodiborg"
-			if("heavySec")
-				disguise_eyes = "eyes-heavySec"
-			if("squatminer")
-				disguise_eyes = "eyes-squatminer"
+		disguise_eyes = borg_eye_list[borghead.available_disguises]
 		var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
 		I.override = 1
 		if(disguise_eyes)
