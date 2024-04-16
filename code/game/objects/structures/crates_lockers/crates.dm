@@ -281,6 +281,58 @@
 			req_access += pick(get_all_accesses())
 	..()
 
+/obj/structure/closet/crate/secure/personal
+	name = "personal crate"
+	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it. This one has not been configured by CC, and the first card swiped gains control."
+	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
+	/// The name of the person this crate is registered to.
+	var/registered_name = null
+	// Unlike most secure crates, personal crates are easily obtained.
+	crate_value = DEFAULT_CRATE_VALUE
+
+/obj/structure/closet/crate/secure/personal/allowed(mob/user)
+	if(..())
+		return TRUE
+	var/obj/item/card/id/id = user.get_id_card()
+	if(is_usable_id(id))
+		return id.registered_name == registered_name
+	return FALSE
+
+/// Returns whether the object is a usable ID card (not guest pass, has name).
+/obj/structure/closet/crate/secure/personal/proc/is_usable_id(obj/item/card/id/id)
+	if(!istype(id))
+		return FALSE
+	if(istype(id, /obj/item/card/id/guest) || !id.registered_name)
+		return FALSE
+	return TRUE
+
+/obj/structure/closet/crate/secure/personal/attackby(obj/item/I, mob/user, params)
+	if(opened || !istype(I, /obj/item/card/id))
+		return ..()
+
+	if(broken)
+		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		return FALSE
+
+	var/obj/item/card/id/id = I
+	if(!is_usable_id(id))
+		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
+		return FALSE
+
+	if(registered_name && allowed(user))
+		return ..()
+
+	if(!registered_name)
+		registered_name = id.registered_name
+		desc = "Owned by [id.registered_name]."
+		to_chat(user, "<span class='notice'>Crate reserved</span>")
+		return TRUE
+
+	if(registered_name == id.registered_name)
+		return ..()
+
+	return FALSE
+
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
 	desc = "A rectangular plastic crate."
@@ -323,8 +375,8 @@
 	new /obj/item/rcd(src)
 
 /obj/structure/closet/crate/freezer
-	desc = "A freezer."
 	name = "Freezer"
+	desc = "A freezer for keeping food and organs fresh."
 	icon_state = "freezer"
 	icon_opened = "freezer_open"
 	icon_closed = "freezer"

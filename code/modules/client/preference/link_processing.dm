@@ -855,14 +855,18 @@
 							organ = "kidneys"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
-					if(!new_state) return
-
+					if(!new_state)
+						return
 					switch(new_state)
 						if("Normal")
 							active_character.organ_data[organ] = null
 						if("Cybernetic")
 							active_character.organ_data[organ] = "cybernetic"
-
+				if("cyborg_brain_type")
+					var/brain_type = tgui_input_list(user, "What type of brain would you like to have as a cyborg?", "Cyborg Brain Type", GLOB.borg_brain_choices, active_character.cyborg_brain_type)
+					if(!(brain_type in GLOB.borg_brain_choices))
+						return
+					active_character.cyborg_brain_type = brain_type
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
@@ -1116,7 +1120,7 @@
 
 				if("screentip_mode")
 					var/desired_screentip_mode = tgui_input_number(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size", screentip_mode, 20, 0)
-					if(!desired_screentip_mode)
+					if(isnull(desired_screentip_mode))
 						return
 					screentip_mode = desired_screentip_mode
 
