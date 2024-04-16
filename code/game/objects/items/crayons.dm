@@ -386,48 +386,6 @@
 
 	if(!selected_disguise)
 		return
-
-/*	if(is_cardborg_head)
-		switch(selected_disguise)
-			if("Standard")
-				selected_disguise = /obj/item/clothing/head/cardborg
-			if("Security")
-				selected_disguise = /obj/item/clothing/head/cardborg/security
-			if("Engineering")
-				selected_disguise = /obj/item/clothing/head/cardborg/engineering
-			if("Mining")
-				selected_disguise = /obj/item/clothing/head/cardborg/mining
-			if("Service")
-				selected_disguise = /obj/item/clothing/head/cardborg/service
-			if("Medical")
-				selected_disguise = /obj/item/clothing/head/cardborg/medical
-			if("Janitor")
-				selected_disguise = /obj/item/clothing/head/cardborg/janitor
-			if("Hunter")
-				selected_disguise = /obj/item/clothing/head/cardborg/xeno
-			if("Death Bot")
-				selected_disguise = /obj/item/clothing/head/cardborg/deathbot
-	else
-		switch(selected_disguise)
-			if("Standard")
-				selected_disguise = /obj/item/clothing/suit/cardborg
-			if("Security")
-				selected_disguise = /obj/item/clothing/suit/cardborg/security
-			if("Engineering")
-				selected_disguise = /obj/item/clothing/suit/cardborg/engineering
-			if("Mining")
-				selected_disguise = /obj/item/clothing/suit/cardborg/mining
-			if("Service")
-				selected_disguise = /obj/item/clothing/suit/cardborg/service
-			if("Medical")
-				selected_disguise = /obj/item/clothing/suit/cardborg/medical
-			if("Janitor")
-				selected_disguise = /obj/item/clothing/suit/cardborg/janitor
-			if("Hunter")
-				selected_disguise = /obj/item/clothing/suit/cardborg/xeno
-			if("Death Bot")
-				selected_disguise = /obj/item/clothing/suit/cardborg/deathbot
-*/
 	var/static/disguise_spraypaint_items = list(
 		"Standard" = list(/obj/item/clothing/head/cardborg, /obj/item/clothing/suit/cardborg),
 		"Security" = list(/obj/item/clothing/head/cardborg/security, /obj/item/clothing/suit/cardborg/security),
