@@ -83,17 +83,29 @@
 	icon_state = "bottle"
 	list_reagents = list("mutagen" = 30)
 
+/obj/item/reagent_containers/glass/bottle/ash
+	name = "ash bottle"
+	desc = "A small bottle of ash. The substance, not the person."
+	icon_state = "bottle"
+	list_reagents = list("ash" = 30)
+
 /obj/item/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
-	desc = "A small bottle."
+	desc = "A small bottle of ammonia. Good for cleaning, but don't mix it with bleach."
 	icon_state = "bottle"
 	list_reagents = list("ammonia" = 30)
 
 /obj/item/reagent_containers/glass/bottle/diethylamine
 	name = "diethylamine bottle"
-	desc = "A small bottle."
+	desc = "A small bottle of diethylamine. Good for plants, bad for people."
 	icon_state = "round_bottle"
 	list_reagents = list("diethylamine" = 30)
+
+/obj/item/reagent_containers/glass/bottle/saltpetre
+	name = "saltpetre bottle"
+	desc = "A small bottle of saltpetre. Used in botany and to make gunpowder."
+	icon_state = "round_bottle"
+	list_reagents = list("saltpetre" = 30)
 
 /obj/item/reagent_containers/glass/bottle/facid
 	name = "fluorosulfuric acid bottle"
