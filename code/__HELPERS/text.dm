@@ -351,7 +351,9 @@
 /proc/strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
 		return ""
-	var/global/regex/tags = regex("<\[^>]*>", "g")
+	var/static/regex/tags = regex("<\[^>]*>", "g")
+	if(!tags)
+		tags = regex("<\[^>]*>", "g")
 	input = tags.Replace(input, "")
 	if(max_length)
 		input = copytext_char(input, 1, max_length)
