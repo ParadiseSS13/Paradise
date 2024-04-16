@@ -233,7 +233,8 @@
 		for(var/mob/living/simple_animal/bot/B in bots)
 			botsCount++
 			if(B.loc)
-				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(get_area(B).name), "uid" = "[B.UID()]")
+				var/area/our_area = get_area(B)
+				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(our_area.name), "uid" = "[B.UID()]")
 
 		if(!length(botsData))
 			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
@@ -309,7 +310,8 @@
 		for(var/mob/living/simple_animal/bot/mulebot/B in GLOB.bots_list)
 			mulebotsCount++
 			if(B.loc)
-				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = get_area(B).name, "uid" = "[B.UID()]")
+				var/area/our_area = get_area(B)
+				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = our_area.name, "uid" = "[B.UID()]")
 
 		if(!mulebotsData.len)
 			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)

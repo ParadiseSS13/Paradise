@@ -122,13 +122,13 @@
 /mob/proc/spellremove()
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mind.spell_list)
+	for(var/datum/spell/spell_to_remove in mind.spell_list)
 		qdel(spell_to_remove)
 		mind.spell_list -= spell_to_remove
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove()
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mob_spell_list)
+	for(var/datum/spell/spell_to_remove in mob_spell_list)
 		qdel(spell_to_remove)
 		mob_spell_list -= spell_to_remove
 

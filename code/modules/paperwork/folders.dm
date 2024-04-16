@@ -1,6 +1,6 @@
 /obj/item/folder
 	name = "folder"
-	desc = "A folder."
+	desc = "A folder for keeping all your important papers and photos."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder"
 	w_class = WEIGHT_CLASS_SMALL
@@ -14,19 +14,19 @@
 		A.emp_act(severity)
 
 /obj/item/folder/blue
-	desc = "A blue folder."
+	desc = "A blue folder for keeping all the blueprints of your great ideas."
 	icon_state = "folder_blue"
 
 /obj/item/folder/red
-	desc = "A red folder."
+	desc = "A red folder for storing all the documents you've \"acquired\"."
 	icon_state = "folder_red"
 
 /obj/item/folder/yellow
-	desc = "A yellow folder."
+	desc = "A yellow folder for keeping all your very important court forms."
 	icon_state = "folder_yellow"
 
 /obj/item/folder/white
-	desc = "A white folder."
+	desc = "A white folder for holding medical records, if anyone ever prints any."
 	icon_state = "folder_white"
 
 /obj/item/folder/update_overlays()

@@ -73,7 +73,7 @@ task-test() {
 
 task-prettier() {
   cd "${base_dir}"
-  npx prettier --check packages --write "${@}"
+  npx prettier --check packages "${@}"
 }
 
 task-polyfill() {
@@ -221,7 +221,7 @@ fi
 ## Run prettier
 if [[ ${1} == '--prettier' ]]; then
   shift 1
-  task-prettier "${@}"
+  task-prettier --write "${@}"
   exit 0
 fi
 
@@ -237,7 +237,6 @@ fi
 if [[ -z ${1} ]]; then
   task-install
   task-lint --fix
-  task-prettier
   task-webpack --mode=production
   exit 0
 fi

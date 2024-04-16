@@ -120,3 +120,9 @@
 	desc = "Hopefully the eggs are good this season."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "chicken_brown"
+
+/obj/item/holder/chick
+	name = "chick"
+	desc = "You're one of this chick's favorite peeps."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "chick"
