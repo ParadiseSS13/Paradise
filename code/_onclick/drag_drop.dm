@@ -91,13 +91,12 @@ to inform the game this action was expected and its fine
 /obj/screen/click_catcher/IsAutoclickable()
 	return TRUE
 
-/* The actual arguments of this:
-MouseDrag(src_object as null|atom in usr.client,\
-          over_object as null|atom in usr.client,\
-          src_location as null|turf|text in usr.client,\
-          over_location as null|turf|text in usr.client,\
-          src_control as text, over_control as text, params as text)
-*/
+// The actual arguments of this:
+// MouseDrag(src_object as null|atom in usr.client,\
+//           over_object as null|atom in usr.client,\
+//           src_location as null|turf|text in usr.client,\
+//           over_location as null|turf|text in usr.client,\
+//           src_control as text, over_control as text, params as text)
 /client/MouseDrag(src_object, atom/over_object, src_location, turf/over_location, src_control, over_control, params)
 	var/list/modifiers = params2list(params)
 	if(!drag_start) // If we're just starting to drag
