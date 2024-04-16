@@ -188,9 +188,10 @@ CONTENTS:
 	..()
 	if(ishuman(user) && slot == SLOT_HUD_HEAD)
 		var/mob/living/carbon/human/H = user
-		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
-			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
-			CB.apply_borg_disguise(user, src)
+		if(!istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
+			return
+		var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
+		CB.apply_borg_disguise(user, src)
 
 /obj/item/clothing/head/cardborg/dropped(mob/living/user)
 	..()
@@ -198,8 +199,10 @@ CONTENTS:
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	var/mob/living/carbon/human/H = user
-	if(istype(H.head, /obj/item/clothing/head/cardborg))
+	if(ishuman(user) && slot == SLOT_HUD_OUTER_SUIT)
+		var/mob/living/carbon/human/H = user
+		if(!istype(H.head, /obj/item/clothing/head/cardborg))
+			return
 		var/obj/item/clothing/head/cardborg/head = H.head
 		src.apply_borg_disguise(user, head)
 
@@ -213,33 +216,50 @@ CONTENTS:
 	if(species_disguise != borghead.species_disguise)	// Ensure the head and body are the same colour.
 		to_chat(usr, "<span class='warning'>The colours of the disguise do not match, it's not convincing enough to work!</span>")
 		return
-		var/borg_disguise_variant
-		var/disguise_eyes
-		var/borg_eye_list = list(
-			"Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani" = "eyes-Standard",
-			"Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani" = "eyes-Cricket",
-			"ertgamma", "nano_bloodhound" = "eyes_ertgamma",
-			"bloodhound" = "eyes_bloodhound",
-			"syndie_bloodhound" = "eyes-syndie_bloodhound",
-			"syndi_engi" = "eyes-syndi_engi",
-			"lavaland" = "eyes-lavaland",
-			"Miner" = "eyes-Miner",
-			"droid-miner" = "eyes-droid-miner",
-			"droid-medical" = "eyes-droid-medical",
-			"landmate" = "eyes-landmate",
-			"Engineering" = "eyes-engineering",
-			"surgeon" = "eyes-surgeon",
-			"mopgearrex" = "eyes-mopgearrex",
-			"toiletbot" = "eyes-toiletbot",
-			"qualified_doctor" = "eyes-qualified_doctor",
-			"custodiborg" = "eyes_custodiborg",
-			"heavySec" = "eyes-heavySec",
-			"squatminer" = "eyes-squatminer"
-		)
-		borg_disguise_variant = pick(borghead.available_disguises)
-		disguise_eyes = borg_eye_list[borghead.available_disguises]
-		var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
-		I.override = 1
-		if(disguise_eyes)
-			I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
-		H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
+	var/borg_disguise_variant
+	var/disguise_eyes
+	borg_disguise_variant = pick(borghead.available_disguises)
+	switch(borg_disguise_variant)	// We need to know what glowy bits to stick on.
+		if("Standard", "Standard-Secy", "Standard-Engi", "Standard-Mine", "Standard-Serv", "Standard-Jani")
+			disguise_eyes = "eyes-Standard"
+		if("Cricket-SEC", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV", "Cricket-MEDI", "Cricket-Jani")
+			disguise_eyes = "eyes-Cricket"
+		if("ertgamma", "nano_bloodhound")
+			disguise_eyes = "eyes-ertgamma"
+		if("bloodhound")
+			disguise_eyes = "eyes-bloodhound"
+		if("syndie_bloodhound")
+			disguise_eyes = "eyes-syndie_bloodhound"
+		if("syndi-engi")
+			disguise_eyes = "eyes-syndi-engi"
+		if("lavaland")
+			disguise_eyes = "eyes-lavaland"
+		if("Miner")
+			disguise_eyes = "eyes-Miner"
+		if("droid-miner")
+			disguise_eyes = "eyes-droid-miner"
+		if("droid-medical")
+			disguise_eyes = "eyes-droid-medical"
+		if("landmate")
+			disguise_eyes = "eyes-landmate"
+		if("Engineering")
+			disguise_eyes = "eyes-Engineering"
+		if("surgeon")
+			disguise_eyes = "eyes-surgeon"
+		if("mopgearrex")
+			disguise_eyes = "eyes-mopgearrex"
+		if("toiletbot")
+			disguise_eyes = "eyes-toiletbot"
+		if("qualified_doctor")
+			disguise_eyes = "eyes-qualified_doctor"
+		if("custodiborg")
+			disguise_eyes = "eyes-custodiborg"
+		if("heavySec")
+			disguise_eyes = "eyes-heavySec"
+		if("squatminer")
+			disguise_eyes = "eyes-squatminer"
+	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = borg_disguise_variant, loc = H)	// Now you're a robot!
+	I.override = 1
+	if(disguise_eyes)
+		I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = disguise_eyes)	// Gotta look realistic, have some glowy bits!
+	H.add_alt_appearance("borg_disguise_variant", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
