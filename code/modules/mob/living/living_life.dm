@@ -181,22 +181,30 @@
 		else
 			clear_alert("succumb")
 
+/mob/living/proc/perceived_stamina()
+	return staminaloss
+
 /mob/living/update_stamina_hud()
-	if(!client)
+	if(!client || !staminas)
 		return
-	if(staminas)
-		switch(staminaloss)
-			if(100 to INFINITY)
-				staminas.icon_state = "stamina6"
-			if(80 to 100)
-				staminas.icon_state = "stamina5"
-			if(60 to 80)
-				staminas.icon_state = "stamina4"
-			if(40 to 60)
-				staminas.icon_state = "stamina3"
-			if(20 to 40)
-				staminas.icon_state = "stamina2"
-			if(1 to 20)
-				staminas.icon_state = "stamina1"
-			else
-				staminas.icon_state = "stamina0"
+
+	var/perceived_stamina = perceived_stamina()
+
+	switch(perceived_stamina)
+		if(100 to INFINITY)
+			staminas.icon_state = "stamina6"
+		if(80 to 100)
+			staminas.icon_state = "stamina5"
+		if(60 to 80)
+			staminas.icon_state = "stamina4"
+		if(40 to 60)
+			staminas.icon_state = "stamina3"
+		if(20 to 40)
+			staminas.icon_state = "stamina2"
+		if(1 to 20)
+			staminas.icon_state = "stamina1"
+		else
+			staminas.icon_state = null
+/*		else // The 100% stamina is currently disabled, to reduce clutter on your screen
+			staminas.icon_state = "stamina0"
+ */
