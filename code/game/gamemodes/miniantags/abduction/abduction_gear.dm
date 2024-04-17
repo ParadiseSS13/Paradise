@@ -49,7 +49,7 @@
 		H.update_inv_wear_suit()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -320,16 +320,12 @@
 			return
 
 		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
-
 		if(!command)
 			return
-
 		if(QDELETED(user) || user.get_active_hand() != src || loc != user)
 			return
-
 		if(QDELETED(G))
 			return
-
 		G.mind_control(command, user)
 		to_chat(user, "<span class='notice'>You send the command to your target.</span>")
 
@@ -426,7 +422,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/abductor_baton/update_icon_state()
 	switch(mode)

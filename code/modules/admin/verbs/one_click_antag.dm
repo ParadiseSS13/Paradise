@@ -13,13 +13,13 @@
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
-		<a href='?src=[UID()];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
-		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
-		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
+		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
+		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
+		<a href='byond://?src=[UID()];makeAntag=4'>Make Cult</a><br>
+		<a href='byond://?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
+		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -147,10 +147,11 @@
 		candidates -= selected
 
 		var/mob/living/carbon/human/new_character = makeBody(selected)
-		new_character.mind.make_Wizard()
+		new_character.mind.add_antag_datum(/datum/antagonist/wizard)
+		new_character.forceMove(pick(GLOB.wizardstart))
 		dust_if_respawnable(selected)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/admins/proc/makeCult()

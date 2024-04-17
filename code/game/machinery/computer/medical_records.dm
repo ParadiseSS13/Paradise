@@ -2,7 +2,8 @@
 #define MED_DATA_MAINT	3	// Records maintenance
 #define MED_DATA_RECORD	4	// Record
 #define MED_DATA_V_DATA	5	// Virus database
-#define MED_DATA_MEDBOT	6	// Medbot monitor
+#define MED_DATA_GOAL_DATA	6	// Virology goals
+#define MED_DATA_MEDBOT	7	// Medbot monitor
 
 #define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
@@ -168,6 +169,15 @@
 						"D" = D)
 					data["virus"] += list(payload)
 					qdel(DS)
+			if(MED_DATA_GOAL_DATA)
+				data["goals"] = list()
+				for(var/datum/virology_goal/G as anything in GLOB.virology_goals)
+					var/list/payload = list(
+						"name" = G.name,
+						"delivered" = G.delivered_amount,
+						"deliverygoal" = G.delivery_goal,
+						"report" = G.get_report(TRUE))
+					data["goals"] += list(payload)
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
 				for(var/mob/living/simple_animal/bot/medbot/M in GLOB.bots_list)
@@ -465,6 +475,7 @@
 #undef MED_DATA_MAINT
 #undef MED_DATA_RECORD
 #undef MED_DATA_V_DATA
+#undef MED_DATA_GOAL_DATA
 #undef MED_DATA_MEDBOT
 #undef FIELD
 #undef MED_FIELD

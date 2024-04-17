@@ -40,7 +40,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	move_delay = delay
 	if(notify)
 		notify_ghosts("\A [src] is inbound!",
-				enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
+				enter_link="<a href=byond://?src=[UID()];follow=1>(Click to follow)</a>",
 				source = src, action = NOTIFY_FOLLOW)
 	GLOB.poi_list |= src
 	if(end?.z == z_original)

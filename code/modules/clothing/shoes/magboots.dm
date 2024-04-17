@@ -52,7 +52,7 @@
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	check_mag_pulse(user)
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
@@ -155,15 +155,16 @@
 	magical = TRUE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
-	if(user)
-		if(user.mind in SSticker.mode.wizards)
-			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-				set_light(0)
-			else
-				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
-			..()
-		else
-			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+	if(!user)
+		return
+	if(!iswizard(user))
+		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+		return
+	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
+		set_light(0)
+	else
+		set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+	..()
 
 
 /obj/item/clothing/shoes/magboots/gravity

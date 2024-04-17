@@ -169,7 +169,7 @@
 		if(alarm_types_show["Power"])
 			msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<A href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
@@ -192,7 +192,7 @@
 		if(alarm_types_clear["Power"])
 			msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<A href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
