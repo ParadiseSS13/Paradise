@@ -166,8 +166,8 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(temp)
 		dat = temp
 	else
-		dat = "<a href='?src=[UID()];AIrequest=1'>Request an AI's presence.</a><br>"
-		dat += "<a href='?src=[UID()];Holocall=1'>Call another holopad.</a><br>"
+		dat = "<a href='byond://?src=[UID()];AIrequest=1'>Request an AI's presence.</a><br>"
+		dat += "<a href='byond://?src=[UID()];Holocall=1'>Call another holopad.</a><br>"
 
 		if(LAZYLEN(holo_calls))
 			dat += "=====================================================<br>"
@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		for(var/I in holo_calls)
 			var/datum/holocall/HC = I
 			if(HC.connected_holopad != src)
-				dat += "<a href='?src=[UID()];connectcall=[HC.UID()]'>Answer call from [get_area(HC.calling_holopad)].</a><br>"
+				dat += "<a href='byond://?src=[UID()];connectcall=[HC.UID()]'>Answer call from [get_area(HC.calling_holopad)].</a><br>"
 				one_unanswered_call = TRUE
 			else
 				one_answered_call = TRUE
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		for(var/I in holo_calls)
 			var/datum/holocall/HC = I
 			if(HC.connected_holopad == src)
-				dat += "<a href='?src=[UID()];disconnectcall=[HC.UID()] '>Disconnect call from [HC.user].</a><br>"
+				dat += "<a href='byond://?src=[UID()];disconnectcall=[HC.UID()] '>Disconnect call from [HC.user].</a><br>"
 
 	var/area/area = get_area(src)
 	var/datum/browser/popup = new(user, "holopad", "[area] holopad", 400, 300)
@@ -205,15 +205,15 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(last_request + 200 < world.time)
 			last_request = world.time
 			temp = "You requested an AI's presence.<br>"
-			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
+			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='info'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
-			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
+			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
 
 	else if(href_list["Holocall"])
 		if(outgoing_call)
@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
 			return
 		temp = "You must stand on the holopad to make a call!<br>"
-		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
+		temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
 			for(var/I in GLOB.holopads)
@@ -239,7 +239,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 			if(usr.loc == loc)
 				temp = "Dialing...<br>"
-				temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
+				temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])

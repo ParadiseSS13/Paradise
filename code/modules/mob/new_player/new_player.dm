@@ -31,7 +31,7 @@
 		privacy_consent()
 
 /mob/new_player/proc/privacy_consent()
-	var/output = GLOB.join_tos
+	var/output = "<!DOCTYPE html>[GLOB.join_tos]"
 	// Dont blank out the other window. This one is read only.
 	if(!GLOB.configuration.system.external_tos_handler)
 		src << browse(null, "window=playersetup")

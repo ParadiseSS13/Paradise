@@ -217,7 +217,7 @@
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
 		ready_to_deploy = 1
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=\ref[src];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=byond://?src=\ref[src];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 		GLOB.poi_list |= src // ghosts should actually know they can join as a lightgeist
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)

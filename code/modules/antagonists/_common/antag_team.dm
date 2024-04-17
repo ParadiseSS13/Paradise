@@ -358,27 +358,27 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/get_admin_html()
 	var/list/content = list()
 	content += "<h3>[name] - [type]</h3>"
-	content += "<a href='?_src_=holder;team_command=rename_team;team=[UID()]'>Rename Team</a>"
-	content += "<a href='?_src_=holder;team_command=delete_team;team=[UID()]'>Delete Team</a>"
-	content += "<a href='?_src_=holder;team_command=communicate;team=[UID()]'>OOC Message Team</a>"
+	content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[UID()]'>Rename Team</a>"
+	content += "<a href='byond://?_src_=holder;team_command=delete_team;team=[UID()]'>Delete Team</a>"
+	content += "<a href='byond://?_src_=holder;team_command=communicate;team=[UID()]'>OOC Message Team</a>"
 	content += ADMIN_VV(src, "View Variables")
 	for(var/command in get_admin_commands())
 		// src is UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-		content += "<a href='?src=[UID()];command=[command]'>[command]</a>"
+		content += "<a href='byond://?src=[UID()];command=[command]'>[command]</a>"
 	content += "<br><br>Objectives:<br><ol>"
 	for(var/datum/objective/O as anything in objective_holder.get_objectives())
 		if(!istype(O))
 			stack_trace("Non-objective found in [type]'s objective_holder.get_objectives()")
 			continue
-		content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[UID()];objective=[O.UID()]'>Remove</a></li>"
-	content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[UID()]'>Add Objective</a><br>"
+		content += "<li>[O.explanation_text] - <a href='byond://?_src_=holder;team_command=remove_objective;team=[UID()];objective=[O.UID()]'>Remove</a></li>"
+	content += "</ol><a href='byond://?_src_=holder;team_command=add_objective;team=[UID()]'>Add Objective</a><br>"
 	if(objective_holder.has_objectives())
-		content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[UID()]'>Announce Objectives to All Members</a><br><br>"
+		content += "</ol><a href='byond://?_src_=holder;team_command=announce_objectives;team=[UID()]'>Announce Objectives to All Members</a><br><br>"
 	content += "Members: <br><ol>"
 	for(var/datum/mind/M as anything in members)
-		content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[UID()];member=[M.UID()]'>Show Player Panel</a>"
-		content += "<a href='?_src_=holder;team_command=remove_member;team=[UID()];member=[M.UID()]'>Remove Member</a></li>"
-	content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[UID()]'>Add Member</a>"
+		content += "<li>[M.name] - <a href='byond://?_src_=holder;team_command=view_member;team=[UID()];member=[M.UID()]'>Show Player Panel</a>"
+		content += "<a href='byond://?_src_=holder;team_command=remove_member;team=[UID()];member=[M.UID()]'>Remove Member</a></li>"
+	content += "</ol><a href='byond://?_src_=holder;team_command=admin_add_member;team=[UID()]'>Add Member</a>"
 	return content
 
 /**
@@ -406,12 +406,12 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams.<br/>"
-	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
-	content += "<a href='?_src_=holder;team_command=reload;'>Reload Menu</a><br>"
+	content += "<a href='byond://?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
+	content += "<a href='byond://?_src_=holder;team_command=reload;'>Reload Menu</a><br>"
 	if(length(GLOB.antagonist_teams) > 1)
 		var/index = 1
 		for(var/datum/team/T as anything in GLOB.antagonist_teams)
-			content += "<a href='?_src_=holder;team_command=switch_team_tab;team_index=[index]'>[T.name]</a>"
+			content += "<a href='byond://?_src_=holder;team_command=switch_team_tab;team_index=[index]'>[T.name]</a>"
 			index++
 	else
 		team_switch_tab_index = 1

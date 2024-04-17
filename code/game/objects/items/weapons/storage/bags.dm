@@ -206,7 +206,13 @@
 	max_combined_w_class = 40 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/food/snacks/grown/ash_flora,/obj/item/food/snacks/honeycomb)
+	can_hold = list(
+		/obj/item/seeds,
+		/obj/item/unsorted_seeds,
+		/obj/item/food/snacks/grown,
+		/obj/item/grown,
+		/obj/item/food/snacks/grown/ash_flora,
+		/obj/item/food/snacks/honeycomb)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -237,6 +243,23 @@
 /obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
 	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
 		process_plants(user)
+
+/obj/item/storage/bag/plants/seed_sorting_tray
+	name = "seed sorting tray"
+	desc = "A simple wooden tray with compartments for manually sorting seeds. It's better than nothing, but a plant analyzer would be more effective."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "seed_sorting_tray"
+	can_hold = list(
+		/obj/item/seeds,
+		/obj/item/unsorted_seeds)
+
+/obj/item/storage/bag/plants/seed_sorting_tray/attack_self(mob/user)
+	var/depth = 0
+	for(var/obj/item/unsorted_seeds/unsorted in src)
+		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
+			break
+		depth = min(8, depth + 1)
+		unsorted.sort(depth)
 
 // -----------------------------
 //        Sheet Snatcher

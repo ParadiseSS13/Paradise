@@ -1622,7 +1622,7 @@
 	return 0
 
 /datum/character_save/proc/ShowDisabilityState(mob/user, flag, label)
-	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
+	return "<li><b>[label]:</b> <a href='byond://?_src_=prefs;task=input;preference=disabilities;disability=[flag]'>[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/character_save/proc/SetDisabilities(mob/user)
 	var/datum/species/S = GLOB.all_species[species]
@@ -1646,8 +1646,8 @@
 
 
 	HTML += {"</ul>
-		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
-		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
+		<a href='byond://?_src_=prefs;task=close;preference=disabilities'>\[Done\]</a>
+		<a href='byond://?_src_=prefs;task=reset;preference=disabilities'>\[Reset\]</a>
 		</center></tt>"}
 
 	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 380)
@@ -1980,22 +1980,22 @@
 	html += "<body>"
 	if(!length(SSjobs.occupations))
 		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
 	else
 		html += "<tt><center>"
 		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
 
 		// ===== SS220 ADD - NEW JOBS ======
 		// ============= START =============
 		if(check_available_extra_job_prefs(user.client))
-			html += "<center><u><b><a href='?_src_=prefs;preference=job;task=extra_job'>Показать [extra_jobs_check ? "основные" : "дополнительные"] работы</a></b></u></center><br>"
+			html += "<center><u><b><a href='byond://?_src_=prefs;preference=job;task=extra_job'>Показать [extra_jobs_check ? "основные" : "дополнительные"] работы</a></b></u></center><br>"
 		if(extra_jobs_check)
 			splitJobs = get_split_extra_jobs()
 		// ============== END ==============
 
 		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
-		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
@@ -2037,7 +2037,7 @@
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
-				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
+				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
 			lastJob = job
@@ -2095,9 +2095,9 @@
 				prefLowerLevel = 1
 
 
-			html += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
+			html += "<a class='white' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
-	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
+	//			HTML += "<a href='byond://?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
@@ -2128,14 +2128,14 @@
 
 		switch(alternate_option)
 			if(GET_RANDOM_JOB)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
 			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
 			if(RETURN_TO_LOBBY)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 
-		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
-		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
+		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
 		html += "</tt>"
 
 	user << browse(null, "window=preferences")

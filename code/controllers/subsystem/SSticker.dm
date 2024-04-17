@@ -784,7 +784,7 @@ SUBSYSTEM_DEF(ticker)
 		AR.handle_data(load_queries[ckey])
 		save_queries[ckey] = AR.get_save_query()
 
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
 
 	log_text += "Investigation advised if there are a high number of infractions"
 

@@ -1562,10 +1562,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				ae.selected_accesses = req_one_access
 				ae.one_access = 1
 			ae.unres_access_from = unres_sides
+			ae.is_installed = FALSE
 		else
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
+			ae.is_installed = FALSE
 	QDEL_LIST_CONTENTS(fillers)
 	qdel(src)
 

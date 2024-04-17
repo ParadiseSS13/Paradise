@@ -932,3 +932,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	SHOULD_BE_PURE(TRUE)
 	return !(flags & NODROP) && !(flags & ABSTRACT)
+
+/obj/item/proc/should_stack_with(obj/item/other)
+	return type == other.type && name == other.name

@@ -65,7 +65,7 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat= 2, /obj/item/food/snacks/monstermeat/spiderleg= 8, /obj/item/food/snacks/monstermeat/spidereggs= 4)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8, /obj/item/food/snacks/monstermeat/spidereggs = 4)
 
 	maxHealth = 40
 	health = 40

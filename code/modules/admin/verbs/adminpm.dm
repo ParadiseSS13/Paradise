@@ -120,7 +120,7 @@
 	var/datum/controller/subsystem/tickets/tickets_system
 	// We treat PMs as mentorhelps if we were explicitly so, or if neither
 	// party is an admin.
-	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, src.mob)))
+	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, mob)))
 		send_span = "mentorhelp"
 		recieve_span = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
@@ -166,23 +166,33 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
-	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ticket_link
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
-			window_link = "(<a href='?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
+			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
 		else
-			window_link = "(<a href='?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
+			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [window_link] [alert_link]" : ""]</span>"
+	var/recieve_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
+		recieve_window_link = ticket_link
+	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
+		recieve_window_link = ticket_link
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [recieve_window_link] [alert_link]" : ""]</span>"
 	if(message_type == MESSAGE_TYPE_MENTORPM)
 		recieve_message = chat_box_mhelp(recieve_message)
 	else
 		recieve_message = chat_box_ahelp(recieve_message)
 	to_chat(C, recieve_message)
-	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [window_link] [alert_link]"
+	var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
+		send_window_link = ticket_link
+	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
+		send_window_link = ticket_link
+	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
 	if(message_type == MESSAGE_TYPE_MENTORPM)
 		send_message = chat_box_mhelp(send_message)
 	else
@@ -191,9 +201,9 @@
 
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)
-		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
+		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link]</span>")
 	else
-		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
+		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link]</span>")
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
@@ -287,12 +297,16 @@
 		target.pm_tracker.show_ui(target.mob)
 
 /datum/pm_tracker
+	var/ckey
 	var/current_title = ""
 	var/open = FALSE
 	var/list/datum/pm_convo/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
 	var/forced = FALSE
+
+/datum/pm_tracker/New(ckey_in)
+	ckey = ckey_in
 
 /datum/pm_convo
 	var/list/messages = list()
@@ -326,14 +340,18 @@
 	show_ui(user)
 
 /datum/pm_tracker/proc/show_ui(mob/user)
+	// Please do not open someone else's PMs, that makes them not very private.
+	if(user.ckey != ckey)
+		return
+
 	var/dat = ""
 
 	// If it was forced open, make them use a special close button that alerts admins to closure
 	if(forced)
-		dat += "<div style='float: right'><big><a href='?src=[UID()];altclose=1'>Close</a></big></div>"
+		dat += "<div style='float: right'><big><a href='byond://?src=[UID()];altclose=1'>Close</a></big></div>"
 
-	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
-	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<a href='byond://?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
 	for(var/title in pms)
 		if(pms[title].archived && !show_archived)
@@ -345,7 +363,7 @@
 			class = "linkOn"
 		else if(!pms[title].read)
 			label = "<i>*[label]</i>"
-		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
+		dat += "<a class='[class]' href='byond://?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
@@ -375,10 +393,10 @@
 			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
 		dat += "<br>"
 		dat += "</h4>"
-		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
-		dat += "<a href='?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
+		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"
+		dat += "<a href='byond://?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
 		if(check_rights(R_ADMIN, FALSE, user))
-			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
+			dat += "<a href='byond://?src=[UID()];ping=[current_title]'>Ping</a>"
 
 	popup.set_content(dat)
 	popup.open()
