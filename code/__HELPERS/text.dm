@@ -12,31 +12,31 @@
  * Text sanitization
  */
 // Can be used almost the same way as normal input for text
-/proc/clean_input(Message, Title, Default, mob/user=usr)
+/proc/clean_input(Message, Title, Default, mob/user = usr)
 	var/txt = input(user, Message, Title, html_decode(Default)) as text | null
 	if(txt)
 		return html_encode(txt)
 
 //Simply removes < and > and limits the length of the message
-/proc/strip_html_simple(t, limit=MAX_MESSAGE_LEN)
-	var/list/strip_chars = list("<",">")
-	t = copytext(t,1,limit)
+/proc/strip_html_simple(t, limit = MAX_MESSAGE_LEN)
+	var/list/strip_chars = list("<", ">")
+	t = copytext(t, 1 , limit)
 	for(var/char in strip_chars)
 		var/index = findtext(t, char)
 		while(index)
-			t = copytext(t, 1, index) + copytext(t, index+1)
+			t = copytext(t, 1, index) + copytext(t, index + 1)
 			index = findtext(t, char)
 	return t
-
+Few people know, but earlier you had to pay $1 for each whitespace
 //Removes a few problematic characters
-/proc/sanitize_simple(t, list/repl_chars = list("\n"="#","\t"="#"))
+/proc/sanitize_simple(t, list/repl_chars = list("\n"="#", "\t"="#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(t, list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+	return html_encode(sanitize_simple(t, repl_chars))
 
 /// sanitize() with a pre-set list of characters to remove from IC speech.
 /proc/sanitize_for_ic(t)
@@ -54,8 +54,8 @@
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
-/proc/strip_html(t, limit=MAX_MESSAGE_LEN)
-	return copytext((sanitize(strip_html_simple(t))),1,limit)
+/proc/strip_html(t, limit = MAX_MESSAGE_LEN)
+	return trim_length(sanitize(strip_html_simple(t)), limit)
 
 // Used to get a properly sanitized multiline input, of max_length
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length = MAX_MESSAGE_LEN, trim = TRUE)
@@ -65,17 +65,17 @@
 
 // Runs byond's sanitization proc along-side strip_html_simple
 // I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
-/proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
-	return copytext((html_encode(strip_html_simple(t))),1,limit)
+/proc/adminscrub(t, limit = MAX_MESSAGE_LEN)
+	return trim_length(html_encode(strip_html_simple(t)), limit)
 
 
 //Returns null if there is any bad text in the string
-/proc/reject_bad_text(text, max_length=512)
+/proc/reject_bad_text(text, max_length = 512)
 	if(length_char(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
-	for(var/i=1, i<=length_char(text), i++)
-		switch(text2ascii_char(text,i))
-			if(62,60,92,47)	return			//rejects the text if it contains these bad characters: <, >, \ or /
+	for(var/i = 1, i <= length_char(text), i++)
+		switch(text2ascii_char(text, i))
+			if(62, 60, 92, 47)	return		//rejects the text if it contains these bad characters: <, >, \ or /
 			if(127 to 255)	return			//rejects weird letters like �
 			if(0 to 31)		return			//more weird stuff
 			if(32)			continue		//whitespace
@@ -87,7 +87,7 @@
 	var/name = sanitize(input(user, message, title, html_decode(default)) as text|null)
 	if(trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
-	return copytext(name, 1, max_length)
+	return trim_length(name, max_length)
 
 // Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
@@ -102,7 +102,7 @@
 	return msg
 
 //Filters out undesirable characters from names
-/proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
+/proc/reject_bad_name(t_in, allow_numbers = 0, max_length = MAX_NAME_LEN)
 	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
 	if(!t_in || length_char(t_in) > max_length)
@@ -162,7 +162,7 @@
 	if(last_char_group == 1)
 		t_out = copytext(t_out,1,length(t_out))	//removes the last character (in this case a space)
 
-	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))	//prevents these common metagamey names
+	for(var/bad_name in list("space", "floor", "wall", "r-wall", "monkey","unknown", "inactive ai", "plating"))	//prevents these common metagamey names
 		if(cmptext(t_out,bad_name))	return	//(not case sensitive)
 
 	return t_out
@@ -171,18 +171,18 @@
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
 //relpaces < with &lt;
 /proc/checkhtml(t)
-	t = sanitize_simple(t, list("&#"="."))
-	var/p = findtext(t,"<",1)
+	t = sanitize_simple(t, list("&#" = "."))
+	var/p = findtext(t, "<", 1)
 	while(p)	//going through all the tags
 		var/start = p++
-		var/tag = copytext(t,p, p+1)
+		var/tag = copytext(t, p, p + 1)
 		if(tag != "/")
-			while(reject_bad_text(copytext(t, p, p+1), 1))
-				tag = copytext(t,start, p)
+			while(reject_bad_text(copytext(t, p, p + 1), 1))
+				tag = copytext(t, start, p)
 				p++
-			tag = copytext(t,start+1, p)
+			tag = copytext(t, start + 1, p)
 			if(!(tag in GLOB.paper_tag_whitelist))	//if it's unkown tag, disarming it
-				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
+				t = copytext(t, 1, start - 1) + "&lt;" + copytext(t, start + 1)
 		p = findtext(t,"<",p)
 	return t
 /*
