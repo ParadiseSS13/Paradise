@@ -20,7 +20,7 @@
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(t, limit = MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<", ">")
-	t = copytext(t, 1 , limit)
+	t = copytext(t, 1, limit)
 	for(var/char in strip_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -73,7 +73,7 @@
 /proc/reject_bad_text(text, max_length = 512)
 	if(length_char(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
-	for(var/i = 1, i <= length_char(text), i++)
+	for(var/i in 1 to length_char(text))
 		switch(text2ascii_char(text, i))
 			if(62, 60, 92, 47)	return		//rejects the text if it contains these bad characters: <, >, \ or /
 			if(127 to 255)	return			//rejects weird letters like �
