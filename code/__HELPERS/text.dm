@@ -29,7 +29,7 @@
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(t, list/repl_chars = list("\n"="#", "\t"="#"))
+/proc/sanitize_simple(t, list/repl_chars = list("\n" = "#", "\t" = "#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
