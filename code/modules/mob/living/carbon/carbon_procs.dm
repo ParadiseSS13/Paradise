@@ -805,7 +805,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = get_restraining_item()
-	if(!I) // If there is nothing to restrain him then he is not restrained
+	var/time = 0
+	if(!istype(I)) // If there is nothing to restrain him then he is not restrained
+		if(isstructure(buckled))
+			var/obj/structure/struct = buckled
+			time = struct.unbuckle_time
+	else
+		time = I.breakouttime
+
+	if(time == 0)
 		buckled.user_unbuckle_mob(src, src)
 		return
 
@@ -813,7 +821,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
 		return
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
-	var/time = I.breakouttime
+
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
