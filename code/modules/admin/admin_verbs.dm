@@ -360,8 +360,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/mentor_ghost()
-	var/is_mentor = check_rights(R_MENTOR)
-	var/is_full_admin = check_rights(R_ADMIN|R_MOD)
+	var/is_mentor = check_rights(R_MENTOR, FALSE)
+	var/is_full_admin = check_rights(R_ADMIN|R_MOD, FALSE)
+
+	if(!is_mentor && !is_full_admin)
+		to_chat(src, "<span class='warning'>You aren't allowed to use this!</span>")
+		return
 
 	// mentors are allowed only if they have the observe trait, which is given on observe.
 	// they should also not be given this proc.

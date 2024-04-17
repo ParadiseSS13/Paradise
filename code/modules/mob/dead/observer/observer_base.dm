@@ -911,17 +911,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(isnewplayer(mob_eye))
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
-		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
 		return
 
 	if(!mob_eye.mind)
 		to_chat(src, "<span class='notice'>You can only observe mobs that have been or are being inhabited by a player!</span>")
-		return
-
-	if(!isnull(mob_observed))
-		stack_trace("do_observe called on an observer ([src]) who was already observing something! (observing: [mob_observed], new target: [mob_eye])")
-		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone while already observing someone, \
-			this is a bug (and a past exploit) and should be investigated.")
 		return
 
 	if(mob_eye == src)
@@ -949,8 +942,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		// mentor observing grants you this trait, and provides its own signal handler for this
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
-			// TODO REMOVE THIS AFTER DEBUGGING
-			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end))
+			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end), override = TRUE)
 		else
 			log_debug("[key_name(src)] has not been granted the mobserve trait while observing. If they are not a mentor, this is most likely an error.")
 
