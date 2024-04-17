@@ -310,8 +310,12 @@
 			M.Feedstop()
 		return // can't attack while eating!
 
-	if(HAS_TRAIT(src, TRAIT_PACIFISM))
+	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+	
+	if(isslime(src) && src.stat != DEAD)
+		to_chat(M, "<span class='warning'>You don't want to hurt other slime...</span>")
 		return FALSE
 
 	if(stat != DEAD)

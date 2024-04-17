@@ -275,21 +275,24 @@
 	return
 
 /mob/living/simple_animal/slime/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		if(M == src)
-			return
-		if(buckled)
-			Feedstop(silent = TRUE)
-			visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
-				"<span class='danger'>You pull [src] off!</span>")
-			return
-		attacked += 5
-		if(nutrition >= 100) //steal some nutrition. negval handled in life()
-			adjust_nutrition(-(50 + (40 * M.is_adult)))
-			M.add_nutrition(50 + (40 * M.is_adult))
-		if(health > 0)
-			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
-			M.updatehealth()
+	if(!..())
+		return
+
+	// successful slime attack
+	if(M == src)
+		return
+	if(buckled)
+		Feedstop(silent = TRUE)
+		visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
+			"<span class='danger'>You pull [src] off!</span>")
+		return
+	attacked += 5
+	if(nutrition >= 100) //steal some nutrition. negval handled in life()
+		adjust_nutrition(-(50 + (40 * M.is_adult)))
+		M.add_nutrition(50 + (40 * M.is_adult))
+	if(health > 0)
+		M.adjustBruteLoss(-10 + (-10 * M.is_adult))
+		M.updatehealth()
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()
