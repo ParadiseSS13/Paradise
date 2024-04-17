@@ -45546,7 +45546,8 @@
 /obj/machinery/button/windowtint/north{
 	id = "Processing";
 	pixel_x = -6;
-	req_access_txt = "63"
+	req_access_txt = "63";
+	range = 4
 	},
 /obj/machinery/light_switch/north{
 	pixel_x = 6
