@@ -107,7 +107,7 @@
 			dat = {"<B>[src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<hr><br> <a href='?src=[UID()];action=dispose'>Dispose ingredients!</a><br>"}
+		dat += {"<hr><br> <a href='byond://?src=[UID()];action=dispose'>Dispose ingredients!</a><br>"}
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
