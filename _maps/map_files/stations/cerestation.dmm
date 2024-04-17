@@ -7908,6 +7908,7 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/plantbgone,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "aYc" = (
@@ -7917,6 +7918,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "aYd" = (
@@ -43324,6 +43326,7 @@
 /obj/item/plant_analyzer,
 /obj/item/cultivator,
 /obj/item/reagent_containers/spray/plantbgone,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
