@@ -303,26 +303,28 @@
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
-		return
+		return FALSE
 
 	if(M.buckled)
 		if(M in buckled_mobs)
 			M.Feedstop()
-		return // can't attack while eating!
+		return FALSE // can't attack while eating!
+
+	if(stat == DEAD)
+		return FALSE
 
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return FALSE
 	
-	if(isslime(src) && src.stat != DEAD)
+	if(isslime(src))
 		to_chat(M, "<span class='warning'>You don't want to hurt other slime...</span>")
 		return FALSE
 
-	if(stat != DEAD)
-		add_attack_logs(M, src, "Slime'd")
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
-		return TRUE
+	add_attack_logs(M, src, "Slime'd")
+	M.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+	return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
