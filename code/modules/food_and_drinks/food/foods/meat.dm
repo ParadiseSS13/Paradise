@@ -124,7 +124,7 @@
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
-	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
+	list_reagents = list("protein" = 12, "morphine" = 3, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
 /obj/item/food/snacks/monstermeat/xenomeat
