@@ -27,7 +27,7 @@
 			t = copytext(t, 1, index) + copytext(t, index + 1)
 			index = findtext(t, char)
 	return t
-Few people know, but earlier you had to pay $1 for each whitespace
+
 //Removes a few problematic characters
 /proc/sanitize_simple(t, list/repl_chars = list("\n"="#", "\t"="#"))
 	for(var/char in repl_chars)
