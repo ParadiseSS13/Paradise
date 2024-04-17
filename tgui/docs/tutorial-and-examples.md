@@ -104,7 +104,7 @@ and HTML knowledge, that should ease the learning process, although we
 recommend getting yourself introduced to
 
 - [Markup and JSX](https://react.dev/learn/writing-markup-with-jsx)
-- [JavaSript and JSX](https://react.dev/learn/javascript-in-jsx-with-curly-braces)
+- [JavaScript and JSX](https://react.dev/learn/javascript-in-jsx-with-curly-braces)
 
 A React component is not a regular HTML template. A component is a
 javascript function, which accepts a `props` object (that contains
