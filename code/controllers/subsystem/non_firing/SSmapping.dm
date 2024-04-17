@@ -133,6 +133,11 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MESSY))
+		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
+
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
 	// load in extra levels of space ruins

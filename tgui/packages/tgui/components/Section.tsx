@@ -60,7 +60,6 @@ export class Section extends Component<SectionProps> {
       <div
         className={classes([
           'Section',
-          Byond.IS_LTE_IE8 && 'Section--iefix',
           fill && 'Section--fill',
           fitted && 'Section--fitted',
           scrollable && 'Section--scrollable',
