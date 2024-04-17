@@ -48,6 +48,8 @@
 		if(override)
 			alert.timeout = null
 
+		alert.attach_owner(src)
+
 	if(icon_override)
 		alert.icon = icon_override
 
@@ -100,10 +102,51 @@
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
 	mouse_opacity = MOUSE_OPACITY_ICON
-	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
+	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
+	var/timeout = 0
+	/// Some alerts may have different icon states based on severity, this adjusts that.
 	var/severity = 0
+	/// Tool-tip for the alert.
 	var/alerttooltipstyle = ""
-	var/override_alerts = FALSE //If it is overriding other alerts of the same type
+	/// If true, this should override any other alerts of the same type thrown.
+	var/override_alerts = FALSE
+	/// The mob that this alert was originally thrown to.
+	var/mob/owner
+
+/atom/movable/screen/alert/proc/attach_owner(mob/new_owner)
+	owner = new_owner
+
+/atom/movable/screen/alert/proc/remove_owner(mob/source, force)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	if(owner == source)
+		owner = null
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+
+
+/atom/movable/screen/alert/Destroy()
+	if(owner)
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+	owner = null
+	severity = 0
+	master = null
+	screen_loc = ""
+	return ..()
+
+/atom/movable/screen/alert/Click(location, control, params)
+	. = ..()
+	if(!usr || !usr.client)
+		return FALSE
+	if(usr != owner)
+		to_chat(usr, "<span class='notice'>Only [owner] can use that!</span>")
+		return FALSE
+	var/paramslist = params2list(params)
+	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		return FALSE
+	if(master)
+		usr.client.Click(master, location, control, params)
+		return FALSE  // don't have the subcall do anything here
+	return TRUE
 
 /atom/movable/screen/alert/MouseEntered(location, control, params)
 	. = ..()
@@ -310,7 +353,7 @@ or something covering your eyes."
 	icon_state = "embeddedobject"
 
 /atom/movable/screen/alert/embeddedobject/Click()
-	if(isliving(usr))
+	if(isliving(usr) && ..())
 		var/mob/living/carbon/human/M = usr
 		return M.help_shake_act(M)
 
@@ -333,7 +376,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "fire"
 
 /atom/movable/screen/alert/fire/Click()
-	if(isliving(usr))
+	if(isliving(usr) && ..())
 		var/mob/living/L = usr
 		return L.resist()
 
@@ -406,7 +449,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
 
 /atom/movable/screen/alert/nymph/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/D = usr
@@ -417,7 +460,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "You have merged with one or more diona nymphs. Click here to drop it (or one of them)."
 
 /atom/movable/screen/alert/gestalt/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 
 	var/list/nymphs = list()
@@ -465,7 +508,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/hackingapc/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	if(!target)
 		return
@@ -491,7 +534,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/mech_port_available/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	if(!ismecha(usr.loc) || !target)
 		return
@@ -507,7 +550,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "mech_port_x"
 
 /atom/movable/screen/alert/mech_port_disconnect/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	if(!ismecha(usr.loc))
 		return
@@ -566,7 +609,7 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 300
 
 /atom/movable/screen/alert/notify_cloning/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
@@ -585,6 +628,8 @@ so as to remain in compliance with the most up-to-date laws."
 	overlays += I
 
 /atom/movable/screen/alert/ghost/Click()
+	if(!..())
+		return
 	var/mob/living/carbon/human/infected_user = usr
 	if(!istype(infected_user) || infected_user.stat == DEAD)
 		infected_user.clear_alert("ghost_nest")
@@ -640,7 +685,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/notify_action/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	var/mob/dead/observer/G = usr
 
@@ -721,7 +766,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/stoner = null
 
 /atom/movable/screen/alert/notify_soulstone/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	if(stone)
 		if(tgui_alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
@@ -738,6 +783,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "map_vote"
 
 /atom/movable/screen/alert/notify_mapvote/Click()
+	// ehh sure let them click on it if they really want who cares
 	usr.client.vote()
 
 //OBJECT-BASED
@@ -756,11 +802,14 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
 /atom/movable/screen/alert/restrained/Click()
-	if(isliving(usr))
-		var/mob/living/L = usr
-		return L.resist()
+	if(!isliving(usr) || !..())
+		return
+	var/mob/living/L = usr
+	return L.resist()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
+	if(!isliving(usr) || !..())
+		return
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist())
 		return
@@ -808,21 +857,6 @@ so as to remain in compliance with the most up-to-date laws."
 			reorganize_alerts(viewer)
 	return TRUE
 
-/atom/movable/screen/alert/Click(location, control, params)
-	if(!usr || !usr.client)
-		return
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
-		return
-	if(master)
-		return usr.client.Click(master, location, control, params)
-
-/atom/movable/screen/alert/Destroy()
-	severity = 0
-	master = null
-	screen_loc = ""
-	return ..()
 
 /// Gives the player the option to succumb while in critical condition
 /atom/movable/screen/alert/succumb
@@ -831,7 +865,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
-	if(!usr || !usr.client)
+	if(!..())
 		return
 	var/mob/living/living_owner = usr
 	if(!istype(usr))

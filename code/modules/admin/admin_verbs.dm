@@ -461,7 +461,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	if(isnewplayer(target))
-		to_chat(src, "<span class='warning'>You can't observe a player in the lobby.</span>")
+		to_chat(src, "<span class='warning'>[target] is currently in the lobby.</span>")
 		return
 
 	if(cleanup_admin_observe(mob))
