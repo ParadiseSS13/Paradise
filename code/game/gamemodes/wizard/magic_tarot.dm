@@ -547,7 +547,7 @@
 	card_icon = "judgement"
 
 /datum/tarot/judgement/activate(mob/living/target)
-	notify_ghosts("[target] has used a judgment card. Judge them. Or not, up to you.", enter_link = "<a href=?src=[UID()];follow=1>(Click to judge)</a>", source = target, action = NOTIFY_FOLLOW)
+	notify_ghosts("[target] has used a judgment card. Judge them. Or not, up to you.", enter_link = "<a href=byond://?src=[UID()];follow=1>(Click to judge)</a>", source = target, action = NOTIFY_FOLLOW)
 
 /datum/tarot/the_world
 	name = "XXI - The World"
