@@ -3588,3 +3588,5 @@
 		var/mob/dead/observer/O = target
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
+	else if(ismob(target))
+		. += "|[ADMIN_OBS(target, "OBS")]"
