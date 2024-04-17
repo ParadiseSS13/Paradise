@@ -1252,7 +1252,7 @@ Standard way to write links -Sayu
 /proc/topic_link(datum/D, arglist, content)
 	if(islist(arglist))
 		arglist = list2params(arglist)
-	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
+	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 

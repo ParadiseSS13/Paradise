@@ -40,7 +40,7 @@
 /datum/tgui_say/proc/initialize()
 	set waitfor = FALSE
 	// Sleep to defer initialization to after client constructor
-	sleep(3)
+	sleep(3 SECONDS)
 	window.initialize(
 			strict_mode = TRUE,
 			fancy = TRUE,
@@ -119,5 +119,8 @@
 		if("entry")
 			handle_entry(payload)
 			return TRUE
+		if("ready_state_error")
+			to_chat(client, "<span class='warning'>TGUI Say attempted to render before it was ready, please try again!</span>")
+			return FALSE
 
 	return FALSE

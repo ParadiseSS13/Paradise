@@ -1028,7 +1028,7 @@
 	name = "Islay Whiskey"
 	id = "islaywhiskey"
 	result = "islaywhiskey"
-	required_reagents = list("eznutriment" = 1, "whiskey" = 1, "nutriment" = 1)
+	required_reagents = list("eznutrient" = 1, "whiskey" = 1, "nutriment" = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
