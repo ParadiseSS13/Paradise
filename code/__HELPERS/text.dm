@@ -58,15 +58,13 @@
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 // Used to get a properly sanitized multiline input, of max_length
-/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, html_decode(default)) as message|null
-	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
-	else
-		return trim(html_encode(name), max_length)
+/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length = MAX_MESSAGE_LEN, trim = TRUE)
+	var/text = input(user, message, title, html_decode(default)) as message|null
+	var/trimmed_text = trim ? trim(text) : text 
+	return trim_length(html_encode(trimmed_text), max_length)
 
-//Runs byond's sanitization proc along-side strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
+// Runs byond's sanitization proc along-side strip_html_simple
+// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
@@ -85,9 +83,9 @@
 	if(non_whitespace)		return text		//only accepts the text if it has some non-spaces
 
 // Used to get a sanitized input.
-/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length = MAX_MESSAGE_LEN, trim = TRUE)
 	var/name = sanitize(input(user, message, title, html_decode(default)) as text|null)
-	if(!no_trim)
+	if(trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 	return copytext(name, 1, max_length)
 

@@ -13,10 +13,10 @@
  * * max_length - Specifies a max length for input. MAX_MESSAGE_LEN is default (1024)
  * * multiline -  Bool that determines if the input box is much larger. Good for large messages, laws, etc.
  * * encode - Toggling this determines if input is filtered via html_encode. Setting this to FALSE gives raw input.
- * * no_trim - Toggling this removes leading and trailing spaces in the input text. FALSE is default.
+ * * trim - Toggling this removes leading and trailing spaces in the input text. TRUE is default.
  * * timeout - The timeout of the textbox, after which the modal will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length = MAX_MESSAGE_LEN, multiline = FALSE, encode = TRUE, no_trim = FALSE, timeout = 0, ui_state = GLOB.always_state)
+/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length = MAX_MESSAGE_LEN, multiline = FALSE, encode = TRUE, trim = TRUE, timeout = 0, ui_state = GLOB.always_state)
 	if(!user)
 		user = usr
 
@@ -32,13 +32,13 @@
 	// Client does NOT have tgui_input on: Returns regular input
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		if(encode)
-			return multiline ? stripped_multiline_input(user, message, title, default, max_length, no_trim) \
-				: stripped_input(user, message, title, default, max_length, no_trim)
+			return multiline ? stripped_multiline_input(user, message, title, default, max_length, trim) \
+				: stripped_input(user, message, title, default, max_length, trim)
 		var/raw_input = multiline ? input(user, message, title, default) as message|null \
 			: input(user, message, title, default) as text|null
-		return no_trim ? raw_input : trim(raw_input)
+		return trim ? trim(raw_input) : raw_input
 
-	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, no_trim, timeout, ui_state)
+	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
 
 	text_input.ui_interact(user)
 	text_input.wait()
@@ -60,7 +60,7 @@
 	/// Whether the input should be stripped using html_encode
 	var/encode
 	/// Controls the trimming of leading and trailing spaces.
-	var/no_trim
+	var/trim
 	/// The entry that the user has return_typed in.
 	var/entry
 	/// The maximum length for text entry
@@ -78,10 +78,10 @@
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, no_trim, timeout, ui_state)
+/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
 	src.default = default
 	src.encode = encode
-	src.no_trim = no_trim
+	src.trim = trim
 	src.max_length = max_length
 	src.message = message
 	src.multiline = multiline
@@ -168,5 +168,5 @@
 		return
 
 	var/converted_entry = encode ? html_encode(entry) : entry
-	var/trimmed_entry = no_trim ? converted_entry : trim(converted_entry)
+	var/trimmed_entry = trim ? trim(converted_entry) : converted_entry
 	src.entry = trim_length(trimmed_entry, max_length)
