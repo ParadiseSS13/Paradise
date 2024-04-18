@@ -111,8 +111,8 @@
 /mob/living/carbon/alien/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++length(status_tab_data)] = list("Intent:", "[a_intent]")
-	status_tab_data[++length(status_tab_data)] = list("Move Mode:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
 /mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()

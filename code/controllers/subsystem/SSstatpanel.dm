@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(statpanels)
 		if(SSshuttle.emergency)
 			var/eta = SSshuttle.emergency.getModeStr()
 			if(eta)
-				global_data[++length(global_data)] = list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
+				global_data[++global_data.len] = list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
 		src.currentrun = GLOB.clients.Copy()
 		mc_data = null
 
@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		// We already have it. Success!
 		if(existing_image)
-			turf_items[++length(turf_items)] = list("[turf_item.name]", turf_item.UID(), existing_image)
+			turf_items[++turf_items.len] = list("[turf_item.name]", turf_item.UID(), existing_image)
 			continue
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item
@@ -172,8 +172,8 @@ SUBSYSTEM_DEF(statpanels)
 		list("","")
 	)
 	for(var/datum/controller/subsystem/sub_system as anything in Master.subsystems)
-		mc_data[++length(mc_data)] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "[sub_system.UID()]")
-	mc_data[++length(mc_data)] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "[GLOB.cameranet.UID()]")
+		mc_data[++mc_data.len] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "[sub_system.UID()]")
+	mc_data[++mc_data.len] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "[GLOB.cameranet.UID()]")
 
 ///immediately update the active statpanel tab of the target client
 /datum/controller/subsystem/statpanels/proc/immediate_send_stat_data(client/target)

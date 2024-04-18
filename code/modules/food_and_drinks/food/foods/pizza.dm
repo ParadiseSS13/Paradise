@@ -270,7 +270,7 @@
 		desc = "A box suited for pizzas. It appears to have a [pizza.name] inside."
 	else if(boxes.len > 0)
 		desc = "A pile of boxes suited for pizzas. There appears to be [boxes.len + 1] boxes in the pile."
-		var/obj/item/pizzabox/top_box = boxes[length(boxes)]
+		var/obj/item/pizzabox/top_box = boxes[boxes.len]
 		var/top_tag = top_box.box_tag
 		if(top_tag != "")
 			desc = "[desc] The box on top has a tag, it reads: '[top_tag]'."
@@ -299,7 +299,7 @@
 		// Stupid code because byondcode sucks
 		var/set_tag = TRUE
 		if(boxes.len > 0)
-			var/obj/item/pizzabox/top_box = boxes[length(boxes)]
+			var/obj/item/pizzabox/top_box = boxes[boxes.len]
 			if(top_box.box_tag != "")
 				set_tag = TRUE
 		else
@@ -322,7 +322,7 @@
 		if(user.is_in_inactive_hand(src))
 			..()
 			return
-		var/obj/item/pizzabox/box = boxes[length(boxes)]
+		var/obj/item/pizzabox/box = boxes[boxes.len]
 		boxes -= box
 		user.put_in_hands(box)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
@@ -390,7 +390,7 @@
 			return
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
-			boxtotagto = boxes[length(boxes)]
+			boxtotagto = boxes[boxes.len]
 		boxtotagto.box_tag = copytext("[t]", 1, 30)
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return

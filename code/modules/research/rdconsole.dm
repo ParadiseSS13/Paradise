@@ -725,7 +725,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
 			var/list/design_list = list()
-			designs_list[++length(designs_list)] = design_list
+			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
@@ -734,7 +734,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			for(var/M in D.materials)
 				var/list/material_list = list()
-				design_materials_list[++length(design_materials_list)] = material_list
+				design_materials_list[++design_materials_list.len] = material_list
 				material_list["name"] = CallMaterialName(M)
 				material_list["amount"] = D.materials[M] * coeff
 				var/t = machine.check_mat(D, M)
@@ -743,7 +743,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			for(var/R in D.reagents_list)
 				var/list/material_list = list()
-				design_materials_list[++length(design_materials_list)] = material_list
+				design_materials_list[++design_materials_list.len] = material_list
 				material_list["name"] = CallMaterialName(R)
 				material_list["amount"] = D.reagents_list[R] * coeff
 				var/t = machine.check_mat(D, R)
@@ -753,22 +753,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			design_list["can_build"] = can_build
 
 	else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
-		materials_list[++length(materials_list)] = list("name" = "Metal", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
-		materials_list[++length(materials_list)] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
-		materials_list[++length(materials_list)] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
-		materials_list[++length(materials_list)] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
-		materials_list[++length(materials_list)] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
-		materials_list[++length(materials_list)] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
-		materials_list[++length(materials_list)] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
-		materials_list[++length(materials_list)] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
-		materials_list[++length(materials_list)] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
-		materials_list[++length(materials_list)] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
-		materials_list[++length(materials_list)] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
-		materials_list[++length(materials_list)] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
+		materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
+		materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
+		materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
+		materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
+		materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
+		materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
+		materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+		materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
+		materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
+		materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
+		materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
+		materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
 	else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
 		for(var/datum/reagent/R in machine.reagents.reagent_list)
 			var/list/loaded_chemical = list()
-			loaded_chemicals[++length(loaded_chemicals)] = loaded_chemical
+			loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
 			loaded_chemical["name"] = R.name
 			loaded_chemical["volume"] = R.volume
 			loaded_chemical["id"] = R.id
@@ -818,7 +818,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["name"] = T.name
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
-			tech_levels[++length(tech_levels)] = this_tech_list
+			tech_levels[++tech_levels.len] = this_tech_list
 
 	else if(menu == MENU_DISK)
 
@@ -837,7 +837,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(T.level <= 0)
 					continue
 				var/list/item = list()
-				to_copy[++length(to_copy)] = item
+				to_copy[++to_copy.len] = item
 				item["name"] = T.name
 				item["id"] = T.id
 
@@ -859,7 +859,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)
 				var/list/material = list()
-				materials[++length(materials)] = material
+				materials[++materials.len] = material
 				material["name"] = CallMaterialName(M)
 				material["amount"] = d_disk.blueprint.materials[M]
 
@@ -871,7 +871,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(!can_copy_design(D))
 					continue
 				var/list/item = list()
-				to_copy[++length(to_copy)] = item
+				to_copy[++to_copy.len] = item
 				item["name"] = D.name
 				item["id"] = D.id
 
@@ -884,7 +884,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		loaded_item_list["origin_tech"] = tech_list
 		for(var/T in temp_tech)
 			var/list/tech_item = list()
-			tech_list[++length(tech_list)] = tech_item
+			tech_list[++tech_list.len] = tech_item
 			tech_item["name"] = CallTechName(T)
 			tech_item["object_level"] = temp_tech[T]
 			for(var/v in files.known_tech)

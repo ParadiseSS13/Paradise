@@ -268,12 +268,12 @@
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++length(status_tab_data)] = list("Charge:", "[format_si_suffix(charge)]W")
-	status_tab_data[++length(status_tab_data)] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
-	status_tab_data[++length(status_tab_data)] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
-	status_tab_data[++length(status_tab_data)] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
-	status_tab_data[++length(status_tab_data)] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
-	status_tab_data[++length(status_tab_data)] = list("Hijack Time:", "[hijack_time / 10] seconds")
+	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
+	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
+	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()

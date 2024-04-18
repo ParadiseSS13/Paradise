@@ -203,7 +203,7 @@
 	var/index = laws.Find(law)
 	if(index)
 		laws -= law
-		for(index, index < length(state), index++)
+		for(index, index < state.len, index++)
 			state[index] = state[index+1]
 	sorted_laws.Cut()
 

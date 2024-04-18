@@ -523,10 +523,10 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
 
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
@@ -1400,9 +1400,9 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_world("### ListVarEdit by [src]: /list len: [length(L)]")
-		log_admin("[key_name(src)] modified list's len: [length(L)]")
-		message_admins("[key_name_admin(src)] modified list's len: [length(L)]")
+		log_world("### ListVarEdit by [src]: /list len: [L.len]")
+		log_admin("[key_name(src)] modified list's len: [L.len]")
+		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
 		return TRUE
 
 	if(href_list["listshuffle"])

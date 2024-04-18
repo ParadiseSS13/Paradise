@@ -201,7 +201,7 @@
 	for(var/datum/point/P in filled_nodes)
 		release_node(P)
 	if(available_nodes.len > 1)
-		log_debug("Multiple nodes left behind after SW grid qdel: [length(available_nodes)]")
+		log_debug("Multiple nodes left behind after SW grid qdel: [available_nodes.len]")
 		for(var/datum/point/P in available_nodes)
 			log_debug("([P.x],[P.y])")
 	return ..()

@@ -65,7 +65,7 @@
 
 	var/list/logs = TGS_FILE2LIST(".git/logs/HEAD")
 	if(logs.len)
-		logs = splittext(logs[length(logs)], " ")
+		logs = splittext(logs[logs.len], " ")
 		if(logs.len >= 2)
 			commit = logs[2]
 		else
@@ -73,7 +73,7 @@
 
 	logs = TGS_FILE2LIST(".git/logs/refs/remotes/origin/master")
 	if(logs.len)
-		logs = splittext(logs[length(logs)], " ")
+		logs = splittext(logs[logs.len], " ")
 		if(logs.len >= 2)
 			originmastercommit = logs[2]
 		else

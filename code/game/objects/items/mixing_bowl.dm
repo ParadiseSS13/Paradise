@@ -26,7 +26,7 @@
 			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
 		return 0
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
-		if(length(contents)>=max_n_of_items)
+		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
 		if(istype(I, /obj/item/stack))

@@ -529,7 +529,7 @@
 		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
 		QDEL_IN(thing, duration)
 	if(impacting && impact_type && duration > 0)
-		var/datum/point_precise/p = beam_segments[beam_segments[length(beam_segments)]]
+		var/datum/point_precise/p = beam_segments[beam_segments[beam_segments.len]]
 		var/atom/movable/thing = new impact_type
 		p.move_atom_to_src(thing)
 		var/matrix/matrix = new

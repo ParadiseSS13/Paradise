@@ -102,13 +102,13 @@
 		if(spider_myqueen)
 			var/area/A = get_area(spider_myqueen)
 			if(degenerate)
-				status_tab_data[++length(status_tab_data)] = list("Link:", "<font color='#eb4034'>BROKEN</font>") // color=red
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#eb4034'>BROKEN</font>") // color=red
 			else if(queen_visible)
-				status_tab_data[++length(status_tab_data)] = list("Link:", "<font color='#32a852'>[spider_myqueen] is near</font>") // color=green
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#32a852'>[spider_myqueen] is near</font>") // color=green
 			else if(cycles_noqueen >= 12)
-				status_tab_data[++length(status_tab_data)] = list("Link:", "<font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
 			else
-				status_tab_data[++length(status_tab_data)] = list("Link:", "<font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange
 
 
 

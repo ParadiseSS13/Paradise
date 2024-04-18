@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(spacedrift)
 	var/list/currentrun = src.currentrun
 
 	while(currentrun.len)
-		var/atom/movable/AM = currentrun[length(currentrun)]
+		var/atom/movable/AM = currentrun[currentrun.len]
 		currentrun.len--
 		if(!AM)
 			processing -= AM

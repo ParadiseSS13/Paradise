@@ -174,34 +174,34 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++length(status_tab_data)] = list("Intent:", "[a_intent]")
-	status_tab_data[++length(status_tab_data)] = list("Move Mode:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
 	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
 		var/turf/T = get_turf(src)
-		status_tab_data[++length(status_tab_data)] = list("GPS:", "[COORD(T)]")
+		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
 	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
-		status_tab_data[++length(status_tab_data)] = list("Health:", "[health]")
+		status_tab_data[++status_tab_data.len] = list("Health:", "[health]")
 
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
 		else
-			status_tab_data[++length(status_tab_data)] = list("Internal Atmosphere Info:", "[internal.name]")
-			status_tab_data[++length(status_tab_data)] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
-			status_tab_data[++length(status_tab_data)] = list("Distribution Pressure:", "[internal.distribute_pressure]")
+			status_tab_data[++status_tab_data.len] = list("Internal Atmosphere Info:", "[internal.name]")
+			status_tab_data[++status_tab_data.len] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
+			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			status_tab_data[++length(status_tab_data)] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
-			status_tab_data[++length(status_tab_data)] = list("Absorbed DNA:", "[cling.absorbed_count]")
+			status_tab_data[++status_tab_data.len] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
+			status_tab_data[++status_tab_data.len] = list("Absorbed DNA:", "[cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(V)
-			status_tab_data[++length(status_tab_data)] = list("Total Blood:", "[V.bloodtotal]")
-			status_tab_data[++length(status_tab_data)] = list("Usable Blood:", "[V.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[V.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)

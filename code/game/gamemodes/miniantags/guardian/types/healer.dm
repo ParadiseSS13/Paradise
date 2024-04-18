@@ -51,9 +51,9 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(beacon_cooldown >= world.time)
-		status_tab_data[++length(status_tab_data)] = list("Bluespace Beacon Cooldown Remaining:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
+		status_tab_data[++status_tab_data.len] = list("Bluespace Beacon Cooldown Remaining:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 	if(surgical_cooldown >= world.time)
-		status_tab_data[++length(status_tab_data)] = list("Surgical Cooldown Remaining:", "[max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
+		status_tab_data[++status_tab_data.len] = list("Surgical Cooldown Remaining:", "[max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()

@@ -234,10 +234,10 @@
 			botsCount++
 			if(B.loc)
 				var/area/our_area = get_area(B)
-				botsData[++length(botsData)] = list("Name" = sanitize(B.name), "Location" = sanitize(our_area.name), "uid" = "[B.UID()]")
+				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(our_area.name), "uid" = "[B.UID()]")
 
 		if(!length(botsData))
-			botsData[++length(botsData)] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
+			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = botsCount
@@ -311,10 +311,10 @@
 			mulebotsCount++
 			if(B.loc)
 				var/area/our_area = get_area(B)
-				mulebotsData[++length(mulebotsData)] = list("Name" = sanitize(B.name), "Location" = our_area.name, "uid" = "[B.UID()]")
+				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = our_area.name, "uid" = "[B.UID()]")
 
 		if(!mulebotsData.len)
-			mulebotsData[++length(mulebotsData)] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
+			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		muleData["bots"] = mulebotsData
 		muleData["count"] = mulebotsCount
@@ -376,10 +376,10 @@
 	for(var/S in SSeconomy.shopping_list)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
-		supplyOrderData[++length(supplyOrderData)] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
 	if(!supplyOrderData.len)
-		supplyOrderData[++length(supplyOrderData)] = list("Number" = null, "Name" = null, "OrderedBy"=null)
+		supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
 
 	supplyData["approved"] = supplyOrderData
 	supplyData["approved_count"] = supplyOrderCount
@@ -389,10 +389,10 @@
 	for(var/S in SSeconomy.request_list)
 		var/datum/supply_order/SO = S
 		requestCount++
-		requestData[++length(requestData)] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
 	if(!requestData.len)
-		requestData[++length(requestData)] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
+		requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
 
 	supplyData["requests"] = requestData
 	supplyData["requests_count"] = requestCount
@@ -422,7 +422,7 @@
 			if(ml.z != cl.z)
 				continue
 			var/direction = get_dir(pda, M)
-			MopData[++length(MopData)] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
+			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
 
 	var/list/BucketData = list()
 	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
@@ -431,7 +431,7 @@
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			BucketData[++length(BucketData)] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
+			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/CbotData = list()
 	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
@@ -440,7 +440,7 @@
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			CbotData[++length(CbotData)] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
+			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
 
 	var/list/CartData = list()
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
@@ -449,7 +449,7 @@
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			CartData[++length(CartData)] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
+			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/JaniCartData = list()
 	for(var/obj/vehicle/janicart/janicart in GLOB.janitorial_equipment)
@@ -458,7 +458,7 @@
 			if(janicart_loc.z != cl.z)
 				continue
 			var/direction_from_user = get_dir(pda, janicart)
-			JaniCartData[++length(JaniCartData)] = list("x" = janicart_loc.x, "y" = janicart_loc.y, "direction_from_user" = uppertext(dir2text(direction_from_user)))
+			JaniCartData[++JaniCartData.len] = list("x" = janicart_loc.x, "y" = janicart_loc.y, "direction_from_user" = uppertext(dir2text(direction_from_user)))
 
 	JaniData["mops"] = MopData.len ? MopData : null
 	JaniData["buckets"] = BucketData.len ? BucketData : null

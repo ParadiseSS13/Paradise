@@ -282,7 +282,7 @@
 	var/result = 0
 	var/val
 
-	for(var/i = start, i <= length(expression), i++)
+	for(var/i = start, i <= expression.len, i++)
 		var/op = ""
 
 		if(i > start)
@@ -441,7 +441,7 @@
 /proc/SDQL_function(datum/object, procname, list/arguments, source)
 	var/list/new_args = list()
 	for(var/arg in arguments)
-		new_args[++length(new_args)] = SDQL_expression(source, arg)
+		new_args[++new_args.len] = SDQL_expression(source, arg)
 
 	if(object == world) // Global proc.
 		return (WrapAdminProcCall(GLOBAL_PROC, procname, new_args))

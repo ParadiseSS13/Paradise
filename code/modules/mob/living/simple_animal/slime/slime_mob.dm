@@ -229,12 +229,12 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(!docile)
-		status_tab_data[++length(status_tab_data)] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
+		status_tab_data[++status_tab_data.len] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
 	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-		status_tab_data[++length(status_tab_data)] = list("You can:", is_adult ? "reproduce!" : "evolve!")
+		status_tab_data[++status_tab_data.len] = list("You can:", is_adult ? "reproduce!" : "evolve!")
 
 	else
-		status_tab_data[++length(status_tab_data)] = list("Power Level:", "[powerlevel]")
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)

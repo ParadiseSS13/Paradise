@@ -43,7 +43,7 @@
 		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
 		timer["time_left_seconds"] = round(T.timeleft(), 1)
 		timer["ref"] = "\ref[T]"
-		timers[++length(timers)] += timer
+		timers[++timers.len] += timer
 	timers = sortByKey(timers, "cell_id")
 	data["cells"] = timers
 	return data

@@ -423,7 +423,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
 	if(ckey && stat == CONSCIOUS)
 		if(degenerate)
-			status_tab_data[++length(status_tab_data)] = list("Hivemind Connection Severed!", "<font color='#eb4034'>Dying...</font>") // color=red
+			status_tab_data[++status_tab_data.len] = list("Hivemind Connection Severed!", "<font color='#eb4034'>Dying...</font>") // color=red
 			return
 		if(health != maxHealth)
 			var/hp_points_per_second = 0
@@ -441,7 +441,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 				hp_points_per_second = 1 / secs_per_tick
 			if(hp_points_per_second > 0)
 				var/pc_of_max_per_second = round(((hp_points_per_second / maxHealth) * 100), 0.1)
-				status_tab_data[++length(status_tab_data)] = list("Regeneration:", "[ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
+				status_tab_data[++status_tab_data.len] = list("Regeneration:", "[ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))

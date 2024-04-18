@@ -276,7 +276,7 @@
 //Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/L)
 	if(L.len)
-		. = L[length(L)]
+		. = L[L.len]
 		L.len--
 
 /proc/popleft(list/L)
@@ -293,7 +293,7 @@
 /proc/reverselist(list/L)
 	var/list/output = list()
 	if(L)
-		for(var/i = length(L); i >= 1; i--)
+		for(var/i = L.len; i >= 1; i--)
 			output += L[i]
 	return output
 
@@ -303,7 +303,7 @@
 		return
 	L = L.Copy()
 
-	for(var/i=1, i<length(L), ++i)
+	for(var/i=1, i<L.len, ++i)
 		L.Swap(i,rand(i,L.len))
 
 	return L
@@ -440,10 +440,10 @@
 		if(sorttext(L[Li][key], R[Ri][key]) < 1)
 			// Works around list += list2 merging lists; it's not pretty but it works
 			result += "temp item"
-			result[length(result)] = R[Ri++]
+			result[result.len] = R[Ri++]
 		else
 			result += "temp item"
-			result[length(result)] = L[Li++]
+			result[result.len] = L[Li++]
 
 	if(Li <= L.len)
 		return (result + L.Copy(Li, 0))
@@ -475,7 +475,7 @@
 /proc/bitfield2list(bitfield = 0, list/wordlist)
 	var/list/r = list()
 	if(istype(wordlist,/list))
-		var/max = min(length(wordlist),16)
+		var/max = min(wordlist.len,16)
 		var/bit = 1
 		for(var/i=1, i<=max, i++)
 			if(bitfield & bit)
@@ -506,12 +506,12 @@
 
 //Don't use this on lists larger than half a dozen or so
 /proc/insertion_sort_numeric_list_ascending(list/L)
-	//log_world("ascending len input: [length(L)]")
+	//log_world("ascending len input: [L.len]")
 	var/list/out = list(pop(L))
 	for(var/entry in L)
 		if(isnum(entry))
 			var/success = 0
-			for(var/i=1, i<=length(out), i++)
+			for(var/i=1, i<=out.len, i++)
 				if(entry <= out[i])
 					success = 1
 					out.Insert(i, entry)
@@ -519,13 +519,13 @@
 			if(!success)
 				out.Add(entry)
 
-	//log_world("	output: [length(out)]")
+	//log_world("	output: [out.len]")
 	return out
 
 /proc/insertion_sort_numeric_list_descending(list/L)
-	//log_world("descending len input: [length(L)]")
+	//log_world("descending len input: [L.len]")
 	var/list/out = insertion_sort_numeric_list_ascending(L)
-	//log_world("	output: [length(out)]")
+	//log_world("	output: [out.len]")
 	return reverselist(out)
 
 //Copies a list, and all lists inside it recusively
@@ -707,7 +707,7 @@
 	if(!L)
 		return
 
-	for(var/i=1, i<length(L), ++i)
+	for(var/i=1, i<L.len, ++i)
 		L.Swap(i,rand(i,L.len))
 
 //Return a list with no duplicate entries

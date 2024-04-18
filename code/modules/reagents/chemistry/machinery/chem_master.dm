@@ -444,11 +444,11 @@
 		var/list/beaker_reagents_list = list()
 		data["beaker_reagents"] = beaker_reagents_list
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beaker_reagents_list[++length(beaker_reagents_list)] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
+			beaker_reagents_list[++beaker_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 		var/list/buffer_reagents_list = list()
 		data["buffer_reagents"] = buffer_reagents_list
 		for(var/datum/reagent/R in reagents.reagent_list)
-			buffer_reagents_list[++length(buffer_reagents_list)] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
+			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 	else
 		data["beaker_reagents"] = list()
 		data["buffer_reagents"] = list()

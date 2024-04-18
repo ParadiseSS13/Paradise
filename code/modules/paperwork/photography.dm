@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)
 	var/center_offset = (size-1)/2 * 32 + 1
-	for(var/i; i <= length(sorted); i++)
+	for(var/i; i <= sorted.len; i++)
 		var/atom/A = sorted[i]
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
 		if(gap < 1)
 			gap = 1
-		for(var/i = 1; gap + i <= length(result); i++)
+		for(var/i = 1; gap + i <= result.len; i++)
 			var/atom/l = result[i]		//Fucking hate
 			var/atom/r = result[gap+i]	//how lists work here
 			if(l.layer > r.layer)		//no "result[i].layer" for me
