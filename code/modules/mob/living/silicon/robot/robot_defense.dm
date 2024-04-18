@@ -48,10 +48,13 @@
 			module?.update_cells(TRUE)
 			diag_hud_set_borgcell()
 
-	if(!opened)
-		if(..()) // hulk attack
-			spark_system.start()
-			spawn(0)
-				step_away(src, user, 15)
-				sleep(3)
-				step_away(src, user, 15)
+	if(..()) // hulk attack
+		spark_system.start()
+		spawn(0)
+			step_away(src, user, 15)
+			sleep(3)
+			step_away(src, user, 15)
+
+/mob/lliving/silicon/robot/tip_over(mob/living/carbon/human/user)
+	if(..())
+
