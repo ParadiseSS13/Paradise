@@ -7204,11 +7204,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKg" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -18872,11 +18867,6 @@
 /area/station/security/permabrig)
 "bsb" = (
 /obj/item/folder/white,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light/directional/west,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -45543,14 +45533,14 @@
 /obj/machinery/camera{
 	c_tag = "Brig Prisoner Processing"
 	},
+/obj/machinery/light_switch/north{
+	pixel_x = 6
+	},
 /obj/machinery/button/windowtint/north{
 	id = "Processing";
 	pixel_x = -6;
 	req_access_txt = "63";
 	range = 4
-	},
-/obj/machinery/light_switch/north{
-	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48019,11 +48009,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -67194,11 +67179,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "nDu" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -70827,11 +70807,6 @@
 	},
 /area/station/medical/medbay)
 "pAO" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -88119,28 +88094,6 @@
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
-"xVd" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard)
 "xVB" = (
 /obj/structure/kitchenspike_frame,
 /obj/effect/decal/cleanable/blood/old,
@@ -128119,7 +128072,7 @@ bhU
 aGX
 bam
 bnr
-xVd
+boY
 lDD
 aoG
 bSG
