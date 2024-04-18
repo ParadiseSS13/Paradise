@@ -38,7 +38,7 @@
 		qdel(D)
 		num_recovered++
 
-	if(num_recovered > drones_list.len * 0.75)
+	if(num_recovered > length(drones_list) * 0.75)
 		GLOB.minor_announcement.Announce("Icarus drone control reports the malfunctioning wing has been recovered safely.", "Rogue drone alert")
 	else
 		GLOB.minor_announcement.Announce("Icarus drone control registers disappointment at the loss of the drones, but the survivors have been recovered.", "Rogue drone alert")

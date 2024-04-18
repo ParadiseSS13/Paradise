@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Just checks our character has all the crap it needs.
 /datum/dna/proc/check_integrity(mob/living/carbon/human/character)
 	if(character)
-		if(UI.len != DNA_UI_LENGTH)
+		if(length(UI) != DNA_UI_LENGTH)
 			ResetUIFrom(character)
 
 		if(length(struc_enzymes)!= 3 * DNA_SE_LENGTH)

@@ -34,7 +34,7 @@
 	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
 
-	if(possible_syndicates.len < 1)
+	if(length(possible_syndicates) < 1)
 		return 0
 
 	if(LAZYLEN(possible_syndicates) > agents_possible)
@@ -115,7 +115,7 @@
 		break
 
 	for(var/datum/mind/synd_mind in syndicates)
-		if(spawnpos > synd_spawn.len)
+		if(spawnpos > length(synd_spawn))
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
 		synd_mind.offstation_role = TRUE

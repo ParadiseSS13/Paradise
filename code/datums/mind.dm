@@ -485,7 +485,7 @@
 	if(istype(robot) && robot.emagged)
 		. += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='byond://?src=[UID()];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
 	var/mob/living/silicon/ai/ai = current
-	if(istype(ai) && ai.connected_robots.len)
+	if(istype(ai) && length(ai.connected_robots))
 		var/n_e_robots = 0
 		for(var/mob/living/silicon/robot/R in ai.connected_robots)
 			if(R.emagged)
@@ -685,7 +685,7 @@
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
-				if(possible_targets.len)
+				if(length(possible_targets))
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind

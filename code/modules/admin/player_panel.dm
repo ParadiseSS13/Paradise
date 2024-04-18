@@ -413,7 +413,7 @@
 			dat += "</table>"
 
 
-		if(SSticker.mode.blob_overminds.len)
+		if(length(SSticker.mode.blob_overminds))
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
 			dat += "<i>Blob Tiles: [length(GLOB.blobs)]</i>"
 
@@ -448,7 +448,7 @@
 		if(length(SSticker.mode.vampires))
 			dat += check_role_table("Vampires", SSticker.mode.vampires)
 
-		if(SSticker.mode.vampire_enthralled.len)
+		if(length(SSticker.mode.vampire_enthralled))
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
 		if(length(SSticker.mode.xenos))
@@ -471,7 +471,7 @@
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
 					spider_minds += S.mind
-			if(spider_minds.len)
+			if(length(spider_minds))
 				dat += check_role_table("Terror Spiders", spider_minds)
 
 				var/count_eggs = 0

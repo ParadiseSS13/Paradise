@@ -519,7 +519,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
 				continue //we have a live body we are tied to
 			candidates += M.ckey
-		if(candidates.len)
+		if(length(candidates))
 			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
 		else
 			to_chat(usr, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")

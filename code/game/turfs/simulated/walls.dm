@@ -116,8 +116,8 @@
 		. += dent_decals
 		return
 
-	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
-	if(overlay > damage_overlays.len)
+	var/overlay = round(damage / damage_cap * length(damage_overlays)) + 1
+	if(overlay > length(damage_overlays))
 		overlay = damage_overlays.len
 
 	if(length(dent_decals))
@@ -129,7 +129,7 @@
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
 
-	for(var/i = 1; i <= damage_overlays.len; i++)
+	for(var/i = 1; i <= length(damage_overlays); i++)
 		var/image/img = image(icon = 'icons/turf/walls.dmi', icon_state = "overlay_damage")
 		img.blend_mode = BLEND_MULTIPLY
 		img.alpha = (i * alpha_inc) - 1

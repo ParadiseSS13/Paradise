@@ -39,7 +39,7 @@
 
 /datum/component/spawner/proc/try_spawn_mob()
 	var/atom/P = parent
-	if(spawned_mobs.len >= max_mobs)
+	if(length(spawned_mobs) >= max_mobs)
 		return 0
 	if(spawn_delay > world.time)
 		return 0

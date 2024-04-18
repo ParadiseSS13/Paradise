@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(atoms)
 
 	initialized = INITIALIZATION_INNEW_REGULAR
 
-	if(late_loaders.len)
+	if(length(late_loaders))
 		watch = start_watch()
 		if(noisy)
 			log_startup_progress("Late-initializing atoms...")

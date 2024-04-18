@@ -63,7 +63,7 @@
 		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
 
 /obj/item/gun/throw/process_chamber()
-	if(!to_launch && loaded_projectiles.len)
+	if(!to_launch && length(loaded_projectiles))
 		to_launch = loaded_projectiles[1]
 		loaded_projectiles -= to_launch
 	return

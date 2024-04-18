@@ -53,7 +53,7 @@
 	// 3% chance that our golem has a human surname, because cultural contamination
 	if(prob(human_surname_chance))
 		golem_surname = pick(GLOB.last_names)
-	else if(special_names && special_names.len && prob(special_name_chance))
+	else if(special_names && length(special_names) && prob(special_name_chance))
 		golem_surname = pick(special_names)
 
 	var/golem_name = "[prefix] [golem_surname]"
@@ -448,7 +448,7 @@
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))
@@ -532,7 +532,7 @@
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))

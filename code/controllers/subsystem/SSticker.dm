@@ -529,9 +529,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		var/list/randomtips = file2list("strings/tips.txt")
 		var/list/memetips = file2list("strings/sillytips.txt")
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)

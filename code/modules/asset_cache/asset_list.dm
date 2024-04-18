@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 			if(!asset)
 				continue
 			asset = fcopy_rsc(asset) //dedupe
-			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]." : ""
+			var/prefix2 = (length(directions) > 1) ? "[dir2text(direction)]." : ""
 			var/asset_name = "[prefix].[prefix2][icon_state_name].png"
 			if(generic_icon_names)
 				asset_name = "[GENERATE_ASSET_NAME(asset)].png"

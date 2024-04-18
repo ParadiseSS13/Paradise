@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
-		if(SSjobs.prioritized_jobs.len >= 3)
+		if(length(SSjobs.prioritized_jobs) >= 3)
 			return FALSE
 		if(job.total_positions <= job.current_positions)
 			return FALSE

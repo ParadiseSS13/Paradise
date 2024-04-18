@@ -58,7 +58,7 @@
 
 	var/list/bars = user.progressbars[bar.loc]
 	bars.Remove(src)
-	if(!bars.len)
+	if(!length(bars))
 		LAZYREMOVE(user.progressbars, bar.loc)
 	animate(bar, alpha = 0, time = 5)
 	spawn(5)

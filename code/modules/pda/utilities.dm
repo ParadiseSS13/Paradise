@@ -107,7 +107,7 @@
 /datum/data/pda/utility/scanmode/reagent/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	var/list/messages = list()
 	if(!isnull(A.reagents))
-		if(A.reagents.reagent_list.len > 0)
+		if(length(A.reagents.reagent_list) > 0)
 			var/reagents_length = A.reagents.reagent_list.len
 			messages.Add("<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
 			for(var/datum/reagent/R in A.reagents.reagent_list)

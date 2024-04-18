@@ -77,7 +77,7 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon_state()
-	switch(contents.len)
+	switch(length(contents))
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)

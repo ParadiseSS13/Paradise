@@ -94,7 +94,7 @@
 	if(isobj(target))
 		var/obj/O = target
 		if(!O.anchored)
-			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+			if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = TRUE
 				if(do_after_cooldown(target))

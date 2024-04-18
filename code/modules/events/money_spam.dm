@@ -35,7 +35,7 @@
 					continue
 				viables.Add(check_pda)
 
-			if(!viables.len)
+			if(!length(viables))
 				return
 			var/obj/item/pda/P = pick(viables)
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)

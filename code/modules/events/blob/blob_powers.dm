@@ -362,7 +362,7 @@
 	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
-	if(!surrounding_turfs.len)
+	if(!length(surrounding_turfs))
 		return
 
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.alive_mob_list)

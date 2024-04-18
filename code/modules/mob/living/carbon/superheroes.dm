@@ -34,7 +34,7 @@
 		singlemutcheck(H, mutation, MUTCHK_FORCED)
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
-	if(default_spells.len)
+	if(length(default_spells))
 		for(var/spell in default_spells)
 			var/datum/spell/S = spell
 			if(!S)

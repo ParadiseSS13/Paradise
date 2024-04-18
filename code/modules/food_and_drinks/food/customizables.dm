@@ -481,14 +481,14 @@ do {\
 
 	for(var/ings in sorteditems)			   //add the non-basename items to the name, sorting out the , and the and
 		c++
-		if(c == sorteditems.len - 1)
+		if(c == length(sorteditems) - 1)
 			seperator = " and "
-		else if(c == sorteditems.len)
+		else if(c == length(sorteditems))
 			seperator = " "
 		else
 			seperator = ", "
 
-		if(sorteditems[ings] > levels.len)
+		if(sorteditems[ings] > length(levels))
 			sorteditems[ings] = levels.len
 
 		if(sorteditems[ings] <= 1)
@@ -497,10 +497,10 @@ do {\
 			sendback +="[levels[sorteditems[ings]]] [ings][seperator]"
 
 	for(var/ingtype in sortedtypes)   // now add the types basenames, keeping the src one seperate so it can go on the end
-		if(sortedtypes[ingtype] > levels.len)
+		if(sortedtypes[ingtype] > length(levels))
 			sortedtypes[ingtype] = levels.len
 		if(ingtype == basename)
-			if(sortedtypes[ingtype] < levels.len)
+			if(sortedtypes[ingtype] < length(levels))
 				sortedtypes[ingtype]++
 			endpart = "[levels[sortedtypes[ingtype]]] decker [basename]"
 			continue
