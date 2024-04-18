@@ -573,7 +573,7 @@
 				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
 			if("Emergency ejection")
 				eject_clone(TRUE) // GET OUT
-				to_chat(user, "<span class='warning'>You force [src] to eject it's clone!</span>")
+				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
 		return
 
 	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
