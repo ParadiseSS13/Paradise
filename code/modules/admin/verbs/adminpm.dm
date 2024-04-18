@@ -166,17 +166,17 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
-			ticket_link = "(<a href='?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
+			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
 		else
-			ticket_link = "(<a href='?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
+			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	var/receive_window_link = "(<a href='?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
 		receive_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
@@ -187,7 +187,7 @@
 	else
 		receive_message = chat_box_ahelp(receive_message)
 	to_chat(C, receive_message)
-	var/send_window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
 		send_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
@@ -348,10 +348,10 @@
 
 	// If it was forced open, make them use a special close button that alerts admins to closure
 	if(forced)
-		dat += "<div style='float: right'><big><a href='?src=[UID()];altclose=1'>Close</a></big></div>"
+		dat += "<div style='float: right'><big><a href='byond://?src=[UID()];altclose=1'>Close</a></big></div>"
 
-	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
-	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<a href='byond://?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
 	for(var/title in pms)
 		if(pms[title].archived && !show_archived)
@@ -363,7 +363,7 @@
 			class = "linkOn"
 		else if(!pms[title].read)
 			label = "<i>*[label]</i>"
-		dat += "<a class='[class]' href='?src=[UID()];newtitle=[title]'>[label]</a>"
+		dat += "<a class='[class]' href='byond://?src=[UID()];newtitle=[title]'>[label]</a>"
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
@@ -393,10 +393,10 @@
 			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
 		dat += "<br>"
 		dat += "</h4>"
-		dat += "<a href='?src=[UID()];reply=[current_title]'>Reply</a>"
-		dat += "<a href='?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
+		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"
+		dat += "<a href='byond://?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
 		if(check_rights(R_ADMIN, FALSE, user))
-			dat += "<a href='?src=[UID()];ping=[current_title]'>Ping</a>"
+			dat += "<a href='byond://?src=[UID()];ping=[current_title]'>Ping</a>"
 
 	popup.set_content(dat)
 	popup.open()

@@ -99,7 +99,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	var/list/localdat = list()
 	var/uid_cache = UID() // Saves proc jumping
 	for(var/word in word_list)
-		localdat += "<a href='?src=[uid_cache];say_word=[word]'>[word]</a>"
+		localdat += "<a href='byond://?src=[uid_cache];say_word=[word]'>[word]</a>"
 	return localdat.Join(" / ")
 
 /mob/living/silicon/ai/proc/ai_announcement()
