@@ -818,7 +818,7 @@
 	if(!istype(U) || !length(U.accessories))
 		return
 	var/list/A = U.accessories
-	var/total = A.len
+	var/total = length(A)
 	if(total == 1)
 		return "\a [A[1]]"
 	else if(total == 2)

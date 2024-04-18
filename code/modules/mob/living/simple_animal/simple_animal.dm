@@ -260,16 +260,16 @@
 		if(prob(speak_chance) || override)
 			if(speak && length(speak))
 				if((emote_hear && length(emote_hear)) || (emote_see && length(emote_see)))
-					var/length = speak.len
+					var/length = length(speak)
 					if(emote_hear && length(emote_hear))
-						length += emote_hear.len
+						length += length(emote_hear)
 					if(emote_see && length(emote_see))
-						length += emote_see.len
+						length += length(emote_see)
 					var/randomValue = rand(1,length)
 					if(randomValue <= length(speak))
 						say(pick(speak))
 					else
-						randomValue -= speak.len
+						randomValue -= length(speak)
 						if(emote_see && randomValue <= length(emote_see))
 							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
@@ -282,7 +282,7 @@
 				if((emote_hear && length(emote_hear)) && !(emote_see && length(emote_see)))
 					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				if((emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
-					var/length = length(emote_hear) + emote_see.len
+					var/length = length(emote_hear) + length(emote_see)
 					var/pick = rand(1,length)
 					if(pick <= length(emote_see))
 						custom_emote(EMOTE_VISIBLE, pick(emote_see))

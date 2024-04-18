@@ -83,7 +83,7 @@
 	// Add it to cache, cutting old entries if the list is too long
 	scramble_cache[input] = scrambled_text
 	if(length(scramble_cache) > SCRAMBLE_CACHE_LEN)
-		scramble_cache.Cut(1, scramble_cache.len-SCRAMBLE_CACHE_LEN-1)
+		scramble_cache.Cut(1, length(scramble_cache)-SCRAMBLE_CACHE_LEN-1)
 
 
 	return scrambled_text

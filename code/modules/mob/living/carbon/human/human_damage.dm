@@ -291,8 +291,8 @@
 	var/update = 0
 	while(length(parts) && (brute>0 || burn>0))
 		var/obj/item/organ/external/picked = pick(parts)
-		var/brute_per_part = brute/parts.len
-		var/burn_per_part = burn/parts.len
+		var/brute_per_part = brute / length(parts)
+		var/burn_per_part = burn / length(parts)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam

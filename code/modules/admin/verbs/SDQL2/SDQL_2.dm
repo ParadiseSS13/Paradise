@@ -375,14 +375,14 @@
 
 	else
 		val = SDQL_var(object, expression, i, object)
-		i = expression.len
+		i = length(expression)
 
 	return list("val" = val, "i" = i)
 
 /proc/SDQL_var(datum/object, list/expression, start = 1, source)
 	var/v
 
-	var/long = start < expression.len
+	var/long = start < length(expression)
 
 	if(object == world && long && expression[start + 1] == ".")
 		to_chat(usr, "Sorry, but global variables are not supported at the moment.")

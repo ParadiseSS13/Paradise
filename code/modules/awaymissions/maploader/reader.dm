@@ -253,7 +253,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	// The next part of the code assumes there's ALWAYS an /area AND a /turf on a given tile
 
 	// first instance the /area and remove it from the members list
-	index = members.len
+	index = length(members)
 
 	var/turf/crds = locate(xcrd, ycrd, zcrd)
 	if(members[index] != /area/template_noop)

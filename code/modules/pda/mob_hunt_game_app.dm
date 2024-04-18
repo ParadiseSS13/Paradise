@@ -105,7 +105,7 @@
 	if(current_index > length(my_collection))
 		current_index = 1
 	if(current_index < 1)
-		current_index = my_collection.len
+		current_index = length(my_collection)
 	mob_info = my_collection[current_index]
 	var/list/entry = list(
 						"nickname" = mob_info.nickname,
@@ -194,7 +194,7 @@
 		if("Prev")
 			current_index--
 			if(current_index < 1)
-				current_index = my_collection.len
+				current_index = length(my_collection)
 		if("Reconnect")
 			reconnect()
 		if("Disconnect")

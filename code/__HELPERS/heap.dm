@@ -12,7 +12,7 @@
 	cmp = compare
 
 /datum/heap/proc/IsEmpty()
-	return !L.len
+	return !length(L)
 
 //Insert and place at its position a new node in the heap
 /datum/heap/proc/Insert(atom/A)

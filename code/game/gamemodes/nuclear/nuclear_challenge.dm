@@ -69,7 +69,7 @@
 	var/remainder
 
 	player_tc = round(total_tc / length(GLOB.nuclear_uplink_list)) //round to get an integer and not floating point
-	remainder = total_tc % GLOB.nuclear_uplink_list.len
+	remainder = total_tc % length(GLOB.nuclear_uplink_list)
 
 	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
 		U.hidden_uplink.uses += player_tc

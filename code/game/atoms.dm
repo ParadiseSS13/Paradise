@@ -845,7 +845,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/transfer_blood_dna(list/blood_dna)
 	if(!blood_DNA)
 		blood_DNA = list()
-	var/old_length = blood_DNA.len
+	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
 	if(length(blood_DNA) > old_length)
 		return TRUE//some new blood DNA was added

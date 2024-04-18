@@ -39,7 +39,7 @@
 /datum/construction/proc/is_right_key(atom/used_atom) // returns current step num if used_atom is of the right type.
 	var/list/L = steps[length(steps)]
 	if(do_tool_or_atom_check(used_atom, L["key"]))
-		return steps.len
+		return length(steps)
 	return 0
 
 
@@ -130,7 +130,7 @@
 
 /datum/construction/reversible/New(atom)
 	..()
-	index = steps.len
+	index = length(steps)
 	return
 
 /datum/construction/reversible/proc/update_index(diff as num, mob/user as mob)
