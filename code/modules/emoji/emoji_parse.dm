@@ -8,7 +8,7 @@
 	var/pos = 1
 	var/search = 0
 	var/emoji = ""
-	while(1)
+	while(TRUE)
 		search = findtext(text, ":", pos)
 		parsed += copytext(text, pos, search)
 		if(search)
