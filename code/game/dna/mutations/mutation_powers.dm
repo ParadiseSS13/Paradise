@@ -868,9 +868,9 @@
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/prompt = "Please select skin tone: 1-[length(M.dna.species.icon_skin_tones)] ("
-		for(var/i = 1 to M.dna.species.icon_skin_tones.len)
+		for(var/i = 1 to length(M.dna.species.icon_skin_tones))
 			prompt += "[i] = [M.dna.species.icon_skin_tones[i]]"
-			if(i != M.dna.species.icon_skin_tones.len)
+			if(i != length(M.dna.species.icon_skin_tones))
 				prompt += ", "
 		prompt += ")"
 
@@ -878,7 +878,7 @@
 		if(!new_tone)
 			new_tone = 0
 		else
-			new_tone = max(min(round(text2num(new_tone)), M.dna.species.icon_skin_tones.len), 1)
+			new_tone = max(min(round(text2num(new_tone)), length(M.dna.species.icon_skin_tones)), 1)
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.

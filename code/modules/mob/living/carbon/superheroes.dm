@@ -161,7 +161,7 @@
 	return T
 
 /datum/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(SSticker.mode.greyshirts.len >= 3)
+	if(length(SSticker.mode.greyshirts) >= 3)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
 		return FALSE
