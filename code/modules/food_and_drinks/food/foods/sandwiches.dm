@@ -29,7 +29,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "brains" = 2)
-	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/ghost
 	name = "ghost burger"
