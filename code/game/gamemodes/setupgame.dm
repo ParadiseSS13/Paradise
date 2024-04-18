@@ -1,5 +1,5 @@
 /proc/getAssignedBlock(name, list/blocksLeft, activity_bounds=DNA_DEFAULT_BOUNDS, good=0)
-	if(length(blocksLeft)==0)
+	if(!length(blocksLeft))
 		warning("[name]: No more blocks left to assign!")
 		return 0
 	var/assigned = pick(blocksLeft)

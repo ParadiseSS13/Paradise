@@ -60,7 +60,7 @@
 
 			//We want an accurate reading of length()
 			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*length(BP.embedded_objects)
+			temp_bleed += 0.5 * length(BP.embedded_objects)
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
