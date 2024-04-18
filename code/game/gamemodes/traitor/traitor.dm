@@ -85,7 +85,7 @@
 			traitors -= traitor_mind
 			continue
 		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
-			for(var/datum/objective/objective in traitor_datum.objective_holder.objectives)
+			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
 				objective.delayed_objective = FALSE
 				objective.target = null
 

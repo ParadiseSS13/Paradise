@@ -20,14 +20,16 @@
 	var/amount_vamp = 1
 	var/amount_cling = 1
 	var/amount_tot = 1
+	/// How many points did we get at roundstart
+	var/cost_at_roundstart
 
 /datum/game_mode/trifecta/announce()
 	to_chat(world, "<b>The current game mode is - Trifecta</b>")
 	to_chat(world, "<b>Vampires, traitors, and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
 
-
 /datum/game_mode/trifecta/pre_setup()
 	calculate_quantities()
+	cost_at_roundstart = num_players()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
@@ -101,12 +103,80 @@
 /datum/game_mode/trifecta/post_setup()
 	for(var/datum/mind/vampire as anything in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire)
+
 	for(var/datum/mind/changeling as anything in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
+
 	for(var/datum/mind/traitor as anything in pre_traitors)
-		traitor.add_antag_datum(/datum/antagonist/traitor)
+		var/datum/antagonist/traitor/tot_datum = new()
+		tot_datum.delayed_objectives = TRUE
+		traitor.add_antag_datum(tot_datum)
+
+	if(length(pre_traitors))
+		var/random_time = rand(300 SECONDS, 900 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
+
 	..()
 
+/datum/game_mode/trifecta/proc/traitors_to_add()
+	var/extra_points = cost_at_roundstart - num_players()
+	if(extra_points - TOT_COST < 0)
+		return 0 // Not enough new players to add extra tots
+
+	. = 0
+	while(extra_points)
+		if(extra_points < TOT_COST)
+			.++
+			return
+		extra_points -= TOT_COST
+		.++
+
+/datum/game_mode/trifecta/late_handout()
+	var/traitors_to_add = 0
+
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			traitors_to_add++
+			traitors -= traitor_mind
+			continue
+		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
+			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
+				objective.delayed_objective = FALSE
+				objective.target = null
+
+				var/datum/objective/steal/possible_steal_objective = objective
+				if(istype(possible_steal_objective))
+					possible_steal_objective.steal_target = null
+
+				traitor_datum.objective_holder.assigned_targets = list()
+				objective.find_target()
+
+				SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
+				objective.update_explanation_text()
+
+		var/list/messages = traitor_mind.prepare_announce_objectives()
+		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
+
+	if(length(traitors) < traitors_to_add())
+		traitors_to_add += (traitors_to_add() - length(traitors))
+
+	if(traitors_to_add)
+		var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
+		for(var/datum/mind/candidate as anything in potential_recruits)
+			if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
+				potential_recruits.Remove(candidate)
+
+		if(!length(potential_recruits))
+			return ..()
+
+		log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
+
+		for(var/i in 1 to traitors_to_add)
+			var/datum/mind/traitor = pick_n_take(potential_recruits)
+			traitor.special_role = SPECIAL_ROLE_TRAITOR
+			traitor.restricted_roles = restricted_jobs
+			traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
+	..()
 
 #undef TOT_COST
 #undef VAMP_COST
