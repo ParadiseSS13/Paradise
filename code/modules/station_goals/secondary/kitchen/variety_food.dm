@@ -106,7 +106,7 @@
 	return COMSIG_CARGO_SELL_PRIORITY
 
 /datum/secondary_goal_progress/variety_food/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
-	var/list/complete_foods = 0
+	var/complete_foods = 0
 	for(var/food_type in foods_sent)
 		if(foods_sent[food_type] >= amount_per)
 			complete_foods++
