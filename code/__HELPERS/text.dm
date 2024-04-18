@@ -468,6 +468,8 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
+	text = replacetext(text, "\[s\]",		"<S>")
+	text = replacetext(text, "\[/s\]",		"</S>")
 	if(findtext(text, "\[signfont\]") || findtext(text, "\[/signfont\]")) // Make sure the text is there before giving off an error
 		if(check_rights(R_EVENT))
 			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")

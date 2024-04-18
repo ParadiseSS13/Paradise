@@ -865,15 +865,17 @@
 							organ = "kidneys"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
-					if(!new_state) return
-
+					if(!new_state)
+						return
 					switch(new_state)
 						if("Normal")
 							active_character.organ_data[organ] = null
 						if("Cybernetic")
 							active_character.organ_data[organ] = "cybernetic"
 				if("cyborg_brain_type")
-					var/brain_type = tgui_input_list(user, "What type of brain would you like to have as a cyborg?", "Cyborg Brain Type", GLOB.borg_brain_choices)
+					var/brain_type = tgui_input_list(user, "What type of brain would you like to have as a cyborg?", "Cyborg Brain Type", GLOB.borg_brain_choices, active_character.cyborg_brain_type)
+					if(!(brain_type in GLOB.borg_brain_choices))
+						return
 					active_character.cyborg_brain_type = brain_type
 				if("clientfps")
 					var/version_message

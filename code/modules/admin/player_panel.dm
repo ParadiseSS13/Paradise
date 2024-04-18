@@ -79,19 +79,19 @@
 
 					body += "</td><td align='center'>";
 
-					body += "<a href='?src=[UID()];adminplayeropts="+mobUID+"'>PP</a> - "
-					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
-					body += "<a href='?_src_=vars;Vars="+mobUID+"'>VV</a> - "
-					body += "<a href='?src=[UID()];traitor="+mobUID+"'>TP</a> - "
-					body += "<a href='?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
-					body += "<a href='?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
-					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
-					body += "<a href='?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
+					body += "<a href='byond://?src=[UID()];adminplayeropts="+mobUID+"'>PP</a> - "
+					body += "<a href='byond://?src=[UID()];shownoteckey="+key+"'>N</a> - "
+					body += "<a href='byond://?_src_=vars;Vars="+mobUID+"'>VV</a> - "
+					body += "<a href='byond://?src=[UID()];traitor="+mobUID+"'>TP</a> - "
+					body += "<a href='byond://?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
+					body += "<a href='byond://?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
+					body += "<a href='byond://?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
+					body += "<a href='byond://?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
 					if(eyeUID)
-						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
+						body += "|<a href='byond://?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
 					if(antagonists)
-						body += "<font size='2'><a href='?src=[UID()];check_antagonist=1'><font color='red'><b>"+antagonists+"</b></font></a></font>";
+						body += "<font size='2'><a href='byond://?src=[UID()];check_antagonist=1'><font color='red'><b>"+antagonists+"</b></font></a></font>";
 
 					body += "</td></tr></table>";
 
@@ -202,7 +202,7 @@
 			<tr id='title_tr'>
 				<td align='center'>
 					<font size='5'><b>Player panel</b></font><br>
-					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='?src=[UID()];check_antagonist=1'>Check antagonists</a> | Kick <a href='?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
+					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='byond://?src=[UID()];check_antagonist=1'>Check antagonists</a> | Kick <a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
 					<p>
 				</td>
 			</tr>
@@ -342,8 +342,8 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
@@ -354,18 +354,18 @@
 		dat += "Round Duration: <b>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</b><br>"
 		dat += "<b>Emergency shuttle</b><br>"
 		if(SSshuttle.emergency.mode < SHUTTLE_CALL)
-			dat += "<a href='?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
+			dat += "<a href='byond://?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
 			if(SSshuttle.emergency.mode < SHUTTLE_DOCKED)
-				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
-				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
+				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
+				dat += "<a href='byond://?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
-				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
+				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
 
-		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		dat += "<br><b>Antagonist Teams</b><br>"
-		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
+		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
@@ -381,7 +381,7 @@
 				while(!isturf(disk_loc))
 					if(ismob(disk_loc))
 						var/mob/M = disk_loc
-						dat += "carried by <a href='?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
+						dat += "carried by <a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
 					if(isobj(disk_loc))
 						var/obj/O = disk_loc
 						dat += "in \a [O.name] "
@@ -431,7 +431,7 @@
 
 		if(SSticker.mode.cult_team)
 			dat += check_role_table("Cultists", SSticker.mode.cult_team.members)
-			dat += "<a href='?src=[UID()];check_teams=1'>View Cult Team & Controls</a><br>"
+			dat += "<a href='byond://?src=[UID()];check_teams=1'>View Cult Team & Controls</a><br>"
 
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
@@ -524,7 +524,7 @@
 	if(show_objectives)
 		txt += {"
 			<td>
-				<a href='?src=[UID()];traitor=[M.UID()]'>Show Objective</a>
+				<a href='byond://?src=[UID()];traitor=[M.UID()]'>Show Objective</a>
 			</td>
 		"}
 

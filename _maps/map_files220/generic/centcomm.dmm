@@ -30095,7 +30095,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/general)
 "uRC" = (
-/obj/machinery/chem_dispenser/botanical/upgraded,
+/obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/evac)
 "uRG" = (

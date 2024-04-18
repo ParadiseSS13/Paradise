@@ -97,7 +97,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = holder.fakekey
 
 			if(GLOB.configuration.general.enable_ooc_emoji)
-				msg = "<span class='emoji_enabled'>[msg]</span>"
+				msg = emoji_parse(msg)
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 

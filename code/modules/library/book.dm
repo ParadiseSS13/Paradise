@@ -165,9 +165,9 @@
 	var/header_right = "<div style ='float;left; text-align:right; width:49.9%'></div>"
 	if(length(pages)) //No need to have page switching buttons if there's no pages
 		if(current_page < length(pages))
-			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(current_page)
-			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
+			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 
 	dat += header_left + header_right
 	//Now we're going to display the header buttons + the current page selected, if it's page 0, we display the cover_page instead

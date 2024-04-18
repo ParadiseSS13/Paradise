@@ -65,7 +65,7 @@
 	output += "<b>Cargo Compartment Contents:</b><div style='margin-left: 15px;'>"
 	if(length(cargo))
 		for(var/obj/cargo_item as anything in cargo)
-			output += "<a href='?src=[UID()];drop_from_cargo=[cargo_item.UID()]'>Unload</a> : [cargo_item]<br>"
+			output += "<a href='byond://?src=[UID()];drop_from_cargo=[cargo_item.UID()]'>Unload</a> : [cargo_item]<br>"
 	else
 		output += "Nothing"
 	output += "</div>"

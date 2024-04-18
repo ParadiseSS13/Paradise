@@ -14847,6 +14847,9 @@
 /obj/item/plant_analyzer,
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/light_switch/south,
+/obj/item/storage/bag/plants/seed_sorting_tray{
+	pixel_y = 20
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -15042,6 +15045,10 @@
 	pixel_x = -4
 	},
 /obj/machinery/light/directional/east,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut{
+	pixel_x = 1;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -71680,7 +71687,7 @@
 /area/station/medical/chemistry)
 "nnj" = (
 /obj/effect/turf_decal/delivery/green,
-/obj/machinery/chem_dispenser/botanical,
+/obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86588,6 +86595,7 @@
 /obj/item/shovel/spade,
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "sFQ" = (
