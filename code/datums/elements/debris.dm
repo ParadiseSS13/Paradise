@@ -52,7 +52,8 @@
 
 /datum/component/debris/Destroy(force)
 	. = ..()
-	UnregisterSignal(parent, COMSIG_ATOM_BULLET_ACT)
+	if(parent)
+		UnregisterSignal(parent, COMSIG_ATOM_BULLET_ACT)
 
 /datum/component/debris/proc/register_for_impact(datum/source, obj/item/projectile/proj)
 	SIGNAL_HANDLER // COMSIG_ATOM_BULLET_ACT
