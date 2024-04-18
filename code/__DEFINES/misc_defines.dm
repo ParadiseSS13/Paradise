@@ -52,6 +52,9 @@
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
 
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
