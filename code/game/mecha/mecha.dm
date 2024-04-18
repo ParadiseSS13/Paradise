@@ -250,6 +250,8 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
+// MARK: Movement
+
 /obj/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(.)
@@ -437,6 +439,7 @@
 ///////////////////////////////////
 ////////  Internal damage  ////////
 ///////////////////////////////////
+// MARK: Internal Damage
 
 /obj/mecha/proc/check_for_internal_damage(list/possible_int_damage, ignore_threshold=null)
 	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
@@ -480,6 +483,7 @@
 ////////////////////////////////////////
 ////////  Health related procs  ////////
 ////////////////////////////////////////
+// MARK: Health Stuff
 
 /obj/mecha/proc/get_armour_facing(relative_dir)
 	switch(abs(relative_dir))
@@ -1012,7 +1016,7 @@
 /////////////////////////////////////
 ////////  Atmospheric stuff  ////////
 /////////////////////////////////////
-
+// MARK:  Atmos
 /obj/mecha/proc/get_turf_air()
 	var/turf/T = get_turf(src)
 	if(T)
