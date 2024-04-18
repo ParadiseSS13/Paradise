@@ -48,6 +48,9 @@
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(atom/A, params)
+	if(QDELETED(A))
+		return
+
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -385,15 +388,13 @@
 		return
 	var/turf/T = get_turf(src)
 	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.client.statpanel = T.name
+		user.set_listed_turf(T)
 
 /// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
 /atom/proc/AltClickNoInteract(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.client.statpanel = T.name
+		user.set_listed_turf(T)
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
@@ -505,3 +506,6 @@
 		if(T)
 			T.Click(location, control, params)
 	. = 1
+
+#undef MAX_SAFE_BYOND_ICON_SCALE_TILES
+#undef MAX_SAFE_BYOND_ICON_SCALE_PX

@@ -21,6 +21,7 @@
 	bitesize = 3
 	list_reagents = list("plantmatter" = 3)
 	tastes = list("tofu" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/soydope
 	name = "soy dope"
@@ -52,6 +53,11 @@
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
+
+/obj/item/food/snacks/cheesewedge/checkpass(passflag)
+	if((passflag & PASSDOOR) && ismouse(pulledby))
+		return TRUE
+	return ..()
 
 /obj/item/food/snacks/cheesewedge/presliced
 	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
@@ -225,6 +231,7 @@
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "sugar" = 2, "cocoa" = 2)
 	tastes = list("chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 ///Chocolate crumbles/pile
 /obj/item/food/snacks/chocolatebar/attackby(obj/item/I, mob/user, params)

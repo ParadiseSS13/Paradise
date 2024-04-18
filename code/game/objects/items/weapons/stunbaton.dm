@@ -1,7 +1,7 @@
 /obj/item/melee/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
-	icon = 'icons/obj/baton.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = null
@@ -57,7 +57,7 @@
 		cell = new(src)
 
 /obj/item/melee/baton/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
 /obj/item/melee/baton/update_icon_state()
@@ -83,11 +83,11 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
 	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
-	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
+	return ..()
 
 /obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
 	if(turned_on)

@@ -72,7 +72,7 @@
 
 /obj/machinery/r_n_d/server/process()
 	if(prob(3) && plays_sound)
-		playsound(loc, "computer_ambience", 50, 1)
+		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
@@ -217,6 +217,10 @@
 		consoles = list()
 		servers = list()
 		for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+			if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
+				continue
+			if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
+				continue
 			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["transfer"]))
 				temp_server = S
 				break
@@ -236,6 +240,13 @@
 
 	else if(href_list["upload_toggle"])
 		var/num = text2num(href_list["upload_toggle"])
+		for(var/obj/machinery/computer/rdconsole/C in consoles)
+			if(C.id != num)
+				continue
+
+			if(!atoms_share_level(get_turf(src), get_turf(C)) && !badmin)
+				to_chat(usr, "<span class='warning'>Unable to modify upload protocols of this console; is it in the same sector?</span>")
+				return
 		if(num in temp_server.id_with_upload)
 			temp_server.id_with_upload -= num
 		else
@@ -296,10 +307,12 @@
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
 					continue
+				if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
+					continue
 				dat += "[S.name] || "
-				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
-				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A>"
-				if(badmin) dat += " | <A href='?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
+				dat += "<A href='byond://?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
+				dat += "<A href='byond://?src=[UID()];data=[S.server_id]'>Data Management</A>"
+				if(badmin) dat += " | <A href='byond://?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
 				dat += "<BR>"
 
 		if(1) //Access rights menu
@@ -307,7 +320,7 @@
 			dat += "Consoles with Upload Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
 				var/turf/console_turf = get_turf(C)
-				dat += "* <A href='?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
+				dat += "* <A href='byond://?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
 				if(C.id in temp_server.id_with_upload)
 					dat += " (Remove)</A><BR>"
 				else
@@ -315,12 +328,12 @@
 			dat += "Consoles with Download Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
 				var/turf/console_turf = get_turf(C)
-				dat += "* <A href='?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
+				dat += "* <A href='byond://?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
 				if(C.id in temp_server.id_with_download)
 					dat += " (Remove)</A><BR>"
 				else
 					dat += " (Add)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+			dat += "<HR><A href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(2) //Data Management menu
 			dat += "[temp_server.name] Data Management<BR><BR>"
@@ -330,26 +343,26 @@
 				if(T.level <= 0)
 					continue
 				dat += "* [T.name] "
-				dat += "<A href='?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
+				dat += "<A href='byond://?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
 			dat += "Known Designs<BR>"
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				dat += "* [D.name] "
-				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
+				dat += "<A href='byond://?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
 			if(length(temp_server.files.blacklisted_designs))
 				dat += "Blacklisted Designs<br>"
 				for(var/I in temp_server.files.blacklisted_designs)
 					dat += "* [I] "
-					dat += "<a href='?src=[UID()];restore_design=[I]'>(Restore design)</a><br>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+					dat += "<a href='byond://?src=[UID()];restore_design=[I]'>(Restore design)</a><br>"
+			dat += "<HR><A href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(3) //Server Data Transfer
 			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
 			dat += "Send Data to what server?<BR>"
 			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <A href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
-	user << browse("<TITLE>R&D Server Control</TITLE><HR>[dat]", "window=server_control;size=575x400")
+				dat += "[S.name] <a href='byond://?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
+			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
+	user << browse("<title>R&D Server Control</title><hr><meta charset='UTF-8'>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return
 

@@ -13,8 +13,6 @@ SUBSYSTEM_DEF(ticker)
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
-	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -37,8 +35,8 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_name
 	/// Name of the bible deity
 	var/Bible_deity_name
-	/// Cult data. Here instead of cult for adminbus purposes
-	var/datum/cult_info/cultdat = null
+	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
+	var/datum/cult_info/cult_data
 	/// If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
 	var/random_players = FALSE
 	/// Did we broadcast the tip of the round yet?
@@ -84,7 +82,8 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
+			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -159,7 +158,8 @@ SUBSYSTEM_DEF(ticker)
 		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
-	cultdat = setupcult()
+	var/random_cult = pick(typesof(/datum/cult_info))
+	cult_data = new random_cult()
 	score = new()
 
 	// Create and announce mode
@@ -723,7 +723,7 @@ SUBSYSTEM_DEF(ticker)
 		delay = max(0, delay)
 	else
 		// Use default restart timeout
-		delay = restart_timeout
+		delay = max(0, GLOB.configuration.general.restart_timeout SECONDS)
 
 	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 
@@ -782,7 +782,7 @@ SUBSYSTEM_DEF(ticker)
 		AR.handle_data(load_queries[ckey])
 		save_queries[ckey] = AR.get_save_query()
 
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
 
 	log_text += "Investigation advised if there are a high number of infractions"
 

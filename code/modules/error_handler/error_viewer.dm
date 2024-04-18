@@ -71,7 +71,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		back_to_param = ";viewruntime_backto=[back_to.UID()]"
 	if(linear)
 		back_to_param += ";viewruntime_linear=1"
-	return "<A HREF='?_src_=holder;viewruntime=[src.UID()][back_to_param]'>[html_encode(linktext)]</A>"
+	return "<A href='byond://?_src_=holder;viewruntime=[src.UID()][back_to_param]'>[html_encode(linktext)]</A>"
 
 /datum/ErrorViewer/ErrorCache
 	var/list/errors = list()
@@ -117,7 +117,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	//  from the same source hasn't been shown too recently
 	if(error_source.next_message_at <= world.time)
 		var/const/viewtext = "\[view]" // Nesting these in other brackets went poorly
-		log_debug("Runtime in [e.file],[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
+		log_debug("Runtime in [e.file]:[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
 		error_source.next_message_at = world.time + ERROR_MSG_DELAY
 
 /datum/ErrorViewer/ErrorSource
@@ -128,7 +128,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	if(!istype(e))
 		name = "\[[time_stamp()]] Uncaught exceptions"
 		return
-	name = "\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]"
+	name = "\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]"
 
 /datum/ErrorViewer/ErrorSource/showTo(user, datum/ErrorViewer/back_to, linear)
 	if(!istype(back_to))
@@ -156,10 +156,10 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		name = "\[[time_stamp()]] Uncaught exception: [e]"
 		return
 	if(skipCount)
-		name = "\[[time_stamp()]] Skipped [skipCount] runtimes in [e.file],[e.line]."
+		name = "\[[time_stamp()]] Skipped [skipCount] runtimes in [e.file]:[e.line]."
 		isSkipCount = TRUE
 		return
-	name = "\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]"
+	name = "\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]"
 	exc = e
 	if(istype(desclines))
 		for(var/line in desclines)
@@ -184,24 +184,24 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
 
 	if(srcRef)
-		html += "<br>src: <a href='?_src_=vars;Vars=[srcUID]'>VV</a>"
+		html += "<br>src: <a href='byond://?_src_=vars;Vars=[srcUID]'>VV</a>"
 
 		if(ispath(srcType, /mob))
-			html += " <a href='?_src_=holder;adminplayeropts=[srcUID]'>PP</a>"
-			html += " <a href='?_src_=holder;adminplayerobservefollow=[srcUID]'>Follow</a>"
+			html += " <a href='byond://?_src_=holder;adminplayeropts=[srcUID]'>PP</a>"
+			html += " <a href='byond://?_src_=holder;adminplayerobservefollow=[srcUID]'>Follow</a>"
 
 		if(istype(srcLoc))
-			html += "<br>src.loc: <a href='?_src_=vars;Vars=[srcLoc.UID()]'>VV</a>"
-			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[srcLoc.x];Y=[srcLoc.y];Z=[srcLoc.z]'>JMP</a>"
+			html += "<br>src.loc: <a href='byond://?_src_=vars;Vars=[srcLoc.UID()]'>VV</a>"
+			html += " <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[srcLoc.x];Y=[srcLoc.y];Z=[srcLoc.z]'>JMP</a>"
 
 	if(usrRef)
-		html += "<br>usr: <a href='?_src_=vars;Vars=[usrUID]'>VV</a>"
-		html += " <a href='?_src_=holder;adminplayeropts=[usrUID]'>PP</a>"
-		html += " <a href='?_src_=holder;adminplayerobservefollow=[usrUID]'>Follow</a>"
+		html += "<br>usr: <a href='byond://?_src_=vars;Vars=[usrUID]'>VV</a>"
+		html += " <a href='byond://?_src_=holder;adminplayeropts=[usrUID]'>PP</a>"
+		html += " <a href='byond://?_src_=holder;adminplayerobservefollow=[usrUID]'>Follow</a>"
 
 		if(istype(usrLoc))
-			html += "<br>usr.loc: <a href='?_src_=vars;Vars=[usrLoc.UID()]'>VV</a>"
-			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[usrLoc.x];Y=[usrLoc.y];Z=[usrLoc.z]'>JMP</a>"
+			html += "<br>usr.loc: <a href='byond://?_src_=vars;Vars=[usrLoc.UID()]'>VV</a>"
+			html += " <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[usrLoc.x];Y=[usrLoc.y];Z=[usrLoc.z]'>JMP</a>"
 
 	browseTo(user, html)
 

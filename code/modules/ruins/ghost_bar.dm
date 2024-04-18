@@ -87,6 +87,7 @@
 /obj/effect/mob_spawn/human/alive/ghost_bar/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
 	H.equip_or_collect(I, slot, TRUE)
+	H.speaks_ooc = TRUE
 	return I
 
 /obj/structure/ghost_bar_cryopod

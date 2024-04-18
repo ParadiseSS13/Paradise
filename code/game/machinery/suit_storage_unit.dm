@@ -169,8 +169,15 @@
 	name = "mining suit storage unit"
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
+	boots_type = /obj/item/clothing/shoes/workboots/mining
 	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
+
+/obj/machinery/suit_storage_unit/gulag
+	name = "gulag suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/prisoner_gulag
+	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
+	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
@@ -234,7 +241,7 @@
 
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
-	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
+	switch(pick("red", "green", "ntblue", "purple", "yellow", "ltblue"))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
 			suit_type = /obj/item/clothing/suit/space/nasavoid

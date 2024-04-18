@@ -64,20 +64,30 @@
 	This is not used in stock /tg/station currently.
 */
 /atom/movable/Adjacent(atom/neighbor)
-	if(neighbor == loc) return 1
-	if(!isturf(loc)) return 0
+	if(neighbor == loc)
+		return TRUE
+	if(!isturf(loc))
+		return FALSE
 	for(var/turf/T in locs)
 		if(isnull(T)) continue
-		if(T.Adjacent(neighbor,src)) return 1
-	return 0
+		if(T.Adjacent(neighbor, src)) return TRUE
+	return FALSE
 
 // This is necessary for storage items not on your person.
 /obj/item/Adjacent(atom/neighbor, recurse = 1)
-	if(neighbor == loc) return 1
-	if(isitem(loc))
+	if(neighbor == loc)
+		return TRUE
+	if(!istype(neighbor))
+		return ..()
+	if(isnull(loc))
+		return FALSE
+	if(HAS_TRAIT(loc, TRAIT_ADJACENCY_TRANSPARENT))
+		// Transparent parent, don't decrease recurse.
+		return loc.Adjacent(neighbor, recurse)
+	if(isitem(loc) || isstructure(loc) || isvehicle(loc))
 		if(recurse > 0)
-			return loc.Adjacent(neighbor,recurse - 1)
-		return 0
+			return loc.Adjacent(neighbor, recurse - 1)
+		return FALSE
 	return ..()
 
 /*

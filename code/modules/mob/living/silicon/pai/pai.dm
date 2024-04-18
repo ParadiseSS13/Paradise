@@ -103,8 +103,8 @@
 	add_language("Gutter")
 	add_language("Trinary")
 
-	AddSpell(new /obj/effect/proc_holder/spell/access_software_pai)
-	AddSpell(new /obj/effect/proc_holder/spell/unfold_chassis_pai)
+	AddSpell(new /datum/spell/access_software_pai)
+	AddSpell(new /datum/spell/unfold_chassis_pai)
 
 	//PDA
 	pda = new(src)
@@ -157,13 +157,13 @@
 /mob/living/silicon/pai/proc/show_silenced()
 	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
-		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		return list("Communications system reboot in:", "-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 
-/mob/living/silicon/pai/Stat()
-	..()
-	if(statpanel("Status"))
-		show_silenced()
+/mob/living/silicon/pai/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = show_silenced()
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
@@ -176,9 +176,6 @@
 		return 0
 	..()
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	return
-
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
 	// 20% chance to kill
@@ -189,7 +186,7 @@
 	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
 	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
 	if(prob(20))
-		var/turf/T = get_turf_or_move(loc)
+		var/turf/T = get_turf(loc)
 		for(var/mob/M in viewers(T))
 			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
@@ -241,7 +238,7 @@
 // mobile pai mob. This also includes handling some of the general shit that can occur
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
-/obj/effect/proc_holder/spell/unfold_chassis_pai
+/datum/spell/unfold_chassis_pai
 	name = "Unfold/Fold Chassis"
 	desc = "Allows you to fold in/out of your mobile form."
 	clothes_req = FALSE
@@ -249,10 +246,10 @@
 	action_icon_state = "repairbot"
 	action_background_icon_state = "bg_tech_blue"
 
-/obj/effect/proc_holder/spell/unfold_chassis_pai/create_new_targeting()
+/datum/spell/unfold_chassis_pai/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/unfold_chassis_pai/cast(list/targets, mob/living/user = usr)
+/datum/spell/unfold_chassis_pai/cast(list/targets, mob/living/user = usr)
 	var/mob/living/silicon/pai/pai_user = user
 
 	if(pai_user.loc != pai_user.card)
@@ -435,7 +432,8 @@
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
-	if(!istype(H) || !Adjacent(H))  return ..()
+	if(!istype(H) || !Adjacent(H))
+		return ..()
 	if(usr == src)
 		switch(tgui_alert(H, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
 			if("Yes")
@@ -445,11 +443,10 @@
 					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
 			if("No")
 				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+	else if(Adjacent(H))
+		get_scooped(H)
 	else
-		if(Adjacent(H))
-			get_scooped(H)
-		else
-			return ..()
+		return ..()
 
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)

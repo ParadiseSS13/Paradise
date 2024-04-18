@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 53
+sql_version = 54
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -254,6 +254,8 @@ disable_certain_round_early_end = false
 traitor_objective_amount = 2
 # Enable player limits on gamemodes. Disable if testing
 enable_gamemode_player_limit = true
+# Enable to generate zero or more random station traits on game start.
+add_random_station_traits = false
 
 
 ################################################################
@@ -273,6 +275,8 @@ server_features = "Medium RP, varied species/jobs"
 allow_character_metadata = true
 # Lobby time before roundstart (Seconds)
 lobby_time = 240
+# Default timeout for world reboot (Seconds)
+restart_timeout = 75
 # Forbid people without a BYOND account joining the server
 guest_ban = true
 # Allow players to use antagHUD?

@@ -541,9 +541,9 @@
 		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	UpdateButtonIcon() //action icon looks unavailable
+	UpdateButtons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	UpdateButtonIcon() //action icon looks available again
+	UpdateButtons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"
@@ -654,8 +654,8 @@
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/drinks/bottle/bottleofnothing(H), SLOT_HUD_RIGHT_STORE)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), SLOT_HUD_LEFT_HAND)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
+		H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /datum/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
 /datum/unarmed_attack/golem/tranquillite

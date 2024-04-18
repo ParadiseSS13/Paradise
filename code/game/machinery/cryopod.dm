@@ -228,9 +228,15 @@
 		/obj/item/autopsy_scanner,
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
-		/obj/item/rcd,
-		/obj/item/rpd,
-		/obj/item/mod/control
+		/obj/item/mod/control,
+		/obj/item/stamp,
+		/obj/item/melee/knuckleduster/nanotrasen,
+		/obj/item/melee/rapier,
+		/obj/item/storage/belt/rapier,
+		/obj/item/nuke_core,
+		/obj/item/nuke_core_container,
+		/obj/item/documents,
+		/obj/item/clothing/gloves/color/black/krav_maga
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -249,7 +255,8 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
+	var/area/our_area = get_area(src)
+	for(var/obj/machinery/computer/cryopod/C in our_area)
 		if(C.type == console_type)
 			control_computer = C
 			break
@@ -329,11 +336,6 @@
 		I.forceMove(src)
 		handle_contents(I)
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/dna2/record/R in cloner.records)
-			if(occupant.mind == locate(R.mind))
-				cloner.records.Remove(R)
-
 	//Delete all items not on the preservation list.
 	var/list/items = contents
 	items -= occupant // Don't delete the occupant
@@ -359,9 +361,8 @@
 			I.forceMove(loc)
 
 	// Find a new sacrifice target if needed, if unable allow summoning
-	if(is_sacrifice_target(occupant.mind))
-		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
-			SSticker.mode.cult_objs.ready_to_summon()
+	if(IS_SACRIFICE_TARGET(occupant.mind))
+		SSticker.mode.cult_team.find_new_sacrifice_target()
 
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)
@@ -594,7 +595,7 @@
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
-	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
 

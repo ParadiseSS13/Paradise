@@ -1,9 +1,4 @@
 
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
@@ -70,7 +65,7 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat= 2, /obj/item/food/snacks/monstermeat/spiderleg= 8, /obj/item/food/snacks/monstermeat/spidereggs= 4)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8, /obj/item/food/snacks/monstermeat/spidereggs = 4)
 
 	maxHealth = 40
 	health = 40
@@ -286,8 +281,3 @@
 		C.player_spiders = TRUE
 	fed--
 	stop_automated_movement = FALSE
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

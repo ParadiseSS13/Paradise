@@ -37,6 +37,8 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
+	/// List. Player view blocking fillers for multi-tile doors.
+	var/list/fillers
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
@@ -49,7 +51,7 @@
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
-	update_dir()
+	update_bounds()
 	update_freelook_sight()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
@@ -72,21 +74,12 @@
 
 /obj/machinery/door/setDir(newdir)
 	..()
-	update_dir()
+	update_bounds()
 
 /obj/machinery/door/power_change()
 	if(!..())
 		return
 	update_icon()
-
-/obj/machinery/door/proc/update_dir()
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
 
 /obj/machinery/door/Destroy()
 	density = FALSE
@@ -131,13 +124,7 @@
 	. = ..()
 	move_update_air(T)
 
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+	update_bounds()
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover))
@@ -367,12 +354,18 @@
 	operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(0)
+	if(width > 1)
+		set_fillers_opacity(0)
 	sleep(5)
 	density = FALSE
+	if(width > 1)
+		set_fillers_density(FALSE)
 	sleep(5)
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
+	if(width > 1)
+		set_fillers_opacity(0)
 	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
@@ -400,10 +393,14 @@
 	layer = closingLayer
 	sleep(5)
 	density = TRUE
+	if(width > 1)
+		set_fillers_density(TRUE)
 	sleep(5)
 	update_icon()
 	if(!glass || polarized_on)
 		set_opacity(TRUE)
+		if(width > 1)
+			set_fillers_opacity(TRUE)
 	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
@@ -511,3 +508,66 @@
 	if(caller.checkpass(PASSGLASS))
 		return !opacity
 	return ..()
+
+/**
+ * Checks which way the airlock is facing and adjusts the direction accordingly.
+ * For use with multi-tile airlocks.
+ */
+/obj/machinery/door/proc/get_adjusted_dir(dir)
+	if(dir in list(EAST, WEST))
+		return EAST
+	else
+		return NORTH
+
+/**
+ * Sets the bounds of the airlock. For use with multi-tile airlocks.
+ * If the airlock is multi-tile, it will set the bounds to be the size of the airlock.
+ * If the airlock doesn't already have fillers, it will create them.
+ * If the airlock already has fillers, it will move them to the correct location.
+ */
+/obj/machinery/door/proc/update_bounds()
+	if(width <= 1)
+		return
+	
+	QDEL_LIST_CONTENTS(fillers)
+	
+	if(dir in list(EAST, WEST))
+		bound_width = width * world.icon_size
+		bound_height = world.icon_size
+	else
+		bound_width = world.icon_size
+		bound_height = width * world.icon_size
+
+	LAZYINITLIST(fillers)
+
+	var/adjusted_dir = get_adjusted_dir(dir)
+	var/obj/last_filler = src
+	for(var/i = 1, i < width, i++)
+		var/obj/airlock_filler_object/filler
+
+		if(length(fillers) < i)
+			filler = new
+			filler.pair_airlock(src)
+			fillers.Add(filler)
+		else
+			filler = fillers[i]
+
+		filler.loc = get_step(last_filler, adjusted_dir)
+		filler.density = density
+		filler.set_opacity(opacity)
+
+		last_filler = filler
+
+/obj/machinery/door/proc/set_fillers_density(density)
+	if(!length(fillers))
+		return
+
+	for(var/obj/airlock_filler_object/filler as anything in fillers)
+		filler.density = density
+
+/obj/machinery/door/proc/set_fillers_opacity(opacity)
+	if(!length(fillers))
+		return
+
+	for(var/obj/airlock_filler_object/filler as anything in fillers)
+		filler.set_opacity(opacity)

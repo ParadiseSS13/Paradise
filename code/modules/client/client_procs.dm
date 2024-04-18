@@ -80,7 +80,7 @@
 			return
 
 	var/stl = 10 // 10 topics a second
-	if(!holder) // Admins are allowed to spam click, deal with it.
+	if(!holder && href_list["window_id"] != "statbrowser") // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -105,7 +105,7 @@
 	if(href_list["priv_msg"])
 		var/ckey_txt = href_list["priv_msg"]
 
-		cmd_admin_pm(ckey_txt, null, href_list["type"])
+		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
 		return
 
 	if(href_list["discord_msg"])
@@ -158,6 +158,10 @@
 	// Tgui Topic middleware
 	if(tgui_Topic(href_list))
 		return
+
+	if(href_list["reload_statbrowser"])
+		stat_panel.reinitialize()
+
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
 
@@ -254,10 +258,15 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
+	// Instantiate stat panel
+	stat_panel = new(src, "statbrowser")
+	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	tgui_panel = new(src, "browseroutput")
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
+
+	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
-
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -359,7 +368,7 @@
 			_2fa_alert = TRUE
 			// This also has to be manually done since no mob to use check_rights() on
 			deadmin()
-			verbs += /client/proc/readmin
+			add_verb(src, /client/proc/readmin)
 			GLOB.de_admins += ckey
 
 		else
@@ -394,6 +403,13 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
+	// Initialize stat panel
+	stat_panel.initialize(
+		inline_html = file2text('html/statbrowser.html'),
+		inline_js = file2text('html/statbrowser.js'),
+		inline_css = file2text('html/statbrowser.css'),
+	)
+	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
 
 	// Initialize tgui say
 	tgui_say.initialize()
@@ -438,6 +454,8 @@
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 	display_job_bans(TRUE)
+	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
+		winset(src, "debugmcbutton", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -473,6 +491,9 @@
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+
+	if(obj_window)
+		QDEL_NULL(obj_window)
 
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
@@ -514,7 +535,8 @@
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
 			var/mentor_count = mentorcounter[1]
-			mentor_count-- // Exclude ourself
+			if(!(holder.fakekey || is_afk()))
+				mentor_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -526,7 +548,8 @@
 		if(SSredis.connected)
 			var/list/admincounter = staff_countup(R_BAN)
 			var/admin_count = admincounter[1]
-			admin_count-- // Exclude ourself
+			if(!(holder.fakekey || is_afk()))
+				admin_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -570,6 +593,9 @@
 		if(check_randomizer(connectiontopic))
 			return
 
+	var/client_address = address
+	if(!client_address) // Localhost can sometimes have no address set
+		client_address = "127.0.0.1"
 
 	if(sql_id)
 		//Just the standard check to see if it's actually a number
@@ -577,10 +603,6 @@
 			sql_id = text2num(sql_id)
 		if(!isnum(sql_id))
 			return // Return here because if we somehow didnt pull a number from an INT column, EVERYTHING is breaking
-
-		var/client_address = address
-		if(!client_address) // Localhost can sometimes have no address set
-			client_address = "127.0.0.1"
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
@@ -602,7 +624,7 @@
 		//New player!! Need to insert all the stuff
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = address,
+			"ip" = client_address,
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))
@@ -664,7 +686,7 @@
 		if(living_hours < 20)
 			return
 
-	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
+	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
@@ -788,7 +810,7 @@
 			cidcheck[ckey] = computer_id
 
 			// Disable the reconnect button to force a CID change
-			winset(src, "reconnectbutton", "is-disable=true")
+			winset(src, "reconnectbutton", "is-disabled=true")
 
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
@@ -886,7 +908,7 @@
 	var/url = winget(src, null, "url")
 
 	//special javascript to make them reconnect under a new window.
-	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+	src << browse("<!DOCTYPE html><a id='link' href='byond://[url]?token=[token]'>\
 		byond://[url]?token=[token]\
 	</a>\
 	<script type='text/javascript'>\
@@ -1158,9 +1180,78 @@
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
 
+/client/Click(object, location, control, params)
+	. = ..()
+	// please yell at me if this is Too Much
+	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
+
+/// Compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	if(IsAdminAdvancedProcCall())
+		return
+	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
+	panel_tabs.Cut() // panel_tabs get reset in init_verbs on JS side anyway
+	for(var/thing in verbstoprocess)
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		panel_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+
+/client/proc/check_panel_loaded()
+	if(stat_panel.is_ready())
+		return
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+
+/**
+ * Handles incoming messages from the stat-panel TGUI.
+ */
+/client/proc/on_stat_panel_message(type, payload)
+	switch(type)
+		if("Update-Verbs")
+			init_verbs()
+		if("Remove-Tabs")
+			panel_tabs -= payload["tab"]
+		if("Send-Tabs")
+			panel_tabs |= payload["tab"]
+		if("Reset-Tabs")
+			panel_tabs = list()
+		if("Set-Tab")
+			stat_tab = payload["tab"]
+			SSstatpanels.immediate_send_stat_data(src)
+		if("Debug-Stat-Entry")
+			var/stat_item = locateUID(payload["stat_item_uid"])
+			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
+				return
+			var/class
+			if(istype(stat_item, /datum/controller/subsystem))
+				class = "subsystem"
+			else if(istype(stat_item, /datum/controller))
+				class = "controller"
+			else if(istype(stat_item, /datum))
+				class = "datum"
+			else
+				class = "unknown"
+			debug_variables(stat_item)
+			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT
 #undef CURRENT_MINUTE
 #undef MINUTE_COUNT
 #undef ADMINSWARNED_AT
+
+#undef SUGGESTED_CLIENT_VERSION
+#undef SUGGESTED_CLIENT_BUILD

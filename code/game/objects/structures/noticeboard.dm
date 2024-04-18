@@ -34,10 +34,10 @@
 	return ..()
 
 /obj/structure/noticeboard/attack_hand(user as mob)
-	var/dat = "<B>Noticeboard</B><BR>"
+	var/dat = "<b>Noticeboard</b><br>"
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];read=\ref[P]'>[P.name]</A> <A href='?src=[UID()];write=\ref[P]'>Write</A> <A href='?src=[UID()];remove=\ref[P]'>Remove</A><BR>"
-	user << browse("<HEAD><TITLE>Notices</TITLE></HEAD>[dat]","window=noticeboard")
+		dat += "<a href='byond://?src=[UID()];read=\ref[P]'>[P.name]</a> <a href='byond://?src=[UID()];write=\ref[P]'>Write</a> <a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><br>"
+	user << browse("<!DOCTYPE html><meta charset='utf-8'><head><title>Notices</title></head>[dat]","window=noticeboard")
 	onclose(user, "noticeboard")
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)

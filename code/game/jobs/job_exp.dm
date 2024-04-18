@@ -40,10 +40,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 	var/list/msg = list()
-	msg  += "<html><head><title>Playtime Report</title></head><body>"
+	msg  += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
-	msg += "<TABLE border ='1'><TR><TH>Player</TH><TH>Job</TH><TH>Crew</TH>"
+	msg += "<table border ='1'><tr><th>Player</th><th>Job</th><th>Crew</th>"
 	for(var/thisdept in EXP_DEPT_TYPE_LIST)
 		msg += "<TH>[thisdept]</TH>"
 	msg += "</TR>"
@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
 
-		msg += "<TD><A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
+		msg += "<TD><A href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
 		msg += "[C.get_exp_dept_string()]"
 		msg += "</TR>"
 

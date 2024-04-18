@@ -199,3 +199,6 @@
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
 	location_override = "a Syndicate agent's possession"
+
+#undef THEFT_FLAG_SPECIAL
+#undef THEFT_FLAG_UNIQUE

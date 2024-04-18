@@ -637,6 +637,7 @@ Difficulty: Hard
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = UNCONSCIOUS
+	maxbodytemp = INFINITY
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300
@@ -863,3 +864,8 @@ Difficulty: Hard
 #undef FLUX
 #undef CRYO
 #undef VORTEX
+
+#undef TOP_RIGHT
+#undef TOP_LEFT
+#undef BOTTOM_RIGHT
+#undef BOTTOM_LEFT

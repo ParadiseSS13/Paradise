@@ -11,14 +11,11 @@
 "d" = (
 /obj/item/clothing/head/helmet/space/syndicate/orange,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/plating/asteroid/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "e" = (
 /obj/item/clothing/suit/space/syndicate/orange,
-/turf/simulated/floor/plating/asteroid/basalt,
-/area/ruin/powered)
-"f" = (
-/turf/simulated/floor/plating/asteroid/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "g" = (
 /turf/simulated/floor/plating/asteroid{
@@ -60,8 +57,7 @@
 /obj/item/seeds/reishi,
 /obj/item/seeds/plump,
 /obj/item/seeds/plump,
-/obj/item/food/snacks/grown/mushroom/glowshroom,
-/turf/simulated/floor/plating/asteroid/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "n" = (
 /obj/machinery/hydroponics/soil,
@@ -75,7 +71,7 @@
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/storage/bag/ore,
 /obj/item/storage/firstaid/regular,
-/turf/simulated/floor/plating/asteroid/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "q" = (
 /obj/structure/glowshroom,
@@ -85,7 +81,7 @@
 /obj/structure/rack,
 /obj/item/pickaxe/emergency,
 /obj/item/tank/internals/oxygen,
-/turf/simulated/floor/plating/asteroid/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "s" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -170,18 +166,22 @@
 "J" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered)
 "K" = (
 /obj/effect/baseturf_helper,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"P" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "X" = (
 /obj/item/flashlight/lantern,
-/turf/simulated/floor/plating/asteroid/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -193,14 +193,14 @@ a
 a
 a
 a
-s
-s
-s
-s
-s
-s
-s
-s
+P
+P
+P
+a
+a
+a
+a
+a
 "}
 (2,1,1) = {"
 a
@@ -213,12 +213,12 @@ a
 a
 a
 a
+P
+P
 s
-s
-s
-s
-s
-s
+a
+a
+a
 "}
 (3,1,1) = {"
 a
@@ -231,12 +231,12 @@ a
 a
 a
 a
+P
+P
+P
 s
-s
-s
-s
-s
-s
+a
+a
 "}
 (4,1,1) = {"
 a
@@ -250,11 +250,11 @@ a
 a
 a
 a
+P
+P
+P
 s
-s
-s
-s
-s
+a
 "}
 (5,1,1) = {"
 a
@@ -270,9 +270,9 @@ t
 t
 t
 t
-s
-s
-s
+P
+P
+a
 "}
 (6,1,1) = {"
 a
@@ -288,8 +288,8 @@ v
 x
 B
 t
-s
-s
+P
+P
 s
 "}
 (7,1,1) = {"
@@ -306,9 +306,9 @@ w
 y
 y
 D
-s
-s
-s
+P
+P
+a
 "}
 (8,1,1) = {"
 a
@@ -316,7 +316,7 @@ b
 b
 b
 c
-f
+g
 o
 q
 K
@@ -324,27 +324,27 @@ o
 z
 C
 t
-s
-s
-s
+P
+P
+a
 "}
 (9,1,1) = {"
 b
 b
-f
-i
 g
-f
-f
+i
+o
+g
+g
 o
 o
 o
 t
 t
 t
+P
 s
-s
-s
+a
 "}
 (10,1,1) = {"
 b
@@ -352,16 +352,16 @@ d
 g
 j
 g
+o
 g
-f
-f
+g
 u
 o
 A
 b
 a
-s
-s
+P
+P
 s
 "}
 (11,1,1) = {"
@@ -379,13 +379,13 @@ c
 b
 a
 a
-s
+P
 s
 "}
 (12,1,1) = {"
 b
 b
-f
+o
 k
 X
 b
@@ -450,7 +450,7 @@ a
 a
 a
 a
-G
+F
 J
 G
 "}

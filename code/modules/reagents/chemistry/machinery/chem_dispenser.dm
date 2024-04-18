@@ -1,5 +1,6 @@
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
+	desc = "For making chemicals, medicine, and explosions."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -60,9 +61,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",
@@ -607,9 +609,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",

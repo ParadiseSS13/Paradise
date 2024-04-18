@@ -9,9 +9,9 @@
 			R = 1
 			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
 				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
+				atmos_superconductivity |= D
 				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
+				T.atmos_superconductivity |= D
 				return 0						//no need to keep going, we got all we asked
 
 	for(var/obj/O in T.contents)
@@ -19,15 +19,15 @@
 			R = 1
 			if(O.BlockSuperconductivity())
 				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
+				atmos_superconductivity |= D
 				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
+				T.atmos_superconductivity |= D
 				return 0
 
 	var/D = get_dir(src, T)
-	atmos_supeconductivity &= ~D
+	atmos_superconductivity &= ~D
 	D = get_dir(T, src)
-	T.atmos_supeconductivity &= ~D
+	T.atmos_superconductivity &= ~D
 
 	if(!R)
 		return 1
