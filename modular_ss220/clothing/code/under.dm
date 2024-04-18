@@ -44,6 +44,7 @@
 		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/species/unathi/under.dmi',
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation"		=	'modular_ss220/clothing/icons/mob/under.dmi',
 		)
 
 /obj/item/clothing/under/yellowgreen_skirt
@@ -294,7 +295,8 @@
 		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
-		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi'
 	)
 
 /obj/item/clothing/under/towel_long_alt
@@ -325,7 +327,8 @@
 		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
-		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi',
 	)
 
 /obj/item/clothing/under/towel_short
@@ -354,7 +357,8 @@
 		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
-		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi',
 	)
 
 /obj/item/clothing/under/towel_short_alt
@@ -383,7 +387,8 @@
 		"Machine" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Diona" = 'modular_ss220/clothing/icons/mob/under.dmi',
 		"Shadow" = 'modular_ss220/clothing/icons/mob/under.dmi',
-		"Ancient Skeleton" ='modular_ss220/clothing/icons/mob/under.dmi',
+		"Ancient Skeleton" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/under.dmi',
 	)
 
 // Длинное полотенце

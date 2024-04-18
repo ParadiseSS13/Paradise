@@ -35,6 +35,7 @@
 		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/hats.dmi',
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/hats.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/species/vulpkanin/hats.dmi',
+		"Nucleation"		=	'modular_ss220/clothing/icons/mob/hats.dmi',
 		)
 
 /obj/item/clothing/head/chefhat/red
@@ -62,6 +63,7 @@
 		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/hats.dmi',
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/hats.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/hats.dmi',
+		"Nucleation"		=	'modular_ss220/clothing/icons/mob/hats.dmi',
 		)
 
 /obj/item/clothing/head/towel
@@ -90,6 +92,7 @@
 		"Unathi" = 'modular_ss220/clothing/icons/mob/hats.dmi',
 		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/hats.dmi',
 		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/hats.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/hats.dmi',
 	)
 
 /obj/item/clothing/head/towel/red

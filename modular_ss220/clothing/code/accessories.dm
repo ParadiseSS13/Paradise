@@ -24,6 +24,7 @@
 		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/accessories.dmi',
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/accessories.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/accessories.dmi',
+		"Nucleation"		=	'modular_ss220/clothing/icons/mob/accessories.dmi',
 		)
 
 /obj/item/storage/belt/chef/apron/red

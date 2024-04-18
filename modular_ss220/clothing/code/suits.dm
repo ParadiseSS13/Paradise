@@ -201,6 +201,7 @@
 		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/suits.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Nucleation"		=	'modular_ss220/clothing/icons/mob/suits.dmi',
 		)
 
 /datum/supply_packs/misc/soundhand

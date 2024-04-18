@@ -31,6 +31,7 @@
 		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/species/unathi/helmet.dmi',
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/helmet.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/species/vulpkanin/helmet.dmi',
+		"Nucleation"		=	'modular_ss220/clothing/icons/mob/helmet.dmi',
 		)
 
 /obj/item/clothing/head/helmet/bike_helmet/replica
