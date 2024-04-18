@@ -490,7 +490,7 @@
 		for(var/mob/living/silicon/robot/R in ai.connected_robots)
 			if(R.emagged)
 				n_e_robots++
-		. += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
+		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
 
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
@@ -1107,7 +1107,7 @@
 					if(SSticker.mode.syndicates.len==1)
 						SSticker.mode.prepare_syndicate_leader(src)
 					else
-						current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
+						current.real_name = "[syndicate_name()] Operative #[length(SSticker.mode.syndicates) - 1]"
 					special_role = SPECIAL_ROLE_NUKEOPS
 					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 					SSticker.mode.forge_syndicate_objectives(src)
@@ -1596,7 +1596,7 @@
 		if(SSticker.mode.syndicates.len==1)
 			SSticker.mode.prepare_syndicate_leader(src)
 		else
-			current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
+			current.real_name = "[syndicate_name()] Operative #[length(SSticker.mode.syndicates) - 1]"
 		special_role = SPECIAL_ROLE_NUKEOPS
 		assigned_role = SPECIAL_ROLE_NUKEOPS
 		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")

@@ -173,9 +173,9 @@
 
 	SSshuttle.stationary += src
 	if(!id)
-		id = "[SSshuttle.stationary.len]"
+		id = "[length(SSshuttle.stationary)]"
 	if(name == "dock")
-		name = "dock[SSshuttle.stationary.len]"
+		name = "dock[length(SSshuttle.stationary)]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -267,9 +267,9 @@
 	SSshuttle.mobile += src
 
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[length(SSshuttle.mobile)]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[length(SSshuttle.mobile)]"
 
 	return 1
 

@@ -102,7 +102,7 @@
 					O.forceMove(chassis)
 					O.anchored = FALSE
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
-					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - length(cargo_holder.cargo)]")
 				else
 					O.anchored = initial(O.anchored)
 			else

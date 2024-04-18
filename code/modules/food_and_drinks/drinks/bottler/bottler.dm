@@ -35,7 +35,7 @@
 			var/datum/bottler_recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
-				for(var/i = 1, i <= recipe.ingredients.len, i++)
+				for(var/i = 1, i <= length(recipe.ingredients), i++)
 					acceptable_items |= recipe.ingredients[i]
 			else
 				qdel(recipe)

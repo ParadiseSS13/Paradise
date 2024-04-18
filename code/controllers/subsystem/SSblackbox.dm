@@ -69,9 +69,9 @@ SUBSYSTEM_DEF(blackbox)
 	sealed = FALSE
 	for(var/obj/machinery/message_server/MS in GLOB.message_servers)
 		if(MS.pda_msgs.len)
-			record_feedback("tally", "radio_usage", MS.pda_msgs.len, "PDA")
+			record_feedback("tally", "radio_usage", length(MS.pda_msgs), "PDA")
 		if(MS.rc_msgs.len)
-			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
+			record_feedback("tally", "radio_usage", length(MS.rc_msgs), "request console")
 
 	if(length(research_levels))
 		record_feedback("associative", "high_research_level", 1, research_levels)
