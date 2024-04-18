@@ -167,6 +167,10 @@
 	harvest_message_high = "You finish mining the rock."
 	delete_on_harvest = TRUE
 
+/obj/structure/flora/ash/rock/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_ROCK, -20, 10)
+
 /obj/structure/flora/ash/rock/style_2
 	icon_state = "basalt2"
 

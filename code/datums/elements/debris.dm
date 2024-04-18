@@ -9,10 +9,10 @@
 	height = 500
 	count = 10
 	spawning = 10
-	lifespan = 0.7 SECONDS
-	fade = 0.4 SECONDS
+	lifespan = 0.3 SECONDS
+	fade = 0.2 SECONDS
 	drift = generator("circle", 0, 7)
-	scale = 0.7
+	scale = 0.3
 	velocity = list(50, 0)
 	friction = generator("num", 0.1, 0.15)
 	spin = generator("num", -20, 20)
@@ -24,8 +24,8 @@
 	height = 500
 	count = 20
 	spawning = 20
-	lifespan = 0.7 SECONDS
-	fade = 8 SECONDS
+	lifespan = 0.8 SECONDS
+	fade = 10 SECONDS
 	grow = 0.1
 	scale = 0.2
 	spin = generator("num", -20, 20)
@@ -84,69 +84,9 @@
 		debris_visuals.particles.scale = debris_scale
 	smoke_visuals.layer = ABOVE_OBJ_LAYER + 0.01
 
-	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.7 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.3 SECONDS)
 
 /datum/component/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder/smoke_visuals, obj/effect/abstract/particle_holder/debris_visuals)
 	QDEL_NULL(smoke_visuals)
 	if(debris_visuals)
 		QDEL_NULL(debris_visuals)
-
-/obj/effect/abstract/particle_holder
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = ABOVE_ALL_MOB_LAYER
-	vis_flags = VIS_INHERIT_PLANE
-	///typepath of the last location we're in, if it's different when moved then we need to update vis contents
-	var/last_attached_location_type
-	/// The main item we're attached to at the moment, particle holders hold particles for something
-	var/atom/parent
-	/// The mob that is holding our item
-	var/mob/holding_parent
-
-/obj/effect/abstract/particle_holder/Initialize(mapload, particle_path = null)
-	. = ..()
-	if(!loc)
-		stack_trace("particle holder was created with no loc!")
-		return INITIALIZE_HINT_QDEL
-	parent = loc
-
-	if(ismovable(parent))
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_qdel))
-
-	particles = new particle_path
-	update_visual_contents(parent)
-
-/obj/effect/abstract/particle_holder/Destroy(force)
-	if(parent)
-		UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
-	QDEL_NULL(particles)
-	return ..()
-
-///signal called when parent is moved
-/obj/effect/abstract/particle_holder/proc/on_move(atom/movable/attached, atom/oldloc, direction)
-	SIGNAL_HANDLER
-	if(parent.loc.type != last_attached_location_type)
-		update_visual_contents(attached)
-
-///signal called when parent is deleted
-/obj/effect/abstract/particle_holder/proc/on_qdel(atom/movable/attached, force)
-	SIGNAL_HANDLER
-	qdel(src)//our parent is gone and we need to be as well
-
-///logic proc for particle holders, aka where they move.
-///subtypes of particle holders can override this for particles that should always be turf level or do special things when repositioning.
-///this base subtype has some logic for items, as the loc of items becomes mobs very often hiding the particles
-/obj/effect/abstract/particle_holder/proc/update_visual_contents(atom/movable/attached_to)
-	// Remove old
-	if(holding_parent && !(QDELETED(holding_parent)))
-		holding_parent.vis_contents -= src
-
-	// Add new
-	if(isitem(attached_to) && ismob(attached_to.loc)) //special case we want to also be emitting from the mob
-		var/mob/particle_mob = attached_to.loc
-		last_attached_location_type = attached_to.loc
-		particle_mob.vis_contents += src
-
-	// Readd to ourselves
-	attached_to.vis_contents |= src
