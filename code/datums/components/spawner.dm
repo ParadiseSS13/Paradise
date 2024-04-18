@@ -7,6 +7,7 @@
 	var/spawn_text = "emerges from"
 	var/list/faction = list("mining")
 
+	COOLDOWN_DECLARE(last_rally)
 
 
 /datum/component/spawner/Initialize(_mob_types, _spawn_time, _faction, _spawn_text, _max_mobs)
@@ -22,6 +23,7 @@
 		max_mobs=_max_mobs
 
 	RegisterSignal(parent, list(COMSIG_PARENT_QDELETING), PROC_REF(stop_spawning))
+	RegisterSignal(parent, COMSIG_SPAWNER_SET_TARGET, PROC_REF(rally_spawned_mobs))
 	START_PROCESSING(SSprocessing, src)
 
 /datum/component/spawner/process()
@@ -49,3 +51,15 @@
 	L.nest = src
 	L.faction = src.faction
 	P.visible_message("<span class='danger'>[L] [spawn_text] [P].</span>")
+
+/datum/component/spawner/proc/rally_spawned_mobs(parent, mob/living/target)
+	SIGNAL_HANDLER // COMSIG_SPAWNER_SET_TARGET
+
+	if(!(COOLDOWN_FINISHED(src, last_rally) && length(spawned_mobs)))
+		return
+
+	// start the cooldown first, because a rallied mob might fire on
+	// ourselves while this is happening, causing confusion
+	COOLDOWN_START(src, last_rally, 30 SECONDS)
+	for(var/mob/living/simple_animal/hostile/rallied as anything in spawned_mobs)
+		INVOKE_ASYNC(rallied, TYPE_PROC_REF(/mob/living/simple_animal/hostile, aggro_fast), target)

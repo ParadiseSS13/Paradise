@@ -202,7 +202,7 @@
 		blob_destruction()
 
 /turf/simulated/mineral/ancient/proc/blob_destruction()
-	playsound(src, pick(list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')), 30, 1 )
+	playsound(src, pick('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg'), 30, 1 )
 
 	for(var/obj/O in contents) //Eject contents!
 		if(istype(O, /obj/structure/sign/poster))
@@ -548,9 +548,9 @@
 		if(!is_mining_level(z))
 			notify_admins = 1
 			if(!triggered_by_explosion)
-				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 			else
-				message_admins("An explosion has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+				message_admins("An explosion has triggered a gibtonite deposit reaction at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 
 		if(!triggered_by_explosion)
 			log_game("[key_name(user)] has triggered a gibtonite deposit reaction at [A.name] ([A.x], [A.y], [A.z]).")
