@@ -63,7 +63,7 @@
 		var/amt = req_components[tname]
 		if(amt == 0)
 			continue
-		var/use_and = i == req_components.len
+		var/use_and = i == length(req_components)
 		desc += "[(hasContent ? (use_and ? ", and" : ",") : "")] [amt] [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
 		hasContent = 1
 

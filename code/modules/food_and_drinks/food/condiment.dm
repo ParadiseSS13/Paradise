@@ -110,7 +110,7 @@
 			name = "[originalname] bottle"
 			main_reagent = reagents.get_master_reagent_name()
 			desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
-			if(reagents.reagent_list.len==1)
+			if(length(reagents.reagent_list)==1)
 				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
 			icon_state = "mixedcondiments"
 	else

@@ -129,5 +129,5 @@
 /datum/recipe/proc/count_n_items()
 	var/count = 0
 	if(items && length(items))
-		count += items.len
+		count += length(items)
 	return count

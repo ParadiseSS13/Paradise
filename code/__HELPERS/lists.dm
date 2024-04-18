@@ -571,7 +571,7 @@
 // Insert an object into a sorted list, preserving sortedness
 /proc/dd_insertObjectList(list/L, O)
 	var/min = 1
-	var/max = L.len
+	var/max = length(L)
 	var/Oval = O:dd_SortValue()
 
 	while(1)
@@ -610,7 +610,7 @@
 	var/current_sort_text
 	for(current_sort_text in incoming)
 		low_index = 1
-		high_index = sorted_text.len
+		high_index = length(sorted_text)
 		while(low_index <= high_index)
 			// Figure out the midpoint, rounding up for fractions.  (BYOND rounds down, so add 1 if necessary.)
 			midway_calc = (low_index + high_index) / 2
@@ -793,10 +793,10 @@
 //replaces reverseList ~Carnie
 /proc/reverseRange(list/L, start = 1, end = 0)
 	if(length(L))
-		start = start % L.len
+		start = start % length(L)
 		end = end % (length(L) + 1)
 		if(start <= 0)
-			start += L.len
+			start += length(L)
 		if(end <= 0)
 			end += length(L) + 1
 

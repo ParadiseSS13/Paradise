@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 // Populate our space level list
 // and prepare space transitions
 /datum/zlev_manager/proc/initialize()
-	var/num_official_z_levels = GLOB.map_transition_config.len
+	var/num_official_z_levels = length(GLOB.map_transition_config)
 	var/k = 1
 
 	// First take care of "Official" z levels, without visiting levels outside of the list

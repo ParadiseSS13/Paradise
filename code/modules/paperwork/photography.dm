@@ -664,7 +664,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/proc/sort_atoms_by_layer(list/atoms)
 	// Comb sort icons based on levels
 	var/list/result = atoms.Copy()
-	var/gap = result.len
+	var/gap = length(result)
 	var/swapped = 1
 	while(gap > 1 || swapped)
 		swapped = 0

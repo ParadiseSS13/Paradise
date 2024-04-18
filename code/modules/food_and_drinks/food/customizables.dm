@@ -489,7 +489,7 @@ do {\
 			seperator = ", "
 
 		if(sorteditems[ings] > length(levels))
-			sorteditems[ings] = levels.len
+			sorteditems[ings] = length(levels)
 
 		if(sorteditems[ings] <= 1)
 			sendback +="[ings][seperator]"
@@ -498,7 +498,7 @@ do {\
 
 	for(var/ingtype in sortedtypes)   // now add the types basenames, keeping the src one seperate so it can go on the end
 		if(sortedtypes[ingtype] > length(levels))
-			sortedtypes[ingtype] = levels.len
+			sortedtypes[ingtype] = length(levels)
 		if(ingtype == basename)
 			if(sortedtypes[ingtype] < length(levels))
 				sortedtypes[ingtype]++

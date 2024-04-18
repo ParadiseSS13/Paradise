@@ -391,7 +391,7 @@
 	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
 	data["tracking_rate"] = trackrate //rotation speed of tracker in degrees/h
 	data["rotating_direction"] = (trackrate < 0 ? "Counter clockwise" : "Clockwise") //direction of tracker
-	data["connected_panels"] = connected_panels.len
+	data["connected_panels"] = length(connected_panels)
 	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
 	return data
 

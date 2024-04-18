@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 
 /obj/machinery/field/generator/proc/calc_power()
-	var/power_draw = 2 + fields.len
+	var/power_draw = 2 + length(fields)
 
 	if(draw_power(round(power_draw/2, 1)))
 		check_power_level()

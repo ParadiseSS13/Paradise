@@ -93,7 +93,7 @@
 		if(!man.mind) continue
 		if(man.mind.assigned_role == man.mind.special_role) continue
 		dudes += man
-	if(dudes.len==0)
+	if(length(dudes)==0)
 		return null
 	return pick(dudes)
 

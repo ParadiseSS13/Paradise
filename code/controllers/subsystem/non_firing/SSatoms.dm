@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(atoms)
 	var/count
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
-		count = atoms.len
+		count = length(atoms)
 		for(var/I in atoms)
 			var/atom/A = I
 			if(A && !A.initialized)

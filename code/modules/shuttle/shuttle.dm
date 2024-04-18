@@ -426,7 +426,7 @@
 
 	var/list/ripple_turfs = list()
 
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -487,7 +487,7 @@
 	//move or squish anything in the way ship at destination
 	roadkill(L0, L1, S1.dir)
 
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -610,7 +610,7 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
 		if(!T0 || !T1)
@@ -835,7 +835,7 @@
 			if(!M.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
-		data["docking_ports_len"] = docking_ports.len
+		data["docking_ports_len"] = length(docking_ports)
 		data["admin_controlled"] = admin_controlled
 	return data
 

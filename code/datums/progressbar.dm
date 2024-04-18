@@ -26,7 +26,7 @@
 	LAZYINITLIST(user.progressbars[bar.loc])
 	var/list/bars = user.progressbars[bar.loc]
 	bars.Add(src)
-	listindex = bars.len
+	listindex = length(bars)
 	animate(bar, pixel_y = 32 + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = 5, easing = SINE_EASING)
 
 /datum/progressbar/proc/update(progress)

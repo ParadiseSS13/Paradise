@@ -1104,7 +1104,7 @@
 				if(!(src in SSticker.mode.syndicates))
 					SSticker.mode.syndicates += src
 					SSticker.mode.update_synd_icons_added(src)
-					if(SSticker.mode.syndicates.len==1)
+					if(length(SSticker.mode.syndicates) == 1)
 						SSticker.mode.prepare_syndicate_leader(src)
 					else
 						current.real_name = "[syndicate_name()] Operative #[length(SSticker.mode.syndicates) - 1]"
@@ -1593,7 +1593,7 @@
 	if(!(src in SSticker.mode.syndicates))
 		SSticker.mode.syndicates += src
 		SSticker.mode.update_synd_icons_added(src)
-		if(SSticker.mode.syndicates.len==1)
+		if(length(SSticker.mode.syndicates) == 1)
 			SSticker.mode.prepare_syndicate_leader(src)
 		else
 			current.real_name = "[syndicate_name()] Operative #[length(SSticker.mode.syndicates) - 1]"

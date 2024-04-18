@@ -25,7 +25,7 @@
 	return
 
 /obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
-	var/count = loaded_projectiles.len
+	var/count = length(loaded_projectiles)
 	if(include_loaded && to_launch)
 		count++
 	return count

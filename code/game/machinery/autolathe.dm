@@ -164,7 +164,7 @@
 		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
-	data["buildQueueLen"] = queue.len
+	data["buildQueueLen"] = length(queue)
 	return data
 
 /obj/machinery/autolathe/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -257,7 +257,7 @@
 			temp_metal = max(temp_metal - LL[1], 1)
 			temp_glass = max(temp_glass - LL[2], 1)
 		data["queue"] = data_queue
-		data["queue_len"] = data_queue.len
+		data["queue_len"] = length(data_queue)
 	else
 		data["queue"] = null
 	return data
@@ -456,7 +456,7 @@
 		queue = list()
 	if(D)
 		queue.Add(list(list(D,multiplier)))
-	return queue.len
+	return length(queue)
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)
 	if(!isnum(index) || !istype(queue) || (index<1 || index>length(queue)))

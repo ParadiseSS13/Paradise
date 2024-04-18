@@ -401,7 +401,7 @@
 	else
 		. = viewing_category % length(categories) - 1
 	if(. <= 0)
-		. = categories.len
+		. = length(categories)
 
 /datum/personal_crafting/proc/prev_subcat()
 	if(islist(subcategories[viewing_category]))
@@ -411,7 +411,7 @@
 		else
 			. = viewing_subcategory % length(subs) - 1
 		if(. <= 0)
-			. = subs.len
+			. = length(subs)
 	else
 		. = null
 

@@ -726,11 +726,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(copytext("[path]", -needle_length) == object)
 				matches += path
 
-	if(matches.len==0)
+	if(length(matches)==0)
 		return
 
 	var/chosen
-	if(matches.len==1)
+	if(length(matches)==1)
 		chosen = matches[1]
 	else
 		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches

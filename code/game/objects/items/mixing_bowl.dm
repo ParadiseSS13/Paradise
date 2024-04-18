@@ -103,7 +103,7 @@
 				display_name = "Coldsauce"
 			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
 
-		if(items_counts.len==0 && reagents.reagent_list.len==0)
+		if(length(items_counts)==0 && length(reagents.reagent_list)==0)
 			dat = {"<B>[src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}

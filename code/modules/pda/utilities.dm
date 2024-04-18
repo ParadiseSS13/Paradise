@@ -108,7 +108,7 @@
 	var/list/messages = list()
 	if(!isnull(A.reagents))
 		if(length(A.reagents.reagent_list) > 0)
-			var/reagents_length = A.reagents.reagent_list.len
+			var/reagents_length = length(A.reagents.reagent_list)
 			messages.Add("<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
 			for(var/datum/reagent/R in A.reagents.reagent_list)
 				if(R.id != "blood")

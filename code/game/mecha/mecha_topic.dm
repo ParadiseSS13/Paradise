@@ -230,7 +230,7 @@
 /obj/mecha/proc/log_message(message as text,red=null)
 	log.len++
 	log[length(log)] = list("time"=world.timeofday,"message"="[red?"<font color='red'>":null][message][red?"</font>":null]")
-	return log.len
+	return length(log)
 
 /obj/mecha/proc/log_append_to_last(message as text,red=null)
 	var/list/last_entry = log[length(log)]

@@ -506,7 +506,7 @@
 		log_message("Reagent processing stopped.")
 		STOP_PROCESSING(SSobj, src)
 		return
-	var/amount = synth_speed / processed_reagents.len
+	var/amount = synth_speed / length(processed_reagents)
 	for(var/reagent in processed_reagents)
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)

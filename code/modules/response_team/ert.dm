@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	for(var/i = 1, i <= length(response_team_members), i++)
 		if(spawn_index > length(GLOB.emergencyresponseteamspawn))
 			break
-		if(!GLOB.active_team.get_slot_list().len)
+		if(!length(GLOB.active_team.get_slot_list()))
 			break
 		var/gender_pref = ert_gender_prefs[i].result
 		var/species_pref = ert_species_prefs[i].result

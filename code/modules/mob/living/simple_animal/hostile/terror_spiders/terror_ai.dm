@@ -68,9 +68,9 @@
 			targets2 += M
 		else
 			targets3 += M
-	if(targets1.len)
+	if(length(targets1))
 		return targets1
-	if(targets2.len)
+	if(length(targets2))
 		return targets2
 	return targets3
 
