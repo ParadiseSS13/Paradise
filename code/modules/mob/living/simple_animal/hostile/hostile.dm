@@ -349,6 +349,11 @@
 	walk(src, 0)
 	LoseAggro()
 
+/// Shortcut proc to allow initiating combat slightly faster than waiting for normal processing.
+/mob/living/simple_animal/hostile/proc/aggro_fast(known_target)
+	FindTarget(list(known_target), TRUE)
+	MoveToTarget(list(known_target))
+
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
@@ -357,16 +362,6 @@
 	if(!.)
 		return FALSE
 	LoseTarget()
-
-/mob/living/simple_animal/hostile/proc/summon_backup(distance)
-	do_alert_animation(src)
-	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
-	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
-		if(faction_check_mob(M, TRUE))
-			if(M.AIStatus == AI_OFF)
-				return
-			else
-				M.Goto(src,M.move_to_delay,M.minimum_distance)
 
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
 	if(check_friendly_fire)
