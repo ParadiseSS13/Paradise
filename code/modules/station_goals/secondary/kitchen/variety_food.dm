@@ -50,7 +50,7 @@
 	copy.generic_name_plural = generic_name_plural
 	return copy
 
-/datum/secondary_goal_progress/variety_food/update(/obj/item/food/food, datum/economy/cargo_shuttle_manifest/manifest = null)
+/datum/secondary_goal_progress/variety_food/update(obj/item/food/food, datum/economy/cargo_shuttle_manifest/manifest = null)
 	// Not in a matching personal crate? Ignore.
 	if(!check_personal_crate(food))
 		return
