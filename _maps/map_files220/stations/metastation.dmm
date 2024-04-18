@@ -22198,6 +22198,11 @@
 	},
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/plantbgone,
+/obj/item/storage/bag/plants/seed_sorting_tray,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut{
+	pixel_x = -4;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bBN" = (
@@ -29901,7 +29906,7 @@
 "cbP" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/chem_dispenser/botanical,
+/obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "greenblue"
@@ -81332,6 +81337,7 @@
 /obj/item/plant_analyzer,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light_switch/north,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"

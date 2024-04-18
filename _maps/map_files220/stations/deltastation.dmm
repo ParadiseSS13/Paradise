@@ -86431,7 +86431,7 @@
 /area/station/hallway/secondary/exit)
 "pYO" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/chem_dispenser/botanical,
+/obj/machinery/chem_dispenser,
 /obj/machinery/requests_console{
 	department = "Hydroponics";
 	departmentType = 2;
@@ -98063,10 +98063,23 @@
 "tGh" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/reagent_containers/spray/plantbgone,
-/obj/item/reagent_containers/spray/plantbgone,
-/obj/item/reagent_containers/spray/plantbgone,
 /obj/machinery/firealarm/directional/east,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "tGN" = (
@@ -102880,6 +102893,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "vhM" = (
