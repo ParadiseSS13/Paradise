@@ -29,6 +29,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "brains" = 2)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/ghost
 	name = "ghost burger"
@@ -38,6 +39,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "ectoplasm" = 2)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/human
 	var/hname = ""
@@ -93,6 +95,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "acid" = 4)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/clown
 	name = "clown burger"
@@ -102,6 +105,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "banana" = 1, "magic" = 2)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/mime
 	name = "mime burger"
@@ -111,6 +115,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "silence" = 2)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/baseball
 	name = "home run baseball burger"
@@ -120,6 +125,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "a homerun" = 3)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/spell
 	name = "spell burger"
@@ -129,6 +135,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "magic" = 2)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/bigbite
 	name = "BigBite burger"
@@ -148,6 +155,7 @@
 	bitesize = 7
 	list_reagents = list("nutriment" = 40, "vitamin" = 5)
 	tastes = list("bun" = 4, "meat" = 2, "cheese" = 2, "type two diabetes" = 10)
+	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/snacks/burger/crazy
 	name = "crazy hamburger"
@@ -157,6 +165,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2, "capsaicin" = 3, "condensedcapsaicin" = 2)
 	tastes = list("bun" = 2, "meat" = 4, "cheese" = 2, "beef soaked in chili" = 3, "a smoking flare" = 2)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/ppatty/white
 	name = "white pretty patty"
@@ -285,6 +294,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "protein" = 6, "vitamin" = 2)
 	tastes = list("bun" = 1, "meat" = 1, "salmon" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/burger/fivealarm
 	name = "five alarm burger"
@@ -393,6 +403,7 @@
 	icon_state = "notasandwich"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6)
 	tastes = list("nothing suspicious" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/wrap
 	name = "egg wrap"
