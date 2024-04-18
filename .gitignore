@@ -69,5 +69,8 @@ $RECYCLE.BIN
 # Linux libs
 /*.so
 
+# VIM swap files.
+*.swp
+
 # SS220 EDIT
 sound/tts_cache/*
