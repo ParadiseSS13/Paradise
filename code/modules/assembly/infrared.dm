@@ -135,12 +135,12 @@
 	if(!secured)	return
 	user.set_machine(src)
 	var/dat = {"<TT><B>Infrared Laser</B>
-				<B>Status</B>: [on ? "<A href='?src=[UID()];state=0'>On</A>" : "<A href='?src=[UID()];state=1'>Off</A>"]<BR>
-				<B>Visibility</B>: [visible ? "<A href='?src=[UID()];visible=0'>Visible</A>" : "<A href='?src=[UID()];visible=1'>Invisible</A>"]<BR>
-				<B>Current Direction</B>: <A href='?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
+				<B>Status</B>: [on ? "<A href='byond://?src=[UID()];state=0'>On</A>" : "<A href='byond://?src=[UID()];state=1'>Off</A>"]<BR>
+				<B>Visibility</B>: [visible ? "<A href='byond://?src=[UID()];visible=0'>Visible</A>" : "<A href='byond://?src=[UID()];visible=1'>Invisible</A>"]<BR>
+				<B>Current Direction</B>: <A href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
 				</TT>
-				<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>
-				<BR><BR><A href='?src=[UID()];close=1'>Close</A>"}
+				<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A>
+				<BR><BR><A href='byond://?src=[UID()];close=1'>Close</A>"}
 	var/datum/browser/popup = new(user, "infra", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)

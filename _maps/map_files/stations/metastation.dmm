@@ -22737,6 +22737,7 @@
 	},
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/plantbgone,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bBN" = (
@@ -23450,17 +23451,6 @@
 	dir = 9;
 	icon_state = "neutral"
 	},
-/area/station/hallway/secondary/garden)
-"bDJ" = (
-/obj/structure/table,
-/obj/item/hatchet,
-/obj/item/crowbar,
-/obj/item/plant_analyzer,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/cultivator,
-/obj/item/paper/hydroponics,
-/obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bDL" = (
 /obj/structure/cable{
@@ -35222,15 +35212,6 @@
 "cvo" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/medmaint)
-"cvu" = (
-/obj/machinery/alarm/directional/north,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/no_creep,
-/area/station/science/research)
 "cvw" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -38062,16 +38043,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "cGz" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
+/obj/machinery/economy/vending/scidrobe,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/no_creep,
 /area/station/science/research)
 "cGA" = (
 /obj/structure/chair/comfy/black{
@@ -45501,6 +45477,7 @@
 	name = "processing tint control";
 	pixel_x = -6;
 	pixel_y = 24;
+	range = 4;
 	req_access_txt = "63"
 	},
 /obj/machinery/light_switch{
@@ -47558,25 +47535,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
-"eIe" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
 "eIj" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -55721,6 +55679,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"hUK" = (
+/obj/structure/table,
+/obj/item/hatchet,
+/obj/item/crowbar,
+/obj/item/plant_analyzer,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/cultivator,
+/obj/item/paper/hydroponics,
+/obj/item/storage/bag/plants/seed_sorting_tray,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/garden)
 "hVa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -65264,23 +65234,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/storage)
-"lTc" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
 "lTB" = (
 /obj/item/clothing/gloves/color/latex,
 /obj/structure/rack,
@@ -66569,6 +66522,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
+"myX" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass/no_creep,
+/area/station/science/research)
 "myY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -73158,6 +73122,31 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
+"pmd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "pmE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -73855,7 +73844,7 @@
 "pCf" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 5;
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
@@ -77202,14 +77191,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
-"qXr" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/no_creep,
-/area/station/science/research)
 "qXK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
@@ -82271,8 +82252,10 @@
 	},
 /area/station/supply/office)
 "taP" = (
-/obj/machinery/status_display{
-	pixel_x = -32
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -82916,10 +82899,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tnN" = (
-/obj/item/kirbyplants/plant24,
 /obj/machinery/camera{
 	c_tag = "Science Hallway - Research";
-	network = list("Research","SS13")
+	network = list("Research","SS13");
+	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -82935,6 +82918,10 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -85368,6 +85355,16 @@
 	icon_state = "dark"
 	},
 /area/station/medical/surgery/observation)
+"uxo" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/item/kirbyplants/plant24,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "uxy" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 0;
@@ -85659,6 +85656,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -88949,11 +88947,6 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/security/permabrig)
 "waj" = (
-/obj/machinery/newscaster{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -89524,7 +89517,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
+	icon_state = "whitepurple"
 	},
 /area/station/science/research)
 "woK" = (
@@ -89994,6 +89987,17 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"wzb" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/no_creep,
+/area/station/science/research)
 "wzx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
@@ -90752,9 +90756,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "wTJ" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -90765,6 +90766,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -93440,6 +93444,14 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
+"xYS" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/no_creep,
+/area/station/science/research)
 "xZa" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -111884,7 +111896,7 @@ cdT
 cdT
 cdT
 cdT
-bDJ
+hUK
 bBK
 iWb
 uiO
@@ -123734,8 +123746,8 @@ cic
 fHG
 fpM
 cfw
-cvu
-qXr
+uxo
+qnt
 cGz
 cJp
 qcw
@@ -123992,7 +124004,7 @@ bUy
 fPC
 uVF
 wos
-qnt
+cwR
 pCf
 taP
 pnh
@@ -124508,8 +124520,8 @@ cvl
 wTJ
 cwR
 wIT
-eIe
-lTc
+cOZ
+cOZ
 waj
 des
 fWN
@@ -124765,9 +124777,9 @@ bWe
 mfG
 cwR
 cxP
-lAX
-lAX
-lAX
+wzb
+myX
+xYS
 lAX
 cfw
 gTS
@@ -125021,10 +125033,10 @@ cut
 soO
 nry
 cwR
-cxP
-eZW
-lJA
-rfD
+pmd
+lAX
+lAX
+lAX
 lAX
 uws
 bGl
@@ -125280,8 +125292,8 @@ tnN
 lGC
 gcy
 eZW
-keQ
-keQ
+lJA
+rfD
 lAX
 gEt
 bGl
