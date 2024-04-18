@@ -612,6 +612,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[toggle.name]</td>"
 					dat += "<td style='width: 45%'>[toggle.description]</td>"
+					if(toggle.preftoggle_category == PREFTOGGLE_CATEGORY_ADMIN)
+						if(!check_rights(toggle.rights_required, 0, (user)))
+							dat += "<td style='width: 20%'><b>Admin Restricted.</b></td>"
+							dat += "</tr>"
+							continue
 					switch(toggle.preftoggle_toggle)
 						if(PREFTOGGLE_SPECIAL)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
@@ -621,15 +626,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 						if(PREFTOGGLE_SOUND)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
-					if(toggle.preftoggle_category == PREFTOGGLE_CATEGORY_ADMIN)
-						if(!check_rights(toggle.rights_required, 0, (user)))
-							dat += "</tr>"
-							dat += "<tr>"
-							dat += "<td><b>The use of this preference is restricted to admin level.</b></td>"
-							dat += "</tr>"
-							continue
-						dat += "</tr>"
-						dat += "<tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 

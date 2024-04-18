@@ -332,16 +332,6 @@
 	blackbox_message = "Toggle runechat color"
 
 /datum/preference_toggle/toggle_simple_stat_panel
-	name = "Toggle Simple Status Panel"
-	description = "Toggles detailed information on the status panel"
-	preftoggle_bitflag = PREFTOGGLE_2_SIMPLE_STAT_PANEL
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You no longer get detailed information about the round in the status panel."
-	disable_message = "You now get detailed information about the round in the status panel."
-	blackbox_message = "Toggle Simple Status Panel"
-
-/datum/preference_toggle/toggle_simple_stat_panel
 	name = "Toggle item outlines"
 	description = "Toggles seeing item outlines on hover"
 	preftoggle_bitflag = PREFTOGGLE_2_SEE_ITEM_OUTLINES
@@ -453,9 +443,9 @@
 	blackbox_message = "Debug logs toggled"
 
 /datum/preference_toggle/toggle_mctabs
-	name = "Toggle MC tabs"
-	description = "Toggles MC tabs visibility"
-	preftoggle_bitflag = PREFTOGGLE_2_MC_TABS
+	name = "Toggle MC tab"
+	description = "Toggles MC tab visibility"
+	preftoggle_bitflag = PREFTOGGLE_2_MC_TAB
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	rights_required = R_VIEWRUNTIMES | R_DEBUG
