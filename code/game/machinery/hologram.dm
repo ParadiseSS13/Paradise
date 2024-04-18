@@ -35,6 +35,28 @@ Possible to do for anyone motivated enough:
 
 GLOBAL_LIST_EMPTY(holopads)
 
+/**
+ * A stationary holopad for projecting hologram and making and receiving holocalls.
+ * 
+ * Holopads are floor-plane machines similar, in appearance and interactive function, to quantum pads. They can be
+ * used by crew members to make and answer holocalls, or by the AI to project holograms autonomously.
+ * 
+ * Holopads are machines which can project a hologram up to `holo_range` tiles away. They do this in one of two modes:
+ * holocalls, and AI holograms. Holocalls require a user to stand on a holopad, use its menu to select a remote holopad,
+ * and make a call. Holocalls must be answered by the receiving holopad, or they will fail. Holopads can be configured
+ * globally to auto-accept instead of failing, with the debug static variable `force_answer_call`. They can also be
+ * individually configured to auto-accept calls immediately by setting their public mode option (`public_mode`),
+ * which can be done in-game by using a screwdriver and then a multitool on a holopad. Holocalls will automatically end
+ * if power goes out, the caller moves off the calling holopad, the caller projects outside the receiving holopad's
+ * range, the caller is killed or incapacitated, the caller ghosts or disconnects, or the caller is QDELETED. AI
+ * holograms require the AI to focus on the originating holopad and click on it; no answer is required. If the AI moves
+ * out of a holopad's range and into the range of another, it will attempt to transfer its hologram to the next holopad.
+ * Otherwise, AI holograms will stop projecting if power goes out for the originating holopad, the AI clicks on its
+ * origin holopad, or, like holocalls, if the AI is killed, incapacitated, disconnected, QDELETED, or ghosts.
+ * Holopads relay speech from the caller made with the :h radio key, and relay all speech on the answering end to the
+ * caller or AI.
+ */
+
 /obj/machinery/hologram/holopad
 	name = "holopad"
 	desc = "It's a floor-mounted device for projecting holographic images."
@@ -47,13 +69,14 @@ GLOBAL_LIST_EMPTY(holopads)
 	max_integrity = 300
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 50, acid = 0)
 
-	/// List of living mobs that use the holopad
+	/// List of living mobs currently using the holopad
 	var/list/masters = list()
 	/// Holoray-mob link.
 	var/list/holorays = list()
 	/// Last request time, to prevent request spam. ~Carn
 	var/last_request = 0 
 	/// Change to change how far the AI can move away from the holopad before deactivating.
+	/// The range, in tiles, that a holopad can project a hologram.
 	var/holo_range = 5
 	var/temp = ""
 	/// A list of holocalls associated with this holopad.
@@ -62,7 +85,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/datum/holocall/outgoing_call
 	/// Universal debug toggle for whether holopads will automatically answer calls after a few rings.
 	var/static/force_answer_call = FALSE
-	/// Toggle for auto-answering  calls immediately, set via multitool
+	/// Toggle for auto-answering calls immediately, set via multitool.
 	var/public_mode = FALSE
 	/// The ray effect emanating from this holopad to the produced hologram.
 	var/obj/effect/overlay/holoray/ray
