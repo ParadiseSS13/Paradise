@@ -219,7 +219,7 @@
 /obj/machinery/abductor/experiment/relaymove()
 	if(!occupant)
 		return
-	to_chat(occupant, "<span class='warning'>You start mashing alien buttons at random!</span>")
+	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
 	if(do_after(occupant, 30 SECONDS, FALSE, src))
 		if(!occupant)
 			return
