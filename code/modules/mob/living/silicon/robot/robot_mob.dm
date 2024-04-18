@@ -86,6 +86,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/weaponlock_time = 120
 	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
 	var/lockcharge //Used when locking down a borg to preserve cell charge
+	var/lockdown_timer // Timer that allows a borg to self-unlock if left abandoned for too long.
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = FALSE // Used to determine if a borg shows up on the robotics console.  Setting to TRUE hides them.
 	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
@@ -1408,10 +1409,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = TRUE
+		// Kill any in-progress override timers because a snipped wire relocks immeditely anyway.
+		deltimer(lockdown_timer)
 	if(state)
 		throw_alert("locked", /atom/movable/screen/alert/locked)
+		// Wire must be intact to override the lockdown.
+		if(!wires.is_cut(WIRE_BORG_LOCKED))
+			lockdown_timer = addtimer(CALLBACK(src,PROC_REF(lockdown_override), FALSE), 10 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME | TIMER_STOPPABLE)
+			to_chat(src, "<br><br><span class='warning'>ALERT: Remote system lockdown engaged! Initiating lockdown subsystem override...")
+			sleep(10)
+			to_chat(src, "<span class='warning'>Estimated time to completion: 600 seconds.</span>")
 	else
 		clear_alert("locked")
+		deltimer(lockdown_timer)
 	lockcharge = state
 	if(state) // turn them off
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
@@ -1419,6 +1429,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
 	else
 		REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
+
+// Allows the borg to unlock themselves after a lengthy period of time.
+/mob/living/silicon/robot/proc/lockdown_override()
+	SetLockdown(FALSE)
+	message_admins("<span class='notice'>The lockdown on cyborg [src] has been lifted because their lockdown timer expired.</span>")
+	to_chat(src, "<br><br><span class='notice'>Lockdown subsystem override successful.")
+	if(connected_ai)
+		to_chat(connected_ai, "<br><br><span class='notice'>NOTICE: Lockdown on cyborg [name] has been overridden.</span><br>")
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
