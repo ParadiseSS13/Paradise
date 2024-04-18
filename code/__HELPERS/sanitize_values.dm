@@ -59,7 +59,7 @@
 			if(97 to 102)
 				. += ascii2text(ascii)		//letters a to f
 			if(65 to 70)
-				. += ascii2text(ascii+32)	//letters A to F - translates to lowercase
+				. += ascii2text(ascii + 32)	//letters A to F - translates to lowercase
 			else
 				return default
 
