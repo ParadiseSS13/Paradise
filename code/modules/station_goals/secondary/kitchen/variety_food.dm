@@ -19,7 +19,6 @@
 	..()
 	admin_desc = "[amount_per] units of [different_types] [generic_name_plural]"
 
-
 /datum/secondary_goal_progress/variety_food
 	var/list/foods_sent = list()
 	var/department
@@ -51,16 +50,14 @@
 	copy.generic_name_plural = generic_name_plural
 	return copy
 
-/datum/secondary_goal_progress/variety_food/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
+/datum/secondary_goal_progress/variety_food/update(/obj/item/food/food, datum/economy/cargo_shuttle_manifest/manifest = null)
 	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	if(!check_personal_crate(food))
 		return
 
 	// Not food? Ignore.
-	if(!istype(AM, /obj/item/food))
+	if(!istype(food))
 		return
-
-	var/obj/item/food/food = AM
 
 	// No easy foods allowed.
 	if(food.goal_difficulty == FOOD_GOAL_SKIP)
@@ -94,9 +91,8 @@
 	if(!manifest)
 		return COMSIG_CARGO_SELL_PRIORITY
 	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "valid foods"))
-	var/obj/item/food/food_type = food.type
-	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "foods", initial(food_type.name)))
-	var/datum/economy/line_item/item = new
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "foods", initial(food.name)))
+	var/datum/economy/line_item/item = new()
 	item.account = department_account
 	item.credits = 0
 	item.reason = "Received [initial(food.name)]."

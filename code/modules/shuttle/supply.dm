@@ -296,8 +296,8 @@
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 
-	var/list/credit_changes = new
-	var/list/department_messages = new
+	var/list/credit_changes = list()
+	var/list/department_messages = list()
 	for(var/datum/economy/line_item/item in manifest.line_items)
 		if(!credit_changes[item.account])
 			credit_changes[item.account] = 0
@@ -329,7 +329,7 @@
 			GLOB.station_money_database.charge_account(account, -credit_changes[account], "Supply Shuttle Fine", "Central Command Supply Master", allow_overdraft = TRUE, supress_log = FALSE)
 
 	for(var/department in department_messages)
-		var/list/rc_message = new
+		var/list/rc_message = list()
 		for(var/message_piece in department_messages[department])
 			var/count = ""
 			if(department_messages[department][message_piece] > 1)
@@ -810,7 +810,6 @@
 	var/credits
 	var/reason
 	var/zero_is_good = FALSE
-
 
 #undef MAX_CRATE_DELIVERY
 
