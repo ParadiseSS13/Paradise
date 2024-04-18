@@ -315,7 +315,7 @@
 	var/list/data = ..()
 	data["mode"] = mode
 	data["load"] = load ? load.name : "None"
-	data["cell"] = cell ? 1 : 0
+	data["cell"] = !!cell
 	data["auto_pickup"]  = auto_pickup
 	data["auto_return"] = auto_return
 	data["report"] = report_delivery
