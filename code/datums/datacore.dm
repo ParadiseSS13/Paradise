@@ -15,7 +15,7 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 /datum/datacore/proc/get_manifest_json()
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		return
 	var/heads[0]
 	var/sec[0]
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		manifest_inject(H)
 
 /datum/datacore/proc/manifest_modify(name, assignment)
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
 	var/real_title = assignment
@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 GLOBAL_VAR_INIT(record_id_num, 1001)
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))

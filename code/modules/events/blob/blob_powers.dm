@@ -22,9 +22,9 @@
 	set name = "Jump to Node"
 	set desc = "Transport back to a selected node."
 
-	if(GLOB.blob_nodes.len)
+	if(length(GLOB.blob_nodes))
 		var/list/nodes = list()
-		for(var/i = 1; i <= GLOB.blob_nodes.len; i++)
+		for(var/i = 1; i <= length(GLOB.blob_nodes); i++)
 			var/obj/structure/blob/node/B = GLOB.blob_nodes[i]
 			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = tgui_input_list(src, "Choose a node to jump to.", "Node Jump", nodes)

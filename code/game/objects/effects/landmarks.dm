@@ -580,7 +580,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	var/datum/map_template/ruin/ruin_template
 
 /obj/effect/landmark/ruin/New(loc, my_ruin_template)
-	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
+	name = "ruin_[length(GLOB.ruin_landmarks) + 1]"
 	..(loc)
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src

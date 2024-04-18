@@ -362,7 +362,7 @@
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= GLOB.player_list.len; i++)
+	for(var/i = 1; i <= length(GLOB.player_list); i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
 			if(isnewplayer(M)) // exclude people in the lobby

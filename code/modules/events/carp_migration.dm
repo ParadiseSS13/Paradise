@@ -21,7 +21,7 @@
 /datum/event/carp_migration/start()
 
 	if(severity == EVENT_LEVEL_MAJOR)
-		spawn_fish(GLOB.landmarks_list.len)
+		spawn_fish(length(GLOB.landmarks_list))
 	else if(severity == EVENT_LEVEL_MODERATE)
 		spawn_fish(rand(4, 6)) 			//12 to 30 carp, in small groups
 	else

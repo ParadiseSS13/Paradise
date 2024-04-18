@@ -555,7 +555,7 @@
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = TRUE
-									if(GLOB.PDA_Manifest.len)
+									if(length(GLOB.PDA_Manifest))
 										GLOB.PDA_Manifest.Cut()
 
 			if(!modified)

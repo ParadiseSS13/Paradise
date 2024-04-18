@@ -147,7 +147,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (--cur_x||GLOB.global_map.len)
+		next_x = (--cur_x||length(GLOB.global_map))
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -172,7 +172,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (++cur_x > GLOB.global_map.len ? 1 : cur_x)
+		next_x = (++cur_x > length(GLOB.global_map) ? 1 : cur_x)
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*

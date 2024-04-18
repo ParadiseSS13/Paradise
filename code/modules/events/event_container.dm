@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	// Otherwise, follow the standard setup process
 	else
 		var/playercount_modifier = 1
-		switch(GLOB.player_list.len)
+		switch(length(GLOB.player_list))
 			if(0 to 10)
 				playercount_modifier = 1.2
 			if(11 to 15)

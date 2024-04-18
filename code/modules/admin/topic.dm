@@ -269,7 +269,7 @@
 
 		else if(task == "rank")
 			var/new_rank
-			if(GLOB.admin_ranks.len)
+			if(length(GLOB.admin_ranks))
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (GLOB.admin_ranks|"*New Rank*")
 			else
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "*New Rank*")
@@ -287,7 +287,7 @@
 						to_chat(usr, "<font color='red'>Error: Topic 'editrights': Invalid rank</font>")
 						return
 					if(!GLOB.configuration.admin.use_database_admins)
-						if(GLOB.admin_ranks.len)
+						if(length(GLOB.admin_ranks))
 							if(new_rank in GLOB.admin_ranks)
 								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
 							else
@@ -3276,7 +3276,7 @@
 				var/dat = "<b>Admin Log<hr></b>"
 				for(var/l in GLOB.admin_log)
 					dat += "<li>[l]</li>"
-				if(!GLOB.admin_log.len)
+				if(!length(GLOB.admin_log))
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
 			if("maint_ACCESS_BRIG")

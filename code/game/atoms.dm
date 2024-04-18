@@ -1027,7 +1027,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/cur_x = null
 	var/cur_y = null
 	var/list/y_arr = null
-	for(cur_x in 1 to GLOB.global_map.len)
+	for(cur_x in 1 to length(GLOB.global_map))
 		y_arr = GLOB.global_map[cur_x]
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)

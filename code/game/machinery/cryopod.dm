@@ -390,7 +390,7 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
 		if(R.fields["name"] == occupant.real_name)

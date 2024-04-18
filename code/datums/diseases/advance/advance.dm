@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
-		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
+		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, length(GLOB.advance_cures))
 //		to_chat(world, "Res = [res]")
 		cures = list(GLOB.advance_cures[res])
 

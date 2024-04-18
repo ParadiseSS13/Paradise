@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
-	if(GLOB.unused_trade_stations.len)
+	if(length(GLOB.unused_trade_stations))
 		station = pick_n_take(GLOB.unused_trade_stations)
 
 /datum/event/traders/fake_announce()

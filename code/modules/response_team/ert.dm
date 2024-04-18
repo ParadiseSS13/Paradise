@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/spawn_index = 1
 
 	for(var/i = 1, i <= response_team_members.len, i++)
-		if(spawn_index > GLOB.emergencyresponseteamspawn.len)
+		if(spawn_index > length(GLOB.emergencyresponseteamspawn))
 			break
 		if(!GLOB.active_team.get_slot_list().len)
 			break

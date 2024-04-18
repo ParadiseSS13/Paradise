@@ -126,9 +126,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
 
 	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), 1)
 	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), 1)

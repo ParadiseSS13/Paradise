@@ -466,7 +466,7 @@
 		if(SSticker.mode.eventmiscs.len)
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
-		if(GLOB.ts_spiderlist.len)
+		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
