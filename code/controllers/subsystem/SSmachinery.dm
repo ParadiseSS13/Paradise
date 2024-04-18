@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(machines)
 			propagate_network(PC, PC.powernet)
 
 /datum/controller/subsystem/machines/get_stat_details()
-	return "Machines: [processing.len] | Powernets: [powernets.len] | Deferred: [deferred_powernet_rebuilds.len]"
+	return "Machines: [length(processing)] | Powernets: [length(powernets)] | Deferred: [length(deferred_powernet_rebuilds)]"
 
 /datum/controller/subsystem/machines/proc/process_defered_powernets(resumed = 0)
 	if(!resumed)
@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+		var/obj/O = currentrun[length(currentrun)]
 		currentrun.len--
 		if(O && !QDELETED(O))
 			var/datum/regional_powernet/newPN = new() // create a new powernet...
@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/regional_powernet/P = currentrun[currentrun.len]
+		var/datum/regional_powernet/P = currentrun[length(currentrun)]
 		currentrun.len--
 		if(P)
 			P.process_power() // reset the power state
@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/thing = currentrun[currentrun.len]
+		var/obj/machinery/thing = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
 			if(prob(MACHINE_FLICKER_CHANCE))

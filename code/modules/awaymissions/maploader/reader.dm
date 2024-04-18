@@ -105,7 +105,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				if(!gridLines.len) // Skip it if only blank lines exist.
 					continue
 
-				if(gridLines.len && gridLines[gridLines.len] == "")
+				if(gridLines.len && gridLines[length(gridLines)] == "")
 					gridLines.Cut(gridLines.len) // Remove only one blank line at the end.
 
 				bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)

@@ -36,7 +36,7 @@
 					compiled_chord += clamp((note_offset_lookup[key] + octaves[key] * 12 + accent_lookup[accents[key]]), key_min, key_max)
 			compiled_chord += tempodiv		//this goes last
 			if(length(compiled_chord))
-				compiled_chords[++compiled_chords.len] = compiled_chord
+				compiled_chords[++length(compiled_chords)] = compiled_chord
 
 /**
   * Plays a specific numerical key from our instrument to anyone who can hear us.

@@ -1002,7 +1002,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	. = status_tab_data
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(vessel)
-		status_tab_data[++status_tab_data.len] = list("Plasma Stored:", "[vessel.stored_plasma]/[vessel.max_plasma]")
+		status_tab_data[++length(status_tab_data)] = list("Plasma Stored:", "[vessel.stored_plasma]/[vessel.max_plasma]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,

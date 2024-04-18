@@ -301,7 +301,7 @@
 	var/list/bool = list()
 	i = expression(i, bool)
 
-	node[++node.len] = bool
+	node[++length(node)] = bool
 
 	if(tokenl(i) in boolean_operators)
 		i = bool_operator(i, node)
@@ -332,7 +332,7 @@
 //variable:	<variable name> | <variable name> '.' variable
 /datum/SDQL_parser/proc/variable(i, list/node)
 	var/list/L = list(token(i))
-	node[++node.len] = L
+	node[++length(node)] = L
 
 	if(token(i) == "\[")
 		L += token(i + 1)
@@ -349,7 +349,7 @@
 		var/list/arguments = list()
 		i = call_function(i, null, arguments)
 		L += ":"
-		L[++L.len] = arguments
+		L[++length(L)] = arguments
 
 	else if(token(i + 1) == "\[")	// list index
 		var/list/expression = list()
@@ -358,7 +358,7 @@
 			parse_error("Missing ] at the end of list access.")
 
 		L += "\["
-		L[++L.len] = expression
+		L[++length(L)] = expression
 		i++
 
 	else
@@ -431,15 +431,15 @@
 			i = expression(i + 1, temp_expression_list)
 
 			if(token(i) == ",")
-				expression_list[++expression_list.len] = temp_expression_list
+				expression_list[++length(expression_list)] = temp_expression_list
 				temp_expression_list = list()
 		while(token(i) && token(i) != "}")
 
-		expression_list[++expression_list.len] = temp_expression_list
+		expression_list[++length(expression_list)] = temp_expression_list
 	else
 		i++
 
-	node[++node.len] = expression_list
+	node[++length(node)] = expression_list
 	return i + 1
 
 //call_function:	<function name> ['(' [arguments] ')']
@@ -494,7 +494,7 @@
 		else
 			i++
 
-		node[++node.len] = expr
+		node[++length(node)] = expr
 
 	else
 		i = value(i, node)
@@ -509,7 +509,7 @@
 		var/list/rhs = list()
 		i = expression(i, rhs)
 
-		node[++node.len] = rhs
+		node[++length(node)] = rhs
 
 
 	return i
@@ -538,12 +538,12 @@
 			else
 				i++
 
-			unary_exp[++unary_exp.len] = expr
+			unary_exp[++length(unary_exp)] = expr
 
 		else
 			i = value(i, unary_exp)
 
-		node[++node.len] = unary_exp
+		node[++length(node)] = unary_exp
 
 
 	else

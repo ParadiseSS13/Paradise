@@ -111,7 +111,7 @@
 		if(VV_RESTORE_DEFAULT)
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue
@@ -137,7 +137,7 @@
 
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue
@@ -165,7 +165,7 @@
 			var/type = value["type"]
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue
@@ -183,7 +183,7 @@
 		else
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue

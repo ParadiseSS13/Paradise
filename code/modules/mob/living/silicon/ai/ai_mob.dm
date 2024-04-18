@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(stat)
-		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
+		status_tab_data[++length(status_tab_data)] = list("System status:", "Nonfunctional")
 		return
 	status_tab_data = show_borg_info(status_tab_data)
 
@@ -336,7 +336,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
-	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
+	status_tab_data[++length(status_tab_data)] = list("Connected cyborg count:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
@@ -346,7 +346,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Unknown"
-		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		status_tab_data[++length(status_tab_data)] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
 	return status_tab_data
 

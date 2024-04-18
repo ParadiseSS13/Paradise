@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(mobs)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
 	while(currentrun.len)
-		var/mob/living/L = currentrun[currentrun.len]
+		var/mob/living/L = currentrun[length(currentrun)]
 		currentrun.len--
 		if(L)
 			L.Life(seconds, times_fired)

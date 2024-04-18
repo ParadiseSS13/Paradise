@@ -375,7 +375,7 @@
 /mob/living/simple_animal/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Health:", "[round((health / maxHealth) * 100)]%")
+	status_tab_data[++length(status_tab_data)] = list("Health:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(length(loot))

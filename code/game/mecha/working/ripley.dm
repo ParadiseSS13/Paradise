@@ -155,7 +155,7 @@
 			var/turf/T = get_turf(O)
 			if(T)
 				T.Entered(O)
-			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - cargo.len]")
+			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
 	return
 
 

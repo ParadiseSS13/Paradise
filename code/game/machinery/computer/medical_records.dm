@@ -101,7 +101,7 @@
 					var/list/records = list()
 					data["records"] = records
 					for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
-						records[++records.len] = list(
+						records[++length(records)] = list(
 							"ref" = "\ref[R]",
 							"name" = R.fields["name"],
 							"id" = R.fields["id"],
@@ -114,17 +114,17 @@
 				if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
 					var/list/fields = list()
 					general["fields"] = fields
-					fields[++fields.len] = FIELD("Name", active1.fields["name"], null)
-					fields[++fields.len] = FIELD("ID", active1.fields["id"], null)
-					fields[++fields.len] = FIELD("Sex", active1.fields["sex"], "sex")
-					fields[++fields.len] = FIELD("Age", active1.fields["age"], "age")
-					fields[++fields.len] = FIELD("Fingerprint", active1.fields["fingerprint"], "fingerprint")
-					fields[++fields.len] = FIELD("Physical Status", active1.fields["p_stat"], "p_stat")
-					fields[++fields.len] = FIELD("Mental Status", active1.fields["m_stat"], "m_stat")
+					fields[++length(fields)] = FIELD("Name", active1.fields["name"], null)
+					fields[++length(fields)] = FIELD("ID", active1.fields["id"], null)
+					fields[++length(fields)] = FIELD("Sex", active1.fields["sex"], "sex")
+					fields[++length(fields)] = FIELD("Age", active1.fields["age"], "age")
+					fields[++length(fields)] = FIELD("Fingerprint", active1.fields["fingerprint"], "fingerprint")
+					fields[++length(fields)] = FIELD("Physical Status", active1.fields["p_stat"], "p_stat")
+					fields[++length(fields)] = FIELD("Mental Status", active1.fields["m_stat"], "m_stat")
 					var/list/photos = list()
 					general["photos"] = photos
-					photos[++photos.len] = active1.fields["photo-south"]
-					photos[++photos.len] = active1.fields["photo-west"]
+					photos[++length(photos)] = active1.fields["photo-south"]
+					photos[++length(photos)] = active1.fields["photo-west"]
 					general["has_photos"] = (active1.fields["photo-south"] || active1.fields["photo-west"] ? 1 : 0)
 					general["empty"] = 0
 				else
@@ -135,17 +135,17 @@
 				if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
 					var/list/fields = list()
 					medical["fields"] = fields
-					fields[++fields.len] = MED_FIELD("Blood Type", active2.fields["blood_type"], "blood_type", FALSE)
-					fields[++fields.len] = MED_FIELD("DNA", active2.fields["b_dna"], "b_dna", TRUE)
-					fields[++fields.len] = MED_FIELD("Minor Disabilities", active2.fields["mi_dis"], "mi_dis", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", FALSE)
-					fields[++fields.len] = MED_FIELD("Major Disabilities", active2.fields["ma_dis"], "ma_dis", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
-					fields[++fields.len] = MED_FIELD("Allergies", active2.fields["alg"], "alg", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", FALSE)
-					fields[++fields.len] = MED_FIELD("Current Diseases", active2.fields["cdi"], "cdi", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["cdi_d"], "cdi_d", TRUE)
-					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", FALSE)
+					fields[++length(fields)] = MED_FIELD("Blood Type", active2.fields["blood_type"], "blood_type", FALSE)
+					fields[++length(fields)] = MED_FIELD("DNA", active2.fields["b_dna"], "b_dna", TRUE)
+					fields[++length(fields)] = MED_FIELD("Minor Disabilities", active2.fields["mi_dis"], "mi_dis", FALSE)
+					fields[++length(fields)] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", FALSE)
+					fields[++length(fields)] = MED_FIELD("Major Disabilities", active2.fields["ma_dis"], "ma_dis", FALSE)
+					fields[++length(fields)] = MED_FIELD("Details", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
+					fields[++length(fields)] = MED_FIELD("Allergies", active2.fields["alg"], "alg", FALSE)
+					fields[++length(fields)] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", FALSE)
+					fields[++length(fields)] = MED_FIELD("Current Diseases", active2.fields["cdi"], "cdi", FALSE)
+					fields[++length(fields)] = MED_FIELD("Details", active2.fields["cdi_d"], "cdi_d", TRUE)
+					fields[++length(fields)] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", FALSE)
 					if(!active2.fields["comments"] || !islist(active2.fields["comments"]))
 						active2.fields["comments"] = list()
 					medical["comments"] = active2.fields["comments"]

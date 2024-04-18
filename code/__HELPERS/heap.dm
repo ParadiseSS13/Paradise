@@ -27,7 +27,7 @@
 		return null
 	. = L[1]
 
-	L[1] = L[L.len]
+	L[1] = L[length(L)]
 	L.Cut(L.len)
 
 	Sink(1)

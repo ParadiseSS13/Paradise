@@ -1222,7 +1222,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/new_log = "\[[time_stamp()]] [text]"
 
 	if(target.len)//if there are other logs already present
-		var/previous_log = target[target.len]//get the latest log
+		var/previous_log = target[length(target)]//get the latest log
 		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
 		var/x_sign_position = findtext(previous_log, "x")
 
@@ -1247,7 +1247,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
 			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			target -= target[target.len]//remove the last log
+			target -= target[length(target)]//remove the last log
 
 	target += new_log
 

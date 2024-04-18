@@ -326,7 +326,7 @@
 /mob/living/silicon/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = show_system_integrity()
+	status_tab_data[++length(status_tab_data)] = show_system_integrity()
 
 //Silicon mob language procs
 

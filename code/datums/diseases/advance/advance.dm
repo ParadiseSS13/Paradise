@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		while(prob(20))
 			number_of += 1
 
-	for(var/i = 1; number_of >= i && possible_symptoms.len; i++)
+	for(var/i = 1; number_of >= i && length(possible_symptoms); i++)
 		generated += pick_n_take(possible_symptoms)
 
 	return generated

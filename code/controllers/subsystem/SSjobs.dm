@@ -317,7 +317,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
-	Debug("DO, Len: [unassigned.len]")
+	Debug("DO, Len: [length(unassigned)]")
 	if(!length(unassigned))
 		return FALSE
 
@@ -330,7 +330,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Assistant Check 1")
 	var/datum/job/ast = new /datum/job/assistant()
 	var/list/assistant_candidates = FindOccupationCandidates(ast, 3)
-	Debug("AC1, Candidates: [assistant_candidates.len]")
+	Debug("AC1, Candidates: [length(assistant_candidates)]")
 	for(var/mob/new_player/player in assistant_candidates)
 		Debug("AC1 pass, Player: [player]")
 		AssignRole(player, "Assistant")

@@ -238,8 +238,8 @@
 	if(D.materials[MAT_GLASS] && (materials.amount(MAT_GLASS) < (D.materials[MAT_GLASS] / coeff)))
 		has_glass = 0
 
-	data[++data.len] = list("name" = "metal", "amount" = D.materials[MAT_METAL] / coeff, "is_red" = !has_metal)
-	data[++data.len] = list("name" = "glass", "amount" = D.materials[MAT_GLASS] / coeff, "is_red" = !has_glass)
+	data[++length(data)] = list("name" = "metal", "amount" = D.materials[MAT_METAL] / coeff, "is_red" = !has_metal)
+	data[++length(data)] = list("name" = "glass", "amount" = D.materials[MAT_GLASS] / coeff, "is_red" = !has_glass)
 
 	return data
 
@@ -253,7 +253,7 @@
 		for(var/list/L in queue)
 			var/datum/design/D = L[1]
 			var/list/LL = get_design_cost_as_list(D, L[2])
-			data_queue[++data_queue.len] = list("name" = initial(D.name), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
+			data_queue[++length(data_queue)] = list("name" = initial(D.name), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
 			temp_metal = max(temp_metal - LL[1], 1)
 			temp_glass = max(temp_glass - LL[2], 1)
 		data["queue"] = data_queue

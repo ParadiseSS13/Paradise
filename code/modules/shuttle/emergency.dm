@@ -77,7 +77,7 @@
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-						GLOB.minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
+						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until shuttle is launched early")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
 						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
@@ -86,7 +86,7 @@
 
 			if("Repeal")
 				if(authorized.Remove(W:registered_name))
-					GLOB.minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
+					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed until shuttle is launched early")
 
 			if("Abort")
 				if(authorized.len)

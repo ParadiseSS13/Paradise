@@ -881,7 +881,7 @@
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
-	for(var/i=1,i<=entries.len,i++)
+	for(var/i=1,i<=length(entries),i++)
 		var/spell_info = ""
 		E = entries[i]
 		spell_info += E.GetInfo()

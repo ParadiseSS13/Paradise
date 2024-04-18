@@ -140,7 +140,7 @@
 
 	if(honeycombs.len)
 		var/plural = honeycombs.len > 1
-		. += "<span class='notice'>There [plural? "are" : "is"] [honeycombs.len] uncollected honeycomb[plural ? "s":""] in the apiary.</span>"
+		. += "<span class='notice'>There [plural? "are" : "is"] [length(honeycombs)] uncollected honeycomb[plural ? "s":""] in the apiary.</span>"
 
 	if(honeycombs.len >= get_max_honeycomb())
 		. += "<span class='warning'>there's no room for more honeycomb!</span>"

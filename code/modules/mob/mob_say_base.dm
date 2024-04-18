@@ -158,9 +158,9 @@
 		var/selection = trim_right(lowertext(copytext(message, i, i + 3)))
 		var/datum/language/L = GLOB.language_keys[selection]
 		if(L != null && can_speak_language(L)) // What the fuck... remove the L != null check if you ever find out what the fuck is adding `null` to the languages list on absolutely random mobs... seriously what the hell...
-			prefixes[++prefixes.len] = list(L, i, i + length(selection))
+			prefixes[++length(prefixes)] = list(L, i, i + length(selection))
 		else if(!L && i == 1)
-			prefixes[++prefixes.len] = list(get_default_language(), i, i)
+			prefixes[++length(prefixes)] = list(get_default_language(), i, i)
 
 	return prefixes
 

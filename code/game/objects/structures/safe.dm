@@ -246,7 +246,7 @@ GLOBAL_LIST_EMPTY(safes)
 		var/list/contents_names = list()
 		data["contents"] = contents_names
 		for(var/obj/O in contents)
-			contents_names[++contents_names.len] = list("name" = O.name, "sprite" = O.icon_state)
+			contents_names[++length(contents_names)] = list("name" = O.name, "sprite" = O.icon_state)
 			user << browse_rsc(icon(O.icon, O.icon_state), "[O.icon_state].png")
 
 	return data

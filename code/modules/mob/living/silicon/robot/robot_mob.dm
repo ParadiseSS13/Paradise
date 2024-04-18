@@ -795,16 +795,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++status_tab_data.len] = show_cell_power()
+	status_tab_data[++length(status_tab_data)] = show_cell_power()
 
 	if(!module)
 		return
 
 	if(locate(/obj/item/gps/cyborg) in module.modules)
-		status_tab_data[++status_tab_data.len] = show_gps_coords()
+		status_tab_data[++length(status_tab_data)] = show_gps_coords()
 
 	for(var/datum/robot_storage/robot_storage in module.storages)
-		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_storage)
+		status_tab_data[++length(status_tab_data)] = show_stack_energy(robot_storage)
 
 /mob/living/silicon/robot/restrained()
 	return 0

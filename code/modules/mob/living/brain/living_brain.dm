@@ -84,8 +84,8 @@ I'm using this for Stat to give it a more nifty interface to work with
 	. = status_tab_data
 	if(has_synthetic_assistance() && ismecha(loc))
 		var/obj/mecha/M = loc
-		status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
-		status_tab_data[++status_tab_data.len] = list("Exosuit Integrity:", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
+		status_tab_data[++length(status_tab_data)] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
+		status_tab_data[++length(status_tab_data)] = list("Exosuit Integrity:", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
 /mob/living/brain/can_safely_leave_loc()
 	return 0 //You're not supposed to be ethereal jaunting, brains

@@ -834,7 +834,7 @@
 				continue
 			if(!M.check_dock(S))
 				continue
-			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+			docking_ports[++length(docking_ports)] = list("name" = S.name, "id" = S.id)
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled
 	return data

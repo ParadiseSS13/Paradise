@@ -61,7 +61,7 @@
 			candidates += applicant
 
 	if(candidates.len)
-		var/numTraitors = min(candidates.len, antnum)
+		var/numTraitors = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numTraitors, i++)
 			H = pick(candidates)
@@ -92,7 +92,7 @@
 			candidates += applicant
 
 	if(candidates.len)
-		var/numChangelings = min(candidates.len, antnum)
+		var/numChangelings = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
@@ -122,7 +122,7 @@
 			candidates += applicant
 
 	if(candidates.len)
-		var/numRevs = min(candidates.len, antnum)
+		var/numRevs = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numRevs, i++)
 			H = pick(candidates)
@@ -277,7 +277,7 @@
 			candidates += applicant
 
 	if(candidates.len)
-		var/numVampires = min(candidates.len, antnum)
+		var/numVampires = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)

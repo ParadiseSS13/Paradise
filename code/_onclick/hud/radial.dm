@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	selected_choice = choices_values[choice_id]
 
 /datum/radial_menu/proc/get_next_id()
-	return "c_[choices.len]"
+	return "c_[length(choices)]"
 
 /datum/radial_menu/proc/set_choices(list/new_choices)
 	if(choices.len)

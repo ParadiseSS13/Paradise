@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(icon_smooth)
 
 /datum/controller/subsystem/icon_smooth/fire()
 	while(smooth_queue.len)
-		var/atom/A = smooth_queue[smooth_queue.len]
+		var/atom/A = smooth_queue[length(smooth_queue)]
 		smooth_queue.len--
 		A.smooth_icon()
 		if(MC_TICK_CHECK)

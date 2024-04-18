@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(fires)
 	var/list/currentrun = src.currentrun
 
 	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+		var/obj/O = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!O || QDELETED(O))
 			processing -= O

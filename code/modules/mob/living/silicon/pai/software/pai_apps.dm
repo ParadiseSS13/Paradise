@@ -16,7 +16,7 @@
 		var/list/emote = list()
 		emote["name"] = name
 		emote["id"] = GLOB.pai_emotions[name]
-		emotions[++emotions.len] = emote
+		emotions[++length(emotions)] = emote
 
 	data["emotions"] = emotions
 	data["current_emotion"] = user.card.current_emotion
@@ -26,7 +26,7 @@
 		var/list/speech = list()
 		speech["name"] = name
 		speech["id"] = length(speech_types)
-		speech_types[++speech_types.len] = speech
+		speech_types[++length(speech_types)] = speech
 
 	data["current_speech_verb"] = user.speech_state
 	data["speech_verbs"] = speech_types
@@ -42,7 +42,7 @@
 		chassis_to_update_with["name"] = name
 		chassis_to_update_with["icon"] = chassis_choices[name]
 		chassis_to_update_with["id"] = length(chassis_to_update_with)
-		chassises_to_add[++chassises_to_add.len] = chassis_to_update_with
+		chassises_to_add[++length(chassises_to_add)] = chassis_to_update_with
 
 	data["available_chassises"] = chassises_to_add
 	data["current_chassis"] = user.chassis

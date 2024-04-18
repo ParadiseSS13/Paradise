@@ -59,13 +59,13 @@ SUBSYSTEM_DEF(air)
 	msg += "DPN:[round(cost_deferred_pipenets,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]"
 	msg += "} "
-	msg += "AT:[active_turfs.len]|"
-	msg += "EG:[excited_groups.len]|"
-	msg += "HS:[hotspots.len]|"
-	msg += "PN:[networks.len]|"
-	msg += "HP:[high_pressure_delta.len]|"
-	msg += "AS:[active_super_conductivity.len]|"
-	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
+	msg += "AT:[length(active_turfs)]|"
+	msg += "EG:[length(excited_groups)]|"
+	msg += "HS:[length(hotspots)]|"
+	msg += "PN:[length(networks)]|"
+	msg += "HP:[length(high_pressure_delta)]|"
+	msg += "AS:[length(active_super_conductivity)]|"
+	msg += "AT/MS:[round((cost ? length(active_turfs)/cost : 0),0.1)]"
 	return msg.Join("")
 
 /datum/controller/subsystem/air/get_metrics()
@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/atmospherics/A = currentrun[currentrun.len]
+		var/obj/machinery/atmospherics/A = currentrun[length(currentrun)]
 		currentrun.len--
 		if(A)
 			A.build_network(remove_deferral = TRUE)
@@ -195,7 +195,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/pipeline/thing = currentrun[currentrun.len]
+		var/datum/pipeline/thing = currentrun[length(currentrun)]
 		currentrun.len--
 		if(thing)
 			thing.process()
@@ -211,7 +211,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/atmospherics/M = currentrun[currentrun.len]
+		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
 			atmos_machinery.Remove(M)
@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/turf/simulated/T = currentrun[currentrun.len]
+		var/turf/simulated/T = currentrun[length(currentrun)]
 		currentrun.len--
 		T.super_conduct()
 		if(MC_TICK_CHECK)
@@ -236,7 +236,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/effect/hotspot/H = currentrun[currentrun.len]
+		var/obj/effect/hotspot/H = currentrun[length(currentrun)]
 		currentrun.len--
 		if(H)
 			H.process()
@@ -247,7 +247,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/process_high_pressure_delta(resumed = 0)
 	while(high_pressure_delta.len)
-		var/turf/simulated/T = high_pressure_delta[high_pressure_delta.len]
+		var/turf/simulated/T = high_pressure_delta[length(high_pressure_delta)]
 		high_pressure_delta.len--
 		T.high_pressure_movements()
 		T.pressure_difference = 0
@@ -262,7 +262,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/turf/simulated/T = currentrun[currentrun.len]
+		var/turf/simulated/T = currentrun[length(currentrun)]
 		currentrun.len--
 		if(T)
 			T.process_cell(fire_count)
@@ -275,7 +275,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/excited_group/EG = currentrun[currentrun.len]
+		var/datum/excited_group/EG = currentrun[length(currentrun)]
 		currentrun.len--
 		EG.breakdown_cooldown++
 		if(EG.breakdown_cooldown == 10)

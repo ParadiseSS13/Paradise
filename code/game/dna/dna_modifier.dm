@@ -351,7 +351,7 @@
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
-	for(var/i = 1, i <= buffer.len, i++)
+	for(var/i = 1, i <= length(buffer), i++)
 		arr += "[i]:[EncodeDNABlock(buffer[i])]"
 	return arr
 

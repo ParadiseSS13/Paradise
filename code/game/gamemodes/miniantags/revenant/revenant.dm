@@ -127,9 +127,9 @@
 /mob/living/simple_animal/revenant/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Current essence:", "[essence]/[essence_regen_cap]E")
-	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
-	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
+	status_tab_data[++length(status_tab_data)] = list("Current essence:", "[essence]/[essence_regen_cap]E")
+	status_tab_data[++length(status_tab_data)] = list("Stolen essence:", "[essence_accumulated]E")
+	status_tab_data[++length(status_tab_data)] = list("Stolen perfect souls:", "[perfectsouls]")
 
 /mob/living/simple_animal/revenant/New()
 	..()

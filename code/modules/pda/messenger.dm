@@ -85,7 +85,7 @@
 				var/list/new_tnote = list()
 				for(var/i in tnote)
 					if(i["target"] != active_conversation)
-						new_tnote[++new_tnote.len] = i
+						new_tnote[++length(new_tnote)] = i
 				tnote = new_tnote
 				conversations.Remove(active_conversation)
 

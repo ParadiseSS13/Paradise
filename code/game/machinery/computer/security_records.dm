@@ -104,7 +104,7 @@
 					var/list/record_line = list("uid_gen" = G.UID(), "id" = G.fields["id"], "name" = G.fields["name"], "rank" = G.fields["rank"], "fingerprint" = G.fields["fingerprint"])
 					record_line["status"] = S?.fields["criminal"] || "No record"
 					record_line["uid_sec"] = S?.UID() // So we don't have to perform the search through a for loop again later
-					records[++records.len] = record_line
+					records[++length(records)] = record_line
 			if(SEC_DATA_RECORD)
 				var/list/general = list()
 				data["general"] = general

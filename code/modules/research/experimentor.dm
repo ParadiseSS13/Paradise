@@ -458,7 +458,7 @@
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
 					throwAt.Add(AM)
-			for(var/counter = 1, counter < throwAt.len, ++counter)
+			for(var/counter = 1, counter < length(throwAt), ++counter)
 				var/atom/movable/cast = throwAt[counter]
 				spawn(0)
 					cast.throw_at(pick(throwAt),10,1)

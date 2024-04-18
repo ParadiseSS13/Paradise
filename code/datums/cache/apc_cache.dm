@@ -21,7 +21,7 @@ GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 		var/list/Status = list("Off","AOff","On","AOn") // Status:  off, auto-off, on, auto-on
 		var/list/chg = list("N","C","F") // Charging: no, charging, full
 		for(var/obj/machinery/power/apc/A in L)
-			apcData[++apcData.len] = list(
+			apcData[++length(apcData)] = list(
 				"Name" = html_encode(A.apc_area.name),
 				"Equipment" = Status[A.equipment_channel + 1],
 				"Lights" = Status[A.lighting_channel + 1],

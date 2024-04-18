@@ -163,7 +163,7 @@
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = show_silenced()
+	status_tab_data[++length(status_tab_data)] = show_silenced()
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)

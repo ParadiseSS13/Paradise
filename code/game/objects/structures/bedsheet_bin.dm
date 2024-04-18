@@ -340,7 +340,7 @@ LINEN BINS
 
 		var/obj/item/bedsheet/B
 		if(sheets.len > 0)
-			B = sheets[sheets.len]
+			B = sheets[length(sheets)]
 			sheets.Remove(B)
 
 		else
@@ -365,7 +365,7 @@ LINEN BINS
 
 		var/obj/item/bedsheet/B
 		if(sheets.len > 0)
-			B = sheets[sheets.len]
+			B = sheets[length(sheets)]
 			sheets.Remove(B)
 
 		else

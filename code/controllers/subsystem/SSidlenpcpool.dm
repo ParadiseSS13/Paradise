@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 	var/list/currentrun = src.currentrun
 
 	while(currentrun.len)
-		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
+		var/mob/living/simple_animal/SA = currentrun[length(currentrun)]
 		--currentrun.len
 		if(!SA)
 			log_debug("idlenpcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_IDLE list: [SA in GLOB.simple_animals[AI_IDLE]]")

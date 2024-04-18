@@ -436,7 +436,7 @@
 	var/list/listed_items = list()
 	for(var/key = 1 to length(product_list))
 		var/datum/data/bluespace_tap_product/A = product_list[key]
-		listed_items[++listed_items.len] = list(
+		listed_items[++length(listed_items)] = list(
 				"key" = key,
 				"name" = A.product_name,
 				"price" = A.product_cost)

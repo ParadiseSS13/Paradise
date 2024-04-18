@@ -232,7 +232,7 @@
 		new cigarette_type(src)
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
-	icon_state = "[initial(icon_state)][contents.len]"
+	icon_state = "[initial(icon_state)][length(contents)]"
 
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!ismob(M))
@@ -240,7 +240,7 @@
 
 	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
 		var/got_cig = 0
-		for(var/num=1, num <= contents.len, num++)
+		for(var/num=1, num <= length(contents), num++)
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
