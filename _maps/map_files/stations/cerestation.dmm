@@ -96586,7 +96586,6 @@
 /area/station/security/prison/cell_block/A)
 "xVY" = (
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/item/eftpos,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
