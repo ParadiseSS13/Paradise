@@ -157,10 +157,10 @@ SUBSYSTEM_DEF(tickets)
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name][one_line ? " " : "<br>"]</span>"
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
-	L += "(<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
-	L += "[isAI(M) ? "(<a href='?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
-	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
-	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
+	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
+	L += "[isAI(M) ? "(<a href='byond://?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
+	L += "(<a href='byond://?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
+	L += "(<a href='byond://?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
 	return L.Join()
 
 //Open a new ticket and populate details then add to the list of open tickets
@@ -491,7 +491,7 @@ UI STUFF
 	dat += "<head><style>.adminticket{border:2px solid}</style></head>"
 	dat += "<body><h1>[ticket_system_name]</h1>"
 
-	dat +="<a href='?src=[UID()];refresh=1'>Refresh</a><br /><a href='?src=[UID()];showopen=1'>Open Tickets</a><a href='?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='?src=[UID()];showclosed=1'>Closed Tickets</a>"
+	dat +="<a href='byond://?src=[UID()];refresh=1'>Refresh</a><br /><a href='byond://?src=[UID()];showopen=1'>Open Tickets</a><a href='byond://?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='byond://?src=[UID()];showclosed=1'>Closed Tickets</a>"
 	if(tab == TICKET_OPEN)
 		dat += "<h2>Open Tickets</h2>"
 	dat += "<table style='width:1300px; border: 3px solid;'>"
@@ -500,7 +500,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</b></font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</b></font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
 			else
 				continue
 	else  if(tab == TICKET_RESOLVED)
@@ -508,7 +508,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_RESOLVED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
 			else
 				continue
 	else if(tab == TICKET_CLOSED)
@@ -516,16 +516,16 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_CLOSED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
 			else
 				continue
 
 	dat += "</table>"
 	dat += "<h1>Resolve All</h1>"
 	if(ticket_system_name == "Mentor Tickets")
-		dat += "<a href='?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
+		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
 	else
-		dat += "<a href='?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
+		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
 
 	return dat
 
@@ -542,7 +542,7 @@ UI STUFF
 
 	var/dat = "<h1>[ticket_system_name]</h1>"
 
-	dat +="<a href='?src=[UID()];refresh=1'>Show All</a><a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
+	dat +="<a href='byond://?src=[UID()];refresh=1'>Show All</a><a href='byond://?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
 
 	dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
@@ -557,12 +557,12 @@ UI STUFF
 			dat += "<tr><td>[TR.to_string()]</td></tr>"
 
 	dat += "</table><br /><br />"
-	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
-		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
+		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='byond://?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
 
 	if(T.lastStaffResponse)
 		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
@@ -571,8 +571,8 @@ UI STUFF
 
 	dat += "<br /><br />"
 
-	dat += "<a href='?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
-	dat += "<a href='?src=[UID()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
+	dat += "<a href='byond://?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
+	dat += "<a href='byond://?src=[UID()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
 
 	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[T.ticketNum]", 1000, 600)
 	popup.set_content(dat)

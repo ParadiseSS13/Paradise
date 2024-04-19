@@ -141,25 +141,25 @@
 		var/atom/A = D
 		if(isliving(A))
 			var/mob/living/L = A
-			atomsnowflake += "<a href='?_src_=vars;rename=[L.UID()]'><b>[L]</b></a>"
+			atomsnowflake += "<a href='byond://?_src_=vars;rename=[L.UID()]'><b>[L]</b></a>"
 			if(L.dir)
-				atomsnowflake += "<br><font size='1'><a href='?_src_=vars;rotatedatum=[L.UID()];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=[L.UID()];varnameedit=dir'>[dir2text(L.dir)]</a> <a href='?_src_=vars;rotatedatum=[L.UID()];rotatedir=right'>>></a></font>"
+				atomsnowflake += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[L.UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[L.UID()];varnameedit=dir'>[dir2text(L.dir)]</a> <a href='byond://?_src_=vars;rotatedatum=[L.UID()];rotatedir=right'>>></a></font>"
 			atomsnowflake += {"
-				<br><font size='1'><a href='?_src_=vars;datumedit=[L.UID()];varnameedit=ckey'>[L.ckey ? L.ckey : "No ckey"]</a> / <a href='?_src_=vars;datumedit=[L.UID()];varnameedit=real_name'>[L.real_name ? L.real_name : "No real name"]</a></font>
+				<br><font size='1'><a href='byond://?_src_=vars;datumedit=[L.UID()];varnameedit=ckey'>[L.ckey ? L.ckey : "No ckey"]</a> / <a href='byond://?_src_=vars;datumedit=[L.UID()];varnameedit=real_name'>[L.real_name ? L.real_name : "No real name"]</a></font>
 				<br><font size='1'>
-					BRUTE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brute'>[L.getBruteLoss()]</a>
-					FIRE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=fire'>[L.getFireLoss()]</a>
-					TOXIN:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=toxin'>[L.getToxLoss()]</a>
-					OXY:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=oxygen'>[L.getOxyLoss()]</a>
-					CLONE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=clone'>[L.getCloneLoss()]</a>
-					BRAIN:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brain'>[L.getBrainLoss()]</a>
-					STAMINA:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=stamina'>[L.getStaminaLoss()]</a>
+					BRUTE:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brute'>[L.getBruteLoss()]</a>
+					FIRE:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=fire'>[L.getFireLoss()]</a>
+					TOXIN:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=toxin'>[L.getToxLoss()]</a>
+					OXY:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=oxygen'>[L.getOxyLoss()]</a>
+					CLONE:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=clone'>[L.getCloneLoss()]</a>
+					BRAIN:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brain'>[L.getBrainLoss()]</a>
+					STAMINA:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=stamina'>[L.getStaminaLoss()]</a>
 				</font>
 			"}
 		else
-			atomsnowflake += "<a href='?_src_=vars;datumedit=[A.UID()];varnameedit=name'><b>[A]</b></a>"
+			atomsnowflake += "<a href='byond://?_src_=vars;datumedit=[A.UID()];varnameedit=name'><b>[A]</b></a>"
 			if(A.dir)
-				atomsnowflake += "<br><font size='1'><a href='?_src_=vars;rotatedatum=[A.UID()];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=[A.UID()];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='?_src_=vars;rotatedatum=[D.UID()];rotatedir=right'>>></a></font>"
+				atomsnowflake += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[A.UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[A.UID()];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='byond://?_src_=vars;rotatedatum=[D.UID()];rotatedir=right'>>></a></font>"
 	else
 		atomsnowflake += "<b>[D]</b>"
 
@@ -409,7 +409,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='?_src_=vars;[islist ? "listrefresh=\ref[D]" : "datumrefresh=[D.UID()]"]'>Refresh</a>
+							<a id='refresh_link' href='byond://?_src_=vars;[islist ? "listrefresh=\ref[D]" : "datumrefresh=[D.UID()]"]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="loadPage(this.form.elements\[0\])"
@@ -468,9 +468,9 @@
 				name = DA[name] // name is really the index until this line
 			else
 				value = DA[name]
-			header = "<li style='backgroundColor:white'>(<a href='?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
+			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
-			header = "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
+			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
 	else
 		header = "<li>"
 
@@ -491,9 +491,9 @@
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		item = "<a href='?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(isfile(value))
@@ -501,11 +501,11 @@
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		item = "<a href='?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
+		item = "<a href='byond://?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
 
 	else if(isclient(value))
 		var/client/C = value
-		item = "<a href='?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
+		item = "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
 //
 	else if(islist(value))
 		var/list/L = value
@@ -523,10 +523,10 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
 
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"

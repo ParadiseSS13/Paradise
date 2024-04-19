@@ -92,6 +92,7 @@
 /datum/recipe/grill/fishfingers/make_food(obj/container)
 	var/obj/item/food/snacks/fishfingers/being_cooked = ..()
 	being_cooked.reagents.del_reagent("egg")
+	being_cooked.reagents.del_reagent("carpotoxin")
 	return being_cooked
 
 /datum/recipe/grill/cutlet
@@ -158,6 +159,11 @@
 		/obj/item/stack/rods
 	)
 	result = /obj/item/food/snacks/picoss_kabob
+
+/datum/recipe/grill/picoss_kabob/make_food(obj/container)
+	var/obj/item/food/snacks/picoss_kabob/being_cooked = ..()
+	being_cooked.reagents.del_reagent("carpotoxin")
+	return being_cooked
 
 /datum/recipe/grill/sushi_Tamago
 	reagents = list("sake" = 5)

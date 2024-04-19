@@ -108,7 +108,7 @@
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/W, mob/user)
 	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		ignite(W.get_heat())
@@ -121,7 +121,7 @@
 		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
 							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
-		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 

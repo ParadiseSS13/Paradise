@@ -209,11 +209,11 @@
 						medical = R.fields["p_stat"]
 						mental = R.fields["m_stat"]
 
-		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
-		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
+		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
+		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
 		msg += "<span class='deptradio'>Physical status: </span>[medical_status]\n"
 		msg += "<span class='deptradio'>Mental Status: </span>[mental_status]\n"
-		msg += "<span class='deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += "<span class='deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -234,9 +234,9 @@
 							else
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
-			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
+			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
 			msg += "<span class='deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class='deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
 

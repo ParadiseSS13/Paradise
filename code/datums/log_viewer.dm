@@ -133,8 +133,8 @@ if(!result || result.ckey != __ckey){\
 	var/list/dat = list()
 	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
 	dat += "<div style='min-height:100px'>"
-	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
-	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
+	dat += "<span>Time Search Range:</span> <a href='byond://?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
+	dat += " To: <a href='byond://?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<BR>"
 
 	dat += "<span>Mobs being used:</span>"
@@ -143,16 +143,16 @@ if(!result || result.ckey != __ckey){\
 		if(QDELETED(M))
 			selected_mobs -= i
 			continue
-		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
-	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
-	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
+		dat += "<a href='byond://?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
+	dat += "<a href='byond://?src=[UID()];add_mob=1'>Add Mob</a>"
+	dat += "<a href='byond://?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<BR>"
 
 	dat += "<span>Ckeys being used:</span>"
 	for(var/ckey in selected_ckeys)
-		dat += "<a href='?src=[UID()];remove_ckey=[ckey]'>[get_ckey_name(ckey)]</a>"
-	dat += "<a href='?src=[UID()];add_ckey=1'>Add ckey</a>"
-	dat += "<a href='?src=[UID()];clear_ckeys=1'>Clear All ckeys</a>"
+		dat += "<a href='byond://?src=[UID()];remove_ckey=[ckey]'>[get_ckey_name(ckey)]</a>"
+	dat += "<a href='byond://?src=[UID()];add_ckey=1'>Add ckey</a>"
+	dat += "<a href='byond://?src=[UID()];clear_ckeys=1'>Clear All ckeys</a>"
 	dat += "<BR>"
 
 	dat += "<span>Log Types:</span>"
@@ -166,11 +166,11 @@ if(!result || result.ckey != __ckey){\
 		else
 			text = log_type
 
-		dat += "<a href='?src=[UID()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
+		dat += "<a href='byond://?src=[UID()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
 
 	dat += "<BR>"
-	dat += "<a href='?src=[UID()];clear_all=1'>Clear All Settings</a>"
-	dat += "<a href='?src=[UID()];search=1'>Search</a>"
+	dat += "<a href='byond://?src=[UID()];clear_all=1'>Clear All Settings</a>"
+	dat += "<a href='byond://?src=[UID()];search=1'>Search</a>"
 	dat += "</div>"
 
 	// Search results

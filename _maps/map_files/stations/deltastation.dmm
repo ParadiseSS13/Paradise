@@ -9366,6 +9366,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "aHr" = (
@@ -9676,6 +9677,7 @@
 "aIl" = (
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -61698,13 +61700,21 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "dHO" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 8;
+	icon_state = "1-8"
 	},
-/obj/structure/cable,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "dHQ" = (
@@ -63938,16 +63948,6 @@
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"dSB" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "dSD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -66421,6 +66421,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/legal/lawoffice)
+"evE" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/exit)
 "evX" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -66555,6 +66565,22 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/port/east)
+"ezr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/virology)
 "ezR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -71015,6 +71041,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
+"hli" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
@@ -73732,6 +73768,10 @@
 	icon_state = "bar"
 	},
 /area/station/service/kitchen)
+"iVe" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/service/chapel/office)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -75552,15 +75592,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
-"kdg" = (
-/obj/structure/sign/vacuum{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "kdm" = (
 /obj/machinery/power/apc/critical/directional/north,
 /obj/machinery/firealarm{
@@ -75661,6 +75692,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
+"kfC" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "kfT" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -82346,22 +82386,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"ogR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/virology)
 "ogX" = (
 /obj/machinery/camera{
 	c_tag = "Experimentation Lab Office";
@@ -91308,6 +91332,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
+"tjT" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "tkb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -91840,24 +91879,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/port/west)
-"tEp" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "tEw" = (
 /obj/structure/showcase{
 	density = 0;
@@ -92355,21 +92376,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
-"tSp" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "tSt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/drinkingglass{
@@ -93009,10 +93015,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/processing)
-"uil" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "uit" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -136691,7 +136693,7 @@ dIx
 dIx
 dIx
 dIx
-uil
+iVe
 abj
 aaa
 aaa
@@ -137202,7 +137204,7 @@ dPM
 dkq
 dSs
 dSP
-dSB
+hli
 dIH
 dIH
 dIH
@@ -137460,8 +137462,8 @@ dNa
 dXJ
 dKo
 dUj
-kdg
-tSp
+kfC
+tjT
 dIH
 abj
 aaa
@@ -140531,9 +140533,9 @@ pIY
 kuJ
 kpd
 kpd
-tEp
 dHO
-dHO
+evE
+evE
 tJT
 dKQ
 jpk
@@ -149016,7 +149018,7 @@ dGw
 dGw
 hGZ
 qgr
-ogR
+ezr
 wWW
 qfH
 sRk
