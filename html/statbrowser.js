@@ -478,16 +478,6 @@ function listedturf_fill_all() {
 			delete turf_incomplete_rows[i];
 		}
 	}
-	for(let item in turfcontents) {
-		let object_info = turfcontents["" + item_index];
-		if(!object_info) {
-			continue;
-		}
-
-		img = document.getElementById(object_info[1]);
-		img.src = object_info[2];
-		img.key = object_info[3];
-	}
 }
 
 var suppress_next_scroll_message = false;
