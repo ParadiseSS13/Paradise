@@ -485,12 +485,12 @@
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc?.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/current = M
+	while(current?.loc && !isturf(current.loc))
+		current = current.loc
+		if(stop_type && istype(current, stop_type))
 			break
-	return loc
+	return current
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -1252,7 +1252,7 @@ Standard way to write links -Sayu
 /proc/topic_link(datum/D, arglist, content)
 	if(islist(arglist))
 		arglist = list2params(arglist)
-	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
+	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 

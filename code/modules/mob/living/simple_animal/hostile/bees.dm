@@ -7,7 +7,6 @@
 
 #define BEE_POLLINATE_YIELD_CHANCE		33
 #define BEE_POLLINATE_PEST_CHANCE		33
-#define BEE_POLLINATE_POTENCY_CHANCE	50
 
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
@@ -212,11 +211,8 @@
 	Hydro.adjustHealth(growth*0.5)
 	if(prob(BEE_POLLINATE_PEST_CHANCE))
 		Hydro.adjustPests(-10)
-	if(prob(BEE_POLLINATE_YIELD_CHANCE))
-		Hydro.myseed.adjust_yield(1)
+	if(prob(BEE_POLLINATE_YIELD_CHANCE) && !Hydro.self_sustaining)
 		Hydro.yieldmod = 2
-	if(prob(BEE_POLLINATE_POTENCY_CHANCE))
-		Hydro.myseed.adjust_potency(1)
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + growth, 100)
@@ -393,4 +389,3 @@
 #undef BEE_DEFAULT_COLOUR
 #undef BEE_POLLINATE_YIELD_CHANCE
 #undef BEE_POLLINATE_PEST_CHANCE
-#undef BEE_POLLINATE_POTENCY_CHANCE

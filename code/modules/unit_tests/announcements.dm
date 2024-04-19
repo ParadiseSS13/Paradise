@@ -3,7 +3,7 @@
 /datum/unit_test/announcements
 
 /datum/unit_test/announcements/Run()
-	GLOB.major_announcement.Announce("Figments from an eldritch god are being summoned into the NSS Cyberiad from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+	GLOB.major_announcement.Announce("Figments from an eldritch god are being summoned into the NSS Cyberiad from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space Law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/cult_summon.ogg')
 
 	GLOB.major_announcement.Announce(
 		message = "We have removed all access requirements on your station's airlocks. You can thank us later!",
