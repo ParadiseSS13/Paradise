@@ -69,7 +69,8 @@ export const ImageButton = (props) => {
             style={{
               width: imageSize,
               height: imageSize,
-              '-ms-interpolation-mode': 'nearest-neighbor',
+              '-ms-interpolation-mode': 'nearest-neighbor', // Remove after 516 release
+              'image-rendering': 'pixelated',
             }}
           />
         )}

@@ -47,13 +47,13 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ImageButton__horizontal {
-  display: -ms-flexbox;
+  display: flex;
   width: 100%;
   align-items: center;
 }
 
 .ImageButton--horizontal {
-  display: -ms-flexbox;
+  display: flex;
   margin-bottom: 0.5em;
 
   &:last-child {
@@ -156,7 +156,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ImageButton__item {
-  display: -ms-flexbox;
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -165,7 +165,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ImageButton__item--icon--horizontal {
-  display: -ms-flexbox;
+  display: flex;
   align-items: center;
 
   .fa,

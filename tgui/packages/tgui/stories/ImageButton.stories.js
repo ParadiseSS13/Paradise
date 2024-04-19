@@ -177,41 +177,42 @@ const Story = (props, context) => {
             </LabeledList>
           </Stack.Item>
         </Stack>
-        <ImageButton
-          mt={vertical3 ? 1 : 0}
-          width={vertical3 && `${imageSize}px`}
-          ellipsis={vertical3}
-          vertical={vertical3}
-          disabled={disabled}
-          title={title}
-          content={content}
-          tooltip={
-            vertical3
-              ? content
-              : 'Cool and simple buttons with images, FOR ALL!!!'
-          }
-          image={
-            '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'
-          }
-          imageSize={`${imageSize}px`}
-          onClick={onClick ? () => 'false' : ''}
-        >
-          {!vertical3 && (
-            <ImageButton.Item
-              bold
-              width={'64px'}
-              selected={disabled}
-              content={itemContent}
-              tooltip="Click to disable main button"
-              tooltipPosition="bottom-end"
-              icon={itemIcon}
-              iconColor={'gold'}
-              iconSize={itemIconSize}
-              iconPosition={itemIconPos}
-              onClick={toggleDisabled}
-            />
-          )}
-        </ImageButton>
+        <Stack.Item mt={1}>
+          <ImageButton
+            width={vertical3 && `${imageSize}px`}
+            ellipsis={vertical3}
+            vertical={vertical3}
+            disabled={disabled}
+            title={title}
+            content={content}
+            tooltip={
+              vertical3
+                ? content
+                : 'Cool and simple buttons with images, FOR ALL!!!'
+            }
+            image={
+              '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'
+            }
+            imageSize={`${imageSize}px`}
+            onClick={onClick ? () => 'false' : ''}
+          >
+            {!vertical3 && (
+              <ImageButton.Item
+                bold
+                width={'64px'}
+                selected={disabled}
+                content={itemContent}
+                tooltip="Click to disable main button"
+                tooltipPosition="bottom-end"
+                icon={itemIcon}
+                iconColor={'gold'}
+                iconSize={itemIconSize}
+                iconPosition={itemIconPos}
+                onClick={toggleDisabled}
+              />
+            )}
+          </ImageButton>
+        </Stack.Item>
       </Section>
       <Section
         title="Color States"
