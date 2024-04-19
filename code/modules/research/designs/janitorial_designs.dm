@@ -21,16 +21,6 @@
 	build_path = /obj/item/storage/bag/trash/bluespace
 	category = list("Janitorial")
 
-/datum/design/buffer
-	name = "Floor Buffer Upgrade"
-	desc = "A floor buffer that can be attached to vehicular janicarts."
-	id = "buffer"
-	req_tech = list("materials" = 4, "engineering" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 200)
-	build_path = /obj/item/janiupgrade
-	category = list("Janitorial")
-
 /datum/design/holosign
 	name = "Janitorial Holographic Sign Projector"
 	desc = "A holograpic projector used to project wet warning signs."
