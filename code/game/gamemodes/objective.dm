@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		possible_targets += possible_target
 
 
-	if(possible_targets.len > 0)
+	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 
 	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)

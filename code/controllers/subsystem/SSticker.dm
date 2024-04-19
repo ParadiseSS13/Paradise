@@ -82,7 +82,8 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
+			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -528,9 +529,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		var/list/randomtips = file2list("strings/tips.txt")
 		var/list/memetips = file2list("strings/sillytips.txt")
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)
@@ -705,8 +706,8 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
 		var/datum/trade_destination/D = new loc_type
-		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
-		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+		GLOB.weighted_randomevent_locations[D] = length(D.viable_random_events)
+		GLOB.weighted_mundaneevent_locations[D] = length(D.viable_mundane_events)
 
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
@@ -781,7 +782,7 @@ SUBSYSTEM_DEF(ticker)
 		AR.handle_data(load_queries[ckey])
 		save_queries[ckey] = AR.get_save_query()
 
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
 
 	log_text += "Investigation advised if there are a high number of infractions"
 

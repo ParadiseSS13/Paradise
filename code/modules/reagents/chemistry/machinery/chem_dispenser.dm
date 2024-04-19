@@ -1,5 +1,6 @@
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
+	desc = "For making chemicals, medicine, and explosions."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -60,9 +61,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",
@@ -163,7 +165,7 @@
 
 	var/beakerContents[0]
 	var/beakerCurrentVolume = 0
-	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
+	if(beaker && beaker.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
@@ -607,9 +609,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",

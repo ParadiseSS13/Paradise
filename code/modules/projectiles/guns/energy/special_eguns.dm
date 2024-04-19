@@ -71,6 +71,13 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
+/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
+	if(istype(A, /obj/machinery/hydroponics))
+		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
+		afterattack(A, user, FALSE, params)
+		return FALSE
+	return ..()
+
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"

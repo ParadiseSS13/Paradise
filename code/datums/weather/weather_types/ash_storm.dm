@@ -54,7 +54,7 @@
 	if(!golemShuttleOnPlanet)
 		eligible_areas -= get_areas(/area/shuttle/freegolem)
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
 			outside_areas += place

@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/rev/head)
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"

@@ -201,7 +201,7 @@
 				update_hair()	//rebuild hair
 				update_fhair()
 				update_head_accessory()
-			if(hud_list.len)
+			if(length(hud_list))
 				sec_hud_set_ID()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask()
@@ -222,7 +222,7 @@
 			update_inv_belt()
 		if(SLOT_HUD_WEAR_ID)
 			wear_id = I
-			if(hud_list.len)
+			if(length(hud_list))
 				sec_hud_set_ID()
 			update_inv_wear_id()
 		if(SLOT_HUD_WEAR_PDA)
@@ -398,24 +398,6 @@
 		r_ear,
 		l_ear,
 		)
-
-// humans have their pickpocket gloves, so they get no message when stealing things
-/mob/living/carbon/human/stripPanelUnequip(obj/item/what, mob/who, where)
-	var/is_silent = 0
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
-// humans have their pickpocket gloves, so they get no message when stealing things
-/mob/living/carbon/human/stripPanelEquip(obj/item/what, mob/who, where)
-	var/is_silent = 0
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE)
 	return dna.species.can_equip(I, slot, disable_warning, src)
