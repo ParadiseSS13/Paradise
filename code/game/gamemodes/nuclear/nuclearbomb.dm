@@ -440,13 +440,14 @@ GLOBAL_VAR(bomb_set)
 				return
 			// If no code set, enter new one
 			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
-			if(tempcode)
-				code = tempcode
-				if(code == r_code)
-					yes_code = TRUE
-					code = null
-				else
-					code = "ERROR"
+			if(isnull(tempcode))
+				return
+			code = tempcode
+			if(code == r_code)
+				yes_code = TRUE
+				code = null
+			else
+				code = "ERROR"
 			return
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
@@ -479,7 +480,7 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("set_time")
 			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
-			if(!time)
+			if(isnull(time))
 				return
 			timeleft = time
 		if("toggle_safety")
@@ -673,14 +674,14 @@ GLOBAL_VAR(bomb_set)
 	var/turf/diskturf = get_turf(src)
 
 	if(force)
-		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
+		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
 		GLOB.poi_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
 	if(!restricted_to_station) // Non-restricted NADs should be allowed to be deleted, otherwise it becomes a restricted NAD when teleported
-		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
+		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
 		log_game("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]). It will not respawn.")
 		GLOB.poi_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
@@ -691,7 +692,7 @@ GLOBAL_VAR(bomb_set)
 		GLOB.poi_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(new_spawn)
 		transfer_fingerprints_to(NEWDISK)
-		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
+		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
 		..()
 		return QDEL_HINT_HARDDEL_NOW // We want this to be deleted ASAP, but we want refs properly cleared too

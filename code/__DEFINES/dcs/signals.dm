@@ -1038,3 +1038,9 @@
 // Sent when sales are completed.
 // Use to send summary messages for items that sell in bulk.
 #define COMSIG_CARGO_END_SELL			"end_sell"
+
+///from of mob/MouseDrop(): (/atom/over, /mob/user)
+#define COMSIG_DO_MOB_STRIP "do_mob_strip"
+
+// Sent when a mob spawner is attacked directly or via projectile.
+#define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"

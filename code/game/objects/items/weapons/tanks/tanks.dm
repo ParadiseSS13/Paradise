@@ -82,7 +82,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
+			. += "<span class='notice'>It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.</span>"
 		return
 
 	var/celsius_temperature = air_contents.temperature - T0C
@@ -247,7 +247,7 @@
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(loc,/obj/item/transfer_valve))
-			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
 //		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
 		//Give the gas a chance to build up more pressure through reacting

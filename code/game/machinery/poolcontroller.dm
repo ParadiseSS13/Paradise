@@ -149,7 +149,7 @@
 
 
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
-	if(linkedmist.len)
+	if(length(linkedmist))
 		return
 
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
