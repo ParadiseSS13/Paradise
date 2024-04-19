@@ -136,6 +136,8 @@ SUBSYSTEM_DEF(statpanels)
 		return list()
 
 	var/datum/object_window_info/obj_window = load_from.obj_window
+	if(!obj_window)
+		return list()
 	var/list/already_seen = obj_window.atoms_to_images
 	var/list/to_make = obj_window.atoms_to_imagify
 	var/list/turf_items = list()
