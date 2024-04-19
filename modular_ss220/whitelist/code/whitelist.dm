@@ -21,15 +21,6 @@
 
 	qdel(whitelist_query)
 
-/client/proc/update_whitelist()
-	set name = "Update whitelist"
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	load_whitelist()
-
 /world/IsBanned(key, address, computer_id, type, check_ipintel, check_2fa, check_guest, log_info, check_tos)
 	var/ckey = ckey(key)
 
