@@ -477,6 +477,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/spear // alternative recipe for Ash Walkers
+	name = "Common Spear"
+	result = list(/obj/item/spear)
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
+				/obj/item/shard = 1,
+				/obj/item/stack/rods = 1)
+	time = 40
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"
 	result = list(/obj/item/camera/spooky)
