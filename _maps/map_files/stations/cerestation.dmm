@@ -63409,6 +63409,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "nta" = (
