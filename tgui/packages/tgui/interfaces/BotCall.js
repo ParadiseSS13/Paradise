@@ -18,7 +18,7 @@ const BotStatus = (mode) => {
     mapping.modeRange.includes(mode)
   );
 
-  return <Box color={matchedStatus.color}> {matcheStatus.label} </Box>;
+  return <Box color={matchedStatus.color}> {matchedStatus.label} </Box>;
 };
 
 export const BotCall = (props, context) => {
