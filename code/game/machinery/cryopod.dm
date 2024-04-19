@@ -228,15 +228,9 @@
 		/obj/item/autopsy_scanner,
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
-		/obj/item/mod/control,
-		/obj/item/stamp,
-		/obj/item/melee/knuckleduster/nanotrasen,
-		/obj/item/melee/rapier,
-		/obj/item/storage/belt/rapier,
-		/obj/item/nuke_core,
-		/obj/item/nuke_core_container,
-		/obj/item/documents,
-		/obj/item/clothing/gloves/color/black/krav_maga
+		/obj/item/rcd,
+		/obj/item/rpd,
+		/obj/item/mod/control
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -255,8 +249,7 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	var/area/our_area = get_area(src)
-	for(var/obj/machinery/computer/cryopod/C in our_area)
+	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
 		if(C.type == console_type)
 			control_computer = C
 			break
@@ -592,7 +585,7 @@
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	log_admin("[key_name(E)] entered a stasis pod.")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
