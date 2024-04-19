@@ -414,4 +414,15 @@
 		user.adjustOxyLoss(20)
 	return ..()
 
+/obj/item/gun/syringe/blowgun/suicide_act(mob/user)
+	if(chambered.BB)
+		visible_message("<span class='suicide'>[user] puts [src] to [user.p_their()] lips and inhales! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		return BRUTELOSS
 
+	visible_message("<span class='suicide'>[user] puts [src] to [user.p_their()] lips and begins blowing on it rapid-fire! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	for(var/i in 1 to 6)
+		if(!use_tool(user, user, 0.5 SECONDS))
+			return SHAME
+		var/action = pick("blows hard on [src].", "puffs out [user.p_their()] cheeks.", "tries to fire [src], but it's empty.", "utterly fails to use [src] as a straw.", "is unable to whistle through [src].", "has forgotten to attach a balloon to [src].", "accidentally left [src] on full auto.", "attempts a 360 no-scope.", "really blew it.", "definitely does not suck.", "finds [src] breathtaking.", "is no longer full of hot air.", "did not inhale.", "is determined to pass the breathalyzer test.", "has their lungs' regulator set to 150 kPa.", "has become a vent set to refill.")
+		visible_message("[user] [action]")
+	return OXYLOSS
