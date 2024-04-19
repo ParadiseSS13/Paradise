@@ -446,7 +446,7 @@
 /***********************/
 /****	ABDUCTOR	****/
 /***********************/
-// MARK: Abcudctor
+// MARK: Abductor
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
