@@ -47,9 +47,9 @@
 		return
 	devices_line += device
 //			var/list/obj/devices_line___ = devices[filter_str]
-//			var/l = devices_line___.len
-	//log_admin("DEBUG: devices_line.len=[devices_line.len]")
-	//log_admin("DEBUG: devices(filter_str).len=[l]")
+//			var/l = length(devices_line___)
+	//log_admin("DEBUG: length(devices_line)=[length(devices_line)]")
+	//log_admin("DEBUG: length(devices(filter_str))=[l]")
 
 /datum/radio_frequency/proc/remove_listener(obj/device)
 	for(var/devices_filter in devices)
@@ -57,7 +57,7 @@
 		devices_line-=device
 		while(null in devices_line)
 			devices_line -= null
-		if(devices_line.len==0)
+		if(length(devices_line) == 0)
 			devices -= devices_filter
 			qdel(devices_line)
 

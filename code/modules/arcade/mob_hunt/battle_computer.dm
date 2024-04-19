@@ -135,7 +135,7 @@
 		dat += "</tr>"
 		if(ready && SSmob_hunt.battle_turn)	//offer the surrender option if they are in a battle (ready), but don't have a card loaded
 			dat += "<tr>"
-			dat += "<td><a href='?src=[UID()];surrender=1'>Surrender!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];surrender=1'>Surrender!</a></td>"
 			dat += "</tr>"
 	else
 		dat += "<table>"
@@ -165,21 +165,21 @@
 		dat += "<table border='1'>"
 		dat += "<tr>"
 		if(mob_info.cur_health)
-			dat += "<td><a href='?src=[UID()];attack=1'>Attack!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];attack=1'>Attack!</a></td>"
 		else
 			dat += "<td>Incapacitated!</td>"
-		dat += "<td><a href='?src=[UID()];eject=1'>Recall!</a></td>"
+		dat += "<td><a href='byond://?src=[UID()];eject=1'>Recall!</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "</td>"
 		dat += "</tr>"
 		if(!ready)
 			dat += "<tr>"
-			dat += "<td><a href='?src=[UID()];ready=1'>Battle!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];ready=1'>Battle!</a></td>"
 			dat += "</tr>"
 		if(ready && !SSmob_hunt.battle_turn)
 			dat += "<tr>"
-			dat += "<td><a href='?src=[UID()];ready=2'>Cancel Battle!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];ready=2'>Cancel Battle!</a></td>"
 			dat += "</tr>"
 	dat += "</table>"
 

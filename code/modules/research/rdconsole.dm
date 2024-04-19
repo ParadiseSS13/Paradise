@@ -385,7 +385,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		message_admins("[machine] exploit attempted by [key_name(usr, TRUE)]!")
 		return
 
-	if(being_built.make_reagents.len) // build_type should equal BIOGENERATOR though..
+	if(length(being_built.make_reagents)) // build_type should equal BIOGENERATOR though..
 		return
 
 	var/max_amount = is_lathe ? 10 : 1

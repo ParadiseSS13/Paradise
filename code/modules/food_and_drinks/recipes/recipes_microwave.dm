@@ -126,6 +126,11 @@
 	)
 	result = /obj/item/food/snacks/fishburger
 
+/datum/recipe/microwave/fishburger/make_food(obj/container)
+	var/obj/item/food/snacks/fishburger/being_cooked = ..()
+	being_cooked.reagents.del_reagent("carpotoxin")
+	return being_cooked
+
 /datum/recipe/microwave/tofuburger
 	items = list(
 		/obj/item/food/snacks/bun,
@@ -300,6 +305,11 @@
 	)
 	result = /obj/item/food/snacks/cubancarp
 
+/datum/recipe/microwave/cubancarp/make_food(obj/container)
+	var/obj/item/food/snacks/cubancarp/being_cooked = ..()
+	being_cooked.reagents.del_reagent("carpotoxin")
+	return being_cooked
+
 /datum/recipe/microwave/popcorn
 	items = list(
 		/obj/item/food/snacks/grown/corn
@@ -424,6 +434,11 @@
 		/obj/item/food/snacks/carpmeat,
 	)
 	result = /obj/item/food/snacks/fishandchips
+
+/datum/recipe/microwave/fishandchips/make_food(obj/container)
+	var/obj/item/food/snacks/fishandchips/being_cooked = ..()
+	being_cooked.reagents.del_reagent("carpotoxin")
+	return being_cooked
 
 /datum/recipe/microwave/sandwich
 	items = list(
@@ -1396,6 +1411,11 @@
 	)
 	result = /obj/item/food/snacks/boiledspiderleg
 
+/datum/recipe/microwave/boiledspiderleg/make_food(obj/container)
+	var/obj/item/food/snacks/boiledspiderleg/being_cooked = ..()
+	being_cooked.reagents.del_reagent("toxin")
+	return being_cooked
+
 /datum/recipe/microwave/spidereggsham
 	reagents = list("sodiumchloride" = 1)
 	items = list(
@@ -1404,6 +1424,11 @@
 	)
 	result = /obj/item/food/snacks/spidereggsham
 
+/datum/recipe/microwave/spidereggsham/make_food(obj/container)
+	var/obj/item/food/snacks/spidereggsham/being_cooked = ..()
+	being_cooked.reagents.del_reagent("toxin")
+	return being_cooked
+
 /datum/recipe/microwave/sashimi
 	reagents = list("soysauce" = 5)
 	items = list(
@@ -1411,6 +1436,12 @@
 		/obj/item/food/snacks/carpmeat
 	)
 	result = /obj/item/food/snacks/sashimi
+
+/datum/recipe/microwave/sashimi/make_food(obj/container)
+	var/obj/item/food/snacks/sashimi/being_cooked = ..()
+	being_cooked.reagents.del_reagent("carpotoxin")
+	being_cooked.reagents.del_reagent("toxin")
+	return being_cooked
 
 /datum/recipe/microwave/mashedtaters
 	reagents = list("gravy" = 5)

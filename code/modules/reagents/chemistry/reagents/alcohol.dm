@@ -1454,7 +1454,7 @@
 			alcohol_description = "watery" //How the hell did you get negative boozepwr?
 
 	var/list/fruits = list()
-	if(names_in_order.len <= 3)
+	if(length(names_in_order) <= 3)
 		fruits = names_in_order
 	else
 		for(var/i in 1 to 3)
@@ -1464,10 +1464,10 @@
 	description = "A [alcohol_description] wine brewed from [fruit_list]."
 
 	var/flavor = ""
-	if(!primary_tastes.len)
+	if(!length(primary_tastes))
 		primary_tastes = list("[alcohol_description] alcohol")
 	flavor += english_list(primary_tastes)
-	if(secondary_tastes.len)
+	if(length(secondary_tastes))
 		flavor += ", with a hint of "
 		flavor += english_list(secondary_tastes)
 	taste_description = flavor

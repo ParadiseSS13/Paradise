@@ -239,7 +239,7 @@
 	if(QDELETED(src) || QDELETED(SM))
 		return
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/C = pick(candidates)
 		SM.key = C.key
 		dust_if_respawnable(C)

@@ -481,7 +481,7 @@
 		goal_weights += initial(picked.weight)
 		station_goals += new picked
 
-	if(station_goals.len)
+	if(length(station_goals))
 		send_station_goals_message()
 
 /datum/game_mode/proc/send_station_goals_message()
