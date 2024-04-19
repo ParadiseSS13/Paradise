@@ -1042,5 +1042,8 @@
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
 
+// Sent when a mob spawner is attacked directly or via projectile.
+#define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
 /// Used by admin-tooling to remove radiation
 #define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"

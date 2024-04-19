@@ -137,8 +137,8 @@
 	return FALSE
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
-	. += "Its speaker is turned [silenced ? "off" : "on"]."
 	. = ..()
+	. += "Its speaker is turned [silenced ? "off" : "on"]."
 
 	var/list/msg = list("<span class='info'>")
 
