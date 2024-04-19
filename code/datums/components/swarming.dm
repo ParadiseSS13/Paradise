@@ -17,7 +17,7 @@
 	for(var/other in swarm_members)
 		var/datum/component/swarming/other_swarm = other
 		other_swarm.swarm_members -= src
-		if(!other_swarm.swarm_members.len)
+		if(!length(other_swarm.swarm_members))
 			other_swarm.unswarm()
 	swarm_members = null
 	return ..()
@@ -36,10 +36,10 @@
 	if(!other_swarm || !(other_swarm in swarm_members))
 		return
 	swarm_members -= other_swarm
-	if(!swarm_members.len)
+	if(!length(swarm_members))
 		unswarm()
 	other_swarm.swarm_members -= src
-	if(!other_swarm.swarm_members.len)
+	if(!length(other_swarm.swarm_members))
 		other_swarm.unswarm()
 
 /datum/component/swarming/proc/swarm()

@@ -16,7 +16,6 @@
 	has_unlimited_silicon_privilege = TRUE
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = 0 						// No default canpush
-	can_strip = FALSE
 	hud_type = /datum/hud/bot
 
 	speak_emote = list("states")
@@ -208,7 +207,7 @@
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
 	return TRUE
@@ -218,7 +217,7 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() // Resets an AI's call, should it exist.
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon()
 	update_controls()
 
 /mob/living/simple_animal/bot/Initialize(mapload)
@@ -248,6 +247,7 @@
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return // We use a different hud
@@ -908,9 +908,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
 
-/mob/living/simple_animal/bot/show_inv()
-	return
-
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
 	var/dat = ""
@@ -1014,9 +1011,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) // Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
-		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
+		hack += "Harm Prevention Safety System: <A href='byond://?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
 	else if(!locked) // Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
+		hack += "Remote network control radio: <A href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
 /mob/living/simple_animal/bot/proc/showpai(mob/user)
@@ -1026,9 +1023,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 			eject += "Personality card status: "
 			if(paicard)
 				if(client)
-					eject += "<A href='?src=[UID()];operation=ejectpai'>Active</A>"
+					eject += "<A href='byond://?src=[UID()];operation=ejectpai'>Active</A>"
 				else
-					eject += "<A href='?src=[UID()];operation=ejectpai'>Inactive</A>"
+					eject += "<A href='byond://?src=[UID()];operation=ejectpai'>Inactive</A>"
 			else if(!allow_pai || key)
 				eject += "Unavailable"
 			else
@@ -1102,6 +1099,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		to_chat(src, "0. [paicard.pai.pai_law0]")
 	if(emagged)
 		to_chat(src, "<span class='danger'>1. #$!@#$32K#$</span>")
+	else if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(src, "<span class='sans'>1. Be funny.</span>")
 	else
 		to_chat(src, "1. You are a machine built to serve the station's crew and AI(s).")
 		to_chat(src, "2. Your function is to [bot_purpose].")

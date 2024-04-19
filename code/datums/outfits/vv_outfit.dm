@@ -182,7 +182,7 @@
 		for(var/edit in vedits)
 			if(istext(vedits[edit]) || isnum(vedits[edit]) || isnull(vedits[edit]))
 				stripped_edits[edit] = vedits[edit]
-		if(stripped_edits.len)
+		if(length(stripped_edits))
 			stripped_vv[slot] = stripped_edits
 	.["vv_values"] = stripped_vv
 

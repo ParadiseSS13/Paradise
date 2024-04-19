@@ -208,7 +208,7 @@
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget
-				message_param = "<span class='userdanger>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
+				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
 
 	return ..()
 

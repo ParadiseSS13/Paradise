@@ -109,6 +109,10 @@
 									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
 									/obj/machinery/computer))
 
+
+/mob/living/simple_animal/parrot/add_strippable_element()
+	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
+
 /mob/living/simple_animal/parrot/Destroy()
 	GLOB.hear_radio_list -= src
 	return ..()
@@ -125,102 +129,6 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Held Item:", "[held_item]")
-
-/*
- * Inventory
- */
-/mob/living/simple_animal/parrot/show_inv(mob/user)
-	user.set_machine(src)
-
-	var/dat = {"<table>"}
-
-	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
-	if(can_collar)
-		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/simple_animal/parrot/Topic(href, href_list)
-	//Can the usr physically do this?
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained() || !usr.Adjacent(src))
-		return
-
-	//Is the usr's mob type able to do this?
-	if(ishuman(usr) || isrobot(usr))
-		if(href_list["remove_inv"])
-			var/remove_from = href_list["remove_inv"]
-			switch(remove_from)
-				if("ears")
-					if(ears)
-						if(stat == CONSCIOUS) //DEAD PARROTS SHOULD NOT SPEAK (i hate that this is done in topic)
-							if(length(available_channels))
-								say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
-							else
-								say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
-						ears.forceMove(loc)
-						ears = null
-						update_speak()
-					else
-						to_chat(usr, "<span class='warning'>There is nothing to remove from its [remove_from].</span>")
-						return
-			show_inv(usr)
-		else if(href_list["add_inv"])
-			var/add_to = href_list["add_inv"]
-			if(!usr.get_active_hand())
-				to_chat(usr, "<span class='warning'>You have nothing in your hand to put on its [add_to].</span>")
-				return
-			switch(add_to)
-				if("ears")
-					if(ears)
-						to_chat(usr, "<span class='warning'>It's already wearing something.</span>")
-						return
-					else
-						var/obj/item/item_to_add = usr.get_active_hand()
-						if(!item_to_add)
-							return
-
-						if(!istype(item_to_add, /obj/item/radio/headset))
-							to_chat(usr, "<span class='warning'>This object won't fit.</span>")
-							return
-
-						var/obj/item/radio/headset/headset_to_add = item_to_add
-
-						usr.drop_item()
-						headset_to_add.forceMove(src)
-						ears = headset_to_add
-						to_chat(usr, "You fit the headset onto [src].")
-
-						available_channels.Cut()
-						for(var/ch in headset_to_add.channels)
-							switch(ch)
-								if("Engineering")
-									available_channels.Add(":e")
-								if("Command")
-									available_channels.Add(":c")
-								if("Security")
-									available_channels.Add(":s")
-								if("Science")
-									available_channels.Add(":n")
-								if("Medical")
-									available_channels.Add(":m")
-								if("Mining")
-									available_channels.Add(":d")
-								if("Cargo")
-									available_channels.Add(":q")
-
-						if(headset_to_add.translate_binary)
-							available_channels.Add(":b")
-						update_speak()
-			show_inv(usr)
-		else
-			..()
 
 /*
  * Attack responces
@@ -292,17 +200,41 @@
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
 
+/mob/living/simple_animal/parrot/proc/update_available_channels()
+	available_channels.Cut()
+	if(!istype(ears) || QDELETED(ears))
+		return
+
+	for(var/ch in ears.channels)
+		switch(ch)
+			if("Engineering")
+				available_channels.Add(":e")
+			if("Command")
+				available_channels.Add(":c")
+			if("Security")
+				available_channels.Add(":s")
+			if("Science")
+				available_channels.Add(":n")
+			if("Medical")
+				available_channels.Add(":m")
+			if("Mining")
+				available_channels.Add(":d")
+			if("Cargo")
+				available_channels.Add(":q")
+
+	if(ears.translate_binary)
+		available_channels.Add(":b")
+
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()
 
-	if(available_channels.len && ears)
+	if(ears && length(available_channels))
 		for(var/possible_phrase in clean_speak)
 			//50/50 chance to not use the radio at all
 			speak += "[prob(50) ? pick(available_channels) : ""][possible_phrase]"
-
-	else //If we have no headset or channels to use, dont try to use any!
-		for(var/possible_phrase in clean_speak)
-			speak += possible_phrase
+		return
+	//If we have no headset or channels to use, dont try to use any!
+	speak = clean_speak.Copy()
 
 /mob/living/simple_animal/parrot/handle_automated_movement()
 	if(pulledby)
@@ -317,8 +249,8 @@
 	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
 	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
 	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
-	if(speech_buffer.len && prob(10))
-		if(clean_speak.len)
+	if(length(speech_buffer) && prob(10))
+		if(length(clean_speak))
 			clean_speak -= pick(clean_speak)
 
 		clean_speak += pick(speech_buffer)

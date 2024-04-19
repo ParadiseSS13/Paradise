@@ -214,7 +214,6 @@
 /area/ruin/space/wreck_cargoship)
 "jb" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/item/paper{
 	name = "management's directive";
 	info = "Good day Captain Hardie. Your ship has been assigned to carry an extremely delicate cargo due to an unfortunate scheduling issue in behalf of our custormers. You will find the additional information on transporting procedure of this extremely delicate cargo attached to it. Management believes you will not mind this rather unconvenient last minute change after what happened last time. Make sure you and your crew doesn't mess it up this time as we hate to compensate the expenses from our esteemed already-in-debt employees. Pick the cargo from next destination and safely deliver it where it has to go."

@@ -6,7 +6,7 @@
 /obj/item/organ/internal/eyes/tajaran
 	icon = 'icons/obj/species_organs/tajaran.dmi'
 	name = "tajaran eyeballs"
-	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix and darksight parameters that the mob will receive when they get the disability.
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 	see_in_dark = 4
 

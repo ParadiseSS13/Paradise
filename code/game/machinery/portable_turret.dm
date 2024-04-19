@@ -75,7 +75,7 @@
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
-	if(req_access && req_access.len)
+	if(req_access && length(req_access))
 		req_access.Cut()
 	req_one_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	one_access = TRUE
@@ -93,7 +93,7 @@
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
 	. = ..()
-	if(req_one_access && req_one_access.len)
+	if(req_one_access && length(req_one_access))
 		req_one_access.Cut()
 	req_access = list(ACCESS_CENT_SPECOPS)
 	one_access = FALSE
@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
+	return A && length(A.turret_controls) > 0
 
 /obj/machinery/porta_turret/proc/access_is_configurable()
 	return targetting_is_configurable && !HasController()
@@ -635,10 +635,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return TURRET_NOT_TARGET
 
 /obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
-	if(targets.len && last_target && (last_target in targets) && target(last_target))
+	if(length(targets) && last_target && (last_target in targets) && target(last_target))
 		return 1
 
-	while(targets.len > 0)
+	while(length(targets) > 0)
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))
@@ -1100,7 +1100,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/syndicate/Initialize(mapload)
 	. = ..()
-	if(req_one_access && req_one_access.len)
+	if(req_one_access && length(req_one_access))
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE

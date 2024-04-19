@@ -9,7 +9,7 @@
 
 /obj/machinery/disposal
 	name = "disposal unit"
-	desc = "A pneumatic waste disposal unit. Alt-click to manually eject its contents."
+	desc = "A pneumatic waste disposal unit, or a basketball hoop if you're bored. Alt-click to manually eject its contents."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
 	anchored = TRUE
@@ -101,7 +101,7 @@
 		var/obj/item/storage/S = I
 		if(!S.removal_allowed_check(user))
 			return
-		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
 			for(var/obj/item/O in S.contents)
@@ -140,7 +140,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(mode==0) // It's off but still not unscrewed
@@ -154,7 +154,7 @@
 	if(mode != required_mode_to_deconstruct)
 		return
 	. = TRUE
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(!I.tool_use_check(user, 0))
@@ -379,7 +379,7 @@
 		return
 
 	// 	check for items in disposal - occupied light
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		. += "dispover-full"
 		underlays += emissive_appearance(icon, "dispover-full")
 
@@ -403,7 +403,7 @@
 
 	flush_count++
 	if(flush_count >= flush_every_ticks)
-		if(contents.len)
+		if(length(contents))
 			if(mode == 2)
 				spawn(0)
 					flush()

@@ -99,8 +99,6 @@
 	if(!scanned)
 		return
 
-	occupant.notify_ghost_cloning()
-
 	has_scanned = TRUE
 
 	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))

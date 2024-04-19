@@ -807,11 +807,11 @@
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
 								if(subchoice)
 									choice = subchoice
@@ -855,15 +855,17 @@
 							organ = "kidneys"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
-					if(!new_state) return
-
+					if(!new_state)
+						return
 					switch(new_state)
 						if("Normal")
 							active_character.organ_data[organ] = null
 						if("Cybernetic")
 							active_character.organ_data[organ] = "cybernetic"
 				if("cyborg_brain_type")
-					var/brain_type = tgui_input_list(user, "What type of brain would you like to have as a cyborg?", "Cyborg Brain Type", GLOB.borg_brain_choices)
+					var/brain_type = tgui_input_list(user, "What type of brain would you like to have as a cyborg?", "Cyborg Brain Type", GLOB.borg_brain_choices, active_character.cyborg_brain_type)
+					if(!(brain_type in GLOB.borg_brain_choices))
+						return
 					active_character.cyborg_brain_type = brain_type
 				if("clientfps")
 					var/version_message
@@ -1118,7 +1120,7 @@
 
 				if("screentip_mode")
 					var/desired_screentip_mode = tgui_input_number(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size", screentip_mode, 20, 0)
-					if(!desired_screentip_mode)
+					if(isnull(desired_screentip_mode))
 						return
 					screentip_mode = desired_screentip_mode
 
