@@ -570,8 +570,9 @@ UI STUFF
 			dat += "<tr><td>[TR.to_string()]</td></tr>"
 
 	dat += "</table></div>"
-	for(var/key in get_client_by_ckey(T.client_ckey)?.pm_tracker.pms)
-		var/datum/pm_convo/convo = get_client_by_ckey(T.client_ckey).pm_tracker.pms[key]
+	var/client/C = get_client_by_ckey(T.client_ckey)
+	for(var/key in C?.pm_tracker.pms)
+		var/datum/pm_convo/convo = C.pm_tracker.pms[key]
 		if(convo.typing)
 			dat += "<i><span class='typing'>[T.client_ckey] is typing</span></i><br />"
 			break
