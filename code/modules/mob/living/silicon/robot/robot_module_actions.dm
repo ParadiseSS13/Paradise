@@ -2,6 +2,7 @@
 	var/sight_mode = null
 	icon_icon = 'icons/obj/decals.dmi'
 	button_icon_state = "securearea"
+	keybinding_category = AKB_CATEGORY_CYBORG
 
 /datum/action/innate/robot_sight/Activate()
 	var/mob/living/silicon/robot/R = owner
@@ -40,6 +41,7 @@
 	name = "Magnetic pulse"
 	icon_icon = 'icons/obj/clothing/shoes.dmi'
 	button_icon_state = "magboots0"
+	keybinding_category = AKB_CATEGORY_CYBORG
 	var/slowdown_active = 2 // Same as magboots
 
 /datum/action/innate/robot_magpulse/Activate()

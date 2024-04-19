@@ -286,6 +286,7 @@
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
 	invocation_type = "none"
+	keybinding_category = AKB_CATEGORY_GENETICS
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
@@ -355,6 +356,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_eat"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/eat/create_new_targeting()
 	return new /datum/spell_targeting/matter_eater
@@ -476,6 +478,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_jump"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -571,6 +574,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_poly"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/polymorph/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -619,6 +623,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_empath"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/empath/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -728,6 +733,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_morph"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/morph/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -917,6 +923,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_project"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/remotetalk/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
@@ -952,6 +959,7 @@
 	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
 	var/list/expanded_minds = list()
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/mindscan/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
@@ -1039,6 +1047,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_view"
+	keybinding_category = AKB_CATEGORY_GENETICS
 
 /datum/spell/remoteview/create_new_targeting()
 	return new /datum/spell_targeting/remoteview

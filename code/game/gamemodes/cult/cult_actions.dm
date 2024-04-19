@@ -3,12 +3,12 @@
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
 	buttontooltipstyle = "cult"
+	keybinding_category = AKB_CATEGORY_CULT
 
 /datum/action/innate/cult/IsAvailable()
 	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
-
 
 //Comms
 /datum/action/innate/cult/comm

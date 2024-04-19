@@ -6,11 +6,11 @@
 
 //The malf AI spell subtype. All malf actions are subtypes of this.
 /datum/spell/ai_spell
-	name = "AI Spell"
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	action_background_icon_state = "bg_tech_blue"
 	clothes_req = FALSE
 	base_cooldown = 0
+	keybinding_category = AKB_CATEGORY_AI
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
 
@@ -46,7 +46,6 @@
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/spell/ai_spell/ranged
-	name = "Ranged AI Action"
 	auto_use_uses = FALSE //This is so we can do the thing and disable/enable freely without having to constantly add uses
 	selection_activated_message		= "<span class='notice'>Hello World!</span>"
 	selection_deactivated_message	= "<span class='danger'>Goodbye Cruel World!</span>"

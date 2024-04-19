@@ -221,6 +221,7 @@
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_default"
+	keybinding_category = AKB_CATEGORY_MINING_DRONE
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"

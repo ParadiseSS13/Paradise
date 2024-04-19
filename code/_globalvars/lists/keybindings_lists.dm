@@ -21,3 +21,33 @@ GLOBAL_LIST_INIT(keybindings_groups, list(
 	"Other" = KB_CATEGORY_UNSORTED,
 	"Custom Emotes (Character-based)" = KB_CATEGORY_EMOTE_CUSTOM,
 ))
+
+GLOBAL_LIST_EMPTY(action_keybinds)
+
+GLOBAL_LIST_INIT(action_keybinds_groups, list(
+	"Item Actions" = AKB_CATEGORY_ITEM_ACTION,
+	"Innate Actions" = AKB_CATEGORY_INNATE_ACTION,
+	"Modsuit Actions" = AKB_CATEGORY_MODSUIT,
+	"Organ Actions" = AKB_CATEGORY_ORGAN,
+	"Cult Actions" = AKB_CATEGORY_CULT,
+	"Changeling Actions" = AKB_CATEGORY_CHANGELING,
+	"Vampire Actions" = AKB_CATEGORY_VAMPIRE,
+	"Demon Actions" = AKB_CATEGORY_DEMON,
+	"Terror Spider Actions" = AKB_CATEGORY_TERROR_SPIDER,
+	"Alien Actions" = AKB_CATEGORY_ALIEN,
+	"Guardian Actions" = AKB_CATEGORY_GUARDIAN,
+	"Revenant Actions" = AKB_CATEGORY_REVENANT,
+	"Lavaland Elite Actions" = AKB_CATEGORY_LAVALAND_ELITE,
+	"Abductor Actions" = AKB_CATEGORY_ABDUCTOR,
+	"Blob Actions" = AKB_CATEGORY_BLOB,
+	"Martial Arts Actions" = AKB_CATEGORY_MARTIAL_ART,
+	"Martial Arts Actions" = AKB_CATEGORY_MARTIAL_ART,
+	"Cyborg/Silicon Actions" = AKB_CATEGORY_CYBORG,
+	"AI Actions" = AKB_CATEGORY_AI,
+	"Mecha Actions" = AKB_CATEGORY_MECHA,
+	"General/Wizard Spells" = AKB_CATEGORY_GENERAL_SPELL,
+	"Genetics Spells" = AKB_CATEGORY_GENETICS,
+	"Mining Drone Spells" = AKB_CATEGORY_MINING_DRONE,
+	"Megafauna Actions" = AKB_CATEGORY_MEGAFAUNA,
+
+))

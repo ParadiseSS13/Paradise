@@ -139,6 +139,14 @@
 		if(initial(D.name))
 			GLOB.keybindings += new path()
 
+	for(var/datum/action/path as anything in subtypesof(/datum/action))
+		if(initial(path.name) != "Generic Action")
+			GLOB.action_keybinds += path
+	
+	for(var/datum/spell/path as anything in subtypesof(/datum/spell))
+		if(initial(path.name) != "Spell")
+			GLOB.action_keybinds += path
+
 	for(var/path in subtypesof(/datum/preference_toggle))
 		var/datum/preference_toggle/pref_toggle = path
 		if(initial(pref_toggle.name))

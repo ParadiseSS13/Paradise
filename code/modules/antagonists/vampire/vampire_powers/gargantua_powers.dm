@@ -122,6 +122,7 @@
 	sound = null
 	invocation_type = "none"
 	invocation = null
+	keybinding_category = AKB_CATEGORY_VAMPIRE
 
 /datum/spell/fireball/demonic_grasp/update_spell_icon()
 	return

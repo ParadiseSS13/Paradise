@@ -45,6 +45,7 @@
 
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
+	keybinding_category = AKB_CATEGORY_ORGAN
 
 /datum/action/item_action/hands_free/activate_pill/Trigger(left_click = TRUE)
 	if(!..(left_click, FALSE))

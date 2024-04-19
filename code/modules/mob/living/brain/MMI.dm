@@ -203,6 +203,7 @@
 	desc = "Configure the radio installed in your MMI."
 	check_flags = AB_CHECK_CONSCIOUS
 	procname = "ui_interact"
+	keybinding_category = AKB_CATEGORY_ITEM_ACTION
 	var/obj/item/mmi = null
 
 /datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)

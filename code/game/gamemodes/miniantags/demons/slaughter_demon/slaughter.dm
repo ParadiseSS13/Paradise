@@ -168,6 +168,7 @@
 	name = "Demonic Whisper"
 	button_icon_state = "demon_comms"
 	background_icon_state = "bg_demon"
+	keybinding_category = AKB_CATEGORY_DEMON
 
 /datum/action/innate/demon/whisper/IsAvailable()
 	return ..()

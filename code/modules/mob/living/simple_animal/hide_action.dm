@@ -27,6 +27,8 @@
 	button_icon_state = "alien_hide"
 	layer_to_change_to = ABOVE_NORMAL_TURF_LAYER
 	layer_to_change_from = MOB_LAYER
+	keybinding_category = AKB_CATEGORY_ALIEN
 
 /datum/action/innate/hide/drone_hide
 	button_icon_state = "repairbot"
+	keybinding_category = AKB_CATEGORY_CYBORG

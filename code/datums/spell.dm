@@ -137,6 +137,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/static/list/spell_handlers = list()
 	/// handles a given spells cooldowns. tracks the time until its off cooldown,
 	var/datum/spell_cooldown/cooldown_handler
+	/// What keybinding category this is set to
+	var/keybinding_category = AKB_CATEGORY_GENERAL_SPELL
 
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check

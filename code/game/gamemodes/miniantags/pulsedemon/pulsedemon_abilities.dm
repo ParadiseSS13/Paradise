@@ -19,6 +19,7 @@
 	var/requires_area = FALSE
 	base_cooldown = 20 SECONDS
 	level_max = 4
+	keybinding_category = AKB_CATEGORY_DEMON
 
 /datum/spell/pulse_demon/New()
 	. = ..()

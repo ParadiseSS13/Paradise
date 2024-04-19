@@ -3,7 +3,7 @@
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
-	actions_types = list(/datum/action/item_action/hands_free/activate/always)
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/always_usable)
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE // Not surviving that
 	implant_data = /datum/implant_fluff/explosive
 	implant_state = "implant-syndicate"

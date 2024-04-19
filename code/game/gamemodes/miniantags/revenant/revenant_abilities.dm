@@ -113,6 +113,7 @@
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
+	keybinding_category = AKB_CATEGORY_REVENANT
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /datum/spell/revenant_transmit
@@ -122,6 +123,7 @@
 	clothes_req = FALSE
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
+	keybinding_category = AKB_CATEGORY_REVENANT
 
 /datum/spell/revenant_transmit/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -143,6 +145,7 @@
 	name = "Spell"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
+	keybinding_category = AKB_CATEGORY_REVENANT
 	/// How long it reveals the revenant in deciseconds
 	var/reveal = 8 SECONDS
 	/// How long it stuns the revenant in deciseconds

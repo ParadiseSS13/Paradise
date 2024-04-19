@@ -64,6 +64,7 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "terror_prince"
+	keybinding_category = AKB_CATEGORY_TERROR_SPIDER
 
 /datum/spell/princely_charge/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom

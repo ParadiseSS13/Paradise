@@ -107,6 +107,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	// 0 = character settings, 1 = game preferences, 2 = loadout
 	var/current_tab = TAB_CHAR
+	// 0 = Normal Keybinds, 1 = Action Keybinds
+	var/keybinding_subtab = SUBTAB_NORMAL_KEYBINDS
 
 	/// List of all character saves we have. This is indexed based on the slot number
 	var/list/datum/character_save/character_saves = list()
@@ -532,66 +534,104 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</table>"
 
 		if(TAB_KEYS)
-			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
-			dat += "<a href='byond://?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
-			dat += "<a href='byond://?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overridden by other categories.</b></div></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Users of legacy mode can only rebind and use the following keys:</b></div></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Arrow Keys, Function Keys, Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
+			dat += "<center>"
+			dat += "<a href='byond://?_src_=prefs;preference=subtab;subtab=[SUBTAB_NORMAL_KEYBINDS]' [keybinding_subtab == SUBTAB_NORMAL_KEYBINDS ? "class='linkOn'" : ""]>Regular keybinds</a>"
+			dat += "<a href='byond://?_src_=prefs;preference=subtab;subtab=[SUBTAB_ACTION_KEYBINDS]' [keybinding_subtab == SUBTAB_ACTION_KEYBINDS ? "class='linkOn'" : ""]>Action button keybinds</a>"
+			dat += "</center>"
+			switch(keybinding_subtab)
+				if(SUBTAB_NORMAL_KEYBINDS)
+					dat += "<div align='center'><b>Basic Keybindings:&nbsp;</b>"
+					dat += "<a href='byond://?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
+					dat += "<a href='byond://?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+					dat += "<tr><td colspan=4><hr></td></tr>"
+					dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overridden by other categories.</b></div></td></tr>"
+					dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
+					dat += "<tr><td colspan=4><hr></td></tr>"
+					dat += "<tr><td colspan=4><div align='center'><b>Users of legacy mode can only rebind and use the following keys:</b></div></td></tr>"
+					dat += "<tr><td colspan=4><div align='center'><b>Arrow Keys, Function Keys, Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
 
-			dat += "<table align='center' width='100%'>"
+					dat += "<table align='center' width='100%'>"
 
-			// Lookup lists to make our life easier
-			var/static/list/keybindings_by_cat
-			if(!keybindings_by_cat)
-				keybindings_by_cat = list()
-				for(var/kb in GLOB.keybindings)
-					var/datum/keybinding/KB = kb
-					keybindings_by_cat["[KB.category]"] += list(KB)
+					// Lookup lists to make our life easier
+					var/static/list/keybindings_by_cat
+					if(!keybindings_by_cat)
+						keybindings_by_cat = list()
+						for(var/kb in GLOB.keybindings)
+							var/datum/keybinding/KB = kb
+							keybindings_by_cat["[KB.category]"] += list(KB)
 
-			for(var/cat in GLOB.keybindings_groups)
-				dat += "<tr><td colspan=4><hr></td></tr>"
-				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
-				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
-					var/datum/keybinding/KB = kb
-					var/kb_uid = KB.UID() // Cache this to reduce proc jumps
-					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
-					var/list/keys = override_keys || KB.keys
-					var/keys_buttons = ""
-					for(var/key in keys)
-						var/disp_key = key
-						if(override_keys)
-							disp_key = "<b>[disp_key]</b>"
-						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
-					dat += "<tr>"
-					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
-					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
-					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
-						var/datum/keybinding/custom/custom_emote_keybind = kb
-						if(custom_emote_keybind.donor_exclusive && !(user.client.donator_level || user.client.holder || unlock_content))
-							dat += "</tr>"
+					for(var/cat in GLOB.keybindings_groups)
+						dat += "<tr><td colspan=4><hr></td></tr>"
+						dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
+						for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
+							var/datum/keybinding/KB = kb
+							var/kb_uid = KB.UID() // Cache this to reduce proc jumps
+							var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
+							var/list/keys = override_keys || KB.keys
+							var/keys_buttons = ""
+							for(var/key in keys)
+								var/disp_key = key
+								if(override_keys)
+									disp_key = "<b>[disp_key]</b>"
+								keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 							dat += "<tr>"
-							dat += "<td><b>The use of this emote is restricted to patrons and byond members.</b></td>"
+							dat += "<td style='width: 25%'>[KB.name]</td>"
+							dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
+							if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
+								var/datum/keybinding/custom/custom_emote_keybind = kb
+								if(custom_emote_keybind.donor_exclusive && !(user.client.donator_level || user.client.holder || unlock_content))
+									dat += "</tr>"
+									dat += "<tr>"
+									dat += "<td><b>The use of this emote is restricted to patrons and byond members.</b></td>"
+									dat += "</tr>"
+									continue
+								dat += "</tr>"
+								dat += "<tr>"
+								var/emote_text = active_character.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
+								if(!emote_text)
+									dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
+								else
+									dat += "<td style='width: 25%'><i>\"[active_character.real_name] [emote_text]\"</i></td>"
+								dat += "<td style='width: 45%'><a href='byond://?_src_=prefs;preference=keybindings;custom_emote_set=[kb_uid];'>Change Text</a></td>"
+								dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;custom_emote_reset=[kb_uid];'>Reset to Default</a></td>"
+								dat += "<tr><td colspan=4><br></td></tr>"
 							dat += "</tr>"
-							continue
-						dat += "</tr>"
-						dat += "<tr>"
-						var/emote_text = active_character.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
-						if(!emote_text)
-							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
-						else
-							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [emote_text]\"</i></td>"
-						dat += "<td style='width: 45%'><a href='byond://?_src_=prefs;preference=keybindings;custom_emote_set=[kb_uid];'>Change Text</a></td>"
-						dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;custom_emote_reset=[kb_uid];'>Reset to Default</a></td>"
 						dat += "<tr><td colspan=4><br></td></tr>"
-					dat += "</tr>"
-				dat += "<tr><td colspan=4><br></td></tr>"
 
-			dat += "</table>"
+					dat += "</table>"
+				if(SUBTAB_ACTION_KEYBINDS)
+					dat += "<div align='center'><b>Action Button Key Bindings:&nbsp;</b>"
+					dat += "<a href='byond://?_src_=prefs;preference=action_keybinds;clear_all=1'>Clear</a><br /></div>"
+					dat += "<tr><td colspan=4><hr></td></tr>"
+					dat += "<tr><td colspan=4><div align='center'><b>Please note, some specific actions may bind to multiple buttons.</b></div></td></tr>"
+					dat += "<tr><td colspan=4><hr></td></tr>"
+					dat += "<table align='center' width='100%'>"
+
+					// Lookup lists to make our life easier
+					var/static/list/action_keybindings_by_cat
+					if(!action_keybindings_by_cat)
+						action_keybindings_by_cat = list()
+						for(var/datum/action/action_type as anything in GLOB.action_keybinds)
+							action_keybindings_by_cat["[initial(action_type.keybinding_category)]"] += list(action_type)
+
+					for(var/cat in GLOB.action_keybinds_groups)
+						dat += "<tr><td colspan=4><hr></td></tr>"
+						dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
+						for(var/datum/action/action_type as anything in action_keybindings_by_cat["[GLOB.action_keybinds_groups[cat]]"])
+							var/list/keys = (keybindings_overrides && keybindings_overrides[initial(action_type.name)])
+							var/keys_buttons = ""
+							for(var/key in keys)
+								var/disp_key = key
+								keys_buttons += "<a href='byond://?_src_=prefs;preference=action_keybinds;set=[action_type];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+							dat += "<tr>"
+							dat += "<td style='width: 20%'>[initial(action_type.name)]</td>"
+							dat += "<td style='width: 20%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=action_keybinds;set=[action_type];'><span class='good'>+</span></a></td>" : "</td>"]"
+							dat += "<td style='width: 50%'>[initial(action_type.desc)]"
+							dat += "<td style='width: 10%'><a href='byond://?_src_=prefs;preference=action_keybinds;clear=[action_type]'>Clear</a></td>"
+						dat += "<tr><td colspan=4><br></td></tr>"
+
+					dat += "</table>"
 
 		if(TAB_TOGGLES)
 			dat += "<div align='center'><b>Preference Toggles:&nbsp;</b>"
@@ -773,6 +813,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		var/list/keys = (overrides && overrides[KB.name]) || KB.keys
 		for(var/key in keys)
 			LAZYADD(keybindings[key], kb)
+	for(var/datum/action/actions as anything in parent?.mob?.actions)
+		var/to_set_to = overrides[istype(actions, /datum/action/spell_action) ? initial(actions.target.name) : initial(actions.name)]
+		if(to_set_to)
+			for(var/datum/hud/hud in actions.viewers)
+				var/atom/movable/screen/movable/action_button/button = actions.viewers[hud]
+				INVOKE_ASYNC(button, TYPE_PROC_REF(/atom/movable/screen/movable/action_button, set_to_keybind), parent.mob, to_set_to)
 
 	parent?.update_active_keybindings()
 	return keybindings
@@ -801,3 +847,28 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.set_content(HTML)
 	popup.open(FALSE)
 	onclose(user, "capturekeypress", src)
+
+/datum/preferences/proc/capture_action_keybinding(mob/user, datum/action/action_path, old)
+	var/HTML = {"
+	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [initial(action_path.name)]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
+	<script>
+	var deedDone = false;
+	document.onkeyup = function(e) {
+		if(deedDone){ return; }
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var shift = e.shiftKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var url = 'byond://?_src_=prefs;preference=action_keybinds;set=[action_path];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		window.location=url;
+		deedDone = true;
+	}
+	document.getElementById('focus').focus();
+	</script>
+	"}
+	winshow(user, "captureactionkeypress", TRUE)
+	var/datum/browser/popup = new(user, "captureactionkeypress", "<div align='center'>Action Keybindings</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "captureactionkeypress", src)

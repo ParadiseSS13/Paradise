@@ -496,6 +496,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	keybinding_category = AKB_CATEGORY_GENETICS
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_incendiary"

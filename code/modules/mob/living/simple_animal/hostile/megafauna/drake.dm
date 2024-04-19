@@ -650,6 +650,7 @@ Difficulty: Medium
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
 	aoe_range = 1
+	keybinding_category = AKB_CATEGORY_MEGAFAUNA
 
 /datum/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))

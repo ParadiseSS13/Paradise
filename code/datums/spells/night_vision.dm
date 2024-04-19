@@ -6,6 +6,7 @@
 	clothes_req = FALSE
 
 	message = "<span class='notice'>You toggle your night vision!</span>"
+	keybinding_category = AKB_CATEGORY_CULT
 
 /datum/spell/night_vision/create_new_targeting()
 	return new /datum/spell_targeting/self

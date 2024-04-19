@@ -69,6 +69,7 @@
 /datum/action/innate/teleport_in
 	name = "Send To"
 	button_icon_state = "beam_down"
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/innate/teleport_in/Activate()
 	if(!target || !iscarbon(owner))
@@ -83,6 +84,7 @@
 /datum/action/innate/teleport_out
 	name = "Retrieve"
 	button_icon_state = "beam_up"
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/innate/teleport_out/Activate()
 	if(!target || !iscarbon(owner))
@@ -96,6 +98,7 @@
 /datum/action/innate/teleport_self
 	name = "Send Self"
 	button_icon_state = "beam_down"
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/innate/teleport_self/Activate()
 	if(!target || !iscarbon(owner))
@@ -110,6 +113,7 @@
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
 	button_icon_state = "vest_mode"
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/innate/vest_mode_swap/Activate()
 	if(!target || !iscarbon(owner))
@@ -117,10 +121,10 @@
 	var/obj/machinery/abductor/console/console = target
 	console.FlipVest()
 
-
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
 	button_icon_state = "vest_disguise"
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/innate/vest_disguise_swap/Activate()
 	if(!target || !iscarbon(owner))
@@ -131,6 +135,7 @@
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
 	button_icon_state = "set_drop"
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/innate/set_droppoint/Activate()
 	if(!target || !iscarbon(owner))

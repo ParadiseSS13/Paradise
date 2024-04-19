@@ -1,6 +1,7 @@
 /datum/spell/morph_spell
 	action_background_icon_state = "bg_morph"
 	clothes_req = FALSE
+	keybinding_category = AKB_CATEGORY_MORPH
 	/// How much food it costs the morph to use this
 	var/hunger_cost = 0
 

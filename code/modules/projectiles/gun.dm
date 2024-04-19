@@ -482,6 +482,7 @@
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
 	button_icon_state = "sniper_zoom"
+	keybinding_category = AKB_CATEGORY_ITEM_ACTION
 	var/obj/item/gun/gun = null
 
 /datum/action/toggle_scope_zoom/Destroy()

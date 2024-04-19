@@ -148,6 +148,8 @@
 #define TAB_ANTAG 	2
 #define TAB_GEAR 	3
 #define TAB_KEYS 	4
+    #define SUBTAB_NORMAL_KEYBINDS 0
+    #define SUBTAB_ACTION_KEYBINDS 1
 #define TAB_TOGGLES 5
 
 // Colourblind modes

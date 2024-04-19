@@ -157,17 +157,18 @@
 	.["bg_state"] = "template"
 	.["bg_state_active"] = "template_active"
 
-/atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
-	var/keybind_to_set_to = uppertext(input(user, "What keybind do you want to set this action button to?") as text)
-	if(keybind_to_set_to)
-		if(linked_keybind)
-			clean_up_keybinds(user)
-		var/datum/keybinding/mob/trigger_action_button/triggerer = new
-		triggerer.linked_action = linked_action
-		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
-		linked_keybind = triggerer
-		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
+/atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user, set_to_bind)
+	var/list/total_binds = set_to_bind ? set_to_bind : list(uppertext(input(user, "What keybind do you want to set this action button to?") as text))
+	if(length(total_binds))
+		for(var/keybind_to_set_to in total_binds)
+			if(linked_keybind)
+				clean_up_keybinds(user)
+			var/datum/keybinding/mob/trigger_action_button/triggerer = new
+			triggerer.linked_action = linked_action
+			user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
+			linked_keybind = triggerer
+			triggerer.binded_to = keybind_to_set_to
+			to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
 	else if(linked_keybind)
 		clean_up_keybinds(user)
 		to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")

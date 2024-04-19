@@ -16,7 +16,8 @@
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// Map of huds viewing a button with our action -> their button
 	var/list/viewers = list()
-
+	/// The UI category this action will appear in
+	var/keybinding_category 
 
 /datum/action/New(Target)
 	target = Target
@@ -227,6 +228,7 @@
 //Presets for item actions
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
+	keybinding_category = AKB_CATEGORY_ITEM_ACTION
 	var/use_itemicon = TRUE
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
@@ -497,6 +499,13 @@
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 
+/datum/action/item_action/hands_free/implant_action
+	keybinding_category = AKB_CATEGORY_ORGAN
+
+/datum/action/item_action/hands_free/implant_action/always_usable
+	check_flags = null
+	keybinding_category = AKB_CATEGORY_ORGAN
+
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
 
@@ -542,6 +551,7 @@
 
 /datum/action/item_action/drop_gripped_item
 	name = "Drop gripped item"
+	keybinding_category = AKB_CATEGORY_CYBORG
 
 // Clown Acrobat Shoes
 /datum/action/item_action/slipping
@@ -573,6 +583,7 @@
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
+	keybinding_category = AKB_CATEGORY_ORGAN
 
 /datum/action/item_action/organ_action/IsAvailable()
 	var/obj/item/organ/internal/I = target
@@ -706,6 +717,7 @@
 /datum/action/innate
 	check_flags = 0
 	var/active = FALSE
+	keybinding_category = AKB_CATEGORY_INNATE_ACTION
 
 /datum/action/innate/Trigger(left_click)
 	if(!..())

@@ -33,6 +33,7 @@
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	keybinding_category = AKB_CATEGORY_MECHA
 	var/obj/mecha/chassis
 
 /datum/action/innate/mecha/Grant(mob/living/L, obj/mecha/M)

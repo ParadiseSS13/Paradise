@@ -1,5 +1,8 @@
 // ---------- ACTIONS FOR ALL SPIDERS
 
+/datum/action/innate/terrorspider
+	keybinding_category = AKB_CATEGORY_TERROR_SPIDER
+
 /datum/action/innate/terrorspider/web
 	name = "Web"
 	icon_icon = 'icons/effects/effects.dmi'

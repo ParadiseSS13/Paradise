@@ -19,6 +19,7 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 	base_cooldown = 1 SECONDS
 	action_icon_state = "choose_module"
 	action_background_icon_state = "bg_tech_blue"
+	keybinding_category = AKB_CATEGORY_CYBORG
 
 /datum/spell/access_software_pai/create_new_targeting()
 	return new /datum/spell_targeting/self

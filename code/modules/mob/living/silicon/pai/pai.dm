@@ -245,6 +245,7 @@
 	base_cooldown = 20 SECONDS
 	action_icon_state = "repairbot"
 	action_background_icon_state = "bg_tech_blue"
+	keybinding_category = AKB_CATEGORY_CYBORG
 
 /datum/spell/unfold_chassis_pai/create_new_targeting()
 	return new /datum/spell_targeting/self

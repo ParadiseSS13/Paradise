@@ -162,6 +162,7 @@
 	name = "Megafauna Attack"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = ""
+	keybinding_category = AKB_CATEGORY_MEGAFAUNA
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0

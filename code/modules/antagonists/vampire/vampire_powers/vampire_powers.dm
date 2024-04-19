@@ -17,6 +17,7 @@
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
 	clothes_req = FALSE
+	keybinding_category = AKB_CATEGORY_VAMPIRE
 	/// How much blood this ability costs to use
 	var/required_blood
 	var/deduct_blood_on_cast = TRUE

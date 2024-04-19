@@ -259,6 +259,7 @@
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase
 	jaunt_in_time = 0
 	sound1 = 'sound/misc/enter_blood.ogg'
+	keybinding_category = AKB_CATEGORY_VAMPIRE
 
 /datum/spell/ethereal_jaunt/blood_pool/create_new_handler()
 	var/datum/spell_handler/vampire/H = new

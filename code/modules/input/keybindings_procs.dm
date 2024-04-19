@@ -15,9 +15,14 @@
 	if(!mob) // Clients can join before world/new is setup, so we gotta mob check em
 		return active_keybindings
 	for(var/atom/movable/screen/movable/action_button/button as anything in mob.hud_used.get_all_action_buttons())
-		// TODO VERIFY THIS (AND KEYBINDS) WORK PROPERLY
 		if(button.linked_keybind?.binded_to)
 			var/datum/keybinding/mob/trigger_action_button/linked_bind = button.linked_keybind
 			active_keybindings[linked_bind.binded_to] += list(linked_bind)
+	for(var/datum/action/actions as anything in mob?.actions)
+		var/to_set_to = prefs?.keybindings_overrides[istype(actions, /datum/action/spell_action) ? initial(actions.target.name) : initial(actions.name)]
+		if(to_set_to)
+			for(var/datum/hud/hud in actions.viewers)
+				var/atom/movable/screen/movable/action_button/button = actions.viewers[hud]
+				INVOKE_ASYNC(button, TYPE_PROC_REF(/atom/movable/screen/movable/action_button, set_to_keybind), mob, to_set_to)
 
 	return active_keybindings

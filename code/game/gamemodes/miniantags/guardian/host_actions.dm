@@ -7,6 +7,7 @@
 	name = "Generic guardian host action"
 	icon_icon = 'icons/mob/guardian.dmi'
 	button_icon_state = "base"
+	keybinding_category = AKB_CATEGORY_GUARDIAN
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
 /datum/action/guardian/Grant(mob/M, mob/living/simple_animal/hostile/guardian/G)
@@ -110,6 +111,7 @@
 	action_icon_state = "no_state"
 	action_background_icon_state = "reset"
 	action_icon = 'icons/mob/guardian.dmi'
+	keybinding_category = AKB_CATEGORY_GUARDIAN
 
 /datum/spell/summon_guardian_beacon/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -133,6 +135,7 @@
 	action_icon_state = "no_state"
 	action_background_icon_state = "reset"
 	action_icon = 'icons/mob/guardian.dmi'
+	keybinding_category = AKB_CATEGORY_GUARDIAN
 
 /datum/spell/surveillance_snare/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -164,6 +167,7 @@
 	action_icon_state = "no_state"
 	action_background_icon_state = "communicate"
 	action_icon = 'icons/mob/guardian.dmi'
+	keybinding_category = AKB_CATEGORY_GUARDIAN
 
 /datum/spell/choose_battlecry/create_new_targeting()
 	return new /datum/spell_targeting/self
