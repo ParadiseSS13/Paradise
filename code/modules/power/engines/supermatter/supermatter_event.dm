@@ -33,7 +33,7 @@
 	return
 
 /datum/supermatter_event/proc/on_end()
-	sm_radio_say("<span class='big'>Anomalous crystal activity has ended.</span>")
+	sm_radio_say("<b>Anomalous crystal activity has ended.</b>")
 	supermatter.heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	supermatter.gas_multiplier = 1
 	supermatter.power_additive = 0
@@ -59,7 +59,7 @@
 	duration = 10 SECONDS
 
 /datum/supermatter_event/delta_tier/alert_engi()
-	sm_radio_say("<span class='big'>Abnormal crystal activity detected! Activity class: [name].</span>")
+	sm_radio_say("Abnormal crystal activity detected! Activity class: [name].")
 
 // sleeping gas
 /datum/supermatter_event/delta_tier/sleeping_gas
