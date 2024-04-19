@@ -39,6 +39,7 @@
 		while(whitelist_query.NextRow())
 			var/ckey_from_db = whitelist_query.item[1]
 			GLOB.configuration.overflow.overflow_whitelist |= ckey_from_db
+			qdel(whitelist_query)
 			return ..()
 
 		qdel(whitelist_query)
