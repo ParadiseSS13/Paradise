@@ -9345,21 +9345,12 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "aRg" = (
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	dir = 8;
-	initialize_directions = 11
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "sm_sen_cont";
+	output = 127
 	},
 /turf/simulated/floor/engine,
-/area/station/engineering/control)
+/area/station/engineering/engine/supermatter)
 "aRm" = (
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plating,
@@ -10044,6 +10035,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/meter{
+	autolink_id = "sm_sen_cold"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -43844,10 +43838,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "ded" = (
@@ -45938,10 +45932,10 @@
 	},
 /area/station/hallway/primary/aft)
 "dXb" = (
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "dXu" = (
@@ -59482,6 +59476,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/meter{
+	autolink_id = "sm_sen_hot"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -78779,6 +78776,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
+"tij" = (
+/obj/machinery/computer/general_air_control/pt_monitor{
+	dir = 4;
+	autolink_sensors = list("sm_sen_hot"="Горячий Контур","sm_sen_cold"="Холодный Контур","sm_sen_cont"="Зона Содержания")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "tio" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -130635,7 +130641,7 @@ fWD
 xWl
 sLD
 jwN
-nRh
+tij
 pcW
 pcW
 pcW
@@ -131914,7 +131920,7 @@ nYI
 pFo
 aMU
 aPa
-aRg
+aPa
 aTJ
 aPs
 aVs
@@ -132945,7 +132951,7 @@ kGw
 aRs
 aTK
 aRf
-aSo
+aRg
 aTV
 mzf
 dqm

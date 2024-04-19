@@ -7332,7 +7332,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aGa" = (
-/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/meter{
+	autolink_id = "sm_sen_cold"
+	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -8284,6 +8286,9 @@
 	pixel_y = -4
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/clothing/head/welding/flamedecal/blue{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aJH" = (
@@ -56142,9 +56147,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "gBF" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/welding/flamedecal/blue{
-	pixel_y = 5
+/obj/machinery/computer/general_air_control/pt_monitor{
+	dir = 8;
+	autolink_sensors = list("sm_sen_hot"="Горячий Контур","sm_sen_cold"="Холодный Контур","sm_sen_cont"="Зона Содержания")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -89109,6 +89114,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/ne)
+"qQH" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "sm_sen_cont";
+	output = 127
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/supermatter)
 "qQK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -107080,7 +107092,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/meter{
+	autolink_id = "sm_sen_hot"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "wBK" = (
@@ -136244,7 +136258,7 @@ nUm
 kJd
 aAa
 aBX
-aAa
+qQH
 mxm
 aAa
 aCZ
