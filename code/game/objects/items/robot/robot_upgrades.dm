@@ -7,7 +7,7 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	/// Whether or not the cyborg needs to have a chosen module before they can recieve this upgrade.
+	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
 	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
 	var/module_type = null
