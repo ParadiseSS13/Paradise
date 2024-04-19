@@ -1415,9 +1415,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 		// Wire must be intact to override the lockdown.
 		if(!wires.is_cut(WIRE_BORG_LOCKED))
-			lockdown_timer = addtimer(CALLBACK(src,PROC_REF(lockdown_override), FALSE), 10 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME | TIMER_STOPPABLE)
-			to_chat(src, "<br><br><span class='warning'>ALERT: Remote system lockdown engaged! Initiating lockdown subsystem override...")
-			sleep(10)
+			lockdown_timer = addtimer(CALLBACK(src, PROC_REF(lockdown_override), FALSE), 10 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME | TIMER_STOPPABLE)
+			to_chat(src, "<br><br><span class='warning'>ALERT: Remote system lockdown engaged! Initiating lockdown subsystem override...</span>")
+			sleep(1 SECONDS)
 			to_chat(src, "<span class='warning'>Estimated time to completion: 600 seconds.</span>")
 	else
 		clear_alert("locked")
@@ -1434,7 +1434,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/lockdown_override()
 	SetLockdown(FALSE)
 	message_admins("<span class='notice'>The lockdown on cyborg [src] has been lifted because their lockdown timer expired.</span>")
-	to_chat(src, "<br><br><span class='notice'>Lockdown subsystem override successful.")
+	to_chat(src, "<br><br><span class='notice'>Lockdown subsystem override successful.</span>")
 	if(connected_ai)
 		to_chat(connected_ai, "<br><br><span class='notice'>NOTICE: Lockdown on cyborg [name] has been overridden.</span><br>")
 
