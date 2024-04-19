@@ -17,9 +17,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/sight_mode = 0
 	var/custom_name = ""
-	var/custom_sprite = FALSE //Due to all the sprites involved, a var for our custom borgs may be best
+	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best
 
-	//Hud stuff
+	// HUD stuff
 	var/atom/movable/screen/hands = null
 	var/atom/movable/screen/inv1 = null
 	var/atom/movable/screen/inv2 = null
@@ -27,10 +27,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
 
-	var/shown_robot_modules = FALSE	//Used to determine whether they have the module menu shown or not
+	/// Used to determine whether they have the module menu shown or not.
+	var/shown_robot_modules = FALSE
 	var/atom/movable/screen/robot_modules_background
 
-	//3 Modules can be activated at any one time.
+	// 3 Modules can be activated at any one time.
 	var/obj/item/robot_module/module = null
 	var/module_active = null
 	var/module_state_1 = null
@@ -42,10 +43,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
 
-	// Components are basically robot organs.
+	/// Components are basically robot organs.
 	var/list/components = list()
-
-	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
+	/// Used for deconstruction to remember what the borg was constructed out of.
+	var/obj/item/robot_parts/robot_suit/robot_suit = null
 	var/obj/item/mmi/mmi = null
 
 	var/obj/item/pda/silicon/robot/rbPDA = null
@@ -60,64 +61,89 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = FALSE
+	/// All incoming damage has this number subtracted from it.
 	var/damage_protection = 0
 	var/emp_protection = FALSE
-	/// Value incoming brute damage to borgs is mutiplied by.
+	/// Incoming brute damage is multiplied by this number.
 	var/brute_mod = 1
-	/// Value incoming burn damage to borgs is multiplied by.
+	/// Incoming burn damage is multiplied by this number.
 	var/burn_mod = 1
 
 	var/list/force_modules
+	/// Can a borg rename itself with the Namepick verb?
 	var/allow_rename = TRUE
+	/// Setting to TRUE unlocks a borg's Safety Override modules.
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
 
 	var/wiresexposed = FALSE
+	/// Is the borg's cover locked?
 	var/locked = TRUE
+	/// Determines the ID access needed to unlock the cover.
 	var/list/req_one_access = list(ACCESS_ROBOTICS)
+	/// Used for borg access checks.
 	var/list/req_access
+	/// Used when generating the number in default robot names.
 	var/ident = 0
 	//var/list/laws = list()
 	var/viewalerts = FALSE
+	/// What kind of borg is this?
 	var/modtype = "Default"
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/low_power_mode = FALSE //whether the robot has no charge left.
-	var/weapon_lock = FALSE
+	/// Has the cyborg run out of cell charge?
+	var/low_power_mode = FALSE
+
+	var/weapon_lock = FALSE	// I don't know what actually triggers weapon_lock. Leftover secborg thing? - CRUNCH
 	var/weaponlock_time = 120
-	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
-	var/lockcharge //Used when locking down a borg to preserve cell charge
-	var/lockdown_timer // Timer that allows a borg to self-unlock if left abandoned for too long.
-	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
-	var/scrambledcodes = FALSE // Used to determine if a borg shows up on the robotics console.  Setting to TRUE hides them.
-	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
+
+	/// Cyborgs will sync their laws with their AI by default
+	var/lawupdate = TRUE
+	/// Used when locking down a borg to preserve cell charge.
+	var/lockcharge
+	/// Timer that allows a borg to self-unlock if left abandoned for too long.
+	var/lockdown_timer
+	/// Speed modifier. Slowdown for borgs is handled in movement_configuration.dm, not here. More positive numbers are slower, more negative numbers are faster.
+	var/speed = 0
+	/// If set to TRUE, a cyborg will not be visible on the robotics control console.
+	var/scrambledcodes = FALSE
+	/// If set to TRUE, a cyborg can re-lock its own cover.
+	var/can_lock_cover = FALSE
+	/// Determines if a cyborg acts as a mobile security camera.
 	var/has_camera = TRUE
-	var/pdahide = FALSE //Used to hide the borg from the messenger list
-	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
+	/// Used to hide the borg from the messenger list.
+	var/pdahide = FALSE
+	/// The number of known entities currently accessing the internal camera.
+	var/tracking_entities = 0
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/modules_break = TRUE
 
-	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
-	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_recharging = FALSE //Flag for if the lamp is on cooldown after being forcibly disabled.
+	/// Maximum brightness of a borg lamp. Set as a var for easy adjusting. Increments in steps of 2.
+	var/lamp_max = 10
+	/// Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
+	var/lamp_intensity = 0
+	/// Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_recharging = FALSE
 
-	/// When the camera moved signal was send last. Avoid overdoing it
+	/// When the camera moved signal was send last. Avoid overdoing it.
 	var/last_camera_update
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
-	var/ionpulse = FALSE // Jetpack-like effect.
-	var/ionpulse_on = FALSE // Jetpack-like effect.
+	/// Does the borg have ion thrusters installed?
+	var/ionpulse = FALSE
+	/// Are the borg's ion thrusters activated?
+	var/ionpulse_on = FALSE
 	/// Does it clean the tile under it?
 	var/floorbuffer = FALSE
-
+	/// Turning on allows the borg to see the materials an item is made of and its tech levels when deconstructed.
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
+	/// Determines if the cyborg can see reagents
+	var/see_reagents = FALSE
 
-	var/see_reagents = FALSE // Determines if the cyborg can see reagents
-
-	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
+	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs.
 	var/mail_destination = 1
 	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
 	var/datum/ui_module/destination_tagger/mail_setter
