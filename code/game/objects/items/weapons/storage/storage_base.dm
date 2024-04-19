@@ -722,7 +722,7 @@
 		// But then again a tesseract would destroy the server anyways
 		// Also I wish I could just insert a list instead of it reading it the wrong way
 		content_list.len++
-		content_list[content_list.len] = AM.serialize()
+		content_list[length(content_list)] = AM.serialize()
 	return data
 
 /obj/item/storage/deserialize(list/data)

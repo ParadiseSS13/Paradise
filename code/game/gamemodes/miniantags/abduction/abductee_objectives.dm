@@ -35,7 +35,7 @@
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
 			jobs -= J
-	if(jobs.len > 0)
+	if(length(jobs) > 0)
 		var/datum/job/target = pick(jobs)
 		explanation_text += " a [target.title]."
 	else

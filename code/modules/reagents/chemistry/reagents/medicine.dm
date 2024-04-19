@@ -979,7 +979,7 @@
 	var/mob/living/carbon/human/H = M
 	if(volume < 20)
 		if(prob(10))
-			to_chat(H, "<span class='warning>You cough up some congealed blood.</span>")
+			to_chat(H, "<span class='warning'>You cough up some congealed blood.</span>")
 			H.vomit(blood = TRUE, should_confuse = FALSE) //mostly visual
 		else if(prob(10))
 			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")

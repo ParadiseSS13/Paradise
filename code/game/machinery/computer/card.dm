@@ -189,7 +189,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job.job_banned_gamemode) // you cannot open a slot for more sec/legal after revs win
 			return FALSE
-		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
+		if((job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100)))
 			return FALSE
 		if(opened_positions[job.title] < 0)
 			return TRUE
@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
-		if(SSjobs.prioritized_jobs.len >= 3)
+		if(length(SSjobs.prioritized_jobs) >= 3)
 			return FALSE
 		if(job.total_positions <= job.current_positions)
 			return FALSE

@@ -176,7 +176,7 @@
 			. += "It's heavily damaged."
 		else
 			. += "It's falling apart."
-	if(equipment && equipment.len)
+	if(equipment && length(equipment))
 		. += "It's equipped with:"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			. += "[bicon(ME)] [ME]"
@@ -1345,7 +1345,7 @@
 /obj/mecha/check_access(obj/item/card/id/I, list/access_list)
 	if(!istype(access_list))
 		return 1
-	if(!access_list.len) //no requirements
+	if(!length(access_list)) //no requirements
 		return 1
 	I = I?.GetID()
 	if(!istype(I) || !I.access) //not ID or no access
