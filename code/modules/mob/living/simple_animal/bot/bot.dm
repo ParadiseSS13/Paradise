@@ -1167,11 +1167,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 // AI bot access verb TGUI
 /mob/living/simple_animal/bot/proc/get_bot_data()
-	. = list(list(
+	. = list(
 	"name" = name ? name : model, // Turns out, bot_name is not used but name is
 	"model" = model,
 	"status" = mode, // BOT_IDLE is 0
 	"location" = get_area(src),
 	"on" = on,
 	"UID" = UID(),
-	))
+	)
