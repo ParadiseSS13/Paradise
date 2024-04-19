@@ -1231,7 +1231,7 @@
 			stat_tab = payload["tab"]
 			SSstatpanels.immediate_send_stat_data(src)
 		if("Listedturf-Scroll")
-			if (payload["min"] == payload["max"])
+			if(payload["min"] == payload["max"])
 				// Not properly loaded yet, send the default set.
 				SSstatpanels.refresh_client_obj_view(src)
 			else
