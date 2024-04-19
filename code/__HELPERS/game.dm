@@ -314,7 +314,7 @@
 	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -330,7 +330,7 @@
 	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -362,7 +362,7 @@
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= GLOB.player_list.len; i++)
+	for(var/i = 1; i <= length(GLOB.player_list); i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
 			if(isnewplayer(M)) // exclude people in the lobby
@@ -447,7 +447,7 @@
 /proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname)
 	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname)
 	var/list/selected_ghosts = list()
-	if(!willing_ghosts.len)
+	if(!length(willing_ghosts))
 		return selected_ghosts
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
@@ -459,7 +459,7 @@
 		else
 			candidate_ghosts -= G
 
-	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
+	for(var/i = max_slots, (i > 0 && length(candidate_ghosts)), i--)
 		var/this_ghost = input("Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates") as null|anything in candidate_ghosts
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost

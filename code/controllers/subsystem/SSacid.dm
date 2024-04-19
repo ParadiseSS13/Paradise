@@ -25,8 +25,8 @@ SUBSYSTEM_DEF(acid)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 
-	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/O = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!O || QDELETED(O))
 			processing -= O
