@@ -1459,7 +1459,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Allows the borg to unlock themselves after a lengthy period of time.
 /mob/living/silicon/robot/proc/lockdown_override()
 	SetLockdown(FALSE)
-	log_admin("<span class='notice'>The lockdown on cyborg [src] has been lifted because their lockdown timer expired.</span>")
+	log_admin("The lockdown on cyborg [src] has been lifted because their lockdown timer expired.")
 	to_chat(src, "<span class='notice'>Lockdown subsystem override successful.</span>")
 	if(connected_ai)
 		to_chat(connected_ai, "<br><br><span class='notice'>NOTICE: Lockdown on cyborg [name] has been overridden.</span><br>")
