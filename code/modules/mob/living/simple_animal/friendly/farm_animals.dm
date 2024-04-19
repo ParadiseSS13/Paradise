@@ -43,10 +43,10 @@
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	. = ..()
 	//chance to go crazy and start wacking stuff
-	if(!enemies.len && prob(1))
+	if(!length(enemies) && prob(1))
 		Retaliate()
 
-	if(enemies.len && prob(10))
+	if(length(enemies) && prob(10))
 		enemies = list()
 		LoseTarget()
 		visible_message("<span class='notice'>[src] calms down.</span>")

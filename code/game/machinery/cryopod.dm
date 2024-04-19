@@ -153,7 +153,7 @@
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(!objective_items.len)
+	if(!length(objective_items))
 		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
@@ -390,7 +390,7 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
 		if(R.fields["name"] == occupant.real_name)
@@ -678,7 +678,7 @@
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
-	if(free_cryopods.len)
+	if(length(free_cryopods))
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)

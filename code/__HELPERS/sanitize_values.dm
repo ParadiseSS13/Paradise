@@ -14,7 +14,7 @@
 /proc/sanitize_inlist(value, list/List, default)
 	if(value in List)	return value
 	if(default)			return default
-	if(List && List.len)return pick(List)
+	if(length(List))	return pick(List)
 
 /proc/sanitize_json(json_input)
 	if(length(json_input) && istext(json_input))

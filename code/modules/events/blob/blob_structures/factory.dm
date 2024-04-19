@@ -16,7 +16,7 @@
 	return ..()
 
 /obj/structure/blob/factory/run_action()
-	if(spores.len >= max_spores)
+	if(length(spores) >= max_spores)
 		return
 	if(spore_delay > world.time)
 		return
