@@ -1,17 +1,17 @@
-import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Icon, Stack, Table, Tabs } from "../components";
-import { Window } from "../layouts";
-let bot_model = "Security";
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
+import { Window } from '../layouts';
+let bot_model = 'Security';
 
 const BotStatus = (mode) => {
   const statusMap = [
-    { modeRange: [0], label: "Idle", color: "green" },
-    { modeRange: [1, 2, 3], label: "Arresting", color: "yellow" },
-    { modeRange: [4, 5], label: "Patrolling", color: "average" },
-    { modeRange: [6, 11], label: "Responding", color: "green" },
-    { modeRange: [12], label: "Delivering Cargo", color: "blue" },
-    { modeRange: [13], label: "Returning Home", color: "blue" },
-    { modeRange: [7, 14, 15, 16, 17, 18, 19], label: "Working", color: "blue" },
+    { modeRange: [0], label: 'Idle', color: 'green' },
+    { modeRange: [1, 2, 3], label: 'Arresting', color: 'yellow' },
+    { modeRange: [4, 5], label: 'Patrolling', color: 'average' },
+    { modeRange: [6, 11], label: 'Responding', color: 'green' },
+    { modeRange: [12], label: 'Delivering Cargo', color: 'blue' },
+    { modeRange: [13], label: 'Returning Home', color: 'blue' },
+    { modeRange: [7, 14, 15, 16, 17, 18, 19], label: 'Working', color: 'blue' },
   ];
 
   const matchedStatus = statusMap.find((mapping) =>
@@ -23,37 +23,37 @@ const BotStatus = (mode) => {
 
 export const BotCall = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, "tabIndex", 0);
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const botNames = {
-    0: "Security",
-    1: "Medibot",
-    2: "Cleanbot",
-    3: "Floorbot",
-    4: "Mule",
-    5: "Honkbot",
+    0: 'Security',
+    1: 'Medibot',
+    2: 'Cleanbot',
+    3: 'Floorbot',
+    4: 'Mule',
+    5: 'Honkbot',
   };
   const decideTab = (index) => {
     switch (index) {
       case 0:
-        bot_model = "Security";
+        bot_model = 'Security';
         return <BotExists />;
       case 1:
-        bot_model = "Medical";
+        bot_model = 'Medical';
         return <BotExists />;
       case 2:
-        bot_model = "Clean";
+        bot_model = 'Clean';
         return <BotExists />;
       case 3:
-        bot_model = "Floor";
+        bot_model = 'Floor';
         return <BotExists />;
       case 4:
-        bot_model = "Mule";
+        bot_model = 'Mule';
         return <BotExists />;
       case 5:
-        bot_model = "Honk";
+        bot_model = 'Honk';
         return <BotExists />;
       default:
-        return "This should not happen. Report on Paradise Github";
+        return 'This should not happen. Report on Paradise Github';
     }
   };
 
@@ -130,7 +130,7 @@ const MapBot = (_properties, context) => {
                 <Button
                   content="Interface"
                   onClick={() =>
-                    act("interface", {
+                    act('interface', {
                       botref: bot.UID,
                     })
                   }
@@ -140,7 +140,7 @@ const MapBot = (_properties, context) => {
                 <Button
                   content="Call"
                   onClick={() =>
-                    act("call", {
+                    act('call', {
                       botref: bot.UID,
                     })
                   }
