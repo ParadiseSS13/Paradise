@@ -32,14 +32,15 @@ var turf_row_outer_height = 35;
 var turf_rows = {};
 var turf_incomplete_rows = {};
 var turf_size = 0;
+var turf_image_errors = {};
 var turfcontents = {"total": 0};
 var turfname = "";
+var imageFirstRetryDelay = 50;
 var imageRetryDelay = 500;
 var imageRetryLimit = 50;
 var menu = document.getElementById('menu');
 var under_menu = document.getElementById('under_menu');
 var statcontentdiv = document.getElementById('statcontent');
-var storedimages = [];
 var split_admin_tabs = false;
 
 // Any BYOND commands that could result in the client's focus changing go through this
@@ -391,8 +392,8 @@ function listedturf_add_row(table, table_index, true_index) {
 }
 
 function listedturf_fill_row(row, item_index) {
-	let part = turfcontents["" + item_index];
-	if(!part) {
+	let object_info = turfcontents["" + item_index];
+	if(!object_info) {
 		return false;
 	}
 
@@ -405,12 +406,13 @@ function listedturf_fill_row(row, item_index) {
 	var button = document.createElement("div");
 	button.className = "listedturf_link";
 	var clickcatcher = "";
-	button.onmousedown = function (part) {
-		// The outer function is used to close over a fresh "part" variable,
-		// rather than every onmousedown getting the "part" of the last entry.
+	button.onmousedown = function (object_info) {
+		// The outer function is used to close over a fresh "object_info"
+		// variable, rather than every onmousedown getting the "object_info"
+		// of the last entry.
 		return function (e) {
 			e.preventDefault();
-			clickcatcher = "?src=" + part[1];
+			clickcatcher = "?src=" + object_info[1];
 			switch (e.button) {
 				case 1:
 					clickcatcher += ";statpanel_item_click=middle"
@@ -432,24 +434,38 @@ function listedturf_fill_row(row, item_index) {
 			}
 			window.location.href = clickcatcher;
 		}
-	}(part);
+	}(object_info);
 	cell.appendChild(button);
 
 	let img = document.createElement("img");
-	if (storedimages[part[1]] == null && part[2]) {
-		img.src = part[2];
-		img.id = part[1];
-		storedimages[part[1]] = part[2];
-	} else {
-		img.src = storedimages[part[1]];
-		img.id = part[1];
-	}
+	img.id = object_info[1];
+	img.src = object_info[2];
 	img.style.verticalAlign = "middle";
+	img.onerror = function (object_info) {
+		return function () {
+			let delay = imageRetryDelay;
+			if (!turf_image_errors[object_info[3]]) {
+				turf_image_errors[object_info[3]] = 0;
+				delay = imageFirstRetryDelay;
+			}
+			turf_image_errors[object_info[3]]++;
+			if (turf_image_errors[object_info[3]] > imageRetryLimit) {
+				return;
+			}
+
+			Byond.sendMessage("Resend-Asset", object_info[3]);
+			setTimeout(function () {
+				// Use the failure count as a cachebreaker to force-reload.
+				let img = document.getElementById(object_info[1]);
+				img.src = object_info[2] + "?" + turf_image_errors[object_info[3]];
+			}, imageRetryDelay);
+		}
+	}(object_info);
 	button.appendChild(img);
 
 	var label = document.createElement("span");
 	label.style.marginLeft = "5px";
-	label.textContent = part[0];
+	label.textContent = object_info[0];
 	button.appendChild(label);
 
 	return true;
@@ -463,16 +479,14 @@ function listedturf_fill_all() {
 		}
 	}
 	for(let item in turfcontents) {
-		let part = turfcontents["" + item_index];
-		if(!part) {
+		let object_info = turfcontents["" + item_index];
+		if(!object_info) {
 			continue;
 		}
 
-	    if (storedimages[part[1]] == null && part[2]) {
-			img = document.getElementById(part[1]);
-			img.src = part[2];
-			storedimages[part[1]] = part[2];
-		}
+		img = document.getElementById(object_info[1]);
+		img.src = object_info[2];
+		img.key = object_info[3];
 	}
 }
 

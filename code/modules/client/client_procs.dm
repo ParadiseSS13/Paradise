@@ -1238,6 +1238,8 @@
 				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
 		if("Statpanel-Debug")
 			log_debug(payload)
+		if("Resend-Asset")
+			SSassets.transport.send_assets(src, list(payload))
 		if("Debug-Stat-Entry")
 			var/stat_item = locateUID(payload["stat_item_uid"])
 			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)

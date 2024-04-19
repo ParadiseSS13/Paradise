@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		// We already have it. Success!
 		if(existing_image)
-			turf_items["[i]"] = list("[turf_item.name]", turf_item.UID(), existing_image)
+			turf_items["[i]"] = list("[turf_item.name]", turf_item.UID(), SSassets.transport.get_asset_url(existing_image), existing_image)
 			continue
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item
@@ -263,9 +263,9 @@ SUBSYSTEM_DEF(statpanels)
 
 		var/generated_string
 		if(ismob(thing) || length(thing.overlays) > 2)
-			generated_string = costly_icon2html(thing, parent, sourceonly=TRUE)
+			generated_string = costly_icon2asset(thing, parent)
 		else
-			generated_string = icon2html(thing, parent, sourceonly=TRUE)
+			generated_string = icon2asset(thing, parent)
 
 		newly_seen[thing] = generated_string
 		if(TICK_CHECK)
