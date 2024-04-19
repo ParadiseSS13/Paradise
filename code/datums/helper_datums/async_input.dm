@@ -86,7 +86,7 @@
 	if(disabled)
 		class = "linkOff"
 		topic = ""
-	return "<a class=\"[class]\" id='[id]' href='?src=[UID()];[topic]'>[label]</a>"
+	return "<a class=\"[class]\" id='[id]' href='byond://?src=[UID()];[topic]'>[label]</a>"
 
 /datum/async_input/Topic(href, href_list)
 	if(href_list["submit"] || href_list["close"])

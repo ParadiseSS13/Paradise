@@ -8,13 +8,9 @@
 	var/occupied_icon = "boris"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3;programming=3;plasmatech=2"
-
-	var/searching = FALSE
-	var/askDelay = 10 * 60 * 1
-	//var/mob/living/brain/brainmob = null
-	var/list/ghost_volunteers[0]
 	req_access = list(ACCESS_ROBOTICS)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
+	var/searching = FALSE
 	var/silenced = FALSE //if TRUE, they can't talk.
 	var/next_ping_at = 0
 	var/requires_master = TRUE
@@ -38,18 +34,7 @@
 	if(brainmob && !brainmob.key && !searching)
 		//Start the process of searching for a new user.
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
-		icon_state = searching_icon
-		ghost_volunteers.Cut()
-		searching = TRUE
 		request_player()
-		spawn(600)
-			if(ghost_volunteers.len)
-				var/mob/dead/observer/O
-				while(!istype(O) && ghost_volunteers.len)
-					O = pick_n_take(ghost_volunteers)
-				if(istype(O) && check_observer(O))
-					transfer_personality(O)
-			reset_search()
 	else
 		silenced = !silenced
 		to_chat(user, "<span class='notice'>You toggle the speaker [silenced ? "off" : "on"].</span>")
@@ -57,20 +42,11 @@
 			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
 
 /obj/item/mmi/robotic_brain/proc/request_player()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(check_observer(O))
-			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
-
-/obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
-	if(!O.check_ahud_rejoin_eligibility())
-		return FALSE
-	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
-		return FALSE
-	if(!O.can_reenter_corpse)
-		return FALSE
-	if(O.client)
-		return TRUE
-	return FALSE
+	var/area/our_area = get_area(src)
+	icon_state = searching_icon
+	searching = TRUE
+	notify_ghosts("A robotic brain has been activated in [our_area.name].", source = src, flashwindow = FALSE, action = NOTIFY_ATTACK)
+	addtimer(CALLBACK(src, PROC_REF(reset_search)), 60 SECONDS)
 
 // This should not ever happen, but let's be safe
 /obj/item/mmi/robotic_brain/dropbrain(turf/dropspot)
@@ -116,7 +92,6 @@
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
 	become_occupied(occupied_icon)
 
-
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
 	if(brainmob && brainmob.key)
 		return
@@ -126,36 +101,40 @@
 
 	visible_message("<span class='notice'>[src] buzzes quietly as the light fades out. Perhaps you could try again?</span>")
 
-/obj/item/mmi/robotic_brain/Topic(href, href_list)
-	if("signup" in href_list)
-		var/mob/dead/observer/O = locate(href_list["signup"])
-		if(!O)
-			return
-		volunteer(O)
-
-/obj/item/mmi/robotic_brain/proc/volunteer(mob/dead/observer/O)
+/obj/item/mmi/robotic_brain/proc/volunteer(mob/dead/observer/user)
 	if(!searching)
-		to_chat(O, "Not looking for a ghost, yet.")
 		return
-	if(!istype(O))
-		to_chat(O, "<span class='warning'>Error.</span>")
+	if(!istype(user) && !HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+		to_chat(user, "<span class='warning'>Seems you're not a ghost. Could you please file an exploit report on the forums?</span>")
 		return
-	if(O in ghost_volunteers)
-		to_chat(O, "<span class='notice'>Removed from registration list.</span>")
-		ghost_volunteers.Remove(O)
+	if(!validity_checks(user))
+		to_chat(user, "<span class='warning'>You cannot be \a [src].</span>")
 		return
-	if(!check_observer(O))
-		to_chat(O, "<span class='warning'>You cannot be \a [src].</span>")
+	if(tgui_alert(user, "Are you sure you want to join as a robotic brain?", "Join as robobrain", list("Yes", "No")) != "Yes")
 		return
-	if(!O.check_ahud_rejoin_eligibility())
-		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+	if(!searching)
 		return
+	if(!istype(user) && !HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+		to_chat(user, "<span class='warning'>Seems you're not a ghost. Could you please file an exploit report on the forums?</span>")
+		return
+	if(!validity_checks(user))
+		to_chat(user, "<span class='warning'>You cannot be \a [src].</span>")
+		return
+	transfer_personality(user)
+	
+/obj/item/mmi/robotic_brain/proc/validity_checks(mob/dead/observer/O)
+	if(istype(O))
+		if(!O.check_ahud_rejoin_eligibility())
+			return FALSE
+		if(!O.can_reenter_corpse)
+			return FALSE
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
-		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
-		return
-	to_chat(O, "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
-	ghost_volunteers.Add(O)
-
+		return FALSE
+	if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE))
+		return FALSE
+	if(O.client)
+		return TRUE
+	return FALSE
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
 	. += "Its speaker is turned [silenced ? "off" : "on"]."
@@ -191,7 +170,7 @@
 
 /obj/item/mmi/robotic_brain/New()
 	brainmob = new(src)
-	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
+	brainmob.name = "[pick("PBU", "HIU", "SINA", "ARMA", "OSI")]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
 	brainmob.container = src
 	brainmob.forceMove(src)
@@ -210,7 +189,7 @@
 		return
 	if(brainmob && brainmob.key)
 		return // No point pinging a posibrain with a player already inside
-	if(check_observer(O) && (world.time >= next_ping_at))
+	if(validity_checks(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 		visible_message("<span class='notice'>[src] pings softly.</span>")

@@ -228,9 +228,15 @@
 		/obj/item/autopsy_scanner,
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
-		/obj/item/rcd,
-		/obj/item/rpd,
-		/obj/item/mod/control
+		/obj/item/mod/control,
+		/obj/item/stamp,
+		/obj/item/melee/knuckleduster/nanotrasen,
+		/obj/item/melee/rapier,
+		/obj/item/storage/belt/rapier,
+		/obj/item/nuke_core,
+		/obj/item/nuke_core_container,
+		/obj/item/documents,
+		/obj/item/clothing/gloves/color/black/krav_maga
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -589,7 +595,7 @@
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
-	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
 

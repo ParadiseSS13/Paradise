@@ -52,6 +52,9 @@
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
 
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
@@ -139,7 +142,7 @@
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
 /// Grabs the area of a supplied object. Passing an area in to this will result in an error
-#define get_area(T) ((get_step(T, 0).loc))
+#define get_area(T) ((get_step(T, 0)?.loc))
 
 //check_target_facings() return defines
 #define FACING_FAILED											0
@@ -185,8 +188,8 @@
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
-#define SUIT_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				25	//Possible make this an overlay of something required to wear a belt?
+#define SUIT_LAYER				24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21

@@ -73,6 +73,8 @@
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
 
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -232,9 +234,15 @@
 /obj/item/storage/proc/update_viewers()
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+		if(!QDELETED(M) && M.s_active == src && Adjacent(M))
 			continue
 		hide_from(M)
+	for(var/obj/item/storage/child in src)
+		child.update_viewers()
+
+/obj/item/storage/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound && isliving(user))
@@ -327,7 +335,7 @@
 		for(var/obj/item/I in contents)
 			var/found = FALSE
 			for(var/datum/numbered_display/ND in numbered_contents)
-				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
+				if(ND.sample_object.should_stack_with(I))
 					ND.number++
 					found = TRUE
 					break

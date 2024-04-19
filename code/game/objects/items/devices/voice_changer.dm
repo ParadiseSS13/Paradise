@@ -34,7 +34,7 @@
 		A.UpdateButtons()
 
 /obj/item/voice_changer/proc/set_voice(mob/user)
-	var/chosen_voice = input("What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer", voice, user)
+	var/chosen_voice = tgui_input_text(user, "What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer")
 	if(!chosen_voice)
 		voice = null
 		to_chat(user, "<span class='notice'>You are now mimicking the voice on your ID card.</span>")
