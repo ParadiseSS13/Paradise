@@ -871,7 +871,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.")
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs

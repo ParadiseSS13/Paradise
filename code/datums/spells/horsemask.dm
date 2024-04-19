@@ -22,7 +22,7 @@
 
 
 /datum/spell/horsemask/cast(list/targets, mob/user = usr)
-	if(!targets.len)
+	if(!length(targets))
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 

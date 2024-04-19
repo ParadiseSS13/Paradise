@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	while(!pickedName)
 		pickedName = pick(GLOB.ai_names)
 		for(var/mob/living/silicon/ai/A in GLOB.mob_list)
-			if(A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
+			if(A.real_name == pickedName && length(possibleNames) > 1) //fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
 
@@ -273,11 +273,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
-	for(var/i = 1 to aiRadio.channels.len)
+	for(var/i = 1 to length(aiRadio.channels))
 		var/channel = aiRadio.channels[i]
 		var/key = get_radio_key_from_channel(channel)
 		radio_text += "[key] - [channel]"
-		if(i != aiRadio.channels.len)
+		if(i != length(aiRadio.channels))
 			radio_text += ", "
 
 	to_chat(src, radio_text)
@@ -324,10 +324,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
 					dat += "-- [area_name] (No Camera)"
-				if(sources.len > 1)
+				if(length(sources) > 1)
 					dat += "- [length(sources)] sources"
 				dat += "</nobr><br>\n"
-		if(!L.len)
+		if(!length(L))
 			dat += "-- All Systems Nominal<br>\n"
 		dat += "<br>\n"
 
@@ -883,9 +883,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return TRUE
 	if(O)
 		var/obj/machinery/camera/C = locateUID(O[1])
-		if(O.len == 1 && !QDELETED(C) && C.can_use())
+		if(length(O) == 1 && !QDELETED(C) && C.can_use())
 			queueAlarm("--- [class] alarm detected in [A.name]! (<A href=byond://?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
-		else if(O && O.len)
+		else if(O && length(O))
 			var/foo = 0
 			var/dat2 = ""
 			for(var/thing in O)
@@ -951,7 +951,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			continue
 
 		var/list/tempnetwork = difflist(C.network,GLOB.restricted_camera_networks,1)
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
@@ -1034,7 +1034,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
-			if(personnel_list.len)
+			if(length(personnel_list))
 				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
