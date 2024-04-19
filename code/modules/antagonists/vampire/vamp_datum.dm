@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/vampire)
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -32,27 +34,6 @@
 	blurb_g = 221
 	blurb_b = 138
 	blurb_a = 1
-
-/datum/antagonist/mindslave/thrall
-	name = "Vampire Thrall"
-	antag_hud_type = ANTAG_HUD_VAMPIRE
-	antag_hud_name = "vampthrall"
-
-/datum/antagonist/mindslave/thrall/add_owner_to_gamemode()
-	SSticker.mode.vampire_enthralled += owner
-
-/datum/antagonist/mindslave/thrall/remove_owner_from_gamemode()
-	SSticker.mode.vampire_enthralled -= owner
-
-/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /datum/spell/vampire/thrall_commune)
-
-/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/datum/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
@@ -361,9 +342,7 @@
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
-/datum/hud/proc/remove_vampire_hud()
-	static_inventory -= vampire_blood_display
-	QDEL_NULL(vampire_blood_display)
+
 
 /datum/antagonist/vampire/custom_blurb()
 	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."
