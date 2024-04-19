@@ -475,8 +475,31 @@
 
 /obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
 	var/amount_random_traits = rand(lower, upper)
+	var/list/name_to_path = list(
+	"Liquid Contents" = /datum/plant_gene/trait/squash,
+	"Slippery Skin" = /datum/plant_gene/trait/slip,
+	"Electrical Activity" = /datum/plant_gene/trait/cell_charge,
+	"Bioluminescence" = /datum/plant_gene/trait/glow,
+	"Shadow Emission" = /datum/plant_gene/trait/glow/shadow,
+	"Red Electrical Glow" = /datum/plant_gene/trait/glow/red,
+	"Strong Bioluminescence" = /datum/plant_gene/trait/glow/berry,
+	"Bluespace Activity" = /datum/plant_gene/trait/teleport,
+	"Densified Chemicals" = /datum/plant_gene/trait/maxchem,
+	"Perennial Growth" = /datum/plant_gene/trait/repeated_harvest,
+	"Capacitive Cell Production" = /datum/plant_gene/trait/battery,
+	"Hypodermic Prickles" = /datum/plant_gene/trait/stinging,
+	"gaseous decomposition" = /datum/plant_gene/trait/smoke,
+	"Fire Resistance" = /datum/plant_gene/trait/fire_resistance,
+	)
 	for(var/i in 1 to amount_random_traits)
-		var/random_trait = pick((subtypesof(/datum/plant_gene/trait)-typesof(/datum/plant_gene/trait/plant_type)))
+		var/list/possible_traits = (subtypesof(/datum/plant_gene/trait) - typesof(/datum/plant_gene/trait/plant_type))
+		//removing existing traits and conflicting traits be added from the list of traits to choose from
+		for(var/datum/plant_gene/trait/j in genes)
+			var/trait_name = j.name
+			possible_traits -= list(name_to_path[trait_name])
+			if(trait_name == "Red Electrical Glow"|| trait_name == "Strong Bioluminescence"||trait_name == "Shadow Emission"||trait_name == "Bioluminescence")
+				possible_traits -= typesof(/datum/plant_gene/trait/glow)
+		var/random_trait = pick(possible_traits)
 		var/datum/plant_gene/trait/T = new random_trait
 		if(T.can_add(src))
 			genes += T
