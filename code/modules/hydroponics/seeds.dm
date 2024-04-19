@@ -135,7 +135,7 @@
 		add_random_traits(1, 1)
 
 /obj/item/seeds/proc/mutate_stat(stat, level, mutation_size)
-	// 505 chance to do nothing to each stat even if mutation level is nonzero.
+	// 50% chance to do nothing to each stat even if mutation level is nonzero.
 	if(level <= 0 || prob(50))
 		return
 
