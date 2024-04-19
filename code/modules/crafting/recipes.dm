@@ -477,7 +477,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/spear // alternative recipe for Ash Walkers
+/datum/crafting_recipe/spear_primal // alternative recipe for Ash Walkers
 	name = "Common Spear"
 	result = list(/obj/item/spear)
 	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
