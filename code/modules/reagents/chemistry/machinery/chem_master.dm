@@ -233,7 +233,7 @@
 			if(!M.sprites)
 				return
 			var/new_style = text2num(params["style"])
-			if(ISINDEXSAFE(M.sprites, new_style))
+			if(!ISINDEXSAFE(M.sprites, new_style))
 				return
 			M.set_sprite = new_style
 		if("set_items_amount")
