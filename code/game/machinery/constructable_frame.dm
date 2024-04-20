@@ -58,12 +58,12 @@
 
 	var/hasContent = 0
 	desc = "Requires"
-	for(var/i = 1 to req_components.len)
+	for(var/i = 1 to length(req_components))
 		var/tname = req_components[i]
 		var/amt = req_components[tname]
 		if(amt == 0)
 			continue
-		var/use_and = i == req_components.len
+		var/use_and = i == length(req_components)
 		desc += "[(hasContent ? (use_and ? ", and" : ",") : "")] [amt] [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
 		hasContent = 1
 
@@ -133,7 +133,7 @@
 				state = 2
 				circuit.loc = src.loc
 				circuit = null
-				if(components.len == 0)
+				if(length(components) == 0)
 					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				else
 					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
@@ -146,7 +146,7 @@
 				icon_state = "box_1"
 				return
 
-			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
+			if(istype(P, /obj/item/storage/part_replacer) && length(P.contents) && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
 				var/list/added_components = list()
 				var/list/part_list = list()
