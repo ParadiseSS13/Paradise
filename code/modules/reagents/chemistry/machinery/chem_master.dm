@@ -219,14 +219,14 @@
 			spawn(50)
 				printing = FALSE
 		if("set_production_mode")
-			var/new_production_mode = text2num(params["production_mode"])
+			var/new_production_mode = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[new_production_mode]
 			if(isnull(M))
 				return
 			production_mode = new_production_mode
 
 		if("set_sprite_style")
-			var/production_mode_key = text2num(params["production_mode"])
+			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
 				return
@@ -237,7 +237,7 @@
 				return
 			M.set_sprite = new_style
 		if("set_items_amount")
-			var/production_mode_key = text2num(params["production_mode"])
+			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
 				return
@@ -246,7 +246,7 @@
 				return
 			M.set_items_amount = new_amount
 		if("set_items_name")
-			var/production_mode_key = text2num(params["production_mode"])
+			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
 				return
@@ -307,7 +307,7 @@
 		if("create_items")
 			if(!reagents.total_volume)
 				return
-			var/production_mode_key = text2num(params["production_mode"])
+			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
 				return
