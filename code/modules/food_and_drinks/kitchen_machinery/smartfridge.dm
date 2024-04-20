@@ -465,7 +465,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
-	requires_power = FALSE
+	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
@@ -767,7 +767,8 @@
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
+		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
+		/obj/item/storage/lockbox/vials = 2
 	)
 	. = ..()
 
@@ -821,7 +822,7 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	requires_power = FALSE
+	interact_offline = TRUE
 	can_dry = TRUE
 	visible_contents = FALSE
 	light_range_on = null

@@ -336,6 +336,12 @@ do {\
 
 
 /obj/item/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		if(!isnull(new_name))
+			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
+			return
+
 	if(!istype(I, /obj/item/food/snacks))
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
 		return
@@ -475,15 +481,15 @@ do {\
 
 	for(var/ings in sorteditems)			   //add the non-basename items to the name, sorting out the , and the and
 		c++
-		if(c == sorteditems.len - 1)
+		if(c == length(sorteditems) - 1)
 			seperator = " and "
-		else if(c == sorteditems.len)
+		else if(c == length(sorteditems))
 			seperator = " "
 		else
 			seperator = ", "
 
-		if(sorteditems[ings] > levels.len)
-			sorteditems[ings] = levels.len
+		if(sorteditems[ings] > length(levels))
+			sorteditems[ings] = length(levels)
 
 		if(sorteditems[ings] <= 1)
 			sendback +="[ings][seperator]"
@@ -491,10 +497,10 @@ do {\
 			sendback +="[levels[sorteditems[ings]]] [ings][seperator]"
 
 	for(var/ingtype in sortedtypes)   // now add the types basenames, keeping the src one seperate so it can go on the end
-		if(sortedtypes[ingtype] > levels.len)
-			sortedtypes[ingtype] = levels.len
+		if(sortedtypes[ingtype] > length(levels))
+			sortedtypes[ingtype] = length(levels)
 		if(ingtype == basename)
-			if(sortedtypes[ingtype] < levels.len)
+			if(sortedtypes[ingtype] < length(levels))
 				sortedtypes[ingtype]++
 			endpart = "[levels[sortedtypes[ingtype]]] decker [basename]"
 			continue
@@ -509,7 +515,7 @@ do {\
 		sendback += basename
 
 	if(length(sendback) > 80)
-		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
+		sendback = "[pick("absurd", "colossal", "enormous", "ridiculous", "massive", "oversized", "cardiac-arresting", "pipe-clogging", "edible but sickening", "sickening", "gargantuan", "mega", "belly-burster", "chest-burster")] [basename]"
 	return sendback
 
 /obj/item/food/snacks/customizable/proc/sortlist(list/unsorted, highest)

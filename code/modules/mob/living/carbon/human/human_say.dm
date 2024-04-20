@@ -13,7 +13,7 @@
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking)
 		if(isnymph(other))
-			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
+			if(length(other.languages) >= 2) //They've sucked down some blood and can speak common now.
 				return 1
 		if(issilicon(other))
 			return 1
@@ -159,13 +159,13 @@ GLOBAL_LIST_INIT(soapy_words, list(
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)
 			if(prob(braindam / 4))
-				S.message = stutter(S.message)
+				S.message = stutter(S.message, getStaminaLoss(), ismachineperson(src))
 				verb = "gibbers"
 			else if(prob(braindam / 2))
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 
-		if(span)
+		if(span && !speaks_ooc)
 			S.message = "<span class='[span]'>[S.message]</span>"
 
 	if(wear_mask)

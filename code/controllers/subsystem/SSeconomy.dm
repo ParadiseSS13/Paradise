@@ -48,14 +48,36 @@ SUBSYSTEM_DEF(economy)
 	///Current Order number
 	var/ordernum = 1
 
-	/// points gained per slip returned
+	/// credits gained per slip returned
 	var/credits_per_manifest = 5
-	/// points gained per intel returned
+	/// credits gained per intel sold
 	var/credits_per_intel = 750
-	/// points gained per plasma returned
+	/// credits gained per plasma sold
 	var/credits_per_plasma = 10
-	/// points gained per research design returned
+	/// credits gained per research design sold
 	var/credits_per_design = 20
+	/// credits gained per working mech sold
+	var/credits_per_mech = 100
+	/// credits gained for each secondary goal completed
+	/// These get split in 3, one part for Cargo, one for the department,
+	/// and one part for the person who requested the goal.
+	var/credits_per_easy_reagent_goal = 150
+	var/credits_per_normal_reagent_goal = 300
+	var/credits_per_hard_reagent_goal = 450
+	var/credits_per_variety_reagent_goal = 300
+	var/credits_per_easy_food_goal = 300
+	var/credits_per_normal_food_goal = 450
+	var/credits_per_hard_food_goal = 600
+	var/credits_per_ripley_goal = 600
+	var/credits_per_kudzu_goal = 600
+	/// credits lost for sending unsecured cargo
+	var/fine_for_loose_cargo = -100
+	/// credits lost for sending a messy shuttle
+	var/fine_for_messy_shuttle = -100
+	/// credits lost for sending unwanted items
+	var/fine_for_selling_trash = -100
+	/// points gained per virology goal
+	var/credits_per_virology_goal = 200
 
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message
@@ -84,7 +106,8 @@ SUBSYSTEM_DEF(economy)
 		SUPPLY_ORGANIC,
 		SUPPLY_MATERIALS,
 		SUPPLY_MISC,
-		SUPPLY_VEND
+		SUPPLY_VEND,
+		SUPPLY_SHUTTLE
 	)
 	///The modifier on crate prices to multiple the price by.
 	var/pack_price_modifier = 1
@@ -113,10 +136,13 @@ SUBSYSTEM_DEF(economy)
 				return FALSE //really fuck off, you're vv editing something to a value that will break the economy
 	return ..()
 
-/datum/controller/subsystem/economy/Initialize()
-	///create main station accounts
+/proc/init_current_date_string()
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
+
+/datum/controller/subsystem/economy/Initialize()
+	init_current_date_string()
+	///create main station accounts
 	if(GLOB.station_money_database)
 		populate_station_database()
 		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
@@ -126,9 +152,15 @@ SUBSYSTEM_DEF(economy)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
-	for(var/typepath in subtypesof(/datum/supply_packs))
+	// these represent intermediate types, we really shouldn't bother with them
+	var/list/ignored_supply_pack_types = list(
+		/datum/supply_packs/abstract,
+		/datum/supply_packs/abstract/shuttle
+	)
+
+	for(var/typepath in subtypesof(/datum/supply_packs) - ignored_supply_pack_types)
 		var/datum/supply_packs/P = typepath
-		if(initial(P.name) == "HEADER")
+		if(initial(P.name) == "HEADER" || isnull(initial(P.name)))
 			continue // To filter out group headers
 		P = new typepath()
 		supply_packs["[P.type]"] = P
@@ -137,6 +169,8 @@ SUBSYSTEM_DEF(economy)
 
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
+
+	check_total_virology_goals_completion()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
@@ -198,19 +232,21 @@ SUBSYSTEM_DEF(economy)
 	var/datum/supply_packs/pack = locateUID(packID)
 	if(!pack)
 		return FALSE
+	if(!pack.can_order())
+		// if this cannot be ordered at this point, just refuse it
+		return FALSE
 
-	var/datum/supply_order/order = new()
-	order.ordernum = ordernum++
-	order.object = pack
-	order.orderedby = orderedby
-	order.orderedbyRank = occupation
-	order.comment = comment
-
+	var/datum/supply_order/order = pack.create_order(orderedby, occupation, comment, ordernum++)
 	return order
 
 /datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, paid_for)
 	if(!order)
 		CRASH("process_supply_order() called with a null datum/supply_order")
+
+	// remove any other items we share a group with, so only one of these can be ordered at once.
+	for(var/datum/supply_order/other_order in SSeconomy.request_list)
+		if(other_order.object.singleton_group_id && other_order.object.singleton_group_id == order.object.singleton_group_id)
+			SSeconomy.request_list -= other_order
 
 	if(!paid_for && !(order in request_list))
 		request_list += order //submit a request but do not finalize it
@@ -232,6 +268,12 @@ SUBSYSTEM_DEF(economy)
 		CRASH("finalize_supply_order() called with a null datum/supply_order")
 	if(order in request_list)
 		request_list -= order
+
+	order.object.on_order_confirm(order)
+
+	// Abstract orders won't get added to the shuttle delivery list -- if they're finalized, they're getting processed here and now.
+	if(istype(order.object, /datum/supply_packs/abstract))
+		return
 
 	if(SSshuttle.supply.getDockedId() == "supply_away" && SSshuttle.supply.mode == SHUTTLE_IDLE)
 		delivery_list += order

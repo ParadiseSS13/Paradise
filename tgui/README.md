@@ -25,7 +25,7 @@ start with our [practical tutorial](docs/tutorial-and-examples.md).
 This project uses **Inferno** - a very fast UI rendering engine with a similar
 API to React. Take your time to read these guides:
 
-- [React guide](https://reactjs.org/docs/hello-world.html)
+- [React guide](https://react.dev/learn)
 - [Inferno documentation](https://infernojs.org/docs/guides/components) -
 highlights differences with React.
 

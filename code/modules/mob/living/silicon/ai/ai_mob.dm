@@ -46,7 +46,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
-	can_strip = FALSE
+	hud_type = /datum/hud/ai
+	hat_offset_y = 3
+	is_centered = TRUE
+	can_be_hatted = TRUE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
@@ -65,7 +68,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
-	var/datum/action/innate/ai/choose_modules/modules_action
+	var/datum/spell/ai_spell/choose_modules/modules_action
 	var/list/datum/AI_Module/current_modules = list()
 	var/can_dominate_mechs = FALSE
 	var/shunted = FALSE // TRUE if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
@@ -123,15 +126,24 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
-	var/cracked_camera = FALSE // will be true if malf AI break its camera
+	/// Set to true if the AI cracks it's camera by using the malf ability
+	var/cracked_camera = FALSE
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_atmos_control,
+		/mob/living/silicon/proc/subsystem_crew_monitor,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor)
+
+	/// The cached AI annoucement help menu.
+	var/ai_announcement_string_menu
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	verbs |= GLOB.ai_verbs_default
-	verbs |= silicon_subsystems
+	add_verb(src, GLOB.ai_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	verbs -= GLOB.ai_verbs_default
-	verbs -= silicon_subsystems
+	remove_verb(src, GLOB.ai_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcer = new(config_type = /datum/announcement_configuration/ai)
@@ -143,7 +155,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	while(!pickedName)
 		pickedName = pick(GLOB.ai_names)
 		for(var/mob/living/silicon/ai/A in GLOB.mob_list)
-			if(A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
+			if(A.real_name == pickedName && length(possibleNames) > 1) //fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
 
@@ -163,7 +175,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		make_laws()
 
-	verbs += /mob/living/silicon/ai/proc/show_laws_verb
+	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
 	aiRadio = new(src)
@@ -177,11 +189,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/rest
-	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/stop_pulling1
-	verbs -= /mob/living/silicon/verb/pose
-	verbs -= /mob/living/silicon/verb/set_flavor
+	remove_verb(src, /mob/living/verb/rest)
+	remove_verb(src, /mob/living/verb/mob_sleep)
+	remove_verb(src, /mob/living/verb/stop_pulling1)
+	remove_verb(src, /mob/living/silicon/verb/pose)
+	remove_verb(src, /mob/living/silicon/verb/set_flavor)
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -231,6 +243,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	..()
 
+/mob/living/silicon/ai/Initialize(mapload)
+	. = ..()
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
@@ -257,11 +273,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
-	for(var/i = 1 to aiRadio.channels.len)
+	for(var/i = 1 to length(aiRadio.channels))
 		var/channel = aiRadio.channels[i]
 		var/key = get_radio_key_from_channel(channel)
 		radio_text += "[key] - [channel]"
-		if(i != aiRadio.channels.len)
+		if(i != length(aiRadio.channels))
 			radio_text += ", "
 
 	to_chat(src, radio_text)
@@ -271,22 +287,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	job = "AI"
 
-/mob/living/silicon/ai/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stat)
-			stat(null, "Systems nonfunctional")
-			return
-		show_borg_info()
+/mob/living/silicon/ai/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(stat)
+		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
+		return
+	status_tab_data = show_borg_info(status_tab_data)
 
 /mob/living/silicon/ai/proc/ai_alerts()
-	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
-	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	var/list/dat = list("<!DOCTYPE html><meta charset='utf-8'><head><title>Current Station Alerts</title><meta http-equiv='Refresh' content='10'></head><body>\n")
+	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
-		dat += "<B>[cat]</B><BR>\n"
+		dat += "<b>[cat]</b><br>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
 			var/list/list/alm = L[alarm].Copy()
@@ -298,31 +314,30 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				if(A && A.z != z)
 					L -= alarm
 					continue
-				dat += "<NOBR>"
+				dat += "<nobr>"
 				if(C && islist(C))
 					var/dat2 = ""
 					for(var/cam in C)
 						var/obj/machinery/camera/I = locateUID(cam)
 						if(!QDELETED(I))
-							dat2 += "[(dat2 == "") ? "" : " | "]<A HREF=?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
+							dat2 += "[(dat2 == "") ? "" : " | "]<a href=byond://?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
 					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
 					dat += "-- [area_name] (No Camera)"
-				if(sources.len > 1)
+				if(length(sources) > 1)
 					dat += "- [length(sources)] sources"
-				dat += "</NOBR><BR>\n"
-		if(!L.len)
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
+				dat += "</nobr><br>\n"
+		if(!length(L))
+			dat += "-- All Systems Nominal<br>\n"
+		dat += "<br>\n"
 
 	viewalerts = TRUE
 	var/dat_text = dat.Join("")
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
-/mob/living/silicon/ai/proc/show_borg_info()
-	stat(null, "Connected cyborgs: [connected_robots.len]")
-	for(var/thing in connected_robots)
-		var/mob/living/silicon/robot/R = thing
+/mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
+	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
+	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
@@ -331,8 +346,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Unknown"
-		stat(null, "[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
@@ -382,6 +398,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
+
+/mob/living/silicon/ai/update_icons()
+	. = ..()
+	update_hat_icons()
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
@@ -814,7 +834,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/d
 	var/area/bot_area
-	d += "<A HREF=?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
+	d += "<A href=byond://?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
@@ -824,8 +844,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
 			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
-			d += "<td width='10%'><A HREF=?src=[UID()];interface=\ref[Bot]>Interface</A></td>"
-			d += "<td width='10%'><A HREF=?src=[UID()];callbot=\ref[Bot]>Call</A></td>"
+			d += "<td width='10%'><A href=byond://?src=[UID()];interface=\ref[Bot]>Interface</A></td>"
+			d += "<td width='10%'><A href=byond://?src=[UID()];callbot=\ref[Bot]>Call</A></td>"
 			d += "</tr>"
 			d = format_text(d)
 
@@ -863,15 +883,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return TRUE
 	if(O)
 		var/obj/machinery/camera/C = locateUID(O[1])
-		if(O.len == 1 && !QDELETED(C) && C.can_use())
-			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
-		else if(O && O.len)
+		if(length(O) == 1 && !QDELETED(C) && C.can_use())
+			queueAlarm("--- [class] alarm detected in [A.name]! (<A href=byond://?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
+		else if(O && length(O))
 			var/foo = 0
 			var/dat2 = ""
 			for(var/thing in O)
 				var/obj/machinery/camera/I = locateUID(thing)
 				if(!QDELETED(I))
-					dat2 += "[(!foo) ? "" : " | "]<A HREF=?src=[UID()];switchcamera=[thing]>[I.c_tag]</A>" //I'm not fixing this shit...
+					dat2 += "[(!foo) ? "" : " | "]<A href=byond://?src=[UID()];switchcamera=[thing]>[I.c_tag]</A>" //I'm not fixing this shit...
 					foo = 1
 			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
 		else
@@ -931,7 +951,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			continue
 
 		var/list/tempnetwork = difflist(C.network,GLOB.restricted_camera_networks,1)
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
@@ -1014,7 +1034,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
-			if(personnel_list.len)
+			if(length(personnel_list))
 				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
@@ -1408,7 +1428,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	malf_picker = new /datum/module_picker
 	modules_action = new(malf_picker)
-	modules_action.Grant(src)
+	AddSpell(modules_action)
 
 ///Removes all malfunction-related /datum/action's from the target AI.
 /mob/living/silicon/ai/proc/remove_malf_abilities()
@@ -1527,9 +1547,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)
 	. = ..()
-	if(isobserver(.))
+	if(isobserver(.) && old_turf)
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+/mob/living/silicon/ai/can_vv_get(var_name)
+	if(!..())
+		return FALSE
+	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
+		return FALSE
+	return TRUE
 
 /mob/living/silicon/ai/proc/blurb_it()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_ai_blurb)), 1 SECONDS)

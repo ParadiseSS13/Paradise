@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 				GLOB.body_accessory_by_species["[species]"] = list()
 			GLOB.body_accessory_by_species["[species]"]["[accessory.name]"] = accessory
 
-	if(GLOB.body_accessory_by_species.len)
+	if(length(GLOB.body_accessory_by_species))
 		return TRUE
 	return FALSE
 
@@ -205,3 +205,31 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/wing/witchwing
 	name = "Witch Wing Wings"
 	icon_state = "witchwing"
+
+/datum/body_accessory/wing/lightbearer
+	name = "Lightbearer Wings"
+	icon_state = "lightbearer"
+
+/datum/body_accessory/wing/rosy
+	name = "Rosy Wings"
+	icon_state = "rosy"
+
+/datum/body_accessory/wing/feathery
+	name = "Feathery Wings"
+	icon_state = "feathery"
+
+/datum/body_accessory/wing/brown
+	name = "Brown Wings"
+	icon_state = "brown"
+
+/datum/body_accessory/wing/plasmafire
+	name = "Plasmafire Wings"
+	icon_state = "plasmafire"
+
+/datum/body_accessory/wing/mothra
+	name = "Mothra Wings"
+	icon_state = "mothra"
+
+/datum/body_accessory/wing/bluespace
+	name = "Bluespace Wings"
+	icon_state = "bluespace"

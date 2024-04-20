@@ -50,8 +50,6 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
-	if(reagents.has_reagent("lexorin"))
-		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
 
@@ -357,7 +355,7 @@
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/multiple_patch_multiplier = length(processing_patches) > 1 ? (length(processing_patches) * 1.5) : 1
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)

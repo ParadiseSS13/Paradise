@@ -72,6 +72,17 @@
 		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
 		empty_pod()
 
+/obj/structure/transit_tube_pod/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/obj/structure/transit_tube_construction/pod/P = new(get_turf(src))
+	P.dir = dir
+	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
+	qdel(src)
+
+/obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
+
 /obj/structure/transit_tube_pod/process()
 	..()
 
@@ -271,8 +282,8 @@
 /obj/structure/transit_tube_pod/dispensed
 	name = "temporary transit tube pod"
 	desc = "Gets you from here to there, and no further."
-	icon_state = "temppod"
-	occupied_icon_state = "temppod_occupied"
+	icon_state = "pod"
+	occupied_icon_state = "pod_occupied"
 
 
 /obj/structure/transit_tube_pod/dispensed/outside_tube()

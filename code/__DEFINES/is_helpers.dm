@@ -113,8 +113,13 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Areas
 //#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas
 
+#define isspacearea(A)	(istype(A, /area/space))
+
 // Structures
 #define isstructure(A)	(istype((A), /obj/structure))
+
+// Vehicles
+#define isvehicle(A) istype(A, /obj/vehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)

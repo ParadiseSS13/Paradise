@@ -1,6 +1,5 @@
 /proc/machine_upgrade(obj/machinery/M in world)
 	set name = "\[Admin\] Tweak Component Ratings"
-	set category = null
 
 	if(!check_rights(R_DEBUG))
 		return

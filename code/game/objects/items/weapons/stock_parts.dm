@@ -6,7 +6,13 @@
 	icon_state = "RPED"
 	item_state = "RPED"
 	w_class = WEIGHT_CLASS_HUGE
-	can_hold = list(/obj/item/stock_parts)
+	can_hold = list(
+		/obj/item/stock_parts,
+		// This type is part of can_hold, but is added separately in Initialize to avoid picking up unwanted subtypes.
+		// /obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/glass/beaker/bluespace
+		)
 	storage_slots = 50
 	use_to_pickup = TRUE
 	allow_quick_gather = TRUE
@@ -20,6 +26,20 @@
 	var/alt_sound = null
 	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
+
+/obj/item/storage/part_replacer/Initialize(mapload)
+	. = ..()
+	can_hold[/obj/item/reagent_containers/glass/beaker] = TRUE
+
+/obj/item/storage/part_replacer/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
+		return ..()
+	var/obj/item/reagent_containers/glass/beaker/B = I
+	if(B.reagents?.total_volume)
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>[src] cannot hold [I] while it contains liquid.</span>")
+		return FALSE
+	return ..()
 
 /obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
 	if(!flag && works_from_distance && istype(M))
@@ -56,6 +76,7 @@
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
 		new /obj/item/stock_parts/cell/bluespace(src)
+		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
@@ -63,11 +84,6 @@
 		playsound(src, alt_sound, 40, 1)
 	else
 		playsound(src, primary_sound, 40, 1)
-
-//Sorts stock parts inside an RPED by their rating.
-//Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(obj/item/stock_parts/A, obj/item/stock_parts/B)
-	return B.rating - A.rating
 
 /obj/item/stock_parts
 	name = "stock part"
@@ -204,7 +220,7 @@
 
 /obj/item/stock_parts/capacitor/quadratic
 	name = "quadratic capacitor"
-	desc = "An capacity capacitor used in the construction of a variety of devices."
+	desc = "An ultra-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "quadratic_capacitor"
 	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 4

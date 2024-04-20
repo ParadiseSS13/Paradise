@@ -5,7 +5,7 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
-#define MODE_DET 7
+// #define PINPOINTER_MODE_DET 7 // This mode is not defined here because it is used across multiple files, but it still exists.
 #define MODE_TENDRIL 8
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
@@ -56,7 +56,7 @@
 		workbomb()
 
 /obj/item/pinpointer/attack_self(mob/user)
-	if(mode == MODE_DET)
+	if(mode == PINPOINTER_MODE_DET)
 		return
 	cycle(user)
 
@@ -428,7 +428,7 @@
 	var/target_UID = D.tracking_target_UID
 	target = locateUID(target_UID)
 	target_set = TRUE
-	mode = MODE_DET
+	mode = PINPOINTER_MODE_DET
 	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
 	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
 	START_PROCESSING(SSfastprocess, src)
@@ -442,7 +442,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
-	if(mode == MODE_DET) // Sensors? Where we're going, we dont need sensors!
+	if(mode == PINPOINTER_MODE_DET) // Sensors? Where we're going, we dont need sensors!
 		var/turf/here = get_turf(src)
 		var/turf/there = get_turf(H)
 		return istype(there) && istype(here) && there.z == here.z
@@ -488,7 +488,7 @@
 		names[name] = H
 		name_counts[name] = 1
 
-	if(!names.len)
+	if(!length(names))
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 

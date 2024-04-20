@@ -92,3 +92,5 @@
 	name ="Ashwalker"
 	head = /obj/item/clothing/head/helmet/gladiator
 	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
+
+#undef ASH_WALKER_SPAWN_THRESHOLD

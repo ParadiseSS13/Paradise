@@ -73,10 +73,9 @@
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
-	if(gun_light)
-		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -172,12 +171,11 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			if(HAS_TRAIT(user, TRAIT_BADASS))
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
 				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
 			else
 				handle_suicide(user, target, params)
 			return
-
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
@@ -212,7 +210,7 @@
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+	if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1
@@ -389,7 +387,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)
@@ -398,6 +396,7 @@
 	if(knife_overlay)
 		overlays -= knife_overlay
 		knife_overlay = null
+		update_icon()
 	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)

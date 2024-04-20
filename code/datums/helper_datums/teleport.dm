@@ -76,7 +76,7 @@
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
-	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon))
+	if(iseffect(ateleatom) && !HAS_TRAIT(ateleatom, TRAIT_EFFECT_CAN_TELEPORT))
 		qdel(ateleatom)
 		return FALSE
 	if(istype(ateleatom))
@@ -205,7 +205,7 @@
 			precision = rand(1, 100)
 
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
-		if(bagholding.len)
+		if(length(bagholding))
 			if(safe_turf_first) //If this is true, this is already a random teleport. Make it unsafe but do not touch the precision.
 				safe_turf_first = FALSE
 			else

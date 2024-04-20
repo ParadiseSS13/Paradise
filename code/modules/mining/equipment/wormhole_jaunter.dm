@@ -2,7 +2,6 @@
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
@@ -38,7 +37,7 @@
 		return
 
 	var/list/L = get_destinations(user)
-	if(!L.len)
+	if(!length(L))
 		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)

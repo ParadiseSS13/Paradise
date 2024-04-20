@@ -776,10 +776,10 @@ so as to remain in compliance with the most up-to-date laws."
 		return FALSE
 	var/icon_pref
 	if(!hud_shown)
-		for(var/i in 1 to alerts.len)
+		for(var/i in 1 to length(alerts))
 			mymob.client.screen -= alerts[alerts[i]]
 		return TRUE
-	for(var/i in 1 to alerts.len)
+	for(var/i in 1 to length(alerts))
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			if(!icon_pref)
@@ -817,3 +817,17 @@ so as to remain in compliance with the most up-to-date laws."
 	master = null
 	screen_loc = ""
 	return ..()
+
+/// Gives the player the option to succumb while in critical condition
+/atom/movable/screen/alert/succumb
+	name = "Succumb"
+	desc = "Shuffle off this mortal coil."
+	icon_state = "succumb"
+
+/atom/movable/screen/alert/succumb/Click()
+	if(!usr || !usr.client)
+		return
+	var/mob/living/living_owner = usr
+	if(!istype(usr))
+		return
+	living_owner.do_succumb(TRUE)

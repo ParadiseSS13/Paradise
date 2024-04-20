@@ -38,6 +38,13 @@
 	/// how quickly the addiction threshold var decays
 	var/addiction_decay_rate = 0.01
 
+	// Which department's (if any) reagent goals this is eligible for.
+	// Must match the values used by request consoles.
+	var/goal_department = "Unknown"
+	// How difficult is this chemical for the department to make?
+	// Affects the quantity of the reagent that is requested by CC.
+	var/goal_difficulty = REAGENT_GOAL_SKIP
+
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null
@@ -203,6 +210,9 @@
 	return list(effect, update_flags)
 
 /datum/reagent/proc/overdose_start(mob/living/M)
+	return
+
+/datum/reagent/proc/overdose_end(mob/living/M)
 	return
 
 /datum/reagent/proc/addiction_act_stage1(mob/living/M)

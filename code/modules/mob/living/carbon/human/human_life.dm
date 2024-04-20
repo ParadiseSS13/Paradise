@@ -107,14 +107,14 @@
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
-			adjustFireLoss(min(5, instability * 0.67))
+			adjustFireLoss(min(10, instability * 0.67))
 			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
 		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
 			if(prob(instability * 0.83))
-				adjustCloneLoss(min(4, instability * 0.05))
+				adjustCloneLoss(min(8, instability * 0.05))
 				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
 			if(prob(instability * 0.1))
-				adjustToxLoss(min(5, instability * 0.67))
+				adjustToxLoss(min(10, instability * 0.67))
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
 			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
@@ -635,7 +635,7 @@
 		if(healthdoll)
 			if(stat == DEAD)
 				healthdoll.icon_state = "healthdoll_DEAD"
-				if(healthdoll.overlays.len)
+				if(length(healthdoll.overlays))
 					healthdoll.overlays.Cut()
 			else
 				var/list/new_overlays = list()
@@ -661,6 +661,11 @@
 				healthdoll.overlays += (new_overlays - cached_overlays)
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
+
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+		else
+			clear_alert("succumb")
 
 #undef BODYPART_PAIN_REDUCTION
 

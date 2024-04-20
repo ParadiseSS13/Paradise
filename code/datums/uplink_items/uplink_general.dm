@@ -1,13 +1,12 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
-#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
-	if(!uplink_items.len)
+	if(!length(uplink_items))
 
 		var/list/last = list()
 		for(var/path in GLOB.uplink_items)
@@ -620,7 +619,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 40
 
-
+/datum/uplink_item/device_tools/organ_extractor
+	name = "Organ Extractor"
+	desc = "A device that can remove organs or cybernetic implants from a target, and stores them inside. \
+	Stored organs can be implanted into the user, or into other targets. Synthesizes chemicals to keep the organs fresh."
+	reference = "OREX"
+	item = /obj/item/organ_extractor
+	cost = 20
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -803,6 +808,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/bio_chip_implanter/traitor
 	cost = 50
 
+/datum/uplink_item/bio_chips/proto_adrenal
+	name = "Proto-Adrenal Bio-chip"
+	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
+	reference = "PAI"
+	item = /obj/item/bio_chip_implanter/proto_adrenalin
+	cost = 18
+
 /datum/uplink_item/bio_chips/adrenal
 	name = "Adrenal Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
@@ -827,7 +839,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Binyat Wireless Hacking System Autoimplanter"
 	desc = "This implant will allow you to wirelessly emag from a distance. However, it will slightly burn you \
 	on use, and will be quite visual as you are emaging the object. \
-	Will not show on unupgraded body scanners."
+	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
 	reference = "HKR"
 	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
@@ -839,13 +851,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	reference = "RZR"
 	item = /obj/item/autosurgeon/organ/syndicate/razorwire
-	cost = 15
+	cost = 20
 
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+/datum/uplink_item/badass/pen
+	name = "Syndicate Fountain Pen"
+	desc = "A slick Syndicate-branded pen, to show everyone at the meeting that you mean business."
+	reference = "PEN"
+	item = /obj/item/pen/multi/syndicate
+	cost = 1
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"

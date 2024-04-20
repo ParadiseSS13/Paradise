@@ -1,12 +1,12 @@
 GLOBAL_LIST_EMPTY(gas_sensors)
 
-#define SENSOR_PRESSURE 1
-#define SENSOR_TEMPERATURE 2
-#define SENSOR_O2 4
-#define SENSOR_PLASMA 8
-#define SENSOR_N2 16
-#define SENSOR_CO2 32
-#define SENSOR_N2O 64
+#define SENSOR_PRESSURE		(1<<0)
+#define SENSOR_TEMPERATURE	(1<<1)
+#define SENSOR_O2			(1<<2)
+#define SENSOR_PLASMA		(1<<3)
+#define SENSOR_N2			(1<<4)
+#define SENSOR_CO2			(1<<5)
+#define SENSOR_N2O			(1<<6)
 
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
@@ -327,7 +327,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/VP as anything in GLOB.all_vent_pumps)
 			if(VP.autolink_id == outlet_vent_autolink_id)
 				outlet_vent_uid = VP.UID()
-				get_area(VP).vents -= VP
+				var/area/our_area = get_area(src)
+				our_area.vents -= VP
 				VP.on = TRUE
 				VP.releasing = FALSE
 				VP.internal_pressure_bound = outlet_setting
@@ -404,7 +405,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			outlet_vent_uid = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			var/obj/machinery/atmospherics/unary/vent_pump/VP = linked_datum
 			// Setup some defaults
-			get_area(VP).vents -= VP
+			var/area/our_area = get_area(src)
+			our_area.vents -= VP
 			VP.on = TRUE
 			VP.releasing = FALSE
 			VP.internal_pressure_bound = outlet_setting
@@ -525,3 +527,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui = null)
 	atmos_control.ui_interact(user, ui)
+
+#undef SENSOR_PRESSURE
+#undef SENSOR_TEMPERATURE
+#undef SENSOR_O2
+#undef SENSOR_PLASMA
+#undef SENSOR_N2
+#undef SENSOR_CO2
+#undef SENSOR_N2O

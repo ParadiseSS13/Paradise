@@ -29,16 +29,6 @@
 	max1 = other.max1
 	max2 = other.max2
 
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
-#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
-#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
-#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
-#define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
-
 #define AALARM_PRESET_HUMAN     1 // Default
 #define AALARM_PRESET_VOX       2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
@@ -56,12 +46,6 @@
 
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
-
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
-	var/list/obj/machinery/atmospherics/unary/vent_scrubber/scrubbers = list()
 
 /obj/machinery/alarm
 	name = "air alarm"
@@ -111,10 +95,9 @@
 	report_danger_level = FALSE
 
 /obj/machinery/alarm/engine
-	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
-	custom_name = TRUE
+	custom_name = "engine air alarm"
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 /// general syndicate access
@@ -209,13 +192,21 @@
 
 /obj/machinery/alarm/Initialize(mapload, direction, building = 0)
 	. = ..()
+
+	alarm_area = get_area(src)
+
+	if(custom_name)
+		name = custom_name
+	else
+		name = "[alarm_area.name] Air Alarm"
+
 	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
 		if(direction)
 			setDir(direction)
 
 		buildstage = 0
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(-24, 24, -24, 24)
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -237,9 +228,6 @@
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
-	alarm_area = get_area(src)
-	if(!custom_name)
-		name = "[alarm_area.name] Air Alarm"
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
@@ -756,24 +744,24 @@
 	for(var/g in gas_names)
 		thresholds += list(list("name" = gas_names[g], "settings" = list()))
 		selected = TLV[g]
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
-		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min2", "selected" = selected.min2))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "min1", "selected" = selected.min1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
+		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["pressure"]
 	thresholds += list(list("name" = "Pressure", "settings" = list()))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["temperature"]
 	thresholds += list(list("name" = "Temperature", "settings" = list()))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
-	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
+	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
 	return thresholds
 
@@ -933,10 +921,8 @@
 					if(!(varname in list("min1", "min2", "max1", "max2"))) // uh oh
 						message_admins("[key_name_admin(usr)] attempted to href edit vars on [src]!!!")
 						return
-
 					var/datum/tlv/tlv = TLV[env]
 					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
-
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
 					if(newval < 0)
@@ -1158,12 +1144,18 @@
 		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
-	name = "all-access air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. Its access restrictions appear to have been removed."
 	locked = FALSE
-	custom_name = TRUE
+	custom_name = "all-access air alarm"
 	req_access = null
 	req_one_access = null
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 24, 24)
 
 /*
 AIR ALARM CIRCUIT
@@ -1179,3 +1171,16 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+#undef AALARM_PRESET_HUMAN
+#undef AALARM_PRESET_VOX
+#undef AALARM_PRESET_COLDROOM
+#undef AALARM_PRESET_SERVER
+#undef AALARM_PRESET_DISABLED
+#undef AALARM_REPORT_TIMEOUT
+#undef RCON_NO
+#undef RCON_AUTO
+#undef RCON_YES
+#undef MAX_ENERGY_CHANGE
+#undef MAX_TEMPERATURE
+#undef MIN_TEMPERATURE

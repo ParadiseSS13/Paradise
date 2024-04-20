@@ -54,7 +54,7 @@
 	if(!golemShuttleOnPlanet)
 		eligible_areas -= get_areas(/area/shuttle/freegolem)
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
 			outside_areas += place
@@ -69,25 +69,25 @@
 
 /datum/weather/ash_storm/proc/update_audio()
 	switch(stage)
-		if(STARTUP_STAGE)
+		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
 			sound_wi.start()
 
-		if(MAIN_STAGE)
+		if(WEATHER_MAIN_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
 
 			sound_ao.start()
 			sound_ai.start()
 
-		if(WIND_DOWN_STAGE)
+		if(WEATHER_WIND_DOWN_STAGE)
 			sound_ao.stop()
 			sound_ai.stop()
 
 			sound_wo.start()
 			sound_wi.start()
 
-		if(END_STAGE)
+		if(WEATHER_END_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
 

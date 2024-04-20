@@ -797,6 +797,9 @@
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
+"oh" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "or" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -1129,7 +1132,6 @@
 /area/lavaland/surface/outdoors)
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/ladder/unusable,
 /turf/simulated/floor/chasm,
@@ -1272,6 +1274,9 @@
 	nitrogen = 0
 	},
 /area/lavaland/surface/outdoors)
+"Mm" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "MT" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -1366,7 +1371,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Rf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0
@@ -1511,6 +1516,10 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
+"XS" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
 "Ya" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -1561,6 +1570,19 @@
 /area/ruin/unpowered/althland_excavation)
 
 (1,1,1) = {"
+oh
+oh
+oh
+oh
+oh
+oh
+oh
+oh
+oh
+Mm
+Mm
+Mm
+Mm
 Ei
 Ei
 Ei
@@ -1572,6 +1594,25 @@ Ei
 Ei
 Ei
 Ei
+Mm
+Mm
+oh
+oh
+oh
+oh
+"}
+(2,1,1) = {"
+oh
+oh
+oh
+oh
+Mm
+Mm
+Mm
+Mm
+Mm
+Mm
+Mm
 TN
 TN
 TN
@@ -1588,17 +1629,17 @@ Ei
 Ei
 Ei
 Ei
-Ei
-Ei
-Ei
+oh
+oh
+oh
 "}
-(2,1,1) = {"
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
+(3,1,1) = {"
+oh
+oh
+Mm
+Mm
+Mm
+Mm
 TN
 TN
 TN
@@ -1621,14 +1662,14 @@ Ei
 Ei
 Ei
 Ei
-Ei
-Ei
+oh
+oh
 "}
-(3,1,1) = {"
-Ei
-Ei
-Ei
-Ei
+(4,1,1) = {"
+oh
+Mm
+Mm
+Mm
 TN
 TN
 TN
@@ -1653,13 +1694,13 @@ TN
 TN
 Ei
 Ei
-Ei
-Ei
+Mm
+Mm
 "}
-(4,1,1) = {"
-Ei
-Ei
-Ei
+(5,1,1) = {"
+oh
+Mm
+Mm
 TN
 sp
 aU
@@ -1686,11 +1727,11 @@ TN
 TN
 Ei
 Ei
-Ei
+Mm
 "}
-(5,1,1) = {"
-Ei
-Ei
+(6,1,1) = {"
+Mm
+Mm
 TN
 TN
 Ri
@@ -1720,9 +1761,9 @@ bm
 Ei
 Ei
 "}
-(6,1,1) = {"
-Ei
-Ei
+(7,1,1) = {"
+Mm
+Mm
 TN
 PL
 BZ
@@ -1752,8 +1793,8 @@ bm
 Ei
 Ei
 "}
-(7,1,1) = {"
-Ei
+(8,1,1) = {"
+Mm
 TN
 TN
 pE
@@ -1784,8 +1825,8 @@ Ei
 Ei
 Ei
 "}
-(8,1,1) = {"
-Ei
+(9,1,1) = {"
+Mm
 TN
 sp
 bC
@@ -1807,17 +1848,17 @@ aB
 aB
 aA
 TD
-TN
+XS
 Ei
 zp
-TN
+XS
 BW
 aB
 Ei
 Ei
 "}
-(9,1,1) = {"
-Ei
+(10,1,1) = {"
+Mm
 TN
 TN
 TN
@@ -1848,8 +1889,8 @@ Ei
 bm
 Ei
 "}
-(10,1,1) = {"
-Ei
+(11,1,1) = {"
+Mm
 TN
 ct
 Pe
@@ -1880,8 +1921,8 @@ Ei
 bm
 Ei
 "}
-(11,1,1) = {"
-Ei
+(12,1,1) = {"
+Mm
 TN
 pC
 yb
@@ -1912,7 +1953,7 @@ Ei
 TN
 Ei
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 Ei
 TN
 TN
@@ -1942,9 +1983,9 @@ Ei
 Ei
 Ei
 TN
-Ei
+Mm
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 Ei
 TN
 aU
@@ -1970,13 +2011,13 @@ aB
 aB
 aL
 or
-TN
+XS
 Ei
 Ei
 TN
-Ei
+Mm
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 Ei
 TN
 Yz
@@ -1999,16 +2040,16 @@ aB
 aB
 aB
 aB
-TN
+XS
 eC
 Ei
 Ei
 Ei
 Ei
 TN
-Ei
+Mm
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 Ei
 TN
 TN
@@ -2038,9 +2079,9 @@ Ei
 BW
 aB
 TN
-Ei
+Mm
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 Ei
 TN
 Ei
@@ -2070,9 +2111,9 @@ mK
 uG
 BW
 TN
-Ei
+Mm
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 Ei
 bm
 Ei
@@ -2102,9 +2143,9 @@ BW
 LK
 PM
 TN
-Ei
+Mm
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 Ei
 bm
 Ei
@@ -2134,9 +2175,9 @@ aB
 BW
 KU
 TN
-Ei
+Mm
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 Ei
 TN
 Ei
@@ -2166,9 +2207,9 @@ aB
 aB
 uG
 TN
-Ei
+Mm
 "}
-(20,1,1) = {"
+(21,1,1) = {"
 Ei
 TN
 TN
@@ -2198,9 +2239,9 @@ aB
 aB
 aB
 TN
-Ei
+Mm
 "}
-(21,1,1) = {"
+(22,1,1) = {"
 Ei
 TN
 ao
@@ -2230,9 +2271,9 @@ BW
 TJ
 BW
 TN
-Ei
+Mm
 "}
-(22,1,1) = {"
+(23,1,1) = {"
 Ei
 TN
 at
@@ -2262,9 +2303,9 @@ mh
 mK
 uG
 TN
-Ei
+Mm
 "}
-(23,1,1) = {"
+(24,1,1) = {"
 Ei
 TN
 aG
@@ -2294,10 +2335,10 @@ mh
 mh
 Gc
 TN
-Ei
+Mm
 "}
-(24,1,1) = {"
-Ei
+(25,1,1) = {"
+Mm
 TN
 TN
 bU
@@ -2326,11 +2367,11 @@ gg
 bN
 TN
 TN
-Ei
+Mm
 "}
-(25,1,1) = {"
-Ei
-Ei
+(26,1,1) = {"
+Mm
+Mm
 TN
 az
 DS
@@ -2357,12 +2398,12 @@ jL
 Nv
 jS
 TN
-Ei
-Ei
+Mm
+Mm
 "}
-(26,1,1) = {"
-Ei
-Ei
+(27,1,1) = {"
+oh
+Mm
 TN
 TN
 ap
@@ -2389,13 +2430,13 @@ bL
 YE
 TN
 TN
-Ei
-Ei
+Mm
+Mm
 "}
-(27,1,1) = {"
-Ei
-Ei
-Ei
+(28,1,1) = {"
+oh
+Mm
+Mm
 TN
 TN
 iA
@@ -2420,15 +2461,15 @@ kh
 aE
 TN
 TN
-Ei
-Ei
-Ei
+Mm
+Mm
+oh
 "}
-(28,1,1) = {"
-Ei
-Ei
-Ei
-Ei
+(29,1,1) = {"
+oh
+Mm
+Mm
+Mm
 TN
 TN
 TN
@@ -2451,18 +2492,18 @@ TN
 TN
 TN
 TN
-Ei
-Ei
-Ei
-Ei
+Mm
+Mm
+oh
+oh
 "}
-(29,1,1) = {"
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
+(30,1,1) = {"
+oh
+oh
+Mm
+Mm
+Mm
+Mm
 TN
 TN
 TN
@@ -2481,25 +2522,25 @@ TN
 TN
 TN
 TN
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
+Mm
+Mm
+Mm
+oh
+oh
+oh
 "}
-(30,1,1) = {"
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
+(31,1,1) = {"
+oh
+oh
+oh
+Mm
+Mm
+Mm
+Mm
+Mm
+Mm
+Mm
+Mm
 TN
 TN
 TN
@@ -2509,14 +2550,14 @@ TN
 TN
 TN
 TN
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
-Ei
+Mm
+Mm
+Mm
+Mm
+Mm
+oh
+oh
+oh
+oh
+oh
 "}

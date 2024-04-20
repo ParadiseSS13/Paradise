@@ -38,8 +38,6 @@
 		"Virology" = list(MAT_PLASMA, MAT_URANIUM, MAT_GOLD)
 	)
 	// Variables
-	/// The currently inserted ID.
-	var/obj/item/card/id/inserted_id = null
 	/// The number of unclaimed points.
 	var/points = 0
 	/// Sheet multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
@@ -126,7 +124,6 @@
 /obj/machinery/mineral/ore_redemption/Destroy()
 	// Move any stuff inside us out
 	var/turf/T = get_turf(src)
-	inserted_id?.forceMove(T)
 	inserted_disk?.forceMove(T)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
@@ -151,10 +148,6 @@
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !(stat & NOPOWER))
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
-		inserted_id.forceMove(get_turf(src))
-		inserted_id = null
 
 /obj/machinery/mineral/ore_redemption/update_icon_state()
 	if(has_power())
@@ -194,7 +187,19 @@
 		return ..()
 
 	if(istype(I, /obj/item/card/id))
-		try_insert_id(user)
+		var/obj/item/card/id/ID = I
+		if(!points)
+			to_chat(usr, "<span class='warning'>There are no points to claim.</span>");
+			return
+		if(anyone_claim || (req_access_claim in ID.access))
+			ID.mining_points += points
+			ID.total_mining_points += points
+			to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
+			points = 0
+			SStgui.update_uis(src)
+		else
+			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+		add_fingerprint(usr)
 		return
 
 	else if(istype(I, /obj/item/disk/design_disk))
@@ -207,6 +212,12 @@
 		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
 							"<span class='notice'>You insert [I] into [src].</span>")
 		return
+
+	else if(istype(I, /obj/item/gripper_engineering))
+		if(!try_refill_storage(user))
+			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
+		return
+
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
@@ -252,7 +263,6 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
 	// General info
-	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points, "total_points" = inserted_id.total_mining_points) : null
 	data["points"] = points
 	data["disk"] = inserted_disk ? list(
 		"name" = inserted_disk.name,
@@ -295,18 +305,8 @@
 
 	. = TRUE
 	switch(action)
-		if("claim")
-			if(!inserted_id || !points)
-				return
-			if(anyone_claim || (req_access_claim in inserted_id.access))
-				inserted_id.mining_points += points
-				inserted_id.total_mining_points += points
-				to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!</span>")
-				points = 0
-			else
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
 		if("sheet", "alloy")
-			if(!(check_access(inserted_id) || allowed(usr)))
+			if(!allowed(usr))
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")
 				return FALSE
 			var/id = params["id"]
@@ -339,18 +339,6 @@
 					unload_mineral(A)
 				else
 					unload_mineral(result)
-		if("insert_id")
-			try_insert_id(usr)
-		if("eject_id")
-			if(!inserted_id)
-				return FALSE
-			if(ishuman(usr))
-				usr.put_in_hands(inserted_id)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_id] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_id] from [src].</span>")
-			else
-				inserted_id.forceMove(get_turf(src))
-			inserted_id = null
 		if("eject_disk")
 			if(!inserted_disk)
 				return FALSE
@@ -482,29 +470,37 @@
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
 			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_NORMALPRIORITY)
 
-/**
-  * Tries to insert the ID card held by the given user into the machine.
-  *
-  * Arguments:
-  * * user - The ID whose active hand to check for an ID card to insert.
-  */
-/obj/machinery/mineral/ore_redemption/proc/try_insert_id(mob/user)
+/obj/machinery/mineral/ore_redemption/proc/try_refill_storage(mob/living/silicon/robot/robot)
 	. = FALSE
-	var/obj/item/card/id/I = user.get_active_hand()
-	if(!istype(I))
+	if(!istype(robot))
 		return
-	if(inserted_id)
-		to_chat(user, "<span class='warning'>There is already an ID inside!</span>")
+	if(!istype(robot.module, /obj/item/robot_module/engineering)) // Should only happen for drones
 		return
-	if(!user.drop_item())
-		return
-	I.forceMove(src)
-	inserted_id = I
-	SStgui.update_uis(src)
-	interact(user)
-	user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>", \
-							"<span class='notice'>You insert [I] into [src].</span>")
-	return TRUE
+
+	for(var/datum/robot_storage/material/mat_store in robot.module.material_storages)
+		if(mat_store.amount == mat_store.max_amount) // Already full, no need to run a check
+			to_chat(robot, "<span class='notice'>[mat_store] could not be filled due to it already being full.</span>")
+			continue
+		var/datum/component/material_container/container_component = GetComponent(/datum/component/material_container)
+		for(var/mat_id in container_component.materials)
+			var/datum/material/stack = container_component.materials[mat_id] // Should have only `/datum/material` in the list
+			var/obj/item/stack/sheet/sheet = stack.sheet_type
+			if(ispath(mat_store.stack, sheet))
+				var/amount_to_add
+				var/total_stacks = stack.amount / MINERAL_MATERIAL_AMOUNT // To account for 1 sheet being 2000 units of metal
+				if(total_stacks >= (mat_store.max_amount - mat_store.amount))
+					amount_to_add = round(mat_store.max_amount - mat_store.amount)
+					to_chat(robot, "<span class='notice'>You refill [mat_store] to full.</span>")
+				else
+					amount_to_add = round(total_stacks) // In case we have half a sheet stored
+					to_chat(robot, "<span class='notice'>You refill [amount_to_add] sheets to [mat_store].</span>")
+				mat_store.amount += amount_to_add
+				remove_from_storage(stack, amount_to_add)
+				. = TRUE
+				break // We found our match for this material storage, so we go to the next one
+
+/obj/machinery/mineral/ore_redemption/proc/remove_from_storage(datum/material/stack, sheet_amount)
+	return stack.amount -= sheet_amount * MINERAL_MATERIAL_AMOUNT
 
 /**
   * Called when an item is inserted manually as material.

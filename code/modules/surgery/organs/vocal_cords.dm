@@ -150,17 +150,17 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		spans += "narsiesmall"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)
 	message = lowertext(message)
-	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
+	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
-	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
+	for(var/mob/living/L as anything in get_mobs_in_view(8, owner, TRUE))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
@@ -168,7 +168,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 					continue
 			listeners += L
 
-	if(!listeners.len)
+	if(!length(listeners))
 		next_command = world.time + cooldown_none
 		return
 
@@ -186,7 +186,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		power_multiplier *= 2
 
 	//It's magic, they are a wizard.
@@ -209,9 +209,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			//Cut out the job so it doesn't trigger commands
 			found_string = L.mind.assigned_role
 
-	if(specific_listeners.len)
+	if(length(specific_listeners))
 		listeners = specific_listeners
-		power_multiplier *= (1 + (1/specific_listeners.len)) //2x on a single guy, 1.5x on two and so on
+		power_multiplier *= (1 + (1/length(specific_listeners))) //2x on a single guy, 1.5x on two and so on
 		message = copytext(message, 0, 1)+copytext(message, 1 + length(found_string), length(message) + 1)
 
 	//STUN

@@ -84,6 +84,7 @@
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
+	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
 
 	hud_possible = list(SPECIALROLE_HUD)
@@ -121,6 +122,9 @@
 
 	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
+	/// The type of HUD that this mob uses. Not to
+	var/hud_type = /datum/hud
+
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
@@ -128,16 +132,6 @@
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
-
-	/* //Also unlike the spell list, this would only store the object in contents, not an object in itself.
-
-	Add this line to whatever stat module you need in order to use the proc holder list.
-	Unlike the object spell system, it's also possible to attach verb procs from these objects to right-click menus.
-	This requires creating a verb for the object proc holder.
-
-	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
-			statpanel("[P.panel]","",P)*/
 
 //The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
 	var/mob/living/carbon/LAssailant = null
@@ -203,7 +197,7 @@
 
 	var/registered_z
 
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+	var/datum/spell/ranged_ability //Any ranged ability the mob has, as a click override
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
@@ -252,3 +246,7 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
+
+	/// Does this mob speak OOC?
+	/// Controls whether they can say some symbols.
+	var/speaks_ooc = FALSE

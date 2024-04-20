@@ -58,7 +58,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
-	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
+	GLOB.timezoneOffset = world.timezone * 36000
 
 	update_status()
 
@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
-	if(Lines.len)
+	if(length(Lines))
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
 			log_game("Saved mode is '[GLOB.master_mode]'")

@@ -1,22 +1,4 @@
 
-#define TYPE_FIRE /datum/mob_type/fire
-#define TYPE_WATER /datum/mob_type/water
-#define TYPE_GRASS /datum/mob_type/grass
-#define TYPE_ELECTRIC /datum/mob_type/electric
-#define TYPE_GROUND /datum/mob_type/ground
-#define TYPE_ROCK /datum/mob_type/rock
-#define TYPE_BUG /datum/mob_type/bug
-#define TYPE_POISON /datum/mob_type/poison
-#define TYPE_NORMAL /datum/mob_type/normal
-#define TYPE_FIGHTING /datum/mob_type/fighting
-#define TYPE_PSYCHIC /datum/mob_type/psychic
-#define TYPE_GHOST /datum/mob_type/ghost
-#define TYPE_ICE /datum/mob_type/ice
-#define TYPE_FLYING /datum/mob_type/flying
-#define TYPE_BLUESPACE /datum/mob_type/bluespace
-#define TYPE_DARK /datum/mob_type/dark
-#define TYPE_STEEL /datum/mob_type/steel
-
 /datum/mob_hunt
 	//GENERAL STATS AND VARIABLES
 	var/mob_name = "Generic Mob"			//the mob's original name (its species/type/whatever)
@@ -83,10 +65,10 @@
 
 /datum/mob_hunt/proc/select_spawn()
 	var/list/possible_areas = get_possible_areas()
-	if(!possible_areas.len)
+	if(!length(possible_areas))
 		log_admin("No possible areas to spawn [type] found. Possible code/mapping error?")
 		return 0
-	while(possible_areas.len)
+	while(length(possible_areas))
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
 		var/spawn_area_path = pickweight(possible_areas)
 		var/area/spawn_area = locate(spawn_area_path)
@@ -95,7 +77,7 @@
 			break
 		//clear and generate a fresh list of turfs in the selected area, weighted based on white/black lists
 		var/list/possible_turfs = get_possible_turfs(spawn_area)
-		if(!possible_turfs.len)		//If we don't have any possible turfs, this attempt was a failure. Try again.
+		if(!length(possible_turfs))		//If we don't have any possible turfs, this attempt was a failure. Try again.
 			continue
 		//if we got this far, we're spawning on this attempt, hooray!
 		spawn_point = pickweight(possible_turfs)
@@ -280,7 +262,7 @@
 	run_chance = 50
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_BUG
+	primary_type = NANOMOB_TYPE_BUG
 	icon_state_normal = "nemabug"
 	icon_state_shiny = "nemabug_shiny"
 	lifetime = 6000
@@ -290,7 +272,7 @@
 	run_chance = 50
 	min_level = 5
 	max_level = 15
-	primary_type = TYPE_ICE
+	primary_type = NANOMOB_TYPE_ICE
 	icon_state_normal = "stoutquill"
 	icon_state_shiny = "stoutquill_shiny"
 	lifetime = 4500
@@ -300,7 +282,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_POISON
+	primary_type = NANOMOB_TYPE_POISON
 	icon_state_normal = "spectra"
 	icon_state_shiny = "spectra_shiny"
 	lifetime = 6000
@@ -310,7 +292,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_FIRE
+	primary_type = NANOMOB_TYPE_FIRE
 	icon_state_normal = "dunny"
 	icon_state_shiny = "dunny_shiny"
 	lifetime = 6000
@@ -320,7 +302,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_ROCK
+	primary_type = NANOMOB_TYPE_ROCK
 	icon_state_normal = "buffsel"
 	icon_state_shiny = "buffsel_shiny"
 	lifetime = 6000
@@ -330,7 +312,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_NORMAL
+	primary_type = NANOMOB_TYPE_NORMAL
 	icon_state_normal = "quarrel"
 	icon_state_shiny = "quarrel_shiny"
 	lifetime = 6000
@@ -340,7 +322,7 @@
 	run_chance = 50
 	min_level = 5
 	max_level = 15
-	primary_type = TYPE_DARK
+	primary_type = NANOMOB_TYPE_DARK
 	icon_state_normal = "vulerrt"
 	icon_state_shiny = "vulerrt_shiny"
 	turf_whitelist = list()
@@ -351,7 +333,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_ELECTRIC
+	primary_type = NANOMOB_TYPE_ELECTRIC
 	icon_state_normal = "strudel"
 	icon_state_shiny = "strudel_shiny"
 	lifetime = 4500
@@ -361,7 +343,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_WATER
+	primary_type = NANOMOB_TYPE_WATER
 	icon_state_normal = "folstick"
 	icon_state_shiny = "folstick_shiny"
 	lifetime = 6000
@@ -371,7 +353,7 @@
 	run_chance = 50
 	min_level = 5
 	max_level = 15
-	primary_type = TYPE_PSYCHIC
+	primary_type = NANOMOB_TYPE_PSYCHIC
 	icon_state_normal = "glimmerflare"
 	icon_state_shiny = "glimmerflare_shiny"
 	lifetime = 4500
@@ -381,7 +363,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_GRASS
+	primary_type = NANOMOB_TYPE_GRASS
 	icon_state_normal = "leecoon"
 	icon_state_shiny = "leecoon_shiny"
 	lifetime = 6000
@@ -391,7 +373,7 @@
 	run_chance = 35
 	min_level = 1
 	max_level = 10
-	primary_type = TYPE_FLYING
+	primary_type = NANOMOB_TYPE_FLYING
 	icon_state_normal = "halk"
 	icon_state_shiny = "halk_shiny"
 	lifetime = 6000
@@ -401,8 +383,8 @@
 	run_chance = 65
 	min_level = 5
 	max_level = 20
-	primary_type = TYPE_ELECTRIC
-	secondary_type = TYPE_BUG
+	primary_type = NANOMOB_TYPE_ELECTRIC
+	secondary_type = NANOMOB_TYPE_BUG
 	icon_state_normal = "gooby"
 	icon_state_shiny = "gooby_shiny"
 	lifetime = 3000
@@ -412,7 +394,7 @@
 	run_chance = 50
 	min_level = 5
 	max_level = 15
-	primary_type = TYPE_GHOST
+	primary_type = NANOMOB_TYPE_GHOST
 	icon_state_normal = "pandoom"
 	icon_state_shiny = "pandoom_shiny"
 	lifetime = 4500
@@ -422,8 +404,8 @@
 	run_chance = 65
 	min_level = 5
 	max_level = 20
-	primary_type = TYPE_FIRE
-	secondary_type = TYPE_GROUND
+	primary_type = NANOMOB_TYPE_FIRE
+	secondary_type = NANOMOB_TYPE_GROUND
 	icon_state_normal = "relish"
 	icon_state_shiny = "relish_shiny"
 	lifetime = 3000
@@ -433,8 +415,8 @@
 	run_chance = 50
 	min_level = 5
 	max_level = 10
-	primary_type = TYPE_FIRE
-	secondary_type = TYPE_NORMAL
+	primary_type = NANOMOB_TYPE_FIRE
+	secondary_type = NANOMOB_TYPE_NORMAL
 	icon_state_normal = "xofine"
 	icon_state_shiny = "xofine_shiny"
 	lifetime = 3000
@@ -444,8 +426,8 @@
 	run_chance = 65
 	min_level = 5
 	max_level = 20
-	primary_type = TYPE_WATER
-	secondary_type = TYPE_POISON
+	primary_type = NANOMOB_TYPE_WATER
+	secondary_type = NANOMOB_TYPE_POISON
 	icon_state_normal = "gitten"
 	icon_state_shiny = "gitten_shiny"
 	lifetime = 3000
@@ -455,8 +437,8 @@
 	run_chance = 65
 	min_level = 5
 	max_level = 20
-	primary_type = TYPE_GRASS
-	secondary_type = TYPE_NORMAL
+	primary_type = NANOMOB_TYPE_GRASS
+	secondary_type = NANOMOB_TYPE_NORMAL
 	icon_state_normal = "nai"
 	icon_state_shiny = "nai_shiny"
 	lifetime = 3000
@@ -466,8 +448,8 @@
 	run_chance = 65
 	min_level = 5
 	max_level = 20
-	primary_type = TYPE_FIRE
-	secondary_type = TYPE_GHOST
+	primary_type = NANOMOB_TYPE_FIRE
+	secondary_type = NANOMOB_TYPE_GHOST
 	icon_state_normal = "pyroghast"
 	icon_state_shiny = "pyroghast"
 	lifetime = 4500
@@ -477,8 +459,8 @@
 	run_chance = 65
 	min_level = 5
 	max_level = 20
-	primary_type = TYPE_FIGHTING
-	secondary_type = TYPE_ICE
+	primary_type = NANOMOB_TYPE_FIGHTING
+	secondary_type = NANOMOB_TYPE_ICE
 	icon_state_normal = "starslam"
 	icon_state_shiny = "starslam_shiny"
 	lifetime = 2500
@@ -488,7 +470,7 @@
 	run_chance = 85
 	min_level = 10
 	max_level = 20
-	primary_type = TYPE_BLUESPACE
+	primary_type = NANOMOB_TYPE_BLUESPACE
 	icon_state_normal = "pheron"
 	icon_state_shiny = "pheron_shiny"
 	area_blacklist = list()

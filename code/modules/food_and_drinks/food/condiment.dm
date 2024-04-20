@@ -96,9 +96,9 @@
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the condiment to [target].</span>")
 
 /obj/item/reagent_containers/condiment/on_reagent_change()
-	if(!possible_states.len)
+	if(!length(possible_states))
 		return
-	if(reagents.reagent_list.len > 0)
+	if(length(reagents.reagent_list) > 0)
 		var/main_reagent = reagents.get_master_reagent_id()
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]
@@ -110,7 +110,7 @@
 			name = "[originalname] bottle"
 			main_reagent = reagents.get_master_reagent_name()
 			desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
-			if(reagents.reagent_list.len==1)
+			if(length(reagents.reagent_list)==1)
 				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
 			icon_state = "mixedcondiments"
 	else
@@ -147,12 +147,15 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/newname = "[name]"
 	name = "[user.name]"
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
+	var/space = reagents.maximum_volume - reagents.total_volume
+	if(space > 0)
+		reagents.add_reagent("sodiumchloride", space)
 	return BRUTELOSS
 
 /obj/item/reagent_containers/condiment/peppermill
@@ -329,7 +332,7 @@
 			qdel(src)
 
 /obj/item/reagent_containers/condiment/pack/on_reagent_change()
-	if(reagents.reagent_list.len > 0)
+	if(length(reagents.reagent_list) > 0)
 		var/main_reagent = reagents.get_master_reagent_id()
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]

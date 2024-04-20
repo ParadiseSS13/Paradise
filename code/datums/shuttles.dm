@@ -36,31 +36,31 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "The Emergency Escape Bar"
+	name = "Emergency Escape Bar"
 	description = "Features include a bathroom, a quality lounge for the heads, and a \
 		small gambling table."
 
 
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
-	name = "emergency shuttle (Cyberiad)"
+	name = "Emergency shuttle (Cyberiad)"
 
 /datum/map_template/shuttle/emergency/dept
 	suffix = "dept"
-	name = "emergency shuttle (department)"
+	name = "Emergency shuttle (department)"
 	description = "Features include: areas for each department, and a small bar."
 	admin_notes = "Designed to reduce chaos. Each dept requires dept access."
 
 /datum/map_template/shuttle/emergency/military
 	suffix = "mil"
-	name = "emergency shuttle (military)"
+	name = "Emergency shuttle (military)"
 	description = "Troop transport with point defense turrets."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
 
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
-	name = "Snappop(tm)!"
+	name = "Snappop(tm)"
 	description = "Hey kids and grownups! Are you bored of DULL and TEDIOUS \
 		shuttle journeys after you're evacuating for probably BORING reasons. \
 		Well then order the Snappop(tm) today! We've got fun activities for \
@@ -89,7 +89,7 @@
 
 /datum/map_template/shuttle/emergency/meta
 	suffix = "meta"
-	name = "emergency shuttle (Metastation)"
+	name = "Emergency shuttle (Metastation)"
 
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
@@ -104,12 +104,20 @@
 /datum/map_template/shuttle/emergency/old
 	suffix = "old"
 	name = "Retired Station shuttle."
-	description = "an older model of the station shuttle."
+	description = "An older model of the station shuttle."
 
 /datum/map_template/shuttle/emergency/jungle
 	suffix = "jungle"
-	name = "emergency shuttle (Jungle)."
+	name = "Emergency shuttle JUNG-13"
 	description = "You can hear screeching and hissing as this shuttle docks."
+
+/datum/map_template/shuttle/emergency/raven
+	suffix = "raven"
+	name = "CentCom Raven Cruiser"
+	description = "The CentCom Raven Cruiser is a former high-risk salvage vessel, now repurposed into an emergency escape shuttle. \
+	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
+	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
+	admin_notes = "Comes with turrets that will target simple mobs."
 
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"

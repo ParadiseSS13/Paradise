@@ -3,8 +3,9 @@
 	desc = "High Five?"
 	var/catchphrase = "High Five!"
 	var/on_use_sound = null
-	var/obj/effect/proc_holder/spell/touch/attached_spell
-	icon_state = "syndballoon"
+	var/datum/spell/touch/attached_spell
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "disintegrate"
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
