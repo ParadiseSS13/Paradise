@@ -485,12 +485,12 @@
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc?.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/current = M
+	while(current?.loc && !isturf(current.loc))
+		current = current.loc
+		if(stop_type && istype(current, stop_type))
 			break
-	return loc
+	return current
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -578,6 +578,42 @@ Returns 1 if the chain up to the area contains the given typepath
 		starting_turf = check
 
 	return starting_turf
+
+// returns turf relative to A for a given clockwise angle at set range
+// result is bounded to map size
+/proc/get_angle_target_turf(atom/A, angle, range)
+	if(!istype(A))
+		return null
+	var/x = A.x
+	var/y = A.y
+
+	x += range * sin(angle)
+	y += range * cos(angle)
+
+	//Restricts to map boundaries while keeping the final angle the same
+	var/dx = A.x - x
+	var/dy = A.y - y
+	var/ratio
+	if(dy == 0) //prevents divide-by-zero errors
+		ratio = INFINITY
+	else
+		ratio = dx / dy
+
+	if(x < 1)
+		y += (1 - x) / ratio
+		x = 1
+	else if(x > world.maxx)
+		y += (world.maxx - x) / ratio
+		x = world.maxx
+
+	if(y < 1)
+		x += (1 - y) * ratio
+		y = 1
+	else if(y > world.maxy)
+		x += (world.maxy - y) * ratio
+		y = world.maxy
+
+	return locate(round(x, 1), round(y, 1), A.z)
 
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
@@ -1216,7 +1252,7 @@ Standard way to write links -Sayu
 /proc/topic_link(datum/D, arglist, content)
 	if(islist(arglist))
 		arglist = list2params(arglist)
-	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
+	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 
@@ -1327,7 +1363,7 @@ Standard way to write links -Sayu
 /proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
-		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
+		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower,upper), 2)]"

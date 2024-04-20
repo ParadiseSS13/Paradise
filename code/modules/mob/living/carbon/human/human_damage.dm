@@ -241,7 +241,7 @@
 //It automatically updates health status
 /mob/living/carbon/human/heal_organ_damage(brute, burn, updating_health = TRUE)
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
-	if(!parts.len)
+	if(!length(parts))
 		return
 	var/obj/item/organ/external/picked = pick(parts)
 	if(picked.heal_damage(brute,burn, updating_health))
@@ -252,7 +252,7 @@
 //It automatically updates health status
 /mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = FALSE, edge = 0)
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
-	if(!parts.len)
+	if(!length(parts))
 		return
 	var/obj/item/organ/external/picked = pick(parts)
 	if(picked.receive_damage(brute, burn, sharp, updating_health))
@@ -264,7 +264,7 @@
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
 
 	var/update = 0
-	while(parts.len && ( brute > 0 || burn > 0))
+	while(length(parts) && ( brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
 
 		var/brute_was = picked.brute_dam
@@ -289,10 +289,10 @@
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
 	var/update = 0
-	while(parts.len && (brute>0 || burn>0))
+	while(length(parts) && (brute>0 || burn>0))
 		var/obj/item/organ/external/picked = pick(parts)
-		var/brute_per_part = brute/parts.len
-		var/burn_per_part = burn/parts.len
+		var/brute_per_part = brute / length(parts)
+		var/burn_per_part = burn / length(parts)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
