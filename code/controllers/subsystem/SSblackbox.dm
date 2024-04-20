@@ -68,10 +68,10 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/Shutdown()
 	sealed = FALSE
 	for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-		if(MS.pda_msgs.len)
-			record_feedback("tally", "radio_usage", MS.pda_msgs.len, "PDA")
-		if(MS.rc_msgs.len)
-			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
+		if(length(MS.pda_msgs))
+			record_feedback("tally", "radio_usage", length(MS.pda_msgs), "PDA")
+		if(length(MS.rc_msgs))
+			record_feedback("tally", "radio_usage", length(MS.rc_msgs), "request console")
 
 	if(length(research_levels))
 		record_feedback("associative", "high_research_level", 1, research_levels)
@@ -248,7 +248,7 @@ SUBSYSTEM_DEF(blackbox)
   * * depth - Depth to use
   */
 /datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, increment, depth = 1)
-	if(depth == key_list.len)
+	if(depth == length(key_list))
 		if(L.Find(key_list[depth]))
 			L["[key_list[depth]]"] += increment
 		else

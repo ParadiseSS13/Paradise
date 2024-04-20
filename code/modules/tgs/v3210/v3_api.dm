@@ -64,17 +64,17 @@
 		instance_name = "TG Station Server" //maybe just upgraded
 
 	var/list/logs = TGS_FILE2LIST(".git/logs/HEAD")
-	if(logs.len)
-		logs = splittext(logs[logs.len], " ")
-		if(logs.len >= 2)
+	if(length(logs))
+		logs = splittext(logs[length(logs)], " ")
+		if(length(logs) >= 2)
 			commit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing commit logs")
 
 	logs = TGS_FILE2LIST(".git/logs/refs/remotes/origin/master")
-	if(logs.len)
-		logs = splittext(logs[logs.len], " ")
-		if(logs.len >= 2)
+	if(length(logs))
+		logs = splittext(logs[length(logs)], " ")
+		if(length(logs) >= 2)
 			originmastercommit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing origin commmit logs")

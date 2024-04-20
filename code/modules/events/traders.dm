@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
-	if(GLOB.unused_trade_stations.len)
+	if(length(GLOB.unused_trade_stations))
 		station = pick_n_take(GLOB.unused_trade_stations)
 
 /datum/event/traders/fake_announce()
@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/list/spawnlocs = list()
 	for(var/obj/effect/landmark/spawner/soltrader/S in GLOB.landmarks_list)
 		spawnlocs += get_turf(S)
-	if(!spawnlocs.len)
+	if(!length(spawnlocs))
 		return
 
 	trader_objectives = forge_trader_objectives()
