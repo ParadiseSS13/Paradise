@@ -127,6 +127,7 @@ CONTENTS:
 /obj/item/clothing/suit/cardborg/examine_more(mob/user)
 	. = ..()
 	. += extended_desc
+
 /obj/item/clothing/suit/cardborg/security
 	name = "red cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted red."
