@@ -968,7 +968,7 @@
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 
-/obj/item/storage/box/skrell_suit/
+/obj/item/storage/box/skrell_suit
 	name = "skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit."
 	icon_state = "doom_box"
