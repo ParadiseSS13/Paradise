@@ -74,7 +74,7 @@
 
 	add_click_catcher()
 
-	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
+	if(viewing_alternate_appearances && length(viewing_alternate_appearances))
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
 

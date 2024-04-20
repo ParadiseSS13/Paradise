@@ -672,7 +672,7 @@
 			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
 			if(!B)
 				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
-			if(blood_DNA && blood_DNA.len)
+			if(blood_DNA && length(blood_DNA))
 				B.blood_DNA |= blood_DNA.Copy()
 			B.basecolor = currentBloodColor
 			var/newdir = get_dir(next, loc)

@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/team/cult)
+
 /datum/team/cult
 	name = "Cult"
 	antag_datum_type = /datum/antagonist/cultist
