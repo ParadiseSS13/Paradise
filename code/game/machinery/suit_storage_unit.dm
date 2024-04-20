@@ -241,7 +241,7 @@
 
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
-	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
+	switch(pick("red", "green", "ntblue", "purple", "yellow", "ltblue"))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
 			suit_type = /obj/item/clothing/suit/space/nasavoid

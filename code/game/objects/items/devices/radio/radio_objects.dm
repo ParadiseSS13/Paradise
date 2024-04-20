@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
-	if(channel && channels && channels.len > 0)
+	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
@@ -266,7 +266,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		connection = radio_connection
 		channel = null
 
-	if(is_type_in_list(get_area(src), blacklisted_areas))
+	if(loc && is_type_in_list(get_area(src), blacklisted_areas))
 		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
 		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
 		return
@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return radio_connection
 
 	// Otherwise, if a channel is specified, look for it.
-	if(channels && channels.len > 0)
+	if(channels && length(channels) > 0)
 		if(message_mode == "department") // Department radio shortcut
 			message_mode = channels[1]
 
@@ -527,7 +527,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-	if(!freq) //recieved on main frequency
+	if(!freq) //received on main frequency
 		if(!listening)
 			return -1
 	else

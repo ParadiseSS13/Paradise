@@ -68,4 +68,4 @@
 		qdel(query_find_note)
 
 		if(show_warning)
-			message_admins("<font color='red'>[C.ckey] has just connected and has a history of [cidcount] different CIDs.</font> (<a href='?_src_=holder;webtools=[C.ckey]'>WebInfo</a>) (<a href='?_src_=holder;suppresscidwarning=[C.ckey]'>Suppress Warning</a>)")
+			message_admins("<font color='red'>[C.ckey] has just connected and has a history of [cidcount] different CIDs.</font> (<a href='byond://?_src_=holder;webtools=[C.ckey]'>WebInfo</a>) (<a href='byond://?_src_=holder;suppresscidwarning=[C.ckey]'>Suppress Warning</a>)")

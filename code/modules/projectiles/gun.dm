@@ -171,12 +171,11 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			if(HAS_TRAIT(user, TRAIT_BADASS))
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
 				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
 			else
 				handle_suicide(user, target, params)
 			return
-
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
@@ -211,7 +210,7 @@
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+	if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1

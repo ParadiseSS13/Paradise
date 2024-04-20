@@ -163,7 +163,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(reagents && length(reagents.reagent_list))
 		. += "<span class='notice'>It is currently loaded.</span>"
 	else
 		. += "<span class='notice'>It is spent.</span>"

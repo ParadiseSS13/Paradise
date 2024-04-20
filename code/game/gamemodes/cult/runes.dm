@@ -511,7 +511,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		..()
 		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
-		else if(!is_station_level(z) || istype(get_area(src), /area/space))
+		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", T)
 		user.visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>",
 							"<span class='cult'>You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
@@ -907,7 +907,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/choice = tgui_alert(user, "You tear open a connection to the spirit realm...", "Invoke", list("Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel"))
 	if(choice == "Summon a Cult Ghost")
-		if(!is_station_level(z) || istype(get_area(src), /area/space))
+		if(!is_station_level(z) || isspacearea(get_area(src)))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")
 			fail_invoke()
 			log_game("Manifest rune failed - not on station")

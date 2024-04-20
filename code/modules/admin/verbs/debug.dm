@@ -64,13 +64,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!target)
 				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
 				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			log_admin("[key_name(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+			message_admins("[key_name_admin(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
@@ -173,8 +173,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!A || !IsValidSrc(A))
 		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
-	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
@@ -800,6 +800,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Average References During Hardel: [I.reference_average] references.</li>"
 		if(I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if(I.no_respect_force)
@@ -913,6 +914,21 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	GLOB.error_cache.showTo(usr)
+
+/client/proc/allow_browser_inspect()
+	set category = "Debug"
+	set name = "Allow Browser Inspect"
+	set desc = "Allow browser debugging via inspect"
+
+	if(!check_rights(R_MAINTAINER) || !isclient(src))
+		return
+
+	if(byond_version < 516)
+		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
+		return
+
+	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
+	winset(src, "", "browser-options=find,devtools")
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"

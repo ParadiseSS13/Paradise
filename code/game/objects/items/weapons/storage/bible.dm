@@ -99,7 +99,7 @@
 		var/mob/living/carbon/human/H = M
 		if(prob(60))
 			bless(H)
-			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!</span>",
+			H.visible_message("<span class='danger'>[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!</span>",
 				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
 			playsound(loc, "punch", 25, 1, -1)
 		else

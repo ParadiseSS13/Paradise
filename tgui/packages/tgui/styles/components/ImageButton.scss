@@ -1,0 +1,219 @@
+/**
+ * Copyright (c) 2024 Aylong (https://github.com/AyIong)
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../base.scss';
+@use '../colors.scss';
+@use './Divider.scss';
+@use '../functions.scss' as *;
+
+$color-default: colors.bg(base.$color-bg-section) !default;
+$color-disabled: #4d1717 !default;
+$color-selected: colors.bg(colors.$green) !default;
+$bg-map: colors.$bg-map !default;
+
+@mixin button-style($color, $clickable: false) {
+  $luminance: luminance($color);
+
+  background-color: rgba($color, 0.15);
+  border: base.em(1px) solid rgba(lighten($color, 50%), 0.2);
+
+  @if $clickable {
+    transition:
+      color 100ms,
+      background-color 100ms;
+
+    &:focus {
+      transition:
+        color 250ms,
+        background-color 250ms;
+    }
+
+    &:hover {
+      background-color: rgba(lighten($color, 25%), 0.25);
+    }
+  }
+}
+
+.ImageButton__image {
+  line-height: 0;
+  align-self: center;
+}
+
+.ImageButton__vertical,
+.ImageButton--vertical {
+  display: inline-block;
+}
+
+.ImageButton__horizontal {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.ImageButton--horizontal {
+  display: flex;
+  margin-bottom: 0.5em;
+
+  &:last-child {
+    margin-bottom: 0.4em;
+  }
+}
+
+@each $color-name, $color-value in $bg-map {
+  .ImageButton--color--#{$color-name} {
+    @include button-style($color-value);
+  }
+
+  .ImageButton--color--clickable--#{$color-name} {
+    @include button-style($color-value, true);
+  }
+}
+
+.ImageButton--color--default {
+  @include button-style(rgba(lighten($color-default, 100%), 0.2));
+}
+
+.ImageButton--color--default--clickable {
+  @include button-style(rgba(lighten($color-default, 100%), 0.2), true);
+}
+
+.ImageButton--disabled {
+  background-color: rgba($color-disabled, 0.25) !important;
+  border: base.em(1px) solid rgba(lighten($color-disabled, 100%), 0.15);
+}
+
+.ImageButton--selected {
+  @include button-style($color-selected, true);
+}
+
+.ImageButton__content__vertical {
+  height: 1.6em;
+  padding-top: 2px;
+  border: 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.ImageButton__content__horizontal {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  flex-grow: 1;
+}
+
+.ImageButton__content__horizontal--title {
+  font-weight: bold;
+  padding: base.em(6px);
+  padding-bottom: 0;
+}
+
+.ImageButton__content__horizontal--content {
+  padding: base.em(6px);
+}
+
+.ImageButton__content__horizontal--divider {
+  margin: base.em(6px);
+  margin-bottom: 0;
+  border-top: Divider.$thickness solid Divider.$color;
+}
+
+.ImageButton__content--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin content-style($color) {
+  $luminance: luminance($color);
+  $text-color: if($luminance > 0.3, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 1));
+
+  color: $text-color;
+  background-color: darken($color, 2.5%);
+  border-top: base.em(1px) solid (rgba(lighten($color, 33%), 1));
+}
+
+@each $color-name, $color-value in $bg-map {
+  .ImageButton__content--color--#{$color-name} {
+    @include content-style(rgba($color-value, 1));
+  }
+}
+
+.ImageButton__content--color--default {
+  @include content-style(rgba(lighten($color-default, 80%), 1));
+}
+
+.ImageButton__content--disabled {
+  background-color: $color-disabled !important;
+  color: rgba(200, 200, 200, 0.75);
+  border-top: base.em(1px) solid rgba(lighten($color-disabled, 100%), 0.5);
+}
+
+.ImageButton__content--selected {
+  background-color: $color-selected !important;
+  border-top: base.em(1px) solid rgba(lighten($color-selected, 100%), 0.5);
+}
+
+.ImageButton__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ImageButton__item--icon--horizontal {
+  display: flex;
+  align-items: center;
+
+  .fa,
+  .fas,
+  .far {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+  }
+}
+
+@mixin item-style($color) {
+  $luminance: luminance($color);
+
+  transition:
+    color 100ms,
+    background-color 100ms;
+  background-color: rgba($color, 0.4);
+  border: base.em(1px) solid rgba(lighten($color, 50%), 0.2);
+  border-left: 0;
+
+  &:focus {
+    transition:
+      color 250ms,
+      background-color 250ms;
+  }
+
+  &:hover {
+    background-color: rgba(lighten($color, 25%), 0.5);
+  }
+}
+
+@each $color-name, $color-value in $bg-map {
+  .ImageButton__item--color--#{$color-name} {
+    @include item-style(rgba($color-value, 1));
+  }
+}
+
+.ImageButton__item--color--default {
+  @include item-style(rgba(lighten($color-default, 100%), 1));
+}
+
+.ImageButton__item--disabled {
+  background-color: rgba($color-disabled, 0.5) !important;
+  border: base.em(1px) solid rgba(lighten($color-disabled, 100%), 0.15);
+  border-left: 0;
+}
+
+.ImageButton__item--selected {
+  @include item-style($color-selected);
+  border-left: 0;
+}
