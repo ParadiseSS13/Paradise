@@ -343,12 +343,14 @@ const ChemMasterProduction = (props: {}, context) => {
 const ChemMasterProductionTabs = (props: {}, context) => {
   const { act, data } = useBackend<ChemMasterData>(context);
   const { production_mode, production_data, static_production_data } = data;
-  const decideTab = (mode) => {
-    if (mode > 0 && mode <= static_production_data.length) {
+  const decideTab = (mode: ChemMasterData['production_mode']) => {
+    let static_data = static_production_data[mode];
+    let nonstatic_data = production_data[mode];
+    if (static_data !== undefined && nonstatic_data !== undefined) {
       const productionData = {
-        ...static_production_data[production_mode],
-        ...production_data[production_mode],
-        id: production_mode,
+        ...static_data,
+        ...nonstatic_data,
+        id: mode,
       };
       return <ChemMasterProductionGeneric productionData={productionData} />;
     }
@@ -363,7 +365,7 @@ const ChemMasterProductionTabs = (props: {}, context) => {
             <Tabs.Tab
               key={name}
               icon={icon}
-              selected={data.production_mode === id}
+              selected={production_mode === id}
               onClick={() =>
                 act('set_production_mode', { production_mode: id })
               }
@@ -373,7 +375,7 @@ const ChemMasterProductionTabs = (props: {}, context) => {
           );
         })}
       </Tabs>
-      {decideTab(data.production_mode)}
+      {decideTab(production_mode)}
     </>
   );
 };

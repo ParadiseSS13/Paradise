@@ -21,7 +21,7 @@
 	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
 	var/useramount = 30 // Last used amount
-	var/production_mode = 1
+	var/production_mode = null
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
 		COLOR_RED = "Red",
@@ -60,6 +60,10 @@
 		production_modes[new_mode.mode_id] = new_mode
 		new_mode = new /datum/chemical_production_mode/bottles()
 		production_modes[new_mode.mode_id] = new_mode
+	if(isnull(production_mode))
+		for(var/key in production_modes)
+			production_mode = key
+			break
 
 /obj/machinery/chem_master/Destroy()
 	QDEL_NULL(beaker)
