@@ -13,13 +13,13 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
-	// Set to TRUE to allow interaction with light fixtures and cell-containing machinery.
+	/// Set to TRUE to allow interaction with light fixtures and cell-containing machinery.
 	var/engineering_machine_interaction = FALSE
-	// Set to TRUE to allow the gripper to shake people awake/help them up.
+	/// Set to TRUE to allow the gripper to shake people awake/help them up.
 	var/can_help_up = FALSE
-	// Defines what items the gripper can carry.
+	/// Defines what items the gripper can carry.
 	var/list/can_hold = list()
-	// The item currently being held.
+	/// The item currently being held.
 	var/obj/item/gripped_item
 
 /obj/item/gripper/examine_more(mob/user)
