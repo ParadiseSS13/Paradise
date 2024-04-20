@@ -91,7 +91,7 @@
 /obj/mecha/combat/marauder/seraph/loaded/Initialize(mapload)
 	. = ..()  //Let it equip whatever is needed.
 	var/obj/item/mecha_parts/mecha_equipment/ME
-	if(equipment.len)//Now to remove it and equip anew.
+	if(length(equipment))//Now to remove it and equip anew.
 		for(ME in equipment)
 			equipment -= ME
 			qdel(ME)

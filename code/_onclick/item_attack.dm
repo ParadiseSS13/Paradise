@@ -145,7 +145,7 @@
 	if(I.discrete)
 		return
 	var/message_verb = "attacked"
-	if(I.attack_verb && I.attack_verb.len)
+	if(I.attack_verb && length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
 	else if(!I.force)
 		return

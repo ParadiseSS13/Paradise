@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/holopad/hear_talk(atom/movable/speaker, list/message_pieces, verb)
-	if(speaker && masters.len)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
+	if(speaker && length(masters))//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(masters[master] && speaker != master)
 				master.relay_speech(speaker, message_pieces, verb)
@@ -415,7 +415,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 
 /obj/machinery/hologram/holopad/proc/SetLightsAndPower()
-	var/total_users = masters.len + LAZYLEN(holo_calls)
+	var/total_users = length(masters) + LAZYLEN(holo_calls)
 	change_power_mode(total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	active_power_consumption = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)

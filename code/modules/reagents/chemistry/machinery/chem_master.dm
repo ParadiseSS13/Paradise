@@ -435,7 +435,7 @@
 	data["loaded_pill_bottle"] = loaded_pill_bottle ? TRUE : FALSE
 	if(loaded_pill_bottle)
 		data["loaded_pill_bottle_name"] = loaded_pill_bottle.name
-		data["loaded_pill_bottle_contents_len"] = loaded_pill_bottle.contents.len
+		data["loaded_pill_bottle_contents_len"] = length(loaded_pill_bottle.contents)
 		data["loaded_pill_bottle_storage_slots"] = loaded_pill_bottle.storage_slots
 		data["loaded_pill_bottle_style"] = loaded_pill_bottle.wrapper_color
 
