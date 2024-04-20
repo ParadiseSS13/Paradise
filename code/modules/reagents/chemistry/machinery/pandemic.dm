@@ -29,7 +29,7 @@
 
 /obj/machinery/computer/pandemic/proc/GetViruses()
 	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
+		if(length(beaker.reagents.reagent_list))
 			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
 			if(BL)
 				if(BL.data && BL.data["viruses"])
@@ -43,7 +43,7 @@
 
 /obj/machinery/computer/pandemic/proc/GetResistances()
 	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
+		if(length(beaker.reagents.reagent_list))
 			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
 			if(BL)
 				if(BL.data && BL.data["resistances"])
