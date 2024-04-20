@@ -366,7 +366,7 @@
 	I.color = colour
 	. += I
 
-/obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target)
+/obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target, mob/living/user)
 	var/is_cardborg_head = CARDBORG_BODY
 	if(istype(target, /obj/item/clothing/head/cardborg))    // Differentiating between head and body.
 		is_cardborg_head = CARDBORG_HEAD
@@ -382,7 +382,7 @@
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
 		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
 		)
-	selected_disguise = show_radial_menu(usr, target, disguise_options, require_near = TRUE, radius = 42)
+	selected_disguise = show_radial_menu(user, target, disguise_options, require_near = TRUE, radius = 42)
 
 	if(!selected_disguise)
 		return
@@ -398,7 +398,7 @@
 		"Death Bot" = list(/obj/item/clothing/head/cardborg/deathbot, /obj/item/clothing/suit/cardborg/deathbot)
 	)
 	selected_disguise = disguise_spraypaint_items[selected_disguise][is_cardborg_head]
-	playsound(usr, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
 	new selected_disguise(get_turf(target)) 	// Spawn the desired cardborg item.
 	qdel(target)							// Get rid of the old one.
 

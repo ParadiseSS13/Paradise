@@ -21,7 +21,9 @@ CONTENTS:
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS
 	flags_cover = HEADCOVERSEYES
-	species_disguise = "High-tech robot"	// You appear to be this when examined instead of your mob's actual species.
+	// You appear to be this when examined instead of your mob's actual species. Also used to verify the helmet and suit are in a matching set.
+	species_disguise = "High-tech robot"
+	/// All the borg skins that this can disguise you as.
 	var/list/available_disguises = list("Standard")
 	// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
@@ -38,72 +40,72 @@ CONTENTS:
 	desc = "A helmet made out of a box. This one has been spray-painted red."
 	icon_state = "cardborg_h_security"
 	item_state = "cardborg_h_security"
+	dog_fashion = /datum/dog_fashion/head/cardborg/security
 	available_disguises = list("secborg", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC", "heavySec")
 	species_disguise = "High-tech security robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/security
 
 /obj/item/clothing/head/cardborg/engineering
 	name = "orange cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted orange."
 	icon_state = "cardborg_h_engineering"
 	item_state = "cardborg_h_engineering"
+	dog_fashion = /datum/dog_fashion/head/cardborg/engineering
 	available_disguises = list("Engineering", "engineerrobot", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI")
 	species_disguise = "High-tech engineering robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/engineering
 
 /obj/item/clothing/head/cardborg/mining
 	name = "brown cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted brown."
 	icon_state = "cardborg_h_mining"
 	item_state = "cardborg_h_mining"
+	dog_fashion = /datum/dog_fashion/head/cardborg/mining
 	available_disguises = list("Miner_old", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland", "squatminer", "coffinMiner")
 	species_disguise = "High-tech mining robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/mining
 
 /obj/item/clothing/head/cardborg/service
 	name = "green cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted green."
 	icon_state = "cardborg_h_service"
 	item_state = "cardborg_h_service"
+	dog_fashion = /datum/dog_fashion/head/cardborg/service
 	available_disguises = list("Service", "toiletbot", "Brobot", "maximillion", "Service2", "Standard-Serv", "Noble-SRV", "Cricket-SERV")
 	species_disguise = "High-tech service robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/service
 
 /obj/item/clothing/head/cardborg/medical
 	name = "blue cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted blue."
 	icon_state = "cardborg_h_medical"
 	item_state = "cardborg_h_medical"
+	dog_fashion = /datum/dog_fashion/head/cardborg/medical
 	available_disguises = list("Medbot", "surgeon", "droid-medical", "medicalrobot", "Standard-Medi", "Noble-MED", "Cricket-MEDI", "qualified_doctor")
 	species_disguise = "High-tech medical robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/medical
 
 /obj/item/clothing/head/cardborg/janitor
 	name = "purple cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted purple."
 	icon_state = "cardborg_h_janitor"
 	item_state = "cardborg_h_janitor"
+	dog_fashion = /datum/dog_fashion/head/cardborg/janitor
 	available_disguises = list("JanBot2", "janitorrobot", "mopgearrex", "Standard-Jani", "Noble-CLN", "Cricket-JANI", "custodiborg")
 	species_disguise = "High-tech janitor robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/janitor
 
 /obj/item/clothing/head/cardborg/xeno
 	name = "white cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted white."
 	icon_state = "cardborg_h_xeno"
 	item_state = "cardborg_h_xeno"
+	dog_fashion = /datum/dog_fashion/head/cardborg/xeno
 	available_disguises = list("xenoborg-state-a")
 	species_disguise = "High-tech alien-hunting robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/xeno
 
 /obj/item/clothing/head/cardborg/deathbot
 	name = "black cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted black."
 	icon_state = "cardborg_h_deathbot"
 	item_state = "cardborg_h_deathbot"
+	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
 	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma")
 	species_disguise = "High-tech killer robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
 
 /*
  * Cardborg Suits.
@@ -113,10 +115,10 @@ CONTENTS:
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them."
 	icon_state = "cardborg"
 	item_state = "cardborg"
+	dog_fashion = /datum/dog_fashion/back
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 	species_disguise = "High-tech robot"
-	dog_fashion = /datum/dog_fashion/back
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
 	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be percieved as being an actual robot by other robots, \
 	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
