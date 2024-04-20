@@ -387,21 +387,22 @@
 		return FALSE
 	return ..()
 
-/obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/encryptionkey/))
+/obj/item/radio/headset/attackby(obj/item/key, mob/user)
+	if(istype(key, /obj/item/encryptionkey/))
 
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
 
+		if(!user.unEquip(key))
+			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
+			return
+
+		key.forceMove(src)
 		if(!keyslot1)
-			user.drop_item()
-			W.loc = src
-			keyslot1 = W
+			keyslot1 = key
 		else
-			user.drop_item()
-			W.loc = src
-			keyslot2 = W
+			keyslot2 = key
 
 		recalculateChannels()
 		return
@@ -489,11 +490,11 @@
 
 /obj/item/radio/headset/proc/setupRadioDescription()
 	var/radio_text = ""
-	for(var/i = 1 to channels.len)
+	for(var/i = 1 to length(channels))
 		var/channel = channels[i]
 		var/key = get_radio_key_from_channel(channel)
 		radio_text += "[key] - [channel]"
-		if(i != channels.len)
+		if(i != length(channels))
 			radio_text += ", "
 
 	radio_desc = radio_text

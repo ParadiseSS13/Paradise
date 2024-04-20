@@ -116,9 +116,9 @@
 		. += dent_decals
 		return
 
-	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
-	if(overlay > damage_overlays.len)
-		overlay = damage_overlays.len
+	var/overlay = round(damage / damage_cap * length(damage_overlays)) + 1
+	if(overlay > length(damage_overlays))
+		overlay = length(damage_overlays)
 
 	if(length(dent_decals))
 		. += dent_decals
@@ -127,9 +127,9 @@
 	. += dent_decals
 
 /turf/simulated/wall/proc/generate_overlays()
-	var/alpha_inc = 256 / damage_overlays.len
+	var/alpha_inc = 256 / length(damage_overlays)
 
-	for(var/i = 1; i <= damage_overlays.len; i++)
+	for(var/i = 1; i <= length(damage_overlays); i++)
 		var/image/img = image(icon = 'icons/turf/walls.dmi', icon_state = "overlay_damage")
 		img.blend_mode = BLEND_MULTIPLY
 		img.alpha = (i * alpha_inc) - 1
@@ -421,7 +421,7 @@
 			dismantle_wall()
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+	if((!I.sharp && I.force >= 10) || I.force >= 20)
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE

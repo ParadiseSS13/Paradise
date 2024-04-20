@@ -4,6 +4,9 @@
 	if(!message)
 		return
 
+	if(GLOB.configuration.general.enable_ooc_emoji)
+		message = emoji_parse(message)
+
 	return say_dead(message)
 
 /mob/dead/observer/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)

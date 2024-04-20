@@ -17,7 +17,7 @@
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
 	if(occupant)
-		if(occupant.is_dead())
+		if(occupant.stat == DEAD)
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
@@ -287,7 +287,7 @@
 				implantSubData["name"] = sanitize(I.name)
 				implantData.Add(list(implantSubData))
 		occupantData["implant"] = implantData
-		occupantData["implant_len"] = implantData.len
+		occupantData["implant_len"] = length(implantData)
 
 		var/extOrganData[0]
 		for(var/obj/item/organ/external/E in occupant.bodyparts)
@@ -310,7 +310,7 @@
 				shrapnelData.Add(list(shrapnelSubData))
 
 			organData["shrapnel"] = shrapnelData
-			organData["shrapnel_len"] = shrapnelData.len
+			organData["shrapnel_len"] = length(shrapnelData)
 
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)

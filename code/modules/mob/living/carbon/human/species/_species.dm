@@ -425,7 +425,7 @@
 
 	var/obj/item/organ/external/organ = null
 	if(!spread_damage)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			organ = def_zone
 		else
 			if(!def_zone)
@@ -694,9 +694,6 @@
 		if(INTENT_DISARM)
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
-	return message
-
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
@@ -861,13 +858,13 @@
 		if(SLOT_HUD_IN_BACKPACK)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = H.back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+				if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
 			if(H.back && ismodcontrol(H.back))
 				var/obj/item/mod/control/C = H.back
 				if(C.bag)
 					var/obj/item/storage/backpack/B = C.bag
-					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+					if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 						return TRUE
 			return FALSE
 		if(SLOT_HUD_TIE)

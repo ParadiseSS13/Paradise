@@ -51,7 +51,7 @@
 	/obj/item/food/snacks/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(is_sharp(W))
+	if(W.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
 			return
@@ -101,6 +101,26 @@
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
+
+/*
+ * Punji sticks
+ */
+/obj/structure/punji_sticks
+	name = "punji sticks"
+	desc = "Don't step on this."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "punji"
+	resistance_flags = FLAMMABLE
+	max_integrity = 30
+	anchored = TRUE
+
+/obj/structure/punji_sticks/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 20, 30, 100, 6 SECONDS, CALTROP_BYPASS_SHOES)
+
+/obj/structure/punji_sticks/spikes
+	name = "wooden spikes"
+	icon_state = "woodspike"
 
 /////////BONFIRES//////////
 

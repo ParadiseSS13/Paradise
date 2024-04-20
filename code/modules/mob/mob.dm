@@ -5,10 +5,11 @@
 	input_focus = null
 	if(s_active)
 		s_active.close(src)
-	QDEL_NULL(hud_used)
+	if(!QDELETED(hud_used))
+		QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
-		spellremove(src)
-	mobspellremove(src)
+		spellremove()
+	mobspellremove()
 	QDEL_LIST_CONTENTS(viruses)
 	QDEL_LIST_CONTENTS(actions)
 	for(var/alert in alerts)
@@ -38,6 +39,7 @@
 	reset_perspective(src)
 	prepare_huds()
 	update_runechat_msg_location()
+	ADD_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -138,7 +140,7 @@
 
 /mob/visible_message(message, self_message, blind_message)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M in get_mobs_in_view(3, src))
+		for(var/mob/M as anything in get_mobs_in_view(3, src))
 			if(M.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -150,7 +152,7 @@
 				msg = blind_message
 			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 		return
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -163,7 +165,7 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
@@ -179,7 +181,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -205,7 +207,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)
@@ -271,7 +273,7 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot, initial = FALSE)
-	if(W.mob_can_equip(src, slot, 1))
+	if(W.mob_can_equip(src, slot, TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot, initial)
 	else
@@ -279,12 +281,12 @@
 		if(isstorage(back))
 			var/obj/item/storage/S = back
 			//Now, S represents a container we can insert W into.
-			S.handle_item_insertion(W, TRUE, TRUE)
+			S.handle_item_insertion(W, src, TRUE, TRUE)
 			return S
 		if(ismodcontrol(back))
 			var/obj/item/mod/control/C = back
 			if(C.bag)
-				C.bag.handle_item_insertion(W, TRUE, TRUE)
+				C.bag.handle_item_insertion(W, src, TRUE, TRUE)
 			return C.bag
 
 		var/turf/T = get_turf(src)
@@ -521,7 +523,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(SLOT_HUD_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
-					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
+					if(length(B.contents) < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
 		return 0 //Unsupported slot
@@ -600,20 +602,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
-
-/mob/proc/show_inv(mob/user)
-	user.set_machine(src)
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -731,7 +719,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize(msg, list("\n" = "<BR>"))
 
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
@@ -764,27 +752,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 
-	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE, encode = FALSE)
-
-	if(msg != null)
-		if(stat)
-			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
-			return
-		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = html_encode(msg)
-
-		flavor_text = msg
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
+	if(isnull(msg))
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	flavor_text = msg
 
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
-
-/mob/proc/is_dead()
-	return stat == DEAD
 
 // Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
 /*
@@ -909,26 +892,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["refresh"])
-		if(machine && in_range(src, usr))
-			show_inv(machine)
-
-	if(!usr.incapacitated() && in_range(src, usr))
-		if(href_list["item"])
-			var/slot = text2num(href_list["item"])
-			var/obj/item/what = get_item_by_slot(slot)
-
-			if(what)
-				usr.stripPanelUnequip(what,src,slot)
-			else
-				usr.stripPanelEquip(what,src,slot)
-
-	if(usr.machine == src)
-		if(Adjacent(usr))
-			show_inv(usr)
-		else
-			usr << browse(null,"window=mob\ref[src]")
-
 	if(href_list["flavor_more"])
 		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
@@ -938,16 +901,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(href_list["scoreboard"])
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 
-// The src mob is trying to strip an item from someone
-// Defined in living.dm
-/mob/proc/stripPanelUnequip(obj/item/what, mob/who)
-	return
-
-// The src mob is trying to place an item on someone
-// Defined in living.dm
-/mob/proc/stripPanelEquip(obj/item/what, mob/who)
-	return
-
 /mob/MouseDrop(mob/M as mob, src_location, over_location, src_control, over_control, params)
 	if((M != usr) || !istype(M))
 		..()
@@ -956,7 +909,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
 			return // Stops pAI drones and small mobs (parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip)
+	if(!HAS_TRAIT(M, TRAIT_CAN_STRIP))
 		return
 	if(usr == src)
 		return
@@ -967,7 +920,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
-	show_inv(usr)
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, M, usr)
 
 /mob/proc/can_use_hands()
 	return
@@ -1160,14 +1113,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
 			add_vomit_floor(TRUE)
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+/mob/proc/AddSpell(datum/spell/S)
 	mob_spell_list += S
 	S.action.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+/mob/proc/RemoveSpell(datum/spell/spell) //To remove a specific spell from a mind
 	if(!spell)
 		return
-	for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
+	for(var/datum/spell/S in mob_spell_list)
 		if(istype(S, spell))
 			qdel(S)
 			mob_spell_list -= S
@@ -1268,8 +1221,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
 	var/new_log = "\[[time_stamp()]] [text]"
 
-	if(target.len)//if there are other logs already present
-		var/previous_log = target[target.len]//get the latest log
+	if(length(target))//if there are other logs already present
+		var/previous_log = target[length(target)]//get the latest log
 		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
 		var/x_sign_position = findtext(previous_log, "x")
 
@@ -1294,7 +1247,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
 			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			target -= target[target.len]//remove the last log
+			target -= target[length(target)]//remove the last log
 
 	target += new_log
 
@@ -1390,7 +1343,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if(L)
 			L.alpha = lighting_alpha
-		var/obj/screen/plane_master/smoke/S = hud_used.plane_masters["[SMOKE_PLANE]"]
+		var/atom/movable/screen/plane_master/smoke/S = hud_used.plane_masters["[SMOKE_PLANE]"]
 		if(S)
 			S.alpha = 255
 			if(sight & SEE_MOBS)

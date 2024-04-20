@@ -162,9 +162,9 @@
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
+	dwidth = 6
+	height = 19
+	width = 12
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -173,9 +173,9 @@
 
 	SSshuttle.stationary += src
 	if(!id)
-		id = "[SSshuttle.stationary.len]"
+		id = "[length(SSshuttle.stationary)]"
 	if(name == "dock")
-		name = "dock[SSshuttle.stationary.len]"
+		name = "dock[length(SSshuttle.stationary)]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -254,7 +254,7 @@
 		register()
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	for(var/i in 1 to all_turfs.len)
+	for(var/i in 1 to length(all_turfs))
 		var/turf/curT = all_turfs[i]
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
@@ -267,9 +267,9 @@
 	SSshuttle.mobile += src
 
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[length(SSshuttle.mobile)]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[length(SSshuttle.mobile)]"
 
 	return 1
 
@@ -284,7 +284,7 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return 0	//0 means we can move
+	return TRUE // TRUE means we can move. Why would it ever be otherwise?
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -393,7 +393,7 @@
 	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
 
 	//remove area surrounding docking port
-	if(areaInstance.contents.len)
+	if(length(areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -414,7 +414,7 @@
 		ripples += new /obj/effect/temp_visual/ripple(i)
 
 /obj/docking_port/mobile/proc/remove_ripples()
-	if(ripples.len)
+	if(length(ripples))
 		for(var/i in ripples)
 			qdel(i)
 		ripples.Cut()
@@ -426,7 +426,7 @@
 
 	var/list/ripple_turfs = list()
 
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -450,7 +450,7 @@
 		if(!check_dock(S1))
 			return -1
 
-		if(canMove())
+		if(!canMove())
 			return -1
 
 	var/obj/docking_port/stationary/S0 = get_docked()
@@ -474,7 +474,7 @@
 	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
-	if(areaInstance.contents.len)
+	if(length(areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -487,7 +487,7 @@
 	//move or squish anything in the way ship at destination
 	roadkill(L0, L1, S1.dir)
 
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -508,6 +508,8 @@
 
 			//move mobile to new location
 			for(var/atom/movable/AM in T0)
+				if(AM.loc != T0) //fix for multi-tile objects
+					continue
 				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
 			if(rotation)
@@ -608,7 +610,7 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
 		if(!T0 || !T1)
@@ -665,7 +667,7 @@
 		destination = null
 
 /obj/docking_port/mobile/proc/check_effects()
-	if(!ripples.len)
+	if(!length(ripples))
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
@@ -833,7 +835,7 @@
 			if(!M.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
-		data["docking_ports_len"] = docking_ports.len
+		data["docking_ports_len"] = length(docking_ports)
 		data["admin_controlled"] = admin_controlled
 	return data
 
@@ -902,13 +904,13 @@
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been received by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
-		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
 
 /obj/machinery/computer/shuttle/white_ship
-	name = "White Ship Console"
-	desc = "Used to control the White Ship."
+	name = "Navigation console"
+	desc = "Used to control the NEV Limulus expeditionary vessel."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
@@ -987,11 +989,11 @@
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		var/obj/O
-		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
+		if(length(underlays))	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
 		T.ChangeTurf(type, keep_icon = FALSE)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state

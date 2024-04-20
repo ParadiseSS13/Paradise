@@ -146,7 +146,7 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !contents.len))
+	if(crit_fail || (!holder && !length(contents)))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -157,7 +157,7 @@
 
 	if(!holder || (holder in src))
 		holder = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)
