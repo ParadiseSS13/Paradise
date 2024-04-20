@@ -32,13 +32,15 @@
 		T = SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
 		span_type = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
+		//show it to the person mentorhelping too
+		to_chat(src, chat_box_mhelp("<span class='[span_type]'><b>[selected_type]</b><br><br>[msg]</span>"), message_type, confidential = TRUE)
 	else
 		T = SStickets.newHelpRequest(src, msg) // Ahelp
 		span_type = "adminhelp"
 		message_type = MESSAGE_TYPE_ADMINPM
+		//show it to the person adminhelping too
+		to_chat(src, chat_box_ahelp("<span class='[span_type]'><b>[selected_type]</b><br><br>[msg]</span>"), message_type, confidential = TRUE)
 
-	//show it to the person adminhelping too
-	to_chat(src, "<span class='[span_type]'>[selected_type]</b>: [msg]</span>", message_type, confidential = TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	switch(selected_type)

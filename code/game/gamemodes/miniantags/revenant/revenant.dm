@@ -162,7 +162,7 @@
 	else
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
-		if(candidates.len)
+		if(length(candidates))
 			theghost = pick(candidates)
 			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
 			key = theghost.key
@@ -192,13 +192,13 @@
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
+	mind.AddSpell(new /datum/spell/night_vision/revenant(null))
+	mind.AddSpell(new /datum/spell/revenant_transmit(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/defile(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/malfunction(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/haunt_object(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
 

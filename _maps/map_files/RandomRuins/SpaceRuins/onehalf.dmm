@@ -1136,20 +1136,6 @@
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
-"df" = (
-/obj/structure/lattice,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "dg" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
@@ -1177,26 +1163,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/abandonedbridge)
 "dl" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "onehalf bridge";
-	name = "bridge blast door"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/ruin/space/onehalf/abandonedbridge)
-"dm" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1796,7 +1762,7 @@ Ab
 cr
 cW
 ch
-dm
+dl
 ac
 aa
 "}
@@ -1905,7 +1871,7 @@ ai
 ai
 ai
 cZ
-df
+ai
 ai
 af
 aa
