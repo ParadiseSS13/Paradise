@@ -335,10 +335,10 @@
 		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
 		return
 	if(istype(target, /obj/item/clothing/head/cardborg))	// Spraypainting your cardborg suit for more fashion options.
-		cardborg_recolor(target)
+		cardborg_recolor(target, user)
 		return
 	if(istype(target, /obj/item/clothing/suit/cardborg))
-		cardborg_recolor(target)
+		cardborg_recolor(target, user)
 		return
 	else
 		if(iscarbon(target))
@@ -369,7 +369,7 @@
 	I.color = colour
 	. += I
 
-/obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target, mob/living/user)
+/obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target, mob/user)
 	var/is_cardborg_head = CARDBORG_BODY
 	if(istype(target, /obj/item/clothing/head/cardborg))    // Differentiating between head and body.
 		is_cardborg_head = CARDBORG_HEAD
