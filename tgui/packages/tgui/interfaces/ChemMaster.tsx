@@ -76,7 +76,6 @@ interface ProductionItemSprite {
 }
 
 interface StaticProductionData {
-  id: number;
   name: string;
   icon: string;
   max_items_amount: number;
@@ -91,7 +90,8 @@ interface NonStaticProductionData {
   placeholder_name?: string;
 }
 
-type ProductionData = StaticProductionData & NonStaticProductionData;
+type ProductionData = StaticProductionData &
+  NonStaticProductionData & { id: string };
 
 enum TransferMode {
   ToDisposals = 0,
@@ -113,7 +113,7 @@ interface ContainerStyle {
 interface ChemMasterData {
   // ui_static
   maxnamelength: number;
-  static_production_data: StaticProductionData[];
+  static_production_data: Record<string, StaticProductionData>;
   containerstyles: ContainerStyle[];
 
   condi: BooleanLike;
@@ -125,8 +125,8 @@ interface ChemMasterData {
   mode: TransferMode;
   printing: BooleanLike;
   modal?: unknown;
-  production_mode: number;
-  production_data: NonStaticProductionData[];
+  production_mode: string;
+  production_data: Record<string, NonStaticProductionData>;
 }
 
 export const ChemMaster = (props, context) => {
@@ -345,10 +345,10 @@ const ChemMasterProductionTabs = (props: {}, context) => {
   const { production_mode, production_data, static_production_data } = data;
   const decideTab = (mode) => {
     if (mode > 0 && mode <= static_production_data.length) {
-      const productionIndex = production_mode - 1;
       const productionData = {
-        ...static_production_data[productionIndex],
-        ...production_data[productionIndex],
+        ...static_production_data[production_mode],
+        ...production_data[production_mode],
+        id: production_mode,
       };
       return <ChemMasterProductionGeneric productionData={productionData} />;
     }
@@ -358,7 +358,7 @@ const ChemMasterProductionTabs = (props: {}, context) => {
   return (
     <>
       <Tabs>
-        {static_production_data.map(({ id, name, icon }) => {
+        {Object.entries(static_production_data).map(([id, { name, icon }]) => {
           return (
             <Tabs.Tab
               key={name}
@@ -475,7 +475,7 @@ const ChemMasterProductionCommon = (
   );
 };
 
-const SpriteStyleButton = (props, context) => {
+const SpriteStyleButton = (props: { icon: string } & BoxProps, context) => {
   const { icon, ...restProps } = props;
   return (
     <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
@@ -484,7 +484,10 @@ const SpriteStyleButton = (props, context) => {
   );
 };
 
-const ChemMasterProductionGeneric = (props, context) => {
+const ChemMasterProductionGeneric = (
+  props: { productionData: ProductionData },
+  context
+) => {
   const { act } = useBackend<ChemMasterData>(context);
   const { id: modeId, set_sprite, sprites } = props.productionData;
   let style_buttons;
@@ -510,7 +513,7 @@ const ChemMasterProductionGeneric = (props, context) => {
   );
 };
 
-const ChemMasterCustomization = (props, context) => {
+const ChemMasterCustomization = (props: {}, context) => {
   const { act, data } = useBackend<ChemMasterData>(context);
   const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } =
     data;

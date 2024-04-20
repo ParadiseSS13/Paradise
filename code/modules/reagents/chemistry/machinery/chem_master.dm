@@ -49,12 +49,17 @@
 	RefreshParts()
 	update_icon()
 	if(condi)
-		production_modes += new /datum/chemical_production_mode/condiment_packs()
-		production_modes += new /datum/chemical_production_mode/condiment_bottles()
+		var/datum/chemical_production_mode/new_mode = new /datum/chemical_production_mode/condiment_packs()
+		production_modes[new_mode.mode_id] = new_mode
+		new_mode = new /datum/chemical_production_mode/condiment_bottles()
+		production_modes[new_mode.mode_id] = new_mode
 	else
-		production_modes += new /datum/chemical_production_mode/pills()
-		production_modes += new /datum/chemical_production_mode/patches()
-		production_modes += new /datum/chemical_production_mode/bottles()
+		var/datum/chemical_production_mode/new_mode = new /datum/chemical_production_mode/pills()
+		production_modes[new_mode.mode_id] = new_mode
+		new_mode = new /datum/chemical_production_mode/patches()
+		production_modes[new_mode.mode_id] = new_mode
+		new_mode = new /datum/chemical_production_mode/bottles()
+		production_modes[new_mode.mode_id] = new_mode
 
 /obj/machinery/chem_master/Destroy()
 	QDEL_NULL(beaker)
@@ -211,15 +216,16 @@
 				printing = FALSE
 		if("set_production_mode")
 			var/new_production_mode = text2num(params["production_mode"])
-			if(isnull(new_production_mode) || new_production_mode < 1 || new_production_mode > length(production_modes))
+			var/datum/chemical_production_mode/M = production_modes[new_production_mode]
+			if(isnull(M))
 				return
 			production_mode = new_production_mode
 
 		if("set_sprite_style")
-			var/production_mode_index = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode_index))
+			var/production_mode_key = text2num(params["production_mode"])
+			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
+			if(isnull(M))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			if(!M.sprites)
 				return
 			var/new_style = text2num(params["style"])
@@ -227,19 +233,19 @@
 				return
 			M.set_sprite = new_style
 		if("set_items_amount")
-			var/production_mode_index = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode_index))
+			var/production_mode_key = text2num(params["production_mode"])
+			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
+			if(isnull(M))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			var/new_amount = text2num(params["amount"])
 			if(isnull(new_amount) || new_amount < 1 || new_amount > M.max_items_amount)
 				return
 			M.set_items_amount = new_amount
 		if("set_items_name")
-			var/production_mode_index = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode_index))
+			var/production_mode_key = text2num(params["production_mode"])
+			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
+			if(isnull(M))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			if(M.set_name == CUSTOM_NAME_DISABLED)
 				return
 			var/new_name = sanitize(params["name"])
@@ -297,10 +303,10 @@
 		if("create_items")
 			if(!reagents.total_volume)
 				return
-			var/production_mode_index = text2num(params["production_mode"])
-			if(ISINDEXSAFE(production_modes, production_mode_index))
+			var/production_mode_key = text2num(params["production_mode"])
+			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
+			if(isnull(M))
 				return
-			var/datum/chemical_production_mode/M = production_modes[production_mode_index]
 			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
 		else
 			return FALSE
@@ -353,7 +359,8 @@
 		data["buffer_reagents"] = list()
 
 	var/production_data = list()
-	for(var/datum/chemical_production_mode/M in production_modes)
+	for(var/key in production_modes)
+		var/datum/chemical_production_mode/M = production_modes[key]
 		var/mode_data = list(
 			"set_items_amount" = M.set_items_amount,
 		)
@@ -363,7 +370,7 @@
 				mode_data["placeholder_name"] = M.get_placeholder_name(reagents)
 		if(M.sprites)
 			mode_data["set_sprite"] = M.set_sprite
-		production_data += list(mode_data)
+		production_data[M.mode_id] = mode_data
 	data["production_data"] = production_data
 
 	data["mode"] = mode
@@ -382,10 +389,9 @@
 	data["maxnamelength"] = MAX_CUSTOM_NAME_LEN
 
 	var/static_production_data = list()
-	var/production_data_indexer = 0
-	for(var/datum/chemical_production_mode/M in production_modes)
+	for(var/key in production_modes)
+		var/datum/chemical_production_mode/M = production_modes[key]
 		var/mode_data = list(
-			"id" = ++production_data_indexer,
 			"name" = M.production_name,
 			"icon" = M.production_icon,
 			"max_items_amount" = M.max_items_amount,
@@ -400,7 +406,7 @@
 					"sprite" = sprite,
 				))
 			mode_data["sprites"] = sprites
-		static_production_data += list(mode_data)
+		static_production_data[M.mode_id] = mode_data
 	data["static_production_data"] = static_production_data
 
 	var/pill_bottle_styles[0]
@@ -499,6 +505,7 @@
 	RefreshParts()
 
 /datum/chemical_production_mode
+	var/mode_id = ""
 	var/production_name = ""
 	/// FontAwesome icon name
 	var/production_icon = ""
@@ -561,6 +568,7 @@
 			P.forceMove(S)
 
 /datum/chemical_production_mode/pills
+	mode_id = "pills"
 	production_name = "Pills"
 	production_icon = "pills"
 	item_type = /obj/item/reagent_containers/pill
@@ -575,6 +583,7 @@
 		sprites += list("pill[i]")
 
 /datum/chemical_production_mode/patches
+	mode_id = "patches"
 	production_name = "Patches"
 	production_icon = "plus-square"
 	item_type = /obj/item/reagent_containers/patch
@@ -605,6 +614,7 @@
 		P.icon_state = "bandaid_med"
 
 /datum/chemical_production_mode/bottles
+	mode_id = "chem_bottles"
 	production_name = "Bottles"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
@@ -617,6 +627,7 @@
 	return reagents.get_master_reagent_name()
 
 /datum/chemical_production_mode/condiment_bottles
+	mode_id = "condi_bottles"
 	production_name = "Bottles"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/condiment
@@ -626,6 +637,7 @@
 	set_name = CUSTOM_NAME_DISABLED
 
 /datum/chemical_production_mode/condiment_packs
+	mode_id = "condi_packets"
 	production_name = "Packet"
 	production_icon = "bacon"
 	item_type = /obj/item/reagent_containers/condiment/pack
