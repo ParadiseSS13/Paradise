@@ -137,7 +137,6 @@
 		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
-	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
