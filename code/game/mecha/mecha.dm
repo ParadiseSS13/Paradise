@@ -1017,6 +1017,7 @@
 ////////  Atmospheric stuff  ////////
 /////////////////////////////////////
 // MARK:  Atmos
+
 /obj/mecha/proc/get_turf_air()
 	var/turf/T = get_turf(src)
 	if(T)
