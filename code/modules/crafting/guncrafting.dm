@@ -120,27 +120,22 @@
 	if(!gunkit_to_use.outcome)
 		to_chat(user, "<span class='warning'>That gunkit can not be used to craft a weapon.</span>")
 		return
+
+	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+	if(!do_after(user, 5 SECONDS, target = user))
+		return
+	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) //Snowflake checking, but I don't want a person with a self assembling kit to be robbed
-		playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-		if(!do_after(user, 5 SECONDS, target = user))
-			return
 		playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		var/obj/item/gun_produceda = new gunkit_to_use.outcome
 		var/obj/item/gun_producedb = new gunkit_to_use.outcome
 		user.unEquip(src)
 		user.put_in_hands(gun_produceda)
 		user.put_in_hands(gun_producedb)
-		qdel(gunkit_to_use)
-		qdel(src)
-		return
-
-	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	if(!do_after(user, 5 SECONDS, target = user))
-		return
-	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	var/obj/item/gun_produced = new gunkit_to_use.outcome
-	user.unEquip(src)
-	user.put_in_hands(gun_produced)
+	else
+		var/obj/item/gun_produced = new gunkit_to_use.outcome
+		user.unEquip(src)
+		user.put_in_hands(gun_produced)
 	qdel(gunkit_to_use)
 	qdel(src)
 
