@@ -131,7 +131,7 @@
 
 /obj/item/gun/energy/lwap/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS)
+	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, movement_cancels_scope = TRUE)
 
 /obj/item/gun/energy/lwap/on_scope_success(mob/living/user)
 	to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
@@ -141,12 +141,6 @@
 /obj/item/gun/energy/lwap/on_scope_end(mob/living/user)
 	select_fire(user)
 	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
-
-/obj/item/gun/energy/lwap/on_mob_move(dir, mob/user)
-	if(HAS_TRAIT(user, TRAIT_SCOPED) && istype(chambered, /obj/item/ammo_casing/energy/laser/sniper/pierce)) //This just makes sure it's our zoom
-		to_chat(user, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
-		var/datum/component/scope/ourscope = GetComponent(/datum/component/scope)
-		ourscope.stop_zooming(user)
 
 /obj/item/gun/energy/lwap/attack_self()
 	return //no manual ammo changing.

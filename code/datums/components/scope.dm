@@ -16,8 +16,10 @@
 	var/attempting_to_scope = FALSE
 	/// Do we let the user scope and click on the middle of their screen?
 	var/allow_middle_click = FALSE
+	/// Do we have the scope cancel on move?
+	var/movement_cancels_scope = FALSE
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, allow_middle_click = FALSE)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, allow_middle_click = FALSE, movement_cancels_scope = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.range_modifier = range_modifier
@@ -25,6 +27,7 @@
 	src.item_action_type = item_action_type
 	src.time_to_scope = time_to_scope
 	src.allow_middle_click = allow_middle_click
+	src.movement_cancels_scope = movement_cancels_scope
 
 
 /datum/component/scope/Destroy(force)
@@ -33,7 +36,7 @@
 	return ..()
 
 /datum/component/scope/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move)) //Checks for being removed for person, not mob movement
 	if(zoom_method == ZOOM_METHOD_WIELD)
 		RegisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_WIELDED), PROC_REF(on_wielded))
 		RegisterSignal(parent, SIGNAL_REMOVETRAIT(TRAIT_WIELDED), PROC_REF(on_unwielded))
@@ -73,6 +76,8 @@
 
 	if(!is_zoomed_in())
 		return
+	if(source.loc != tracker.owner) //Dropped.
+		to_chat(tracker.owner, "<span class='warning'>[parent]'s scope is overloaded by movement and shuts down!</span>")
 	stop_zooming(tracker.owner)
 
 /datum/component/scope/proc/on_action_trigger(datum/action/source)
@@ -165,6 +170,8 @@
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
 	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
+	if(movement_cancels_scope)
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	if(allow_middle_click)
 		RegisterSignal(tracker, COMSIG_CLICK, PROC_REF(generic_click))
 	tracker_owner_ckey = user.ckey
@@ -228,6 +235,7 @@
 
 	if(user.client)
 		animate(user.client, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	QDEL_NULL(tracker)
 	tracker_owner_ckey = null
 	if(istype(parent, /obj/item/gun))
