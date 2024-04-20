@@ -386,7 +386,7 @@
 
 	if(!selected_disguise)
 		return
-	var/static/disguise_spraypaint_items = list(
+	var/static/list/disguise_spraypaint_items = list(
 		"Standard" = list(/obj/item/clothing/head/cardborg, /obj/item/clothing/suit/cardborg),
 		"Security" = list(/obj/item/clothing/head/cardborg/security, /obj/item/clothing/suit/cardborg/security),
 		"Engineering" = list(/obj/item/clothing/head/cardborg/engineering, /obj/item/clothing/suit/cardborg/engineering),

@@ -204,7 +204,7 @@ CONTENTS:
 		if(!istype(H.head, /obj/item/clothing/head/cardborg))
 			return
 		var/obj/item/clothing/head/cardborg/head = H.head
-		src.apply_borg_disguise(user, head)
+		apply_borg_disguise(user, head)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)	
 	..()
@@ -214,7 +214,7 @@ CONTENTS:
 	if(!istype(H) || !istype(borghead))
 		return
 	if(species_disguise != borghead.species_disguise)	// Ensure the head and body are the same colour.
-		to_chat(usr, "<span class='warning'>The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!</span>")
+		to_chat(H, "<span class='warning'>The colours of the cardborg helmet and suit do not match, the disguise is not convincing enough to work!</span>")
 		return
 	var/selected_borg_disguise = pick(borghead.available_disguises)
 	var/selected_borg_eyes
@@ -228,4 +228,4 @@ CONTENTS:
 	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = selected_borg_disguise, loc = H)	// Now you're a robot!
 	I.override = 1
 	I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = "eyes-[selected_borg_eyes]")	// Gotta look realistic! Check to see if the borg type has eyes - if yes, apply them.
-	H.add_alt_appearance("selected_borg_disguise", I, GLOB.silicon_mob_list+H)	// You look like a robot to robots (including yourself because you're totally a robot)!
+	H.add_alt_appearance("selected_borg_disguise", I, GLOB.silicon_mob_list + H)	// You look like a robot to robots (including yourself because you're totally a robot)!
