@@ -981,7 +981,7 @@
 	new /obj/item/clothing/head/helmet/space/skrell/white(src)
 	new /obj/item/clothing/suit/space/skrell/white(src)
 
-/obj/item/storage/box/skrell_suitblack
+/obj/item/storage/box/skrell_suit/black
 	name = "black skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit. This one is black."
 
