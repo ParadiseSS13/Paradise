@@ -792,8 +792,8 @@
 	name = "Restart"
 	id = "restart"
 	result = "restart"
-	required_reagents = list("uplink" = 1, "capulettium_plus" = 1, "synthanol" = 1) // due to illegal state lets give this drink x2 amount
-	result_amount = 6
+	required_reagents = list("uplink" = 1, "capulettium_plus" = 1, "synthanol" = 1)
+	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/triple_citrus
