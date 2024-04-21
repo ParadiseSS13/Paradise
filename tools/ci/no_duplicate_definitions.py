@@ -54,7 +54,7 @@ if __name__ == "__main__":
         if len(value_list) > 1:
             for location in value_list:
                 print_error(f"Found a duplicate definition of {key}.", location.filename, location.lineno)
-                exit_code
+                exit_code = 1
 
     end = time.time()
     print(f"no_duplicate_definitions tests completed in {end - start:.2f}s\n")
