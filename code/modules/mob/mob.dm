@@ -1022,7 +1022,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return
 
 /mob/proc/activate_hand(selhand)
-	return
+	return FALSE
 
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
