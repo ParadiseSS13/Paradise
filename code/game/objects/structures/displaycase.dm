@@ -61,9 +61,7 @@
 		if(!open)
 			. += "<span class='notice'>The ID lock is active, you need to swipe an ID to open it.</span>"
 		else if((broken || open) && showpiece)
-			. += "<span class='notice'>[showpiece] is held up by a holo-field. You can deactivate the field with an open hand.</span>"
-		else if(open)
-			. += "<span class='notice'>You can close the case by swiping your ID.</span>"
+			. += "<span class='notice'>\A [showpiece] is held up by a holo-field. You can take [showpiece] out[broken ? "." : ", or lock [src] with an ID"].</span>"
 
 	if(alert)
 		. += "<span class='notice'>It is hooked up with an anti-theft system.</span>"
@@ -127,6 +125,9 @@
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
+		if(!openable)
+			to_chat(user, "<span class='warning'>There is no ID scanner, looks like this one is sealed shut.</span>")
+			return
 		if(broken)
 			to_chat(user, "<span class='warning'>[src] is broken, the ID lock won't do anything.</span>")
 			return
