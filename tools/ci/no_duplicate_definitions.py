@@ -38,9 +38,6 @@ if __name__ == "__main__":
         with open(code_filepath, encoding="UTF-8") as code:
             filename = code_filepath.split(os.path.sep)[-1]
 
-            # Matches a definition into two groups:
-            # 1: The typepath or /proc (for global procs), required. First character is handled specially, to avoid picking up start-of-line comments.
-            # 2: The name of the proc, if any.
             definition_matcher = re.compile(r'^(\/[\w][\w/]*?)(?: *\/[/*].*)?$')
             for idx, line in enumerate(code):
                 if(rematch_result := re.search(definition_matcher, line)):
