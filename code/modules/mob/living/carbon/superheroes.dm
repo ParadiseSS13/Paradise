@@ -1,8 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/superheroes = list()
-	var/list/datum/mind/supervillains = list()
-	var/list/datum/mind/greyshirts = list()
-
 /datum/superheroes
 	var/name
 	var/desc

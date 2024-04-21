@@ -80,6 +80,15 @@
 	/// The revololution team datum
 	var/datum/team/revolution/rev_team
 
+	/// A list of all the minds with the superhero special role
+	var/list/datum/mind/superheroes = list()
+	/// A list of all the minds with the supervillain special role
+	var/list/datum/mind/supervillains = list()
+	/// A list of all the greyshirt minds
+	var/list/datum/mind/greyshirts = list()
+
+	/// A list of all the minds that have the ERT special role
+	var/list/datum/mind/ert = list()
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
