@@ -836,6 +836,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 - [AffectedArc07](https://github.com/AffectedArc07)
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
+- [DGamerL](https://github.com/DGamerL)
 - [lewcc](https://github.com/lewcc)
 
 ---
@@ -845,7 +846,6 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 - [Burzah](https://github.com/Burzah)
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
-- [DGamerL](https://github.com/DGamerL)
 - [Henri215](https://github.com/Henri215)
 - [lewcc](https://github.com/lewcc)
 - [Sirryan2002](https://github.com/Sirryan2002)
