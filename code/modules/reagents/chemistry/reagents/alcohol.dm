@@ -1395,7 +1395,7 @@
 			if(prob(10))
 				M.say("Rebooting..")
 		if(14)
-			playsound(get_turf(M),'sound/effects/restart-shutdown.ogg', 200, 0)
+			playsound(get_turf(M),'sound/effects/restart-shutdown.ogg', 200)
 		if(15 to 24)
 			update_flags |= M.adjustBruteLoss(-0.3, FALSE, robotic = TRUE)
 			update_flags |= M.adjustFireLoss(-0.3, FALSE, robotic = TRUE)
@@ -1413,7 +1413,7 @@
 			M.SetDruggy(0)
 			if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 				fakerevive(M)
-				playsound(M, 'sound/effects/restart-wakeup.ogg', 200, 0)
+				playsound(M, 'sound/effects/restart-wakeup.ogg', 200)
 			M.resting = FALSE
 			M.stand_up() // wakey wakey
 			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
