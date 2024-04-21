@@ -1385,7 +1385,7 @@
 	switch(rand(1,100))
 		// 1%
 		if(1)
-			SynSpace = /obj/item/clothing/suit/space/hardsuit/syndi
+			SynSpace = /obj/item/mod/control/pre_equipped/nuclear
 		else
 			SynSpace = /obj/item/ammo_casing/c10mm
 	return ..()

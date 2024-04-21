@@ -42,10 +42,8 @@
 /turf/space,
 /area/space)
 "ag" = (
-/obj/machinery/suit_storage_unit{
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/damaged;
-	mask_type = /obj/item/clothing/mask/gas/syndicate;
-	boots_type = /obj/item/clothing/shoes/magboots/syndie
+/obj/machinery/suit_storage_unit/syndicate{
+	state_open = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
@@ -13696,10 +13694,8 @@
 /turf/space,
 /area/space)
 "QC" = (
-/obj/machinery/suit_storage_unit{
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/damaged;
-	mask_type = /obj/item/clothing/mask/gas/syndicate;
-	boots_type = /obj/item/clothing/shoes/magboots/syndie
+/obj/machinery/suit_storage_unit/syndicate{
+	state_open = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
