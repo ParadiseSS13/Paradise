@@ -83,8 +83,6 @@ if __name__ == "__main__":
         print_error(f"File containing the byond define for the SQL version does not exist ({define_path})")
         exit_code = 1
 
-
-
     updates_file, updates_folder_sql = get_sql_folder_version()
 
     if updates_folder_sql <= 0 or not isinstance(updates_folder_sql, int) or updates_file == None:
@@ -97,7 +95,6 @@ if __name__ == "__main__":
         if define_sql != updates_folder_sql:
             print_error(f"Updates file SQL version ({updates_folder_sql}) does not match the byond define SQL version ({define_sql})", define_path)
             exit_code = 1
-
 
     end = time.time()
     print(f"verify_sql_version tests completed in {end - start:.2f}s\n")
