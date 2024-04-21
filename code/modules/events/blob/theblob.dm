@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/bullet_act(obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/kinetic))
 		P.damage /= 2
-	. = ..()
+	return ..()
 
 /obj/structure/blob/proc/Life()
 	return
