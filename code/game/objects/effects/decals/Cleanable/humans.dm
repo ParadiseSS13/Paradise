@@ -236,7 +236,7 @@
 
 /obj/effect/decal/cleanable/blood/writing/Initialize(mapload)
 	. = ..()
-	if(random_icon_states.len)
+	if(length(random_icon_states))
 		for(var/obj/effect/decal/cleanable/blood/writing/W in loc)
 			random_icon_states.Remove(W.icon_state)
 		icon_state = pick(random_icon_states)

@@ -124,7 +124,7 @@
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
-	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
+	list_reagents = list("protein" = 12, "morphine" = 3, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
 /obj/item/food/snacks/monstermeat/xenomeat
@@ -561,6 +561,10 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
+
+/obj/item/food/snacks/organ/Initialize(mapload)
+	. = ..()
+	reagents.add_reagent("nutriment", 5)
 
 /obj/item/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future

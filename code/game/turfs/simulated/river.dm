@@ -44,7 +44,7 @@
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 	var/list/possible_locs = block(locate(min_x, min_y, target_z), locate(max_x, max_y, target_z))
-	while(num_spawned < nodes && possible_locs.len)
+	while(num_spawned < nodes && length(possible_locs))
 		var/turf/T = pick(possible_locs)
 		var/area/A = get_area(T)
 		if(!istype(A, whitelist_area_type) || (T.flags & NO_LAVA_GEN))

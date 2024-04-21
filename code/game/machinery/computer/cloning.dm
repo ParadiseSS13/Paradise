@@ -209,8 +209,8 @@
 
 	data["feedback"] = feedback
 
-	if(feedback && feedback["color"] == "good")
-		data["scan_successful"] = TRUE
+	if(feedback)
+		data["scan_successful"] = feedback["scan_succeeded"]
 	else
 		data["scan_successful"] = FALSE
 
@@ -240,6 +240,8 @@
 		if(scanner?.last_scan && desired_data)
 			var/list/costs = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
 			data["cloning_cost"] = costs
+		else
+			data["cloning_cost"] = list()
 
 	data["pods"] = pod_data
 	data["pod_amount"] = length(pods)
@@ -270,22 +272,22 @@
 		if("clone")
 			var/cost = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
 			if(selected_pod.biomass < cost[BIOMASS_COST] || (selected_pod.reagents.get_reagent_amount("sanguine_reagent") < cost[SANGUINE_COST]) || selected_pod.reagents.get_reagent_amount("osseous_reagent") < cost[OSSEOUS_COST])
-				feedback = list("text" = "The cloning operation is too expensive!", "color" = "bad")
+				feedback = list("text" = "The cloning operation is too expensive!", "color" = "bad", "scan_succeeded" = FALSE)
 			else
 				selected_pod.start_cloning(scanner.last_scan, desired_data)
 				scanner?.update_scan_status()
-				feedback = list("text" = "Beginning cloning operation...", "color" = "good")
+				feedback = list("text" = "Beginning cloning operation...", "color" = "good", "scan_succeeded" = TRUE)
 			return TRUE
 		if("scan")
 			if(!COOLDOWN_FINISHED(src, scancooldown))
-				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "good")
+				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "average", "scan_succeeded" = FALSE)
 				return TRUE
 
 			if(!scanner.occupant)
 				return FALSE
 
 			scanner.occupant.notify_ghost_cloning()
-			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good")
+			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good", "scan_succeeded" = FALSE)
 			COOLDOWN_START(src, scancooldown, 10 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(do_scan), patient_data), 5 SECONDS)
 			return TRUE
@@ -358,24 +360,24 @@
 	var/scanner_result = scanner.try_scan(scanner.occupant)
 	switch(scanner_result)
 		if(SCANNER_MISC)
-			feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
+			feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_UNCLONEABLE_SPECIES)
-			feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
+			feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_HUSKED)
-			feedback = list("text" = "The patient is husked.", "color" = "bad")
+			feedback = list("text" = "The patient is husked.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_ABSORBED)
-			feedback = list("text" = "The patient cannot be scanned due to a lack of biofluids.", "color" = "bad")
+			feedback = list("text" = "The patient cannot be scanned due to a lack of biofluids.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_NO_SOUL)
-			feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
+			feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average", "scan_succeeded" = FALSE)
 		if(SCANNER_BRAIN_ISSUE)
-			feedback = list("text" = "The patient's brain is inactive or missing.", "color" = "bad")
+			feedback = list("text" = "The patient's brain is inactive or missing.", "color" = "bad", "scan_succeeded" = FALSE)
 		else
 			var/datum/cloning_data/scan = scanner_result
 
 			if((scan.mindUID == patient_data?.mindUID) || (scan.mindUID == selected_pod?.patient_data?.mindUID))
-				feedback = list("text" = "Patient has already been scanned.", "color" = "good")
+				feedback = list("text" = "Patient has already been scanned.", "color" = "good", "scan_succeeded" = TRUE)
 				return TRUE
-			feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
+			feedback = list("text" = "Successfully scanned the patient.", "color" = "good", "scan_succeeded" = TRUE)
 			desired_data = generate_healthy_data(scan)
 
 #undef TAB_MAIN
