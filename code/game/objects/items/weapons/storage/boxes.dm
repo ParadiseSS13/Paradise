@@ -990,22 +990,11 @@
 	new /obj/item/clothing/suit/space/skrell/black(src)
 
 /obj/item/storage/box/breacher
-	name = "breacher suit box"
-	desc = "A box containing a unathi battlesuit."
+	name = "unathi breacher suit box"
+	desc = "A box containing a bulky unathi battlesuit."
 	icon_state = "doom_box"
 
-/obj/item/storage/box/breacher/cheap
-	name = "cheap breacher suit box"
-	desc = "A box containing a knock-off unathi battlesuit."
-
-/obj/item/storage/box/breacher/cheap/populate_contents()
-	new /obj/item/clothing/suit/space/unathi/rig_cheap(src)
-	new /obj/item/clothing/head/helmet/space/unathi/helmet_cheap(src)
-
-/obj/item/storage/box/breacher/full
-	desc = "A box containing a bulky unathi battlesuit."
-
-/obj/item/storage/box/breacher/full/populate_contents()
+/obj/item/storage/box/breacher/populate_contents()
 	new /obj/item/clothing/suit/space/unathi/breacher(src)
 	new /obj/item/clothing/head/helmet/space/unathi/breacher(src)
 

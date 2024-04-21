@@ -515,7 +515,6 @@
 				/obj/item/flag/species/unathi = 20,
 				/obj/item/clothing/suit/armor/riot/knight/templar = 40,
 				/obj/item/clothing/head/helmet/riot/knight/templar = 40,
-				/obj/item/storage/box/breacher/cheap = 30,
 				/obj/item/clothing/suit/unathi/robe = 20
 				)
 
@@ -524,7 +523,7 @@
 	lootcount = 3
 	loot = list(
 				/obj/item/melee/energy/sword/pirate = 30,
-				/obj/item/storage/box/breacher/full = 30,
+				/obj/item/storage/box/breacher = 30,
 				/obj/item/fireaxe = 50,
 				/obj/item/fireaxe/boneaxe = 50,
 				/obj/item/gun/energy/kinetic_accelerator/crossbow/large = 10 //Big ebow.
@@ -627,7 +626,6 @@
 				/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened = 10,
 				/obj/item/organ/internal/cyberimp/arm/gun/laser = 10,
 				/obj/item/fireaxe = 10,
-				/obj/item/storage/box/breacher/cheap = 10,
 				/obj/item/gun/projectile/revolver/nagant = 10,
 				/obj/item/bio_chip/storage = 10,
 				/obj/item/rcd/combat = 10
