@@ -30,19 +30,19 @@
 	new_body.forceMove(parent)
 
 /datum/component/construct_held_body/proc/_null_held_body()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	UnregisterSignal(held_body, COMSIG_PARENT_QDELETING)
 	held_body = null
 
 /datum/component/construct_held_body/proc/transfer_held_body(mob/living/current_parent, mob/living/new_body_holder)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_SHADE_TO_CONSTRUCT_TRANSFER
 	new_body_holder.TakeComponent(src)
 
 /datum/component/construct_held_body/proc/drop_body()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH + COMSIG_PARENT_QDELETING
 	INVOKE_ASYNC(src, PROC_REF(_drop_body))
 
-/datum/component/construct_held_body/proc/_drop_body() // random name so no one ever calls this :)
+/datum/component/construct_held_body/proc/_drop_body() // call me lazy ig
 	if(!held_body) // Null check for empty bodies
 		return
 	var/mob/living/parent_mob = parent
