@@ -1373,7 +1373,7 @@
 /datum/reagent/consumable/ethanol/synthanol/restart
 	name = "Restart"
 	id = "restart"
-	description = "Sometimes you just need to start anew"
+	description = "Sometimes you just need to start anew."
 	color = "#0026fc"
 	reagent_state = LIQUID
 	process_flags = SYNTHETIC
