@@ -51,7 +51,7 @@
 	if(steps >= 1)
 		step(src,direction)
 		steps--
-	for(var/mob/living/carbon/M in range(1,src))
+	for(var/mob/living/carbon/M in range(1, src))
 		smoke_mob(M)
 	return TRUE
 
