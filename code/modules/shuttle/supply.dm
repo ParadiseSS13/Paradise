@@ -225,6 +225,7 @@
 
 	return CARGO_OK
 
+
 /obj/docking_port/mobile/supply/proc/sell()
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SELL)
 	SSeconomy.sold_atoms = list()
@@ -488,6 +489,22 @@
 		return
 
 	var/obj/item/paper/manifest/slip = AM
+
+	var/error = FALSE
+	if(/obj/item/stamp/denied in slip.stamped)
+		error = "Package [slip.ordernumber] rejected. A Nanotrasen supply department official will reach out to you in 2-3 business days."
+		SSblackbox.record_feedback("tally", "cargo manifests rejected", 1, "amount")
+	else if(!(/obj/item/stamp/granted in slip.stamped))
+		error = "Received unstamped manifest for package [slip.ordernumber]. Remember to stamp all manifests before returning them."
+		SSblackbox.record_feedback("tally", "cargo manifests not stamped", 1, "amount")
+
+	if(error)
+		var/datum/economy/line_item/item = new
+		item.account = SSeconomy.cargo_account
+		item.credits = 0
+		item.reason = error
+		manifest.line_items += item
+		return
 
 	var/datum/economy/line_item/item = new
 	item.account = SSeconomy.cargo_account
@@ -793,6 +810,7 @@
 	var/zero_is_good = FALSE
 
 #undef MAX_CRATE_DELIVERY
+
 #undef CARGO_OK
 #undef CARGO_PREVENT_SHUTTLE
 #undef CARGO_SKIP_ATOM

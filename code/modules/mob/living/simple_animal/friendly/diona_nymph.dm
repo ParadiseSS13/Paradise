@@ -173,7 +173,7 @@
 	if(stat != CONSCIOUS)
 		return FALSE
 
-	if(donors.len < evolve_donors)
+	if(length(donors) < evolve_donors)
 		to_chat(src, "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>")
 		return FALSE
 
@@ -259,12 +259,12 @@
 		update_progression()
 
 /mob/living/simple_animal/diona/proc/update_progression()
-	if(stat != CONSCIOUS || !donors.len)
+	if(stat != CONSCIOUS || !length(donors))
 		return FALSE
 
-	if(donors.len == evolve_donors)
+	if(length(donors) == evolve_donors)
 		to_chat(src, "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>")
-	else if(donors.len == awareness_donors)
+	else if(length(donors) == awareness_donors)
 		universal_understand = TRUE
 		to_chat(src, "<span class='noticealien'>You feel your awareness expand, and realize you know how to understand the creatures around you.</span>")
 	else

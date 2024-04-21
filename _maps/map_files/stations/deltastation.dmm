@@ -682,11 +682,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "age" = (
@@ -1409,10 +1405,7 @@
 /area/station/maintenance/fore2)
 "alR" = (
 /obj/structure/chair/stool,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2651,11 +2644,7 @@
 /area/station/command/customs)
 "apW" = (
 /obj/structure/table,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/kitchen_machine/microwave,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -2676,11 +2665,7 @@
 	},
 /area/station/command/customs)
 "apY" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -4055,11 +4040,7 @@
 "atz" = (
 /obj/structure/closet/secure_closet,
 /obj/item/storage/secure/briefcase,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -4091,11 +4072,7 @@
 	},
 /area/station/command/customs)
 "atC" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
@@ -4153,11 +4130,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "atI" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4347,11 +4320,7 @@
 /area/station/engineering/controlroom)
 "auh" = (
 /obj/structure/table/wood,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/item/circuitboard/microwave,
 /obj/item/stack/sheet/glass{
 	pixel_x = 5;
@@ -4767,11 +4736,7 @@
 /area/station/maintenance/fore2)
 "avq" = (
 /obj/structure/table/wood,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/toy/flash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
@@ -5475,11 +5440,7 @@
 /area/station/engineering/controlroom)
 "awU" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/clothing/suit/radiation,
 /obj/item/clothing/head/radiation,
 /obj/structure/cable{
@@ -5775,11 +5736,7 @@
 	},
 /area/station/maintenance/disposal)
 "axC" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6290,11 +6247,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/item/lightreplacer,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "azk" = (
@@ -6497,10 +6450,7 @@
 /area/station/supply/storage)
 "azH" = (
 /obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6874,11 +6824,7 @@
 	},
 /area/station/public/toilet)
 "aAE" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7368,11 +7314,7 @@
 	},
 /area/station/security/permasolitary)
 "aBG" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8246,10 +8188,7 @@
 	dir = 1;
 	name = "Gas to Chamber"
 	},
-/obj/machinery/alarm/engine{
-	dir = 8;
-	pixel_x = 24
-	},
+/obj/machinery/alarm/engine/directional/east,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "aEj" = (
@@ -9222,11 +9161,7 @@
 	},
 /area/station/hallway/primary/fore/east)
 "aGJ" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -9431,6 +9366,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "aHr" = (
@@ -9741,6 +9677,7 @@
 "aIl" = (
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -9856,10 +9793,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/incinerator)
 "aIx" = (
@@ -10795,11 +10729,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "aKZ" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
@@ -11070,11 +11000,7 @@
 /area/station/maintenance/starboard)
 "aLL" = (
 /obj/machinery/disposal,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
@@ -11562,11 +11488,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -11620,11 +11542,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/camera{
 	c_tag = "Cargo Break Room";
 	dir = 8
@@ -11876,11 +11794,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/computer/sm_monitor{
 	dir = 8
 	},
@@ -12195,11 +12109,7 @@
 	},
 /area/station/security/permabrig)
 "aPf" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -13295,11 +13205,7 @@
 /area/station/supply/sorting)
 "aRO" = (
 /obj/item/kirbyplants,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -14368,11 +14274,7 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
@@ -16480,11 +16382,7 @@
 	},
 /area/station/supply/qm)
 "aZA" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Quartermaster Office";
 	dir = 1
@@ -16545,10 +16443,7 @@
 	c_tag = "Perma-Brig Hallway Port";
 	network = list("SS13","Security")
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -17019,11 +16914,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/autolathe,
 /obj/machinery/light_switch{
 	dir = 4;
@@ -17428,10 +17319,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -18176,11 +18064,7 @@
 	},
 /area/station/service/kitchen)
 "bdN" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/rack,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
@@ -18236,10 +18120,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -18601,11 +18482,7 @@
 	},
 /area/station/service/kitchen)
 "bff" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -18854,11 +18731,7 @@
 	},
 /area/station/security/permabrig)
 "bfW" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -19053,6 +18926,7 @@
 "bgB" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19374,6 +19248,13 @@
 /area/station/hallway/primary/fore/south)
 "bhH" = (
 /obj/machinery/smartfridge,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 8;
+	name = "kitchen ingredient storage"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (
@@ -19452,6 +19333,7 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19763,10 +19645,7 @@
 	},
 /area/station/security/brig)
 "bix" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -20117,11 +19996,7 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -20882,8 +20757,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blk" = (
-/obj/item/food/snacks/mint,
-/obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/reagentgrinder,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -21207,11 +21080,7 @@
 /obj/structure/table,
 /obj/item/taperecorder,
 /obj/item/restraints/handcuffs,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -23804,10 +23673,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -24061,11 +23927,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/suit_storage_unit/atmos/secure,
 /obj/machinery/light{
 	dir = 8
@@ -24757,10 +24619,7 @@
 "bvl" = (
 /obj/machinery/computer/shuttle/labor,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -24927,11 +24786,7 @@
 	},
 /area/station/engineering/atmos/distribution)
 "bvG" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Distribution";
 	dir = 1;
@@ -25629,11 +25484,7 @@
 /area/station/security/prisonershuttle)
 "bxy" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -26813,11 +26664,7 @@
 	},
 /area/station/command/bridge)
 "bAI" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/light/small,
 /obj/structure/closet/crate,
 /obj/item/storage/belt/champion,
@@ -26941,10 +26788,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
 "bBg" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -27144,11 +26988,7 @@
 	},
 /area/station/engineering/break_room)
 "bBI" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -27163,11 +27003,7 @@
 	},
 /area/station/engineering/atmos)
 "bBK" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/computer/station_alert{
 	dir = 1
 	},
@@ -28654,11 +28490,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -29032,11 +28864,7 @@
 	},
 /area/station/hallway/primary/central)
 "bFN" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -29308,11 +29136,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "bGv" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -29601,11 +29425,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -29667,11 +29487,7 @@
 /area/station/engineering/tech_storage)
 "bGY" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
 /obj/item/stock_parts/scanning_module,
@@ -29833,14 +29649,6 @@
 	pixel_y = -24;
 	req_one_access_txt = "75"
 	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_x = -30;
-	pixel_y = -30
-	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bHt" = (
@@ -29888,10 +29696,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain)
 "bHy" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "bHA" = (
@@ -30018,7 +29823,6 @@
 	},
 /area/station/security/detective)
 "bHQ" = (
-/obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
 /obj/item/pen,
@@ -31308,11 +31112,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bLg" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bLh" = (
@@ -31456,11 +31256,7 @@
 	},
 /area/station/security/checkpoint)
 "bLy" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31553,11 +31349,7 @@
 	c_tag = "Brig - Officer's Lockers";
 	network = list("SS13","Security")
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -31665,11 +31457,7 @@
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
@@ -32923,11 +32711,7 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -33018,11 +32802,7 @@
 /obj/machinery/computer/security{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -33150,10 +32930,7 @@
 /area/station/turret_protected/aisat)
 "bPH" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/cable{
 	d1 = 2;
@@ -33481,10 +33258,7 @@
 /turf/simulated/wall,
 /area/station/public/storage/tools)
 "bQC" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/teleport/hub,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -33517,11 +33291,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bQH" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Command Meeting Room";
 	dir = 1
@@ -33542,11 +33312,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bQK" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/porta_turret{
 	dir = 4
 	},
@@ -34888,11 +34654,7 @@
 /area/station/engineering/ai_transit_tube)
 "bUf" = (
 /obj/item/kirbyplants,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -35848,11 +35610,7 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -35904,11 +35662,7 @@
 	},
 /area/station/hallway/primary/port/west)
 "bWI" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/suit_storage_unit/ce/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -36009,11 +35763,7 @@
 	},
 /area/station/hallway/primary/starboard/west)
 "bXf" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -36030,11 +35780,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -36249,11 +35995,7 @@
 "bXK" = (
 /obj/item/kirbyplants,
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36422,11 +36164,7 @@
 /turf/simulated/wall,
 /area/station/service/library)
 "bYo" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -37254,10 +36992,7 @@
 	},
 /area/station/legal/courtroom)
 "caC" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -37328,10 +37063,7 @@
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/iaa,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/item/storage/secure/briefcase,
 /obj/item/storage/briefcase,
 /turf/simulated/floor/wood,
@@ -38099,6 +37831,15 @@
 	icon_state = "neutral"
 	},
 /area/station/legal/courtroom)
+"ccx" = (
+/obj/structure/table/reinforced,
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat)
 "ccy" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -38644,11 +38385,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain/bedroom)
 "cdV" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "cdW" = (
@@ -39162,11 +38899,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "cfr" = (
@@ -39414,10 +39147,7 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cgg" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -39438,11 +39168,7 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cgi" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cgj" = (
@@ -39548,11 +39274,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "cgC" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -40193,11 +39915,7 @@
 /area/station/command/office/hop)
 "ciE" = (
 /obj/structure/bed/dogbed/ian,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -40223,11 +39941,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "ciH" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "NT Representative's Office";
 	dir = 1
@@ -40304,11 +40018,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "ciP" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Blueshield's Office";
 	dir = 1
@@ -40879,6 +40589,16 @@
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/teleporter)
+"ckB" = (
+/obj/machinery/power/apc/directional/north,
+/obj/structure/table,
+/obj/item/hand_tele,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
@@ -41714,11 +41434,7 @@
 /area/station/security/range)
 "cmF" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/gun/energy/laser/practice,
 /obj/item/gun/energy/laser/practice,
 /obj/item/clothing/ears/earmuffs,
@@ -42121,11 +41837,7 @@
 /area/station/hallway/primary/central/east)
 "cnD" = (
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -42476,11 +42188,7 @@
 "coI" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -43569,11 +43277,7 @@
 /area/station/service/library)
 "crp" = (
 /obj/structure/table/wood,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/librarian,
 /turf/simulated/floor/plasteel/grimy,
@@ -43968,11 +43672,7 @@
 	name = "solar pack crate"
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "csA" = (
@@ -44135,9 +43835,10 @@
 	},
 /area/station/hallway/primary/central)
 "csV" = (
+/obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "brown"
+	icon_state = "browncorner"
 	},
 /area/station/supply/expedition)
 "csW" = (
@@ -44349,11 +44050,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -44509,6 +44206,21 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/expedition)
+"cul" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/machinery/power/apc/directional/north,
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/station/supply/expedition)
 "cum" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -44526,11 +44238,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -44857,11 +44565,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cuV" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -45189,11 +44893,7 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "cvX" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -45389,10 +45089,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Library Backroom";
-	dir = 4
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -45457,11 +45153,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cwM" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
@@ -45635,10 +45327,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cxk" = (
-/obj/structure/table/reinforced,
-/obj/item/pizzabox/firecracker,
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "browncorner"
+	},
 /area/station/supply/expedition)
 "cxl" = (
 /obj/machinery/recharge_station,
@@ -45722,11 +45419,7 @@
 /area/station/public/locker)
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -45877,11 +45570,7 @@
 /area/station/ai_monitored/storage/eva)
 "cxR" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/clothing/shoes/magboots{
 	pixel_x = 4;
 	pixel_y = 4
@@ -46110,15 +45799,11 @@
 	},
 /area/station/supply/expedition)
 "cyx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
-	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cyy" = (
 /obj/machinery/camera{
@@ -46322,10 +46007,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "cyV" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "cyW" = (
@@ -46723,11 +46405,7 @@
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "czT" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -46839,11 +46517,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "cAj" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "cAl" = (
@@ -46875,11 +46549,7 @@
 /area/station/public/sleep)
 "cAp" = (
 /obj/machinery/cryopod/right,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -47060,11 +46730,7 @@
 /area/station/maintenance/port)
 "cAT" = (
 /obj/structure/table/wood,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
@@ -47205,11 +46871,7 @@
 /area/station/ai_monitored/storage/eva)
 "cBm" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/stack/rods{
 	amount = 8
 	},
@@ -47281,10 +46943,7 @@
 /area/station/science/robotics/showroom)
 "cBv" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/pizzabox/firecracker,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
@@ -47319,7 +46978,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "browncorner"
+	},
 /area/station/supply/expedition)
 "cBD" = (
 /obj/machinery/hologram/holopad,
@@ -47743,7 +47405,11 @@
 	},
 /area/station/supply/expedition)
 "cCX" = (
-/turf/simulated/floor/plasteel,
+/obj/machinery/economy/vending/exploredrobe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "browncorner"
+	},
 /area/station/supply/expedition)
 "cCY" = (
 /obj/machinery/door/firedoor,
@@ -47766,10 +47432,6 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "cDa" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cDb" = (
@@ -47811,7 +47473,7 @@
 /obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "browncorner"
+	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "cDg" = (
@@ -48244,11 +47906,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -50237,10 +49895,7 @@
 /area/station/maintenance/electrical)
 "cJU" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
@@ -51238,11 +50893,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -51846,11 +51497,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "cQf" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "cQg" = (
@@ -51864,11 +51511,7 @@
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
 "cQh" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
 "cQi" = (
@@ -53784,11 +53427,7 @@
 /area/station/science/research)
 "cWM" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/item/stock_parts/matter_bin{
 	pixel_x = 3;
 	pixel_y = 3
@@ -54123,11 +53762,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cYD" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12
@@ -54179,11 +53814,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -55928,11 +55559,7 @@
 	},
 /area/station/maintenance/apmaint)
 "deG" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "deI" = (
@@ -56291,11 +55918,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "dgs" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -56746,11 +56369,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
@@ -56920,11 +56539,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -57345,11 +56960,7 @@
 /area/station/maintenance/abandonedbar)
 "dkw" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/item/stock_parts/matter_bin,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
@@ -57589,11 +57200,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "dle" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -58192,11 +57799,7 @@
 /area/station/medical/chemistry)
 "dnK" = (
 /obj/machinery/computer/scan_consolenew,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -58846,11 +58449,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "drf" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "drg" = (
@@ -59288,11 +58887,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "dte" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -59669,11 +59264,7 @@
 "duV" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/machinery/light/small,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "duX" = (
@@ -59874,11 +59465,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/server)
 "dwj" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/computer/rdservercontrol{
 	dir = 4
 	},
@@ -61356,11 +60943,7 @@
 /area/station/maintenance/theatre)
 "dDK" = (
 /obj/item/kirbyplants,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/wood,
 /area/station/maintenance/theatre)
 "dDM" = (
@@ -61580,10 +61163,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/item/kirbyplants,
 /obj/machinery/newscaster{
 	dir = 8;
@@ -62849,11 +62429,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dMS" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -63278,11 +62854,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel)
 "dOZ" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -63654,11 +63226,7 @@
 /area/station/medical/medbay)
 "dQh" = (
 /obj/structure/morgue,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dQi" = (
@@ -63932,11 +63500,7 @@
 /area/station/hallway/secondary/exit)
 "dRm" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/item/stack/cable_coil/random,
 /obj/item/multitool,
 /obj/item/clothing/suit/fire/firefighter,
@@ -63965,11 +63529,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "dRp" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
@@ -64255,10 +63815,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dSk" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dSm" = (
@@ -64986,11 +64543,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
 "dUN" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -65071,11 +64624,7 @@
 /area/station/hallway/primary/central)
 "dUY" = (
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
@@ -67232,11 +66781,7 @@
 "eGT" = (
 /obj/structure/table/wood,
 /obj/machinery/fishtank/bowl,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "eHg" = (
@@ -67449,10 +66994,7 @@
 	pixel_x = 8;
 	pixel_y = 10
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -67746,11 +67288,7 @@
 	},
 /area/station/security/storage)
 "eVW" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -67776,11 +67314,7 @@
 /area/station/supply/storage)
 "eWX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -69210,11 +68744,7 @@
 	pixel_y = -2
 	},
 /obj/item/clothing/ears/earmuffs,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -69377,10 +68907,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "fRb" = (
@@ -69487,11 +69014,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -70023,22 +69546,14 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "gnB" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
@@ -71620,11 +71135,7 @@
 /area/station/security/prison/cell_block)
 "hpD" = (
 /obj/structure/table/glass,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -71935,11 +71446,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "hzW" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/economy/vending/shoedispenser,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
@@ -72099,7 +71606,7 @@
 /area/station/security/evidence)
 "hFE" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /turf/space,
@@ -72306,11 +71813,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -72698,11 +72201,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "hZO" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -74285,10 +73784,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -74441,16 +73937,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/fitness)
-"jcf" = (
-/obj/structure/table/reinforced,
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/hand_tele,
-/obj/machinery/power/apc/directional/south,
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat)
 "jcP" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
@@ -74990,18 +74476,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
-"jtP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
-	},
-/area/station/supply/expedition)
 "juA" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -75072,11 +74546,7 @@
 	},
 /area/station/hallway/primary/port/west)
 "jzc" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -75135,11 +74605,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/meeting_room)
 "jAP" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -75194,10 +74660,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "jCu" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -75469,11 +74932,7 @@
 	dir = 4;
 	network = list("Research","SS13")
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -75632,11 +75091,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -75773,11 +75228,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/economy/vending/robodrobe,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -75814,11 +75265,7 @@
 	},
 /area/station/engineering/control)
 "jTJ" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/structure/table,
 /obj/item/storage/firstaid/fire{
 	pixel_x = 3;
@@ -76811,11 +76258,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -76978,7 +76421,6 @@
 	},
 /area/station/public/locker)
 "kGo" = (
-/obj/structure/table/glass,
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/plasteel{
@@ -78465,18 +77907,9 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/break_room)
-"lzR" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/wall,
-/area/station/hallway/primary/central)
 "lzY" = (
 /obj/structure/table/wood,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/clothing/gloves/color/black,
 /obj/item/taperecorder,
 /turf/simulated/floor/plasteel/dark,
@@ -79638,15 +79071,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"mmZ" = (
-/obj/structure/table,
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/command/teleporter)
 "mnr" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -80628,10 +80052,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
 "mSV" = (
@@ -81225,11 +80646,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "nhT" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
 	name = "Area control access";
@@ -81553,10 +80970,7 @@
 /obj/effect/turf_decal{
 	dir = 9
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "npn" = (
@@ -81698,6 +81112,13 @@
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass,
 /area/station/medical/medbay)
+"nsD" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/station/supply/expedition)
 "ntt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -81777,11 +81198,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82249,11 +81666,7 @@
 /area/station/science/genetics)
 "nJE" = (
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -82438,6 +81851,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
+"nRs" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = -30;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/station/command/bridge)
 "nRv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82785,10 +82211,7 @@
 /area/station/security/storage)
 "ocR" = (
 /obj/structure/table/glass,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -83402,16 +82825,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fore2)
-"otq" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "otH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/light{
@@ -83546,10 +82959,7 @@
 	},
 /area/station/hallway/primary/central/east)
 "oyD" = (
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -83601,10 +83011,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -84324,6 +83731,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
+"oVl" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/supply/expedition)
 "oVu" = (
 /obj/structure/morgue,
 /obj/machinery/light/small,
@@ -84463,11 +83874,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -84708,6 +84115,7 @@
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -85327,11 +84735,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pBJ" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/camera{
 	c_tag = "Medbay Cloning";
 	dir = 8;
@@ -85692,11 +85096,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "pLm" = (
-/obj/structure/closet/secure_closet/explorer,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "pLs" = (
 /obj/machinery/hologram/holopad,
@@ -87121,21 +86527,6 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"qJu" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/machinery/power/apc/directional/north,
-/obj/effect/landmark/start/explorer,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/station/supply/expedition)
 "qJA" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -87953,10 +87344,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "rfw" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -88083,11 +87471,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "rkq" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -88115,11 +87499,7 @@
 	},
 /area/station/security/warden)
 "rkF" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -89232,10 +88612,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "rSe" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
@@ -89335,11 +88712,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "rWL" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -89830,11 +89203,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "sgq" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -90440,10 +89809,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
-"stt" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/supply/expedition)
 "stv" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -91251,11 +90616,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "sPS" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/power/solar_control{
 	dir = 8;
 	name = "Aft Starboard Solar Control"
@@ -91310,10 +90671,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -91395,10 +90753,7 @@
 /area/station/medical/break_room)
 "sSH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "sTk" = (
@@ -92404,10 +91759,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
 "tDQ" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/chem_master/condimaster,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -92429,10 +91781,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "tDU" = (
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -92621,11 +91970,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "tIT" = (
@@ -93203,11 +92548,7 @@
 /obj/item/bedsheet/medical,
 /obj/machinery/iv_drip,
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -93257,6 +92598,11 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fsmaint)
+"uaS" = (
+/obj/machinery/economy/vending/cigarette,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/wall,
+/area/station/hallway/primary/central)
 "ubm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -94363,11 +93709,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "uGY" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -94515,11 +93857,7 @@
 /area/station/command/meeting_room)
 "uLc" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -94578,11 +93916,7 @@
 	},
 /area/station/medical/sleeper)
 "uMB" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -95348,11 +94682,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -95500,10 +94830,7 @@
 	},
 /area/station/medical/reception)
 "vsy" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/duffel/security,
 /obj/item/reagent_containers/glass/bottle/morphine,
@@ -95551,11 +94878,7 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "vuX" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "vvC" = (
@@ -95569,10 +94892,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -95613,13 +94933,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/south)
-"vze" = (
-/obj/machinery/economy/vending/exploredrobe,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
-	},
-/area/station/supply/expedition)
 "vzo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95811,11 +95124,7 @@
 	},
 /area/station/hallway/primary/central/sw)
 "vDg" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96011,10 +95320,7 @@
 	},
 /area/station/medical/storage)
 "vGR" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/theatre)
 "vHe" = (
@@ -96489,11 +95795,7 @@
 /area/station/maintenance/fsmaint)
 "vXU" = (
 /obj/structure/table/glass,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/item/stack/medical/bruise_pack/advanced{
 	pixel_x = -7;
 	pixel_y = 7
@@ -96610,10 +95912,7 @@
 	},
 /area/station/medical/virology)
 "wbi" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -96741,11 +96040,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "wew" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
 "weF" = (
@@ -97234,11 +96529,7 @@
 /area/station/medical/virology)
 "wrE" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/hand_labeler,
 /obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel/dark,
@@ -98089,6 +97380,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
+"wUm" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/station/supply/expedition)
 "wUq" = (
 /obj/machinery/economy/vending/hydronutrients,
 /obj/effect/turf_decal/delivery/hollow,
@@ -98816,11 +98113,13 @@
 	},
 /area/station/hallway/primary/aft/south)
 "xph" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "xpq" = (
 /obj/machinery/economy/vending/snack,
@@ -99081,11 +98380,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "xzp" = (
@@ -107149,7 +106444,7 @@ bPG
 bRx
 bTu
 bVJ
-jcf
+ccx
 bNM
 bkt
 lvH
@@ -141577,7 +140872,7 @@ bwf
 bAC
 bCl
 byU
-bFy
+nRs
 bWX
 bWX
 iDU
@@ -141602,7 +140897,7 @@ tlB
 bIX
 cyv
 cyv
-stt
+oVl
 cyv
 cyv
 cyv
@@ -142115,12 +141410,12 @@ cht
 ygv
 hQe
 cyv
-qJu
-cCX
-cCX
+cul
+cDa
+cDa
 cyt
+xph
 cBv
-cxk
 cCW
 cyv
 cEZ
@@ -142378,7 +141673,7 @@ cxf
 cys
 czV
 cBy
-xph
+nsD
 cyv
 csW
 qZt
@@ -142630,11 +141925,11 @@ sor
 bIX
 cyv
 cuX
-cDa
+cyx
 cxh
 cyu
-cCX
-cBC
+cDa
+pLm
 dte
 cyv
 csW
@@ -142879,7 +142174,7 @@ cdW
 paC
 csL
 ciS
-mmZ
+ckB
 clZ
 cnB
 coF
@@ -142890,9 +142185,9 @@ cvJ
 cvY
 cxJ
 cyI
-cCX
-cyx
-cCX
+cDa
+cxk
+cDa
 cyv
 rfw
 ckv
@@ -143144,12 +142439,12 @@ wat
 bIX
 cyv
 cyv
-stt
-stt
+oVl
+oVl
 cyv
-stt
+oVl
 iFr
-stt
+oVl
 cyv
 jdr
 dLT
@@ -143399,14 +142694,14 @@ cnD
 cht
 sqO
 bIX
-lzR
+uaS
 cyv
 cxl
 cuk
 cyw
 cuk
-jtP
-vze
+cBC
+cCX
 cyv
 csW
 ckv
@@ -143659,8 +142954,8 @@ bIX
 rVL
 cyv
 cvQ
-cCX
-cCX
+cDa
+cDa
 cAb
 cBD
 cDc
@@ -143916,11 +143211,11 @@ bIX
 nSv
 cyv
 eXJ
-csV
+wUm
 cyy
 mhU
-pLm
 cDf
+csV
 cyv
 csW
 ckv
@@ -153635,7 +152930,7 @@ aPe
 aSr
 aJx
 aVo
-otq
+aWO
 aJx
 aZK
 bbt

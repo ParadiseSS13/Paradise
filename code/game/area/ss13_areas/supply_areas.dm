@@ -37,6 +37,7 @@
 /area/station/supply/mechbay
 	name = "\improper Mech Bay"
 	icon_state = "yellow"
+
 /area/station/supply/expedition
 	name = "\improper Expedition room"
 	icon_state = "expedition"

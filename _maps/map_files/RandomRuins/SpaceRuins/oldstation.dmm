@@ -999,8 +999,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "cW" = (
-/obj/machinery/alarm/all_access{
-	pixel_y = 24;
+/obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1054,10 +1053,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
-"de" = (
-/obj/structure/transit_tube/crossing/horizontal,
-/turf/template_noop,
-/area/space/nearstation)
 "df" = (
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating/airless,
@@ -1206,9 +1201,7 @@
 /turf/simulated/wall,
 /area/ruin/ancientstation/sec)
 "dB" = (
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1337,6 +1330,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "dT" = (
@@ -1706,9 +1700,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -1887,9 +1879,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2201,9 +2191,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -2232,9 +2220,7 @@
 "fP" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/nasavoid/old,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2649,9 +2635,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2864,9 +2848,7 @@
 "hj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /mob/living/simple_animal/hostile/hivebot,
@@ -4201,6 +4183,7 @@
 /obj/item/reagent_containers/spray/weedspray,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "kh" = (
@@ -4342,8 +4325,7 @@
 /area/ruin/ancientstation/atmo)
 "kx" = (
 /obj/effect/decal/cleanable/egg_smudge,
-/obj/machinery/alarm/all_access{
-	pixel_y = 24;
+/obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4557,9 +4539,7 @@
 "lb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -4629,12 +4609,8 @@
 	},
 /area/ruin/ancientstation/hydroponics)
 "lj" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "custom placement";
-	pixel_y = -22
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "greencorner"
@@ -4822,9 +4798,7 @@
 	},
 /area/ruin/ancientstation/engi)
 "lA" = (
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/structure/rack,
@@ -4864,9 +4838,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4919,9 +4891,7 @@
 /area/ruin/ancientstation/atmo)
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /mob/living/simple_animal/hostile/hivebot,
@@ -4946,9 +4916,7 @@
 /area/ruin/ancientstation/sec)
 "lN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -4982,10 +4950,6 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
-"Db" = (
-/obj/structure/transit_tube/crossing,
-/turf/template_noop,
-/area/space/nearstation)
 "Hr" = (
 /obj/structure/table,
 /obj/item/salvage/ruin/nanotrasen,
@@ -5815,7 +5779,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 uQ
 ck
@@ -7448,7 +7412,7 @@ aa
 aa
 aa
 dk
-Db
+cX
 aa
 dg
 dg
@@ -7511,7 +7475,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 aa
 aa
