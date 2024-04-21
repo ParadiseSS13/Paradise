@@ -262,6 +262,7 @@
 	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
+	var/transfer_blood = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',

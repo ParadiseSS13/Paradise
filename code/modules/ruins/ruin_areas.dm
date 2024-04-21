@@ -18,4 +18,3 @@
 /area/ruin/powered
 	requires_power = FALSE
 
-
