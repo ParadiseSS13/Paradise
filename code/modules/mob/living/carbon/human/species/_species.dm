@@ -118,7 +118,6 @@
 	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
 	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
-	var/has_gender = TRUE
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
 
@@ -858,13 +857,13 @@
 		if(SLOT_HUD_IN_BACKPACK)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = H.back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+				if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
 			if(H.back && ismodcontrol(H.back))
 				var/obj/item/mod/control/C = H.back
 				if(C.bag)
 					var/obj/item/storage/backpack/B = C.bag
-					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+					if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 						return TRUE
 			return FALSE
 		if(SLOT_HUD_TIE)

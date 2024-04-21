@@ -562,6 +562,10 @@
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
 
+/obj/item/food/snacks/organ/Initialize(mapload)
+	. = ..()
+	reagents.add_reagent("nutriment", 5)
+
 /obj/item/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
 	name = "appendix"
