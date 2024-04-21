@@ -756,11 +756,6 @@
 	icon_state = "longovereye"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
 
-/datum/sprite_accessory/hair/father
-	name = "Father"
-	icon_state = "father"
-	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
-
 /// Due to a vulp hairstyle called bun
 /datum/sprite_accessory/hair/bun4
 	name = "Bun 4"

@@ -54,6 +54,13 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss")
+		)
+	autohiss_extra_map = list(
+			"x" = list("ks", "kss", "ksss")
+		)
+	autohiss_exempt = list("Sinta'unathi")
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
