@@ -59,11 +59,6 @@
 	icon_state = "purple"
 	item_color = "purple"
 
-/obj/item/clothing/shoes/brown
-	name = "brown shoes"
-	icon_state = "brown"
-	item_color = "brown"
-
 /obj/item/clothing/shoes/red
 	name = "red shoes"
 	desc = "Stylish red shoes."

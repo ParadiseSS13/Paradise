@@ -44,6 +44,27 @@
 
 	/// Each item in this list can only be rolled once on average.
 	var/list/single_antag_positions = list("Head of Personnel", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster")
+	var/list/datum/mind/changelings = list()
+	var/datum/team/cult/cult_team
+	var/abductor_teams = 0
+	var/list/datum/mind/abductors = list()
+	var/list/datum/mind/abductees = list()
+	var/list/datum/mind/syndicates = list()
+	var/list/datum/mind/head_revolutionaries = list()
+	var/list/datum/mind/revolutionaries = list()
+	var/datum/team/revolution/rev_team
+	/// A list of all minds which have the traitor antag datum.
+	var/list/datum/mind/traitors = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
+	var/list/datum/mind/implanted = list()
+	var/list/datum/mind/vampires = list()
+	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
+	var/list/datum/mind/wizards = list()
+	var/list/datum/mind/apprentices = list()
+	var/list/datum/mind/superheroes = list()
+	var/list/datum/mind/supervillains = list()
+	var/list/datum/mind/greyshirts = list()
+	var/list/datum/mind/ert = list()
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")

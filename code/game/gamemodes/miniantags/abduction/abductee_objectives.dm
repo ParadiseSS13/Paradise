@@ -131,9 +131,6 @@
 /datum/objective/abductee/party
 	explanation_text = "You're throwing a huge rager. Make it as awesome as possible so the whole crew comes... OR ELSE!"
 
-/datum/objective/abductee/pets
-	explanation_text = "All the pets around here suck. You need to make them cooler. Replace them with exotic beasts!"
-
 /datum/objective/abductee/conspiracy
 	explanation_text = "The leaders of this station are hiding a grand, evil conspiracy. Only you can learn what it is, and expose it to the people!"
 

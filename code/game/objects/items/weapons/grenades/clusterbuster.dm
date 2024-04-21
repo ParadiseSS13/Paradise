@@ -170,11 +170,6 @@
 	payload = /obj/singularity
 
 /obj/item/grenade/clusterbuster/tools
-	name = "\improper Quick Repair Grenade"
-	desc = "An assistant's every dream."
-	payload = /obj/random/tool
-
-/obj/item/grenade/clusterbuster/tools
 	name = "\improper Engineering Deployment Platfom"
 	desc = "For the that time when gearing up was just too hard."
 	payload = /obj/random/tech_supply

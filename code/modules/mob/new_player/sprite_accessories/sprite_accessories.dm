@@ -192,7 +192,7 @@
 	name = "Mens Grey"
 	icon_state = "male_grey"
 
-/datum/sprite_accessory/underwear/male/male_grey
+/datum/sprite_accessory/underwear/male/male_grey_alt
 	name = "Mens Grey Alt"
 	icon_state = "male_greyalt"
 

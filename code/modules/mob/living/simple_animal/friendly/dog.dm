@@ -475,10 +475,6 @@
 		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
 			custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
-/obj/item/food/snacks/meat/corgi
-	name = "Corgi meat"
-	desc = "Tastes like... well you know..."
-
 /mob/living/simple_animal/pet/dog/corgi/Ian/narsie_act()
 	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
 	var/mob/living/simple_animal/pet/dog/corgi/narsie/N = new(loc)

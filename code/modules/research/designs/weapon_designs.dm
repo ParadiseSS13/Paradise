@@ -190,7 +190,7 @@
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")
 
-/datum/design/mag_laser
+/datum/design/laser_rifle_magazine
 	name = "Laser Rifle Projector Magazine"
 	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
 	id = "mag_laser"
@@ -200,7 +200,7 @@
 	build_path = /obj/item/ammo_box/magazine/laser
 	category = list("Weapons")
 
-/datum/design/mag_laser
+/datum/design/laser_rifle_ammo_box
 	name = "Laser Rifle Projector Ammunition"
 	desc = "A 20 round encased projector box for the IK Laser Rifle series."
 	id = "mag_laser"
