@@ -136,8 +136,8 @@
 /datum/recipe/grill/meatkebab	// Do not put this above the other meat kebab variants or it will override them.
 	items = list(
 		/obj/item/stack/rods,
-		/obj/item/food/snacks/meat/,
-		/obj/item/food/snacks/meat/
+		/obj/item/food/snacks/meat,
+		/obj/item/food/snacks/meat
 	)
 	result = /obj/item/food/snacks/meatkebab
 
