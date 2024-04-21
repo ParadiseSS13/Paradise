@@ -1,3 +1,10 @@
+#define HIDES_COVERED_FULL 3
+#define PLATES_COVERED_FULL 3
+
+#define DRAKE_HIDES_COVERED_LITTLE 1
+#define DRAKE_HIDES_COVERED_ALMOST 2
+#define DRAKE_HIDES_COVERED_FULL 3
+
 /obj/mecha/working/ripley
 	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
 	name = "APLU \"Ripley\""
@@ -15,7 +22,16 @@
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/list/cargo = new
 	var/cargo_capacity = 15
+
+	/// How many hides the Ripley has? Does not stack with other armor
 	var/hides = 0
+
+	/// How many drake hides the Ripley has? Does not stack with other armor
+	var/drake_hides = 0
+
+	/// How many plates the Ripley has? Does not stack with other armor
+	var/plates = 0
+
 
 /obj/mecha/working/ripley/Move()
 	. = ..()
@@ -32,8 +48,12 @@
 					ore.forceMove(ore_box)
 
 /obj/mecha/working/ripley/Destroy()
-	for(var/i=1, i <= hides, i++)
-		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
+	for(var/i in 1 to hides)
+		new /obj/item/stack/sheet/animalhide/goliath_hide(loc)  //If a armor-plated ripley gets killed, all the armor drop
+	for(var/i in 1 to plates)
+		new /obj/item/stack/sheet/animalhide/armor_plate(loc)
+	for(var/i in 1 to drake_hides)
+		new /obj/item/stack/sheet/animalhide/ashdrake(loc)
 	for(var/atom/movable/A in cargo)
 		A.forceMove(loc)
 		step_rand(A)
@@ -54,22 +74,55 @@
 
 /obj/mecha/working/ripley/update_desc()
 	. = ..()
-	if(!hides) // Just in case if hides are somehow removed
+	if(!hides && !plates && !drake_hides) // Just in case if armor is removed
 		desc = initial(desc)
 		return
-	if(hides == 3)
+
+	// Goliath hides
+	if(hides == HIDES_COVERED_FULL)
 		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
 	else
 		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 
+	// Metal plates
+	if(plates == PLATES_COVERED_FULL)
+		desc = "Autonomous Power Loader Unit. Its armour is completely lined with metal plating."
+	else
+		desc = "Autonomous Power Loader Unit. It's armor is reinforced with some metal plating."
+
+	// Drake hides
+	if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+		desc = "Autonomous Power Loader Unit. It`s armor stands out from the rest, as if it were wrapped in the very breath of dragons. Its every corner is covered in ancient hide, creating a powerful shield that even the most desperate enemies can only barely penetrate. The pilot of this exosuit, surrounded by mighty armor, must be prepared for battles on the level of legend."
+	if(drake_hides == DRAKE_HIDES_COVERED_ALMOST)
+		desc = "Autonomous Power Loader Unit. It`s armor is adorned with dragon hide plates, instilling fear in its enemies. Some parts of it are protected by thick scaly plates, making it look as if the dragon itself is guarding its pilot."
+	if(drake_hides == DRAKE_HIDES_COVERED_LITTLE)
+		desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
+
+
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
-	if(!hides)
-		return
-	if(hides == 3)
-		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
-	else
-		. += occupant ? "ripley-g" : "ripley-g-open"
+// hides
+	if(hides)
+		if(hides == HIDES_COVERED_FULL)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+		else
+			. += occupant ? "ripley-g" : "ripley-g-open"
+//plates
+	if(plates)
+		if(plates == PLATES_COVERED_FULL)
+			. += occupant ? "ripley-m-full" : "ripley-m-full-open"
+		else
+			. += occupant ? "ripley-m" : "ripley-m-open"
+//drake hides
+	if(drake_hides)
+		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
+		else if(drake_hides == DRAKE_HIDES_COVERED_ALMOST)
+			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
+		else if(drake_hides == DRAKE_HIDES_COVERED_LITTLE)
+			. += occupant ? "ripley-d" : "ripley-d-open"
+
+
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
@@ -214,3 +267,10 @@
 		emagged = TRUE
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	return ..()
+
+#undef HIDES_COVERED_FULL
+#undef PLATES_COVERED_FULL
+
+#undef DRAKE_HIDES_COVERED_LITTLE
+#undef DRAKE_HIDES_COVERED_ALMOST
+#undef DRAKE_HIDES_COVERED_FULL

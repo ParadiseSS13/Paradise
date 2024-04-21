@@ -1,3 +1,10 @@
+#define HIDES_COVERED_FULL 3
+#define PLATES_COVERED_FULL 3
+
+#define DRAKE_HIDES_COVERED_LITTLE 1
+#define DRAKE_HIDES_COVERED_ALMOST 2
+#define DRAKE_HIDES_COVERED_FULL 3
+
 /obj/item/stack/sheet/animalhide
 	name = "sheet-hide"
 	icon = 'icons/obj/stacks/organic.dmi'
@@ -198,37 +205,76 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating(MELEE) < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+		if(current_armor.getRating(MELEE) < 75)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
-		if(D.hides < 3)
+		if(D.hides < HIDES_COVERED_FULL && !D.plates && !D.drake_hides)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 25, 115))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
-			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 	else if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
 		if(istype(R.module, /obj/item/robot_module/miner))
 			var/datum/armor/current_armor = R.armor
-			if(current_armor.getRating(MELEE) < 60)
-				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+			if(current_armor.getRating(MELEE) < 75)
+				if(!use(1))
+					to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+					return
+				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-				use(1)
 			else
 				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
 		else
 			to_chat(user, "<span class='warning'>[R]'s armor can not be improved!</span>")
 
+/obj/item/stack/sheet/animalhide/armor_plate
+	name = "Armor plate"
+	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "armor_plate"
+	item_state = "armor_plate"
+	singular_name = "armor plate"
+	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
+
+/obj/item/stack/sheet/animalhide/armor_plate/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.plates < PLATES_COVERED_FULL && !D.hides && !D.drake_hides)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
+			use(1)
+			D.plates++
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
+		else
+			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+
+/obj/item/stack/sheet/animalhide/armor_plate/attackby(obj/item/W as obj, mob/user as mob, params)
+	return // no steel leather for ya
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
@@ -241,6 +287,26 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	dynamic_icon_state = TRUE
+
+/obj/item/stack/sheet/animalhide/ashdrake/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.drake_hides < DRAKE_HIDES_COVERED_FULL && !D.hides && !D.plates)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
+			use(1)
+			D.drake_hides++
+			D.max_integrity += 50
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 45, 175)) // 77.7% melee armor maximum
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
+		else
+			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
 //Step one - dehairing.
 
@@ -287,3 +353,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			HS.amount = 1
 			wetness = initial(wetness)
 			src.use(1)
+
+#undef HIDES_COVERED_FULL
+#undef PLATES_COVERED_FULL
+
+#undef DRAKE_HIDES_COVERED_LITTLE
+#undef DRAKE_HIDES_COVERED_ALMOST
+#undef DRAKE_HIDES_COVERED_FULL
