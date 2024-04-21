@@ -1380,7 +1380,7 @@
 	alcohol_perc = 2.5 // doesnt matter because of resetting anyway, but allow drunken effect to appear before dissapear
 	drink_icon = "restart"
 	drink_name = "Glass of Restart"
-	drink_desc = "Sometimes you just need to start anew"
+	drink_desc = "Sometimes you just need to start anew."
 	taste_description = "system reset"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
