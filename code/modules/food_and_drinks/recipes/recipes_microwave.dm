@@ -390,13 +390,6 @@
 /datum/recipe/microwave/spellburger
 	items = list(
 		/obj/item/food/snacks/bun,
-		/obj/item/clothing/head/wizard/fake
-	)
-	result = /obj/item/food/snacks/burger/spell
-
-/datum/recipe/microwave/spellburger
-	items = list(
-		/obj/item/food/snacks/bun,
 		/obj/item/clothing/head/wizard
 	)
 	result = /obj/item/food/snacks/burger/spell

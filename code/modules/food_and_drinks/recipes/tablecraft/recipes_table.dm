@@ -1,13 +1,3 @@
-/* Example for reference when defining recipes
-/datum/crafting_recipe/food
-	name = ""			//in-game display name
-	reqs[] = list()		//type paths of items/reagents consumed associated with how many are needed (equivalent to var/list/items and var/list/reagents combined)
-	result				//type path of item resulting from this craft
-	tools[] = list()	//type paths of items needed but not consumed
-	time = 30			//time in deciseconds
-	parts[] = list()	//type paths of items that will be placed in the result
-*/
-
 /datum/crafting_recipe/sandwich
 	name = "Sandwich"
 	reqs = list(
