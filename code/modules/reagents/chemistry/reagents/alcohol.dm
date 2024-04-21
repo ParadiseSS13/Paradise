@@ -1370,6 +1370,56 @@
 	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
 	taste_description = "fancy motor oil"
 
+/datum/reagent/consumable/ethanol/synthanol/restart
+	name = "Restart"
+	id = "restart"
+	description = "Sometimes you just need to start anew"
+	color = "#0026fc"
+	reagent_state = LIQUID
+	process_flags = SYNTHETIC
+	alcohol_perc = 2.5 // doesnt matter because of resetting anyway, but allow drunken effect to appear before dissapear
+	drink_icon = "restart"
+	drink_name = "Glass of Restart"
+	drink_desc = "Sometimes you just need to start anew"
+	taste_description = "system reset"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/synthanol/restart/on_mob_life(mob/living/carbon/human/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	switch(current_cycle)
+		if(5 to 13)
+			M.Jitter(200 SECONDS)
+			M.SetSlur(200 SECONDS)
+			if(prob(20))
+				M.emote(pick("twitch","giggle"))
+			if(prob(10))
+				M.say("Rebooting..")
+		if(14)
+			playsound(get_turf(M),'sound/effects/restart-shutdown.ogg', 200, 0)
+		if(15 to 24)
+			update_flags |= M.adjustBruteLoss(-0.3, FALSE, robotic = TRUE)
+			update_flags |= M.adjustFireLoss(-0.3, FALSE, robotic = TRUE)
+			fakedeath(M)
+		if(25)
+			M.SetStunned(0)
+			M.SetWeakened(0)
+			M.SetParalysis(0)
+			M.SetSleeping(0)
+			M.SetDrowsy(0)
+			M.SetSlur(0)
+			M.AdjustDrunk(-800 SECONDS)
+			M.SetJitter(0)
+			M.SetDizzy(0)
+			M.SetDruggy(0)
+			if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
+				fakerevive(M)
+				playsound(M, 'sound/effects/restart-wakeup.ogg', 200, 0)
+			M.resting = FALSE
+			M.stand_up() // wakey wakey
+			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
+			M.reagents.remove_reagent("restart",restart_amount)
+	return ..() | update_flags
+
 /datum/reagent/consumable/ethanol/fruit_wine
 	name = "Fruit Wine"
 	id = "fruit_wine"

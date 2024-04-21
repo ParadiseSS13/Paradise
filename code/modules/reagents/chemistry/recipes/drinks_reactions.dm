@@ -788,6 +788,14 @@
 	result_amount = 2
 	mix_message = "The chemicals mix to create a fine, red substance."
 
+/datum/chemical_reaction/restart
+	name = "Restart"
+	id = "restart"
+	result = "restart"
+	required_reagents = list("uplink" = 1, "capulettium_plus" = 1, "synthanol" = 1) // due to illegal state lets give this drink x2 amount
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/triple_citrus
 	name = "triple_citrus"
 	id = "triple_citrus"
