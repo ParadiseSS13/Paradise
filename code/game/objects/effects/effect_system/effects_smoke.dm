@@ -59,7 +59,7 @@
 	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
 	if(!istype(breather))
 		return FALSE
-	if(lifetime<1)
+	if(lifetime < 1)
 		return FALSE
 	if(!breather.can_breathe_gas())
 		return FALSE
