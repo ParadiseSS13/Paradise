@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			to_chat(user, "<span class='warning'>[R]'s armor can not be improved!</span>")
 
 /obj/item/stack/sheet/animalhide/armor_plate
-	name = "Armor plate"
+	name = "armor plate"
 	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "armor_plate"
