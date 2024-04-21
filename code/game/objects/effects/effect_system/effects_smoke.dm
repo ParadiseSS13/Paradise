@@ -28,7 +28,7 @@
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
 	GLOB.smokes_active++
-	lifetime += rand(-1,1)
+	lifetime += rand(-1, 1)
 	if(contains_chemicals)
 		create_reagents(10)
 
