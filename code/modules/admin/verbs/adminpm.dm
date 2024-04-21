@@ -209,7 +209,7 @@
 	//non-admins always hear the sound, as they cannot toggle it
 	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
 		if(message_type == MESSAGE_TYPE_MENTORPM)
-			SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
+			SEND_SOUND(C, sound('sound/effects/mentorhelp.ogg'))
 		else
 			SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
