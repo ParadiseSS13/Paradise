@@ -143,7 +143,7 @@
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		var/datum/action/innate/ignite/golem_ignite = new()
+		var/datum/action/innate/golem_ignite/golem_ignite = new()
 		golem_ignite.Grant(C)
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
