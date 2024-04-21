@@ -344,6 +344,7 @@
 	qdel(src)
 
 /obj/item/bombcore/proc/defuse()
+	return
 //Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
@@ -536,7 +537,7 @@
 
 /obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
-		if(beakers.len < max_beakers)
+		if(length(beakers) < max_beakers)
 			if(!user.drop_item())
 				return
 			beakers += I
@@ -552,7 +553,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(beakers.len == 0)
+	if(length(beakers) == 0)
 		return
 	for(var/obj/item/B in beakers)
 		B.loc = get_turf(src)
@@ -573,7 +574,7 @@
 			spread_range += 2 // Extra range, reduced density.
 			temp_boost += 50 // maximum of +150K blast using only large beakers. Not enough to self ignite.
 			for(var/obj/item/slime_extract/S in LG.beakers) // And slime cores.
-				if(beakers.len < max_beakers)
+				if(length(beakers) < max_beakers)
 					beakers += S
 					S.loc = src
 				else
@@ -590,7 +591,7 @@
 			time_release += 50 // A typical bomb, using basic beakers, will explode over 2-4 seconds. Using two will make the reaction last for less time, but it will be more dangerous overall.
 
 		for(var/obj/item/reagent_containers/glass/B in G)
-			if(beakers.len < max_beakers)
+			if(length(beakers) < max_beakers)
 				beakers += B
 				B.loc = src
 			else

@@ -76,8 +76,7 @@
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 
-	if(!owner)
-		return ..() // Probably a redundant removal; just bail
+	if(!owner) return ..() // Probably a redundant removal; just bail
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
@@ -149,7 +148,7 @@
 		to_chat(owner, "<span class='warning'>Your head feels foggy.</span>")
 	else if(prob(4))
 		owner.vomit()
-		to_chat(owner, "<span class='warning>'You feel nauseous.</span>")
+		to_chat(owner, "<span class='warning'>'You feel nauseous.</span>")
 
 /obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
 	if(prob(4))
@@ -159,17 +158,17 @@
 		owner.EyeBlurry(15 SECONDS)
 		to_chat(owner, "<span class='warning'>Your vision unfocuses.</span>")
 	else if(prob(3))
-		owner.Drowsy(20 SECONDS)
-		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
+		owner.Slur(60 SECONDS)
+		owner.Stuttering(60 SECONDS)
+		to_chat(owner, "<span class='warning'>You can't form your words properly.</span>")
 
 /obj/item/organ/internal/brain/proc/handle_severe_brain_damage()
 	if(prob(5))
 		owner.Hallucinate(60 SECONDS)
 		to_chat(owner, "<span class='warning'>You start losing your grip on reality.</span>")
-	else if(prob(10))
-		owner.Slur(60 SECONDS)
-		owner.Stuttering(60 SECONDS)
-		to_chat(owner, "<span class='warning'>You can't form your words properly.</span>")
+	else if(prob(3))
+		owner.Drowsy(20 SECONDS)
+		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
 	else if(prob(2))
 		owner.Stun(5 SECONDS)
 		to_chat(owner, "<span class='warning'>You stare forward in a stupor.</span>")
@@ -199,7 +198,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
-	organ_datums = list(/datum/organ/heart, /datum/organ/lungs)
+	organ_datums = list(/datum/organ/heart, /datum/organ/lungs/slime)
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

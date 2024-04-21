@@ -8,8 +8,6 @@
 @use 'sass:meta';
 
 // Base colors
-$black: #000000 !default;
-$white: #ffffff !default;
 $red: #db2828 !default;
 $orange: #f2711c !default;
 $yellow: #fbd608 !default;
@@ -22,12 +20,18 @@ $purple: #a333c8 !default;
 $pink: #e03997 !default;
 $brown: #a5673f !default;
 $grey: #767676 !default;
-
 $primary: #4972a1 !default;
+$label: #7e90a7 !default;
+
+// State colors
 $good: #5baa27 !default;
 $average: #f08f11 !default;
 $bad: #db2828 !default;
-$label: #7e90a7 !default;
+$black: #000000 !default;
+$white: #ffffff !default;
+
+// Custom colors
+$gold: #f2a918 !default;
 
 // Background and foreground color lightness ratios
 $bg-lightness: -15% !default;
@@ -62,6 +66,7 @@ $_gen_map: (
   'average': $average,
   'bad': $bad,
   'label': $label,
+  'gold': $gold,
 );
 
 // Foreground color names for which to generate a color map

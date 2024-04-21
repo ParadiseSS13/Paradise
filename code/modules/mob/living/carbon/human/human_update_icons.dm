@@ -590,7 +590,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			bloodsies.color = w_uniform.blood_color
 			standing.overlays += bloodsies
 
-		if(w_uniform.accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
+		if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
 				var/tie_color = A.item_color
 				if(!tie_color)
@@ -1343,7 +1343,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_halo_layer()
 	remove_overlay(HALO_LAYER)
 
-	if(iscultist(src) && SSticker.mode.cult_ascendant)
+	if(IS_CULTIST(src) && SSticker.mode.cult_team.cult_ascendant)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
 		overlays_standing[HALO_LAYER] = new_halo_overlay

@@ -24,8 +24,8 @@
 	if(!length(possible_wizards))
 		return FALSE
 	var/datum/mind/wizard = pick(possible_wizards)
-	pre_wizards += wizard
 
+	pre_wizards += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	if(!length(GLOB.wizardstart))
@@ -45,21 +45,11 @@
 	if(but_wait_theres_more)
 		return ..()
 
-	// Wizards
-	for(var/datum/mind/wizard in wizards)
-		if(!iscarbon(wizard.current) || wizard.current.stat == DEAD) // wizard is in an MMI, don't count them as alive
-			continue
-		return ..()
-
-	// Apprentices
-	for(var/datum/mind/apprentice in apprentices)
-		if(!iscarbon(apprentice.current))
-			continue
-		if(apprentice.current.stat == DEAD)
-			continue
-		if(istype(apprentice.current, /obj/item/mmi)) // apprentice is in an MMI, don't count them as alive
-			continue
-		return ..()
+	// Wizards and Apprentices
+	for(var/datum/mind/wizard in (wizards + apprentices)) // yes, this works so it iterates through wizards, then apprentices
+		var/datum/antagonist/wizard/datum_wizard = wizard.has_antag_datum(/datum/antagonist/wizard)
+		if(datum_wizard?.wizard_is_alive())
+			return ..()
 
 	finished = TRUE
 	return TRUE
@@ -67,7 +57,7 @@
 /datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(length(wizards)>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return TRUE
 

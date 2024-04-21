@@ -104,6 +104,7 @@ AI MODULES
 	log_and_message_admins("used [src.name] on [target.name]([target.key])")
 
 /obj/item/aiModule/proc/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
+	return
 
 
 /******************** Safeguard ********************/
@@ -214,7 +215,7 @@ AI MODULES
 /obj/item/aiModule/freeform/attack_self(mob/user as mob)
 	..()
 	var/new_lawpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
-	if(!new_lawpos || new_lawpos == lawpos)
+	if(isnull(new_lawpos) || new_lawpos == lawpos)
 		return
 	lawpos = new_lawpos
 
