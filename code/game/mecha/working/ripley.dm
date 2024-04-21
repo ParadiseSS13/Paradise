@@ -86,7 +86,7 @@
 
 	// Metal plates
 	if(plates == PLATES_COVERED_FULL)
-		desc = "Autonomous Power Loader Unit. Its armour is completely lined with metal plating."
+		desc = "Autonomous Power Loader Unit. Its armor is completely lined with metal plating."
 	else
 		desc = "Autonomous Power Loader Unit. It's armor is reinforced with some metal plating."
 
