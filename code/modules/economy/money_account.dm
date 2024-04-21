@@ -27,7 +27,7 @@
 	var/suspended = FALSE
 	///Type of account this is
 	var/account_type = ACCOUNT_TYPE_PERSONAL
-	///the amount this account recieves every payday
+	///the amount this account receives every payday
 	var/payday_amount = CREW_BASE_PAY_LOW
 
 	///The nanobank programs associated with this account, used for notifying crew members through PDA, this is a lazy list

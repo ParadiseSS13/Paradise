@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/rev)
+
 /datum/antagonist/rev
 	name = "Revolutionary"
 	roundend_category = "revs"

@@ -320,16 +320,12 @@
 			return
 
 		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
-
 		if(!command)
 			return
-
 		if(QDELETED(user) || user.get_active_hand() != src || loc != user)
 			return
-
 		if(QDELETED(G))
 			return
-
 		G.mind_control(command, user)
 		to_chat(user, "<span class='notice'>You send the command to your target.</span>")
 

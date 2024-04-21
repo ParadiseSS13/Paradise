@@ -368,7 +368,7 @@
 				pass |= istype(A, type)
 			if(!pass)
 				continue
-		if(A.contents.len)
+		if(length(A.contents))
 			found += A.search_contents_for(path, filter_path)
 	return found
 
@@ -393,13 +393,13 @@
 	if(reagents)
 		if(container_type & TRANSPARENT)
 			. += "<span class='notice'>It contains:</span>"
-			if(reagents.reagent_list.len)
+			if(length(reagents.reagent_list))
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
 						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
 				else //Otherwise, just show the total volume
-					if(reagents && reagents.reagent_list.len)
+					if(reagents && length(reagents.reagent_list))
 						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
 			else
 				. += "<span class='notice'>Nothing.</span>"
@@ -845,9 +845,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/transfer_blood_dna(list/blood_dna)
 	if(!blood_DNA)
 		blood_DNA = list()
-	var/old_length = blood_DNA.len
+	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
-	if(blood_DNA.len > old_length)
+	if(length(blood_DNA) > old_length)
 		return TRUE//some new blood DNA was added
 
 //to add blood from a mob onto something, and transfer their dna info
@@ -1027,7 +1027,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/cur_x = null
 	var/cur_y = null
 	var/list/y_arr = null
-	for(cur_x in 1 to GLOB.global_map.len)
+	for(cur_x in 1 to length(GLOB.global_map))
 		y_arr = GLOB.global_map[cur_x]
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
@@ -1155,12 +1155,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	Adds an instance of colour_type to the atom's atom_colours list
 */
 /atom/proc/add_atom_colour(coloration, colour_priority)
-	if(!atom_colours || !atom_colours.len)
+	if(!atom_colours || !length(atom_colours))
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	if(!coloration)
 		return
-	if(colour_priority > atom_colours.len)
+	if(colour_priority > length(atom_colours))
 		return
 	atom_colours[colour_priority] = coloration
 	update_atom_colour()
@@ -1172,7 +1172,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!atom_colours)
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(colour_priority > atom_colours.len)
+	if(colour_priority > length(atom_colours))
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
 		return //if we don't have the expected color (for a specific priority) to remove, do nothing
@@ -1191,7 +1191,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	for(var/C in atom_colours)
 		if(islist(C))
 			var/list/L = C
-			if(L.len)
+			if(length(L))
 				color = L
 				return
 		else if(C)

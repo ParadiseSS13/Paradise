@@ -103,6 +103,15 @@
 	icon_state = "liquify"
 	duration = 12
 
+/obj/effect/temp_visual/corpse_explosion
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "corpse_explosion"
+	pixel_x = -16
+	pixel_y = -16
+	light_range = 5
+	light_color = "#f7dce3"
+	duration = 13
+
 /obj/effect/temp_visual/monkeyify
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "h2monkey"

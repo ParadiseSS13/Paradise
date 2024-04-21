@@ -127,9 +127,11 @@
 /obj/item/reagent_containers/borghypo/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
+		bypass_protection = TRUE
 		reagent_ids += reagent_ids_emagged
 		return
 	emagged = FALSE
+	bypass_protection = FALSE
 	reagent_ids -= reagent_ids_emagged
 
 /obj/item/reagent_containers/borghypo/basic
