@@ -32,7 +32,6 @@
 	/// How many plates the Ripley has? Does not stack with other armor
 	var/plates = 0
 
-
 /obj/mecha/working/ripley/Move()
 	. = ..()
 	if(.)
