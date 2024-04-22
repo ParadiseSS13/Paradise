@@ -10845,7 +10845,6 @@
 /area/station/maintenance/incinerator)
 "aLk" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -11828,7 +11827,6 @@
 	},
 /area/station/service/bar)
 "aOd" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
@@ -18926,6 +18924,7 @@
 "bgB" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19247,6 +19246,13 @@
 /area/station/hallway/primary/fore/south)
 "bhH" = (
 /obj/machinery/smartfridge,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 8;
+	name = "kitchen ingredient storage"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (
@@ -19325,6 +19331,7 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20748,8 +20755,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blk" = (
-/obj/item/food/snacks/mint,
-/obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/reagentgrinder,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -70035,9 +70040,6 @@
 /area/station/command/office/hop)
 "gFa" = (
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82618,15 +82620,6 @@
 	},
 /area/station/security/prison/cell_block)
 "ont" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},

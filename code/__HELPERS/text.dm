@@ -553,9 +553,9 @@
 
 	if(tag == "img")
 		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
+		if(length(img_props) == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
+		if(length(img_props) == 2)
 			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
 		return "<img src='[arg]'>"
 

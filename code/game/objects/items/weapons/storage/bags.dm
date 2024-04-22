@@ -77,7 +77,7 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon_state()
-	switch(contents.len)
+	switch(length(contents))
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)
@@ -336,7 +336,7 @@
 // Sets up numbered display to show the stack size of each stored mineral
 // NOTE: numbered display is turned off currently because it's broken
 /obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user as mob)
-	var/adjusted_contents = contents.len
+	var/adjusted_contents = length(contents)
 
 	//Numbered contents display
 	var/list/datum/numbered_display/numbered_contents
@@ -377,7 +377,7 @@
 	if(!istype(S)) return 0
 
 	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't recieve a different object than you clicked on.
+	// that calls this can't receive a different object than you clicked on.
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 

@@ -330,7 +330,7 @@
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
-	radio.autosay(speaking, name, null, list(z))
+	radio.autosay(speaking, name, null)
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(!processes) // Stop exploding if you're frozen by an admin, damn you
 			cut_overlay(causality_field, TRUE)
@@ -338,7 +338,7 @@
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
+			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -350,7 +350,7 @@
 			speaking = "[DisplayTimeText(i, TRUE)] remain before causality stabilization."
 		else
 			speaking = "[i*0.1]..."
-		radio.autosay(speaking, name, null, list(z))
+		radio.autosay(speaking, name, null)
 		sleep(10)
 
 	explode()
@@ -651,27 +651,27 @@
 
 			//Oh shit it's bad, time to freak out
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Integrity: [get_integrity()]%", name, null, list(z))
+				radio.autosay("[emergency_alert] Integrity: [get_integrity()]%", name, null)
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 					has_reached_emergency = TRUE
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("[warning_alert] Integrity: [get_integrity()]%", name, "Engineering")
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("[safe_alert] Integrity: [get_integrity()]%", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
 
 			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("Warning: Hyperstructure has reached dangerous power level.", name, "Engineering", list(z))
+				radio.autosay("Warning: Hyperstructure has reached dangerous power level.", name, "Engineering")
 				if(powerloss_inhibitor < 0.5)
-					radio.autosay("DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", name, "Engineering", list(z))
+					radio.autosay("DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", name, "Engineering")
 
 			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				radio.autosay("Warning: Critical coolant mass reached.", name, "Engineering", list(z))
+				radio.autosay("Warning: Critical coolant mass reached.", name, "Engineering")
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()

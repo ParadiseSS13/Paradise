@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/SetupOccupations(list/faction = list("Station"))
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
-	if(!all_jobs.len)
+	if(!length(all_jobs))
 		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found.</span>")
 		return 0
 
@@ -63,12 +63,12 @@ SUBSYSTEM_DEF(jobs)
 	job_debug.Add(text)
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
-	if(!occupations.len)
+	if(!length(occupations))
 		SetupOccupations()
 	return name_occupations[rank]
 
 /datum/controller/subsystem/jobs/proc/GetJobType(jobtype)
-	if(!occupations.len)
+	if(!length(occupations))
 		SetupOccupations()
 	return type_occupations[jobtype]
 
@@ -241,7 +241,7 @@ SUBSYSTEM_DEF(jobs)
 			if(!job)
 				continue
 			var/list/candidates = FindOccupationCandidates(job, level)
-			if(!candidates.len)
+			if(!length(candidates))
 				continue
 
 			var/list/filteredCandidates = list()
@@ -252,7 +252,7 @@ SUBSYSTEM_DEF(jobs)
 					continue
 				filteredCandidates += V
 
-			if(!filteredCandidates.len)
+			if(!length(filteredCandidates))
 				continue
 
 			var/mob/new_player/candidate = pick(filteredCandidates)
@@ -269,7 +269,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 		var/list/candidates = FindOccupationCandidates(job, level)
-		if(!candidates.len)
+		if(!length(candidates))
 			continue
 		var/mob/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
@@ -288,7 +288,7 @@ SUBSYSTEM_DEF(jobs)
 		for(var/level = 1 to 3)
 			var/list/candidates = list()
 			candidates = FindOccupationCandidates(job, level)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/new_player/candidate = pick(candidates)
 				if(AssignRole(candidate, "AI"))
 					ai_selected++
@@ -323,7 +323,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
-	Debug("DO, Len: [unassigned.len]")
+	Debug("DO, Len: [length(unassigned)]")
 	if(!length(unassigned))
 		return FALSE
 
@@ -336,7 +336,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Assistant Check 1")
 	var/datum/job/ast = new /datum/job/assistant()
 	var/list/assistant_candidates = FindOccupationCandidates(ast, 3)
-	Debug("AC1, Candidates: [assistant_candidates.len]")
+	Debug("AC1, Candidates: [length(assistant_candidates)]")
 	for(var/mob/new_player/player in assistant_candidates)
 		Debug("AC1 pass, Player: [player]")
 		AssignRole(player, "Assistant")

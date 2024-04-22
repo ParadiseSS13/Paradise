@@ -262,6 +262,7 @@
 	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
+	var/transfer_blood = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -826,7 +827,7 @@
 	data["accessories"] = accessories_list
 	for(var/obj/item/clothing/accessory/A in accessories)
 		accessories_list.len++
-		accessories_list[accessories_list.len] = A.serialize()
+		accessories_list[length(accessories_list)] = A.serialize()
 
 	return data
 

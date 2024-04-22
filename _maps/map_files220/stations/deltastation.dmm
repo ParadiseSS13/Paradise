@@ -22729,7 +22729,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -30801,19 +30800,6 @@
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
-"cty" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/dormitory_maintenance)
 "ctA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -61975,7 +61961,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -67989,9 +67974,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74972,7 +74954,6 @@
 	},
 /area/station/security/storage)
 "mwz" = (
-/obj/structure/table/wood,
 /obj/structure/table/wood,
 /obj/machinery/recharger,
 /obj/effect/decal/cleanable/dirt,
@@ -100748,7 +100729,6 @@
 "uAY" = (
 /obj/machinery/light/directional/south,
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine{
@@ -106585,7 +106565,6 @@
 "wtG" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -164075,7 +164054,7 @@ xxc
 flV
 hIK
 oQq
-cty
+wSl
 wSl
 xwz
 csi

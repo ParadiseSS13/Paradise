@@ -81,7 +81,7 @@
 	name = "[src] ([brainmob.name])"
 
 	to_chat(brainmob, "<b>You are a [src], brought into existence on [station_name()].</b>")
-	to_chat(brainmob, "<b>As a non-sentient synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
+	to_chat(brainmob, "<b>As a non-sapient synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
 
@@ -121,7 +121,7 @@
 		to_chat(user, "<span class='warning'>You cannot be \a [src].</span>")
 		return
 	transfer_personality(user)
-	
+
 /obj/item/mmi/robotic_brain/proc/validity_checks(mob/dead/observer/O)
 	if(istype(O))
 		if(!O.check_ahud_rejoin_eligibility())
@@ -137,8 +137,8 @@
 	return FALSE
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
-	. += "Its speaker is turned [silenced ? "off" : "on"]."
 	. = ..()
+	. += "Its speaker is turned [silenced ? "off" : "on"]."
 
 	var/list/msg = list("<span class='info'>")
 

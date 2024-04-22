@@ -635,7 +635,7 @@
 		if(healthdoll)
 			if(stat == DEAD)
 				healthdoll.icon_state = "healthdoll_DEAD"
-				if(healthdoll.overlays.len)
+				if(length(healthdoll.overlays))
 					healthdoll.overlays.Cut()
 			else
 				var/list/new_overlays = list()

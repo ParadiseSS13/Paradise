@@ -47,7 +47,7 @@
 			if(!G.client.is_afk())
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
-		for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every member selected.
+		for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every member selected.
 			var/candidate = input("Pick characters to spawn. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
 			possible_ghosts -= candidate
 			players_to_spawn += candidate
@@ -55,7 +55,7 @@
 		to_chat(src, "Polling candidates...")
 		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?")
 
-	if(!players_to_spawn.len)
+	if(!length(players_to_spawn))
 		to_chat(src, "Nobody volunteered.")
 		return 0
 

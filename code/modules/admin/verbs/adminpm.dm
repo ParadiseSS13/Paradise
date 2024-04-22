@@ -78,7 +78,7 @@
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
 
-	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
+	/*if(C && C.last_pm_received + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
 			to_chat(src, "<span class='danger'>Simultaneous PMs warning:</span> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
@@ -113,21 +113,21 @@
 		msg = admin_pencode_to_html(msg)
 
 	var/send_span
-	var/recieve_span
+	var/receive_span
 	var/send_pm_type = " "
-	var/recieve_pm_type = "Player"
+	var/receive_pm_type = "Player"
 	var/message_type
 	var/datum/controller/subsystem/tickets/tickets_system
 	// We treat PMs as mentorhelps if we were explicitly so, or if neither
 	// party is an admin.
 	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, mob)))
 		send_span = "mentorhelp"
-		recieve_span = "mentorhelp"
+		receive_span = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
 		tickets_system = SSmentor_tickets
 	else
 		send_span = "adminhelp"
-		recieve_span = "adminhelp"
+		receive_span = "adminhelp"
 		message_type = MESSAGE_TYPE_ADMINPM
 		tickets_system = SStickets
 
@@ -135,22 +135,22 @@
 	if(holder)
 		//PMs sent from admins and mods display their rank
 		send_pm_type = holder.rank + " "
-		recieve_pm_type = holder.rank
+		receive_pm_type = holder.rank
 
 	else if(!C.holder)
 		to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>")
 		return
 
-	var/recieve_message = ""
+	var/receive_message = ""
 
 	pm_tracker.add_message(C, src, msg, mob)
 	C.pm_tracker.add_message(src, src, msg, C.mob)
 
 	if(holder && !C.holder)
-		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
+		receive_message = "<span class='[receive_span]' size='3'>-- Click the [receive_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
 			window_flash(C)
-			to_chat(C, recieve_message)
+			to_chat(C, receive_message)
 			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
@@ -158,7 +158,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
+				var/reply = clean_input(msg,"[receive_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -176,28 +176,29 @@
 			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	var/recieve_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
-		recieve_window_link = ticket_link
+		receive_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
-		recieve_window_link = ticket_link
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [recieve_window_link] [alert_link]" : ""]</span>"
+		receive_window_link = ticket_link
+	receive_message = "<span class='[receive_span]'>[type] from-<b>[receive_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [receive_window_link] [alert_link]" : ""]</span>"
 	if(message_type == MESSAGE_TYPE_MENTORPM)
-		recieve_message = chat_box_mhelp(recieve_message)
+		receive_message = chat_box_mhelp(receive_message)
 	else
-		recieve_message = chat_box_ahelp(recieve_message)
-	to_chat(C, recieve_message)
-	var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
-		send_window_link = ticket_link
-	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
-		send_window_link = ticket_link
-	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
-	if(message_type == MESSAGE_TYPE_MENTORPM)
-		send_message = chat_box_mhelp(send_message)
-	else
-		send_message = chat_box_ahelp(send_message)
-	to_chat(src, send_message)
+		receive_message = chat_box_ahelp(receive_message)
+	to_chat(C, receive_message)
+	if(C != src)
+		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
+			send_window_link = ticket_link
+		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
+			send_window_link = ticket_link
+		var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			send_message = chat_box_mhelp(send_message)
+		else
+			send_message = chat_box_ahelp(send_message)
+		to_chat(src, send_message)
 
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)

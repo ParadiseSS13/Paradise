@@ -120,7 +120,8 @@
 		return
 	if(!status_only)
 		button.name = name
-		button.desc = desc
+		if(desc)
+			button.desc = "[desc] [initial(button.desc)]"
 		if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
 			var/list/settings = owner.hud_used.get_action_buttons_icons()
 			if(button.icon != settings["bg_icon"])
@@ -679,7 +680,7 @@
 	var/datum/spell/spell = target
 
 	if(owner)
-		return spell.can_cast(owner)
+		return spell.can_cast(owner, show_message = TRUE)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)

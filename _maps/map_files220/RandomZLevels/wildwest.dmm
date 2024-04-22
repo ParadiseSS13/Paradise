@@ -882,9 +882,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "iJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
@@ -905,9 +903,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "iW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iY" = (
@@ -1242,9 +1238,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "lL" = (
 /obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor/multi_tile/three_tile_ver{
 	id_tag = "ww_pod"
 	},
@@ -2909,9 +2903,7 @@
 	},
 /area/awaymission/wildwest/wildwest_vaultdoors)
 "CF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "CG" = (
@@ -3524,9 +3516,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "IF" = (
 /obj/structure/marker_beacon/dock_marker,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "IH" = (
@@ -3680,9 +3670,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "KN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "KO" = (
@@ -4270,9 +4258,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "QB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/wildwest/wildwest_refine)
 "QG" = (
@@ -4642,9 +4628,7 @@
 	dir = 8;
 	id_tag = "ww_hang2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "UH" = (
@@ -4750,7 +4734,6 @@
 /area/awaymission/wildwest/wildwest_mines)
 "VW" = (
 /obj/structure/table/holotable/wood,
-/obj/structure/table/holotable/wood,
 /obj/item/reagent_containers/drinks/drinkingglass/soda{
 	pixel_x = 6
 	},
@@ -4803,9 +4786,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "WJ" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/wildwest/wildwest_refine)
 "WK" = (

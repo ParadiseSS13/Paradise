@@ -224,7 +224,7 @@
 
 	imprint_pda(H)
 
-	if(gear_leftovers.len)
+	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.loadout_gear[G.display_name]))
 			if(istype(placed_in))

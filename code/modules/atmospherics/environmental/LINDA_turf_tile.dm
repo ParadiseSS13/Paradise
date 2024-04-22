@@ -126,7 +126,7 @@
 	//cache for sanic speed
 	var/list/adjacent_turfs = atmos_adjacent_turfs
 	var/datum/excited_group/our_excited_group = excited_group
-	var/adjacent_turfs_length = adjacent_turfs.len
+	var/adjacent_turfs_length = length(adjacent_turfs)
 
 	if(planetary_atmos)
 		adjacent_turfs_length++

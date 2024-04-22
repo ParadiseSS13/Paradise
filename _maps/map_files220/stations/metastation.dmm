@@ -9269,9 +9269,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "aQU" = (
@@ -30331,9 +30328,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -30368,9 +30362,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance,
@@ -30982,26 +30973,6 @@
 "cfw" = (
 /turf/simulated/wall,
 /area/station/science/research)
-"cfy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "cfz" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -66607,7 +66578,6 @@
 /area/station/medical/surgery/primary)
 "nqr" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/item/wrench,
 /obj/item/crowbar,
 /obj/effect/turf_decal/delivery/hollow,
@@ -79645,7 +79615,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "tHm" = (
-/obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
@@ -128879,7 +128848,7 @@ kry
 asJ
 asJ
 bln
-cfy
+jta
 asJ
 aoG
 cgW

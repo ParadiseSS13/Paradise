@@ -28,7 +28,7 @@
 
 /obj/machinery/door/window/Initialize(mapload)
 	. = ..()
-	if(req_access && req_access.len)
+	if(req_access && length(req_access))
 		base_state = icon_state
 
 	if(name != initial(name))
@@ -367,9 +367,9 @@
 					ae = new/obj/item/airlock_electronics(loc)
 					if(!req_access)
 						check_access()
-					if(req_access.len)
+					if(length(req_access))
 						ae.selected_accesses = req_access
-					else if(req_one_access.len)
+					else if(length(req_one_access))
 						ae.selected_accesses = req_one_access
 						ae.one_access = 1
 				else

@@ -366,7 +366,7 @@
 		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
-		if(SSticker.mode.syndicates.len)
+		if(length(SSticker.mode.syndicates))
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
 				var/mob/M = N.current
@@ -413,70 +413,70 @@
 			dat += "</table>"
 
 
-		if(SSticker.mode.blob_overminds.len)
+		if(length(SSticker.mode.blob_overminds))
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
 			dat += "<i>Blob Tiles: [length(GLOB.blobs)]</i>"
 
-		if(SSticker.mode.changelings.len)
+		if(length(SSticker.mode.changelings))
 			dat += check_role_table("Changelings", SSticker.mode.changelings)
 
-		if(SSticker.mode.wizards.len)
+		if(length(SSticker.mode.wizards))
 			dat += check_role_table("Wizards", SSticker.mode.wizards)
 
-		if(SSticker.mode.apprentices.len)
+		if(length(SSticker.mode.apprentices))
 			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
 
-		/*if(ticker.mode.ninjas.len)
+		/*if(length(ticker.mode.ninjas))
 			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
 
 		if(SSticker.mode.cult_team)
 			dat += check_role_table("Cultists", SSticker.mode.cult_team.members)
 			dat += "<a href='byond://?src=[UID()];check_teams=1'>View Cult Team & Controls</a><br>"
 
-		if(SSticker.mode.traitors.len)
+		if(length(SSticker.mode.traitors))
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 
 		// SS220 EDIT - START
-		if(SSticker.mode.blood_brothers.len)
+		if(length(SSticker.mode.blood_brothers))
 			dat += check_role_table("Blood Brothers", SSticker.mode.blood_brothers)
 		// SS220 EDIT - END
 
-		if(SSticker.mode.implanted.len)
+		if(length(SSticker.mode.implanted))
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 
-		if(SSticker.mode.abductors.len)
+		if(length(SSticker.mode.abductors))
 			dat += check_role_table("Abductors", SSticker.mode.abductors)
 
-		if(SSticker.mode.abductees.len)
+		if(length(SSticker.mode.abductees))
 			dat += check_role_table("Abductees", SSticker.mode.abductees)
 
-		if(SSticker.mode.vampires.len)
+		if(length(SSticker.mode.vampires))
 			dat += check_role_table("Vampires", SSticker.mode.vampires)
 
-		if(SSticker.mode.vampire_enthralled.len)
+		if(length(SSticker.mode.vampire_enthralled))
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
-		if(SSticker.mode.xenos.len)
+		if(length(SSticker.mode.xenos))
 			dat += check_role_table("Xenos", SSticker.mode.xenos)
 
-		if(SSticker.mode.superheroes.len)
+		if(length(SSticker.mode.superheroes))
 			dat += check_role_table("Superheroes", SSticker.mode.superheroes)
 
-		if(SSticker.mode.supervillains.len)
+		if(length(SSticker.mode.supervillains))
 			dat += check_role_table("Supervillains", SSticker.mode.supervillains)
 
-		if(SSticker.mode.greyshirts.len)
+		if(length(SSticker.mode.greyshirts))
 			dat += check_role_table("Greyshirts", SSticker.mode.greyshirts)
 
-		if(SSticker.mode.eventmiscs.len)
+		if(length(SSticker.mode.eventmiscs))
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
-		if(GLOB.ts_spiderlist.len)
+		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
 					spider_minds += S.mind
-			if(spider_minds.len)
+			if(length(spider_minds))
 				dat += check_role_table("Terror Spiders", spider_minds)
 
 				var/count_eggs = 0
@@ -491,7 +491,7 @@
 				count_infected = length(GLOB.ts_infected_list)
 				dat += "<table cellspacing=5><tr><td>Growing TS on-station: [count_eggs] egg\s, [count_spiderlings] spiderling\s, [count_infected] infected</td></tr></table>"
 
-		if(SSticker.mode.ert.len)
+		if(length(SSticker.mode.ert))
 			dat += check_role_table("ERT", SSticker.mode.ert)
 
 		//list active security force count, so admins know how bad things are
