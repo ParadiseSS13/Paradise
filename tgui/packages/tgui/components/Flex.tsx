@@ -16,11 +16,7 @@ export type FlexProps = BoxProps & {
 };
 
 export const computeFlexClassName = (props: FlexProps) => {
-  return classes([
-    'Flex',
-    props.inline && 'Flex--inline',
-    computeBoxClassName(props),
-  ]);
+  return classes(['Flex', props.inline && 'Flex--inline', computeBoxClassName(props)]);
 };
 
 export const computeFlexProps = (props: FlexProps) => {
@@ -39,12 +35,7 @@ export const computeFlexProps = (props: FlexProps) => {
 
 export const Flex = (props) => {
   const { className, ...rest } = props;
-  return (
-    <div
-      className={classes([className, computeFlexClassName(rest)])}
-      {...computeFlexProps(rest)}
-    />
-  );
+  return <div className={classes([className, computeFlexClassName(rest)])} {...computeFlexProps(rest)} />;
 };
 
 Flex.defaultHooks = pureComponentHooks;
@@ -89,12 +80,7 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
 
 const FlexItem = (props) => {
   const { className, ...rest } = props;
-  return (
-    <div
-      className={classes([className, computeFlexItemClassName(props)])}
-      {...computeFlexItemProps(rest)}
-    />
-  );
+  return <div className={classes([className, computeFlexItemClassName(props)])} {...computeFlexItemProps(rest)} />;
 };
 
 FlexItem.defaultHooks = pureComponentHooks;

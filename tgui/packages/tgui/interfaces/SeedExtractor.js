@@ -1,16 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Stack,
-  Tabs,
-  Table,
-} from '../components';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 
@@ -46,9 +36,7 @@ const seedFilter = (searchText) => {
     }
     if (parts.length === 1) {
       filters.push((seed) =>
-        (seed.name + ' (' + seed.variant + ')')
-          .toLocaleLowerCase()
-          .includes(parts[0].toLocaleLowerCase())
+        (seed.name + ' (' + seed.variant + ')').toLocaleLowerCase().includes(parts[0].toLocaleLowerCase())
       );
       continue;
     }
@@ -211,9 +199,7 @@ const SortButton = (properties, context) => {
           }}
         >
           {children}
-          {sortId === id && (
-            <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-          )}
+          {sortId === id && <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
         </Button>
       </Table.Cell>
     </Stack.Item>
@@ -236,12 +222,7 @@ const SeedExtractorActions = (properties, context) => {
       </Stack.Item>
       <Stack.Item>
         Vend amount:
-        <Input
-          placeholder="1"
-          onInput={(e, value) =>
-            setVendAmount(Number(value) >= 1 ? Number(value) : 1)
-          }
-        />
+        <Input placeholder="1" onInput={(e, value) => setVendAmount(Number(value) >= 1 ? Number(value) : 1)} />
       </Stack.Item>
     </Stack>
   );

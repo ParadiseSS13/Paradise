@@ -392,9 +392,7 @@ class ChatRenderer {
       message.node = node;
       // Query all possible selectors to find out the message type
       if (!message.type) {
-        const typeDef = MESSAGE_TYPES.find(
-          (typeDef) => typeDef.selector && node.querySelector(typeDef.selector)
-        );
+        const typeDef = MESSAGE_TYPES.find((typeDef) => typeDef.selector && node.querySelector(typeDef.selector));
         message.type = typeDef?.type || MESSAGE_TYPE_UNKNOWN;
       }
       updateMessageBadge(message);

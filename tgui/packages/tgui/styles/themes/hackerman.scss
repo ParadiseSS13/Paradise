@@ -23,11 +23,7 @@
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: (
-      'color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #00ff00
-    )
+    $with: ('color-default': colors.$primary, 'color-disabled': #363636, 'color-selected': #00ff00)
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
@@ -37,24 +33,15 @@
       'color-selected': lighten(colors.$primary, 25%)
     )
   );
-  @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': colors.$primary)
-  );
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: ('color-disabled': #363636)
-  );
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': colors.$primary));
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-disabled': #363636));
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #223d22)
-  );
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #223d22));
 
   .Layout__content {
     background-image: none;

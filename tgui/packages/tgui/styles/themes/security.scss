@@ -19,18 +19,9 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: ('color-default': colors.$primary)
-  );
-  @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: ('color-default': darken(colors.$primary, 23%))
-  );
-  @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': #ff8d88)
-  );
+  @include meta.load-css('../components/Button.scss', $with: ('color-default': colors.$primary));
+  @include meta.load-css('../components/ImageButton.scss', $with: ('color-default': darken(colors.$primary, 23%)));
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': #ff8d88));
   @include meta.load-css('../components/NoticeBox.scss');
   @include meta.load-css('../components/Section.scss');
 

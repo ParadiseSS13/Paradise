@@ -23,10 +23,7 @@
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
-    $with: (
-      'color-default': darken(colors.$primary, 20%),
-      'color-selected': #188552
-    )
+    $with: ('color-default': darken(colors.$primary, 20%), 'color-selected': #188552)
   );
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css('../components/Tabs.scss', $with: ('tab-color-selected': colors.$primary));
