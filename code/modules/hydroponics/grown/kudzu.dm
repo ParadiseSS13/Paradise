@@ -55,7 +55,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_NEGATIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -63,7 +63,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_POSITIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -71,7 +71,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_MINOR_NEGATIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 

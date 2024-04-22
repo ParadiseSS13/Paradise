@@ -913,7 +913,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(I == handcuffed)
 				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
 					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-					if(I.reagents && I.reagents.reagent_list.len)
+					if(I.reagents && length(I.reagents.reagent_list))
 						taste(I.reagents)
 						I.reagents.reaction(src, REAGENT_INGEST)
 						I.reagents.trans_to(src, I.reagents.total_volume)

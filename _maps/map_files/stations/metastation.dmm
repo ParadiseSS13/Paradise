@@ -8313,7 +8313,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo - Quatermaster";
+	c_tag = "Cargo - Quartermaster";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -71465,20 +71465,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"oDZ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "oEe" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
@@ -83619,7 +83605,6 @@
 /area/station/public/fitness)
 "tHm" = (
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -92077,7 +92062,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "xtZ" = (
-/obj/structure/table,
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/crowbar,
@@ -115251,7 +115235,7 @@ nBj
 cgt
 cdT
 wfa
-oDZ
+bqQ
 cCj
 cdT
 kNJ

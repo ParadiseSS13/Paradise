@@ -71,12 +71,39 @@ enable_localhost_autoadmin = true
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
 admin_ranks = [
 	# Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
-	{name = "Mentor", rights = ["+MENTOR"]},
-	{name = "Trial Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE"]},
-	{name = "Game Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE", "+DEBUG", "+BUILDMODE", "+EVENT", "+SERVER", "+POSSESS", "+PROCCALL", "+VAREDIT", "+SOUND", "+SPAWN"]},
-	{name = "Head of Staff", rights = ["+EVERYTHING"]},
-	{name = "Hosting Provider", rights = ["+EVERYTHING"]},
-	{name = "Maintainers", rights = ["+EVERYTHING"]}
+	{ name = "Mentor", rights = [
+		"+MENTOR",
+	] },
+	{ name = "Trial Admin", rights = [
+		"+ADMIN",
+		"+BAN",
+		"+STEALTH",
+		"+REJUVINATE",
+	] },
+	{ name = "Game Admin", rights = [
+		"+ADMIN",
+		"+BAN",
+		"+STEALTH",
+		"+REJUVINATE",
+		"+DEBUG",
+		"+BUILDMODE",
+		"+EVENT",
+		"+SERVER",
+		"+POSSESS",
+		"+PROCCALL",
+		"+VAREDIT",
+		"+SOUND",
+		"+SPAWN",
+	] },
+	{ name = "Head of Staff", rights = [
+		"+EVERYTHING",
+	] },
+	{ name = "Hosting Provider", rights = [
+		"+EVERYTHING",
+	] },
+	{ name = "Maintainers", rights = [
+		"+EVERYTHING",
+	] },
 ]
 # List of people and the admin rank they are assigned to
 admin_assignments = [
@@ -86,18 +113,18 @@ admin_assignments = [
 allow_admin_ooc_colour = true
 # Map of admin rank colours to their respective rank. Note you can use hex or colour name here.
 admin_rank_colour_map = [
-	{name = "Head of Staff", colour = "#e74c3c"},
-	{name = "Maintainer", colour = "#992d22"},
-	{name = "Server Dev", colour = "#1abc9c"},
-	{name = "Community Manager", colour = "#e91e63"},
-	{name = "Game Admin", colour = "#238afa"},
-	{name = "Trial Admin", colour = "#7fb6fc"},
-	{name = "PR Reviewer", colour = "#c27c0e"},
-	{name = "Mentor", colour = "#f1c40f"},
+	{ name = "Head of Staff", colour = "#e74c3c" },
+	{ name = "Maintainer", colour = "#992d22" },
+	{ name = "Server Dev", colour = "#1abc9c" },
+	{ name = "Community Manager", colour = "#e91e63" },
+	{ name = "Game Admin", colour = "#238afa" },
+	{ name = "Trial Admin", colour = "#7fb6fc" },
+	{ name = "PR Reviewer", colour = "#c27c0e" },
+	{ name = "Mentor", colour = "#f1c40f" },
 ]
 # Map of common CIDs that should not be banned, plus their reasons
 common_cid_map = [
-	{cid = "3923664137", reason = "Mass-Match related to Walmart branded prebuilt PCs"}
+	{ cid = "3923664137", reason = "Mass-Match related to Walmart branded prebuilt PCs" },
 ]
 
 
@@ -135,7 +162,10 @@ ai_hologram = ["ckeyhere"]
 pai_holoform = ["ckeyhere"]
 # List of dictionary entries for ckeys with a custom IPC screean
 ipc_screens = [
-	{ckey = "ckeyhere", screens = ["Icon State 1", "Icon State 2"]}
+	{ ckey = "ckeyhere", screens = [
+		"Icon State 1",
+		"Icon State 2",
+	] },
 ]
 
 
@@ -149,7 +179,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 542206
+sql_version = 552206
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -175,20 +205,14 @@ async_thread_limit = 50
 # All role IDs must be STRINGS as BYOND doesnt like ints that big
 enable_discord_webhooks = false
 # List of all webhooks for the primary feed (public channels)
-main_webhook_urls = [
-	"https://webhook.one",
-	"https://webhook.two"
-]
+main_webhook_urls = ["https://webhook.one", "https://webhook.two"]
 # List of all webhook URLs for the mentor feed (mentorhelps relay)
 mentor_webhook_urls = [
 	"https://mentor.webhook.one",
-	"https://mentor.webhook.two"
+	"https://mentor.webhook.two",
 ]
 # List of all webhook URLs for the admin feed (round alerts, ahelps, etc)
-admin_webhook_urls = [
-	"https://admin.webhook.one",
-	"https://admin.webhook.two"
-]
+admin_webhook_urls = ["https://admin.webhook.one", "https://admin.webhook.two"]
 # Role ID for the admin role on the discord. Set to "" to disable.
 # THESE MUST BOTH BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
 admin_role_id = ""
@@ -210,9 +234,9 @@ new_round_waiting_role_id = ""
 # Disable this to disable all random events
 allow_random_events = true
 # Map of lower bounds for event delays. In minutes.
-event_delay_lower_bounds = {mundane = 10, moderate = 30, major = 50}
+event_delay_lower_bounds = { mundane = 10, moderate = 30, major = 50 }
 # Map of upper bounds for event delays. In minutes.
-event_delay_upper_bounds = {mundane = 15, moderate = 45, major = 70}
+event_delay_upper_bounds = { mundane = 15, moderate = 45, major = 70 }
 # Expected round length in minutes. Changes event weights
 expected_round_length = 120
 # Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used.
@@ -220,8 +244,8 @@ expected_round_length = 120
 # Values are in minutes
 event_initial_delays = [
 	#{severity = "mundane", lower_bound = 10, upper_bound = 15},
-	{severity = "moderate", lower_bound = 25, upper_bound = 40},
-	{severity = "major", lower_bound = 55, upper_bound = 75},
+	{ severity = "moderate", lower_bound = 25, upper_bound = 40 },
+	{ severity = "major", lower_bound = 55, upper_bound = 75 },
 ]
 
 
@@ -235,21 +259,21 @@ event_initial_delays = [
 antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
-	{gamemode = "abduction", probability = 0},
-	{gamemode = "changeling", probability = 3},
-	{gamemode = "cult", probability = 3},
-	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
-	{gamemode = "extended", probability = 3},
-	{gamemode = "nuclear", probability = 2},
-	{gamemode = "raginmages", probability = 0},
-	{gamemode = "revolution", probability = 0},
-	{gamemode = "traitor", probability = 2},
-	{gamemode = "traitorchan", probability = 3},
-	{gamemode = "traitorvamp", probability = 3},
-	{gamemode = "vampire", probability = 3},
-	{gamemode = "wizard", probability = 2},
-	{gamemode = "trifecta", probability = 3},
-	{gamemode = "antag_mix", probability = 3},
+	{ gamemode = "abduction", probability = 0 },
+	{ gamemode = "changeling", probability = 3 },
+	{ gamemode = "cult", probability = 3 },
+	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
+	{ gamemode = "extended", probability = 3 },
+	{ gamemode = "nuclear", probability = 2 },
+	{ gamemode = "raginmages", probability = 0 },
+	{ gamemode = "revolution", probability = 0 },
+	{ gamemode = "traitor", probability = 2 },
+	{ gamemode = "traitorchan", probability = 3 },
+	{ gamemode = "traitorvamp", probability = 3 },
+	{ gamemode = "vampire", probability = 3 },
+	{ gamemode = "wizard", probability = 2 },
+	{ gamemode = "trifecta", probability = 3 },
+	{ gamemode = "antag_mix", probability = 3 },
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -416,48 +440,48 @@ enable_job_amount_overrides = true
 # Job slot amount map. These are overrides. If you dont specify a value here, the code will be used as default. -1 is infinite
 job_slot_amounts = [
 	# Commmand
-	{name = "Captain", lowpop = 1, highpop = 1},
-	{name = "Head of Personnel", lowpop = 1, highpop = 1},
-	{name = "Head of Security", lowpop = 1, highpop = 1},
-	{name = "Chief Engineer", lowpop = 1, highpop = 1},
-	{name = "Research Director", lowpop = 1, highpop = 1},
-	{name = "Chief Medical Officer", lowpop = 1, highpop = 1},
+	{ name = "Captain", lowpop = 1, highpop = 1 },
+	{ name = "Head of Personnel", lowpop = 1, highpop = 1 },
+	{ name = "Head of Security", lowpop = 1, highpop = 1 },
+	{ name = "Chief Engineer", lowpop = 1, highpop = 1 },
+	{ name = "Research Director", lowpop = 1, highpop = 1 },
+	{ name = "Chief Medical Officer", lowpop = 1, highpop = 1 },
 	# Engineering
-	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
-	{name = "Station Engineer", lowpop = 5, highpop = 6},
-	{name = "Trainee Engineer", lowpop = 0, highpop = 0},
+	{ name = "Life Support Specialist", lowpop = 3, highpop = 4 },
+	{ name = "Station Engineer", lowpop = 5, highpop = 6 },
+	{ name = "Trainee Engineer", lowpop = 0, highpop = 0 },
 	# Medical
-	{name = "Chemist", lowpop = 2, highpop = 2},
-	{name = "Geneticist", lowpop = 2, highpop = 2},
-	{name = "Medical Doctor", lowpop = 5, highpop = 6},
-	{name = "Medical Intern", lowpop = 0, highpop = 0},
-	{name = "Virologist", lowpop = 1, highpop = 1},
+	{ name = "Chemist", lowpop = 2, highpop = 2 },
+	{ name = "Geneticist", lowpop = 2, highpop = 2 },
+	{ name = "Medical Doctor", lowpop = 5, highpop = 6 },
+	{ name = "Medical Intern", lowpop = 0, highpop = 0 },
+	{ name = "Virologist", lowpop = 1, highpop = 1 },
 	# Science
-	{name = "Roboticist", lowpop = 2, highpop = 2},
-	{name = "Scientist", lowpop = 6, highpop = 7},
-	{name = "Student Scientist", lowpop = 0, highpop = 0},
+	{ name = "Roboticist", lowpop = 2, highpop = 2 },
+	{ name = "Scientist", lowpop = 6, highpop = 7 },
+	{ name = "Student Scientist", lowpop = 0, highpop = 0 },
 	# Security
-	{name = "Detective", lowpop = 1, highpop = 1},
-	{name = "Security Officer", lowpop = 8, highpop = 9},
-	{name = "Security Cadet", lowpop = 0, highpop = 0},
-	{name = "Warden", lowpop = 1, highpop = 1},
-	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
+	{ name = "Detective", lowpop = 1, highpop = 1 },
+	{ name = "Security Officer", lowpop = 8, highpop = 9 },
+	{ name = "Security Cadet", lowpop = 0, highpop = 0 },
+	{ name = "Warden", lowpop = 1, highpop = 1 },
+	{ name = "Internal Affairs Agent", lowpop = 2, highpop = 2 },
 	# Service
-	{name = "Bartender", lowpop = 1, highpop = 1},
-	{name = "Botanist", lowpop = 2, highpop = 2},
-	{name = "Chaplain", lowpop = 1, highpop = 1},
-	{name = "Chef", lowpop = 1, highpop = 1},
-	{name = "Janitor", lowpop = 1, highpop = 2},
-	{name = "Librarian", lowpop = 1, highpop = 1},
+	{ name = "Bartender", lowpop = 1, highpop = 1 },
+	{ name = "Botanist", lowpop = 2, highpop = 2 },
+	{ name = "Chaplain", lowpop = 1, highpop = 1 },
+	{ name = "Chef", lowpop = 1, highpop = 1 },
+	{ name = "Janitor", lowpop = 1, highpop = 2 },
+	{ name = "Librarian", lowpop = 1, highpop = 1 },
 	# Cargo/Supply
-	{name = "Quartermaster", lowpop = 1, highpop = 1},
-	{name = "Shaft Miner", lowpop = 6, highpop = 6},
-	{name = "Cargo Technician", lowpop = 3, highpop = 4},
+	{ name = "Quartermaster", lowpop = 1, highpop = 1 },
+	{ name = "Shaft Miner", lowpop = 6, highpop = 6 },
+	{ name = "Cargo Technician", lowpop = 3, highpop = 4 },
 	# Silicon
-	{name = "AI", lowpop = 1, highpop = 1},
-	{name = "Cyborg", lowpop = 1, highpop = 1},
+	{ name = "AI", lowpop = 1, highpop = 1 },
+	{ name = "Cyborg", lowpop = 1, highpop = 1 },
 	# Misc
-	{name = "Assistant", lowpop = -1, highpop = -1},
+	{ name = "Assistant", lowpop = -1, highpop = -1 },
 ]
 
 
@@ -582,7 +606,6 @@ overflow_whitelist = ["keyhere", "anotherhere"]
 # SS220 addition
 # Slot saving  time for client reconnection (in seconds)
 reservation_time = 10
-
 
 
 ################################################################
@@ -843,11 +866,11 @@ non_repeating_maps = true
 # - "Random" = no vote, map is random
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-	{ day_number = 1, rotation_type = "Vote" }, # Monday
-	{ day_number = 2, rotation_type = "Random" }, # Tuesday
-	{ day_number = 3, rotation_type = "Vote" }, # Wednesday
-	{ day_number = 4, rotation_type = "Random" }, # Thursday
-	{ day_number = 5, rotation_type = "Vote" }, # Friday
+	{ day_number = 1, rotation_type = "Vote" },    # Monday
+	{ day_number = 2, rotation_type = "Random" },  # Tuesday
+	{ day_number = 3, rotation_type = "Vote" },    # Wednesday
+	{ day_number = 4, rotation_type = "Random" },  # Thursday
+	{ day_number = 5, rotation_type = "Vote" },    # Friday
 	{ day_number = 6, rotation_type = "Nodupes" }, # Saturday
 	{ day_number = 7, rotation_type = "Nodupes" }, # Sunday
 ]

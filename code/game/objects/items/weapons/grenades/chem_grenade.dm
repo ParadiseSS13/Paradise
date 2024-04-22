@@ -134,7 +134,7 @@
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
-		if(beakers.len == 2)
+		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
 		else
@@ -184,7 +184,7 @@
 			nadeassembly.forceMove(get_turf(src))
 			nadeassembly.master = null
 			nadeassembly = null
-		if(beakers.len)
+		if(length(beakers))
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
@@ -280,7 +280,7 @@
 
 	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
 		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
-		if(beakers.len)
+		if(length(beakers))
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
