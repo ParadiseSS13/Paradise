@@ -140,7 +140,7 @@
 	)
 	result = /obj/item/food/snacks/syntikebab
 
-/datum/recipe/grill/meatkebbb	// Do not put this above the other meat kebab variants or it will override them.
+/datum/recipe/grill/meatkeb	// Do not put this above the other meat kebab variants or it will override them.
 	items = list(
 		/obj/item/stack/rods,
 		/obj/item/food/snacks/meat,
