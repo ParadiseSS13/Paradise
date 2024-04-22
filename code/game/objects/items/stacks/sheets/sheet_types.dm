@@ -219,7 +219,6 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe_list("wood structures", list(
 		new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -281,6 +280,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 		new /datum/stack_recipe("black tatami", /obj/item/stack/tile/bamboo/tatami/black, req_amount = 1, res_amount = 4, max_res_amount = 20),
 		)),
 	null,
+	new /datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, req_amount = 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe_list("bamboo benches", list(
 		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),

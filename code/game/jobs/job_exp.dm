@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
 
-		msg += "<TD><A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
+		msg += "<TD><A href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
 		msg += "[C.get_exp_dept_string()]"
 		msg += "</TR>"
 
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
-	if(!play_records.len)
+	if(!length(play_records))
 		return "[key] has no records."
 	var/return_text = "<UL>"
 	var/list/exp_data = list()
@@ -201,11 +201,11 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 					jobs_unlocked += job.title
 				else
 					jobs_locked += "[job.title] - [job.get_exp_restrictions(mob.client)]"
-		if(jobs_unlocked.len)
+		if(length(jobs_unlocked))
 			return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
 			return_text += jobs_unlocked.Join("</LI><LI>")
 			return_text += "</LI></UL>"
-		if(jobs_locked.len)
+		if(length(jobs_locked))
 			return_text += "<BR><BR>Jobs Not Unlocked:<UL><LI>"
 			return_text += jobs_locked.Join("</LI><LI>")
 			return_text += "</LI></UL>"

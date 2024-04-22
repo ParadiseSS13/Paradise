@@ -62,7 +62,8 @@ const CloningConsoleMain = (props, context) => {
                   src={resolveAsset('pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif')}
                   style={{
                     width: '100%',
-                    '-ms-interpolation-mode': 'nearest-neighbor',
+                    '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                    'image-rendering': 'pixelated',
                   }}
                 />
                 <Button

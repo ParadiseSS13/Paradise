@@ -11,11 +11,6 @@ import { DraggableControl } from './DraggableControl';
 import { NumberInput } from './NumberInput';
 
 export const Knob = (props) => {
-  // IE8: I don't want to support a yet another component on IE8.
-  // IE8: It also can't handle SVG.
-  if (Byond.IS_LTE_IE8) {
-    return <NumberInput {...props} />;
-  }
   const {
     // Draggable props (passthrough)
     animated,

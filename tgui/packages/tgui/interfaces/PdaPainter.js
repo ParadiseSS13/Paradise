@@ -48,7 +48,8 @@ const PdaMenu = (props, context) => {
                       width: '32px',
                       margin: '0px',
                       'margin-left': '0px',
-                      '-ms-interpolation-mode': 'nearest-neighbor',
+                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                      'image-rendering': 'pixelated',
                     }}
                   />
                 </Table.Cell>
@@ -75,7 +76,8 @@ const PdaImage = (props, context) => {
             width: '160px',
             margin: '0px',
             'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor',
+            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+            'image-rendering': 'pixelated',
           }}
         />
         <Button fluid textAlign="center" icon="eject" content="Eject" color="green" onClick={() => act('eject_pda')} />
@@ -89,7 +91,8 @@ const PdaImage = (props, context) => {
             width: '160px',
             margin: '0px',
             'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor',
+            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+            'image-rendering': 'pixelated',
           }}
         />
       </Section>
