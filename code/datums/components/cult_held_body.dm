@@ -11,6 +11,13 @@
 	. = ..()
 	add_body(new_body)
 
+/datum/component/construct_held_body/Destroy(force, silent)
+	if(held_body)
+		stack_trace("/datum/component/construct_held_body had a held body still despite being destroyed. Body is [held_body] ([held_body.type])")
+		held_body = null
+	return ..()
+
+
 /datum/component/construct_held_body/PostTransfer()
 	held_body.forceMove(parent) // forcemove them to the new parent
 
@@ -58,6 +65,9 @@
 		if(brain.brainmob) // Check if the brain has a brainmob
 			brain.brainmob.key = parent_mob.key // Set the key to the brainmob
 			held_mob = brain.brainmob
+
+	if(!istype(held_mob) || QDELETED(held_mob))
+		CRASH("/datum/component/construct_held_body/proc/_drop_body attempted to drop a body despite having no body, or a qdeleted body")
 
 	parent_mob.mind.transfer_to(held_mob) // Transfer the mind to the original mob
 	// goodbye construct antag datums!
