@@ -228,7 +228,7 @@
 							criminal = R.fields["criminal"]
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
-								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+								commentLatest = LAZYACCESS(comments, length(comments)) //get the latest entry from the comment log
 								if(islist(commentLatest))
 									commentLatest = "[commentLatest["header"]]: [commentLatest["text"]]"
 							else

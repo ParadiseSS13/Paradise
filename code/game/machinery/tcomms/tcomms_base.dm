@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/vname
 	/// sender_name before modify_message modifies it, because it introduces html tags.
 	var/pre_modify_name
-	/// List of all channels this can be sent or recieved on
+	/// List of all channels this can be sent or received on
 	var/list/zlevels = list()
 	/// Should this signal be re-broadcasted (Can be modified by NTTC, defaults to TRUE)
 	var/pass = TRUE
