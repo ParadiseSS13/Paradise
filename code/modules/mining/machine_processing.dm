@@ -192,7 +192,7 @@
 	generate_mineral(alloy.build_path)
 
 /obj/machinery/mineral/processing_unit/proc/can_smelt(datum/design/D)
-	if(D.make_reagents.len)
+	if(length(D.make_reagents))
 		return FALSE
 
 	var/build_amount = SMELT_AMOUNT
