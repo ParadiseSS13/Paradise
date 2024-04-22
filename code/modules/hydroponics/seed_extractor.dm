@@ -116,7 +116,7 @@
 	else if(istype(O, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
 		return ..()
-	else if(istype(O,/obj/item/seeds))
+	else if(istype(O, /obj/item/seeds))
 		add_seed(O, user)
 		to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 		SStgui.update_uis(src)
