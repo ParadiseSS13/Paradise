@@ -8313,7 +8313,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo - Quatermaster";
+	c_tag = "Cargo - Quartermaster";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -83619,7 +83619,6 @@
 /area/station/public/fitness)
 "tHm" = (
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -92077,7 +92076,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "xtZ" = (
-/obj/structure/table,
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/crowbar,
