@@ -95,7 +95,7 @@
 
 /obj/item/clothing/glasses/hud/debug
 	name = "AVD-CNED glasses"
-	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt click to toggle X-ray vision."
+	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
 	icon_state = "nvgmeson"
 	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
