@@ -5170,7 +5170,7 @@
 	name = "Nanotrasen Asset Protection Shutters";
 	pixel_x = -8;
 	pixel_y = 30;
-	req_access_txt = "114"
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -13959,7 +13959,7 @@
 "Xo" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
 	name = "Nanotrasen Asset Protection Shutters";
-	req_access_txt = "114";
+	req_access_txt = "109";
 	pixel_y = -24;
 	id = "SPECOPS"
 	},
