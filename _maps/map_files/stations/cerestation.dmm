@@ -41468,9 +41468,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -63932,6 +63929,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "nta" = (
@@ -65217,7 +65215,6 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/aft/west)
 "nOU" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance/external{
 	name = "External Airlock Access"
 	},
@@ -85427,9 +85424,6 @@
 	name = "Engine Room"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;

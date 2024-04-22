@@ -1,0 +1,9 @@
+/obj/machinery/atmospherics/pipe/simple/hidden:
+  banned_neighbors:
+    /obj/machinery/atmospherics/pipe/simple/hidden:
+      identical: true
+
+/obj/machinery/atmospherics/pipe/simple/visible:
+  banned_neighbors:
+    /obj/machinery/atmospherics/pipe/simple/visible:
+      identical: true
