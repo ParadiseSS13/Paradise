@@ -1045,5 +1045,5 @@
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
 
-/// Sent to transfer bodies between shades/shards and constructs
+/// Sent when bodies transfer between shades/shards and constructs
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"

@@ -17,7 +17,6 @@
 		held_body = null
 	return ..()
 
-
 /datum/component/construct_held_body/PostTransfer()
 	held_body.forceMove(parent) // forcemove them to the new parent
 
