@@ -108,6 +108,10 @@ GLOBAL_VAR(syndicate_name)
 GLOBAL_VAR(syndicate_code_phrase) //Code phrase for traitors.
 GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 
+//Cached regex search - for checking if codewords are used.
+GLOBAL_DATUM(syndicate_code_phrase_regex, /regex)
+GLOBAL_DATUM(syndicate_code_response_regex, /regex)
+
 	/*
 	Should be expanded.
 	How this works:
@@ -122,9 +126,12 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	/N
 	*/
 
-/proc/generate_code_phrase()//Proc is used for phrase and response in master_controller.dm
+/proc/generate_code_phrase(return_list = FALSE) // Proc is used for phrase and response in master_controller.dm
 
-	var/code_phrase = ""//What is returned when the proc finishes.
+	if(!return_list)
+		. = ""
+	else
+		. = list()
 	var/words = pick(//How many words there will be. Minimum of two. 2, 4 and 5 have a lesser chance of being selected. 3 is the most likely.
 		50; 2,
 		200; 3,
@@ -152,34 +159,34 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 
 		switch(pick(safety))//Chance based on the safety list.
 			if(1)//1 and 2 can only be selected once each to prevent more than two specific names/places/etc.
-				switch(rand(1,2))//Mainly to add more options later.
+				switch(rand(1, 2)) // Mainly to add more options later.
 					if(1)
-						if(names.len)
-							code_phrase += pick(names)
+						if(length(names))
+							. += pick(names)
 					if(2)
-						code_phrase += pick(GLOB.joblist)//Returns a job.
+						. += pick(GLOB.joblist)//Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1,2))//Places or things.
 					if(1)
-						code_phrase += pick(drinks)
+						. += pick(drinks)
 					if(2)
-						code_phrase += pick(locations)
+						. += pick(locations)
 				safety -= 2
 			if(3)
-				switch(rand(1,3))//Nouns, adjectives, verbs. Can be selected more than once.
+				switch(rand(1, 3)) // Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
-						code_phrase += pick(nouns)
+						. += pick(nouns)
 					if(2)
-						code_phrase += pick(GLOB.adjectives)
+						. += pick(GLOB.adjectives)
 					if(3)
-						code_phrase += pick(GLOB.verbs)
-		if(words==1)
-			code_phrase += "."
-		else
-			code_phrase += ", "
+						. += pick(GLOB.verbs)
 
-	return code_phrase
+		if(!return_list)
+			if(words == 1)
+				. += "."
+			else
+				. += ", "
 
 /proc/GenerateKey()
 	var/newKey
@@ -187,89 +194,3 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
 	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	return newKey
-
-/*
-//This proc tests the gen above.
-/client/verb/test_code_phrase()
-	set name = "Generate Code Phrase"
-	set category = "Debug"
-
-	to_chat(world, "<span class='warning'>Code Phrase is:</span> [generate_code_phrase()]")
-	return
-
-
-	This was an earlier attempt at code phrase system, aside from an even earlier attempt (and failure).
-	This system more or less works as intended--aside from being unfinished--but it's still very predictable.
-	Particularly, the phrase opening statements are pretty easy to recognize and identify when metagaming.
-	I think the above-used method solves this issue by using words in a sequence, providing for much greater flexibility.
-	/N
-
-	switch(choice)
-		if(1)
-			syndicate_code_phrase += pick("I'm looking for","Have you seen","Maybe you've seen","I'm trying to find","I'm tracking")
-			syndicate_code_phrase += " "
-			syndicate_code_phrase += pick(pick(GLOB.first_names_male,GLOB.first_names_female))
-			syndicate_code_phrase += " "
-			syndicate_code_phrase += pick(GLOB.last_names)
-			syndicate_code_phrase += "."
-		if(2)
-			syndicate_code_phrase += pick("How do I get to","How do I find","Where is","Where do I find")
-			syndicate_code_phrase += " "
-			syndicate_code_phrase += pick("Escape","Engineering","Atmos","the bridge","the brig","Clown Planet","CentComm","the library","the chapel","a bathroom","Med Bay","Tool Storage","the escape shuttle","Robotics","a locker room","the living quarters","the gym","the autolathe","QM","the bar","the theater","the derelict")
-			syndicate_code_phrase += "?"
-		if(3)
-			if(prob(70))
-				syndicate_code_phrase += pick("Get me","I want","I'd like","Make me")
-				syndicate_code_phrase += " a "
-			else
-				syndicate_code_phrase += pick("One")
-				syndicate_code_phrase += " "
-			syndicate_code_phrase += pick("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-			syndicate_code_phrase += "."
-		if(4)
-			syndicate_code_phrase += pick("I wish I was","My dad was","His mom was","Where do I find","The hero this station needs is","I'd fuck","I wouldn't trust","Someone caught","HoS caught","Someone found","I'd wrestle","I wanna kill")
-			syndicate_code_phrase += " [pick("a","the")] "
-			syndicate_code_phrase += pick("wizard","ninja","xeno","lizard","slime","monkey","syndicate","cyborg","clown","space carp","singularity","singulo","mime")
-			syndicate_code_phrase += "."
-		if(5)
-			syndicate_code_phrase += pick("Do we have","Is there","Where is","Where's","Who's")
-			syndicate_code_phrase += " "
-			syndicate_code_phrase += "[pick(GLOB.joblist)]"
-			syndicate_code_phrase += "?"
-
-	switch(choice)
-		if(1)
-			if(prob(80))
-				syndicate_code_response += pick("Try looking for them near","I they ran off to","Yes. I saw them near","Nope. I'm heading to","Try searching")
-				syndicate_code_response += " "
-				syndicate_code_response += pick("Escape","Engineering","Atmos","the bridge","the brig","Clown Planet","CentComm","the library","the chapel","a bathroom","Med Bay","Tool Storage","the escape shuttle","Robotics","a locker room","the living quarters","the gym","the autolathe","QM","the bar","the theater","the derelict")
-				syndicate_code_response += "."
-			else if(prob(60))
-				syndicate_code_response += pick("No. I'm busy, sorry.","I don't have the time.","Not sure, maybe?","There is no time.")
-			else
-				syndicate_code_response += pick("*shrug*","*smile*","*blink*","*sigh*","*laugh*","*nod*","*giggle*")
-		if(2)
-			if(prob(80))
-				syndicate_code_response += pick("Go to","Navigate to","Try","Sure, run to","Try searching","It's near","It's around")
-				syndicate_code_response += " the "
-				syndicate_code_response += pick("[pick("south","north","east","west")] maitenance door","nearby maitenance","teleporter","[pick("cold","dead")] space","morgue","vacuum","[pick("south","north","east","west")] hall ","[pick("south","north","east","west")] hallway","[pick("white","black","red","green","blue","pink","purple")] [pick("rabbit","frog","lion","tiger","panther","snake","facehugger")]")
-				syndicate_code_response += "."
-			else if(prob(60))
-				syndicate_code_response += pick("Try asking","Ask","Talk to","Go see","Follow","Hunt down")
-				syndicate_code_response += " "
-				if(prob(50))
-					syndicate_code_response += pick(pick(GLOB.first_names_male,GLOB.first_names_female))
-					syndicate_code_response += " "
-					syndicate_code_response += pick(GLOB.last_names)
-				else
-					syndicate_code_response += " the "
-					syndicate_code_response += "[pic(GLOB.joblist)]"
-				syndicate_code_response += "."
-			else
-				syndicate_code_response += pick("*shrug*","*smile*","*blink*","*sigh*","*laugh*","*nod*","*giggle*")
-		if(3)
-		if(4)
-		if(5)
-
-	return
-*/

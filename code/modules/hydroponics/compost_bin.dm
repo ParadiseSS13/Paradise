@@ -40,7 +40,7 @@
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
 // Accepts inserted plants and converts them to biomass
-/obj/machinery/compost_bin/proc/make_biomass(obj/item/reagent_containers/food/snacks/grown/O)
+/obj/machinery/compost_bin/proc/make_biomass(obj/item/food/snacks/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
 	biomass += clamp(plant_biomass * 10, 1, biomass_capacity - biomass)
@@ -58,7 +58,7 @@
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
+		for(var/obj/item/food/snacks/grown/G in PB.contents)
 
 			PB.remove_from_storage(G, src)
 			make_biomass(G)
@@ -74,7 +74,7 @@
 		update_icon_state()
 		return TRUE
 
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
+	if(istype(O, /obj/item/food/snacks/grown))
 		if(biomass >= biomass_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
@@ -118,10 +118,13 @@
 /obj/machinery/compost_bin/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/compost_bin/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/compost_bin/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/compost_bin/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CompostBin", "Compost Bin", 390, 200, master_ui, state)
+		ui = new(user, src, "CompostBin", "Compost Bin")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

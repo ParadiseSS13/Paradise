@@ -32,7 +32,7 @@
 	traitor_prob = (num_players - (max_traitors - 1) * 10) * 10
 
 	// Stop setup if no possible traitors
-	if(!possible_traitors.len)
+	if(!length(possible_traitors))
 		return 0
 
 	if(GLOB.configuration.gamemode.traitor_scaling)
@@ -56,7 +56,7 @@
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
-//	if(!traitors.len)
+//	if(!length(traitors))
 //		return 0
 	return 1
 
@@ -93,7 +93,7 @@
 			if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
 				continue
 			var/mob/living/carbon/human/H = player.current
-			for(var/obj/item/implant/mindshield/I in H.contents)
+			for(var/obj/item/bio_chip/mindshield/I in H.contents)
 				if(I && I.implanted)
 					possible_traitors -= player
 			if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
@@ -120,7 +120,7 @@
 
 			if(prob(traitor_prob))
 				message_admins("Making a new Traitor.")
-				if(!possible_traitors.len)
+				if(!length(possible_traitors))
 					message_admins("No potential traitors.  Cancelling new traitor.")
 					traitorcheckloop()
 					return

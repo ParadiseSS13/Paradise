@@ -99,7 +99,6 @@
 		var/power_produced = powernet ? power * input_power_multiplier : power
 		produce_direct_power(power_produced)
 		flick("coilhit", src)
-		playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 		return power - power_produced //You get back the amount we didn't use
 	else
 		. = ..()

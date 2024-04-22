@@ -52,6 +52,7 @@
 		return
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	switch(severity)
 		if(1)
 			take_damage(INFINITY, BRUTE, BOMB, 0)
@@ -190,6 +191,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/acid_melt()
 	SSacid.processing -= src
 	deconstruct(FALSE)
+
+/obj/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	. = ..()
+	if(acid_level)
+		acid_level = 0
 
 //// FIRE
 

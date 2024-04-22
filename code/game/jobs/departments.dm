@@ -127,7 +127,6 @@
 		"Chaplain",
 		"Clown",
 		"Mime",
-		"Barber",
 		"Magistrate",
 		"Nanotrasen Representative",
 		"Blueshield",

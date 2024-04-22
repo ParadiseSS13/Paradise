@@ -107,7 +107,7 @@
 		.["toolsother"][I] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.tools.len) //does not run if no tools are needed
+	if(!length(R.tools)) //does not run if no tools are needed
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
@@ -133,7 +133,7 @@
 	return TRUE
 
 /datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.pathtools.len) //does not run if no tools are needed
+	if(!length(R.pathtools)) //does not run if no tools are needed
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
@@ -284,10 +284,13 @@
 	return parts_returned
 
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/personal_crafting/ui_state(mob/user)
+	return GLOB.not_incapacitated_turf_state
+
+/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
+		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)
@@ -381,34 +384,34 @@
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
 	if(!readonly)
 		viewing_subcategory = 1
-	. = viewing_category % categories.len + 1
+	. = viewing_category % length(categories) + 1
 
 /datum/personal_crafting/proc/next_subcat()
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
-		. = viewing_subcategory % subs.len + 1
+		. = viewing_subcategory % length(subs) + 1
 
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
 	if(!readonly)
 		viewing_subcategory = 1
-	if(viewing_category == categories.len)
+	if(viewing_category == length(categories))
 		. = viewing_category-1
 	else
-		. = viewing_category % categories.len - 1
+		. = viewing_category % length(categories) - 1
 	if(. <= 0)
-		. = categories.len
+		. = length(categories)
 
 /datum/personal_crafting/proc/prev_subcat()
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
-		if(viewing_subcategory == subs.len)
+		if(viewing_subcategory == length(subs))
 			. = viewing_subcategory-1
 		else
-			. = viewing_subcategory % subs.len - 1
+			. = viewing_subcategory % length(subs) - 1
 		if(. <= 0)
-			. = subs.len
+			. = length(subs)
 	else
 		. = null
 

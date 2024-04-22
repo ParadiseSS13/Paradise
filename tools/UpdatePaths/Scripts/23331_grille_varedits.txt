@@ -1,0 +1,1 @@
+/obj/structure/grille{icon_state="brokengrille"} : /obj/structure/grille/broken{@OLD;icon_state=@SKIP;density=@SKIP;broken=@SKIP}

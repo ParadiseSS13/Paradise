@@ -141,7 +141,7 @@
 
 /obj/item/grenade/clusterbuster/booze
 	name = "\improper Booze Grenade"
-	payload = /obj/item/reagent_containers/food/drinks/bottle/random_drink
+	payload = /obj/item/reagent_containers/drinks/bottle/random_drink
 
 /obj/item/grenade/clusterbuster/honk
 	name = "\improper Mega Honk Grenade"
@@ -170,14 +170,14 @@
 	payload = /obj/singularity
 
 /obj/item/grenade/clusterbuster/tools
-	name = "\improper Quick Repair Grenade"
-	desc = "An assistant's every dream."
-	payload = /obj/random/tool
-
-/obj/item/grenade/clusterbuster/tools
 	name = "\improper Engineering Deployment Platfom"
 	desc = "For the that time when gearing up was just too hard."
 	payload = /obj/random/tech_supply
+
+/obj/item/grenade/clusterbuster/tide
+	name = "\improper Quick Repair Grenade"
+	desc = "An assistant's every dream."
+	payload = /obj/random/tool
 
 /obj/item/grenade/clusterbuster/toys
 	name = "\improper Toy Delivery System"

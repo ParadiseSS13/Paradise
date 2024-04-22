@@ -23,7 +23,7 @@
 /obj/structure/spawner/lavaland/legion
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
 
-GLOBAL_LIST_INIT(tendrils, list())
+GLOBAL_LIST_EMPTY(tendrils)
 
 /obj/structure/spawner/lavaland/Initialize(mapload)
 	. = ..()
@@ -42,6 +42,14 @@ GLOBAL_LIST_INIT(tendrils, list())
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
+/obj/structure/spawner/lavaland/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
+
+/obj/structure/spawner/lavaland/bullet_act(obj/item/projectile/P)
+	. = ..()
+	if(P.firer)
+		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/lavaland/Destroy()
 	GLOB.tendrils -= src
@@ -66,7 +74,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 /obj/effect/collapse/Initialize(mapload)
 	. = ..()
 	emitted_light = new(loc)
-	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
+	visible_message("<span class='boldannounceic'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
 	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
 	playsound(loc, 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 50)
@@ -79,7 +87,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
-	visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
+	visible_message("<span class='boldannounceic'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
 	for(var/turf/T in range(2,src))
 		if(!T.density)
 			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)

@@ -49,10 +49,11 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = 23
-	oxygen = 14
-	temperature = 300
+	nitrogen = 14
+	oxygen = 8
+	temperature = 500
 
+// Grass
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/floors/grass.dmi'
@@ -85,14 +86,16 @@
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 
-/turf/simulated/floor/grass/no_creep //This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/// This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/turf/simulated/floor/grass/no_creep
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null
 	layer = GRASS_UNDER_LAYER
 	transform = null
 
-/turf/simulated/floor/grass/jungle/no_creep //This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/// This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/turf/simulated/floor/grass/jungle/no_creep
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null
@@ -100,7 +103,6 @@
 	transform = null
 
 //Carpets
-
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
@@ -202,8 +204,70 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
-
 //End of carpets
+
+// Bamboo mats
+/turf/simulated/floor/bamboo
+	name = "bamboo"
+	icon = 'icons/turf/floors/bamboo_mat.dmi'
+	icon_state = "mat-0"
+	base_icon_state = "mat"
+	floor_tile = /obj/item/stack/tile/bamboo
+	prying_tool_list = list(TOOL_SCREWDRIVER)
+	broken_states = list("bamboo-damaged")
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_BAMBOO)
+	canSmoothWith = list(SMOOTH_GROUP_BAMBOO)
+	footstep = FOOTSTEP_WOOD
+	barefootstep = FOOTSTEP_WOOD_BAREFOOT
+	clawfootstep = FOOTSTEP_WOOD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/bamboo/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/turf/simulated/floor/bamboo/update_icon_state()
+	if(!broken && !burnt)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+			QUEUE_SMOOTH(src)
+	else
+		make_plating()
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+			QUEUE_SMOOTH_NEIGHBORS(src)
+
+/turf/simulated/floor/bamboo/break_tile()
+	broken = TRUE
+	update_icon()
+
+/turf/simulated/floor/bamboo/burn_tile()
+	burnt = TRUE
+	update_icon()
+
+/turf/simulated/floor/bamboo/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
+
+/turf/simulated/floor/bamboo/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+// Bamboo tatami mat
+/turf/simulated/floor/bamboo/tatami
+	desc = "A traditional Japanese floor mat."
+	icon_state = "bamboo-green"
+	broken_states = list("tatami-damaged")
+	floor_tile = /obj/item/stack/tile/bamboo/tatami
+	smoothing_flags = NONE
+
+/turf/simulated/floor/bamboo/tatami/purple
+	icon_state = "bamboo-purple"
+	floor_tile = /obj/item/stack/tile/bamboo/tatami/purple
+
+/turf/simulated/floor/bamboo/tatami/black
+	icon_state = "bamboo-black"
+	floor_tile = /obj/item/stack/tile/bamboo/tatami/black
+// End of bamboo
 
 /turf/simulated/floor/fakespace
 	icon = 'icons/turf/space.dmi'

@@ -20,6 +20,7 @@
 	maxHealth = 125
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	maxbodytemp = INFINITY
 	obj_damage = 10
 	environment_smash = 0
 	check_friendly_fire = TRUE
@@ -194,7 +195,7 @@
 		O.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
-	if(!contents.len)
+	if(!length(contents))
 		if(message)
 			to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")
 		return

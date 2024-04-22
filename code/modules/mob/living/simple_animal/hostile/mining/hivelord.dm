@@ -30,7 +30,7 @@
 	retreat_distance = 3
 	minimum_distance = 3
 	pass_flags = PASSTABLE
-	loot = list(/obj/item/organ/internal/regenerative_core)
+	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
@@ -172,6 +172,7 @@
 	throw_message = "bounces harmlessly off of"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
+	butcher_results = null
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
@@ -182,7 +183,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
-	desc = "You can still see what was once a midget under the shifting mass of corruption."
+	desc = "You can still see what was once a dwarf under the shifting mass of corruption."
 	icon_state = "dwarf_legion"
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
@@ -342,7 +343,7 @@
 	H.update_mutations()
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
-	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde", "Cultist")) = 4))
+	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick("Shadow", "YeOlde", "Cultist") = 4))
 	switch(type)
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 72, /datum/species/unathi = 28))
@@ -386,23 +387,23 @@
 			belt = null
 			backpack_contents = list()
 			if(prob(70))
-				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1))
+				backpack_contents += pick(/obj/item/stamp/clown, /obj/item/reagent_containers/spray/waterflower, /obj/item/food/snacks/grown/banana, /obj/item/megaphone)
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
 			if(prob(10))
-				r_pocket = /obj/item/implanter/sad_trombone
+				r_pocket = /obj/item/bio_chip_implanter/sad_trombone
 		if("Golem")
-			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
+			mob_species = pick(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium)
 			if(prob(30))
 				glasses = pickweight(list(/obj/item/clothing/glasses/meson = 2, /obj/item/clothing/glasses/hud/health = 2, /obj/item/clothing/glasses/hud/diagnostic =2, /obj/item/clothing/glasses/science = 2, /obj/item/clothing/glasses/welding = 2, /obj/item/clothing/glasses/night = 1))
 			if(prob(10))
-				belt = pick(list(/obj/item/storage/belt/mining/vendor, /obj/item/storage/belt/utility/full))
+				belt = pick(/obj/item/storage/belt/mining/vendor, /obj/item/storage/belt/utility/full)
 			if(prob(50))
 				back = /obj/item/bedsheet/rd/royal_cape
 			if(prob(10))
-				l_pocket = pick(list(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental))
+				l_pocket = pick(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental)
 		if("YeOlde")
 			mob_gender = FEMALE
 			uniform = /obj/item/clothing/under/costume/maid
@@ -430,6 +431,6 @@
 				suit_store = /obj/item/melee/cultblade
 			l_pocket = /obj/item/melee/cultblade/dagger
 			if(prob(60))
-				r_pocket = /obj/item/reagent_containers/food/drinks/bottle/unholywater
+				r_pocket = /obj/item/reagent_containers/drinks/bottle/unholywater
 			backpack_contents = list(/obj/item/tome = 1, /obj/item/restraints/legcuffs/bola/cult = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

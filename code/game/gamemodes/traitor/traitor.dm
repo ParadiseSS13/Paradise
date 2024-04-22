@@ -1,9 +1,3 @@
-/datum/game_mode
-	/// A list of all minds which have the traitor antag datum.
-	var/list/datum/mind/traitors = list()
-	/// An associative list with mindslave minds as keys and their master's minds as values.
-	var/list/datum/mind/implanted = list()
-
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
@@ -72,7 +66,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
+		var/list/text = list("<FONT size = 2><B>The traitors were:</B></FONT><br>")
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor)
@@ -159,5 +153,4 @@
 		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
-		to_chat(world, text)
-	return TRUE
+		return text.Join("")

@@ -10,10 +10,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
-/obj/item/contract/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/contract/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "WizardApprenticeContract", name, 400, 600, master_ui, state)
+		ui = new(user, src, "WizardApprenticeContract", name)
 		ui.open()
 
 /obj/item/contract/ui_data(mob/user)
@@ -21,89 +24,51 @@
 	data["used"] = used
 	return data
 
-/obj/item/contract/ui_act(action, params)
+/obj/item/contract/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	var/mob/living/carbon/human/H = usr
-
 	if(used)
 		return
+	INVOKE_ASYNC(src, PROC_REF(async_find_apprentice), action, ui.user)
+	SStgui.close_uis(src)
 
+/obj/item/contract/proc/async_find_apprentice(action, user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
 	used = TRUE
 
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
 
-	if(length(candidates))
-		var/mob/C = pick(candidates)
-		new /obj/effect/particle_effect/smoke(H.loc)
-		var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
-		M.key = C.key
-		to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
-		switch(action)
-			if("destruction")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/projectile/magic_missile(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
-			if("bluespace")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
-			if("healing")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
-				M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), SLOT_HUD_RIGHT_HAND)
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
-			if("robeless")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
-
-		M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-		M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), SLOT_HUD_JUMPSUIT)
-		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-		M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), SLOT_HUD_OUTER_SUIT)
-		M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), SLOT_HUD_HEAD)
-		M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), SLOT_HUD_BACK)
-		M.equip_to_slot_or_del(new /obj/item/storage/box(M), SLOT_HUD_IN_BACKPACK)
-		M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), SLOT_HUD_RIGHT_STORE)
-		var/wizard_name_first = pick(GLOB.wizard_first)
-		var/wizard_name_second = pick(GLOB.wizard_second)
-		var/randomname = "[wizard_name_first] [wizard_name_second]"
-		var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
-
-		if(!newname)
-			newname = randomname
-		M.mind.name = newname
-		M.real_name = newname
-		M.name = newname
-
-		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.owner = M.mind
-		new_objective.target = H.mind
-		new_objective.explanation_text = "Protect [H.real_name], the wizard."
-		M.mind.add_mind_objective(new_objective)
-
-		SSticker.mode.apprentices += M.mind
-		M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-		SSticker.mode.update_wiz_icons_added(M.mind)
-		dust_if_respawnable(C)
-		M.faction = list("wizard")
-		SStgui.close_uis(src)
-	else
+	if(!length(candidates))
 		used = FALSE
 		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+		return
+	new /obj/effect/particle_effect/smoke(get_turf(H))
+
+	var/mob/C = pick(candidates)
+	var/mob/living/carbon/human/M = new /mob/living/carbon/human(get_turf(H))
+	M.key = C.key
+
+	var/datum/antagonist/wizard/apprentice/apprentice = new /datum/antagonist/wizard/apprentice()
+	apprentice.my_teacher = H
+	apprentice.class_type = action
+	M.mind.add_antag_datum(apprentice)
+
+	dust_if_respawnable(C)
 
 /obj/item/contract/attack_self(mob/user as mob)
 	if(..())
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'> You've already summoned an apprentice or you are in process of summoning one. </span>")
+		to_chat(user, "<span class='warning'>You've already summoned an apprentice or you are in process of summoning one.</span>")
 		return
 
 	ui_interact(user)
+
 
 ///////////////////////////Veil Render//////////////////////
 
@@ -255,12 +220,9 @@
 		return
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
-	user.add_atom_colour(COLOR_BLUE, ADMIN_COLOUR_PRIORITY) // stolen spirit rune code
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
 					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
-	ghost = user.ghostize(TRUE)
-	ghost.name = "Magic Spirit of [ghost.name]"
-	ghost.color = COLOR_BLUE
+	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
 			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
@@ -284,6 +246,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword
 	name = "multiverse sword"
 	desc = "A weapon capable of conquering the universe and beyond. Activate it to summon copies of yourself from others dimensions to fight by your side."
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "energy_katana"
@@ -595,7 +558,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/scalpel(M), SLOT_HUD_RIGHT_STORE)
 				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
 				for(var/obj/item/carried_item in M.contents)
-					if(!istype(carried_item, /obj/item/implant))
+					if(!istype(carried_item, /obj/item/bio_chip))
 						carried_item.add_mob_blood(M)
 
 			if("pirate")
@@ -666,9 +629,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/pure_evil
 	probability_evil = 100
 
-/obj/item/multisword/pike //If We are to be used and spent, let it be for a noble purpose.
+/// If We are to be used and spent, let it be for a noble purpose.
+/obj/item/multisword/pike
 	name = "phantom pike"
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	cooldown_between_uses = 200 //Half the time
@@ -712,7 +677,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	check_spooky()//clean out/refresh the list
 
-	if(spooky_scaries.len >= 3 && !unlimited)
+	if(length(spooky_scaries) >= 3 && !unlimited)
 		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
 		return
 	if(heresy)
@@ -726,7 +691,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
 	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
-	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
+	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
 
 /obj/item/necromantic_stone/proc/check_spooky()
 	if(unlimited) //no point, the list isn't used.
@@ -842,12 +807,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_burn = 25
 	heal_oxy = 25
 
-/obj/item/reagent_containers/food/drinks/everfull
+/obj/item/reagent_containers/drinks/everfull
 	name = "everfull mug"
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/everfull/attack_self(mob/user)
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
@@ -867,13 +832,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 												"Welder Fuel" = "a dark, pungent, oily substance",
 												"Vomit" = "warm chunky vomit")
 
-	var/choice = show_radial_menu(user, src, options)
+	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
 	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
 	magic_fill(options_to_reagent[choice])
 
-/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
+/obj/item/reagent_containers/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
 

@@ -59,28 +59,6 @@
 		return TRUE
 	return FALSE
 
-/obj/item/clothing/mask/muzzle/Topic(href, href_list)
-	..()
-	if(href_list["locked"])
-		var/mob/living/carbon/wearer = locate(href_list["locked"])
-		var/success = 0
-		if(ishuman(usr))
-			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
-							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
-			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
-				if(locked)
-					success = do_unlock(usr)
-				else
-					success = do_lock(usr)
-			if(success)
-				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
-									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
-				if(usr.machine == wearer && in_range(src, usr))
-					wearer.show_inv(usr)
-		else
-			to_chat(usr, "You lack the ability to manipulate the lock.")
-
-
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "MHPMHHH!"

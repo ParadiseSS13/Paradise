@@ -16,6 +16,10 @@
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
+/mob/living/carbon/proc/get_int_organ_datum(tag_to_check)
+	RETURN_TYPE(/datum/organ)
+	return internal_organ_datums[tag_to_check]
+
 
 /mob/living/carbon/get_organs_zone(zone, subzones = 0)
 	var/list/returnorg = list()
@@ -40,14 +44,10 @@
 		if(tag == O.organ_tag)
 			return O
 
-/proc/is_int_organ(atom/A)
-	return istype(A, /obj/item/organ/internal)
-
 /mob/living/carbon/human/proc/get_limb_by_name(limb_name) //Look for a limb with the given limb name in the source mob, and return it if found.
 	for(var/obj/item/organ/external/O in bodyparts)
 		if(limb_name == O.limb_name)
 			return O
-
 
 /mob/proc/has_left_hand()
 	return TRUE
@@ -103,4 +103,9 @@
 			.++
 		if(affecting.body_part == LEG_LEFT)
 			.++
-
+///Returns true if all the mob's vital organs are functional, otherwise returns false
+/mob/living/carbon/human/proc/check_vital_organs()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.vital && (organ.damage >= organ.max_damage))
+			return FALSE
+	return TRUE

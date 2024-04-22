@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(dbcore)
   */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>DB query blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		return FALSE
@@ -382,11 +382,13 @@ SUBSYSTEM_DEF(dbcore)
   * * log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)
   */
 /datum/db_query/proc/warn_execute(async = TRUE, log_error = TRUE)
+	if(!GLOB.configuration.database.enabled)
+		return
 	. = Execute(async, log_error)
 	if(!.)
 		SSdbcore.total_errors++
 		if(usr)
-			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
+			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		message_admins("An SQL error has occurred. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /**
@@ -461,7 +463,7 @@ SUBSYSTEM_DEF(dbcore)
 
 // Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
-	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;slowquery=no'>\[NO\]</a>")
+	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;slowquery=no'>\[NO\]</a>")
 
 
 /**

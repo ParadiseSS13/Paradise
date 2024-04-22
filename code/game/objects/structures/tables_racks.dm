@@ -401,14 +401,12 @@
 
 	return 1
 
-
 /obj/structure/table/water_act(volume, temperature, source, method)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED))
 		slippery = initial(slippery)
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
-
 
 /*
  * Glass Tables
@@ -623,7 +621,8 @@
 	if(!total_override)
 		..()
 
-/obj/structure/table/wood/poker //No specialties, Just a mapping object.
+/// No specialties, Just a mapping object.
+/obj/structure/table/wood/poker
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon = 'icons/obj/smooth_structures/tables/poker_table.dmi'

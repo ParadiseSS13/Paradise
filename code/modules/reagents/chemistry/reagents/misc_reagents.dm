@@ -246,7 +246,7 @@
 	taste_description = "a carpet...what?"
 
 /datum/reagent/carpet/reaction_turf(turf/simulated/T, volume)
-	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
+	if((istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel)))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()
@@ -447,7 +447,8 @@
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
-/datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+/// Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+/datum/reagent/jestosterone
 	name = "Jestosterone"
 	id = "jestosterone"
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
@@ -465,12 +466,13 @@
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+			C.AddElement(/datum/element/waddling)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-	if(C.mind.assigned_role != "Clown")
-		ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
-		C.AddElement(/datum/element/waddling)
+			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+			C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
@@ -505,7 +507,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	if(M.mind.assigned_role != "Clown")
+	if(M.mind?.assigned_role != "Clown")
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))
@@ -589,40 +591,51 @@
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
-/datum/reagent/plantnutriment
-	name = "Generic nutriment"
-	id = "plantnutriment"
-	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
+/datum/reagent/plantnutrient
+	name = "Generic nutrient"
+	id = "plantnutrient"
+	description = "Some kind of nutrient. You can't really tell what it is. You should probably report it, along with how you obtained it."
 	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
+	var/mutation_level = 0
 	taste_description = "puke"
 
-/datum/reagent/plantnutriment/on_mob_life(mob/living/M)
+/datum/reagent/plantnutrient/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(tox_prob))
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/plantnutriment/eznutriment
+/datum/reagent/plantnutrient/eznutrient
 	name = "E-Z-Nutrient"
-	id = "eznutriment"
-	description = "Cheap and extremely common type of plant nutriment."
-	color = "#376400" // RBG: 50, 100, 0
-	tox_prob = 10
+	id = "eznutrient"
+	description = "Cheap and boring nutrition for plants."
+	color = "#504700" // RBG: 80, 70, 0
+	tox_prob = 5
 	taste_description = "obscurity and toil"
 
-/datum/reagent/plantnutriment/left4zednutriment
+/datum/reagent/plantnutrient/mut
+	name = "Mutrient"
+	id = "mutrient"
+	description = "Plant nutrient designed to trigger mild genetic drift."
+	color = "#376400" // RBG: 50, 100, 0
+	tox_prob = 10
+	mutation_level = 10
+	taste_description = "change"
+
+/datum/reagent/plantnutrient/left4zednutrient
 	name = "Left 4 Zed"
-	id = "left4zednutriment"
-	description = "Unstable nutriment that makes plants mutate more often than usual."
+	id = "left4zednutrient"
+	description = "Unstable nutrient that makes plants mutate strongly at the cost of minimal yield."
 	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
+	mutation_level = 15
 	taste_description = "evolution"
 
-/datum/reagent/plantnutriment/robustharvestnutriment
+/datum/reagent/plantnutrient/robustharvestnutrient
 	name = "Robust Harvest"
-	id = "robustharvestnutriment"
-	description = "Very potent nutriment that prevents plants from mutating."
+	id = "robustharvestnutrient"
+	description = "Very potent nutrient that increases yield."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
 	taste_description = "bountifulness"

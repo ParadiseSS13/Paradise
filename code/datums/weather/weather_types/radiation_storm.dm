@@ -27,7 +27,9 @@
 		/area/station/security/brig,
 		/area/shuttle,
 		/area/survivalpod, //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
-		/area/ruin //Let us not completely kill space explorers.
+		/area/syndicate_depot/core, // exterior of depot still dangerous, gotta be inside
+		/area/ruin, //Let us not completely kill space explorers.
+		/area/station/command/server
 	)
 	target_trait = REACHABLE_SPACE_ONLY
 

@@ -44,7 +44,8 @@ research holder datum.
 **	Includes all the helper procs and basic tech processing.  **
 ***************************************************************/
 
-/datum/research								//Holder for all the existing, archived, and known tech. Individual to console.
+/// Holder for all the existing, archived, and known tech. Individual to console.
+/datum/research
 
 									//Datum/tech go here.
 									// Possible is a list of direct datum references
@@ -76,7 +77,7 @@ research holder datum.
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
-	if(T.req_tech.len == 0)
+	if(length(T.req_tech) == 0)
 		return TRUE
 	for(var/req in T.req_tech)
 		var/datum/tech/known = known_tech[req]
@@ -91,7 +92,7 @@ research holder datum.
 		return FALSE
 	if(D.requires_whitelist && !(known_designs[D.id]))
 		return FALSE
-	if(D.req_tech.len == 0)
+	if(length(D.req_tech) == 0)
 		return TRUE
 	for(var/req in D.req_tech)
 		var/datum/tech/known = known_tech[req]
@@ -249,7 +250,8 @@ research holder datum.
 **	Includes all the various technoliges and what they make.  **
 ***************************************************************/
 
-/datum/tech	//Datum of individual technologies.
+/// Datum of individual technologies.
+/datum/tech
 	var/name = "name"					//Name of the technology.
 	var/desc = "description"			//General description of what it does and what it makes.
 	var/id = "id"						//An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.
@@ -317,7 +319,8 @@ research holder datum.
 	id = "programming"
 	max_level = 7
 
-/datum/tech/toxins //not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
+/// not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
+/datum/tech/toxins
 	name = "Toxins Research"
 	desc = "Research into plasma based explosive devices. Upgrade through testing explosives in the toxins lab."
 	id = "toxins"

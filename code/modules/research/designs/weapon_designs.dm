@@ -147,8 +147,8 @@
 
 //WT550 Mags
 /datum/design/mag_oldsmg
-	name = "WT-550 Auto Gun Magazine (4.6x30mm)"
-	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
+	name = "WT-550 PDW Magazine (4.6x30mm)"
+	desc = "A 20 round magazine for the WT-550 PDW."
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
@@ -157,8 +157,8 @@
 	category = list("Weapons")
 
 /datum/design/box_oldsmg
-	name = "WT-550 Auto Gun Ammo Box (4.6x30mm)"
-	desc = "A box of 20 rounds for the out of date security WT-550 Auto Rifle"
+	name = "WT-550 PDW Ammo Box (4.6x30mm)"
+	desc = "A box of 20 rounds for the WT-550 PDW."
 	id = "box_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
@@ -167,30 +167,30 @@
 	category = list("Weapons")
 
 /datum/design/box_oldsmg/ap_box
-	name = "WT-550 Auto Gun Armour Piercing Ammo Box (4.6x30mm AP)"
-	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
+	name = "WT-550 PDW Armour Piercing Ammo Box (4.6x30mm AP)"
+	desc = "A box of 20 armour piercing rounds for the WT-550 PDW."
 	id = "box_oldsmg_ap"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600)
 	build_path = /obj/item/ammo_box/wt550/wtap
 	category = list("Weapons")
 
 /datum/design/box_oldsmg/ic_box
-	name = "WT-550 Auto Gun Incendiary Ammo Box (4.6x30mm IC)"
-	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
+	name = "WT-550 PDW Incendiary Ammo Box (4.6x30mm IC)"
+	desc = "A box of 20 incendiary rounds for the WT-550 PDW."
 	id = "box_oldsmg_ic"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
 	build_path = /obj/item/ammo_box/wt550/wtic
 	category = list("Weapons")
 
 /datum/design/box_oldsmg/tx_box
-	name = "WT-550 Auto Gun Uranium Ammo Box (4.6x30mm TX)"
-	desc = "A box of 20 uranium tipped rounds for the out of date security WT-550 Auto Rifle"
+	name = "WT-550 PDW Uranium Ammo Box (4.6x30mm TX)"
+	desc = "A box of 20 uranium tipped rounds for the WT-550 PDW."
 	id = "box_oldsmg_tx"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")
 
-/datum/design/mag_laser
+/datum/design/laser_rifle_magazine
 	name = "Laser Rifle Projector Magazine"
 	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
 	id = "mag_laser"
@@ -200,10 +200,10 @@
 	build_path = /obj/item/ammo_box/magazine/laser
 	category = list("Weapons")
 
-/datum/design/mag_laser
+/datum/design/laser_rifle_ammo_box
 	name = "Laser Rifle Projector Ammunition"
 	desc = "A 20 round encased projector box for the IK Laser Rifle series."
-	id = "mag_laser"
+	id = "box_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)

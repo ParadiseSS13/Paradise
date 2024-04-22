@@ -117,6 +117,9 @@
 
 /obj/machinery/computer/mob_battle_terminal/interact(mob/user)
 	check_connection()
+	var/datum/asset/mob_hunt_asset = get_asset_datum(/datum/asset/simple/mob_hunt)
+	mob_hunt_asset.send(user)
+
 	var/dat = ""
 	dat += "<table border='1' style='width:75%'>"
 	dat += "<tr>"
@@ -132,7 +135,7 @@
 		dat += "</tr>"
 		if(ready && SSmob_hunt.battle_turn)	//offer the surrender option if they are in a battle (ready), but don't have a card loaded
 			dat += "<tr>"
-			dat += "<td><a href='?src=[UID()];surrender=1'>Surrender!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];surrender=1'>Surrender!</a></td>"
 			dat += "</tr>"
 	else
 		dat += "<table>"
@@ -144,9 +147,9 @@
 			dat += "<td rowspan='2'>"
 		else
 			dat += "<td>"
-		var/img_src = "[mob_info.icon_state_normal].png"
+		var/img_src = SSassets.transport.get_asset_url("[mob_info.icon_state_normal].png")
 		if(mob_info.is_shiny)
-			dat += "[mob_info.icon_state_shiny].png"
+			dat += SSassets.transport.get_asset_url("[mob_info.icon_state_shiny].png")
 		dat += "<img src='[img_src]'>"
 		dat += "</td>"
 		dat += "</tr>"
@@ -162,21 +165,21 @@
 		dat += "<table border='1'>"
 		dat += "<tr>"
 		if(mob_info.cur_health)
-			dat += "<td><a href='?src=[UID()];attack=1'>Attack!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];attack=1'>Attack!</a></td>"
 		else
 			dat += "<td>Incapacitated!</td>"
-		dat += "<td><a href='?src=[UID()];eject=1'>Recall!</a></td>"
+		dat += "<td><a href='byond://?src=[UID()];eject=1'>Recall!</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "</td>"
 		dat += "</tr>"
 		if(!ready)
 			dat += "<tr>"
-			dat += "<td><a href='?src=[UID()];ready=1'>Battle!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];ready=1'>Battle!</a></td>"
 			dat += "</tr>"
 		if(ready && !SSmob_hunt.battle_turn)
 			dat += "<tr>"
-			dat += "<td><a href='?src=[UID()];ready=2'>Cancel Battle!</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];ready=2'>Cancel Battle!</a></td>"
 			dat += "</tr>"
 	dat += "</table>"
 

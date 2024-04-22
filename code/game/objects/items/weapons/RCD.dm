@@ -238,10 +238,13 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rcd/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/rcd/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RCD", "Rapid Construction Device", 471, 673, master_ui, state)
+		ui = new(user, src, "RCD", "Rapid Construction Device")
 		ui.open()
 
 /obj/item/rcd/ui_data(mob/user)
@@ -357,7 +360,7 @@
 			var/answer = params["answer"]
 			if(!answer)
 				return
-			door_name = sanitize(copytext(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
+			door_name = sanitize(copytext_char(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
 		else
 			return FALSE
 
@@ -700,3 +703,10 @@
 
 #undef MATTER_100
 #undef MATTER_500
+
+#undef TAB_AIRLOCK_TYPE
+#undef TAB_AIRLOCK_ACCESS
+#undef MODE_TURF
+#undef MODE_AIRLOCK
+#undef MODE_WINDOW
+#undef MODE_DECON

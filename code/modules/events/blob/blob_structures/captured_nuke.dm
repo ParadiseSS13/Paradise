@@ -1,4 +1,5 @@
-/obj/structure/blob/captured_nuke //alternative to blob just straight up destroying nukes
+/// alternative to blob just straight up destroying nukes
+/obj/structure/blob/captured_nuke
 	name = "blob captured nuke"
 	icon_state = "blob"
 	desc = "A Nuclear Warhead tangled in blob tendrils pulsating with a horrific green glow."

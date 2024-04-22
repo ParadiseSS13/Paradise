@@ -1,11 +1,11 @@
 /obj/item/organ/internal/liver/grey
 	name = "grey liver"
-	desc = "A small, odd looking liver"
+	desc = "A small, odd looking liver."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	alcohol_intensity = 1.6
 
 /obj/item/organ/internal/brain/grey
-	desc = "A large brain"
+	desc = "A large brain."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
@@ -21,7 +21,7 @@
 
 /obj/item/organ/internal/eyes/grey
 	name = "grey eyeballs"
-	desc = "They still look creepy and emotionless"
+	desc = "They still look creepy and emotionless."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	see_in_dark = 5
 

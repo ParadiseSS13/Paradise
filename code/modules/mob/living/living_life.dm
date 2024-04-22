@@ -75,15 +75,18 @@
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
 	if(stat != DEAD)
+		if(forced_look && !isnum(forced_look))
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				var/view = client ? client.maxview() : world.view
+				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+					clear_forced_look(TRUE)
+					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+			else
+				clear_forced_look(TRUE)
+				to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+		// Make sure it didn't get cleared
 		if(forced_look)
-			if(!isnum(forced_look))
-				var/atom/A = locateUID(forced_look)
-				if(istype(A))
-					var/view = client ? client.maxview() : world.view
-					if(get_dist(src, A) > view || !(src in viewers(view, A)))
-						forced_look = null
-						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-						return
 			setDir()
 
 	if(machine)
@@ -170,6 +173,10 @@
 				healths.icon_state = "health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+		else
+			clear_alert("succumb")

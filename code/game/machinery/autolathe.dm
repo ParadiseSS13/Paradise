@@ -98,17 +98,20 @@
 	else if(!disabled)
 		ui_interact(user)
 
-/obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/autolathe/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Autolathe", name, 750, 700, master_ui, state)
+		ui = new(user, src, "Autolathe", name)
 		ui.open()
 
 
 /obj/machinery/autolathe/ui_static_data(mob/user)
 	var/list/data = list()
 	data["categories"] = categories
-	if(!recipiecache.len)
+	if(!length(recipiecache))
 		var/list/recipes = list()
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
@@ -161,7 +164,7 @@
 		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
-	data["buildQueueLen"] = queue.len
+	data["buildQueueLen"] = length(queue)
 	return data
 
 /obj/machinery/autolathe/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -176,7 +179,7 @@
 			queue = list()
 		if("remove_from_queue")
 			var/index = text2num(params["remove_from_queue"])
-			if(isnum(index) && ISINRANGE(index, 1, queue.len))
+			if(isnum(index) && ISINRANGE(index, 1, length(queue)))
 				remove_from_queue(index)
 				to_chat(usr, "<span class='notice'>Removed item from queue.</span>")
 		if("make")
@@ -191,10 +194,10 @@
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
-			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
+			if(design_last_ordered.materials[MAT_METAL] / coeff > materials.amount(MAT_METAL))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
 				return
-			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
+			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
@@ -210,7 +213,7 @@
 			if(!(multiplier in list(1, 10, 25, max_multiplier))) //"enough materials ?" is checked in the build proc
 				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
-			if((queue.len + 1) < queue_max_len)
+			if((length(queue) + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
 			else
 				to_chat(usr, "<span class='warning'>The autolathe queue is full!</span>")
@@ -220,7 +223,7 @@
 				busy = FALSE
 
 /obj/machinery/autolathe/ui_status(mob/user, datum/ui_state/state)
-	. = disabled ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = disabled ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 
@@ -244,8 +247,8 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/temp_metal = materials.amount(MAT_METAL)
 	var/temp_glass = materials.amount(MAT_GLASS)
-	data["processing"] = being_built.len ? get_processing_line() : null
-	if(istype(queue) && queue.len)
+	data["processing"] = length(being_built) ? get_processing_line() : null
+	if(istype(queue) && length(queue))
 		var/list/data_queue = list()
 		for(var/list/L in queue)
 			var/datum/design/D = L[1]
@@ -254,7 +257,7 @@
 			temp_metal = max(temp_metal - LL[1], 1)
 			temp_glass = max(temp_glass - LL[2], 1)
 		data["queue"] = data_queue
-		data["queue_len"] = data_queue.len
+		data["queue_len"] = length(data_queue)
 	else
 		data["queue"] = null
 	return data
@@ -414,7 +417,7 @@
 	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)
-	if(D.make_reagents.len)
+	if(length(D.make_reagents))
 		return 0
 
 	var/coeff = get_coeff(D)
@@ -453,10 +456,10 @@
 		queue = list()
 	if(D)
 		queue.Add(list(list(D,multiplier)))
-	return queue.len
+	return length(queue)
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)
-	if(!isnum(index) || !istype(queue) || (index<1 || index>queue.len))
+	if(!isnum(index) || !istype(queue) || (index<1 || index>length(queue)))
 		return 0
 	queue.Cut(index,++index)
 	return 1
@@ -466,7 +469,7 @@
 	var/multiplier = queue[1][2]
 	if(!D)
 		remove_from_queue(1)
-		if(queue.len)
+		if(length(queue))
 			return process_queue()
 		else
 			return
@@ -519,3 +522,7 @@
 /obj/machinery/autolathe/syndicate/Initialize()
 	. = ..()
 	files = new /datum/research/autolathe/syndicate(src)
+
+#undef AUTOLATHE_MAIN_MENU
+#undef AUTOLATHE_CATEGORY_MENU
+#undef AUTOLATHE_SEARCH_MENU

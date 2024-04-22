@@ -63,7 +63,7 @@
 	emagged = new_state
 	update_icons()
 	if(emagged)
-		throw_alert("hacked", /obj/screen/alert/hacked)
+		throw_alert("hacked", /atom/movable/screen/alert/hacked)
 	else
 		clear_alert("hacked")
 
@@ -98,15 +98,15 @@
 			if(0.75 to INFINITY)
 				clear_alert("charge")
 			if(0.5 to 0.75)
-				throw_alert("charge", /obj/screen/alert/lowcell, 1)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
 			if(0.25 to 0.5)
-				throw_alert("charge", /obj/screen/alert/lowcell, 2)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
 			if(0.01 to 0.25)
-				throw_alert("charge", /obj/screen/alert/lowcell, 3)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 			else
-				throw_alert("charge", /obj/screen/alert/emptycell)
+				throw_alert("charge", /atom/movable/screen/alert/emptycell)
 	else
-		throw_alert("charge", /obj/screen/alert/nocell)
+		throw_alert("charge", /atom/movable/screen/alert/nocell)
 
 
 
@@ -120,7 +120,6 @@
 		module_state_2:screen_loc = ui_inv2
 	if(module_state_3)
 		module_state_3:screen_loc = ui_inv3
-	update_icons()
 
 /mob/living/silicon/robot/proc/process_locks()
 	if(weapon_lock)

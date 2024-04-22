@@ -22,7 +22,7 @@
 	mob_size = MOB_SIZE_SMALL
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/snacks/meat = 1)
 	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -83,8 +83,8 @@
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
-		C.stored_comms["wood"] += 2 //TODO make this stuff not wood because borgs don't have a wood module, only drones, and this doesn't work with drones - GDN
-		C.stored_comms["glass"] += 2
+		C.stored_comms["metal"] += 2 // having more metal than glass because blood has iron in it
+		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()

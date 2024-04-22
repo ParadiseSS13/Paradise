@@ -15,7 +15,7 @@
 
 	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
 		add_plasma(breath.toxins * 250)
-		throw_alert("alien_tox", /obj/screen/alert/alien_tox)
+		throw_alert("alien_tox", /atom/movable/screen/alert/alien_tox)
 
 		toxins_used = breath.toxins
 
@@ -25,9 +25,6 @@
 	//Breathe in toxins and out oxygen
 	breath.toxins -= toxins_used
 	breath.oxygen += toxins_used
-
-	//BREATH TEMPERATURE
-	handle_breath_temperature(breath)
 
 /mob/living/carbon/alien/handle_status_effects()
 	..()

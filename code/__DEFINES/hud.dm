@@ -26,6 +26,7 @@
 #define DIAG_TRACK_HUD		"21"// Mech tracking beacon
 #define DIAG_AIRLOCK_HUD 	"22" // Airlock shock overlay
 #define GLAND_HUD 			"23"//Gland indicators for abductors
+#define JANI_HUD			"24" // Sign overlay over cleanable decals
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -40,20 +41,21 @@
 #define DATA_HUD_DIAGNOSTIC_BASIC	5
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
 #define DATA_HUD_HYDROPONIC			7
+#define DATA_HUD_JANITOR			8
 //antag HUD defines
-#define ANTAG_HUD_CULT		8
-#define ANTAG_HUD_REV		9
-#define ANTAG_HUD_OPS		10
-#define ANTAG_HUD_WIZ		11
-#define ANTAG_HUD_SHADOW    12
-#define ANTAG_HUD_TRAITOR 13
-#define ANTAG_HUD_NINJA 14
-#define ANTAG_HUD_CHANGELING 15
-#define ANTAG_HUD_VAMPIRE 16
-#define ANTAG_HUD_ABDUCTOR 17
-#define DATA_HUD_ABDUCTOR	18
-#define ANTAG_HUD_EVENTMISC 19
-#define ANTAG_HUD_BLOB 20
+#define ANTAG_HUD_CULT		9
+#define ANTAG_HUD_REV		10
+#define ANTAG_HUD_OPS		11
+#define ANTAG_HUD_WIZ		12
+#define ANTAG_HUD_SHADOW    13
+#define ANTAG_HUD_TRAITOR 14
+#define ANTAG_HUD_NINJA 15
+#define ANTAG_HUD_CHANGELING 16
+#define ANTAG_HUD_VAMPIRE 17
+#define ANTAG_HUD_ABDUCTOR 18
+#define DATA_HUD_ABDUCTOR	19
+#define ANTAG_HUD_EVENTMISC 20
+#define ANTAG_HUD_BLOB 21
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -65,5 +67,33 @@
 // on-screen icons, but rather go to examine text.
 #define EXAMINE_HUD_SECURITY_READ "security_read"
 #define EXAMINE_HUD_SECURITY_WRITE "security_write"
-#define EXAMINE_HUD_MEDICAL "medical"
+#define EXAMINE_HUD_MEDICAL_READ "medical_read"
+#define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
+
+/proc/ui_hand_position(i)
+	// values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
+	var/x_off = i % 2 ? 0 : -1
+	var/y_off = round((i-1) / 2)
+	return"CENTER+[x_off]:16,SOUTH+[y_off]:5"
+
+/proc/ui_equip_position(mob/M)
+	// values based on old equip ui position (CENTER: +/-16,SOUTH+1:5)
+	var/y_off = round(1 / 2)
+	return "CENTER:-16,SOUTH+[y_off+1]:5"
+
+/proc/ui_swaphand_position(mob/M, which = 1)
+	// values based on old swaphand ui positions (CENTER: +/-16,SOUTH+1:5)
+	var/x_off = which == 1 ? -1 : 0
+	var/y_off = round(1 / 2)
+	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
+
+
+/// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
+/proc/view_to_pixels(view)
+	if(!view)
+		return list(0, 0)
+	var/list/view_info = getviewsize(view)
+	view_info[1] *= world.icon_size
+	view_info[2] *= world.icon_size
+	return view_info

@@ -37,8 +37,8 @@
 		response = UpgradeDeprecatedCommandResponse(response, command)
 
 		var/list/topic_response = TopicResponse()
-		topic_response[DMAPI5_TOPIC_RESPONSE_COMMAND_RESPONSE_MESSAGE] = response?.text
-		topic_response[DMAPI5_TOPIC_RESPONSE_COMMAND_RESPONSE] = response?._interop_serialize()
+		topic_response[DMAPI5_TOPIC_RESPONSE_COMMAND_RESPONSE_MESSAGE] = response ? response.text : null
+		topic_response[DMAPI5_TOPIC_RESPONSE_COMMAND_RESPONSE] = response ? response._interop_serialize() : null
 		return topic_response
 	return TopicResponse("Unknown custom chat command: [command]!")
 

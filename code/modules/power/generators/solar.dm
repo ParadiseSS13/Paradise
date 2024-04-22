@@ -1,4 +1,4 @@
-#define SOLAR_MAX_DIST 40
+
 
 /obj/machinery/power/solar
 	name = "solar panel"
@@ -25,9 +25,9 @@
 	unset_control() //remove from control computer
 	return ..()
 
-//set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
+//set the control of the panel to a given computer if closer than SOLAR_MACHINERY_MAX_DIST
 /obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
-	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
+	if(!SC || (get_dist(src, SC) > SOLAR_MACHINERY_MAX_DIST))
 		return FALSE
 	control = SC
 	SC.connected_panels |= src
@@ -102,7 +102,7 @@
 		panel.transform = M
 		. += panel
 
-//calculates the fraction of the sunlight that the panel recieves
+//calculates the fraction of the sunlight that the panel receives
 /obj/machinery/power/solar/proc/update_solar_exposure()
 	if(obscured)
 		sunfrac = 0
@@ -373,22 +373,25 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/solar_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/solar_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SolarControl", name, 490, 300)
+		ui = new(user, src, "SolarControl", name)
 		ui.open()
 
 /obj/machinery/power/solar_control/ui_data(mob/user)
 	var/list/data = list()
 	data["generated"] = round(lastgen) //generated power by all connected panels
-	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
+	data["generated_ratio"] = data["generated"] / round(max(length(connected_panels), 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
 	data["direction"] = angle2text(cdir)	//current orientation of the panels
 	data["cdir"] = cdir	//current orientation of the of the panels in degrees
 	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
 	data["tracking_rate"] = trackrate //rotation speed of tracker in degrees/h
 	data["rotating_direction"] = (trackrate < 0 ? "Counter clockwise" : "Clockwise") //direction of tracker
-	data["connected_panels"] = connected_panels.len
+	data["connected_panels"] = length(connected_panels)
 	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
 	return data
 
@@ -511,3 +514,7 @@
 /obj/item/paper/solar
 	name = "paper- 'Going green! Setup your own solar array instructions.'"
 	info = "<h1>Welcome</h1><p>At greencorps we love the environment, and space. With this package you are able to help mother nature and produce energy without any usage of fossil fuel or plasma! Singularity energy is dangerous while solar energy is safe, which is why it's better. Now here is how you setup your own solar array.</p><p>You can make a solar panel by wrenching the solar assembly onto a cable node. Adding a glass panel, reinforced or regular glass will do, will finish the construction of your solar panel. It is that easy!</p><p>Now after setting up 19 more of these solar panels you will want to create a solar tracker to keep track of our mother nature's gift, the sun. These are the same steps as before except you insert the tracker equipment circuit into the assembly before performing the final step of adding the glass. You now have a tracker! Now the last step is to add a computer to calculate the sun's movements and to send commands to the solar panels to change direction with the sun. Setting up the solar computer is the same as setting up any computer, so you should have no trouble in doing that. You do need to put a wire node under the computer, and the wire needs to be connected to the tracker.</p><p>Congratulations, you should have a working solar array. If you are having trouble, here are some tips. Make sure all solar equipment are on a cable node, even the computer. You can always deconstruct your creations if you make a mistake.</p><p>That's all to it, be safe, be green!</p>"
+
+#undef TRACKER_OFF
+#undef TRACKER_TIMED
+#undef TRACKER_AUTO

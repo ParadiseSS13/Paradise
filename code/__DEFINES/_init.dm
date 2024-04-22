@@ -4,7 +4,7 @@
 	// This exists so that world.Profile() is THE FIRST PROC TO RUN in the init sequence.
 	// This allows us to get the real details of everything lagging at server start.
 	world.Profile(PROFILE_START)
-	#if defined(ENABLE_BYOND_TRACY) && (DM_BUILD == 1589)
+	#if defined(ENABLE_BYOND_TRACY)
 	var/tracy_init = CALL_EXT("prof.dll", "init")() // Setup Tracy integration
 	if(tracy_init != "0")
 		CRASH("Tracy init error: [tracy_init]")

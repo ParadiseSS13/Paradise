@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp/eyes
 	name = "cybernetic eyes"
-	desc = "artificial photoreceptors with specialized functionality"
+	desc = "artificial photoreceptors with specialized functionality."
 	icon_state = "eye_implant"
 	implant_overlay = "eye_implant_overlay"
 	slot = "eye_sight"
@@ -43,7 +43,7 @@
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUD_type = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
@@ -60,4 +60,12 @@
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+
+/obj/item/organ/internal/cyberimp/eyes/hud/jani
+	name = "Janitor HUD implant"
+	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
+	implant_color = "#AF00AF"
+	origin_tech = "materials=4;engineering=4;biotech=4"
+	aug_message = "You scan for filth spots around you..."
+	HUD_type = DATA_HUD_JANITOR

@@ -197,7 +197,7 @@
 	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		to_chat(user, "They do not have organs to mend!")
 		// note that we want to return skip here so we can go "back" to the proxy step
 		return SURGERY_BEGINSTEP_SKIP
@@ -232,7 +232,7 @@
 /datum/surgery_step/internal/manipulate_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
 
 	var/list/organs = get_organ_list(target_zone, target, affected)
@@ -256,7 +256,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -307,7 +307,7 @@
 		organs -= O
 		organs[O.name] = O
 
-	var/obj/item/organ/internal/I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+	var/obj/item/organ/internal/I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 		extracting = organs[I]
 		if(!extracting)
@@ -377,11 +377,11 @@
 	name = "implant an organ"
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
-		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
+		/obj/item/food/snacks/organ = 0  // there for the flavor text
 	)
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
+	if(istype(tool, /obj/item/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -394,6 +394,10 @@
 
 	if(I.requires_robotic_bodypart)
 		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -427,7 +431,10 @@
 	if(!istype(tool))
 		return SURGERY_STEP_INCOMPLETE
 	if(I.requires_robotic_bodypart)
-		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		to_chat(user, "<span class='warning'>[I] requires a robotic interface.</span>")
+		return SURGERY_STEP_INCOMPLETE
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] requires an IPC interface!</span>")
 		return SURGERY_STEP_INCOMPLETE
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
@@ -462,8 +469,8 @@
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/syringe = 100,
 		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/drinks/bottle = 80,
 		/obj/item/reagent_containers/glass/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
 		/obj/item/reagent_containers/glass/bucket = 50
@@ -498,7 +505,7 @@
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/clean/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
 	if(!istype(tool, /obj/item/reagent_containers))
 		return SURGERY_STEP_INCOMPLETE
@@ -820,8 +827,7 @@
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
 		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
 	)
-	var/obj/item/organ/affected = target.get_organ(target_zone)
-	affected.custom_pain("Your [zone] is being burned!")
+	to_chat(user, "<span class='userdanger'>Your [zone] is being burned!</span>") // No custom pain because xenos are special
 	return ..()
 
 /datum/surgery_step/generic/seal_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -843,3 +849,5 @@
 
 
 #undef MITO_REVIVAL_COST
+
+#undef GHETTO_DISINFECT_AMOUNT

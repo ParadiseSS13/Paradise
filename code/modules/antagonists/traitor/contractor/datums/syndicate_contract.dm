@@ -3,7 +3,6 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_INJURY_CHANCE 85
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
@@ -19,14 +18,13 @@
 	var/portal_duration = 5 MINUTES
 	/// How long a target remains in the Syndicate jail.
 	var/prison_time = 4 MINUTES
-	/// List of items a target can get randomly after their return.
 	var/list/obj/item/souvenirs = list(
 		/obj/item/bedsheet/syndie,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/coin/antagtoken/syndicate,
 		/obj/item/poster/syndicate_recruitment,
-		/obj/item/reagent_containers/food/snacks/syndicake,
-		/obj/item/reagent_containers/food/snacks/tatortot,
+		/obj/item/food/snacks/syndicake,
+		/obj/item/food/snacks/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 		/obj/item/toy/figure/crew/syndie,
@@ -41,9 +39,6 @@
 	var/credits_lower_mult = 25
 	// The upper bound of the credits reward multiplier.
 	var/credits_upper_mult = 40
-	// Implants (non cybernetic ones) that shouldn't be removed when a victim gets kidnapped.
-	// Typecache; initialized in New()
-	var/static/implants_to_keep = null
 	// Variables
 	/// The owning contractor hub.
 	var/datum/contractor_hub/owning_hub = null
@@ -62,7 +57,7 @@
 	/// The flare indicating the extraction point.
 	var/obj/effect/contractor_flare/extraction_flare = null
 	/// The extraction portal.
-	var/obj/effect/portal/redspace/contractor/extraction_portal = null
+	var/obj/effect/portal/advanced/contractor/extraction_portal = null
 	/// The world.time at which the current extraction fulton will vanish and another extraction can be requested.
 	var/extraction_deadline = -1
 	/// Name of the target to display on the UI.
@@ -88,21 +83,6 @@
 	var/static/nt_am_board_resigned = FALSE
 
 /datum/syndicate_contract/New(datum/contractor_hub/hub, datum/mind/owner, list/datum/mind/target_blacklist, target_override)
-	// Init settings
-	if(!implants_to_keep)
-		implants_to_keep = typecacheof(list(
-			// These two are specifically handled in code to prevent usage, but are included here for clarity.
-			/obj/item/implant/storage,
-			/obj/item/implant/uplink,
-			// The rest
-			/obj/item/implant/adrenalin,
-			/obj/item/implant/emp,
-			/obj/item/implant/explosive,
-			/obj/item/implant/freedom,
-			/obj/item/implant/traitor,
-			/obj/item/implant/gorilla_rampage,
-			/obj/item/implant/stealth
-		))
 	// Initialize
 	owning_hub = hub
 	contract = new /datum/objective/contract(src)
@@ -305,7 +285,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 				+ "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
+	var/obj/effect/portal/advanced/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -319,7 +299,7 @@
   * * M - The target mob.
   * * P - The extraction portal.
   */
-/datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
+/datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/advanced/contractor/P)
 	INVOKE_ASYNC(src, PROC_REF(clean_up))
 	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
@@ -347,12 +327,13 @@
   * * M - The target mob.
   * * P - The extraction portal.
   */
-/datum/syndicate_contract/proc/handle_target_experience(mob/living/M, obj/effect/portal/redspace/contractor/P)
+/datum/syndicate_contract/proc/handle_target_experience(mob/living/M, obj/effect/portal/advanced/contractor/P)
 	var/turf/T = get_turf(P)
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
 	prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
+
 	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
 	// Shove all of the victim's items in the secure locker.
@@ -394,20 +375,13 @@
 			if(isplasmaman(H) && I == H.head)
 				continue
 
-		// Any kind of non-syndie implant gets potentially removed (mindshield, etc)
-		if(istype(I, /obj/item/implant))
-			if(istype(I, /obj/item/implant/storage)) // Storage stays, but items within get confiscated
-				var/obj/item/implant/storage/storage_implant = I
-				for(var/it in storage_implant.storage)
-					storage_implant.storage.remove_from_storage(it)
+		// Any kind of implant gets potentially removed (mindshield, freedoms, etc)
+		if(istype(I, /obj/item/bio_chip))
+			if(istype(I, /obj/item/bio_chip/storage)) // Storage items are removed and placed in the confiscation locker before the implant is taken.
+				var/obj/item/bio_chip/storage/storage_chip = I
+				for(var/it in storage_chip.storage)
+					storage_chip.storage.remove_from_storage(it)
 					stuff_to_transfer += it
-				continue
-			else if(istype(I, /obj/item/implant/uplink)) // Uplink stays, but is jammed while in jail
-				var/obj/item/implant/uplink/uplink_implant = I
-				uplink_implant.hidden_uplink.is_jammed = TRUE
-				continue
-			else if(is_type_in_typecache(I, implants_to_keep))
-				continue
 			qdel(I)
 			continue
 
@@ -448,7 +422,7 @@
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/reagent_containers/food/snacks/breadslice/food = new(get_turf(M))
+	var/obj/item/food/snacks/breadslice/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
@@ -458,10 +432,12 @@
 		food.name = "moldy bread"
 		food.reagents.add_reagent("fungus", 1)
 
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
+	var/obj/item/reagent_containers/drinks/drinkingglass/drink = new(get_turf(M))
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 
-	temp_objs = list(food, drink)
+	var/obj/item/coin/antagtoken/passingtime = new(get_turf(M))
+
+	temp_objs = list(food, drink, passingtime)
 
 	// Narrate their kidnapping and torturing experience.
 	if(M.stat != DEAD)
@@ -514,44 +490,40 @@
   * * M - The target mob.
   */
 /datum/syndicate_contract/proc/injure_target(mob/living/M)
-	if(!prob(RETURN_INJURY_CHANCE) || M.health < 50)
-		return
-
 	var/obj/item/organ/external/injury_target
-	if(prob(20)) //remove a limb
-		if(prob(50))
-			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-			if(!injury_target)
-				default_damage(M)
-				return
-			injury_target.droplimb()
-			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
-	else //fracture
-		if(ismachineperson(M))
-			M.emp_act(EMP_HEAVY)
-			M.adjustBrainLoss(30)
-			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
-
-		else if(isslimeperson(M))
-			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-			if(!injury_target)
-				default_damage(M)
-				return
-			injury_target.cause_internal_bleeding()
-
-			injury_target = M.get_organ(BODY_ZONE_CHEST)
-			injury_target.cause_internal_bleeding()
-			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
-
-		if(prob(25))
-			injury_target = M.get_organ(BODY_ZONE_CHEST)
-			injury_target.fracture()
-		else
-			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
-			if(!injury_target)
-				default_damage(M)
-				return
-			injury_target.fracture()
+	if(prob(20)) //See if they're !!!lucky!!! enough to just chop a hand or foot off first, or even !!LUCKIER!! that it chose an already amputated limb
+		injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+		if(!injury_target)
+			return
+		default_damage(M)
+		injury_target.droplimb()
+		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god, something's missing!</span>")
+		return
+		//Species specific punishments first
+	if(ismachineperson(M))
+		M.emp_act(EMP_HEAVY)
+		M.adjustBrainLoss(30)
+		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
+		return
+	default_damage(M) //Now that we won't accidentally kill an IPC we can make everyone take damage
+	if(isslimeperson(M))
+		injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+		if(!injury_target)
+			return
+		injury_target.cause_internal_bleeding()
+		injury_target = M.get_organ(BODY_ZONE_CHEST)
+		injury_target.cause_internal_bleeding()
+		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+		return
+	if(prob(25)) //You either get broken ribs, or a broken limb and IB if you made it this far
+		injury_target = M.get_organ(BODY_ZONE_CHEST)
+		injury_target.fracture()
+	else
+		injury_target = M.get_organ(pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
+		if(!injury_target)
+			return
+		injury_target.fracture()
+		injury_target.cause_internal_bleeding()
 
 /**
   * Handles the target's return to station.
@@ -581,7 +553,7 @@
 	victim_belongings = list()
 
 	// Clean up
-	var/obj/item/implant/uplink/uplink_implant = locate() in M
+	var/obj/item/bio_chip/uplink/uplink_implant = locate() in M
 	uplink_implant?.hidden_uplink?.is_jammed = FALSE
 
 	QDEL_LIST_CONTENTS(temp_objs)
@@ -656,5 +628,4 @@
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
-#undef RETURN_INJURY_CHANCE
 #undef RETURN_SOUVENIR_CHANCE

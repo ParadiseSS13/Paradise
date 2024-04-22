@@ -9,11 +9,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
-	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
-	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
-	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
-	else, frequently even their own lives. They prefer warmer temperatures than most species and \
-	their native tongue is a heavy hissing laungage called Sinta'Unathi."
+	blurb = "Unathi are a scaled species of reptilian beings from the desert world of Moghes, within the Uuosa-Eso system. \
+	Organizing themselves in highly competitive feudal kingdoms, the Unathi lack any sort of wide-scale unification, and their culture and history consist of centuries of internal conflict and struggle.<br/><br/> \
+	Despite clans having a sizeable military force, inter-clan rivalries and constant civil war prevent the Unathi from achieving much more in the wider galactic scene."
 
 	species_traits = list(LIPS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
@@ -26,9 +24,9 @@
 	cold_level_2 = 220 //Default 200
 	cold_level_3 = 140 //Default 120
 
-	heat_level_1 = 380 //Default 360 - Higher is better
-	heat_level_2 = 420 //Default 400
-	heat_level_3 = 480 //Default 460
+	heat_level_1 = 505 //Default 360 - Higher is better
+	heat_level_2 = 540 //Default 400
+	heat_level_3 = 600 //Default 460
 
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
@@ -56,18 +54,25 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss")
+		)
+	autohiss_extra_map = list(
+			"x" = list("ks", "kss", "ksss")
+		)
+	autohiss_exempt = list("Sinta'unathi")
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/ignite/fire = new()
+	var/datum/action/innate/unathi_ignite/fire = new()
 	fire.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/ignite/fire in H.actions)
+	for(var/datum/action/innate/unathi_ignite/fire in H.actions)
 		fire.Remove(H)
 
-/datum/action/innate/ignite
+/datum/action/innate/unathi_ignite
 	name = "Ignite"
 	desc = "A fire forms in your mouth, fierce enough to... light a cigarette. Requires you to drink welding fuel beforehand."
 	icon_icon = 'icons/obj/cigarettes.dmi'
@@ -77,7 +82,7 @@
 	var/welding_fuel_used = 3 //one sip, with less strict timing
 	check_flags = AB_CHECK_HANDS_BLOCKED
 
-/datum/action/innate/ignite/Activate()
+/datum/action/innate/unathi_ignite/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
 		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
@@ -96,7 +101,6 @@
 			to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
 	else
 		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
-
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -129,27 +133,23 @@
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/ignite/fire in H.actions)
+	for(var/datum/action/innate/unathi_ignite/fire in H.actions)
 		fire.Remove(H)
-	var/datum/action/innate/ignite/ash_walker/fire = new()
+	var/datum/action/innate/unathi_ignite/ash_walker/fire = new()
 	fire.Grant(H)
-	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
-	speedylegs(H)
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
+	for(var/datum/action/innate/unathi_ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
-	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
-	speedylegs(H)
 
-/datum/action/innate/ignite/ash_walker
+/datum/species/unathi/ashwalker/movement_delay(mob/living/carbon/human/H)
+	. = ..()
+	var/turf/our_turf = get_turf(H)
+	if(!is_mining_level(our_turf.z))
+		. -= speed_mod
+
+/datum/action/innate/unathi_ignite/ash_walker
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
 	cooldown_duration = 3 MINUTES
 	welding_fuel_used = 0 // Ash walkers dont need welding fuel to use ignite
-
-/datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
-	if(is_mining_level(H.z))
-		speed_mod = initial(speed_mod)
-	else
-		speed_mod = 0

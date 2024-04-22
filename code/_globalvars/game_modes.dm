@@ -5,4 +5,3 @@ GLOBAL_VAR_INIT(secret_force_mode, "secret") // if this is anything but "secret"
 GLOBAL_DATUM(start_state, /datum/station_state) // Used in round-end report. Dont ask why it inits as null
 
 GLOBAL_VAR(custom_event_msg)
-GLOBAL_VAR(custom_event_admin_msg)

@@ -12,20 +12,16 @@
 	heatmod = 3
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
-	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
-	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
-	there is no effective upper limit to the number that can fuse in gestalt, and reports exist	of the Epsilon Ursae \
-	Minoris primary being ringed with a cloud of singing space-station-sized entities.<br/><br/>The Dionaea coexist peacefully with \
-	all known species, especially the Skrell. Their communal mind makes them slow to react, and they have difficulty understanding \
-	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
-	water and other radiation."
+	blurb = "The Diona are plant-like creatures made up of a gestalt of smaller Nymphs. \
+	Dionae lack any form of centralized government or homeworld, with most avoiding the affairs of the wider galaxy, preferring instead to focus on the spread of their species.<br/><br/> \
+	As a gestalt entity, each nymph possesses an individual personality, yet they communicate collectively. \
+	Consequently, Diona often speak in a unique blend of first and third person, using 'We' and 'I' to reflect their unified yet multifaceted nature."
 
 	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
-	has_gender = FALSE
 	bodyflags = SHAVED
 	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
@@ -67,8 +63,8 @@
 
 /datum/species/diona/can_understand(mob/other)
 	if(isnymph(other))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -96,7 +92,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)
@@ -114,26 +110,27 @@
 		H.adjustBruteLoss(2)
 	..()
 
-/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
-	switch(P.type)
-		if(/obj/item/projectile/energy/floramut)
-			if(prob(15))
-				H.rad_act(rand(30, 80))
-				H.Weaken(10 SECONDS)
-				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
-					randmutb(H)
-					domutcheck(H)
-				else
-					randmutg(H)
-					domutcheck(H)
-			else
-				H.adjustFireLoss(rand(5, 15))
-				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
-		if(/obj/item/projectile/energy/florayield)
-			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
+/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H, def_zone)
+	if(istype(P, /obj/item/projectile/energy/floramut))
+		P.nodamage = TRUE
+		H.Weaken(1 SECONDS)
+		if(prob(80))
+			randmutb(H)
+		else
+			randmutg(H)
+		H.visible_message("[H] writhes for a moment as [H.p_their()] nymphs squirm and mutate.", "All of you squirm uncomfortably for a moment as you feel your genes changing.")
+	else if(istype(P, /obj/item/projectile/energy/florayield))
+		P.nodamage = TRUE
+		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+		if(!organ)
+			organ = H.get_organ("chest")
+		organ.heal_damage(5, 5)
+		H.visible_message("[H] seems invogorated as [P] hits [H.p_their()] [organ.name].", "Your [organ.name] greedily absorbs [P].")
 	return TRUE
 
-/datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
+/// Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
+/datum/species/diona/pod
+	name = "Diomorph" //Seperate name needed else can't select diona period
+	species_traits = list(NO_HAIR, NOT_SELECTABLE)
 	pod = TRUE
 	inherent_factions = list("plants", "vines")

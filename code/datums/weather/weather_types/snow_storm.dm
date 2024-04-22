@@ -13,7 +13,7 @@
 	weather_duration_upper = 1500
 
 	end_duration = 100
-	end_message = "<span class='boldannounce'>The snowfall dies down, it should be safe to go outside again.</span>"
+	end_message = "<span class='boldannounceic'>The snowfall dies down, it should be safe to go outside again.</span>"
 
 //	area_type = /area/awaymission/snowdin/outside
 	target_trait = AWAY_LEVEL

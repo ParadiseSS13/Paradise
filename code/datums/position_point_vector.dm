@@ -3,12 +3,6 @@
 
 //You might see places where it does - 16 - 1. This is intentionally 17 instead of 16, because of how byond's tiles work and how not doing it will result in rounding errors like things getting put on the wrong turf.
 
-#define RETURN_PRECISE_POSITION(A) new /datum/position(A)
-#define RETURN_PRECISE_POINT(A) new /datum/point_precise(A)
-
-#define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
-#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
-
 /proc/point_midpoint_points(datum/point_precise/a, datum/point_precise/b) //Obviously will not support multiZ calculations! Same for the two below.
 	var/datum/point_precise/P = new
 	P.x = a.x + (b.x - a.x) * 0.5
@@ -23,7 +17,7 @@
 	return ATAN2((b.y - a.y), (b.x - a.x))
 
 /// For positions with map x/y/z and pixel x/y so you don't have to return lists. Could use addition/subtraction in the future I guess.
-/datum/position	
+/datum/position
 	var/x = 0
 	var/y = 0
 	var/z = 0
@@ -68,7 +62,7 @@
 	return new /datum/point_precise(src)
 
 /// A precise point on the map in absolute pixel locations based on world.icon_size. Pixels are FROM THE EDGE OF THE MAP!
-/datum/point_precise		
+/datum/point_precise
 	var/x = 0
 	var/y = 0
 	var/z = 0
@@ -83,7 +77,7 @@
 	return p
 
 /// First argument can also be a /datum/position or /atom.
-/datum/point_precise/New(_x, _y, _z, _pixel_x = 0, _pixel_y = 0)	
+/datum/point_precise/New(_x, _y, _z, _pixel_x = 0, _pixel_y = 0)
 	if(istype(_x, /datum/position))
 		var/datum/position/P = _x
 		_x = P.x
@@ -134,11 +128,11 @@
 
 /datum/point_precise/vector
 	/// Pixels per iteration
-	var/speed = 32				
+	var/speed = 32
 	var/iteration = 0
 	var/angle = 0
 	/// Calculated x movement amounts to prevent having to do trig every step.
-	var/mpx = 0					
+	var/mpx = 0
 	/// Calculated y movement amounts to prevent having to do trig every step.
 	var/mpy = 0
 	var/starting_x = 0 //just like before, pixels from EDGE of map! This is set in initialize_location().
@@ -158,7 +152,7 @@
 	starting_z = z
 
 /// Same effect as initiliaze_location, but without setting the starting_x/y/z
-/datum/point_precise/vector/proc/set_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0) 
+/datum/point_precise/vector/proc/set_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
 	if(!isnull(tile_x))
 		x = ((tile_x - 1) * world.icon_size) + world.icon_size * 0.5 + p_x + 1
 	if(!isnull(tile_y))
@@ -214,10 +208,8 @@
 		v.increment(multiplier * amount)
 	return v
 
-/datum/point_precise/vector/proc/on_z_change()
-	return
-
-/datum/point_precise/vector/processed //pixel_speed is per decisecond.
+/// pixel_speed is per decisecond.
+/datum/point_precise/vector/processed
 	var/last_process = 0
 	var/last_move = 0
 	var/paused = FALSE

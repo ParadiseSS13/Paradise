@@ -11,7 +11,8 @@
 	invisibility = 101
 	GLOB.landmarks_list += src
 
-/obj/effect/landmark/newplayer_start //There should only be one of these, in the lobby art area
+/// There should only be one of these, in the lobby art area
+/obj/effect/landmark/newplayer_start
 	name = "start"
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you spawn in the corner of the map and things break horribly
@@ -23,17 +24,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/lightsout
 	name = "Electrical Storm Epicentre"
-
-/obj/effect/landmark/awaystart
-	name = "awaystart"
-	icon = 'icons/effects/spawner_icons.dmi'
-	icon_state = "Assistant"
-
-INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away missions break
-
-/obj/effect/landmark/awaystart/Initialize(mapload)
-	GLOB.awaydestinations.Add(src)
-	return ..()
 
 /obj/effect/landmark/spawner
 	icon = 'icons/effects/spawner_icons.dmi'
@@ -107,7 +97,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
 	icon_state = "Rev"
-	
+
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
 	icon_state = "Explorer"
@@ -234,9 +224,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/nuclear_bomb/death_squad
 	name = "Death Squad Nuclear Bomb"
 
-/obj/effect/landmark/spawner/teleport_scroll
-	name = "Teleport-Scroll"
-
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
 
@@ -278,10 +265,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/start/blueshield
 	name = "Blueshield"
 	icon_state = "BS"
-
-/obj/effect/landmark/start/barber
-	name = "Barber"
-	icon_state = "Barber"
 
 /obj/effect/landmark/start/bartender
 	name = "Bartender"
@@ -433,7 +416,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/random/Initialize(mapload) //costume spawner, selects a random subclass and disappears
 	. = ..()
 	var/list/options = (typesof(/obj/effect/landmark/costume) - /obj/effect/landmark/costume/random)
-	var/PICK= options[rand(1,options.len)]
+	var/PICK= options[rand(1,length(options))]
 	new PICK(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -597,7 +580,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	var/datum/map_template/ruin/ruin_template
 
 /obj/effect/landmark/ruin/New(loc, my_ruin_template)
-	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
+	name = "ruin_[length(GLOB.ruin_landmarks) + 1]"
 	..(loc)
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src

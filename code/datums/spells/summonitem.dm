@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/summonitem
+/datum/spell/summonitem
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
@@ -14,10 +14,10 @@
 	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
-/obj/effect/proc_holder/spell/summonitem/create_new_targeting()
+/datum/spell/summonitem/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/summonitem/cast(list/targets, mob/user = usr)
+/datum/spell/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		var/list/hand_items = list(target.get_active_hand(),target.get_inactive_hand())
 		var/butterfingers = FALSE
@@ -27,6 +27,9 @@
 			message = "<span class='notice'>"
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
+					break
+				if(istype(item, /obj/item/disk/nuclear)) //Let's not make nukies suffer with this bullshit.
+					to_chat(user, "<span class='notice'>[item] has some built in protections against such summoning magic.</span>")
 					break
 				if(ABSTRACT in item.flags)
 					continue
@@ -120,8 +123,12 @@
 				return
 			if(visible_item)
 				item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
-
-
+			var/list/heres_disky = item_to_retrieve.search_contents_for(/obj/item/disk/nuclear)
+			heres_disky += item_to_retrieve.loc.search_contents_for(/obj/item/disk/nuclear) //So if you mark another item in a bag, we don't pull
+			for(var/obj/item/disk/nuclear/N in heres_disky)
+				N.forceMove(get_turf(item_to_retrieve))
+				N.visible_message("<span class='warning'>As [item_to_retrieve] vanishes, [N] remains behind!</span>")
+				break //If you have 2 nads, well, congrats? Keeps message from doubling up
 			if(target.hand) //left active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))

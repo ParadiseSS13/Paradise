@@ -65,7 +65,7 @@
 					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		GLOB.cooking_ingredients[recipe_type] |= /obj/item/reagent_containers/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/snacks/grown
 
 /*******************
 *   Item Adding
@@ -83,7 +83,7 @@
 	default_deconstruction_crowbar(user, O)
 
 	if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
-		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
+		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
@@ -108,7 +108,7 @@
 				add_item(S, user)
 		else
 			add_item(O, user)
-	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
+	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
 		if(!O.reagents)
 			return TRUE
 		for(var/datum/reagent/R in O.reagents.reagent_list)
@@ -129,12 +129,7 @@
 	if(operating)
 		return
 
-	I.play_tool_sound(src)
-	if(anchored)
-		to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
-	else
-		to_chat(user, "<span class='alert'>[src] is now secured.</span>")
-	anchored = !anchored
+	default_unfasten_wrench(user, I, 0)
 	return TRUE
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
@@ -204,8 +199,8 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O, /obj/item/reagent_containers/food))
-			var/obj/item/reagent_containers/food/food = O
+		if(isfood(O))
+			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name
@@ -255,7 +250,7 @@
 
 	var/list/recipes_to_make = choose_recipes()
 
-	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == RECIPE_FAIL)
+	if(length(recipes_to_make) == 1 && recipes_to_make[1][2] == RECIPE_FAIL)
 		//This only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure).
 		//If there are multiple sources, this bit gets skipped.
 		dirty += 1
@@ -310,7 +305,7 @@
 	var/datum/recipe/recipe_src = select_recipe(GLOB.cooking_recipes[recipe_type], src, ignored_items = list(/obj/item/mixing_bowl))	//check the machine's directly-inserted ingredients for possible recipes as well, ignoring the mixing bowls when selecting recipe
 	if(recipe_src)	//if we found a valid recipe for directly-inserted ingredients, add that to our list
 		recipes_to_make.Add(list(list(src, recipe_src)))
-	else if(!recipes_to_make.len)	//if the machine has no mixing bowls to make recipes from AND also doesn't have a valid recipe of directly-inserted ingredients, return a failure so we can make a burned mess
+	else if(!length(recipes_to_make))	//if the machine has no mixing bowls to make recipes from AND also doesn't have a valid recipe of directly-inserted ingredients, return a failure so we can make a burned mess
 		recipes_to_make.Add(list(list(src, RECIPE_FAIL)))
 	return recipes_to_make
 
@@ -369,7 +364,7 @@
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
-		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
+		if(!is_type_in_list(O, list(/obj/item/food, /obj/item/grown, /obj/item/mixing_bowl)))
 			return TRUE
 	return FALSE
 
@@ -421,7 +416,7 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(src)
+		var/obj/item/food/snacks/badrecipe/mysteryfood = new(src)
 		mysteryfood.reagents.add_reagent("carbon", amount / 2)
 		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))
@@ -451,10 +446,16 @@
 
 	ui_interact(user)
 
-/obj/machinery/kitchen_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/kitchen_machine/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/kitchen_machine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/kitchen_machine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "KitchenMachine",  name, 400, 300, master_ui, state)
+		ui = new(user, src, "KitchenMachine",  name)
 		ui.open()
 
 /obj/machinery/kitchen_machine/ui_data(mob/user)
@@ -475,8 +476,8 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O, /obj/item/reagent_containers/food))
-			var/obj/item/reagent_containers/food/food = O
+		if(istype(O, /obj/item/food))
+			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name

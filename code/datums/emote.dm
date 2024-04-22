@@ -182,7 +182,7 @@
 	var/suppressed = FALSE
 
 	// Keep em quiet if they can't speak
-	if(!can_vocalize_emotes(user) && (emote_type & (EMOTE_MOUTH | EMOTE_AUDIBLE) || emote_type & (EMOTE_MOUTH | EMOTE_SOUND)))
+	if(!can_vocalize_emotes(user) && (emote_type & (EMOTE_MOUTH | EMOTE_AUDIBLE)))
 		var/noise_emitted = pick(muzzled_noises)
 		suppressed = TRUE
 		msg = "makes \a [noise_emitted] noise."
@@ -215,12 +215,12 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
 
-		else if(emote_type & (EMOTE_AUDIBLE | EMOTE_SOUND) && !user.mind?.miming)
+		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
 
-		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND) || suppressed) && !isobserver(user))
+		if(!((emote_type & EMOTE_FORCE_NO_RUNECHAT) || suppressed) && !isobserver(user))
 			runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
@@ -280,7 +280,7 @@
 		runechat_text = "[copytext(text, 1, 101)]..."
 	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
-	for(var/mob/O in can_see)
+	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
 			for(var/obj/item/holder/H in O.contents)
 				H.show_message(text, EMOTE_VISIBLE)
@@ -521,6 +521,11 @@
 		var/mob/living/sender = user
 		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
+		if(isbrain(sender))
+			var/mob/living/brain/B = user
+			if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+				var/obj/item/mmi/robotic_brain/robobrain = B.container
+				return !robobrain.silenced
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
@@ -531,7 +536,7 @@
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user))
 			if(!GLOB.dsay_enabled)
-				to_chat(user, "<span class='warning'>Deadchat is globally muted</span>")
+				to_chat(user, "<span class='warning'>Deadchat is globally muted.</span>")
 				return FALSE
 
 /**

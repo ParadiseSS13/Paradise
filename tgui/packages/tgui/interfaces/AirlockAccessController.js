@@ -12,6 +12,7 @@ export const AirlockAccessController = (props, context) => {
   if (exterior_status === 'open') {
     exteriorbutton = (
       <Button
+        width="50%"
         content={'Lock Exterior Door'}
         icon={'exclamation-triangle'}
         disabled={processing}
@@ -21,6 +22,7 @@ export const AirlockAccessController = (props, context) => {
   } else {
     exteriorbutton = (
       <Button
+        width="50%"
         content={'Cycle to Exterior'}
         icon={'arrow-circle-left'}
         disabled={processing}
@@ -31,6 +33,7 @@ export const AirlockAccessController = (props, context) => {
   if (interior_status === 'open') {
     interiorbutton = (
       <Button
+        width="49%"
         content={'Lock Interior Door'}
         icon={'exclamation-triangle'}
         disabled={processing}
@@ -43,6 +46,7 @@ export const AirlockAccessController = (props, context) => {
   } else {
     interiorbutton = (
       <Button
+        width="49%"
         content={'Cycle to Interior'}
         icon={'arrow-circle-right'}
         disabled={processing}
@@ -51,7 +55,7 @@ export const AirlockAccessController = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={330} height={200}>
       <Window.Content>
         <Section title="Information">
           <LabeledList>
@@ -64,8 +68,10 @@ export const AirlockAccessController = (props, context) => {
           </LabeledList>
         </Section>
         <Section title="Actions">
-          <Box>{exteriorbutton}</Box>
-          <Box>{interiorbutton}</Box>
+          <Box>
+            {exteriorbutton}
+            {interiorbutton}
+          </Box>
         </Section>
       </Window.Content>
     </Window>

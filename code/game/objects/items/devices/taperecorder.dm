@@ -75,7 +75,7 @@
 /obj/item/taperecorder/attack_hand(mob/user)
 	if(loc == user)
 		if(mytape)
-			if(user.l_hand != src && user.r_hand != src)
+			if(!user.is_holding(src))
 				..()
 				return
 			eject(user)
@@ -210,14 +210,10 @@
 			atom_say("End of recording.")
 			break
 		atom_say("[mytape.storedinfo[i]]")
-		if(length(mytape.storedinfo) < i + 1)
+		if(length(mytape.storedinfo) < i + 1 || playsleepseconds > 1.4 SECONDS)
 			playsleepseconds = 1 SECONDS
 		else
 			playsleepseconds = (mytape.timestamp[i + 1] - mytape.timestamp[i]) SECONDS
-		if(playsleepseconds > 1.4 SECONDS)
-			sleep(10)
-			atom_say("Skipping [playsleepseconds / 10] seconds of silence.")
-			playsleepseconds = 1 SECONDS
 		i++
 
 	stop(TRUE)
@@ -235,7 +231,7 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
-	for(var/i = 1, mytape.storedinfo.len >= i, i++)
+	for(var/i = 1, length(mytape.storedinfo) >= i, i++)
 		t1 += "[mytape.storedinfo[i]]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"
@@ -321,6 +317,7 @@
 
 	to_chat(user, "<span class='notice'>You erase the data from [src].</span>")
 	used_capacity = 0
+	remaining_capacity = max_capacity
 	storedinfo.Cut()
 	timestamp.Cut()
 

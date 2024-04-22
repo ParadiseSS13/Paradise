@@ -77,39 +77,25 @@ GLOBAL_LIST_EMPTY(message_servers)
 		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
-		playsound(loc, "computer_ambience", 50, 1)
+		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
 /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
 
-/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = "", stamp = "", id_auth = "", priority = 1)
+/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = list(), stamp = "Not stamped", id_auth = "Not verified", priority = 1)
+	if(!islist(message))
+		message = list(message)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
-	var/authmsg = "[message]"
-	if(id_auth)
-		authmsg += " - [id_auth]"
-	if(stamp)
-		authmsg += " - [stamp]"
 	for(var/C in GLOB.allRequestConsoles)
 		var/obj/machinery/requests_console/RC = C
 		if(ckey(RC.department) == ckey(recipient))
-			if(RC.inoperable())
-				RC.message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
-				continue
-			if(RC.newmessagepriority < priority)
-				RC.newmessagepriority = priority
-				RC.update_icon(UPDATE_OVERLAYS)
+			var/title
 			switch(priority)
 				if(2)
-					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						RC.atom_say("PRIORITY Alert in [sender]")
-					RC.message_log.Add(list(list("High Priority message from [sender]:", "[authmsg]")))
+					title = "PRIORITY Alert from [sender]"
 				else
-					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						RC.atom_say("Message from [sender]")
-					RC.message_log.Add(list(list("Message [sender]:", "[authmsg]")))
-			RC.set_light(2)
+					title = "Message from [sender]"
+			RC.createMessage(sender, title, message, priority, verified = id_auth, stamped = stamp)
 
 /obj/machinery/message_server/attack_hand(user as mob)
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")

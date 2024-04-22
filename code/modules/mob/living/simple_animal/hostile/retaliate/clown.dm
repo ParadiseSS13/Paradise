@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/clown
 	name = "Clown"
-	desc = "A denizen of clown planet"
+	desc = "A strange creature that vaguely resembles a normal clown. Upon closer inspection, it is nothing of the sort."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
 	icon_living = "clown"
@@ -12,7 +12,7 @@
 	response_help = "pokes the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
-	speak = list("HONK", "Honk!", "Welcome to clown planet!")
+	speak = list("HONK", "Honk!", "Come join the fun!")
 	emote_see = list("honks")
 	speak_chance = 1
 	a_intent = INTENT_HARM

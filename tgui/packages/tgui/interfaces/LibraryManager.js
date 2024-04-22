@@ -1,12 +1,11 @@
 import { useBackend, useLocalState } from '../backend';
-import { Fragment } from 'inferno';
 import { Box, Button, Icon, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const LibraryManager = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={600} height={600}>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <PageContent />

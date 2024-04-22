@@ -7,8 +7,6 @@
 
 	var/update = 1
 
-	var/alert_pressure = 0
-
 /datum/pipeline/New()
 	SSair.networks += src
 
@@ -28,14 +26,11 @@
 		reconcile_air()
 	return
 
-GLOBAL_VAR_INIT(pipenetwarnings, 10)
-
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/E = base
 		volume = E.volume
-		alert_pressure = E.alert_pressure
 		members += E
 		if(E.air_temporary)
 			air = E.air_temporary
@@ -45,12 +40,12 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	if(!air)
 		air = new
 	var/list/possible_expansions = list(base)
-	while(possible_expansions.len>0)
+	while(length(possible_expansions)>0)
 		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
 
 			var/list/result = borderline.pipeline_expansion(src)
 
-			if(result.len>0)
+			if(length(result)>0)
 				for(var/obj/machinery/atmospherics/P in result)
 					if(istype(P, /obj/machinery/atmospherics/pipe))
 						var/obj/machinery/atmospherics/pipe/item = P
@@ -63,8 +58,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 							volume += item.volume
 							item.parent = src
-
-							alert_pressure = min(alert_pressure, item.alert_pressure)
 
 							if(item.air_temporary)
 								air.merge(item.air_temporary)
@@ -193,7 +186,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/list/datum/pipeline/PL = list()
 	PL += src
 
-	for(var/i=1;i<=PL.len;i++)
+	for(var/i=1;i<=length(PL);i++)
 		var/datum/pipeline/P = PL[i]
 		if(!P)
 			return

@@ -8,8 +8,10 @@
 	var/server_features = "Medium RP, varied species/jobs"
 	/// Allow character OOC notes
 	var/allow_character_metadata = TRUE
-	/// Time in seconds for the pregame lobby
+	/// Time in seconds for the pregame lobby. Measured in seconds
 	var/lobby_time = 240
+	/// Default timeout for world reboot. Measured in seconds
+	var/restart_timeout = 75
 	/// Ban all Guest BYOND accounts
 	var/guest_ban = TRUE
 	/// Allow players to use AntagHUD?
@@ -44,6 +46,8 @@
 	var/base_loadout_points = 5
 	/// Respawnability loss penalty for eary cryoing (minutes)
 	var/cryo_penalty_period = 30
+	/// Observers count as roundstart if they join from the main menu before this time (in minutes). Set to 0 to allow only-pregame start observers.
+	var/roundstart_observer_period = 5
 	/// Enable OOC emojis?
 	var/enable_ooc_emoji = TRUE
 	/// Auto start the game if on a local test server
@@ -116,8 +120,10 @@
 
 	// Numbers
 	CONFIG_LOAD_NUM(lobby_time, data["lobby_time"])
+	CONFIG_LOAD_NUM(restart_timeout, data["restart_timeout"])
 	CONFIG_LOAD_NUM(base_loadout_points, data["base_loadout_points"])
 	CONFIG_LOAD_NUM(cryo_penalty_period, data["cryo_penalty_period"])
+	CONFIG_LOAD_NUM(roundstart_observer_period, data["roundstart_observer_period"])
 	CONFIG_LOAD_NUM(minimum_client_build, data["minimum_client_build"])
 	CONFIG_LOAD_NUM(byond_account_age_threshold, data["byond_account_age_threshold"])
 	CONFIG_LOAD_NUM(max_client_cid_history, data["max_client_cid_history"])

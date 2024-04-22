@@ -8,55 +8,71 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
+	///If a pair of magboots has different icons for being on or off
+	var/multiple_icons = TRUE
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/shoes/magboots/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
 	if(magpulse && slowdown_active > SHOES_SLOWDOWN)
 		slowdown = slowdown_active
 
-/obj/item/clothing/shoes/magboots/atmos
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
-	name = "atmospheric magboots"
-	icon_state = "atmosmagboots0"
-	magboot_state = "atmosmagboots"
+/obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+		return
+	check_mag_pulse()
+
+/obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
+	. = ..()
+	if(!ishuman(user))
+		return
+	check_mag_pulse()
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
-	if(magpulse)
-		START_PROCESSING(SSobj, src) //Gravboots
-		flags &= ~NOSLIP
+	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
+		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		STOP_PROCESSING(SSobj, src)
-		flags |= NOSLIP
+		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
+	no_slip = !no_slip
+	if(multiple_icons)
+		icon_state = "[magboot_state][magpulse]"
 	if(!forced)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
+	check_mag_pulse(user)
 
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return flags & NOSLIP
+/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
+	if(!user)
+		return
+	if(magpulse)
+		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		return
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
 	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
 
+/obj/item/clothing/shoes/magboots/atmos
+	name = "atmospheric magboots"
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	icon_state = "atmosmagboots0"
+	magboot_state = "atmosmagboots"
 
 /obj/item/clothing/shoes/magboots/advance
 	name = "advanced magboots"
@@ -78,7 +94,8 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
+/// For the Syndicate Strike Team/SolGov/Tactical Teams
+/obj/item/clothing/shoes/magboots/elite
 	name = "elite tactical magboots"
 	desc = "Advanced magboots used by strike teams across the system. Allows for tactical insertion into low-gravity areas of operation."
 	icon_state = "elitemag0"
@@ -127,7 +144,8 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
-/obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
+/// bundled with the wiz hardsuit
+/obj/item/clothing/shoes/magboots/wizard
 	name = "boots of gripping"
 	desc = "These magical boots, once activated, will stay gripped to any surface without slowing you down."
 	icon_state = "wizmag0"
@@ -137,15 +155,16 @@
 	magical = TRUE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
-	if(user)
-		if(user.mind in SSticker.mode.wizards)
-			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-				set_light(0)
-			else
-				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
-			..()
-		else
-			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+	if(!user)
+		return
+	if(!iswizard(user))
+		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+		return
+	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
+		set_light(0)
+	else
+		set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+	..()
 
 
 /obj/item/clothing/shoes/magboots/gravity

@@ -23,7 +23,7 @@
 		"Standard" = /obj/machinery/door/airlock)
 
 /datum/painter/airlock/pick_color(mob/user)
-	var/choice = input(user, "Please select a paintjob.") as null|anything in available_paint_jobs
+	var/choice = tgui_input_list(user, "Please select a paintjob.", "Airlock painter", available_paint_jobs)
 	if(!choice)
 		return
 	paint_setting = choice

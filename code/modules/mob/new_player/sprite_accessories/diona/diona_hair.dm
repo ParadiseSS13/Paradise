@@ -102,3 +102,105 @@
 	name = "Big Leaf"
 	icon_state = "bigleaf"
 	glasses_over = FALSE
+
+//Sprites from Aurora Below
+/datum/sprite_accessory/hair/diona/diona_treebeard
+	name = "Treebeard"
+	icon_state = "treebeard"
+
+/datum/sprite_accessory/hair/diona/monoeye
+	name = "Monoeye"
+	icon_state = "monoeye"
+
+/datum/sprite_accessory/hair/diona/trioptics
+	name = "Trioptics"
+	icon_state = "trioptics"
+
+/datum/sprite_accessory/hair/diona/lopsided
+	name = "Lopsided"
+	icon_state = "lopsided"
+
+/datum/sprite_accessory/hair/diona/helmethead
+	name = "Helmet Head"
+	icon_state = "helmethead"
+
+/datum/sprite_accessory/hair/diona/eyestalk
+	name = "Eyestalk"
+	icon_state = "eyestalk"
+
+/datum/sprite_accessory/hair/diona/bugeyes
+	name = "Bug Eyes"
+	icon_state = "bugeyes"
+
+/datum/sprite_accessory/hair/diona/humaneyes
+	name = "Human Eyes"
+	icon_state = "humaneyes"
+
+/datum/sprite_accessory/hair/diona/skrelleyes
+	name = "Skrell Eyes"
+	icon_state = "skrelleyes"
+
+/datum/sprite_accessory/hair/diona/smallhorns
+	name = "Small Horns"
+	icon_state = "smallhorns"
+
+/datum/sprite_accessory/hair/diona/horns
+	name = "Horns"
+	icon_state = "horns"
+
+/datum/sprite_accessory/hair/diona/headtails
+	name = "Head Tails"
+	icon_state = "headtails"
+
+/datum/sprite_accessory/hair/diona/headtails2
+	name = "Head Tails 2"
+	icon_state = "headtails2"
+
+/datum/sprite_accessory/hair/diona/eyebrow
+	name = "Eye Brow"
+	icon_state = "eyebrow"
+
+/datum/sprite_accessory/hair/diona/bullhorn
+	name = "Bull Horn"
+	icon_state = "bullhorn"
+
+/datum/sprite_accessory/hair/diona/blinkinghelmethead
+	name = "Blinking Helmet Head"
+	icon_state = "blinkinghelmethead"
+
+/datum/sprite_accessory/hair/diona/periscope
+	name = "Periscope"
+	icon_state = "periscope"
+
+/datum/sprite_accessory/hair/diona/glorp
+	name = "Glorp"
+	icon_state = "glorp"
+
+/datum/sprite_accessory/hair/diona/mellowcap
+	name = "Mellow Cap"
+	icon_state = "mellowcap"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/redcap
+	name = "Red Cap"
+	icon_state = "redcap"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/purplecap
+	name = "Purple Cap"
+	icon_state = "purplecap"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/spanishmoss
+	name = "Spanish Moss"
+	icon_state = "spanishmoss"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/thorns
+	name = "Thorns"
+	icon_state = "thorns"
+
+/datum/sprite_accessory/hair/diona/stump
+	name = "Stump"
+	icon_state = "stump"
+//Sprites from Aurora Above

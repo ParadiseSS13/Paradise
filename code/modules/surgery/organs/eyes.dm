@@ -211,9 +211,10 @@
 #define ONE_SHATTERED 1
 #define BOTH_SHATTERED 2
 
-/obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed
+// no occuline allowed
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod
 	name = "\improper Eyes of the Gods"
-	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
+	desc = "Two eyes said to belong to the gods. But such vision comes at a price."
 	icon_state = "eyesofgod"
 	eye_color = "#58a5ec"
 	see_in_dark = 8

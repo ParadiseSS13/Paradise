@@ -14,6 +14,7 @@
 	Newton Cradle
 	PAI cable
 	Red Phone
+	Popsicle Sticks
 */
 
 /obj/item/balltoy
@@ -125,18 +126,6 @@
 	icon_state = "fan"
 	desc = "A small desktop fan. The button seems to be stuck in the 'on' position."
 
-/*
-/obj/item/game_kit
-	name = "Gaming Kit"
-	icon = 'icons/obj/items.dmi'
-	icon_state = "game_kit"
-	var/selected = null
-	var/board_stat = null
-	var/data = ""
-	var/base_url = "http://svn.slurm.us/public/spacestation13/misc/game_kit"
-	item_state = "sheet-metal"
-	w_class = WEIGHT_CLASS_HUGE
-*/
 
 /obj/item/gift
 	name = "gift"
@@ -216,3 +205,9 @@
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
+
+/obj/item/popsicle_stick
+	name = "popsicle stick"
+	desc = "A small wooden stick, usually topped by popsicles or other frozen treats."
+	icon = 'icons/obj/food/frozen_treats.dmi'
+	icon_state = "popsicle_stick"

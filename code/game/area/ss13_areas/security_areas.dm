@@ -51,14 +51,6 @@
 	name = "\improper Prison Cell Block A"
 	icon_state = "brigcella"
 
-/area/station/security/prison/cell_block/B
-	name = "\improper Prison Cell Block B"
-	icon_state = "brigcellb"
-
-/area/station/security/prison/cell_block/C
-	name = "\improper Prison Cell Block C"
-	icon_state = "brig"
-
 /area/station/security/execution
 	name = "Execution"
 	icon_state = "execution"
@@ -77,11 +69,6 @@
 /area/station/security/storage
 	name = "Security Equipment Storage"
 	icon_state = "securityequipmentstorage"
-
-/area/station/security/interrogation/observation
-	name = "Interrogation Observation"
-	icon_state = "security"
-	can_get_auto_cryod = FALSE
 
 /area/station/security/evidence
 	name = "\improper Evidence Room"
@@ -110,10 +97,6 @@
 	name = "\improper Secure Armory"
 	icon_state = "secarmory"
 
-/area/station/security/securehallway
-	name = "\improper Brig Secure Hallway"
-	icon_state = "securehall"
-
 /area/station/security/detective
 	name = "\improper Detective's Office"
 	icon_state = "detective"
@@ -131,22 +114,6 @@
 
 /area/station/security/checkpoint/secondary
 	name = "\improper Security Checkpoint"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/supply
-	name = "Security Post - Cargo Bay"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/engineering
-	name = "Security Post - Engineering"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/medical
-	name = "Security Post - Medbay"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/science
-	name = "Security Post - Science"
 	icon_state = "checkpoint1"
 
 // Solitary

@@ -4,9 +4,11 @@
  * 	Improvised garrotes
  */
 
-/obj/item/garrote // 12TC traitor item
+/// 12TC traitor item
+/obj/item/garrote
 	name = "fiber wire"
 	desc = "A length of razor-thin wire with an elegant wooden handle on either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "garrot_wrap"
 	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/carbon/human/strangling
@@ -27,7 +29,8 @@
 	else
 		icon_state = "garrot_[improvised ? "I_" : ""][HAS_TRAIT(src, TRAIT_WIELDED) ? "un" : ""]wrap"
 
-/obj/item/garrote/improvised // Made via tablecrafting
+/// Made via tablecrafting
+/obj/item/garrote/improvised
 	name = "garrote"
 	desc = "A length of cable with a shoddily-carved wooden handle tied to either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
 	icon_state = "garrot_I_wrap"
@@ -88,8 +91,9 @@
 	U.swap_hand()
 
 	if(G && istype(G))
-		if(improvised) // Improvised garrotes start you off with a passive grab, but keep you stunned like an agressive grab.
-			M.Stun(2 SECONDS)
+		if(improvised) // Improvised garrotes start you off with a passive grab, but will lock you in place. A quick stun to drop items but not to make it unescapable
+			M.Stun(1 SECONDS)
+			M.Immobilize(2 SECONDS)
 		else
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
@@ -153,7 +157,7 @@
 		return
 
 	if(G.state < GRAB_NECK) // Only possible with improvised garrotes, essentially this will stun people as if they were aggressively grabbed. Allows for resisting out if you're quick, but not running away.
-		strangling.Stun(6 SECONDS)
+		strangling.Immobilize(3 SECONDS)
 
 	if(improvised)
 		strangling.Stuttering(6 SECONDS)
@@ -169,6 +173,6 @@
 
 
 /obj/item/garrote/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
 	return OXYLOSS
