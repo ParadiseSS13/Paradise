@@ -290,7 +290,7 @@
 		overlays += I
 
 /obj/item/storage/pill_bottle/attack(mob/M, mob/user)
-	if(iscarbon(M) && contents.len)
+	if(iscarbon(M) && length(contents))
 		if(applying_meds)
 			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
 			return
@@ -339,7 +339,7 @@
 	if(iscarbon(over_object))
 		var/mob/living/carbon/C = over_object
 		if(loc == C && src == C.get_active_hand())
-			if(!contents.len)
+			if(!length(contents))
 				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
 				return
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")

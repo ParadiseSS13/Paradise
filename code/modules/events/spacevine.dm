@@ -10,12 +10,12 @@
 
 	qdel(SV)
 
-	if(turfs.len) //Pick a turf to spawn at if we can
+	if(length(turfs)) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
 		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,70),rand(5,2)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
-		if(SC.vines.len)
+		if(length(SC.vines))
 			SV = SC.vines[1]
 			var/list/mutations = subtypesof(/datum/spacevine_mutation)
 			while(mutations)
@@ -429,7 +429,7 @@
 	if(master)
 		master.vines -= src
 		master.growth_queue -= src
-		if(!master.vines.len)
+		if(!length(master.vines))
 			var/obj/item/seeds/kudzu/KZ = new(loc)
 			for(var/mutation in mutations)
 				KZ.mutations += mutation
@@ -591,7 +591,7 @@
 		SM.on_birth(SV)
 
 /obj/structure/spacevine_controller/process()
-	if(!vines || !vines.len)
+	if(!vines || !length(vines))
 		qdel(src) //space vines exterminated. Remove the controller
 		return
 	if(!growth_queue)
@@ -600,7 +600,7 @@
 
 	var/length = 0
 
-	length = min( spread_cap , max( 1 , vines.len / spread_multiplier ) )
+	length = min( spread_cap , max( 1 , length(vines) / spread_multiplier ) )
 	var/i = 0
 	var/list/obj/structure/spacevine/queue_end = list()
 
@@ -663,7 +663,7 @@
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
 		spread_search |= SM.on_search(src)
-	while(dir_list.len)
+	while(length(dir_list))
 		var/direction = pick(dir_list)
 		dir_list -= direction
 		var/turf/stepturf = get_step(src,direction)

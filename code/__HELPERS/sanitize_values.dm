@@ -16,7 +16,7 @@
 		return value
 	if(default)
 		return default
-	if(List && List.len)
+	if(length(List))
 		return pick(List)
 
 /proc/sanitize_json(json_input)
@@ -26,17 +26,12 @@
 
 
 //more specialised stuff
-/proc/sanitize_gender(gender,neuter = 0, plural = 0, default = "male")
+/proc/sanitize_gender(gender, neuter = FALSE, default = "male")
 	switch(gender)
-		if(MALE, FEMALE)
+		if(MALE, FEMALE, PLURAL)
 			return gender
 		if(NEUTER)
 			if(neuter)
-				return gender
-			else
-				return default
-		if(PLURAL)
-			if(plural)
 				return gender
 			else
 				return default
