@@ -25,7 +25,7 @@
 				continue
 			coin_materials += coin_mat.id
 
-	AddComponent(/datum/component/material_container, coin_materials, MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack, _after_insert=CALLBACK(src, PROC_REF(material_insert)))
+	AddComponent(/datum/component/material_container, coin_materials, MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack, _after_insert = CALLBACK(src, PROC_REF(material_insert)))
 	chosen_material = pick(coin_materials[1])
 
 /obj/machinery/autolathe/Destroy()
