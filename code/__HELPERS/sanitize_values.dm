@@ -14,7 +14,7 @@
 /proc/sanitize_inlist(value, list/List, default)
 	if(value in List)	return value
 	if(default)			return default
-	if(List && List.len)return pick(List)
+	if(length(List))	return pick(List)
 
 /proc/sanitize_json(json_input)
 	if(length(json_input) && istext(json_input))
@@ -23,15 +23,15 @@
 
 
 //more specialised stuff
-/proc/sanitize_gender(gender,neuter=0,plural=0, default="male")
+/proc/sanitize_gender(gender, neuter = FALSE, default = "male")
 	switch(gender)
-		if(MALE, FEMALE)return gender
+		if(MALE, FEMALE, PLURAL)
+			return gender
 		if(NEUTER)
-			if(neuter)	return gender
-			else		return default
-		if(PLURAL)
-			if(plural)	return gender
-			else		return default
+			if(neuter)
+				return gender
+			else
+				return default
 	return default
 
 /proc/sanitize_hexcolor(color, default="#000000")
