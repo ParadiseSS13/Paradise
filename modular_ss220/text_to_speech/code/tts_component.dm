@@ -61,6 +61,7 @@
 	var/tts_seeds
 	var/tts_gender = get_converted_tts_seed_gender()
 	var/list/tts_seeds_by_gender = SStts220.tts_seeds_by_gender[tts_gender]
+	tts_seeds_by_gender |= SStts220.tts_seeds_by_gender[TTS_GENDER_ANY]
 	if(check_rights(R_VAREDIT, FALSE, chooser) || override || !ismob(being_changed))
 		tts_seeds = tts_seeds_by_gender
 	else
@@ -97,7 +98,9 @@
 
 /datum/component/tts_component/proc/get_random_tts_seed_by_gender()
 	var/tts_gender = get_converted_tts_seed_gender()
-	var/tts_random = pick(SStts220.tts_seeds_by_gender[tts_gender])
+	var/list/tts_seeds = SStts220.tts_seeds_by_gender[tts_gender]
+	tts_seeds |= SStts220.tts_seeds_by_gender[TTS_GENDER_ANY]
+	var/tts_random = pick(tts_seeds)
 	var/datum/tts_seed/seed = SStts220.tts_seeds[tts_random]
 	if(!seed)
 		return null
