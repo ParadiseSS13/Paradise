@@ -104,7 +104,7 @@
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
-	else if(istype(O,/obj/item/seeds))
+	else if(istype(O, /obj/item/seeds))
 		add_seed(O, user)
 		to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 		SStgui.update_uis(src)
