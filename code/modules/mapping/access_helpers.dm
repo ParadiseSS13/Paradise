@@ -411,8 +411,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/chapel_office
 	access = ACCESS_CHAPEL_OFFICE
 
-/obj/effect/mapping_helpers/airlock/access/all/service/crematorium
-	access = ACCESS_CREMATORIUM
 
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium
 	access = ACCESS_CREMATORIUM

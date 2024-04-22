@@ -116,3 +116,11 @@
 
 /datum/antagonist/wizard/proc/full_on_wizard()
 	return TRUE
+
+/datum/antagonist/wizard/proc/wizard_is_alive() // fun fact did you know underscore make proc calls slower?
+	for(var/datum/spell/lichdom/S in owner.spell_list)
+		if(S.is_revive_possible()) // This must occur before the == DEAD check
+			return TRUE
+	if(!iscarbon(owner.current) || owner.current.stat == DEAD)
+		return FALSE
+	return TRUE

@@ -1,7 +1,3 @@
-
-#define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
-	"\[" = "", "]" = "", "{" = "", "}" = "")
-
 /mob/proc/say()
 	return
 
@@ -26,16 +22,14 @@
 		else if(response == "No")
 			return
 	*/
-	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
 	set_typing_indicator(FALSE)
 	usr.say(message)
-
 
 /mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
 
-	message = strip_html_properly(message)
+	message = sanitize(message)
 
 	set_typing_indicator(FALSE, TRUE)
 	if(use_me)
@@ -75,36 +69,41 @@
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
-/mob/proc/say_understands(mob/other, datum/language/speaking = null)
+/**
+ * Checks if the mob can understand the other speaker
+ * 
+ * If it return FALSE, then the message will have some letters replaced with stars from the heard message
+*/
+/mob/proc/say_understands(atom/movable/other, datum/language/speaking = null)
 	if(stat == DEAD)
-		return 1
+		return TRUE
 
 	//Universal speak makes everything understandable, for obvious reasons.
 	if(universal_speak || universal_understand)
-		return 1
+		return TRUE
 
 	//Languages are handled after.
 	if(!speaking)
-		if(!other)
-			return 1
-		if(other.universal_speak)
-			return 1
-		if(isAI(src) && ispAI(other))
-			return 1
-		if(istype(other, src.type) || istype(src, other.type))
-			return 1
-		return 0
+		if(!other || !ismob(other))
+			return TRUE
+		var/mob/other_mob = other
+		if(other_mob.universal_speak)
+			return TRUE
+		if(isAI(src) && ispAI(other_mob))
+			return TRUE
+		if(istype(other_mob, src.type) || istype(src, other_mob.type))
+			return TRUE
+		return FALSE
 
 	if(speaking.flags & INNATE)
-		return 1
+		return TRUE
 
 	//Language check.
 	for(var/datum/language/L in languages)
 		if(speaking.name == L.name)
-			return 1
+			return TRUE
 
-	return 0
-
+	return FALSE
 
 /mob/proc/say_quote(message, datum/language/speaking = null)
 	var/verb = "says"
@@ -222,5 +221,3 @@
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		. += S.message + " "
 	. = trim_right(.)
-
-#undef ILLEGAL_CHARACTERS_LIST
