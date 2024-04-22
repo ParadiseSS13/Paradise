@@ -90,7 +90,7 @@
 		width--
 	width = 1 + (2 * width)
 
-	for(var/k in 1 to atoms.len)
+	for(var/k in 1 to length(atoms))
 		var/atom/thing = atoms[k]
 		if(!thing)
 			continue

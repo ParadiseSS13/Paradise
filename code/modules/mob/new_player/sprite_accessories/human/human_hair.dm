@@ -563,7 +563,6 @@
 /datum/sprite_accessory/hair/joestar
 	name = "Joestar"
 	icon_state = "joestar"
-	gender = MALE
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
 
 /datum/sprite_accessory/hair/nitori
@@ -755,11 +754,6 @@
 /datum/sprite_accessory/hair/longovereye
 	name = "Overeye Long"
 	icon_state = "longovereye"
-	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
-
-/datum/sprite_accessory/hair/father
-	name = "Father"
-	icon_state = "father"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
 
 /// Due to a vulp hairstyle called bun

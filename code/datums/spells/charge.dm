@@ -20,7 +20,7 @@
 
 		if(L.pulling && (isliving(L.pulling)))
 			var/mob/living/M =	L.pulling
-			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
+			if(length(M.mob_spell_list) != 0 || (M.mind && length(M.mind.spell_list) != 0))
 				for(var/datum/spell/S in M.mob_spell_list)
 					S.cooldown_handler.revert_cast()
 				if(M.mind)

@@ -197,7 +197,7 @@
 
 	for(var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network&origin.networks
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			T[text("[][]", netcam.c_tag, (netcam.can_use() ? null : " (Deactivated)"))] = netcam
 
 
