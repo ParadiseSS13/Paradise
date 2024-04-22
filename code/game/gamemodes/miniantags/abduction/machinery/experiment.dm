@@ -220,21 +220,22 @@
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
-	if(do_after(occupant, 30 SECONDS, FALSE, src))
-		if(!occupant)
-			return
-		var/list/possible_results = list(
-			CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
-			CALLBACK(src, PROC_REF(sedate_abductee)) = 1,
-			CALLBACK(src, PROC_REF(eject_abductee)) = 1
-		)
-		var/datum/callback/result = pickweight(possible_results)
-		result.Invoke()
+	if(!do_after(occupant, 30 SECONDS, FALSE, src))
+		return
+	if(!occupant)
+		return
+	var/list/possible_results = list(
+		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
+		CALLBACK(src, PROC_REF(sedate_abductee)) = 1,
+		CALLBACK(src, PROC_REF(eject_abductee)) = 1
+	)
+	var/datum/callback/result = pickweight(possible_results)
+	result.Invoke()
 
 /obj/machinery/abductor/experiment/proc/electrocute_abductee()
 	if(!occupant)
 		return
-	to_chat(occupant, "<span class='warning'>Something is electrifying!</span>")
+	to_chat(occupant, "<span class='warning'>Something is electrifying you!</span>")
 	sleep(1 SECONDS)
 	occupant.electrocute_act(10, src)
 	do_sparks(5, TRUE, src)
