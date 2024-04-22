@@ -38,7 +38,7 @@
 	lines += output_players.Join(", ") // Turn players into a comma separated list
 
 	if(check_rights(R_ADMIN, FALSE))
-		lines += "Click <a href='?_src_=holder;who_advanced=1'>here</a> for detailed (old) who."
+		lines += "Click <a href='byond://?_src_=holder;who_advanced=1'>here</a> for detailed (old) who."
 
 	var/msg = lines.Join("\n")
 

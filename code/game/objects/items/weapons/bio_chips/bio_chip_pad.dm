@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/obj/item/bio_chip_case/case
+	var/static/list/cached_base64_icons = list()
 
 /obj/item/bio_chip_pad/Destroy()
 	if(case)
@@ -44,6 +45,7 @@
 	C.forceMove(src)
 	case = C
 	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
 
 /obj/item/bio_chip_pad/proc/eject_case(mob/user)
 	if(!case)
@@ -52,13 +54,9 @@
 		if(user.put_in_hands(case))
 			add_fingerprint(user)
 			case.add_fingerprint(user)
-			case = null
-			update_icon(UPDATE_ICON_STATE)
-			return
-
-	case.forceMove(get_turf(src))
 	case = null
 	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
 
 /obj/item/bio_chip_pad/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -73,6 +71,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BioChipPad", name)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/item/bio_chip_pad/ui_data(mob/user)
@@ -80,6 +79,10 @@
 	data["contains_case"] = case ? TRUE : FALSE
 	if(case && case.imp)
 		var/datum/implant_fluff/implant_data = case.imp.implant_data
+		var/icon/base64icon = cached_base64_icons["[initial(case.imp.icon)][initial(case.imp.icon_state)]"]
+		if(!base64icon)
+			base64icon = "[icon2base64(icon(initial(case.imp.icon), initial(case.imp.icon_state), SOUTH, 1))]"
+			cached_base64_icons["[initial(case.imp.icon)][initial(case.imp.icon_state)]"] = base64icon
 		data["implant"] = list(
 			"name" = implant_data.name,
 			"life" = implant_data.life,
@@ -92,7 +95,7 @@
 /obj/item/bio_chip_pad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-
+	. = TRUE
 	switch(action)
 		if("eject_case")
 			eject_case(ui.user)

@@ -9,7 +9,7 @@
 			handle_nutrition()
 			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 				return
-			reagents.remove_all(0.5 * REAGENTS_METABOLISM * reagents.reagent_list.len) //Slimes are such snowflakes
+			reagents.remove_all(0.5 * REAGENTS_METABOLISM * length(reagents.reagent_list)) //Slimes are such snowflakes
 			handle_targets()
 			if(!ckey)
 				handle_mood()
@@ -319,7 +319,7 @@
 
 					targets += L // Possible target found!
 
-				if(targets.len > 0)
+				if(length(targets) > 0)
 					if(attacked || rabid || hungry == 2)
 						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
 					else

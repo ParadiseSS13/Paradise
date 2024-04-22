@@ -245,6 +245,9 @@
 	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 	occupant.reagents.add_reagent("ether", 5)
 
+/obj/machinery/abductor/experiment/force_eject_occupant(mob/target)
+	eject_abductee()
+
 /obj/machinery/abductor/experiment/broken
 	stat = BROKEN
 

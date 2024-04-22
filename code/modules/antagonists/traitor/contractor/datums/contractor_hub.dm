@@ -136,15 +136,14 @@
 	completed_contracts++
 	reward_tc_available += tc
 	rep += rep_per_completion
-	var/notify_text = pick(list(
-		"CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [creds] credits.",
-		"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [creds] credits.",
-		"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [creds] creadits.",
-		"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [creds] creds. Enjoy!",
-		"Thank you for your initial investment of 500 credits! We have credited your account with [creds] as a token of appreciation.",
-		"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [creds] credits.",
-		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
-	))
+	var/notify_text = pick("CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [creds] credits.",
+						"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [creds] credits.",
+						"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [creds] creadits.",
+						"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [creds] creds. Enjoy!",
+						"Thank you for your initial investment of 500 credits! We have credited your account with [creds] as a token of appreciation.",
+						"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [creds] credits.",
+						"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
+					)
 	var/transaction_person
 	if(prob(50))
 		transaction_person = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))

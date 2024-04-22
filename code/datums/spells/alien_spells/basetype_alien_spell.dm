@@ -17,7 +17,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	for(var/datum/action/spell_action/action in actions)
 		action.UpdateButtons()
 
-/obj/effect/proc_holder/spell/alien_spell
+/datum/spell/alien_spell
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	base_cooldown = 0
@@ -28,15 +28,18 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	var/plasma_cost = 0
 
 /// Every single alien spell uses a "spell name + plasmacost" format
-/obj/effect/proc_holder/spell/alien_spell/Initialize(mapload)
-	. = ..()
+/datum/spell/alien_spell/New()
+	..()
 	if(plasma_cost)
 		name = "[name] ([plasma_cost])"
+		action.name = name
+		action.desc = desc
+		action.UpdateButtons()
 
-/obj/effect/proc_holder/spell/alien_spell/write_custom_logs(list/targets, mob/user)
+/datum/spell/alien_spell/write_custom_logs(list/targets, mob/user)
 	user.create_log(ATTACK_LOG, "Cast the spell [name]")
 
-/obj/effect/proc_holder/spell/alien_spell/create_new_handler()
+/datum/spell/alien_spell/create_new_handler()
 	var/datum/spell_handler/alien/handler = new
 	handler.plasma_cost = plasma_cost
 	return handler
