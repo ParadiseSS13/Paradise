@@ -403,11 +403,17 @@
 	new /obj/item/clothing/shoes/chameleon(src)
 	new /obj/item/clothing/glasses/chameleon(src)
 	new /obj/item/clothing/head/chameleon(src)
-	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
-	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/chameleon/nukie
+	name = "opertive's chameleon kit"
+
+/obj/item/storage/box/syndie_kit/chameleon/nukie/populate_contents()
+	. = ..()
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
