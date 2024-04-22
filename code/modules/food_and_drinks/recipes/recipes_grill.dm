@@ -29,6 +29,13 @@
 	)
 	result = /obj/item/food/snacks/friedegg
 
+/datum/recipe/grill/birdsteak
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/food/snacks/meat/chicken
+	)
+	result = /obj/item/food/snacks/meatsteak/chicken
+
 /datum/recipe/grill/meatsteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
@@ -62,7 +69,7 @@
 	reagents = list("psilocybin" = 5, "sugar" = 10)
 	items = list(
 		/obj/item/food/snacks/dough,
-		/obj/item/food/snacks/dough
+		/obj/item/food/snacks/dough,
 	)
 	result = /obj/item/food/snacks/rofflewaffles
 
@@ -70,14 +77,14 @@
 	items = list(
 		/obj/item/food/snacks/breadslice,
 		/obj/item/food/snacks/breadslice,
-		/obj/item/food/snacks/cheesewedge
+		/obj/item/food/snacks/cheesewedge,
 	)
 	result = /obj/item/food/snacks/grilledcheese
 
 /datum/recipe/grill/sausage
 	items = list(
 		/obj/item/food/snacks/meatball,
-		/obj/item/food/snacks/cutlet
+		/obj/item/food/snacks/cutlet,
 	)
 	result = /obj/item/food/snacks/sausage
 
@@ -85,7 +92,7 @@
 	reagents = list("flour" = 10)
 	items = list(
 		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/carpmeat
+		/obj/item/food/snacks/carpmeat,
 	)
 	result = /obj/item/food/snacks/fishfingers
 
@@ -106,7 +113,7 @@
 		/obj/item/food/snacks/egg,
 		/obj/item/food/snacks/egg,
 		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/cheesewedge
+		/obj/item/food/snacks/cheesewedge,
 	)
 	result = /obj/item/food/snacks/omelette
 
@@ -117,39 +124,39 @@
 	)
 	result = /obj/item/food/snacks/wingfangchu
 
-/datum/recipe/grill/human/kebab
+/datum/recipe/grill/human/kabob
 	items = list(
 		/obj/item/stack/rods,
 		/obj/item/food/snacks/meat/human,
 		/obj/item/food/snacks/meat/human,
 	)
-	result = /obj/item/food/snacks/human/kebab
+	result = /obj/item/food/snacks/human/kabob
 
-/datum/recipe/grill/syntikebab
+/datum/recipe/grill/monkeykabob
+	items = list(
+		/obj/item/stack/rods,
+		/obj/item/food/snacks/meat/monkey,
+		/obj/item/food/snacks/meat/monkey,
+	)
+	result = /obj/item/food/snacks/monkeykabob
+
+/datum/recipe/grill/syntikabob
 	items = list(
 		/obj/item/stack/rods,
 		/obj/item/food/snacks/meat/syntiflesh,
-		/obj/item/food/snacks/meat/syntiflesh
+		/obj/item/food/snacks/meat/syntiflesh,
 	)
-	result = /obj/item/food/snacks/syntikebab
+	result = /obj/item/food/snacks/monkeykabob
 
-/datum/recipe/grill/meatkebab	// Do not put this above the other meat kebab variants or it will override them.
-	items = list(
-		/obj/item/stack/rods,
-		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/meat
-	)
-	result = /obj/item/food/snacks/meatkebab
-
-/datum/recipe/grill/tofukebab
+/datum/recipe/grill/tofukabob
 	items = list(
 		/obj/item/stack/rods,
 		/obj/item/food/snacks/tofu,
-		/obj/item/food/snacks/tofu
+		/obj/item/food/snacks/tofu,
 	)
-	result = /obj/item/food/snacks/tofukebab
+	result = /obj/item/food/snacks/tofukabob
 
-/datum/recipe/grill/picoss_kebab
+/datum/recipe/grill/picoss_kabob
 	reagents = list("vinegar" = 5)
 	items = list(
 		/obj/item/food/snacks/carpmeat,
@@ -158,10 +165,10 @@
 		/obj/item/food/snacks/grown/chili,
 		/obj/item/stack/rods
 	)
-	result = /obj/item/food/snacks/picoss_kebab
+	result = /obj/item/food/snacks/picoss_kabob
 
-/datum/recipe/grill/picoss_kebab/make_food(obj/container)
-	var/obj/item/food/snacks/picoss_kebab/being_cooked = ..()
+/datum/recipe/grill/picoss_kabob/make_food(obj/container)
+	var/obj/item/food/snacks/picoss_kabob/being_cooked = ..()
 	being_cooked.reagents.del_reagent("carpotoxin")
 	return being_cooked
 
@@ -169,7 +176,8 @@
 	reagents = list("sake" = 5)
 	items = list(
 		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/boiledrice
+		/obj/item/food/snacks/boiledrice,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Tamago
 
@@ -177,70 +185,80 @@
 	reagents = list("sake" = 5)
 	items = list(
 		/obj/item/fish/electric_eel,
-		/obj/item/food/snacks/boiledrice
+		/obj/item/food/snacks/boiledrice,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Unagi
 
 /datum/recipe/grill/sushi_Ebi
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/boiled_shrimp
+		/obj/item/food/snacks/boiled_shrimp,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Ebi
 
 /datum/recipe/grill/sushi_Ikura
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/fish_eggs/salmon
+		/obj/item/fish_eggs/salmon,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Ikura
 
 /datum/recipe/grill/sushi_Inari
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/fried_tofu
+		/obj/item/food/snacks/fried_tofu,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Inari
 
 /datum/recipe/grill/sushi_Sake
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/salmonmeat
+		/obj/item/food/snacks/salmonmeat,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Sake
 
 /datum/recipe/grill/sushi_SmokedSalmon
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/salmonsteak
+		/obj/item/food/snacks/salmonsteak,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_SmokedSalmon
 
 /datum/recipe/grill/sushi_Masago
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/fish_eggs/goldfish
+		/obj/item/fish_eggs/goldfish,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Masago
 
 /datum/recipe/grill/sushi_Tobiko
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/fish_eggs/shark
+		/obj/item/fish_eggs/shark,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Tobiko
 
 /datum/recipe/grill/sushi_TobikoEgg
 	items = list(
 		/obj/item/food/snacks/sushi_Tobiko,
-		/obj/item/food/snacks/egg
+		/obj/item/food/snacks/egg,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_TobikoEgg
 
 /datum/recipe/grill/sushi_Tai
 	items = list(
 		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/catfishmeat
+		/obj/item/food/snacks/catfishmeat,
+		/obj/item/stack/seaweed
 	)
 	result = /obj/item/food/snacks/sushi_Tai
 
@@ -254,7 +272,7 @@
 		/obj/item/food/snacks/shrimp,
 		/obj/item/food/snacks/shrimp,
 		/obj/item/food/snacks/shrimp,
-		/obj/item/stack/rods
+		/obj/item/stack/rods,
 	)
 	result = /obj/item/food/snacks/shrimp_skewer
 
@@ -263,7 +281,7 @@
 	items = list(
 		/obj/item/food/snacks/salmonmeat,
 		/obj/item/food/snacks/salmonmeat,
-		/obj/item/stack/rods
+		/obj/item/stack/rods,
 	)
 	result = /obj/item/food/snacks/fish_skewer
 
