@@ -25,7 +25,7 @@
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
 	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, \
-	they can be used just as effectively as a regular hand with enough practice. \
+	they can be used just as effectively as a regular hand with enough practice.<br><br> \
 	Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
 	protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
 
@@ -35,13 +35,14 @@
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/ui_action_click(mob/user)
-	drop_gripped_item()
+	drop_gripped_item(user)
 
-/obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
+/obj/item/gripper/proc/drop_gripped_item(mob/user, silent = FALSE)
 	if(!gripped_item)
+		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 		return
 	if(!silent)
-		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+		to_chat(user, "<span class='warning'>You drop [gripped_item].</span>")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
