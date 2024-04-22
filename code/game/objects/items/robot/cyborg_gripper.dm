@@ -19,13 +19,15 @@
 	var/can_help_up = FALSE
 	/// Defines what items the gripper can carry.
 	var/list/can_hold = list()
+	/// Set to TRUE to allow ANY item to be held, bypassing can_hold checks.
+	var/can_hold_all_items = FALSE
 	/// The item currently being held.
 	var/obj/item/gripped_item
 
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
 	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, \
-	they can be used just as effectively as a regular hand with enough practice.<br><br> \
+	they can be used just as effectively as a regular hand with enough practice.<br><br>\
 	Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
 	protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
 
@@ -102,7 +104,7 @@
 	else if(isitem(target))
 		var/obj/item/I = target
 		// Make sure the item is something the gripper can hold
-		if(is_type_in_typecache(I, can_hold))
+		if(can_hold_all_items || is_type_in_typecache(I, can_hold))
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
@@ -157,9 +159,7 @@
 	// It's UNIVERSAL so it has all functions enabled.
 	engineering_machine_interaction = TRUE
 	can_help_up = TRUE
-	can_hold = list(
-		/obj/item
-	)
+	can_hold_all_items = TRUE
 
 /******************************
 /       MEDICAL GRIPPER
