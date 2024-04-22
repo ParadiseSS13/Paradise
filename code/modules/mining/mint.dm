@@ -28,7 +28,7 @@
 	AddComponent(/datum/component/material_container, coin_materials, MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack, _after_insert = CALLBACK(src, PROC_REF(material_insert)))
 	chosen_material = pick(coin_materials[1])
 
-/obj/machinery/autolathe/Destroy()
+/obj/machinery/mineral/mint/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
