@@ -40,7 +40,7 @@ FALSE if not
 		usr.ClickOn(src, params) // if not, we click object
 
 /*
-recieve a mousedrop
+receive a mousedrop
 called on object which was under the object you dragged and dropped
 return TRUE if you want to prevent us click the object
 actually if you do something in that proc like changing user location or whatever, you expected to return TRUE

@@ -92,7 +92,7 @@
 
 		var/obj/item/kitchen/utensil/U = W
 
-		if(U.contents.len >= U.max_contents)
+		if(length(U.contents) >= U.max_contents)
 			to_chat(user, "<span class='warning'>You cannot fit anything else on your [U].")
 			return
 

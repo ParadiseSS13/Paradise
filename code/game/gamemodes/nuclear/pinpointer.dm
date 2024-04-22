@@ -488,7 +488,7 @@
 		names[name] = H
 		name_counts[name] = 1
 
-	if(!names.len)
+	if(!length(names))
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 

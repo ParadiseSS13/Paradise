@@ -463,7 +463,7 @@ SUBSYSTEM_DEF(dbcore)
 
 // Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
-	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;slowquery=no'>\[NO\]</a>")
+	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;slowquery=no'>\[NO\]</a>")
 
 
 /**

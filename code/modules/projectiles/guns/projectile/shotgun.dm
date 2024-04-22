@@ -357,7 +357,7 @@
 	return ..()
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)
-	if(!chambered && magazine.contents.len)
+	if(!chambered && length(magazine.contents))
 		pump()
 	else
 		toggle_tube(user)

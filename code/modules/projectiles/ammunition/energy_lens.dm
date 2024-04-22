@@ -187,7 +187,7 @@
 	projectile_type = /obj/item/projectile/plasma
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
+	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
 	e_cost = 75
 
@@ -240,15 +240,6 @@
 /obj/item/ammo_casing/energy/instakill/red
 	projectile_type = /obj/item/projectile/beam/instakill/red
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
-
-/obj/item/ammo_casing/energy/plasma
-	projectile_type = /obj/item/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
-	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/pulse.ogg'
-
-/obj/item/ammo_casing/energy/plasma/adv
-	projectile_type = /obj/item/projectile/plasma/adv
 
 /obj/item/ammo_casing/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
