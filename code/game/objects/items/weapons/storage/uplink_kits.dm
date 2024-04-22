@@ -155,7 +155,7 @@
 		/obj/item/dnainjector/telemut/darkbundle, // ?TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
-		/obj/item/clothing/mask/chameleon, // 8TC
+		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
 		/obj/item/encryptionkey/syndicate) // 10TC
@@ -406,14 +406,23 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/nukie
-	name = "opertive's chameleon kit"
+	name = "operative's chameleon kit"
 
-/obj/item/storage/box/syndie_kit/chameleon/nukie/populate_contents()
-	. = ..()
+/obj/item/storage/box/syndie_kit/chameleon_nuke/populate_contents()
+	new /obj/item/clothing/under/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/pda/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/mask/chameleon/voice_change(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"

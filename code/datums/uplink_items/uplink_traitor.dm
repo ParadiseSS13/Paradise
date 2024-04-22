@@ -455,7 +455,7 @@
 	desc = "A syndicate gas mask equipped with chameleon technology and a voice changer for disguising your voice. \
 			Use it to impersonate or obfuscate your identity when talking and make nobody the wiser!"
 	reference = "CVCM"
-	item = /obj/item/clothing/mask/chameleon
+	item = /obj/item/clothing/mask/chameleon/voice_change
 	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 

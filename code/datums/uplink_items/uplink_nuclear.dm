@@ -663,7 +663,7 @@
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"
-	item = /obj/item/storage/box/syndie_kit/chameleon/nukie
+	item = /obj/item/storage/box/syndie_kit/chameleon_nuke
 	cost = 30
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
