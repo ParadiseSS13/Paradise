@@ -396,7 +396,7 @@
 	var/blood_type = ""
 	if(user.advanced_reagent_vision())	// You can see absolute unit concentrations in transparent containers and % concentrations in opaque containers. You can also see blood types.
 		. += "<span class='notice'>It contains:</span>"
-		if(!reagents.reagent_list.len)
+		if(!length(reagents.reagent_list))
 			. += "<span class='notice'>Nothing.</span>"
 			return
 		if(container_type & TRANSPARENT)
@@ -427,7 +427,7 @@
 				return
 
 		//Otherwise, just show the total volume
-		if(reagents && reagents.reagent_list.len)
+		if(reagents && length(reagents.reagent_list))
 			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
 			return
 		. += "<span class='notice'>Nothing.</span>"
