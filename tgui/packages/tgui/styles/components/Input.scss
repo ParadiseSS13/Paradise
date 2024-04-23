@@ -74,6 +74,14 @@ $border-radius: base.$border-radius !default;
   color: $text-color;
   color: inherit;
 
+  &::placeholder {
+    font-style: italic;
+    color: #777;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  // TODO: Remove with 516
+
   &:-ms-input-placeholder {
     font-style: italic;
     color: #777;
@@ -95,6 +103,13 @@ $border-radius: base.$border-radius !default;
   overflow: auto;
   white-space: pre-wrap;
 
+  &::placeholder {
+    font-style: italic;
+    color: #777;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  // TODO: Remove with 516
   &:-ms-input-placeholder {
     font-style: italic;
     color: #777;

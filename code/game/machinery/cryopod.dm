@@ -433,7 +433,7 @@
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
 				if(announce_rank)
-					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+					announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 				else
 					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
@@ -613,6 +613,9 @@
 /obj/machinery/cryopod/blob_act()
 	return //Sorta gamey, but we don't really want these to be destroyed.
 
+/obj/machinery/cryopod/force_eject_occupant(mob/target)
+	go_out()
+
 /obj/machinery/cryopod/offstation
 	// Won't announce when used for cryoing.
 	silent = TRUE
@@ -667,7 +670,7 @@
 
 /proc/cryo_ssd(mob/living/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
-		return 0
+		return FALSE
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
@@ -685,8 +688,8 @@
 			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40, create_sparks = FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))
