@@ -116,11 +116,11 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/output
-	output += "<form method='GET' name='search' action='?'>\
+	output += "<!DOCTYPE html><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"
-	output += "<a href='?_src_=holder;watchshow=1'>\[Clear Search\]</a> <a href='?_src_=holder;watchaddbrowse=1'>\[Add Ckey\]</a>"
+	output += "<a href='byond://?_src_=holder;watchshow=1'>\[Clear Search\]</a> <a href='byond://?_src_=holder;watchaddbrowse=1'>\[Add Ckey\]</a>"
 	output += "<hr style='background:#000000; border:0; height:3px'>"
 	if(search)
 		search = "^[search]"
@@ -139,9 +139,9 @@
 		var/adminckey = query_watchlist.item[3]
 		var/timestamp = query_watchlist.item[4]
 		var/last_editor = query_watchlist.item[5]
-		output += "<b>[ckey]</b> | Added by <b>[adminckey]</b> on <b>[timestamp]</b> <a href='?_src_=holder;watchremovebrowse=[ckey]'>\[Remove\]</a> <a href='?_src_=holder;watcheditbrowse=[ckey]'>\[Edit Reason\]</a>"
+		output += "<b>[ckey]</b> | Added by <b>[adminckey]</b> on <b>[timestamp]</b> <a href='byond://?_src_=holder;watchremovebrowse=[ckey]'>\[Remove\]</a> <a href='byond://?_src_=holder;watcheditbrowse=[ckey]'>\[Edit Reason\]</a>"
 		if(last_editor)
-			output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
+			output += " <font size='2'>Last edit by [last_editor] <a href='byond://?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
 		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
 	usr << browse(output, "window=watchwin;size=900x500")
 	qdel(query_watchlist)

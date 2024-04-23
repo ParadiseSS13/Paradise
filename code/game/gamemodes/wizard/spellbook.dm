@@ -439,7 +439,6 @@
 	. = ..()
 	if(.)
 		user.mind.AddSpell(new /datum/spell/aoe/conjure/construct(null))
-	return .
 
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
@@ -668,14 +667,14 @@
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
 		qdel(book)
-	else if(items_path.len)
+	else if(length(items_path))
 		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
 		if(response != "Yes")
 			return FALSE
 		if(!CanBuy(user, book))
 			to_chat(user, "<span class='warning'>You can't afford that anymore!</span>")
 			return FALSE
-	if(items_path.len)
+	if(length(items_path))
 		var/obj/item/storage/box/wizard/B = new(src)
 		for(var/path in items_path)
 			new path(B)
@@ -881,7 +880,7 @@
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
-	for(var/i=1,i<=entries.len,i++)
+	for(var/i=1,i<=length(entries),i++)
 		var/spell_info = ""
 		E = entries[i]
 		spell_info += E.GetInfo()

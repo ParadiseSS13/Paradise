@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
-	if(Lines.len)
+	if(length(Lines))
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
 			log_game("Saved mode is '[GLOB.master_mode]'")
