@@ -165,9 +165,9 @@
 	var/header_right = "<div style ='float;left; text-align:right; width:49.9%'></div>"
 	if(length(pages)) //No need to have page switching buttons if there's no pages
 		if(current_page < length(pages))
-			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(current_page)
-			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
+			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 
 	dat += header_left + header_right
 	//Now we're going to display the header buttons + the current page selected, if it's page 0, we display the cover_page instead
@@ -214,7 +214,7 @@
 	switch(choice)
 		if("Title")
 			var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
-			if(!newtitle)
+			if(isnull(newtitle))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
@@ -223,13 +223,13 @@
 			title = newtitle
 		if("Author")
 			var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
-			if(!newauthor)
+			if(isnull(newauthor))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			author = newauthor
 		if("Summary")
 			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN, multiline = TRUE)
-			if(!newsummary)
+			if(isnull(newsummary))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			summary = newsummary
@@ -245,7 +245,7 @@
 				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
 				return
 			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE, multiline = TRUE)
-			if(!content)
+			if(isnull(content))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
@@ -268,7 +268,7 @@
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
 			var/page_choice = tgui_input_number(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", max_value = length(pages))
-			if(!page_choice)
+			if(isnull(page_choice))
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			if(page_choice <= 0 || page_choice > length(pages))

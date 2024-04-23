@@ -162,7 +162,7 @@
 	else
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
-		if(candidates.len)
+		if(length(candidates))
 			theghost = pick(candidates)
 			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
 			key = theghost.key

@@ -198,7 +198,7 @@
 	for(var/datum/ai_law/AL in laws)
 		packaged_laws[++packaged_laws.len] = list("law" = AL.law, "index" = AL.get_index(), "state" = owner.laws.get_state_law(AL), "ref" = "\ref[AL]")
 	data[field] = packaged_laws
-	data["has_[field]"] = packaged_laws.len
+	data["has_[field]"] = length(packaged_laws)
 
 /datum/ui_module/law_manager/proc/package_multiple_laws(list/datum/ai_laws/laws)
 	var/list/law_sets = list()

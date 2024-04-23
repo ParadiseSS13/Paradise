@@ -234,7 +234,7 @@
 			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del), TRUE)
 
 /obj/machinery/magnetic_controller/process()
-	if(magnets.len == 0 && autolink)
+	if(length(magnets) == 0 && autolink)
 		link_magnets()
 
 /obj/machinery/magnetic_controller/ui_state(mob/user)
@@ -416,7 +416,7 @@
 /obj/machinery/magnetic_controller/proc/MagnetMove()
 	if(looping) return
 
-	while(moving && rpath.len >= 1)
+	while(moving && length(rpath) >= 1)
 
 		if(stat & (BROKEN|NOPOWER))
 			break
@@ -430,7 +430,7 @@
 		signal.frequency = frequency
 		signal.data["code"] = code
 
-		if(pathpos > rpath.len) // if the position is greater than the length, we just loop through the list!
+		if(pathpos > length(rpath)) // if the position is greater than the length, we just loop through the list!
 			pathpos = 1
 
 		var/nextmove = uppertext(rpath[pathpos]) // makes it un-case-sensitive
