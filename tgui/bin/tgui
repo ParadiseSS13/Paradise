@@ -137,15 +137,22 @@ task-merge-bundle() {
   local file_other="${4}"
   local conflict_marker_size="${5}"
   echo "----------------------"
-  echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
-  task-install
-  task-webpack --mode=production
-  echo "tgui: replacing conflicted bundle with newly compiled bundle"
-  cd ../
+  echo "tgui: prepping to replace a conflicted bundle"
   cat $file_path > $file_current
+  task-rebuild-conflicted-bundle &
   exit 0
 }
 
+task-rebuild-conflicted-bundle() {
+  echo "----------------------"
+  echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
+  task-install
+  task-webpack --mode=production
+  echo "tgui: committing new bundle"
+  echo "----------------------"
+	git commit -am "TGUI Bundle Rebuild"
+  exit 0
+}
 
 ## Main
 ## --------------------------------------------------------
@@ -230,6 +237,13 @@ if [[ ${1} == '--tgui-polyfill' ]]; then
   shift 1
   task-install
   task-polyfill "${@}"
+  exit 0
+fi
+
+## Rebuild without checking
+if [[ ${1} == '--build-only' ]]; then
+  task-install
+  task-webpack --mode=production
   exit 0
 fi
 
