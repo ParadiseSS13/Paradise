@@ -60,6 +60,13 @@
 	)
 	result = /obj/item/food/snacks/human/burger
 
+/datum/recipe/microwave/chickenburger
+	items = list(
+		/obj/item/food/snacks/bun,
+		/obj/item/food/snacks/meat/chicken
+	)
+	result = /obj/item/food/snacks/burger/chicken
+
 /datum/recipe/microwave/plainburger
 	items = list(
 		/obj/item/food/snacks/bun,
@@ -386,13 +393,6 @@
 		/obj/item/food/snacks/grown/tomato
 	)
 	result = /obj/item/food/snacks/soup/coldchili
-
-/datum/recipe/microwave/spellburger
-	items = list(
-		/obj/item/food/snacks/bun,
-		/obj/item/clothing/head/wizard/fake
-	)
-	result = /obj/item/food/snacks/burger/spell
 
 /datum/recipe/microwave/spellburger
 	items = list(
@@ -1472,3 +1472,4 @@
 		/obj/item/food/snacks/shrimp
 	)
 	result = /obj/item/food/snacks/boiled_shrimp
+

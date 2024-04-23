@@ -43,8 +43,6 @@
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
 			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
-			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
@@ -71,8 +69,6 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
-			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
@@ -171,10 +167,13 @@
 		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
-		if(gender==FEMALE)
-			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else
-			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		switch(gender)
+			if(FEMALE)
+				return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
+			if(MALE)
+				return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+			else
+				return capitalize(pick(GLOB.first_names_male + GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 	else
 		return current_species.get_random_name(gender)
 
@@ -190,7 +189,6 @@
 		return min(max(. + rand(-25, 25), -185), 34)
 	else if(species == "Vox")
 		. = rand(1, 6)
-		return .
 
 /proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
@@ -610,7 +608,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	var/viewX
 	var/viewY
 	if(isnum(view))
-		var/totalviewrange = 1 + 2 * view
+		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
 		viewX = totalviewrange
 		viewY = totalviewrange
 	else if(istext(view))
@@ -625,6 +623,12 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		CRASH("Invalid view type parameter passed to getviewsize: [view]")
 
 	return list(viewX, viewY)
+
+/proc/in_view_range(mob/user, atom/A)
+	var/list/view_range = getviewsize(user.client.view)
+	var/turf/source = get_turf(user)
+	var/turf/target = get_turf(A)
+	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[2], source.y + view_range[2])
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)

@@ -13,17 +13,17 @@
 	var/can_contaminate
 
 /datum/component/radioactive/Initialize(_strength = 0, _source, _half_life = RAD_HALF_LIFE, _can_contaminate = TRUE)
+	if(!istype(parent, /atom))
+		return COMPONENT_INCOMPATIBLE
 	strength = _strength
 	source = _source
 	hl3_release_date = _half_life
 	can_contaminate = _can_contaminate
-	if(istype(parent, /atom))
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
-		if(isitem(parent))
-			RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(rad_attack))
-			RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(rad_attack))
-	else
-		return COMPONENT_INCOMPATIBLE
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
+	RegisterSignal(parent, COMSIG_ADMIN_DECONTAMINATE, PROC_REF(admin_decontaminate))
+	if(isitem(parent))
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(rad_attack))
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(rad_attack))
 	if(strength > RAD_MINIMUM_CONTAMINATION)
 		SSradiation.warn(src)
 	//Let's make er glow
@@ -31,10 +31,12 @@
 	var/atom/movable/master = parent
 	master.add_filter("rad_glow", 2, list("type" = "outline", "color" = "#39ff1430", "size" = 2))
 	addtimer(CALLBACK(src, PROC_REF(glow_loop), master), rand(1, 19)) //Things should look uneven
+	LAZYADD(SSradiation.all_radiations, src)
 	START_PROCESSING(SSradiation, src)
 
 /datum/component/radioactive/Destroy()
 	STOP_PROCESSING(SSradiation, src)
+	LAZYREMOVE(SSradiation.all_radiations, src)
 	var/atom/movable/master = parent
 	master.remove_filter("rad_glow")
 	return ..()
@@ -98,6 +100,17 @@
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date
+
+/datum/component/radioactive/proc/admin_decontaminate()
+	SIGNAL_HANDLER
+	. = TRUE
+	if(ismob(parent))
+		var/mob/M = parent
+		M.radiation = 0
+	if(ismob(source))
+		var/mob/M = source
+		M.radiation = 0
+	qdel(src)
 
 #undef RAD_AMOUNT_LOW
 #undef RAD_AMOUNT_MEDIUM

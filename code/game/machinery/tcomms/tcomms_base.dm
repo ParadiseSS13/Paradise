@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	/// Origin of the signal
 	var/datum/radio_frequency/connection
 	/// Who sent it
-	var/mob/sender
+	var/atom/movable/sender
 	/// The radio it was sent from
 	var/obj/item/radio/radio
 	/// The signal data (See defines/radio.dm)
