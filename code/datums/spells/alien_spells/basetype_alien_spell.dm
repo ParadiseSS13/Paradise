@@ -32,6 +32,9 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	..()
 	if(plasma_cost)
 		name = "[name] ([plasma_cost])"
+		action.name = name
+		action.desc = desc
+		action.UpdateButtons()
 
 /datum/spell/alien_spell/write_custom_logs(list/targets, mob/user)
 	user.create_log(ATTACK_LOG, "Cast the spell [name]")

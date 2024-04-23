@@ -35,6 +35,8 @@
 	var/semicd = 0						//cooldown handler
 	var/execution_speed = 6 SECONDS
 	var/weapon_weight = WEAPON_LIGHT
+	/// Additional spread when dual wielding.
+	var/dual_wield_spread = 24
 	var/list/restricted_species
 
 	var/spread = 0
@@ -207,7 +209,7 @@
 					var/temporary_weapon_weight = GUN_2.weapon_weight
 					if(GUN_1.type != GUN_2.type)
 						temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
-					bonus_spread += 24 * temporary_weapon_weight
+					bonus_spread += dual_wield_spread * temporary_weapon_weight
 				addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
 
 	process_fire(target, user, TRUE, params, null, bonus_spread)
@@ -215,7 +217,7 @@
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+	if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1

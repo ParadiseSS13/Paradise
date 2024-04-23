@@ -851,12 +851,6 @@
 	selection_deactivated_message = "<span class='notice'>APC logic thread restarting...</span>"
 	var/is_active = FALSE
 
-/datum/spell/ai_spell/ranged/repair_cyborg/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.allowed_type = /mob/living/silicon/robot
-	T.try_auto_target = FALSE
-	return T
-
 /datum/spell/ai_spell/ranged/repair_cyborg/cast(list/targets, mob/user)
 	var/mob/living/silicon/robot/robot_target = targets[1]
 	if(!istype(robot_target))

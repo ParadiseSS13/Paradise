@@ -35,7 +35,7 @@
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
 			jobs -= J
-	if(jobs.len > 0)
+	if(length(jobs) > 0)
 		var/datum/job/target = pick(jobs)
 		explanation_text += " a [target.title]."
 	else
@@ -131,7 +131,7 @@
 /datum/objective/abductee/party
 	explanation_text = "You're throwing a huge rager. Make it as awesome as possible so the whole crew comes... OR ELSE!"
 
-/datum/objective/abductee/pets
+/datum/objective/abductee/cooler_pets
 	explanation_text = "All the pets around here suck. You need to make them cooler. Replace them with exotic beasts!"
 
 /datum/objective/abductee/conspiracy

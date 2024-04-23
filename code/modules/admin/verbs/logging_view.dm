@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(open_logging_views)
 	else if(clear_view)
 		cur_view.clear_all()
 
-	if(mobs_to_add?.len)
+	if(length(mobs_to_add))
 		cur_view.add_mobs(mobs_to_add)
 
 	cur_view.show_ui(usr)

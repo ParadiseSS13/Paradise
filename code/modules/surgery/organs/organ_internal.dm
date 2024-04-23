@@ -188,15 +188,6 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/food/snacks/organ
-	name = "appendix"
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/food/snacks/organ/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent("nutriment", 5)
-
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
