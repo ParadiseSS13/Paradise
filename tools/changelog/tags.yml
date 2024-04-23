@@ -1,25 +1,49 @@
 tags:
-    add: add
-    del: del
-    tweak: tweak
-    fix: fix
-    wip: wip
-    soundadd: soundadd
-    sounddel: sounddel
-    imageadd: imageadd
-    imagedel: imagedel
-    spellcheck: spellcheck
-    experiment: experiment
+  fix: 'fix'
+  fixes: 'fix'
+  bugfix: 'fix'
+  wip: 'wip'
+  tweak: 'tweak'
+  tweaks: 'tweak'
+  rsctweak: 'tweak'
+  soundadd: 'soundadd'
+  sounddel: 'sounddel'
+  imageadd: 'imageadd'
+  imagedel: 'imagedel'
+  add: 'codeadd'
+  adds: 'codeadd'
+  rscadd: 'codeadd'
+  codeadd: 'codeadd'
+  del: 'codedel'
+  dels: 'codedel'
+  rscdel: 'codedel'
+  codedel: 'codedel'
+  typo: 'spellcheck'
+  spellcheck: 'spellcheck'
+  experimental: 'experiment'
+  experiment: 'experiment'
 
 defaults:
-    add: Что-то добавил
-    del: Что-то удалил
-    tweak: Поменял что-то по мелочи
-    fix: Что-то починил
-    wip: Какие-либо наработки в процессе
-    soundadd: Добавил новый звук
-    sounddel: Удалил старый звук
-    imageadd: Добавил новую картинку
-    imagedel: Удалил старую картинку
-    spellcheck: Исправил опечатку
-    experiment: Добавил эксперементальную функцию
+  fix: 'Что-то починил'
+  fixes: 'Что-то починил'
+  bugfix: 'Что-то починил'
+  wip: 'Какие-либо наработки в процессе'
+  tweak: 'Поменял что-то по мелочи'
+  tweaks: 'Поменял что-то по мелочи'
+  rsctweak: 'Поменял что-то по мелочи'
+  soundadd: 'Добавил новый звук'
+  sounddel: 'Удалил старый звук'
+  imageadd: 'Добавил новую картинку'
+  imagedel: 'Удалил старую картинку'
+  add: 'Что-то добавил'
+  adds: 'Что-то добавил'
+  rscadd: 'Что-то добавил'
+  codeadd: 'Что-то добавил'
+  del: 'Что-то удалил'
+  dels: 'Что-то удалил'
+  rscdel: 'Что-то удалил'
+  codedel: 'Что-то удалил'
+  typo: 'Исправил опечатку'
+  spellcheck: 'Исправил опечатку'
+  experimental: 'Добавил экспериментальную функцию'
+  experiment: 'Добавил экспериментальную функцию'

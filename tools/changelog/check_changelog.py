@@ -10,13 +10,102 @@ GITHUB_EVENT_PATH: path to JSON file containing the event info (Action provided)
 """
 import os
 import re
+import copy
 from pathlib import Path
 from ruamel.yaml import YAML
 from github import Github
 import json
 
-CL_BODY = re.compile(r"(:cl:|🆑)(.+)?\n((.|\n|)+?)\n\/(:cl:|🆑)", re.MULTILINE)
-CL_SPLIT = re.compile(r"(^\w+):\s+(\w.+)", re.MULTILINE)
+DISCORD_EMBED_DESCRIPTION_LIMIT = 4096
+
+CL_BODY = re.compile(r"(:cl:|🆑)[ \t]*(?P<author>.+?)?\s*\n(?P<content>(.|\n)*?)\n/(:cl:|🆑)", re.MULTILINE)
+CL_SPLIT = re.compile(r"\s*((?P<tag>\w+)\s*:)?\s*(?P<message>.*)")
+
+DISCORD_TAG_EMOJI = {
+    "soundadd": ":notes:",
+    "sounddel": ":mute:",
+    "imageadd": ":frame_photo:",
+    "imagedel": ":scissors:",
+    "codeadd": ":sparkles:",
+    "codedel": ":wastebasket:",
+    "tweak": ":screwdriver:",
+    "fix": ":tools:",
+    "wip": ":construction_site:",
+    "spellcheck": ":pencil:",
+    "experiment": ":microscope:"
+}
+
+
+def build_changelog(pr: dict) -> dict:
+    changelog = parse_changelog(pr.body)
+    changelog["author"] = changelog["author"] or pr.user.login
+    return changelog
+
+
+def emojify_changelog(changelog: dict):
+    changelog_copy = copy.deepcopy(changelog)
+    for change in changelog_copy["changes"]:
+        if change["tag"] in DISCORD_TAG_EMOJI:
+            change["tag"] = DISCORD_TAG_EMOJI[change["tag"]]
+        else:
+            raise Exception(f"Invalid tag for emoji: {change}")
+    return changelog_copy
+
+
+def validate_changelog(changelog: dict):
+    if not changelog:
+        raise Exception("No changelog.")
+    if not changelog["author"]:
+        raise Exception("The changelog has no author.")
+    if len(changelog["changes"]) == 0:
+        raise Exception("No changes found in the changelog. Use special label if changelog is not expected.")
+    message = "\n".join(map(lambda change: f"{change['tag']} {change['message']}", changelog["changes"]))
+    if len(message) > DISCORD_EMBED_DESCRIPTION_LIMIT:
+        raise Exception(f"The changelog exceeds the length limit ({DISCORD_EMBED_DESCRIPTION_LIMIT}). Shorten it.")
+
+
+def parse_changelog(message: str) -> dict:
+    with open(Path.cwd().joinpath("tags.yml")) as file:
+        yaml = YAML(typ = 'safe', pure = True)
+        tags_config = yaml.load(file)
+    cl_parse_result = CL_BODY.search(message)
+    if cl_parse_result is None:
+        raise Exception("Failed to parse the changelog. Check changelog format.")
+    cl_changes = []
+    for cl_line in cl_parse_result.group("content").splitlines():
+        if not cl_line:
+            continue
+        change_parse_result = CL_SPLIT.search(cl_line)
+        if not change_parse_result:
+            raise Exception(f"Invalid change: '{cl_line}'")
+        tag = change_parse_result["tag"]
+        message = change_parse_result["message"]
+        if tag and tag not in tags_config['tags'].keys():
+            raise Exception(f"Invalid tag: '{cl_line}'. Valid tags: {', '.join(tags_config['tags'].keys())}")
+        if not message:
+            raise Exception(f"No message for change: '{cl_line}'")
+        if message in list(tags_config['defaults'].values()): # Check to see if the tags are associated with something that isn't the default text
+            raise Exception(f"Don't use default message for change: '{cl_line}'")
+        if tag:
+            cl_changes.append({
+                "tag": tags_config['tags'][tag],
+                "message": message
+            })
+        # Append line without tag to the previous change
+        else:
+            if len(cl_changes):
+                prev_change = cl_changes[-1]
+                prev_change["message"] += f" {change_parse_result['message']}"
+            else:
+                raise Exception(f"Change with no tag: {cl_line}")
+
+    if len(cl_changes) == 0:
+        raise Exception("No changes found in the changelog. Use special label if changelog is not expected.")
+    return {
+        "author": str.strip(cl_parse_result.group("author") or "") or None,  # I want this to be None, not empty
+        "changes": cl_changes
+    }
+
 
 # Blessed is the GoOnStAtIoN birb ZeWaKa for thinking of this first
 repo = os.getenv("GITHUB_REPOSITORY")
@@ -56,71 +145,33 @@ for label in pr_labels:
 if pr_is_mirror:
     cl_required = False
 
-write_cl = {}
-try:
-    cl = CL_BODY.search(pr_body)
-    cl_list = CL_SPLIT.findall(cl.group(3))
-except AttributeError:
-    print("No CL found!")
-
-    if not cl_required:
-        # remove invalid, remove valid
-        if has_invalid_label:
-            pr.remove_from_labels(CL_INVALID)
-        if has_valid_label:
-            pr.remove_from_labels(CL_VALID)
-        exit(0)
-
-    # add invalid, remove valid
-    if not has_invalid_label:
-        pr.add_to_labels(CL_INVALID)
+if not cl_required:
+    # remove invalid, remove valid
+    if has_invalid_label:
+        pr.remove_from_labels(CL_INVALID)
     if has_valid_label:
         pr.remove_from_labels(CL_VALID)
     exit(0)
 
+try:
+    cl = build_changelog(pr)
+    cl_emoji = emojify_changelog(cl)
+    cl_emoji["author"] = cl_emoji["author"] or pr_author
+    validate_changelog(cl_emoji)
+except Exception as e:
+    print("Changelog parsing error:")
+    print(e)
 
-if cl.group(2) is not None:
-    write_cl['author'] = cl.group(2).strip()
-else:
-    write_cl['author'] = pr_author
-
-if not write_cl['author']:
-    print("There are spaces or tabs instead of author username")
-
-with open(Path.cwd().joinpath("tags.yml")) as file:
-    yaml = YAML(typ='safe',pure=True)
-    tags = yaml.load(file)
-
-write_cl['changes'] = []
-
-has_invalid_tag = False
-for k, v in cl_list:
-    if k in tags['tags'].keys(): # Check to see if there are any valid tags, as determined by tags.yml
-        v = v.rstrip()
-        if v not in list(tags['defaults'].values()): # Check to see if the tags are associated with something that isn't the default text
-            write_cl['changes'].append({tags['tags'][k]: v})
-    else:
-        print(f"Tag {k} is invalid!")
-        has_invalid_tag = True
-
-if has_invalid_tag:
-    print("CL has invalid tags!")
-    print("Valid tags are:")
-    print(*tags['tags'].keys(), sep=", ")
-
-if write_cl['changes']:
-    print("CL OK!")
-    # remove invalid, add valid
-    if has_invalid_label:
-        pr.remove_from_labels(CL_INVALID)
-    if not has_valid_label:
-        pr.add_to_labels(CL_VALID)
-else:
-    print("No CL changes detected!")
     # add invalid, remove valid
     if not has_invalid_label:
         pr.add_to_labels(CL_INVALID)
     if has_valid_label:
         pr.remove_from_labels(CL_VALID)
+    exit(1)
 
-exit(0)
+# remove invalid, add valid
+if has_invalid_label:
+    pr.remove_from_labels(CL_INVALID)
+if not has_valid_label:
+    pr.add_to_labels(CL_VALID)
+print("Changelog is valid.")
