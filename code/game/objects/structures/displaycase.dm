@@ -15,10 +15,16 @@
 	var/alert = FALSE
 	/// If this is currently unlocked
 	var/open = FALSE
+	/// If false, this can never be opened, and the item inside should be inaccessible. Good for showcases.
 	var/openable = TRUE
+	/// The electronics currently installed in this showpiece.
 	var/obj/item/airlock_electronics/electronics
-	var/start_showpiece_type = null //add type for items on display
-	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	/// The type that should be instantiated to fill the showpiece.
+	var/start_showpiece_type
+	/// A list of random items that could possibly fill the case, as well as a flavor message for them.
+	/// Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	var/list/start_showpieces = list()
+	/// A flavor message to show with this item.
 	var/trophy_message = ""
 
 /obj/structure/displaycase/Initialize(mapload)
