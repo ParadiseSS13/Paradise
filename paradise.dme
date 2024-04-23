@@ -83,7 +83,7 @@
 #include "code\__DEFINES\mappers.dm"
 #include "code\__DEFINES\martial_arts.dm"
 #include "code\__DEFINES\MC.dm"
-#include "code\__DEFINES\mech_hides.dm"
+#include "code\__DEFINES\mecha_hides.dm"
 #include "code\__DEFINES\mecha_defines.dm"
 #include "code\__DEFINES\medal.dm"
 #include "code\__DEFINES\misc_defines.dm"
