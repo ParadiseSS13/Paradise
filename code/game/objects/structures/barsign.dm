@@ -68,7 +68,30 @@
 	return FALSE
 
 /obj/machinery/barsign/update_icon_state()
-	if(build_stage == BARSIGN_FRAME && !istype(current_sign, /datum/barsign/hiddensigns/building/frame))
+	switch(build_stage)
+		if(BARSIGN_FRAME)
+			if(!istype(current_sign, /datum/barsign/hiddensigns/building/frame))
+				set_sign(new /datum/barsign/hiddensigns/building/frame)
+				return
+		if(BARSIGN_CIRCUIT)
+			if(!istype(current_sign, /datum/barsign/hiddensigns/building/circuited))
+				set_sign(new /datum/barsign/hiddensigns/building/circuited)
+				return
+		if(BARSIGN_WIRED)
+			if(!istype(current_sign, /datum/barsign/hiddensigns/building/wired))
+				set_sign(new /datum/barsign/hiddensigns/building/wired)
+				return
+		if(BARSIGN_COMPLETE)
+			if((stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signbroken))
+				set_sign(new /datum/barsign/hiddensigns/signbroken)
+				return
+			if((stat & NOPOWER) && !(stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signoff))
+				set_sign(new /datum/barsign/hiddensigns/signoff)
+				return
+			if((stat & EMPED) && !(stat & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
+				set_sign(new /datum/barsign/hiddensigns/empbarsign)
+				return
+	/*if(build_stage == BARSIGN_FRAME && !istype(current_sign, /datum/barsign/hiddensigns/building/frame))
 		set_sign(new /datum/barsign/hiddensigns/building/frame)
 		return
 	else if(build_stage == BARSIGN_CIRCUIT && !istype(current_sign, /datum/barsign/hiddensigns/building/circuited))
@@ -86,7 +109,7 @@
 			return
 		if((stat & EMPED) && !(stat & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
 			set_sign(new /datum/barsign/hiddensigns/empbarsign)
-			return
+			return*/
 	if(!current_sign)
 		turn_off()
 		return
@@ -472,6 +495,7 @@
 	origin_tech = "engineering=2;programming=1"
 	usesound = 'sound/items/deconstruct.ogg'
 	var/destroyed = FALSE
+	/// Restricts the sign to bar access if TRUE
 	var/restricts_access = TRUE
 
 /obj/item/barsign_electronics/examine(mob/user)
@@ -496,12 +520,13 @@
 	set_random_sign()
 
 
-
 /datum/barsign
 	var/name = "Name"
 	var/desc = "desc"
 	var/icon = "Icon"
+	/// Signs that should never be accessed by players via the selection menu.
 	var/hidden = FALSE
+	/// Signs that have a syndicate theme. Normally accessed by emagging the sign.
 	var/syndicate = FALSE
 
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
