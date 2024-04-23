@@ -1137,7 +1137,7 @@
 	return TRUE
 
 /obj/mecha/proc/put_in(mob/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
-	if(do_after(user, src.mech_enter_time, target = src))
+	if(do_after(user, mech_enter_time, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
