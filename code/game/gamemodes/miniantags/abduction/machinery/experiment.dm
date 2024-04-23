@@ -220,12 +220,12 @@
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
-	if(!do_after(occupant, 30 SECONDS, FALSE, src))
+	if(!do_after(occupant, 20 SECONDS, FALSE, src))
 		return
 	var/list/possible_results = list(
 		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
 		CALLBACK(src, PROC_REF(sedate_abductee)) = 1,
-		CALLBACK(src, PROC_REF(eject_abductee)) = 1
+		CALLBACK(src, PROC_REF(eject_abductee)) = 2
 	)
 	var/datum/callback/result = pickweight(possible_results)
 	result.Invoke()
