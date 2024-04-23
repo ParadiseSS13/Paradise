@@ -840,7 +840,6 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
 
-
 - [AffectedArc07](https://github.com/AffectedArc07)
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
