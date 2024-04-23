@@ -18,7 +18,7 @@
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
 
 /datum/job/captain/get_access()
-	return get_all_accesses()
+	return STATION_ALL_ACCESS
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()

@@ -40,7 +40,7 @@
 		var/obj/item/card/id/W = new(H)
 		W.name = "[H.real_name]'s ID Card"
 		W.icon_state = "centcom"
-		W.access = get_all_accesses()
+		W.access = STATION_ALL_ACCESS
 		W.access += get_all_centcom_access()
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
@@ -89,7 +89,7 @@
 
 		var/obj/item/card/id/W = new(H)
 		W.icon_state = "centcom"
-		W.access = get_all_accesses()
+		W.access = STATION_ALL_ACCESS
 		W.access += get_all_centcom_access()
 		W.assignment = "Multiverse Summoner"
 		W.registered_name = H.real_name

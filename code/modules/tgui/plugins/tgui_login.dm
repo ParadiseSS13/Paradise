@@ -143,7 +143,7 @@ GLOBAL_LIST(ui_logins)
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
 		state.name = "*CONFIDENTIAL*"
 		state.rank = "CentComm Secure Connection"
-		state.access = get_all_accesses() + get_all_centcom_access()
+		state.access = STATION_ALL_ACCESS + get_all_centcom_access()
 
 	state.logged_in = TRUE
 	ui_login_on_login(state = state)

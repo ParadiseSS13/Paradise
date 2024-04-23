@@ -24,7 +24,7 @@
 /obj/item/airlock_electronics/Initialize(mapload)
 	. = ..()
 	if(!length(door_accesses_list))
-		for(var/access in get_all_accesses())
+		for(var/access in STATION_ALL_ACCESS)
 			door_accesses_list += list(list(
 				"name" = get_access_desc(access),
 				"id" = access))
@@ -99,7 +99,7 @@
 			selected_accesses -= get_region_accesses(region)
 
 		if("grant_all")
-			selected_accesses = get_all_accesses()
+			selected_accesses = STATION_ALL_ACCESS
 
 		if("clear_all")
 			selected_accesses = list()

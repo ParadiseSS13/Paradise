@@ -113,7 +113,7 @@
 				"image" = get_airlock_image(type)
 			))
 	if(!length(door_accesses_list))
-		for(var/access in get_all_accesses())
+		for(var/access in STATION_ALL_ACCESS)
 			door_accesses_list += list(list(
 				"name" = get_access_desc(access),
 				"id" = access
@@ -342,7 +342,7 @@
 			selected_accesses = list()
 
 		if("grant_all")
-			selected_accesses = get_all_accesses()
+			selected_accesses = STATION_ALL_ACCESS
 
 /**
   * Called in ui_act() to process modal actions

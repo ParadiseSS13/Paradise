@@ -692,7 +692,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		// Changing card access
 		if("set") // add/remove a single access number
 			var/access = text2num(params["access"])
-			var/list/changable = is_centcom() ? get_all_centcom_access() + get_all_accesses() : get_all_accesses()
+			var/list/changable = is_centcom() ? get_all_centcom_access() + STATION_ALL_ACCESS : STATION_ALL_ACCESS
 			if(access in changable)
 				if(access in modify.access)
 					modify.access -= access
@@ -715,7 +715,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.access = list()
 			return
 		if("grant_all")
-			modify.access = get_all_accesses()
+			modify.access = STATION_ALL_ACCESS
 			return
 
 		// JOB SLOT MANAGEMENT functions

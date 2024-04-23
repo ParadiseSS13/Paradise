@@ -2026,7 +2026,7 @@
 			if("All Access")
 				var/obj/item/card/id/I = H.wear_id
 				if(I)
-					var/list/access_to_give = get_all_accesses()
+					var/list/access_to_give = STATION_ALL_ACCESS
 					for(var/this_access in access_to_give)
 						if(!(this_access in I.access))
 							// don't have it - add it

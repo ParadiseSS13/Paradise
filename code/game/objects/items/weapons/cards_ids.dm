@@ -630,7 +630,7 @@
 	assignment = "Captain"
 
 /obj/item/card/id/captains_spare/New()
-	access = get_all_accesses()
+	access = STATION_ALL_ACCESS
 	..()
 
 /obj/item/card/id/admin

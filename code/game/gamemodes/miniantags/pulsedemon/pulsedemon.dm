@@ -596,7 +596,7 @@
 		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 /mob/living/simple_animal/demon/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
-	return has_access(list(), req_one_accesses, get_all_accesses())
+	return has_access(list(), req_one_accesses, STATION_ALL_ACCESS)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
@@ -778,7 +778,7 @@
 	return // you can't turn electricity into a harvester
 
 /mob/living/simple_animal/demon/pulse_demon/get_access()
-	return get_all_accesses()
+	return STATION_ALL_ACCESS
 
 /mob/living/simple_animal/demon/pulse_demon/IsAdvancedToolUser()
 	return TRUE // interacting with machines

@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
 
 /mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
-	var/list/access = get_all_accesses()
+	var/list/access = STATION_ALL_ACCESS
 	return has_access(list(), req_one_accesses, access)
 
 /mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_one_accesses)

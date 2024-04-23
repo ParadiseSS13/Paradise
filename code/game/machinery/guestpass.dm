@@ -221,9 +221,9 @@
 			accesses = list()
 		if("grant_all")
 			if(ACCESS_CHANGE_IDS in scan.access)
-				accesses = get_all_accesses()
+				accesses = STATION_ALL_ACCESS
 			else
-				var/list/new_accesses = get_all_accesses()
+				var/list/new_accesses = STATION_ALL_ACCESS
 				for(var/A in new_accesses)
 					if(A in scan.access)
 						accesses += A
@@ -237,4 +237,4 @@
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
 	if(. && (ACCESS_CHANGE_IDS in .))
-		return get_all_accesses()
+		return STATION_ALL_ACCESS

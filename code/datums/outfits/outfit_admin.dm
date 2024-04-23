@@ -883,7 +883,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses() + get_all_centcom_access(), name, "syndie")
+		apply_to_card(I, H, STATION_ALL_ACCESS + get_all_centcom_access(), name, "syndie")
 
 /datum/outfit/admin/spacegear
 	name = "Standard Space Gear"
@@ -909,7 +909,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Space Explorer")
 
 /datum/outfit/admin/modsuit
 	name = "MODsuit - Generic"
@@ -930,7 +930,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "MODsuit Tester")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "MODsuit Tester")
 
 /datum/outfit/admin/modsuit/engineer
 	name = "MODsuit - Engineer"
@@ -1116,7 +1116,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Singuloth Knight")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Singuloth Knight")
 
 /datum/outfit/admin/dark_lord
 	name = "Dark Lord"
@@ -1146,7 +1146,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Dark Lord", "syndie")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Dark Lord", "syndie")
 
 
 /datum/outfit/admin/ancient_vampire
@@ -1178,7 +1178,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Ancient One", "data")
 
 	if(H.mind)
 		if(!H.mind.has_antag_datum(/datum/antagonist/vampire))
@@ -1215,7 +1215,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Wizard")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Wizard")
 
 /datum/outfit/admin/wizard/red
 	name = "Wizard - Red Wizard"
@@ -1257,7 +1257,7 @@
 		B.uses = 50
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Arch Wizard")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Arch Wizard")
 
 
 /datum/outfit/admin/dark_priest
@@ -1286,7 +1286,7 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Dark Priest", "syndie")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Dark Priest", "syndie")
 	var/obj/item/nullrod/armblade/B = H.r_hand
 	if(istype(B))
 		B.force = 20
@@ -1430,7 +1430,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Oblivion Enforcer")
 
 /datum/outfit/admin/viper
 	name = "Solar Federation Viper Infiltrator"

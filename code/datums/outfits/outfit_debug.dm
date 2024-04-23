@@ -38,7 +38,7 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
+		apply_to_card(I, H, STATION_ALL_ACCESS, "Debugger", "admin")
 
 	H.dna.SetSEState(GLOB.breathlessblock, 1)
 	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)

@@ -316,9 +316,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					req_access = list()
 			if("grant_all")
 				if(one_access)
-					req_one_access = get_all_accesses()
+					req_one_access = STATION_ALL_ACCESS
 				else
-					req_access = get_all_accesses()
+					req_access = STATION_ALL_ACCESS
 			if("one_access")
 				if(one_access)
 					req_one_access = list()
