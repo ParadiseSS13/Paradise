@@ -20,6 +20,8 @@
 	ACCESS_CENT_BRIDGE, ACCESS_CENT_COMMANDER, \
 	)
 
+#define MISC_ALL_ACCESS list(ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
+
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
 	//check if we don't require any access at all
