@@ -70,11 +70,14 @@
 /obj/machinery/barsign/update_icon_state()
 	if(build_stage == BARSIGN_FRAME && !istype(current_sign, /datum/barsign/hiddensigns/building/frame))
 		set_sign(new /datum/barsign/hiddensigns/building/frame)
-	if(build_stage == BARSIGN_CIRCUIT && !istype(current_sign, /datum/barsign/hiddensigns/building/circuited))
+		return
+	else if(build_stage == BARSIGN_CIRCUIT && !istype(current_sign, /datum/barsign/hiddensigns/building/circuited))
 		set_sign(new /datum/barsign/hiddensigns/building/circuited)
-	if(build_stage == BARSIGN_WIRED && !istype(current_sign, /datum/barsign/hiddensigns/building/wired))
+		return
+	else if(build_stage == BARSIGN_WIRED && !istype(current_sign, /datum/barsign/hiddensigns/building/wired))
 		set_sign(new /datum/barsign/hiddensigns/building/wired)
-	if(build_stage == BARSIGN_COMPLETE)
+		return
+	else if(build_stage == BARSIGN_COMPLETE)
 		if((stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signbroken))
 			set_sign(new /datum/barsign/hiddensigns/signbroken)
 			return
@@ -109,9 +112,9 @@
 		if(BARSIGN_WIRED)
 			. += "<span class='notice'>The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.</span>"
 		if(BARSIGN_COMPLETE)
-			. += "<span class='info'><b>Alt-Click</b> to toggle it's power.</span>"
+			. += "<span class='info'><b>Alt-Click</b> to toggle its power.</span>"
 			if(panel_open)
-				. += "<span class='notice'>It is disabled by it's <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
+				. += "<span class='notice'>It is disabled by its <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
 
 /obj/machinery/barsign/proc/is_on()
 	if(power_state == ACTIVE_POWER_USE)
@@ -490,7 +493,6 @@
 
 
 
-//Code below is to define useless variables for datums. It errors without these
 /datum/barsign
 	var/name = "Name"
 	var/desc = "desc"
