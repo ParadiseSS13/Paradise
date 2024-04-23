@@ -85,6 +85,7 @@ GLOBAL_VAR(bomb_set)
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(core)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
