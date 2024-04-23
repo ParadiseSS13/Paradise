@@ -116,19 +116,19 @@
 		if("Deathsquad Commando")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_CENT_SPECOPS_COMMANDER, ACCESS_CENT_BLACKOPS) + STATION_ALL_ACCESS
 		if("NT Undercover Operative")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 		if("Special Operations Officer")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 		if("Solar Federation General")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 		if("Nanotrasen Navy Representative")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 		if("Nanotrasen Navy Officer")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 		if("Nanotrasen Navy Captain")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 		if("Supreme Commander")
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 
 /proc/get_syndicate_access(job)
 	switch(job)
@@ -144,17 +144,6 @@
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND)
 
 
-/proc/get_all_centcom_access()
-	return 
-
-/proc/get_all_syndicate_access()
-	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND)
-
-/proc/get_all_misc_access()
-	return list(ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
-
-/proc/get_absolutely_all_accesses()
-	return (STATION_ALL_ACCESS | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
 
 /proc/get_region_accesses(code)
 	switch(code)
@@ -175,7 +164,7 @@
 		if(REGION_COMMAND) //command
 			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_EXPEDITION, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
-			return get_all_centcom_access() + STATION_ALL_ACCESS
+			return CENTCOM_ALL_ACCESS + STATION_ALL_ACCESS
 
 /proc/get_region_accesses_name(code)
 	switch(code)
@@ -423,7 +412,7 @@
 		var/list/accesses = list()
 		var/list/available_accesses
 		if(i == REGION_CENTCOMM) // Override necessary, because get_region_accesses(REGION_CENTCOM) returns BOTH CC and crew accesses.
-			available_accesses = get_all_centcom_access()
+			available_accesses = CENTCOM_ALL_ACCESS
 		else
 			available_accesses = get_region_accesses(i)
 		for(var/access in available_accesses)

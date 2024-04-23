@@ -716,7 +716,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
+		apply_to_card(I, H, CENTCOM_ALL_ACCESS, name, "lifetimeid")
 	I.assignment = "Solar Federation Representative"
 	H.sec_hud_set_ID()
 
@@ -883,7 +883,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, STATION_ALL_ACCESS + get_all_centcom_access(), name, "syndie")
+		apply_to_card(I, H, STATION_ALL_ACCESS + CENTCOM_ALL_ACCESS, name, "syndie")
 
 /datum/outfit/admin/spacegear
 	name = "Standard Space Gear"

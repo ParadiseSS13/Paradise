@@ -653,7 +653,7 @@
 	assignment = "General"
 
 /obj/item/card/id/centcom/New()
-	access = get_all_centcom_access()
+	access = CENTCOM_ALL_ACCESS
 	..()
 
 

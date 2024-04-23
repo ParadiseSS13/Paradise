@@ -35,7 +35,7 @@
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
 			W.access = STATION_ALL_ACCESS
-			W.access += get_all_centcom_access()
+			W.access += CENTCOM_ALL_ACCESS
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
 			H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
@@ -48,7 +48,7 @@
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
 			W.access = STATION_ALL_ACCESS
-			W.access += get_all_centcom_access()
+			W.access += CENTCOM_ALL_ACCESS
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
 			H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)

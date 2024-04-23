@@ -41,7 +41,7 @@
 		W.name = "[H.real_name]'s ID Card"
 		W.icon_state = "centcom"
 		W.access = STATION_ALL_ACCESS
-		W.access += get_all_centcom_access()
+		W.access += CENTCOM_ALL_ACCESS
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
@@ -90,7 +90,7 @@
 		var/obj/item/card/id/W = new(H)
 		W.icon_state = "centcom"
 		W.access = STATION_ALL_ACCESS
-		W.access += get_all_centcom_access()
+		W.access += CENTCOM_ALL_ACCESS
 		W.assignment = "Multiverse Summoner"
 		W.registered_name = H.real_name
 		W.update_label(H.real_name)
