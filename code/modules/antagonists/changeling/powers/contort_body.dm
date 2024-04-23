@@ -9,6 +9,9 @@
 
 /datum/action/changeling/contort_body/Remove(mob/M)
 	REMOVE_TRAIT(M, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
+	UnregisterSignal(user, COMSIG_MOB_DEATH)
+	if(IS_HORIZONTAL(user))
+		user.layer = initial(user.layer)
 	..()
 
 /datum/action/changeling/contort_body/sting_action(mob/living/user)
