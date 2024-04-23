@@ -26,12 +26,12 @@
 	if(!can_act(A, rcd, user))
 		return FALSE
 	// We don't use the sound effect from use_tool because RCDs have a different sound effect for the start and end.
-	playsound(rcd.loc, 'sound/machines/click.ogg', 50, TRUE)
+	playsound(get_turf(rcd), 'sound/machines/click.ogg', 50, TRUE)
 	if(!rcd.tool_use_check(user, cost))
 		return FALSE
 	if(start_message)
 		to_chat(user, start_message)
-	var/start_effect = null
+	var/start_effect
 	if(start_effect_type)
 		start_effect = new start_effect_type(get_turf(A))
 	if(!rcd.use_tool(A, user, delay, cost))
@@ -45,7 +45,7 @@
 		return FALSE
 	if(end_effect_type)
 		new end_effect_type(get_turf(A))
-	playsound(rcd.loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	playsound(get_turf(rcd), 'sound/items/deconstruct.ogg', 50, TRUE)
 	act(A, rcd, user)
 	return TRUE
 
