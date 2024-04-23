@@ -879,7 +879,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
-		update_observer_view(wear_suit)
+		update_hud_wear_suit(wear_suit)
 
 		var/mutable_appearance/standing
 		if(wear_suit.icon_override)
