@@ -96,6 +96,7 @@
 
 		if(loaded)
 			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
+			SStgui.update_uis(src)
 		else
 			var/seedable = 0
 			for(var/obj/item/food/snacks/grown/ignored in P)
@@ -115,10 +116,10 @@
 	else if(istype(O, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
 		return ..()
-	else if(istype(O,/obj/item/seeds))
-		if(add_seed(O, user))
-			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
-			updateUsrDialog()
+	else if(istype(O, /obj/item/seeds))
+		add_seed(O, user)
+		to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
+		SStgui.update_uis(src)
 		return
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
@@ -143,6 +144,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SeedExtractor", name)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/machinery/seed_extractor/ui_data(mob/user)
@@ -177,18 +179,14 @@
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	. = FALSE
+	. = TRUE
 	switch(action)
 		if("vend")
 			vend_seed(params["seed_id"], params["seed_variant"], params["vend_amount"])
 			add_fingerprint(usr)
-			. = TRUE
 		if("set_vend_amount")
-			if(!length(params["vend_amount"]))
-				return
 			vend_amount = clamp(params["vend_amount"], 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
-			. = TRUE
 
 /obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount)
 	if(!seed_id)
@@ -241,7 +239,6 @@
 	pile_count++
 	piles += new_pile
 	O.forceMove(src)
-	return
 
 /datum/seed_pile
 	var/path
