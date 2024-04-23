@@ -19092,7 +19092,6 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -21992,10 +21991,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - Chemistry";
-	sort_type_txt = "11"
+/obj/structure/disposalpipe/sortjunction/reversed{
+	name = "disposal pipe - Medbay";
+	sort_type_txt = "9";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -39943,11 +39942,6 @@
 	},
 /area/station/hallway/primary/aft/west)
 "fLp" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - CMO Office";
-	sort_type_txt = "10"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -41575,14 +41569,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/station/maintenance/asmaint)
-"gqG" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/medical/break_room)
 "gqH" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -46617,7 +46603,6 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -48046,10 +48031,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -50521,7 +50506,6 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -52678,16 +52662,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"jOU" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - Genetics";
-	sort_type_txt = "23"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/medical/break_room)
 "jPa" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating{
@@ -67824,6 +67798,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
+"oHm" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/medical/break_room)
 "oIc" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -85508,6 +85489,16 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
+"urD" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/medical/break_room)
 "urK" = (
 /obj/machinery/mineral/stacking_machine{
 	output_dir = 2;
@@ -85538,15 +85529,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"uso" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/medical/break_room)
 "usr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -87236,18 +87218,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
-"uSc" = (
-/obj/structure/chair/stool,
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/medical/break_room)
 "uSr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -148651,8 +148621,8 @@ bHr
 uhF
 mqe
 dYc
-uso
-uSc
+oHm
+urD
 xQF
 uhF
 nDq
@@ -148907,8 +148877,8 @@ xeq
 cdI
 uhF
 owY
-gqG
-jOU
+tKE
+tKE
 fLp
 cnW
 gxB
