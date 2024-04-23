@@ -18,7 +18,6 @@
 			return content
 	Fail("Couldn't find spawned test object of type: [test_object_type].")
 
-
 /datum/unit_test/ventcrawl/Run()
 	setup_test_area()
 
