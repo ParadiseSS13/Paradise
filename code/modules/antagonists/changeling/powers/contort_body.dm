@@ -8,7 +8,7 @@
 	category = /datum/changeling_power_category/utility
 
 /datum/action/changeling/contort_body/Remove(mob/living/user)
-	REMOVE_TRAIT(M, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
 	UnregisterSignal(user, COMSIG_MOB_DEATH)
 	if(IS_HORIZONTAL(user))
 		user.layer = initial(user.layer)
