@@ -307,7 +307,11 @@
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
-	var/area/A = get_area(MT)
+	var/area/A
+	if(isatom(MT) && !QDELETED(MT))
+		A = get_area(MT)
+	else
+		A = get_area(user)
 	if(A && A.hide_attacklogs)
 		loglevel = ATKLOG_ALL
 	else if(istype(MT))
@@ -552,7 +556,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
+	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -609,10 +613,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/totalviewrange = 1 + 2 * view
 		viewX = totalviewrange
 		viewY = totalviewrange
-	else
+	else if(istext(view))
 		var/list/viewrangelist = splittext(view, "x")
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
+	else if(islist(view) && length(view) == 2 && isnum(view[1]) && isnum(view[2]))
+		// better be a list of nums!
+		viewX = view[1]
+		viewY = view[2]
+	else
+		CRASH("Invalid view type parameter passed to getviewsize: [view]")
+
 	return list(viewX, viewY)
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.

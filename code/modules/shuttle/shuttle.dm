@@ -284,7 +284,7 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return 0	//0 means we can move
+	return TRUE // TRUE means we can move. Why would it ever be otherwise?
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -450,7 +450,7 @@
 		if(!check_dock(S1))
 			return -1
 
-		if(canMove())
+		if(!canMove())
 			return -1
 
 	var/obj/docking_port/stationary/S0 = get_docked()
@@ -508,6 +508,8 @@
 
 			//move mobile to new location
 			for(var/atom/movable/AM in T0)
+				if(AM.loc != T0) //fix for multi-tile objects
+					continue
 				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
 			if(rotation)
@@ -902,7 +904,7 @@
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been received by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
-		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
 

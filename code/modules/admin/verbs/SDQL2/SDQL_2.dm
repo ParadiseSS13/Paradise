@@ -21,6 +21,7 @@
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
+		return
 
 	var/query_text = input("SDQL2 query") as message
 
@@ -102,7 +103,7 @@
 					var/text = ""
 					for(var/o in objs)
 						var/datum/t = o
-						text += "<A HREF='?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
+						text += "<A href='byond://?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
 						if(istype(t, /atom))
 							var/atom/a = t
 

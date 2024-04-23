@@ -241,12 +241,24 @@
  * * power_type - should be a define related to [/datum/action/changeling/var/power_type].
  */
 /datum/antagonist/changeling/proc/get_powers_of_type(power_type)
+	var/list/station_trait_restrictions = list(
+		// "Station trait" = Replace 1st with 2nd when trait active
+		STATION_TRAIT_CYBERNETIC_REVOLUTION = list(/datum/action/changeling/dissonant_shriek, /datum/action/changeling/dissonant_shriek/cyberrev)
+	)
+
 	var/list/powers = list()
 	for(var/power_path in subtypesof(/datum/action/changeling))
 		var/datum/action/changeling/power = power_path
 		if(initial(power.power_type) != power_type)
 			continue
 		powers += power_path
+
+	for(var/trait in station_trait_restrictions)
+		if(HAS_TRAIT(SSstation, trait))
+			powers -= station_trait_restrictions[trait][1]
+		else
+			powers -= station_trait_restrictions[trait][2]
+
 	return powers
 
 /**
