@@ -74,7 +74,7 @@
 /mob/living/carbon/human/get_screen_colour() //Fetch the colour matrix from wherever (e.g. eyes) so it can be compared to client.color.
 	. = ..()
 	if(.)
-		return .
+		return
 
 	var/obj/item/clothing/glasses/worn_glasses = glasses
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)

@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 // Populate our space level list
 // and prepare space transitions
 /datum/zlev_manager/proc/initialize()
-	var/num_official_z_levels = GLOB.map_transition_config.len
+	var/num_official_z_levels = length(GLOB.map_transition_config)
 	var/k = 1
 
 	// First take care of "Official" z levels, without visiting levels outside of the list
@@ -146,9 +146,9 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 /datum/zlev_manager/proc/allocate_space(width, height)
 	if(width > world.maxx || height > world.maxy)
 		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
-	if(!heaps.len)
+	if(!length(heaps))
 		heaps.len++
-		heaps[heaps.len] = add_new_heap()
+		heaps[length(heaps)] = add_new_heap()
 	var/datum/space_level/heap/our_heap
 	var/weve_got_vacancy = 0
 	for(our_heap in heaps)
@@ -160,7 +160,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	if(!weve_got_vacancy)
 		heaps.len++
 		our_heap = add_new_heap()
-		heaps[heaps.len] = our_heap
+		heaps[length(heaps)] = our_heap
 	return our_heap.allocate(width, height)
 
 /datum/zlev_manager/proc/free_space(datum/space_chunk/C)

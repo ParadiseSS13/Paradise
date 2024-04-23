@@ -502,7 +502,7 @@
 			continue
 		players += player.real_name
 	var/random_player = "The Captain"
-	if(players.len)
+	if(length(players))
 		random_player = pick(players)		//Random player's name, to be used in laws.
 
 	var/random_department = "Science"

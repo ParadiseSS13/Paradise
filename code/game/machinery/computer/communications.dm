@@ -255,7 +255,7 @@
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(ui.user)] has requested the nuclear codes from Centcomm")
-				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested", 'sound/AI/nuke_codes.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
@@ -475,7 +475,7 @@
 	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
 
 	var/list/msg_data = list()
-	for(var/i = 1; i <= messagetext.len; i++)
+	for(var/i = 1; i <= length(messagetext); i++)
 		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
 
 	data["messages"]        = msg_data
