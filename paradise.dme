@@ -35,6 +35,7 @@
 #include "code\__DEFINES\antag_defines.dm"
 #include "code\__DEFINES\apc_defines.dm"
 #include "code\__DEFINES\armour.dm"
+#include "code\__DEFINES\mech_hides.dm"
 #include "code\__DEFINES\asset_defines.dm"
 #include "code\__DEFINES\atmospherics_defines.dm"
 #include "code\__DEFINES\bio_chip_defines.dm"

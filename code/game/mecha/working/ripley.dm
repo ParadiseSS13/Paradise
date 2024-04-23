@@ -1,10 +1,3 @@
-#define HIDES_COVERED_FULL 3
-#define PLATES_COVERED_FULL 3
-
-#define DRAKE_HIDES_COVERED_LITTLE 1
-#define DRAKE_HIDES_COVERED_ALMOST 2
-#define DRAKE_HIDES_COVERED_FULL 3
-
 /obj/mecha/working/ripley
 	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
 	name = "APLU \"Ripley\""
@@ -91,9 +84,9 @@
 
 	// Drake hides
 	if(drake_hides == DRAKE_HIDES_COVERED_FULL)
-		desc = "Autonomous Power Loader Unit. It`s armor stands out from the rest, as if it were wrapped in the very breath of dragons. Its every corner is covered in ancient hide, creating a powerful shield that even the most desperate enemies can only barely penetrate. The pilot of this exosuit, surrounded by mighty armor, must be prepared for battles on the level of legend."
+		desc = "Autonomous Power Loader Unit. Its every corner is covered in ancient hide, creating a powerful shield. The pilot of this exosuit must be prepared for battles on the level of legend."
 	if(drake_hides == DRAKE_HIDES_COVERED_ALMOST)
-		desc = "Autonomous Power Loader Unit. It`s armor is adorned with dragon hide plates, instilling fear in its enemies. Some parts of it are protected by thick scaly plates, making it look as if the dragon itself is guarding its pilot."
+		desc = "Autonomous Power Loader Unit. It`s armor is adorned with dragon hide plates, instilling fear in its enemies and guarding its pilot."
 	if(drake_hides == DRAKE_HIDES_COVERED_LITTLE)
 		desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
 
@@ -266,10 +259,3 @@
 		emagged = TRUE
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	return ..()
-
-#undef HIDES_COVERED_FULL
-#undef PLATES_COVERED_FULL
-
-#undef DRAKE_HIDES_COVERED_LITTLE
-#undef DRAKE_HIDES_COVERED_ALMOST
-#undef DRAKE_HIDES_COVERED_FULL

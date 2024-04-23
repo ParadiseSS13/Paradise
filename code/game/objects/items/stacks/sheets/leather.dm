@@ -1,10 +1,3 @@
-#define HIDES_COVERED_FULL 3
-#define PLATES_COVERED_FULL 3
-
-#define DRAKE_HIDES_COVERED_LITTLE 1
-#define DRAKE_HIDES_COVERED_ALMOST 2
-#define DRAKE_HIDES_COVERED_FULL 3
-
 /obj/item/stack/sheet/animalhide
 	name = "sheet-hide"
 	icon = 'icons/obj/stacks/organic.dmi'
@@ -185,7 +178,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
-	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
+	desc = "Pieces of a goliath's rocky hide, these might be able to make your miner suit, miner plasmaman helmet, miner borg or Ripley class exosuits a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "goliath_hide"
 	item_state = "goliath_hide"
@@ -278,7 +271,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
-	desc = "The strong, scaled hide of an ash drake."
+	desc = "The strong, scaled hide of an ash drake. Can be attached to the mech itself, greatly enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "dragon_hide"
 	item_state = "dragon_hide"
@@ -353,10 +346,3 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			HS.amount = 1
 			wetness = initial(wetness)
 			src.use(1)
-
-#undef HIDES_COVERED_FULL
-#undef PLATES_COVERED_FULL
-
-#undef DRAKE_HIDES_COVERED_LITTLE
-#undef DRAKE_HIDES_COVERED_ALMOST
-#undef DRAKE_HIDES_COVERED_FULL
