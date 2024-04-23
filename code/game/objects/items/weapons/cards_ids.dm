@@ -642,7 +642,7 @@
 	untrackable = TRUE
 
 /obj/item/card/id/admin/New()
-	access = get_absolutely_all_accesses()
+	access = ABSOLUTE_ACCESS
 	..()
 
 /obj/item/card/id/centcom

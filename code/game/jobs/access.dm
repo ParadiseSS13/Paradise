@@ -22,6 +22,8 @@
 
 #define MISC_ALL_ACCESS list(ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
 
+#define ABSOLUTE_ACCESS list(STATION_ALL_ACCESS + CENTCOM_ALL_ACCESS + MISC_ALL_ACCESS)
+
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
 	//check if we don't require any access at all
