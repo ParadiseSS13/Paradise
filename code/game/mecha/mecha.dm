@@ -103,20 +103,6 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-	//Action datums
-	var/datum/action/innate/mecha/mech_eject/eject_action = new
-	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
-	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
-	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
-	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
-	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
-	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
-	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
-	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
-	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
-	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
-
 /obj/mecha/Initialize()
 	. = ..()
 	icon_state += "-open"
