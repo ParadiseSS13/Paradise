@@ -293,6 +293,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			use(1)
 			D.drake_hides++
 			D.max_integrity += 50
+			D.obj_integrity += 50
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 45, 175)) // 77.7% melee armor maximum
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
