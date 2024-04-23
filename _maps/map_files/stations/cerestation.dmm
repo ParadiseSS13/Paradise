@@ -19092,7 +19092,6 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
