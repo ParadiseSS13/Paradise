@@ -62,6 +62,9 @@
 
 	var/datum/click_intercept/click_intercept = null
 
+	/// Time when the click was intercepted
+	var/click_intercept_time = 0
+
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
 
@@ -132,6 +135,27 @@
 	var/list/active_keybindings = list()
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
+
+	/// Used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	/// Used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	/// Used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
+	/// Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	/// Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	/// Used in MouseDrag to preserve the last mouse-entered location.
+	var/mouse_location_UID
+	/// Used in MouseDrag to preserve the last mouse-entered object.
+	var/mouse_object_UID
+	/// When we started the currently active drag
+	var/drag_start = 0
+	/// The params we passed at the start of the drag, in list form
+	var/list/drag_details
+
 	/// The client's currently moused over datum, limited to movable and stored as UID
 	var/atom/movable/moused_over
 

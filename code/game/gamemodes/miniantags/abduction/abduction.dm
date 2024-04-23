@@ -1,8 +1,3 @@
-/datum/game_mode
-	var/abductor_teams = 0
-	var/list/datum/mind/abductors = list()
-	var/list/datum/mind/abductees = list()
-
 /datum/game_mode/abduction
 	name = "abduction"
 	config_tag = "abduction"
@@ -27,11 +22,11 @@
 /datum/game_mode/abduction/pre_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
 
-	if(!possible_abductors.len)
+	if(!length(possible_abductors))
 		return 0
 
 	abductor_teams = max(1, min(max_teams,round(num_players()/15)))
-	var/possible_teams = max(1,round(possible_abductors.len / 2))
+	var/possible_teams = max(1,round(length(possible_abductors) / 2))
 	abductor_teams = min(abductor_teams,possible_teams)
 
 	abductors.len = 2*abductor_teams
@@ -56,7 +51,7 @@
 	//Team Members
 
 	if(!preset_agent || !preset_scientist)
-		if(possible_abductors.len <=2)
+		if(length(possible_abductors) <=2)
 			return 0
 
 	var/datum/mind/scientist
