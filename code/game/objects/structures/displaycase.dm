@@ -61,7 +61,7 @@
 		if(!open)
 			. += "<span class='notice'>The ID lock is active, you need to swipe an ID to open it.</span>"
 		else if((broken || open) && showpiece)
-			. += "<span class='notice'>\A [showpiece] is held up by a holo-field. You can take [showpiece] out[broken ? "." : ", or lock [src] with an ID"].</span>"
+			. += "<span class='notice'>[showpiece] is held in a loose low gravity suspension field. You can take [showpiece] out[broken ? "." : ", or lock [src] with an ID"].</span>"
 
 	if(alert)
 		. += "<span class='notice'>It is hooked up with an anti-theft system.</span>"
