@@ -7,7 +7,7 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
 
-/datum/action/changeling/contort_body/Remove(mob/M)
+/datum/action/changeling/contort_body/Remove(mob/living/user)
 	REMOVE_TRAIT(M, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
 	UnregisterSignal(user, COMSIG_MOB_DEATH)
 	if(IS_HORIZONTAL(user))
