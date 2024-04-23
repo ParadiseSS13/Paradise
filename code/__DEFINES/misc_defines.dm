@@ -52,6 +52,9 @@
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
 
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
@@ -138,6 +141,9 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
+/// Grabs the area of a supplied object. Passing an area in to this will result in an error
+#define get_area(T) ((get_step(T, 0)?.loc))
+
 //check_target_facings() return defines
 #define FACING_FAILED											0
 #define FACING_SAME_DIR											1
@@ -182,8 +188,8 @@
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
-#define SUIT_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				25	//Possible make this an overlay of something required to wear a belt?
+#define SUIT_LAYER				24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
@@ -392,7 +398,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 54
+#define SQL_VERSION 55
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -689,3 +695,6 @@ do { \
 #define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
 #define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
 #define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
+
+/// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
+#define RESTRICT_TYPE(type) // do nothing

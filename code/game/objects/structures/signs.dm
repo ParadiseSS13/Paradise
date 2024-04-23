@@ -369,6 +369,10 @@
 	desc = "A direction sign, pointing out which way the Supply Department is."
 	icon_state = "direction_supply"
 
+/obj/structure/sign/directions/service
+	desc = "A direction sign, pointing out which way the Service Department is."
+	icon_state = "direction_service"
+
 /obj/structure/sign/explosives
 	name = "\improper HIGH EXPLOSIVES"
 	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."

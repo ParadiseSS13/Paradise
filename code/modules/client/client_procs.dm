@@ -262,7 +262,10 @@
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	tgui_panel = new(src, "browseroutput")
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
+
+	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -590,6 +593,9 @@
 		if(check_randomizer(connectiontopic))
 			return
 
+	var/client_address = address
+	if(!client_address) // Localhost can sometimes have no address set
+		client_address = "127.0.0.1"
 
 	if(sql_id)
 		//Just the standard check to see if it's actually a number
@@ -597,10 +603,6 @@
 			sql_id = text2num(sql_id)
 		if(!isnum(sql_id))
 			return // Return here because if we somehow didnt pull a number from an INT column, EVERYTHING is breaking
-
-		var/client_address = address
-		if(!client_address) // Localhost can sometimes have no address set
-			client_address = "127.0.0.1"
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
@@ -622,7 +624,7 @@
 		//New player!! Need to insert all the stuff
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = address,
+			"ip" = client_address,
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))
@@ -684,7 +686,7 @@
 		if(living_hours < 20)
 			return
 
-	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
+	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
@@ -906,7 +908,7 @@
 	var/url = winget(src, null, "url")
 
 	//special javascript to make them reconnect under a new window.
-	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+	src << browse("<!DOCTYPE html><a id='link' href='byond://[url]?token=[token]'>\
 		byond://[url]?token=[token]\
 	</a>\
 	<script type='text/javascript'>\
@@ -1210,7 +1212,7 @@
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
 		return
-	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
 
 /**
  * Handles incoming messages from the stat-panel TGUI.

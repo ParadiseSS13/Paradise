@@ -53,7 +53,7 @@
 	// 3% chance that our golem has a human surname, because cultural contamination
 	if(prob(human_surname_chance))
 		golem_surname = pick(GLOB.last_names)
-	else if(special_names && special_names.len && prob(special_name_chance))
+	else if(special_names && length(special_names) && prob(special_name_chance))
 		golem_surname = pick(special_names)
 
 	var/golem_name = "[prefix] [golem_surname]"
@@ -143,21 +143,21 @@
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		var/datum/action/innate/ignite/ignite = new()
-		ignite.Grant(C)
+		var/datum/action/innate/golem_ignite/golem_ignite = new()
+		golem_ignite.Grant(C)
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
-	for(var/datum/action/innate/ignite/ignite in C.actions)
-		ignite.Remove(C)
+	for(var/datum/action/innate/golem_ignite/golem_ignite in C.actions)
+		golem_ignite.Remove(C)
 	..()
 
-/datum/action/innate/ignite
+/datum/action/innate/golem_ignite
 	name = "Ignite"
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "sacredflame"
 
-/datum/action/innate/ignite/Activate()
+/datum/action/innate/golem_ignite/Activate()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
@@ -448,7 +448,7 @@
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))
@@ -532,7 +532,7 @@
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))
@@ -654,8 +654,8 @@
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/drinks/bottle/bottleofnothing(H), SLOT_HUD_RIGHT_STORE)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), SLOT_HUD_LEFT_HAND)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
+		H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /datum/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
 /datum/unarmed_attack/golem/tranquillite

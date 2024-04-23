@@ -94,7 +94,7 @@
 	if(isobj(target))
 		var/obj/O = target
 		if(!O.anchored)
-			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+			if(length(cargo_holder.cargo) < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = TRUE
 				if(do_after_cooldown(target))
@@ -102,7 +102,7 @@
 					O.forceMove(chassis)
 					O.anchored = FALSE
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
-					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - length(cargo_holder.cargo)]")
 				else
 					O.anchored = initial(O.anchored)
 			else
@@ -292,7 +292,7 @@
 				occupant_message("Switched RCD to Construct Airlock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
-	return "[..()] \[<a href='?src=[UID()];mode=0'>D</a>|<a href='?src=[UID()];mode=1'>C</a>|<a href='?src=[UID()];mode=2'>A</a>\]"
+	return "[..()] \[<a href='byond://?src=[UID()];mode=0'>D</a>|<a href='byond://?src=[UID()];mode=1'>C</a>|<a href='byond://?src=[UID()];mode=2'>A</a>\]"
 
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
@@ -395,7 +395,7 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
+		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='byond://?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='byond://?src=[UID()];cut=1'>Cut</a>" : null]"
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)

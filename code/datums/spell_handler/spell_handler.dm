@@ -6,17 +6,17 @@
 
 /datum/spell_handler
 
-/datum/spell_handler/proc/can_cast(mob/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/proc/can_cast(mob/user, charge_check, show_message, datum/spell/spell)
 	return TRUE
 
-/datum/spell_handler/proc/spend_spell_cost(mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/proc/spend_spell_cost(mob/user, datum/spell/spell)
 	return
 
-/datum/spell_handler/proc/revert_cast(mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/proc/revert_cast(mob/user, datum/spell/spell)
 	return
 
-/datum/spell_handler/proc/before_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/proc/before_cast(list/targets, mob/user, datum/spell/spell)
 	return
 
-/datum/spell_handler/proc/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/proc/after_cast(list/targets, mob/user, datum/spell/spell)
 	return

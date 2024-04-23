@@ -1,6 +1,6 @@
 /obj/item/clothing/mask/gas
 	name = "gas mask"
-	desc = "A face-covering mask that can be connected to an air supply."
+	desc = "A face-covering mask that can be connected to an air supply. Used by mischievous assistants and syndicate agents alike."
 	icon_state = "gas_alt"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
