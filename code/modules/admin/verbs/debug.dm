@@ -989,3 +989,24 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+/client/proc/cmd_clean_radiation()
+	set name = "Remove All Radiation"
+	set desc = "Remove all radiation in the world."
+	set category = "Debug"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert(src, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
+		return
+
+	log_and_message_admins("is decontaminating the world of all radiation. (This may be laggy!)")
+
+	var/counter = 0
+	for(var/datum/component/radioactive/rad as anything in SSradiation.all_radiations)
+		rad.admin_decontaminate()
+		counter++
+		CHECK_TICK
+
+	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")
