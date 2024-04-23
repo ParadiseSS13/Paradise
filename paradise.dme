@@ -1598,6 +1598,7 @@
 #include "code\modules\buildmode\buildmode_hud.dm"
 #include "code\modules\buildmode\effects\line.dm"
 #include "code\modules\buildmode\submodes\advanced.dm"
+#include "code\modules\buildmode\submodes\antirad_mode.dm"
 #include "code\modules\buildmode\submodes\area_edit.dm"
 #include "code\modules\buildmode\submodes\atmos.dm"
 #include "code\modules\buildmode\submodes\basic.dm"

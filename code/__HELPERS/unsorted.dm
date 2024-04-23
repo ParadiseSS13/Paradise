@@ -323,7 +323,6 @@
 		if(A.control_disabled)
 			continue
 		. += A
-	return .
 
 //Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
