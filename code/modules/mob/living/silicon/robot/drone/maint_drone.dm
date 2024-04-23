@@ -23,6 +23,8 @@
 	can_be_hatted = TRUE
 	can_wear_restricted_hats = TRUE
 	/// Cooldown for law syncs
+	tipping_time = 2 SECONDS
+	tilt_damage = 3
 	var/sync_cooldown = 0
 
 

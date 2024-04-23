@@ -50,6 +50,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	hat_offset_y = 3
 	is_centered = TRUE
 	can_be_hatted = TRUE
+	tipping_time = 20 SECONDS
+	tilt_damage = 70 //Same as the malf roll, for funsies
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()

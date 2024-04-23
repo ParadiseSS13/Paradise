@@ -55,6 +55,22 @@
 			sleep(3)
 			step_away(src, user, 15)
 
-/mob/lliving/silicon/robot/tip_over(mob/living/carbon/human/user)
-	if(..())
+/mob/living/silicon/robot/run_resist()
+	..()
+	if(HAS_TRAIT(src, TRAIT_BORG_TIPPED))
+		untilt(src, 20 SECONDS)
 
+/mob/living/silicon/robot/tip_over(mob/living/carbon/human/user)
+	if(HAS_TRAIT(src, TRAIT_BORG_TIPPED))
+		untilt(user, tipping_time)
+		return
+	if(..())
+		ADD_TRAIT(src, TRAIT_BORG_TIPPED, "tipped_over")
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, "tipped_over")
+		return TRUE
+	return FALSE
+
+/mob/living/silicon/robot/proc/on_untilt(atom/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
+	REMOVE_TRAIT(src, TRAIT_BORG_TIPPED, "tipped_over")
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "tipped_over")

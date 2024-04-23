@@ -66,12 +66,12 @@
 	SIGNAL_HANDLER
 	qdel(src)
 
-/datum/component/tilted/proc/on_try_untilt(atom/source, mob/living/user)
+/datum/component/tilted/proc/on_try_untilt(atom/source, mob/living/user, duration = untilt_duration)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(untilt), user, untilt_duration)
+	INVOKE_ASYNC(src, PROC_REF(untilt), user, duration)
 
 /// Untilt a tilted object.
-/datum/component/tilted/proc/untilt(mob/living/user, duration = 10 SECONDS)
+/datum/component/tilted/proc/untilt(mob/living/user, duration = untilt_duration)
 	var/atom/movable/atom_parent = parent
 
 	if(!istype(atom_parent))
@@ -80,7 +80,20 @@
 	if(!istype(user) || !atom_parent.Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(user)
+	if(user == atom_parent)
+		user.visible_message(
+			"<span class='notice'>[user] begins to right [user.p_themselves()].</span>",
+			"<span class='notice'>You begin to right yourself.</span>")
+		if(!do_after(user, duration, TRUE, parent) || QDELETED(src))
+			to_chat(user, "<span class = 'warning'>You fail to right yourself.</span>")
+			return
+		user.visible_message(
+			"<span class='notice'>[user] rights [user.p_themselves()].</span>",
+			"<span class='notice'>You right yourself.</span>",
+			"<span class='notice'>You hear a loud clang.</span>"
+		)
+
+	else if(user)
 		user.visible_message(
 			"[user] begins to right [atom_parent].",
 			"You begin to right [atom_parent]."

@@ -2,7 +2,10 @@
 #define PI 3.1415
 #define SQRT_2 1.41421356237
 #define INFINITY 1e31 //closer than enough
-
+#define QUARTER_TURN 90
+#define HALF_TURN 180
+#define THREE_QUARTERS_TURN 270
+#define FULL_TURN 360
 #define SHORT_REAL_LIMIT 16777216
 
 //"fancy" math for calculating time in ms from tick_usage percentage and the length of ticks

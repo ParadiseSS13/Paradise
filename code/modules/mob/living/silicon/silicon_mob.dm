@@ -33,7 +33,9 @@
 	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 	///How long it takes a human to tip the mob over
 	var/tipping_time = 5 SECONDS
-
+	///How much damage someone takes if this gets tipped onto them
+	var/tilt_damage = 20
+	var/is_being_tipped = FALSE
 	var/static/list/restricted_hats = list(
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/welding,
@@ -603,11 +605,3 @@
 	if(silicon_hat)
 		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
-
-/mob/living/silicon/proc/tip_over(mob/living/carbon/human/user)
-	visible_message("<span class='danger'>[user] starts to tip you over!</span>", "<span class='notice'>[user] starts to tip [src] over!</span>")
-	if(do_mob(user, src, tipping_time))
-		animate(src, 1 SECOND, transform = matrix(180, MATRIX_ROTATE), easing = QUAD_EASING)
-		visible_message("<span class='danger'>[user] tips you over!</span>", "<span class='notice'>[user] tips [src] over!</span>")
-		return TRUE
-	return FALSE

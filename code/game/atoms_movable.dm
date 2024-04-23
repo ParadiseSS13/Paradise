@@ -740,7 +740,7 @@
  * * block_interactions_until_righted - If true, interactions with the object will be blocked until it's righted.
  * * crush_dir - An override on the cardinal direction we're crushing.
  */
-/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR)
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR, untilt_time = 14 SECONDS)
 	if(QDELETED(src) || isnull(target_turf))
 		return
 
@@ -802,7 +802,7 @@
 			"<span class='warning'>You hear a loud crunch!</span>"
 		)
 
-	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
+	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted, untilt_time)
 	// for things that trigger on Crossed()
 	if(!has_tried_to_move)
 		Move(target_turf, crush_dir)
@@ -821,7 +821,7 @@
  * * rightable - Whether or not this object should be rightable, attaching the tilted component to it
  * * block_interactions_until_righted - If true, this object will need to be righted before it can be interacted with
  */
-/atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
+/atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted, untilt_time = 14 SECONDS)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	var/rot_angle = rotation_angle ? rotation_angle : pick(90, -90)
@@ -832,11 +832,11 @@
 		throw_at(target, 1, 1, spin = FALSE)
 	if(rightable)
 		layer = ABOVE_MOB_LAYER
-		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted, rot_angle)
+		AddComponent(/datum/component/tilted, untilt_time, block_interactions_until_righted, rot_angle)
 
 /// Untilt a tilted object.
 /atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user, duration)
 
 
 /// useful callback for things that want special behavior on crush

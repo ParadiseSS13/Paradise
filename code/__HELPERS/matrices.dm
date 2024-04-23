@@ -2,29 +2,37 @@
 	. = new_angle - old_angle
 	Turn(.) //BYOND handles cases such as -270, 360, 540 etc. DOES NOT HANDLE 180 TURNS WELL, THEY TWEEN AND LOOK LIKE SHIT
 
+/*
+Rotates the atom's sprite around by the given angle, by default it's a full 360 degree spin.
 
-/atom/proc/SpinAnimation(speed = 10, loops = -1, clockwise = 1, segments = 3, parallel = TRUE)
+speed - How long the animation should last overall, should be a number followed by SECONDS define like 1 SECONDS
+loops - How many times the rotation should happen, Loops infinitely by default
+clockwise - True if rotating clockwise, False if counter-clockwise
+segements - How many steps of animation the rotation will take
+parallel - If it should run parallel to other animations
+angle - The amount of degrees to rotate the sprite
+easing_effects - Any easing defines you want the animate() proc to use, keep in mind it will apply to all the segments individually
+*/
+/atom/proc/SpinAnimation(speed = 10, loops = -1, clockwise = TRUE, segments = 3, parallel = TRUE, angle = FULL_TURN, easing_effects = LINEAR_EASING)
 	if(!segments)
 		return
-	var/segment = 360/segments
+	var/segment = angle/segments
 	if(!clockwise)
 		segment = -segment
 	var/list/matrices = list()
-	for(var/i in 1 to segments-1)
+	for(var/i in 1 to segments)
 		var/matrix/M = matrix(transform)
 		M.Turn(segment*i)
 		matrices += M
-	var/matrix/last = matrix(transform)
-	matrices += last
 
 	speed /= segments
 
 	if(parallel)
-		animate(src, transform = matrices[1], time = speed, loops , flags = ANIMATION_PARALLEL)
+		animate(src, transform = matrices[1], time = speed, loops , flags = ANIMATION_PARALLEL, easing = easing_effects)
 	else
-		animate(src, transform = matrices[1], time = speed, loops)
+		animate(src, transform = matrices[1], time = speed, loops, easing = easing_effects)
 	for(var/i in 2 to segments) //2 because 1 is covered above
-		animate(transform = matrices[i], time = speed)
+		animate(transform = matrices[i], time = speed, easing = easing_effects)
 		//doesn't have an object argument because this is "Stacking" with the animate call above
 		//3 billion% intentional
 

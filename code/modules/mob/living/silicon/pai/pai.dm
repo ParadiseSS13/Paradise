@@ -465,3 +465,6 @@
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
+
+/mob/living/silicon/pai/tip_over(mob/living/carbon/human/user)
+	return

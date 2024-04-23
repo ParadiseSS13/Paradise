@@ -14,7 +14,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	deathgasp_on_death = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	hud_type = /datum/hud/robot
-
 	var/sight_mode = 0
 	var/custom_name = ""
 	var/custom_sprite = FALSE //Due to all the sprites involved, a var for our custom borgs may be best
@@ -185,6 +184,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
+	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
 
 	robot_module_hat_offset(icon_state)
 
