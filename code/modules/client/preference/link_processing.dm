@@ -807,11 +807,11 @@
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
 								if(subchoice)
 									choice = subchoice

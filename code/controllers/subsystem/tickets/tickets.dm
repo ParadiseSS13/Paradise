@@ -334,7 +334,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/datum/ticket/T in allTickets)
 		if(T.client_ckey == C.ckey && (T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE))
 			tickets += T
-	if(tickets.len)
+	if(length(tickets))
 		return tickets
 	return FALSE
 
