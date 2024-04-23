@@ -41,13 +41,13 @@
 
 /obj/mecha/working/ripley/Destroy()
 	for(var/i in 1 to hides)
-		new /obj/item/stack/sheet/animalhide/goliath_hide(loc)  //If a armor-plated ripley gets killed, all the armor drop
+		new /obj/item/stack/sheet/animalhide/goliath_hide(get_turf(src))  //If a armor-plated ripley gets killed, all the armor drop
 	for(var/i in 1 to plates)
-		new /obj/item/stack/sheet/animalhide/armor_plate(loc)
+		new /obj/item/stack/sheet/animalhide/armor_plate(get_turf(src))
 	for(var/i in 1 to drake_hides)
-		new /obj/item/stack/sheet/animalhide/ashdrake(loc)
+		new /obj/item/stack/sheet/animalhide/ashdrake(get_turf(src))
 	for(var/atom/movable/A in cargo)
-		A.forceMove(loc)
+		A.forceMove(get_turf(src))
 		step_rand(A)
 	cargo.Cut()
 	return ..()
