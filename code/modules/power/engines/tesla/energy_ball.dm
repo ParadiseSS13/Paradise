@@ -212,10 +212,10 @@
 	forceMove(target, direction)
 	return TRUE
 
-// This handles mobs crossing us. For us crossing mobs, see /mob/Crossed.
+// This handles mobs crossing us. For us crossing mobs, see /mob/living/Crossed.
 // (It also dusts them.)
 /obj/singularity/energy_ball/Crossed(atom/thing)
-	if(ismob(thing))
+	if(isliving(thing))
 		var/mob/victim = thing
 		victim.dust()
 

@@ -1129,3 +1129,8 @@
 	. = ..()
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
+
+/mob/living/Crossed(atom/movable/mover)
+	if(istype(mover, /obj/singularity/energy_ball))
+		dust()
+	return ..()
