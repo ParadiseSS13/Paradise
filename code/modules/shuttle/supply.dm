@@ -6,9 +6,7 @@
 #define CARGO_PREVENT_SHUTTLE 1
 /// Ignore this atom.
 #define CARGO_SKIP_ATOM 2
-/// Must contain a priority or wrong item.
-/// Used to prevent opening a locked box by selling the box and getting the
-/// contents back.
+/// Must contain a priority or wrong item. Used to prevent opening a locked box by selling the box and getting the contents back.
 #define CARGO_REQUIRE_SPECIAL 3
 /// Does contain a priority or wrong item.
 #define CARGO_HAS_SPECIAL 4

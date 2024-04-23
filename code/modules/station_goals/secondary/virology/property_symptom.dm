@@ -27,7 +27,6 @@
 		if("transmittable")
 			goal_property_value += initial(S.transmittable)
 
-
 /datum/secondary_goal_progress/virology/property_symptom
 	var/reward
 	var/datum/symptom/goal_symptom //Type path of the symptom

@@ -2,7 +2,6 @@
 	name = "Generic Virology Goal"
 	department = "Virology"
 
-
 /datum/secondary_goal_progress/virology
 	/// The amount of units currently already delivered  
 	var/delivered_amount = 0  
@@ -13,17 +12,14 @@
 /datum/secondary_goal_progress/virology/proc/check_virus(datum/disease/advance/D, datum/economy/cargo_shuttle_manifest/manifest, complain)
 	return TRUE
 
-/datum/secondary_goal_progress/virology/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null, complain = FALSE)
+/datum/secondary_goal_progress/virology/update(obj/item/reagent_containers/C, datum/economy/cargo_shuttle_manifest/manifest = null, complain = FALSE)
 	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	if(!check_personal_crate(C))
 		return
 
 	// Not a reagent container? Ignore.
-	if(!istype(AM, /obj/item/reagent_containers))
+	if(!istype(C))
 		return
-
-	// No reagents? Ignore.
-	var/obj/item/reagent_containers/C = AM
 	if(!length(C.reagents?.reagent_list))
 		return
 
