@@ -127,7 +127,7 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>... You can almost hear someone talking ...</I>", MESSAGE_TYPE_LOCALCHAT)
+		to_chat(src, "<i>... You can almost hear someone talking ...</i>", MESSAGE_TYPE_LOCALCHAT)
 		return
 
 	to_chat(src, msg, chat_message_type)
