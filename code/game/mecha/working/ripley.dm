@@ -85,9 +85,9 @@
 	// Drake hides
 	if(drake_hides == DRAKE_HIDES_COVERED_FULL)
 		desc = "Autonomous Power Loader Unit. Its every corner is covered in ancient hide, creating a powerful shield. The pilot of this exosuit must be prepared for battles on the level of legend."
-	if(drake_hides == DRAKE_HIDES_COVERED_ALMOST)
+	if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
 		desc = "Autonomous Power Loader Unit. It`s armor is adorned with dragon hide plates, instilling fear in its enemies and guarding its pilot."
-	if(drake_hides == DRAKE_HIDES_COVERED_LITTLE)
+	if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
 		desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
 
 
@@ -109,9 +109,9 @@
 	if(drake_hides)
 		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
 			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
-		else if(drake_hides == DRAKE_HIDES_COVERED_ALMOST)
+		else if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
 			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
-		else if(drake_hides == DRAKE_HIDES_COVERED_LITTLE)
+		else if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
 			. += occupant ? "ripley-d" : "ripley-d-open"
 
 
