@@ -91,25 +91,6 @@
 			if((stat & EMPED) && !(stat & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
 				set_sign(new /datum/barsign/hiddensigns/empbarsign)
 				return
-	/*if(build_stage == BARSIGN_FRAME && !istype(current_sign, /datum/barsign/hiddensigns/building/frame))
-		set_sign(new /datum/barsign/hiddensigns/building/frame)
-		return
-	else if(build_stage == BARSIGN_CIRCUIT && !istype(current_sign, /datum/barsign/hiddensigns/building/circuited))
-		set_sign(new /datum/barsign/hiddensigns/building/circuited)
-		return
-	else if(build_stage == BARSIGN_WIRED && !istype(current_sign, /datum/barsign/hiddensigns/building/wired))
-		set_sign(new /datum/barsign/hiddensigns/building/wired)
-		return
-	else if(build_stage == BARSIGN_COMPLETE)
-		if((stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signbroken))
-			set_sign(new /datum/barsign/hiddensigns/signbroken)
-			return
-		if((stat & NOPOWER) && !(stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signoff))
-			set_sign(new /datum/barsign/hiddensigns/signoff)
-			return
-		if((stat & EMPED) && !(stat & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
-			set_sign(new /datum/barsign/hiddensigns/empbarsign)
-			return*/
 	if(!current_sign)
 		turn_off()
 		return
