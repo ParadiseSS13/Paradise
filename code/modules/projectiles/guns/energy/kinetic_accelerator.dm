@@ -46,7 +46,7 @@
 	. = TRUE
 	if(!max_mod_capacity)
 		return
-	if(!modkits.len)
+	if(!length(modkits))
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))

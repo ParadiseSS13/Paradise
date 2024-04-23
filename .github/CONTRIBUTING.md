@@ -586,6 +586,26 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 - Files and path accessed and referenced by code above simply being #included should be strictly lowercase to avoid issues on filesystems where case matters.
 
+#### Modular Code in a File
+
+Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the `tools.dm` file)
+
+Our codebase also has support for checking files so that they only contain one specific typepath, including none of its subtypes. This can be done by adding a specific header at the beginning of the file, which the CI will look for when running. An example can be seen below. You can also run this test locally using `/tools/ci/restrict_file_types.py`
+
+```dm
+RESTRICT_TYPE(/datum/foo)
+
+/datum/proc/do_thing() // Error: '/datum' proc found in a file restricted to '/datum/foo'
+
+/datum/foo
+
+/datum/foo/do_thing()
+
+/datum/foo/bar // Error: '/datum/foo/bar' type definition found in a file restricted to '/datum/foo'
+
+/datum/foo/bar/do_thing() // Error: '/datum/foo/bar' proc found in a file restricted to '/datum/foo'
+```
+
 ### SQL
 
 - Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
@@ -679,7 +699,6 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 ### Other Notes
 
-- Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the `tools.dm` file)
 - Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
 
 - You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
@@ -815,8 +834,10 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
+- [Burzah](https://github.com/Burzah)
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
+- [DGamerL](https://github.com/DGamerL)
 - [lewcc](https://github.com/lewcc)
 
 ---
@@ -827,6 +848,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
+- [FunnyMan3595](https://github.com/FunnyMan3595)
 - [Henri215](https://github.com/Henri215)
 - [lewcc](https://github.com/lewcc)
 - [Sirryan2002](https://github.com/Sirryan2002)

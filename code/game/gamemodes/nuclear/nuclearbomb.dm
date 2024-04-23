@@ -504,7 +504,7 @@ GLOBAL_VAR(bomb_set)
 					update_icon(UPDATE_OVERLAYS)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
-					if(!is_syndicate)
+					if(!is_syndicate && SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_EPSILON)
 						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 				else
