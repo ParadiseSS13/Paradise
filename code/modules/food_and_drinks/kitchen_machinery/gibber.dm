@@ -321,7 +321,8 @@
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
-
+/obj/machinery/gibber/force_eject_occupant(mob/target)
+	go_out()
 
 /* AUTOGIBBER */
 

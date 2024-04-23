@@ -613,6 +613,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		log_admin("[key_name(usr)] delayed the game.")
 	else
 		SSticker.ticker_going = TRUE
+		SSticker.round_start_time = world.time + SSticker.pregame_timeleft
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
 
