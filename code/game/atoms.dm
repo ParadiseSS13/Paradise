@@ -21,19 +21,19 @@
 	/// Filter for actions - used by lighting overlays
 	var/simulated = TRUE
 	var/atom_say_verb = "says"
-	///what icon the mob uses for speechbubbles
+	/// What icon the mob uses for speechbubbles
 	var/bubble_icon = "default"
 
 	// Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
-	// This atom's HUD (med/sec, etc) images. Associative list.
+	/// This atom's HUD (med/sec, etc) images. Associative list.
 	var/list/image/hud_list
-	// HUD images that this atom can provide.
+	/// HUD images that this atom can provide.
 	var/list/hud_possible
 
-	//Value used to increment ex_act() if reactionary_explosions is on
+	/// Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
 	// Detective Work, used for the duplicate data points kept in the scanners
