@@ -31803,6 +31803,14 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"drP" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "dsc" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
@@ -39556,26 +39564,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
-"fCv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
 "fCy" = (
 /obj/machinery/button/windowtint{
 	id = "library";
@@ -43531,23 +43519,6 @@
 /obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
-"gXg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/starboard)
 "gXl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -57961,12 +57932,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"lqj" = (
-/obj/structure/girder,
-/obj/item/stack/sheet/metal,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/starboard)
 "lqk" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -65469,7 +65434,9 @@
 "nOM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/station/maintenance/starboard)
 "nON" = (
 /obj/machinery/door/airlock/maintenance/external{
@@ -146542,9 +146509,9 @@ nZf
 rKw
 rKw
 rkl
-fCv
 jeX
-eQu
+jeX
+drP
 aZM
 aZM
 fMl
@@ -146796,12 +146763,12 @@ tiG
 jeX
 ssT
 tiG
-lqj
+wRa
 wRa
 wRa
 gjb
-vHH
-mqf
+gFg
+xAV
 aZM
 aZM
 fMl
@@ -147056,8 +147023,8 @@ gFg
 gFg
 gFg
 gSQ
-mqf
-vHH
+xAV
+gFg
 nOM
 fXv
 eQu
@@ -152965,7 +152932,7 @@ tvJ
 trc
 iOw
 xAV
-gFg
+aUU
 itf
 gFg
 gSQ
@@ -153221,7 +153188,7 @@ mOC
 frg
 lWu
 gSQ
-gXg
+xuJ
 itf
 itf
 gSQ
