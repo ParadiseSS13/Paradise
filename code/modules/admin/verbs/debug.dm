@@ -462,11 +462,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 				var/obj/item/pda/pda = H.wear_id
 				id = pda.id
 			id.icon_state = "gold"
-			id:access = STATION_ALL_ACCESS+CENTCOM_ALL_ACCESS+get_all_syndicate_access()
+			id:access = STATION_ALL_ACCESS+CENTCOM_ALL_ACCESS+SYNDICATE_ALL_ACCESS
 		else
 			var/obj/item/card/id/id = new/obj/item/card/id(M)
 			id.icon_state = "gold"
-			id:access = STATION_ALL_ACCESS+CENTCOM_ALL_ACCESS+get_all_syndicate_access()
+			id:access = STATION_ALL_ACCESS+CENTCOM_ALL_ACCESS+SYNDICATE_ALL_ACCESS
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
