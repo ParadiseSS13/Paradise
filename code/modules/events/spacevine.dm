@@ -517,7 +517,6 @@
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
 		SM.on_cross(src, crosser)
 
-
 	if(prob(30 * energy))
 		entangle(crosser)
 

@@ -806,12 +806,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = get_restraining_item()
 	var/time = 0
-	if(!istype(I)) // If there is nothing to restrain him then he is not restrained
-		if(isstructure(buckled))
-			var/obj/structure/struct = buckled
-			time = struct.unbuckle_time
-	else
+	if(istype(I))
 		time = I.breakouttime
+	else if(isstructure(buckled))
+		var/obj/structure/struct = buckled
+		time = struct.unbuckle_time
 
 	if(time == 0)
 		buckled.user_unbuckle_mob(src, src)
