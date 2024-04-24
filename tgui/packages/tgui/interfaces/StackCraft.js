@@ -11,12 +11,13 @@ import {
   NoticeBox,
   Collapsible,
   Input,
+  ImageButton,
 } from '../components';
 
 export const StackCraft = (props, context) => {
   return (
-    <Window resizable>
-      <Window.Content className="Layout__content--flexColumn">
+    <Window>
+      <Window.Content>
         <Recipes />
       </Window.Content>
     </Window>
@@ -35,8 +36,9 @@ const Recipes = (props, context) => {
 
   return (
     <Section
+      fill
+      scrollable
       title={'Amount: ' + amount}
-      flexGrow="1"
       buttons={
         <>
           Search
@@ -133,7 +135,8 @@ const Multipliers = (props, context) => {
   for (const multiplier of multipliers) {
     if (max_available_multiplier >= multiplier) {
       finalResult.push(
-        <Button
+        <ImageButton.Item
+          width={'32px'}
           content={multiplier * recipe.result_amount + 'x'}
           onClick={() =>
             act('make', {
@@ -170,9 +173,17 @@ const RecipeListBox = (props, context) => {
     const [title, recipe] = entry;
     if (isRecipeList(recipe)) {
       return (
-        <Collapsible key={title} title={title} color="label">
-          <Box ml={2}>
-            <RecipeListBox recipes={recipe} />
+        <Collapsible key={title} title={title}>
+          <Box
+            pt={1}
+            style={{
+              'background-color': 'rgba(0, 0, 0, 0.25)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+            }}
+          >
+            <Box ml={1} mr={1}>
+              <RecipeListBox recipes={recipe} />
+            </Box>
           </Box>
         </Collapsible>
       );
@@ -186,40 +197,43 @@ const RecipeBox = (props, context) => {
   const { act, data } = useBackend(context);
   const { amount } = data;
   const { title, recipe } = props;
-  const { result_amount, required_amount, max_result_amount, uid } = recipe;
+  const { result_amount, required_amount, max_result_amount, uid, imageID } =
+    recipe;
 
   const resAmountLabel = result_amount > 1 ? `${result_amount}x ` : '';
   const sheetSuffix = required_amount > 1 ? 's' : '';
-  const buttonName = `${resAmountLabel}${title} (${required_amount} sheet${sheetSuffix})`;
+  const buttonName = `${resAmountLabel}${title}`;
+  const tooltipContent = `(${required_amount} sheet${sheetSuffix})`;
 
   const max_possible_multiplier = calculateMultiplier(recipe, amount);
 
   return (
-    <Box mb={1}>
+    <Box>
       <Table>
         <Table.Row>
           <Table.Cell>
-            <Button
-              fluid
+            <ImageButton
+              asset
+              imageAsset={'stack_craft32x32'}
+              image={imageID}
               disabled={!max_possible_multiplier}
-              icon="wrench"
               content={buttonName}
+              tooltip={tooltipContent}
               onClick={() =>
                 act('make', {
                   recipe_uid: uid,
                   multiplier: 1,
                 })
               }
-            />
+            >
+              {max_result_amount > 1 && max_possible_multiplier > 1 && (
+                <Multipliers
+                  recipe={recipe}
+                  max_possible_multiplier={max_possible_multiplier}
+                />
+              )}
+            </ImageButton>
           </Table.Cell>
-          {max_result_amount > 1 && max_possible_multiplier > 1 && (
-            <Table.Cell collapsing>
-              <Multipliers
-                recipe={recipe}
-                max_possible_multiplier={max_possible_multiplier}
-              />
-            </Table.Cell>
-          )}
         </Table.Row>
       </Table>
     </Box>

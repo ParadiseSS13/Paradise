@@ -73,11 +73,6 @@
 		merge(AM)
 	. = ..()
 
-/obj/item/stack/Destroy()
-	if(usr && usr.machine == src)
-		usr << browse(null, "window=stack")
-	return ..()
-
 /obj/item/stack/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
@@ -109,25 +104,30 @@
 /obj/item/stack/attack_self_tk(mob/user)
 	ui_interact(user)
 
-/obj/item/stack/attack_tk(mob/user)
-	if(user.stat || !isturf(loc)) return
-	// Allow remote stack splitting, because telekinetic inventory managing
-	// is really cool
-	if(src in user.tkgrabbed_objects)
-		var/obj/item/stack/F = split(user, 1)
-		F.attack_tk(user)
-		if(src && user.machine == src)
+/obj/item/stack/attack_hand(mob/user)
+	if(user.is_in_inactive_hand(src) && get_amount() > 1)
+		change_stack(user, 1)
+		if(src && usr.machine == src)
 			spawn(0)
-				interact(user)
+				ui_interact(usr)
 	else
 		..()
 
-/obj/item/stack/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state = GLOB.hands_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/stack/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "StackCraft", name, 400, 400, master_ui, state)
+		ui = new(user, src, "StackCraft", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
+
+/obj/item/stack/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/stack_craft),
+		get_asset_datum(/datum/asset/spritesheet/materials)
+	)
 
 /obj/item/stack/ui_data(mob/user)
 	var/list/data = list()
@@ -169,6 +169,7 @@
 	data["required_amount"] = recipe.req_amount
 	data["result_amount"] = recipe.res_amount
 	data["max_result_amount"] = recipe.max_res_amount
+	data["imageID"] = replacetext(replacetext("[recipe.result_type]", "/obj/item/", ""), "/", "-")
 	return data
 
 /obj/item/stack/use(used, check = TRUE)
@@ -285,15 +286,6 @@
 		F.add_fingerprint(user)
 	use(amt)
 	return F
-
-/obj/item/stack/attack_hand(mob/user)
-	if(user.is_in_inactive_hand(src) && get_amount() > 1)
-		change_stack(user, 1)
-		if(src && usr.machine == src)
-			spawn(0)
-				interact(usr)
-	else
-		..()
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
