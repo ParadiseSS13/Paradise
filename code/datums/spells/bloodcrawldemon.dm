@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/bloodcrawldemon
+/datum/spell/bloodcrawldemon
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
 	base_cooldown = 5 SECONDS
@@ -8,7 +8,7 @@
 	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 
-/obj/effect/proc_holder/spell/bloodcrawldemon/create_new_targeting()
+/datum/spell/bloodcrawldemon/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = allowed_type
@@ -17,33 +17,33 @@
 	T.use_turf_of_user = TRUE
 	return T
 
-/obj/effect/proc_holder/spell/bloodcrawldemon/valid_target(obj/effect/decal/cleanable/target, user)
+/datum/spell/bloodcrawldemon/valid_target(obj/effect/decal/cleanable/target, user)
 	return target.can_bloodcrawl_in()
 
-/obj/effect/proc_holder/spell/bloodcrawldemon/cast(list/targets, mob/living/user)
+/datum/spell/bloodcrawldemon/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
-	if(isslaughterdemon(user))
+	if(!isslaughterdemon(user))
+		return
+	else
 		var/mob/living/simple_animal/demon/slaughter_demon/D = user
 		if(D.channeling)
-			to_chat(D, "<span class='notice'>You begin to channel yourself into the blood!</span>")
 			return
 		if(D.phased)
+			to_chat(D, "<span class='notice'>You begin to channel yourself into the blood!</span>")
 			D.channel_target = get_turf(target)
 			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
-			D.phaseoutchaneltime = world.time + 2 SECONDS
+			D.phase_out_chanel_time = world.time + 2 SECONDS
 			D.channeling = TRUE
 			D.icon_state = "daemonchanneling"
 			cooldown_handler.recharge_duration = 5 SECONDS
 			cooldown_handler.start_recharge(5 SECONDS)
-			return
-		if(!D.phased)
-			to_chat(D, "You begin to channel back into reality!")
+		else
+			to_chat(D, "<span class='notice'>You begin to channel back into reality!</span>")
 			D.channel_target = get_turf(target)
 			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
 			D.channeling = TRUE
 			new /obj/effect/temp_visual/bloodstorm(get_turf(target))
-			D.phaseinchaneltime = world.time + 5 SECONDS
+			D.phase_in_chanel_time = world.time + 5 SECONDS
 			cooldown_handler.recharge_duration = 20 SECONDS
 			cooldown_handler.start_recharge(20 SECONDS)
-			return
 

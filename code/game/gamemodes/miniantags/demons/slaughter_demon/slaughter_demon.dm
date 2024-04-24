@@ -13,28 +13,41 @@
 	melee_damage_upper = 30
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	armour_penetration_percentage = 100
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
+	///Determines if the demon is chaneling
 	var/channeling = FALSE
-	var/lasthealtime = 0
+	///Used for to track health regen when phased out
+	var/last_heal_time = 0
+	///Whether or not the demon is phased into reality or not
 	var/phased = TRUE
-	var/phaseoutchaneltime = 0
-	var/phaseinchaneltime = 0
+	///World time for when to phase out
+	var/phase_out_chanel_time = 0
+	///World time for when to phase in
+	var/phase_in_chanel_time = 0
+	///The current amplification level for damage resistance/bonus damage
 	var/stat_amplification = 0.5
-	var/max_amplification_stacks = 0.5 //50% max
+	///max % bonus to stat amp
+	var/max_amplification_stacks = 0.5
+	///Tracks the last world time since last time stat amplification was lowered
 	var/last_stat_decrease = 0
+	///World time when stat reduction will begin to tick down
 	var/decay_time = 0
-	var/boost = 0
+	///Bool variable whether to add speed or not
+	var/boost = 0 //Bool variable whether to add speed or not
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
+	///Creatures devoured
 	var/devoured = 0
-	var/mindsabsorbed = 0
+	///Creatures with a mind absorbed total
+	var/minds_absorbed = 0
+	///List of consumed mobs
 	var/list/consumed_mobs = list()
-	var/list/nearby_mortals = list()
-	var/list/bloodspots = list()
-	var/cooldown = 0
-	var/gorecooldown = 0
 	var/vialspawned = FALSE
+	///Target tile for phasing in
 	var/turf/channel_target = 0
-	var/obj/effect/proc_holder/spell/demon_slam/slam_holder
-	var/obj/effect/proc_holder/spell/demon_charge/charge_holder
+	var/datum/spell/demon_slam/slam_holder
+	var/datum/spell/demon_charge/charge_holder
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill. \
 						       You may use the blood crawl icon when on blood pools to travel through them, appearing and disappearing from the station with a short delay. \
@@ -52,7 +65,7 @@
 	desc = "A large, adorable creature covered in armor with pink bows."
 	speak_emote = list("giggles", "titters", "chuckles")
 	emote_hear = list("gaffaws", "laughs")
-	response_help  = "hugs"
+	response_help = "hugs"
 	attacktext = "wildly tickles"
 
 	attack_sound = 'sound/items/bikehorn.ogg'
@@ -75,9 +88,9 @@
 /mob/living/simple_animal/demon/slaughter_demon/New()
 	..()
 	remove_from_all_data_huds()
-	var/obj/effect/proc_holder/spell/bloodcrawldemon/bloodspell = new
-	var/obj/effect/proc_holder/spell/demon_charge/dc = new
-	var/obj/effect/proc_holder/spell/demon_slam/ds = new
+	var/datum/spell/bloodcrawldemon/bloodspell = new
+	var/datum/spell/demon_charge/dc = new
+	var/datum/spell/demon_slam/ds = new
 	charge_holder = dc
 	slam_holder = ds
 	AddSpell(dc)
@@ -88,7 +101,9 @@
 	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/attempt_objectives()
-	if(mind)
+	if(!mind)
+		return
+	else
 		var/list/messages = list()
 		messages.Add(playstyle_string)
 		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
@@ -149,7 +164,7 @@
 					break
 	if(!foundblood && !foundtarget)
 		channeling = FALSE
-		to_chat(src, "The blood has all been cleaned!")
+		to_chat(src, "<span class ='warning'>The blood has all been cleaned!</span>")
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
 		return
 	for(var/obj/effect/decal/cleanable/C in view(2, origin_turf))
@@ -160,8 +175,7 @@
 					H.bleed_rate += 10
 				M.Weaken(5 SECONDS)
 				new /obj/effect/temp_visual/cult/sparks(get_turf(M))
-	src.forceMove(tele_turf)
-	src.client.eye = src
+	forceMove(tele_turf)
 	phased = TRUE
 	channeling = FALSE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
@@ -172,7 +186,7 @@
 		playsound(tele_turf, pick(voice), 50, TRUE, -1)
 	channel_target.visible_message("<span class='warning'><b>[src] rises out of [channel_target]!</b></span>")
 	playsound(tele_turf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
-	bloodspots = list()
+	//bloodspots = list()
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/absorb()
 	for(var/mob/living/L in range(1, get_turf(src)))
@@ -197,12 +211,12 @@
 			if(!charge_holder.bloodcharge || !slam_holder.bloodcharge)
 				charge_holder.bloodcharge = TRUE
 				slam_holder.bloodcharge = TRUE
-			mindsabsorbed++
+			minds_absorbed++
 			maxHealth += 10
 			adjustHealth(-100)
 			L.forceMove(src)
-	while(mindsabsorbed % 4 == 0 && mindsabsorbed > 0)
-		mindsabsorbed -= 4
+	while(minds_absorbed % 4 == 0 && minds_absorbed > 0)
+		minds_absorbed -= 4
 		maxHealth += 50
 	playsound(src, feast_sound, 100, TRUE, -1)
 
@@ -220,7 +234,7 @@
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
 		return
 	if(!in_range(channel_target, src))
-		to_chat(src, "The blood is far away!")
+		to_chat(src, "<span class='warning'>The blood is far away!</span>")
 		channeling = FALSE
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
 		return
@@ -230,14 +244,15 @@
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
 	var/obj/effect/dummy/slaughter_demon/holder = new /obj/effect/dummy/slaughter_demon(get_turf(src))
 	sink_animation(foundblood)
-	src.ExtinguishMob()
-	src.forceMove(holder)
+	ExtinguishMob()
+	forceMove(holder)
 
-/mob/living/simple_animal/demon/slaughter_demon/Stat()
-	..()
-	stat(null, "Sentient creatures absorbed: [mindsabsorbed]")
-	stat(null, "Max health: [maxHealth]")
-	stat(null, "Bonus health total: [maxHealth - 400]")
+/mob/living/simple_animal/demon/slaughter_demon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Sentient creatures absorbed:", "[minds_absorbed]")
+	status_tab_data[++status_tab_data.len] = list("Max health:", "[maxHealth]")
+	status_tab_data[++status_tab_data.len] = list("Bonus health total:", "[maxHealth - 400]")
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/sink_animation(atom/A)
 	var/turf/mob_loc = get_turf(channel_target)
@@ -251,7 +266,9 @@
 	..(amount, updating_health)
 
 /mob/living/simple_animal/demon/slaughter_demon/UnarmedAttack(atom/A)
-	if(istype(A, /mob/living/carbon))
+	if(!istype(A, /mob/living/carbon))
+		return ..()
+	else
 		if(stat_amplification > 0)
 			melee_damage_lower = round(melee_damage_lower + (melee_damage_lower * stat_amplification))
 			melee_damage_upper = round(melee_damage_upper + (melee_damage_upper * stat_amplification))
@@ -260,7 +277,7 @@
 		melee_damage_upper = 30
 		var/mob/living/carbon/T = A
 		if(T.stat == DEAD || !T.ckey)
-			to_chat(src, "No life force to consume!")
+			to_chat(src, "<span class='warning'>No life force to consume!</span>")
 			return
 		boost = world.time + 5 SECONDS
 		decay_time = world.time + 5 SECONDS
@@ -269,7 +286,6 @@
 		heal_overall_damage(10, 0, updating_health = TRUE)
 		boost = world.time + 5 SECONDS
 		return
-	..()
 
 /mob/living/simple_animal/demon/slaughter_demon/Move(NewLoc, direct)
 	. = ..()
@@ -282,12 +298,12 @@
 		speed = 1
 	else
 		speed = 0
-	if(phaseoutchaneltime < world.time && channeling && phased)
+	if(phase_out_chanel_time < world.time && channeling && phased)
 		perform_phaseout()
-	if(phaseinchaneltime < world.time && channeling && !phased)
+	if(phase_in_chanel_time < world.time && channeling && !phased)
 		perform_phasein()
-	if(!phased && health < 200 && lasthealtime < world.time)
-		lasthealtime = world.time + 1 SECONDS
+	if(!phased && health < 200 && last_heal_time < world.time)
+		last_heal_time = world.time + 1 SECONDS
 		adjustHealth(-(maxHealth * 0.05))
 	if(decay_time < world.time && stat_amplification)
 		if(last_stat_decrease < world.time)
@@ -307,4 +323,3 @@
 	pixel_x = -96
 	pixel_y = -96
 	layer = ABOVE_NORMAL_TURF_LAYER
-
