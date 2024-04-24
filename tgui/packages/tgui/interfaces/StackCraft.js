@@ -15,7 +15,7 @@ import {
 
 export const StackCraft = (props, context) => {
   return (
-    <Window width={350} height={475}>
+    <Window width={350} height={470}>
       <Window.Content>
         <Recipes />
       </Window.Content>
