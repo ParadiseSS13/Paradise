@@ -14,5 +14,5 @@
 	still_recharging_msg = "All this thinking makes your head hurt, wait a bit longer."
 
 /datum/spell/chef/expert_chef/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/human/H in targets)
+	var/mob/living/carbon/human/H = targets[1]
 		H.expert_chef_knowledge()

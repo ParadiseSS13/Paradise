@@ -51,7 +51,7 @@
 				. = INGREDIENT_CHECK_SURPLUS
 			else
 				return INGREDIENT_CHECK_FAILURE
-	if((reagents?(reagents.len):(0)) < length(avail_reagents.reagent_list))
+	if((reagents ? length(reagents) : 0) < length(avail_reagents.reagent_list))
 		return INGREDIENT_CHECK_SURPLUS
 
 /**

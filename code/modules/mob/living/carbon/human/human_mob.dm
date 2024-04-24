@@ -1967,7 +1967,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
 		return
 
-	var/list/possible_cookware = orange(1, src)
+	var/list/possible_cookware = view(1, src)
 
 	for(var/obj/item/storage/storage in possible_cookware)
 		possible_cookware += storage.contents
