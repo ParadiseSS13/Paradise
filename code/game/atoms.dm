@@ -429,8 +429,8 @@
 		//Otherwise, just show the total volume
 		if(reagents && length(reagents.reagent_list))
 			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
-			return
-		. += "<span class='notice'>Nothing.</span>"
+		else
+			. += "<span class='notice'>Nothing.</span>"
 		return
 
 	if(container_type & AMOUNT_VISIBLE)
