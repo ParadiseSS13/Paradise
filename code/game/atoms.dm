@@ -426,7 +426,7 @@
 			return
 
 		//Otherwise, just show the total volume
-		if(length(reagents.reagent_list))
+		if(length(reagents?.reagent_list))
 			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
 		else
 			. += "<span class='notice'>Nothing.</span>"
