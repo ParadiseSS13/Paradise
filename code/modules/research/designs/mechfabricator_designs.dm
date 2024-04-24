@@ -1082,7 +1082,7 @@
 
 /datum/design/borg_upgrade_abductor_jani
 	name = "Cyborg Upgrade (Abductor Janitorial Equipment)"
-	id = "borg_upgade_abductor_medi"
+	id = "borg_upgade_abductor_jani"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_jani
 	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
