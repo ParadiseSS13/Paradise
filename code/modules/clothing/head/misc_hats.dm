@@ -126,14 +126,6 @@
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/that
-	name = "sturdy top-hat"
-	desc = "It's an amish looking armored top hat."
-	icon_state = "tophat"
-	item_state = "that"
-	flags_inv = 0
-
-
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
