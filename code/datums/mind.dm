@@ -492,6 +492,16 @@
 				n_e_robots++
 		. += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
 
+/datum/mind/proc/memory_edit_paradox_clone(mob/living/carbon/human/H)
+	. = _memory_edit_header("paradox_clone", list("traitorchan"))
+	var/datum/antagonist/paradox_clone/pc = has_antag_datum(/datum/antagonist/paradox_clone)
+	if(pc)
+		. += "<b><font color='red'>PARADOX_CLONE</font></b>|<a href='?src=[UID()];paradox_clone=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];paradox_clone=paradox_clone'>paradox_clone</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_CHANGELING)
+
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
 	if(ishuman(current) && ((has_antag_datum(/datum/antagonist/traitor)) || \
@@ -529,6 +539,7 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
+		"paradox_clone"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -546,6 +557,8 @@
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+		/** Paradox Clone**/
+		sections["paradox_clone"] = memory_edit_paradox_clone(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -1421,6 +1434,19 @@
 						H.equipOutfit(/datum/outfit/abductor/agent)
 					else
 						H.equipOutfit(/datum/outfit/abductor/scientist)
+
+	else if(href_list["paradox_clone"])
+		switch(href_list["paradox_clone"])
+			if("clear")
+				if(is_paradox_clone(current))
+					remove_antag_datum(/datum/antagonist/paradox_clone)
+					log_admin("[key_name(usr)] has de-paradox_cloned [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-paradox_cloned [key_name_admin(current)]")
+			if("paradox_clone")
+				if(!is_paradox_clone(current))
+					add_antag_datum(/datum/antagonist/paradox_clone)
+					log_admin("[key_name(usr)] has paradox_cloned [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has paradox_cloned [key_name_admin(current)]")
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])

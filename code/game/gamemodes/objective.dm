@@ -95,6 +95,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
+	if(is_paradox_clone(possible_target.current))
+		return TARGET_INVALID_PARADOX_CLONE // To avoid confusion, "killed the wrong person"
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -795,6 +797,31 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+/datum/objective/paradox_replace
+	name = "Replacement"
+	martyr_compatible = FALSE
+
+/datum/objective/paradox_replace/update_explanation_text()
+	if(target?.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role] and replace them! Use 'Replace' ability to erase their body! Don't forget, your mission is to blend up, try to don't kill anyone else."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/paradox_replace/check_completion()
+	if(target?.current)
+		if(target.current.stat == DEAD)
+			return TRUE
+		if(is_special_dead(target.current))
+			return TRUE
+		if(!target.current.ckey)
+			return TRUE
+		return FALSE
+	return TRUE
+
+/datum/objective/paradox_replace/on_target_cryo()
+	to_chat(owner.current, "<span class='paradox'>There's a feeling... Your original are out of your area affection!</span>")
+	target = null
+	completed = TRUE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.

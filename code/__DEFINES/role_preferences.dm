@@ -19,6 +19,7 @@
 #define ROLE_CULTIST			"cultist"
 #define ROLE_BLOB				"blob"
 #define ROLE_MONKEY				"monkey"
+#define ROLE_PARADOX_CLONE		"paradox clone"
 #define ROLE_GANG				"gangster"
 #define ROLE_ABDUCTOR			"abductor"
 #define ROLE_REVENANT			"revenant"
@@ -55,6 +56,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
+	ROLE_PARADOX_CLONE,      							// Paradox clone
 	ROLE_PAI, 											// PAI
 	ROLE_REVENANT, 										// Revenant
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary

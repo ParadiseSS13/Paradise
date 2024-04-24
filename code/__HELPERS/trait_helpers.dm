@@ -296,6 +296,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EYES_OF_GOD "eyes_of_god"
 #define GHOSTED		"isghost"
 #define GHOST_ROLE	"ghost_role"
+#define PARADOX_CLONE_TRAIT "paradox clone"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

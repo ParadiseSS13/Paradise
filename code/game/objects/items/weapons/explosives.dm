@@ -107,6 +107,8 @@
 				message_say = "FOR THE REVOLUTION!"
 			else if(role == SPECIAL_ROLE_DEATHSQUAD || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
+			else if(role == ROLE_PARADOX_CLONE)
+				message_say = "NEITHER YOU NOR ME!"
 	user.say(message_say)
 	target = user
 	sleep(10)

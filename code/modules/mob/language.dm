@@ -556,6 +556,24 @@
 		..(speaker,message)
 
 
+/datum/language/paradox
+	name = "Paradoxial Link"
+	desc = "Due to the fact that all paradoxical clones do not belong to the universe they moved into, they can violate its laws of physics in order to interact with each other at any distance."
+	speech_verb = "informs"
+	ask_verb = "learns"
+	exclaim_verbs = list("reports")
+	colour = "paradox"
+	key = "al"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
+/datum/language/paradox/broadcast(mob/living/speaker, message, speaker_mask)
+	var/datum/antagonist/paradox_clone/pc = speaker.mind?.has_antag_datum(/datum/antagonist/paradox_clone)
+	if(pc)
+		..(speaker, "<font size=2><b>[message]</b></font>", pc.paradox_id)
+	else
+		..(speaker, "<font size=2><b>[message]</b></font>")
+
 /datum/language/abductor
 	name = "Abductor Mindlink"
 	desc = "Abductors are incapable of speech, but have a psychic link attuned to their own team."

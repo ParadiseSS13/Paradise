@@ -19,6 +19,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,
 	ROLE_ELITE = 5,
+	ROLE_PARADOX_CLONE = 5,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
