@@ -35,7 +35,7 @@
 	go_offline()
 	owner.updatehealth("component '[src]' removed")
 
-/datum/robot_component/proc/destroy()
+/datum/robot_component/proc/break_component()
 	if(wrapped)
 		qdel(wrapped)
 	uninstall()
@@ -52,7 +52,7 @@
 	electronics_damage += electronics
 
 	if(brute_damage + electronics_damage >= max_damage)
-		destroy()
+		break_component()
 
 	SStgui.update_uis(owner.self_diagnosis)
 
@@ -142,7 +142,7 @@
 	owner.cell = null
 	return ..()
 
-/datum/robot_component/cell/destroy()
+/datum/robot_component/cell/break_component()
 	..()
 	owner.cell = null
 
