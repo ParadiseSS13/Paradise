@@ -165,7 +165,7 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 	if(!has_power_source())
 		visible_message(
 		"<span class='warning'>[src]'s system sounds an alarm,</span> <span class='robot>\"ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN IMMINENT.\"</span>",
-		"<span class='warning'>EMERGENCY: FULL SYSTEM SHUTDOWN EMINENT.</span>"
+		"<span class='warning'>EMERGENCY: FULL SYSTEM SHUTDOWN IMMINENT.</span>"
 	)
 	else
 		visible_message(
