@@ -7,7 +7,7 @@ permissions:
 
 on:
   pull_request_target:
-    types: [opened, reopened, edited, labeled, unlabeled]
+    types: [opened, reopened, edited, labeled, unlabeled, ready_for_review]
 
 jobs:
   CheckCL:
