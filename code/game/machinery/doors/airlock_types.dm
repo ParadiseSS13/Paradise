@@ -339,7 +339,7 @@
 
 //////////////////////////////////
 /*
-	MARK: ault Airlocks
+	MARK: Vault Airlocks
 */
 
 /obj/machinery/door/airlock/vault
