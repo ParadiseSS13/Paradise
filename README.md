@@ -14,10 +14,21 @@
 
 # Useful Links
 
-[<img src=".github/assets/discord.svg" alt="Compiles sometimes" align="left">](https://discordapp.com/invite/YJDsXFE)
-[<img src=".github/assets/book.svg" alt="Compiles sometimes" align="left">](https://codedocs.paradisestation.org)
-[<img src=".github/assets/globe-pointer.svg" alt="Compiles sometimes" align="left">](https://www.paradisestation.org/)
-
+[<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
+  <img alt="Discord" src=".github/assets/discord-dark.png">
+</picture>](https://discordapp.com/invite/YJDsXFE)
+[<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
+  <img alt="Code docs" src=".github/assets/book-dark.png">
+</picture>](https://codedocs.paradisestation.org)
+[<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
+  <img alt="Website" src=".github/assets/web-dark.png">
+</picture>](https://www.paradisestation.org/)
 
 > [!TIP]
 > If you're having trouble with something, check out our #coding_chat channel on Discord!
