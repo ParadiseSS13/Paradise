@@ -1,4 +1,5 @@
-## [![Paradise Station](.github/assets/paradise.png)](#) <p align="center">Welcome to the main repository for the Paradise Station version of [Space Station 13](https://spacestation13.com/).</p>
+[![Paradise Station](.github/assets/paradise.png)](#)<br>
+## <p align="center">Welcome to the main repository for the Paradise Station version of [Space Station 13](https://spacestation13.com/).</p>
 
 <p align="center">
 	<a href="https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3ACI"><img src="https://github.com/ParadiseSS13/Paradise/workflows/CI/badge.svg" alt="CI"></a>
@@ -13,8 +14,8 @@
 	<a href="https://xkcd.com/1811/"><img src=".github/assets/made-with-crayons.svg" alt="Made with crayons"></a>
 </p>
 <br>
-
-# Useful Links
+<br>
+<br>
 <p align="center">
 	<a href="https://discordapp.com/invite/YJDsXFE">
 		<picture>
@@ -38,19 +39,27 @@
 		</picture>
 	</a>
 </p>
+<br>
+<br>
+<br>
 
 > [!TIP]
 > Want to contribute for the first time but unsure where to start?<br>
 > Join our Discord and check out the `#coding_chat` channel for helpful links and advice!<br>
 > Alternatively, have a look at our [Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
 
-# Useful Documents
+# Useful Documents and Links
 
-- [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [Contribution Guide](.github/CONTRIBUTING.md)
-- [Installation Guide](.github/DOWNLOADING.md)
-- [Paradise Station Development Team Structure](https://www.paradisestation.org/dev/policy/)
+- ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)<br>
+This guide shows you how to leave code comments that comply with "autodocumentation", a system to make everyone's lives easier when reading code!<br>
+- ### [Code of Conduct](./CODE_OF_CONDUCT.md)<br>
+All contributors are expected to read our Code of Conduct before they take part in the community.<br>
+- ### [Contribution Guide](.github/CONTRIBUTING.md)<br>
+Not sure how to take part and contribute? This guide gives an overview of how to make comments, pull requests, and open issues.<br>
+- ### [Installation Guide](.github/DOWNLOADING.md)<br>
+Want to run your own copy of Paradise station, or set up a test-server? This guide has you covered.<br>
+- ### [Paradise Station Development Team Structure](https://www.paradisestation.org/dev/policy/)<br>
+A detailed policy document that governs how the Paradise Station Development Team functions.<br>
 
 ---
 
