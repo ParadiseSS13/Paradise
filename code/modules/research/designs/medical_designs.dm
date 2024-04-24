@@ -416,7 +416,7 @@
 
 /datum/design/cyberimp_toolset_abductor
 	name = "Abductor Toolset Implant"
-	desc = "An alien toolset, designed to be installed on subject's arm."
+	desc = "An alien toolset, designed to be installed on the subject's arm."
 	id = "ci-hacking"
 	req_tech = list("materials" = 6, "engineering" = 6, "plasmatech" = 6, "abductor" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -426,8 +426,8 @@
 	category = list("Medical")
 
 /datum/design/cyberimp_janitorial_abductor
-	name = "Abductor Toolset Implant"
-	desc = "An alien toolset, designed to be installed on subject's arm."
+	name = "Abductor Janitorial Toolset Implant"
+	desc = "An alien janitorial toolset, designed to be installed on the subject's arm."
 	id = "ci-jani-abductor"
 	req_tech = list("materials" = 6, "engineering" = 6, "biotech" = 6, "abductor" = 3)
 	build_type = PROTOLATHE | MECHFAB
