@@ -12,9 +12,14 @@
 	var/mob/living/silicon/robot/owner
 	var/external_type = null // The actual device object that has to be installed for this.
 	var/obj/item/wrapped = null // The wrapped device(e.g. radio), only set if external_type isn't null
+	///How much a component is contributing to slowdown
+	var/current_slowdown_factor = 0
+	///The max amount of slowness a component can contribute, set to be 1% of the max damage
+	var/max_slowdown_factor
 
 /datum/robot_component/New(mob/living/silicon/robot/R)
 	owner = R
+	max_slowdown_factor = (max_damage / 100)
 
 // Should only ever be destroyed when a borg gets destroyed
 /datum/robot_component/Destroy(force, ...)
@@ -50,7 +55,7 @@
 
 	brute_damage += brute
 	electronics_damage += electronics
-
+	current_slowdown_factor = clamp((current_slowdown_factor + ((brute_damage + electronics_damage) / 100)), 0, max_slowdown_factor)
 	if(brute_damage + electronics_damage >= max_damage)
 		break_component()
 
@@ -66,7 +71,7 @@
 
 	brute_damage = max(0, brute_damage - brute)
 	electronics_damage = max(0, electronics_damage - electronics)
-
+	current_slowdown_factor = clamp((current_slowdown_factor - ((brute_damage + electronics_damage) / 100)), 0, max_slowdown_factor)
 	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/is_powered()
@@ -111,6 +116,9 @@
 
 /datum/robot_component/proc/go_offline()
 	return
+
+/datum/robot_component/proc/get_movement_delay()
+	return (is_destroyed() ? max_slowdown_factor : current_slowdown_factor)
 
 /datum/robot_component/armour
 	name = "armour plating"

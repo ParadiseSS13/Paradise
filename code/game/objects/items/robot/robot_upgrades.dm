@@ -253,7 +253,7 @@
 
 /obj/item/borg/upgrade/vtec
 	name = "robotic VTEC Module"
-	desc = "Used to activate a cyborg's VTEC systems, increasing their speed."
+	desc = "Used to activate a vehicle's VTEC systems, increasing their speed."
 	icon_state = "cyborg_upgrade2"
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"

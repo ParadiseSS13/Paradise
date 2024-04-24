@@ -55,3 +55,10 @@
 				step_away(src, user, 15)
 				sleep(3)
 				step_away(src, user, 15)
+
+/mob/living/silicon/robot/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
+	if(affect_silicon)
+		var/software_damage = (intensity * 30)
+		adjustStaminaLoss(software_damage)
+		to_chat(src, "<span class='warning'>Error: Optical sensors overstimulated.</span>")
+		..()
