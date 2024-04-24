@@ -1,6 +1,6 @@
 /obj/item/tarot_generator
 	name = "Enchanted tarot card deck"
-	desc = "This tarot card box has quite the aray of runes and artwork on it."
+	desc = "This tarot card box has quite the array of runes and artwork on it."
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_box"
 	w_class = WEIGHT_CLASS_SMALL
