@@ -165,6 +165,7 @@
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
 		return
+	SEND_SIGNAL(occupant, COMSIG_EXITED_BORGCHARGER)
 	UnregisterSignal(occupant, COMSIG_MOVABLE_MOVED)
 	occupant.forceMove(loc)
 	occupant = null
@@ -232,6 +233,7 @@
 
 	target.stop_pulling()
 	QDEL_LIST_CONTENTS(target.grabbed_by)
+	SEND_SIGNAL(target, COMSIG_ENTERED_BORGCHARGER)
 	target.forceMove(src)
 	occupant = target
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(go_out))

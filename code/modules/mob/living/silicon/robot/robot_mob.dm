@@ -66,7 +66,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/brute_mod = 1
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
-
+	///If the cyborg is rebooting from stamcrit
+	var/rebooting = FALSE
+	///If the cyborg is in a charger, or otherwise receiving power from an outside source.
+	var/externally_powered = FALSE
 	var/list/force_modules
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
@@ -185,7 +188,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
-
+	RegisterSignal(src, COMSIG_ENTERED_BORGCHARGER, PROC_REF(gain_external_power))
+	RegisterSignal(src, COMSIG_EXITED_BORGCHARGER, PROC_REF(lose_external_power))
 	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/get_radio()
@@ -1724,3 +1728,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
+
+/mob/living/silicon/robot/proc/gain_external_power()
+	SIGNAL_HANDLER //COMSIG_ENTERED_BORGCHARGER
+	externally_powered = TRUE
+
+/mob/living/silicon/robot/proc/lose_external_power()
+	SIGNAL_HANDLER //COMSIG_EXITED_BORGCHARGER
+	externally_powered = FALSE
+	
+/mob/living/silicon/robot/proc/has_power_source()
+	var/datum/component/cell = get_cell_component()
+	return cell.is_powered || externally_powered
