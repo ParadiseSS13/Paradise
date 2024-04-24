@@ -135,8 +135,3 @@
 #undef CYBORG_HUG
 #undef CYBORG_SHOCK
 #undef CYBORG_CRUSH
-
-/obj/item/borg/overdrive
-	name = "Overdrive"
-	icon = 'icons/obj/decals.dmi'
-	icon_state = "shock"
