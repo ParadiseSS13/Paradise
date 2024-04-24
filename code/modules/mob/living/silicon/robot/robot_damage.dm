@@ -170,7 +170,7 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 	else
 		visible_message(
 			"<span class='notice'>[src]'s lights suddenly go dark and [p_they()] seem to shut down.</span>",
-			"<span class='notice'>A fatal error has occured in the neural connections. Beginning emergency reboot.</span>"
+			"<span class='notice'>A critical neural connection error has occurred. Beginning emergency reboot...</span>"
 		)
 	var/stun_time = rand(10 SECONDS, 15 SECONDS)
 	Weaken(stun_time)
