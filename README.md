@@ -73,6 +73,16 @@ Want to run your own copy of Paradise station, or set up a test-server? This gui
 
 A detailed policy document that governs how the Paradise Station Development Team functions.
 
+- ### [TGUI Tutorial](tgui/docs/tutorial-and-examples.md)
+
+TGUI is a user interface framework, built on InfernoJS, for all new player-facing UIs.
+
+TGUI is very different to most other BYOND user interfaces as it leans heavily on JavaScript. If you are looking to get to grips with it, this tutorial is a good starting point. Additional information can also be found [here.](tgui)
+
+- ### [Mapping Guide](https://hackmd.io/@tgstation/SyVma0dS5#san7890s-A-Z-Guide-to-Mapping)
+
+Mapping for Paradise station can be daunting to new contributors. Here's a comprehensive quick-start put together by a community member that takes you from A-Z.
+
 ---
 
 
