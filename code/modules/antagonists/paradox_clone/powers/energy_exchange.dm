@@ -15,13 +15,6 @@
 	C.range = base_range
 	return C
 
-/datum/spell/paradox/click_target/energy_exchange/valid_target(target, user)
-	var/mob/living/targ = target
-	if(targ.stat == CONSCIOUS)
-		return TRUE
-	else
-		return FALSE
-
 /datum/spell/paradox/click_target/energy_exchange/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/H = target
