@@ -50,7 +50,7 @@
 			D.clearInternalDamage(MECHA_INT_TANK_BREACH)
 			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
 		else if(D.obj_integrity < D.max_integrity)
-			D.obj_integrity += min(30, D.max_integrity - D.obj_integrity)
+			D.obj_integrity += min(20, D.max_integrity - D.obj_integrity)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [D]'s damaged areas.</span>",\
 			"<span class='notice'>You apply some [src] at [D]'s damaged areas.</span>")
