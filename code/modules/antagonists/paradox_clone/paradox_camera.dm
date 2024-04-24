@@ -143,10 +143,10 @@
 	message_admins("[pc.owner.get_all_objectives(FALSE)]")
 
 	var/list/messages = list()
-	messages.Add(greet())
-	messages.Add(owner.prepare_announce_objectives())
+	messages.Add(pc.greet())
+	messages.Add(pc.owner.prepare_announce_objectives())
 
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	to_chat(pc.owner.current, chat_box_red(messages.Join("<br>")))
 
 	J.show_location_blurb(pc.owner.current.client, pc.owner)
 

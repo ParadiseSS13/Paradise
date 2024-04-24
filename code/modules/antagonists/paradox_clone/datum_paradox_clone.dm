@@ -98,10 +98,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 
 /proc/auto_declare_completion_paradox_clone()
 	if(!length(GLOB.paradox_clones))
-		message_admins("NO")
 		return
-	else
-		message_admins("Yes")
 
 	var/list/text = list("The paradox clones were:")
 

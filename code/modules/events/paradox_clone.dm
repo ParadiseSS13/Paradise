@@ -12,13 +12,9 @@
 	INVOKE_ASYNC(src, PROC_REF(wrapped_start))
 
 /datum/event/paradox_clone/proc/wrapped_start()
-	//if(!spawncount) //if lower than 25 playas...
-	//	abort()
-	//	return
-
-	spawncount = 1
-
-	message_admins("Starting.")
+	if(!spawncount) //if lower than 25 playas...
+		abort()
+		return
 
 	var/count = spawncount
 	var/wait_time = 20 SECONDS
@@ -34,14 +30,10 @@
 		message_admins("No suitable humans for Paradox Clone event!")
 		abort()
 		return
-	else
-		message_admins("Found.")
 
 	while(count)
 		count--
-		message_admins("[count]")
 		chosen = pick_n_take(possible_chosen)
-		message_admins("Candidates")
 
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a paradox clone of [chosen.real_name], the [chosen.mind.assigned_role]?", ROLE_PARADOX_CLONE, TRUE, wait_time, source = chosen)
 
@@ -54,9 +46,10 @@
 
 		var/mob/lucky_one = pick_n_take(candidates)
 		var/mob/camera/paradox/P = new /mob/camera/paradox(T)
-		addtimer(CALLBACK(P, TYPE_PROC_REF(/mob/camera/paradox, expire)), 6 SECONDS, TIMER_STOPPABLE)
-		addtimer(CALLBACK(P, TYPE_PROC_REF(/mob/camera/paradox, warning)), 4 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(P, TYPE_PROC_REF(/mob/camera/paradox, expire)), 40 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(P, TYPE_PROC_REF(/mob/camera/paradox, warning)), 30 SECONDS, TIMER_STOPPABLE)
 		P.orig = chosen
 		P.key = lucky_one.key
+		SEND_SOUND(P, sound('sound/ambience/antag/paradox_camera_alert.ogg'))
 		do_sparks(rand(1,2), FALSE, P)
 		sleep(wait_time + 0.2 SECONDS)
