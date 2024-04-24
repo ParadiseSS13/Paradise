@@ -83,9 +83,10 @@ All of the un-tipping is handled by the tilted component
 		"<span class='notice'>[user] starts to tip [src] over!</span>",
 		"<span class='danger'>[user] starts to tip you over!</span>")
 	is_being_tipped = TRUE
+	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 30, TRUE)
 	if(do_mob(user, src, tipping_time))
 		var/tip_turf = get_step(src, get_dir(user, src))
-		if(!fall_and_crush(tip_turf, tilt_damage, weaken_time = 0, knockdown_time = 0, angle = HALF_TURN, ignore_gravity = TRUE, rightable = TRUE, untilt_time = tipping_time))
+		if(!fall_and_crush(tip_turf, tilt_damage, weaken_time = 0, knockdown_time = 0, angle = QUARTER_TURN, ignore_gravity = TRUE, rightable = TRUE, untilt_time = tipping_time))
 			is_being_tipped = FALSE
 			return FALSE
 		drop_hat()
