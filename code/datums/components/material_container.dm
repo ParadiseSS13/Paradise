@@ -184,7 +184,7 @@
 //For consuming material
 //mats is a list of types of material to use and the corresponding amounts, example: list(MAT_METAL=100, MAT_GLASS=200)
 /datum/component/material_container/proc/use_amount(list/mats, multiplier=1)
-	if(!mats || !mats.len)
+	if(!mats || !length(mats))
 		return FALSE
 
 	var/datum/material/M
@@ -292,7 +292,7 @@
 	return (total_amount + amt) <= max_amount
 
 /datum/component/material_container/proc/has_materials(list/mats, multiplier=1)
-	if(!mats || !mats.len)
+	if(!mats || !length(mats))
 		return FALSE
 
 	var/datum/material/M

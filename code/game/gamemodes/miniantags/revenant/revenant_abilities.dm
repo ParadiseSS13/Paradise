@@ -163,6 +163,9 @@
 		name = "[initial(name)] ([unlock_amount]E)"
 	else
 		name = "[initial(name)] ([cast_amount]E)"
+	action.name = name
+	action.desc = desc
+	action.UpdateButtons()
 
 /datum/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()

@@ -264,7 +264,7 @@
 		if(get_dist(A, original) <= 1)
 			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 		else
-			def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = pick("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg") // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
@@ -295,7 +295,7 @@
 			var/list/mobs_list = list()
 			for(var/mob/living/L in target_turf)
 				mobs_list += L
-			if(mobs_list.len)
+			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
@@ -529,7 +529,7 @@
 		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
 		QDEL_IN(thing, duration)
 	if(impacting && impact_type && duration > 0)
-		var/datum/point_precise/p = beam_segments[beam_segments[beam_segments.len]]
+		var/datum/point_precise/p = beam_segments[beam_segments[length(beam_segments)]]
 		var/atom/movable/thing = new impact_type
 		p.move_atom_to_src(thing)
 		var/matrix/matrix = new

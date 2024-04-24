@@ -266,7 +266,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		A.bottom_left_corner = se
 		new_overlays += se
 
-	if(new_overlays.len)
+	if(length(new_overlays))
 		A.add_overlay(new_overlays)
 
 ///Scans direction to find targets to smooth with.
