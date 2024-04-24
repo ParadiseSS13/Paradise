@@ -474,3 +474,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
 	return total_transmittable
+
+/datum/disease/advance/vv_get_dropdown()
+	. = ..()
+	.["Add symptom"] = "?_src_=vars;addsymptom=[UID()]"

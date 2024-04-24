@@ -1306,6 +1306,23 @@
 		A.stop_deadchat_plays()
 		message_admins("[key_name_admin(usr)] removed deadchat control from [A].")
 
+	if(href_list["addsymptom"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/datum/disease/advance/AD = locateUID(href_list["addsymptom"])
+		if(!istype(AD))
+			return
+
+		var/symptom_name = tgui_input_text(mob, "Enter the display name of the symptom.", "Add Symptom")
+		if(!symptom_name)
+			return
+
+		if(AD.AdminAddSymptom(symptom_name))
+			to_chat(mob, "<span class='notice'>Symptom added.</span>")
+		else
+			to_chat(mob, "<span class='warning'>Symptom not found.</span>")
+
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])
 		debug_variables(locate(href_list["VarsList"]))
