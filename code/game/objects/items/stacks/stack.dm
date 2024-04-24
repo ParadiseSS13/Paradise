@@ -164,12 +164,11 @@
 
 /obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
 	var/list/data = list()
-	var/obj/item/I = recipe.result_type
 	data["uid"] = recipe.UID()
 	data["required_amount"] = recipe.req_amount
 	data["result_amount"] = recipe.res_amount
 	data["max_result_amount"] = recipe.max_res_amount
-	data["image"] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
+	data["imageID"] = replacetext(replacetext("[recipe.result_type]", "/obj/item/", ""), "/", "-")
 	return data
 
 /obj/item/stack/use(used, check = TRUE)

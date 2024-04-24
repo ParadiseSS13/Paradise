@@ -133,6 +133,8 @@ const Multipliers = (props, context) => {
     if (max_available_multiplier >= multiplier) {
       finalResult.push(
         <ImageButton.Item
+          bold
+          fontSize={0.85}
           width={'32px'}
           content={multiplier * recipe.result_amount + 'x'}
           onClick={() =>
@@ -196,7 +198,7 @@ const RecipeBox = (props, context) => {
   const { act, data } = useBackend(context);
   const { amount } = data;
   const { title, recipe } = props;
-  const { result_amount, required_amount, max_result_amount, uid, image } =
+  const { result_amount, required_amount, max_result_amount, uid, imageID } =
     recipe;
 
   const resAmountLabel = result_amount > 1 ? `${result_amount}x ` : '';
@@ -212,7 +214,9 @@ const RecipeBox = (props, context) => {
         <Table.Row>
           <Table.Cell>
             <ImageButton
-              image={image}
+              asset
+              imageAsset={'stack_recipes32x32'}
+              image={imageID}
               disabled={!max_possible_multiplier}
               content={buttonName}
               tooltip={tooltipContent}
