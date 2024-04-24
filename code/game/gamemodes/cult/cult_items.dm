@@ -466,7 +466,7 @@
 	if(IS_CULTIST(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
@@ -776,7 +776,7 @@
 
 	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
+	else if(!is_station_level(R.z) || isspacearea(get_area(src)))
 		actual_selected_rune.handle_portal("space", T)
 	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
 	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")

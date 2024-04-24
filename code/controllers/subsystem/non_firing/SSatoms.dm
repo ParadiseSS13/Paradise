@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(atoms)
 	var/count
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
-		count = atoms.len
+		count = length(atoms)
 		for(var/I in atoms)
 			var/atom/A = I
 			if(A && !A.initialized)
@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(atoms)
 
 	initialized = INITIALIZATION_INNEW_REGULAR
 
-	if(late_loaders.len)
+	if(length(late_loaders))
 		watch = start_watch()
 		if(noisy)
 			log_startup_progress("Late-initializing atoms...")

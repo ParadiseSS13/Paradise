@@ -36,6 +36,8 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 	///toggle for ghost gas analyzer
 	var/gas_analyzer = FALSE
+	///toggle for ghost plant analyzer
+	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
@@ -330,7 +332,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
+	to_chat(src, "<span class='ghostalert'><a href=byond://?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		SEND_SOUND(src, sound(sound))
 
@@ -584,6 +586,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(src, "<span class='notice'>Gas Analyzer enabled. Click on a pipe to analyze.</span>")
 		gas_analyzer = TRUE
+
+/mob/dead/observer/verb/toggle_plant_anaylzer()
+	set name = "Toggle Plant Analyzer"
+	set desc = "Toggles wether you can anaylze plants and seeds on click"
+	set category = "Ghost"
+
+	if(plant_analyzer)
+		to_chat(src, "<span class='notice'>Plant Analyzer disabled.</span>")
+		plant_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
+		plant_analyzer = TRUE
 
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"

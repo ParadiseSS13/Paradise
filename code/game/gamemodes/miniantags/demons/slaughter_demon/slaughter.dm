@@ -133,7 +133,7 @@
 	..()
 	spawn(5)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
-		if(!demon_candidates.len)
+		if(!length(demon_candidates))
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
 			return
@@ -182,7 +182,7 @@
 
 			validtargets += M
 
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 
@@ -195,7 +195,7 @@
 		return
 
 	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
-	if(!(msg))
+	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")

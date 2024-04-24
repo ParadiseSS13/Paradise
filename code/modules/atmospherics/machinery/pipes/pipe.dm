@@ -33,7 +33,7 @@
 			qdel(meter)
 
 	// if we're somehow by ourself
-	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
+	if(parent && !QDELETED(parent) && length(parent.members) == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
 

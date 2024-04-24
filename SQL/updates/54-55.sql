@@ -1,8 +1,9 @@
-# Updating SQL from 54 to 55 -MrRomainzZ
-# Add characther descriptors of height and build to preference menu
+# Updating DB from 54-55 - lewc
+# Adds a new `body_type` (gender sprite) column to the `characters` table
 
-ALTER TABLE `player`
-	ADD COLUMN `old_lighting` TINYINT(1) NULL DEFAULT NULL AFTER `viewrange`,
-	ADD COLUMN `glowlevel` TINYINT(1) NULL DEFAULT NULL AFTER `old_lighting`,
-	ADD COLUMN `lampsexposure` TINYINT(1) NULL DEFAULT NULL AFTER `glowlevel`,
-	ADD COLUMN `lampsglare` TINYINT(1) NULL DEFAULT NULL AFTER `lampsexposure`;
+# Add the new column next to the existing `gender` one
+ALTER TABLE `characters`
+	ADD COLUMN `body_type` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `gender`;
+
+# Set the `body_type` column to whatever's already in `gender`, so that it doesn't change existing characters
+UPDATE `characters` SET `body_type` = `gender` WHERE `gender` IS NOT NULL

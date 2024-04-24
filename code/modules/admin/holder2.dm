@@ -16,6 +16,7 @@ GLOBAL_PROTECT(href_token)
 	var/rights = 0
 	var/fakekey
 	var/big_brother	= FALSE
+	var/current_tab = 0
 
 	/// Unique-to-session randomly generated token given to each admin to help add detail to logs on admin interactions with hrefs
 	var/href_token
