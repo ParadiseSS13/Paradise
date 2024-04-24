@@ -317,7 +317,7 @@
 			ADD_SLOWDOWN(H.r_hand.slowdown)
 
 	if(ignoreslow)
-		return . // Only malusses after here
+		return // Only malusses after here
 
 	if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow

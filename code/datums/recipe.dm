@@ -162,7 +162,6 @@
 				r_count = N_r
 				i_count = N_i
 				. = recipe
-		return .
 
 /datum/recipe/proc/get_byproduct()
 	if(byproduct)
