@@ -436,8 +436,8 @@
 	if(container_type & AMOUNT_VISIBLE)
 		if(reagents.total_volume)
 			. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
-			return
-		. += "<span class='danger'>It's empty.</span>"
+		else
+			. += "<span class='danger'>It's empty.</span>"
 
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	. = build_base_description(infix, suffix)
