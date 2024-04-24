@@ -1,37 +1,43 @@
-### [![Paradise Station](.github/assets/paradise.png)](#) Welcome to the main repository for the Paradise Station version of [Space Station 13](https://spacestation13.com/).
+## [![Paradise Station](.github/assets/paradise.png)](#) <p align="center">Welcome to the main repository for the Paradise Station version of [Space Station 13](https://spacestation13.com/).</p>
 
-[<img src="https://github.com/ParadiseSS13/Paradise/workflows/CI/badge.svg" alt="CI" align="left">](https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3ACI)
-[<img src="https://github.com/ParadiseSS13/Paradise/workflows/Render%20Nanomaps/badge.svg" alt="Render Nanomaps" align="left">](https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3A%22Render+Nanomaps%22)
-[<img src="http://isitmaintained.com/badge/resolution/paradisess13/paradise.svg" alt="Average time to resolve an issue" align="left">](http://isitmaintained.com/project/paradisess13/paradise "Average time to resolve an issue")
-[<img src="http://isitmaintained.com/badge/open/paradisess13/paradise.svg" alt="Percentage of issues still open" align="left">](http://isitmaintained.com/project/paradisess13/paradise "Percentage of issues still open")
-</br>
-
-[<img src=".github/assets/compiles-sometimes.svg" alt="Compiles sometimes" align="left">](https://xkcd.com/371/)
-[<img src=".github/assets/made-in-byond.gif" alt="Made in BYOND" align="left">](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a/)
-[<img src=".github/assets/made-with-crayons.svg" alt="Made with crayons" align="left">](https://xkcd.com/1811/)
-
-</br>
+<p align="center">
+	<a href="https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3ACI"><img src="https://github.com/ParadiseSS13/Paradise/workflows/CI/badge.svg" alt="CI"></a>
+	<a href="https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3A%22Render+Nanomaps%22"><img src="https://github.com/ParadiseSS13/Paradise/workflows/Render%20Nanomaps/badge.svg" alt="Render Nanomaps"></a>
+	<a href="http://isitmaintained.com/project/paradisess13/paradise"><img src="http://isitmaintained.com/badge/resolution/paradisess13/paradise.svg" alt="Average time to resolve an issue"></a>
+	<a href="http://isitmaintained.com/project/paradisess13/paradise"><img src="http://isitmaintained.com/badge/open/paradisess13/paradise.svg" alt="Percentage of issues still open"></a>
+</p>
+<br>
+<p align="center">
+	<a href="https://xkcd.com/371/"><img src=".github/assets/compiles-sometimes.svg" alt="Compiles sometimes"></a>
+	<a href="https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a/"><img src=".github/assets/made-in-byond.gif" alt="Made in BYOND"></a>
+	<a href="https://xkcd.com/1811/"><img src=".github/assets/made-with-crayons.svg" alt="Made with crayons"></a>
+</p>
+<br>
 
 # Useful Links
 <p align="center">
-<picture>
-	<source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
-	<source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
-	<img width="25%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
-</picture>
-<picture>
-	<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
-	<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
-	<img alt="Code docs" width="25%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
-</picture>
-<picture>
-	<source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
-	<source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
-	<img width="25%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
-</picture>
+	<a href="https://discordapp.com/invite/YJDsXFE">
+		<picture>
+			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
+			<source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
+			<img width="25%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
+		</picture>
+	</a>
+	<a href="https://codedocs.paradisestation.org">
+		<picture>
+			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
+			<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
+			<img alt="Code docs" width="25%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
+		</picture>
+	</a>
+	<a href="https://www.paradisestation.org/">
+		<picture>
+			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
+			<source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
+			<img width="25%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
+		</picture>
+	</a>
 </p>
-
-<p align="center"><p align="left"><a href="https://discordapp.com/invite/YJDsXFE">Discord</a></p><p align="center"><a href="https://codedocs.paradisestation.org">Code Docs</a></p><p align="right"><a href="https://www.paradisestation.org/">Website</a></p></p>
 
 > [!TIP]
 > If you're having trouble with something, check out our #coding_chat channel on Discord!
