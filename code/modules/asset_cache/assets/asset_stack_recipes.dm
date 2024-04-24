@@ -5,6 +5,8 @@
 	var/static/list/allowed_items = list()
 	if(!length(allowed_items))
 		for(var/obj/item/stack/sheet/thing as anything in subtypesof(/obj/item/stack/sheet))
+			if(thing.amount > 1 || thing.is_cyborg)
+				continue
 			thing = new thing()
 			for(var/each in thing.recipes)
 				if(istype(each, /datum/stack_recipe_list))
