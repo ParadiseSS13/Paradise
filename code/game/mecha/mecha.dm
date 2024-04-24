@@ -248,9 +248,8 @@
 
 
 //////////////////////////////////
-////////  Movement procs  ////////
+////////  MARK: Movement procs  
 //////////////////////////////////
-// MARK: Movement
 
 /obj/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
@@ -437,9 +436,8 @@
 
 
 ///////////////////////////////////
-////////  Internal damage  ////////
+////////  MARK: Internal damage
 ///////////////////////////////////
-// MARK: Internal Damage
 
 /obj/mecha/proc/check_for_internal_damage(list/possible_int_damage, ignore_threshold=null)
 	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
@@ -481,9 +479,8 @@
 
 
 ////////////////////////////////////////
-////////  Health related procs  ////////
+////////  MARK: Health related procs
 ////////////////////////////////////////
-// MARK: Health Stuff
 
 /obj/mecha/proc/get_armour_facing(relative_dir)
 	switch(abs(relative_dir))
@@ -676,7 +673,7 @@
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
-////// AttackBy //////
+////// MARK: AttackBy
 //////////////////////
 
 /obj/mecha/attackby(obj/item/W, mob/user, params)
@@ -908,7 +905,7 @@
 
 
 /////////////////////////////////////
-//////////// AI piloting ////////////
+//////////// MARK: AI piloting
 /////////////////////////////////////
 
 /obj/mecha/attack_ai(mob/living/silicon/ai/user)
@@ -1014,9 +1011,8 @@
 		GrantActions(AI, !AI.can_dominate_mechs)
 
 /////////////////////////////////////
-////////  Atmospheric stuff  ////////
+////////  MARK: Atmospheric stuff
 /////////////////////////////////////
-// MARK:  Atmos
 
 /obj/mecha/proc/get_turf_air()
 	var/turf/T = get_turf(src)
@@ -1324,7 +1320,7 @@
 	go_out()
 
 /////////////////////////
-////// Access stuff /////
+////// MARK: Access stuff
 /////////////////////////
 
 /obj/mecha/proc/operation_allowed(mob/living/carbon/human/H)
@@ -1362,7 +1358,7 @@
 	return 1
 
 ///////////////////////
-///// Power stuff /////
+///// MARK: Power stuff
 ///////////////////////
 
 /obj/mecha/proc/has_charge(amount)
@@ -1422,7 +1418,7 @@
 	return icon_state
 
 //////////////////////////////////////////
-////////  Mecha global iterators  ////////
+////////  MARK: Mecha global iterators
 //////////////////////////////////////////
 
 /obj/mecha/process()

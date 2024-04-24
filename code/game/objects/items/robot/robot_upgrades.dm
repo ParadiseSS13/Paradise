@@ -81,9 +81,8 @@
 	return TRUE
 
 /*******************/
-/****	COMMON	****/
+// MARK: COMMON
 /*******************/
-// MARK: Common
 
 /obj/item/borg/upgrade/reset
 	name = "cyborg module reset board"
@@ -269,9 +268,8 @@
 	return TRUE
 
 /***********************/
-/****	SECURITY	****/
-/***********************/
 // MARK: Security
+/***********************/
 
 /obj/item/borg/upgrade/disablercooler
 	name = "cyborg rapid disabler cooling module"
@@ -296,9 +294,8 @@
 	return TRUE
 
 /*******************/
-/****	MINING	****/
-/*******************/
 // MARK: Mining
+/*******************/
 
 /obj/item/borg/upgrade/ddrill
 	name = "mining cyborg diamond drill"
@@ -336,9 +333,8 @@
 	return TRUE
 
 /***********************/
-/****	ENGINEER	****/
-/***********************/
 // MARK: Engineer
+/***********************/
 
 /obj/item/borg/upgrade/rcd
 	name = "R.C.D. upgrade"
@@ -364,9 +360,8 @@
 	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
-/****	JANITOR		****/
-/***********************/
 // MARK: Janitor
+/***********************/
 
 /obj/item/borg/upgrade/floorbuffer
 	name = "janitorial floor buffer upgrade"
@@ -416,9 +411,8 @@
 	)
 
 /***********************/
-/****	SYNDIE		****/
-/***********************/
 // MARK: Syndicate
+/***********************/
 
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
@@ -445,9 +439,8 @@
 	)
 
 /***********************/
-/****	ABDUCTOR	****/
-/***********************/
 // MARK: Abductor
+/***********************/
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
