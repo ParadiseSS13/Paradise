@@ -20,3 +20,9 @@
 #define MECHA_LOOSE_BOLTS 		2
 #define MECHA_OPEN_HATCH 		3
 #define MECHA_UNSECURE_CELL 	4
+
+#define MECHA_MAINT_OFF         0
+#define MECHA_MAINT_ON          1
+#define MECHA_BOLTS_UP          2
+#define MECHA_OPEN_HATCH        3
+#define MECHA_BATTERY_UNSCREW   4

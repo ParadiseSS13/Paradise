@@ -40,7 +40,7 @@
 		if((D.obj_integrity >= D.max_integrity) && !D.internal_damage)
 			to_chat(user, "<span class='notice'>[D] is at full integrity!</span>")
 			return
-		if(D.state == 0) // If maint protocols are not active, the state is zero
+		if(D.state == MECHA_MAINT_OFF)
 			to_chat(user, "<span class='warning'>[D] can not be repaired without maintenance protocols active!</span>")
 			return
 		if(D.repairing)
