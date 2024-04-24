@@ -168,13 +168,13 @@
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						active_character.m_colours["tail"] = rand_hex_color()
 				if("underwear")
-					active_character.underwear = random_underwear(active_character.gender, active_character.species)
+					active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("undershirt")
-					active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+					active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("socks")
-					active_character.socks = random_socks(active_character.gender, active_character.species)
+					active_character.socks = random_socks(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("eyes")
 					active_character.e_colour = rand_hex_color()
@@ -226,8 +226,6 @@
 						return
 					if(prev_species != active_character.species)
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						if(NS.has_gender && active_character.gender == PLURAL)
-							active_character.gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
@@ -265,15 +263,15 @@
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.underwear = random_underwear(active_character.gender, active_character.species)
+							active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 
 						SA = GLOB.undershirt_list[active_character.undershirt]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+							active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 
 						SA = GLOB.socks_list[active_character.socks]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.socks = random_socks(active_character.gender, active_character.species)
+							active_character.socks = random_socks(active_character.body_type, active_character.species)
 
 						//reset skin tone and colour
 						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
@@ -579,10 +577,6 @@
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
 							continue
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
 							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
@@ -608,9 +602,10 @@
 					var/list/valid_underwear = list()
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
+						// soon...
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
@@ -624,11 +619,11 @@
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
+							continue
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
@@ -641,11 +636,11 @@
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
+							continue
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
@@ -817,11 +812,11 @@
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
 								if(subchoice)
 									choice = subchoice
@@ -906,23 +901,25 @@
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
-					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
-						if(!newgender)
-							return
-						switch(newgender)
-							if("Male")
-								active_character.gender = MALE
-							if("Female")
-								active_character.gender = FEMALE
-							if("Genderless")
-								active_character.gender = PLURAL
-					else
-						if(active_character.gender == MALE)
-							active_character.gender = FEMALE
-						else
+					var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
+					if(!newgender)
+						return
+					switch(newgender)
+						if("Male")
+
 							active_character.gender = MALE
-					active_character.underwear = random_underwear(active_character.gender)
+						if("Female")
+							active_character.gender = FEMALE
+						if("Genderless")
+							active_character.gender = PLURAL
+
+				if("body_type")
+					if(active_character.body_type == MALE)
+						active_character.body_type = FEMALE
+					else
+						active_character.body_type = MALE
+
+					active_character.underwear = random_underwear(active_character.body_type)
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP

@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist)
+
 GLOBAL_LIST_EMPTY(antagonists)
 
 #define SUCCESSFUL_DETACH "dont touch this string numbnuts"
@@ -318,7 +320,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	owner.special_role = A.special_role
 
 /**
- * Checks if the person trying to recieve this datum is role banned from it.
+ * Checks if the person trying to receive this datum is role banned from it.
  */
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)

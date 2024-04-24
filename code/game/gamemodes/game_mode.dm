@@ -45,6 +45,51 @@
 	/// Each item in this list can only be rolled once on average.
 	var/list/single_antag_positions = list("Head of Personnel", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster")
 
+	/// A list of all minds which have the traitor antag datum.
+	var/list/datum/mind/traitors = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
+	var/list/datum/mind/implanted = list()
+	/// A list of all minds which have the changeling antag datum
+	var/list/datum/mind/changelings = list()
+	/// A list of all minds which have the vampire antag datum
+	var/list/datum/mind/vampires = list()
+	/// A list of all minds which are thralled by a vampire
+	var/list/datum/mind/vampire_enthralled = list()
+	/// A list of all minds which have the wizard special role
+	var/list/datum/mind/wizards = list()
+	/// A list of all minds that are wizard apprentices
+	var/list/datum/mind/apprentices = list()
+
+	/// The cult team datum
+	var/datum/team/cult/cult_team
+
+	/// How many abductor teams do we have
+	var/abductor_teams = 0
+	/// A list which contains the minds of all abductors
+	var/list/datum/mind/abductors = list()
+	/// A list which contains the minds of all abductees
+	var/list/datum/mind/abductees = list()
+
+	/// A list of all the nuclear operatives' minds
+	var/list/datum/mind/syndicates = list()
+
+	/// A list of all the minds of head revolutionaries
+	var/list/datum/mind/head_revolutionaries = list()
+	/// A list of all the minds of revolutionaries
+	var/list/datum/mind/revolutionaries = list()
+	/// The revololution team datum
+	var/datum/team/revolution/rev_team
+
+	/// A list of all the minds with the superhero special role
+	var/list/datum/mind/superheroes = list()
+	/// A list of all the minds with the supervillain special role
+	var/list/datum/mind/supervillains = list()
+	/// A list of all the greyshirt minds
+	var/list/datum/mind/greyshirts = list()
+
+	/// A list of all the minds that have the ERT special role
+	var/list/datum/mind/ert = list()
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
@@ -481,7 +526,7 @@
 		goal_weights += initial(picked.weight)
 		station_goals += new picked
 
-	if(station_goals.len)
+	if(length(station_goals))
 		send_station_goals_message()
 
 /datum/game_mode/proc/send_station_goals_message()

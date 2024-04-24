@@ -193,7 +193,6 @@
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
-	return .
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
@@ -323,7 +322,7 @@
 		if(entry == null)
 			return null
 		matrix_list += entry
-	if(matrix_list.len < 6)
+	if(length(matrix_list) < 6)
 		return null
 	var/a = matrix_list[1]
 	var/b = matrix_list[2]

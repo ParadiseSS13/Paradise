@@ -81,9 +81,9 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
 			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
-			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
+			round_start_time = world.time + pregame_timeleft
+			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -95,12 +95,9 @@ SUBSYSTEM_DEF(ticker)
 				return
 
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
-			if(!delay_end)
-				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
-			else
-				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
+			pregame_timeleft = max(0, round_start_time - world.time)
 
-			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
+			if(pregame_timeleft <= 1 MINUTES && !tipped)
 				send_tip_of_the_round()
 				tipped = TRUE
 
@@ -529,9 +526,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		var/list/randomtips = file2list("strings/tips.txt")
 		var/list/memetips = file2list("strings/sillytips.txt")
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)
@@ -708,8 +705,8 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
 		var/datum/trade_destination/D = new loc_type
-		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
-		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+		GLOB.weighted_randomevent_locations[D] = length(D.viable_random_events)
+		GLOB.weighted_mundaneevent_locations[D] = length(D.viable_mundane_events)
 
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)

@@ -17,7 +17,7 @@
 	var/mob/living/user = usr
 	if(cooldown < world.time - 1 SECONDS)
 		var/list/newcards = list()
-		while(cards.len)
+		while(length(cards))
 			var/datum/playingcard/P = pick(cards)
 			P.name = replacetext(P.name," reversed","")
 			if(prob(50))

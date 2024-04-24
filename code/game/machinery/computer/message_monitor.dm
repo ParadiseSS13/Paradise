@@ -409,7 +409,7 @@
 							if(!PM || !PM.can_receive())
 								continue
 							sendPDAs += P
-						if(GLOB.PDAs && GLOB.PDAs.len > 0)
+						if(GLOB.PDAs && length(GLOB.PDAs) > 0)
 							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", items = sortAtom(sendPDAs))
 						else
 							customrecepient = null
