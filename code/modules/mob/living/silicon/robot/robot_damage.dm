@@ -32,6 +32,13 @@
 		heal_overall_damage(0, -amount, updating_health)
 	return STATUS_UPDATE_HEALTH
 
+/mob/living/silicon/robot/update_stamina()
+	if(rebooting)
+		return
+	var/current_stam_damage = getStaminaLoss()
+	if(current_stam_damage > DAMAGE_PRECISION && (maxHealth - current_stam_damage) <= HEALTH_THRESHOLD_CRIT && !stat)
+		start_emergency_reboot()
+
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
 	for(var/V in components)
@@ -58,11 +65,19 @@
 
 /mob/living/silicon/robot/proc/get_armour()
 	if(!LAZYLEN(components))
-		return 0
+		return TRUE
 	var/datum/robot_component/C = components["armour"]
 	if(C && C.installed)
 		return C
-	return 0
+	return FALSE
+
+/mob/living/silicon/robot/proc/get_cell_component()
+	if(!LAZYLEN(components))
+		return FALSE
+	var/datum/robot_component/C = components["power cell"]
+	if(C && C.installed)
+		return C
+	return FALSE
 
 /mob/living/silicon/robot/heal_organ_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
@@ -131,3 +146,33 @@
 
 		parts -= picked
 	updatehealth()
+
+/*
+Begins the stamcrit reboot process for borgs. Stuns them, and warns people if the borg has no power source.
+*/
+/mob/living/silicon/robot/proc/start_emergency_reboot()
+	rebooting = TRUE
+	if(!has_power_source())
+		visible_message(
+		"<span class='warning'>[src]'s system sounds an alarm,</span> <span class='robot>\"ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN EMINENT.\"</span>",
+		"<span class='warning'>EMERGENCY: FULL SYSTEM SHUTDOWN EMINENT.</span>"
+	)
+	else
+		visible_message(
+			"<span class='notice'>[src]'s lights suddenly go dark and [p_they()] seem to shut down.</span>",
+			"<span class='notice'>A fatal error has occured in the neural connections. Beginning emergency reboot.</span>"
+		)
+	var/stun_time = rand(10 SECONDS, 15 SECONDS)
+	Weaken(stun_time)
+	addtimer(CALLBACK(src, PROC_REF(end_emergency_reboot)), stun_time)
+/*
+Finishes the stamcrit process. If the borg doesn't have a power source for the reboot, they die.
+*/
+/mob/living/silicon/robot/proc/end_emergency_reboot()
+	rebooting = FALSE
+	if(!has_power_source())
+		death()
+	if(!stat)
+		return
+	setStaminaLoss(0) //Have you tried turning it off and on again?
+	to_chat(src, "<span class='notice'>Reboot complete, neural interface operational.")

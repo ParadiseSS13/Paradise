@@ -136,7 +136,7 @@
 	owner.cell = null
 
 /datum/robot_component/cell/is_powered()
-	return ..() && owner.cell
+	return ..() && owner.cell?.charge
 
 /datum/robot_component/cell/Destroy(force, ...)
 	owner.cell = null

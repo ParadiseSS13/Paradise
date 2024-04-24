@@ -1736,7 +1736,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/lose_external_power()
 	SIGNAL_HANDLER //COMSIG_EXITED_BORGCHARGER
 	externally_powered = FALSE
-	
+
 /mob/living/silicon/robot/proc/has_power_source()
-	var/datum/component/cell = get_cell_component()
-	return cell.is_powered || externally_powered
+	var/datum/robot_component/cell/cell = get_cell_component()
+	return cell.is_powered() || externally_powered
