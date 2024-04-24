@@ -2,7 +2,9 @@
 	var/spawncount
 
 /datum/event/paradox_clone/setup()
-	spawncount = (round(TGS_CLIENT_COUNT / 25)) // 100 players for 4 paradox clones.
+	spawncount = (round(TGS_CLIENT_COUNT / 40)) // 100 players for 4 paradox clones.
+	if(spawncount > 0)
+		spawncount += rand(0, spawncount) //so 40 players can have either 1 or 2 paradox clones and 80 players can have 2 or 4 paradox clones
 
 /datum/event/paradox_clone/proc/abort()
 	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]

@@ -24,5 +24,3 @@
 	C.max_charges = base_max_charges
 	C.recharge_duration = base_cooldown
 	return C
-
-/////////////////////////////////////////////////////////////////////

@@ -59,6 +59,3 @@
 			var/datum/spell/paradox/click_target/replace/R = locate() in pc.owner.spell_list
 			user.mind.RemoveSpell(R)
 			to_chat(user, "<span class='notice'>Replacing completed...</span>")
-
-
-
