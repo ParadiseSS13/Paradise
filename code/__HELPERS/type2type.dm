@@ -70,9 +70,9 @@
 	return num_list
 
 //Splits the text of a file at seperator and returns them in a list.
-/proc/file2list(filename, seperator = "\n", no_empty = TRUE)
+/proc/file2list(filename, separator = "\n", no_empty = TRUE)
 	var/list/result = list()
-	for(var/line in splittext(return_file_text(filename), seperator))
+	for(var/line in splittext(return_file_text(filename), separator))
 		var/text = trim(line)
 		if(no_empty && !text)
 			continue
