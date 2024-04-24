@@ -466,9 +466,6 @@
 		if(SSticker.mode.eventmiscs.len)
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
-		if(GLOB.paradox_clones)
-			dat += check_role_table("Paradox Clones", GLOB.paradox_clones)
-
 		if(GLOB.ts_spiderlist.len)
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
