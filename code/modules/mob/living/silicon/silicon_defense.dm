@@ -73,7 +73,8 @@
 	return FALSE
 
 /*
-Rotates a silicon's sprite 180 degrees, returns true if successful, false otherwise. All of the un-tipping is handled by the tilted component
+Rotates a silicon's sprite 180 degrees, returns true if successful, false otherwise.
+All of the un-tipping is handled by the tilted component
 */
 /mob/living/silicon/proc/tip_over(mob/living/carbon/human/user)
 	if(is_being_tipped)
@@ -91,7 +92,7 @@ Rotates a silicon's sprite 180 degrees, returns true if successful, false otherw
 		visible_message(
 			"<span class='notice'>[user] tips [src] over!</span>",
 			"<span class='danger'>[user] tips you over!</span>",
-			"<span class=warning'>You the clatter of metal on the ground.</span>")
+			"<span class=warning'>You hear the clatter of metal on the ground.</span>")
 		is_being_tipped = FALSE
 		return TRUE
 	is_being_tipped = FALSE

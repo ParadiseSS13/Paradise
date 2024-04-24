@@ -32,7 +32,7 @@
 	var/pose //Yes, now AIs can pose too.
 	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 	///How long it takes a human to tip the mob over
-	var/tipping_time = 5 SECONDS
+	var/tipping_time = 8 SECONDS
 	///How much damage someone takes if this gets tipped onto them
 	var/tilt_damage = 20
 	var/is_being_tipped = FALSE

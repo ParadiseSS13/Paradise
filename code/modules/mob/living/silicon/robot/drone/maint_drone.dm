@@ -22,9 +22,9 @@
 	is_centered = TRUE
 	can_be_hatted = TRUE
 	can_wear_restricted_hats = TRUE
-	/// Cooldown for law syncs
-	tipping_time = 2 SECONDS
+	tipping_time = 5 SECONDS
 	tilt_damage = 3
+	/// Cooldown for law syncs
 	var/sync_cooldown = 0
 
 

@@ -65,12 +65,12 @@
 		untilt(user, tipping_time)
 		return
 	if(..())
-		ADD_TRAIT(src, TRAIT_BORG_TIPPED, "tipped_over")
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, "tipped_over")
+		ADD_TRAIT(src, TRAIT_BORG_TIPPED, UNIQUE_TRAIT_SOURCE(src))
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 		return TRUE
 	return FALSE
 
 /mob/living/silicon/robot/proc/on_untilt(atom/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
-	REMOVE_TRAIT(src, TRAIT_BORG_TIPPED, "tipped_over")
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "tipped_over")
+	REMOVE_TRAIT(src, TRAIT_BORG_TIPPED, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
