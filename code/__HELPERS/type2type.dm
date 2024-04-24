@@ -70,12 +70,16 @@
 	return num_list
 
 //Splits the text of a file at seperator and returns them in a list.
-/proc/file2list(filename, seperator="\n")
-	return splittext(return_file_text(filename),seperator)
-
+/proc/file2list(filename, seperator = "\n", no_empty = TRUE)
+	var/list/result = list()
+	for(var/line in splittext(return_file_text(filename), seperator))
+		var/text = trim(line)
+		if(no_empty && !text)
+			continue
+		result += text
+	return result
 
 //Turns a direction into text
-
 /proc/num2dir(direction)
 	switch(direction)
 		if(1.0) return NORTH
