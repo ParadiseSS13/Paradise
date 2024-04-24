@@ -154,8 +154,8 @@
 
 /obj/item/food/snacks/human/kebab
 	name = "-kebab"
-	icon_state = "kebab"
 	desc = "Human meat, on a stick."
+	icon_state = "kebab"
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
