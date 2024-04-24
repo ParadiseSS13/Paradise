@@ -155,6 +155,7 @@
 		/obj/item/food/snacks/tofu
 	)
 	result = /obj/item/food/snacks/tofukebab
+
 /datum/recipe/grill/picoss_kebab
 	reagents = list("vinegar" = 5)
 	items = list(
