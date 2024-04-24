@@ -223,7 +223,7 @@
 /obj/item/clothing/head/hooded/berserker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(berserk_active)
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.damage_type == STAMINA)
 			return //no disabler rage
@@ -355,7 +355,7 @@
 
 /obj/item/rod_of_asclepius/dropped(mob/user, silent)
 	..()
-	if(!activated)
+	if(!activated || QDELETED(src))
 		return
 	addtimer(CALLBACK(src, PROC_REF(try_attach_to_owner)), 0) // Do this once the drop call stack is done. The holding limb might be getting removed
 

@@ -1,5 +1,12 @@
 /mob/living/carbon/human
-
+	name = "unknown"
+	real_name = "unknown"
+	voice_name = "unknown"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "body_m_s"
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
+	deathgasp_on_death = TRUE
+	throw_range = 4
 	hud_possible = list(
 		HEALTH_HUD, STATUS_HUD, SPECIALROLE_HUD, // from /mob/living
 		ID_HUD, WANTED_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, IMPTRACK_HUD, GLAND_HUD,
@@ -25,6 +32,8 @@
 	var/height = "average height"
 	/// Players physique (even MORE fluff)
 	var/physique = "average"
+	/// The body type associated with the body
+	var/body_type = MALE
 
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude"	//Which undershirt the player wants
@@ -87,8 +96,10 @@
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
 
+	var/list/overlays_standing[TOTAL_LAYERS]
+	/// Stores what the body last looked like. Prevents updating the body when we don't need to
+	var/previous_damage_appearance
+
 	var/list/bodyparts = list()
 	/// map organ names to organs
 	var/list/bodyparts_by_name = list()
-
-	var/temperature_resistance = T0C+75

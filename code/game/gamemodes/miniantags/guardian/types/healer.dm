@@ -36,7 +36,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/summon_guardian_beacon(null))
+	AddSpell(new /datum/spell/summon_guardian_beacon(null))
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	QDEL_NULL(beacon)
@@ -47,13 +47,13 @@
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
-/mob/living/simple_animal/hostile/guardian/healer/Stat()
-	..()
-	if(statpanel("Status"))
-		if(beacon_cooldown >= world.time)
-			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
-		if(surgical_cooldown >= world.time)
-			stat(null, "Surgical Cooldown Remaining: [max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
+/mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(beacon_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Bluespace Beacon Cooldown Remaining:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
+	if(surgical_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Surgical Cooldown Remaining:", "[max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()

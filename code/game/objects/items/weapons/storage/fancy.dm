@@ -38,6 +38,7 @@
 
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
+	desc = "\"To do, or do nut, the choice is obvious.\""
 	icon_type = "donut"
 	icon_state = "donutbox"
 	storage_slots = 6
@@ -231,15 +232,15 @@
 		new cigarette_type(src)
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
-	icon_state = "[initial(icon_state)][contents.len]"
+	icon_state = "[initial(icon_state)][length(contents)]"
 
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!ismob(M))
 		return
 
-	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
+	if(istype(M) && M == user && user.zone_selected == "mouth" && length(contents) > 0 && !user.wear_mask)
 		var/got_cig = 0
-		for(var/num=1, num <= contents.len, num++)
+		for(var/num=1, num <= length(contents), num++)
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
@@ -373,7 +374,7 @@
 
 /obj/item/storage/fancy/rollingpapers/update_overlays()
 	. = ..()
-	if(!contents.len)
+	if(!length(contents))
 		. += "[icon_state]_empty"
 
 /*
@@ -401,7 +402,7 @@
 	icon_state = "vialbox0"
 	item_state = "syringe_kit"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/glass/bottle)
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)

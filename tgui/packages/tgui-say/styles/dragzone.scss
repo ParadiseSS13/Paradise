@@ -1,0 +1,60 @@
+@use 'sass:color';
+@use './colors.scss';
+
+// Remove conditionals with 516
+@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+  $dragSize: 0.3rem;
+}
+
+// Remove with 516
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  $dragSize: 0.6rem;
+}
+
+$dragSize: 0.3rem;
+$borderSize: 0.2rem;
+
+.dragzone-horizontal {
+  cursor: all-scroll;
+  border-left: $borderSize solid;
+  border-right: $borderSize solid;
+  color: transparent;
+  width: 100%;
+  height: $dragSize;
+}
+
+.dragzone-left {
+  width: $dragSize * 3 !important;
+  height: 150% !important;
+  margin-top: -($borderSize * 2);
+  margin-right: $borderSize * 1.5;
+  // Adds 0.8KiB to the css bundle
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M40 352l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zm192 0l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zM40 320c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0zM232 192l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zM40 160c-22.1 0-40-17.9-40-40L0 72C0 49.9 17.9 32 40 32l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0zM232 32l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40z' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dragzone-right {
+  border-right: $borderSize solid;
+}
+
+.dragzone-vertical {
+  cursor: all-scroll;
+  color: transparent;
+  height: 100%;
+  width: $dragSize;
+}
+
+.dragzone-top {
+  border-top: $borderSize solid;
+}
+
+.dragzone-bottom {
+  border-bottom: $borderSize solid;
+}
+
+/** Lightmode static theme */
+.dragzone-lightMode {
+  border-color: colors.$lightBorder;
+}

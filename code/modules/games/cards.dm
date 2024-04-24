@@ -50,10 +50,16 @@
 
 /obj/item/deck/Initialize(mapload)
 	. = ..()
+	build_decks()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/deck/proc/build_decks()
+	if(length(cards))
+		// prevent building decks more than once
+		return
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = length(cards)
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -66,8 +72,8 @@
 			return
 
 		if(length(H.cards) > 1)
-			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
-			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
+			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		for(var/datum/playingcard/P in H.cards)
 			cards += P
@@ -191,9 +197,8 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = clamp(length(cards), 1, 10)
-	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
-	if(dcard > maxcards)
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
+	if(isnull(dcard))
 		return
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
@@ -228,8 +233,10 @@
 	var/mob/living/user = usr
 	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
+
+		if(user)
+			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		cooldown = world.time
 
 
@@ -240,7 +247,7 @@
 	if(!ishuman(M))
 		return
 
-	if(istype(over, /obj/screen))
+	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
 		switch(over.name)
@@ -350,9 +357,9 @@
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/t in cards)
-		dat += "<a href='?src=[UID()];pick=[t]'>The [t]</a><br>"
+		dat += "<a href='byond://?src=[UID()];pick=[t]'>The [t]</a><br>"
 	dat += "Which card will you remove next?<br>"
-	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
+	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_content(dat)
 	popup.open()
@@ -453,7 +460,7 @@
 	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(length(cards), 5)
-	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
+	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
 	if(discards > maxcards)
 		return
 	for(var/i in 1 to discards)
@@ -497,7 +504,7 @@
 	if(length(cards) <= 2)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	..()
 
 /obj/item/cardhand/update_name()

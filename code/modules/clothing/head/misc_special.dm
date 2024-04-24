@@ -75,7 +75,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/living/carbon/human/M = location
-		if(M.l_hand == src || M.r_hand == src || M.head == src)
+		if(M.is_holding(src) || M.head == src)
 			location = M.loc
 
 	if(isturf(location))
@@ -216,7 +216,7 @@
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(

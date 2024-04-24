@@ -283,7 +283,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
 "br" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bx" = (
@@ -428,9 +428,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "lM" = (
@@ -546,9 +546,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "TW" = (

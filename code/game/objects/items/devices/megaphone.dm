@@ -56,10 +56,7 @@
 		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
 		return
 
-	var/message = input(user, "Shout a message:", "Megaphone") as text|null
-	if(!message)
-		return
-	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
+	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
 	if(!message)
 		return
 	message = capitalize(message)
@@ -86,7 +83,7 @@
 	for(var/obj/O in view(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='[span]'>[message]</span>"))
 
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
 			M.create_chat_message(user, message, FALSE, "big")
 

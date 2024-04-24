@@ -1,4 +1,3 @@
-//Wrench
 /obj/item/wrench
 	name = "wrench"
 	desc = "A wrench with common uses. Can be found in your hand."
@@ -21,9 +20,27 @@
 	tool_behaviour = TOOL_WRENCH
 
 /obj/item/wrench/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beating [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
-	return BRUTELOSS
+	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
+		return SHAME
+
+	if(!ishuman(user))
+		return BRUTELOSS
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
+	if(!head)
+		user.visible_message("<span class='suicide'>...but [user.p_they()] [user.p_are()] already headless! How embarassing.</span>")
+		return SHAME
+
+	head.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
+
+	if(user.stat != DEAD)
+		user.visible_message("<span class='suicide'>...but [user.p_they()] didn't need it anyway! How embarassing.</span>")
+		return SHAME
+
+	return OXYLOSS
 
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
@@ -54,8 +71,8 @@
 	belt_icon = "hand_drill"
 	usesound = 'sound/items/drill_use.ogg'
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
-	force = 8 //might or might not be too high, subject to change
+	origin_tech = "materials=2;engineering=2"
+	force = 8
 	throwforce = 8
 	attack_verb = list("drilled", "screwed", "jabbed")
 	toolspeed = 0.25

@@ -9,7 +9,7 @@
 			handle_nutrition()
 			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 				return
-			reagents.remove_all(0.5 * REAGENTS_METABOLISM * reagents.reagent_list.len) //Slimes are such snowflakes
+			reagents.remove_all(0.5 * REAGENTS_METABOLISM * length(reagents.reagent_list)) //Slimes are such snowflakes
 			handle_targets()
 			if(!ckey)
 				handle_mood()
@@ -114,7 +114,7 @@
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
 		if(bodytemperature <= (T0C - 40)) // stun temperature
 			Tempstun = TRUE
-			throw_alert("temp", /obj/screen/alert/cold, 3)
+			throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 			to_chat(src,"<span class='userdanger'>You suddenly freeze up, you cannot move!</span>")
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
@@ -319,7 +319,7 @@
 
 					targets += L // Possible target found!
 
-				if(targets.len > 0)
+				if(length(targets) > 0)
 					if(attacked || rabid || hungry == 2)
 						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
 					else

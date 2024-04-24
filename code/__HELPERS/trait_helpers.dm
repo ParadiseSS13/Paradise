@@ -223,10 +223,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
+#define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
+#define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown
+#define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
-#define TRAIT_TABLE_LEAP "table_leap"
+#define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
+#define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
+#define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -243,6 +248,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item
 #define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
+/// Makes the item no longer spit out a visible message when thrown
+#define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
+/// Makes the item not display a message on storage insertion
+#define TRAIT_SILENT_INSERTION "silent_insertion"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -258,6 +267,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An item that can be pointed at mobs, while on non-help intent.
 #define TRAIT_CAN_POINT_WITH "can_point_with"
+
+///An organ that was inserted into a dead mob, that has not been revived yet
+#define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
+
+///An /obj that should not increase the "depth" of the search for adjacency,
+///e.g. a storage container or a modsuit.
+#define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
 
 //
 // common trait sources
@@ -349,6 +365,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_RADIOACTIVE_NEBULA "station_trait_radioactive_nebula"
 #define STATION_TRAIT_FORESTED "station_trait_forested"
 #define STATION_TRAIT_VENDING_SHORTAGE "station_trait_vending_shortage"
+#define STATION_TRAIT_MESSY "station_trait_messy"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
@@ -357,3 +374,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
+//***** EFFECT TRAITS *****//
+// Causes the effect to go through a teleporter instead of being deleted by it.
+#define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"

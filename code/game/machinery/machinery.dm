@@ -11,8 +11,6 @@
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
-	/// Does this machine require power?
-	var/requires_power = TRUE
 	/// How much power does this machine consume when it is idling
 	var/idle_power_consumption = 0
 	/// How much power does this machine consume when it is in use
@@ -94,7 +92,7 @@
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
 /obj/machinery/proc/has_power(channel = power_channel) // defaults to power_channel
-	if(!requires_power)
+	if(interact_offline)
 		return TRUE
 	if(!machine_powernet)
 		return FALSE
@@ -125,7 +123,7 @@
 */
 /obj/machinery/proc/power_change()
 	var/old_stat = stat
-	if(has_power(power_channel) || !requires_power) //if we don't require power, we don't give a shit about the power channel!
+	if(has_power(power_channel) || interact_offline) //if we don't require power, we don't give a shit about the power channel!
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
@@ -185,16 +183,10 @@
 	return !inoperable(additional_flags)
 
 /obj/machinery/proc/inoperable(additional_flags = 0)
-	return (stat & (NOPOWER|BROKEN|additional_flags))
+	return ((!interact_offline && (stat & NOPOWER)) || (stat & (BROKEN|additional_flags)))
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
-	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return UI_CLOSE
-
-	return ..()
-
-/obj/machinery/ui_status(mob/user, datum/ui_state/state)
-	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+	if(!is_operational())
 		return UI_CLOSE
 
 	return ..()
@@ -241,10 +233,10 @@
   * * user - the mob interacting with this machinery
   */
 /obj/machinery/proc/try_attack_hand(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() && !isobserver(user))
 		return TRUE
 
-	if(!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser() && !isobserver(user))
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return TRUE
 
@@ -258,16 +250,17 @@
 			return TRUE
 
 	if(panel_open)
-		add_fingerprint(user)
+		if(!isobserver(user))
+			add_fingerprint(user)
 		return FALSE
 
-	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
+	if(!is_operational())
 		return TRUE
 
 	return FALSE
 
 /obj/machinery/proc/is_operational()
-	return !(stat & (NOPOWER|BROKEN|MAINT))
+	return !inoperable(MAINT)
 
 /obj/machinery/CheckParts(list/parts_list)
 	..()
@@ -279,7 +272,7 @@
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
-		if(component_parts && component_parts.len)
+		if(component_parts && length(component_parts))
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
@@ -404,13 +397,26 @@
 						else if(B.rating <= A.rating)
 							continue
 						W.remove_from_storage(B, src)
-						W.handle_item_insertion(A, 1)
+						W.handle_item_insertion(A, user, TRUE)
 						component_parts -= A
 						component_parts += B
 						B.loc = null
 						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-						shouldplaysound = 1
+						shouldplaysound = TRUE
 						break
+			for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
+				for(var/obj/item/reagent_containers/glass/beaker/B in W.contents)
+					// If it's not better -> next content
+					if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
+						continue
+					W.remove_from_storage(B, src)
+					W.handle_item_insertion(A, TRUE)
+					component_parts -= A
+					component_parts += B
+					B.loc = null
+					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+					shouldplaysound = TRUE
+					break
 			RefreshParts()
 		else
 			to_chat(user, display_parts(user))

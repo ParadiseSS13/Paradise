@@ -18,31 +18,14 @@
 	return ..()
 
 /mob/living/brain/say_understands(other)//Goddamn is this hackish, but this say code is so odd
-	if(isAI(other))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
-	if(istype(other, /mob/living/silicon/decoy))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
-	if(ispAI(other))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
-	if(isrobot(other))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
+	if(!ismob(other))
+		return ..()
+	if(issilicon(other))
+		return istype(container, /obj/item/mmi)
 	if(ishuman(other))
-		return 1
+		return TRUE
 	if(isslime(other))
-		return 1
-	return ..()
+		return TRUE
 
 /mob/living/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
@@ -79,14 +62,13 @@ I'm using this for Stat to give it a more nifty interface to work with
 		var/obj/item/organ/internal/brain/B = loc
 		return B.dna.species.name
 
-/mob/living/brain/Stat()
-	..()
-	if(has_synthetic_assistance() && statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		if(ismecha(loc))
-			var/obj/mecha/M = loc
-			stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
-			stat("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
+/mob/living/brain/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(has_synthetic_assistance() && ismecha(loc))
+		var/obj/mecha/M = loc
+		status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
+		status_tab_data[++status_tab_data.len] = list("Exosuit Integrity:", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
 /mob/living/brain/can_safely_leave_loc()
 	return 0 //You're not supposed to be ethereal jaunting, brains

@@ -55,6 +55,13 @@ $border-radius: Input.$border-radius !default;
   word-wrap: break-word;
   overflow: hidden;
 
+  &::placeholder {
+    font-style: italic;
+    color: #777;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  // TODO: Remove with 516
   &:-ms-input-placeholder {
     font-style: italic;
     color: rgba(125, 125, 125, 0.75);

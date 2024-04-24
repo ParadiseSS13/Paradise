@@ -1,13 +1,18 @@
 /*
 CONTAINS:
-T-RAY
-DETECTIVE SCANNER
+T-RAY SCANNER
 HEALTH ANALYZER
-ROBOT ANALYZER
+MACHINE ANALYZER
 GAS ANALYZER
-PLANT ANALYZER
-REAGENT SCANNER
+REAGENT SCANNERS
+BODY SCANNERS
+SLIME SCANNER
 */
+
+/******************************/
+/***	T-RAY SCANNER		***/
+/******************************/
+
 /obj/item/t_scanner
 	name = "T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
@@ -66,18 +71,22 @@ REAGENT SCANNER
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
+/******************************/
+/***	HEALTH ANALYZER		***/
+/******************************/
+
 /proc/get_chemscan_results(mob/living/user, mob/living/M)
 	var/msgs = list()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounceic'>OVERDOSING</span>" : ".</span>"]"
 			else
 				msgs += "<span class='notice'>Subject contains no reagents.</span>"
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
@@ -329,9 +338,13 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
+/******************************/
+/***	MACHINE ANALYZER	***/
+/******************************/
+
 /obj/item/robotanalyzer
-	name = "cyborg analyzer"
-	desc = "A hand-held scanner able to diagnose robotic injuries."
+	name = "machine analyzer"
+	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "robotanalyzer"
 	item_state = "analyzer"
@@ -343,18 +356,36 @@ REAGENT SCANNER
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
 
-/obj/item/robotanalyzer/attack(mob/living/M, mob/living/user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		var/list/msgs = list()
-		user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-		msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-		msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
-		msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
-		msgs += "<span class='info'>Chassis Temperature: ???</span>"
-		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
-		return
+/obj/item/robotanalyzer/proc/handle_clumsy(mob/living/user)
+	var/list/msgs = list()
+	user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
+	msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
+	msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+	msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
+	msgs += "<span class='info'>Chassis Temperature: ???</span>"
+	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>", "<span class='notice'>You have analyzed [M]'s components.</span>")
+/obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
+		handle_clumsy(user)
+		return
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with [src].</span>", "<span class='notice'>You analyze [M]'s components with [src].</span>")
+	machine_scan(user, M)
+	add_fingerprint(user)
+
+/obj/item/robotanalyzer/proc/machine_scan(mob/user, obj/machinery/M)
+	if(M.obj_integrity == M.max_integrity)
+		to_chat(user, "<span class='info'>[M] is at full integrity.</span>")
+		return
+	to_chat(user, "<span class='info'>Structural damage detected! [M]'s overall estimated integrity is [round((M.obj_integrity / M.max_integrity) * 100)]%.</span>")
+	if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
+		to_chat(user, "<span class='warning'>Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair.</span>")
+
+/obj/item/robotanalyzer/attack(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
+		handle_clumsy(user)
+		return
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with [src].</span>", "<span class='notice'>You analyze [M]'s components with [src].</span>")
 	robot_healthscan(user, M)
 	add_fingerprint(user)
 
@@ -423,7 +454,7 @@ REAGENT SCANNER
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level <= 1)
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level > 1)
 						continue
 					organ_found = TRUE
 					msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
@@ -453,6 +484,10 @@ REAGENT SCANNER
 			msgs += "\t Damage Specifics: <font color='#FFA500'>[burn]</font> - <font color='red'>[brute]</font>"
 
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+
+/******************************/
+/***	GAS ANALYZER		***/
+/******************************/
 
 /obj/item/analyzer
 	name = "analyzer"
@@ -554,13 +589,13 @@ REAGENT SCANNER
 
 		for(var/V in SSweather.processing)
 			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
+			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == WEATHER_END_STAGE))
 				ongoing_weather = W
 				break
 
 		if(ongoing_weather)
-			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
+			if((ongoing_weather.stage == WEATHER_MAIN_STAGE) || (ongoing_weather.stage == WEATHER_WIND_DOWN_STAGE))
+				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == WEATHER_MAIN_STAGE ? "already here!" : "winding down."]</span>")
 				return
 
 			to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
@@ -594,6 +629,10 @@ REAGENT SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
+/******************************/
+/***	REAGENT SCANNERS	***/
+/******************************/
+
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
@@ -625,7 +664,7 @@ REAGENT SCANNER
 	if(!isnull(O.reagents))
 		var/dat = ""
 		var/blood_type = ""
-		if(O.reagents.reagent_list.len > 0)
+		if(length(O.reagents.reagent_list) > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
@@ -671,6 +710,9 @@ REAGENT SCANNER
 /obj/item/reagent_scanner/ui_action_click()
 	print_report()
 
+/******************************/
+/***	SLIME SCANNER		***/
+/******************************/
 /obj/item/slime_scanner
 	name = "slime scanner"
 	icon = 'icons/obj/device.dmi'
@@ -725,6 +767,9 @@ REAGENT SCANNER
 		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
 	to_chat(user, "========================")
 
+/******************************/
+/***	BODY ANALYZERS		***/
+/******************************/
 /obj/item/bodyanalyzer
 	name = "handheld body analyzer"
 	desc = "A handheld scanner capable of deep-scanning an entire body."

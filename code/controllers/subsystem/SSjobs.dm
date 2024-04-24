@@ -12,6 +12,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
+	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
@@ -24,6 +25,8 @@ SUBSYSTEM_DEF(jobs)
 	var/late_arrivals_spawning = FALSE
 	/// Do we spawn people drunkenly due to the party last night?
 	var/drunken_spawning = FALSE
+	/// A list of minds that have failed to roll antagonist. Cleared when job selection finishes.
+	var/list/failed_head_antag_roll = list()
 
 /datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
@@ -41,7 +44,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/SetupOccupations(list/faction = list("Station"))
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
-	if(!all_jobs.len)
+	if(!length(all_jobs))
 		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found.</span>")
 		return 0
 
@@ -60,12 +63,12 @@ SUBSYSTEM_DEF(jobs)
 	job_debug.Add(text)
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
-	if(!occupations.len)
+	if(!length(occupations))
 		SetupOccupations()
 	return name_occupations[rank]
 
 /datum/controller/subsystem/jobs/proc/GetJobType(jobtype)
-	if(!occupations.len)
+	if(!length(occupations))
 		SetupOccupations()
 	return type_occupations[jobtype]
 
@@ -152,6 +155,13 @@ SUBSYSTEM_DEF(jobs)
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
+			if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+				if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
+					Debug("FOC Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+					SSjobs.failed_head_antag_roll |= player.mind
+					continue
+				else
+					probability_of_antag_role_restriction /= 10
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
@@ -194,7 +204,13 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
-
+		if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions))
+			if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
+				Debug("GRJ Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+				SSjobs.failed_head_antag_roll |= player.mind
+				continue
+			else
+				probability_of_antag_role_restriction /= 10
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			Debug("GRJ Random job given, Player: [player], Job: [job]")
 			AssignRole(player, job.title)
@@ -219,7 +235,7 @@ SUBSYSTEM_DEF(jobs)
 			if(!job)
 				continue
 			var/list/candidates = FindOccupationCandidates(job, level)
-			if(!candidates.len)
+			if(!length(candidates))
 				continue
 
 			var/list/filteredCandidates = list()
@@ -230,7 +246,7 @@ SUBSYSTEM_DEF(jobs)
 					continue
 				filteredCandidates += V
 
-			if(!filteredCandidates.len)
+			if(!length(filteredCandidates))
 				continue
 
 			var/mob/new_player/candidate = pick(filteredCandidates)
@@ -247,7 +263,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 		var/list/candidates = FindOccupationCandidates(job, level)
-		if(!candidates.len)
+		if(!length(candidates))
 			continue
 		var/mob/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
@@ -266,7 +282,7 @@ SUBSYSTEM_DEF(jobs)
 		for(var/level = 1 to 3)
 			var/list/candidates = list()
 			candidates = FindOccupationCandidates(job, level)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/new_player/candidate = pick(candidates)
 				if(AssignRole(candidate, "AI"))
 					ai_selected++
@@ -301,7 +317,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
-	Debug("DO, Len: [unassigned.len]")
+	Debug("DO, Len: [length(unassigned)]")
 	if(!length(unassigned))
 		return FALSE
 
@@ -314,7 +330,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Assistant Check 1")
 	var/datum/job/ast = new /datum/job/assistant()
 	var/list/assistant_candidates = FindOccupationCandidates(ast, 3)
-	Debug("AC1, Candidates: [assistant_candidates.len]")
+	Debug("AC1, Candidates: [length(assistant_candidates)]")
 	for(var/mob/new_player/player in assistant_candidates)
 		Debug("AC1 pass, Player: [player]")
 		AssignRole(player, "Assistant")
@@ -376,12 +392,17 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
-
 					// If the job isn't filled
 					if(job.is_spawn_position_available())
+						if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+							if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
+								Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+								SSjobs.failed_head_antag_roll |= player.mind
+								continue
+							else
+								probability_of_antag_role_restriction /= 10
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
 						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
@@ -407,6 +428,9 @@ SUBSYSTEM_DEF(jobs)
 					AssignRole(player, "Assistant")
 			else
 				AssignRole(player, "Assistant")
+		else if(length(player.mind.restricted_roles))
+			stack_trace("A player with `restricted_roles` had no `special_role`. They are likely an antagonist, but failed to spawn in.") // this can be fixed by assigning a special_role in pre_setup of the gamemode
+			message_admins("A player mind ([player.mind]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
@@ -418,6 +442,7 @@ SUBSYSTEM_DEF(jobs)
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
+	failed_head_antag_roll = list()
 	return TRUE
 
 /datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
@@ -619,7 +644,7 @@ SUBSYSTEM_DEF(jobs)
 
 //fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	if(!job.has_bank_account)
+	if(job && !job.has_bank_account)
 		return
 	var/starting_balance = job?.department_account_access ? COMMAND_MEMBER_STARTING_BALANCE : CREW_MEMBER_STARTING_BALANCE
 	var/datum/money_account/account = GLOB.station_money_database.create_account(H.real_name, starting_balance, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)

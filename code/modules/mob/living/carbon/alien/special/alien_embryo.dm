@@ -84,7 +84,7 @@
 		// he will become the alien but if he doesn't then we will set the stage
 		// to 2, so we don't do a process heavy check everytime.
 
-		if(candidates.len)
+		if(length(candidates))
 			C = pick(candidates)
 		else if(owner.client)
 			C = owner.client
@@ -98,7 +98,7 @@
 
 		spawn(6)
 			owner.cut_overlay(overlay)
-			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
+			var/mob/living/carbon/alien/larva/new_xeno = new(get_turf(owner))
 			new_xeno.key = C.key
 			dust_if_respawnable(C)
 			if(SSticker && SSticker.mode)

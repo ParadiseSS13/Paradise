@@ -4,9 +4,6 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
-/datum/game_mode
-	var/list/datum/mind/ert = list()
-
 GLOBAL_LIST_EMPTY(response_team_members)
 GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
 GLOBAL_DATUM(active_team, /datum/response_team)
@@ -63,7 +60,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", null, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -112,10 +109,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_species_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
 
-	for(var/i = 1, i <= response_team_members.len, i++)
-		if(spawn_index > GLOB.emergencyresponseteamspawn.len)
+	for(var/i = 1, i <= length(response_team_members), i++)
+		if(spawn_index > length(GLOB.emergencyresponseteamspawn))
 			break
-		if(!GLOB.active_team.get_slot_list().len)
+		if(!length(GLOB.active_team.get_slot_list()))
 			break
 		var/gender_pref = ert_gender_prefs[i].result
 		var/species_pref = ert_species_prefs[i].result
@@ -375,3 +372,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	frequency = ERT_FREQ
 	icon_state = "radio"
 	freqlock = TRUE
+
+#undef ERT_TYPE_AMBER
+#undef ERT_TYPE_RED
+#undef ERT_TYPE_GAMMA

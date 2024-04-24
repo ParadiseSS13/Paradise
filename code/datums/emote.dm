@@ -280,7 +280,7 @@
 		runechat_text = "[copytext(text, 1, 101)]..."
 	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
-	for(var/mob/O in can_see)
+	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
 			for(var/obj/item/holder/H in O.contents)
 				H.show_message(text, EMOTE_VISIBLE)
@@ -521,6 +521,11 @@
 		var/mob/living/sender = user
 		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
+		if(isbrain(sender))
+			var/mob/living/brain/B = user
+			if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+				var/obj/item/mmi/robotic_brain/robobrain = B.container
+				return !robobrain.silenced
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))

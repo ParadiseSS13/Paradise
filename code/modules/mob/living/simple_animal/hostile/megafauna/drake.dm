@@ -619,7 +619,7 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
-	var/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src)
+	var/datum/spell/aoe/repulse/spacedragon/repulse_action = new /datum/spell/aoe/repulse/spacedragon(src)
 	repulse_action.action.Grant(src)
 	mob_spell_list += repulse_action
 	. = ..()
@@ -638,7 +638,7 @@ Difficulty: Medium
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
 
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon
+/datum/spell/aoe/repulse/spacedragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/magic/tail_swing.ogg'
@@ -651,7 +651,7 @@ Difficulty: Medium
 	action_background_icon_state = "bg_alien"
 	aoe_range = 1
 
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
+/datum/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, TRUE)
@@ -660,3 +660,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE

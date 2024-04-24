@@ -34,7 +34,6 @@
 #define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
@@ -157,7 +156,7 @@
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
 	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
-	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+	var/heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -329,7 +328,7 @@
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
-	radio.autosay(speaking, name, null, list(z))
+	radio.autosay(speaking, name, null)
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(!processes) // Stop exploding if you're frozen by an admin, damn you
 			cut_overlay(causality_field, TRUE)
@@ -337,7 +336,7 @@
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
+			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -349,7 +348,7 @@
 			speaking = "[DisplayTimeText(i, TRUE)] remain before causality stabilization."
 		else
 			speaking = "[i*0.1]..."
-		radio.autosay(speaking, name, null, list(z))
+		radio.autosay(speaking, name, null)
 		sleep(10)
 
 	explode()
@@ -649,27 +648,27 @@
 
 			//Oh shit it's bad, time to freak out
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Integrity: [get_integrity()]%", name, null, list(z))
+				radio.autosay("[emergency_alert] Integrity: [get_integrity()]%", name, null)
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 					has_reached_emergency = TRUE
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("[warning_alert] Integrity: [get_integrity()]%", name, "Engineering")
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("[safe_alert] Integrity: [get_integrity()]%", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
 
 			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("Warning: Hyperstructure has reached dangerous power level.", name, "Engineering", list(z))
+				radio.autosay("Warning: Hyperstructure has reached dangerous power level.", name, "Engineering")
 				if(powerloss_inhibitor < 0.5)
-					radio.autosay("DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", name, "Engineering", list(z))
+					radio.autosay("DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", name, "Engineering")
 
 			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				radio.autosay("Warning: Critical coolant mass reached.", name, "Engineering", list(z))
+				radio.autosay("Warning: Critical coolant mass reached.", name, "Engineering")
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
@@ -854,7 +853,7 @@
 		user.dust()
 		if(power_changes)
 			matter_power += 200
-	else if(istype(AM, /obj/singularity))
+	else if(istype(AM, /obj/singularity) || istype(AM, /obj/machinery/field/containment))
 		return
 	else if(isobj(AM))
 		if(!iseffect(AM))
@@ -1026,7 +1025,8 @@
 	moveable = FALSE
 	anchored = TRUE
 
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal //Hugbox shard with crystal visuals, used in the Supermatter/Hyperfractal shuttle
+/// Hugbox shard with crystal visuals, used in the Supermatter/Hyperfractal shuttle
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal
 	name = "supermatter crystal"
 	base_icon_state = "darkmatter"
 	icon_state = "darkmatter"
@@ -1212,7 +1212,7 @@
 	next_event_time = fake_time + world.time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
-	if(has_been_powered == FALSE)
+	if(!has_been_powered)
 		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()
@@ -1258,3 +1258,47 @@
 #undef MACHINERY
 #undef OBJECT
 #undef LOWEST
+
+#undef PLASMA_HEAT_PENALTY
+#undef OXYGEN_HEAT_PENALTY
+#undef CO2_HEAT_PENALTY
+#undef NITROGEN_HEAT_PENALTY
+#undef OXYGEN_TRANSMIT_MODIFIER
+#undef PLASMA_TRANSMIT_MODIFIER
+#undef N2O_HEAT_RESISTANCE
+#undef POWERLOSS_INHIBITION_GAS_THRESHOLD
+#undef POWERLOSS_INHIBITION_MOLE_THRESHOLD
+#undef POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD
+#undef MOLE_CRUNCH_THRESHOLD
+#undef MOLE_PENALTY_THRESHOLD
+#undef MOLE_HEAT_PENALTY
+#undef EVENT_POWER_PENALTY_THRESHOLD
+#undef POWER_PENALTY_THRESHOLD
+#undef SEVERE_POWER_PENALTY_THRESHOLD
+#undef CRITICAL_POWER_PENALTY_THRESHOLD
+#undef DAMAGE_HARDCAP
+#undef DAMAGE_INCREASE_MULTIPLIER
+#undef THERMAL_RELEASE_MODIFIER
+#undef PLASMA_RELEASE_MODIFIER
+#undef OXYGEN_RELEASE_MODIFIER
+#undef REACTION_POWER_MODIFIER
+#undef MATTER_POWER_CONVERSION
+#undef DETONATION_RADS
+#undef DETONATION_HALLUCINATION
+#undef WARNING_DELAY
+#undef SUPERMATTER_DELAM_PERCENT
+#undef SUPERMATTER_EMERGENCY_PERCENT
+#undef SUPERMATTER_DANGER_PERCENT
+#undef SUPERMATTER_WARNING_PERCENT
+#undef CRITICAL_TEMPERATURE
+#undef SUPERMATTER_COUNTDOWN_TIME
+#undef SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN
+#undef DEFAULT_ZAP_ICON_STATE
+#undef SLIGHTLY_CHARGED_ZAP_ICON_STATE
+#undef OVER_9000_ZAP_ICON_STATE
+#undef MAX_SPACE_EXPOSURE_DAMAGE
+#undef SUPERMATTER_COLOUR
+#undef SUPERMATTER_RED
+#undef SUPERMATTER_TESLA_COLOUR
+#undef SUPERMATTER_SINGULARITY_RAYS_COLOUR
+#undef SUPERMATTER_SINGULARITY_LIGHT_COLOUR

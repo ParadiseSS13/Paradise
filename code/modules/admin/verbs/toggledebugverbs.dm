@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	/client/proc/forceEvent,
 	/client/proc/admin_redo_space_transitions,
 	/client/proc/make_turf_space_map,
+	/client/proc/cmd_clean_radiation,
 ))
 
 // Would be nice to make this a permanent admin pref so we don't need to click it each time
@@ -26,6 +27,6 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	verbs += GLOB.admin_verbs_show_debug_verbs
+	add_verb(src, GLOB.admin_verbs_show_debug_verbs)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

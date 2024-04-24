@@ -40,11 +40,11 @@
 		if(!our_cable || !our_cable.powernet || !our_cable.powernet.available_power)
 			return
 		var/area/to_deduct_from = get_area(our_cable)
-		thing_were_gonna_shock.electrocute_act(shock_damage, src)
+		thing_were_gonna_shock.electrocute_act(shock_damage, source)
 		to_deduct_from.powernet.use_active_power(energy_cost)
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	else
-		thing_were_gonna_shock.electrocute_act(shock_damage, src)
+		thing_were_gonna_shock.electrocute_act(shock_damage, source)
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	COOLDOWN_START(src, last_shock, delay_between_shocks)
 

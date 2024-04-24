@@ -6,10 +6,6 @@ GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
-//Checks if the client already has a text input open
-/client/proc/checkTyping()
-	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
-
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
 	set category = "OOC"
@@ -34,7 +30,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		msg = typing_input(src.mob, "", "ooc \"text\"")
 
-	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	msg = trim(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
 
@@ -95,7 +91,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = holder.fakekey
 
 			if(GLOB.configuration.general.enable_ooc_emoji)
-				msg = "<span class='emoji_enabled'>[msg]</span>"
+				msg = emoji_parse(msg)
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
@@ -190,7 +186,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		msg = typing_input(src.mob, "Local OOC, seen only by those in view.", "looc \"text\"")
 
-	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	msg = trim(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
 
@@ -258,7 +254,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -273,14 +269,25 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	var/list/map_size = splittext(sizes["paramapwindow.size"], "x")
 
-	// Looks like we didn't expect paramapwindow.size to be "ixj" where i and j are numbers.
-	// If we don't get our expected 2 outputs, let's give some useful error info.
-	if(length(map_size) != 2)
-		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+	// Gets the type of zoom we're currently using
+	// If it's 0 we do our pixel calculations based off the size of the mapwindow
+	// If it's not, we already know how big we want our window to be, since zoom is the exact pixel ratio of the map
+	var/icon_size = params2list(winget(src, "mainwindow.mainvsplit;paramapwindow;map", "icon-size")) || 0
+	var/zoom_value = text2num(icon_size["map.icon-size"]) / 32
 
+	var/desired_width = 0
+	if(zoom_value)
+		desired_width = round(view_size[1] * zoom_value * world.icon_size)
+	else
 
-	var/height = text2num(map_size[2])
-	var/desired_width = round(height * aspect_ratio)
+		// Looks like we didn't expect paramapwindow.size to be "ixj" where i and j are numbers.
+		// If we don't get our expected 2 outputs, let's give some useful error info.
+		if(length(map_size) != 2)
+			CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+
+		var/height = text2num(map_size[2])
+		desired_width = round(height * aspect_ratio)
+
 	if(text2num(map_size[1]) == desired_width)
 		// Nothing to do.
 		return
@@ -324,3 +331,11 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(eyeobj)
 		return eyeobj
 	return src
+
+/client/verb/fix_stat_panel()
+	set name = "Fix Stat Panel"
+	set hidden = TRUE
+
+	init_verbs()
+
+#undef DEFAULT_PLAYER_OOC_COLOUR

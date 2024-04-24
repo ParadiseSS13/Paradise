@@ -16,7 +16,6 @@
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
 	set category = "AI IM"
 	set name = "Send PDA Message"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -34,14 +33,13 @@
 /obj/item/pda/silicon/verb/cmd_show_message_log()
 	set category = "AI IM"
 	set name = "Show Message Log"
-	set src in usr
 
 	if(!can_use())
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
-	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
+	var/HTML = "<html><meta charset='utf-8'><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
 			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=[UID()];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
@@ -53,7 +51,6 @@
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
 	set category = "AI IM"
 	set name = "Toggle Sender/Receiver"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -65,7 +62,6 @@
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
 	set category = "AI IM"
 	set name = "Toggle Ringer"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -77,7 +73,6 @@
 	if((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
-	return
 
 /obj/item/pda/silicon/ai/can_use()
 	var/mob/living/silicon/ai/AI = usr

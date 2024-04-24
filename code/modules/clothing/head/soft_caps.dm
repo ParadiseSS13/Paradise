@@ -32,7 +32,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"
@@ -115,6 +115,20 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
+
+/obj/item/clothing/head/soft/janitorgrey
+	name = "grey janitor's cap"
+	desc = "It's a grey baseball hat with a purple custodial shield."
+	icon_state = "janitorgreysoft"
+	item_color = "janitorgrey"
+	dog_fashion = /datum/dog_fashion/head/softcap
+
+/obj/item/clothing/head/soft/janitorpurple
+	name = "purple janitor's cap"
+	desc = "It's a purple baseball hat with a mint service shield."
+	icon_state = "janitorpurplesoft"
+	item_color = "janitorpurple"
+	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"

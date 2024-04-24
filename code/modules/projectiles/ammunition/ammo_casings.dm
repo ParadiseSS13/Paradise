@@ -1,18 +1,21 @@
 /obj/item/ammo_casing/a357
-	desc = "A .357 bullet casing."
+	name = ".357 magnum round"
+	desc = "A .357 magnum cartridge, often used in revolvers. Very deadly."
 	caliber = "357"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/rubber9mm
-	desc = "A 9mm rubber bullet casing."
+	name = "9mm rubber round"
+	desc = "A 9mm pistol cartridge. This one has a rubber tip for less-lethal takedowns."
 	caliber = "9mm"
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet4
 
 /obj/item/ammo_casing/a762
-	desc = "A 7.62mm bullet casing."
+	name = "7.62mm round"
+	desc = "A 7.62mm rifle cartridge, often used in Soviet rifles."
 	icon_state = "762-casing"
 	caliber = "a762"
 	projectile_type = /obj/item/projectile/bullet
@@ -20,10 +23,13 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/a762/enchanted
+	name = "enchanted 7.62 round"
+	desc = "A 7.62mm rifle cartridge. It sparkles with magic."
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/a50
-	desc = "A .50AE bullet casing."
+	name = ".50 AE round"
+	desc = "A .50AE pistol cartridge, used in large caliber handguns."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -37,62 +43,86 @@
 	projectile_type = /obj/item/projectile/bullet/mime/fake
 
 /obj/item/ammo_casing/c10mm
-	desc = "A 10mm bullet casing."
+	name = "10mm round"
+	desc = "A 10mm pistol cartridge, commonly used in Syndicate sidearms."
 	caliber = "10mm"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c10mm/ap
+	name = "10mm armor piercing round"
+	desc = "A 10mm pistol cartridge, with a Teflon coating to increase armor penetration, at the cost of damage."
 	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
 
 /obj/item/ammo_casing/c10mm/fire
+	name = "10mm incendiary round"
+	desc = "A 10mm pistol cartridge, containing a payload of flammable chemicals."
 	projectile_type = /obj/item/projectile/bullet/midbullet3/fire
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c10mm/hp
+	name = "10mm hollow point round"
+	desc = "A 10mm pistol cartridge, with an expanding tip that greatly increases stopping power, at the cost of armor penetration."
 	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
 
 /obj/item/ammo_casing/overgrown
+	name = "overgrown round"
+	desc = "A pistol cartridge... probably. Why does it resemble a pea?"
 	projectile_type = /obj/item/projectile/bullet/midbullet3/overgrown
 	icon_state = "peashooter_bullet"
 
 /obj/item/ammo_casing/c9mm
-	desc = "A 9mm bullet casing."
+	name = "9mm round"
+	desc = "A 9mm pistol cartridge, commonly used in handguns and submachine guns."
 	caliber = "9mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c9mm/ap
+	name = "9mm armor piercing round"
+	desc = "A 9mm pistol cartridge, with a Teflon coating to increase armor penetration, at the cost of stopping power."
 	projectile_type = /obj/item/projectile/bullet/armourpiercing
 
 /obj/item/ammo_casing/c9mm/tox
+	name = "9mm toxic round"
+	desc = "A 9mm pistol cartridge, tipped with lethal toxins. Likely a war crime."
 	projectile_type = /obj/item/projectile/bullet/toxinbullet
 
 /obj/item/ammo_casing/c9mm/inc
+	name = "9mm incendiary round"
+	desc = "A 9mm pistol cartridge, tipped with an incendiary chemical payload."
 	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c46x30mm
-	desc = "A 4.6x30mm bullet casing."
+	name = "4.6x30mm round"
+	desc = "A 4.6x30mm PDW cartridge, commonly used in submachine guns and small-caliber rifles."
 	caliber = "4.6x30mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c46x30mm/ap
+	name = "4.6x30mm armor piercing round"
+	desc = "A 4.6x30mm PDW cartridge, with a tungsten core to increase armor penetration, at the cost of stopping power."
 	projectile_type = /obj/item/projectile/bullet/armourpiercing/wt550
 
 /obj/item/ammo_casing/c46x30mm/tox
+	name = "4.6x30mm toxic round"
+	desc = "A 4.6x30mm PDW cartridge, tipped with lethal toxins. Probably a war crime."
 	projectile_type = /obj/item/projectile/bullet/toxinbullet
 
 /obj/item/ammo_casing/c46x30mm/inc
+	name = "4.6x30 incendiary round"
+	desc = "a 4.6x30mm PDW cartridge, tipped with an incendiary chemical payload."
 	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/rubber45
-	desc = "A .45 rubber bullet casing."
+	name = ".45 rubber round"
+	desc = "A .45 caliber pistol cartridge. Features a rubber bullet for less-lethal takedowns."
 	caliber = ".45"
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/midbullet_r
@@ -100,7 +130,8 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c45
-	desc = "A .45 bullet casing."
+	name = ".45 round"
+	desc = "A .45 caliber pistol cartridge, commonly used in pistols and submachine guns."
 	caliber = ".45"
 	projectile_type = /obj/item/projectile/bullet/midbullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -110,7 +141,8 @@
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 
 /obj/item/ammo_casing/n762
-	desc = "A 7.62x38mmR bullet casing."
+	name = "7.62x38mmR round"
+	desc = "A 7.62x38mmR pistol cartridge, commonly used by antique revolvers."
 	caliber = "n762"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -128,7 +160,7 @@
 
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
-	desc = "A 12 gauge lead slug."
+	desc = "A 12 gauge lead slug. Fires a single solid projectile."
 	icon_state = "blshell"
 	caliber = "shotgun"
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
@@ -137,10 +169,9 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
-	desc = "A 12 gauge buckshot shell."
+	desc = "A 12 gauge buckshot shell. Fires a spread of lethal shot."
 	icon_state = "gshell"
 	projectile_type = /obj/item/projectile/bullet/pellet
 	pellets = 6
@@ -148,7 +179,7 @@
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
-	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
+	desc = "A 12 gauge shell filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "cshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
@@ -158,7 +189,7 @@
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
-	desc = "A weak beanbag slug for riot control."
+	desc = "A 12 gauge shell loaded with a beanbag slug for less-lethal takedowns."
 	icon_state = "bshell"
 	projectile_type = /obj/item/projectile/bullet/weakbullet
 	materials = list(MAT_METAL=250)
@@ -167,7 +198,7 @@
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
-	desc = "A stunning taser slug."
+	desc = "A 12 gauge shell loaded with a taser cartridge, somehow."
 	icon_state = "stunshell"
 	projectile_type = /obj/item/projectile/bullet/stunshot
 	materials = list(MAT_METAL=250)
@@ -178,35 +209,33 @@
 
 /obj/item/ammo_casing/shotgun/meteorslug
 	name = "meteorslug shell"
-	desc = "A shotgun shell rigged with CMC technology, which launches a massive slug when fired."
+	desc = "A 12 gauge shell rigged with CMC technology, which launches a massive slug when fired."
 	icon_state = "mshell"
 	projectile_type = /obj/item/projectile/bullet/meteorshot
 
 /obj/item/ammo_casing/shotgun/pulseslug
 	name = "proto pulse slug"
-	desc = "A delicate device which can be loaded into a shotgun. The primer acts as a button which triggers the gain medium and fires a powerful \
-	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
-	would have difficulty with."
+	desc = "A 12 gauge shell loaded with a powerful energy emitter, firing a devastating pulse blast."
 	icon_state = "pshell"
 	projectile_type = /obj/item/projectile/beam/pulse/shot
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
-	desc = "An incendiary-coated shotgun slug."
+	desc = "A 12 gauge slug shell containing an incendiary chemical payload."
 	icon_state = "ishell"
 	projectile_type = /obj/item/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/frag12
 	name = "\improper FRAG-12 slug"
-	desc = "A high explosive breaching round for a 12 gauge shotgun."
+	desc = "A 12 gauge shell, loaded with a high-explosive slug."
 	icon_state = "heshell"
 	projectile_type = /obj/item/projectile/bullet/frag12
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	name = "dragonsbreath shell"
-	desc = "A shotgun shell which fires a spread of incendiary pellets."
+	desc = "A 12 gauge shell which fires a spread of incendiary pellets."
 	icon_state = "ishell2"
 	projectile_type = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	pellets = 4
@@ -215,9 +244,7 @@
 
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
-	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
-	The unique properties of the crystal splot the pulse into a spread of individually weaker bolts."
-	icon_state = "ionshell"
+	desc = "An advanced 12 gauge shell that fires a spread of ion bolts."
 	projectile_type = /obj/item/projectile/ion/weak
 	pellets = 4
 	variance = 35
@@ -227,7 +254,7 @@
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
-	desc = "An advanced shotgun shell that uses a multitude of lenses to split a high-powered laser into eight small pellets."
+	desc = "An advanced 12 gauge shell that uses a multitude of lenses to split a high-powered laser into eight small beams."
 	icon_state = "lshell"
 	projectile_type = /obj/item/projectile/beam/scatter
 	pellets = 8
@@ -238,13 +265,13 @@
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
-	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
+	desc = "An empty 12 gauge shell, ready to be loaded with all manner of projectiles."
 	icon_state = "cshell"
 	projectile_type = null
 
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"
-	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
+	desc = "A 12 gauge shell loaded with a hypodermic needle. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
 	container_type = OPENCONTAINER
 	projectile_type = /obj/item/projectile/bullet/dart
@@ -271,7 +298,7 @@
 
 /obj/item/ammo_casing/shotgun/tranquilizer
 	name = "tranquilizer darts"
-	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
+	desc = "A 12 gauge dart shell loaded with powerful tranquilizers."
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -280,19 +307,21 @@
 
 /obj/item/ammo_casing/shotgun/confetti
 	name = "confettishot"
-	desc = "It's party time!"
+	desc = "A 12 gauge shell loaded with... confetti?"
 	icon_state = "partyshell"
 	projectile_type = /obj/item/projectile/bullet/confetti
 
 /obj/item/ammo_casing/a556
-	desc = "A 5.56mm bullet casing."
+	name = "5.56mm round"
+	desc = "A 5.56mm rifle round, produced in incredible quantities by the Trans-Solar Federation."
 	caliber = "a556"
 	projectile_type = /obj/item/projectile/bullet/heavybullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/a545
-	desc = "A 5.45x39mm bullet casing."
+	name = "5.45x39mm round"
+	desc = "A 5.45x39mm rifle round, used by the elite marines of the USSP."
 	caliber = "a545"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -300,15 +329,15 @@
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
-	desc = "A weak beanbag shell."
+	desc = "A 12 gauge beanbag slug. Smells strongly of alcohol."
 	icon_state = "bshell"
 	projectile_type = /obj/item/projectile/bullet/weakbullet/booze
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/rocket
-	name = "rocket shell"
-	desc = "A high explosive designed to be fired from a launcher."
+	name = "rocket propelled grenade"
+	desc = "A high explosive rocket meant to be fired from a launcher."
 	icon_state = "rocketshell"
 	projectile_type = /obj/item/projectile/missile
 	caliber = "rocket"
@@ -325,15 +354,16 @@
 	return FALSE
 
 /obj/item/ammo_casing/caseless/a75
-	desc = "A .75 bullet casing."
+	name = ".75 gyrojet round"
+	desc = "A .75 caliber gyrojet cartridge, for use in experimental weaponry. There's a Sunburst Heavy Industries logo on the side."
 	caliber = "75"
 	projectile_type = /obj/item/projectile/bullet/gyro
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/a40mm
-	name = "40mm HE shell"
-	desc = "A cased high explosive grenade that can only be activated once fired out of a grenade launcher."
+	name = "40mm HE grenade"
+	desc = "A 40mm high-explosive grenade round, meant to be fired from a grenade launcher."
 	caliber = "40mm"
 	icon_state = "40mmHE"
 	projectile_type = /obj/item/projectile/bullet/a40mm
@@ -442,7 +472,7 @@
 
 /obj/item/ammo_casing/shotgun/assassination
 	name = "assassination shell"
-	desc = "A specialist shrapnel shell that has been laced with a silencing toxin."
+	desc = "A 12 gauge buckshot shell containing a powerful silencing toxin."
 	projectile_type = /obj/item/projectile/bullet/pellet/assassination
 	muzzle_flash_effect = null
 	icon_state = "gshell"
@@ -450,6 +480,7 @@
 	variance = 25
 
 /obj/item/ammo_casing/cap
+	name = "cap"
 	desc = "A cap for children toys."
 	caliber = "cap"
 	projectile_type = /obj/item/projectile/bullet/cap
@@ -458,6 +489,7 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/laser
+	name = "caseless laser round"
 	desc = "An experimental laser casing, designed to vaporize when fired."
 	caliber = "laser"
 	projectile_type = /obj/item/projectile/beam/laser/ik //Subtype that breaks on firing if emp'd

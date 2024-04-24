@@ -100,21 +100,21 @@
 	user.set_machine(src)
 	var/list/dat = list()
 	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><A href='?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
+	dat += "<b><A href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
 	dat += "</div><br>"
-	dat += "<A href='?src=[UID()];action=select'> Select Track</A><br>"
+	dat += "<A href='byond://?src=[UID()];action=select'> Select Track</A><br>"
 	dat += "Track Selected: [selection.song_name]<br>"
 	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
 	dat += "<br>DJ's Soundboard:<b><br>"
 	dat +="<div class='statusDisplay'><div style='text-align:center'>"
-	dat += "<A href='?src=[UID()];action=horn'>Air Horn</A>  "
-	dat += "<A href='?src=[UID()];action=alert'>Station Alert</A>  "
-	dat += "<A href='?src=[UID()];action=siren'>Warning Siren</A>  "
-	dat += "<A href='?src=[UID()];action=honk'>Honk</A><br>"
-	dat += "<A href='?src=[UID()];action=pump'>Shotgun Pump</A>"
-	dat += "<A href='?src=[UID()];action=pop'>Gunshot</A>"
-	dat += "<A href='?src=[UID()];action=saber'>Esword</A>"
-	dat += "<A href='?src=[UID()];action=harm'>Harm Alarm</A>"
+	dat += "<A href='byond://?src=[UID()];action=horn'>Air Horn</A>  "
+	dat += "<A href='byond://?src=[UID()];action=alert'>Station Alert</A>  "
+	dat += "<A href='byond://?src=[UID()];action=siren'>Warning Siren</A>  "
+	dat += "<A href='byond://?src=[UID()];action=honk'>Honk</A><br>"
+	dat += "<A href='byond://?src=[UID()];action=pump'>Shotgun Pump</A>"
+	dat += "<A href='byond://?src=[UID()];action=pop'>Gunshot</A>"
+	dat += "<A href='byond://?src=[UID()];action=saber'>Esword</A>"
+	dat += "<A href='byond://?src=[UID()];action=harm'>Harm Alarm</A>"
 	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
 	popup.set_content(dat.Join())
 	popup.open()
@@ -146,7 +146,7 @@
 			var/list/available = list()
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
-			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
+			var/selected = tgui_input_list(usr, "Select a new track", "Track:", available)
 			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
