@@ -162,8 +162,8 @@
 
 /obj/item/food/snacks/tofukebab
 	name = "tofu-kebab"
-	icon_state = "kebab"
 	desc = "Vegan meat, on a stick."
+	icon_state = "kebab"
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
