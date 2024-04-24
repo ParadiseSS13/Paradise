@@ -13,22 +13,25 @@
 </br>
 
 # Useful Links
+<p align="center">
+<picture>
+	<source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
+	<source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
+	<img width="25%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
+</picture>
+<picture>
+	<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
+	<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
+	<img alt="Code docs" width="25%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
+</picture>
+<picture>
+	<source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
+	<source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
+	<img width="25%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
+</picture>
+</p>
 
-[<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
-  <img alt="Discord" src=".github/assets/discord-dark.png">
-</picture>](https://discordapp.com/invite/YJDsXFE)
-[<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
-  <img alt="Code docs" src=".github/assets/book-dark.png">
-</picture>](https://codedocs.paradisestation.org)
-[<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
-  <img alt="Website" src=".github/assets/web-dark.png">
-</picture>](https://www.paradisestation.org/)
+<p align="center"><p align="left"><a href="https://discordapp.com/invite/YJDsXFE">Discord</a></p><p align="center"><a href="https://codedocs.paradisestation.org">Code Docs</a></p><p align="right"><a href="https://www.paradisestation.org/">Website</a></p></p>
 
 > [!TIP]
 > If you're having trouble with something, check out our #coding_chat channel on Discord!
