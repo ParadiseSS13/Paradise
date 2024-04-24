@@ -146,8 +146,8 @@
 
 /obj/item/food/snacks/syntikebab
 	name = "synthimeat-kebab"
-	icon_state = "kebab"
 	desc = "Delicious synthetic meat, on a stick."
+	icon_state = "kebab"
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
