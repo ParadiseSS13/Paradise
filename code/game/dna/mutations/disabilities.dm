@@ -252,8 +252,7 @@
 	return ""
 
 ////////////////////////////////////////
-// Harmful to others as well as self
-// MARK: Harmfull to all
+// MARK: Harmful to everyone
 ////////////////////////////////////////
 
 /datum/mutation/disability/radioactive
