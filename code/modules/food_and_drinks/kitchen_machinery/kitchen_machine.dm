@@ -440,7 +440,7 @@
 	if(dat)
 		. += "It contains: <br>[dat]"
 
-	if(!HAS_MIND_TRAIT(user, TRAIT_EXPERT_CHEF))
+	if(!HAS_MIND_TRAIT(user, TRAIT_KNOWS_COOKING_RECIPES))
 		return
 
 	if(locate(/obj/item/mixing_bowl) in contents)

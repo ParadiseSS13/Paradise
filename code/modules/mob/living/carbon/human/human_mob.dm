@@ -1964,7 +1964,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	mind.offstation_role = TRUE
 
 /mob/living/carbon/human/proc/expert_chef_knowledge()
-	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
+	if(!HAS_TRAIT(mind, TRAIT_KNOWS_COOKING_RECIPES))
 		return
 
 	var/list/possible_cookware = view(1, src)
