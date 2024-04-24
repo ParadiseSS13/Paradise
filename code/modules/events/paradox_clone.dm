@@ -27,7 +27,7 @@
 	var/list/possible_chosen = list()
 
 	for(var/mob/living/carbon/human/H in world)
-		if(H.z == s_z && H.mind && H.key && H.stat == CONSCIOUS && !locate(/area/station/public/sleep) in get_turf(H) && H.mind.assigned_role != null)
+		if(H.z == s_z && H.mind && H.key && H.stat == CONSCIOUS && !locate(/area/station/public/sleep) in get_turf(H) && H.mind.assigned_role != null && !is_paradox_clone(H))
 			possible_chosen += H
 
 	if(!length(possible_chosen))
