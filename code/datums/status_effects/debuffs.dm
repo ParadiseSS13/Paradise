@@ -1322,3 +1322,29 @@
 			desc = "Real winners quit before they reach the ultimate prize."
 
 #undef DEFAULT_MAX_CURSE_COUNT
+
+/datum/status_effect/reversed_high_priestess
+	id = "reversed_high_priestess"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
+
+/datum/status_effect/reversed_high_priestess/tick()
+	. = ..()
+	new /obj/effect/bubblegum_warning(get_turf(owner))
+
+/obj/effect/bubblegum_warning
+	name = "bloody rift"
+	desc = "You feel like even being *near* this is a bad idea"
+	icon = 'icons/obj/biomass.dmi'
+	icon_state = "rift"
+	color = "red"
+
+/obj/effect/bubblegum_warning/Initialize()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
+
+/obj/effect/bubblegum_warning/proc/slap_someone()
+	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
+	qdel(src)

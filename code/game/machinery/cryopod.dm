@@ -153,7 +153,7 @@
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(!objective_items.len)
+	if(!length(objective_items))
 		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
@@ -390,7 +390,7 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
 		if(R.fields["name"] == occupant.real_name)
@@ -433,7 +433,7 @@
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
 				if(announce_rank)
-					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+					announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 				else
 					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
@@ -613,6 +613,9 @@
 /obj/machinery/cryopod/blob_act()
 	return //Sorta gamey, but we don't really want these to be destroyed.
 
+/obj/machinery/cryopod/force_eject_occupant(mob/target)
+	go_out()
+
 /obj/machinery/cryopod/offstation
 	// Won't announce when used for cryoing.
 	silent = TRUE
@@ -667,7 +670,7 @@
 
 /proc/cryo_ssd(mob/living/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
-		return 0
+		return FALSE
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
@@ -678,15 +681,15 @@
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
-	if(free_cryopods.len)
+	if(length(free_cryopods))
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
 			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40, create_sparks = FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))

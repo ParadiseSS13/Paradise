@@ -64,13 +64,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	for(var/category in uplink_items)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
-			if(I.job && I.job.len)
+			if(I.job && length(I.job))
 				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			if(length(I.species))
 				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
-			cats[cats.len]["items"] += list(list(
+			cats[length(cats)]["items"] += list(list(
 				"name" = sanitize(I.name),
 				"desc" = sanitize(I.description()),
 				"cost" = I.cost,

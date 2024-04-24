@@ -547,7 +547,7 @@
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(isprojectile(mover))
 			return prob(10)
 		else
 			return !density
@@ -563,7 +563,7 @@
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
 			return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return FALSE
 	return ..(mover, target, height)
 

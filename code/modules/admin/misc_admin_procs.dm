@@ -111,9 +111,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "<a href='byond://?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
-		if(M.client.related_accounts_cid.len)
+		if(length(M.client.related_accounts_cid))
 			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
+		if(length(M.client.related_accounts_ip))
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
@@ -613,6 +613,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		log_admin("[key_name(usr)] delayed the game.")
 	else
 		SSticker.ticker_going = TRUE
+		SSticker.round_start_time = world.time + SSticker.pregame_timeleft
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
 
@@ -726,11 +727,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(copytext("[path]", -needle_length) == object)
 				matches += path
 
-	if(matches.len==0)
+	if(length(matches)==0)
 		return
 
 	var/chosen
-	if(matches.len==1)
+	if(length(matches)==1)
 		chosen = matches[1]
 	else
 		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches

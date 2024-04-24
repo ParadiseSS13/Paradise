@@ -26,3 +26,8 @@ _build_dependencies.sh @AffectedArc07
 dreamchecker.exe @AffectedArc07
 rust_g.dll @AffectedArc07
 librust_g.so @AffectedArc07
+
+### S34NW
+
+# TGUI stuff
+/tgui/bin @S34NW
