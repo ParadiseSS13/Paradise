@@ -82,6 +82,7 @@ const filterRecipeList = (recipeList, titleFilter) => {
     }),
     filter(([title, recipe]) => recipe !== undefined),
     sortBy(([title, recipe]) => title),
+    sortBy(([title, recipe]) => !isRecipeList(recipe)),
     reduce((obj, [title, recipe]) => {
       obj[title] = recipe;
       return obj;
