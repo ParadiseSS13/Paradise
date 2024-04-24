@@ -116,6 +116,11 @@
 /obj/machinery/nuclearbomb/ui_state(mob/user)
 	return GLOB.hands_state
 
+/obj/item/stack/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/stack_recipes)
+	)
+
 /obj/item/stack/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
