@@ -436,9 +436,6 @@
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 
-		if(GLOB.paradox_clones)
-			dat += check_role_table("Paradox Clones", GLOB.paradox_clones)
-
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 
@@ -468,6 +465,9 @@
 
 		if(SSticker.mode.eventmiscs.len)
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
+
+		if(GLOB.paradox_clones)
+			dat += check_role_table("Paradox Clones", GLOB.paradox_clones)
 
 		if(GLOB.ts_spiderlist.len)
 			var/list/spider_minds = list()

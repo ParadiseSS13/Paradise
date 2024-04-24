@@ -70,6 +70,6 @@
 		target.AdjustSilence(2 SECONDS)
 		target.apply_damage(20, STAMINA)
 		target.Confused(2 SECONDS)
-		target.AdjustHallucinate(60 SECONDS)
+		target.AdjustHallucinate(20 SECONDS)
 
 		add_attack_logs(user, target, "(Paradox Clone) Gazed")

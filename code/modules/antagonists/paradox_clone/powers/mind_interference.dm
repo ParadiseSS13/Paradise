@@ -24,7 +24,7 @@
 		to_chat(user, "<span class='warning'>Useless. [target.name] is from our kin.</span>")
 		return
 
-	H.AdjustHallucinate(rand(120,240) SECONDS)
+	H.AdjustHallucinate(rand(60,120) SECONDS)
 
 	H.adjustBrainLoss(rand(6,12))
 	H.AdjustSlur(rand(10,20) SECONDS)
