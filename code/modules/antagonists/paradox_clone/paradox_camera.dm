@@ -144,7 +144,7 @@
 /mob/camera/paradox/proc/make_owner_and_target(datum/objective/O, datum/antagonist/paradox_clone/pc, datum/mind/orig)
 	O.owner = pc.owner
 	if(orig)
-		O.target = pc.orig
+		O.target = orig
 
 /mob/camera/paradox/proc/do_clone(mob/living/carbon/human/H)
 	var/mob/living/carbon/human/paradox_clone = new /mob/living/carbon/human(get_turf(src))

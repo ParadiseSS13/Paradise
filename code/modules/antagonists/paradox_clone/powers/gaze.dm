@@ -11,10 +11,7 @@
 
 /datum/spell/paradox/click_target/gaze/valid_target(target, user)
 	var/mob/living/targ = target
-	if(targ.stat == CONSCIOUS && !is_paradox_clone(target))
-		return TRUE
-	else
-		return FALSE
+	return targ.stat == CONSCIOUS && !is_paradox_clone(target)
 
 /datum/spell/paradox/click_target/gaze/proc/check(mob/victim, mob/attacker)
 

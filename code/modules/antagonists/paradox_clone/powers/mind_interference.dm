@@ -10,10 +10,8 @@
 
 /datum/spell/paradox/click_target/mind_interference/valid_target(target, user)
 	var/mob/living/targ = target
-	if(targ.stat != DEAD && !is_paradox_clone(target))
-		return TRUE
-	else
-		return FALSE
+	return targ.stat != DEAD && !is_paradox_clone(target)
+
 
 /datum/spell/paradox/click_target/mind_interference/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
