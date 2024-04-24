@@ -20,27 +20,29 @@
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
-			<img width="25%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
+			<img width="20%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
 		</picture>
 	</a>
 	<a href="https://codedocs.paradisestation.org">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
-			<img alt="Code docs" width="25%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
+			<img alt="Code docs" width="20%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
 		</picture>
 	</a>
 	<a href="https://www.paradisestation.org/">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
-			<img width="25%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
+			<img width="20%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
 		</picture>
 	</a>
 </p>
 
 > [!TIP]
-> If you're having trouble with something, check out our #coding_chat channel on Discord!
+> Want to contribute for the first time but unsure where to start?<br>
+> Join our Discord and check out the `#coding_chat` channel for helpful links and advice!<br>
+> Alternatively, have a look at our [Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
 
 # Useful Documents
 
