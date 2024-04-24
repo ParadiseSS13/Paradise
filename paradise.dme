@@ -715,6 +715,7 @@
 #include "code\game\gamemodes\miniantags\demons\demon.dm"
 #include "code\game\gamemodes\miniantags\demons\shadow_demon\shadow_demon.dm"
 #include "code\game\gamemodes\miniantags\demons\slaughter_demon\slaughter.dm"
+#include "code\game\gamemodes\miniantags\demons\slaughter_demon\slaughter_demon.dm"
 #include "code\game\gamemodes\miniantags\guardian\guardian.dm"
 #include "code\game\gamemodes\miniantags\guardian\host_actions.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\assassin.dm"
