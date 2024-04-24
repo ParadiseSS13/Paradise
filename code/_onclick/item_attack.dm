@@ -39,7 +39,7 @@
 			A.reagents.temperature_reagents(temperature)
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
-// no comment
+// No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
