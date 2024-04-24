@@ -13,7 +13,8 @@
 /obj/item/clothing/head/collectable/slime
 	name = "collectable slime cap!"
 	desc = "It just latches right in place!"
-	icon_state = "slime"
+	icon_state = "headslime"
+	item_state = "headslime"
 
 /obj/item/clothing/head/collectable/xenom
 	name = "collectable xenomorph helmet!"
@@ -78,12 +79,6 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
-
-/obj/item/clothing/head/collectable/slime
-	name = "collectable slime hat"
-	desc = "Just like a real Brain Slug!"
-	icon_state = "headslime"
-	item_state = "headslime"
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
