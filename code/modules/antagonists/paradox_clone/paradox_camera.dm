@@ -88,15 +88,8 @@
 		W.owner_ckey = para.key
 
 	if(orig.mind.assigned_role == "Clown")
-		para.dna.SetSEState(GLOB.clumsyblock, TRUE)
-		singlemutcheck(para, GLOB.clumsyblock, MUTCHK_FORCED)
-		para.dna.default_blocks.Add(GLOB.clumsyblock)
-		if(!ismachineperson(para))
-			para.dna.SetSEState(GLOB.comicblock, TRUE)
-			singlemutcheck(para, GLOB.comicblock, MUTCHK_FORCED)
-			para.dna.default_blocks.Add(GLOB.comicblock)
-		para.check_mutations = TRUE
-		para.AddComponent(/datum/component/slippery, para, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE) //according /datum/outfit/job/clown pls update when need
+		var/datum/outfit/job/clown/clo = new()
+		clo.post_equip(clone, FALSE)
 		pc.handle_clown_mutation(para, granting_datum = TRUE)
 
 	var/main_objective = pickweight(main_objectives)
@@ -105,15 +98,13 @@
 
 	if(main_objective == "Kill")
 		var/datum/objective/paradox_replace/kill = new()
-		kill.owner = pc.owner
-		kill.target = pc.original.mind
+		make_owner_and_target(kill, pc, orig.mind)
 		pc.add_antag_objective(kill)
 		objective_spell = /datum/spell/paradox/click_target/replace
 
 	if(main_objective == "Protect")
 		var/datum/objective/protect/paradox_shield = new()
-		paradox_shield.owner = pc.owner
-		paradox_shield.target = pc.original.mind
+		make_owner_and_target(paradox_shield, pc, orig.mind)
 		paradox_shield.explanation_text += " Check your ability 'United Bonds'. It can help you with this objective."
 		pc.add_antag_objective(paradox_shield)
 		objective_spell = /datum/spell/paradox/self/united_bonds //yes, I know this power is kinda useless, but I love even numbers and sometimes it can help...
@@ -149,6 +140,11 @@
 	to_chat(pc.owner.current, chat_box_red(messages.Join("<br>")))
 
 	J.show_location_blurb(pc.owner.current.client, pc.owner)
+
+/mob/camera/paradox/proc/make_owner_and_target(datum/objective/O, datum/antagonist/paradox_clone/pc, datum/mind/orig)
+	O.owner = pc.owner
+	if(orig)
+		O.target = pc.orig
 
 /mob/camera/paradox/proc/do_clone(mob/living/carbon/human/H)
 	var/mob/living/carbon/human/paradox_clone = new /mob/living/carbon/human(get_turf(src))
