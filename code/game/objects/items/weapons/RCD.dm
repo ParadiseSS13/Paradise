@@ -259,6 +259,8 @@
 	var/static/list/door_types_ui_list = list()
 	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/door_accesses_list = list()
+	/// The list of potential RCD actions.
+	var/static/list/possible_actions = subtypesof(/datum/rcd_act)
 
 /obj/item/rcd/Initialize()
 	. = ..()
@@ -566,7 +568,7 @@
 	if(!is_type_in_list(A, allowed_targets))
 		return FALSE
 
-	for(var/act_type in subtypesof(/datum/rcd_act))
+	for(var/act_type in possible_actions)
 		var/datum/rcd_act/act = new act_type
 		if(act.can_act(A, src, user))
 			. = act.try_act(A, src, user)
