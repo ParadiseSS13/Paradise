@@ -15,4 +15,4 @@
 
 /datum/spell/chef/expert_chef/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = targets[1]
-		H.expert_chef_knowledge()
+	H.expert_chef_knowledge()
