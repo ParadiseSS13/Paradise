@@ -432,7 +432,7 @@
 	req_tech = list("materials" = 6, "engineering" = 6, "biotech" = 6, "abductor" = 3)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	build_path = /obj/item/organ/internal/cyberimp/arm/janitorial_abductor
 	category = list("Medical")
 
