@@ -439,7 +439,6 @@
 	. = ..()
 	if(.)
 		user.mind.AddSpell(new /datum/spell/aoe/conjure/construct(null))
-	return .
 
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
