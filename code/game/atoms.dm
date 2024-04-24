@@ -420,14 +420,13 @@
 	if(container_type & TRANSPARENT)
 		. += "<span class='notice'>It contains:</span>"
 		if(user.reagent_vision())	// You can see absolute unit quantities of reagents in transparent containers.
-			if(container_type & TRANSPARENT)
-				for(var/I in reagents.reagent_list)
-					var/datum/reagent/R = I
-					. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
-				return
+			for(var/I in reagents.reagent_list)
+				var/datum/reagent/R = I
+				. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
+			return
 
 		//Otherwise, just show the total volume
-		if(reagents && length(reagents.reagent_list))
+		if(length(reagents.reagent_list))
 			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
 		else
 			. += "<span class='notice'>Nothing.</span>"
