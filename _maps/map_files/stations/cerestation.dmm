@@ -72838,9 +72838,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/north)
-"qeq" = (
-/turf/simulated/mineral/ancient/outer,
-/area/station/science/robotics)
 "qet" = (
 /obj/structure/plasticflaps{
 	name = "Officer Pipsqueak's Home"
@@ -123154,11 +123151,11 @@ rWw
 ccW
 ccW
 ccW
-qeq
-qeq
-qeq
-qeq
-qeq
+jJc
+jJc
+jJc
+jJc
+jJc
 vFW
 vFW
 vFW
@@ -123416,7 +123413,7 @@ ccW
 ccW
 ccW
 ccW
-dXV
+izC
 iky
 dtv
 cib
@@ -123673,8 +123670,8 @@ ful
 ful
 ful
 ful
-dXV
-dXV
+izC
+izC
 kJM
 imU
 fyR
@@ -127268,11 +127265,11 @@ eLb
 ftr
 ccW
 ccW
-ccW
-ccW
-ccW
-ccW
-ccW
+rWw
+rWw
+rWw
+rWw
+rWw
 pQN
 rjL
 ciG
