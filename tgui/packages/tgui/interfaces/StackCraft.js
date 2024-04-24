@@ -5,7 +5,6 @@ import { createSearch } from 'common/string';
 import { Window } from '../layouts';
 import {
   Box,
-  Button,
   Table,
   Section,
   NoticeBox,
@@ -16,7 +15,7 @@ import {
 
 export const StackCraft = (props, context) => {
   return (
-    <Window>
+    <Window width={350} height={475}>
       <Window.Content>
         <Recipes />
       </Window.Content>
@@ -40,16 +39,13 @@ const Recipes = (props, context) => {
       scrollable
       title={'Amount: ' + amount}
       buttons={
-        <>
-          Search
-          <Input
-            autoFocus
-            value={searchText}
-            placeholder={'Search recipes'}
-            onInput={(e, value) => setSearchText(value)}
-            mx={1}
-          />
-        </>
+        <Input
+          autoFocus
+          width={12.5}
+          value={searchText}
+          placeholder={'Search recipes'}
+          onInput={(e, value) => setSearchText(value)}
+        />
       }
     >
       {filteredRecipes ? (
@@ -151,7 +147,8 @@ const Multipliers = (props, context) => {
 
   if (multipliers.indexOf(max_available_multiplier) === -1) {
     finalResult.push(
-      <Button
+      <ImageButton.Item
+        width={'32px'}
         content={max_available_multiplier * recipe.result_amount + 'x'}
         onClick={() =>
           act('make', {
@@ -173,12 +170,13 @@ const RecipeListBox = (props, context) => {
     const [title, recipe] = entry;
     if (isRecipeList(recipe)) {
       return (
-        <Collapsible key={title} title={title}>
+        <Collapsible key={title} title={title} contentMargin={0}>
           <Box
             pt={1}
             style={{
-              'background-color': 'rgba(0, 0, 0, 0.25)',
+              'background-color': 'rgba(62, 97, 137, 0.15)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
+              'border-top': 'none',
             }}
           >
             <Box ml={1} mr={1}>
@@ -197,13 +195,13 @@ const RecipeBox = (props, context) => {
   const { act, data } = useBackend(context);
   const { amount } = data;
   const { title, recipe } = props;
-  const { result_amount, required_amount, max_result_amount, uid, imageID } =
+  const { result_amount, required_amount, max_result_amount, uid, image } =
     recipe;
 
   const resAmountLabel = result_amount > 1 ? `${result_amount}x ` : '';
   const sheetSuffix = required_amount > 1 ? 's' : '';
   const buttonName = `${resAmountLabel}${title}`;
-  const tooltipContent = `(${required_amount} sheet${sheetSuffix})`;
+  const tooltipContent = `${required_amount} sheet${sheetSuffix}`;
 
   const max_possible_multiplier = calculateMultiplier(recipe, amount);
 
@@ -213,9 +211,7 @@ const RecipeBox = (props, context) => {
         <Table.Row>
           <Table.Cell>
             <ImageButton
-              asset
-              imageAsset={'stack_craft32x32'}
-              image={imageID}
+              image={image}
               disabled={!max_possible_multiplier}
               content={buttonName}
               tooltip={tooltipContent}

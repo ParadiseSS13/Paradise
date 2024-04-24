@@ -123,12 +123,6 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/item/stack/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/stack_craft),
-		get_asset_datum(/datum/asset/spritesheet/materials)
-	)
-
 /obj/item/stack/ui_data(mob/user)
 	var/list/data = list()
 	data["amount"] = get_amount()
@@ -165,11 +159,12 @@
 
 /obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
 	var/list/data = list()
+	var/obj/item/I = recipe.result_type
 	data["uid"] = recipe.UID()
 	data["required_amount"] = recipe.req_amount
 	data["result_amount"] = recipe.res_amount
 	data["max_result_amount"] = recipe.max_res_amount
-	data["imageID"] = replacetext(replacetext("[recipe.result_type]", "/obj/item/", ""), "/", "-")
+	data["image"] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 	return data
 
 /obj/item/stack/use(used, check = TRUE)
