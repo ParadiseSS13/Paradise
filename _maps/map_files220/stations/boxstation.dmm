@@ -89262,12 +89262,14 @@
 /obj/machinery/button/windowtint/west{
 	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
 	id = "rdrobosurgery";
-	pixel_y = 4
+	pixel_y = 4;
+	range = 1
 	},
 /obj/machinery/button/windowtint/west{
 	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
 	id = "rd";
-	pixel_y = -4
+	pixel_y = -4;
+	range = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -92295,7 +92297,9 @@
 	},
 /area/station/engineering/secure_storage)
 "uHT" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "rd"
+	},
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "uHX" = (

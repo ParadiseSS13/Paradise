@@ -31459,19 +31459,20 @@
 /obj/machinery/door_control/shutter/north{
 	id = "xeno_blastdoor";
 	name = "Xenobiology Containment Control";
-	pixel_x = 7;
-	req_access_txt = "30"
+	req_access_txt = "30";
+	pixel_y = 32
 	},
 /obj/machinery/door_control/shutter/north{
 	id = "rdtoxins";
 	name = "Toxins Containment Control";
-	pixel_x = -7;
-	req_access_txt = "30"
+	req_access_txt = "30";
+	pixel_y = 23
 	},
 /obj/machinery/door_control/shutter/north{
 	id = "rdrnd";
 	name = "Research and Development Containment Control";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	pixel_y = 41
 	},
 /obj/machinery/computer/security/telescreen/rd{
 	pixel_x = 31;
