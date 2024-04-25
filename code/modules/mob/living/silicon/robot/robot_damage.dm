@@ -75,7 +75,7 @@
 		if(C.installed)
 			rval += C
 	return rval
-///Returns the armour component for a borg, or
+///Returns the armour component for a borg, or false if its missing or broken
 /mob/living/silicon/robot/proc/get_armour()
 	if(!LAZYLEN(components))
 		return FALSE
@@ -83,7 +83,7 @@
 	if(C && C.installed)
 		return C
 	return FALSE
-
+///Returns the power cell component for a borg, or false if its missing or broken
 /mob/living/silicon/robot/proc/get_cell_component()
 	if(!LAZYLEN(components))
 		return FALSE

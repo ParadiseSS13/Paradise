@@ -1742,4 +1742,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/has_power_source()
 	var/datum/robot_component/cell/cell = get_cell_component()
-	return cell?.is_powered() || externally_powered
+	if(!cell)
+		return externally_powered
+	return cell.is_powered() || externally_powered
