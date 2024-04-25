@@ -18,6 +18,14 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	extended_description = "The ion rifle is a specialised weapon system developed by Nanotrasen to counteract technological threats. Stored xenon gas is superheated and spun inside a miniaturised \
+	resonating cyclotron to strip away the outer electron shell. This creates a very positively charged slug of ionised xenon gas that is then launched down the barrel of the rifle by a series of electromagnets. \
+	Once the slug hits a target, the magnetic field holding it together collapses, spreading the ions around the immediate area and causing severe damage to unshielded electronic systems caught within the resulting cloud.<br><br>\
+	It was developed in 2318 in response to the increasing prevalence of combat robots, mech units, and augmented combatants in modern combat engagements. \
+	Whilst unsuccessful in procuring lucrative contracts to manufacture the weapon for the TSF (who pointed out the issue of combatants with electromagnetic shielding), \
+	it was adopted by several corporate outfits that appreciated the ruthless efficiency of the ion rifle against unprotected synthetics.<br><br>\
+	Whilst it has a niche in combating pulse demon incursions, the real place that the ion rifle has shown its strength is in putting down synthetic rebellions and rogue artificial intelligences. \
+	For a synthetic, nothing sends chills down the spine more than the sight of this weapon."
 
 /obj/item/gun/energy/ionrifle/Initialize(mapload)
 	. = ..()
@@ -29,13 +37,23 @@
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
-	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
+	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient, it packs the exact same punch and capacity in a smaller, easier to transport package."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_FLAG_BELT
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
+	extended_description = "Recent developments in compact electromagnets, material science, and iterative improvement in various other high energy components has resulted in this brand-new rehashing of the \
+	original Ion Rifle being developed by Nanotrasen R&D: The Ion Carbine! It addresses several of the shortcomings of its centuries-old predecessor. Chiefly among them is the miniaturisation of the vital components, \
+	which has allowed the carbine to be made small enough to fit inside a variety of personal storage spaces, permitting it to be used as a secondary weapon that can be kept out of the way until it is needed. \
+	Improvements to the ergonomics, reduction in weight, and the replacement of the fixed 1x optic with a modular rail system also makes the carbine far more pleasant to use than its predecessor. \
+	All of these improvements come without any trade-offs, such is the march of technology.<br><br>\
+	The chief impetus for the development of the Ion Carbine was the mass unrest and strike actions by the then-indentured IPC workforce starting in 2525. Whilst the events surrounding this were largely non-violent, \
+	Nanotrasen is aware that things could have gone very differently. With their current pervasive use of indentured AI, robots, and cyborgs, Nanotrasen is also very well aware that history may repeat itself - \
+	and may do so with great destruction. Such an eventuality is absolutely unacceptable to the company.<br><br>\
+	Nanotrasen also hopes that this improved weapon will be more attractive to markets that have seen low penetration from the original Ion Rifle. As with before, \
+	the golden goose that Nanotrasen wishes eventually to secure is production contracts with the armed forces of the TSF, but they'll happily sell it to anyone else that's buying."
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -47,6 +65,9 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
 	can_holster = TRUE
+	extended_description = "The biological demolecularisor - also known as the \"decloner\" by some users - is a specialty weapon from Nanotrasen weapon R&D intended for particularly troublesome organic threats.<br><br>\
+	It utilises a compact synchrotron specifically tuned to generate a large excess of gamma-wavelength radiation that is released in highly intense bursts. When an organic target is hit by the burst, \
+	it causes damage to the very makeup of their cells, destroying protiens, DNA, and other vital molecular structures. Continued application rapidly results in debilitating damage and death."
 
 /obj/item/gun/energy/decloner/update_icon_state()
 	return
@@ -164,7 +185,7 @@
 // Plasma Cutters //
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
-	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	desc = "A mining tool capable of expelling concentrated plasma bursts. Its effectiveness drops dramatically outside of low-pressure environments. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
 	modifystate = -1
@@ -181,6 +202,10 @@
 	sharp = TRUE
 	can_charge = FALSE
 	can_holster = TRUE
+	extended_description = "The plasma cutter is an old and reliable design mining tool designed by the now-defunct Althland mining company for rapid tunnelling, excavation, and ore extraction. \
+	It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance.<br><br>\
+	It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
+	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
@@ -212,12 +237,18 @@
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
+	desc = "An improved version of the venerable Plasma Cutter, evolved by Nanotrasen. It's just straight up better!"
 	icon_state = "adv_plasmacutter"
 	item_state = "plasmacutteradv"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+	extended_description = "Once Althland was acquired by Nanotrasen, they gained access to all of the company's technologies and patents, most notably, the Plasma Cutter. \
+	NT R&D has been hard at work refining it into a superior design.<br><br>\
+	This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! \
+	Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well.<br><br>\
+	These new plasma cutters are not yet in common use, but the massive efficiency gains over their predecessors all but guarantees that they will sell like wildfire."
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
@@ -278,8 +309,8 @@
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
-	name = "cyborg lmg"
-	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
+	name = "cyborg LMG"
+	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
@@ -321,17 +352,20 @@
 // HONK Rifle //
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
-	desc = "Clown University's finest."
+	desc = "The finest weapon produced by the Martian College of Comedy."
 	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
 	ammo_x_offset = 3
-	can_holster = TRUE  // you'll never see it coming
+	can_holster = TRUE  // You'll never see it coming!
+	extended_description = "Developed by a former pair of designers from Donk Co. and Shellguard Munitions who met each other whilst studying at the Martian College of Comedy, this rifle uses advanced chemical synthesisers \
+	and customised 3D printing technology to fabricate high yield snap-pops, which are then hurled downrange by a pneumatic ram into unsuspecting bystanders! Whilst not powerful enough to be harmful, it scares the hell out of them!<br><br>\
+	The design was an instant hit, and elite clowns all across the Orion sector eagerly added it to their arsenals. What will they think of next?"
 
 /obj/item/gun/energy/plasma_pistol
 	name = "plasma pistol"
-	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
+	desc = "A specialized firearm designed to fire superheated bolts of plasma. Can be overloaded for a high damage, shield-breaking shot."
 	icon_state = "toxgun"
 	item_state = "toxgun"
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
@@ -350,6 +384,10 @@
 	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
 	execution_speed = 4 SECONDS
+	extended_description = "The plasma pistol is a departure from Nanotrasen's usual forays into energy weapon design. \
+	Uniquely among its catalogue of experimental weapons, it uses plasma (the state of matter, not the material) projectiles instead of lasers or other particles to deal damage.<br><br>\
+	The pistol's frame contains a compact magnetic catapault that launches the plasma at the target, where the extreme heat causes severe burns at the point of impact. When overcharged, a particularly large projectile is \
+	generated, which not only causes increased damage to targets, but also overloads energy shielding thanks to the quantitiy of ionised plasma in the projectile."
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
@@ -564,13 +602,13 @@
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
+	desc = "A gun that changes the body temperature of its targets, somehow. The fire selector has two settings: 'hot', and 'cold'."	// I give up on trying to come up with an explaination of how this abomonation works. - CRUNCH
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
 	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	desc = "A gun that changes the body temperature of its targets."
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
@@ -719,7 +757,7 @@
 
 /obj/item/gun/energy/detective
 	name = "DL-88 energy revolver"
-	desc = "A 'modern' take on the classic projectile revolver."
+	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tac Industries. The fire selector has two settings: 'tracker', and 'disable'."
 	icon_state = "handgun"
 	item_state = null
 	modifystate = TRUE
@@ -740,6 +778,13 @@
 	charge_sections = 5
 	inhand_charge_sections = 3
 	overlay_set = "handgun" // Reskins are a different icon_state
+	extended_description = "The Dignitas Laser model 88, a laser revolver with a classic design is a 'modern' spin on older .38 revolvers. Designed by Warp-Tac Industries, \
+	it is the successor of the older DL-44 revolver, being tailored for police and security forces.<br><br>\
+	Developed in response to break-ins at Warp-Tac's corporate offices on Mars, the Model 88 diverged from Warp-Tac's usual lethal weapon designs. Instead, it was crafted to meet police force demands \
+	for non-lethal capture, offering an alternative to the prevalent and commonly distributed disablers in the market. \
+	The DL-88 quickly became the tool of choice for neutralizing suspects without lethal force within Warp-Tac security forces. \
+	Due to this, its effectiveness and design caught the attention of private detective agencies, aligning perfectly with Warp-Tac's targeted marketing of the gun.<br><br>\
+	Eventually, corporations like Nanotrasen adopted the DL-88 for their detective units, appreciating its cost-effectiveness and the ability to use their own manufactured cells, reducing overall budget expenditures."
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()

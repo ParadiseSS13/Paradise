@@ -1,36 +1,51 @@
 /obj/item/gun/energy
 	icon_state = "energy"
-	name = "energy gun"
-	desc = "A basic energy-based gun."
+	name = "generic energy gun"
+	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon = 'icons/obj/guns/energy.dmi'
 	fire_sound_text = "laser blast"
 
-	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
+	/// What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell
+	/// The specific type of power cell this gun has.
 	var/cell_type = /obj/item/stock_parts/cell
 	var/modifystate = 0
+	/// What projectiles can this gun shoot?
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
-	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	/// The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	var/select = 1
+	/// If set to FALSE, the gun cannot be recharged in a recharger.
 	var/can_charge = TRUE
+	/// How many lights are there on the gun's item sprite indicating the charge level?
 	var/charge_sections = 4
+	/// How many lights are there on the gun's in-hand sprite indicating the charge level?
 	var/inhand_charge_sections = 4
 	ammo_x_offset = 2
-	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
+	/// If this gun uses a stateful charge bar for more detail
+	var/shaded_charge = FALSE
+	/// Does this gun recharge itself? Some guns (such as the M1911-P) do not use this and instead have a cell type that self-charges.
 	var/selfcharge = FALSE
 	var/charge_tick = 0
 	var/charge_delay = 4
-	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
+	/// Do you want the gun to fit into a turret, defaults to TRUE, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
 	var/can_fit_in_turrets = TRUE
 	var/new_icon_state
 	/// If the item uses a shared set of overlays instead of being based on icon_state
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
+	/// Extra flavour text generated when shift-clicking twice in quick succession.
+	var/extended_description = "<span class='notice'><i>You examine the weapon closer, but find nothing of interest...</i></span>"
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
+
+/obj/item/gun/energy/examine_more(mob/user)	// Used to display the extended_description in guns that have one.
+	. = ..()
+	. += extended_description
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
