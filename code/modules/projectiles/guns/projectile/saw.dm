@@ -12,6 +12,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = FALSE
+	actions_types = list()
 	can_suppress = FALSE
 	burst_size = 1
 	spread = 7
