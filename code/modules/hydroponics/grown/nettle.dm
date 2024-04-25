@@ -25,7 +25,7 @@
 	yield = 2
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
 	mutatelist = list()
-	reagents_add = list("facid" = 0.25, "sacid" = 0.25)
+	reagents_add = list("sacid" = 0.5)
 	rarity = 20
 
 /// abstract type
