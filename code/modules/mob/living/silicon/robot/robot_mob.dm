@@ -666,7 +666,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
-
+	slowdown_cap = INFINITY
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
