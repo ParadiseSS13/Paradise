@@ -89,7 +89,6 @@
 	return new_tts_seed
 
 /datum/component/tts_component/proc/tts_seed_change(atom/being_changed, mob/chooser, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
-	SIGNAL_HANDLER_DOES_SLEEP
 	set waitfor = FALSE
 	var/datum/tts_seed/new_tts_seed = select_tts_seed(chooser = chooser, override = override, fancy_voice_input_tgui = fancy_voice_input_tgui, new_traits = new_traits)
 	if(!new_tts_seed)
