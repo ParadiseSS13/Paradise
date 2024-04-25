@@ -204,7 +204,6 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
-	/client/proc/toggleMentorTicketLogs,
 	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
 	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say	/* mentor say*/
