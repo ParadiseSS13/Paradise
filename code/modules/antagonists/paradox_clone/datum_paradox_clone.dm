@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	antag_hud_type = ANTAG_HUD_PARADOX_CLONE //they see each other hud
 	clown_gain_text = "<span class='paradox'>You are from alternative universe, where are clowns not clumsy actually. This allows you to wield weapons without harming yourself.</span>"
 	clown_removal_text = "<span class='paradox'>The connection with the native universe fades, which is why you are now an ordinary clown of the new universe.</span>"
-	wiki_page_name = "Paradox Clone"
+	wiki_page_name = "Paradox_Clone"
 	var/paradox_id = "Paradox"
 	var/real_id
 	var/list/paradox_powers = list(/datum/spell/paradox/click_target/gaze, /datum/spell/paradox/object_click/space_distorition, /datum/spell/paradox/self/digital_supersede,
@@ -51,21 +51,32 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 		if(clone != H && is_paradox_clone(clone))
 			to_chat("<span class='danger'>You have a feeling, that something familiar and native appeared in this dark universe...</span>")
 
-	..()
+	owner.special_role = special_role
+	apply_innate_effects()
+
+	if(is_banned(owner.current) && replace_banned)
+		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
+	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
+	return TRUE //override cus shows up empty red box menu... not cool!
 
 /datum/antagonist/paradox_clone/Destroy()
 	GLOB.paradox_clones -= owner
 	STOP_PROCESSING(SSobj, src)
 	GLOB.possible_paradox_clone_ids += real_id
+	REMOVE_TRAIT(owner.current, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT)
+	var/obj/item/melee/paradox_emp/emp = locate() in owner.current
+	if(emp)
+		qdel(emp)
+
+	owner.current.remove_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 	return ..()
 
 /datum/antagonist/paradox_clone/greet()
-	var/datum/language/paradox/P = new()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/paradox_clone_alert.ogg'))
-	to_chat(owner.current, "<span class='danger'><B>Use :[P.key] to commune with other paradox clones.</b></span>")
 
 /datum/antagonist/paradox_clone/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You are becoming more and more a part of this universe...</b></span>")
+	owner.current.remove_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 
 /datum/antagonist/paradox_clone/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/carbon/human/H = owner.current

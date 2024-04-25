@@ -173,6 +173,8 @@
 
 #define STATUS_EFFECT_RECENTLY_SUCCUMBED /datum/status_effect/recently_succumbed
 
+#define STATUS_EFFECT_PARADOX_STALKING /datum/status_effect/internal_pinpointer/paradox_stalking
+
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target

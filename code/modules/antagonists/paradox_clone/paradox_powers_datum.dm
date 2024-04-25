@@ -7,7 +7,7 @@
 	var/base_range = 1
 	var/base_max_charges = 1
 	var/datum/antagonist/paradox_clone/pc
-	still_recharging_msg = "<span class='notice'>Wait...</span>"
+	still_recharging_msg = "<span class='notice'>The connection is being restored...</span>"
 
 /datum/spell/paradox/self/create_new_targeting()
 	return new /datum/spell_targeting/self

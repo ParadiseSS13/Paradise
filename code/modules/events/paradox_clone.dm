@@ -14,7 +14,8 @@
 	INVOKE_ASYNC(src, PROC_REF(wrapped_start))
 
 /datum/event/paradox_clone/proc/wrapped_start()
-	if(!spawncount) //if lower than 25 playas...
+	if(!spawncount) //if lower than 40 playas...
+		message_admins("Not enough players for Paradox Clone event: [TGS_CLIENT_COUNT]/40! Aborting. Choosing another moderate event.")
 		abort()
 		return
 
@@ -38,6 +39,9 @@
 		chosen = pick(possible_chosen) //not pick n take to have at least very LOW chance to create an interesting situation like one clone need to protect someone, and second clone need to kill them lol
 
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a paradox clone of [chosen.real_name], the [chosen.mind.assigned_role]?", ROLE_PARADOX_CLONE, TRUE, wait_time, source = chosen)
+
+		if(!length(candidates))
+			return
 
 		var/list/possible_spawns = list()
 		for(var/area/station/S in world)

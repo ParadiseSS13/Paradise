@@ -63,6 +63,15 @@
 	if(length(orig.mind.job_objectives))
 		pc.owner.job_objectives += orig.mind.job_objectives
 
+	var/obj/item/organ/internal/body_egg/egg = pc.owner.current.get_int_organ(/obj/item/organ/internal/body_egg) //OH NO WHY I AM ALREADY INFESTED WITH XENOMORPH EGG!??!??
+	if(egg)
+		egg.remove(pc.owner.current)
+		qdel(egg)
+
+	pc.owner.current.reagents.add_reagent("mutadone", 1)
+	for(var/datum/disease/D in pc.owner.current.viruses) //OH NO WHY I AM ALREADY INFESTED WITH GBS
+		D.cure()
+
 	pc.owner.miming = orig.mind.miming
 
 	pc.owner.memory = orig.mind.memory
@@ -83,6 +92,10 @@
 		pc.owner.learned_recipes = orig.mind.learned_recipes
 
 	var/mob/living/carbon/human/para = pc.owner.current
+
+	for(var/obj/item/organ/internal/I in para.internal_organs)
+		I.heal_internal_damage(400) //I'm not using rejuvenate cus it can break some things
+
 	if(para.wear_id)
 		var/obj/item/card/id/W = para.wear_id
 		W.owner_ckey = para.key
@@ -129,10 +142,18 @@
 	pc.current_powers += objective_spell
 
 	var/list/messages = list()
+	messages.Add("<span class='userdanger'>You are a Paradox Clone!</span>")
 	messages.Add(pc.greet())
 	messages.Add(pc.owner.prepare_announce_objectives())
+	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[pc.wiki_page_name])</span>")
 
 	to_chat(pc.owner.current, chat_box_red(messages.Join("<br>")))
+
+	var/datum/language/paradox/P = new()
+	to_chat(pc.owner.current, "<span class='danger'><B><center>Use :[P.key] to commune with other paradox clones.</center></b></span>")
+
+	var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = para.apply_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
+	PS.target_brain = orig.get_int_organ(/obj/item/organ/internal/brain)
 
 	J.show_location_blurb(pc.owner.current.client, pc.owner)
 

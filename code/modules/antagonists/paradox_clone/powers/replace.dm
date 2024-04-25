@@ -27,6 +27,12 @@
 		revert_cast()
 		return
 
+	var/obj/item/organ/internal/brain/B = locate() in user
+	if(B && B.owner == pc.original)
+		qdel(B)
+		var/datum/spell/paradox/click_target/replace/R = locate() in pc.owner.spell_list
+		user.mind.RemoveSpell(R)
+
 	to_chat(user, "<span class='warning'>Replacing process starts...</span>")
 	H.AdjustHallucinate(rand(6,12) SECONDS)
 	to_chat(target, "<span class='biggerdanger'>Something is off with you!</span>")
