@@ -32,12 +32,25 @@
 		heal_overall_damage(0, -amount, updating_health)
 	return STATUS_UPDATE_HEALTH
 
+/mob/living/silicon/robot/adjustStaminaLoss(amount, updating)
+	if(rebooting) //There's no active operating system to overload
+		return
+	..()
+
 /mob/living/silicon/robot/update_stamina()
 	if(rebooting)
 		return
 	var/current_stam_damage = getStaminaLoss()
 	if(current_stam_damage > DAMAGE_PRECISION && (maxHealth - current_stam_damage) <= HEALTH_THRESHOLD_CRIT && !stat)
 		start_emergency_reboot()
+
+/mob/living/silicon/robot/handle_status_effects()
+	..()
+	if(stam_regen_start_time <= world.time)
+		update_stamina()
+		if(staminaloss && !rebooting)
+			setStaminaLoss(0, FALSE)
+			update_health_hud()
 
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
@@ -180,9 +193,10 @@ Finishes the stamcrit process. If the borg doesn't have a power source for the r
 */
 /mob/living/silicon/robot/proc/end_emergency_reboot()
 	rebooting = FALSE
-	if(!has_power_source())
+	if(!has_power_source()) //Can't turn itself back on
 		death()
 	if(!stat)
 		return
 	setStaminaLoss(0) //Have you tried turning it off and on again?
+	update_health_hud()
 	to_chat(src, "<span class='notice'>Reboot complete, neural interface operational.")
