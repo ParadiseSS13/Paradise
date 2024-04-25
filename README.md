@@ -62,15 +62,17 @@
 
 - ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
 
-This guide shows you how to leave code comments that comply with "autodocumentation", a system to make everyone's lives easier when reading code!
+This guide shows you how to leave code comments that comply with "autodocumentation", a system designed to make everyone's lives easier when reading or reviewing code!
 
 - ### [Code of Conduct](./CODE_OF_CONDUCT.md)
 
-All contributors are expected to read our Code of Conduct before they take part in the community.
+All contributors are expected to read our Code of Conduct before they take part in our community.
 
 - ### [Contribution Guide](.github/CONTRIBUTING.md)
 
 Not sure how to take part and contribute? This guide gives an overview of how to make comments, pull requests, and open issues.
+
+This guide also sets out our code standards that we expect all submitted code to adhere to.
 
 - ### [Community Maintained Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
 
@@ -83,13 +85,13 @@ This community maintained guide covers how to set yourself up for success when a
 
 - ### [Paradise Station Development Team Structure](https://www.paradisestation.org/dev/policy/)
 
-A detailed policy document that governs how the Paradise Station Development Team functions.
+A detailed policy document that governs how the Paradise Station Development Team functions, from the various roles that help keep things running to the process each PR goes through depending on the content.
 
 - ### [TGUI Tutorial](tgui/docs/tutorial-and-examples.md)
 
 TGUI is a user interface framework, built on InfernoJS, for all new player-facing UIs.
 
-TGUI is very different to most other BYOND user interfaces as it leans heavily on JavaScript. If you are looking to get to grips with it, this tutorial is a good starting point. Additional information can also be found [here.](tgui)
+TGUI is very different to most other BYOND user interfaces as it is written entirely in JavaScript with some data passed to and from DreamMaker. If you are looking to get to grips with TGUI, this tutorial is a good starting point. Additional information can also be found [here.](tgui)
 
 - ### [Mapping Guide](https://hackmd.io/@tgstation/SyVma0dS5#san7890s-A-Z-Guide-to-Mapping)
 
