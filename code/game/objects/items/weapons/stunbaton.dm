@@ -316,7 +316,5 @@
 
 /obj/item/melee/baton/loaded/borg_stun_arm
 	name = "electrically-charged arm"
-	desc = "A piece of scrap that you powered to turn into a makeshift baton."
-	icon = 'icons/mob/robot_items.dmi'
-	icon_state = "elecarm"
+	desc = "A piece of scrap metal wired directly to your power cell."
 	hitcost = 100
