@@ -378,7 +378,7 @@
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
 	name = "Densified Chemicals"
-	rate = 2
+	rate = 1.5
 
 /datum/plant_gene/trait/maxchem/on_new(obj/item/food/snacks/grown/G)
 	..()
