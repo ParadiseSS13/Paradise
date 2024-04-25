@@ -221,7 +221,7 @@
 
 	use(recipe_to_make.req_amount * multiplier)
 
-	recipe_to_make.post_build(src, created)
+	recipe_to_make.post_build(user, src, created)
 	if(isitem(created))
 		user.put_in_hands(created)
 

@@ -5,7 +5,6 @@ import { createSearch } from 'common/string';
 import { Window } from '../layouts';
 import {
   Box,
-  Table,
   Section,
   NoticeBox,
   Collapsible,
@@ -15,7 +14,7 @@ import {
 
 export const StackCraft = (props, context) => {
   return (
-    <Window width={350} height={470}>
+    <Window width={350} height={500}>
       <Window.Content>
         <Recipes />
       </Window.Content>
@@ -40,7 +39,6 @@ const Recipes = (props, context) => {
       title={'Amount: ' + amount}
       buttons={
         <Input
-          autoFocus
           width={12.5}
           value={searchText}
           placeholder={'Search recipes'}
@@ -174,7 +172,6 @@ const RecipeListBox = (props, context) => {
     if (isRecipeList(recipe)) {
       return (
         <Collapsible
-          open
           key={title}
           title={title}
           contentStyle={{
@@ -210,34 +207,26 @@ const RecipeBox = (props, context) => {
   const max_possible_multiplier = calculateMultiplier(recipe, amount);
 
   return (
-    <Box>
-      <Table>
-        <Table.Row>
-          <Table.Cell>
-            <ImageButton
-              asset
-              imageAsset={'stack_recipes32x32'}
-              image={imageID}
-              disabled={!max_possible_multiplier}
-              content={buttonName}
-              tooltip={tooltipContent}
-              onClick={() =>
-                act('make', {
-                  recipe_uid: uid,
-                  multiplier: 1,
-                })
-              }
-            >
-              {max_result_amount > 1 && max_possible_multiplier > 1 && (
-                <Multipliers
-                  recipe={recipe}
-                  max_possible_multiplier={max_possible_multiplier}
-                />
-              )}
-            </ImageButton>
-          </Table.Cell>
-        </Table.Row>
-      </Table>
-    </Box>
+    <ImageButton
+      asset
+      imageAsset={'stack_recipes32x32'}
+      image={imageID}
+      disabled={!max_possible_multiplier}
+      content={buttonName}
+      tooltip={tooltipContent}
+      onClick={() =>
+        act('make', {
+          recipe_uid: uid,
+          multiplier: 1,
+        })
+      }
+    >
+      {max_result_amount > 1 && max_possible_multiplier > 1 && (
+        <Multipliers
+          recipe={recipe}
+          max_possible_multiplier={max_possible_multiplier}
+        />
+      )}
+    </ImageButton>
   );
 };
