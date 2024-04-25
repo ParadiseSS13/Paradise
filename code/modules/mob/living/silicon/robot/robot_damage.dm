@@ -75,10 +75,10 @@
 		if(C.installed)
 			rval += C
 	return rval
-
+///Returns the armour component for a borg, or
 /mob/living/silicon/robot/proc/get_armour()
 	if(!LAZYLEN(components))
-		return TRUE
+		return FALSE
 	var/datum/robot_component/C = components["armour"]
 	if(C && C.installed)
 		return C
