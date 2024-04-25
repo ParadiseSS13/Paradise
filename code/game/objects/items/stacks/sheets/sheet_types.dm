@@ -336,6 +336,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("mail bag", /obj/item/storage/bag/mail, 4),
 		new /datum/stack_recipe("construction bag", /obj/item/storage/bag/construction, 4),
+		new /datum/stack_recipe("money bag", /obj/item/storage/bag/money, 3),
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
@@ -513,7 +514,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	))
 

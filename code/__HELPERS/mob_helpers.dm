@@ -189,7 +189,6 @@
 		return min(max(. + rand(-25, 25), -185), 34)
 	else if(species == "Vox")
 		. = rand(1, 6)
-		return .
 
 /proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
