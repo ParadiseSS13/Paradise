@@ -4,12 +4,16 @@
 #include "code/mecha/lockermech.dm"
 #include "code/mecha/combat.dm"
 
+// ID Skins
+#include "code/id_skins/_id_skins_base.dm"
+#include "code/id_skins/id_skins.dm"
+#include "code/id_skins/id_skins_spawners.dm"
+
 // Miscellaneous
 #include "code/beach_umbrella.dm"
 #include "code/beretta.dm"
 #include "code/big_bed.dm"
 #include "code/billboard.dm"
-#include "code/card_skins.dm"
 #include "code/closets.dm"
 #include "code/coffin.dm"
 #include "code/hampters.dm"
