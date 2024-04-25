@@ -8,13 +8,13 @@
  //No longer needed, but I'll leave it here incase we plan to re-use it.
 /mob/living/silicon/robot/movement_delay()
 	. = ..()
+	. += GLOB.configuration.movement.robot_delay
 	. += speed
 	. += get_total_component_slowdown()
 	. += get_stamina_slowdown()
 	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
 		. -= 3
-	. += GLOB.configuration.movement.robot_delay
-	log_debug("total slowdown: [.]")
+	. = min(., slowdown_cap)
 
 /mob/living/silicon/robot/mob_negates_gravity()
 	return HAS_TRAIT(src, TRAIT_MAGPULSE)
