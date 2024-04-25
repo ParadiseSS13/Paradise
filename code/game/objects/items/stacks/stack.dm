@@ -125,7 +125,7 @@
 	else
 		..()
 
-/obj/machinery/nuclearbomb/ui_state(mob/user)
+/obj/item/stack/ui_state(mob/user)
 	return GLOB.hands_state
 
 /obj/item/stack/ui_assets(mob/user)
