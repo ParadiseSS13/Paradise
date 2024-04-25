@@ -152,7 +152,7 @@
 				memolist += "[ckey]"
 
 			qdel(query_memodellist)
-			if(!memolist.len)
+			if(!length(memolist))
 				to_chat(src, "No memos found in database.")
 				return
 

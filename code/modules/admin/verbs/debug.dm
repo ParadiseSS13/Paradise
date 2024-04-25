@@ -64,13 +64,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!target)
 				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
 				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			log_admin("[key_name(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+			message_admins("[key_name_admin(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
@@ -173,8 +173,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!A || !IsValidSrc(A))
 		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
-	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
@@ -800,6 +800,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Average References During Hardel: [I.reference_average] references.</li>"
 		if(I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if(I.no_respect_force)
@@ -988,3 +989,24 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+/client/proc/cmd_clean_radiation()
+	set name = "Remove All Radiation"
+	set desc = "Remove all radiation in the world."
+	set category = "Debug"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert(src, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
+		return
+
+	log_and_message_admins("is decontaminating the world of all radiation. (This may be laggy!)")
+
+	var/counter = 0
+	for(var/datum/component/radioactive/rad as anything in SSradiation.all_radiations)
+		rad.admin_decontaminate()
+		counter++
+		CHECK_TICK
+
+	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")

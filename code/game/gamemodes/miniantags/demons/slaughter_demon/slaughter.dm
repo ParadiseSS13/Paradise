@@ -111,7 +111,6 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
-	panel = "Demon"
 
 /datum/spell/sense_victims/create_new_targeting()
 	return new /datum/spell_targeting/alive_mob_list
@@ -133,7 +132,7 @@
 	..()
 	spawn(5)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
-		if(!demon_candidates.len)
+		if(!length(demon_candidates))
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
 			return
@@ -182,7 +181,7 @@
 
 			validtargets += M
 
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 

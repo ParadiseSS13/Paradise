@@ -131,17 +131,17 @@
 
 /obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
 	. = ""
-	if(equipment.len)
+	if(length(equipment))
 		. += "<div class='wr'>"
 		. += "<div class='header'>Equipment</div>"
 		. += "<div class='links'>"
 		for(var/obj/item/mecha_parts/mecha_equipment/W in equipment)
 			. += "[W.name] <a href='byond://?src=[W.UID()];detach=1'>Detach</a><br>"
-		. += "<b>Available equipment slots:</b> [max_equip-equipment.len]"
+		. += "<b>Available equipment slots:</b> [max_equip-length(equipment)]"
 		. += "</div></div>"
 
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
-	if(!equipment.len)
+	if(!length(equipment))
 		return
 	. = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
@@ -229,11 +229,11 @@
 
 /obj/mecha/proc/log_message(message as text,red=null)
 	log.len++
-	log[log.len] = list("time"=world.timeofday,"message"="[red?"<font color='red'>":null][message][red?"</font>":null]")
-	return log.len
+	log[length(log)] = list("time"=world.timeofday,"message"="[red?"<font color='red'>":null][message][red?"</font>":null]")
+	return length(log)
 
 /obj/mecha/proc/log_append_to_last(message as text,red=null)
-	var/list/last_entry = log[log.len]
+	var/list/last_entry = log[length(log)]
 	last_entry["message"] += "<br>[red?"<font color='red'>":null][message][red?"</font>":null]"
 	return
 

@@ -152,7 +152,6 @@
 		real_name = name
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
-	remove_verb(src, /mob/verb/observe)
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
@@ -258,33 +257,33 @@
 	set waitfor = FALSE
 	if(speak_chance)
 		if(prob(speak_chance) || override)
-			if(speak && speak.len)
-				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
-					var/length = speak.len
-					if(emote_hear && emote_hear.len)
-						length += emote_hear.len
-					if(emote_see && emote_see.len)
-						length += emote_see.len
+			if(speak && length(speak))
+				if((emote_hear && length(emote_hear)) || (emote_see && length(emote_see)))
+					var/length = length(speak)
+					if(emote_hear && length(emote_hear))
+						length += length(emote_hear)
+					if(emote_see && length(emote_see))
+						length += length(emote_see)
 					var/randomValue = rand(1,length)
-					if(randomValue <= speak.len)
+					if(randomValue <= length(speak))
 						say(pick(speak))
 					else
-						randomValue -= speak.len
-						if(emote_see && randomValue <= emote_see.len)
+						randomValue -= length(speak)
+						if(emote_see && randomValue <= length(emote_see))
 							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
 							custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
-				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
+				if(!(emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
 					custom_emote(EMOTE_VISIBLE, pick(emote_see))
-				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
+				if((emote_hear && length(emote_hear)) && !(emote_see && length(emote_see)))
 					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
-				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					var/length = emote_hear.len + emote_see.len
+				if((emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
+					var/length = length(emote_hear) + length(emote_see)
 					var/pick = rand(1,length)
-					if(pick <= emote_see.len)
+					if(pick <= length(emote_see))
 						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
@@ -361,7 +360,7 @@
 /mob/living/simple_animal/say_quote(message)
 	var/verb = "says"
 
-	if(speak_emote.len)
+	if(length(speak_emote))
 		verb = pick(speak_emote)
 
 	return verb

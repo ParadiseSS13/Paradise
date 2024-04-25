@@ -201,7 +201,7 @@
 				update_hair()	//rebuild hair
 				update_fhair()
 				update_head_accessory()
-			if(hud_list.len)
+			if(length(hud_list))
 				sec_hud_set_ID()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask()
@@ -222,7 +222,7 @@
 			update_inv_belt()
 		if(SLOT_HUD_WEAR_ID)
 			wear_id = I
-			if(hud_list.len)
+			if(length(hud_list))
 				sec_hud_set_ID()
 			update_inv_wear_id()
 		if(SLOT_HUD_WEAR_PDA)
