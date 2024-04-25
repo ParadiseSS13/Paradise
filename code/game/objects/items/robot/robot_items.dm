@@ -4,6 +4,10 @@
 /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
 
+/*
+The old, instant-stun borg arm.
+Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun_arm
+*/
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm"

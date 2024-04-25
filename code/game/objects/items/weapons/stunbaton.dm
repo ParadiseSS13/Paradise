@@ -313,3 +313,10 @@
 /obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(sparkler.activate())
 		return ..()
+
+/obj/item/melee/baton/loaded/borg_stun_arm
+	name = "electrically-charged arm"
+	desc = "A piece of scrap that you powered to turn into a makeshift baton."
+	icon = 'icons/mob/robot_items.dmi'
+	icon_state = "elecarm"
+	hitcost = 100

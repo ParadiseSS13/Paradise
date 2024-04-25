@@ -200,8 +200,10 @@
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
 	D.disable()
-	spawn(duration)
-		D.enable()
+	addtimer(CALLBACK(src, PROC_REF(reenable_component), D), duration)
+
+/mob/living/silicon/robot/proc/reenable_component(var/datum/robot_component/to_enable)
+	to_enable.enable()
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(component_name)
