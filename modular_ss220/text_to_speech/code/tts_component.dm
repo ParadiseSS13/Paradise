@@ -90,7 +90,9 @@
 
 /datum/component/tts_component/proc/tts_seed_change(atom/being_changed, mob/chooser, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
 	SIGNAL_HANDLER
-	set waitfor = FALSE
+	INVOKE_ASYNC(src, PROC_REF(set_tts_seed), being_changed, chooser, override, fancy_voice_input_tgui, new_traits)
+
+/datum/component/tts_component/proc/set_tts_seed(atom/being_changed, mob/chooser, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
 	var/datum/tts_seed/new_tts_seed = select_tts_seed(chooser = chooser, override = override, fancy_voice_input_tgui = fancy_voice_input_tgui, new_traits = new_traits)
 	if(!new_tts_seed)
 		return null
