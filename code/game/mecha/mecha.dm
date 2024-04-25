@@ -103,6 +103,20 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
+	//Action datums
+	var/datum/action/innate/mecha/mech_eject/eject_action = new
+	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
+	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
+	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
+	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
+	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
+	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
+	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
+	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
+	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
+	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
+	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+
 /obj/mecha/Initialize()
 	. = ..()
 	icon_state += "-open"
@@ -176,7 +190,7 @@
 			. += "It's heavily damaged."
 		else
 			. += "It's falling apart."
-	if(equipment && equipment.len)
+	if(equipment && length(equipment))
 		. += "It's equipped with:"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			. += "[bicon(ME)] [ME]"
@@ -918,7 +932,7 @@
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
 	else
 		examine(user)
 		if(occupant)
@@ -933,7 +947,7 @@
 		if(!can_control_mech)
 			to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
 			return
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
 
 /obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
@@ -1341,7 +1355,7 @@
 /obj/mecha/check_access(obj/item/card/id/I, list/access_list)
 	if(!istype(access_list))
 		return 1
-	if(!access_list.len) //no requirements
+	if(!length(access_list)) //no requirements
 		return 1
 	I = I?.GetID()
 	if(!istype(I) || !I.access) //not ID or no access

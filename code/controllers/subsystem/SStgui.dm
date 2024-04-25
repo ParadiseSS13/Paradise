@@ -42,8 +42,8 @@ SUBSYSTEM_DEF(tgui)
 		src.current_run = open_uis.Copy()
 	// Cache for sanic speed (lists are references anyways)
 	var/list/current_run = src.current_run
-	while(current_run.len)
-		var/datum/tgui/ui = current_run[current_run.len]
+	while(length(current_run))
+		var/datum/tgui/ui = current_run[length(current_run)]
 		current_run.len--
 		// TODO: Move user/src_object check to process()
 		if(ui && ui.user && ui.src_object)

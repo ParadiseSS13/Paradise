@@ -79,7 +79,7 @@
 	filling_color = "#CCCCCC"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
+	tastes = list("bun" = 4, "metal" = 2, "sludge" = 1)
 
 /obj/item/food/snacks/burger/hamborger/Initialize(mapload)
 	. = ..()
@@ -315,6 +315,14 @@
 	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
 	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/snacks/burger/chicken
+	name = "chicken burger"
+	desc = "May I mayo?"
+	icon_state = "chickenburger"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "chicken" = 2)
 
 /obj/item/food/snacks/burger/jelly
 	name = "jelly burger"

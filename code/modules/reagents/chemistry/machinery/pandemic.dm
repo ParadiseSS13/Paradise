@@ -28,7 +28,7 @@
 
 /obj/machinery/computer/pandemic/proc/GetVirusByIndex(index)
 	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
+		if(length(beaker.reagents.reagent_list))
 			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
 			if(BL)
 				if(BL.data && BL.data["viruses"])
@@ -37,7 +37,7 @@
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
 	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
+		if(length(beaker.reagents.reagent_list))
 			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
 			if(BL)
 				if(BL.data && BL.data["resistances"])
@@ -247,10 +247,10 @@
 	user.set_machine(src)
 	var/dat = ""
 	if(temp_html)
-		dat = "[temp_html]<BR><BR><A href='?src=[UID()];clear=1'>Main Menu</A>"
+		dat = "[temp_html]<BR><BR><A href='byond://?src=[UID()];clear=1'>Main Menu</A>"
 	else if(!beaker)
 		dat += "Please insert beaker.<BR>"
-		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Close</A>"
+		dat += "<A href='byond://?src=[user.UID()];mach_close=pandemic'>Close</A>"
 	else
 		var/datum/reagents/R = beaker.reagents
 		var/datum/reagent/blood/Blood = null
@@ -258,7 +258,7 @@
 			if(B)
 				Blood = B
 				break
-		if(!R.total_volume||!R.reagent_list.len)
+		if(!R.total_volume||!length(R.reagent_list))
 			dat += "The beaker is empty<BR>"
 		else if(!Blood)
 			dat += "No blood sample found in beaker."
@@ -272,7 +272,7 @@
 
 			if(Blood.data["viruses"])
 				var/list/vir = Blood.data["viruses"]
-				if(vir.len)
+				if(length(vir))
 					var/i = 0
 					for(var/thing in Blood.data["viruses"])
 						var/datum/disease/D = thing
@@ -285,14 +285,14 @@
 								D = GLOB.archive_diseases[A.GetDiseaseID()]
 								if(D)
 									if(D.name == "Unknown")
-										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Name Disease</a></b><BR>"
+										dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Name Disease</a></b><BR>"
 									else
-										dat += "<b><a href='?src=[UID()];print_form=[i]'>Print release form</a></b><BR>"
+										dat += "<b><a href='byond://?src=[UID()];print_form=[i]'>Print release form</a></b><BR>"
 
 							if(!D)
 								CRASH("We weren't able to get the advance disease from the archive.")
 
-							dat += "<b>Disease Agent:</b> [D?"[D.agent] - <A href='?src=[UID()];create_virus_culture=[i]'>Create virus culture bottle</A>":"none"]<BR>"
+							dat += "<b>Disease Agent:</b> [D?"[D.agent] - <A href='byond://?src=[UID()];create_virus_culture=[i]'>Create virus culture bottle</A>":"none"]<BR>"
 							dat += "<b>Common name:</b> [(D.name||"none")]<BR>"
 							dat += "<b>Description: </b> [(D.desc||"none")]<BR>"
 							dat += "<b>Spread:</b> [(D.spread_text||"none")]<BR>"
@@ -314,7 +314,7 @@
 			dat += "<BR><b>Contains antibodies to:</b> "
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
-				if(res.len)
+				if(length(res))
 					dat += "<ul>"
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
@@ -329,14 +329,14 @@
 							var/datum/disease/D = new type(0, null)
 							disease_name = D.name
 
-						dat += "<li>[disease_name] - <A href='?src=[UID()];create_vaccine=[i]'>Create vaccine bottle</A></li>"
+						dat += "<li>[disease_name] - <A href='byond://?src=[UID()];create_vaccine=[i]'>Create vaccine bottle</A></li>"
 					dat += "</ul><BR>"
 				else
 					dat += "nothing<BR>"
 			else
 				dat += "nothing<BR>"
-		dat += "<BR><A href='?src=[UID()];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Empty and eject beaker</A>":"")]<BR>"
-		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Close</A>"
+		dat += "<BR><A href='byond://?src=[UID()];eject=1'>Eject beaker</A>[((R.total_volume&&length(R.reagent_list)) ? "-- <A href='byond://?src=[UID()];empty_beaker=1'>Empty and eject beaker</A>":"")]<BR>"
+		dat += "<A href='byond://?src=[user.UID()];mach_close=pandemic'>Close</A>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 400)
 	popup.set_content(dat)

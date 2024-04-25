@@ -80,13 +80,13 @@ SLIME SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounceic'>OVERDOSING</span>" : ".</span>"]"
 			else
 				msgs += "<span class='notice'>Subject contains no reagents.</span>"
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
@@ -664,7 +664,7 @@ SLIME SCANNER
 	if(!isnull(O.reagents))
 		var/dat = ""
 		var/blood_type = ""
-		if(O.reagents.reagent_list.len > 0)
+		if(length(O.reagents.reagent_list) > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")

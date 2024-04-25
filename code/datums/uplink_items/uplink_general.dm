@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
-	if(!uplink_items.len)
+	if(!length(uplink_items))
 
 		var/list/last = list()
 		for(var/path in GLOB.uplink_items)

@@ -1,6 +1,6 @@
 /obj/machinery/door/window
 	name = "interior door"
-	desc = "A strong door."
+	desc = "A door that's also a window, isn't that amazing?"
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
@@ -28,7 +28,7 @@
 
 /obj/machinery/door/window/Initialize(mapload)
 	. = ..()
-	if(req_access && req_access.len)
+	if(req_access && length(req_access))
 		base_state = icon_state
 
 	if(name != initial(name))
@@ -367,9 +367,9 @@
 					ae = new/obj/item/airlock_electronics(loc)
 					if(!req_access)
 						check_access()
-					if(req_access.len)
+					if(length(req_access))
 						ae.selected_accesses = req_access
-					else if(req_one_access.len)
+					else if(length(req_one_access))
 						ae.selected_accesses = req_one_access
 						ae.one_access = 1
 				else
@@ -401,6 +401,7 @@
 
 /obj/machinery/door/window/reinforced
 	name = "Branch, do not add stuff here"
+	desc = "A stronger version of the common windoor, often used by authority figures denying assistants their rightful access."
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
@@ -435,8 +436,8 @@
 	base_state = "right"
 
 /obj/machinery/door/window/antitheft
-	desc = "Better do not try to steal, pal, lube off."
 	name = "Branch, do not add stuff here"
+	desc = "Better do not try to steal, pal, lube off."
 
 /obj/machinery/door/window/antitheft/normal
 	name = ".custom placement"
@@ -448,6 +449,7 @@
 
 /obj/machinery/door/window/brigdoor
 	name = "Do not make stuff here, its needed for code to not collapse"
+	desc = "A stronger version of the common windoor, often used by authority figures denying assistants their rightful access."
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)

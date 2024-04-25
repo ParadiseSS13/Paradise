@@ -124,7 +124,7 @@
 
 /datum/design/mmi
 	name = "Man-Machine Interface"
-	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
+	desc = "A compact, highly portable self-contained life support system, capable of housing a single brain and allowing it to seamlessly interface with whatever it is installed into."
 	id = "mmi"
 	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 2)
 	build_type = PROTOLATHE | MECHFAB
@@ -135,7 +135,7 @@
 
 /datum/design/robotic_brain
 	name = "Robotic Brain"
-	desc = "The latest in non-sentient Artificial Intelligences."
+	desc = "The latest in non-sapient Artificial Intelligences."
 	id = "mmi_robotic"
 	req_tech = list("programming" = 5, "biotech" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE | MECHFAB
