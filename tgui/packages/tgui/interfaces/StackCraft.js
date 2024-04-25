@@ -173,18 +173,19 @@ const RecipeListBox = (props, context) => {
     const [title, recipe] = entry;
     if (isRecipeList(recipe)) {
       return (
-        <Collapsible key={title} title={title} contentMargin={0}>
-          <Box
-            pt={1}
-            style={{
-              'background-color': 'rgba(62, 97, 137, 0.15)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              'border-top': 'none',
-            }}
-          >
-            <Box ml={1} mr={1}>
-              <RecipeListBox recipes={recipe} />
-            </Box>
+        <Collapsible
+          open
+          key={title}
+          title={title}
+          contentStyle={{
+            'margin-top': '0',
+            'background-color': 'rgba(62, 97, 137, 0.15)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            'border-top': 'none',
+          }}
+        >
+          <Box p={1} pb={0.25}>
+            <RecipeListBox recipes={recipe} />
           </Box>
         </Collapsible>
       );

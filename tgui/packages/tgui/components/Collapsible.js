@@ -25,7 +25,7 @@ export class Collapsible extends Component {
       color = 'default',
       title,
       buttons,
-      contentMargin = 1,
+      contentStyle,
       ...rest
     } = props;
     return (
@@ -46,7 +46,11 @@ export class Collapsible extends Component {
             <div className="Table__cell Table__cell--collapsing">{buttons}</div>
           )}
         </div>
-        {open && <Box mt={contentMargin}>{children}</Box>}
+        {open && (
+          <Box mt={1} style={contentStyle}>
+            {children}
+          </Box>
+        )}
       </Box>
     );
   }
