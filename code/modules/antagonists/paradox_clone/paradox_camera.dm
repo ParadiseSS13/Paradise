@@ -128,11 +128,6 @@
 	pc.owner.spell_list += objective_spell
 	pc.current_powers += objective_spell
 
-	message_admins("[pc.owner.gen_objective_text()]")
-	message_admins("[pc.owner.has_objectives()]")
-	message_admins("[pc.owner.get_all_objectives()]")
-	message_admins("[pc.owner.get_all_objectives(FALSE)]")
-
 	var/list/messages = list()
 	messages.Add(pc.greet())
 	messages.Add(pc.owner.prepare_announce_objectives())
