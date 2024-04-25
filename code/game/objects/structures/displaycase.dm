@@ -234,7 +234,7 @@
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
+		playsound(loc, I.usesound, 50, TRUE)
 		if(do_after(user, 30, target = src))
 			var/obj/item/airlock_electronics/new_electronics = I
 			if(user.drop_item() && !new_electronics.is_installed)
