@@ -45,6 +45,189 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
+//Security Sword
+/obj/item/melee/secsword
+	name = "Securiblade"
+	desc = "This nanite-honed blade comes with a battery in the hilt, to add an electric shock to every swing."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	var/base_icon = "secsword"
+	icon_state = "secsword0"
+	item_state = "secsword0"
+	flags = CONDUCT
+	force = 15
+	var/stam_damage = 35 // 3 hits to stamcrit
+	var/burn_damage = 10
+	throwforce = 5
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	origin_tech = "combat=4"
+	attack_verb = list("stabbed", "slashed", "sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	materials = list(MAT_METAL = 1000)
+	/// How much power does it cost to stun someone
+	var/stam_hitcost = 1000
+	/// How much power does it cost to burn someone
+	var/burn_hitcost = 1500
+	/// the initial cooldown tracks the time between stamina damage. tracks the world.time when the baton is usable again.
+	var/cooldown = 3.5 SECONDS
+	var/obj/item/stock_parts/cell/high/cell = null
+	var/state = 0 //Sword state 0 - off, 1 - stam, 2 - burn
+
+/obj/item/melee/secsword/examine(mob/user)
+	. = ..()
+	if(cell)
+		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
+	. += "<span class='notice'>Can be recharged with a recharger</span>"
+
+/obj/item/melee/secsword/update_icon_state()
+	if(!cell)
+		icon_state = "[base_icon]3"
+		item_state = "[base_icon]0"
+	else
+		icon_state = "[base_icon][state]"
+		item_state = "[base_icon][state]"
+
+/obj/item/melee/secsword/Initialize(mapload)
+	. = ..()
+	link_new_cell()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/melee/secsword/proc/link_new_cell(unlink = FALSE)
+	if(unlink)
+		cell = null
+	else
+		cell = new(src)
+
+/obj/item/melee/secsword/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = I
+		if(cell)
+			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+			return
+		if(C.maxcharge < stam_hitcost)
+			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
+			return
+		if(!user.unEquip(I))
+			return
+		I.forceMove(src)
+		cell = I
+		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		update_icon(UPDATE_ICON_STATE)
+
+/obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+
+	user.put_in_hands(cell)
+	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	cell.update_icon()
+	cell = null
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/melee/secsword/attack_self(mob/user)
+	if(!cell)
+		state = 0
+	else
+		state++
+	if(state > 2)
+		state = 0
+	if(state == 0)
+		if(!cell)
+			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+		else
+			to_chat(user, "<span class='warning'>[src]'s edge is now turned off.</span>")
+	else if(state == 1)
+		if(cell.charge < stam_hitcost)
+			state = 0
+			to_chat(user, "<span class='notice'>[src] does not have enough charge to stun!</span>")
+		else
+			to_chat(user, "<span class='notice'>[src]'s edge is now set to stun.</span>")
+	else
+		if(cell.charge < burn_hitcost)
+			state = 0
+			to_chat(user, "<span class='notice'>[src] does not have enough charge to burn!</span>")
+		else
+			to_chat(user, "<span class='notice'>[src]'s edge is now set to burn.</span>")
+	update_icon()
+	add_fingerprint(user)
+
+/obj/item/melee/secsword/attack(mob/M, mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		if(state == 1 && sword_stun(user, user, skip_cooldown = TRUE))
+			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
+							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
+		return
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) //Just like the baton, no sword + judo.
+		to_chat(user, "<span class='warning'>The sword feels off balance in your hand due to your judo training!</span>")
+		return
+
+	if(state == 0) //Off or no battery
+		return ..()
+	else if(state == 1) //Stamina
+		if(issilicon(M)) // Can't stun borgs and AIs
+			return ..()
+		if(!isliving(M))
+			return ..()
+		var/mob/living/L = M
+		sword_stun(L, user)
+		return ..()
+	else //Burn
+		var/mob/living/L = M
+		L.apply_damage(burn_damage, BURN)
+		deductcharge(burn_hitcost)
+		return ..()
+
+
+/// returning false results in no attack animation, returning true results in an animation.
+/obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+	if(cooldown > world.time && !skip_cooldown)
+		return FALSE
+
+	var/user_UID = user.UID()
+	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // Doesn't work in conjunction with stun batons.
+		return FALSE
+
+	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
+			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
+			return FALSE
+		//Weaker than a stun baton, less bad effects applied
+		H.Jitter(5 SECONDS)
+		H.apply_damage(stam_damage, STAMINA)
+		H.SetStuttering(5 SECONDS)
+
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) //So a person cannot hit the same person with a sword AND a baton, or two swords
+	addtimer(CALLBACK(src, PROC_REF(stun_delay), L, user_UID), 2 SECONDS)
+	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
+	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	deductcharge(stam_hitcost)
+	return TRUE
+
+/obj/item/melee/secsword/proc/stun_delay(mob/living/target, user_UID)
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
+
+/obj/item/melee/secsword/proc/deductcharge(amount)
+	if(!cell)
+		return
+	cell.use(amount)
+	if(cell.rigged)
+		cell = null
+		state = 0
+		update_icon(UPDATE_ICON_STATE)
+	if(cell.charge < (amount)) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
+		state = 0
+		update_icon(UPDATE_ICON_STATE)
+//Traitor Sword
+
+//Unathi Sword
+
+
 /obj/item/melee/icepick
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."
