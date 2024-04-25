@@ -21,11 +21,11 @@ CONTENTS:
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS
 	flags_cover = HEADCOVERSEYES
-	// You appear to be this when examined instead of your mob's actual species. Also used to verify the helmet and suit are in a matching set.
+	/// You appear to be this when examined instead of your mob's actual species. Also used to verify the helmet and suit are in a matching set.
 	species_disguise = "High-tech robot"
 	/// All the borg skins that this can disguise you as.
 	var/list/available_disguises = list("Standard")
-	// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
+	/// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
 	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be percieved as being an actual robot by other robots, \
 	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
