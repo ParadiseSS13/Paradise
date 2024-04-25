@@ -205,7 +205,7 @@
 	D.disable()
 	addtimer(CALLBACK(src, PROC_REF(reenable_component), D), duration)
 
-/mob/living/silicon/robot/proc/reenable_component(var/datum/robot_component/to_enable)
+/mob/living/silicon/robot/proc/reenable_component(datum/robot_component/to_enable)
 	to_enable.enable()
 
 // Returns component by it's string name
