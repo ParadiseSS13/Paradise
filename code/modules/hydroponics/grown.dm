@@ -6,22 +6,29 @@
 // Base type. Subtypes are found in /grown dir.
 /obj/item/food/snacks/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	volume = 100
+	dried_type = -1 // Saves us from having to define each stupid grown's dried_type as itself. If you don't want a plant to be driable set this to null in the time definition.
+	resistance_flags = FLAMMABLE
+	origin_tech = "biotech=1"
 	/// The seed of this plant. Starts as a type path, gets converted to an item on New()
 	var/obj/item/seeds/seed = null
 	/// The unsorted seed of this plant, if any. Used by the seed extractor.
 	var/obj/item/unsorted_seeds/unsorted_seed = null
 	var/plantname = ""
-	var/bitesize_mod = 0 	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
+	/// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
+	var/bitesize_mod = 0
+	/// What kind of decal do we create on splat
 	var/splat_type = /obj/effect/decal/cleanable/plant_smudge
-	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
-	var/distill_reagent //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
-	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
-	var/wine_power = 0.1 //Determines the boozepwr of the wine if distill_reagent is NULL. Uses 0.1 - 1.2 not tg's boozepower (divide by 100) else you'll end up with 1000% proof alcohol!
-	dried_type = -1 // Saves us from having to define each stupid grown's dried_type as itself. If you don't want a plant to be driable (watermelons) set this to null in the time definition.
-	resistance_flags = FLAMMABLE
-	origin_tech = "biotech=1"
+	/// If FALSE, this object cannot be distilled into an alcohol.
+	var/can_distill = TRUE
+	/// If null and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
+	var/distill_reagent
+	/// If null, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is null.
+	var/wine_flavor
+	/// Determines the boozepwr of the wine if distill_reagent is null. Use values of 0.1 - 1.2
+	var/wine_power = 0.1
 
-/obj/item/food/snacks/grown/Initialize(mapload, obj/new_seed = null)
+/obj/item/food/snacks/grown/Initialize(mapload, obj/new_seed)
 	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
