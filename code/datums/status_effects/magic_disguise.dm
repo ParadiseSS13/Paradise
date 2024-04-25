@@ -13,9 +13,9 @@
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "chameleon_outfit"
 
-/datum/status_effect/magic_disguise/on_creation(mob/living/new_owner, mob/living/disguise_mob)
+/datum/status_effect/magic_disguise/on_creation(mob/living/new_owner, mob/living/_disguise_mob)
 	. = ..()
-	src.disguise_mob = disguise_mob
+	disguise_mob = _disguise_mob
 
 /datum/status_effect/magic_disguise/on_apply()
 	. = ..()
