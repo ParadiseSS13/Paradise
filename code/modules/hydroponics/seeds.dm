@@ -488,7 +488,6 @@
 	"Perennial Growth" = /datum/plant_gene/trait/repeated_harvest,
 	"Capacitive Cell Production" = /datum/plant_gene/trait/battery,
 	"Hypodermic Prickles" = /datum/plant_gene/trait/stinging,
-	"gaseous decomposition" = /datum/plant_gene/trait/smoke,
 	"Fire Resistance" = /datum/plant_gene/trait/fire_resistance,
 	)
 	for(var/i in 1 to amount_random_traits)
