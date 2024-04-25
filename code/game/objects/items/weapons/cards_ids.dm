@@ -47,6 +47,21 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/emag/magic_key
+	name = "magic key"
+	desc = "It's a magic key, that will open one door!"
+	icon_state = "magic_key"
+	origin_tech = "magnets=2"
+
+/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+	if(!istype(target, /obj/machinery/door))
+		return
+	var/obj/machinery/door/D = target
+	D.locked = FALSE
+	update_icon()
+	. = ..()
+	qdel(src)
+
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"
