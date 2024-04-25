@@ -1,6 +1,5 @@
 
 /datum/spell/paradox
-	panel = "Paradox"
 	school = "paradox"
 	action_background_icon_state = "bg_paradox"
 	human_req = TRUE
