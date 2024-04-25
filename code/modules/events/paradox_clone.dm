@@ -35,7 +35,7 @@
 
 	while(count)
 		count--
-		chosen = pick_n_take(possible_chosen)
+		chosen = pick(possible_chosen) //not pick n take to have at least very LOW chance to create an interesting situation like one clone need to protect someone, and second clone need to kill them lol
 
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a paradox clone of [chosen.real_name], the [chosen.mind.assigned_role]?", ROLE_PARADOX_CLONE, TRUE, wait_time, source = chosen)
 
