@@ -70,6 +70,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/rebooting = FALSE
 	///If the cyborg is in a charger, or otherwise receiving power from an outside source.
 	var/externally_powered = FALSE
+	///What the cyborg's maximum slowdown penalty is, if it has one.
+	var/slowdown_cap = INFINITY
 	var/list/force_modules
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
@@ -1463,11 +1465,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emp_protection)
 		return
 	..()
+	adjustStaminaLoss((70 / severity))
 	switch(severity)
 		if(1)
-			disable_component("comms", 160)
+			disable_component("comms", 16 SECONDS)
 		if(2)
-			disable_component("comms", 60)
+			disable_component("comms", 6 SECONDS)
 
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
