@@ -4,6 +4,7 @@
 	tick_interval = -1
 	alert_type = /atom/movable/screen/alert/status_effect/magic_disguise
 	status_type = STATUS_EFFECT_REPLACE
+	var/mob/living/disguise_mob
 	var/datum/icon_snapshot/disguise
 
 /atom/movable/screen/alert/status_effect/magic_disguise
@@ -14,25 +15,24 @@
 
 /datum/status_effect/magic_disguise/on_creation(mob/living/new_owner, mob/living/disguise_mob)
 	. = ..()
-	if(!ishuman(new_owner))
-		return FALSE
-	if(!disguise_mob)
-		disguise_mob = select_disguise()
-	if(disguise_mob && ishuman(disguise_mob))
-		create_disguise(disguise_mob)
-	if(disguise)
-		apply_disguise(new_owner)
-		return TRUE
-	else
-		to_chat(owner, "<span class='warning'>Your spell fails to find a disguise!</span>")
-		return FALSE
+	src.disguise_mob = disguise_mob
 
 /datum/status_effect/magic_disguise/on_apply()
 	. = ..()
 	if(!ishuman(owner))
 		return FALSE
+	if(!disguise_mob)
+		disguise_mob = select_disguise()
+	if(ishuman(disguise_mob))
+		create_disguise(disguise_mob)
+	if(disguise)
+		apply_disguise(owner)
+	else
+		to_chat(owner, "<span class='warning'>Your spell fails to find a disguise!</span>")
+		return FALSE
 
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(remove_disguise))
+	return TRUE
 
 /datum/status_effect/magic_disguise/on_remove()
 	owner.regenerate_icons()
@@ -74,6 +74,7 @@
 	H.overlays = disguise.overlays
 	H.update_inv_r_hand()
 	H.update_inv_l_hand()
+	SEND_SIGNAL(H, COMSIG_CARBON_REGENERATE_ICONS)
 	to_chat(H, "<span class='notice'>You disguise yourself as [disguise.name].</span>")
 
 /datum/status_effect/magic_disguise/proc/remove_disguise()
