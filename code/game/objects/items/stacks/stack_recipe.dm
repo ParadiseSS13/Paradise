@@ -39,82 +39,11 @@
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
 
-/// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
-/datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/S, multiplier)
-	if(S.get_amount() < req_amount * multiplier)
-		if(req_amount * multiplier > 1)
-			to_chat(user, "<span class='warning'>You haven't got enough [S] to build [res_amount * multiplier] [title]\s!</span>")
-		else
-			to_chat(user, "<span class='warning'>You haven't got enough [S] to build [title]!</span>")
-		return FALSE
-
-	if(window_checks && !valid_window_location(get_turf(S), user.dir))
-		to_chat(user, "<span class='warning'>[title] won't fit here!</span>")
-		return FALSE
-
-	if(one_per_turf && (locate(result_type) in get_turf(S)))
-		to_chat(user, "<span class='warning'>There is another [title] here!</span>")
-		return FALSE
-
-	if(on_floor && !issimulatedturf(get_turf(S)))
-		to_chat(user, "<span class='warning'>[title] must be constructed on the floor!</span>")
-		return FALSE
-	if(on_floor_or_lattice && !(issimulatedturf(get_turf(S)) || locate(/obj/structure/lattice) in get_turf(S)))
-		to_chat(user, "<span class='warning'>[title] must be constructed on the floor or lattice!</span>")
-		return FALSE
-
-	if(cult_structure)
-		if(user.holy_check())
-			return FALSE
-		if(!is_level_reachable(user.z))
-			to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
-			return FALSE
-		if(locate(/obj/structure/cult) in get_turf(S))
-			to_chat(user, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
-
-	return TRUE
-
-/// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
-/datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/S, multiplier, atom/O)
-	if(time)
-		to_chat(user, "<span class='notice'>Building [title]...</span>")
-		if(!do_after(user, time, target = S.loc))
-			return FALSE
-
-	if(cult_structure && locate(/obj/structure/cult) in get_turf(S)) //Check again after do_after to prevent queuing construction exploit.
-		to_chat(user, "<span class='warning'>There is a structure here!</span>")
-		return FALSE
-
-	if(S.get_amount() < req_amount * multiplier) // Check they still have enough.
-		return FALSE
-
-	if(max_res_amount > 1) //Is it a stack?
-		O = new result_type(get_turf(S), res_amount * multiplier)
-	else
-		O = new result_type(get_turf(S))
-	O.setDir(user.dir)
-	S.use(req_amount * multiplier)
-	S.updateUsrDialog()
-	return O
-
 /// What should be done after the object is built? obj/item/stack/O might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
-/datum/stack_recipe/proc/post_build(mob/user, obj/item/stack/S, obj/item/stack/O)
-	O.add_fingerprint(user)
-
-	if(isitem(O))
-		if(isstack(O) && istype(O, user.get_inactive_hand()))
-			O.merge(user.get_inactive_hand())
-		user.put_in_hands(O)
-
-	//BubbleWrap - so newly formed boxes are empty
-	if(isstorage(O))
-		for(var/obj/item/I in O)
-			qdel(I)
-	//BubbleWrap END
+/datum/stack_recipe/proc/post_build(mob/user, obj/item/stack/S, obj/item/stack/created)
+	return
 
 /* Special Recipes */
-
 /datum/stack_recipe/cable_restraints
 /datum/stack_recipe/cable_restraints/post_build(mob/user, obj/item/stack/S, obj/result)
 	if(istype(result, /obj/item/restraints/handcuffs/cable))

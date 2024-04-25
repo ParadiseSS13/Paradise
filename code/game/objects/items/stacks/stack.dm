@@ -104,12 +104,24 @@
 /obj/item/stack/attack_self_tk(mob/user)
 	ui_interact(user)
 
+/obj/item/stack/attack_tk(mob/user)
+	if(user.stat || !isturf(loc))
+		return
+	// Allow remote stack splitting, because telekinetic inventory managing
+	// is really cool
+	if(src in user.tkgrabbed_objects)
+		var/obj/item/stack/F = split(user, 1)
+		F.attack_tk(user)
+		if(src && user.machine == src)
+			ui_interact(user)
+	else
+		..()
+
 /obj/item/stack/attack_hand(mob/user)
 	if(user.is_in_inactive_hand(src) && get_amount() > 1)
 		change_stack(user, 1)
 		if(src && usr.machine == src)
-			spawn(0)
-				ui_interact(usr)
+			ui_interact(usr)
 	else
 		..()
 
@@ -147,7 +159,6 @@
 			var/datum/stack_recipe/recipe = locateUID(params["recipe_uid"])
 			var/multiplier = text2num(params["multiplier"])
 			return make(usr, recipe, multiplier)
-
 
 /obj/item/stack/proc/recursively_build_recipes(list/recipes_to_iterate)
 	var/list/recipes_data = list()
