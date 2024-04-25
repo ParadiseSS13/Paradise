@@ -60,6 +60,10 @@
 
 # Useful Documents and Links
 
+- ### [Dream Maker (DM) Reference](https://www.byond.com/docs/ref/)
+
+This reference site by the creators of BYOND details information on the DM language, the syntax used, functionality of native procs, and a lot more. This is always useful to have on hand when contributing.
+
 - ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
 
 This guide shows you how to leave code comments that comply with "autodocumentation", a system designed to make everyone's lives easier when reading or reviewing code!
