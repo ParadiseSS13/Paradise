@@ -1465,7 +1465,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emp_protection)
 		return
 	..()
-	adjustStaminaLoss((70 / severity))
+	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
 	switch(severity)
 		if(1)
 			disable_component("comms", 16 SECONDS)
