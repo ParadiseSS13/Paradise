@@ -266,15 +266,15 @@
 	containername = "Plasma canister crate"
 
 /datum/supply_packs/engineering/chemical_flamethrower
-	name = "Chemical flamethrower starter pack"
+	name = "Chemical Flamethrower Starter Pack"
 	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
 	cost = 750
 	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
-	containername = "Chemical flamethrower crate"
+	containername = "chemical flamethrower crate"
 
 /datum/supply_packs/engineering/chemical_canister
-	name = "Chemical flamethrower canister pack"
+	name = "Chemical Flamethrower Canister Pack"
 	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
 	cost = 500
 	containertype = /obj/structure/closet/crate
-	containername = "Chemical flamethrower canister crate"
+	containername = "chemical flamethrower canister crate"

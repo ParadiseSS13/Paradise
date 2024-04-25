@@ -116,7 +116,7 @@
 	for(var/turf/simulated/T in turflist)
 		if(!use_ammo(5))
 			to_chat(user, "<span class='warning'>You hear a click!</span>")
-			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 			break // Whoops! No ammo!
 
 		if(T == previousturf)
@@ -169,12 +169,12 @@
 	return TRUE
 
 /obj/item/chemical_flamethrower/extended
-	name = "Extended capacity chemical flamethrower"
+	name = "extended capacity chemical flamethrower"
 	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires."
 	max_canisters = 2
 
 /obj/item/chemical_canister
-	name = "Chemical canister"
+	name = "chemical canister"
 	desc = "A simple canister of fuel. Does not accept any pyrotechnics except for welding fuel."
 	icon = 'icons/obj/tank.dmi'
 	icon_state = "oxygen"
@@ -218,13 +218,13 @@
 		fire_applications = reagent_to_burn.fire_stack_applications
 
 /obj/item/chemical_canister/extended
-	name = "Extended capacity chemical canister"
+	name = "extended capacity chemical canister"
 	desc = "An extended version of the original design. Does not accept any pyrotechnics except for welding fuel."
 	ammo = 200
 	required_volume = 20 // Bigger canister? More reagents needed.
 
 /obj/item/chemical_canister/pyrotechnics
-	name = "Extended capacity chemical canister"
+	name = "extended capacity chemical canister"
 	desc = "A specialized canister designed to accept certain pyrotechnics."
 	ammo = 150
 	accepted_chemicals = list("phlogiston", "phlogiston_dust", "napalm", "fuel", "thermite", "clf3", "plasma")
