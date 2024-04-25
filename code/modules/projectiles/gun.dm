@@ -195,22 +195,24 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	if(ishuman(user) && user.a_intent == INTENT_HARM)
-		var/mob/living/carbon/human/H = user
-		var/obj/item/gun/GUN_1 = H.get_active_hand()
-		if(istype(H.get_inactive_hand(), /obj/item/gun)) //We do not need to check gun one, as it is controlled by the afterattack
-			var/obj/item/gun/GUN_2 = H.get_inactive_hand()
+	if(!(ishuman(user) && user.a_intent == INTENT_HARM))
+		process_fire(target, user, TRUE, params, null, bonus_spread)
+		return
+	var/mob/living/carbon/human/H = user
+	var/obj/item/gun/GUN_1 = H.get_active_hand()
+	if(istype(H.get_inactive_hand(), /obj/item/gun)) //We do not need to check gun one, as it is controlled by the afterattack
+		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
 
-			if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
-				process_fire(target, user, TRUE, params, null, bonus_spread)
-				return
-			if(GUN_2.can_trigger_gun(user))
-				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					var/temporary_weapon_weight = GUN_2.weapon_weight
-					if(GUN_1.type != GUN_2.type)
-						temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
-					bonus_spread += dual_wield_spread * temporary_weapon_weight
-				addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
+		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
+			process_fire(target, user, TRUE, params, null, bonus_spread)
+			return
+		if(GUN_2.can_trigger_gun(user))
+			if(!HAS_TRAIT(user, TRAIT_BADASS))
+				var/temporary_weapon_weight = GUN_2.weapon_weight
+				if(GUN_1.type != GUN_2.type)
+					temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
+				bonus_spread += dual_wield_spread * temporary_weapon_weight
+			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
 
 	process_fire(target, user, TRUE, params, null, bonus_spread)
 
