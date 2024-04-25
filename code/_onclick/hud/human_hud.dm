@@ -511,16 +511,3 @@
 		if(H.l_hand)
 			screenmob.l_hand.screen_loc = null
 			screenmob.client.screen -= H.l_hand
-
-
-/mob/living/carbon/human/verb/toggle_hotkey_verbs()
-	set category = "OOC"
-	set name = "Toggle Hotkey Buttons"
-	set desc = "This disables or enables the user interface buttons which can be used with hotkeys."
-
-	if(hud_used.hotkey_ui_hidden)
-		client.screen += hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = FALSE
-	else
-		client.screen -= hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = TRUE

@@ -490,7 +490,6 @@
 /datum/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	panel = "Abilities"
 
 	base_cooldown = 600
 

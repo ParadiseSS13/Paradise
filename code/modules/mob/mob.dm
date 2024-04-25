@@ -773,44 +773,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-// Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
-/*
-/mob/verb/abandon_mob()
-	set name = "Respawn"
-	set category = "OOC"
-
-	if(!GLOB.configuration.general.respawn_enabled)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
-		return
-
-	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
-		return
-
-	log_game("[key_name(usr)] has respawned.")
-
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
-
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		return
-	client.screen.Cut()
-	client.screen += client.void
-
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		return
-
-	var/mob/new_player/M = new /mob/new_player()
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		qdel(M)
-		return
-
-	M.key = key
-	return
-
-*/
+/mob/proc/is_dead()
+	return stat == DEAD
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
