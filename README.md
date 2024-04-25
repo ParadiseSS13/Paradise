@@ -24,21 +24,28 @@
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
-			<img width="20%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
+			<img width="15%" alt="Discord" align="left" src=".github/assets/discord-dark.png" href="https://discordapp.com/invite/YJDsXFE">
 		</picture>
 	</a>
 	<a href="https://codedocs.paradisestation.org">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/book-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/book-dark.png">
-			<img alt="Code docs" width="20%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
+			<img alt="Code docs" width="15%" src=".github/assets/book-dark.png" href="https://codedocs.paradisestation.org/">
 		</picture>
 	</a>
 	<a href="https://www.paradisestation.org/">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/web-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/web-dark.png">
-			<img width="20%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
+			<img width="15%" alt="Website" align="right" src=".github/assets/web-dark.png" href="https://www.paradisestation.org/">
+		</picture>
+	</a>
+	<a href="https://paradisestation.org/wiki">
+		<picture>
+			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/wiki-light.png">
+			<source media="(prefers-color-scheme: light)" srcset=".github/assets/wiki-dark.png">
+			<img width="15%" alt="Website" align="right" src=".github/assets/wiki-dark.png" href="https://paradisestation.org/wiki">
 		</picture>
 	</a>
 </p>
