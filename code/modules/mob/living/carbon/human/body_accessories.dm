@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 				GLOB.body_accessory_by_species["[species]"] = list()
 			GLOB.body_accessory_by_species["[species]"]["[accessory.name]"] = accessory
 
-	if(GLOB.body_accessory_by_species.len)
+	if(length(GLOB.body_accessory_by_species))
 		return TRUE
 	return FALSE
 

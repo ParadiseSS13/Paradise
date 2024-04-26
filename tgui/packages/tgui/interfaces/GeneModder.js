@@ -160,7 +160,27 @@ const CoreGenes = (props, context) => {
             />
           </Stack.Item>
         </Stack>
-      ))}
+      ))}{' '}
+      {
+        <Stack>
+          <Stack.Item>
+            <Button
+              content="Extract All"
+              disabled={!disk?.can_extract}
+              icon="save"
+              onClick={() => act('bulk_extract_core')}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button
+              content="Replace All"
+              disabled={!disk?.is_bulk_core}
+              icon="arrow-circle-down"
+              onClick={() => act('bulk_replace_core')}
+            />
+          </Stack.Item>
+        </Stack>
+      }
     </Collapsible>
   );
 };

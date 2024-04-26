@@ -4,11 +4,6 @@
 #define REV_VICTORY 1
 #define STATION_VICTORY 2
 
-/datum/game_mode
-	var/list/datum/mind/head_revolutionaries = list()
-	var/list/datum/mind/revolutionaries = list()
-	var/datum/team/revolution/rev_team
-
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"

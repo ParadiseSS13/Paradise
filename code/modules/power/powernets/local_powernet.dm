@@ -2,7 +2,7 @@
   * # local_powernet
   *
   * Manages all power related mechanics for a single /area
-  * Machines in areas will directly register to this datum in order to recieve power
+  * Machines in areas will directly register to this datum in order to receive power
   *
   * Machine/Turf/Item -> Local Powernet -> APC -> Terminal -> Wirenet
   *

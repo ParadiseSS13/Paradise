@@ -38,6 +38,10 @@
 /proc/sanitize(t, list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/// sanitize() with a pre-set list of characters to remove from IC speech.
+/proc/sanitize_for_ic(t)
+	return sanitize(t, list("<" = "", ">" = "", "\[" = "", "]" = "", "{" = "", "}" = ""))
+
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
@@ -464,6 +468,8 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
+	text = replacetext(text, "\[s\]",		"<S>")
+	text = replacetext(text, "\[/s\]",		"</S>")
 	if(findtext(text, "\[signfont\]") || findtext(text, "\[/signfont\]")) // Make sure the text is there before giving off an error
 		if(check_rights(R_EVENT))
 			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
@@ -547,9 +553,9 @@
 
 	if(tag == "img")
 		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
+		if(length(img_props) == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
+		if(length(img_props) == 2)
 			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
 		return "<img src='[arg]'>"
 
