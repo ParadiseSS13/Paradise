@@ -22,7 +22,6 @@
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
-	has_gender = FALSE
 	bodyflags = SHAVED
 	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
@@ -64,8 +63,8 @@
 
 /datum/species/diona/can_understand(mob/other)
 	if(isnymph(other))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()

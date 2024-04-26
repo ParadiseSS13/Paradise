@@ -43,12 +43,12 @@
 /datum/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
 		return
-	supermatter.radio.autosay(text, supermatter, "Engineering", list(supermatter.z))
+	supermatter.radio.autosay(text, supermatter, "Engineering")
 
 /datum/supermatter_event/proc/general_radio_say(text)
 	if(!text)
 		return
-	supermatter.radio.autosay(text, supermatter, null, list(supermatter.z))
+	supermatter.radio.autosay(text, supermatter, null)
 
 // Below this are procs used for the SM events, in order of severity
 

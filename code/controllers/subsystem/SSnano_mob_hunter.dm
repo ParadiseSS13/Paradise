@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	if(!server_status)
 		return
 	client_mob_update()
-	if(normal_spawns.len < max_normal_spawns)
+	if(length(normal_spawns) < max_normal_spawns)
 		spawn_mob()
 
 //leaving this here in case admins want to use it for a random mini-event or something
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(mob_hunt)
 			if(!H || H != connected_clients[client])
 				ex_players |= connected_clients[client]
 		connected_clients[client] = H
-	if(ex_players.len)	//to make sure we don't do this if we didn't lose any player since the last update
+	if(length(ex_players))	//to make sure we don't do this if we didn't lose any player since the last update
 		for(var/obj/effect/nanomob/N in (normal_spawns + trap_spawns))
 			N.conceal(ex_players)
 
@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	if(server_status != 0)
 		return
 	server_status = 1
-	while(normal_spawns.len < max_normal_spawns)		//repopulate the server's spawns completely if we auto-recover from crash
+	while(length(normal_spawns) < max_normal_spawns)		//repopulate the server's spawns completely if we auto-recover from crash
 		spawn_mob()
 
 /datum/controller/subsystem/mob_hunt/proc/manual_reboot()
@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(mob_info.spawn_point, mob_info)
 	trap_spawns += new_mob
 	new_mob.reveal()
-	if(trap_spawns.len > max_trap_spawns)
+	if(length(trap_spawns) > max_trap_spawns)
 		var/obj/effect/nanomob/old_trap = trap_spawns[1]
 		old_trap.despawn()
 	return 1

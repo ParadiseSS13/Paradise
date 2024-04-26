@@ -12,7 +12,7 @@
 	var/mob/living/carbon/human/human_user = user
 
 	if(!species_custom_messages || (human_user.mind?.miming && !species_custom_mime_messages))
-		return .
+		return
 
 	var/custom_message
 	if(user.mind?.miming)

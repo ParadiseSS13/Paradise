@@ -523,7 +523,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(SLOT_HUD_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
-					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
+					if(length(B.contents) < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
 		return 0 //Unsupported slot
@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize(msg, list("\n" = "<BR>"))
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
 
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
@@ -769,112 +769,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-// Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
-/*
-/mob/verb/abandon_mob()
-	set name = "Respawn"
-	set category = "OOC"
-
-	if(!GLOB.configuration.general.respawn_enabled)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
-		return
-
-	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
-		return
-
-	log_game("[key_name(usr)] has respawned.")
-
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
-
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		return
-	client.screen.Cut()
-	client.screen += client.void
-
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		return
-
-	var/mob/new_player/M = new /mob/new_player()
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		qdel(M)
-		return
-
-	M.key = key
-	return
-
-*/
-/mob/verb/observe()
-	set name = "Observe"
-	set category = "OOC"
-	var/is_admin = 0
-
-	if(client.holder && (client.holder.rights & R_ADMIN))
-		is_admin = 1
-	else if(stat != DEAD || isnewplayer(src))
-		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
-		return
-
-	if(is_admin && stat == DEAD)
-		is_admin = 0
-
-	var/list/names = list()
-	var/list/namecounts = list()
-	var/list/creatures = list()
-
-	for(var/obj/O in GLOB.poi_list)
-		if(!O.loc)
-			continue
-		if(istype(O, /obj/item/disk/nuclear))
-			var/name = "Nuclear Disk"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-		if(istype(O, /obj/singularity))
-			var/name = "Singularity"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-
-	for(var/mob/M in sortAtom(GLOB.mob_list))
-		var/name = M.name
-		if(names.Find(name))
-			namecounts[name]++
-			name = "[name] ([namecounts[name]])"
-		else
-			names.Add(name)
-			namecounts[name] = 1
-
-		creatures[name] = M
-
-
-	client.perspective = EYE_PERSPECTIVE
-
-	var/eye_name = null
-
-	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
-	eye_name = tgui_input_list(usr, "Please, select a player!", ok, creatures)
-
-	if(!eye_name)
-		return
-
-	var/mob/mob_eye = creatures[eye_name]
-
-	if(client && mob_eye)
-		client.eye = mob_eye
+/mob/proc/is_dead()
+	return stat == DEAD
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -1221,8 +1117,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
 	var/new_log = "\[[time_stamp()]] [text]"
 
-	if(target.len)//if there are other logs already present
-		var/previous_log = target[target.len]//get the latest log
+	if(length(target))//if there are other logs already present
+		var/previous_log = target[length(target)]//get the latest log
 		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
 		var/x_sign_position = findtext(previous_log, "x")
 
@@ -1247,7 +1143,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
 			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			target -= target[target.len]//remove the last log
+			target -= target[length(target)]//remove the last log
 
 	target += new_log
 

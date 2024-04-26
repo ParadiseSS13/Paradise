@@ -157,7 +157,7 @@ if(thing == TRUE)
 	return "bleh"
 var/other_thing = pick(TRUE, FALSE)
 if(other_thing == FALSE)
-	return "meh"
+    return "meh"
 
 // Good
 var/thing = pick(TRUE, FALSE)
@@ -165,7 +165,7 @@ if(thing)
 	return "bleh"
 var/other_thing = pick(TRUE, FALSE)
 if(!other_thing)
-	return "meh"
+    return "meh"
 ```
 
 ### Use `pick(x, y, z)`, not `pick(list(x, y, z))`
@@ -452,6 +452,32 @@ Look for code examples on how to properly use it.
     addtimer(CALLBACK(target, PROC_REF(dothing), arg1, arg2, arg3), 5 SECONDS)
 ```
 
+### Signals
+
+Signals are a slightly more advanced topic, but are often useful for attaching external behavior to objects that should be triggered when a specific event occurs.
+
+When defining procs that should be called by signals, you must include `SIGNAL_HANDLER` after the proc header. This ensures that no sleeping code can be called from within a signal handler, as that can cause problems with the signal system.
+
+Since callbacks can be connected to many signals with `RegisterSignal`, it can be difficult to pin down the source that a callback is invoked from. Any new `SIGNAL_HANDLER` should be followed by a comment listing the signals that the proc is expected to be invoked for. If there are multiple signals to be handled, separate them with a `+`.
+
+```dm
+/atom/movable/proc/when_moved(atom/movable/A)
+    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+    do_something()
+
+/datum/component/foo/proc/on_enter(datum/source, atom/enterer)
+    SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_INITIALIZED_ON
+    do_something_else()
+```
+
+If your proc does have something that needs to sleep (such as a `do_after()`), do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with `INVOKE_ASYNC` from within the signal handling function.
+
+```dm
+/atom/movable/proc/when_moved(atom/movable/A)
+    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+    INVOKE_ASYNC(src, PROC_REF(thing_that_sleeps), arg1)
+```
+
 ### Operators
 
 #### Spacing of operators
@@ -586,6 +612,26 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 - Files and path accessed and referenced by code above simply being #included should be strictly lowercase to avoid issues on filesystems where case matters.
 
+#### Modular Code in a File
+
+Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the `tools.dm` file)
+
+Our codebase also has support for checking files so that they only contain one specific typepath, including none of its subtypes. This can be done by adding a specific header at the beginning of the file, which the CI will look for when running. An example can be seen below. You can also run this test locally using `/tools/ci/restrict_file_types.py`
+
+```dm
+RESTRICT_TYPE(/datum/foo)
+
+/datum/proc/do_thing() // Error: '/datum' proc found in a file restricted to '/datum/foo'
+
+/datum/foo
+
+/datum/foo/do_thing()
+
+/datum/foo/bar // Error: '/datum/foo/bar' type definition found in a file restricted to '/datum/foo'
+
+/datum/foo/bar/do_thing() // Error: '/datum/foo/bar' proc found in a file restricted to '/datum/foo'
+```
+
 ### SQL
 
 - Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
@@ -679,7 +725,6 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 ### Other Notes
 
-- Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the `tools.dm` file)
 - Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
 
 - You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
@@ -815,8 +860,10 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
+- [Burzah](https://github.com/Burzah)
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
+- [DGamerL](https://github.com/DGamerL)
 - [lewcc](https://github.com/lewcc)
 
 ---
@@ -827,6 +874,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 - [Charliminator](https://github.com/hal9000PR)
 - [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
+- [FunnyMan3595](https://github.com/FunnyMan3595)
 - [Henri215](https://github.com/Henri215)
 - [lewcc](https://github.com/lewcc)
 - [Sirryan2002](https://github.com/Sirryan2002)
