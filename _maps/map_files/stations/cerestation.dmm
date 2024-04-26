@@ -5826,11 +5826,6 @@
 /turf/simulated/mineral/ancient,
 /area/station/medical/break_room)
 "aMJ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -9481,18 +9476,7 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
-"bgd" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/north)
 "bge" = (
-/obj/machinery/camera{
-	c_tag = "Engineering Asteroid Hallway 4";
-	dir = 1
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -11636,6 +11620,26 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
+"brf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "brg" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -23949,6 +23953,24 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block/A)
+"cAI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/newscaster{
+	pixel_x = -28;
+	name = "west bump";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "cAJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -24649,10 +24671,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/north)
-"cFk" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall,
 /area/station/hallway/primary/central/north)
 "cFl" = (
 /obj/structure/cable/orange{
@@ -43024,6 +43042,10 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/asmaint)
+"gPu" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/north)
 "gPA" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -48719,6 +48741,19 @@
 	},
 /turf/space,
 /area/space)
+"iFj" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "iFs" = (
 /turf/simulated/wall,
 /area/mine/unexplored/cere/research)
@@ -57487,6 +57522,24 @@
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
+"lmP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "lmQ" = (
 /obj/machinery/newscaster{
 	pixel_y = 28;
@@ -59277,6 +59330,15 @@
 /obj/structure/disposaloutlet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
+"lPG" = (
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "lPJ" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -71016,13 +71078,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"pGS" = (
-/obj/item/radio/intercom{
-	pixel_y = 28;
-	name = "custom placement"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "pGX" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/firedoor,
@@ -76312,13 +76367,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
-"rqJ" = (
-/obj/machinery/economy/atm/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/north)
 "rrp" = (
 /obj/machinery/shower{
 	pixel_y = 20
@@ -78698,6 +78746,15 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"shD" = (
+/obj/item/radio/intercom{
+	name = "custom placement";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "shH" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -84003,6 +84060,16 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"tVH" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Asteroid Hallway 4";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/north)
 "tVI" = (
 /obj/machinery/door_control{
 	id = "ailockdown";
@@ -90803,17 +90870,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel/office)
-"vWb" = (
-/obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "south bump";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/north)
 "vWi" = (
 /obj/effect/spawner/grouped_spawner{
 	group_id = "tunnelbats";
@@ -97577,6 +97633,17 @@
 "xYM" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
+"xYQ" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "xYV" = (
 /obj/machinery/requests_console{
 	department = "Locker Room";
@@ -131119,7 +131186,7 @@ rHQ
 eFn
 bgf
 buQ
-aYJ
+gPu
 bhQ
 qsC
 bhd
@@ -131376,10 +131443,10 @@ qvP
 dQd
 bgf
 buQ
-aYJ
+gPu
 bhQ
 dcG
-bhd
+xIu
 cKs
 sFl
 bmA
@@ -131632,11 +131699,11 @@ aYJ
 rHQ
 tvF
 bgf
-vWb
-aYJ
+buQ
+gPu
 bhQ
 dcG
-bhd
+xIu
 cKs
 nPp
 cJC
@@ -131887,14 +131954,14 @@ bbV
 aYJ
 aYJ
 aYJ
-tvF
+iFj
 bgf
-buQ
+tVH
 aYJ
 bhQ
 dcG
 bhd
-nOF
+shD
 blp
 bmB
 cWI
@@ -132139,7 +132206,7 @@ qfa
 olY
 rLY
 jNy
-rLY
+cAI
 fyN
 rLY
 qem
@@ -132147,10 +132214,10 @@ rLY
 cDL
 kCT
 aMJ
-aYJ
+gPu
 bhQ
 dcG
-bhd
+xIu
 cKs
 cJC
 qMy
@@ -132403,12 +132470,12 @@ dqx
 mTR
 mVs
 gMT
-bgd
-cFk
+buQ
+gPu
 bhQ
 dcG
-bhd
-pGS
+xIu
+cKs
 cJD
 qMy
 cWK
@@ -132654,17 +132721,17 @@ htG
 fuC
 fuC
 qWM
-fuC
+lPG
 bto
 bcE
-fuC
+xYQ
 pUd
 xBQ
 bge
-aYJ
+gPu
 bhQ
 dcG
-bhd
+xIu
 cKs
 cJC
 qMy
@@ -132915,7 +132982,7 @@ aYJ
 aYJ
 aYJ
 aYJ
-eQQ
+brf
 bgf
 czV
 aYJ
@@ -133172,13 +133239,13 @@ sGa
 kbl
 pKj
 aYJ
-eQQ
+lmP
 bgf
-rqJ
-aYJ
+buQ
+gPu
 bhQ
 dcG
-bhd
+xIu
 cKs
 nvv
 cKs
@@ -133432,10 +133499,10 @@ bdx
 emX
 bgf
 buQ
-aYJ
+gPu
 bhQ
 dcG
-bhd
+xIu
 cKs
 jlN
 lYE
@@ -133689,7 +133756,7 @@ aYJ
 eQQ
 bgf
 buQ
-aYJ
+gPu
 bhQ
 gLp
 bhd
