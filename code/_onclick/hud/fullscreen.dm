@@ -3,8 +3,10 @@
 	if(!screen || screen.type != type)
 		// needs to be recreated
 		clear_fullscreen(category, FALSE)
-		screens[category] = screen = new type()
-	else if((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
+		screen = new type()
+		screens[category] = screen
+
+	if((!severity || severity == screen.severity))
 		// doesn't need to be updated
 		return screen
 
@@ -15,7 +17,6 @@
 			spawn(0)
 				screen.alpha = 0
 				animate(screen, alpha = 255, time = animated)
-		screen.update_for_view(client.view)
 		client.screen += screen
 
 	return screen
@@ -34,10 +35,11 @@
 			if(client)
 				client.screen -= screen
 			qdel(screen)
-	else
-		if(client)
-			client.screen -= screen
-		qdel(screen)
+		return
+
+	if(client)
+		client.screen -= screen
+	qdel(screen)
 
 /mob/proc/clear_fullscreens()
 	for(var/category in screens)
@@ -50,27 +52,27 @@
 		for(var/category in screens)
 			screen = screens[category]
 			if(screen.should_show_to(mymob))
-				screen.update_for_view(mymob.client.view)
 				mymob.client.screen |= screen
-			else
-				mymob.client.screen -= screen
+				continue
+			mymob.client.screen -= screen
 
 /atom/movable/screen/fullscreen
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "default"
-	screen_loc = "CENTER-7,CENTER-7"
+	appearance_flags = TILE_BOUND
 	layer = FULLSCREEN_LAYER
 	plane = FULLSCREEN_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	var/view = 7
 	var/severity = 0
 	var/show_when_dead = FALSE
 
-/atom/movable/screen/fullscreen/proc/update_for_view(client_view)
-	if(screen_loc == "CENTER-7,CENTER-7" && view != client_view)
-		var/list/actualview = getviewsize(client_view)
-		view = client_view
-		transform = matrix(actualview[1]/FULLSCREEN_OVERLAY_RESOLUTION_X, 0, 0, 0, actualview[2]/FULLSCREEN_OVERLAY_RESOLUTION_Y, 0)
+/atom/movable/screen/fullscreen/Initialize(mapload)
+	. = ..()
+	var/icon/I = new(icon)
+	var/x_offset = -((I.Width() - world.icon_size) / 2)
+	var/y_offset = -((I.Height() - world.icon_size) / 2)
+	qdel(I)
+	screen_loc = "CENTER:[x_offset],CENTER:[y_offset]"
 
 /atom/movable/screen/fullscreen/proc/should_show_to(mob/mymob)
 	if(!show_when_dead && mymob.stat == DEAD)
