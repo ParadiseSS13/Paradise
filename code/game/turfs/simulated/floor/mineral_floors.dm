@@ -96,7 +96,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/titanium
 
 /turf/simulated/floor/mineral/titanium/get_broken_states()
-	return list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
+	return list("titanium_dam1", "titanium_dam2", "titanium_dam3", "titanium_dam4", "titanium_dam5")
 
 /turf/simulated/floor/mineral/titanium/airless
 	oxygen = 0
