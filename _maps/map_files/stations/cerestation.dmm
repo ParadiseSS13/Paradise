@@ -10452,11 +10452,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -11395,16 +11390,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/west)
-"bqp" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	name = "custom placement"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/west)
 "bqq" = (
 /obj/machinery/light_switch{
 	pixel_y = 24;
@@ -11866,6 +11851,11 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -13562,6 +13552,15 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/medbay)
+"byV" = (
+/obj/machinery/firealarm{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "byY" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -25508,6 +25507,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	name = "custom placement"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -26959,15 +26962,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/starboard/south)
-"cPR" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/west)
 "cPW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -29253,16 +29247,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/north)
-"dcK" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/east)
 "dcM" = (
 /obj/machinery/power/treadmill,
 /obj/machinery/treadmill_monitor{
@@ -36561,10 +36545,6 @@
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
-"eyn" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall,
-/area/station/hallway/primary/central/west)
 "eyx" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -39491,6 +39471,17 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
+"fBs" = (
+/obj/machinery/power/apc/important/directional/east,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/west)
 "fBT" = (
 /obj/machinery/bluespace_beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -42087,6 +42078,15 @@
 	icon_state = "white"
 	},
 /area/station/medical/reception)
+"gyN" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/east)
 "gyQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -50768,11 +50768,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
 "jlN" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24;
-	name = "east bump"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -69591,6 +69586,15 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
+"pjQ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/west)
 "pjU" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal/deliveryChute{
@@ -71831,6 +71835,10 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
+"pSY" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/west)
 "pTh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -76013,10 +76021,6 @@
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
-"rlh" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall,
-/area/station/hallway/primary/central/east)
 "rlz" = (
 /obj/structure/falsewall{
 	desc = "A huge chunk of metal used to separate rooms. Nothing odd here, sir.";
@@ -84478,17 +84482,6 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/serveng)
-"uaC" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/important/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/west)
 "uaG" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -98397,6 +98390,10 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
+"yli" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/east)
 "ylz" = (
 /obj/machinery/light/small,
 /obj/machinery/conveyor/auto/ccw{
@@ -129137,7 +129134,7 @@ cJp
 rLW
 blj
 cJO
-rLW
+pjQ
 boY
 bqn
 brV
@@ -129649,13 +129646,13 @@ xDf
 vNe
 vNe
 vNe
-uaC
-cJP
-cPR
+vNe
+vNe
+vNe
 cJm
-bqp
 vNe
-vNe
+fBs
+cJP
 inn
 bwk
 bxv
@@ -129904,13 +129901,13 @@ bfZ
 aYJ
 dWD
 dWD
+pSY
+pSY
+pSY
+pSY
+pSY
 dWD
-eyn
-dWD
-dWD
-dWD
-dWD
-dWD
+pSY
 dWD
 dWD
 dWD
@@ -130424,7 +130421,7 @@ eVf
 biI
 eVf
 bhd
-bhd
+efa
 bhd
 cFw
 buS
@@ -131190,9 +131187,9 @@ gPu
 bhQ
 qsC
 bhd
-bhd
-bhd
-bhd
+efa
+efa
+efa
 bhd
 bhd
 bqs
@@ -131446,7 +131443,7 @@ buQ
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 sFl
 bmA
@@ -131703,7 +131700,7 @@ buQ
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 nPp
 cJC
@@ -132217,7 +132214,7 @@ aMJ
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 cJC
 qMy
@@ -132474,7 +132471,7 @@ buQ
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 cJD
 qMy
@@ -132731,7 +132728,7 @@ bge
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 cJC
 qMy
@@ -132989,7 +132986,7 @@ aYJ
 bhQ
 dcG
 bhd
-nOF
+byV
 cJE
 cKs
 cWO
@@ -133245,7 +133242,7 @@ buQ
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 nvv
 cKs
@@ -133502,7 +133499,7 @@ buQ
 gPu
 bhQ
 dcG
-xIu
+efa
 cKs
 jlN
 lYE
@@ -133760,9 +133757,9 @@ gPu
 bhQ
 gLp
 bhd
-bhd
-bhd
-bhd
+efa
+efa
+efa
 bhd
 bhd
 bqA
@@ -135044,13 +135041,13 @@ buQ
 aYJ
 dwz
 dwz
+yli
+yli
+yli
+yli
+yli
 dwz
-rlh
-dwz
-dwz
-dwz
-dwz
-dwz
+yli
 dwz
 dwz
 mRO
@@ -135305,9 +135302,9 @@ lQT
 lQT
 blt
 beU
-dcK
 beU
 hjR
+beU
 beU
 beU
 bve
@@ -135819,7 +135816,7 @@ aWW
 qkM
 eWf
 qdQ
-qMU
+gyN
 oPa
 jyK
 mKK
