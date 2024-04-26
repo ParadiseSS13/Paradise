@@ -1288,7 +1288,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			update_inv_wear_mask()
 	if(clean_feet)
 		feet_blood_color = null
-		qdel(feet_blood_DNA)
+		feet_blood_DNA = null
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes()
