@@ -87,6 +87,7 @@
 					body += "<a href='byond://?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
 					body += "<a href='byond://?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
 					body += "<a href='byond://?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
+					body += "<a href='byond://?src=[UID()];adminobserve="+mobUID+"'>OBS</a>"
 					if(eyeUID)
 						body += "|<a href='byond://?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
