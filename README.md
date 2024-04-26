@@ -20,7 +20,7 @@
 
 
 <p align="center">
-	<a href="https://discordapp.com/invite/YJDsXFE">
+	<a href="https://discord.gg/paradisess13">
 		<picture>
 			<source media="(prefers-color-scheme: dark)" srcset=".github/assets/discord-light.png">
 			<source media="(prefers-color-scheme: light)" srcset=".github/assets/discord-dark.png">
