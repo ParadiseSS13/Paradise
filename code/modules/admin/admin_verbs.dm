@@ -406,6 +406,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
+	if(isobserver(mob))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		return
+
 	var/mob/target
 
 	target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
@@ -433,6 +437,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /// targeted form of admin_observe: this should only appear in the right-click menu.
 /client/proc/admin_observe_target(mob/target in view())
+	set name = "\[Admin\] Aobserve"
+	set category = null
+
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 
@@ -444,6 +451,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(isnewplayer(target))
 		to_chat(src, "<span class='warning'>[target] is currently in the lobby.</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
 	if(cleanup_admin_observe(mob))
@@ -462,18 +473,18 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		ghost.do_observe(target)
 		return
 
-
-	// the person is a living mob: we need to ghostize.
-	if(!full_admin)
-		// if they're a mentor and they're alive, add the mobserving trait to ensure that they can only go back to their body.
-		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
-		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
-		to_chat(mob, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
-
 	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
-
 	do_aghost()
 	var/mob/dead/observer/ghost = mob
+
+	if(!full_admin)
+		// if they're a mentor and they're alive, add the mobserving trait to ensure that they can only go back to their body.
+		// we need to handle this here because when you aghost, your mob gets set to the ghost. Oops!
+		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
+		RegisterSignal(mob, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
+		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
+		log_debug("[mob.mind] has mentor observed, and should have the signal registered on them")
+
 	// make the ghost orbit them so they can see their visible messages and whatnot
 	ghost.do_observe(target)
 

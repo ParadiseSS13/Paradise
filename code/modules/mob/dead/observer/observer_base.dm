@@ -913,6 +913,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
 		return
 
+	if(isobserver(mob_eye))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		return
+
 	if(!mob_eye.mind)
 		to_chat(src, "<span class='notice'>You can only observe mobs that have been or are being inhabited by a player!</span>")
 		return
@@ -944,7 +948,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end), override = TRUE)
 		else
-			log_debug("[key_name(src)] has not been granted the mobserve trait while observing. If they are not a mentor, this is most likely an error.")
+			if(!check_rights(R_MENTOR), FALSE)
+				log_debug("[key_name(src)] has the the mobserve trait while observing, but isn't a mentor. This is likely an error, and may result in them getting stuck")
 
 /// Clean up observing
 /mob/dead/observer/proc/cleanup_observe()
