@@ -1,11 +1,11 @@
 /mob/living/update_blind_effects(sleeping = FALSE)
 	if(!has_vision(information_only=TRUE))
 		if(sleeping)
-			overlay_fullscreen("sleepblind", /atom/movable/screen/fullscreen/blind/sleeping)
-			overlay_fullscreen("disky", /atom/movable/screen/fullscreen/blind/disky, animated = 7 SECONDS)
+			overlay_fullscreen("sleepblind", /atom/movable/screen/fullscreen/center/blind/sleeping)
+			overlay_fullscreen("disky", /atom/movable/screen/fullscreen/center/blind/disky, animated = 7 SECONDS)
 			throw_alert("blind", /atom/movable/screen/alert/blind)
 			return TRUE
-		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
+		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/stretch/blind)
 		throw_alert("blind", /atom/movable/screen/alert/blind)
 		return TRUE
 	else
@@ -26,7 +26,7 @@
 
 /mob/living/update_druggy_effects()
 	if(AmountDruggy())
-		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
+		overlay_fullscreen("high", /atom/movable/screen/fullscreen/stretch/high)
 		throw_alert("high", /atom/movable/screen/alert/high)
 		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	else
@@ -36,7 +36,7 @@
 
 /mob/living/update_nearsighted_effects()
 	if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
+		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/stretch/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
 
