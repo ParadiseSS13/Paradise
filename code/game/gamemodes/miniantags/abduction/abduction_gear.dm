@@ -812,9 +812,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/spray/cleaner/safety/abductor	// Essentially an Advanced Space Cleaner, but abductor-themed. For the implant.
 	name = "alien space cleaner"
+	desc = "An alien spraybottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cleaner_abductor"
-	desc = "An alien spraybottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
