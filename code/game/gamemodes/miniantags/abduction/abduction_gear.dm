@@ -71,6 +71,7 @@
 		M.overlays = disguise.overlays
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
+		SEND_SIGNAL(M, COMSIG_CARBON_REGENERATE_ICONS)
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
