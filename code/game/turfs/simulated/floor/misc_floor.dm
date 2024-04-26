@@ -137,10 +137,10 @@
 	slowdown = -0.3
 
 /turf/simulated/floor/noslip/get_broken_states()
-	return list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
+	return list("noslip-damaged1", "noslip-damaged2", "noslip-damaged3")
 
 /turf/simulated/floor/plating/asteroid/snow/get_burnt_states()
-	return list("noslip-scorched1","noslip-scorched2")
+	return list("noslip-scorched1", "noslip-scorched2")
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
