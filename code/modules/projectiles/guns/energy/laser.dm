@@ -53,10 +53,10 @@
 	item_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
-	extended_description = "The L-1 Laser Gun was among the earliest practical man-portable laser weapons on the market, produced by the now-defunct Starstrike Systems company.<br><br>\
+	extended_description = "The L-1 Laser Gun was among the earliest practical man-portable laser weapons on the market, produced by the now-defunct Maiman Photonics company.<br><br>\
 	The weapon was designed with reliability in mind, and features a heavy metal frame enclosing a relatively simple (yet powerful) carbon dioxide laser assembly. \
-	They were produced in great quantities until Starstrike Systems was acquired by Shellguard Munitions in a hostile takeover bid. \
-	Shellguard would then use the technology of the L-1 as the basis for its ownLG line of laser rifles.<br><br>\
+	They were produced in great quantities until Maiman Photonics was acquired by Shellguard Munitions in a hostile takeover bid. \
+	Shellguard would then use the technology of the L-1 as the basis for its own LG line of laser rifles.<br><br>\
 	Despite no longer being in production, ease of maintenance and a plentiful supply of spare components has allowed the L-1 to remain in use even to the present day, \
 	mostly among spacers and colonists on the frontier; and various outlaw groups."
 

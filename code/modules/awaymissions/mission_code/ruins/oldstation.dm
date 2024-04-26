@@ -78,7 +78,7 @@
 /obj/item/gun/energy/laser/retro/old
 	name ="degrading L-1 laser gun"
 	icon_state = "retro"
-	desc = "A first-generation lasergun developed by Starstrike Systems. It has a unique rechargable internal cell that cannot be removed. Due to degredation over time, the battery cannot hold as much charge as it used to. You really hope someone has developed a better laser gun while you were in cryo."
+	desc = "A first-generation lasergun developed by Maiman Photonics. It has a unique rechargable internal cell that cannot be removed. Due to degredation over time, the battery cannot hold as much charge as it used to. You really hope someone has developed a better laser gun while you were in cryo."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
