@@ -13,7 +13,7 @@
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
 	if(istype(user.loc, /obj/machinery/atmospherics))
 		return FALSE
-	for(var/mob/living/M in get_mobs_in_view(4, user))
+	for(var/mob/living/M as anything in get_mobs_in_view(4, user))
 		if(iscarbon(M))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
@@ -55,3 +55,7 @@
 		L.break_light_tube()
 	empulse(get_turf(user), 3, 5, 1)
 	return TRUE
+
+/// A more expensive version, used during rounds with cyber rev station trait for balance reasons.
+/datum/action/changeling/dissonant_shriek/cyberrev
+	dna_cost = 5

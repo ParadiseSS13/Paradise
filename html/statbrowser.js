@@ -536,19 +536,19 @@ function draw_verbs(cat) {
 function set_theme(which) {
 	if (which == "light") {
 		document.body.className = "";
-		set_style_sheet("browserOutput_white");
+		set_style_sheet('chat_panel_white');
 	} else if (which == "dark") {
 		document.body.className = "dark";
-		set_style_sheet("browserOutput");
+		set_style_sheet('chat_panel');
 	} else if (which == "ntos") {
 		document.body.className = "ntos";
-		set_style_sheet("browserOutput_ntos");
+		set_style_sheet('chat_panel_ntos');
 	} else if (which == "paradise") {
 		document.body.className = "paradise";
-		set_style_sheet("browserOutput_paradise");
+		set_style_sheet('chat_panel_paradise');
 	} else if (which == "syndicate") {
 		document.body.className = "syndicate";
-		set_style_sheet("browserOutput_syndicate");
+		set_style_sheet('chat_panel_syndicate');
 	}
 }
 

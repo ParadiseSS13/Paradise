@@ -51,22 +51,22 @@
 		current_drawtype += copytext(preset_message, preset_message_index + 1)
 		current_drawtype = uppertext(current_drawtype)
 	dat += "<center><h2>Currently selected: [current_drawtype]</h2><br>"
-	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a><br />"
-	dat += "<a href='?src=[UID()];type=message'>Message</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_letter'>Random letter</a><a href='byond://?src=[UID()];type=letter'>Pick letter</a><br />"
+	dat += "<a href='byond://?src=[UID()];type=message'>Message</a>"
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_rune'>Random rune</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_rune'>Random rune</a>"
 	for(var/i = 1; i <= 8; i++)
-		dat += "<a href='?src=[UID()];type=rune[i]'>Rune [i]</a>"
+		dat += "<a href='byond://?src=[UID()];type=rune[i]'>Rune [i]</a>"
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
 	graffiti.Find()
 	dat += "<h3>Graffiti:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_graffiti'>Random graffiti</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_graffiti'>Random graffiti</a>"
 	var/c = 1
 	for(var/T in graffiti)
-		dat += "<a href='?src=[UID()];type=[T]'>[T]</a>"
+		dat += "<a href='byond://?src=[UID()];type=[T]'>[T]</a>"
 		if(!((c + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 		c++
@@ -136,7 +136,6 @@
 		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
-	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -147,7 +146,7 @@
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		user.adjust_nutrition(5)
 		if(times_eaten < max_bites)
-			to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
+			to_chat(user, "<span class='notice'>You take a bite of the [name]. Delicious!</span>")
 		else
 			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 			qdel(src)
@@ -200,7 +199,7 @@
 	colourName = "purple"
 
 /obj/item/toy/crayon/random/New()
-	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
+	icon_state = pick("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple")
 	switch(icon_state)
 		if("crayonred")
 			name = "red crayon"
@@ -258,7 +257,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
@@ -284,7 +283,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
@@ -302,7 +301,7 @@
 
 /obj/item/toy/crayon/spraycan
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
-	desc = "A metallic container containing tasty paint."
+	desc = "A metallic container containing spray paint."
 	icon_state = "spraycan_cap"
 	var/capped = TRUE
 	instant = TRUE
@@ -311,6 +310,9 @@
 /obj/item/toy/crayon/spraycan/New()
 	..()
 	update_icon()
+
+/obj/item/toy/crayon/spraycan/attack(mob/M, mob/user)
+	return // To stop you from eating spraycans. It's TOO SILLY!
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user)
 	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
@@ -329,26 +331,26 @@
 	if(!proximity)
 		return
 	if(capped)
+		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
 		return
-	else
-		if(iscarbon(target))
-			if(uses - 10 > 0)
-				uses = uses - 10
-				var/mob/living/carbon/C = target
-				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
-				if(C.client)
-					C.EyeBlurry(6 SECONDS)
-					C.EyeBlind(2 SECONDS)
-					if(ishuman(target))
-						var/mob/living/carbon/human/H = target
-						if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-							H.Confused(6 SECONDS)
-							H.KnockDown(6 SECONDS)
-						H.lip_style = "spray_face"
-						H.lip_color = colour
-						H.update_body()
-		playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		..()
+	if(iscarbon(target))
+		if(uses - 10 > 0)
+			uses = uses - 10
+			var/mob/living/carbon/C = target
+			user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
+			if(C.client)
+				C.EyeBlurry(6 SECONDS)
+				C.EyeBlind(2 SECONDS)
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
+					if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+						H.Confused(6 SECONDS)
+						H.KnockDown(6 SECONDS)
+					H.lip_style = "spray_face"
+					H.lip_color = colour
+					H.update_body()
+	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	..()
 
 /obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = "spraycan[capped ? "_cap" : ""]"

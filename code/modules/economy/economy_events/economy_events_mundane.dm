@@ -5,7 +5,7 @@
 /datum/event/mundane_news/announce()
 	var/datum/trade_destination/affected_dest = pickweight(GLOB.weighted_mundaneevent_locations)
 	var/event_type = 0
-	if(affected_dest.viable_mundane_events.len)
+	if(length(affected_dest.viable_mundane_events))
 		event_type = pick(affected_dest.viable_mundane_events)
 
 	if(!event_type)

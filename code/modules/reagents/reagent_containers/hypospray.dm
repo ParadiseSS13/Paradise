@@ -60,6 +60,18 @@
 /obj/item/reagent_containers/hypospray/attack_self(mob/user)
 	return apply(user, user)
 
+/obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		rename_interactive(user, I, use_prefix = TRUE, prompt = "Give [src] a title.")
+		return TRUE
+
+	return ..()
+
+/obj/item/reagent_containers/hypospray/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can use a pen to add a label to [src].</span>"
+
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
@@ -151,7 +163,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(reagents && length(reagents.reagent_list))
 		. += "<span class='notice'>It is currently loaded.</span>"
 	else
 		. += "<span class='notice'>It is spent.</span>"

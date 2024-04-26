@@ -225,6 +225,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSLIP "noslip"
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
 #define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown
+#define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -269,6 +270,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
+
+///An /obj that should not increase the "depth" of the search for adjacency,
+///e.g. a storage container or a modsuit.
+#define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
 
 //
 // common trait sources
@@ -360,6 +365,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_RADIOACTIVE_NEBULA "station_trait_radioactive_nebula"
 #define STATION_TRAIT_FORESTED "station_trait_forested"
 #define STATION_TRAIT_VENDING_SHORTAGE "station_trait_vending_shortage"
+#define STATION_TRAIT_MESSY "station_trait_messy"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
@@ -368,6 +374,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
-//***** TURF TRAITS *****//
+//***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"

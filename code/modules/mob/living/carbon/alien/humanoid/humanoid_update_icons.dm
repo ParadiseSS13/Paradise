@@ -5,11 +5,7 @@
 #define X_R_HAND_LAYER			4
 #define X_TARGETED_LAYER			5
 #define X_FIRE_LAYER			6
-#define X_TOTAL_LAYERS			6
 /////////////////////////////////
-
-/mob/living/carbon/alien/humanoid
-	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
 	overlays.Cut()
@@ -114,15 +110,6 @@
 		overlays_standing[X_HEAD_LAYER]	= null
 	update_icons()
 
-
-/mob/living/carbon/alien/humanoid/update_inv_pockets()
-	if(l_store)
-		l_store.screen_loc = ui_storage1
-	if(r_store)
-		r_store.screen_loc = ui_storage2
-	update_icons()
-
-
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()
 	..()
 	if(r_hand)
@@ -153,4 +140,3 @@
 #undef X_R_HAND_LAYER
 #undef X_TARGETED_LAYER
 #undef X_FIRE_LAYER
-#undef X_TOTAL_LAYERS

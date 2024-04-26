@@ -24,6 +24,7 @@
 	icon_state = "margheritapizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Meat Pizza
 /obj/item/food/snacks/sliceable/pizza/meatpizza
@@ -41,6 +42,7 @@
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Mushroom Pizza
 /obj/item/food/snacks/sliceable/pizza/mushroompizza
@@ -58,6 +60,7 @@
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Vegetable Pizza
 /obj/item/food/snacks/sliceable/pizza/vegetablepizza
@@ -75,6 +78,7 @@
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Hawaiian Pizza
 /obj/item/food/snacks/sliceable/pizza/hawaiianpizza
@@ -92,6 +96,7 @@
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
 	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Mac 'n' Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/macpizza
@@ -110,6 +115,7 @@
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Pepperoni Pizza
 /obj/item/food/snacks/sliceable/pizza/pepperonipizza
@@ -128,6 +134,7 @@
 	icon_state = "pepperonipizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/cheesepizza
@@ -144,6 +151,7 @@
 	icon_state = "cheesepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 3)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Donk-pocket Pizza
 /obj/item/food/snacks/sliceable/pizza/donkpocketpizza
@@ -161,6 +169,7 @@
 	icon_state = "donkpocketpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Dank Pizza
 /obj/item/food/snacks/sliceable/pizza/dankpizza
@@ -178,6 +187,7 @@
 	icon_state = "dankpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Firecracker Pizza
 /obj/item/food/snacks/sliceable/pizza/firecrackerpizza
@@ -195,6 +205,7 @@
 	icon_state = "firecrackerpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // "Pesto" Pizza
 /obj/item/food/snacks/sliceable/pizza/pestopizza
@@ -212,6 +223,7 @@
 	icon_state = "pestopizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 // Garlic Pizza
 /obj/item/food/snacks/sliceable/pizza/garlicpizza
@@ -229,6 +241,7 @@
 	icon_state = "garlicpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
+	goal_difficulty = FOOD_GOAL_EASY
 
 
 //////////////////////
@@ -255,9 +268,9 @@
 	. = ..()
 	if(open && pizza)
 		desc = "A box suited for pizzas. It appears to have a [pizza.name] inside."
-	else if(boxes.len > 0)
-		desc = "A pile of boxes suited for pizzas. There appears to be [boxes.len + 1] boxes in the pile."
-		var/obj/item/pizzabox/top_box = boxes[boxes.len]
+	else if(length(boxes) > 0)
+		desc = "A pile of boxes suited for pizzas. There appears to be [length(boxes) + 1] boxes in the pile."
+		var/obj/item/pizzabox/top_box = boxes[length(boxes)]
 		var/top_tag = top_box.box_tag
 		if(top_tag != "")
 			desc = "[desc] The box on top has a tag, it reads: '[top_tag]'."
@@ -285,8 +298,8 @@
 	else
 		// Stupid code because byondcode sucks
 		var/set_tag = TRUE
-		if(boxes.len > 0)
-			var/obj/item/pizzabox/top_box = boxes[boxes.len]
+		if(length(boxes) > 0)
+			var/obj/item/pizzabox/top_box = boxes[length(boxes)]
 			if(top_box.box_tag != "")
 				set_tag = TRUE
 		else
@@ -294,7 +307,7 @@
 				set_tag = TRUE
 		if(!open && set_tag)
 			var/image/tag = image("food/pizza.dmi", icon_state = "pizzabox_tag")
-			tag.pixel_y = boxes.len * 3
+			tag.pixel_y = length(boxes) * 3
 			. += tag
 
 /obj/item/pizzabox/attack_hand(mob/user)
@@ -305,11 +318,11 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 
-	if(boxes.len > 0)
+	if(length(boxes) > 0)
 		if(user.is_in_inactive_hand(src))
 			..()
 			return
-		var/obj/item/pizzabox/box = boxes[boxes.len]
+		var/obj/item/pizzabox/box = boxes[length(boxes)]
 		boxes -= box
 		user.put_in_hands(box)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
@@ -326,7 +339,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/attack_self(mob/user)
-	if(boxes.len > 0)
+	if(length(boxes) > 0)
 		return
 	open = !open
 	if(open && pizza)
@@ -342,7 +355,7 @@
 			boxestoadd += box
 			for(var/obj/item/pizzabox/i in box.boxes)
 				boxestoadd += i
-			if((boxes.len+1) + boxestoadd.len <= 5)
+			if((boxes.len+1) + length(boxestoadd) <= 5)
 				user.drop_item()
 				box.loc = src
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
@@ -376,8 +389,8 @@
 		if(!t)
 			return
 		var/obj/item/pizzabox/boxtotagto = src
-		if(boxes.len > 0)
-			boxtotagto = boxes[boxes.len]
+		if(length(boxes) > 0)
+			boxtotagto = boxes[length(boxes)]
 		boxtotagto.box_tag = copytext("[t]", 1, 30)
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
@@ -461,7 +474,7 @@
 		icon_state = "pizzabox_bomb"
 		timer_set = TRUE
 		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
-		if(!new_timer)
+		if(isnull(new_timer))
 			return
 		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
 			timer_set = FALSE
@@ -472,7 +485,7 @@
 		timer = new_timer SECONDS
 		icon_state = "pizzabox1"
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing [src].")
-		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer / 10] seconds ([loc.x],[loc.y],[loc.z]).")
 		investigate_log("[key_name(usr)] has armed a [name] for detonation at ([loc.x],[loc.y],[loc.z])", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has armed for detonation", ATKLOG_FEW)
@@ -489,7 +502,7 @@
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			atom_say("Pizza time!")
 			playsound(src, 'sound/voice/pizza_time.ogg', 50, FALSE) ///Sound effect made by BlackDog
-		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [key_name(armer)] ([loc.x],[loc.y],[loc.z]).")
 		investigate_log("[key_name(usr)] has opened a [name] for detonation at ([loc.x],[loc.y],[loc.z])", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has opened for detonation", ATKLOG_FEW)
@@ -504,7 +517,7 @@
 		return
 	atom_say("Enjoy the pizza!")
 	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
-	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 	log_game("Pizza bomb set by [key_name(armer)] and opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
 	explosion(loc, 1, 2, 4, flame_range = 2) //Identical to a minibomb
 	armer = null
