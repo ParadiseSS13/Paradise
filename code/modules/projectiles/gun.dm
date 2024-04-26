@@ -33,7 +33,7 @@
 	var/recoil = 0
 	/// Checks to see if the user has the clumsy trait.
 	var/clumsy_check = TRUE
-	/// Is there currently a bullet in the chanber?
+	/// Is there currently a bullet in the chamber?
 	var/obj/item/ammo_casing/chambered = null
 	/// Trigger guard on the gun, hulks and ash walkers can't fire them with their big meaty fingers.
 	var/trigger_guard = TRIGGER_GUARD_NORMAL

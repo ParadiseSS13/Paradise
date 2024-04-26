@@ -96,6 +96,9 @@
 	fire_delay = 2.5
 	shaded_charge = TRUE
 	can_holster = FALSE
+	extended_description = "The disabler SMG is an upscaled version of Shellguard Munitions' regular disabler, featuring the ability to pepper a large area with incapacitating shots. \
+	It was designed specifically to be utilised for crowd suppression and riot control by small teams of officers.<br><br> \
+	Its bulkier nature and reduced accuracy has prevented it from achieving the same level of market penetration as its smaller brother, but it is still a common sight in correctional facilities."
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
