@@ -54,7 +54,7 @@
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
-	if(isturf(M.loc) && M.mob_has_gravity(M.loc) && !isspaceturf(M.loc))
+	if(isturf(M.loc) && !isspaceturf(M.loc) && M.mob_has_gravity(M.loc))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
