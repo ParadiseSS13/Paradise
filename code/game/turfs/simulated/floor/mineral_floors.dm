@@ -135,7 +135,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
 /turf/simulated/floor/mineral/plastitanium/get_broken_states()
-	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
+	return list("plastitanium_dam1", "plastitanium_dam2", "plastitanium_dam3", "plastitanium_dam4", "plastitanium_dam5")
 
 /turf/simulated/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
