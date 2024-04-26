@@ -17,7 +17,7 @@
 	Its design is an evolution of the disabler pistol frame, featuring a rotating lens within its firing chamber to toggle between non-lethal and lethal shots. \
 	Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon composites for a sleeker, modern look. \
 	This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons.<br><br>\
-	In modern times, the EG-7 is staple weapon among corporate security forces. Due to its relatively low price, dual fire modes, and modability for customization (despite Shellguard's disclaimer that \
+	In modern times, the EG-7 is staple weapon among corporate security forces thanks to its relatively low price, dual fire modes, and customization potential (despite Shellguard's disclaimer that \
 	tampering with the weapon void's its warranty and can potentially damage the gun itself)."
 
 /obj/item/gun/energy/gun/examine_more(mob/user)
