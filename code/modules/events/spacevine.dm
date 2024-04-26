@@ -81,8 +81,9 @@
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
-	broken_states = list()
 
+/turf/simulated/floor/vines/get_broken_states()
+	return list()
 
 //All of this shit is useless for vines
 
