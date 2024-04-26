@@ -948,7 +948,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end), override = TRUE)
 		else
-			if(!check_rights(R_MENTOR), FALSE)
+			if(!check_rights(R_MENTOR, FALSE))
 				log_debug("[key_name(src)] has the the mobserve trait while observing, but isn't a mentor. This is likely an error, and may result in them getting stuck")
 
 /// Clean up observing
