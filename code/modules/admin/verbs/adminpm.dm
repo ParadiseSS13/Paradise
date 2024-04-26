@@ -169,7 +169,7 @@
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
 	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
-	var/observe_link = check_rights(R_MENTOR, FALSE, mob) ? "[ADMIN_OBS(C, "OBS")]" : ""
+	var/observe_link = check_rights(R_MENTOR, FALSE, mob) ? "([ADMIN_OBS(C, "OBS")])" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
 			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
