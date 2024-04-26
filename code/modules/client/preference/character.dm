@@ -800,9 +800,9 @@
 		I.Shift(NORTH, Y);\
 
 /datum/character_save/proc/update_preview_icon(for_observer=0)		//seriously. This is horrendous.
-	qdel(preview_icon_front)
-	qdel(preview_icon_side)
-	qdel(preview_icon)
+	QDEL_NULL(preview_icon_front)
+	QDEL_NULL(preview_icon_side)
+	QDEL_NULL(preview_icon)
 
 	var/g = "m"
 	if(body_type == FEMALE)
@@ -1545,11 +1545,11 @@
 	preview_icon_front = new(preview_icon, dir = SOUTH)
 	preview_icon_side = new(preview_icon, dir = WEST)
 
-	qdel(face_s)
-	qdel(underwear_s)
-	qdel(undershirt_s)
-	qdel(socks_s)
-	qdel(clothes_s)
+	QDEL_NULL(face_s)
+	QDEL_NULL(underwear_s)
+	QDEL_NULL(undershirt_s)
+	QDEL_NULL(socks_s)
+	QDEL_NULL(clothes_s)
 
 #undef ICON_SHIFT_XY
 
