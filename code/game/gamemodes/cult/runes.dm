@@ -356,7 +356,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 		H.uncuff()
 		H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
-		if(H.reagents && H.reagents.has_reagent("holywater"))
+		if(H.reagents?.has_reagent("holywater"))
 			H.reagents.del_reagent("holywater") // Also prevent fill stomach with holy water and "forgot" about it after converting
 
 		var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
