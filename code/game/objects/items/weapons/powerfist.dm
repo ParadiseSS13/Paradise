@@ -31,7 +31,7 @@
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
-		if(!iscarbon(loc))
+		if(!iscarbon(loc) && user.get_active_hand())
 			to_chat(user, "<span class='warning'>You have to hold the powerfist in your hand!</span>")
 			return
 		if(!tank)
