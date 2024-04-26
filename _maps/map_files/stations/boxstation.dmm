@@ -22947,11 +22947,11 @@
 "brK" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 33
+	width = 41
 	},
 /turf/space,
 /area/space)
@@ -40410,6 +40410,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "cDL" = (
@@ -67422,13 +67423,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/science/robotics/chargebay)
-"kOa" = (
-/obj/structure/closet/emcloset,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/science/toxins/test)
 "kOt" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -73862,6 +73856,15 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
+"oao" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/station/science/toxins/test)
 "oap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -76502,6 +76505,13 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
+"pkf" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/station/science/toxins/test)
 "pko" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -79639,6 +79649,11 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating/airless,
+/area/station/science/toxins/test)
+"qES" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "qFg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -152677,9 +152692,9 @@ aaa
 aaa
 aaa
 aaa
-doE
-doE
-doE
+aaa
+aaa
+aaa
 aaa
 aaa
 aab
@@ -152932,15 +152947,15 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aab
-gnU
-ldS
-clB
-cnk
-cid
 cie
-cie
-cie
+cij
 cvs
 cie
 cie
@@ -153189,18 +153204,18 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aab
-ldS
-cjZ
-cjZ
-cjZ
+aab
 cie
-cie
-ckb
-cdK
+pkf
 cjZ
-udq
-ckb
+oao
+cie
 cie
 cie
 clA
@@ -153446,19 +153461,19 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
 aab
-ldS
-cjZ
-cjZ
-cjZ
-clB
-ckb
-ckb
+aab
+cie
+cie
 cdK
 cjZ
 udq
 ckb
-ckb
+cie
 cie
 jgm
 cjZ
@@ -153703,13 +153718,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
 aab
-ldS
-clA
-kOa
-jgm
+aab
 cie
-ckb
+cie
 ckb
 cdK
 cjZ
@@ -153961,9 +153976,9 @@ aaa
 aaa
 aaa
 aaa
-cid
-cid
-cie
+aaa
+aab
+aab
 cie
 cie
 ckb
@@ -154218,10 +154233,10 @@ aaa
 aaa
 aaa
 aaa
-cid
+aab
+aab
 cie
 cie
-ckb
 ckb
 ckb
 ckb
@@ -154474,10 +154489,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-cij
+aab
+aab
 cie
-ckb
+cie
 ckb
 ckb
 ckb
@@ -154731,9 +154746,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aab
 cie
-ckb
+cie
 ckb
 ckb
 ckb
@@ -155247,7 +155262,7 @@ aaa
 aaa
 aab
 cie
-ckb
+qES
 ckb
 ckb
 ckb
