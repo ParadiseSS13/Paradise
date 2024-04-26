@@ -76,9 +76,9 @@
 	slowdown = 1
 
 /obj/item/gun/energy/laser/retro/old
-	name ="laser gun"
+	name ="old L-1 laser gun"
 	icon_state = "retro"
-	desc = "First generation lasergun, developed by Nanotrasen. Suffers from ammo issues but its unique ability to recharge its ammo without the need of a magazine helps compensate. You really hope someone has developed a better lasergun while you were in cryo."
+	desc = "A first-generation lasergun developed by Starstrike Systems. It has a unique rechargable internal cell that cannot be removed. It suffers from ammo issues. You really hope someone has developed a better laser gun while you were in cryo."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
