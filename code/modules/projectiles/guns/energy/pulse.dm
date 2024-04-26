@@ -15,7 +15,7 @@
 	extended_description = "The pulse rifle is the realisation of intense efforts by Nanotrasen weapon R&D to push laser technology to its absolute limits. \
 	Each one is a hand-made prototype constructed out of the most advanced components available. The custom nature of these rifles makes them ruinously expensive to manufacture.<br><br>\
 	An adaptive optical assembly works in conjunction with an overclocked laser pump and experimental gain medium to produce beams that effortlessly burn through almost any material. \
-	The extreme heat produced by the weapon is pulled away from sensitive components with actively pumped refrigerant and dumped into heatsinks spanning most of the weapon's length. \
+	The extreme heat produced by the weapon is pulled away from sensitive components with actively pumped coolant and dumped into heatsinks spanning most of the weapon's length. \
 	A generously sized experimental power cell allows it to fire hundreds of times before becoming spent.<br><br>\
 	Issues noted with the weapon in field tests include its extreme weight, heft, and the rapid degradation of its internal components from a combination of thermal warping (despite the cooling system) \
 	and the laser itself causing cumulative damage to all the components it passes through. \
@@ -65,7 +65,7 @@
 	The power cell generally malfunctions first, preventing recharging in the field. \
 	Significant damage to the other components quickly follows until the internals of the weapon are completely destroyed rendering it useless.<br><br>\
 	These are no longer manufactured, but a large stockpile of old units still remain. Nanotrasen occasionally issues them for dealing with severe threats, but otherwise they see little use. \
-	The knowledge gleaned from the pulse pistol's development not wasted, as lessons learned were later put to use in creating the more successful Model 1911-P."
+	The knowledge gleaned from the pulse pistol's development was not wasted, however, as lessons learned were later put to use in creating the more successful Model 1911-P."
 
 /obj/item/gun/energy/pulse/pistol/examine(mob/user)
 	. = ..()
@@ -95,7 +95,7 @@
 	item_state = "gun"
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
-	extended_description = "The M1911-P is Nanotrasen's contribution to the time-honoured tradition of modifying John Browning iconic pistol. Aside from some finagling to make everything fit in the shape of the frame, \
+	extended_description = "The M1911-P is Nanotrasen's contribution to the time-honoured tradition of modifying John Browning's iconic pistol. Aside from some finagling to make everything fit in the shape of the frame, \
 	the internals are very similar to a regular pulse pistol. However, special thermal composites and experimental plasma lenses were utilised to massively increase the gun's durability, \
 	giving it endurance similar to a conventional laserarm.<br><br>\
 	These prestigious laser arms were originally conceived as part of a grand rollout of Nanotrasen's pulse weapon technology onto the galactic market, intended to deliver the firepower of a pulse laser \
