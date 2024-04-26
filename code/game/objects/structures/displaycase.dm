@@ -74,7 +74,6 @@
 	if(emagged)
 		. += "<span class='warning'>The ID lock has been shorted out.</span>"
 
-
 /obj/structure/displaycase/proc/dump(mob/user)
 	if(showpiece)
 		if(!user || !user.put_in_hands(showpiece))
@@ -138,7 +137,7 @@
 			to_chat(user, "<span class='warning'>[src] is broken, the ID lock won't do anything.</span>")
 			return
 		if(allowed(user) || emagged)
-			to_chat(user, "<span class='notice'>You use [I] to [open ? "close":"open"] [src].</span>")
+			to_chat(user, "<span class='notice'>You use [I] to [open ? "close" : "open"] [src].</span>")
 			toggle_lock()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
