@@ -483,7 +483,7 @@
 	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
 				/obj/item/shard = 1,
 				/obj/item/stack/rods = 1)
-	time = 40
+	time = 4 SECONDS
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/spooky_camera
