@@ -298,7 +298,7 @@
 	var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
 
 	switch(user.a_intent)
-		if(INTENT_HELP) //Stamina damage
+		if(INTENT_HELP) // Stamina damage
 			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
 							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
 							"<span class='italics'>You hear a thud.</span>")
@@ -307,7 +307,7 @@
 			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 			add_attack_logs(user, H, "Slammed by a breach cleaver.", ATKLOG_ALL)
 
-		if(INTENT_DISARM) //Slams away
+		if(INTENT_DISARM) // Slams away
 			if(H.stat || IS_HORIZONTAL(H))
 				return ..()
 
@@ -322,7 +322,7 @@
 			H.throw_at(throw_target, 4, 1)
 			add_attack_logs(user, H, "Smashed away by a breach cleaver.", ATKLOG_ALL)
 
-		if(INTENT_GRAB) //Knocks down
+		if(INTENT_GRAB) // Knocks down
 			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
 							"<span class='userdanger'>[user] cleaves you with an overhead strike!</span>", \
 							"<span class='italics'>You hear a chopping noise.</span>")
