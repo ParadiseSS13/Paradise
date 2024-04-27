@@ -377,11 +377,11 @@
 
 //Unathi
 /datum/uplink_item/species_restricted/prescan
-	name = "Clan Cleaver"
+	name = "Breach Cleaver"
 	desc = "This massive blade harkons back to the wars on Moghes. Wielding it imbues you with the unquenchable desire for martial prowess. \
 	Two hands, comes in a scabbard. Has different effects based on intent."
 	reference = "CLV"
-	item = /obj/item/storage/belt/sheath/clan_cleaver
+	item = /obj/item/storage/belt/sheath/breach_cleaver
 	cost = 65 /// Incredibly strong melee weapon on par with a chainsaw.
 	species = list("Unathi")
 

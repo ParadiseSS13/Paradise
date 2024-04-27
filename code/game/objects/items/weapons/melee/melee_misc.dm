@@ -245,7 +245,7 @@
 	needs_permit = TRUE
 
 //Unathi Sword
-/obj/item/melee/clan_cleaver
+/obj/item/melee/breach_cleaver
 	name = "clan cleaver"
 	desc = "This sharpened chunk of steel is too big and too heavy to be called a sword."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
@@ -265,29 +265,29 @@
 	armor = list(BULLET = 0, LASER = 0, ENERGY = 0)
 
 
-/obj/item/melee/clan_cleaver/Initialize(mapload)
+/obj/item/melee/breach_cleaver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
-/obj/item/melee/clan_cleaver/traitor/examine(mob/user)
+/obj/item/melee/breach_cleaver/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
 			and harm intent deals heavy damage</span>"
 
-/obj/item/melee/clan_cleaver/update_icon_state()
+/obj/item/melee/breach_cleaver/update_icon_state()
 	icon_state = "secsword0"
 
-/obj/item/melee/clan_cleaver/proc/wield(obj/item/source, mob/user)
+/obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/user)
 	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
 	armor = list(BULLET = 30, LASER = 30, ENERGY = 30)
 
-/obj/item/melee/clan_cleaver/proc/unwield(obj/item/source, mob/user)
+/obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/user)
 	armor = initial(armor)
 
-/obj/item/melee/clan_cleaver/attack(mob/target, mob/living/user)
+/obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
 	armour_penetration_flat = 0
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
 		return ..()
@@ -302,7 +302,7 @@
 			playsound(loc, 'sound/weapons/genhit2.ogg', 70, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
 			H.apply_damage(40, STAMINA)
-			add_attack_logs(user, H, "Slammed by a clan cleaver.", ATKLOG_ALL)
+			add_attack_logs(user, H, "Slammed by a breach cleaver.", ATKLOG_ALL)
 
 		if(INTENT_DISARM) //Slams away
 			if(H.stat || IS_HORIZONTAL(H))
@@ -317,7 +317,7 @@
 			H.apply_damage(25, BRUTE)
 			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
 			H.throw_at(throw_target, 4, 1)
-			add_attack_logs(user, H, "Smashed away by a clan cleaver.", ATKLOG_ALL)
+			add_attack_logs(user, H, "Smashed away by a breach cleaver.", ATKLOG_ALL)
 
 		if(INTENT_GRAB) //Knocks down
 			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
@@ -328,7 +328,7 @@
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
 			H.apply_damage(30, BRUTE)
 			H.KnockDown(4 SECONDS)
-			add_attack_logs(user, H, "Cleaved overhead with a clean cleaver.", ATKLOG_ALL)
+			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver.", ATKLOG_ALL)
 
 		if(INTENT_HARM)
 			armour_penetration_flat = 30
