@@ -4,9 +4,6 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
-/datum/game_mode
-	var/list/datum/mind/ert = list()
-
 GLOBAL_LIST_EMPTY(response_team_members)
 GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
 GLOBAL_DATUM(active_team, /datum/response_team)

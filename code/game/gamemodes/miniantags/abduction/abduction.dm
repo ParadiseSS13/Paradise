@@ -1,8 +1,3 @@
-/datum/game_mode
-	var/abductor_teams = 0
-	var/list/datum/mind/abductors = list()
-	var/list/datum/mind/abductees = list()
-
 /datum/game_mode/abduction
 	name = "abduction"
 	config_tag = "abduction"

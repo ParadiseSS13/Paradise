@@ -136,6 +136,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/bodyacc = GLOB.body_accessory_by_name.Find(character.body_accessory?.name || "None")
 	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 
+	switch(character.body_type)
+		if(FEMALE)
+			SetUIState(DNA_UI_BODY_TYPE, DNA_GENDER_FEMALE, TRUE)
+		if(MALE)
+			SetUIState(DNA_UI_BODY_TYPE, DNA_GENDER_MALE, TRUE)
+
 	//Set the Gender
 	switch(character.gender)
 		if(FEMALE)
