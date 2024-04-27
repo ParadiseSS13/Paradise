@@ -14,8 +14,10 @@
 	var/operating = FALSE
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit
+	///How long it takes to grind the contents. Juicing is one second shorter.
 	var/processTime = PROCESS_TIME_SECONDS
 	var/efficiency
+	///Internal container for reagent storage
 	var/obj/item/reagent_containers/internal
 
 	// IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
@@ -585,6 +587,44 @@
 	resistance_flags = ACID_PROOF
 	internal = new /obj/item/reagent_containers/glass/beaker/noreact
 	processTime = PROCESS_TIME_SECONDS
+	// IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
+	var/list/blend_items = list (
+		// Sheets
+		/obj/item/stack/sheet/metal = list("iron" = 20),
+		/obj/item/stack/rods = list("iron" = 10),
+		/obj/item/stack/sheet/plasteel = list("iron" = 20, "plasma_dust" = 20),
+		/obj/item/stack/sheet/wood = list("carbon" = 20),
+		/obj/item/stack/sheet/glass = list("silicon" = 20),
+		/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
+
+		/obj/item/grown/nettle/basic = list("wasabi" = 0),
+		/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
+		/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
+
+		// Blender Stuff
+		/obj/item/food/snacks/grown/tomato = list("ketchup" = 0),
+		/obj/item/food/snacks/grown/wheat = list("flour" = -5),
+		/obj/item/food/snacks/grown/oat = list("flour" = -5),
+		/obj/item/food/snacks/grown/cherries = list("cherryjelly" = 0),
+		/obj/item/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
+		/obj/item/food/snacks/egg = list("egg" = -5),
+		/obj/item/food/snacks/grown/rice = list("rice" = -5),
+		/obj/item/food/snacks/grown/olive = list("olivepaste" = 0, "sodiumchloride" = 0),
+		/obj/item/food/snacks/grown/peanuts = list("peanutbutter" = 0),
+
+		// Grinder stuff, but only if dry
+		/obj/item/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
+		/obj/item/food/snacks/grown/coffee = list("coffeepowder" = 0),
+		/obj/item/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+		/obj/item/food/snacks/grown/tea = list("teapowder" = 0),
+
+		// All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
+		/obj/item/food = list(),
+		/obj/item/reagent_containers/pill = list(),
+		/obj/item/reagent_containers/patch = list(),
+		/obj/item/clothing/mask/cigarette = list()
+	)
+
 
 
 //Empty version
