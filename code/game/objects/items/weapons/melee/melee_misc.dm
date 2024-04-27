@@ -257,6 +257,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
+	var/force_wield = 40
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	origin_tech = "combat=6;syndicate=5"
@@ -269,7 +270,7 @@
 
 /obj/item/melee/breach_cleaver/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
+	AddComponent(/datum/component/two_handed, force_wielded = force_wield, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/breach_cleaver/examine(mob/user)
@@ -288,6 +289,24 @@
 
 /obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/user)
 	armor = initial(armor)
+
+/obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
+		. = ..()
+	else if(ismachinery(O) || isstructure(O)) // This sword hates doors
+		if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+			return
+		if(flags & (NOBLUDGEON))
+			return
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(O)
+		user.visible_message("<span class='danger'>[user] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+		var/damage = force_wield
+		var/mob/living/carbon/human/H = user
+		damage += H.physiology.melee_bonus
+		O.take_damage(damage*3, BRUTE, MELEE, TRUE, get_dir(src, user), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+	else
+		. = ..()
 
 /obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
 	armour_penetration_flat = 0
