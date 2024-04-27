@@ -200,7 +200,8 @@
 			return FALSE
 		//Weaker than a stun baton, less bad effects applied
 		H.Jitter(5 SECONDS)
-		H.apply_damage(stam_damage, STAMINA)
+		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+		H.apply_damage(stam_damage, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 		H.SetStuttering(5 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) //So a person cannot hit the same person with a sword AND a baton, or two swords
@@ -293,6 +294,7 @@
 		return ..()
 
 	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
 
 	switch(user.a_intent)
 		if(INTENT_HELP) //Stamina damage
@@ -301,7 +303,7 @@
 							"<span class='italics'>You hear a thud.</span>")
 			playsound(loc, 'sound/weapons/genhit2.ogg', 70, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
-			H.apply_damage(40, STAMINA)
+			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 			add_attack_logs(user, H, "Slammed by a breach cleaver.", ATKLOG_ALL)
 
 		if(INTENT_DISARM) //Slams away
@@ -314,8 +316,8 @@
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
-			H.apply_damage(25, BRUTE)
-			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
+			H.apply_damage(25, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE))
+			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)), TRUE)
 			H.throw_at(throw_target, 4, 1)
 			add_attack_logs(user, H, "Smashed away by a breach cleaver.", ATKLOG_ALL)
 
@@ -326,7 +328,7 @@
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
-			H.apply_damage(30, BRUTE)
+			H.apply_damage(30, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE), TRUE)
 			H.KnockDown(4 SECONDS)
 			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver.", ATKLOG_ALL)
 
