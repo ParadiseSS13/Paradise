@@ -96,16 +96,16 @@
 		data["connected"] = 1
 	data["wild_captures"] = wild_captures
 	data["no_collection"] = 0
-	if(!my_collection.len)
+	if(!length(my_collection))
 		data["no_collection"] = 1
 		return
 	var/datum/mob_hunt/mob_info
 	if(!current_index)
 		current_index = 1
-	if(current_index > my_collection.len)
+	if(current_index > length(my_collection))
 		current_index = 1
 	if(current_index < 1)
-		current_index = my_collection.len
+		current_index = length(my_collection)
 	mob_info = my_collection[current_index]
 	var/list/entry = list(
 						"nickname" = mob_info.nickname,
@@ -121,7 +121,7 @@
 	data["entry"] = entry
 
 /datum/data/pda/app/mob_hunter_game/proc/assign_nickname()
-	if(!my_collection.len)
+	if(!length(my_collection))
 		return
 	var/datum/mob_hunt/mob_info = my_collection[current_index]
 	var/old_name = mob_info.mob_name
@@ -130,13 +130,13 @@
 	mob_info.nickname = tgui_input_text(usr, "Give a nickname to [old_name]?", "Nickname", old_name)
 
 /datum/data/pda/app/mob_hunter_game/proc/release()
-	if(!my_collection.len)
+	if(!length(my_collection))
 		return
 	if(tgui_alert(usr, "Are you sure you want to release this mob back into the wild?", "Confirm Release", list("Yes", "No")) == "Yes")
 		remove_mob()
 
 /datum/data/pda/app/mob_hunter_game/proc/print_card()
-	if(!pda || !my_collection.len)
+	if(!pda || !length(my_collection))
 		return
 	var/obj/item/nanomob_card/card = new/obj/item/nanomob_card(null)
 	var/datum/mob_hunt/mob_info = my_collection[current_index]
@@ -168,7 +168,7 @@
 		current_index = collection_length
 
 /datum/data/pda/app/mob_hunter_game/proc/set_trap()
-	if(!my_collection.len || !pda || !hacked)
+	if(!length(my_collection) || !pda || !hacked)
 		return
 	var/datum/mob_hunt/bait = my_collection[current_index]
 	bait = bait.type
@@ -189,12 +189,12 @@
 			release()
 		if("Next")
 			current_index++
-			if(current_index > my_collection.len)
+			if(current_index > length(my_collection))
 				current_index = 1
 		if("Prev")
 			current_index--
 			if(current_index < 1)
-				current_index = my_collection.len
+				current_index = length(my_collection)
 		if("Reconnect")
 			reconnect()
 		if("Disconnect")

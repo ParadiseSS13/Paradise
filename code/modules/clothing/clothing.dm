@@ -262,6 +262,7 @@
 	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
+	var/transfer_blood = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -610,6 +611,23 @@
 /obj/item/clothing/suit/proc/setup_shielding()
 	return
 
+///Hierophant card shielding. Saves me time.
+/obj/item/clothing/suit/proc/setup_hierophant_shielding()
+	var/datum/component/shielded/shield = GetComponent(/datum/component/shielded)
+	if(!shield)
+		AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon = "shield-hierophant", run_hit_callback = CALLBACK(src, PROC_REF(hierophant_shield_damaged)))
+		return
+	if(shield.shield_icon == "shield-hierophant") //If the hierophant shield has been used, recharge it. Otherwise, it's a shielded component we don't want to touch
+		shield.current_charges = 3
+
+/// A proc for callback when the shield breaks, since I am stupid and want custom effects.
+/obj/item/clothing/suit/proc/hierophant_shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of dark-purple sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks/hierophant(get_turf(wearer))
+	playsound(wearer,'sound/magic/blind.ogg', 200, TRUE, -2)
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
+
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
 	if(ignore_suitadjust)
@@ -826,7 +844,7 @@
 	data["accessories"] = accessories_list
 	for(var/obj/item/clothing/accessory/A in accessories)
 		accessories_list.len++
-		accessories_list[accessories_list.len] = A.serialize()
+		accessories_list[length(accessories_list)] = A.serialize()
 
 	return data
 

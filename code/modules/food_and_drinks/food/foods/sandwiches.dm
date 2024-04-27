@@ -316,6 +316,14 @@
 	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/snacks/burger/chicken
+	name = "chicken burger"
+	desc = "May I mayo?"
+	icon_state = "chickenburger"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "chicken" = 2)
+
 /obj/item/food/snacks/burger/jelly
 	name = "jelly burger"
 	desc = "Culinary delight...?"

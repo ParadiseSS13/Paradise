@@ -41,7 +41,7 @@
 
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
-	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
+	var/num_syringes = length(syringes) + (chambered.BB ? 1 : 0)
 	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
@@ -406,6 +406,7 @@
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
 	item_state = "gun"
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // you fire it with your mouth
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(chambered.BB)

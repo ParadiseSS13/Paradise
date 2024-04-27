@@ -99,7 +99,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(istype(M))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
 			return TRUE
 	return FALSE
 

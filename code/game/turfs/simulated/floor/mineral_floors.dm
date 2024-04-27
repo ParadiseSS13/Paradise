@@ -14,9 +14,8 @@
 	icon_state = ""
 	var/list/icons = list()
 
-/turf/simulated/floor/mineral/Initialize(mapload)
-	. = ..()
-	broken_states = list("[initial(icon_state)]_dam")
+/turf/simulated/floor/mineral/get_broken_states()
+	return list("[initial(icon_state)]_dam")
 
 /turf/simulated/floor/mineral/update_icon_state()
 	if(!broken && !burnt)
@@ -95,7 +94,9 @@
 	name = "shuttle floor"
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
-	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
+
+/turf/simulated/floor/mineral/titanium/get_broken_states()
+	return list("titanium_dam1", "titanium_dam2", "titanium_dam3", "titanium_dam4", "titanium_dam5")
 
 /turf/simulated/floor/mineral/titanium/airless
 	oxygen = 0
@@ -132,7 +133,9 @@
 	name = "shuttle floor"
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
-	broken_states = list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
+
+/turf/simulated/floor/mineral/plastitanium/get_broken_states()
+	return list("plastitanium_dam1", "plastitanium_dam2", "plastitanium_dam3", "plastitanium_dam4", "plastitanium_dam5")
 
 /turf/simulated/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"

@@ -57,7 +57,7 @@
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
-	if(src == user.l_hand || src == user.r_hand)
+	if(user.is_holding(src))
 		bag?.open(user)
 	else
 		..()

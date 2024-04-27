@@ -475,7 +475,7 @@
 	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
 
 	var/list/msg_data = list()
-	for(var/i = 1; i <= messagetext.len; i++)
+	for(var/i = 1; i <= length(messagetext); i++)
 		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
 
 	data["messages"]        = msg_data
