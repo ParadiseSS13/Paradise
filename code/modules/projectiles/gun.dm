@@ -442,10 +442,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/gun/proc/handle_suicide(mob/living/user, mob/living/carbon/human/target, params)
-	if(!ishuman(target))
-		return
-
+/obj/item/gun/proc/handle_suicide(mob/user, mob/living/carbon/human/target, params)
 	if(semicd)
 		return
 
