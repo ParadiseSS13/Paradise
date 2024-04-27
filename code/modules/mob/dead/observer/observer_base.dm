@@ -509,47 +509,55 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		/mob/dead/observer/proc/do_observe
 	)
 
-// This is the ghost's follow verb with an argument
+// This is the ghost's follow verb with an argument.
+// We need to do the usr check on this verb itself, but the logic follows.
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
 	set name = "\[Observer\] Orbit"
 	set desc = "Orbits the specified movable atom."
 	set category = null
 
-	if(!target || !isobserver(usr))
+	// this usr check is apparently necessary for security
+	if(!isobserver(usr))
 		return
 
+	return do_manual_follow(target)
+
+// We need to check usr when calling the verb, but we still want this logic to be accessible elsewhere
+/mob/dead/observer/proc/do_manual_follow(atom/movable/target)
 	if(!get_turf(target))
 		return
 
-	if(target != src)
-		if(src in target.get_orbiters())
-			return
+	if(!target || target == src)
+		return
 
-		var/icon/I = icon(target.icon,target.icon_state,target.dir)
+	if(src in target.get_orbiters())
+		return
 
-		var/orbitsize = (I.Width()+I.Height())*0.5
+	var/icon/I = icon(target.icon, target.icon_state, target.dir)
 
-		if(orbitsize == 0)
-			orbitsize = 40
+	var/orbitsize = (I.Width() + I.Height())*0.5
 
-		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	if(orbitsize == 0)
+		orbitsize = 40
 
-		var/rot_seg
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
 
-		switch(ghost_orbit)
-			if(GHOST_ORBIT_TRIANGLE)
-				rot_seg = 3
-			if(GHOST_ORBIT_SQUARE)
-				rot_seg = 4
-			if(GHOST_ORBIT_PENTAGON)
-				rot_seg = 5
-			if(GHOST_ORBIT_HEXAGON)
-				rot_seg = 6
-			else //Circular
-				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+	var/rot_seg
 
-		to_chat(src, "<span class='notice'>Now following [target].</span>")
-		orbit(target,orbitsize, FALSE, 20, rot_seg)
+	switch(ghost_orbit)
+		if(GHOST_ORBIT_TRIANGLE)
+			rot_seg = 3
+		if(GHOST_ORBIT_SQUARE)
+			rot_seg = 4
+		if(GHOST_ORBIT_PENTAGON)
+			rot_seg = 5
+		if(GHOST_ORBIT_HEXAGON)
+			rot_seg = 6
+		else //Circular
+			rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+
+	to_chat(src, "<span class='notice'>Now following [target].</span>")
+	orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = GHOST_LAYER)
 	setDir(2)//reset dir so the right directional sprites show up
@@ -933,7 +941,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && ismob(mob_eye))
 		// follow the mob so they're technically right there for visible messages n stuff
-		ManualFollow(mob_eye)
+		// call the sub-proc since the base one checks for usr
+		do_manual_follow(mob_eye)
 		client.set_eye(mob_eye)
 		add_attack_logs(src, mob_eye, "observed", ATKLOG_ALMOSTALL)
 		client.perspective = EYE_PERSPECTIVE
@@ -948,13 +957,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end), override = TRUE)
 		else
-			if(!check_rights(R_MENTOR, FALSE))
+			if(!check_rights(R_MENTOR, FALSE, src))
 				log_debug("[key_name(src)] has the the mobserve trait while observing, but isn't a mentor. This is likely an error, and may result in them getting stuck")
 
 /// Clean up observing
 /mob/dead/observer/proc/cleanup_observe()
 	if(isnull(mob_observed))
 		return
+
 	var/mob/target = locateUID(mob_observed)
 	add_attack_logs(src, target, "un-observed", ATKLOG_ALL)
 	mob_observed = null
@@ -969,6 +979,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBITER_STOP
+	if(HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
+		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MOBSERVE. This is likely a bug and may result in them being stuck outside of their bodies.")
 	cleanup_observe()
 
 #undef GHOST_CAN_REENTER
