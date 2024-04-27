@@ -238,7 +238,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
-	origin_tech = "combat=6, illegals=3"
+	origin_tech = "combat=6;syndicate=3"
 	attack_verb = list("slashed", "sliced", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
@@ -257,7 +257,7 @@
 	throwforce = 5
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
-	origin_tech = "combat=6, illegals=5"
+	origin_tech = "combat=6;syndicate=5"
 	attack_verb = list("slashed", "cleaved", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 2000)
