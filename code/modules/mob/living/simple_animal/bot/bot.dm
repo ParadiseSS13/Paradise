@@ -266,7 +266,7 @@
 		data_hud.remove_hud_from(src)
 
 	GLOB.bots_list -= src
-	QDEL_NULL(path)
+	path.Cut()
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 

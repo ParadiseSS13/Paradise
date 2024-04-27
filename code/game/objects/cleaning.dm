@@ -44,7 +44,8 @@
 	else
 		//Generic cleaning functionality
 		var/obj/effect/decal/cleanable/C = locate() in src
-		qdel(C)
+		if(C)
+			qdel(C)
 		clean_blood()
 		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 		return TRUE

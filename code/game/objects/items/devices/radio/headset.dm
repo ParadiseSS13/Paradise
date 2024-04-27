@@ -500,7 +500,7 @@
 	radio_desc = radio_text
 
 /obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
-	qdel(keyslot1)
+	QDEL_NULL(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
 	recalculateChannels()

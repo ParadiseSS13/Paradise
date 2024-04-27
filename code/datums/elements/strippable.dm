@@ -23,7 +23,7 @@
 
 	UnregisterSignal(source, COMSIG_DO_MOB_STRIP)
 
-	if(!isnull(strip_menus))
+	if(!isnull(strip_menus) && strip_menus[source])
 		qdel(strip_menus[source])
 		strip_menus -= source
 

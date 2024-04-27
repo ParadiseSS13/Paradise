@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	user.ranged_ability = null
 	ranged_ability_user = null
 	active = FALSE
-	if(user.client)
+	if(user.client?.click_intercept)
 		qdel(user.client.click_intercept)
 		user.client.click_intercept = null
 		remove_mousepointer(user.client)

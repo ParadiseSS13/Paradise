@@ -59,7 +59,7 @@
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
 		if(istype(node, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
+			QDEL_NULL(parent)
 		node = null
 	update_icon()
 

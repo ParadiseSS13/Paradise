@@ -271,8 +271,8 @@
 
 /obj/effect/hallucination/plasma_flood/Destroy()
 	deltimer(expand_timer)
-	QDEL_NULL(expand_queue)
-	QDEL_NULL(processed)
+	expand_queue.Cut()
+	processed.Cut()
 	return ..()
 
 /**

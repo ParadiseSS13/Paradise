@@ -34,7 +34,7 @@
 
 	// if we're somehow by ourself
 	if(parent && !QDELETED(parent) && length(parent.members) == 1 && parent.members[1] == src)
-		qdel(parent)
+		QDEL_NULL(parent)
 	parent = null
 
 	return ..()
