@@ -588,7 +588,7 @@
 	internal = new /obj/item/reagent_containers/glass/beaker/noreact
 	processTime = PROCESS_TIME_SECONDS
 	// IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
-	var/list/blend_items = list (
+	blend_items = list (
 		// Sheets
 		/obj/item/stack/sheet/metal = list("iron" = 20),
 		/obj/item/stack/rods = list("iron" = 10),
