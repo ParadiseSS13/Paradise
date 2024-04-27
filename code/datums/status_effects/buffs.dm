@@ -580,6 +580,31 @@
 		H.physiology.burn_mod /=0.8
 		H.physiology.stamina_mod /= 0.8
 
+/datum/status_effect/breaching_and_cleaving
+	id = "breaching_and_cleaving"
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/breaching_and_cleaving
+
+/atom/movable/screen/alert/status_effect/breaching_and_cleaving
+	name = "Breaching and Cleaving!"
+	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</span>"
+	icon_state = "chainsaw"
+
+/datum/status_effect/breaching_and_cleaving/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.armor.modifyRating(0 , 30, 30, 30, 0, 0, 50)
+			H.physiology.stamina_mod *= 0.8
+
+/datum/status_effect/breaching_and_cleaving/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.armor.modifyRating(0 , -30, -30, -30, 0, 0, -50)
+		H.physiology.stamina_mod /= 0.8
+
 /datum/status_effect/hope
 	id = "hope"
 	duration = -1

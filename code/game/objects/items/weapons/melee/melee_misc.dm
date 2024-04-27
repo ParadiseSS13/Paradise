@@ -265,7 +265,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 2000)
 	needs_permit = TRUE
-	armor = list(BULLET = 0, LASER = 0, ENERGY = 0)
 
 
 /obj/item/melee/breach_cleaver/Initialize(mapload)
@@ -285,10 +284,12 @@
 
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/user)
 	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
-	armor = list(BULLET = 30, LASER = 30, ENERGY = 30)
+	var/mob/living/carbon/human/H = user
+	H.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 
 /obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/user)
-	armor = initial(armor)
+	var/mob/living/carbon/human/H = user
+	H.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 
 /obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
