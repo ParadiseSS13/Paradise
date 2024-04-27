@@ -14,14 +14,16 @@
 	screen.severity = severity
 	if(client && screen.should_show_to(src))
 		if(animated)
-			spawn(0)
-				screen.alpha = 0
-				animate(screen, alpha = 255, time = animated)
+			INVOKE_ASYNC(src, PROC_REF(apply_screen_animation), animated, screen)
 		if(!is_centered)
 			screen.update_for_view(client.view)
 		client.screen += screen
 
 	return screen
+
+/mob/proc/apply_screen_animation(animated = 0, atom/movable/screen/fullscreen/screen)
+	screen.alpha = 0
+	animate(screen, alpha = 255, time = animated)
 
 /mob/proc/clear_fullscreen(category, animated = 10)
 	var/atom/movable/screen/fullscreen/screen = screens[category]

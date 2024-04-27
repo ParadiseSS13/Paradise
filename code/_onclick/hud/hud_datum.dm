@@ -253,7 +253,7 @@
 	return
 
 /mob/proc/hide_hud()
-	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) && isliving(src))
 		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
 		return
 	if(hud_used && client)

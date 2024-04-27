@@ -1,7 +1,7 @@
 /mob/living/update_blind_effects(sleeping = FALSE)
 	if(!has_vision(information_only=TRUE))
 		if(sleeping)
-			overlay_fullscreen("sleepblind", /atom/movable/screen/fullscreen/center/blind/sleeping)
+			overlay_fullscreen("sleepblind", /atom/movable/screen/fullscreen/center/blind/sleeping, animated = 2 SECONDS)
 			overlay_fullscreen("disky", /atom/movable/screen/fullscreen/center/blind/disky, animated = 7 SECONDS)
 			throw_alert("blind", /atom/movable/screen/alert/blind)
 			return TRUE
