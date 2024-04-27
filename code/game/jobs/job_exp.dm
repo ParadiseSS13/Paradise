@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
 
-		msg += "<TD><A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
+		msg += "<TD><A href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
 		msg += "[C.get_exp_dept_string()]"
 		msg += "</TR>"
 

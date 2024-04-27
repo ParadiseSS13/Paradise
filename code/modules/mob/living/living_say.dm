@@ -113,7 +113,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	if(sanitize)
 		if(speaks_ooc)
-			message = sanitize(message)
+			if(GLOB.configuration.general.enable_ooc_emoji)
+				message = emoji_parse(sanitize(message))
+			else
+				message = sanitize(message)
 		else
 			message = sanitize_for_ic(message)
 

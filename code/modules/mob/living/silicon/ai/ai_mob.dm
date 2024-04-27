@@ -296,8 +296,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	status_tab_data = show_borg_info(status_tab_data)
 
 /mob/living/silicon/ai/proc/ai_alerts()
-	var/list/dat = list("<meta charset='utf-8'><head><title>Current Station Alerts</title><meta http-equiv='Refresh' content='10'></head><body>\n")
-	dat += "<a href='?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
+	var/list/dat = list("<!DOCTYPE html><meta charset='utf-8'><head><title>Current Station Alerts</title><meta http-equiv='Refresh' content='10'></head><body>\n")
+	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					for(var/cam in C)
 						var/obj/machinery/camera/I = locateUID(cam)
 						if(!QDELETED(I))
-							dat2 += "[(dat2 == "") ? "" : " | "]<a href=?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
+							dat2 += "[(dat2 == "") ? "" : " | "]<a href=byond://?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
 					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
 					dat += "-- [area_name] (No Camera)"
@@ -834,7 +834,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/d
 	var/area/bot_area
-	d += "<A HREF=?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
+	d += "<A href=byond://?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
@@ -844,8 +844,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
 			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
-			d += "<td width='10%'><A HREF=?src=[UID()];interface=\ref[Bot]>Interface</A></td>"
-			d += "<td width='10%'><A HREF=?src=[UID()];callbot=\ref[Bot]>Call</A></td>"
+			d += "<td width='10%'><A href=byond://?src=[UID()];interface=\ref[Bot]>Interface</A></td>"
+			d += "<td width='10%'><A href=byond://?src=[UID()];callbot=\ref[Bot]>Call</A></td>"
 			d += "</tr>"
 			d = format_text(d)
 
@@ -884,14 +884,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(O)
 		var/obj/machinery/camera/C = locateUID(O[1])
 		if(O.len == 1 && !QDELETED(C) && C.can_use())
-			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
+			queueAlarm("--- [class] alarm detected in [A.name]! (<A href=byond://?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
 		else if(O && O.len)
 			var/foo = 0
 			var/dat2 = ""
 			for(var/thing in O)
 				var/obj/machinery/camera/I = locateUID(thing)
 				if(!QDELETED(I))
-					dat2 += "[(!foo) ? "" : " | "]<A HREF=?src=[UID()];switchcamera=[thing]>[I.c_tag]</A>" //I'm not fixing this shit...
+					dat2 += "[(!foo) ? "" : " | "]<A href=byond://?src=[UID()];switchcamera=[thing]>[I.c_tag]</A>" //I'm not fixing this shit...
 					foo = 1
 			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
 		else
@@ -1547,7 +1547,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)
 	. = ..()
-	if(isobserver(.))
+	if(isobserver(.) && old_turf)
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
 

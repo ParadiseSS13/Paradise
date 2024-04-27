@@ -68,7 +68,7 @@
  * Arguments:
  * * datum/source - this will be the `hasprox_receiver`
  * * atom/old_loc - the location the receiver just moved from
- * * dir - the direction the reciever just moved in
+ * * dir - the direction the receiver just moved in
  */
 /datum/component/proximity_monitor/proc/on_receiver_move(datum/source, atom/old_loc, dir)
 	SIGNAL_HANDLER
@@ -120,7 +120,7 @@
 /**
  * Called when the receiver or an atom in the `nested_receiver_locs` list moves into a disposals holder object.
  *
- * This proc recieves arguments, but they aren't needed.
+ * This proc receives arguments, but they aren't needed.
  */
 /datum/component/proximity_monitor/proc/on_disposal_enter(datum/source)
 	SIGNAL_HANDLER
@@ -130,7 +130,7 @@
 /**
  * Called when the receiver or an atom in the `nested_receiver_locs` list moves out of a disposals holder object.
  *
- * This proc recieves arguments, but they aren't needed.
+ * This proc receives arguments, but they aren't needed.
  */
 /datum/component/proximity_monitor/proc/on_disposal_exit(datum/source)
 	SIGNAL_HANDLER

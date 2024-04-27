@@ -207,10 +207,12 @@
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
-			if(user.drop_item())
-				I.forceMove(src)
-				electronics = I
+			var/obj/item/airlock_electronics/new_electronics = I 
+			if(user.drop_item() && !new_electronics.is_installed)
+				new_electronics.forceMove(src)
+				electronics = new_electronics
 				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+				electronics.is_installed = TRUE
 
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
@@ -241,6 +243,7 @@
 		if(I.use_tool(src, user, 0, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 			new /obj/item/airlock_electronics(drop_location(), 1)
+			electronics.is_installed = FALSE
 			electronics = null
 
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)

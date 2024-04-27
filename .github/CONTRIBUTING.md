@@ -17,9 +17,9 @@ If you believe an issue report is not a "bug", please point out specifically and
 
 ### Comment Guidelines
 
-* Comments on Pull Requests and Issues should remain relevant to the subject in question and not derail discussions.
-* Under no circumstances are users to be attacked for their ideas or contributions. All participants on a given PR or issue are expected to be civil. Failure to do so will result in disciplinary action.
-* For more details, see the [Code of Conduct](../CODE_OF_CONDUCT.md).
+- Comments on Pull Requests and Issues should remain relevant to the subject in question and not derail discussions.
+- Under no circumstances are users to be attacked for their ideas or contributions. All participants on a given PR or issue are expected to be civil. Failure to do so will result in disciplinary action.
+- For more details, see the [Code of Conduct](../CODE_OF_CONDUCT.md).
 
 ## Issues
 
@@ -29,7 +29,7 @@ reporting bugs in the code.
 
 ### Issue Guidelines
 
-* Issue reports should be as detailed as possible, and if applicable, should include instructions on how to reproduce the bug.
+- Issue reports should be as detailed as possible, and if applicable, should include instructions on how to reproduce the bug.
 
 ## Pull requests
 
@@ -40,28 +40,28 @@ actual development.
 
 ### Pull Request Guidelines
 
-* Pull requests should be atomic; Make one commit for each distinct change, so if a part of a pull request needs to be removed/changed, you may simply modify that single commit. Due to limitations of the engine, this may not always be possible; but do try your best.
+- Pull requests should be atomic; Make one commit for each distinct change, so if a part of a pull request needs to be removed/changed, you may simply modify that single commit. Due to limitations of the engine, this may not always be possible; but do try your best.
 
-* Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated fixes even if not bundling them generates more pull requests. In case of mapping PRs that add features - consult a member of the development team on whether it would be appropriate to split up the PR to add the feature to multiple maps individually.
+- Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated fixes even if not bundling them generates more pull requests. In case of mapping PRs that add features - consult a member of the development team on whether it would be appropriate to split up the PR to add the feature to multiple maps individually.
 
-* Document and explain your pull requests thoroughly. Failure to do so will delay a PR as we question why changes were made. This is especially important if you're porting a PR from another codebase (i.e. TG) and divert from the original. Explaining with single comment on why you've made changes will help us review the PR faster and understand your decision making process.
+- Document and explain your pull requests thoroughly. Failure to do so will delay a PR as we question why changes were made. This is especially important if you're porting a PR from another codebase (i.e. TG) and divert from the original. Explaining with single comment on why you've made changes will help us review the PR faster and understand your decision making process.
 
-* Any pull request must have a changelog, this is to allow us to know when a PR is deployed on the live server. Inline changelogs are supported through the format described [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466) and should be used rather than manually edited .yml file changelogs.
+- Any pull request must have a changelog, this is to allow us to know when a PR is deployed on the live server. Inline changelogs are supported through the format described [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466) and should be used rather than manually edited .yml file changelogs.
 
-* Pull requests should not have any merge commits except in the case of fixing merge conflicts for an existing pull request. New pull requests should not have any merge commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
+- Pull requests should not have any merge commits except in the case of fixing merge conflicts for an existing pull request. New pull requests should not have any merge commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
 
-* Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
+- Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
 
-* If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
+- If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
 
-* While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
+- While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality _before_ you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
 
-* By ticking or leaving ticked the option "Allow edits and access to secrets by maintainers", either when making a PR or at any time thereafter, you give permission for repository maintainers to push changes to your branch without explicit permission. Repository maintainers will avoid doing this unless necessary, and generally should only use it to apply a merge upstream/master, rebuild TGUI, deconflict maps, or other minor changes required shortly before a PR is to be merged. More extensive changes such as force-pushes to your branch require explicit permission from the PR author each time such a change needs to be made.
+- By ticking or leaving ticked the option "Allow edits and access to secrets by maintainers", either when making a PR or at any time thereafter, you give permission for repository maintainers to push changes to your branch without explicit permission. Repository maintainers will avoid doing this unless necessary, and generally should only use it to apply a merge upstream/master, rebuild TGUI, deconflict maps, or other minor changes required shortly before a PR is to be merged. More extensive changes such as force-pushes to your branch require explicit permission from the PR author each time such a change needs to be made.
 
 #### Using The Changelog
 
-* The tags able to be used in the changelog are: `add/soundadd/imageadd`, `del/sounddel/imagedel`, `tweak`, `fix`, `wip`, `spellcheck`, and `experiment`.
-* Without specifying a name it will default to using your GitHub name. Some examples include:
+- The tags able to be used in the changelog are: `add/soundadd/imageadd`, `del/sounddel/imagedel`, `tweak`, `fix`, `wip`, `spellcheck`, and `experiment`.
+- Without specifying a name it will default to using your GitHub name. Some examples include:
 
 ```txt
     :cl:
@@ -152,21 +152,34 @@ Do not compare boolean values to TRUE or FALSE. For TRUE you should just check i
 
 ```dm
 // Bad
-var/thing = pick(list(TRUE, FALSE))
+var/thing = pick(TRUE, FALSE)
 if(thing == TRUE)
 	return "bleh"
-var/other_thing = pick(list(TRUE, FALSE))
+var/other_thing = pick(TRUE, FALSE)
 if(other_thing == FALSE)
 	return "meh"
 
 // Good
-var/thing = pick(list(TRUE, FALSE))
+var/thing = pick(TRUE, FALSE)
 if(thing)
 	return "bleh"
-var/other_thing = pick(list(TRUE, FALSE))
+var/other_thing = pick(TRUE, FALSE)
 if(!other_thing)
 	return "meh"
 ```
+
+### Use `pick(x, y, z)`, not `pick(list(x, y, z))`
+
+`pick()` will happily take a fixed set of options. Wrapping them in a list is redundant and slightly less efficient.
+'''dm
+// Bad
+var/text = pick(list("test_1", "test_2", "test_3"))
+to_chat(world, text)
+
+// Good
+var/text = pick("test_1", "test_2", "test_3")
+to_chat(world, text)
+'''
 
 ### User Interfaces
 
@@ -247,8 +260,8 @@ var/atom/A
 
 We have a system in [`code/__HELPERS/pronouns.dm`](../code/__HELPERS/pronouns.dm) for addressing all forms of pronouns. This is useful in a number of ways;
 
-* BYOND's `\his` macro can be unpredictable on what object it references. Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`. This will end up referencing the user's gender in the first occurence, but what about the second? It'll actually print the gender set on the weapon he's carrying, which is unintended - and there's no way around this.
-* It always prints the real `gender` variable of the atom it's referencing. This can lead to exposing a mob's gender even when their face is covered, which would normally prevent it's gender from being printed.
+- BYOND's `\his` macro can be unpredictable on what object it references. Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`. This will end up referencing the user's gender in the first occurence, but what about the second? It'll actually print the gender set on the weapon he's carrying, which is unintended - and there's no way around this.
+- It always prints the real `gender` variable of the atom it's referencing. This can lead to exposing a mob's gender even when their face is covered, which would normally prevent it's gender from being printed.
 
 The way to avoid these problems is to use the pronoun system. Instead of `"[user] waves \his arms."`, you can do `"[user] waves [user.p_their()] arms."`
 
@@ -275,10 +288,10 @@ Usage of this system is mandatory for any `Topic()` calls, and will produce erro
 
 ```dm
 //Bad
-"<a href='?src=\ref[src];'>Link!</a>"
+"<a href='byond://?src=\ref[src];'>Link!</a>"
 
 //Good
-"<a href='?src=[UID()];'>Link!</a>"
+"<a href='byond://?src=[UID()];'>Link!</a>"
 ```
 
 ### Use `var/name` format when declaring variables
@@ -293,7 +306,7 @@ You must use tabs to indent your code, NOT SPACES.
 
 ### No hacky code
 
-Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is ***no*** other option. (Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers, PR Reviewers, and other contributors who can help you exist for exactly that reason.)
+Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is **_no_** other option. (Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers, PR Reviewers, and other contributors who can help you exist for exactly that reason.)
 
 You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and
 then overriding them as required.
@@ -312,9 +325,9 @@ First, read the comments in [this BYOND thread](http://www.byond.com/forum/?post
 
 There are two key points here:
 
-1) Defining a list in the variable's definition calls a hidden proc - init. If you have to define a list at startup, do so in `New()` (or preferably `Initialize()`) and avoid the overhead of a second call (`init()` and then `New()`)
+1. Defining a list in the variable's definition calls a hidden proc - init. If you have to define a list at startup, do so in `New()` (or preferably `Initialize()`) and avoid the overhead of a second call (`init()` and then `New()`)
 
-2) It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
+2. It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
 
 Remember: although this tradeoff makes sense in many cases, it doesn't cover them all. Think carefully about your addition before deciding if you need to use it.
 
@@ -373,10 +386,10 @@ This is clearer and enhances readability of your code! Get used to doing it!
 
 (if, while, for, etc)
 
-* All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse
+- All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse
   (eg: `if(count <= 10)` not `if(10 >= count)`)
-* All control statements must be spaced as `if()`, with the brackets touching the keyword.
-* All control statements must not contain code on the same line as the statement.
+- All control statements must be spaced as `if()`, with the brackets touching the keyword.
+- All control statements must not contain code on the same line as the statement.
 
   ```DM
   //Bad
@@ -443,22 +456,22 @@ Look for code examples on how to properly use it.
 
 #### Spacing of operators
 
-* Operators that should be separated by spaces:
-  * Boolean and logic operators like `&&`, `||` `<`, `>`, `==`, etc. (But not `!`)
-  * Bitwise AND `&` and OR `|`.
-  * Argument separator operators like `,`. (and `;` when used in a forloop)
-  * Assignment operators like `=` or `+=` or the like.
-  * Math operators like `+`, `-`, `/`, or `*`.
-* Operators that should NOT be separated by spaces:
-  * Access operators like `.` and `:`.
-  * Parentheses `()`.
-  * Logical not `!`.
+- Operators that should be separated by spaces:
+  - Boolean and logic operators like `&&`, `||` `<`, `>`, `==`, etc. (But not `!`)
+  - Bitwise AND `&` and OR `|`.
+  - Argument separator operators like `,`. (and `;` when used in a forloop)
+  - Assignment operators like `=` or `+=` or the like.
+  - Math operators like `+`, `-`, `/`, or `*`.
+- Operators that should NOT be separated by spaces:
+  - Access operators like `.` and `:`.
+  - Parentheses `()`.
+  - Logical not `!`.
 
 #### Use of operators
 
-* Bitwise AND `&`
-  * Should be written as `bitfield & bitflag` NEVER `bitflag & bitfield`, both are valid, but the latter is confusing and nonstandard.
-* Associated lists declarations must have their key value quoted if it's a string
+- Bitwise AND `&`
+  - Should be written as `bitfield & bitflag` NEVER `bitflag & bitfield`, both are valid, but the latter is confusing and nonstandard.
+- Associated lists declarations must have their key value quoted if it's a string
 
 ```DM
     //Bad
@@ -470,7 +483,7 @@ Look for code examples on how to properly use it.
 
 #### Bitflags
 
-* Bitshift operators are mandatory, opposed to directly typing out the value. I.E:
+- Bitshift operators are mandatory, opposed to directly typing out the value. I.E:
 
 ```dm
     #define MACRO_ONE (1<<0)
@@ -500,7 +513,7 @@ Using this system makes the code more readable and less prone to error.
 
 SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
 
-* To display messages to all mobs that can view `user`, you should use `visible_message()`.
+- To display messages to all mobs that can view `user`, you should use `visible_message()`.
 
 ```dm
     //Bad
@@ -511,7 +524,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     user.visible_message("<span class='warning'>Arbitrary text</span>")
 ```
 
-* You should not use color macros (`\red, \blue, \green, \black`) to color text, instead, you should use span classes. `<span class='warning'>Red text</span>`, `<span class='notice'>Blue text</span>`.
+- You should not use color macros (`\red, \blue, \green, \black`) to color text, instead, you should use span classes. `<span class='warning'>Red text</span>`, `<span class='notice'>Blue text</span>`.
 
 ```dm
     //Bad
@@ -521,7 +534,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     to_chat(user, "<span class='warning'>Red text</span>Black text")
 ```
 
-* To use variables in strings, you should **never** use the `text()` operator, use embedded expressions directly in the string.
+- To use variables in strings, you should **never** use the `text()` operator, use embedded expressions directly in the string.
 
 ```dm
     //Bad
@@ -531,7 +544,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     to_chat(user, "[name] is leaking [liquid_type]!")
 ```
 
-* To reference a variable/proc on the src object, you should **not** use `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use `var`/`proc()`.
+- To reference a variable/proc on the src object, you should **not** use `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use `var`/`proc()`.
 
 ```dm
    //Bad
@@ -545,9 +558,9 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 ### Develop Secure Code
 
-* Player input must always be escaped safely, we recommend you use `stripped_input()` in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind.
+- Player input must always be escaped safely, we recommend you use `stripped_input()` in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind.
 
-* Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
+- Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
 
 ```dm
   //Bad
@@ -559,119 +572,125 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
   )) // Note the use of parameters on the above line and :target_ckey in the query.
 ```
 
-* All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
+- All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
 
-* Information that players could use to metagame (that is, to identify round information and/or antagonist type via information that would not be available to them in character) should be kept as administrator only.
+- Information that players could use to metagame (that is, to identify round information and/or antagonist type via information that would not be available to them in character) should be kept as administrator only.
 
-* Where you have code that can cause large-scale modification and *FUN*, make sure you start it out locked behind one of the default admin roles - use common sense to determine which role fits the level of damage a function could do.
+- Where you have code that can cause large-scale modification and _FUN_, make sure you start it out locked behind one of the default admin roles - use common sense to determine which role fits the level of damage a function could do.
 
 ### Files
 
-* Because runtime errors do not give the full path, try to avoid having files with the same name across folders.
+- Because runtime errors do not give the full path, try to avoid having files with the same name across folders.
 
-* File names should not be mixed case, or contain spaces or any character that would require escaping in a uri.
+- File names should not be mixed case, or contain spaces or any character that would require escaping in a uri.
 
-* Files and path accessed and referenced by code above simply being #included should be strictly lowercase to avoid issues on filesystems where case matters.
+- Files and path accessed and referenced by code above simply being #included should be strictly lowercase to avoid issues on filesystems where case matters.
 
 ### SQL
 
-* Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
+- Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
 
-* Use parameters for queries, as mentioned above in [Develop Secure Code](#develop-secure-code).
+- Use parameters for queries, as mentioned above in [Develop Secure Code](#develop-secure-code).
 
-* Always check your queries for success with `if(!query.warn_execute())`. By using this standard format, you can ensure the correct log messages are used.
+- Always check your queries for success with `if(!query.warn_execute())`. By using this standard format, you can ensure the correct log messages are used.
 
-* Always `qdel()` your queries after you are done with them, this cleans up the results and helps things run smoother.
+- Always `qdel()` your queries after you are done with them, this cleans up the results and helps things run smoother.
 
-* All changes to the database's layout (schema) must be specified in the database changelog in SQL, as well as reflected in the schema file.
+- All changes to the database's layout (schema) must be specified in the database changelog in SQL, as well as reflected in the schema file.
 
-* Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
-in the SQL/updates folder.
+- Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
+  in the SQL/updates folder.
 
-* Queries must never specify the database, be it in code, or in text files in the repo.
+- Queries must never specify the database, be it in code, or in text files in the repo.
 
 ### Mapping Standards
 
-* For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
+- For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
 
-* Map Merge
-  * The following guideline for map merging applies to **ALL** mapping contributers.
-    * Before committing a map change, you **MUST** run mapmerge2 to normalise your changes. You can do this manually before every commit with `"\tools\mapmerge2\Run Before Committing.bat"` or automatically by installing the hooks at `"\tools\hooks\Install.bat"`.
-    * Failure to run Map Merge on a map after editing greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+- Map Merge
 
-* StrongDMM
-  * [We strongly encourage use of StrongDMM version 2 or greater, available here.](https://github.com/SpaiR/StrongDMM/releases)
-  * When using StrongDMM, the following options must be enabled. They can be found under `File > Preferences`.
-    * Sanitize Variables - Removes variables that are declared on the map, but are the same as initial. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
-    * Save format - `TGM`.
-    * Nudge mode - pixel_x/pixel_y
+  - The following guideline for map merging applies to **ALL** mapping contributers.
+    - Before committing a map change, you **MUST** run mapmerge2 to normalise your changes. You can do this manually before every commit with `"\tools\mapmerge2\Run Before Committing.bat"` or automatically by installing the hooks at `"\tools\hooks\Install.bat"`.
+    - Failure to run Map Merge on a map after editing greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
 
-* Variable Editing (Var-edits)
-  * While var-editing an item within the editor is fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time, as opposed to having to find each instance of it and change them all individually.
-    * Subtypes only intended to be used on ruin maps should be contained within an .dm file with a name corresponding to that map within `code\modules\ruins`. This is so in the event that the map is removed, that subtype will be removed at the same time as well to minimize leftover/unused data within the repo.
-  * When not using StrongDMM (which handles the following automatically) please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`.
-  * Areas should **never** be var-edited on a map. All areas of a single type, altered instance or not, are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
-  * Unless they require custom placement, when placing the following items use the relevant "[direction] bump" instance, as it has predefined pixel offsets and directions that are standardised: APC, Air alarm, Fire alarm, station intercom, newscaster, extinguisher cabient, light switches.
+- StrongDMM
 
-* If you are making non-minor edits to an area or room, (non-minor being anything more than moving a few objects or fixing small bugs) then you should ensure the entire area/room is updated to meet these standards.
+  - [We strongly encourage use of StrongDMM version 2 or greater, available here.](https://github.com/SpaiR/StrongDMM/releases)
+  - When using StrongDMM, the following options must be enabled. They can be found under `File > Preferences`.
+    - Sanitize Variables - Removes variables that are declared on the map, but are the same as initial. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
+    - Save format - `TGM`.
+    - Nudge mode - pixel_x/pixel_y
 
-* When making a change to an area or room, follow these guidelines:
-  * Unless absolutely necessary, do not run pipes (including disposals) under wall turfs.
-  * **NEVER** run cables under wall turfs.
-  * Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
-  * Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
+- Variable Editing (Var-edits)
+
+  - While var-editing an item within the editor is fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time, as opposed to having to find each instance of it and change them all individually.
+    - Subtypes only intended to be used on ruin maps should be contained within an .dm file with a name corresponding to that map within `code\modules\ruins`. This is so in the event that the map is removed, that subtype will be removed at the same time as well to minimize leftover/unused data within the repo.
+  - When not using StrongDMM (which handles the following automatically) please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`.
+  - Areas should **never** be var-edited on a map. All areas of a single type, altered instance or not, are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
+  - Unless they require custom placement, when placing the following items use the relevant "[direction] bump" instance, as it has predefined pixel offsets and directions that are standardised: APC, Air alarm, Fire alarm, station intercom, newscaster, extinguisher cabient, light switches.
+
+- If you are making non-minor edits to an area or room, (non-minor being anything more than moving a few objects or fixing small bugs) then you should ensure the entire area/room is updated to meet these standards.
+
+- When making a change to an area or room, follow these guidelines:
+
+  - Unless absolutely necessary, do not run pipes (including disposals) under wall turfs.
+  - **NEVER** run cables under wall turfs.
+  - Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
+  - Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
 
     ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
-  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example:
+
+  - Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example:
 
     ![image](https://user-images.githubusercontent.com/12197162/120619480-ecda6f00-c453-11eb-9d9f-abf0d1a99c34.png)
 
-  * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
-  * Every **area** should contain only one APC and air alarm.
-    * Critical infrastructure rooms (such as the engine, arrivals, and medbay areas) should be given an APC with a larger power cell.
-  * Every **room** should contain at least one fire alarm, air vent and scrubber, light switch, station intercom, and security camera.
-    * Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
-    * Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
-      * A good example would be the template [Department name] - [Area], so Brig - Cell 1, or Medbay - Treatment Center. Consistency is key to good camera naming.
-    * Fire alarms should not be placed next to expected heat sources.
-    * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
-  * Head of staff offices should contain a requests console.
-  * Electrochromic windows (`/obj/structure/window/reinforced/polarized`) and doors/windoors (using the `/obj/effect/mapping_helpers/airlock/polarized` helper) are preferred over shutters as the method of restricting view to a room through windows. Shutters are sill appropriate in industrial/hazardous areas of the station (engine rooms, HoP line, science test chamber, etc.).
-    * Electrochromic window/windoor/door sets require a unique ID var, and a window tint button (`/obj/machinery/button/windowtint`) with a matching ID var. The default `range` of the button is 7 tiles but can be amended with a var edit.
-  * Tiny fans (`/obj/structure/fans/tiny`) can be used to block airflow into problematic areas, but are not a substitute for proper door and firelock combinations. They are useful under blast doors that lead to space when opened.
-  * Firelocks should be used at area boundaries over doors and windoors, but not windows. Firelocks can also be used to break up hallways at reasonable intervals.
-    * Double firelocks are not permitted.
-    * Maintenance access doors should never have firelocks placed over them.
-  * Windows to secure areas or external areas should be reinforced. Windows in engine areas should be reinforced plasma glass.
-    * Windows in high security areas, such as the brig, bridge, and head of staff offices, should be electrified by placing a wire node under the window.
-  * Lights are to be used sparingly, they draw a significant amount of power.
-  * Ensure door and windoor access is correctly set, this is now done by using access helpers.
-    * Multiple accesses can be added to a door by placing multiple access helpers on the same tile. Be sure to pay attention so as to avoid mixing up `all` and `any` subtypes.
-    * Old doors that use var edited access should be updated to use the correct access helper, and the var edit on the door should be cleaned.
-      * See [`code\modules\mapping\access_helpers.dm`](../code/modules/mapping/access_helpers.dm) for a list of all access helpers.
-    * Subtypes of `/obj/effect/mapping_helpers/airlock/access/any` lets anyone with ONE OF THE LISTED ACCESSES open the door.
-    * Subtypes of `/obj/effect/mapping_helpers/airlock/access/all` requires ALL ACCESSES present to open the door.
+  - Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
+  - Every **area** should contain only one APC and air alarm.
+    - Critical infrastructure rooms (such as the engine, arrivals, and medbay areas) should be given an APC with a larger power cell.
+  - Every **room** should contain at least one fire alarm, air vent and scrubber, light switch, station intercom, and security camera.
+    - Intercoms should be set to frequency 145.9, and be speaker ON Microphone OFF. This is so radio signals can reach people even without headsets on. Larger room will require more than one at a time.
+    - Exceptions can be made to security camera placement for certain rooms, such as the execution room. Larger rooms may require more than one security camera. All security cameras should have a descriptive name that makes it easy to find on a camera console.
+      - A good example would be the template [Department name] - [Area], so Brig - Cell 1, or Medbay - Treatment Center. Consistency is key to good camera naming.
+    - Fire alarms should not be placed next to expected heat sources.
+    - Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
+  - Head of staff offices should contain a requests console.
+  - Electrochromic windows (`/obj/structure/window/reinforced/polarized`) and doors/windoors (using the `/obj/effect/mapping_helpers/airlock/polarized` helper) are preferred over shutters as the method of restricting view to a room through windows. Shutters are sill appropriate in industrial/hazardous areas of the station (engine rooms, HoP line, science test chamber, etc.).
+    - Electrochromic window/windoor/door sets require a unique ID var, and a window tint button (`/obj/machinery/button/windowtint`) with a matching ID var. The default `range` of the button is 7 tiles but can be amended with a var edit.
+  - Tiny fans (`/obj/structure/fans/tiny`) can be used to block airflow into problematic areas, but are not a substitute for proper door and firelock combinations. They are useful under blast doors that lead to space when opened.
+  - Firelocks should be used at area boundaries over doors and windoors, but not windows. Firelocks can also be used to break up hallways at reasonable intervals.
+    - Double firelocks are not permitted.
+    - Maintenance access doors should never have firelocks placed over them.
+  - Windows to secure areas or external areas should be reinforced. Windows in engine areas should be reinforced plasma glass.
+    - Windows in high security areas, such as the brig, bridge, and head of staff offices, should be electrified by placing a wire node under the window.
+  - Lights are to be used sparingly, they draw a significant amount of power.
+  - Ensure door and windoor access is correctly set, this is now done by using access helpers.
 
-  * Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
-    * If this is not possible, departments should have extra entry and exit points.
-  * Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
-  * External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
-  * Edits in mapping tools should almost always be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
+    - Multiple accesses can be added to a door by placing multiple access helpers on the same tile. Be sure to pay attention so as to avoid mixing up `all` and `any` subtypes.
+    - Old doors that use var edited access should be updated to use the correct access helper, and the var edit on the door should be cleaned.
+      - See [`code\modules\mapping\access_helpers.dm`](../code/modules/mapping/access_helpers.dm) for a list of all access helpers.
+    - Subtypes of `/obj/effect/mapping_helpers/airlock/access/any` lets anyone with ONE OF THE LISTED ACCESSES open the door.
+    - Subtypes of `/obj/effect/mapping_helpers/airlock/access/all` requires ALL ACCESSES present to open the door.
+
+  - Departments should be connected to maintenance through a back or side door. This lets players escape and allows antags to break in.
+    - If this is not possible, departments should have extra entry and exit points.
+  - Engine areas, or areas with a high probability of receiving explosions, should use reinforced flooring if appropriate.
+  - External areas, or areas where depressurisation is expected and normal, should use airless turf variants to prevent additional atmospherics load.
+  - Edits in mapping tools should almost always be possible to replicate in-game. For this reason, avoid stacking multiple structures on the same tile (i.e. placing a light and an APC on the same wall.)
 
 ### Other Notes
 
-* Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the `tools.dm` file)
-* Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
+- Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the `tools.dm` file)
+- Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
 
-* You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
+- You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
 
-* If you used regex to replace code during development of your code, post the regex in your PR for the benefit of future developers and downstream users.
+- If you used regex to replace code during development of your code, post the regex in your PR for the benefit of future developers and downstream users.
 
-* All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
+- All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
 
-* All mentions of the company "Nanotrasen" should be written as such - 'Nanotrasen'. Use of CamelCase (NanoTrasen) is no longer proper.
+- All mentions of the company "Nanotrasen" should be written as such - 'Nanotrasen'. Use of CamelCase (NanoTrasen) is no longer proper.
 
-* If you are making a PR that adds a config option to change existing behaviour, said config option must default to as close to as current behaviour as possible.
+- If you are making a PR that adds a config option to change existing behaviour, said config option must default to as close to as current behaviour as possible.
 
 ### Dream Maker Quirks/Tricks
 
@@ -729,14 +748,14 @@ specified type, even if it isn't really that type, causing runtime errors (AKA y
 
 #### Dot variable
 
-Like other languages in the C family, DM has a ```.``` or "Dot" operator, used for accessing variables/members/functions of an object instance. eg:
+Like other languages in the C family, DM has a `.` or "Dot" operator, used for accessing variables/members/functions of an object instance. eg:
 
 ```dm
 var/mob/living/carbon/human/H = YOU_THE_READER
 H.gib()
 ```
 
-However, DM also has a dot *variable*, accessed just as `.` on its own, defaulting to a value of null. Now, what's special about the dot operator is that it is automatically returned (as in the `return` statement) at the end of a proc, provided the proc does not already manually return (`return count` for example.) Why is this special?
+However, DM also has a dot _variable_, accessed just as `.` on its own, defaulting to a value of null. Now, what's special about the dot operator is that it is automatically returned (as in the `return` statement) at the end of a proc, provided the proc does not already manually return (`return count` for example.) Why is this special?
 
 With `.` being everpresent in every proc, can we use it as a temporary variable? Of course we can! However, the `.` operator cannot replace a typecasted variable - it can hold data any other var in DM can, it just can't be accessed as one, although the `.` operator is compatible with a few operators that look weird but work perfectly fine, such as: `.++` for incrementing `.'s` value, or `.[1]` for accessing the first element of `.`, provided that it's a list.
 
@@ -779,40 +798,39 @@ There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be u
 
 There are 3 roles on the GitHub, these are:
 
-* Headcoder
-* Commit Access
-* Review Team
+- Headcoder
+- Commit Access
+- Review Team
 
 Each role inherits the lower role's responsibilities (IE: Headcoders also have commit access, and members of commit access are also part of the review team)
 
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
-* [farie82](https://github.com/farie82)
-* [S34N](https://github.com/S34NW)
-* [SteelSlayer](https://github.com/SteelSlayer)
+- [farie82](https://github.com/farie82)
+- [S34N](https://github.com/S34NW)
+- [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
 
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
 
-
-* [AffectedArc07](https://github.com/AffectedArc07)
-* [Charliminator](https://github.com/hal9000PR)
-* [Contrabang](https://github.com/Contrabang)
-* [lewcc](https://github.com/lewcc)
+- [AffectedArc07](https://github.com/AffectedArc07)
+- [Charliminator](https://github.com/hal9000PR)
+- [Contrabang](https://github.com/Contrabang)
+- [lewcc](https://github.com/lewcc)
 
 ---
 
 `Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
 
-* [Burzah](https://github.com/Burzah)
-* [Charliminator](https://github.com/hal9000PR)
-* [Contrabang](https://github.com/Contrabang)
-* [DGamerL](https://github.com/DGamerL)
-* [Henri215](https://github.com/Henri215)
-* [lewcc](https://github.com/lewcc)
-* [Sirryan2002](https://github.com/Sirryan2002)
-* [Warriorstar](https://github.com/warriorstar-orion)
+- [Burzah](https://github.com/Burzah)
+- [Charliminator](https://github.com/hal9000PR)
+- [Contrabang](https://github.com/Contrabang)
+- [DGamerL](https://github.com/DGamerL)
+- [Henri215](https://github.com/Henri215)
+- [lewcc](https://github.com/lewcc)
+- [Sirryan2002](https://github.com/Sirryan2002)
+- [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 
@@ -822,7 +840,7 @@ Full information on the GitHub contribution workflow & policy can be found at [h
 
 Status of your pull request will be communicated via PR labels. This includes:
 
-* `Status: Awaiting type assignment` - This will be displayed when your PR is awaiting an internal type assignment (for Fix, Balance, Tweak, etc)
-* `Status: Awaiting approval` - This will be displayed if your PR is waiting for approval from the specific party, be it Balance or Design. Fixes & Refactors should never have this label
-* `Status: Awaiting review` - This will be displayed when your PR has passed the design vote and is now waiting for someone in the review team to approve it
-* `Status: Awaiting merge` - Your PR is done and is waiting for someone with commit access to merge it. **Note: Your PR may be delayed if it is pending testmerge or in the mapping queue**
+- `Status: Awaiting type assignment` - This will be displayed when your PR is awaiting an internal type assignment (for Fix, Balance, Tweak, etc)
+- `Status: Awaiting approval` - This will be displayed if your PR is waiting for approval from the specific party, be it Balance or Design. Fixes & Refactors should never have this label
+- `Status: Awaiting review` - This will be displayed when your PR has passed the design vote and is now waiting for someone in the review team to approve it
+- `Status: Awaiting merge` - Your PR is done and is waiting for someone with commit access to merge it. **Note: Your PR may be delayed if it is pending testmerge or in the mapping queue**
