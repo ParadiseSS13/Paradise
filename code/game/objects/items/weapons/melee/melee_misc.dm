@@ -73,7 +73,8 @@
 	/// the initial cooldown tracks the time between stamina damage. tracks the world.time when the baton is usable again.
 	var/cooldown = 3.5 SECONDS
 	var/obj/item/stock_parts/cell/high/cell = null
-	var/state = 0 //Sword state 0 - off, 1 - stam, 2 - burn
+	/// Sword state 0 - off, 1 - stam, 2 - burn
+	var/state = 0
 
 /obj/item/melee/secsword/examine(mob/user)
 	. = ..()
