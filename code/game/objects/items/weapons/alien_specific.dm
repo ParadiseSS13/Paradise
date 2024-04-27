@@ -60,7 +60,7 @@
 	reagents.check_and_add("facid", volume / 2, 2 * coeff) // Volume / 2 here becuase there should be an even amount of both chems.
 	reagents.check_and_add("sacid", volume / 2, 2 * coeff)
 /*
-/obj/item/reagent_containers/spray/alien/stun	// This doesn't actually function due to ether not having a touch reaction. I have an idea for what to replace this with but it will take some doing.
+/obj/item/reagent_containers/spray/alien/stun	// TODO: This doesn't actually function due to ether not having a touch reaction.
 	name = "paralytic toxin synthesizer"
 	desc = "Sprays incapacitating toxins."
 	icon = 'icons/mob/alien.dmi'
