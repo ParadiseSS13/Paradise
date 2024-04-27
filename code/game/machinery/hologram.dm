@@ -379,7 +379,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		else	//make it like real life
 			if(isrobot(user))
 				var/mob/living/silicon/robot/robot = user
-				hologram.icon = getHologramIcon(robot.icon, FALSE)
+				hologram.icon = getHologramIcon(icon(robot.icon), FALSE)
 				hologram.icon_state = robot.icon_state
 			else
 				hologram.icon = getHologramIcon(get_id_photo(user))
