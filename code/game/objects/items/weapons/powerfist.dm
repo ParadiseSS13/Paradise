@@ -32,7 +32,7 @@
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
 		if(!user.is_holding(src))
-			to_chat(user, "<span class='warning'>You have to hold the powerfist in your hand!</span>")
+			to_chat(user, "<span class='warning'>You have to hold [src] in your hand!</span>")
 			return
 		if(!tank)
 			var/obj/item/tank/internals/IT = W
