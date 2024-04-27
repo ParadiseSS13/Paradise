@@ -443,6 +443,9 @@
 	return TRUE
 
 /obj/item/gun/proc/handle_suicide(mob/user, mob/living/carbon/human/target, params)
+	if(!ishuman(target)) // So only human-type mobs can be executed.
+		return
+
 	if(semicd)
 		return
 
