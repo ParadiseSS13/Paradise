@@ -782,7 +782,6 @@
 	new /obj/item/melee/rapier(src)
 	update_icon()
 
-
 /obj/item/storage/belt/sheath/secsword
 	name = "securiblade scabbard"
 	desc = "Can hold securiblades."
@@ -792,6 +791,28 @@
 
 /obj/item/storage/belt/sheath/secsword/populate_contents()
 	new /obj/item/melee/secsword(src)
+	update_icon()
+
+/obj/item/storage/belt/sheath/snakesfang
+	name = "snakesfang scabbard"
+	desc = "Can hold scimitars."
+	icon_state = "snakesfangsheath"
+	item_state = "snakesfangsheath"
+	can_hold = list(/obj/item/melee/snakesfang)
+
+/obj/item/storage/belt/sheath/snakesfang/populate_contents()
+	new /obj/item/melee/snakesfang(src)
+	update_icon()
+
+/obj/item/storage/belt/sheath/clan_cleaver
+	name = "clan cleaver scabbard"
+	desc = "Can hold massive cleavers."
+	icon_state = "snakesfangsheath"
+	item_state = "snakesfangsheath"
+	can_hold = list(/obj/item/melee/clan_cleaver)
+
+/obj/item/storage/belt/sheath/clan_cleaver/populate_contents()
+	new /obj/item/melee/clan_cleaver(src)
 	update_icon()
 
 // -------------------------------------

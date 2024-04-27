@@ -47,7 +47,7 @@
 
 //Security Sword
 /obj/item/melee/secsword
-	name = "Securiblade"
+	name = "securiblade"
 	desc = "This nanite-honed blade comes with a battery in the hilt, to add an electric shock to every swing."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
@@ -65,6 +65,7 @@
 	attack_verb = list("stabbed", "slashed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
+	needs_permit = TRUE
 	/// How much power does it cost to stun someone
 	var/stam_hitcost = 1000
 	/// How much power does it cost to burn someone
@@ -223,10 +224,115 @@
 	if(cell.charge < (amount)) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = 0
 		update_icon(UPDATE_ICON_STATE)
+
 //Traitor Sword
+/obj/item/melee/snakesfang
+	name = "snakesfang"
+	desc = "Sometimes, you do want to bring a knife to a gunfight."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon_state = "snakesfang"
+	item_state = "snakesfang"
+	flags = CONDUCT
+	force = 25
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	origin_tech = "combat=6, illegals=3"
+	attack_verb = list("slashed", "sliced", "chopped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	materials = list(MAT_METAL = 1000)
+	needs_permit = TRUE
 
 //Unathi Sword
+/obj/item/melee/clan_cleaver
+	name = "clan cleaver"
+	desc = "This sharpened chunk of steel is too big and too heavy to be called a sword."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon_state = "secsword0"
+	item_state = "secsword0"
+	flags = CONDUCT
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	origin_tech = "combat=6, illegals=5"
+	attack_verb = list("slashed", "cleaved", "chopped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	materials = list(MAT_METAL = 2000)
+	needs_permit = TRUE
+	armor = list(BULLET = 0, LASER = 0, ENERGY = 0)
 
+
+/obj/item/melee/clan_cleaver/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/melee/clan_cleaver/traitor/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
+			and harm intent deals heavy damage</span>"
+
+/obj/item/melee/clan_cleaver/update_icon_state()
+	icon_state = "secsword0"
+
+/obj/item/melee/clan_cleaver/proc/wield(obj/item/source, mob/user)
+	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
+	armor = list(BULLET = 30, LASER = 30, ENERGY = 30)
+
+/obj/item/melee/clan_cleaver/proc/unwield(obj/item/source, mob/user)
+	armor = initial(armor)
+
+/obj/item/melee/clan_cleaver/attack(mob/target, mob/living/user)
+	armour_penetration_flat = 0
+	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
+		return ..()
+
+	var/mob/living/carbon/human/H = target
+
+	switch(user.a_intent)
+		if(INTENT_HELP) //Stamina damage
+			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
+							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
+							"<span class='italics'>You hear a thud.</span>")
+			playsound(loc, 'sound/weapons/genhit2.ogg', 70, TRUE, -1)
+			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+			H.apply_damage(40, STAMINA)
+			add_attack_logs(user, H, "Slammed by a clan cleaver.", ATKLOG_ALL)
+
+		if(INTENT_DISARM) //Slams away
+			if(H.stat || IS_HORIZONTAL(H))
+				return ..()
+
+			H.visible_message("<span class='danger'>[user] smashes [H] with the blade's tip!</span>", \
+							"<span class='userdanger'>[user] smashes you with the blade's tip!</span>", \
+							"<span class='italics'>You hear crushing.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
+			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
+			H.apply_damage(25, BRUTE)
+			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
+			H.throw_at(throw_target, 4, 1)
+			add_attack_logs(user, H, "Smashed away by a clan cleaver.", ATKLOG_ALL)
+
+		if(INTENT_GRAB) //Knocks down
+			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
+							"<span class='userdanger'>[user] cleaves you with an overhead strike!</span>", \
+							"<span class='italics'>You hear a chopping noise.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
+			H.apply_damage(30, BRUTE)
+			H.KnockDown(4 SECONDS)
+			add_attack_logs(user, H, "Cleaved overhead with a clean cleaver.", ATKLOG_ALL)
+
+		if(INTENT_HARM)
+			armour_penetration_flat = 30
+			return ..()
 
 /obj/item/melee/icepick
 	name = "ice pick"
