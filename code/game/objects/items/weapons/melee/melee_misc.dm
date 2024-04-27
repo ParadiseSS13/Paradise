@@ -162,13 +162,13 @@
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
-	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) //Just like the baton, no sword + judo.
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) // Just like the baton, no sword + judo.
 		to_chat(user, "<span class='warning'>The sword feels off balance in your hand due to your judo training!</span>")
 		return
 
-	if(state == 0) //Off or no battery
+	if(state == 0) // Off or no battery
 		return ..()
-	else if(state == 1) //Stamina
+	else if(state == 1) // Stamina
 		if(issilicon(M)) // Can't stun borgs and AIs
 			return ..()
 		if(!isliving(M))
@@ -183,7 +183,7 @@
 		return ..()
 
 
-/// returning false results in no attack animation, returning true results in an animation.
+// Returning false results in no attack animation, returning true results in an animation.
 /obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
 		return FALSE
@@ -192,19 +192,19 @@
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // Doesn't work in conjunction with stun batons.
 		return FALSE
 
-	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
+	cooldown = world.time + initial(cooldown) // Tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) // No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
-		//Weaker than a stun baton, less bad effects applied
+		// Weaker than a stun baton, less bad effects applied
 		H.Jitter(5 SECONDS)
 		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
 		H.apply_damage(stam_damage, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 		H.SetStuttering(5 SECONDS)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) //So a person cannot hit the same person with a sword AND a baton, or two swords
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // So a person cannot hit the same person with a sword AND a baton, or two swords
 	addtimer(CALLBACK(src, PROC_REF(stun_delay), L, user_UID), 2 SECONDS)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
@@ -226,7 +226,7 @@
 		state = 0
 		update_icon(UPDATE_ICON_STATE)
 
-//Traitor Sword
+// Traitor Sword
 /obj/item/melee/snakesfang
 	name = "snakesfang"
 	desc = "Sometimes, you do want to bring a knife to a gunfight."
@@ -245,7 +245,7 @@
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
 
-//Unathi Sword
+// Unathi Sword
 /obj/item/melee/breach_cleaver
 	name = "clan cleaver"
 	desc = "This sharpened chunk of steel is too big and too heavy to be called a sword."

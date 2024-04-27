@@ -375,14 +375,14 @@
 	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
 	species = list("Grey")
 
-//Unathi
+// Unathi
 /datum/uplink_item/species_restricted/prescan
 	name = "Breach Cleaver"
 	desc = "This massive blade harkons back to the wars on Moghes. Wielding it imbues you with the unquenchable desire for martial prowess. \
-	Two hands, comes in a scabbard. Has different effects based on intent."
+	Requires two hands to be wielded. Comes in a scabbard. Has different effects based on intent."
 	reference = "CLV"
 	item = /obj/item/storage/belt/sheath/breach_cleaver
-	cost = 65 /// Incredibly strong melee weapon on par with a chainsaw.
+	cost = 65 // Incredibly strong melee weapon on par with a chainsaw.
 	species = list("Unathi")
 
 // -------------------------------------
