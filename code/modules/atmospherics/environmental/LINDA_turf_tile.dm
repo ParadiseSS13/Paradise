@@ -195,8 +195,6 @@
 				if(our_excited_group)
 					last_share_check()
 
-#define LAVALAND_TEMPERATURE 500
-
 	if(planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
 		G.oxygen = oxygen
@@ -205,7 +203,7 @@
 		G.toxins = toxins
 		G.sleeping_agent = sleeping_agent
 		G.agent_b = agent_b
-		G.temperature = LAVALAND_TEMPERATURE // Temperature is modified at runtime; we only care about the turf's initial temperature
+		G.temperature = temperature
 		G.archive()
 		if(!air.compare(G))
 			if(!our_excited_group)
@@ -214,8 +212,6 @@
 				our_excited_group = excited_group
 			air.share(G, adjacent_turfs_length)
 			last_share_check()
-
-#undef LAVALAND_TEMPERATURE
 
 	air.react()
 
