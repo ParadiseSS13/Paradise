@@ -46,7 +46,7 @@
 	name = "Durathread Bandana"
 	result = list(/obj/item/clothing/mask/bandana/durathread)
 	reqs = list(/obj/item/stack/sheet/durathread = 1)
-	time = 3 SECONDS
+	time = 2.5 SECONDS
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/fannypack
@@ -308,7 +308,7 @@
 /datum/crafting_recipe/ghostsheet
 	name = "Ghost Sheet"
 	result = list(/obj/item/clothing/suit/ghost_sheet)
-	time = 1 SECONDS
+	time = 0.5 SECONDS
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/bedsheet = 1)
 	category = CAT_CLOTHING
@@ -316,7 +316,7 @@
 /datum/crafting_recipe/cowboyboots
 	name = "Cowboy Boots"
 	result = list(/obj/item/clothing/shoes/cowboy)
-	time = 5 SECONDS
+	time = 4.5 SECONDS
 	reqs = list(/obj/item/stack/sheet/leather = 2)
 	category = CAT_CLOTHING
 
@@ -330,7 +330,7 @@
 /datum/crafting_recipe/rubberduckyshoes
 	name = "Rubber Ducky Shoes"
 	result = list(/obj/item/clothing/shoes/ducky)
-	time = 5 SECONDS
+	time = 4.5 SECONDS
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/bikehorn/rubberducky = 2,
 				/obj/item/clothing/shoes/sandal = 1)
@@ -349,7 +349,7 @@
 /datum/crafting_recipe/voice_modulator
 	name = "Voice Modulator Mask"
 	result = list(/obj/item/clothing/mask/gas/voice_modulator)
-	time = 5 SECONDS
+	time = 4.5 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
 	reqs = list(/obj/item/clothing/mask/gas = 1,
 				/obj/item/assembly/voice = 1,
