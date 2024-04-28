@@ -431,8 +431,6 @@
 
 	return ..()
 
-
-
 /datum/emote/living/carbon/human/highfive/rps/set_status(mob/living/carbon/user)
 	if(!isnull(move))
 		// if they supplied a valid parameter, use that for the move

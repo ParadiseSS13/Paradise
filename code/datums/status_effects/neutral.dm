@@ -83,7 +83,6 @@
 /datum/status_effect/high_five/proc/regular_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[highfived.name]</b> [success]</span>")
 
-
 /datum/status_effect/high_five/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
@@ -107,7 +106,8 @@
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
 			return FALSE
-		// return since we've already continued if we're good
+		// We can return to break out of the loop here so we don't auto-remove (which causes the timer on the wizard highfive to break)
+		// This is safe because we only pass the continue if we don't have the status effect
 		return TRUE // DO NOT AUTOREMOVE
 
 	owner.custom_emote(EMOTE_VISIBLE, request)
@@ -192,7 +192,6 @@
 
 /datum/status_effect/high_five/rps/post_start()
 	playsound(owner, 'sound/effects/glassknock.ogg', 50, FALSE)
-
 
 /datum/status_effect/high_five/rps/regular_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	var/datum/status_effect/high_five/rps/their_status_effect = highfived.has_status_effect(type)
