@@ -51,12 +51,13 @@
 
 	if(orig.mind.martial_art)
 		for(var/datum/martial_art/MA as anything in orig.mind.known_martial_arts)
-			MA.teach(pc.owner.current)
+			if(!istype(MA, /datum/martial_art/krav_maga))
+				MA.teach(pc.owner.current)
 
 	if(orig.mind.spell_list)
 		for(var/datum/spell/S as anything in orig.mind.spell_list)
 			if(istype(S, /datum/spell/vampire))
-				continue
+				return
 			pc.owner.AddSpell(S)
 			pc.owner.spell_list += S
 
@@ -161,6 +162,32 @@
 	O.owner = pc.owner
 	if(orig)
 		O.target = orig
+
+/atom/movable/screen/alert/status_effect/internal_pinpointer/paradox_stalking/Click()
+	if(attached_effect)
+		var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = attached_effect
+		var/list/allowed_targets = list()
+		var/mob/living/carbon/human/P = usr
+		var/datum/antagonist/paradox_clone/pc = P.mind.has_antag_datum(/datum/antagonist/paradox_clone)
+		for(var/mob/living/carbon/human/H in world)
+			var/obj/item/organ/internal/brain/HB = H.get_int_organ(/obj/item/organ/internal/brain)
+			if(H.z == P.z && H.mind && H.key && P != H && HB || is_paradox_clone(H) || H == pc.original)
+				allowed_targets += H
+		if(!length(allowed_targets))
+			to_chat(pc.owner.current, "<span class='notice'>No available targets.</b></span>")
+			if(tgui_alert(P, "No available targets. Do you want to hide the alert?", "No targets.", list("Yes", "No")) == "Yes")
+				src.icon_state = "null"
+				to_chat(P, "<span class='notice'>To return the pinpoint, click on the empty space where it was previously located.</b></span>")
+			return
+		var/mob/living/carbon/human/target = input(usr,"Select target to track","Pinpointer") in allowed_targets
+		if(target)
+			var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
+			if(!B)
+				to_chat(pc.owner.current, "<span class='notice'>[target.real_name] doesn't have a brain! Can't sense...</b></span>")
+				return
+			icon_state = "pinon"
+			PS.target_brain = B
+	..()
 
 /mob/camera/paradox/proc/do_clone(mob/living/carbon/human/H)
 	var/mob/living/carbon/human/paradox_clone = new /mob/living/carbon/human(get_turf(src))

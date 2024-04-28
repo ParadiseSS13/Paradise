@@ -371,13 +371,14 @@
 
 /atom/movable/screen/alert/status_effect/internal_pinpointer/paradox_stalking
 	name = "Paradox Sense"
-	desc = "You can feel where are yours original's brain..."
+	desc = "You can feel where are yours original's or your native clones brains..."
 
 /datum/status_effect/internal_pinpointer/paradox_stalking
 	id = "paradox_stalking"
 	range_fuzz_factor = 0
 	minimum_range = 1
 	alert_type = /atom/movable/screen/alert/status_effect/internal_pinpointer/paradox_stalking
+	tick_interval = 0.1
 	var/obj/item/organ/internal/brain/target_brain
 
 /datum/status_effect/internal_pinpointer/paradox_stalking/tick()
