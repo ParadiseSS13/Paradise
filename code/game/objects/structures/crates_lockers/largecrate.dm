@@ -63,7 +63,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/lisa/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
 	. = ..()
@@ -73,7 +73,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/cow/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/cow(loc)
 	. = ..()
@@ -83,7 +83,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/goat/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/hostile/retaliate/goat(loc)
 	. = ..()
@@ -93,7 +93,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/chick/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	var/num = rand(4, 6)
 	for(var/i in 1 to num)
@@ -105,7 +105,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/cat/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/pet/cat(loc)
 	. = ..()
@@ -114,7 +114,7 @@
 	name = "secway crate"
 
 /obj/structure/largecrate/secway/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /obj/vehicle/secway(loc)
 	new /obj/item/key/security(loc)

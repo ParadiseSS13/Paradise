@@ -109,7 +109,7 @@
 	if(!anchored)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")

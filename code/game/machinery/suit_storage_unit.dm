@@ -363,7 +363,7 @@
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	if(occupant || helmet || suit || storage || boots)
 		to_chat(user, "<span class='warning'>There are contents that prevent you from deconstructing [src]!</span>")
@@ -376,7 +376,7 @@
 
 /obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))

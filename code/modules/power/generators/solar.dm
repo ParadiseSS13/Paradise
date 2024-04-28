@@ -242,7 +242,7 @@
 	if(!tracker)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /obj/item/tracker_electronics(loc)
 	tracker = FALSE
@@ -250,12 +250,12 @@
 
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
 	if(!anchored && isturf(loc))
-		if(I.use_tool(src, user, volume = 50))
+		if(I.use_tool(src, user, I.tool_volume))
 			anchored = TRUE
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			return TRUE
 	else
-		if(I.use_tool(src, user, volume = 50))
+		if(I.use_tool(src, user, I.tool_volume))
 			anchored = FALSE
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			return TRUE

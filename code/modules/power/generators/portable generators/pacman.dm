@@ -217,7 +217,7 @@
 	if(active)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	panel_open = !panel_open
 	if(panel_open)
@@ -229,7 +229,7 @@
 	if(active)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	if(!anchored)
 		connect_to_network()

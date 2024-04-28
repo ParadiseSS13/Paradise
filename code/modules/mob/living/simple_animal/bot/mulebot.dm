@@ -123,7 +123,7 @@
 	if(!open || !cell)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	cell.add_fingerprint(usr)
 	cell.forceMove(loc)
@@ -136,7 +136,7 @@
 	if(!open)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	attack_hand(user)
 
@@ -154,7 +154,7 @@
 	if(health >= maxHealth)
 		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
 		return
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	adjustBruteLoss(-25)
 	updatehealth()
@@ -167,7 +167,7 @@
 	if(!open)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = 50))
+	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	attack_hand(user)
 
