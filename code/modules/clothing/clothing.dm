@@ -4,7 +4,7 @@
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	/// Only these species can wear this kit.
-	var/list/species_restricted = null
+	var/list/species_restricted
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
 	var/scan_reagents = FALSE
 	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
