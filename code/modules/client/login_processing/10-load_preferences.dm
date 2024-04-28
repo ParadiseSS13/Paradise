@@ -14,6 +14,8 @@
 		toggles,
 		toggles_2,
 		sound,
+		light,
+		glowlevel,
 		volume_mixer,
 		lastchangelog,
 		exp,
@@ -29,11 +31,7 @@
 		keybindings,
 		server_region,
 		muted_adminsounds_ckeys,
-		viewrange,
-		old_lighting,
-		glowlevel,
-		lampsexposure,
-		lampsglare
+		viewrange
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

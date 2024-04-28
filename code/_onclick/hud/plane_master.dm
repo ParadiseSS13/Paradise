@@ -137,9 +137,9 @@
 
 /atom/movable/screen/plane_master/exposure/backdrop(mob/mymob)
 	remove_filter("blur_exposure")
-	if(!istype(mymob) || mymob?.client?.prefs?.old_lighting)
+	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		return
-	var/enabled = mymob?.client?.prefs?.lampsexposure || FALSE
+	var/enabled = mymob?.client?.prefs?.light & LIGHT_EXPOSURE
 
 	if(enabled)
 		alpha = 255
@@ -160,9 +160,9 @@
 	remove_filter("add_lamps_to_selfglow")
 	remove_filter("lamps_selfglow_bloom")
 
-	if(!istype(mymob) || mymob?.client?.prefs?.old_lighting)
+	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		return
-	var/level = mymob?.client?.prefs?.glowlevel || FALSE
+	var/level = mymob?.client?.prefs?.glowlevel
 
 	if(isnull(level))
 		return
@@ -195,10 +195,10 @@
 	remove_filter("add_lamps_to_glare")
 	remove_filter("lamps_glare")
 
-	if(!istype(mymob) || mymob?.client?.prefs?.old_lighting)
+	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		return
 
-	var/enabled = mymob?.client?.prefs?.lampsglare || FALSE
+	var/enabled = mymob?.client?.prefs?.light & LIGHT_GLARE
 
 	if(enabled)
 		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_ADD))

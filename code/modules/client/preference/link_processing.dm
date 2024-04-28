@@ -896,7 +896,6 @@
 						return
 					switch(newgender)
 						if("Male")
-
 							active_character.gender = MALE
 						if("Female")
 							active_character.gender = FEMALE
@@ -953,18 +952,6 @@
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
-
-				if("enablelighting")
-					user.client.toggle_oldnew_lighting()
-
-				if("glowlevel")
-					user.client.set_glow_level()
-
-				if("exposure")
-					user.client.toggle_lamp_exposure()
-
-				if("glare")
-					user.client.toggle_lamps_glare()
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
@@ -1277,6 +1264,10 @@
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
+				if("preference_toggles")
+					if(href_list["toggle"])
+						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
+						toggle.set_toggles(user.client)
 
 	ShowChoices(user)
-	return 1
+	return TRUE

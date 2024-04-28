@@ -63,20 +63,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
 	var/sound = SOUND_DEFAULT
+	var/light = LIGHT_DEFAULT
+	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
+	var/glowlevel = GLOW_MED
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
 	/// Forum userid
 	var/fuid
-	/// Disables bloom, lamp exposure and bloom when TRUE, just basic lightning.
-	var/old_lighting = FALSE
-	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
-	var/glowlevel = GLOW_MED
-	/// Lamp exposure is enabled when TRUE.
-	var/lampsexposure = TRUE
-	/// Lamp glare is enabled when TRUE.
-	var/lampsglare = FALSE
 
 	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
 	var/list/volume_mixer = list(
@@ -176,6 +171,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GEAR]' 	[current_tab == TAB_GEAR 	? "class='linkOn'" : ""]>Loadout</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Key Bindings</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
 	dat += "<hr>"
 
@@ -446,7 +442,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Window Flashing:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Modsuit Activation Method:</b> <a href='byond://?_src_=prefs;preference=mam'>[(toggles2 & PREFTOGGLE_2_MOD_ACTIVATION_METHOD) ? "Middle Click" : "Alt Click"]</a><br>"
 			dat += "<b>Lighting settings:</b><br>"
-			dat += "<b> - Old Lighting:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(old_lighting) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - New Lighting:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(light & LIGHT_NEW_LIGHTING) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - Glow Level:</b> <a href='byond://?_src_=prefs;preference=glowlevel'>"
 			switch(glowlevel)
 				if(GLOW_LOW)
@@ -460,8 +456,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "Medium"
 			dat += "</a><br>"
-			dat += "<b> - Lamp Exposure:</b> <a href='byond://?_src_=prefs;preference=exposure'>[(lampsexposure) ? "Yes" : "No"]</a><br>"
-			dat += "<b> - Lamp Glare:</b> <a href='byond://?_src_=prefs;preference=glare'>[(lampsglare) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Lamp Exposure:</b> <a href='byond://?_src_=prefs;preference=exposure'>[(light & LIGHT_EXPOSURE) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Lamp Glare:</b> <a href='byond://?_src_=prefs;preference=glare'>[(light & LIGHT_GLARE) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Interface Settings</h2>"
@@ -502,6 +498,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					else
 						var/is_special = (i in src.be_special)
 						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+
+			dat += "<h2>Total Playtime:</h2>"
+			if(!GLOB.configuration.jobs.enable_exp_tracking)
+				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
+			else
+				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
@@ -612,6 +614,44 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<tr><td colspan=4><br></td></tr>"
 
 			dat += "</table>"
+
+		if(TAB_TOGGLES)
+			dat += "<div align='center'><b>Preference Toggles:&nbsp;</b>"
+
+			dat += "<table align='center' width='100%'>"
+
+			// Lookup lists to make our life easier
+			var/static/list/pref_toggles_by_category
+			if(!pref_toggles_by_category)
+				pref_toggles_by_category = list()
+				for(var/datum/preference_toggle/toggle as anything in GLOB.preference_toggles)
+					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
+
+			for(var/category in GLOB.preference_toggle_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
+				dat += "<tr><td colspan=3><h2>[category]</h2></td></tr>"
+				for(var/datum/preference_toggle/toggle as anything in pref_toggles_by_category["[GLOB.preference_toggle_groups[category]]"])
+					dat += "<tr>"
+					dat += "<td style='width: 25%'>[toggle.name]</td>"
+					dat += "<td style='width: 45%'>[toggle.description]</td>"
+					if(toggle.preftoggle_category == PREFTOGGLE_CATEGORY_ADMIN)
+						if(!check_rights(toggle.rights_required, 0, (user)))
+							dat += "<td style='width: 20%'><b>Admin Restricted.</b></td>"
+							dat += "</tr>"
+							continue
+					switch(toggle.preftoggle_toggle)
+						if(PREFTOGGLE_SPECIAL)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
+						if(PREFTOGGLE_TOGGLE1)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						if(PREFTOGGLE_TOGGLE2)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						if(PREFTOGGLE_SOUND)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						if(PREFTOGGLE_LIGHT)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
 
 
 	dat += "<hr><center>"
