@@ -15,7 +15,7 @@
 
 /obj/item/holder/process()
 
-	if(isturf(loc) || !(contents.len))
+	if(isturf(loc) || !(length(contents)))
 
 		for(var/mob/M in contents)
 

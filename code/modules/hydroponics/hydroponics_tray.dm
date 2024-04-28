@@ -5,32 +5,74 @@
 	density = TRUE
 	anchored = TRUE
 	pixel_y = 8
-	var/waterlevel = 100	//The amount of water in the tray (max 100)
-	var/maxwater = 100		//The maximum amount of water in the tray
-	var/nutrilevel = 10		//The amount of nutrient in the tray (max 10)
-	var/maxnutri = 10		//The maximum nutrient of water in the tray
-	var/pestlevel = 0		//The amount of pests in the tray (max 10)
-	var/weedlevel = 0		//The amount of weeds in the tray (max 10)
-	var/yieldmod = 1		//Nutriment's effect on yield
-	var/mutmod = 1			//Nutriment's effect on mutations
-	var/toxic = 0			//Toxicity in the tray?
-	var/age = 0				//Current age
-	var/dead = FALSE		//Is it dead?
-	var/plant_health		//Its health
-	var/lastproduce = 0		//Last time it was harvested
-	var/lastcycle = 0		//Used for timing of cycles.
-	var/cycledelay = 200	//About 10 seconds / cycle
-	var/harvest = FALSE		//Ready to harvest?
-	var/obj/item/seeds/myseed = null	//The currently planted seed
+	/// The amount of water in the tray (max 100)
+	var/waterlevel = 100
+	/// The maximum amount of water in the tray
+	var/maxwater = 100
+	/// The amount of nutrient in the tray (max 10)
+	var/nutrilevel = 10
+	/// The maximum nutrient of water in the tray
+	var/maxnutri = 10
+	/// The amount of pests in the tray (max 10)
+	var/pestlevel = 0
+	/// The amount of weeds in the tray (max 10)
+	var/weedlevel = 0
+	/// Nutrient in use
+	var/datum/reagent/plantnutrient/nutrient = /datum/reagent/plantnutrient/eznutrient
+	/// Nutrient's effect on yield
+	var/yieldmod = 1
+	/// The amount of mutagens (UM or radioactives) in the tray.
+	var/mutagen = 0
+	/// The maximum amount of mutagen in the tray.
+	var/max_mutagen = 15
+	/// Has the tray been hit by a mutation beam this harvest?
+	var/mut_beamed = FALSE
+	/// Has the tray been hit by a yield-increasing beam this harvest?
+	var/yield_beamed = FALSE
+	/// The typepath of the chemical (if any) the tray has been doped with to bias its mutations.
+	var/datum/reagent/doping_chem = null
+	/// Toxicity in the tray
+	var/toxic = 0
+	/// Current age
+	var/age = 0
+	/// Is it dead?
+	var/dead = FALSE
+	/// Its health
+	var/plant_health
+	/// Last time it was harvested
+	var/lastproduce = 0
+	/// Used for timing of cycles.
+	var/lastcycle = 0
+	/// Amount of time per plant cycle
+	var/cycledelay = 20 SECONDS
+	/// Ready to harvest?
+	var/harvest = FALSE
+	/// The currently planted seed
+	var/obj/item/seeds/myseed = null
 	var/rating = 1
 	var/wrenchable = TRUE
 	var/lid_closed = FALSE
-	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
-	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
-	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
+	/// Have we been visited by a bee recently, so bees dont overpollinate one plant
+	var/recent_bee_visit = FALSE
+	/// If the tray is connected to other trays via irrigation hoses
+	var/using_irrigation = FALSE
+	/// Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
+	var/self_sufficiency_req = 20
 	var/self_sufficiency_progress = 0
-	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
+	/// If the tray generates nutrients and water on its own
+	var/self_sustaining = FALSE
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+
+	/// Maps doping chemicals to their affected stats.
+	var/static/doping_effects = list(
+		/datum/reagent/saltpetre = list("potency"),
+		/datum/reagent/ammonia = list("yield"),
+		/datum/reagent/diethylamine = list("production speed"),
+		/datum/reagent/medicine/cryoxadone = list("endurance"),
+		/datum/reagent/medicine/omnizine = list("lifespan"),
+		/datum/reagent/medicine/salglu_solution = list("weed rate", "weed count"))
+	/// What do we call the mutagen tank?
+	var/mutagen_tank_name = "Mutagen tank"
 
 /obj/machinery/hydroponics/Initialize(mapload)
 	. = ..()
@@ -128,9 +170,11 @@
 	if(!myseed)
 		return ..()
 	if(istype(Proj ,/obj/item/projectile/energy/floramut))
-		mutate()
+		mut_beamed = TRUE
+		return ..()
 	else if(istype(Proj ,/obj/item/projectile/energy/florayield))
-		return myseed.bullet_act(Proj)
+		yield_beamed = TRUE
+		return ..()
 	else
 		return ..()
 
@@ -141,6 +185,11 @@
 		myseed.forceMove(src)
 
 	if(self_sustaining)
+		// Always use Earthsblood (which is really just EZ with a fake moustache) for self-sustaining trays.
+		// Want more mutations or increased yield? Take care of your trays.
+		yieldmod = 1
+		nutrient = /datum/reagent/plantnutrient/eznutrient
+
 		adjustNutri(1)
 		adjustWater(rand(3,5))
 		adjustWeeds(-2)
@@ -177,6 +226,12 @@
 				else // Non-mushroom
 					if(lightAmt < 4)
 						adjustHealth(-2 / rating)
+
+//Weed overtaking////////////////////////////////////////////////////////
+			if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.
+				if(!myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism)) // If a normal plant
+					weedinvasion()
+				needs_update = 1
 
 //Water//////////////////////////////////////////////////////////////////
 			// Drink random amount of water
@@ -228,7 +283,6 @@
 
 			// Harvest code
 			if(age > myseed.production && (age - lastproduce) >= myseed.production && (!harvest && !dead))
-				nutrimentMutation()
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
 					harvest = TRUE
 					plant_hud_set_status()
@@ -237,38 +291,13 @@
 			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
 				adjustPests(1 / rating)
 		else
+			if(weedlevel >= 10 && prob(50))
+				weedinvasion() // Weed invasion into empty tray
+				needs_update = 1
 			if(waterlevel > 10 && nutrilevel > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
 				adjustWeeds(1 / rating)
-
-		// Weeeeeeeeeeeeeeedddssss
-		if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.
-			if(myseed)
-				if(!myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism)) // If a normal plant
-					weedinvasion()
-			else
-				weedinvasion() // Weed invasion into empty tray
-			needs_update = 1
 		if(needs_update)
 			update_state()
-	return
-
-/obj/machinery/hydroponics/proc/nutrimentMutation()
-	if(mutmod == 0)
-		return
-	if(mutmod == 1)
-		if(prob(80))		//80%
-			mutate()
-		else if(prob(75))	//15%
-			hardmutate()
-		return
-	if(mutmod == 2)
-		if(prob(50))		//50%
-			mutate()
-		else if(prob(50))	//25%
-			hardmutate()
-		else if(prob(50))	//12.5%
-			mutatespecie()
-		return
 	return
 
 /obj/machinery/hydroponics/proc/update_state()
@@ -371,28 +400,34 @@
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = FALSE
 	var/oldPlantName
+	var/kudzu = FALSE
 	if(myseed) // In case there's nothing in the tray beforehand
+		if(istype(myseed, /obj/item/seeds/soya))
+			kudzu = TRUE
 		oldPlantName = myseed.plantname
 		QDEL_NULL(myseed)
 	else
 		oldPlantName = "[name]"
-	switch(rand(1,18))		// randomly pick predominative weed
-		if(16 to 18)
-			myseed = new /obj/item/seeds/reishi(src)
-		if(14 to 15)
-			myseed = new /obj/item/seeds/nettle(src)
-		if(12 to 13)
-			myseed = new /obj/item/seeds/harebell(src)
-		if(10 to 11)
-			myseed = new /obj/item/seeds/amanita(src)
-		if(8 to 9)
-			myseed = new /obj/item/seeds/chanter(src)
-		if(6 to 7)
-			myseed = new /obj/item/seeds/tower(src)
-		if(4 to 5)
-			myseed = new /obj/item/seeds/plump(src)
-		else
-			myseed = new /obj/item/seeds/starthistle(src)
+	if(kudzu)
+		myseed = new /obj/item/seeds/kudzu(src)
+	else
+		switch(rand(1,18))		// randomly pick predominative weed
+			if(16 to 18)
+				myseed = new /obj/item/seeds/reishi(src)
+			if(14 to 15)
+				myseed = new /obj/item/seeds/nettle(src)
+			if(12 to 13)
+				myseed = new /obj/item/seeds/harebell(src)
+			if(10 to 11)
+				myseed = new /obj/item/seeds/amanita(src)
+			if(8 to 9)
+				myseed = new /obj/item/seeds/chanter(src)
+			if(6 to 7)
+				myseed = new /obj/item/seeds/tower(src)
+			if(4 to 5)
+				myseed = new /obj/item/seeds/plump(src)
+			else
+				myseed = new /obj/item/seeds/starthistle(src)
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
@@ -400,45 +435,20 @@
 	adjustWeeds(-10) // Reset
 	adjustPests(-10) // Reset
 	update_state()
+	mut_beamed = FALSE
+	yield_beamed = FALSE
 	plant_hud_set_health()
 	plant_hud_set_status()
-	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
-
-
-/obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
-	if(!myseed)
-		return
-	myseed.mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut)
-
-/obj/machinery/hydroponics/proc/hardmutate()
-	mutate(4, 10, 2, 4, 50, 4, 10, 3)
-
-
-/obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
-	if(!myseed || dead)
-		return
-
-	var/oldPlantName = myseed.plantname
-	if(myseed.mutatelist.len > 0)
-		var/mutantseed = pick(myseed.mutatelist)
-		QDEL_NULL(myseed)
-		myseed = new mutantseed
+	if(kudzu)
+		visible_message("<span class='warning'>The [oldPlantName] cross-breeds with weeds and mutates into [myseed.plantname]!</span>")
 	else
-		return
+		visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
 
-	hardmutate()
-	age = 0
-	plant_health = myseed.endurance
-	lastcycle = world.time
-	harvest = FALSE
-	plant_hud_set_health()
-	plant_hud_set_status()
-	adjustWeeds(-10) // Reset
+/obj/machinery/hydroponics/proc/get_mutation_level()
+	return nutrient.mutation_level + mutagen + (mut_beamed ? 5 : 0)
 
-	sleep(5) // Wait a while
-	update_state()
-	visible_message("<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>")
-
+/obj/machinery/hydroponics/proc/get_mutation_focus()
+	return doping_effects[doping_chem]
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
 	if(weedlevel > 5)
@@ -446,11 +456,13 @@
 		var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
 		myseed = new newWeed
 		dead = FALSE
-		hardmutate()
+		myseed.mutate(20)
 		age = 0
 		plant_health = myseed.endurance
 		lastcycle = world.time
 		harvest = FALSE
+		mut_beamed = FALSE
+		yield_beamed = FALSE
 		plant_hud_set_health()
 		plant_hud_set_status()
 		adjustWeeds(-10) // Reset
@@ -469,6 +481,8 @@
 	if(!dead)
 		update_state()
 		dead = TRUE
+	mut_beamed = FALSE
+	yield_beamed = FALSE
 	plant_hud_set_health()
 	plant_hud_set_status()
 
@@ -489,32 +503,16 @@
 	if(myseed)
 		myseed.on_chem_reaction(reagents) //In case seeds have some special interactions with special chems, currently only used by vines
 
-	// Requires 5 mutagen to possibly change species.// Poor man's mutagen.
-	if(reagents.has_reagent("mutagen", 5) || reagents.has_reagent("radium", 10) || reagents.has_reagent("uranium", 10))
-		switch(rand(100))
-			if(91 to 100)
-				adjustHealth(-10)
-				to_chat(user, "<span class='warning'>The plant shrivels and burns.</span>")
-			if(81 to 90)
-				mutatespecie()
-			if(66 to 80)
-				hardmutate()
-			if(41 to 65)
-				mutate()
-			if(21 to 41)
-				to_chat(user, "<span class='notice'>The plants don't seem to react...</span>")
-			if(11 to 20)
-				mutateweed()
-			if(1 to 10)
-				mutatepest(user)
-			else
-				to_chat(user, "<span class='notice'>Nothing happens...</span>")
-
-	// 2 or 1 units is enough to change the yield and other stats.// Can change the yield and other stats, but requires more than mutagen
-	else if(reagents.has_reagent("mutagen", 2) || reagents.has_reagent("radium", 5) || reagents.has_reagent("uranium", 5))
-		hardmutate()
-	else if(reagents.has_reagent("mutagen", 1) || reagents.has_reagent("radium", 2) || reagents.has_reagent("uranium", 2))
-		mutate()
+	// Radioactives and mutagen contribute to the mutation level of the tray.
+	if(reagents.has_reagent("mutagen") || reagents.has_reagent("radium") || reagents.has_reagent("uranium"))
+		if(mutagen < max_mutagen)
+			mutagen += reagents.get_reagent_amount("uranium")
+			mutagen += reagents.get_reagent_amount("radium")
+			mutagen += reagents.get_reagent_amount("mutagen")
+			to_chat(user, "<span class='notice'>You think the plants in [src] will mutate more now.</span>")
+		mutagen = min(max_mutagen, mutagen)
+		if(mutagen == max_mutagen)
+			to_chat(user, "<span class='notice'>That seems like enough mutating chemicals.</span>")
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(reagents.has_reagent("uranium", 1))
@@ -524,21 +522,26 @@
 		adjustHealth(-round(reagents.get_reagent_amount("radium") * 1))
 		adjustToxic(round(reagents.get_reagent_amount("radium") * 3)) // Radium is harsher (OOC: also easier to produce)
 
-	// Nutriments
-	if(reagents.has_reagent("eznutriment", 1))
+	// Nutrients
+	if(reagents.has_reagent("eznutrient", 1))
+		nutrient = /datum/reagent/plantnutrient/eznutrient
 		yieldmod = 1
-		mutmod = 1
-		adjustNutri(round(reagents.get_reagent_amount("eznutriment") * 1))
+		adjustNutri(round(reagents.get_reagent_amount("eznutrient") * 1))
 
-	if(reagents.has_reagent("left4zednutriment", 1))
+	if(reagents.has_reagent("mutrient", 1))
+		nutrient = /datum/reagent/plantnutrient/mut
+		yieldmod = 1
+		adjustNutri(round(reagents.get_reagent_amount("mutrient") * 1))
+
+	if(reagents.has_reagent("left4zednutrient", 1))
+		nutrient = /datum/reagent/plantnutrient/left4zednutrient
 		yieldmod = 0
-		mutmod = 2
-		adjustNutri(round(reagents.get_reagent_amount("left4zednutriment") * 1))
+		adjustNutri(round(reagents.get_reagent_amount("left4zednutrient") * 1))
 
-	if(reagents.has_reagent("robustharvestnutriment", 1))
+	if(reagents.has_reagent("robustharvestnutrient", 1))
+		nutrient = /datum/reagent/plantnutrient/robustharvestnutrient
 		yieldmod = 1.3
-		mutmod = 0
-		adjustNutri(round(reagents.get_reagent_amount("robustharvestnutriment") *1 ))
+		adjustNutri(round(reagents.get_reagent_amount("robustharvestnutrient") *1 ))
 
 
 	//Fish Water is both an excellent fertilizer and waters
@@ -557,6 +560,9 @@
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(reagents.has_reagent("charcoal", 1))
 		adjustToxic(-round(reagents.get_reagent_amount("charcoal") * 2))
+		if(doping_chem)
+			to_chat(user, "<span class='notice'>The charcoal soaks up and neutralizes \the [initial(doping_chem.name)].</span>")
+			doping_chem = null
 
 	// BRO, YOU JUST WENT ON FULL STUPID.
 	if(reagents.has_reagent("toxin", 1))
@@ -657,21 +663,33 @@
 	if(reagents.has_reagent("cryoxadone", 1))
 		adjustHealth(round(reagents.get_reagent_amount("cryoxadone") * 3))
 		adjustToxic(-round(reagents.get_reagent_amount("cryoxadone") * 3))
+		replace_doping(/datum/reagent/medicine/cryoxadone, user)
 
-	// Ammonia is bad ass.
+	// Healing
+	if(reagents.has_reagent("omnizine", 1))
+		adjustHealth(round(reagents.get_reagent_amount("omnizine") * 3))
+		adjustToxic(-round(reagents.get_reagent_amount("omnizine") * 3))
+		replace_doping(/datum/reagent/medicine/omnizine, user)
+
+	// Mild healing
+	if(reagents.has_reagent("salglu_solution", 1))
+		adjustHealth(round(reagents.get_reagent_amount("salglu_solution") * 0.1))
+		adjustToxic(-round(reagents.get_reagent_amount("salglu_solution") * 0.1))
+		replace_doping(/datum/reagent/medicine/salglu_solution, user)
+
+	// Ammonia heals and feeds plants
 	if(reagents.has_reagent("ammonia", 1))
 		adjustHealth(round(reagents.get_reagent_amount("ammonia") * 0.5))
 		adjustNutri(round(reagents.get_reagent_amount("ammonia") * 1))
-		if(myseed)
-			myseed.adjust_yield(round(reagents.get_reagent_amount("ammonia") * 0.01))
+		replace_doping(/datum/reagent/ammonia, user)
 
-	// Saltpetre is used for gardening IRL, to simplify highly, it speeds up growth and strengthens plants
+	// Saltpetre is used for gardening IRL, but for us, it's just another
+	// way to heal plants
 	if(reagents.has_reagent("saltpetre", 1))
 		var/salt = reagents.get_reagent_amount("saltpetre")
 		adjustHealth(round(salt * 0.25))
-		if(myseed)
-			myseed.adjust_production(-round(salt/100)-prob(salt%100))
-			myseed.adjust_potency(round(salt*0.50))
+		replace_doping(/datum/reagent/saltpetre, user)
+
 	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
 	if(reagents.has_reagent("ash", 1))
 		adjustHealth(round(reagents.get_reagent_amount("ash") * 0.25))
@@ -682,9 +700,8 @@
 	if(reagents.has_reagent("diethylamine", 1))
 		adjustHealth(round(reagents.get_reagent_amount("diethylamine") * 1))
 		adjustNutri(round(reagents.get_reagent_amount("diethylamine") * 2))
-		if(myseed)
-			myseed.adjust_yield(round(reagents.get_reagent_amount("diethylamine") * 0.02))
 		adjustPests(-rand(1,2))
+		replace_doping(/datum/reagent/diethylamine, user)
 
 	// Compost, effectively
 	if(reagents.has_reagent("nutriment", 1))
@@ -709,6 +726,16 @@
 	if(reagents.has_reagent("lazarus_reagent", 1))
 		spawnplant()
 
+	// Begone, mutagen!
+	if(reagents.has_reagent("potass_iodide", 1))
+		if(mutagen)
+			to_chat(user, "<span class='notice'>The potassium iodide neutralizes the mutating agents in [src].</span>")
+			mutagen = 0
+	if(reagents.has_reagent("pen_acid", 1))
+		if(mutagen)
+			to_chat(user, "<span class='notice'>The pentetic acid neutralizes the mutating agents in [src].</span>")
+			mutagen = 0
+
 	// The best stuff there is. For testing/debugging.
 	if(reagents.has_reagent("adminordrazine", 1))
 		adjustWater(round(reagents.get_reagent_amount("adminordrazine") * 1))
@@ -716,17 +743,25 @@
 		adjustNutri(round(reagents.get_reagent_amount("adminordrazine") * 1))
 		adjustPests(-rand(1,5))
 		adjustWeeds(-rand(1,5))
-	if(reagents.has_reagent("adminordrazine", 5))
-		switch(rand(100))
-			if(66  to 100)
-				mutatespecie()
-			if(33	to 65)
-				mutateweed()
-			if(1   to 32)
-				mutatepest(user)
-			else
-				to_chat(user, "<span class='warning'>Nothing happens...</span>")
 	reagents.clear_reagents()
+
+/obj/machinery/hydroponics/proc/replace_doping(datum/reagent/new_chem, mob/user)
+	if(new_chem == doping_chem)
+		to_chat(user, "<span class='notice'>[src] already contains [initial(new_chem.name)], adding more won't help.</span>")
+		return
+	var/list/message = list()
+	message += "<span class='notice'>You add [initial(new_chem.name)] to [src]"
+	if(doping_chem)
+		message += ", replacing \the [initial(doping_chem.name)]."
+	else
+		message += "."
+	if(get_mutation_level())
+		message += " This should have interesting effects on the plant's seeds."
+	else
+		message += " You don't think this will help without a source of mutations."
+	message += "</span>"
+	to_chat(user, message.Join(""))
+	doping_chem = new_chem
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
@@ -781,6 +816,10 @@
 		add_compost(O, user, transfer, message)
 		return TRUE
 
+	else if(istype(O, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
+		return ..()
+
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
@@ -800,19 +839,7 @@
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
 	else if(istype(O, /obj/item/plant_analyzer))
-		if(myseed)
-			to_chat(user, "*** <B>[myseed.plantname]</B> ***") //Carn: now reports the plants growing, not the seeds.
-			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
-			var/list/text_string = myseed.get_analyzer_text()
-			if(text_string)
-				to_chat(user, text_string)
-		else
-			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
+		send_plant_details(user)
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -847,6 +874,8 @@
 				harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 			qdel(myseed)
 			myseed = null
+			mut_beamed = FALSE
+			yield_beamed = FALSE
 			plant_hud_set_health()
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
@@ -895,18 +924,21 @@
 	else
 		examine(user)
 
-/obj/machinery/hydroponics/proc/update_tray(mob/user = usr)
+/obj/machinery/hydroponics/proc/update_tray(mob/user = usr, harvested = 0)
 	harvest = FALSE
 	lastproduce = age
 	if(istype(myseed,/obj/item/seeds/replicapod))
 		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
-	else if(myseed.getYield() <= 0)
+	else if(harvested <= 0)
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
 	else
-		to_chat(user, "<span class='notice'>You harvest [myseed.getYield()] items from the [myseed.plantname].</span>")
+		to_chat(user, "<span class='notice'>You harvest [harvested] items from the [myseed.plantname].</span>")
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		QDEL_NULL(myseed)
 		dead = FALSE
+	mutagen = max(0, mutagen - 1)
+	mut_beamed = FALSE
+	yield_beamed = FALSE
 	plant_hud_set_status()
 	plant_hud_set_health()
 	update_state()
@@ -984,6 +1016,7 @@
 	density = FALSE
 	power_state = NO_POWER_USE
 	wrenchable = FALSE
+	mutagen_tank_name = "Mutagen pool"
 
 /obj/machinery/hydroponics/soil/update_icon_state()
 	return // Has no hoses
@@ -1021,3 +1054,49 @@
 
 	if(reagent_source) // If the source wasn't composted and destroyed
 		reagent_source.update_icon()
+
+
+/obj/machinery/hydroponics/proc/send_plant_details(mob/user)
+	if(myseed)
+		to_chat(user, "*** <b>[myseed.plantname]</b> ***")
+		to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
+		var/next_harvest = (age <= myseed.maturation ? myseed.maturation : lastproduce) + myseed.production
+		to_chat(user, "- Next Harvest At: <span class='notice'>[next_harvest]</span>")
+		var/list/text_string = myseed.get_analyzer_text()
+		if(text_string)
+			to_chat(user, text_string)
+	else
+		to_chat(user, "<b>No plant found.</b>")
+	to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
+	to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
+	to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
+	to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
+	to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
+	if(self_sustaining)
+		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>Earthsblood<br>&nbsp;&nbsp;This [src.name] has been treated with Earthsblood and constantly produces its own fertilizer. Like E-Z-Nutrient, Earthsblood fertilizer has no particular attributes, it just keeps plants fed.</span>")
+	else
+		to_chat(user, "&nbsp;&nbsp;Nutrient: <span class='notice'>[initial(nutrient.name)]<br>&nbsp;&nbsp;[initial(nutrient.description)]</span>")
+	to_chat(user, "- [mutagen_tank_name]: <span class='notice'>[mutagen] / [max_mutagen]</span>")
+
+	var/can_mutate_species = myseed && length(myseed.mutatelist)
+	var/mutation_level = get_mutation_level()
+	var/mutation_comment = ""
+	if(mutation_level >= 30 && can_mutate_species)
+		mutation_comment = " (will change species)"
+	else if(mutation_level > 20 && can_mutate_species)
+		mutation_comment = " (may add traits or change species)"
+	else if(mutation_level > 20)
+		mutation_comment = " (may add traits)"
+	else if(mutation_level > 10 && can_mutate_species)
+		mutation_comment = " (may change species)"
+	to_chat(user, "- Mutation level: <span class='notice'>[get_mutation_level()][mutation_comment]</span>")
+
+	to_chat(user, "- Doping chemical: <span class='notice'>[doping_chem ? initial(doping_chem.name) : "None"]</span>")
+	if(doping_chem)
+		to_chat(user, "&nbsp;&nbsp;<span class='notice'>Causes mutations to be focused on [english_list(doping_effects[doping_chem])].</span>")
+
+/obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		send_plant_details(user)
