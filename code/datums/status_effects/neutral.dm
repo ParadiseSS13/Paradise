@@ -207,7 +207,7 @@
 
 	user.visible_message(
 		"<span class='notice'>[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>.</span>",
-		"<span class='notice'>[highfived] plays <b>[their_status_effect.move]</b></span>.",
+		"<span class='notice'>[highfived] plays <b>[their_status_effect.move]</b>.</span>",
 		"<span class='notice'>It sounds like rock-paper-scissors.</span>"
 	)
 
@@ -227,14 +227,14 @@
 
 /datum/status_effect/high_five/rps/on_apply()
 	if(!isnull(move))
-		to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.")
+		to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.</span>")
 		return ..()  // we already have the move, probably from the emote passing it in
 
 	move = get_rock_paper_scissors_move(owner)
 	if(move == null)
 		return FALSE  // make it auto-remove itself
 
-	to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.")
+	to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.</span>")
 	return ..()
 
 
