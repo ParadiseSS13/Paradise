@@ -66,7 +66,7 @@
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
-	. = ..()
+	return ..()
 
 /obj/structure/largecrate/cow
 	name = "cow crate"
