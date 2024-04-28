@@ -31,7 +31,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
-	color = rgb(255,0,0)
+	color = rgb(255, 0, 0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
 	alpha = 128

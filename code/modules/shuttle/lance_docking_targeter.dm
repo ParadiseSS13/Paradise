@@ -1,5 +1,5 @@
 /obj/item/lance_docking_generator
-	name = "Lance Docking Beacon"
+	name = "lance docking beacon"
 	desc = "A signaling device for the thingymabober"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
@@ -87,7 +87,7 @@
 
 /obj/structure/lance_beacon
 	name = "lance docking beacon"
-	desc = "A beacon that allows the Lance to carefully slam into the station at plasteel destroying speeds"
+	desc = "A beacon that allows the Lance to carefully slam into the station at plasteel destroying speeds."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "beacon1"
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
