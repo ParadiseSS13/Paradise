@@ -624,7 +624,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/static/list/pref_toggles_by_category
 			if(!pref_toggles_by_category)
 				pref_toggles_by_category = list()
-				for(var/datum/preference_toggle/toggle as anything in GLOB.preference_toggles)
+				for(var/toggle_type in GLOB.preference_toggles)
+					var/datum/preference_toggle/toggle = GLOB.preference_toggles[toggle_type]
 					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
 
 			for(var/category in GLOB.preference_toggle_groups)

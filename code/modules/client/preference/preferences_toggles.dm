@@ -530,27 +530,46 @@
 			to_chat(usr, "Your attack logs preference is now: show NO attack logs")
 	return ..()
 
+/datum/preference_toggle/toggle_new_lighting
+	name = "Toggle New Lighting"
+	description = "Toggles new lighting"
+	preftoggle_bitflag = LIGHT_NEW_LIGHTING
+	preftoggle_toggle = PREFTOGGLE_LIGHT
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You've enabled new lighting."
+	disable_message = "You've disabled new lighting."
+	blackbox_message = "New lighting toggled"
+
+/datum/preference_toggle/toggle_new_lighting/set_toggles(client/user)
+	. = ..()
+	if(length(user.screen))
+		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
+		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
+		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
+
+		exposure_master.alpha = user.prefs.light & LIGHT_NEW_LIGHTING ? 255 : 0
+		exposure_master.backdrop(user.mob)
+		glow_master.backdrop(user.mob)
+		glare_master.backdrop(user.mob)
+
 /datum/preference_toggle/special_toggle/set_glow_level
 	name = "Set Glow Level"
 	description = "Changes glow level of light sources"
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	blackbox_message = "changed glow level of light sources"
+	blackbox_message = "Changed glow level of light sources"
 
 /datum/preference_toggle/special_toggle/set_glow_level/set_toggles(client/user)
-	var/new_setting = input(usr, "Set glow level of light sources:") as null|anything in list("Disable", "Low", "Medium (Default)", "High")
-	if(!new_setting)
+	var/glow_levels = list(
+		"Disable" = GLOW_DISABLE,
+		"Low" = GLOW_LOW,
+		"Medium (Default)" = GLOW_MED,
+		"High" = GLOW_HIGH,
+	)
+	var/new_level = tgui_input_list(user, "Set glow level of light sources", "Glow Level", glow_levels)
+	if(!new_level)
 		return
-	switch(new_setting)
-		if("Disable")
-			user.prefs.glowlevel = GLOW_DISABLE
-		if("Low")
-			user.prefs.glowlevel = GLOW_LOW
-		if("Medium (Default)")
-			user.prefs.glowlevel = GLOW_MED
-		if("High")
-			user.prefs.glowlevel = GLOW_HIGH
-
-	to_chat(usr, "Glow level: [new_setting].")
+	user.prefs.glowlevel = glow_levels[new_level]
+	to_chat(usr, "Glow level: [new_level].")
 	if(length(user.screen))
 		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
 		glow_master.backdrop(user.mob)
@@ -563,7 +582,7 @@
 	preftoggle_toggle = PREFTOGGLE_LIGHT
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
 	enable_message = "You've enabled lamp exposure."
-	disable_message = "You've disables lamp exposure."
+	disable_message = "You've disabled lamp exposure."
 	blackbox_message = "Lamp exposure toggled"
 
 /datum/preference_toggle/toggle_lamp_exposure/set_toggles(client/user)
@@ -579,33 +598,11 @@
 	preftoggle_toggle = PREFTOGGLE_LIGHT
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
 	enable_message = "You've enabled lamp glare."
-	disable_message = "You've disables lamp glare."
+	disable_message = "You've disabled lamp glare."
 	blackbox_message = "Lamp glare toggled"
 
 /datum/preference_toggle/toggle_lamps_glare/set_toggles(client/user)
 	. = ..()
 	if(length(user.screen))
 		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
-		glare_master.backdrop(user.mob)
-
-/datum/preference_toggle/toggle_new_lighting
-	name = "Toggle New Lighting"
-	description = "Toggles new lighting"
-	preftoggle_bitflag = LIGHT_NEW_LIGHTING
-	preftoggle_toggle = PREFTOGGLE_LIGHT
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You've enabled new lighting."
-	disable_message = "You've disables new lighting."
-	blackbox_message = "New lighting toggled"
-
-/datum/preference_toggle/toggle_new_lighting/set_toggles(client/user)
-	. = ..()
-	if(length(user.screen))
-		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
-
-		exposure_master.alpha = user.prefs.light & LIGHT_NEW_LIGHTING ? 255 : 0
-		exposure_master.backdrop(user.mob)
-		glow_master.backdrop(user.mob)
 		glare_master.backdrop(user.mob)
