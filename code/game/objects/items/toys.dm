@@ -438,6 +438,8 @@
 	item_color = "green"
 
 
+//This should really be somewhere else but I don't know where. w/e
+
 /obj/item/inflatable_duck
 	name = "inflatable duck"
 	desc = "No bother to sink or swim when you can just float!"
