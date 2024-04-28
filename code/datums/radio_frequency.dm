@@ -41,7 +41,7 @@
 	//log_admin("add_listener(device=[device],filter=[filter]) frequency=[frequency]")
 	var/list/obj/devices_line = devices[filter]
 	if(!devices_line)
-		devices_line = new
+		devices_line = list()
 		devices[filter] = devices_line
 	if(device in devices[filter])
 		return
@@ -54,12 +54,12 @@
 /datum/radio_frequency/proc/remove_listener(obj/device)
 	for(var/devices_filter in devices)
 		var/list/devices_line = devices[devices_filter]
-		devices_line-=device
+		devices_line -= device
 		while(null in devices_line)
 			devices_line -= null
-		if(length(devices_line) == 0)
+		if(!length(devices_line))
 			devices -= devices_filter
-			qdel(devices_line)
+			devices_line.Cut()
 
 /datum/signal
 	var/obj/source

@@ -898,7 +898,6 @@
 	for(var/organ_name in H.bodyparts_by_name)
 		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
 		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
-			qdel(organ)
 			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.

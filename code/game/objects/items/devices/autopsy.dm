@@ -59,7 +59,7 @@
 				else
 					D.organ_names += ", [O.name]"
 
-			qdel(D.organs_scanned[O.name])
+			QDEL_NULL(D.organs_scanned[O.name])
 			D.organs_scanned[O.name] = W.copy()
 
 	if(length(O.trace_chemicals))

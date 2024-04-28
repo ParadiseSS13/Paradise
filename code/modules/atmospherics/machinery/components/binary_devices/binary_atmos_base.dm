@@ -83,11 +83,11 @@
 /obj/machinery/atmospherics/binary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
 		if(istype(node1, /obj/machinery/atmospherics/pipe))
-			qdel(parent1)
+			QDEL_NULL(parent1)
 		node1 = null
 	else if(reference == node2)
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
-			qdel(parent2)
+			QDEL_NULL(parent2)
 		node2 = null
 	update_icon()
 

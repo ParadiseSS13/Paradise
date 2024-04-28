@@ -447,7 +447,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return TRUE
 
 /obj/machinery/hologram/holopad/proc/clear_holo(mob/living/user)
-	qdel(masters[user]) // Get rid of user's hologram
+	QDEL_NULL(masters[user]) // Get rid of user's hologram
 	unset_holo(user)
 	return TRUE
 
@@ -456,7 +456,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(istype(AI) && AI.current == src)
 		AI.current = null
 	masters -= user // Discard AI from the list of those who use holopad
-	qdel(holorays[user])
+	QDEL_NULL(holorays[user])
 	holorays -= user
 	SetLightsAndPower()
 	return TRUE
