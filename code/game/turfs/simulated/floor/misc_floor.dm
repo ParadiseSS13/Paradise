@@ -5,8 +5,8 @@
 
 /turf/simulated/floor/vault/lavaland_air
 	temperature = LAVALAND_TEMPERATURE
-	oxygen = 8
-	nitrogen = 14
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -146,8 +146,8 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 8
-	nitrogen = 14
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 
@@ -234,8 +234,8 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = 14
-	oxygen = 8
+	nitrogen = LAVALAND_NITROGEN
+	oxygen = LAVALAND_OXYGEN
 	temperature = LAVALAND_TEMPERATURE
 
 /turf/simulated/floor/catwalk

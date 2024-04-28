@@ -53,8 +53,8 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = 14
-	oxygen = 8
+	nitrogen = LAVALAND_NITROGEN
+	oxygen = LAVALAND_OXYGEN
 	temperature = LAVALAND_TEMPERATURE
 
 // Grass

@@ -288,5 +288,5 @@
 
 /turf/simulated/floor/plating/abductor/lavaland_air
 	temperature = LAVALAND_TEMPERATURE
-	oxygen = 8
-	nitrogen = 14
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
