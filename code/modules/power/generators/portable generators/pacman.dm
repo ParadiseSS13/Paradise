@@ -205,7 +205,7 @@
 		if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 		return
-	. = ..()
+	return ..()
 
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)
 	if(active || !panel_open)
