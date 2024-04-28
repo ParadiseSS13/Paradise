@@ -1,11 +1,11 @@
 
-/datum/spell/paradox/self/digital_supersede
+/datum/spell/paradox_spell/self/digital_supersede
 	name = "Digital Supersede"
 	desc = "With the help of the paradox, you completely remove the cameras from yourself, leaving only interference..."
 	action_icon_state = "digital_supersede"
 	base_cooldown = 1 SECONDS
 
-/datum/spell/paradox/self/digital_supersede/cast(list/targets, mob/user = usr)
+/datum/spell/paradox_spell/self/digital_supersede/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT_FROM(user, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT)
 		user.set_invisible(INVISIBILITY_MINIMUM)

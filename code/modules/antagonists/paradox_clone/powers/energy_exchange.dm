@@ -1,5 +1,5 @@
 
-/datum/spell/paradox/click_target/energy_exchange
+/datum/spell/paradox_spell/click_target/energy_exchange
 	name = "Energy Exchange"
 	desc = "You commit a paradox and exchange stamina with a chosen victim. Works even if target it's not a human and even when you unconscious."
 	action_icon_state = "stamina_exchange"
@@ -9,13 +9,13 @@
 	selection_deactivated_message	= "<span class='notice'>You decided to do nothing... But is it for sure?</span>"
 	stat_allowed = UNCONSCIOUS
 
-/datum/spell/paradox/click_target/energy_exchange/create_new_targeting()
+/datum/spell/paradox_spell/click_target/energy_exchange/create_new_targeting()
 	var/datum/spell_targeting/click/C = new
 	C.allowed_type = /mob/living
 	C.range = base_range
 	return C
 
-/datum/spell/paradox/click_target/energy_exchange/cast(list/targets, mob/living/user = usr)
+/datum/spell/paradox_spell/click_target/energy_exchange/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/H = target
 

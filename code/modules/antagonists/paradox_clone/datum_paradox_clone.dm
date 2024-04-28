@@ -18,12 +18,12 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	wiki_page_name = "Paradox_Clone"
 	var/paradox_id = "Paradox"
 	var/real_id
-	var/list/paradox_powers = list(/datum/spell/paradox/click_target/gaze, /datum/spell/paradox/object_click/space_distorition, /datum/spell/paradox/self/digital_supersede,
-	/datum/spell/paradox/click_target/mind_interference, /datum/spell/paradox/self/illusion, /datum/spell/paradox/click_target/energy_exchange, /datum/spell/paradox/self/microcircuit_disorder,
-	/datum/spell/paradox/self/intangibility)
+	var/static/list/paradox_powers = list(/datum/spell/paradox_spell/click_target/gaze, /datum/spell/touch/paradox_spell/space_distortion, /datum/spell/paradox_spell/self/digital_supersede,
+	/datum/spell/paradox_spell/click_target/mind_interference, /datum/spell/paradox_spell/self/illusion, /datum/spell/paradox_spell/click_target/energy_exchange, /datum/spell/touch/paradox_spell/microcircuit_disorder,
+	/datum/spell/paradox_spell/self/intangibility)
 	//"replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
 	var/mob/living/carbon/human/original
-	var/list/current_powers
+	var/list/current_powers = list()
 	give_objectives = FALSE
 	silent = TRUE
 
@@ -64,9 +64,6 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	STOP_PROCESSING(SSobj, src)
 	GLOB.possible_paradox_clone_ids += real_id
 	REMOVE_TRAIT(owner.current, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT)
-	var/obj/item/melee/paradox_emp/emp = locate() in owner.current
-	if(emp)
-		qdel(emp)
 
 	owner.current.remove_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 	return ..()
@@ -101,7 +98,11 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	for(var/datum/spell/S as anything in current_powers)
 		H.mind.RemoveSpell(S)
 		H.mind.spell_list -= S
-
+	
+	for(var/datum/spell/S as anything in owner.spell_list)
+		if(S.type in paradox_powers)
+			H.mind.RemoveSpell(S)
+			H.mind.spell_list -= S
 	..()
 
 /datum/antagonist/paradox_clone/give_objectives()

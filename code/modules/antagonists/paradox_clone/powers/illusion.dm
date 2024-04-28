@@ -1,11 +1,11 @@
 
-/datum/spell/paradox/self/illusion
+/datum/spell/paradox_spell/self/illusion
 	name = "Illusion"
 	desc = "You strain and release a piece of yourself into this world - an illusion that attacks everybody. Lives twenty seconds, useful for finishing off recumbent targets, blocking the passage or stalling the time."
 	action_icon_state = "paradox_illusion"
 	base_cooldown = 140 SECONDS
 
-/datum/spell/paradox/self/illusion/cast(list/targets, mob/living/user = usr)
+/datum/spell/paradox_spell/self/illusion/cast(list/targets, mob/living/user = usr)
 
 	var/mob/living/simple_animal/hostile/illusion/paradox/P
 	var/path = /mob/living/simple_animal/hostile/illusion/paradox

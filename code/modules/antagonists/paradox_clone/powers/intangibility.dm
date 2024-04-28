@@ -1,15 +1,15 @@
 
-/datum/spell/paradox/self/intangibility
+/datum/spell/paradox_spell/self/intangibility
 	name = "Intangibility"
 	desc = "Just one moment of disappearance, and handcuffs, bolas and other obstacles go out of your way. Freedom."
 	action_icon_state = "intangibility"
 	base_cooldown = 140 SECONDS
 
-/datum/spell/paradox/self/intangibility/cast(list/targets, mob/user = usr)
+/datum/spell/paradox_spell/self/intangibility/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
 	var/used = FALSE
 
-	do_sparks(rand(1,2), FALSE, user)
+	do_sparks(rand(1, 2), FALSE, user)
 
 	var/list/obstacles = list()
 

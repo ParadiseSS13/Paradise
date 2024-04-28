@@ -1,7 +1,7 @@
 /datum/spell/touch/alien_spell
 	name = "Basetype Alien spell"
 	desc = "You should not see this in game, if you do file a github report!"
-	hand_path = "/obj/item/melee/touch_attack/alien"
+	hand_path = /obj/item/melee/touch_attack/alien
 	/// Extremely fast cooldown, only present so the cooldown system doesn't explode
 	base_cooldown = 1
 	action_background_icon_state = "bg_alien"

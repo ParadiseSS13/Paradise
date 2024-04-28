@@ -2,31 +2,28 @@
 	var/spawncount
 
 /datum/event/paradox_clone/setup()
-	spawncount = (round(TGS_CLIENT_COUNT / 40)) // 100 players for 4 paradox clones.
-	if(spawncount > 0)
-		spawncount += rand(0, spawncount) //so 40 players can have either 1 or 2 paradox clones and 80 players can have 2 or 4 paradox clones
+	spawncount = (round(length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) / 40))
 
 /datum/event/paradox_clone/proc/abort()
 	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
-	EC.next_event_time = world.time + (60 * 10)
+	EC.next_event_time = world.time + 60 SECONDS // Fire again in a minute
 
 /datum/event/paradox_clone/start()
 	INVOKE_ASYNC(src, PROC_REF(wrapped_start))
 
 /datum/event/paradox_clone/proc/wrapped_start()
 	if(!spawncount) //if lower than 40 playas...
-		message_admins("Not enough players for Paradox Clone event: [TGS_CLIENT_COUNT]/40! Aborting. Choosing another moderate event.")
+		message_admins("Not enough players for Paradox Clone event: [length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE))]/40! Aborting. Choosing another moderate event.")
 		abort()
 		return
 
 	var/count = spawncount
 	var/wait_time = 20 SECONDS
 	var/mob/living/carbon/human/chosen
-	var/s_z = level_name_to_num(MAIN_STATION)
 	var/list/possible_chosen = list()
 
-	for(var/mob/living/carbon/human/H in world)
-		if(H.z == s_z && H.mind && H.key && H.stat == CONSCIOUS && !locate(/area/station/public/sleep) in get_turf(H) && H.mind.assigned_role != null && !is_paradox_clone(H))
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(H.mind && !H.mind.offstation_role && H.key && H.stat == CONSCIOUS && !istype(get_area(H), /area/station/public/sleep) && H.mind.assigned_role != null && !is_paradox_clone(H))
 			possible_chosen += H
 
 	if(!length(possible_chosen))
@@ -44,7 +41,7 @@
 			return
 
 		var/list/possible_spawns = list()
-		for(var/area/station/S in world)
+		for(var/area/station/S in GLOB.all_areas)
 			if(S.valid_territory)
 				possible_spawns += S
 
@@ -57,5 +54,5 @@
 		P.orig = chosen
 		P.key = lucky_one.key
 		SEND_SOUND(P, sound('sound/ambience/antag/paradox_camera_alert.ogg'))
-		do_sparks(rand(1,2), FALSE, P)
+		do_sparks(rand(1, 2), FALSE, P)
 		sleep(wait_time + 0.2 SECONDS)
