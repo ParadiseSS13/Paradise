@@ -1,5 +1,5 @@
 
-/datum/spell/paradox/click_target/gaze
+/datum/spell/paradox_spell/click_target/gaze
 	name = "Gaze"
 	desc = "A close look at the victim, which causes her to fall off her feet."
 	action_icon_state = "gaze"
@@ -9,11 +9,11 @@
 	selection_activated_message		= "<span class='warning'>Click on a target to gaze at them...</span>"
 	selection_deactivated_message	= "<span class='notice'>You decided to not gaze at anyone... For now.</span>"
 
-/datum/spell/paradox/click_target/gaze/valid_target(target, user)
+/datum/spell/paradox_spell/click_target/gaze/valid_target(target, user)
 	var/mob/living/targ = target
 	return targ.stat == CONSCIOUS && !is_paradox_clone(target)
 
-/datum/spell/paradox/click_target/gaze/proc/check(mob/victim, mob/attacker)
+/datum/spell/paradox_spell/click_target/gaze/proc/check(mob/victim, mob/attacker)
 
 	var/attacker_to_victim = get_dir(attacker, victim)
 	var/attacker_dir = attacker.dir
@@ -26,7 +26,7 @@
 
 	return TRUE
 
-/datum/spell/paradox/click_target/gaze/cast(list/targets, mob/living/user = usr)
+/datum/spell/paradox_spell/click_target/gaze/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/human/H = user
 	H.face_atom(target)

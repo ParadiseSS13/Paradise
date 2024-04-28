@@ -12,6 +12,7 @@
 	var/mob/living/carbon/human/orig
 
 /mob/camera/paradox/Login()
+	..()
 	to_chat(src, "<span class='danger'>Something is wrong with your body.. What is happening? Everything looks so familiar and not at the same time...</span>")
 	to_chat(src, "<span class='danger'>You are unstable, as if you are about to be transported to another universe very soon!</span>")
 	to_chat(src, "<span class='danger'>Quick! Find some remote and lonely place</span>")
@@ -31,9 +32,9 @@
 	var/list/main_objectives = list("Kill" = 8, "Protect" = 2)
 	var/list/escape_objectives = list("Escape" = 5, "Survive" = 5)
 
-	var/datum/spell/paradox/objective_spell
+	var/datum/spell/paradox_spell/objective_spell
 
-	do_sparks(rand(1,2), FALSE, get_turf(src))
+	do_sparks(rand(1, 2), FALSE, get_turf(src))
 	var/mob/living/carbon/human/clone = do_clone(orig, src)
 	clone.set_nutrition(NUTRITION_LEVEL_FULL)
 
@@ -114,14 +115,14 @@
 		var/datum/objective/paradox_replace/kill = new()
 		make_owner_and_target(kill, pc, orig.mind)
 		pc.add_antag_objective(kill)
-		objective_spell = /datum/spell/paradox/click_target/replace
+		objective_spell = /datum/spell/paradox_spell/click_target/replace
 
 	if(main_objective == "Protect")
 		var/datum/objective/protect/paradox_shield = new()
 		make_owner_and_target(paradox_shield, pc, orig.mind)
 		paradox_shield.explanation_text += " Check your ability 'United Bonds'. It can help you with this objective."
 		pc.add_antag_objective(paradox_shield)
-		objective_spell = /datum/spell/paradox/self/united_bonds //yes, I know this power is kinda useless, but I love even numbers and sometimes it can help...
+		objective_spell = /datum/spell/paradox_spell/self/united_bonds //yes, I know this power is kinda useless, but I love even numbers and sometimes it can help...
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -135,7 +136,6 @@
 		minecraft_mode.owner = pc.owner
 		pc.add_antag_objective(minecraft_mode)
 
-	var/datum/controller/subsystem/jobs/J = new()
 	pc.owner.objective_holder.objective_owner = pc.owner
 
 	pc.owner.AddSpell(new objective_spell(pc.owner.current))
@@ -156,7 +156,7 @@
 	var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = para.apply_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 	PS.target_brain = orig.get_int_organ(/obj/item/organ/internal/brain)
 
-	J.show_location_blurb(pc.owner.current.client, pc.owner)
+	addtimer(CALLBACK(SSjobs, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), pc.owner.current.client, pc.owner), 1 SECONDS)
 
 /mob/camera/paradox/proc/make_owner_and_target(datum/objective/O, datum/antagonist/paradox_clone/pc, datum/mind/orig)
 	O.owner = pc.owner
@@ -205,7 +205,7 @@
 	paradox_clone.heal_overall_damage(400, 400)
 	for(var/obj/item/organ/internal/I in paradox_clone.internal_organs)
 		I.heal_internal_damage(600)
-		if(!I.status & ORGAN_ROBOT)
+		if(!(I.status & ORGAN_ROBOT))
 			I.status |= 0
 			I.germ_level = 0
 
@@ -244,8 +244,7 @@
 	return paradox_clone
 
 /mob/camera/paradox/Move(NewLoc, Dir = 0) //can't leave station Z
-	var/area/station/S = locate() in range("1x1", NewLoc)
-	if(S)
+	if(istype(get_area(NewLoc), /area/station))
 		loc = NewLoc
 	else
 		return FALSE

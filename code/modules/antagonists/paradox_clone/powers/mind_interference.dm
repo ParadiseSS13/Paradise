@@ -1,5 +1,5 @@
 
-/datum/spell/paradox/click_target/mind_interference
+/datum/spell/paradox_spell/click_target/mind_interference
 	name = "Mind Interference"
 	desc = "You climbing into the very halls of the mind, disrupting the normal functioning of victim's brain."
 	action_icon_state = "mind_interference"
@@ -8,12 +8,12 @@
 	selection_activated_message		= "<span class='warning'>Click on a target to interference their mind...</span>"
 	selection_deactivated_message	= "<span class='notice'>You decided to not corrupt anyone's mind.. Yet.</span>"
 
-/datum/spell/paradox/click_target/mind_interference/valid_target(target, user)
+/datum/spell/paradox_spell/click_target/mind_interference/valid_target(target, user)
 	var/mob/living/targ = target
 	return targ.stat != DEAD && !is_paradox_clone(target)
 
 
-/datum/spell/paradox/click_target/mind_interference/cast(list/targets, mob/living/user = usr)
+/datum/spell/paradox_spell/click_target/mind_interference/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/H = target
 
