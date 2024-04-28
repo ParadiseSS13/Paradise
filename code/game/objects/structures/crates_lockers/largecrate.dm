@@ -76,7 +76,7 @@
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/cow(loc)
-	. = ..()
+	return ..()
 
 /obj/structure/largecrate/goat
 	name = "goat crate"
@@ -86,7 +86,7 @@
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/hostile/retaliate/goat(loc)
-	. = ..()
+	return ..()
 
 /obj/structure/largecrate/chick
 	name = "chicken crate"
@@ -98,7 +98,7 @@
 	var/num = rand(4, 6)
 	for(var/i in 1 to num)
 		new /mob/living/simple_animal/chick(loc)
-	. = ..()
+	return ..()
 
 /obj/structure/largecrate/cat
 	name = "cat crate"
@@ -108,7 +108,7 @@
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/pet/cat(loc)
-	. = ..()
+	return ..()
 
 /obj/structure/largecrate/secway
 	name = "secway crate"
@@ -118,4 +118,4 @@
 		return
 	new /obj/vehicle/secway(loc)
 	new /obj/item/key/security(loc)
-	. = ..()
+	return ..()
