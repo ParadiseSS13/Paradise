@@ -382,12 +382,15 @@
 	if(user_carbon.restrained())
 		return FALSE
 
+/datum/emote/living/carbon/human/highfive/proc/set_status(mob/living/carbon/user)
+	return user.apply_status_effect(status)
+
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
 	if(user_carbon.has_status_effect(status))
 		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
 		return TRUE
-	user_carbon.apply_status_effect(status)
+	set_status(user)
 
 	return ..()
 
@@ -453,6 +456,25 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/highfive/rps
+	key = "rps"
+	param_desc = "r,p,s"
+	hands_use_check = TRUE
+	status = STATUS_EFFECT_RPS
+
+
+/datum/emote/living/carbon/human/highfive/rps/set_status(mob/living/carbon/user)
+	var/list/move_icons = list(
+		RPS_EMOTE_SCISSORS = image(icon = 'icons/obj/items.dmi', icon_state = "scissor"),
+		RPS_EMOTE_PAPER = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
+		RPS_EMOTE_ROCK = image(icon = 'icons/obj/toy.dmi', icon_state = "pet_rock")
+	)
+	var/move_choice = show_radial_menu(user, user, move_icons)
+	if(!move_choice)
+		to_chat(user, "<span class='notice'>You decide not to play. For now.</span>")
+		return FALSE
+	var/datum/status_effect/high_five/rps/effect = user.apply_status_effect(status, move_choice)
+	return effect
 
 /////////
 // Species-specific emotes

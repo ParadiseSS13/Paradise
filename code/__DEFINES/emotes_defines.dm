@@ -75,3 +75,12 @@
 
 /// List of emotes useable by ghosties
 #define USABLE_DEAD_EMOTES list("*flip", "*spin")
+
+// Strings used for the rock paper scissors emote and status effect
+#define RPS_EMOTE_ROCK 		"rock"
+#define RPS_EMOTE_PAPER 	"paper"
+#define RPS_EMOTE_SCISSORS 	"scissors"
+
+#define RPS_EMOTE_THEY_WIN		"aww"
+#define RPS_EMOTE_WE_WIN		"yay"
+#define RPS_EMOTE_TIE			"tie"
