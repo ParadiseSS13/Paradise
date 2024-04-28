@@ -203,7 +203,7 @@
 		G.toxins = toxins
 		G.sleeping_agent = sleeping_agent
 		G.agent_b = agent_b
-		G.temperature = temperature
+		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
 			if(!our_excited_group)
