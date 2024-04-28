@@ -111,7 +111,7 @@
 	if(istype(I, /obj/item/flamethrower))
 		var/obj/item/flamethrower/big_lighter = I
 		if(!big_lighter.lit)
-			to_chat(user, "<span_class = 'warning'>The flamethrower isn't lit!</span>")
+			to_chat(user, "<span class='warning'>The flamethrower isn't lit!</span>")
 			return
 		big_lighter.default_ignite(loc, 0.01)
 		if(!cistern) //Just changes what message you get, since fire_act handles the open cistern too.
