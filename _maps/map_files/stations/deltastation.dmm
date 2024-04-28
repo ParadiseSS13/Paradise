@@ -62687,17 +62687,6 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
-"dNS" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 15;
-	height = 21;
-	id = "emergency_home";
-	name = "emergency evac bay";
-	width = 33
-	},
-/turf/space,
-/area/space)
 "dNZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -64687,12 +64676,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
-"dUY" = (
-/obj/machinery/light,
-/obj/machinery/alarm/directional/south,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "dUZ" = (
 /obj/machinery/light,
 /obj/machinery/status_display{
@@ -71746,6 +71729,12 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
+"hIU" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "hIZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -93004,10 +92993,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/processing)
-"uil" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "uit" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -93787,6 +93772,17 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/clown)
+"uGq" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 16;
+	height = 21;
+	id = "emergency_home";
+	name = "emergency evac bay";
+	width = 41
+	},
+/turf/space,
+/area/space)
 "uGT" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -94754,6 +94750,10 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/starboard)
+"vlY" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "vmb" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
@@ -136431,7 +136431,7 @@ dUQ
 dYU
 dIx
 abj
-aaa
+abj
 aaa
 aaa
 aaa
@@ -136686,9 +136686,9 @@ dIx
 dIx
 dIx
 dIx
-uil
+dIx
+vlY
 abj
-aaa
 aaa
 aaa
 aaa
@@ -136931,6 +136931,7 @@ dLA
 dMo
 dKP
 dKP
+dKP
 dOv
 dPb
 eBl
@@ -136946,7 +136947,6 @@ jJq
 dVb
 acF
 acF
-aaa
 aaa
 aaa
 aaa
@@ -137189,6 +137189,7 @@ sZI
 dPM
 dPM
 dPM
+dPM
 rCw
 dPM
 dPM
@@ -137202,7 +137203,6 @@ dIH
 dIH
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137446,6 +137446,7 @@ hVf
 dKo
 dKo
 dKo
+dKo
 rvx
 dKo
 dKo
@@ -137459,7 +137460,6 @@ kdg
 tSp
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137700,6 +137700,7 @@ cYk
 cYk
 cYk
 dbR
+cYk
 dbV
 ddw
 dNa
@@ -137716,7 +137717,6 @@ dKo
 dUT
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137957,6 +137957,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNN
 dOw
@@ -137972,7 +137973,6 @@ dKo
 dWA
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -138214,6 +138214,7 @@ dKo
 gkk
 dKo
 hVf
+dKo
 dNc
 dNO
 dXF
@@ -138230,7 +138231,6 @@ dUm
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138471,6 +138471,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNP
 dOw
@@ -138487,7 +138488,6 @@ dUn
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138728,6 +138728,7 @@ dKp
 dKp
 dKp
 dIh
+dKo
 dOu
 dNQ
 dOx
@@ -138741,10 +138742,9 @@ joI
 dNc
 dNQ
 dOw
-dUY
+hIU
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138985,6 +138985,7 @@ wgY
 rIb
 rIb
 pJE
+dKo
 dNb
 bGr
 dOw
@@ -139001,7 +139002,6 @@ dUp
 suy
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139245,6 +139245,7 @@ iFB
 iqq
 iqq
 iqq
+iqq
 uFa
 sbt
 sDb
@@ -139258,7 +139259,6 @@ dUq
 dUZ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139501,6 +139501,7 @@ nIs
 ngE
 kuJ
 kuJ
+kuJ
 tJT
 dXn
 dXn
@@ -139515,7 +139516,6 @@ dUr
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139758,6 +139758,7 @@ dTJ
 dMs
 jac
 jac
+jac
 vSW
 scA
 ajq
@@ -139771,7 +139772,6 @@ dTH
 dUs
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -140016,6 +140016,7 @@ dVp
 dKp
 dKp
 dKp
+dKp
 pGr
 rev
 vJu
@@ -140029,7 +140030,6 @@ dUt
 dVc
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140273,6 +140273,7 @@ ulH
 dTy
 dTy
 dTy
+dTy
 rmq
 msT
 dKP
@@ -140286,7 +140287,6 @@ dKP
 dXQ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140529,6 +140529,7 @@ kpd
 tEp
 dHO
 dHO
+dHO
 tJT
 dKQ
 jpk
@@ -140543,7 +140544,6 @@ pjC
 dKQ
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140786,6 +140786,7 @@ abj
 abj
 abj
 abj
+abj
 pjC
 dKP
 pjC
@@ -140799,7 +140800,6 @@ dKP
 pjC
 dKP
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -141043,13 +141043,6 @@ aaa
 aaa
 aaa
 aaa
-pjC
-dKQ
-pjC
-dKQ
-pjC
-aaa
-aaa
 aaa
 pjC
 dKQ
@@ -141057,6 +141050,13 @@ pjC
 dKQ
 pjC
 aaa
+aaa
+aaa
+pjC
+dKQ
+pjC
+dKQ
+pjC
 aaa
 aaa
 aaa
@@ -141303,8 +141303,8 @@ aaa
 aaa
 aaa
 aaa
-dNS
 aaa
+uGq
 aaa
 aaa
 aaa
