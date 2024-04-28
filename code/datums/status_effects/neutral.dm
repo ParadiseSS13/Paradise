@@ -162,6 +162,7 @@
 	success = "play rock-paper-scissors!"
 	sound_effect = 'sound/effects/glassknock.ogg'
 	request = "looks ready for a duel!"
+	item_path = /obj/item/claymore  // it's time to d-d-d-d-d-d-d-duel!
 	/// The move that you'll be making.
 	var/move
 
@@ -205,7 +206,7 @@
 		if(RPS_EMOTE_THEY_WIN)
 			msg = "[highfived] wins!"
 
-	user.visible_message("<span class='notice'>[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>.</span> <span class='warning'>[msg]</span>")
+	user.visible_message("<span class='notice'>[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>.</span><br><span class='warning'>[msg]</span>")
 
 /datum/status_effect/high_five/rps/on_creation(mob/living/new_owner, made_move)
 	move = made_move
