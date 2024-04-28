@@ -1,14 +1,13 @@
 /obj/item/lance_docking_generator
 	name = "lance docking beacon"
-	desc = "A signaling device for the thingymabober"
+	desc = "A signaling device used to place a beacon, to allow the lance to precicely dock."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	var/gps
 
-
 /obj/item/lance_docking_generator/Initialize(mapload)
 	. = ..()
-	new /obj/item/gps/internal/lance_beacon(src)
+	gps = new /obj/item/gps/internal/lance_beacon(src)
 
 /obj/item/lance_docking_generator/Destroy()
 	qdel(gps)
@@ -25,7 +24,7 @@
 
 /obj/item/lance_docking_generator/attack_self(mob/living/user)
 	if(!is_station_level(user.z))
-		to_chat(user, "You'll want this to dock on the station.")
+		to_chat(user, "<span class='warning'>You'll want this to dock on the station.</span>")
 		return
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 	var/dir_choice = tgui_input_list(user, "Select the new docking area orientation.", "Dock Orientation", dir_choices)
@@ -50,16 +49,16 @@
 		max_y = max_y < 0 ? T.y : max(max_y, T.y)
 		for(var/obj/O in T.contents)
 			if((istype(O, /obj/machinery/atmospherics/supermatter_crystal) || istype(O, /obj/singularity)) && !emagged)
-				to_chat(user, "Dangerous landing conditions, aborting!")
+				to_chat(user, "<span class='warning'>Dangerous landing conditions, aborting!</span>")
 				qdel(port, force = TRUE)
 				return
 
 	if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
-		to_chat(user, "Docking space area too close to edge of sector, aborting!")
+		to_chat(user, "<span class='warning'>Docking space area too close to edge of sector, aborting!</span>")
 		qdel(port, force = TRUE)
 		return
 	if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
-		to_chat(user, "Docking space area too close to edge of sector, aborting!")
+		to_chat(user, "<span class='warning'>Docking space area too close to edge of sector, aborting!</span>")
 		qdel(port, force = TRUE)
 		return
 	var/list/L2 = list()
@@ -75,13 +74,13 @@
 	for(var/turf/BT in L2)
 		for(var/obj/Ohno in BT.contents)
 			if((istype(Ohno, /obj/machinery/atmospherics/supermatter_crystal) || istype(Ohno, /obj/singularity)) && !emagged)
-				to_chat(user, "Dangerous landing conditions, aborting!")
+				to_chat(user, "<span class='warning'>Dangerous landing conditions, aborting!</span>")
 				qdel(port, force = TRUE)
 				return
 	port.register()
 
 	log_admin("[key_name(user)] created the lance docking location at [COORD(port)].")
-	to_chat(user, "Landing zone set. The signaller vanishes!")
+	to_chat(user, "<span class='notice'>Landing zone set. The signaller vanishes!</span>")
 	new /obj/structure/lance_beacon(get_turf(src))
 	qdel(src)
 
@@ -97,7 +96,7 @@
 
 /obj/structure/lance_beacon/Initialize(mapload)
 	. = ..()
-	new /obj/item/gps/internal/lance_beacon(src)
+	gps = new /obj/item/gps/internal/lance_beacon(src)
 	set_light(5, 3, COLOR_WARM_YELLOW)
 
 /obj/structure/lance_beacon/Destroy()
