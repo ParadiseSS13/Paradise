@@ -241,7 +241,7 @@
 
 /proc/get_rock_paper_scissors_move(mob/living/carbon/user)
 	var/list/move_icons = list(
-		RPS_EMOTE_SCISSORS = image(icon = 'icons/obj/items.dmi', icon_state = "scissor"),
+		RPS_EMOTE_SCISSORS = image(icon = 'icons/obj/items.dmi', icon_state = "bscissor"),
 		RPS_EMOTE_PAPER = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 		RPS_EMOTE_ROCK = image(icon = 'icons/obj/toy.dmi', icon_state = "pet_rock")
 	)
