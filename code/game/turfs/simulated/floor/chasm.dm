@@ -175,7 +175,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2

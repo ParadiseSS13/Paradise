@@ -46,7 +46,7 @@
 	baseturf = /turf/simulated/floor/indestructible/necropolis
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
@@ -71,7 +71,7 @@
 	baseturf = /turf/simulated/floor/indestructible/boss
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/air
@@ -85,7 +85,7 @@
 	icon_state = "floor"
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 	smoothing_flags = SMOOTH_CORNERS
 

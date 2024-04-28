@@ -148,14 +148,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 	color = COLOR_FLOOR_HARD_ROCK
 	baseturf = /turf/simulated/floor/lava/lava_land_surface
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 
 /// subtype for producing a tunnel with given data
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data

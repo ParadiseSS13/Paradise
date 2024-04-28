@@ -4,7 +4,7 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	oxygen = 8
 	nitrogen = 14
 	planetary_atmos = TRUE
@@ -148,7 +148,7 @@
 /turf/simulated/floor/noslip/lavaland
 	oxygen = 8
 	nitrogen = 14
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
@@ -236,7 +236,7 @@
 /turf/simulated/floor/clockwork/lavaland_air
 	nitrogen = 14
 	oxygen = 8
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"

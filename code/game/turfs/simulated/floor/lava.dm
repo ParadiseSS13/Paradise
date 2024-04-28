@@ -160,7 +160,7 @@
 	return
 
 /turf/simulated/floor/lava/lava_land_surface
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	oxygen = 8
 	nitrogen = 14
 	planetary_atmos = TRUE
@@ -256,7 +256,7 @@
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	temperature = 500
+	temperature = LAVALAND_TEMPERATURE
 	oxygen = 8
 	nitrogen = 14
 	planetary_atmos = TRUE
