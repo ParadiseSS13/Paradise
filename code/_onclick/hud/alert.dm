@@ -145,7 +145,6 @@
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)
-		return FALSE  // don't have the subcall do anything here
 	return TRUE
 
 /atom/movable/screen/alert/MouseEntered(location, control, params)
