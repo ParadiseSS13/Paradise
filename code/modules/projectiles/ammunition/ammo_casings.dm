@@ -245,6 +245,7 @@
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
 	desc = "An advanced 12 gauge shell that fires a spread of ion bolts."
+	icon_state = "ionshell"
 	projectile_type = /obj/item/projectile/ion/weak
 	pellets = 4
 	variance = 35
