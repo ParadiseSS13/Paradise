@@ -57,6 +57,8 @@
 #define EMOTE_TARGET_BHVR_RAW 4
 /// The emote target should be just a number. Anything else will be rejected.
 #define EMOTE_TARGET_BHVR_NUM 5
+/// The emote target is used elsewhere, and processing should be skipped.
+#define EMOTE_TARGET_BHVR_IGNORE 6
 
 // This set determines the type of target that we want to check for.
 
