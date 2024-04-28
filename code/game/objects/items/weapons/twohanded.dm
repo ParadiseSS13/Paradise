@@ -401,13 +401,6 @@
 		mounted_head = null
 	qdel(src)
 
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-	base_icon_state = "kindanspear"
-	icon_state = "kidanspear0"
-
-
 // DIY CHAINSAW
 /obj/item/chainsaw
 	name = "chainsaw"

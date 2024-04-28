@@ -218,3 +218,12 @@
 	materials = list(MAT_BIOMASS = 400)
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
+
+/datum/design/seaweed
+	name = "Seaweed Sheet"
+	id = "seaweed"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/stack/seaweed
+	category = list("initial", "Organic Materials")
+

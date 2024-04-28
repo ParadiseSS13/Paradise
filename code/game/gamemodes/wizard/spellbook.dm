@@ -439,7 +439,6 @@
 	. = ..()
 	if(.)
 		user.mind.AddSpell(new /datum/spell/aoe/conjure/construct(null))
-	return .
 
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
@@ -482,6 +481,15 @@
 	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
 	item_path = /obj/item/reagent_containers/drinks/everfull
 	cost = 1
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/tarot_generator
+	name = "Enchanted tarot card deck"
+	desc = "An magic tarot card deck, enchanted with special Ink. \
+	Capable of producing magic tarot cards of the 22 major arcana, both normal and reversed. Each card has a different effect. \
+	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 12 second cooldown, can have up to 5 cards in the world."
+	item_path = /obj/item/tarot_generator/wizard
+	cost = 2
 	category = "Artefacts"
 
 //Weapons and Armors
