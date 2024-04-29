@@ -486,9 +486,9 @@
 		var/mob/M = usr
 		switch(name)
 			if("right hand", "r_hand")
-				M.activate_hand("r")
+				M.activate_hand(HAND_BOOL_RIGHT)
 			if("left hand", "l_hand")
-				M.activate_hand("l")
+				M.activate_hand(HAND_BOOL_LEFT)
 	return TRUE
 
 /atom/movable/screen/swap_hand
