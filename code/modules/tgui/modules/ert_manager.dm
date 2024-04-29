@@ -36,7 +36,7 @@
 	data["cyb"] = cyborg_slots
 	data["secborg"] = cyborg_security
 	data["total"] = commander_slots + security_slots + medical_slots + engineering_slots + janitor_slots + paranormal_slots + cyborg_slots
-	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
+	data["spawnpoints"] = length(GLOB.emergencyresponseteamspawn)
 
 	data["ert_request_messages"] = GLOB.ert_request_messages
 	return data

@@ -3,7 +3,6 @@
 	light_range = 0
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_off")
 	/// Are we on
 	var/on = FALSE
 	/// Are we broken
@@ -113,6 +112,9 @@
 	var/color_save = color
 	..()
 	color = color_save
+
+/turf/simulated/floor/light/get_broken_states()
+	return list("light_off")
 
 // These tiles change color every now and then
 /turf/simulated/floor/light/disco

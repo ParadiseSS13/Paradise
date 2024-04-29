@@ -225,7 +225,7 @@
 	var/list/variable_html = list()
 	if(islist)
 		var/list/L = D
-		for(var/i in 1 to L.len)
+		for(var/i in 1 to length(L))
 			var/key = L[i]
 			var/value
 			if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -511,8 +511,8 @@
 		var/list/L = value
 		var/list/items = list()
 
-		if(L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
-			for(var/i in 1 to L.len)
+		if(length(L) > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || length(L) > (IS_NORMAL_LIST(L) ? 250 : 300)))
+			for(var/i in 1 to length(L))
 				var/key = L[i]
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -523,10 +523,10 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
@@ -537,7 +537,10 @@
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_ADMIN|R_MOD, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)))
+	if(!check_rights(R_ADMIN|R_MOD, FALSE) \
+		&& !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)) \
+		&& !((href_list["proc_call"]) && check_rights(R_PROCCALL, FALSE)) \
+	)
 		return // clients with R_VIEWRUNTIMES can still refresh the window/view references/view lists. they cannot edit anything else however.
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
@@ -1049,7 +1052,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		if(!H.languages.len)
+		if(!length(H.languages))
 			to_chat(usr, "This mob knows no languages.")
 			return
 
@@ -1400,9 +1403,9 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_world("### ListVarEdit by [src]: /list len: [L.len]")
-		log_admin("[key_name(src)] modified list's len: [L.len]")
-		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
+		log_world("### ListVarEdit by [src]: /list len: [length(L)]")
+		log_admin("[key_name(src)] modified list's len: [length(L)]")
+		message_admins("[key_name_admin(src)] modified list's len: [length(L)]")
 		return TRUE
 
 	if(href_list["listshuffle"])

@@ -13,12 +13,12 @@
 		for(var/obj/effect/landmark/lightsout/newEpicentre in GLOB.landmarks_list)
 			if(!(newEpicentre in epicentreList))
 				possibleEpicentres += newEpicentre
-		if(possibleEpicentres.len)
+		if(length(possibleEpicentres))
 			epicentreList += pick(possibleEpicentres)
 		else
 			break
 
-	if(!epicentreList.len)
+	if(!length(epicentreList))
 		return
 
 	for(var/thing in epicentreList)

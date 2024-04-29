@@ -41,7 +41,7 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/GrantActions(mob/living/user)
-	if(jumpto_ports.len)
+	if(length(jumpto_ports))
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
 	if(place_action)
@@ -165,7 +165,7 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/list/image_cache = the_eye.placement_images
 	the_eye.setDir(turn(the_eye.dir, -90))
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/pic = image_cache[i]
 		var/list/coords = image_cache[pic]
 		var/Tmp = coords[1]
@@ -187,7 +187,7 @@
 	var/list/bounds = shuttle_port.return_coords(the_eye.x - x_offset, the_eye.y - y_offset, the_eye.dir)
 	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.z)
 	var/list/image_cache = the_eye.placement_images
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/I = image_cache[i]
 		var/list/coords = image_cache[I]
 		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
@@ -227,7 +227,7 @@
 		return SHUTTLE_DOCKER_BLOCKED
 
 	// Checking for overlapping dock boundaries
-	for(var/i in 1 to overlappers.len)
+	for(var/i in 1 to length(overlappers))
 		var/obj/docking_port/port = overlappers[i]
 		if(port == my_port || locate(port) in jumpto_ports)
 			continue

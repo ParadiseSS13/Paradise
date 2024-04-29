@@ -742,7 +742,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				dat += "<NOBR>"
 				dat += "-- [area_name]"
 				dat += "</NOBR><BR>\n"
-		if(!L.len)
+		if(!length(L))
 			dat += "-- All Systems Nominal<BR>\n"
 		dat += "<BR>\n"
 

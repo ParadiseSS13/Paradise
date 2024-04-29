@@ -143,7 +143,7 @@
 		recipe_list = srl.recipes
 
 	var/t1 = "Amount Left: [get_amount()]<br>"
-	for(var/i in 1 to recipe_list.len)
+	for(var/i in 1 to length(recipe_list))
 		var/E = recipe_list[i]
 		if(isnull(E))
 			t1 += "<hr>"
