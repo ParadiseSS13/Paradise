@@ -592,7 +592,6 @@
 		// Sheets
 		/obj/item/stack/sheet/metal = list("iron" = 20),
 		/obj/item/stack/rods = list("iron" = 10),
-		/obj/item/stack/sheet/plasteel = list("iron" = 20, "plasma_dust" = 20),
 		/obj/item/stack/sheet/wood = list("carbon" = 20),
 		/obj/item/stack/sheet/glass = list("silicon" = 20),
 		/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
