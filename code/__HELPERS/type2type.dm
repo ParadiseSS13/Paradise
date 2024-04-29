@@ -73,18 +73,6 @@
 /proc/file2list(filename, seperator="\n")
 	return splittext(return_file_text(filename),seperator)
 
-
-//Turns a direction into text
-
-/proc/num2dir(direction)
-	switch(direction)
-		if(1.0) return NORTH
-		if(2.0) return SOUTH
-		if(4.0) return EAST
-		if(8.0) return WEST
-		else
-			stack_trace("UNKNOWN DIRECTION: [direction]")
-
 /proc/dir2text(direction)
 	switch(direction)
 		if(1.0)

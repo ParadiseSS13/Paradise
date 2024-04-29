@@ -883,7 +883,7 @@
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.02))
 
-	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
+	if(!IS_CHANGELING(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
 		return
 	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 	cling.chem_recharge_slowdown += 1
@@ -901,7 +901,7 @@
 	if(overdosed)
 		UnregisterSignal(L, COMSIG_ATOM_PREHIT)
 
-	if(ischangeling(L))
+	if(IS_CHANGELING(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		cling.chem_recharge_slowdown -= changeling_chemical_tracker
 		changeling_chemical_tracker = 0
@@ -1014,7 +1014,7 @@
 	RegisterSignal(L, COMSIG_ATOM_PREHIT, PROC_REF(dodge_bullets))
 
 	L.next_move_modifier -= 0.2 // Overdosing makes you a liiitle faster but you know has some really bad consequences
-	if(ischangeling(L))
+	if(IS_CHANGELING(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		cling.chem_recharge_slowdown += 1
 		changeling_chemical_tracker += 1
@@ -1036,7 +1036,7 @@
 
 	L.next_move_modifier += 0.2
 
-	if(ischangeling(L))
+	if(IS_CHANGELING(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling_chemical_tracker > 0) //Just in case this gets called somehow after on_remove is done
 			cling.chem_recharge_slowdown -= 1
