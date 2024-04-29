@@ -42,29 +42,30 @@
 	if(iscarbon(AM))
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].</span>")
-	if(do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
-		if(!user.unEquip(src))
-			return
-		target = AM
-		loc = null
-		if(hacked)
-			message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_COORDJMP(target)]")
-			log_game("planted [name] on [target.name] at [COORD(target)]", user)
-		installed = TRUE
-		target.overlays += image_overlay
+	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
+		return
+	if(!user.unEquip(src))
+		return
+	target = AM
+	forceMove(AM)
+	if(hacked)
+		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_COORDJMP(target)]")
+		log_game("planted [name] on [target.name] at [COORD(target)]", user)
+	installed = TRUE
+	target.overlays += image_overlay
 
 /obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/detonator))
 		return
 	var/obj/item/detonator/detonator = I
-	if(!(src in detonator.bombs) && !timer_off)
-		detonator.bombs += src
-		timer_off = TRUE
-		to_chat(user, "<span class='notice'>You synchronize [src] to [I].</span>")
-		playsound(src, 'sound/machines/twobeep.ogg', 50)
-		detonator.update_icon()
-	else
+	if((src in detonator.bombs) || timer_off)
 		to_chat(user, "<span class='warning'>[src] was already synchronized to a existing detonator!</span>")
+		return
+	detonator.bombs += src
+	timer_off = TRUE
+	to_chat(user, "<span class='notice'>You synchronize [src] to [I].</span>")
+	playsound(src, 'sound/machines/twobeep.ogg', 50)
+	detonator.update_icon()
 
 /obj/item/grenade/plastic/miningcharge/proc/detonate()
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
