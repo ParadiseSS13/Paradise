@@ -21,9 +21,10 @@
 	var/wait_time = 20 SECONDS
 	var/mob/living/carbon/human/chosen
 	var/list/possible_chosen = list()
+	var/station_z = level_name_to_num(MAIN_STATION) //idk why GDN removed this, who wants to be a paradox clone of miner or explorer??!?!?!
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(H.mind && !H.mind.offstation_role && H.key && H.stat == CONSCIOUS && !istype(get_area(H), /area/station/public/sleep) && H.mind.assigned_role != null && !is_paradox_clone(H))
+		if(H.mind && H.key && H.z == station_z && H.stat == CONSCIOUS && !istype(get_area(H), /area/station/public/sleep) && H.mind.assigned_role != null && !H.mind.offstation_role && !is_paradox_clone(H))
 			possible_chosen += H
 
 	if(!length(possible_chosen))
@@ -40,10 +41,26 @@
 		if(!length(candidates))
 			return
 
+		var/list/restricted_spawns = list()
+
+		for(var/area/station/ai_monitored/AI in GLOB.all_areas)
+			restricted_spawns += AI
+
+		for(var/area/station/aisat/AI2 in GLOB.all_areas)
+			restricted_spawns += AI2
+
+		for(var/area/station/turret_protected/TC in GLOB.all_areas)
+			restricted_spawns += TC
+
 		var/list/possible_spawns = list()
+
 		for(var/area/station/S in GLOB.all_areas)
 			if(S.valid_territory)
 				possible_spawns += S
+
+		for(var/area/A as anything in restricted_spawns)
+			if(locate(A) in possible_spawns)
+				possible_spawns -= A
 
 		var/turf/T = pick(possible_spawns)
 

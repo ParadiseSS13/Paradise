@@ -31,3 +31,14 @@
 	human_req = TRUE
 	action_icon_state = "gib"
 	still_recharging_msg = "<span class='notice'>The connection is being restored...</span>"
+
+/obj/item/melee/touch_attack/paradox
+	name = "Base Hand"
+	desc = "You're not supposed to see this. Notice coders."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "fleshtostone"
+	item_state = "fleshtostone"
+	invisibility = SEE_INVISIBLE_LIVING
+	flags = ABSTRACT | DROPDEL
+	catchphrase = null
+	w_class = WEIGHT_CLASS_HUGE

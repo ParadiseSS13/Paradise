@@ -21,7 +21,7 @@
 /obj/item/melee/touch_attack/paradox_emp/afterattack(mob/living/silicon/target, mob/living/carbon/user)
 	. = ..()
 	if(istype(target))
-		target.flash_eyes(1, TRUE)
+		target.flash_eyes(1, TRUE, type = /atom/movable/screen/fullscreen/flash/noise)
 
 	target.emp_act(EMP_HEAVY)
 	playsound(get_turf(target), 'sound/effects/paradox_emp.ogg', 80, TRUE)

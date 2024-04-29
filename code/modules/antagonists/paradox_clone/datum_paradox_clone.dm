@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	var/real_id
 	var/static/list/paradox_powers = list(/datum/spell/paradox_spell/click_target/gaze, /datum/spell/touch/paradox_spell/space_distortion, /datum/spell/paradox_spell/self/digital_supersede,
 	/datum/spell/paradox_spell/click_target/mind_interference, /datum/spell/paradox_spell/self/illusion, /datum/spell/paradox_spell/click_target/energy_exchange, /datum/spell/touch/paradox_spell/microcircuit_disorder,
-	/datum/spell/paradox_spell/self/intangibility)
+	/datum/spell/paradox_spell/self/intangibility, /datum/spell/touch/paradox_spell/suppression, /datum/spell/paradox_spell/aoe/display_inability)
 	//"replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
 	var/mob/living/carbon/human/original
 	var/list/current_powers = list()
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	for(var/datum/spell/S as anything in current_powers)
 		H.mind.RemoveSpell(S)
 		H.mind.spell_list -= S
-	
+
 	for(var/datum/spell/S as anything in owner.spell_list)
 		if(S.type in paradox_powers)
 			H.mind.RemoveSpell(S)
