@@ -15,12 +15,15 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window width={500} height={650}>
+    <Window width={750} height={650}>
       <Window.Content>
-        <Stack fill vertical>
-          <Storage />
-          <ComplexModal maxWidth="75%" maxHeight="75%" />
-          {has_seed === 0 ? <MissingSeed /> : <Genes />}
+        <Stack fill horizontal>
+          <Disks />
+          <Stack fill vertical>
+            <Storage />
+            <ComplexModal maxWidth="75%" maxHeight="75%" />
+            {has_seed === 0 ? <MissingSeed /> : <Genes />}
+          </Stack>
         </Stack>
       </Window.Content>
     </Window>
@@ -245,5 +248,173 @@ const OtherGenes = (props, context) => {
         <Stack.Item>No Genes Detected</Stack.Item>
       )}
     </Collapsible>
+  );
+};
+
+const Genes = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { disk } = data;
+
+  return (
+    <Section
+      title="Genes"
+      fill
+      scrollable
+      buttons={
+        <Button
+          content="Insert Gene from Disk"
+          disabled={!disk || !disk.can_insert || disk.is_core}
+          icon="arrow-circle-down"
+          onClick={() => act('insert')}
+        />
+      }
+    >
+      <CoreGenes />
+      <ReagentGenes />
+      <TraitGenes />
+    </Section>
+  );
+};
+
+const MissingSeed = (props, context) => {
+  return (
+    <Section fill height="85%">
+      <Stack height="100%">
+        <Stack.Item
+          bold
+          grow="1"
+          textAlign="center"
+          align="center"
+          color="green"
+        >
+          <Icon name="leaf" size={5} mb="10px" />
+          <br />
+          The plant DNA manipulator is missing a seed.
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+const Storage = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { has_seed, seed, has_disk, disk } = data;
+
+  let show_seed;
+  let show_disk;
+
+  if (has_seed) {
+    show_seed = (
+      <Stack.Item mb="-6px" mt="-4px">
+        <img
+          src={`data:image/jpeg;base64,${seed.image}`}
+          style={{
+            'vertical-align': 'middle',
+            width: '32px',
+            margin: '-1px',
+            'margin-left': '-11px',
+          }}
+        />
+        <Button content={seed.name} onClick={() => act('eject_seed')} />
+        <Button
+          ml="3px"
+          icon="pen"
+          tooltip="Name Variant"
+          onClick={() => act('variant_name')}
+        />
+      </Stack.Item>
+    );
+  } else {
+    show_seed = (
+      <Stack.Item>
+        <Button ml={3.3} content="None" onClick={() => act('eject_seed')} />
+      </Stack.Item>
+    );
+  }
+
+  if (has_disk) {
+    show_disk = disk.name;
+  } else {
+    show_disk = 'None';
+  }
+
+  return (
+    <Section title="Storage">
+      <LabeledList>
+        <LabeledList.Item label="Plant Sample">{show_seed}</LabeledList.Item>
+        <LabeledList.Item label="Data Disk">
+          <Stack.Item>
+            <Button
+              ml={3.3}
+              content={show_disk}
+              onClick={() => act('eject_disk')}
+            />
+          </Stack.Item>
+        </LabeledList.Item>
+      </LabeledList>
+    </Section>
+  );
+};
+
+const Disks = (props, context) => {
+  const { title, gene_set, do_we_show } = props;
+  const { act, data } = useBackend(context);
+  const { stat_disks, trait_disks, reagent_disks } = data;
+
+  return (
+    <Stack fill vertical>
+      <Section>
+        <Stack fill>
+          {reagent_disks
+            .slice()
+            .sort((a, b) => a.display_name.localeCompare(b.display_name))
+            .map((item) => {
+              return (
+                <Stack key={item}>
+                  <Stack.Item width="55%">{item.display_name}</Stack.Item>
+                  <Stack.Item width="25%">
+                    ({item.quantity} in stock)
+                  </Stack.Item>
+                  <Stack.Item width={13}>
+                    <Button
+                      width={4}
+                      icon="arrow-down"
+                      tooltip="Write Disk Stats to Plant"
+                      content="Replace"
+                      onClick={() =>
+                        act('vend', { index: item.vend, amount: 1 })
+                      }
+                    />
+                    <Button
+                      width={4}
+                      icon="Eject"
+                      content=""
+                      tooltip="Eject Disk"
+                      tooltipPosition="bottom-start"
+                      onClick={() =>
+                        act('eject', {
+                          name: item,
+                        })
+                      }
+                    />
+                  </Stack.Item>
+                </Stack>
+              );
+            })}
+
+          <Button />
+        </Stack>
+      </Section>
+      <Section>
+        <Stack fill>
+          <Button />
+        </Stack>
+      </Section>
+      <Section>
+        <Stack fill>
+          <Button />
+        </Stack>
+      </Section>
+    </Stack>
   );
 };

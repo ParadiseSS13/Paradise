@@ -12,7 +12,11 @@
 
 	var/list/core_genes = list()
 	var/list/reagent_genes = list()
+	var/empty_disks = 0
 	var/list/trait_genes = list()
+	var/list/stat_disks = list()
+	var/list/trait_disks = list()
+	var/list/reagent_disks = list()
 
 	var/datum/plant_gene/target
 	var/max_potency = 50 // See RefreshParts() for how these work
@@ -146,12 +150,22 @@
 	ui_interact(user)
 
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
-	if(disk)
+	if(FALSE)
 		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
 		return
 	if(!user.drop_item())
 		return
 	disk = new_disk
+
+	if(!new_disk.gene)
+		empty_disks++
+	if(new_disk.gene.type == \datum\plant_gene\core)
+		stat_disks += new_disk.name
+	if(new_disk.gene.type == \datum\plant_gene\trait)
+		trait_disks += new_disk.name
+	if(new_disk.gene.type == \datum\plant_gene\reagent)
+		reagent_disks += new_disk.name
+
 	disk.forceMove(src)
 	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
 	ui_interact(user)
@@ -243,6 +257,21 @@
 		)
 
 	data["modal"] = ui_modal_data(src)
+
+	var/list/stats = list()
+	var/list/traits = list()
+	var/list/reagents = list()
+
+	for(var/i in stat_disks)
+		var/list/stats += i
+	for(var/i in trait_disks)
+		var/list/traits += i
+	for(var/i in stat_disks)
+		var/list/reagents += i
+
+	data["stat_disks"] = stats
+	data["trait_disks"] = traits
+	data["reagent_disks"] = reagents
 
 	return data
 
