@@ -284,6 +284,7 @@
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
+			M.mind.current.create_log(CONVERSION_LOG, "Deconverted from thrall")
 			return
 		if(IS_CULTIST(M))
 			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
