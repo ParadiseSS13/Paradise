@@ -228,7 +228,7 @@
 		CRASH("[T] has no reagents.")
 
 	for(var/rid in reagents_add)
-		var/amount = max(round(potency * reagents_add[rid], 1), 1)
+		var/amount = max(round((potency * reagents_add[rid] * 0.5), 1), 1)
 
 		var/list/data = null
 		if(rid == "blood") // Hack to make blood in plants always O-
