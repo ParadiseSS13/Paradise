@@ -205,7 +205,7 @@
 			if(QDELETED(charge))
 				bombs -= charge
 				update_icon() //if the last bomb was qdeleted, detonator icon should change after activating
-				return
+				continue
 			if(charge.installed)
 				bombs -= charge
 				charge.detonate()
