@@ -129,10 +129,6 @@
 	knife_x_offset = 25
 	knife_y_offset = 12
 
-/obj/item/gun/projectile/automatic/wt550/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.3 SECONDS)
-
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
 	item_state = "wt550-[CEILING(get_ammo(0)/6.7, 1)]"
