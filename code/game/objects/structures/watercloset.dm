@@ -31,7 +31,7 @@
 		return
 
 	if(cistern && !open)
-		if(!contents.len)
+		if(!length(contents))
 			to_chat(user, "<span class='notice'>The cistern is empty.</span>")
 			return
 		else

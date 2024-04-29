@@ -126,7 +126,7 @@
 			if(!ranged)
 				playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
 			if(alert_on_shield_breach)
-				if(depotarea.shield_list.len)
+				if(length(depotarea.shield_list))
 					raise_alert("[name] reports that [target] is trying to breach the armory shield!")
 					alert_on_shield_breach = FALSE
 					raised_alert = FALSE
@@ -282,7 +282,7 @@
 		var/list/key_candidates = list()
 		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in GLOB.alive_mob_list)
 			key_candidates += O
-		if(key_candidates.len)
+		if(length(key_candidates))
 			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
 			O.shield_key = TRUE
 			depotarea.shields_up()

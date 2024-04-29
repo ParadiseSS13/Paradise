@@ -167,13 +167,13 @@
 		if(sendable && receivable)
 			break
 
-	if(!sendable) // Are we in the range of a reciever?
+	if(!sendable) // Are we in the range of a receiver?
 		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
-	if(!receivable) // Is our recipient in the range of a reciever?
+	if(!receivable) // Is our recipient in the range of a receiver?
 		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
