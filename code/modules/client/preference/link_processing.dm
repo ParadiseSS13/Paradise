@@ -1048,6 +1048,9 @@
 
 				if("ghost_radio")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
+					if(isobserver(user))
+						var/mob/dead/observer/dead_dude = user
+						dead_dude.update_dead_radio()
 
 				if("ghost_pda")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
