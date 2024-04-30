@@ -98,11 +98,11 @@
 	pixel_x = 4
 	},
 /obj/item/paper/syndicate_druglab,
-/obj/item/pen,
 /obj/item/flashlight/lamp/green/off{
 	pixel_y = 12;
 	pixel_x = -6
 	},
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/syndicate_druglab)
 "qa" = (

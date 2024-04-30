@@ -35,6 +35,8 @@
 	var/semicd = 0						//cooldown handler
 	var/execution_speed = 6 SECONDS
 	var/weapon_weight = WEAPON_LIGHT
+	/// Additional spread when dual wielding.
+	var/dual_wield_spread = 24
 	var/list/restricted_species
 
 	var/spread = 0
@@ -193,19 +195,26 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	var/loop_counter = 0
-	if(ishuman(user) && user.a_intent == INTENT_HARM)
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
-				continue
-			else if(G.can_trigger_gun(user))
-				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					bonus_spread += 24 * G.weapon_weight
-				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+	if(!(ishuman(user) && user.a_intent == INTENT_HARM))
+		process_fire(target, user, TRUE, params, null, bonus_spread)
+		return
+	var/mob/living/carbon/human/H = user
+	var/obj/item/gun/GUN_1 = H.get_active_hand()
+	if(istype(H.get_inactive_hand(), /obj/item/gun)) //We do not need to check gun one, as it is controlled by the afterattack
+		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
 
-	process_fire(target,user,1,params, null, bonus_spread)
+		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
+			process_fire(target, user, TRUE, params, null, bonus_spread)
+			return
+		if(GUN_2.can_trigger_gun(user))
+			if(!HAS_TRAIT(user, TRAIT_BADASS))
+				var/temporary_weapon_weight = GUN_2.weapon_weight
+				if(GUN_1.type != GUN_2.type)
+					temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
+				bonus_spread += dual_wield_spread * temporary_weapon_weight
+			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
+
+	process_fire(target, user, TRUE, params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))

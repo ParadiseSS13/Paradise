@@ -446,7 +446,6 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	slowdown = 2
 	environment_type = "snow"
 	planetary_atmos = TRUE
-	burnt_states = list("snow_dug")
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
@@ -457,6 +456,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		icon_state = "snow_dug"
 		return TRUE
 	return FALSE
+
+/turf/simulated/floor/plating/asteroid/snow/get_burnt_states()
+	return list("snow_dug")
 
 /turf/simulated/floor/plating/asteroid/snow/airless
 	temperature = TCMB

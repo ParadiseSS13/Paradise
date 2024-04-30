@@ -49,7 +49,7 @@
 	if(can_opened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
 		return
-	if(src == H.l_hand || src == H.r_hand)
+	if(H.is_holding(src))
 		can_shake = FALSE
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
