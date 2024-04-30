@@ -1585,6 +1585,7 @@
 #include "code\modules\awaymissions\maploader\writer.dm"
 #include "code\modules\awaymissions\mission_code\beach.dm"
 #include "code\modules\awaymissions\mission_code\challenge.dm"
+#include "code\modules\awaymissions\mission_code\shuttle_shadow.dm"
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\golems.dm"
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\oldstation_spawns.dm"
 #include "code\modules\awaymissions\mission_code\ruins\derelict5.dm"

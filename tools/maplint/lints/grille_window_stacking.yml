@@ -1,4 +1,8 @@
 help: "Replace the grille and window with the proper spawner."
+exclude_files:
+  # atmos can tick before the windows from the spawner spawn, leading to gas leakage
+  # on this shuttle
+  - _maps/map_files/shuttles/emergency_shadow.dmm
 /obj/structure/grille:
   banned_neighbors:
   - /obj/structure/window/full
