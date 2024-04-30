@@ -18,10 +18,16 @@
 	catchphrase = null
 	w_class = WEIGHT_CLASS_HUGE
 
-/obj/item/melee/touch_attack/paradox_emp/afterattack(mob/living/silicon/target, mob/living/carbon/user)
+/obj/item/melee/touch_attack/paradox_emp/afterattack(mob/living/target, mob/living/carbon/user)
 	. = ..()
-	if(istype(target))
-		target.flash_eyes(1, TRUE, type = /atom/movable/screen/fullscreen/flash/noise)
+
+	if(is_paradox_clone(target))
+		attached_spell.revert_cast()
+		to_chat(user, "<span class='warning'>Useless. [target.name] is from our kin.</span>")
+		return
+
+	if(istype(target, /mob/living/silicon/))
+		target.flash_eyes(4, 1, 1, type = /atom/movable/screen/fullscreen/flash/noise, TRUE)
 
 	target.emp_act(EMP_HEAVY)
 	playsound(get_turf(target), 'sound/effects/paradox_emp.ogg', 80, TRUE)

@@ -1,6 +1,6 @@
 
 /datum/spell/paradox_spell/self/united_bonds //objective protect
-	name = "United Bonds. ONE USE"
+	name = "United Bonds"
 	desc = "Gets the direction and condition of your target. Works once. May alert your target."
 	action_icon_state = "united_bonds"
 	base_cooldown = 4 SECONDS

@@ -32,6 +32,12 @@
 	action_icon_state = "gib"
 	still_recharging_msg = "<span class='notice'>The connection is being restored...</span>"
 
+/obj/item/melee/touch_attack/paradox/afterattack(atom/A, mob/living/user, params)
+	. = ..()
+	if(get_dist(user, A) != 1)
+		attached_spell.revert_cast()
+		return
+
 /obj/item/melee/touch_attack/paradox
 	name = "Base Hand"
 	desc = "You're not supposed to see this. Notice coders."

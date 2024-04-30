@@ -13,6 +13,12 @@
 
 /obj/item/melee/touch_attack/paradox/sup/afterattack(mob/living/target, mob/living/carbon/user)
 	. = ..()
+
+	if(is_paradox_clone(target))
+		attached_spell.revert_cast()
+		to_chat(user, "<span class='warning'>Useless. [target.name] is from our kin.</span>")
+		return
+
 	var/obj/item/jammer/dummy/D = new(target)
 	GLOB.active_jammers += D
 	QDEL_IN(D, 20 SECONDS)
@@ -20,6 +26,7 @@
 	playsound(get_turf(target), 'sound/effects/paradox_jam.ogg', 60, TRUE)
 
 /obj/item/jammer/dummy
+	name = "YOU'RE NOT SUPPOSED TO SEE THIS"
 	desc = "It's a bug, if you see this!"
 	range = 1
 	active = TRUE

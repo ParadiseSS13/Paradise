@@ -163,6 +163,8 @@
 	if(orig)
 		O.target = orig
 
+	O.update_explanation_text()
+
 /atom/movable/screen/alert/status_effect/internal_pinpointer/paradox_stalking/Click()
 	if(attached_effect)
 		var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = attached_effect
@@ -171,7 +173,7 @@
 		var/datum/antagonist/paradox_clone/pc = P.mind.has_antag_datum(/datum/antagonist/paradox_clone)
 		for(var/mob/living/carbon/human/H in world)
 			var/obj/item/organ/internal/brain/HB = H.get_int_organ(/obj/item/organ/internal/brain)
-			if(H.z == P.z && H.mind && H.key && P != H && HB || is_paradox_clone(H) || H == pc.original)
+			if(H.z == P.z && H.mind && H.key && P != H && HB && H != PS.owner && H || is_paradox_clone(H) || H == pc.original)
 				allowed_targets += H
 		if(!length(allowed_targets))
 			to_chat(pc.owner.current, "<span class='notice'>No available targets.</b></span>")

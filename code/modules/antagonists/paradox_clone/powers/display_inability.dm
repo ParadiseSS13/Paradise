@@ -11,10 +11,6 @@
 	A.range = 6
 	return A
 
-/datum/spell/paradox_spell/aoe/display_inability/proc/return_huds(obj/item/clothing/glasses/hud/H, r_hud_types, list/r_examine_extensions)
-	H.hud_types = r_hud_types
-	H.examine_extensions = r_examine_extensions
-
 /datum/spell/paradox_spell/aoe/display_inability/cast(list/targets, mob/living/user = usr)
 
 	var/used = FALSE
@@ -27,27 +23,20 @@
 			var/mob/living/carbon/human/H = L
 			var/obj/item/clothing/glasses/G = H.glasses
 			if(istype(G, /obj/item/clothing/glasses/hud))
-				var/obj/item/clothing/glasses/hud/HUD = G
-				var/temp_hud_types = HUD.hud_types
-				var/list/temp_examine_extensions = list()
-				temp_examine_extensions = HUD.examine_extensions
-
-				HUD.hud_types = null
-				HUD.examine_extensions = HUD.examine_extensions.Cut()
-
-				addtimer(CALLBACK(src, PROC_REF(return_huds), HUD, temp_hud_types, temp_examine_extensions), 20 SECONDS, TIMER_STOPPABLE)
-
-				H.flash_eyes(0.5, TRUE, type = /atom/movable/screen/fullscreen/flash/noise)
+				H.flash_eyes(1, TRUE, type = /atom/movable/screen/fullscreen/flash/noise, TRUE)
 				H.KnockDown(1 SECONDS)
 				H.EyeBlurry(10 SECONDS)
 		if(istype(L, /mob/living/silicon))
 			used = TRUE
 			var/mob/living/silicon/S = L
 			S.remove_med_sec_hud()
-			S.flash_eyes(2, TRUE, type = /atom/movable/screen/fullscreen/flash/noise)
+			S.flash_eyes(2, TRUE, 1, type = /atom/movable/screen/fullscreen/flash/noise, TRUE)
+			S.emp_act(EMP_LIGHT)
 			S.EyeBlurry(20 SECONDS)
 
-	if(used)
+		L.Weaken(rand(4 SECONDS, 8 SECONDS))
+
+	if(used || !length(targets))
 		playsound(get_turf(user), 'sound/effects/paradox_display_inability.ogg', 10, TRUE)
 	else
 		revert_cast()
