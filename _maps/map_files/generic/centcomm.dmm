@@ -377,6 +377,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
+"bA" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -2878,12 +2882,12 @@
 "kf" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_syndicate";
 	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -4489,11 +4493,11 @@
 "pf" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_transit";
 	name = "emergency in transit";
-	width = 33
+	width = 41
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -6181,7 +6185,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "vf" = (
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -6281,7 +6285,7 @@
 /area/centcom/control)
 "vu" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
@@ -6331,7 +6335,7 @@
 /area/trader_station/sol)
 "vD" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
@@ -12184,11 +12188,11 @@
 	},
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_away";
 	name = "emergency centcom";
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -12756,6 +12760,10 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"SU" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -48808,9 +48816,9 @@ vG
 of
 oI
 pc
-rK
+bA
 pc
-uP
+SU
 pc
 vY
 of
@@ -49322,9 +49330,9 @@ vG
 of
 oS
 pc
-pa
+rK
 pc
-pa
+uP
 pc
 wa
 of
@@ -49336,8 +49344,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -49375,10 +49383,10 @@ Db
 aN
 aN
 aN
+Db
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -50621,8 +50629,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -50656,14 +50664,14 @@ XB
 od
 ux
 ux
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -51906,8 +51914,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -51941,14 +51949,14 @@ Pb
 vy
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -52420,8 +52428,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -52455,14 +52463,14 @@ JC
 vy
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -53705,8 +53713,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -53740,14 +53748,14 @@ qF
 od
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -54990,11 +54998,6 @@ aN
 aN
 aN
 aN
-aN
-Db
-aN
-aN
-aN
 Db
 aN
 aN
@@ -55030,9 +55033,14 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
+Db
+aN
+aN
+Db
 aN
 aN
 aN

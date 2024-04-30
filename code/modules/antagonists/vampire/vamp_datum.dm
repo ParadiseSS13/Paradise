@@ -125,7 +125,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
 				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
-			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+			else if(H.blood_volume <= BLOOD_VOLUME_STABLE && blood_volume_warning > BLOOD_VOLUME_STABLE)
 				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
