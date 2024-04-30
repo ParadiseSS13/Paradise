@@ -5,17 +5,17 @@ let bot_model = 'Security';
 
 const BotStatus = (mode) => {
   const statusMap = [
-    { mode: [0], label: 'Idle', color: 'green' },
-    { mode: [1, 2, 3], label: 'Arresting', color: 'yellow' },
-    { mode: [4, 5], label: 'Patrolling', color: 'average' },
-    { mode: [6, 11], label: 'Responding', color: 'green' },
-    { mode: [12], label: 'Delivering Cargo', color: 'blue' },
-    { mode: [13], label: 'Returning Home', color: 'blue' },
-    { mode: [7, 14, 15, 16, 17, 18, 19], label: 'Working', color: 'blue' },
+    { modes: [0], label: 'Idle', color: 'green' },
+    { modes: [1, 2, 3], label: 'Arresting', color: 'yellow' },
+    { modes: [4, 5], label: 'Patrolling', color: 'average' },
+    { modes: [6, 11], label: 'Responding', color: 'green' },
+    { modes: [12], label: 'Delivering Cargo', color: 'blue' },
+    { modes: [13], label: 'Returning Home', color: 'blue' },
+    { modes: [7, 14, 15, 16, 17, 18, 19], label: 'Working', color: 'blue' },
   ];
 
   const matchedStatus = statusMap.find((mapping) =>
-    mapping.mode.includes(mode)
+    mapping.modes.includes(mode)
   );
 
   return <Box color={matchedStatus.color}> {matchedStatus.label} </Box>;
