@@ -97,7 +97,7 @@
 	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
 		return
-	to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
+	to_chat(user, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 	reagents.reaction(loc)
 	reagents.clear_reagents()
 
