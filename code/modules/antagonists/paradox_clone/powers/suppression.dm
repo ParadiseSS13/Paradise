@@ -14,6 +14,7 @@
 /obj/item/melee/touch_attack/paradox/sup/afterattack(mob/living/target, mob/living/carbon/user)
 	. = ..()
 	var/obj/item/jammer/dummy/D = new(target)
+	GLOB.active_jammers += D
 	QDEL_IN(D, 20 SECONDS)
 
 	playsound(get_turf(target), 'sound/effects/paradox_jam.ogg', 60, TRUE)

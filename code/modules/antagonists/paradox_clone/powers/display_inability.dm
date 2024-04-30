@@ -11,11 +11,11 @@
 	A.range = 6
 	return A
 
-/datum/spell/paradox_spell/self/display_inability/proc/return_huds(obj/item/clothing/glasses/hud/H, r_hud_types, list/r_examine_extensions)
+/datum/spell/paradox_spell/aoe/display_inability/proc/return_huds(obj/item/clothing/glasses/hud/H, r_hud_types, list/r_examine_extensions)
 	H.hud_types = r_hud_types
 	H.examine_extensions = r_examine_extensions
 
-/datum/spell/paradox_spell/self/display_inability/cast(list/targets, mob/living/user = usr)
+/datum/spell/paradox_spell/aoe/display_inability/cast(list/targets, mob/living/user = usr)
 
 	var/used = FALSE
 
