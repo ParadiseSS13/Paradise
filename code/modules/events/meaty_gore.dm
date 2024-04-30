@@ -1,4 +1,6 @@
-#define NEED_PLAYERS 40
+#define NEED_PLAYERS 60
+
+#define GAMEMODE_IS_VALID (SSticker && istype(SSticker.mode, /datum/game_mode/traitor) || istype(SSticker.mode, /datum/game_mode/vampire) || istype(SSticker.mode, /datum/game_mode/changeling || istype(SSticker.mode, /datum/game_mode/trifecta))
 
 /datum/event/meteor_wave/gore/announce()
 	GLOB.minor_announcement.Announce("Unknown biological debris have been detected near [station_name()], please stand-by.", "Debris Alert")
@@ -29,17 +31,17 @@
 	return //TSS SECRET
 
 /datum/event/meteor_wave/gore/ling/setup()
-	changelings_amount = round(TGS_CLIENT_COUNT / 40) //120 players for 3 changelings
-	if(changelings_amount < 1 && TGS_CLIENT_COUNT >= NEED_PLAYERS)
+	var/playas = length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE))
+	changelings_amount = playas / NEED_PLAYERS //180 players for 3 changelings
+	if(changelings_amount < 1 && playas >= NEED_PLAYERS)
 		changelings_amount = 1
 	spawncount = changelings_amount
-	var/Need = NEED_PLAYERS
 
 	var/image/img = image('icons/mob/actions/actions.dmi', "chameleon_outfit")
 	candidates = SSghost_spawns.poll_candidates("Do you want to play as a Stowaway Changeling?", ROLE_CHANGELING, TRUE, source = img, poll_time = 40 SECONDS)
 
-	if(!length(candidates) || TGS_CLIENT_COUNT < NEED_PLAYERS || GAMEMODE_IS_CULT || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_REVOLUTION) //i just love idea of gamemodes combination, but boring contributors (and some balancers guys) says no...
-		var/the_message = "Stowaway Changelings had no volunteers ([length(candidates)]) or gamemode ([SSticker.mode.name]) is not valid or is too few clients (have [TGS_CLIENT_COUNT] Vs need [Need]) on server and was canceled."
+	if(!length(candidates) || playas < NEED_PLAYERS && !GAMEMODE_IS_VALID)) //i just love idea of gamemodes combination, but boring contributors (and some balancers guys) says no...
+		var/the_message = "Stowaway Changelings had no volunteers ([length(candidates)]) or gamemode ([SSticker.mode.name]) is not valid or is too few clients (have [playas] Vs need [NEED_PLAYERS]) on server and was canceled."
 		message_admins("[the_message]")
 		log_admin("[the_message]")
 
@@ -49,10 +51,10 @@
 
 		//just imagine... CULTIST CHANGELING... NUKIES AND CHANGELINGS... REVOLUTION CHANGELING... eh... SHADOWLING THRALL (yep they're deleted) CHANGELING MUHAHAHAHAHHAHA
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE] //no lings? okay, go and get compensation!
-		EC.next_event_time = world.time + (60 * 10)
+		EC.next_event_time = world.time + 60 SECONDS
 		return kill()
 
-	waves = rand(1,2)
+	waves = rand(1, 2)
 
 	INVOKE_ASYNC(src, PROC_REF(wrap_end))
 

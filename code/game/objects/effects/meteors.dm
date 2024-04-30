@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal
 
-	if(istype(M, /obj/effect/meteor/meaty/ling) && ling != null)
+	if(istype(M, /obj/effect/meteor/meaty/ling) && ling)
 		var/obj/effect/meteor/meaty/ling/L = M
 		L.ling_inside = ling
 
@@ -132,7 +132,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 	if(istype(src, /obj/effect/meteor/meaty/ling))
 		var/list/turfs = list()
-		for(var/area/station/S in world)
+		for(var/area/station/S in GLOB.all_areas)
 			for(var/turf/T in S)
 				turfs += T
 
@@ -354,14 +354,19 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	dropamt = 1
 	hitpwr = EXPLODE_LIGHT
 
-/obj/effect/meteor/meaty/ling/examine(mob/user)
+/obj/effect/meteor/meaty/ling/examine(mob/dead/observer/user)
 	. = ..()
-	if(ling_inside == user && istype(user, /mob/dead/observer))
+	if(ling_inside == user)
 		. += "<span class='changeling'>Right now it's us inside.</span>"
 
 /obj/effect/meteor/meaty/ling/Destroy()
 	var/turf/T = get_turf(src)
-	..()
+
+	deltimer(timerid)
+	GLOB.meteor_list -= src
+	walk(src, 0)
+	qdel(src)
+
 	var/mob/living/carbon/human/H = new(T)
 	var/list/all_organic_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/diona,
 	/datum/species/moth, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
@@ -422,27 +427,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 	var/datum/action/changeling/suit/organic_space_suit/space = new()
 	space.dna_cost = 0 // just A LITTLE BUFF and necessity
-	space.power_type = CHANGELING_INNATE_POWER
-
-	var/list/some_powers = list() //can be removed by discussing with other coders
-
-	var/datum/action/changeling/chameleon_skin/CH = new()
-	var/datum/action/changeling/headslug/HE = new()
-	var/datum/action/changeling/contort_body/CB = new()
-	var/datum/action/changeling/weapon/shield/OS = new()
-
-	some_powers += CH
-	some_powers += HE
-	some_powers += CB
-	some_powers += OS
-
-	for(var/datum/action/changeling/C as anything in some_powers)
-		C.dna_cost = 0
-		C.power_type = CHANGELING_INNATE_POWER
-		cling.give_power(C, H, FALSE)
 
 	cling.give_power(space, H, FALSE)
-	cling.genetic_points += 4 //harder to blend in crew.
 
 	notify_ghosts("Stowaway Changeling [H.real_name] has arrived..", source = H, action = NOTIFY_FOLLOW)
 
