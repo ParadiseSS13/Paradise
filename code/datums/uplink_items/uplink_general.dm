@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
-	if(!uplink_items.len)
+	if(!length(uplink_items))
 
 		var/list/last = list()
 		for(var/path in GLOB.uplink_items)
@@ -858,6 +858,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+/datum/uplink_item/badass/pen
+	name = "Syndicate Fountain Pen"
+	desc = "A slick Syndicate-branded pen, to show everyone at the meeting that you mean business."
+	reference = "PEN"
+	item = /obj/item/pen/multi/syndicate
+	cost = 1
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"

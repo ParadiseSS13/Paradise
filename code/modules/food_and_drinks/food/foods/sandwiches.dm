@@ -19,6 +19,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "meat" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/brain
 	name = "brainburger"
@@ -59,6 +60,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "meat" = 1, "cheese" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/tofu
 	name = "tofu burger"
@@ -68,6 +70,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "tofu" = 4)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/hamborger
 	name = "hamborger"
@@ -76,7 +79,7 @@
 	filling_color = "#CCCCCC"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
+	tastes = list("bun" = 4, "metal" = 2, "sludge" = 1)
 
 /obj/item/food/snacks/burger/hamborger/Initialize(mapload)
 	. = ..()
@@ -135,6 +138,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("bun" = 4, "meat" = 2, "cheese" = 2, "type two diabetes" = 10)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/superbite
 	name = "SuperBite burger"
@@ -162,6 +166,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "white" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/red
 	name = "red pretty patty"
@@ -171,6 +176,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "red" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/orange
 	name = "orange pretty patty"
@@ -180,6 +186,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "orange" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/yellow
 	name = "yellow pretty patty"
@@ -189,6 +196,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "yellow" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/green
 	name = "green pretty patty"
@@ -198,6 +206,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "green" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/blue
 	name = "blue pretty patty"
@@ -207,6 +216,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "blue" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/purple
 	name = "purple pretty patty"
@@ -216,6 +226,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "purple" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/ppatty/rainbow
 	name = "rainbow pretty patty"
@@ -225,6 +236,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 14, "protein" = 5, "omnizine" = 10)
 	tastes = list("bun" = 2, "meat" = 2, "rainbow" = 5)
+	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/snacks/burger/elec
 	name = "empowered burger"
@@ -234,6 +246,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 1, "plasma" = 2)
 	tastes = list("bun" = 2, "pure electricity" = 5)
+	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/snacks/burger/rat
 	name = "mouse burger"
@@ -261,6 +274,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "vitamin" = 2, "protein" = 6)
 	tastes = list("bun" = 1, "bacon" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 /obj/item/food/snacks/burger/bearger
@@ -280,6 +294,7 @@
 	filling_color = "#F2B6EA"
 	list_reagents = list("nutriment" = 4, "protein" = 6, "condensedcapsaicin" = 5, "capsaicin" = 5)
 	tastes = list("bun" = 1, "extreme heat" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/mcguffin
 	name = "mcGuffin"
@@ -289,6 +304,7 @@
 	filling_color = "#F2B6EA"
 	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 1)
 	tastes = list("muffin" = 1, "bacon" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/mcrib
 	name = "mcRib"
@@ -298,6 +314,15 @@
 	filling_color = "#F2B6EA"
 	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
 	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/snacks/burger/chicken
+	name = "chicken burger"
+	desc = "May I mayo?"
+	icon_state = "chickenburger"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "chicken" = 2)
 
 /obj/item/food/snacks/burger/jelly
 	name = "jelly burger"
@@ -308,10 +333,13 @@
 	tastes = list("bun" = 4, "jelly" = 2)
 
 /obj/item/food/snacks/burger/jelly/slime
+	name = "slime burger"
 	list_reagents = list("nutriment" = 6, "slimejelly" = 5, "vitamin" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/burger/jelly/cherry
 	list_reagents = list("nutriment" = 6, "cherryjelly" = 5, "vitamin" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////
@@ -326,6 +354,7 @@
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/toastedsandwich
 	name = "toasted sandwich"
@@ -335,6 +364,7 @@
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "carbon" = 2)
 	tastes = list("toast" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/grilledcheese
 	name = "grilled cheese sandwich"
@@ -344,6 +374,7 @@
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
 	tastes = list("toast" = 1, "grilled cheese" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/jellysandwich
 	name = "jelly sandwich"
@@ -356,9 +387,12 @@
 
 /obj/item/food/snacks/jellysandwich/slime
 	list_reagents = list("nutriment" = 2, "slimejelly" = 5, "vitamin" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/jellysandwich/cherry
+	name = "slime sandwich"
 	list_reagents = list("nutriment" = 2, "cherryjelly" = 5, "vitamin" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/notasandwich
 	name = "not-a-sandwich"
@@ -375,6 +409,7 @@
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("egg" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/blt
 	name = "\improper BLT"
@@ -385,6 +420,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 5, "protein" = 2)
 	tastes = list("bacon" = 3, "lettuce" = 2, "tomato" = 2, "bread" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/peanut_butter_jelly
 	name = "peanut butter and jelly sandwich"
@@ -396,10 +432,14 @@
 	tastes = list("peanut butter" = 3, "jelly" = 3, "bread" = 2)
 
 /obj/item/food/snacks/peanut_butter_jelly/slime
+	name = "peanut butter and slime sandwich"
+	desc = "A classic PB&J sandwich, just like your mom used to make?"
 	list_reagents = list("peanutbutter" = 2, "slimejelly" = 5, "nutriment" = 5, "protein" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/peanut_butter_jelly/cherry
 	list_reagents = list("peanutbutter" = 2, "cherryjelly" = 5, "nutriment" = 5, "protein" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/philly_cheesesteak
 	name = "Philly cheesesteak"
@@ -410,6 +450,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("steak" = 3, "melted cheese" = 3, "onions" = 2, "bread" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/peanut_butter_banana
 	name = "peanut butter and banana sandwich"
@@ -420,3 +461,4 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 2)
 	tastes = list("peanutbutter" = 3, "banana" = 3, "bread" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL

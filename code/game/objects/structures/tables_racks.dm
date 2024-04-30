@@ -799,10 +799,10 @@
 
 	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
-		return .
+		return
 
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
-		return .
+		return
 
 	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
 

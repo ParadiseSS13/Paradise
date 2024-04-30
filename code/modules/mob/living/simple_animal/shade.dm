@@ -34,11 +34,6 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/Destroy()
-	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
-	return ..()
-
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
@@ -70,7 +65,7 @@
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
-	AddSpell(new /obj/effect/proc_holder/spell/sentient_sword_lunge)
+	AddSpell(new /datum/spell/sentient_sword_lunge)
 	var/obj/item/nullrod/scythe/talking/host_sword = loc
 	if(istype(host_sword))
 		health = host_sword.obj_integrity

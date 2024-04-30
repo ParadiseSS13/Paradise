@@ -472,7 +472,7 @@
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck)
+		M.mind.RemoveSpell(/datum/spell/hackerman_deck)
 	UnregisterSignal(M, COMSIG_BODY_TRANSFER_TO)
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/on_body_transfer()
@@ -485,8 +485,8 @@
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/add_spell()
 	if(owner.mind)
-		owner.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck) //Just to be sure.
-		owner.mind.AddSpell(new /obj/effect/proc_holder/spell/hackerman_deck(null))
+		owner.mind.RemoveSpell(/datum/spell/hackerman_deck) //Just to be sure.
+		owner.mind.AddSpell(new /datum/spell/hackerman_deck(null))
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/emp_act(severity)
 	owner.adjustStaminaLoss(40 / severity)
@@ -494,7 +494,7 @@
 	to_chat(owner, "<span class='warning'>Your [name] heats up drastically!</span>")
 	return TRUE
 
-/obj/effect/proc_holder/spell/hackerman_deck
+/datum/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
 	desc = "Click on any machine to hack them. Has a short range of only three tiles."
 	base_cooldown = 10 SECONDS
@@ -508,13 +508,13 @@
 	/// How many times have we successfully hacked in the last minute? Increases burn damage by 3 for each value above 0.
 	var/recent_hacking = 0
 
-/obj/effect/proc_holder/spell/hackerman_deck/create_new_targeting()
+/datum/spell/hackerman_deck/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/C = new()
 	C.range = 3
 	C.try_auto_target = FALSE
 	return C
 
-/obj/effect/proc_holder/spell/hackerman_deck/on_mind_transfer(mob/living/L)
+/datum/spell/hackerman_deck/on_mind_transfer(mob/living/L)
 	if(!ishuman(L))
 		return FALSE
 	var/mob/living/carbon/human/H = L
@@ -523,7 +523,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/hackerman_deck/cast(list/targets, mob/user)
+/datum/spell/hackerman_deck/cast(list/targets, mob/user)
 	var/atom/target = targets[1]
 	if(get_dist(user, target) > 3) //fucking cameras holy shit
 		to_chat(user, "<span class='warning'>Your implant is not robust enough to hack at that distance!</span>")
@@ -557,7 +557,7 @@
 	recent_hacking++
 	addtimer(CALLBACK(src, PROC_REF(lower_recent_hacking)), 1 MINUTES)
 
-/obj/effect/proc_holder/spell/hackerman_deck/proc/lower_recent_hacking()
+/datum/spell/hackerman_deck/proc/lower_recent_hacking()
 	recent_hacking--
 
 //[[[[MOUTH]]]]
@@ -739,12 +739,12 @@
 	if(crit_fail)
 		return
 	if(owner.maxHealth == owner.health)
-		owner.adjust_nutrition(-0.5)
+		owner.adjust_nutrition(-0.25)
 		return //Passive damage scanning
 
 	owner.adjustBruteLoss(-0.5, robotic = TRUE)
 	owner.adjustFireLoss(-0.5, robotic = TRUE)
-	owner.adjust_nutrition(-4) //Very power inefficent. Hope you got an APC nearby.
+	owner.adjust_nutrition(-2) //Very power inefficent. Hope you got an APC nearby.
 
 /obj/item/organ/internal/cyberimp/chest/ipc_repair/emp_act(severity)
 	if(!owner || emp_proof || crit_fail)

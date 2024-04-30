@@ -42,6 +42,11 @@
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
+/obj/item/ammo_casing/energy/laser/sparker
+	projectile_type = /obj/item/projectile/beam/laser/sparker
+	select_name = "spark"
+	e_cost = (100 / 3) * 2 // 15 * 12.5 damage = 187.5 damage. Almost as much as a base laser gun, but takes longer to get all the shots out.
+
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse/hitscan
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
@@ -187,7 +192,7 @@
 	projectile_type = /obj/item/projectile/plasma
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
+	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
 	e_cost = 75
 
@@ -240,15 +245,6 @@
 /obj/item/ammo_casing/energy/instakill/red
 	projectile_type = /obj/item/projectile/beam/instakill/red
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
-
-/obj/item/ammo_casing/energy/plasma
-	projectile_type = /obj/item/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
-	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/pulse.ogg'
-
-/obj/item/ammo_casing/energy/plasma/adv
-	projectile_type = /obj/item/projectile/plasma/adv
 
 /obj/item/ammo_casing/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'

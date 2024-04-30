@@ -219,8 +219,17 @@
 
 /////////////////
 
-///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+// /client signals
+
+/// from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
 #define COMSIG_CLIENT_CLICK "atom_client_click"
+/// from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 
 ///from base of area/Entered(): (/area)
 #define COMSIG_ENTER_AREA "enter_area"
@@ -600,9 +609,9 @@
 #define COMSIG_ITEM_PICKUP "item_pickup"
 ///from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
 #define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
+///return a truthy value to prevent ensouling, checked in /datum/spell/lichdom/cast(): (mob/user)
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
+///called before marking an object for retrieval, checked in /datum/spell/summonitem/cast() : (mob/user)
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
@@ -708,11 +717,16 @@
 
 // /obj/item/gun signals
 
-///called in /obj/item/gun/process_fire (user, target, params, zone_override)
+/// called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
-
-///called in /obj/item/gun/process_fire (user, target)
+/// called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
+/// called in /datum/component/automatic_fire/proc/on_mouse_down: (client/clicker, atom/target, turf/location, control, params)
+#define COMSIG_AUTOFIRE_ONMOUSEDOWN "autofire_onmousedown"
+	#define COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS (1<<0)
+/// called in /datum/component/automatic_fire/proc/process_shot(): (atom/target, mob/living/shooter, allow_akimbo, params)
+#define COMSIG_AUTOFIRE_SHOT "autofire_shot"
+	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
 
 // /obj/item/grenade signals
 
@@ -1017,3 +1031,36 @@
 
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
+
+// Signal types for the cargo shuttle
+
+// Sent before the shuttle scans its contents.
+// Use to initialize data that will be needed during the scan.
+#define COMSIG_CARGO_BEGIN_SCAN			"begin_scan"
+// Sent as the shuttle scans its contents.
+// Can return sell flags (see code/__DEFINES/supply_defines.dm).
+#define COMSIG_CARGO_CHECK_SELL			"check_sell"
+// Sent as the shuttle begins selling off its contents.
+// Use to initialize data that will be needed during the sale.
+#define COMSIG_CARGO_BEGIN_SELL			"begin_sell"
+// Sent during sales for items marked with COMSIG_CARGO_SELL_PRIORITY.
+#define COMSIG_CARGO_DO_PRIORITY_SELL	"do_priority_sell"
+// Sent during sales for items marked with COMSIG_CARGO_SELL_NORMAL.
+#define COMSIG_CARGO_DO_SELL			"do_sell"
+// Sent during sales for items marked with COMSIG_CARGO_SELL_WRONG.
+#define COMSIG_CARGO_SEND_ERROR			"send_error"
+// Sent when sales are completed.
+// Use to send summary messages for items that sell in bulk.
+#define COMSIG_CARGO_END_SELL			"end_sell"
+
+///from of mob/MouseDrop(): (/atom/over, /mob/user)
+#define COMSIG_DO_MOB_STRIP "do_mob_strip"
+
+// Sent when a mob spawner is attacked directly or via projectile.
+#define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// Used by admin-tooling to remove radiation
+#define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"
+
+/// Sent when bodies transfer between shades/shards and constructs
+#define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"

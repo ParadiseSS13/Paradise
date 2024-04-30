@@ -48,7 +48,7 @@
 	if(bayonet && can_bayonet)
 		. += knife_overlay
 
-/obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
+/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	var/obj/item/ammo_casing/ammo_chambered = chambered //Find chambered round
 	if(!istype(ammo_chambered))
 		chamber_round()
@@ -148,7 +148,7 @@
 	if(loc == user)
 		if(suppressed && can_unsuppress)
 			var/obj/item/suppressor/S = suppressed
-			if(user.l_hand != src && user.r_hand != src)
+			if(!user.is_holding(src))
 				..()
 				return
 			to_chat(user, "<span class='notice'>You unscrew [suppressed] from [src].</span>")
@@ -198,7 +198,7 @@
 	if(chambered && chambered.BB && !chambered.BB.nodamage)
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		sleep(25)
-		if(user.l_hand == src || user.r_hand == src)
+		if(user.is_holding(src))
 			process_fire(user, user, 0, zone_override = "head")
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with [src]!</span>")
 			return BRUTELOSS
