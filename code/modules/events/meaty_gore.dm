@@ -79,3 +79,4 @@
 	//true end
 
 #undef NEED_PLAYERS
+#undef GAMEMODE_IS_VALID
