@@ -213,6 +213,7 @@
 		/obj/item/grown,
 		/obj/item/food/snacks/grown/ash_flora,
 		/obj/item/food/snacks/honeycomb)
+	cant_hold = list(/obj/item/grown/bananapeel/traitorpeel)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
