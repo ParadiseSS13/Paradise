@@ -4,7 +4,7 @@
 	var/mob/living/simple_animal/bot/bot
 	var/mob/living/silicon/ai/AI
 
-/datum/ui_module/botcall/ui_interact(mob/user)
+/datum/ui_module/botcall/ui_state(mob/user)
 	return GLOB.default_state
 
 /datum/ui_module/botcall/ui_interact(mob/user, datum/tgui/ui) // Unable check at ai_mob.dm
