@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
-	desc = "Pieces of a goliath's rocky hide, these might be able to make your miner suit, miner plasmaman helmet, miner borg or Ripley class exosuits a bit more durable to attack from the local fauna."
+	desc = "Pieces of a goliath's rocky hide, these might be able to make your miner equipment such as suit, plasmaman helmet, borg and Ripley class exosuits a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "goliath_hide"
 	item_state = "goliath_hide"
