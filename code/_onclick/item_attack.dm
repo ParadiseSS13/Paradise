@@ -81,7 +81,6 @@
 
 	add_fingerprint(user)
 
-
 //the equivalent of the standard version of attack() but for object targets.
 /obj/item/proc/attack_obj(obj/O, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
@@ -146,7 +145,7 @@
 	if(I.discrete)
 		return
 	var/message_verb = "attacked"
-	if(I.attack_verb && I.attack_verb.len)
+	if(I.attack_verb && length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
 	else if(!I.force)
 		return

@@ -71,6 +71,13 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
+/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
+	if(istype(A, /obj/machinery/hydroponics))
+		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
+		afterattack(A, user, FALSE, params)
+		return FALSE
+	return ..()
+
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
@@ -125,6 +132,10 @@
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
+
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
@@ -158,6 +169,7 @@
 	item_state = "plasmacutter"
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
+	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
@@ -254,6 +266,15 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
+
+/obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	if(!do_after(user, 0.5 SECONDS, target = user)) // touch/looking doesn't take that long, but still probably good for a delay to exist for shoving and whatnot
+		return SHAME
+	user.dust()
+	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
+	return OBLITERATION
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -749,11 +770,11 @@
 		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
-		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the tracker?", "Tracker reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
 			stop_pointing()
 	if(linked_pinpointer_UID)
-		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the linked pinpointer?", "Pinpointer reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			unlink()
 
@@ -765,7 +786,7 @@
 	if(!C)
 		return
 	C.linked_gun_UID = null
-	if(C.mode == MODE_DET)
+	if(C.mode == PINPOINTER_MODE_DET)
 		C.stop_tracking()
 	linked_pinpointer_UID = null
 	tracking_target_UID = null
@@ -833,12 +854,13 @@
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)
 		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-		if(C?.mode == MODE_DET)
+		if(C?.mode == PINPOINTER_MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
 
 
-/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
+/// It's like the cyborg LMG, uses energy to make spikes
+/obj/item/gun/energy/spikethrower
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/guns/projectile.dmi'
@@ -958,3 +980,25 @@
 	transform = M
 	animate(src, transform = M * 10, time = 0.3 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.3 SECONDS)
+
+/obj/item/gun/energy/sparker
+	name = "\improper SPRK-12"
+	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though its beams are weaker. Good at dual wielding, however."
+	icon_state = "dueling_pistol"
+	item_state = "dueling_pistol"
+	w_class = WEIGHT_CLASS_SMALL
+	can_holster = TRUE
+	execution_speed = 4 SECONDS
+	weapon_weight = WEAPON_DUAL_WIELD
+	shaded_charge = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/sparker)
+	/// The cooldown tracking when we were last EMP'd
+	COOLDOWN_DECLARE(emp_cooldown)
+
+/obj/item/gun/energy/sparker/emp_act(severity)
+	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+		return
+	cell.charge = cell.maxcharge
+	COOLDOWN_START(src, emp_cooldown, 1 MINUTES)
+	atom_say("Energy coils recharged!")
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)

@@ -15,6 +15,11 @@
 		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
+/datum/orbit_menu/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/orbit_job)
+	)
+
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
@@ -111,9 +116,6 @@
 					if(SSticker && SSticker.mode)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
-							"Cultist" = (mind in SSticker.mode.cult),
-							"Wizard" = (mind in SSticker.mode.wizards),
-							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
 							"Abductor" = (mind in SSticker.mode.abductors)
 						)
@@ -125,6 +127,13 @@
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
+
+					// Antaghud? Let them see everyone's role
+					if(isliving(M))
+						var/mob/living/L = M
+						if(L.mind?.has_normal_assigned_role())
+							serialized["assigned_role"] = L.mind.assigned_role
+							serialized["assigned_role_sprite"] = ckey(L.mind.get_assigned_role_asset())
 
 				// Player terror spiders (and other hostile player-controlled event mobs) have their own category to help see how much there are.
 				// Not in the above block because terrors can be known whether AHUD is on or not.

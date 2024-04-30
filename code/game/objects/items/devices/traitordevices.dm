@@ -28,7 +28,7 @@
 	else
 		GLOB.active_jammers -= src
 	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"
@@ -145,7 +145,7 @@
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		else if(!EMP_D && !(bagholding.len && !flawless)) // This is where the fun begins
+		else if(!EMP_D && !(length(bagholding) && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
 		else // Emp activated? Bag of holding? No saving throw for you
@@ -271,15 +271,15 @@
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
 		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
 		return
-	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
 		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
 		return
 	if(used)
 		to_chat(user, "<span class='notice'>The injector is empty!</span>")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
-	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", "Yes", "No")
-	if(choice == "No")
+	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", list("Yes", "No"))
+	if(choice != "Yes")
 		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
 		used = FALSE
 		return

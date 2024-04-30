@@ -1,7 +1,0 @@
-help: "Use the directional variants when possible."
-/obj/machinery/power/apc:
-  banned_variables:
-    pixel_x:
-      allow: [24, -24]
-    pixel_y:
-      allow: [24, -24]

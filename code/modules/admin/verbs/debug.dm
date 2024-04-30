@@ -20,7 +20,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/returnval = null
 		var/class = null
 
-		switch(alert("Proc owned by something?",,"Yes","No"))
+		switch(alert("Proc owned by something?", null,"Yes","No"))
 			if("Yes")
 				targetselected = 1
 				if(src.holder && src.holder.marked_datum)
@@ -64,13 +64,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!target)
 				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
 				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			log_admin("[key_name(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+			message_admins("[key_name_admin(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
@@ -153,7 +153,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 #endif
 
 /client/proc/callproc_datum(A as null|area|mob|obj|turf)
-	set category = null
 	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
@@ -174,8 +173,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!A || !IsValidSrc(A))
 		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
-	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
@@ -488,7 +487,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(M.ckey)
-		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",,"Yes","No") != "Yes")
+		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.", null,"Yes","No") != "Yes")
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
@@ -619,7 +618,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(world, "* [areatype]")
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
-	set category = "Event"
 	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
@@ -710,7 +708,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
+	if(alert("Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
 	for(var/obj/machinery/power/emitter/E in GLOB.machines)
@@ -802,6 +800,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Average References During Hardel: [I.reference_average] references.</li>"
 		if(I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if(I.no_respect_force)
@@ -916,6 +915,21 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	GLOB.error_cache.showTo(usr)
 
+/client/proc/allow_browser_inspect()
+	set category = "Debug"
+	set name = "Allow Browser Inspect"
+	set desc = "Allow browser debugging via inspect"
+
+	if(!check_rights(R_MAINTAINER) || !isclient(src))
+		return
+
+	if(byond_version < 516)
+		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
+		return
+
+	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
+	winset(src, "", "browser-options=find,devtools")
+
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
 	set name = "Visualise Active Turfs"
@@ -975,3 +989,24 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+/client/proc/cmd_clean_radiation()
+	set name = "Remove All Radiation"
+	set desc = "Remove all radiation in the world."
+	set category = "Debug"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert(src, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
+		return
+
+	log_and_message_admins("is decontaminating the world of all radiation. (This may be laggy!)")
+
+	var/counter = 0
+	for(var/datum/component/radioactive/rad as anything in SSradiation.all_radiations)
+		rad.admin_decontaminate()
+		counter++
+		CHECK_TICK
+
+	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")

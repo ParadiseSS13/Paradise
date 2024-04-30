@@ -171,7 +171,8 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-/obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
+/// for nukies
+/obj/item/clothing/gloves/color/black/krav_maga/combat
 	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
 	icon_state = "combat"

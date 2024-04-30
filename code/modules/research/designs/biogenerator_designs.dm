@@ -99,6 +99,14 @@
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	category = list("initial","Botany Chemicals")
 
+/datum/design/mut_nut
+	name = "Mutrient"
+	id = "mut_nut"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 15)
+	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/mut
+	category = list("initial", "Botany Chemicals")
+
 /datum/design/l4z_nut
 	name = "Left 4 Zed"
 	id = "l4z_nut"
@@ -211,10 +219,11 @@
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
 
-/datum/design/rice_hat
-	name = "Rice hat"
-	id = "rice_hat"
+/datum/design/seaweed
+	name = "Seaweed Sheet"
+	id = "seaweed"
 	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 300)
-	build_path = /obj/item/clothing/head/rice_hat
-	category = list("initial","Leather and Cloth")
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/stack/seaweed
+	category = list("initial", "Organic Materials")
+

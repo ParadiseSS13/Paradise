@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/area_teleport
+/datum/spell/area_teleport
 	nonabstract_req = TRUE
 
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
@@ -8,7 +8,7 @@
 	var/sound2 = 'sound/weapons/zapbang.ogg'
 	var/area/selected_area
 
-/obj/effect/proc_holder/spell/area_teleport/before_cast(list/targets, mob/user)
+/datum/spell/area_teleport/before_cast(list/targets, mob/user)
 	..()
 	selected_area = null // Reset it
 	var/area_name
@@ -30,7 +30,7 @@
 
 	selected_area = thearea
 
-/obj/effect/proc_holder/spell/area_teleport/cast(list/targets, mob/living/user)
+/datum/spell/area_teleport/cast(list/targets, mob/living/user)
 	if(!selected_area)
 		revert_cast(user)
 		return
@@ -49,7 +49,7 @@
 				if(clear)
 					L+=T
 
-		if(!L.len)
+		if(!length(L))
 			to_chat(usr, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
 			return
 
@@ -62,7 +62,7 @@
 		var/list/tempL = L
 		var/attempt = null
 		var/success = 0
-		while(tempL.len)
+		while(length(tempL))
 			attempt = pick(tempL)
 			success = target.Move(attempt)
 			if(!success)
@@ -78,7 +78,7 @@
 
 	return
 
-/obj/effect/proc_holder/spell/area_teleport/invocation(mob/user)
+/datum/spell/area_teleport/invocation(mob/user)
 	if(!invocation_area || !selected_area)
 		return
 	switch(invocation_type)

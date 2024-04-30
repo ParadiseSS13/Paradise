@@ -242,7 +242,7 @@
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
-			var/new_id = stripped_input(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
+			var/new_id = tgui_input_text(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
@@ -305,31 +305,31 @@
 		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
 
 		if(locked && !ai && !user.can_admin_interact())
-			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='?src=[UID()];op=unlock'>Unlock Controls</A>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='byond://?src=[UID()];op=unlock'>Unlock Controls</A>"
 		else
-			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='byond://?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
 
-			dat += "<A href='?src=[UID()];op=power'>Toggle Power</A><BR>"
-			dat += "<A href='?src=[UID()];op=stop'>Stop</A><BR>"
-			dat += "<A href='?src=[UID()];op=go'>Proceed</A><BR>"
-			dat += "<A href='?src=[UID()];op=home'>Return to Home</A><BR>"
-			dat += "<A href='?src=[UID()];op=destination'>Set Destination</A><BR>"
-			dat += "<A href='?src=[UID()];op=setid'>Set Bot ID</A><BR>"
-			dat += "<A href='?src=[UID()];op=sethome'>Set Home</A><BR>"
-			dat += "<A href='?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-			dat += "<A href='?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-			dat += "<A href='?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
+			dat += "<A href='byond://?src=[UID()];op=power'>Toggle Power</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=stop'>Stop</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=go'>Proceed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=home'>Return to Home</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=destination'>Set Destination</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=setid'>Set Bot ID</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=sethome'>Set Home</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
+			dat += "<A href='byond://?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
+			dat += "<A href='byond://?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
 			if(load)
-				dat += "<A href='?src=[UID()];op=unload'>Unload Now</A><BR>"
+				dat += "<A href='byond://?src=[UID()];op=unload'>Unload Now</A><BR>"
 			dat += "<div class='notice'>The maintenance hatch is closed.</div>"
 	else
 		if(!ai)
 			dat += "<div class='notice'>The maintenance hatch is open.</div><BR>"
 			dat += "<b>Power cell:</b> "
 			if(cell)
-				dat += "<A href='?src=[UID()];op=cellremove'>Installed</A><BR>"
+				dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
 			else
-				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
+				dat += "<A href='byond://?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
 			wires.Interact(user)
 		else
@@ -479,8 +479,9 @@
 	diag_hud_set_botmode()
 
 	if(!has_power())
-		on = FALSE
+		turn_off()
 		return
+
 	if(!on)
 		return
 
@@ -607,7 +608,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, PROC_REF(do_start_home))
+	do_start_home()
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
@@ -671,7 +672,7 @@
 			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
 			if(!B)
 				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
-			if(blood_DNA && blood_DNA.len)
+			if(blood_DNA && length(blood_DNA))
 				B.blood_DNA |= blood_DNA.Copy()
 			B.basecolor = currentBloodColor
 			var/newdir = get_dir(next, loc)

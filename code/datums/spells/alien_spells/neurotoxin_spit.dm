@@ -1,7 +1,7 @@
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin
+/datum/spell/alien_spell/neurotoxin
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applies a small amount of stamina damage as well."
-	base_cooldown = 5 SECONDS
+	base_cooldown = 3 SECONDS
 	plasma_cost = 50
 	selection_activated_message		= "<span class='notice'><B>Your prepare some neurotoxin!</B></span>"
 	selection_deactivated_message	= "<span class='notice'><B>You swallow your prepared neurotoxin.</B></span>"
@@ -9,16 +9,16 @@
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin/create_new_targeting()
+/datum/spell/alien_spell/neurotoxin/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin/update_icon_state()
+/datum/spell/alien_spell/neurotoxin/update_spell_icon()
 	if(!action)
 		return
 	action.button_icon_state = "alien_neurotoxin_[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
+/datum/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // A little aimbot is fine
@@ -34,3 +34,9 @@
 	user.newtonian_move(get_dir(U, T))
 
 	return TRUE
+
+/datum/spell/alien_spell/neurotoxin/death_to_xenos
+	name = "Neurotoxin spit"
+	desc = "This ability allows you to fire some neurotoxin. Knocks aliens down."
+	neurotoxin_type = /obj/item/projectile/bullet/anti_alien_toxin
+	base_cooldown = 2 SECONDS

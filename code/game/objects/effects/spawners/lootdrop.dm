@@ -194,7 +194,8 @@
 	lootcount = 8
 
 
-/obj/effect/spawner/lootdrop/crate_spawner // for ruins
+/// for ruins
+/obj/effect/spawner/lootdrop/crate_spawner
 	name = "lootcrate spawner"
 	lootdoubles = FALSE
 	loot = list(

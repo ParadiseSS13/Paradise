@@ -23,9 +23,9 @@
 	desc = "Long-used as a symbol of rest, peace, and death."
 	icon_state = "poppy"
 	slot_flags = SLOT_FLAG_HEAD
-	filling_color = "#FF6347"
 	bitesize_mod = 3
 	tastes = list("poppy" = 1)
+	filling_color = "#FF6347"
 	distill_reagent = "vermouth"
 
 // Lily
@@ -37,16 +37,19 @@
 	plantname = "Lily Plants"
 	icon_grow = "lily-grow"
 	icon_dead = "lily-dead"
-	product = /obj/item/food/snacks/grown/poppy/lily
+	product = /obj/item/food/snacks/grown/lily
 	mutatelist = list()
 
-/obj/item/food/snacks/grown/poppy/lily
+/obj/item/food/snacks/grown/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
 	desc = "A beautiful white flower."
 	icon_state = "lily"
+	slot_flags = SLOT_FLAG_HEAD
+	bitesize_mod = 3
 	tastes = list("lily" = 1)
 	filling_color = "#C7BBAD"
+	distill_reagent = "vermouth"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -57,17 +60,19 @@
 	plantname = "Geranium Plants"
 	icon_grow = "geranium-grow"
 	icon_dead = "geranium-dead"
-	product = /obj/item/food/snacks/grown/poppy/geranium
+	product = /obj/item/food/snacks/grown/geranium
 	mutatelist = list()
 
-/obj/item/food/snacks/grown/poppy/geranium
+/obj/item/food/snacks/grown/geranium
 	seed = /obj/item/seeds/poppy/geranium
 	name = "geranium"
 	desc = "A beautiful purple flower."
 	icon_state = "geranium"
+	slot_flags = SLOT_FLAG_HEAD
+	bitesize_mod = 3
 	tastes = list("geranium" = 1)
 	filling_color = "#A463FB"
-
+	distill_reagent = "vermouth"
 
 // Harebell
 /obj/item/seeds/harebell
@@ -118,7 +123,8 @@
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
 	reagents_add = list("cornoil" = 0.08, "plantmatter" = 0.04)
 
-/obj/item/grown/sunflower // FLOWER POWER!
+/// FLOWER POWER!
+/obj/item/grown/sunflower
 	seed = /obj/item/seeds/sunflower
 	name = "sunflower"
 	desc = "It's beautiful! A certain person might beat you to death if you trample these."

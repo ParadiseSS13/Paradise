@@ -43,8 +43,8 @@
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
 		return
-	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No")
+	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes", "No"))
+	if(ghost_role != "Yes")
 		return
 	if(!species_prompt(user))
 		return
@@ -331,8 +331,8 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = alert("Return to cryosleep? (Warning, Your mob will be deleted!)",,"Yes","No")
-	if(despawn == "No" || !loc || !Adjacent(user))
+	var/despawn = tgui_alert(user, "Return to cryosleep? (Warning, Your mob will be deleted!)", "Leave Bar", list("Yes", "No"))
+	if(despawn != "Yes" || !loc || !Adjacent(user))
 		return
 	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
 	qdel(user)

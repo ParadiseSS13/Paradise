@@ -1,4 +1,5 @@
-/obj/structure/closet/statue //this type path is a crime, ponies what the fuck
+/// this type path is a crime, ponies what the fuck
+/obj/structure/closet/statue
 	name = "statue"
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
@@ -116,3 +117,17 @@
 		user.dust()
 	dump_contents()
 	visible_message("<span class='warning'>[src] shatters!</span>")
+
+/obj/structure/closet/statue/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	timer = 240 SECONDS_TO_LIFE_CYCLES
+
+/obj/structure/closet/statue/indestructible/ex_act(severity)
+	return //No delimbing them
+
+/obj/structure/closet/statue/indestructible/shatter(mob/user)
+	return //No. Failsafe.
+
+/obj/structure/closet/statue/indestructible/singularity_act()
+	return //I mean maybe but no.
+

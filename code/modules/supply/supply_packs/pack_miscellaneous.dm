@@ -82,6 +82,18 @@
 	contains = list(/obj/item/stack/tile/carpet/twenty)
 	containername = "carpet crate"
 
+/datum/supply_packs/misc/personal_crates
+	name = "Personal Crates Pack"
+	cost = 100
+	containertype = /obj/structure/largecrate
+	contains = list(/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal)
+	containername = "personal crates pack"
+
 
 ///////////// Paper Work
 
@@ -405,7 +417,8 @@
 	cost = 1000
 	containername = "expensive coat crate"
 
-/datum/supply_packs/misc/formalwear //This is a very classy crate.
+/// This is a very classy crate.
+/datum/supply_packs/misc/formalwear
 	name = "Formal Wear Crate"
 	contains = list(/obj/item/clothing/under/dress/blacktango,
 					/obj/item/clothing/under/misc/assistantformal,
@@ -449,7 +462,8 @@
 	cost = 400
 	containername = "wedding crate"
 
-/datum/supply_packs/misc/teamcolors		//For team sports like space polo
+/// For team sports like space polo
+/datum/supply_packs/misc/teamcolors
 	name = "Team Jerseys Crate"
 	// 4 red jerseys, 4 blue jerseys, and 1 baseball
 	contains = list(/obj/item/clothing/under/color/red/jersey,
@@ -464,7 +478,8 @@
 	cost = 300
 	containername = "team jerseys crate"
 
-/datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
+/// For space polo! Or horsehead Quiditch
+/datum/supply_packs/misc/polo
 	name = "Polo Supply Crate"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
 	contains = list(/obj/item/staff/broom,
@@ -483,7 +498,8 @@
 	cost = 250
 	containername = "polo supply crate"
 
-/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
+/// For non log spamming cargo brawls!
+/datum/supply_packs/misc/boxing
 	name = "Boxing Supply Crate"
 	// 4 boxing gloves
 	contains = list(/obj/item/clothing/gloves/boxing/blue,

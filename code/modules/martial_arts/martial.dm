@@ -159,7 +159,7 @@
 		if(istype(MA, src))
 			return
 	if(has_explaination_verb)
-		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 	temporary = make_temporary
 	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
@@ -172,7 +172,7 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	remove_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
 /datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
@@ -256,31 +256,6 @@
 	else
 		to_chat(H, "<span class='warning'>Your hands are full.</span>")
 
-//ITEMS
-
-/obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style
-
-/obj/item/clothing/gloves/boxing/Initialize()
-	. = ..()
-	style = new()
-
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_GLOVES)
-		var/mob/living/carbon/human/H = user
-		style.teach(H, TRUE)
-	return
-
-/obj/item/clothing/gloves/boxing/dropped(mob/user)
-	..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
-		style.remove(H)
-
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
 	var/datum/martial_art/wrestling/style
@@ -341,7 +316,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -365,7 +340,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -386,6 +361,7 @@
 /obj/item/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bostaff0"
 	base_icon_state = "bostaff"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
@@ -463,25 +439,25 @@
 /obj/item/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return 0
+	return FALSE
 
-/obj/screen/combo
+/atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
-/obj/screen/combo/proc/clear_streak()
+/atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
-/obj/screen/combo/update_icon(updates, _streak)
+/atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
 
-/obj/screen/combo/update_overlays()
+/atom/movable/screen/combo/update_overlays()
 	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
@@ -489,7 +465,7 @@
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
 		. += intent_icon
 
-/obj/screen/combo/update_icon_state()
+/atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return

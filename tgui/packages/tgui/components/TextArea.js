@@ -126,6 +126,16 @@ export class TextArea extends Component {
     if (input) {
       input.value = toInputValue(nextValue);
     }
+
+    if (this.props.autoFocus || this.props.autoSelect) {
+      setTimeout(() => {
+        input.focus();
+
+        if (this.props.autoSelect) {
+          input.select();
+        }
+      }, 1);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -156,6 +166,7 @@ export class TextArea extends Component {
       onBlur,
       onEnter,
       value,
+      maxLength,
       placeholder,
       ...boxProps
     } = this.props;
@@ -176,6 +187,7 @@ export class TextArea extends Component {
           onInput={this.handleOnInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          maxLength={maxLength}
         />
       </Box>
     );

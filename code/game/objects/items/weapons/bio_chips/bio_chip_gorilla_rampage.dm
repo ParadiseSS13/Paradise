@@ -1,4 +1,5 @@
-/obj/item/bio_chip/gorilla_rampage //Dumb path but easier to search for admins
+/// Dumb path but easier to search for admins
+/obj/item/bio_chip/gorilla_rampage
 	name = "magillitis serum bio-chip"
 	desc = "An experimental biochip which causes irreversable rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	icon_state = "gorilla_rampage"

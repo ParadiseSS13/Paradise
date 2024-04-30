@@ -4,6 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
+	desc = "For making copies of important documents, or more likely, your ass."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 
@@ -86,8 +87,8 @@
 	c.offset_y = copy.offset_y
 	var/list/temp_overlays = copy.stamp_overlays       //Iterates through stamps
 	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
-		if(copy.ico.len)
+	for(var/j = 1, j <= length(temp_overlays), j++) //gray overlay onto the copy
+		if(length(copy.ico))
 			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
 			else if(findtext(copy.ico[j], "deny"))
@@ -435,7 +436,7 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = input("Enter what you want to write:", "Write", null, null) as message
+	var/text = tgui_input_text(user, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE)
 	if(!text)
 		return
 	if(toner < 1 || !user)
@@ -579,6 +580,7 @@
 
 /obj/item/toner
 	name = "toner cartridge"
+	desc = "Has 140 papers worth of ink in it! Shame you can only use 30 before it runs out of cyan..."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30

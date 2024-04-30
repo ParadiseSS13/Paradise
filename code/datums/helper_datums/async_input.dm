@@ -1,5 +1,5 @@
 /proc/input_async(mob/user=usr, prompt, list/choices)
-	var/datum/async_input/A = new(choices, prompt, , user)
+	var/datum/async_input/A = new(choices, prompt, null, user)
 	A.show()
 	return A
 
@@ -34,7 +34,7 @@
 	prompt = new_prompt
 	window_id = new_window_id
 	user = new_user
-	popup = new(user, window_id, , width, height, src)
+	popup = new(user, window_id, null, width, height, src)
 
 /datum/async_input/proc/close()
 	if(popup)
@@ -77,7 +77,7 @@
 	return dat
 
 /datum/async_input/proc/render_buttons()
-	return button("Submit", "submit=1", , result == null && !immediate_submit)
+	return button("Submit", "submit=1", null, result == null && !immediate_submit)
 
 /datum/async_input/proc/button(label, topic, on=FALSE, disabled=FALSE, id="")
 	var/class = ""
@@ -86,7 +86,7 @@
 	if(disabled)
 		class = "linkOff"
 		topic = ""
-	return "<a class=\"[class]\" id='[id]' href='?src=[UID()];[topic]'>[label]</a>"
+	return "<a class=\"[class]\" id='[id]' href='byond://?src=[UID()];[topic]'>[label]</a>"
 
 /datum/async_input/Topic(href, href_list)
 	if(href_list["submit"] || href_list["close"])
@@ -110,11 +110,11 @@
 /datum/async_input/ranked/render_choices()
 	var/dat = "<div>"
 	dat += "<table id='choices' uid=[UID()] style='margin: auto; text-align: left;'>"
-	for(var/i = 1, i <= choices.len, i++)
+	for(var/i = 1, i <= length(choices), i++)
 		var/choice = choices[i]
 		dat += "<tr>"
-		dat += "<td>[button("+", i != 1 ? "upvote=[i]" : "", , i == 1)]</td>"
-		dat += "<td>[button("-", i != choices.len ? "downvote=[i]" : "", , i == choices.len)]</td>"
+		dat += "<td>[button("+", i != 1 ? "upvote=[i]" : "", null, i == 1)]</td>"
+		dat += "<td>[button("-", i != length(choices) ? "downvote=[i]" : "", null, i == length(choices))]</td>"
 		dat += "<td style='cursor: move;' index='[i]'  ondrop='drop(event)' ondragover='allowDrop(event)' draggable='true' ondragstart='drag(event)'>[i]. [choice]</td>"
 		dat += "</tr>"
 	dat += "</table>"
@@ -157,7 +157,7 @@
 	..()
 	popup.add_script("autocomplete.js", 'html/browser/autocomplete.js')
 
-	for(var/i=1, i <= choices.len, i++)
+	for(var/i=1, i <= length(choices), i++)
 		var/C = choices[choices[i]]
 		choices[i] = url_encode(choices[i], TRUE)
 		choices[choices[i]] = C
@@ -174,7 +174,7 @@
 	return dat
 
 /datum/async_input/autocomplete/render_buttons()
-	var/dat = button("Submit", "", , result == null && !immediate_submit, "submit-button")
+	var/dat = button("Submit", "", null, result == null && !immediate_submit, "submit-button")
 	dat += button("Cancel", "close=1")
 	return dat
 

@@ -7,12 +7,12 @@
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
-	resistance_flags = FIRE_PROOF | ACID_PROOF
+	resistance_flags = FIRE_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	max_integrity = 300 //max_integrity is base health
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
@@ -103,6 +103,20 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
+	//Action datums
+	var/datum/action/innate/mecha/mech_eject/eject_action = new
+	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
+	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
+	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
+	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
+	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
+	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
+	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
+	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
+	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
+	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
+	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+
 /obj/mecha/Initialize()
 	. = ..()
 	icon_state += "-open"
@@ -176,7 +190,7 @@
 			. += "It's heavily damaged."
 		else
 			. += "It's falling apart."
-	if(equipment && equipment.len)
+	if(equipment && length(equipment))
 		. += "It's equipped with:"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			. += "[bicon(ME)] [ME]"
@@ -329,7 +343,7 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available)
+			var/atom/movable/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available)
 			if(A)
 				A.target = possible_port
 		else
@@ -918,7 +932,7 @@
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
 	else
 		examine(user)
 		if(occupant)
@@ -933,7 +947,7 @@
 		if(!can_control_mech)
 			to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
 			return
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
 
 /obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
@@ -1032,6 +1046,11 @@
 		return cabin_air
 	return get_turf_air()
 
+/obj/mecha/return_analyzable_air()
+	if(use_internal_tank)
+		return cabin_air
+	return null
+
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
 	if(t_air)
@@ -1059,10 +1078,10 @@
 
 	if(occupant)
 		occupant.clear_alert("mechaport")
-		occupant.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
+		occupant.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
 
 	log_message("Connected to gas port.")
-	return 1
+	return TRUE
 
 /obj/mecha/proc/disconnect()
 	if(!connected_port)
@@ -1167,9 +1186,9 @@
 		else if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 		if(state)
-			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
-			H.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
+			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
 		return TRUE
 	else
 		return FALSE
@@ -1341,7 +1360,7 @@
 /obj/mecha/check_access(obj/item/card/id/I, list/access_list)
 	if(!istype(access_list))
 		return 1
-	if(!access_list.len) //no requirements
+	if(!length(access_list)) //no requirements
 		return 1
 	I = I?.GetID()
 	if(!istype(I) || !I.access) //not ID or no access
@@ -1394,20 +1413,20 @@
 			if(0.75 to INFINITY)
 				occupant.clear_alert("charge")
 			if(0.5 to 0.75)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 1)
 			if(0.25 to 0.5)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 2)
 				if(power_warned)
 					power_warned = FALSE
 			if(0.01 to 0.25)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
 					SEND_SOUND(occupant, sound(lowpowersound, volume = 50))
 					power_warned = TRUE
 			else
-				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)
 	else
-		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
+		occupant.throw_alert("charge", /atom/movable/screen/alert/mech_nocell)
 
 /obj/mecha/proc/reset_icon()
 	if(initial_icon)

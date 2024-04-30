@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/charge
+/datum/spell/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
 	school = "transmutation"
@@ -9,10 +9,10 @@
 	cooldown_min = 400 //50 deciseconds reduction per rank
 	action_icon_state = "charge"
 
-/obj/effect/proc_holder/spell/charge/create_new_targeting()
+/datum/spell/charge/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
+/datum/spell/charge/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
 		var/list/hand_items = list(L.get_active_hand(),L.get_inactive_hand())
 		var/charged_item = null
@@ -20,11 +20,11 @@
 
 		if(L.pulling && (isliving(L.pulling)))
 			var/mob/living/M =	L.pulling
-			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
-				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
+			if(length(M.mob_spell_list) != 0 || (M.mind && length(M.mind.spell_list) != 0))
+				for(var/datum/spell/S in M.mob_spell_list)
 					S.cooldown_handler.revert_cast()
 				if(M.mind)
-					for(var/obj/effect/proc_holder/spell/S in M.mind.spell_list)
+					for(var/datum/spell/S in M.mind.spell_list)
 						S.cooldown_handler.revert_cast()
 				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
 			else

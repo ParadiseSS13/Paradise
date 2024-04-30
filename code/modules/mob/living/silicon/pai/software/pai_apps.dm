@@ -136,7 +136,7 @@
 				return
 
 			// Check the carrier
-			var/answer = alert(M, "[pai_holder] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[pai_holder] Check DNA", "Yes", "No")
+			var/answer = tgui_alert(M, "[pai_holder] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[pai_holder] Check DNA", list("Yes", "No"))
 			if(answer == "Yes")
 				M.visible_message("<span class='notice'>[M] presses [M.p_their()] thumb against [pai_holder].</span>", "<span class='notice'>You press your thumb against [pai_holder].</span>")
 				var/datum/dna/dna = M.dna

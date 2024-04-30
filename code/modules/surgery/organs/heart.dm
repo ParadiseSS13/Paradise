@@ -10,7 +10,7 @@
 	organ_datums = list(/datum/organ/heart)
 
 /obj/item/organ/internal/heart/update_icon_state()
-	var/datum/organ/heart/heart = organ_datums["heart"]
+	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]
 	if(heart.beating)
 		icon_state = "[base_icon_state]-on"
 	else
@@ -21,11 +21,11 @@
 	if(status & ORGAN_DEAD)
 		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
 		return
-	var/datum/organ/heart/heart = organ_datums["heart"]
+	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]
 	heart.try_restart(8 SECONDS)
 
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
-	var/datum/organ/heart/heart = organ_datums["heart"]
+	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]
 	heart.change_beating(TRUE)
 	..()
 
@@ -180,7 +180,9 @@
 
 /datum/action/item_action/organ_action/cursed_heart/proc/poll_keybinds()
 	if(alert(owner, "You've been given a cursed heart! Do you want to bind its action to a keybind?", "Cursed Heart", "Yes", "No") == "Yes")
-		button.set_to_keybind(owner)
+		return
+		// button.set_to_keybind(owner)
+		// TODO GAHHH SORRY GDN
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
@@ -226,7 +228,7 @@
 	if(attempted_restart)
 		return
 
-	var/datum/organ/heart/heart_datum = organ_datums["heart"]
+	var/datum/organ/heart/heart_datum = organ_datums[ORGAN_DATUM_HEART]
 
 	if(!heart_datum.beating)
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
@@ -248,7 +250,7 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 3 SECONDS)
 
-	if(owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
+	if(owner.HasDisease(/datum/disease/critical/heart_failure))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(40) && emagged)
 			attempted_restart = TRUE
@@ -290,7 +292,7 @@
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/shock_heart(mob/living/carbon/human/source, intensity)
-	SIGNAL_HANDLER_DOES_SLEEP
+	SIGNAL_HANDLER  // COMSIG_LIVING_MINOR_SHOCK + COMSIG_LIVING_ELECTROCUTE_ACT
 
 	if(!ishuman(owner))
 		return
@@ -303,27 +305,33 @@
 	if(emagged && !(status & ORGAN_DEAD))
 		if(prob(numHigh))
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
-			owner.adjustBruteLoss(numHigh)
+			// invoke asyncs here because this sleeps
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustBruteLoss), numHigh)
 		if(prob(numHigh))
 			to_chat(owner, "<span class='warning'>Your [name] shocks you painfully!</span>")
-			owner.adjustFireLoss(numHigh)
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustFireLoss), numHigh)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 		if(prob(numMid))
 			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
-			var/datum/organ/heart/heart_datum = organ_datums["heart"]
+			var/datum/organ/heart/heart_datum = organ_datums[ORGAN_DATUM_HEART]
 			heart_datum.change_beating(FALSE) // Rambunctious Crew - Stop My Fucking Heart
 		if(prob(numLow))
 			to_chat(owner, "<span class='danger'>Your [name] shuts down!</span>")
-			necrotize()
+			INVOKE_ASYNC(src, PROC_REF(necrotize))
 	else if(!emagged && !(status & ORGAN_DEAD))
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
-			owner.adjustBruteLoss(numMid)
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustBruteLoss), numMid)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] shocks you painfully!</span>")
-			owner.adjustFireLoss(numMid)
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, adjustFireLoss), numMid)
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/hardened
+	name = "hardened overclocked cybernetic heart"
+	emp_proof = TRUE
+	emagged = TRUE

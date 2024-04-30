@@ -1,11 +1,11 @@
-/obj/effect/proc_holder/spell/alien_spell/whisper
+/datum/spell/alien_spell/whisper
 	name = "Whisper"
 	desc = "Whisper into a target's mind."
 	plasma_cost = 10
 	action_icon_state = "alien_whisper"
 	var/target
 
-/obj/effect/proc_holder/spell/alien_spell/whisper/create_new_targeting() // Yeah this is copy and pasted code from cryoken and it's good enough
+/datum/spell/alien_spell/whisper/create_new_targeting() // Yeah this is copy and pasted code from cryoken and it's good enough
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
 	T.click_radius = 0
@@ -14,10 +14,10 @@
 	T.include_user = TRUE
 	return T
 
-/obj/effect/proc_holder/spell/alien_spell/whisper/cast(list/targets, mob/living/carbon/user)
+/datum/spell/alien_spell/whisper/cast(list/targets, mob/living/carbon/user)
 	var/mob/living/target = targets[1]
 
-	var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
+	var/msg = tgui_input_text(user, "Message:", "Alien Whisper")
 	if(!msg)
 		revert_cast(user)
 		return

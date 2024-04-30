@@ -1,11 +1,3 @@
-
-
-/turf
-	var/pressure_difference = 0
-	var/pressure_direction = 0
-	var/list/atmos_adjacent_turfs = list()
-	var/atmos_supeconductivity = 0
-
 /turf/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
 	qdel(giver)
 	return 0
@@ -26,6 +18,9 @@
 
 	return GM
 
+/turf/return_analyzable_air()
+	return return_air()
+
 /turf/remove_air(amount)
 	var/datum/gas_mixture/GM = new
 
@@ -41,23 +36,6 @@
 	GM.temperature = temperature
 
 	return GM
-
-
-/turf/simulated
-	var/datum/excited_group/excited_group
-	var/excited = 0
-	var/recently_active = 0
-	var/datum/gas_mixture/air
-	var/archived_cycle = 0
-	var/current_cycle = 0
-	var/icy = 0
-	var/icyoverlay
-	var/obj/effect/hotspot/active_hotspot
-	var/planetary_atmos = FALSE //air will revert to its initial mix over time
-
-	var/temperature_archived //USED ONLY FOR SOLIDS
-
-	var/atmos_overlay_type = null //current active overlay
 
 /turf/simulated/Initialize(mapload)
 	. = ..()
@@ -138,11 +116,6 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-
-
-
-
-
 /turf/proc/process_cell(fire_count)
 	SSair.remove_from_active(src)
 
@@ -156,7 +129,7 @@
 	//cache for sanic speed
 	var/list/adjacent_turfs = atmos_adjacent_turfs
 	var/datum/excited_group/our_excited_group = excited_group
-	var/adjacent_turfs_length = adjacent_turfs.len
+	var/adjacent_turfs_length = length(adjacent_turfs)
 
 	if(planetary_atmos)
 		adjacent_turfs_length++
@@ -225,6 +198,8 @@
 				if(our_excited_group)
 					last_share_check()
 
+#define LAVALAND_TEMPERATURE 500
+
 	if(planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
 		G.oxygen = oxygen
@@ -233,7 +208,7 @@
 		G.toxins = toxins
 		G.sleeping_agent = sleeping_agent
 		G.agent_b = agent_b
-		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
+		G.temperature = LAVALAND_TEMPERATURE // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
 			if(!our_excited_group)
@@ -242,6 +217,8 @@
 				our_excited_group = excited_group
 			air.share(G, adjacent_turfs_length)
 			last_share_check()
+
+#undef LAVALAND_TEMPERATURE
 
 	air.react()
 
@@ -259,7 +236,6 @@
 
 	if(!our_excited_group && remove == 1)
 		SSair.remove_from_active(src)
-
 
 /turf/simulated/proc/archive()
 	if(air) //For open space like floors
@@ -332,8 +308,6 @@
 			continue
 		if(M.last_high_pressure_movement_air_cycle < SSair.times_fired)
 			M.experience_pressure_difference(pressure_difference, pressure_direction)
-
-
 
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
 	var/const/PROBABILITY_OFFSET = 25
@@ -433,7 +407,7 @@
 		//Does particate in air exchange so only consider directions not considered during process_cell()
 		for(var/direction in GLOB.cardinal)
 			var/turf/T = get_step(src, direction)
-			if(!(T in atmos_adjacent_turfs) && !(atmos_supeconductivity & direction))
+			if(!(T in atmos_adjacent_turfs) && !(atmos_superconductivity & direction))
 				conductivity_directions += direction
 
 	if(conductivity_directions > 0)
@@ -442,7 +416,7 @@
 			if(conductivity_directions & direction)
 				var/turf/neighbor = get_step(src,direction)
 
-				if(!neighbor.thermal_conductivity)
+				if(!neighbor?.thermal_conductivity)
 					continue
 
 				if(issimulatedturf(neighbor)) //anything under this subtype will share in the exchange
@@ -472,7 +446,8 @@
 					else
 						mimic_temperature_solid(neighbor, neighbor.thermal_conductivity)
 
-	radiate_to_spess()
+	if(!planetary_atmos)
+		radiate_to_spess()
 
 	//Conduct with air on my tile if I have it
 	if(air)

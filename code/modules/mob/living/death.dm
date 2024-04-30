@@ -71,6 +71,7 @@
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT) // immobilized is superfluous as moving when dead ghosts you.
 	update_damage_hud()
 	update_health_hud()
+	update_stamina_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 
@@ -86,10 +87,14 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[T]'>JMP</a>)</span>")
+					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=\ref[T]'>JMP</a>)</span>")
+					if(last_words)
+						to_chat(M, "<span class='deadsay'><b>[p_their(TRUE)] last words were:</b> \"[last_words]\"</span>")
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
+
+	clear_alert("succumb")
 
 	// u no we dead
 	return TRUE

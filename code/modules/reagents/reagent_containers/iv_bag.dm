@@ -163,7 +163,8 @@
 	. = ..()
 	name = "[initial(name)] - Saline Glucose"
 
-/obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
+/// Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
+/obj/item/reagent_containers/iv_bag/blood
 	var/blood_type
 	var/blood_species = "Synthetic humanoid"
 	var/iv_blood_colour = "#A10808"
@@ -216,3 +217,6 @@
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	. = ..()
 	name = "[initial(name)] - Slime Jelly"
+
+#undef IV_DRAW
+#undef IV_INJECT
