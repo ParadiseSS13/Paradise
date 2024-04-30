@@ -32,29 +32,29 @@
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
 
-/obj/item/stack/nanopaste/afterattack(atom/M, mob/user, proximity_flag)
-	if(!ismecha(M))
+/obj/item/stack/nanopaste/afterattack(atom/A, mob/user, proximity_flag)
+	if(!ismecha(A))
 		return
-	var/obj/mecha/D = M
+	var/obj/mecha/mecha = A
 	if(user.a_intent == INTENT_HARM)
 		return
-	if((D.obj_integrity >= D.max_integrity) && !D.internal_damage)
-		to_chat(user, "<span class='notice'>[D] is at full integrity!</span>")
+	if((mecha.obj_integrity >= mecha.max_integrity) && !mecha.internal_damage)
+		to_chat(user, "<span class='notice'>[mecha] is at full integrity!</span>")
 		return
-	if(D.state == MECHA_MAINT_OFF)
-		to_chat(user, "<span class='warning'>[D] can not be repaired without maintenance protocols active!</span>")
+	if(mecha.state == MECHA_MAINT_OFF)
+		to_chat(user, "<span class='warning'>[mecha] cannot be repaired without maintenance protocols active!</span>")
 		return
-	if(D.repairing)
-		to_chat(user, "<span class='notice'>[D] is currently being repaired!</span>")
+	if(mecha.repairing)
+		to_chat(user, "<span class='notice'>[mecha] is currently being repaired!</span>")
 		return
-	if(D.internal_damage & MECHA_INT_TANK_BREACH)
-		D.clearInternalDamage(MECHA_INT_TANK_BREACH)
+	if(mecha.internal_damage & MECHA_INT_TANK_BREACH)
+		mecha.clearInternalDamage(MECHA_INT_TANK_BREACH)
 		user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
-	else if(D.obj_integrity < D.max_integrity)
-		D.obj_integrity += min(20, D.max_integrity - D.obj_integrity)
+	else if(mecha.obj_integrity < mecha.max_integrity)
+		mecha.obj_integrity += min(20, mecha.max_integrity - mecha.obj_integrity)
 		use(1)
-		user.visible_message("<span class='notice'>[user] applies some [src] at [D]'s damaged areas.</span>",\
-		"<span class='notice'>You apply some [src] at [D]'s damaged areas.</span>")
+		user.visible_message("<span class='notice'>[user] applies some [src] to [mecha]'s damaged areas.</span>",\
+		"<span class='notice'>You apply some [src] to [mecha]'s damaged areas.</span>")
 
 /obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
 	if(!external_limb.get_damage())
