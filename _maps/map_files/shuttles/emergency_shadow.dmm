@@ -34,11 +34,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bh" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/red/line,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
+/obj/structure/window/plasmareinforced,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "bD" = (
@@ -191,7 +191,7 @@
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "hm" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -301,7 +301,7 @@
 	},
 /area/shuttle/escape)
 "my" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -473,7 +473,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "vw" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -518,7 +518,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "wF" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -620,8 +620,8 @@
 	},
 /area/shuttle/escape)
 "Bu" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/red/line,
+/obj/structure/window/plasmareinforced,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "BB" = (
@@ -697,7 +697,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "EM" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -875,7 +875,8 @@
 	dwidth = 16;
 	width = 41;
 	timid = 1;
-	height = 13
+	height = 13;
+	shuttle_speed_factor = 2
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
@@ -892,7 +893,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "LA" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/red/line{
@@ -1051,11 +1052,11 @@
 	},
 /area/shuttle/escape)
 "Sn" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/red/line,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/structure/window/plasmareinforced,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "So" = (
@@ -1145,6 +1146,7 @@
 	name = "Engine Room"
 	},
 /obj/machinery/door/firedoor/heavy,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "WQ" = (
@@ -1231,7 +1233,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Zq" = (
-/obj/machinery/door/firedoor/border_only{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{

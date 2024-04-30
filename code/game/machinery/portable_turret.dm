@@ -531,7 +531,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(ismecha(A))
 			var/obj/mecha/ME = A
-			assess_and_assign(ME.occupant, targets, secondarytargets)
+			if(isliving(ME.occupant))
+				assess_and_assign(ME.occupant, targets, secondarytargets)
 
 		else if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A

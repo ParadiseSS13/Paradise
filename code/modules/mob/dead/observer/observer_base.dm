@@ -217,7 +217,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
 	if(frozen)
-		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>")
+		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>", MESSAGE_TYPE_WARNING)
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
 
@@ -705,7 +705,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	updateghostimages()
 
-/mob/dead/observer/can_see_reagents()
+/mob/dead/observer/advanced_reagent_vision()	// Ghosts can see all the reagents inside things.
 	return TRUE
 
 /proc/updateallghostimages()
