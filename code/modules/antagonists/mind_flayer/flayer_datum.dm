@@ -67,7 +67,7 @@
 	if(!H.ckey || !H.player_ghosted)
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
 **/
-	if(brain.damage >= 120)
+	if(brain.damage >= 119)
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
 		return FALSE
 	var/unique_drain_id = H.UID()
@@ -109,12 +109,12 @@
  * Gets a list of mind flayer spell and passive typepaths based on the passed in `power_type`. (Thanks for the code SteelSlayer)
  *
  * Arguments:
- * * power_type - should be a define related to [/obj/effect/proc_holder/spell/flayer/power_type].
+ * * power_type - should be a define related to [/datum/spell/flayer/power_type].
  */
 /datum/antagonist/mindflayer/proc/get_powers_of_type(power_type)
 	var/list/powers = list()
-	for(var/power_path in subtypesof(/obj/effect/proc_holder/spell/flayer))
-		var/obj/effect/proc_holder/spell/flayer/power = power_path
+	for(var/power_path in subtypesof(/datum/spell/flayer))
+		var/datum/spell/flayer/power = power_path
 		if(initial(power.power_type) != power_type)
 			continue
 		powers += power_path
@@ -128,7 +128,7 @@
 /**
 * Adds an ability to a mindflayer if they don't already have it, upgrades it if they do. It's needlessly complicated because it automatically sorts spells/passive, and unlocks/upgrades.
 * Arguments:
-* * path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
+* * path - Some path to a passive or spell, either datum/mindflayer_passive or datum/spell
 * * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
 * * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
@@ -141,7 +141,7 @@
 /datum/antagonist/mindflayer/proc/force_add_ability(path, set_owner = null)
 	var/spell = new path(owner)
 	if(isspell(spell))
-		var/obj/effect/proc_holder/spell/flayer/power = spell
+		var/datum/spell/flayer/power = spell
 		if(set_owner)
 			power.flayer = src
 		owner.AddSpell(power)
@@ -155,7 +155,7 @@
 /datum/antagonist/mindflayer/proc/force_upgrade_ability(path, upgrade_type)
 	var/spell = get_ability(path)
 	if(isspell(spell))
-		var/obj/effect/proc_holder/spell/flayer/power = spell
+		var/datum/spell/flayer/power = spell
 		power.on_purchase_upgrade(upgrade_type)
 	if(ispassive(spell))
 		var/datum/mindflayer_passive/passive = spell
@@ -167,7 +167,7 @@
 
 /datum/antagonist/mindflayer/proc/force_remove_ability(path)
 	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell))
+	if(istype(spell, /datum/spell))
 		owner.RemoveSpell(spell)
 	if(istype(spell, (/datum/mindflayer_passive)))
 		var/datum/mindflayer_passive/passive = spell
@@ -176,7 +176,7 @@
 	powers -= spell
 
 /**
-* * Arguments: path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
+* * Arguments: path - Some path to a passive or spell, either datum/mindflayer_passive or datum/spell
 * * Returns: A matching power in the mind flayer's list of powers
 */
 /datum/antagonist/mindflayer/proc/get_ability(path) // Still gotta test if this works as expected, but I think it does?

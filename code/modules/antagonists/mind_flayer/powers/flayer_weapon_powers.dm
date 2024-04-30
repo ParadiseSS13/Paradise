@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/flayer/self/weapon
+/datum/spell/flayer/self/weapon
 	name = "Create weapon"
 	desc = "This really shouldn't be here"
 	power_type = FLAYER_UNOBTAINABLE_POWER
@@ -8,7 +8,7 @@
 	var/obj/item/weapon_ref
 
 
-/obj/effect/proc_holder/spell/flayer/self/weapon/cast(list/targets, mob/user)
+/datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
 		retract(user, TRUE)
 		return
@@ -24,12 +24,12 @@
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), user)
 	return weapon_ref
 
-/obj/effect/proc_holder/spell/flayer/self/weapon/proc/retract(mob/owner, any_hand = TRUE)
+/datum/spell/flayer/self/weapon/proc/retract(mob/owner, any_hand = TRUE)
 	SIGNAL_HANDLER
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
-	owner.unEquip(weapon_ref, TRUE)
-	weapon_ref.forceMove(src)
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
+	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), owner)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
@@ -38,20 +38,20 @@
 	START OF INDIVIDUAL WEAPONS
 */
 
-/obj/effect/proc_holder/spell/flayer/self/weapon/swarmprod
+/datum/spell/flayer/self/weapon/swarmprod
 	name = "Swarmprod"
 	desc = "Add me!"
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod
 
-/obj/effect/proc_holder/spell/flayer/self/weapon/laser
+/datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augementation"
 	desc = "Our hand melts away, replaced with a laser mounted at the end."
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
 	category = CATEGORY_DESTROYER
 
-/obj/effect/proc_holder/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
+/datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
 	desc = "WIP"
 	power_type = FLAYER_PURCHASABLE_POWER

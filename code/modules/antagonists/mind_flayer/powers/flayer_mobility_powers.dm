@@ -1,8 +1,8 @@
-/obj/effect/proc_holder/spell/ethereal_jaunt/proc/create_jaunt_holder(turf/mobloc, mob/living/target)
+/datum/spell/ethereal_jaunt/proc/create_jaunt_holder(turf/mobloc, mob/living/target)
 	return new jaunt_type_path(mobloc)
 
 //Basically shadow anchor, but with computers. I'm not in your walls I'm in your PC
-/obj/effect/proc_holder/spell/flayer/computer_recall
+/datum/spell/flayer/computer_recall
 	name = "Data Transfer"
 	desc = "Cast once to mark a computer, then cast this next to a different computer to recall yourself back to the first. Alt click to check your current mark."
 	base_cooldown = 5 SECONDS //TODO change this back to 60 seconds when testing is done
@@ -11,14 +11,14 @@
 	centcom_cancast = FALSE
 	var/obj/machinery/computer/marked_computer = null
 
-/obj/effect/proc_holder/spell/flayer/computer_recall/create_new_targeting()
+/datum/spell/flayer/computer_recall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /obj/machinery/computer
 	T.try_auto_target = TRUE
 	T.range = 1
 	return T
 
-/obj/effect/proc_holder/spell/flayer/computer_recall/cast(list/targets, mob/living/user)
+/datum/spell/flayer/computer_recall/cast(list/targets, mob/living/user)
 	var/obj/machinery/computer/target = targets[1]
 	if(!marked_computer)
 		marked_computer = target
@@ -51,7 +51,7 @@
 		"<span class='notice'>As you reform yourself at [marked_computer] you feel the mark you left on it fade.</span>")
 	marked_computer = null
 
-/obj/effect/proc_holder/spell/flayer/computer_recall/AltClick(mob/user)
+/datum/spell/flayer/computer_recall/AltClick(mob/user)
 	if(!marked_computer)
 		to_chat(user, "<span class='notice'>You do not current have a marked computer.</span>")
 		return
