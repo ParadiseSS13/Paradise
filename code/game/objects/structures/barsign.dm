@@ -170,7 +170,7 @@
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
-	pick_sign()
+	pick_sign(user)
 
 /obj/machinery/barsign/AltClick(mob/user)
 	add_fingerprint(user)
@@ -229,12 +229,12 @@
 				return
 	return ..()
 
-/obj/machinery/barsign/proc/pick_sign()
+/obj/machinery/barsign/proc/pick_sign(mob/user)
 	var/picked_name
 	if(!emagged)
-		picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", barsigns)
+		picked_name = tgui_input_list(user, "Available Signage", "Bar Sign", barsigns)
 	else
-		picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", syndisigns)
+		picked_name = tgui_input_list(user, "Available Signage", "Bar Sign", syndisigns)
 	if(!picked_name)
 		return
 	turn_on()
@@ -454,7 +454,7 @@
 	return FALSE
 
 /datum/stack_recipe/barsign_frame/post_build(mob/user, obj/item/stack/S, obj/machinery/barsign/O)
-	..()
+	.= ..()
 	playsound(O, 'sound/items/deconstruct.ogg', 10, TRUE)
 	O.build_stage = BARSIGN_FRAME
 	O.power_state = NO_POWER_USE
@@ -484,7 +484,7 @@
 	. += "<span class='notice'>Use it while in your active hand to toggle the access restrictions.</span>"
 
 /obj/item/barsign_electronics/attack_self(mob/user)
-	..()
+	. = ..()
 	if(destroyed)
 		return
 	restricts_access = !restricts_access
@@ -495,7 +495,7 @@
 	req_access = list()
 
 /obj/machinery/barsign/ghost_bar/Initialize(mapload)
-	..()
+	. = ..()
 	// Also give them access to syndicate signs because why not.
 	barsigns |= syndisigns
 	set_random_sign()
