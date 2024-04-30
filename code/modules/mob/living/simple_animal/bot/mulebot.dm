@@ -125,7 +125,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
-	cell.add_fingerprint(usr)
+	cell.add_fingerprint(user)
 	cell.forceMove(loc)
 	cell = null
 	visible_message("[user] crowbars out the power cell from [src].",
