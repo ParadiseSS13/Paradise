@@ -107,17 +107,17 @@ Difficulty: Hard
 		if(BLUESPACE)
 			desc += "It emits sparks of blue energy."
 		if(GRAV)
-			desc += "There's a distorted gravity around him"
+			desc += "Gravity seems to distort around it."
 		if(PYRO)
-			desc += "You see the flames around him"
+			desc += "You see flames burning around it."
 		if(FLUX) // Main attack is shock, so flux makes it stronger
 			melee_damage_lower = 25
 			melee_damage_upper = 25
-			desc += "He looks overflowing with energy"
+			desc += "It seems to overflow with energy."
 		if(VORTEX)
-			desc += "You can see the strong wind around him"
+			desc += "You see space bend and distort around it."
 		if(CRYO)
-			desc += "The air around him is cold. How?"
+			desc += "The air surrounding it cold and listless."
 	body_shield()
 	add_overlay("[mode]")
 	add_overlay("eyes")
