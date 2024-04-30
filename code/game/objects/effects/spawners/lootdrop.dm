@@ -458,7 +458,8 @@
 				/obj/item/flag/syndi = 30
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/cybersun_major //Damn near all of this is illegal. Gives officers something to do on a shift quiet enough to spawn traders.
+// Damn near all of this is illegal. Gives officers something to do on a shift quiet enough to spawn traders.
+/obj/effect/spawner/lootdrop/trade_sol/cybersun_major 
 	name = "12. cybersun industries large gear"
 	lootcount = 3
 	loot = list(
@@ -491,7 +492,8 @@
 				/obj/item/ammo_box/a762 = 15
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/ussp_major //Lots of things to write permits for. Gives officers something to do on a shift quiet enough to spawn traders.
+// Lots of things to write permits for. Gives officers something to do on a shift quiet enough to spawn traders.
+/obj/effect/spawner/lootdrop/trade_sol/ussp_major 
 	name = "12. USSP large gear"
 	lootcount = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(
