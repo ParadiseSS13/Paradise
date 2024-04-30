@@ -2162,6 +2162,7 @@
 					to_chat(new_traitor_mind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
 					new_traitor_mind.add_antag_datum(T)
 					message_admins("[key_name_admin(new_traitor_mind)] was chosen to be the traitor for a smite!")
+					log_admin("[key_name(new_traitor_mind)] was made into a traitor to hunt [key_name(H)] for 'Crew Traitor' smite.")
 				else
 					to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
 					return
