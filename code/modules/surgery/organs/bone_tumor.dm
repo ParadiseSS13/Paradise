@@ -31,21 +31,3 @@
 /obj/item/organ/internal/bone_tumor/slime_tumor
 	name = "crystalized slime jelly"
 
-/obj/item/organ/internal/bone_tumor/slime_tumor/on_life()
-
-	var/obj/item/organ/external/groin/G = owner.get_limb_by_name("groin")
-	var/tumor_damage_modifier = sqrt(tumor_size - 30) //diminishing returns, tumor size can't be lower than 30
-
-	if(prob(5))
-		G.receive_damage(10 + tumor_damage_modifier, 0, FALSE)
-		to_chat(owner, "<span class='danger'>Something sharp is moving around in your lower body!</span>")
-
-	if(prob(1))
-		to_chat(owner, "<span class='userdanger'>Something just tore in your lower body!</span>")
-
-		var/list/other_groin_organs = G.internal_organs
-		other_groin_organs -= src
-
-		for(var/obj/item/organ/internal/I in other_groin_organs)
-			I.receive_damage(rand(5, 15) + tumor_damage_modifier)
-
