@@ -6,15 +6,15 @@
 
 /obj/effect/particle_effect/water/New()
 	..()
-	QDEL_IN(src, 70)
+	QDEL_IN(src, 7 SECONDS)
 
 /obj/effect/particle_effect/water/Move(turf/newloc)
 	if(--life < 1)
-		qdel()
-		return 0
+		qdel(src)
+		return FALSE
 	if(newloc.density)
-		return 0
-	.=..()
+		return FALSE
+	return ..()
 
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
