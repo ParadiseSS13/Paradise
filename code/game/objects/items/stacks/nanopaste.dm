@@ -35,27 +35,26 @@
 /obj/item/stack/nanopaste/afterattack(atom/M, mob/user, proximity_flag)
 	if(!ismecha(M))
 		return
-	if(ismecha(M))
-		var/obj/mecha/D = M
-		if(user.a_intent == INTENT_HARM)
-			return
-		if((D.obj_integrity >= D.max_integrity) && !D.internal_damage)
-			to_chat(user, "<span class='notice'>[D] is at full integrity!</span>")
-			return
-		if(D.state == MECHA_MAINT_OFF)
-			to_chat(user, "<span class='warning'>[D] can not be repaired without maintenance protocols active!</span>")
-			return
-		if(D.repairing)
-			to_chat(user, "<span class='notice'>[D] is currently being repaired!</span>")
-			return
-		if(D.internal_damage & MECHA_INT_TANK_BREACH)
-			D.clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
-		else if(D.obj_integrity < D.max_integrity)
-			D.obj_integrity += min(20, D.max_integrity - D.obj_integrity)
-			use(1)
-			user.visible_message("<span class='notice'>[user] applied some [src] at [D]'s damaged areas.</span>",\
-			"<span class='notice'>You apply some [src] at [D]'s damaged areas.</span>")
+	var/obj/mecha/D = M
+	if(user.a_intent == INTENT_HARM)
+		return
+	if((D.obj_integrity >= D.max_integrity) && !D.internal_damage)
+		to_chat(user, "<span class='notice'>[D] is at full integrity!</span>")
+		return
+	if(D.state == MECHA_MAINT_OFF)
+		to_chat(user, "<span class='warning'>[D] can not be repaired without maintenance protocols active!</span>")
+		return
+	if(D.repairing)
+		to_chat(user, "<span class='notice'>[D] is currently being repaired!</span>")
+		return
+	if(D.internal_damage & MECHA_INT_TANK_BREACH)
+		D.clearInternalDamage(MECHA_INT_TANK_BREACH)
+		user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+	else if(D.obj_integrity < D.max_integrity)
+		D.obj_integrity += min(20, D.max_integrity - D.obj_integrity)
+		use(1)
+		user.visible_message("<span class='notice'>[user] applied some [src] at [D]'s damaged areas.</span>",\
+		"<span class='notice'>You apply some [src] at [D]'s damaged areas.</span>")
 
 /obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
 	if(!external_limb.get_damage())
