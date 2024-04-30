@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("cloth handwraps", /obj/item/clothing/gloves/handwraps, 2),
 		new /datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1),
 		new /datum/stack_recipe("white gloves", /obj/item/clothing/gloves/color/white, 3),
-		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/mime, 2),
+		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/white, 2),
 		new /datum/stack_recipe("white beanie", /obj/item/clothing/head/beanie, 2),
 	)),
 	null,

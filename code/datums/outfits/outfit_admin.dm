@@ -840,7 +840,7 @@
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/melee/classic_baton
-	head = /obj/item/clothing/head/soft
+	head = /obj/item/clothing/head/soft/cargo
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
