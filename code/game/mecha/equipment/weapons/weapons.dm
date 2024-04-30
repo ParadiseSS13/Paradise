@@ -507,7 +507,6 @@
 	fire_sound = 'sound/effects/bang.ogg'
 	energy_drain = 150 // cost a lot, but powerful miner tool
 	equip_cooldown = 2 SECONDS
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/action()
 	if(!lavaland_equipment_pressure_check(get_turf(chassis)))
