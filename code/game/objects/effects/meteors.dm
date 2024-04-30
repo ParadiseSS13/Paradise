@@ -360,12 +360,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		. += "<span class='changeling'>Right now it's us inside.</span>"
 
 /obj/effect/meteor/meaty/ling/Destroy()
+	..()
 	var/turf/T = get_turf(src)
-
-	deltimer(timerid)
-	GLOB.meteor_list -= src
-	walk(src, 0)
-	qdel(src)
 
 	var/mob/living/carbon/human/H = new(T)
 	var/list/all_organic_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/diona,
