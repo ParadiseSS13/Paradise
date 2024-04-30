@@ -30,9 +30,6 @@
 
 /obj/item/organ/internal/bone_tumor/slime_tumor
 	name = "crystalized slime jelly"
-	parent_organ = "groin"
-	slot = "groin_tumor"
-	destroy_on_removal = TRUE //Changed in New to be dependent on amount of osseous reagent in the system when formed, determines damage done
 
 /obj/item/organ/internal/bone_tumor/slime_tumor/on_life()
 
