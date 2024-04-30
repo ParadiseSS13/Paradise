@@ -3,9 +3,12 @@
 	desc = "This really shouldn't be here"
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cooldown = 1 SECONDS //This just handles retracting and deploying the weapon, weapon charge will be fully separate
+	///Typepath of the weapon
 	var/weapon_type
-	var/weapon_name_simple
+	///Reference to the weapon itself
 	var/obj/item/weapon_ref
+	///The object that stores a retracted weapon
+	var/obj/weapon_holder
 
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
@@ -14,7 +17,7 @@
 		return
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	if(!user.drop_item())
-		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
+		to_chat(user, "[user.get_active_hand()] is stuck to your hand!")
 		return FALSE
 	if(!weapon_ref)
 		weapon_ref = new weapon_type(user, src)
@@ -29,10 +32,12 @@
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
-	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), owner)
+	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), weapon_holder)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
+	UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
 
 /**
 	START OF INDIVIDUAL WEAPONS

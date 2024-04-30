@@ -139,6 +139,8 @@
 	force_upgrade_ability(path, upgrade_type)
 
 /datum/antagonist/mindflayer/proc/force_add_ability(path, set_owner = null)
+	if(!path)
+		return
 	var/spell = new path(owner)
 	if(isspell(spell))
 		var/datum/spell/flayer/power = spell

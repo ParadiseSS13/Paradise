@@ -209,6 +209,10 @@
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
 
+	if(cell.charge < hitcost)
+		to_chat(user, "<span class='waring'>[src] fizzles weakly as it makes contact. It needs more power!</span>")
+		return FALSE
+
 	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -349,7 +353,7 @@
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
 	if(..())
 		disable_radio(L)
-		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 5 SECONDS) //Currently, the baton disables radio on hit for 5 seconds, values can be tweaked
+		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 6 SECONDS) //Currently, the baton disables radio on hit for 6 seconds, values can be tweaked
 
 /obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
 	var/list/all_items = L.GetAllContents()
