@@ -97,7 +97,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/wall/get_superconductivity(direction)
-	return 0
+	return FALSE
 
 /*
  *Resin-Door - Borrows its code from Mineral-Door, not a subtype due to needing many overrides if so

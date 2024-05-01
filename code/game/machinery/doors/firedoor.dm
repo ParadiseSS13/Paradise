@@ -322,7 +322,7 @@
 	if(get_dir(loc, target) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
 	if(direction == dir)
@@ -331,7 +331,7 @@
 
 /obj/machinery/door/firedoor/border_only/get_superconductivity(direction)
 	if(direction == dir && density)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)

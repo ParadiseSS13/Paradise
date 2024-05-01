@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 
 /obj/structure/blob/get_superconductivity(direction)
 	if(atmosblock)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)

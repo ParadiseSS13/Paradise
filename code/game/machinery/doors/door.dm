@@ -461,7 +461,7 @@
 /obj/machinery/door/get_superconductivity(direction)
 	// Only heatproof airlocks block heat, currently only varedited doors have this
 	if(heat_proof && density)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID

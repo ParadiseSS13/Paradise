@@ -87,7 +87,7 @@
 			return FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
 		return FALSE
-	return 1
+	return TRUE
 
 /obj/structure/windoor_assembly/CanAtmosPass(direction)
 	if(direction == dir)

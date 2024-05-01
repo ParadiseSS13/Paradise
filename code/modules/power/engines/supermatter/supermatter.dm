@@ -572,7 +572,7 @@
 
 		if(produces_gas)
 			env.merge(removed)
-			if(istype(T, /turf/simulated))
+			if(issimulatedturf(T))
 				var/turf/simulated/S = T
 				S.write_air(env)
 			air_update_turf()
