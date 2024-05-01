@@ -55,7 +55,7 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/falsewall/CanAtmosPass(turf/T)
+/obj/structure/falsewall/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/falsewall/attack_ghost(mob/user)

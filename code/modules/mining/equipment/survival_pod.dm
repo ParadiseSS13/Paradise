@@ -271,7 +271,7 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/fans/CanAtmosPass(turf/T)
+/obj/structure/fans/CanAtmosPass(direction)
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()

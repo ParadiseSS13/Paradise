@@ -44,8 +44,10 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 
-/obj/structure/blob/BlockSuperconductivity()
-	return atmosblock
+/obj/structure/blob/get_superconductivity(direction)
+	if(atmosblock)
+		return 0
+	return ..()
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -54,7 +56,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return 1
 	return 0
 
-/obj/structure/blob/CanAtmosPass(turf/T)
+/obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
 /obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)

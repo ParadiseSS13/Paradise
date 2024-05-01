@@ -130,10 +130,6 @@
 			qdel(A)
 		return
 	REMOVE_FROM_SMOOTH_QUEUE(src)
-	// Adds the adjacent turfs to the current atmos processing
-	for(var/turf/simulated/T in atmos_adjacent_turfs)
-		SSair.add_to_active(T)
-	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
@@ -321,10 +317,7 @@
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
-	CalculateAdjacentTurfs()
-
-	if(!ignore_air)
-		SSair.add_to_active(src)
+	recalculate_atmos_connectivity()
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
@@ -350,41 +343,43 @@
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
-	if(air)
-		var/aoxy = 0 //Holders to assimilate air from nearby turfs
-		var/anitro = 0
-		var/aco = 0
-		var/atox = 0
-		var/asleep = 0
-		var/ab = 0
-		var/atemp = 0
+	if(blocks_air)
+		return
+	var/aoxy = 0 //Holders to assimilate air from nearby turfs
+	var/anitro = 0
+	var/aco = 0
+	var/atox = 0
+	var/asleep = 0
+	var/ab = 0
+	var/atemp = 0
 
-		var/turf_count = 0
+	var/turf_count = 0
 
-		for(var/turf/T in atmos_adjacent_turfs)
-			if(isspaceturf(T))//Counted as no air
-				turf_count++//Considered a valid turf for air calcs
-				continue
-			else if(isfloorturf(T))
-				var/turf/simulated/S = T
-				if(S.air)//Add the air's contents to the holders
-					aoxy += S.air.oxygen
-					anitro += S.air.nitrogen
-					aco += S.air.carbon_dioxide
-					atox += S.air.toxins
-					asleep += S.air.sleeping_agent
-					ab += S.air.agent_b
-					atemp += S.air.temperature
-				turf_count++
-		air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-		air.nitrogen = (anitro / max(turf_count, 1))
-		air.carbon_dioxide = (aco / max(turf_count, 1))
-		air.toxins = (atox / max(turf_count, 1))
-		air.sleeping_agent = (asleep / max(turf_count, 1))
-		air.agent_b = (ab / max(turf_count, 1))
-		air.temperature = (atemp / max(turf_count, 1))
-		if(SSair)
-			SSair.add_to_active(src)
+	for(var/turf/T in atmos_adjacent_turfs)
+		if(isspaceturf(T))//Counted as no air
+			turf_count++//Considered a valid turf for air calcs
+			continue
+		else if(isfloorturf(T))
+			var/turf/simulated/S = T
+			var/datum/gas_mixture/S_air = S.read_air()
+			aoxy += S_air.oxygen
+			anitro += S_air.nitrogen
+			aco += S_air.carbon_dioxide
+			atox += S_air.toxins
+			asleep += S_air.sleeping_agent
+			ab += S_air.agent_b
+			atemp += S_air.temperature
+			turf_count++
+
+	var/datum/gas_mixture/air = new()
+	air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
+	air.nitrogen = (anitro / max(turf_count, 1))
+	air.carbon_dioxide = (aco / max(turf_count, 1))
+	air.toxins = (atox / max(turf_count, 1))
+	air.sleeping_agent = (asleep / max(turf_count, 1))
+	air.agent_b = (ab / max(turf_count, 1))
+	air.temperature = (atemp / max(turf_count, 1))
+	write_air(air)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf, keep_icon = FALSE)
@@ -573,10 +568,6 @@
 		qdel(A, force = TRUE)
 
 	T0.ChangeTurf(turf_type)
-
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
 
 /turf/AllowDrop()
 	return TRUE

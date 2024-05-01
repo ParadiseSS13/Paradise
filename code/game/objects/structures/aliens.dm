@@ -76,7 +76,7 @@
 	..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass()
+/obj/structure/alien/resin/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -96,8 +96,8 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
-	return TRUE
+/obj/structure/alien/resin/wall/get_superconductivity(direction)
+	return 0
 
 /*
  *Resin-Door - Borrows its code from Mineral-Door, not a subtype due to needing many overrides if so
@@ -153,7 +153,7 @@
 	if(user.can_advanced_admin_interact())
 		operate()
 
-/obj/structure/alien/resin/door/CanAtmosPass(turf/T)
+/obj/structure/alien/resin/door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/alien/resin/door/proc/try_to_operate(mob/user, bumped_open = FALSE)

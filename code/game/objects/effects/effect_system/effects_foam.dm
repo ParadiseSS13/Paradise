@@ -221,5 +221,5 @@
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
 	return !density
 
-/obj/structure/foamedmetal/CanAtmosPass()
+/obj/structure/foamedmetal/CanAtmosPass(direction)
 	return !density

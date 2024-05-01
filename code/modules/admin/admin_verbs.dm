@@ -155,7 +155,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
-	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
@@ -234,7 +233,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
 	/client/proc/timer_log
 ))

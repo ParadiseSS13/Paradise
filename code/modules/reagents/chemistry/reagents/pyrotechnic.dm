@@ -428,10 +428,10 @@
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
+		var/datum/gas_mixture/lowertemp = T.read_air()
 		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
 		lowertemp.react()
-		T.assume_air(lowertemp)
+		T.write_air(lowertemp)
 		qdel(hotspot)
 
 /datum/reagent/plasma_dust

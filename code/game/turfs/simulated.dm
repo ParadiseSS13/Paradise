@@ -19,18 +19,19 @@
 	var/excited = 0
 	/// Was this turf recently activated? Probably not needed anymore
 	var/recently_active = 0
-	/// The air mixture that this turf controls.
-	var/datum/gas_mixture/air
 	var/archived_cycle = 0
 	var/current_cycle = 0
 	/// The active hotspot on this turf. The fact this is done through a literal object is painful
 	var/obj/effect/hotspot/active_hotspot
-	/// Air will revert to its initial mix over time. It's probably a good idea to just make it so that these turfs don't process atmos as this doesn't really do anything
-	var/planetary_atmos = FALSE
+	/// The general behavior of atmos on this tile.
+	var/atmos_mode = ATMOS_MODE_SEALED
 	/// The temp we were when we got archived
 	var/temperature_archived
-	// Current gas overlay. Can be set to plasma or sleeping_gas
+	/// Current gas overlay. Can be set to plasma or sleeping_gas
 	var/atmos_overlay_type = null
+	/// If a fire is ongoing, how much fuel did we burn last tick?
+	/// Value is not updated while below PLASMA_MINIMUM_BURN_TEMPERATURE.
+	var/fuel_burnt = 0
 
 /turf/simulated/proc/break_tile()
 	return
@@ -58,10 +59,10 @@
 
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())
+		var/datum/gas_mixture/lowertemp = read_air()
 		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
 		lowertemp.react()
-		assume_air(lowertemp)
+		write_air(lowertemp)
 		qdel(hotspot)
 
 /*

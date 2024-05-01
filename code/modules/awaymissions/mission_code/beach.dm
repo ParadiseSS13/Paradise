@@ -32,7 +32,7 @@
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EARTHLIKE
 
 /turf/simulated/floor/beach/away/Initialize(mapload)
 	. = ..()
@@ -114,10 +114,10 @@
 		linkedcontroller.decalinpool += A
 
 /turf/simulated/floor/beach/away/water/lavaland_air
-	nitrogen = 14
-	oxygen = 8
-	temperature = 500
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
 
 /// for boundary "walls"
 /turf/simulated/floor/beach/away/water/dense

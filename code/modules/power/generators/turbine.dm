@@ -167,7 +167,7 @@
 		M.set_multitool_buffer(user, src)
 
 
-/obj/machinery/power/compressor/CanAtmosPass(turf/T)
+/obj/machinery/power/compressor/CanAtmosPass(direction)
 	return !density
 
 /obj/machinery/power/compressor/proc/trigger_overheat()

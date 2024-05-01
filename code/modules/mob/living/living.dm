@@ -665,7 +665,7 @@
 	else
 		return pick("trails_1", "trails_2")
 
-/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+/mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag * 2)
@@ -674,6 +674,16 @@
 	var/list/turfs_to_check = list()
 
 	if(has_limbs)
+		var/direction = 0
+		if(flow_x > 100)
+			direction |= EAST
+		if(flow_x < -100)
+			direction |= WEST
+		if(flow_y > 100)
+			direction |= NORTH
+		if(flow_y < -100)
+			direction |= SOUTH
+
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
 		if(T)
 			turfs_to_check += T
@@ -692,7 +702,7 @@
 					pressure_resistance_prob_delta -= 20
 					break
 
-	..(pressure_difference, direction, pressure_resistance_prob_delta)
+	..(flow_x, flow_y, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS

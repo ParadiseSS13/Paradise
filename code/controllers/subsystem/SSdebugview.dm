@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(debugview)
 	// Generate debug text
 	var/list/entries = list()
 	entries += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"
-	entries += "\[Air] Cost: [round(SSair.cost, 1)]ms | AT: [length(SSair.active_turfs)]"
+	entries += "\[Air] Cost: [round(SSair.cost, 1)]ms"
 	entries += "\[Debug] Cost: [round(SSdebugview.cost, 1)]ms | P: [length(SSdebugview.processing)]" // meta af (tbf we need to know how much were using)
 	entries += "\[FP] Cost: [round(SSfastprocess.cost, 1)]ms | P: [length(SSfastprocess.processing)]"
 	// Snowflakery for SSgarbage

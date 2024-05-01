@@ -31,16 +31,13 @@
 		igniting = 1
 
 	if(igniting)
-		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
+		if(air_contents.oxygen < 1.3 || air_contents.toxins < 0.5)
 			return 0
 
 		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
-
-		active_hotspot.just_spawned = (current_cycle < SSair.times_fired)
-			//remove just_spawned protection if no longer processing this cell
-		SSair.add_to_active(src, 0)
+		active_hotspot.just_spawned = TRUE
 	return igniting
 
 //This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
@@ -60,6 +57,9 @@
 	var/bypassing = 0
 	var/fake = FALSE
 	var/burn_time = 0
+	/// Used to carry over the amount of fuel burnt by the hotspot directly
+	/// to the next tick.
+	var/own_fuel_burnt = 0
 
 /obj/effect/hotspot/New()
 	..()
@@ -71,7 +71,7 @@
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc
-	if(!istype(location) || !(location.air))
+	if(!istype(location) || location.blocks_air)
 		return FALSE
 
 	if(volume > CELL_VOLUME * 0.95)
@@ -79,17 +79,21 @@
 	else
 		bypassing = FALSE
 
+	var/datum/gas_mixture/location_air = location.read_air()
 	if(bypassing)
 		if(!just_spawned)
-			volume = location.air.fuel_burnt * FIRE_GROWTH_RATE
-			temperature = location.air.temperature
+			temperature = location_air.temperature
+			volume = (own_fuel_burnt + location.fuel_burnt) * FIRE_GROWTH_RATE
+			own_fuel_burnt = 0
 	else
-		var/datum/gas_mixture/affected = location.air.remove_ratio(volume / location.air.volume)
+		var/datum/gas_mixture/affected = location_air.remove_ratio(volume / location_air.volume)
 		affected.temperature = temperature
 		affected.react()
 		temperature = affected.temperature
 		volume = affected.fuel_burnt * FIRE_GROWTH_RATE
-		location.assume_air(affected)
+		own_fuel_burnt = affected.fuel_burnt
+		location_air.merge(affected)
+		location.write_air(location_air)
 
 	for(var/A in loc)
 		var/atom/item = A
@@ -111,14 +115,12 @@
 		qdel(src)
 		return
 
-	if(location.excited_group)
-		location.excited_group.reset_cooldowns()
-
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
 		qdel(src)
 		return
 
-	if(!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5)
+	var/datum/gas_mixture/location_air = location.read_air()
+	if(location.blocks_air || location_air.toxins < 0.5 || location_air.oxygen < 0.5)
 		qdel(src)
 		return
 
@@ -131,10 +133,15 @@
 		location.burn_tile()
 
 		//Possible spread due to radiated heat
-		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
-			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
-			for(var/turf/simulated/T in location.atmos_adjacent_turfs)
-				if(!T.active_hotspot)
+		if(location_air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
+			var/radiated_temperature = location_air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
+			for(var/direction in GLOB.cardinal)
+				var/turf/simulated/T = get_step(location, direction)
+				if(!istype(T))
+					continue
+				if(T.active_hotspot)
+					continue
+				if(src.CanAtmosPass(direction) && T.CanAtmosPass(turn(direction, 180)))
 					T.hotspot_expose(radiated_temperature, CELL_VOLUME / 4)
 
 	else
@@ -310,12 +317,12 @@
 		if(dist == max_dist)
 			continue
 
-		for(var/dir in GLOB.cardinal)
-			var/turf/link = get_step(T, dir)
+		for(var/direction in GLOB.cardinal)
+			var/turf/link = get_step(T, direction)
 			if(!link)
 				continue
 			// Check if it wasn't already visited and if you can get to that turf
-			if(!closed[link] && T.CanAtmosPass(link))
+			if(!closed[link] && T.CanAtmosPass(direction) && link.CanAtmosPass(turn(direction, 180)))
 				var/dx = link.x - Ce.x
 				var/dy = link.y - Ce.y
 				var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)

@@ -136,9 +136,6 @@
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
-						if(O.air)
-							var/datum/gas_mixture/G = O.air
-							G.copy_from(O.air)
 						if(prob(florachance) && length(NewFlora) && !is_blocked_turf(O))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)

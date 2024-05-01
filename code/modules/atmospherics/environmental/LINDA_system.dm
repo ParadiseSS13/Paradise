@@ -1,39 +1,22 @@
-/turf/proc/CanAtmosPass(turf/T)
-	if(!istype(T))	return 0
-	var/R
-	if(blocks_air || T.blocks_air)
-		R = 1
+/turf/proc/CanAtmosPass(direction, consider_objects = TRUE)
+	if(blocks_air)
+		return FALSE
+
+	if(!consider_objects)
+		return TRUE
 
 	for(var/obj/O in contents)
-		if(!O.CanAtmosPass(T))
-			R = 1
-			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
-				var/D = get_dir(src, T)
-				atmos_superconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_superconductivity |= D
-				return 0						//no need to keep going, we got all we asked
+		if(istype(O, /obj/item))
+			// Items can't block atmos.
+			return
 
-	for(var/obj/O in T.contents)
-		if(!O.CanAtmosPass(src))
-			R = 1
-			if(O.BlockSuperconductivity())
-				var/D = get_dir(src, T)
-				atmos_superconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_superconductivity |= D
-				return 0
+		if(!O.CanAtmosPass(direction))
+			return FALSE
 
-	var/D = get_dir(src, T)
-	atmos_superconductivity &= ~D
-	D = get_dir(T, src)
-	T.atmos_superconductivity &= ~D
-
-	if(!R)
-		return 1
+	return TRUE
 
 /atom/movable/proc/CanAtmosPass()
-	return 1
+	return TRUE
 
 /atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
 	return (!density || !height)
@@ -57,20 +40,23 @@
 
 		return 1
 
-/atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
-	return 0
+/atom/movable/proc/get_superconductivity(direction)
+	return OPEN_HEAT_TRANSFER_COEFFICIENT
 
-/turf/proc/CalculateAdjacentTurfs()
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		if(!istype(T))
-			continue
-		if(CanAtmosPass(T))
-			atmos_adjacent_turfs |= T
-			T.atmos_adjacent_turfs |= src
-		else
-			atmos_adjacent_turfs -= T
-			T.atmos_adjacent_turfs -= src
+/atom/movable/proc/air_update_turf(command = 0)
+	if(!isturf(loc) && command)
+		return
+	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
+		T.air_update_turf(command)
+
+/turf/proc/air_update_turf(command = 0)
+	if(command)
+		recalculate_atmos_connectivity()
+
+/atom/movable/proc/move_update_air(turf/T)
+	if(isturf(T))
+		T.air_update_turf(1)
+	air_update_turf(1)
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
@@ -79,7 +65,7 @@
 	if(!issimulatedturf(src))
 		return list()
 
-	var/adjacent_turfs = atmos_adjacent_turfs.Copy()
+	var/adjacent_turfs = list()
 	if(!alldir)
 		return adjacent_turfs
 	var/turf/simulated/curloc = src
@@ -101,36 +87,17 @@
 
 	return adjacent_turfs
 
-/atom/movable/proc/air_update_turf(command = 0)
-	if(!isturf(loc) && command)
-		return
-	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
-		T.air_update_turf(command)
-
-/turf/proc/air_update_turf(command = 0)
-	if(command)
-		CalculateAdjacentTurfs()
-	if(SSair)
-		SSair.add_to_active(src,command)
-
-/atom/movable/proc/move_update_air(turf/T)
-	if(isturf(T))
-		T.air_update_turf(1)
-	air_update_turf(1)
-
-
-
-/atom/movable/proc/atmos_spawn_air(text, amount) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
+/atom/movable/proc/atmos_spawn_air(flag, amount) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
 	var/turf/simulated/T = get_turf(src)
 	if(!istype(T))
 		return
-	T.atmos_spawn_air(text, amount)
+	T.atmos_spawn_air(flag, amount)
 
 /turf/simulated/proc/atmos_spawn_air(flag, amount)
-	if(!text || !amount || !air)
+	if(!flag || !amount || blocks_air)
 		return
 
-	var/datum/gas_mixture/G = new
+	var/datum/gas_mixture/G = read_air()
 
 	if(flag & LINDA_SPAWN_20C)
 		G.temperature = T20C
@@ -163,5 +130,4 @@
 		G.oxygen += MOLES_O2STANDARD * amount
 		G.nitrogen += MOLES_N2STANDARD * amount
 
-	air.merge(G)
-	SSair.add_to_active(src, 0)
+	write_air(G)

@@ -45,7 +45,7 @@
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
 	return
 
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/attack_hand(mob/user)
@@ -121,7 +121,7 @@
 		return !opacity
 	return !density
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)

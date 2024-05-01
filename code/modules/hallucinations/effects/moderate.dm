@@ -284,9 +284,9 @@
 		var/turf/source_turf = t
 		expand_queue -= source_turf
 		// Expand to each dir
-		for(var/dir in GLOB.cardinal)
-			var/turf/target_turf = get_step(source_turf, dir)
-			if(processed[target_turf] || !source_turf.CanAtmosPass(target_turf))
+		for(var/direction in GLOB.cardinal)
+			var/turf/target_turf = get_step(source_turf, direction)
+			if(processed[target_turf] || !source_turf.CanAtmosPass(direction) || !target_turf.CanAtmosPass(turn(direction, 180)))
 				continue
 			create_plasma(target_turf)
 			expand_queue += target_turf

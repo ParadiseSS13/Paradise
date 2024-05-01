@@ -68,9 +68,8 @@
 		if("Agent B")
 			linda_flags = LINDA_SPAWN_AGENT_B | LINDA_SPAWN_20C
 
-/mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta)
-	. = ..()
-	return FALSE
+/mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/living/simple_animal/hostile/guardian/gaseous/death(gibbed)
 	if(summoner)

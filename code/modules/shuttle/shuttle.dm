@@ -510,20 +510,12 @@
 				T1.shuttleRotate(rotation)
 
 		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
-		//atmos and lighting stuff
-		SSair.remove_from_active(T1)
-		T1.CalculateAdjacentTurfs()
-		SSair.add_to_active(T1,1)
-
+		//lighting stuff
 		T1.lighting_build_overlay()
 
 		if(!should_transit)
 			continue // Don't want to actually change the skipped turf
 		T0.ChangeTurf(turf_type, keep_icon = FALSE)
-
-		SSair.remove_from_active(T0)
-		T0.CalculateAdjacentTurfs()
-		SSair.add_to_active(T0,1)
 
 	areaInstance.moving = transit
 	for(var/A1 in L1)

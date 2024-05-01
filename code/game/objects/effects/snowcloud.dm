@@ -26,7 +26,7 @@
 	var/turf_hotness
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
-		turf_hotness = S.air.temperature
+		turf_hotness = S.read_air().temperature
 	if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 		qdel(src)
 		return
@@ -44,7 +44,7 @@
 		return
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
-		if(prob(75 + S.air.temperature - T0C)) //Colder turf = more chance of snow
+		if(prob(75 + S.read_air().temperature - T0C)) //Colder turf = more chance of snow
 			return
 	new /obj/effect/snow(T)
 
@@ -56,7 +56,7 @@
 		var/turf/T = get_turf(get_step(src, potential))
 		if(isspaceturf(T) || T.density)
 			continue
-		if(!T.CanAtmosPass(T))
+		if(!CanAtmosPass(potential) || !T.CanAtmosPass(turn(potential, 180)))
 			continue
 		if(parent_machine.make_snowcloud(T))
 			return
@@ -86,9 +86,9 @@
 		return
 	else if(issimulatedturf(T))
 		var/turf/simulated/S = T
-		if(S.air.temperature <= T0C)
+		if(S.read_air().temperature <= T0C)
 			return
-		if(prob(10 + S.air.temperature - T0C))
+		if(prob(10 + S.read_air().temperature - T0C))
 			qdel(src)
 
 /obj/effect/snow/attack_hand(mob/living/carbon/human/user)

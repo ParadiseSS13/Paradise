@@ -573,6 +573,9 @@
 
 		if(produces_gas)
 			env.merge(removed)
+			if(istype(T, /turf/simulated))
+				var/turf/simulated/S = T
+				S.write_air(env)
 			air_update_turf()
 
 	//Makes em go mad and accumulate rads.

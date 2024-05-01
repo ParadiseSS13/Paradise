@@ -89,11 +89,11 @@
 		return FALSE
 	return 1
 
-/obj/structure/windoor_assembly/CanAtmosPass(turf/T)
-	if(get_dir(loc, T) == dir)
+/obj/structure/windoor_assembly/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/structure/windoor_assembly/CheckExit(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))

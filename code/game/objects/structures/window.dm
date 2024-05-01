@@ -35,6 +35,8 @@
 	var/mutable_appearance/edge_overlay
 	/// Minimum environment smash level (found on simple animals) to break through this instantly
 	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
+	/// How well this window resists superconductivity.
+	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -413,10 +415,15 @@
 	anchored = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/CanAtmosPass(direction)
 	if(!anchored || !density)
 		return TRUE
-	return !(FULLTILE_WINDOW_DIR == dir || (dir & get_dir(loc, T)))
+	return !(FULLTILE_WINDOW_DIR == dir || (dir & direction))
+
+/obj/structure/window/get_superconductivity(direction)
+	if(dir == FULLTILE_WINDOW_DIR || dir & direction)
+		return superconductivity
+	return ..()
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
@@ -619,9 +626,7 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
-
-/obj/structure/window/plasmabasic/BlockSuperconductivity()
-	return 1
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -638,12 +643,10 @@
 	rad_insulation = RAD_NO_INSULATION
 	damage_deflection = 21
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
-
-/obj/structure/window/plasmareinforced/BlockSuperconductivity()
-	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
 /obj/structure/window/full
 	glass_amount = 2
@@ -679,9 +682,7 @@
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
-
-/obj/structure/window/full/plasmabasic/BlockSuperconductivity()
-	return TRUE
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -700,12 +701,10 @@
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
-
-/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
-	return TRUE
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"

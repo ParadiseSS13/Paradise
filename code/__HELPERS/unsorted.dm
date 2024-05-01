@@ -876,18 +876,6 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1, TRUE)
-
-	if(length(from_update))
-		for(var/turf/simulated/T2 in from_update)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2, TRUE)
-
 
 /proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
@@ -1007,11 +995,6 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_src -= T
 					refined_trg -= B
 					continue moving
-
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
 
 	return copied_objects
 

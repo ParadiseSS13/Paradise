@@ -48,14 +48,16 @@
 				// fill the turf with the appropriate gasses
 				// this feels slightly icky
 				var/turf/simulated/S = T
-				if(S.air)
-					S.air.temperature = temperature
-					S.air.oxygen = ppratio_to_moles(oxygen)
-					S.air.nitrogen = ppratio_to_moles(nitrogen)
-					S.air.toxins = ppratio_to_moles(plasma)
-					S.air.carbon_dioxide = ppratio_to_moles(cdiox)
-					S.air.sleeping_agent = ppratio_to_moles(nitrox)
-					S.air.agent_b = ppratio_to_moles(agentbx)
+				if(!S.blocks_air)
+					var/datum/gas_mixture/S_air = S.read_air()
+					S_air.temperature = temperature
+					S_air.oxygen = ppratio_to_moles(oxygen)
+					S_air.nitrogen = ppratio_to_moles(nitrogen)
+					S_air.toxins = ppratio_to_moles(plasma)
+					S_air.carbon_dioxide = ppratio_to_moles(cdiox)
+					S_air.sleeping_agent = ppratio_to_moles(nitrox)
+					S_air.agent_b = ppratio_to_moles(agentbx)
+					S.write_air(S_air)
 					S.update_visuals()
 					S.air_update_turf()
 			else if(ctrl_click) // overwrite "default" space air

@@ -207,11 +207,11 @@
 	operating = TRUE
 	var/turf/previousturf = get_turf(src)
 	for(var/turf/simulated/T in turflist)
-		if(!T.air)
+		if(T.blocks_air)
 			break
 		if(T == previousturf)
 			continue	//so we don't burn the tile we be standin on
-		if(!T.CanAtmosPass(previousturf))
+		if(!T.CanAtmosPass(get_dir(T, previousturf)) || !previousturf.CanAtmosPass(get_dir(previousturf, T)))
 			break
 		if(igniter)
 			igniter.ignite_turf(src, T)
@@ -234,8 +234,6 @@
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
 	target.hotspot_expose((ptank.air_contents.temperature*2) + 380, 500)
-	//location.hotspot_expose(1000,500,1)
-	SSair.add_to_active(target, 0)
 
 
 /obj/item/flamethrower/Initialize(mapload)

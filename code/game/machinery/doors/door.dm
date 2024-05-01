@@ -48,6 +48,9 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
+	/// How much this door reduces superconductivity to when closed.
+	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
@@ -134,8 +137,13 @@
 			return !opacity
 	return !density
 
-/obj/machinery/door/CanAtmosPass()
+/obj/machinery/door/CanAtmosPass(direction)
 	return !density
+
+/obj/machinery/door/get_superconductivity(direction)
+	if(density)
+		return superconductivity
+	return ..()
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
@@ -450,10 +458,11 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // Only heatproof airlocks block heat, currently only varedited doors have this
-	if(heat_proof)
-		return 1
-	return 0
+/obj/machinery/door/get_superconductivity(direction)
+	// Only heatproof airlocks block heat, currently only varedited doors have this
+	if(heat_proof && density)
+		return 0
+	return ..()
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)

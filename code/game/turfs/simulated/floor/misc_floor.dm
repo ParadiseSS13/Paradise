@@ -4,10 +4,10 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = 500
-	oxygen = 8
-	nitrogen = 14
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/wall/vault
@@ -146,10 +146,10 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"

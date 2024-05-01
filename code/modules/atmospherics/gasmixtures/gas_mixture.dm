@@ -9,8 +9,8 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_N2O		40
 #define SPECIFIC_HEAT_AGENT_B	300
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
+#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, innate_heat_capacity) \
+	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + innate_heat_capacity)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define MINIMUM_MOLE_COUNT		0.01
@@ -27,6 +27,7 @@ What are the archived variables for?
 	var/volume = CELL_VOLUME
 
 	var/temperature = 0 //in Kelvin
+	var/innate_heat_capacity = 0
 
 	var/last_share
 
@@ -45,10 +46,10 @@ What are the archived variables for?
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b)
+	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, innate_heat_capacity)
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived)
+	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived, innate_heat_capacity)
 
 	/// Calculate moles
 /datum/gas_mixture/proc/total_moles()

@@ -315,6 +315,8 @@
 
 
 /obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
+	if(!thermostat_state)
+		return
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature < target_temperature - 2 || environment.temperature > target_temperature + 2 || regulating_temperature)
@@ -333,25 +335,24 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			if(thermostat_state)
-				var/heat_capacity = gas.heat_capacity()
-				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			var/heat_capacity = gas.heat_capacity()
+			var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
-				//Use power.  Assuming that each power unit represents 1000 watts....
-				use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
+			//Use power.  Assuming that each power unit represents 1000 watts....
+			use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
 
-				//We need to cool ourselves.
-				if(heat_capacity)
-					if(environment.temperature > target_temperature)
-						gas.temperature -= energy_used / heat_capacity
-					else
-						gas.temperature += energy_used / heat_capacity
+			//We need to cool ourselves.
+			if(heat_capacity)
+				if(environment.temperature > target_temperature)
+					gas.temperature -= energy_used / heat_capacity
+				else
+					gas.temperature += energy_used / heat_capacity
 
-				if(abs(environment.temperature - target_temperature) <= 0.5)
-					regulating_temperature = FALSE
-					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
+			if(abs(environment.temperature - target_temperature) <= 0.5)
+				regulating_temperature = FALSE
+				visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
-			environment.merge(gas)
+			location.assume_air(gas)
 
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)

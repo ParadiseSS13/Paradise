@@ -12,7 +12,7 @@
 	if(lifetime)
 		QDEL_IN(src, lifetime)
 
-/obj/effect/forcefield/CanAtmosPass(turf/T)
+/obj/effect/forcefield/CanAtmosPass(direction)
 	return !density
 
 /obj/effect/forcefield/wizard
@@ -48,7 +48,7 @@
 		air_update_turf(TRUE)
 	return ..()
 
-/obj/structure/forcefield/CanAtmosPass(turf/T)
+/obj/structure/forcefield/CanAtmosPass(direction)
 	return !blocks_atmos
 
 /obj/structure/forcefield/mime

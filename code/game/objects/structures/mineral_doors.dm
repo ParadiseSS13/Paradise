@@ -61,7 +61,7 @@
 		return !opacity
 	return !density
 
-/obj/structure/mineral_door/CanAtmosPass(turf/T)
+/obj/structure/mineral_door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)

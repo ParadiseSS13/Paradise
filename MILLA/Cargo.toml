@@ -1,0 +1,13 @@
+[package]
+name = "milla"
+version = "1.0.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.4.4" }
+eyre = "0.6.12"
