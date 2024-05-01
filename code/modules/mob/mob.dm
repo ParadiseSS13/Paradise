@@ -1077,8 +1077,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return TRUE
 
 
-//Can the mob see reagents inside of containers?
-/mob/proc/can_see_reagents()
+// Can the mob see reagents inside of transparent containers?
+/mob/proc/reagent_vision()
+	return FALSE
+
+// Can the mob see reagents inside any container and also identify blood types?
+/mob/proc/advanced_reagent_vision()
 	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
