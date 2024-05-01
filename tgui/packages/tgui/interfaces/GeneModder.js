@@ -21,7 +21,7 @@ export const GeneModder = (props, context) => {
           <Disks />
           <Stack fill vertical>
             <Storage />
-            <ComplexModal maxWidth="55%" maxHeight="75%" />
+            <ComplexModal maxWidth="70%" maxHeight="75%" />
             {has_seed === 0 ? <MissingSeed /> : <Genes />}
           </Stack>
         </Stack>
@@ -143,7 +143,7 @@ const CoreGenes = (props, context) => {
     <Collapsible key="Core Genes" title="Core Genes" open>
       {core_genes.map((gene) => (
         <Stack key={gene} py="2px" className="candystripe">
-          <Stack.Item width="70%" ml="2px">
+          <Stack.Item width="40%" ml="2px">
             {gene.name}
           </Stack.Item>
           <Stack.Item>
@@ -224,7 +224,7 @@ const OtherGenes = (props, context) => {
       {do_we_show ? (
         gene_set.map((gene) => (
           <Stack key={gene} py="2px" className="candystripe">
-            <Stack.Item width="70%" ml="2px">
+            <Stack.Item width="40%" ml="2px">
               {gene.name}
             </Stack.Item>
             <Stack.Item>
@@ -257,59 +257,126 @@ const Disks = (props, context) => {
   const { stat_disks, trait_disks, reagent_disks } = data;
 
   return (
-    <Stack fill vertical>
-      <Section title="Reagent">
-        <Stack fill>
-          {reagent_disks
-            .slice()
-            .sort((a, b) => a.display_name.localeCompare(b.display_name))
-            .map((item) => {
-              return (
-                <Stack key={item}>
-                  <Stack.Item width="35%">{item.display_name}</Stack.Item>
-                  <Stack.Item width="25%">
-                    ({item.quantity} in stock)
-                  </Stack.Item>
-                  <Stack.Item width={13}>
-                    <Button
-                      width={4}
-                      icon="arrow-down"
-                      tooltip="Write Disk Stats to Plant"
-                      content="Replace"
-                      onClick={() =>
-                        act('vend', { index: item.vend, amount: 1 })
-                      }
-                    />
-                    <Button
-                      width={4}
-                      icon="Eject"
-                      content=""
-                      tooltip="Eject Disk"
-                      tooltipPosition="bottom-start"
-                      onClick={() =>
-                        act('eject', {
-                          name: item,
-                        })
-                      }
-                    />
-                  </Stack.Item>
-                </Stack>
-              );
-            })}
+    <Section title="disks" width="80%">
+      <Stack fill vertical>
+        <Section title="Stats">
+          <Stack fill vertical>
+            {stat_disks
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item width="80%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={20}>
+                      <Button
+                        width={12}
+                        icon="arrow-down"
+                        tooltip="Write Disk Stats to Plant"
+                        content="Replace/Insert"
+                        onClick={() =>
+                          act('vend', { index: item.vend, amount: 1 })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="Eject"
+                        content="Eject"
+                        tooltip="Eject Disk"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('eject', {
+                            name: item,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
 
-          <Button />
-        </Stack>
-      </Section>
-      <Section>
-        <Stack fill>
-          <Button />
-        </Stack>
-      </Section>
-      <Section>
-        <Stack fill>
-          <Button />
-        </Stack>
-      </Section>
-    </Stack>
+            <Button />
+          </Stack>
+        </Section>
+        <Section title="Traits">
+          <Stack fill vertical>
+            {trait_disks
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item width="100%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={20}>
+                      <Button
+                        width={12}
+                        icon="arrow-down"
+                        tooltip="Write Disk Stats to Plant"
+                        content="Replace/Insert"
+                        onClick={() =>
+                          act('vend', { index: item.vend, amount: 1 })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="Eject"
+                        content="Eject"
+                        tooltip="Eject Disk"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('eject', {
+                            name: item,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
+
+            <Button />
+          </Stack>
+        </Section>
+        <Section title="Reagents">
+          <Stack fill vertical>
+            {reagent_disks
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item}>
+                    <Stack.Item width="100%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={20}>
+                      <Button
+                        width={12}
+                        icon="arrow-down"
+                        tooltip="Write Disk Stats to Plant"
+                        content="Replace/insert"
+                        onClick={() =>
+                          act('vend', { index: item.vend, amount: 1 })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="Eject"
+                        content="Eject"
+                        tooltip="Eject Disk"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('eject', {
+                            name: item,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
+
+            <Button />
+          </Stack>
+        </Section>
+      </Stack>
+    </Section>
   );
 };
