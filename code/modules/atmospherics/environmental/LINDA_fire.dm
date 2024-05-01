@@ -57,9 +57,6 @@
 	var/bypassing = 0
 	var/fake = FALSE
 	var/burn_time = 0
-	/// Used to carry over the amount of fuel burnt by the hotspot directly
-	/// to the next tick.
-	var/own_fuel_burnt = 0
 
 /obj/effect/hotspot/New()
 	..()
@@ -74,24 +71,21 @@
 	if(!istype(location) || location.blocks_air)
 		return FALSE
 
-	if(volume > CELL_VOLUME * 0.95)
+	var/datum/gas_mixture/location_air = location.read_air()
+	if(location_air.temperature >= temperature)
 		bypassing = TRUE
 	else
 		bypassing = FALSE
 
-	var/datum/gas_mixture/location_air = location.read_air()
 	if(bypassing)
-		if(!just_spawned)
-			temperature = location_air.temperature
-			volume = (own_fuel_burnt + location.fuel_burnt) * FIRE_GROWTH_RATE
-			own_fuel_burnt = 0
+		temperature = location_air.temperature
+		volume = CELL_VOLUME
 	else
 		var/datum/gas_mixture/affected = location_air.remove_ratio(volume / location_air.volume)
 		affected.temperature = temperature
 		affected.react()
 		temperature = affected.temperature
 		volume = affected.fuel_burnt * FIRE_GROWTH_RATE
-		own_fuel_burnt = affected.fuel_burnt
 		location_air.merge(affected)
 		location.write_air(location_air)
 
