@@ -156,17 +156,9 @@
 	if(!user.drop_item())
 		return
 	disk = new_disk
-
-	if(!new_disk.gene)
-		empty_disks++
-	else if(new_disk.gene.type == /datum/plant_gene/core)
-		stat_disks += new_disk.name
-	else if(new_disk.gene.type == /datum/plant_gene/trait)
-		trait_disks += new_disk.name
-	else if(new_disk.gene.type == /datum/plant_gene/reagent)
-		reagent_disks += new_disk.name
-
 	disk.forceMove(src)
+	for(var/obj/i in length(contents))
+		to_chat(world,"<span class='danger'>details: [contents[i].name] [contents[i].gene ? contents[i].gene.type : "empty"]</span>")
 	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
 	ui_interact(user)
 
@@ -262,16 +254,26 @@
 	var/list/traits = list()
 	var/list/reagents = list()
 
-	for(var/obj/item/disk/plantgene/i in stat_disks)
-		stats += i
-	for(var/obj/item/disk/plantgene/i in trait_disks)
-		traits += i
-	for(var/obj/item/disk/plantgene/i in reagent_disks)
-		reagents += i
+	data["stat_disks"] = list()
+	data["trait_disks"] = list()
+	data["reagent_disks"] = list()
 
-	data["stat_disks"] = stats
-	data["trait_disks"] = traits
-	data["reagent_disks"] = list("something")
+	for(var/i in length(contents))
+		if(!contents[i].gene)
+			empty_disks++
+		else if(contents[i].gene.type == /datum/plant_gene/core)
+			stats.Add(list(list("display_name" = contents[i].name, "vend" = i)))
+		else if(contents[i].gene.type == /datum/plant_gene/trait)
+			traits.Add(list(list("display_name" = contents[i].name, "vend" = i)))
+		else if(contents[i].gene.type == /datum/plant_gene/reagent)
+			reagents.Add(list(list("display_name" = contents[i].name, "vend" = i)))
+	if(length(stats))
+		data["stat_disks"] = stats
+	if(length(traits))
+		data["trait_disks"] = traits
+	if(length(reagents))
+		data["reagent_disks"] = reagents
+	data["empty_disks"] = empty_disks
 
 	return data
 
