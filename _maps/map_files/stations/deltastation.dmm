@@ -13792,6 +13792,10 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
+"aTq" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "aTr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -61705,21 +61709,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "dHO" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "dHQ" = (
@@ -62698,11 +62694,11 @@
 "dNS" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 33
+	width = 41
 	},
 /turf/space,
 /area/space)
@@ -63953,6 +63949,16 @@
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
+"dSB" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "dSD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -64687,8 +64693,8 @@
 /area/station/hallway/primary/central)
 "dUY" = (
 /obj/machinery/light,
-/obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dUZ" = (
@@ -66426,16 +66432,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/legal/lawoffice)
-"evE" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "evX" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -66570,22 +66566,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/port/east)
-"ezr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/virology)
 "ezR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -71043,16 +71023,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
-"hli" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
@@ -73770,10 +73740,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/kitchen)
-"iVe" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -75594,6 +75560,15 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
+"kdg" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "kdm" = (
 /obj/machinery/power/apc/critical/directional/north,
 /obj/machinery/firealarm{
@@ -75694,15 +75669,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
-"kfC" = (
-/obj/structure/sign/vacuum{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "kfT" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -82388,6 +82354,22 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"ogR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/virology)
 "ogX" = (
 /obj/machinery/camera{
 	c_tag = "Experimentation Lab Office";
@@ -91325,21 +91307,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
-"tjT" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "tkb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -91872,6 +91839,24 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/port/west)
+"tEp" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/exit)
 "tEw" = (
 /obj/structure/showcase{
 	density = 0;
@@ -92369,6 +92354,21 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
+"tSp" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "tSt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/drinkingglass{
@@ -136431,7 +136431,7 @@ dUQ
 dYU
 dIx
 abj
-aaa
+abj
 aaa
 aaa
 aaa
@@ -136686,9 +136686,9 @@ dIx
 dIx
 dIx
 dIx
-iVe
+dIx
+aTq
 abj
-aaa
 aaa
 aaa
 aaa
@@ -136931,6 +136931,7 @@ dLA
 dMo
 dKP
 dKP
+dKP
 dOv
 dPb
 eBl
@@ -136946,7 +136947,6 @@ jJq
 dVb
 acF
 acF
-aaa
 aaa
 aaa
 aaa
@@ -137189,6 +137189,7 @@ sZI
 dPM
 dPM
 dPM
+dPM
 rCw
 dPM
 dPM
@@ -137197,12 +137198,11 @@ dPM
 dkq
 dSs
 dSP
-hli
+dSB
 dIH
 dIH
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137446,6 +137446,7 @@ hVf
 dKo
 dKo
 dKo
+dKo
 rvx
 dKo
 dKo
@@ -137455,11 +137456,10 @@ dNa
 dXJ
 dKo
 dUj
-kfC
-tjT
+kdg
+tSp
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137700,6 +137700,7 @@ cYk
 cYk
 cYk
 dbR
+cYk
 dbV
 ddw
 dNa
@@ -137716,7 +137717,6 @@ dKo
 dUT
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137957,6 +137957,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNN
 dOw
@@ -137972,7 +137973,6 @@ dKo
 dWA
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -138214,6 +138214,7 @@ dKo
 gkk
 dKo
 hVf
+dKo
 dNc
 dNO
 dXF
@@ -138230,7 +138231,6 @@ dUm
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138471,6 +138471,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNP
 dOw
@@ -138487,7 +138488,6 @@ dUn
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138728,6 +138728,7 @@ dKp
 dKp
 dKp
 dIh
+dKo
 dOu
 dNQ
 dOx
@@ -138744,7 +138745,6 @@ dOw
 dUY
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138985,6 +138985,7 @@ wgY
 rIb
 rIb
 pJE
+dKo
 dNb
 bGr
 dOw
@@ -139001,7 +139002,6 @@ dUp
 suy
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139245,6 +139245,7 @@ iFB
 iqq
 iqq
 iqq
+iqq
 uFa
 sbt
 sDb
@@ -139258,7 +139259,6 @@ dUq
 dUZ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139501,6 +139501,7 @@ nIs
 ngE
 kuJ
 kuJ
+kuJ
 tJT
 dXn
 dXn
@@ -139515,7 +139516,6 @@ dUr
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139758,6 +139758,7 @@ dTJ
 dMs
 jac
 jac
+jac
 vSW
 scA
 ajq
@@ -139771,7 +139772,6 @@ dTH
 dUs
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -140016,6 +140016,7 @@ dVp
 dKp
 dKp
 dKp
+dKp
 pGr
 rev
 vJu
@@ -140029,7 +140030,6 @@ dUt
 dVc
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140273,6 +140273,7 @@ ulH
 dTy
 dTy
 dTy
+dTy
 rmq
 msT
 dKP
@@ -140286,7 +140287,6 @@ dKP
 dXQ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140526,9 +140526,10 @@ pIY
 kuJ
 kpd
 kpd
+tEp
 dHO
-evE
-evE
+dHO
+dHO
 tJT
 dKQ
 jpk
@@ -140543,7 +140544,6 @@ pjC
 dKQ
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140786,6 +140786,7 @@ abj
 abj
 abj
 abj
+abj
 pjC
 dKP
 pjC
@@ -140799,7 +140800,6 @@ dKP
 pjC
 dKP
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -141043,13 +141043,6 @@ aaa
 aaa
 aaa
 aaa
-pjC
-dKQ
-pjC
-dKQ
-pjC
-aaa
-aaa
 aaa
 pjC
 dKQ
@@ -141057,6 +141050,13 @@ pjC
 dKQ
 pjC
 aaa
+aaa
+aaa
+pjC
+dKQ
+pjC
+dKQ
+pjC
 aaa
 aaa
 aaa
@@ -141303,8 +141303,8 @@ aaa
 aaa
 aaa
 aaa
-dNS
 aaa
+dNS
 aaa
 aaa
 aaa
@@ -149011,7 +149011,7 @@ dGw
 dGw
 hGZ
 qgr
-ezr
+ogR
 wWW
 qfH
 sRk
