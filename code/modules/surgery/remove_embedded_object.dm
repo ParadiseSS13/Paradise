@@ -69,7 +69,11 @@
 			H.clear_alert("embeddedobject")
 
 		if(objects > 0)
-			user.visible_message("[user] successfully removes [objects] object\s from [H]'s [parse_zone(user.zone_selected)]!", "<span class='notice'>You successfully remove [objects] object\s from [H]'s [L.name].</span>")
+			user.visible_message(
+				"[user] successfully removes [objects] object\s from [H]'s [parse_zone(user.zone_selected)]!",
+				"<span class='notice'>You successfully remove [objects] object\s from [H]'s [L.name].</span>",
+				chat_message_type = MESSAGE_TYPE_COMBAT
+				)
 		else
 			to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [parse_zone(user.zone_selected)]!</span>")
 

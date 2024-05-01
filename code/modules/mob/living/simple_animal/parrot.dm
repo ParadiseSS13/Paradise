@@ -249,8 +249,8 @@
 	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
 	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
 	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
-	if(speech_buffer.len && prob(10))
-		if(clean_speak.len)
+	if(length(speech_buffer) && prob(10))
+		if(length(clean_speak))
 			clean_speak -= pick(clean_speak)
 
 		clean_speak += pick(speech_buffer)

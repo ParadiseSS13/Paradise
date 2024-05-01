@@ -55,7 +55,7 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = attack_verb_on
 		if(icon_state_on)
 			icon_state = icon_state_on
@@ -71,7 +71,7 @@
 		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
@@ -240,7 +240,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -339,7 +339,7 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = attack_verb_on
 		if(icon_state_on)
 			icon_state = icon_state_on
@@ -355,7 +355,7 @@
 		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)

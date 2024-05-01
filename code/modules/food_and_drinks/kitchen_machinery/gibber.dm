@@ -321,7 +321,8 @@
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
-
+/obj/machinery/gibber/force_eject_occupant(mob/target)
+	go_out()
 
 /* AUTOGIBBER */
 
@@ -349,7 +350,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || operating || victim_targets.len)
+	if(!lturf || occupant || locked || operating || length(victim_targets))
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -362,7 +363,7 @@
 	for(var/mob/living/carbon/human/H in lturf)
 		victim_targets += H
 
-	if(victim_targets.len)
+	if(length(victim_targets))
 		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
