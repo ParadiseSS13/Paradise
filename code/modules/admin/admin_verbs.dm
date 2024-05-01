@@ -408,10 +408,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
 		return
 
-	if(isobserver(mob))
-		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
-		return
-
 	var/mob/target
 
 	target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
@@ -419,6 +415,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 	if(target == src)
 		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	if(isobserver(mob))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
 	admin_observe_target(target)
@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	return TRUE
 
 /// targeted form of admin_observe: this should only appear in the right-click menu.
-/client/proc/admin_observe_target(mob/target in view())
+/client/proc/admin_observe_target(mob/M as mob in GLOB.mob_list)
 	set name = "\[Admin\] Aobserve"
 	set category = null
 
