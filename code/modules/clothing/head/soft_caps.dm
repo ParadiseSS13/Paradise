@@ -178,7 +178,7 @@
 /obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor= list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "solgovcelitesoft_flipped"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
