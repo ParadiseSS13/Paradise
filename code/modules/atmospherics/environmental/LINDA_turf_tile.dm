@@ -202,9 +202,19 @@
 /turf/proc/Initialize_Atmos(times_fired)
 	recalculate_atmos_connectivity()
 
+	var/datum/gas_mixture/air = new()
+	air.oxygen = oxygen
+	air.carbon_dioxide = carbon_dioxide
+	air.nitrogen = nitrogen
+	air.toxins = toxins
+	air.sleeping_agent = sleeping_agent
+	air.agent_b = agent_b
+	air.temperature = temperature
+
+	write_air(air)
+
 /turf/proc/recalculate_atmos_connectivity()
 	if(blocks_air)
-		set_tile_atmos(x, y, z, temperature = temperature, innate_heat_capacity = heat_capacity)
 		set_tile_atmos_blocking(x, y, z, list(TRUE, TRUE, TRUE, TRUE))
 		reset_superconductivity(x, y, z)
 		reduce_superconductivity(x, y, z, list(thermal_conductivity, thermal_conductivity, thermal_conductivity, thermal_conductivity))
@@ -250,15 +260,4 @@
 
 /turf/simulated/Initialize_Atmos(times_fired)
 	..()
-
-	var/datum/gas_mixture/air = new()
-	air.oxygen = oxygen
-	air.carbon_dioxide = carbon_dioxide
-	air.nitrogen = nitrogen
-	air.toxins = toxins
-	air.sleeping_agent = sleeping_agent
-	air.agent_b = agent_b
-	air.temperature = temperature
-
-	write_air(air)
 	update_visuals()

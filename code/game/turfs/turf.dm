@@ -53,8 +53,6 @@
 	var/pressure_difference = 0
 	/// The direction movables should travel when affected by pressure. Set to the biggest difference in atmos by turf neighbors
 	var/pressure_direction = 0
-	/// The neighbors of the turf.
-	var/list/atmos_adjacent_turfs = list()
 	/// makes turfs less picky about where they transfer gas. Largely just used in the SM
 	var/atmos_superconductivity = 0
 
@@ -139,10 +137,6 @@
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	..()
-
-/turf/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	. = ..()
-	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature))
 
 /turf/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
@@ -318,6 +312,7 @@
 	return W
 
 /turf/proc/BeforeChange()
+	temperature = read_air().temperature
 	return
 
 /turf/proc/is_safe()
@@ -327,6 +322,7 @@
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	recalculate_atmos_connectivity()
+	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature), innate_heat_capacity = heat_capacity, temperature = temperature)
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
@@ -352,8 +348,6 @@
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
-	if(blocks_air)
-		return
 	var/aoxy = 0 //Holders to assimilate air from nearby turfs
 	var/anitro = 0
 	var/aco = 0
@@ -364,7 +358,7 @@
 
 	var/turf_count = 0
 
-	for(var/turf/T in atmos_adjacent_turfs)
+	for(var/turf/T in GetAtmosAdjacentTurfs())
 		if(isspaceturf(T))//Counted as no air
 			turf_count++//Considered a valid turf for air calcs
 			continue
@@ -629,3 +623,29 @@
 	else
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
+
+// From MILLA/src/lib.rs
+// Increased by 1 due to the difference in array indexing.
+#define GAS_OFFSET 7
+// Rust deals in thermal energy, but converts when talking to DM.
+#define ATMOS_TEMPERATURE 13
+#define ATMOS_INNATE_HEAT_CAPACITY 18
+/turf/proc/read_air()
+	var/datum/gas_mixture/air = new()
+	var/list/raw_atmos = get_tile_atmos(x, y, z)
+	// Numbers from MILLA/src/lib.rs, plus one due to array indexing.
+	air.oxygen = raw_atmos[GAS_OFFSET + 0]
+	air.carbon_dioxide = raw_atmos[GAS_OFFSET + 1]
+	air.nitrogen = raw_atmos[GAS_OFFSET + 2]
+	air.toxins = raw_atmos[GAS_OFFSET + 3]
+	air.sleeping_agent = raw_atmos[GAS_OFFSET + 4]
+	air.agent_b = raw_atmos[GAS_OFFSET + 5]
+	air.temperature = raw_atmos[ATMOS_TEMPERATURE]
+	air.innate_heat_capacity = raw_atmos[ATMOS_INNATE_HEAT_CAPACITY]
+	return air
+#undef GAS_OFFSET
+#undef ATMOS_TEMPERATURE
+#undef ATMOS_INNATE_HEAT_CAPACITY
+
+/turf/proc/write_air(var/datum/gas_mixture/air)
+	set_tile_atmos(x, y, z, oxygen = air.oxygen, carbon_dioxide = air.carbon_dioxide, nitrogen = air.nitrogen, toxins = air.toxins, sleeping_agent = air.sleeping_agent, agent_b = air.agent_b, temperature = air.temperature)

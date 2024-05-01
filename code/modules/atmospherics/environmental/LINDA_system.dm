@@ -8,7 +8,7 @@
 	for(var/obj/O in contents)
 		if(istype(O, /obj/item))
 			// Items can't block atmos.
-			return
+			continue
 
 		if(!O.CanAtmosPass(direction))
 			return FALSE
@@ -66,24 +66,42 @@
 		return list()
 
 	var/adjacent_turfs = list()
+	for(var/turf/T in RANGE_EDGE_TURFS(1, src))
+		var/direction = get_dir(src, T)
+		if(!CanAtmosPass(direction))
+			continue
+		if(!T.CanAtmosPass(turn(direction, 180)))
+			continue
+		adjacent_turfs += T
+
 	if(!alldir)
 		return adjacent_turfs
-	var/turf/simulated/curloc = src
-	for(var/direction in GLOB.diagonals)
-		var/matchingDirections = 0
-		var/turf/simulated/S = get_step(curloc, direction)
 
-		for(var/checkDirection in GLOB.cardinal)
-			var/turf/simulated/checkTurf = get_step(S, checkDirection)
-			if(!(checkTurf in S.atmos_adjacent_turfs))
+	for(var/turf/T in RANGE_TURFS(1, src))
+		var/direction = get_dir(src, T)
+		if(IS_DIR_CARDINAL(direction))
+			continue
+		// check_direction is the first way we move, from src
+		for(var/check_direction in GLOB.cardinal)
+			if(!(check_direction & direction))
+				// Wrong way.
 				continue
 
-			if(checkTurf in adjacent_turfs)
-				matchingDirections++
+			var/turf/intermediate = get_step(src, check_direction)
+			if(!(intermediate in adjacent_turfs))
+				continue
 
-			if(matchingDirections >= 2)
-				adjacent_turfs += S
-				break
+			// other_direction is the second way we move, from intermediate.
+			var/other_direction = direction & ~check_direction
+
+			// We already know we can reach intermediate, so now we just need to check the second step.
+			if(!intermediate.CanAtmosPass(other_direction))
+				continue
+			if(!T.CanAtmosPass(turn(other_direction, 180)))
+				continue
+
+			adjacent_turfs += T
+			break
 
 	return adjacent_turfs
 
@@ -97,7 +115,7 @@
 	if(!flag || !amount || blocks_air)
 		return
 
-	var/datum/gas_mixture/G = read_air()
+	var/datum/gas_mixture/G = new()
 
 	if(flag & LINDA_SPAWN_20C)
 		G.temperature = T20C
@@ -130,4 +148,6 @@
 		G.oxygen += MOLES_O2STANDARD * amount
 		G.nitrogen += MOLES_N2STANDARD * amount
 
-	write_air(G)
+	var/datum/gas_mixture/full_air = read_air()
+	full_air.merge(G)
+	write_air(full_air)
