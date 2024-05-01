@@ -264,14 +264,14 @@
 
 	for(var/obj/item/disk/plantgene/i in stat_disks)
 		stats += i
-	for(var/i in trait_disks)
+	for(var/obj/item/disk/plantgene/i in trait_disks)
 		traits += i
-	for(var/i in stat_disks)
+	for(var/obj/item/disk/plantgene/i in reagent_disks)
 		reagents += i
 
 	data["stat_disks"] = stats
 	data["trait_disks"] = traits
-	data["reagent_disks"] = reagents
+	data["reagent_disks"] = list("something")
 
 	return data
 

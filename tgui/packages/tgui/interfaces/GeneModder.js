@@ -19,7 +19,7 @@ export const GeneModder = (props, context) => {
       <Window.Content>
         <Stack fill horizontal>
           <Disks />
-          <Stack fill vertical>
+          <Stack fill horizontal>
             <Storage />
             <ComplexModal maxWidth="75%" maxHeight="75%" />
             {has_seed === 0 ? <MissingSeed /> : <Genes />}
