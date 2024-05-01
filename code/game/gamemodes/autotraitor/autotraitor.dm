@@ -53,7 +53,7 @@
 
 /datum/game_mode/traitor/autotraitor/post_setup()
 	..()
-	traitor_check_loop()
+	addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
 /datum/game_mode/traitor/autotraitor/proc/traitor_check_loop()
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
