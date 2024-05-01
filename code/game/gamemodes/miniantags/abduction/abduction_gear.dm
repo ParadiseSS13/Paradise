@@ -815,6 +815,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An alien spraybottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cleaner_abductor"
+	item_state = "cleaner_abductor"
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
