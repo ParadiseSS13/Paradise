@@ -56,7 +56,7 @@
 	traitor_check_loop()
 
 /datum/game_mode/traitor/autotraitor/proc/traitor_check_loop()
-	spawn(9000)
+
 		if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 			return
 
@@ -98,8 +98,8 @@
 			if(prob(traitor_prob))
 				message_admins("Making a new Traitor.")
 				if(!length(possible_traitors))
-					message_admins("No potential traitors.  Cancelling new traitor.")
-					traitor_check_loop()
+					message_admins("No potential traitors. Cancelling new traitor.")
+					addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 					return
 				var/datum/mind/new_traitor_mind = pick(possible_traitors)
 				var/mob/living/new_traitor = new_traitor_mind.current
@@ -107,7 +107,7 @@
 				to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 				new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
 
-		traitor_check_loop()
+		addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()
