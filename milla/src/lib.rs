@@ -139,14 +139,20 @@ const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
 const NITROUS_BREAKDOWN_ENERGY: f32 = 200_000.0;
 const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 
-// The flag that's used to determine which buffer is active.
+// Which of the two buffers is active?
+enum ActiveBuffer {
+    A,
+    B,
+}
+
+// The value that's used to determine which buffer is active.
 //
 // Data type explanation:
 // * OnceLock is how we make a safe static variable, by ensuring it will be initialized exactly
 //   once.
 // * Mutex lets us read and write that variable safely across threads.
-// * It's fundamentally a boolean flag.
-static BUFFER_FLIPPER: OnceLock<Mutex<bool>> = OnceLock::new();
+// * It's fundamentally an ActiveBuffer enum value.
+static BUFFER_FLIPPER: OnceLock<Mutex<ActiveBuffer>> = OnceLock::new();
 
 // The two buffers that we flip between.
 // Whichever buffer is active represents the current tick, and is the only thing BYOND can see.
@@ -184,31 +190,32 @@ static INTERESTING_TILES: OnceLock<Mutex<Vec<InterestingTile>>> = OnceLock::new(
 // if needed.
 fn get_active_atmos_buffer_map(
 ) -> &'static Mutex<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>> {
-    let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(false));
-    if *flipper.lock().unwrap() {
-        return ATMOS_B.get_or_init(|| Mutex::new(HashMap::new()));
+    let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(ActiveBuffer::A));
+    match *flipper.lock().unwrap() {
+        ActiveBuffer::A => ATMOS_A.get_or_init(|| Mutex::new(HashMap::new())),
+        ActiveBuffer::B => ATMOS_B.get_or_init(|| Mutex::new(HashMap::new())),
     }
-
-    ATMOS_A.get_or_init(|| Mutex::new(HashMap::new()))
 }
 
 // Fetches the inactive buffer map, the HashMap in either ATMOS_A or ATMOS_B, initializing the
 // HashMap if needed.
 fn get_inactive_atmos_buffer_map(
 ) -> &'static Mutex<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>> {
-    let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(false));
-    if *flipper.lock().unwrap() {
-        return ATMOS_A.get_or_init(|| Mutex::new(HashMap::new()));
+    let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(ActiveBuffer::A));
+    match *flipper.lock().unwrap() {
+        ActiveBuffer::A => ATMOS_B.get_or_init(|| Mutex::new(HashMap::new())),
+        ActiveBuffer::B => ATMOS_A.get_or_init(|| Mutex::new(HashMap::new())),
     }
-
-    ATMOS_B.get_or_init(|| Mutex::new(HashMap::new()))
 }
 
 // Flips wether ATMOS_A or ATMOS_B is active.
 fn flip_buffers() {
-    let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(false));
-    let mut flipped = flipper.lock().unwrap();
-    *flipped = !*flipped;
+    let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(ActiveBuffer::A));
+    let mut active = flipper.lock().unwrap();
+    match *active {
+        ActiveBuffer::A => *active = ActiveBuffer::B,
+        ActiveBuffer::B => *active = ActiveBuffer::A,
+    }
 }
 
 // Fetches the inactive buffer map, the HashMap in either ATMOS_A or ATMOS_B, initializing the
