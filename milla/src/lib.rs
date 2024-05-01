@@ -1112,6 +1112,16 @@ fn tick_z_level(
                 fuel_burnt += plasma_burnt;
             }
 
+            // Sanitize the tile, to avoid negative/NaN spread.
+            for i in 0..ATMOS_DEPTH {
+                if my_inactive_atmos[i].is_nan() {
+                    // Reset back to the last value, in the hopes that it's safe.
+                    my_inactive_atmos[i] = my_atmos[i];
+                } else if my_inactive_atmos[i] < 0.0 {
+                    my_inactive_atmos[i] = 0.0;
+                }
+            }
+
             // Handle interesting tiles.
             let mut interesting: bool = false;
 
