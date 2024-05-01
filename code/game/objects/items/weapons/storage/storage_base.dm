@@ -461,7 +461,7 @@
 			user.client.screen -= I
 		if(length(user.observers))
 			for(var/mob/observer in user.observers)
-				if(observer.client)
+				if(observer.client && observer.s_active != src)
 					observer.client.screen -= I
 		I.dropped(user, TRUE)
 	add_fingerprint(user)

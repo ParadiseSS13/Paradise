@@ -973,6 +973,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set_sight(initial(sight))
 	UnregisterSignal(src, COMSIG_ATOM_ORBITER_STOP)
 
+	if(s_active)
+		var/obj/item/storage/bag = s_active
+		s_active = null
+		bag.update_viewers(src)
+
 	if(!QDELETED(target) && istype(target))
 		hide_other_mob_action_buttons(target)
 		target.observers -= src

@@ -254,12 +254,11 @@
 		return
 	update_robot_modules_display()
 
-/datum/hud/proc/hidden_inventory_update()
+/datum/hud/proc/hidden_inventory_update(mob/viewer)
 	return
 
 /datum/hud/proc/persistent_inventory_update(mob/viewer)
-	if(!mymob)
-		return
+	return
 
 /mob/proc/hide_hud()
 	if(hud_used && client)
