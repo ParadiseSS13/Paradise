@@ -159,11 +159,11 @@
 
 	if(!new_disk.gene)
 		empty_disks++
-	if(new_disk.gene.type == \datum\plant_gene\core)
+	if(new_disk.gene.type == /datum/plant_gene/core)
 		stat_disks += new_disk.name
-	if(new_disk.gene.type == \datum\plant_gene\trait)
+	if(new_disk.gene.type == /datum/plant_gene/trait)
 		trait_disks += new_disk.name
-	if(new_disk.gene.type == \datum\plant_gene\reagent)
+	if(new_disk.gene.type == /datum/plant_gene/reagent)
 		reagent_disks += new_disk.name
 
 	disk.forceMove(src)
@@ -262,12 +262,12 @@
 	var/list/traits = list()
 	var/list/reagents = list()
 
-	for(var/i in stat_disks)
-		var/list/stats += i
+	for(var/obj/item/disk/plantgene/i in stat_disks)
+		stats += i
 	for(var/i in trait_disks)
-		var/list/traits += i
+		traits += i
 	for(var/i in stat_disks)
-		var/list/reagents += i
+		reagents += i
 
 	data["stat_disks"] = stats
 	data["trait_disks"] = traits
