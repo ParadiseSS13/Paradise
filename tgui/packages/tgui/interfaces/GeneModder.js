@@ -19,9 +19,9 @@ export const GeneModder = (props, context) => {
       <Window.Content>
         <Stack fill horizontal>
           <Disks />
-          <Stack fill horizontal>
+          <Stack fill vertical>
             <Storage />
-            <ComplexModal maxWidth="75%" maxHeight="75%" />
+            <ComplexModal maxWidth="55%" maxHeight="75%" />
             {has_seed === 0 ? <MissingSeed /> : <Genes />}
           </Stack>
         </Stack>
@@ -143,7 +143,7 @@ const CoreGenes = (props, context) => {
     <Collapsible key="Core Genes" title="Core Genes" open>
       {core_genes.map((gene) => (
         <Stack key={gene} py="2px" className="candystripe">
-          <Stack.Item width="100%" ml="2px">
+          <Stack.Item width="70%" ml="2px">
             {gene.name}
           </Stack.Item>
           <Stack.Item>
@@ -224,7 +224,7 @@ const OtherGenes = (props, context) => {
       {do_we_show ? (
         gene_set.map((gene) => (
           <Stack key={gene} py="2px" className="candystripe">
-            <Stack.Item width="100%" ml="2px">
+            <Stack.Item width="70%" ml="2px">
               {gene.name}
             </Stack.Item>
             <Stack.Item>
@@ -258,7 +258,7 @@ const Disks = (props, context) => {
 
   return (
     <Stack fill vertical>
-      <Section>
+      <Section title="Reagent">
         <Stack fill>
           {reagent_disks
             .slice()
@@ -266,7 +266,7 @@ const Disks = (props, context) => {
             .map((item) => {
               return (
                 <Stack key={item}>
-                  <Stack.Item width="55%">{item.display_name}</Stack.Item>
+                  <Stack.Item width="35%">{item.display_name}</Stack.Item>
                   <Stack.Item width="25%">
                     ({item.quantity} in stock)
                   </Stack.Item>

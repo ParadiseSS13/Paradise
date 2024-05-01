@@ -159,11 +159,11 @@
 
 	if(!new_disk.gene)
 		empty_disks++
-	if(new_disk.gene.type == /datum/plant_gene/core)
+	else if(new_disk.gene.type == /datum/plant_gene/core)
 		stat_disks += new_disk.name
-	if(new_disk.gene.type == /datum/plant_gene/trait)
+	else if(new_disk.gene.type == /datum/plant_gene/trait)
 		trait_disks += new_disk.name
-	if(new_disk.gene.type == /datum/plant_gene/reagent)
+	else if(new_disk.gene.type == /datum/plant_gene/reagent)
 		reagent_disks += new_disk.name
 
 	disk.forceMove(src)
