@@ -693,7 +693,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	mode = BOT_IDLE
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
-
+	update_icon()
 
 
 

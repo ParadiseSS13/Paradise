@@ -243,7 +243,6 @@
 		if("autopatrol")
 			auto_patrol = !auto_patrol
 			bot_reset()
-			update_icon(UPDATE_OVERLAYS)
 		if("hack")
 			handle_hacking(usr)
 		if("disableremote")
