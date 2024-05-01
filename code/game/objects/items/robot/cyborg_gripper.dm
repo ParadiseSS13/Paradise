@@ -199,7 +199,7 @@
 // For engineering and sabotage borgs, and drones.
 /obj/item/gripper/engineering
 	name = "engineering gripper"
-	desc = "A grasping tool for cyborgs. This version can hold a wide veriaty of constructon components for use in engineering work."
+	desc = "A grasping tool for cyborgs. This version can hold a wide variety of constructon components for use in engineering work."
 	engineering_machine_interaction = TRUE
 	can_hold = list(
 		/obj/item/firealarm_electronics,
