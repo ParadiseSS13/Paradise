@@ -45,7 +45,8 @@
 		return
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
-		if(prob(75 + S.read_air().temperature - T0C)) //Colder turf = more chance of snow
+		var/datum/gas_mixture/G = S.read_air()
+		if(prob(75 + G.temperature - T0C)) //Colder turf = more chance of snow
 			return
 	new /obj/effect/snow(T)
 

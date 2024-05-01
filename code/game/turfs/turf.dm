@@ -312,7 +312,8 @@
 	return W
 
 /turf/proc/BeforeChange()
-	temperature = read_air().temperature
+	var/datum/gas_mixture/G = read_air()
+	temperature = G.temperature
 	return
 
 /turf/proc/is_safe()
