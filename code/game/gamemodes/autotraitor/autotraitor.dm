@@ -56,58 +56,57 @@
 	traitor_check_loop()
 
 /datum/game_mode/traitor/autotraitor/proc/traitor_check_loop()
+	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		return
 
-		if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-			return
-
-		var/player_count = 0
-		var/traitor_count = 0
-		var/possible_traitors[0]
-		for(var/mob/living/player in GLOB.mob_list)
-			if(player.client && player.stat != DEAD)
-				player_count += 1
-				if(!player.mind)
-					continue
-				if(player.mind.special_role)
-					traitor_count += 1
-					continue
-				if(ishuman(player) || isAI(player))
-					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
-						possible_traitors += player.mind
-		for(var/datum/mind/player in possible_traitors)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					possible_traitors -= player
-			if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
+	var/player_count = 0
+	var/traitor_count = 0
+	var/possible_traitors[0]
+	for(var/mob/living/player in GLOB.mob_list)
+		if(player.client && player.stat != DEAD)
+			player_count += 1
+			if(!player.mind)
 				continue
-			var/mob/living/carbon/human/H = player.current
-			for(var/obj/item/bio_chip/mindshield/I in H.contents)
-				if(I && I.implanted)
-					possible_traitors -= player
-			if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
+			if(player.mind.special_role)
+				traitor_count += 1
+				continue
+			if(ishuman(player) || isAI(player))
+				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
+					possible_traitors += player.mind
+	for(var/datum/mind/player in possible_traitors)
+		for(var/job in restricted_jobs)
+			if(player.assigned_role == job)
 				possible_traitors -= player
+		if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
+			continue
+		var/mob/living/carbon/human/H = player.current
+		for(var/obj/item/bio_chip/mindshield/I in H.contents)
+			if(I && I.implanted)
+				possible_traitors -= player
+		if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
+			possible_traitors -= player
 
-		var/max_traitors = 1
-		var/traitor_prob = 0
-		max_traitors = round(player_count / 10) + 1
-		traitor_prob = (player_count - (max_traitors - 1) * 10) * 5
-		if(traitor_count < max_traitors - 1)
-			traitor_prob += 50
+	var/max_traitors = 1
+	var/traitor_prob = 0
+	max_traitors = round(player_count / 10) + 1
+	traitor_prob = (player_count - (max_traitors - 1) * 10) * 5
+	if(traitor_count < max_traitors - 1)
+		traitor_prob += 50
 
-		if(traitor_count < max_traitors)
-			if(prob(traitor_prob))
-				message_admins("Making a new Traitor.")
-				if(!length(possible_traitors))
-					message_admins("No potential traitors. Cancelling new traitor.")
-					addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
-					return
-				var/datum/mind/new_traitor_mind = pick(possible_traitors)
-				var/mob/living/new_traitor = new_traitor_mind.current
+	if(traitor_count < max_traitors)
+		if(prob(traitor_prob))
+			message_admins("Making a new Traitor.")
+			if(!length(possible_traitors))
+				message_admins("No potential traitors. Cancelling new traitor.")
+				addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
+				return
+			var/datum/mind/new_traitor_mind = pick(possible_traitors)
+			var/mob/living/new_traitor = new_traitor_mind.current
 
-				to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-				new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
+			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
 
-		addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()
