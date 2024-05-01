@@ -536,6 +536,7 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
+/// If it returns TRUE, attack chain stops
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)
 		if(TOOL_CROWBAR)
