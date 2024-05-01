@@ -71,7 +71,7 @@
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
-		EQUIPMENT("Mecha Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 3000),
+		EQUIPMENT("Mecha Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 2500),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -209,12 +209,7 @@
 	add_fingerprint()
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
-			remove_id()
-			default_deconstruction_crowbar(user, I)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
 		if(!has_power())
@@ -233,6 +228,17 @@
 			ui_interact(user)
 		return
 	return ..()
+
+/obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	remove_id()
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/mineral/equipment_vendor/screwdriver_act(mob/living/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
+		return TRUE
 
 /**
   * Called when someone slaps the machine with a mining voucher
