@@ -156,7 +156,7 @@ SUBSYSTEM_DEF(tickets)
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name][one_line ? " " : "<br>"]</span>"
 	if(M)
-		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)]) ([ADMIN_OBS(M, "OBS")])"
+		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
 	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
 	L += "[isAI(M) ? "(<a href='byond://?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='byond://?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
