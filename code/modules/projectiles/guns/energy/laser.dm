@@ -140,7 +140,7 @@
 	..()
 	damage = min(damage+7, 100)
 
-/obj/item/gun/energy/lasercannon/
+/obj/item/gun/energy/lasercannon/cyborg
 	name = "mounted accelerator laser cannon"
 	desc = "A frame-mounted accellerator laser cannon that draws power directly from your internal energy cell. The warranty is accelerating away too fast for you to retrieve it."
 
@@ -171,7 +171,7 @@
 	var/scope_active = FALSE
 	var/stored_dir
 	execution_speed = 8 SECONDS
-	extended_description = "The LWAP is a further iteration of the accellerator laser cannon, featuring a more powerful laser and a highly advanced \
+	extended_description = "The LWAP is a further iteration of the accelerator laser cannon, featuring a more powerful laser and a highly advanced \
 	thermal optic that can pick up the heat signatures of a person-sized target even through thick cover. If given enough time, the built-in targeting computer is able to generate firing solutions that can reliably \
 	allow the user to shoot through seams, cracks, or other imperfections in walls, allowing targets in other rooms to be struck without fear of retaliation."
 

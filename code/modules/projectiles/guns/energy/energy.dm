@@ -110,7 +110,7 @@
 
 /obj/item/gun/energy/gun/blueshield/pdw9
 	name = "\improper PDW-9 energy pistol"
-	desc = "A military-grade energy pistol favoured by mercenaries and militia forces. The fire selector has two settings: 'disable', and 'kill'."
+	desc = "A military-grade energy pistol favored by mercenaries and militia forces. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "pdw9pistol"
 	item_state = "gun"
 	extended_description = "The PDW-9 is a ruggedized energy pistol made by Shellguard Munitions as a sidearm for military customers. \
