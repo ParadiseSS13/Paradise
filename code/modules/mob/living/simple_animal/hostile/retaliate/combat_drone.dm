@@ -30,7 +30,7 @@
 	faction = list("malf_drone")
 	deathmessage = "suddenly breaks apart."
 	del_on_death = TRUE
-	advanced_bullet_dodge_chance = 15 // This will be adjusted when active, vs deactivated. Randomises on hit if it is zero.
+	advanced_bullet_dodge_chance = 25 // This will be adjusted when active, vs deactivated. Randomises on hit if it is zero.
 	var/passive_mode = TRUE // if true, don't target anything.
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
@@ -71,7 +71,7 @@
 	passive_mode = FALSE
 	update_icons()
 	if(!advanced_bullet_dodge_chance)
-		advanced_bullet_dodge_chance = rand(15, 30)
+		advanced_bullet_dodge_chance = 25
 	. = ..() // this will handle finding a target if there is a valid one nearby
 
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
@@ -91,7 +91,7 @@
 				LoseTarget()
 		else
 			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
-			advanced_bullet_dodge_chance = rand(15, 30)
+			advanced_bullet_dodge_chance = 25
 		update_icons()
 
 ///We overide the basic effect, as malfunctioning drones are in space, and use jets to dodge. Also lets us do cool effects.
