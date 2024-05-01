@@ -721,6 +721,7 @@
 	dir = 6;
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "cO" = (
@@ -1359,6 +1360,7 @@
 	dir = 4;
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fp" = (
@@ -1422,6 +1424,7 @@
 /obj/structure/chair/sofa/right{
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fx" = (
@@ -8144,6 +8147,7 @@
 	name = "wizard council throne";
 	dir = 1
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "CY" = (
@@ -12062,6 +12066,7 @@
 /obj/structure/chair/sofa{
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "Qm" = (
@@ -14249,6 +14254,7 @@
 /obj/structure/chair/comfy/purp{
 	name = "wizard council throne"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "Yp" = (
