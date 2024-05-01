@@ -1,17 +1,15 @@
 // milla.dm - DM API for milla extension library
 
 // Default automatic MILLA detection.
-// On Windows, looks in the standard places for `milla.dll`.
-// On Linux, looks in `.`, `$LD_LIBRARY_PATH`, and `~/.byond/bin` for either of
-// `libmilla.so` (preferred) or `milla` (old).
+// Look for it in the build location first, then in `.`, then in standard places.
 
 /* This comment bypasses grep checks */ /var/__milla
 
 /proc/__detect_milla()
 	if(world.system_type == UNIX)
 		// First check if it's built in the usual place.
-		if(fexists("./MILLA/target/i686-unknown-linux-gnu/release/libmilla.so"))
-			return __milla = "./MILLA/target/i686-unknown-linux-gnu/release/libmilla.so"
+		if(fexists("./milla/target/i686-unknown-linux-gnu/release/libmilla.so"))
+			return __milla = "./milla/target/i686-unknown-linux-gnu/release/libmilla.so"
 		// Then check in the current directory.
 		if(fexists("./libmilla.so"))
 			return __milla = "./libmilla.so"
@@ -19,8 +17,8 @@
 		return __milla = "libmilla.so"
 	else
 		// First check if it's built in the usual place.
-		if(fexists("./MILLA/target/i686-pc-windows-msvc/release/milla.dll"))
-			return __milla = "./MILLA/target/i686-pc-windows-msvc/release/milla.dll"
+		if(fexists("./milla/target/i686-pc-windows-msvc/release/milla.dll"))
+			return __milla = "./milla/target/i686-pc-windows-msvc/release/milla.dll"
 		// Then check in the current directory.
 		if(fexists("./milla.dll"))
 			return __milla = "./milla.dll"

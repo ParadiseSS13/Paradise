@@ -624,7 +624,7 @@
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
-// From MILLA/src/lib.rs
+// From milla/src/lib.rs
 // Increased by 1 due to the difference in array indexing.
 #define GAS_OFFSET 7
 // Rust deals in thermal energy, but converts when talking to DM.
@@ -633,7 +633,7 @@
 /turf/proc/read_air()
 	var/datum/gas_mixture/air = new()
 	var/list/raw_atmos = get_tile_atmos(x, y, z)
-	// Numbers from MILLA/src/lib.rs, plus one due to array indexing.
+	// Numbers from milla/src/lib.rs, plus one due to array indexing.
 	air.oxygen = raw_atmos[GAS_OFFSET + 0]
 	air.carbon_dioxide = raw_atmos[GAS_OFFSET + 1]
 	air.nitrogen = raw_atmos[GAS_OFFSET + 2]
