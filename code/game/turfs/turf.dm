@@ -647,5 +647,5 @@
 #undef ATMOS_TEMPERATURE
 #undef ATMOS_INNATE_HEAT_CAPACITY
 
-/turf/proc/write_air(var/datum/gas_mixture/air)
+/turf/proc/write_air(datum/gas_mixture/air)
 	set_tile_atmos(x, y, z, oxygen = air.oxygen, carbon_dioxide = air.carbon_dioxide, nitrogen = air.nitrogen, toxins = air.toxins, sleeping_agent = air.sleeping_agent, agent_b = air.agent_b, temperature = air.temperature)
