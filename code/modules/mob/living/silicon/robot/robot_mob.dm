@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Components are basically robot organs.
 	var/list/components = list()
 
- 	/// Used for deconstruction to remember what the robot was constructed out of.
+	/// Used for deconstruction to remember what the robot was constructed out of.
 	var/obj/item/robot_parts/robot_suit/robot_suit = null
 	/// Used for deconstruction to remember what the robot was constructed out of.
 	var/obj/item/mmi/mmi = null
