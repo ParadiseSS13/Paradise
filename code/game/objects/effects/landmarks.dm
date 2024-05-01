@@ -234,9 +234,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/roundstart_observer/Initialize(mapload)
 	spawner_list = GLOB.roundstart_observer_start
 	return ..()
-
-
-
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
 	..()
