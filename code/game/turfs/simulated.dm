@@ -23,8 +23,6 @@
 	var/current_cycle = 0
 	/// The active hotspot on this turf. The fact this is done through a literal object is painful
 	var/obj/effect/hotspot/active_hotspot
-	/// The general behavior of atmos on this tile.
-	var/atmos_mode = ATMOS_MODE_SEALED
 	/// The temp we were when we got archived
 	var/temperature_archived
 	/// Current gas overlay. Can be set to plasma or sleeping_gas

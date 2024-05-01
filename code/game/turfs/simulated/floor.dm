@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/proc/write_air(var/datum/gas_mixture/air)
 	if(blocks_air)
 		return
-	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature), oxygen = air.oxygen, carbon_dioxide = air.carbon_dioxide, nitrogen = air.nitrogen, toxins = air.toxins, sleeping_agent = air.sleeping_agent, agent_b = air.agent_b, temperature = air.temperature)
+	set_tile_atmos(x, y, z, oxygen = air.oxygen, carbon_dioxide = air.carbon_dioxide, nitrogen = air.nitrogen, toxins = air.toxins, sleeping_agent = air.sleeping_agent, agent_b = air.agent_b, temperature = air.temperature)
 
 // Checks if the turf is safe to be on
 /turf/simulated/floor/is_safe()

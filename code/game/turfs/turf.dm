@@ -77,6 +77,9 @@
 	/// Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
 	var/tmp/has_opaque_atom = FALSE
 
+	/// The general behavior of atmos on this tile.
+	var/atmos_mode = ATMOS_MODE_SEALED
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -115,6 +118,8 @@
 	if(opacity)
 		has_opaque_atom = TRUE
 
+	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature))
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
@@ -134,6 +139,10 @@
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	..()
+
+/turf/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+	. = ..()
+	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature))
 
 /turf/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
