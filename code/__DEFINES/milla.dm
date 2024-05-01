@@ -31,7 +31,7 @@
 
 #define REAL_SET_TILE_ATMOS(args...) MILLA_CALL(set_tile_atmos, args)
 
-proc/set_tile_atmos(x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+/proc/set_tile_atmos(x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
 	if(!isnum(x) || !isnum(y) || !isnum(z))
 		CRASH("Called set_tile_atmos without specifying coordinates.")
 	if(!isnull(blocked_north) && !isnum(blocked_north))
@@ -66,24 +66,24 @@ proc/set_tile_atmos(x, y, z, blocked_north, blocked_east, blocked_south, blocked
 
 #define REAL_GET_TILE_ATMOS(args...) MILLA_CALL(get_tile_atmos, args)
 
-proc/get_tile_atmos(x, y, z)
+/proc/get_tile_atmos(x, y, z)
 	if(!isnum(x) || !isnum(y) || !isnum(z))
 		CRASH("Called get_tile_atmos without specifying coordinates.")
 	return REAL_GET_TILE_ATMOS(x, y, z)
 
 #define REAL_SPAWN_TICK_THREAD MILLA_CALL(spawn_tick_thread)
 
-proc/spawn_milla_tick_thread()
+/proc/spawn_milla_tick_thread()
 	return REAL_SPAWN_TICK_THREAD
 
 #define REAL_GET_INTERESTING_TILES MILLA_CALL(get_interesting_tiles)
 
-proc/get_interesting_atmos_tiles()
+/proc/get_interesting_atmos_tiles()
 	return REAL_GET_INTERESTING_TILES
 
 #define REAL_REDUCE_SUPERCONDUCTIVITY(args...) MILLA_CALL(reduce_superconductivity, args)
 
-proc/reduce_superconductivity(x, y, z, list/superconductivity)
+/proc/reduce_superconductivity(x, y, z, list/superconductivity)
 	if(!isnum(x) || !isnum(y) || !isnum(z))
 		CRASH("Called reduce_superconductivity without specifying coordinates.")
 	var/north = superconductivity[1]
@@ -103,14 +103,14 @@ proc/reduce_superconductivity(x, y, z, list/superconductivity)
 
 #define REAL_RESET_SUPERCONDUCTIVITY(args...) MILLA_CALL(reset_superconductivity, args)
 
-proc/reset_superconductivity(x, y, z)
+/proc/reset_superconductivity(x, y, z)
 	if(!isnum(x) || !isnum(y) || !isnum(z))
 		CRASH("Called reset_superconductivity without specifying coordinates.")
 	return REAL_RESET_SUPERCONDUCTIVITY(x, y, z)
 
 #define REAL_SET_TILE_ATMOS_BLOCKING(args...) MILLA_CALL(set_tile_atmos_blocking, args)
 
-proc/set_tile_atmos_blocking(x, y, z, list/blocking)
+/proc/set_tile_atmos_blocking(x, y, z, list/blocking)
 	if(!isnum(x) || !isnum(y) || !isnum(z))
 		CRASH("Called set_tile_atmos_blocking without specifying coordinates.")
 	var/north = blocking[1]
