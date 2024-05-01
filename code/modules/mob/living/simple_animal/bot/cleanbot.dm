@@ -173,6 +173,8 @@
 	oldloc = loc
 
 /mob/living/simple_animal/bot/cleanbot/proc/assign_area()
+	if(autopatrol) // Don't want autopatrol if we are area locked
+		autopatrol = FALSE
 	if(area_locked)
 		area_locked = null
 	else
