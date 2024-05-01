@@ -15,7 +15,7 @@
 
 /obj/item/mimejutsu_scroll
 	name = "Mimejutsu 'scroll'"
-	desc =	"Its a beret with a note stapled to it..."
+	desc = "Its a beret with a note stapled to it..."
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret"
 	var/used = FALSE
