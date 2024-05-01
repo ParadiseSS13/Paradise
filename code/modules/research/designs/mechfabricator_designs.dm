@@ -816,7 +816,7 @@
 
 /datum/design/mech_armor_plate
 	name = "Exosuit Mining Armor Plate"
-	desc = "Exosuit-mounted armor booster."
+	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
 	id = "mech_plate_armor"
 	build_type = MECHFAB
 	req_tech = list("materials" = 5, "combat" = 5, "engineering" = 3)
