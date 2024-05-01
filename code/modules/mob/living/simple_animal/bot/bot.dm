@@ -411,31 +411,39 @@
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
 			return
-		if(!(allow_pai && !key))
+
+		if(!allow_pai || key)
 			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 			return
-		if(!locked && !open && !hijacked)
-			var/obj/item/paicard/card = W
-			if(!card.pai?.mind)
-				to_chat(user, "<span class='warning'>[W] is inactive.</span>")
-				return
-			if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-				to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
-				return
-			if(!user.drop_item())
-				return
-			W.forceMove(src)
-			paicard = card
-			user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
-			paicard.pai.mind.transfer_to(src)
-			to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
-			bot_name = name
-			name = paicard.pai.name
-			faction = user.faction
-			add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
-		else
+			
+		if(locked || open || hijacked)
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-	else if(istype(W, /obj/item/hemostat) && paicard)
+			return
+
+		var/obj/item/paicard/card = W
+		if(!card.pai?.mind)
+			to_chat(user, "<span class='warning'>[W] is inactive.</span>")
+			return
+
+		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
+			to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
+			return
+
+		if(!user.drop_item())
+			return
+			
+		W.forceMove(src)
+		paicard = card
+		user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
+		paicard.pai.mind.transfer_to(src)
+		to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
+		bot_name = name
+		name = paicard.pai.name
+		faction = user.faction
+		add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
+		return
+
+	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 		else
