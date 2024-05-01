@@ -127,3 +127,13 @@
 		CRASH("Called set_tile_atmos_blocking with non-number west.")
 
 	return REAL_SET_TILE_ATMOS_BLOCKING(x, y, z, north, east, south, west)
+
+#undef MILLA
+#undef MILLA_CALL
+#undef REAL_SET_TILE_ATMOS
+#undef REAL_GET_TILE_ATMOS
+#undef REAL_SPAWN_TICK_THREAD
+#undef REAL_GET_INTERESTING_TILES
+#undef REAL_REDUCE_SUPERCONDUCTIVITY
+#undef REAL_RESET_SUPERCONDUCTIVITY
+#undef REAL_SET_TILE_ATMOS_BLOCKING
