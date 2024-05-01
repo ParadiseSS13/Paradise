@@ -396,7 +396,7 @@
 	clone.grab_ghost()
 	clone.update_revive()
 	REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
-	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 
 	reset_cloning()
