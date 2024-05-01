@@ -5,12 +5,11 @@
  * and we make a new riding component, so on and so forth until the sun explodes.
  */
 
-
 /datum/component/riding
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 
 	var/last_move_diagonal = FALSE
-	///tick delay between movements, lower = faster, higher = slower
+	/// Tick delay between movements, lower = faster, higher = slower
 	var/vehicle_move_delay = 2
 
 	/**

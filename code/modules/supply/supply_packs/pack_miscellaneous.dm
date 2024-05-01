@@ -529,8 +529,7 @@
 	name = "Hoverboard Crate"
 	contains = list(/obj/item/melee/skateboard/hoverboard)
 	cost = 1000 //Price of cool
-	containername = "Hoverboard Crate"
-
+	containername = "hoverboard crate"
 
 ///////////// Station Goals
 

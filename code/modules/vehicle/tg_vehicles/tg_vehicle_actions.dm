@@ -213,7 +213,7 @@
 		return
 	var/mob/living/rider = owner
 	var/turf/landing_turf = get_step(vehicle.loc, vehicle.dir)
-	rider.adjustStaminaLoss(vehicle.instability* 0.75)
+	rider.adjustStaminaLoss(vehicle.instability * 0.75)
 	if(rider.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		vehicle.unbuckle_mob(rider)
@@ -261,7 +261,7 @@
 		rider.Weaken(5 SECONDS)
 		if(prob(15))
 			rider.visible_message(
-				"<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!)</span>",
+				"<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>",
 				"<span class='userdanger'>You smack against the board, hard.</span>",
 			)
 			rider.emote("scream")

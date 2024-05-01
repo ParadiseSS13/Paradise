@@ -480,7 +480,7 @@
 /datum/crafting_recipe/skateboard
 	name = "Camera Obscura"
 	result = list(/obj/tgvehicle/scooter/skateboard/improvised)
-	time = 15
+	time = 1.5 SECONDS
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/rods = 10)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)

@@ -113,7 +113,7 @@
 			return
 		rider.throw_at(throw_target, 3, 2)
 		var/head_slot = rider.get_item_by_slot(SLOT_HUD_HEAD)
-		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+		if(!head_slot || !(istype(head_slot ,/obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
 		visible_message("<span class='danger'>[src] crashes into [bumped_thing], sending [rider] flying!</span>")
@@ -153,7 +153,7 @@
 		grinding = FALSE
 		icon_state = "[initial(icon_state)]"
 		return
-	skater.adjustStaminaLoss(instability*0.3)
+	skater.adjustStaminaLoss(instability * 0.3)
 	if(skater.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		unbuckle_mob(skater)
@@ -169,7 +169,7 @@
 
 	if(location)
 		if(prob(33))
-			location.hotspot_expose(1000,1000)
+			location.hotspot_expose(1000, 1000)
 			sparks.start() //the most radical way to start plasma fires
 	for(var/mob/living/carbon/victim in location)
 		if(victim.body_position == LYING_DOWN)
@@ -198,7 +198,7 @@
 	qdel(src)
 
 /obj/tgvehicle/scooter/skateboard/pro
-	name = "skateboard"
+	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. Looks a lot more stable than the average board."
 	icon_state = "skateboard2"
 	board_item_type = /obj/item/melee/skateboard/pro
@@ -243,10 +243,10 @@
 /obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/sheet/metal))
 		return ..()
-	if(!I.tool_start_check(user, amount=5))
+	if(!I.tool_start_check(user, amount = 5))
 		return
 	to_chat(user, "<span class='notice'>You begin to add wheels to [src].</span>")
-	if(!I.use_tool(src, user, 80, volume=50, amount=5))
+	if(!I.use_tool(src, user, 80, volume = 50, amount = 5))
 		return
 	to_chat(user, "<span class='notice'>You finish making wheels for [src].</span>")
 	new /obj/tgvehicle/scooter/skateboard/improvised(user.loc)
@@ -266,10 +266,10 @@
 /obj/tgvehicle/scooter/skateboard/improvised/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
-	if(!I.tool_start_check(user, amount=2))
+	if(!I.tool_start_check(user, amount = 2))
 		return
 	to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
-	if(!I.use_tool(src, user, 25, volume=50, amount=2))
+	if(!I.use_tool(src, user, 25, volume = 50, amount = 2))
 		return
 	to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
 	var/obj/tgvehicle/scooter/skaterskoot = new(loc)
@@ -284,7 +284,7 @@
 	if(.)
 		return
 	to_chat(user, "<span class='notice'>You begin to deconstruct and remove the wheels on [src]...</span>")
-	if(!I.use_tool(src, user, 20, volume=50))
+	if(!I.use_tool(src, user, 20, volume = 50))
 		return
 	to_chat(user, "<span class='notice'>You deconstruct the wheels on [src].</span>")
 	new /obj/item/stack/sheet/metal(drop_location(), 5)
@@ -321,7 +321,7 @@
 	board_item_type = /obj/tgvehicle/scooter/skateboard/improvised
 
 /obj/item/melee/skateboard/pro
-	name = "skateboard"
+	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
 	icon_state = "skateboard2_held"
 	item_state = "skateboard2"
