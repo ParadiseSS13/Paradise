@@ -18,6 +18,8 @@
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
+	/// Time it takes to enter the mech
+	var/mech_enter_time = 4 SECONDS
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
@@ -1046,6 +1048,11 @@
 		return cabin_air
 	return get_turf_air()
 
+/obj/mecha/return_analyzable_air()
+	if(use_internal_tank)
+		return cabin_air
+	return null
+
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
 	if(t_air)
@@ -1149,7 +1156,7 @@
 	return TRUE
 
 /obj/mecha/proc/put_in(mob/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
-	if(do_after(user, 40, target = src))
+	if(do_after(user, mech_enter_time, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
