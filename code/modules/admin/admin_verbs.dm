@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	return TRUE
 
 /// targeted form of admin_observe: this should only appear in the right-click menu.
-/client/proc/admin_observe_target(mob/M as mob in GLOB.mob_list)
+/client/proc/admin_observe_target(mob/target as mob in GLOB.mob_list)
 	set name = "\[Admin\] Aobserve"
 	set category = null
 
