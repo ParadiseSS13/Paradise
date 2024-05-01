@@ -16,27 +16,29 @@
 	var/list/blood_DNA
 	var/blood_color
 	var/pass_flags = 0
-	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
-	var/simulated = TRUE //filter for actions - used by lighting overlays
+	/// The higher the germ level, the more germ on the atom.
+	var/germ_level = GERM_LEVEL_AMBIENT
+	/// Filter for actions - used by lighting overlays
+	var/simulated = TRUE
 	var/atom_say_verb = "says"
-	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
-	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
+	/// What icon the mob uses for speechbubbles
+	var/bubble_icon = "default"
 
-	///Chemistry.
+	// Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
-	//This atom's HUD (med/sec, etc) images. Associative list.
+	/// This atom's HUD (med/sec, etc) images. Associative list.
 	var/list/image/hud_list
-	//HUD images that this atom can provide.
+	/// HUD images that this atom can provide.
 	var/list/hud_possible
 
-	//Value used to increment ex_act() if reactionary_explosions is on
+	/// Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
-	//Detective Work, used for the duplicate data points kept in the scanners
+	// Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
-	/// Materials scannable by detective
+	/// List of fibers that this atom has
 	var/list/suit_fibers
 
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
