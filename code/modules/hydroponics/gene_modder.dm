@@ -171,6 +171,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GeneModder", name)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/machinery/plantgenes/ui_data(mob/user)
