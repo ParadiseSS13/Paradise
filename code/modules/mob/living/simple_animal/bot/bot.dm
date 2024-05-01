@@ -446,14 +446,15 @@
 	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
-		else
-			to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-			if(do_after(user, 30 * W.toolspeed, target = src))
-				if(paicard)
-					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
-					ejectpai(user)
-	else
-		return ..()
+			return
+			
+		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
+		if(do_after(user, 30 * W.toolspeed, target = src))
+			if(paicard)
+				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
+				ejectpai(user)
+				return
+	return ..()
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
