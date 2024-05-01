@@ -117,7 +117,7 @@ Difficulty: Hard
 		if(VORTEX)
 			desc += "You see space bend and distort around it."
 		if(CRYO)
-			desc += "The air surrounding it cold and listless."
+			desc += "The air surrounding it is cold and listless."
 	body_shield()
 	add_overlay("[mode]")
 	add_overlay("eyes")
