@@ -7,6 +7,11 @@
 
 /proc/__detect_milla()
 	if(world.system_type == UNIX)
+#ifdef CIBUILDING
+		// CI override, use libmilla_ci.so if possible.
+		if(fexists("./tools/ci/libmilla_ci.so"))
+			return __milla = "tools/ci/libmilla_ci.so"
+#endif
 		// First check if it's built in the usual place.
 		if(fexists("./milla/target/i686-unknown-linux-gnu/release/libmilla.so"))
 			return __milla = "./milla/target/i686-unknown-linux-gnu/release/libmilla.so"
