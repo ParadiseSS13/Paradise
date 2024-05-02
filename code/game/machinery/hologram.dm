@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Its maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
-	. += "<span class='notice'>Its public mode indicator reads <b>[public_mode ? "on" : "off"]</b>. It can be <b>turned [public_mode ? "off" : "on"]</b> with the maintenance panel open using a multitool.</span>"
+	. += "<span class='notice'>Its public mode indicator reads <b>[public_mode ? "on" : "off"]</b>. It can be <b>turned [public_mode ? "off" : "on"]</b> by using a multitool while the maintenance panel is open.</span>"
 
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
