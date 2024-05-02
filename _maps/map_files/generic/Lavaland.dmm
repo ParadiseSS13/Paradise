@@ -3696,7 +3696,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lf" = (
-/obj/effect/spawner/window/grilled,
+/obj/effect/spawner/window/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "lg" = (
