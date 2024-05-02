@@ -111,8 +111,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/New(Target)
-	. = ..()
+/datum/action/innate/elite_attack/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
 	button.maptext_y = 0
@@ -125,13 +125,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButton()
+	UpdateButtons()
 
-/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
+/datum/action/innate/elite_attack/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	. = ..()
 	if(status_only)
 		return
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
+
 	if(timeleft == 0)
 		button.maptext = ""
 	else
@@ -152,7 +154,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
-	desc = "An odd, pulsing tumor sticking out of the ground.  You feel compelled to reach out and touch it..."
+	desc = "An odd, pulsing tumor sticking out of the ground. You feel compelled to reach out and touch it..."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/obj/lavaland/tumor.dmi'
 	icon_state = "tumor"
@@ -190,12 +192,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					"<span class='warning'>You reach for [src] with your arm... but nothing happens.</span>")
 				return
 			activity = TUMOR_ACTIVE
-			user.visible_message("<span class='userdanger'>[src] convulses as [user]'s arm enters its radius.  Uh-oh...</span>",
-				"<span class='userdanger'>[src] convulses as your arm enters its radius.  Your instincts tell you to step back.</span>")
+			user.visible_message("<span class='userdanger'>[src] convulses as [user]'s arm enters its radius. Uh-oh...</span>",
+				"<span class='userdanger'>[src] convulses as your arm enters its radius. Your instincts tell you to step back.</span>")
 			make_activator(user)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
+				to_chat(mychild, "<span class='warning'>Someone has activated your tumor. You will be returned to fight shortly, get ready!</span>")
 			addtimer(CALLBACK(src, PROC_REF(return_elite)), 3 SECONDS)
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
@@ -217,12 +219,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
 				to_chat(elitemind, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\n\
 					Your attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\n\
-					While the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
+					While the opponent might have an upper hand with powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
 					If you want to win, you'll have to use your powers in creative ways to ensure the kill. It's suggested you try using them all as soon as possible.\n\
 					Should you win, you'll receive extra information regarding what to do after. Good luck!</b>")
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
 			else
-				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
+				visible_message("<span class='warning'>The stirring stops, and nothing emerges. Perhaps try again later.</span>")
 				activity = TUMOR_INACTIVE
 				clear_activator(user)
 
@@ -235,7 +237,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.key = elitemind.key
 		mychild.sentience_act()
 		dust_if_respawnable(elitemind)
-		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -250,7 +252,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.maxHealth = mychild.maxHealth * 2.5
 		mychild.health = mychild.maxHealth
 		mychild.grab_ghost()
-		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
 
@@ -397,7 +399,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		SSblackbox.record_feedback("tally", "ai_controlled_elite_win", 1, mychild.name)
 	if(times_won == 1)
 		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-		to_chat(mychild, "<span class='warning'><As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
+		to_chat(mychild, "<span class='warning'>As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
 			Despite this inferno being your home, you feel as if you aren't welcome here anymore.\n\
 			Without any guidance, your purpose is now for you to decide.</span>")
 		to_chat(mychild, "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.\n\
@@ -428,8 +430,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
-		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
+		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt. Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
+		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user]. You are expected not to intentionally sabotage their faction unless commanded to!</span>")
 		if(user.mind.special_role)
 			E.maxHealth = 300
 			E.health = 300
@@ -474,10 +476,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(isliving(mover))
 		return FALSE
 
+/obj/effect/temp_visual/elite_tumor_wall/gargantua
+	duration = 35 SECONDS // A bit longer than the spell lasts, it should be cleaned up by the spell otherwise it might not GC properly
+
 /obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/item/projectile))
-		return FALSE
+	return FALSE
 
 /obj/item/gps/internal/tumor
 	icon_state = null

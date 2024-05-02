@@ -1,8 +1,7 @@
-/obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
+/datum/spell/aoe/conjure/build/mime_wall
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
 	school = "mime"
-	panel = "Mime"
 	summon_type = list(/obj/structure/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
@@ -15,7 +14,7 @@
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
+/datum/spell/aoe/conjure/build/mime_wall/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
@@ -25,14 +24,13 @@
 		invocation_type ="none"
 	..()
 
-/obj/effect/proc_holder/spell/mime/create_new_targeting()
+/datum/spell/mime/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/mime/speak
+/datum/spell/mime/speak
 	name = "Speech"
 	desc = "Make or break a vow of silence."
 	school = "mime"
-	panel = "Mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 	human_req = TRUE
@@ -40,7 +38,7 @@
 	action_icon_state = "mime_silence"
 	action_background_icon_state = "bg_mime"
 
-/obj/effect/proc_holder/spell/mime/speak/Click()
+/datum/spell/mime/speak/Click()
 	if(!usr)
 		return
 	if(!ishuman(usr))
@@ -52,7 +50,7 @@
 		still_recharging_msg = "<span class='warning'>You'll have to wait before you can give your vow of silence again!</span>"
 	..()
 
-/obj/effect/proc_holder/spell/mime/speak/cast(list/targets,mob/user = usr)
+/datum/spell/mime/speak/cast(list/targets,mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
 		H.mind.miming=!H.mind.miming
 		if(H.mind.miming)
@@ -62,11 +60,10 @@
 
 //Advanced Mimery traitor item spells
 
-/obj/effect/proc_holder/spell/forcewall/mime
+/datum/spell/forcewall/mime
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
 	school = "mime"
-	panel = "Mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
@@ -77,7 +74,7 @@
 	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"
 
-/obj/effect/proc_holder/spell/forcewall/mime/Click()
+/datum/spell/forcewall/mime/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
@@ -87,11 +84,10 @@
 		invocation_type ="none"
 	..()
 
-/obj/effect/proc_holder/spell/mime/fingergun
+/datum/spell/mime/fingergun
 	name = "Finger Gun"
 	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
-	panel = "Mime"
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 	human_req = TRUE
@@ -101,7 +97,7 @@
 	var/gun = /obj/item/gun/projectile/revolver/fingergun
 	var/obj/item/gun/projectile/revolver/fingergun/current_gun
 
-/obj/effect/proc_holder/spell/mime/fingergun/cast(list/targets, mob/user = usr)
+/datum/spell/mime/fingergun/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/C in targets)
 		if(!current_gun)
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
@@ -114,33 +110,33 @@
 			revert_cast(user)
 
 
-/obj/effect/proc_holder/spell/mime/fingergun/Destroy()
+/datum/spell/mime/fingergun/Destroy()
 	current_gun = null
 	return ..()
 
-/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_hand(atom/target, any=FALSE)
+/datum/spell/mime/fingergun/proc/holster_hand(atom/target, any=FALSE)
 	SIGNAL_HANDLER
 	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return
 	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time perhaps...</span>")
 	QDEL_NULL(current_gun)
 
-/obj/effect/proc_holder/spell/mime/fingergun/fake
+/datum/spell/mime/fingergun/fake
 	desc = "Pretend you're shooting bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
 // Mime Spellbooks
 
 /obj/item/spellbook/oneuse/mime
-	spell = /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
+	spell = /datum/spell/aoe/conjure/build/mime_wall
 	spellname = "Invisible Wall"
 	name = "Miming Manual : "
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
 	icon_state = "bookmime"
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
-	var/obj/effect/proc_holder/spell/S = new spell
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
+	var/datum/spell/S = new spell
+	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
 				to_chat(user, "<span class='notice'>You've already read this one.</span>")
@@ -159,19 +155,19 @@
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
 	used = TRUE
-	if(!locate(/obj/effect/proc_holder/spell/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak)
+	if(!locate(/datum/spell/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
+		user.mind.AddSpell(new /datum/spell/mime/speak)
 		to_chat(user, "<span class='notice'>You have learned how to use silence to improve your performance.</span>")
 
 /obj/item/spellbook/oneuse/mime/fingergun
-	spell = /obj/effect/proc_holder/spell/mime/fingergun
+	spell = /datum/spell/mime/fingergun
 	spellname = "Finger Gun"
 	desc = "It contains illustrations of guns and how to mime them."
 
 /obj/item/spellbook/oneuse/mime/fingergun/fake
-	spell = /obj/effect/proc_holder/spell/mime/fingergun/fake
+	spell = /datum/spell/mime/fingergun/fake
 
 /obj/item/spellbook/oneuse/mime/greaterwall
-	spell = /obj/effect/proc_holder/spell/forcewall/mime
+	spell = /datum/spell/forcewall/mime
 	spellname = "Invisible Greater Wall"
 	desc = "It contains illustrations of the great walls of human history."

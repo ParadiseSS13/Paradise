@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/vampire/self/blood_swell
+/datum/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
 	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
@@ -6,13 +6,13 @@
 	required_blood = 30
 	action_icon_state = "blood_swell"
 
-/obj/effect/proc_holder/spell/vampire/self/blood_swell/cast(list/targets, mob/user)
+/datum/spell/vampire/self/blood_swell/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
 
-/obj/effect/proc_holder/spell/vampire/self/stomp
+/datum/spell/vampire/self/stomp
 	name = "Seismic Stomp (30)"
 	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if you legs are impared by a bola or similar."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
@@ -21,18 +21,18 @@
 	required_blood = 30
 	var/max_range = 4
 
-/obj/effect/proc_holder/spell/vampire/self/stomp/can_cast(mob/living/carbon/user, charge_check, show_message)
+/datum/spell/vampire/self/stomp/can_cast(mob/living/carbon/user, charge_check, show_message)
 	if(user.legcuffed)
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/vampire/self/stomp/cast(list/targets, mob/user)
+/datum/spell/vampire/self/stomp/cast(list/targets, mob/user)
 	var/turf/T = get_turf(user)
 	playsound(T, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(hit_check), 1, T, user), 0.2 SECONDS)
 	new /obj/effect/temp_visual/stomp(T)
 
-/obj/effect/proc_holder/spell/vampire/self/stomp/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
+/datum/spell/vampire/self/stomp/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
 	// gets the two outermost turfs in a ring, we get two so people cannot "walk over" the shockwave
 	var/list/targets = view(range, start_turf) - view(range - 2, start_turf)
 	for(var/turf/simulated/floor/flooring in targets)
@@ -72,14 +72,14 @@
 /datum/vampire_passive/blood_swell_upgrade
 	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
 
-/obj/effect/proc_holder/spell/vampire/self/overwhelming_force
+/datum/spell/vampire/self/overwhelming_force
 	name = "Overwhelming Force"
 	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
 	gain_desc = "You have gained the ability to force open doors at a small blood cost."
 	base_cooldown = 2 SECONDS
 	action_icon_state = "OH_YEAAAAH"
 
-/obj/effect/proc_holder/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
+/datum/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		to_chat(user, "<span class='warning'>You feel MIGHTY!</span>")
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
@@ -90,7 +90,7 @@
 		user.move_resist = MOVE_FORCE_DEFAULT
 		user.status_flags |= CANPUSH
 
-/obj/effect/proc_holder/spell/vampire/self/blood_rush
+/datum/spell/vampire/self/blood_rush
 	name = "Blood Rush (30)"
 	desc = "Infuse yourself with blood magic to boost your movement speed."
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
@@ -98,14 +98,14 @@
 	required_blood = 30
 	action_icon_state = "blood_rush"
 
-/obj/effect/proc_holder/spell/vampire/self/blood_rush/cast(list/targets, mob/user)
+/datum/spell/vampire/self/blood_rush/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp
+/datum/spell/fireball/demonic_grasp
 	name = "Demonic Grasp (20)"
 	desc = "Fire a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
 	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
@@ -117,17 +117,16 @@
 
 	action_icon_state = "demonic_grasp"
 
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"
 	invocation = null
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon_state()
+/datum/spell/fireball/demonic_grasp/update_spell_icon()
 	return
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp/create_new_handler()
+/datum/spell/fireball/demonic_grasp/create_new_handler()
 	var/datum/spell_handler/vampire/V = new()
 	V.required_blood = 20
 	return V
@@ -178,7 +177,7 @@
 	icon_state = "immobilized"
 	duration = 1 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/charge
+/datum/spell/vampire/charge
 	name = "Charge (30)"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
@@ -186,16 +185,16 @@
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"
 
-/obj/effect/proc_holder/spell/vampire/charge/create_new_targeting()
+/datum/spell/vampire/charge/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
+/datum/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	if(IS_HORIZONTAL(L))
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/vampire/charge/cast(list/targets, mob/user)
+/datum/spell/vampire/charge/cast(list/targets, mob/user)
 	var/target = targets[1]
 	if(isliving(user))
 		var/mob/living/L = user
@@ -204,7 +203,7 @@
 
 #define ARENA_SIZE 3
 
-/obj/effect/proc_holder/spell/vampire/arena
+/datum/spell/vampire/arena
 	name = "Desecrated Duel (150)"
 	desc = "You leap towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
 	gain_desc = "You can now leap to a target and trap them in a conjured arena."
@@ -218,13 +217,13 @@
 	/// Holds a reference to all arena walls so we can qdel them easily with dispel()
 	var/list/all_temp_walls = list()
 
-/obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
+/datum/spell/vampire/arena/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.click_radius = 0
 	T.allowed_type = /mob/living/carbon/human
 	return T
 
-/obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
+/datum/spell/vampire/arena/cast(list/targets, mob/living/user)
 	var/target = targets[1] // We only want to dash towards the first mob in our targeting list, if somehow multiple ended up in there
 	if(!targets)
 		return
@@ -259,27 +258,27 @@
 	user.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispel), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	INVOKE_ASYNC(src, PROC_REF(arena_trap), get_turf(target))  //Gets another arena trap queued up for when this one runs out.
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispel))
 	arena_checks(get_turf(target), user)
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks(turf/target_turf, mob/living/user)
+/datum/spell/vampire/arena/proc/arena_checks(turf/target_turf, mob/living/user)
 	if(!spell_active || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check), user)  //Checks to see if our fighters died.
-	INVOKE_ASYNC(src, PROC_REF(arena_trap), target_turf)  //Gets another arena trap queued up for when this one runs out.
 	addtimer(CALLBACK(src, PROC_REF(arena_checks), target_turf, user), 5 SECONDS)
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap(turf/target_turf)
+/datum/spell/vampire/arena/proc/arena_trap(turf/target_turf)
 	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
 		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall/gargantua(tumor_range_turfs, src)
 		all_temp_walls += tumor_range_turfs
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check(mob/living/user)
+/datum/spell/vampire/arena/proc/fighters_check(mob/living/user)
 	if(QDELETED(user) || user.stat == DEAD)
 		dispel(user)
 		return
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/dispel(mob/living/user)
+/datum/spell/vampire/arena/proc/dispel(mob/living/user)
 	spell_active = FALSE
 	if(timer)
 		deltimer(timer)

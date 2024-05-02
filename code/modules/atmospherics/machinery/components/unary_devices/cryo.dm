@@ -34,7 +34,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()
 	if(occupant)
-		if(occupant.is_dead())
+		if(occupant.stat == DEAD)
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
@@ -253,7 +253,7 @@
 	data["beakerVolume"] = 0
 	if(beaker)
 		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if(beaker.reagents && beaker.reagents.reagent_list.len)
+		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 	data["cooldownProgress"] = round(clamp((world.time - last_injection) / injection_cooldown, 0, 1) * 100)

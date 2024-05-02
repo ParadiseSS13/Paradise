@@ -146,7 +146,7 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !contents.len))
+	if(crit_fail || (!holder && !length(contents)))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -157,7 +157,7 @@
 
 	if(!holder || (holder in src))
 		holder = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)
@@ -464,7 +464,7 @@
 	desc = "A long length of monomolecular filament, built into the back of your hand. \
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	icon_state = "razorwire_weapon"
@@ -690,7 +690,7 @@
 	set_light(3)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
 			return FALSE

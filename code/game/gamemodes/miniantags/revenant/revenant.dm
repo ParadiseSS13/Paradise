@@ -16,7 +16,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	mob_biotypes = MOB_SPIRIT
-	incorporeal_move = 3
+	incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
@@ -79,7 +79,7 @@
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
 		revealed = 0
-		incorporeal_move = 3
+		incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 		invisibility = INVISIBILITY_REVENANT
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
@@ -162,7 +162,7 @@
 	else
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
-		if(candidates.len)
+		if(length(candidates))
 			theghost = pick(candidates)
 			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
 			key = theghost.key
@@ -192,13 +192,13 @@
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
+	mind.AddSpell(new /datum/spell/night_vision/revenant(null))
+	mind.AddSpell(new /datum/spell/revenant_transmit(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/defile(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/malfunction(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/haunt_object(null))
+	mind.AddSpell(new /datum/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
 
@@ -275,7 +275,7 @@
 		return
 	revealed = 1
 	invisibility = 0
-	incorporeal_move = 0
+	incorporeal_move = NO_INCORPOREAL_MOVE
 	if(!unreveal_time)
 		to_chat(src, "<span class='revendanger'>You have been revealed!</span>")
 		unreveal_time = world.time + time

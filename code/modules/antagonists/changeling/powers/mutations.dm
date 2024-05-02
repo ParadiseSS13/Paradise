@@ -40,7 +40,7 @@
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
 	SIGNAL_HANDLER
-	if(!ischangeling(owner))
+	if(!IS_CHANGELING(owner))
 		return
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
@@ -199,7 +199,6 @@
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
-	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "tentacle"

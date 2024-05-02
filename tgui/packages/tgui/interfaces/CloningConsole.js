@@ -86,7 +86,8 @@ const CloningConsoleMain = (props, context) => {
                   )}
                   style={{
                     width: '100%',
-                    '-ms-interpolation-mode': 'nearest-neighbor',
+                    '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                    'image-rendering': 'pixelated',
                   }}
                 />
                 <Button
@@ -214,7 +215,7 @@ const CloningConsoleDamage = (props, context) => {
                     </Stack.Item>
                   </Stack>
                   <Stack height="25px">
-                    <Stack.Item width="50%">
+                    <Stack.Item width="40%">
                       <ProgressBar
                         value={cloning_cost[0]}
                         maxValue={selected_pod_data['biomass_storage_capacity']}
@@ -247,7 +248,7 @@ const CloningConsoleDamage = (props, context) => {
                         {selected_pod_data['biomass_storage_capacity']}
                       </ProgressBar>
                     </Stack.Item>
-                    <Stack.Item width="25%" mx="2px">
+                    <Stack.Item width="30%">
                       <ProgressBar
                         value={cloning_cost[1]}
                         maxValue={selected_pod_data['max_reagent_capacity']}
@@ -277,7 +278,7 @@ const CloningConsoleDamage = (props, context) => {
                         {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>
                     </Stack.Item>
-                    <Stack.Item width="25%">
+                    <Stack.Item width="30%">
                       <ProgressBar
                         value={cloning_cost[2]}
                         maxValue={selected_pod_data['max_reagent_capacity']}
@@ -335,7 +336,7 @@ const LimbsMenu = (props, context) => {
               <Stack.Item width="60%">
                 <ProgressBar
                   value={
-                    patient_limb_data[limb][0] + patient_limb_data[limb][1]
+                    desired_limb_data[limb][0] + desired_limb_data[limb][1]
                   }
                   maxValue={patient_limb_data[limb][5]}
                   ranges={{
@@ -350,11 +351,11 @@ const LimbsMenu = (props, context) => {
                     ],
                   }}
                 >
-                  {'Current Damage: '}
+                  {'Post-Cloning Damage: '}
                   <Icon name="bone" />
-                  {' ' + patient_limb_data[limb][0] + ' / '}
+                  {' ' + desired_limb_data[limb][0] + ' / '}
                   <Icon name="fire" />
-                  {' ' + patient_limb_data[limb][1]}
+                  {' ' + desired_limb_data[limb][1]}
                 </ProgressBar>
               </Stack.Item>
             )}
@@ -386,10 +387,7 @@ const LimbsMenu = (props, context) => {
                     !(patient_limb_data[limb][0] || patient_limb_data[limb][1])
                   }
                   checked={
-                    !(
-                      desired_limb_data[limb][0] || desired_limb_data[limb][1]
-                    ) &&
-                    (patient_limb_data[limb][0] || patient_limb_data[limb][1])
+                    !(desired_limb_data[limb][0] || desired_limb_data[limb][1])
                   }
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'damage' })
@@ -399,10 +397,7 @@ const LimbsMenu = (props, context) => {
                 </Button.Checkbox>
                 <Button.Checkbox
                   disabled={!(patient_limb_data[limb][2] & brokenFlag)}
-                  checked={
-                    !(desired_limb_data[limb][2] & brokenFlag) &&
-                    patient_limb_data[limb][2] & brokenFlag
-                  }
+                  checked={!(desired_limb_data[limb][2] & brokenFlag)}
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'bone' })
                   }
@@ -413,10 +408,7 @@ const LimbsMenu = (props, context) => {
                   disabled={
                     !(patient_limb_data[limb][2] & internalBleedingFlag)
                   }
-                  checked={
-                    !(desired_limb_data[limb][2] & internalBleedingFlag) &&
-                    patient_limb_data[limb][2] & internalBleedingFlag
-                  }
+                  checked={!(desired_limb_data[limb][2] & internalBleedingFlag)}
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'ib' })
                   }
@@ -425,10 +417,7 @@ const LimbsMenu = (props, context) => {
                 </Button.Checkbox>
                 <Button.Checkbox
                   disabled={!(patient_limb_data[limb][2] & burnWoundFlag)}
-                  checked={
-                    !(desired_limb_data[limb][2] & burnWoundFlag) &&
-                    patient_limb_data[limb][2] & burnWoundFlag
-                  }
+                  checked={!(desired_limb_data[limb][2] & burnWoundFlag)}
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'critburn' })
                   }
@@ -458,9 +447,7 @@ const OrgansMenu = (props, context) => {
             {!(patient_organ_data[organ][5] === 'heart') && (
               <Box>
                 <Stack.Item>
-                  {!!(
-                    patient_organ_data[organ][2] || patient_organ_data[organ][1]
-                  ) && (
+                  {!!patient_organ_data[organ][2] && (
                     <Button.Checkbox
                       checked={
                         !desired_organ_data[organ][2] &&
@@ -476,16 +463,11 @@ const OrgansMenu = (props, context) => {
                       Replace Organ
                     </Button.Checkbox>
                   )}
-                  {!(
-                    patient_organ_data[organ][2] || patient_organ_data[organ][1]
-                  ) && (
+                  {!patient_organ_data[organ][2] && (
                     <Box>
                       <Button.Checkbox
                         disabled={!patient_organ_data[organ][0]}
-                        checked={
-                          !desired_organ_data[organ][0] &&
-                          patient_organ_data[organ][0]
-                        }
+                        checked={!desired_organ_data[organ][0]}
                         onClick={() =>
                           act('toggle_organ_repair', {
                             organ: organ,
@@ -514,7 +496,7 @@ const OrgansMenu = (props, context) => {
               )}
               {!patient_organ_data[organ][2] && (
                 <ProgressBar
-                  value={patient_organ_data[organ][0]}
+                  value={desired_organ_data[organ][0]}
                   maxValue={patient_organ_data[organ][4]}
                   ranges={{
                     good: [0, patient_organ_data[organ][4] / 3],
@@ -528,7 +510,7 @@ const OrgansMenu = (props, context) => {
                     ],
                   }}
                 >
-                  {'Current Damage: ' + patient_organ_data[organ][0]}
+                  {'Post-Cloning Damage: ' + desired_organ_data[organ][0]}
                 </ProgressBar>
               )}
             </Stack.Item>

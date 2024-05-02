@@ -111,6 +111,20 @@
 	name = "Emergency shuttle JUNG-13"
 	description = "You can hear screeching and hissing as this shuttle docks."
 
+/datum/map_template/shuttle/emergency/raven
+	suffix = "raven"
+	name = "CentCom Raven Cruiser"
+	description = "The CentCom Raven Cruiser is a former high-risk salvage vessel, now repurposed into an emergency escape shuttle. \
+	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
+	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
+	admin_notes = "Comes with turrets that will target simple mobs."
+
+/datum/map_template/shuttle/emergency/shadow
+	suffix = "shadow"
+	name = "The NTSS Shadow"
+	description = "Guaranteed to get you somewhere FAST. With a custom-built plasma engine, this bad boy will put more distance between you and certain danger than any other!"
+	admin_notes = "The aft of the ship has a plasma tank that starts ignited. May get released by crew. The plasma windows next to the engine heaters will also erupt into flame, and also risk getting released by crew."
+
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
 	name = "transport ferry"

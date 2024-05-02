@@ -48,14 +48,36 @@ SUBSYSTEM_DEF(economy)
 	///Current Order number
 	var/ordernum = 1
 
-	/// points gained per slip returned
+	/// credits gained per slip returned
 	var/credits_per_manifest = 5
-	/// points gained per intel returned
+	/// credits gained per intel sold
 	var/credits_per_intel = 750
-	/// points gained per plasma returned
+	/// credits gained per plasma sold
 	var/credits_per_plasma = 10
-	/// points gained per research design returned
+	/// credits gained per research design sold
 	var/credits_per_design = 20
+	/// credits gained per working mech sold
+	var/credits_per_mech = 100
+	/// credits gained for each secondary goal completed
+	/// These get split in 3, one part for Cargo, one for the department,
+	/// and one part for the person who requested the goal.
+	var/credits_per_easy_reagent_goal = 150
+	var/credits_per_normal_reagent_goal = 300
+	var/credits_per_hard_reagent_goal = 450
+	var/credits_per_variety_reagent_goal = 300
+	var/credits_per_easy_food_goal = 300
+	var/credits_per_normal_food_goal = 450
+	var/credits_per_hard_food_goal = 600
+	var/credits_per_ripley_goal = 600
+	var/credits_per_kudzu_goal = 600
+	/// credits lost for sending unsecured cargo
+	var/fine_for_loose_cargo = -100
+	/// credits lost for sending a messy shuttle
+	var/fine_for_messy_shuttle = -100
+	/// credits lost for sending unwanted items
+	var/fine_for_selling_trash = -100
+	/// points gained per virology goal
+	var/credits_per_virology_goal = 200
 
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message
@@ -114,10 +136,13 @@ SUBSYSTEM_DEF(economy)
 				return FALSE //really fuck off, you're vv editing something to a value that will break the economy
 	return ..()
 
-/datum/controller/subsystem/economy/Initialize()
-	///create main station accounts
+/proc/init_current_date_string()
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
+
+/datum/controller/subsystem/economy/Initialize()
+	init_current_date_string()
+	///create main station accounts
 	if(GLOB.station_money_database)
 		populate_station_database()
 		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
@@ -144,6 +169,8 @@ SUBSYSTEM_DEF(economy)
 
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
+
+	check_total_virology_goals_completion()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)

@@ -52,6 +52,9 @@
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
 
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
@@ -138,6 +141,9 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
+/// Grabs the area of a supplied object. Passing an area in to this will result in an error
+#define get_area(T) ((get_step(T, 0)?.loc))
+
 //check_target_facings() return defines
 #define FACING_FAILED											0
 #define FACING_SAME_DIR											1
@@ -182,8 +188,8 @@
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
-#define SUIT_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				25	//Possible make this an overlay of something required to wear a belt?
+#define SUIT_LAYER				24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
@@ -396,7 +402,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 53
+#define SQL_VERSION 55
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -415,11 +421,6 @@
 // Area selection defines
 #define AREASELECT_CORNERA "corner A"
 #define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
@@ -637,19 +638,19 @@ do { \
 
 //Individual defines
 #define MAP_GENERATOR_CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		16 //Don't let atoms of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
 
 //Combined defines
-#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				24 //Don't let any of the same type cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		6  //Don't let any of different types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			10 //Don't let ANY turfs cluster same and different types
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				(MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
 
 //All
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
 
 // Buffer datatype flags.
 #define DNA2_BUF_UI (1<<0)
@@ -698,3 +699,6 @@ do { \
 #define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
 #define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
 #define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
+
+/// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
+#define RESTRICT_TYPE(type) // do nothing

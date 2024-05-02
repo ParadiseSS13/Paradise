@@ -1,8 +1,3 @@
-/// A limb that's not missing with no damages or flags.
-#define HEALTHY_LIMB list(0, 0, 0, FALSE)
-/// As above, but for organs.
-#define HEALTHY_ORGAN list(0, 0, FALSE)
-
 /// A datum to store the information gained by scanning a patient OR the fixes to be made to their body.
 /datum/cloning_data
 	/// The patient's name.
@@ -20,33 +15,6 @@
 
 	/// The patient's DNA
 	var/datum/dna/genetic_info
-
-//this is mostly an example
-/datum/cloning_data/healthy
-
-	limbs = list(
-		"head"   = HEALTHY_LIMB,
-		"torso"  = HEALTHY_LIMB,
-		"groin"  = HEALTHY_LIMB,
-		"r_arm"  = HEALTHY_LIMB,
-		"r_hand" = HEALTHY_LIMB,
-		"l_arm"  = HEALTHY_LIMB,
-		"l_hand" = HEALTHY_LIMB,
-		"r_leg"  = HEALTHY_LIMB,
-		"r_foot" = HEALTHY_LIMB,
-		"l_leg"  = HEALTHY_LIMB,
-		"l_foot" = HEALTHY_LIMB
-	)
-
-	organs = list(
-		"heart"    = HEALTHY_ORGAN,
-		"lungs"    = HEALTHY_ORGAN,
-		"liver"    = HEALTHY_ORGAN,
-		"kidneys"  = HEALTHY_ORGAN,
-		"brain"    = HEALTHY_ORGAN,
-		"appendix" = HEALTHY_ORGAN,
-		"eyes"     = HEALTHY_ORGAN
-	)
 
 //The cloning scanner itself.
 /obj/machinery/clonescanner
@@ -91,6 +59,8 @@
 /obj/machinery/clonescanner/Destroy()
 	if(console)
 		console.scanner = null
+	if(occupant)
+		remove_mob()
 	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
@@ -114,22 +84,20 @@
 	if(!occupant)
 		return
 	if(issilicon(user))
-		remove_mob(occupant)
+		remove_mob()
 		return
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	remove_mob(occupant)
+	remove_mob()
 
 /obj/machinery/clonescanner/relaymove(mob/user)
 	if(user.stat)
 		return
-	remove_mob(user)
+	remove_mob()
 
 /obj/machinery/clonescanner/proc/try_scan(mob/living/carbon/human/scanned)
 	if(!scanned)
 		return
-
-	occupant.notify_ghost_cloning()
 
 	has_scanned = TRUE
 
@@ -141,7 +109,7 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
-	if(!scanned.ckey || !scanned.client || ischangeling(scanned))
+	if(!scanned.ckey || !scanned.client || IS_CHANGELING(scanned))
 		return SCANNER_NO_SOUL
 	if(scanned.suiciding || !scanned.get_int_organ(/obj/item/organ/internal/brain))
 		return SCANNER_BRAIN_ISSUE
@@ -190,10 +158,10 @@
 	occupant = inserted
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/clonescanner/proc/remove_mob(mob/living/carbon/human/removed)
-	if(!istype(removed))
+/obj/machinery/clonescanner/proc/remove_mob()
+	if(!occupant)
 		return
-	removed.forceMove(get_turf(loc))
+	occupant.forceMove(get_turf(loc))
 	occupant = null
 	update_scan_status()
 	update_icon(UPDATE_ICON_STATE)
@@ -225,5 +193,5 @@
 	var/obj/item/multitool/M = I
 	M.set_multitool_buffer(user, src)
 
-#undef HEALTHY_LIMB
-#undef HEALTHY_ORGAN
+/obj/machinery/clonescanner/force_eject_occupant(mob/target)
+	remove_mob()

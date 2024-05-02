@@ -232,7 +232,7 @@
 //////////////////
 
 ////////////////////////////////////////
-// Totally Crippling
+// MARK: Totally Crippling
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mute
@@ -252,7 +252,7 @@
 	return ""
 
 ////////////////////////////////////////
-// Harmful to others as well as self
+// MARK: Harmful to everyone
 ////////////////////////////////////////
 
 /datum/mutation/disability/radioactive
@@ -283,7 +283,7 @@
 	return "rads_s"
 
 ////////////////////////////////////////
-// Other disabilities
+// MARK: Other disabilities
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/fat
@@ -435,7 +435,7 @@
 
 	var/list/words = splittext(message," ")
 	var/list/rearranged = list()
-	for(var/i=1;i<=words.len;i++)
+	for(var/i=1;i<=length(words);i++)
 		var/cword = pick(words)
 		words.Remove(cword)
 		var/suffix = copytext(cword,length(cword)-1,length(cword))
@@ -447,7 +447,7 @@
 	return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
 //////////////////
-// USELESS SHIT //
+// MARK: USELESS SHIT
 //////////////////
 
 // WAS: /datum/bioEffect/strong
@@ -481,16 +481,15 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	activation_messages = list("You suddenly feel rather hot.")
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
-	spelltype = /obj/effect/proc_holder/spell/immolate
+	spelltype = /datum/spell/immolate
 
 /datum/mutation/grant_spell/immolate/New()
 	..()
 	block = GLOB.immolateblock
 
-/obj/effect/proc_holder/spell/immolate
+/datum/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	panel = "Abilities"
 
 	base_cooldown = 600
 
@@ -501,10 +500,10 @@
 
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/immolate/create_new_targeting()
+/datum/spell/immolate/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
+/datum/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")

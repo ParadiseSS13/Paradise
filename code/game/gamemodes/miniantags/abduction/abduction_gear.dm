@@ -49,7 +49,7 @@
 		H.update_inv_wear_suit()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -71,6 +71,7 @@
 		M.overlays = disguise.overlays
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
+		SEND_SIGNAL(M, COMSIG_CARBON_REGENERATE_ICONS)
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -320,16 +321,12 @@
 			return
 
 		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
-
 		if(!command)
 			return
-
 		if(QDELETED(user) || user.get_active_hand() != src || loc != user)
 			return
-
 		if(QDELETED(G))
 			return
-
 		G.mind_control(command, user)
 		to_chat(user, "<span class='notice'>You send the command to your target.</span>")
 
@@ -426,7 +423,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/abductor_baton/update_icon_state()
 	switch(mode)
@@ -535,7 +532,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		species = "<span clas=='notice'>[H.dna.species.name]</span>"
-		if(ischangeling(L))
+		if(IS_CHANGELING(L))
 			species = "<span class='warning'>Changeling lifeform</span>"
 		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
 		if(temp)

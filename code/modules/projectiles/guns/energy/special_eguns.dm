@@ -71,6 +71,13 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
+/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
+	if(istype(A, /obj/machinery/hydroponics))
+		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
+		afterattack(A, user, FALSE, params)
+		return FALSE
+	return ..()
+
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
@@ -124,6 +131,10 @@
 	max_mod_capacity = 0
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -255,6 +266,15 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
+
+/obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	if(!do_after(user, 0.5 SECONDS, target = user)) // touch/looking doesn't take that long, but still probably good for a delay to exist for shoving and whatnot
+		return SHAME
+	user.dust()
+	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
+	return OBLITERATION
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -960,3 +980,25 @@
 	transform = M
 	animate(src, transform = M * 10, time = 0.3 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.3 SECONDS)
+
+/obj/item/gun/energy/sparker
+	name = "\improper SPRK-12"
+	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though its beams are weaker. Good at dual wielding, however."
+	icon_state = "dueling_pistol"
+	item_state = "dueling_pistol"
+	w_class = WEIGHT_CLASS_SMALL
+	can_holster = TRUE
+	execution_speed = 4 SECONDS
+	weapon_weight = WEAPON_DUAL_WIELD
+	shaded_charge = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/sparker)
+	/// The cooldown tracking when we were last EMP'd
+	COOLDOWN_DECLARE(emp_cooldown)
+
+/obj/item/gun/energy/sparker/emp_act(severity)
+	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+		return
+	cell.charge = cell.maxcharge
+	COOLDOWN_START(src, emp_cooldown, 1 MINUTES)
+	atom_say("Energy coils recharged!")
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)

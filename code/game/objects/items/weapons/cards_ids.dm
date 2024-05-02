@@ -47,6 +47,21 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/emag/magic_key
+	name = "magic key"
+	desc = "It's a magic key, that will open one door!"
+	icon_state = "magic_key"
+	origin_tech = "magnets=2"
+
+/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+	if(!istype(target, /obj/machinery/door))
+		return
+	var/obj/machinery/door/D = target
+	D.locked = FALSE
+	update_icon()
+	. = ..()
+	qdel(src)
+
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"
@@ -499,7 +514,7 @@
 							var/mob/living/carbon/human/H = user
 							default = H.age
 						var/new_age = tgui_input_number(user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
-						if(!Adjacent(user) || !new_age)
+						if(!Adjacent(user) || isnull(new_age))
 							return
 						age = new_age
 						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
@@ -512,7 +527,7 @@
 							"Medical" = GLOB.medical_positions,
 							"Science" = GLOB.science_positions,
 							"Security" = GLOB.security_positions,
-							"Support" = GLOB.support_positions,
+							"Service" = GLOB.service_positions,
 							"Supply" = GLOB.supply_positions,
 							"Command" = GLOB.command_positions,
 							"Custom" = null,
@@ -535,7 +550,7 @@
 
 					if("Money Account")
 						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345, max_value = 9999999)
-						if(!Adjacent(user) || !new_account)
+						if(!Adjacent(user) || isnull(new_account))
 							return
 						associated_account_number = new_account
 						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
