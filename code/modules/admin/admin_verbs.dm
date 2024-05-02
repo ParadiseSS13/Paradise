@@ -485,7 +485,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
 		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
 		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
-		log_debug("[mob.mind] has mentor observed, and should have the signal registered on them")
 
 	ghost.do_observe(target)
 
