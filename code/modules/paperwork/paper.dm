@@ -375,7 +375,7 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE, trim = FALSE)
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE, encode = FALSE, trim = FALSE, submit_on_enter = FALSE)
 		topic_href_write(id, input_element)
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
