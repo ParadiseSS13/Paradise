@@ -12,7 +12,7 @@
 	color_view = MATRIX_STANDARD
 	correct_wires = TRUE
 	var/list/modes = list(MODE_OFF = MODE_NATURAL, MODE_NATURAL = MODE_CORRECTION, MODE_CORRECTION = MODE_OFF)
-	var/mode = MODE_CORRECTION
+	var/selected_mode = MODE_CORRECTION
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -24,25 +24,26 @@
 
 /obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil(mob/user, voluntary)
 	var/mob/living/carbon/human/H = user
-	mode = modes[mode]
-	to_chat(user, "<span class='[voluntary ? "notice" : "warning"]'>[voluntary ? "You turn the veil" : "The veil turns"] [mode ? "to [mode] mode" : "off"][voluntary ? "." : "!"]</span>")
+	selected_mode = modes[selected_mode]
+	to_chat(user, "<span class='[voluntary ? "notice" : "warning"]'>[voluntary ? "You turn the veil" : "The veil turns"] [selected_mode ? "to [selected_mode] mode" : "off"][voluntary ? "." : "!"]</span>")
 
-	if(mode == MODE_OFF)
-		tint = TINT_BLIND
-		flash_protect = FLASH_PROTECTION_WELDER
-		color_view = null
-		correct_wires = FALSE
+	switch(selected_mode)
+		if(MODE_OFF)
+			tint = TINT_BLIND
+			flash_protect = FLASH_PROTECTION_WELDER
+			color_view = null
+			correct_wires = FALSE
 
-	if(mode == MODE_NATURAL)
-		tint = initial(tint)
-		flash_protect = initial(flash_protect)
-		color_view = null
+		if(MODE_NATURAL)
+			tint = initial(tint)
+			flash_protect = initial(flash_protect)
+			color_view = null
 
-	if(mode == MODE_CORRECTION)
-		tint = initial(tint)
-		flash_protect = initial(flash_protect)
-		color_view = MATRIX_STANDARD
-		correct_wires = TRUE
+		if(MODE_CORRECTION)
+			tint = initial(tint)
+			flash_protect = initial(flash_protect)
+			color_view = MATRIX_STANDARD
+			correct_wires = TRUE
 
 	if(ishuman(H))
 		if(H.glasses == src)
@@ -124,7 +125,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/Initialize()
 	..()
-	desc += "<br><span class='info'>This one has an in-built flash protection.</span>"
+	desc += "<br><span class='info'>It has an in-built flash protection.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
