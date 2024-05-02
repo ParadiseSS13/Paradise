@@ -33,11 +33,9 @@
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
 
 /obj/item/stack/nanopaste/afterattack(atom/A, mob/user, proximity_flag)
-	if(!ismecha(A))
+	if(!ismecha(A) || user.a_intent == INTENT_HARM)
 		return
 	var/obj/mecha/mecha = A
-	if(user.a_intent == INTENT_HARM)
-		return
 	if((mecha.obj_integrity >= mecha.max_integrity) && !mecha.internal_damage)
 		to_chat(user, "<span class='notice'>[mecha] is at full integrity!</span>")
 		return
