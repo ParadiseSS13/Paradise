@@ -2610,7 +2610,7 @@
 /area/station/security/checkpoint/secondary)
 "aqv" = (
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/item/wrench,
@@ -4468,7 +4468,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "avL" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -38331,7 +38331,7 @@
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
 /obj/machinery/light/directional/north,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -54583,7 +54583,7 @@
 	},
 /obj/item/storage/fancy/matches,
 /obj/machinery/light/directional/north,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{

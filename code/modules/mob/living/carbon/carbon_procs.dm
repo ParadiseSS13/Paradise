@@ -505,10 +505,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-	if(!do_after(src, 4.5 SECONDS, target = src))
-		return
-
+#ifdef UNIT_TESTS
+	var/ventcrawl_delay = 0 SECONDS
+#else
+	var/ventcrawl_delay = 4.5 SECONDS
 	if(!client)
+		return
+#endif
+	if(!do_after(src, ventcrawl_delay, target = src))
 		return
 
 	if(!vent_found.can_crawl_through())
@@ -550,7 +554,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
+		if(client)
+			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
@@ -810,7 +815,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = get_restraining_item()
-	if(!I) // If there is nothing to restrain him then he is not restrained
+	var/time = 0
+	if(istype(I))
+		time = I.breakouttime
+	else if(isstructure(buckled))
+		var/obj/structure/struct = buckled
+		time = struct.unbuckle_time
+
+	if(time == 0)
 		buckled.user_unbuckle_mob(src, src)
 		return
 
@@ -818,7 +830,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
 		return
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
-	var/time = I.breakouttime
+
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))

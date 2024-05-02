@@ -18421,7 +18421,7 @@
 /area/station/maintenance/port)
 "bsg" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft/grey{
+/obj/item/clothing/head/soft{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -73950,7 +73950,7 @@
 	},
 /area/station/public/sleep)
 "ofw" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall,
 /area/station/service/bar/atrium)
 "ofy" = (
@@ -100848,7 +100848,7 @@
 /obj/machinery/chem_dispenser/beer{
 	pixel_y = 6
 	},
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{

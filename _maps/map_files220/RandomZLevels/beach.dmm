@@ -2372,7 +2372,7 @@
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/item/clothing/head/soft/mime{
+/obj/item/clothing/head/soft/white{
 	pixel_y = 3;
 	pixel_x = 5
 	},

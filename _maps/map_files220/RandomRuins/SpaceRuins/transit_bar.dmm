@@ -54,7 +54,7 @@
 /turf/template_noop,
 /area/template_noop)
 "i" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/powered)
 "j" = (

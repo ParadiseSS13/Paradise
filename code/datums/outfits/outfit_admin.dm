@@ -838,25 +838,23 @@
 	)
 	is_solgov_lieutenant = TRUE
 
-/datum/outfit/admin/sol_trader
-	name = "Sol Trader"
-
+/datum/outfit/admin/trader
+	name = "Trader"
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/melee/classic_baton
-	head = /obj/item/clothing/head/soft
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 1
+		/obj/item/hand_labeler_refill = 2
 	)
+	box = /obj/item/storage/box/survival
 
-/datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -865,6 +863,78 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
 	H.sec_hud_set_ID()
+
+/datum/outfit/admin/trader/sol
+	name = "Trans-Solar Federation Trader"
+	suit = /obj/item/clothing/suit/jacket/cargobomber
+	head = /obj/item/clothing/head/soft/cargo
+
+/datum/outfit/admin/trader/cyber
+	name = "Cybersun Industries Trader"
+	uniform = /obj/item/clothing/under/syndicate/tacticool
+	suit = /obj/item/clothing/suit/jacket/syndicatebomber
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/combat
+	belt = /obj/item/melee/classic_baton/telescopic
+	back = /obj/item/storage/backpack/security
+	box = /obj/item/storage/box/survival
+
+/datum/outfit/admin/trader/commie
+	name = "USSP Trader"
+	uniform = /obj/item/clothing/under/new_soviet
+	suit = /obj/item/clothing/suit/sovietcoat
+	head = /obj/item/clothing/head/ushanka
+	box = /obj/item/storage/box/soviet
+
+/datum/outfit/admin/trader/unathi
+	name = "Glint-Scales Trader"
+	uniform = /obj/item/clothing/under/rank/cargo/qm
+	suit = /obj/item/clothing/suit/unathi/robe
+	shoes = /obj/item/clothing/shoes/footwraps
+
+/datum/outfit/admin/trader/vulp
+	name = "Steadfast Trading Co. Trader"
+	uniform = /obj/item/clothing/under/rank/cargo/qm/formal
+	suit = /obj/item/clothing/suit/jacket/leather/overcoat
+	belt = /obj/item/melee/classic_baton/telescopic
+
+/datum/outfit/admin/trader/ipc
+	name = "Synthetic Union Trader"
+	uniform = /obj/item/clothing/under/misc/vice
+	suit = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
+	belt = /obj/item/melee/classic_baton/telescopic
+	back = /obj/item/storage/backpack/robotics
+
+/datum/outfit/admin/trader/vox
+	name = "Skipjack Trader"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	suit = /obj/item/clothing/suit/hooded/vox_robes
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	belt = /obj/item/melee/classic_baton/telescopic
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double/vox
+	box = /obj/item/storage/box/survival_vox
+
+/datum/outfit/admin/trader/skrell
+	name = "Solar-Central Compact Trader"
+	uniform = /obj/item/clothing/under/misc/durathread
+	suit = /obj/item/clothing/suit/space/skrell/white
+	belt = /obj/item/melee/classic_baton/telescopic
+
+/datum/outfit/admin/trader/grey
+	name = "Technocracy Trader"
+	uniform = /obj/item/clothing/under/costume/psyjump
+	suit = /obj/item/clothing/suit/jacket/robobomber
+	belt = /obj/item/melee/classic_baton/telescopic
+	back = /obj/item/storage/backpack/robotics
+
+/datum/outfit/admin/trader/nian
+	name = "Merchant Guild Trader"
+	uniform = /obj/item/clothing/under/suit/really_black
+	suit = /obj/item/clothing/suit/pimpcoat
+	shoes = /obj/item/clothing/shoes/fluff/noble_boot
+	belt = /obj/item/melee/classic_baton/ntcane
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

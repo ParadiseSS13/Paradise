@@ -1,4 +1,4 @@
-/obj/structure/sign/barsign/set_sign(datum/barsign/sign)
+/obj/machinery/barsign/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	if(initial(sign.ss220_icon))

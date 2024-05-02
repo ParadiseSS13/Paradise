@@ -292,7 +292,7 @@
 /obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
 
-	if(status != LIGHT_OK)
+	if(status != LIGHT_OK || !has_power())
 		return
 
 	if(new_level_number >= SEC_LEVEL_EPSILON)

@@ -1285,6 +1285,10 @@
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
+				if("preference_toggles")
+					if(href_list["toggle"])
+						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
+						toggle.set_toggles(user.client)
 
 	ShowChoices(user)
-	return 1
+	return TRUE

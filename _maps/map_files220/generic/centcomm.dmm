@@ -4524,7 +4524,7 @@
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
 /obj/item/storage/backpack/satchel,
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/fluff/sigholt{
 	icon_state = "officerberet";
 	name = "beret"
 	},
@@ -7181,7 +7181,7 @@
 /area/centcom/ss220/admin2)
 "eQb" = (
 /obj/structure/bed,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/trader_station/sol)
@@ -10112,29 +10112,29 @@
 /obj/item/clothing/head/beret/eng{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/elo{
+/obj/item/clothing/head/fluff/elo{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/elo{
+/obj/item/clothing/head/fluff/elo{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/fluff/sigholt{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
-	name = "beret"
-	},
-/obj/item/clothing/head/fluff/sparkyninja_beret{
+/obj/item/clothing/head/fluff/sigholt{
 	name = "beret"
 	},
 /obj/item/clothing/head/fluff/sparkyninja_beret{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/fluff/sparkyninja_beret{
+	name = "beret"
+	},
+/obj/item/clothing/head/fluff/sigholt{
 	icon_state = "officerberet";
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/fluff/sigholt{
 	icon_state = "officerberet";
 	name = "beret"
 	},
@@ -10152,11 +10152,11 @@
 /obj/item/clothing/head/beret/purple{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/fluff/sigholt{
 	icon_state = "beret_hos_black";
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/fluff/sigholt{
 	icon_state = "beret_hos_black";
 	name = "beret"
 	},
@@ -11866,7 +11866,7 @@
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
 /obj/item/clothing/glasses/hud/security/sunglasses,
-/obj/item/clothing/head/beret/fluff/sigholt,
+/obj/item/clothing/head/fluff/sigholt,
 /obj/item/storage/backpack/satchel,
 /obj/item/clothing/under/color/black,
 /obj/item/clothing/accessory/blue,
@@ -21947,7 +21947,7 @@
 /obj/machinery/fishtank/wall{
 	opacity = 1
 	},
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	icon_state = "syndibarsign";
 	pixel_y = 32
 	},
@@ -22298,7 +22298,7 @@
 /obj/structure/bed{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/item/bedsheet/brown{
 	dir = 4
 	},
@@ -31040,7 +31040,7 @@
 /area/centcom/ss220/admin2)
 "vzK" = (
 /obj/machinery/economy/vending/boozeomat,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -32607,7 +32607,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "wIt" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "wIu" = (
