@@ -265,7 +265,7 @@
 	name = "MOD Drone Storage And Printer" // Feel free to shoot me for this name
 	desc = "A module that can be used to store a personal AI device in. \
 			Will convert the personal AI into a construction drone to help \
-			the owner with any repair work"
+			the owner with any repair work."
 	icon_state = "tether"
 	module_type = MODULE_USABLE
 	complexity = 1
