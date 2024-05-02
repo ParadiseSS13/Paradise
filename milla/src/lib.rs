@@ -1102,14 +1102,22 @@ fn tick_z_level(
                 my_inactive_atmos[ATMOS_CARBON_DIOXIDE] -= co2_converted;
                 my_inactive_atmos[ATMOS_OXYGEN] += co2_converted;
                 my_inactive_atmos[ATMOS_AGENT_B] -= co2_converted * 0.05;
+                // Recalculate existing thermal energy to account for the decrease in heat capacity
+                // caused by turning very high capacity toxins into much lower capacity carbon
+                // dioxide.
+                my_inactive_atmos[ATMOS_THERMAL_ENERGY] = my_inactive_temperature * heat_capacity(my_inactive_atmos);
+                // THEN we can add in the new thermal energy.
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] +=
                     co2_converted * AGENT_B_CONVERSION_ENERGY;
+                // Recalculate temperature for any subsequent reactions.
+                my_inactive_temperature = temperature(my_inactive_atmos);
                 fuel_burnt += co2_converted;
             }
             // Nitrous Oxide breaking down into nitrogen and oxygen.
             if my_inactive_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
                 && my_inactive_atmos[ATMOS_SLEEPING_AGENT] >= REACTION_SIGNIFICANCE_MOLES
             {
+                my_inactive_temperature = temperature(my_inactive_atmos);
                 let reaction_percent = (0.00002
                     * (my_inactive_temperature - (0.00001 * (my_inactive_temperature.powi(2)))))
                 .min(1.0)
@@ -1119,8 +1127,15 @@ fn tick_z_level(
                 my_inactive_atmos[ATMOS_SLEEPING_AGENT] -= nitrous_decomposed;
                 my_inactive_atmos[ATMOS_NITROGEN] += nitrous_decomposed;
                 my_inactive_atmos[ATMOS_OXYGEN] += nitrous_decomposed / 2.0;
+                // Recalculate existing thermal energy to account for the decrease in heat capacity
+                // caused by turning very high capacity toxins into much lower capacity carbon
+                // dioxide.
+                my_inactive_atmos[ATMOS_THERMAL_ENERGY] = my_inactive_temperature * heat_capacity(my_inactive_atmos);
+                // THEN we can add in the new thermal energy.
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] +=
                     NITROUS_BREAKDOWN_ENERGY * nitrous_decomposed;
+                // Recalculate temperature for any subsequent reactions.
+                my_inactive_temperature = temperature(my_inactive_atmos);
                 fuel_burnt += nitrous_decomposed;
             }
             // Plasmafire!
@@ -1154,6 +1169,11 @@ fn tick_z_level(
                 my_inactive_atmos[ATMOS_TOXINS] -= plasma_burnt;
                 my_inactive_atmos[ATMOS_CARBON_DIOXIDE] += plasma_burnt;
                 my_inactive_atmos[ATMOS_OXYGEN] -= plasma_burnt * oxygen_per_plasma;
+                // Recalculate existing thermal energy to account for the decrease in heat capacity
+                // caused by turning very high capacity toxins into much lower capacity carbon
+                // dioxide.
+                my_inactive_atmos[ATMOS_THERMAL_ENERGY] = my_inactive_temperature * heat_capacity(my_inactive_atmos);
+                // THEN we can add in the new thermal energy.
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] += PLASMA_BURN_ENERGY * plasma_burnt;
                 fuel_burnt += plasma_burnt;
             }
