@@ -8,6 +8,7 @@
 // adjustments, as well as to trigger atmos ticks.
 //
 // Search for #[byondapi::bind] to find the functions exposed to BYOND.
+#![crate_name = "milla"]
 
 use byondapi::{byond_string, prelude::*, Error};
 use eyre::{eyre, Result};
@@ -51,6 +52,11 @@ const STANDARD_OXYGEN_MOLES: f32 = STANDARD_OXYGEN_PERCENTAGE * STANDARD_TILE_MO
 const STANDARD_NITROGEN_MOLES: f32 = STANDARD_NITROGEN_PERCENTAGE * STANDARD_TILE_MOLES;
 const LAVALAND_OXYGEN_MOLES: f32 = 8.0;
 const LAVALAND_NITROGEN_MOLES: f32 = 14.0;
+const TOXINS_VISIBILITY_MOLES: f32 = 0.5;
+const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
+const REACTION_SIGNIFICANCE_MOLES: f32 = 0.01;
+const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
+const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 
 const MAP_SIZE: usize = 255;
 
@@ -607,9 +613,7 @@ fn get_random_interesting_tile() {
     let interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
     let length = interesting_tiles.len() as f32;
     if length <= 0.0 {
-        return Err(eyre!(
-            "No interesting tiles."
-        ));
+        return Err(eyre!("No interesting tiles."));
     }
     let random: f32 = rand::random();
     let chosen = (random * length) as usize;
@@ -1084,8 +1088,13 @@ fn tick_z_level(
             let mut fuel_burnt = 0.0;
 
             // Handle reactions
+            let mut my_inactive_temperature = temperature(my_inactive_atmos);
             // Agent B converting CO2 to O2
-            if temperature(my_inactive_atmos) > 900.0 {
+            if my_inactive_temperature > AGENT_B_CONVERSION_TEMP
+                && my_inactive_atmos[ATMOS_AGENT_B] >= REACTION_SIGNIFICANCE_MOLES
+                && my_inactive_atmos[ATMOS_CARBON_DIOXIDE] >= REACTION_SIGNIFICANCE_MOLES
+                && my_inactive_atmos[ATMOS_TOXINS] >= REACTION_SIGNIFICANCE_MOLES
+            {
                 let co2_converted = (my_inactive_atmos[ATMOS_CARBON_DIOXIDE] * 0.75)
                     .min(my_inactive_atmos[ATMOS_TOXINS] * 0.25)
                     .min(my_inactive_atmos[ATMOS_AGENT_B] * 0.05);
@@ -1098,10 +1107,11 @@ fn tick_z_level(
                 fuel_burnt += co2_converted;
             }
             // Nitrous Oxide breaking down into nitrogen and oxygen.
-            if temperature(my_inactive_atmos) > 1400.0 {
+            if my_inactive_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
+                && my_inactive_atmos[ATMOS_SLEEPING_AGENT] >= REACTION_SIGNIFICANCE_MOLES
+            {
                 let reaction_percent = (0.00002
-                    * (temperature(my_inactive_atmos)
-                        - (0.00001 * (temperature(my_inactive_atmos).powi(2)))))
+                    * (my_inactive_temperature - (0.00001 * (my_inactive_temperature.powi(2)))))
                 .min(1.0)
                 .max(0.0);
                 let nitrous_decomposed = reaction_percent * my_inactive_atmos[ATMOS_SLEEPING_AGENT];
@@ -1114,14 +1124,16 @@ fn tick_z_level(
                 fuel_burnt += nitrous_decomposed;
             }
             // Plasmafire!
-            const SIGNIFICANCE: f32 = 0.01;
-            if my_inactive_atmos[ATMOS_TOXINS] > SIGNIFICANCE && my_inactive_atmos[ATMOS_OXYGEN] > SIGNIFICANCE && temperature(my_inactive_atmos) > PLASMA_BURN_MIN_TEMP{
+            if my_inactive_temperature > PLASMA_BURN_MIN_TEMP
+                && my_inactive_atmos[ATMOS_TOXINS] >= REACTION_SIGNIFICANCE_MOLES
+                && my_inactive_atmos[ATMOS_OXYGEN] >= REACTION_SIGNIFICANCE_MOLES
+            {
                 // How efficient is the burn?
                 // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
-                let efficiency = ((temperature(my_inactive_atmos) - PLASMA_BURN_MIN_TEMP)
+                let efficiency = ((my_inactive_temperature - PLASMA_BURN_MIN_TEMP)
                     / (PLASMA_BURN_OPTIMAL_TEMP - PLASMA_BURN_MIN_TEMP))
-                    .max(0.0)
-                    .min(1.0);
+                    .min(1.0)
+                    .max(0.0);
 
                 // How much oxygen do we consume per plasma burnt?
                 // Linear scaling from worst to best as efficiency goes from 0 to 1.
@@ -1159,11 +1171,13 @@ fn tick_z_level(
             // Handle interesting tiles.
             let mut interesting: bool = false;
 
-            if (my_inactive_atmos[ATMOS_TOXINS] >= 0.5) != (my_atmos[ATMOS_TOXINS] >= 0.5) {
+            if (my_inactive_atmos[ATMOS_TOXINS] >= TOXINS_VISIBILITY_MOLES)
+                != (my_atmos[ATMOS_TOXINS] >= TOXINS_VISIBILITY_MOLES)
+            {
                 // Crossed the toxins visibility threshold.
                 interesting = true;
-            } else if (my_inactive_atmos[ATMOS_SLEEPING_AGENT] >= 1.0)
-                != (my_atmos[ATMOS_SLEEPING_AGENT] >= 1.0)
+            } else if (my_inactive_atmos[ATMOS_SLEEPING_AGENT] >= SLEEPING_GAS_VISIBILITY_MOLES)
+                != (my_atmos[ATMOS_SLEEPING_AGENT] >= SLEEPING_GAS_VISIBILITY_MOLES)
             {
                 // Crossed the sleeping agent visibility threshold.
                 interesting = true;
@@ -1171,7 +1185,7 @@ fn tick_z_level(
 
             let temperature =
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] / heat_capacity(my_inactive_atmos);
-            if temperature > T0C + 100.0 {
+            if temperature > PLASMA_BURN_MIN_TEMP {
                 match my_inactive_atmos[ATMOS_MODE] as i32 {
                     ATMOS_MODE_LAVALAND | ATMOS_MODE_EARTHLIKE => {
                         if my_inactive_atmos[ATMOS_EXTERNAL_TEMPERATURE] + 1.0 >= temperature {
@@ -1246,8 +1260,7 @@ fn share_air(
 
     // Each gas is handled separately. This is dumb, but it's how LINDA did it, so it's used in V1.
     for gas in 0..GAS_COUNT {
-        delta_atmos[GAS_OFFSET + gas] =
-            theirs[GAS_OFFSET + gas] - mine[GAS_OFFSET + gas];
+        delta_atmos[GAS_OFFSET + gas] = theirs[GAS_OFFSET + gas] - mine[GAS_OFFSET + gas];
         if delta_atmos[GAS_OFFSET + gas] > 0.0 {
             // Gas flowing in from the other tile, limit by its connected_dirs.
             delta_atmos[GAS_OFFSET + gas] /= (their_connected_dirs + 1) as f32;
