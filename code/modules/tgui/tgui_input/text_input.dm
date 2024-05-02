@@ -14,9 +14,10 @@
  * * multiline -  Bool that determines if the input box is much larger. Good for large messages, laws, etc.
  * * encode - Toggling this determines if input is filtered via html_encode. Setting this to FALSE gives raw input.
  * * trim - Toggling this removes leading and trailing spaces in the input text. TRUE is default.
+ * * submit_on_enter - Toggling this submits the input when pressing Enter. TRUE is default.
  * * timeout - The timeout of the textbox, after which the modal will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length = MAX_MESSAGE_LEN, multiline = FALSE, encode = TRUE, trim = TRUE, timeout = 0, ui_state = GLOB.always_state)
+/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length = MAX_MESSAGE_LEN, multiline = FALSE, encode = TRUE, trim = TRUE, submit_on_enter = TRUE, timeout = 0, ui_state = GLOB.always_state)
 	if(!user)
 		user = usr
 
@@ -38,7 +39,7 @@
 			: input(user, message, title, default) as text|null
 		return trim ? trim(raw_input) : raw_input
 
-	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
+	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, trim, submit_on_enter, timeout, ui_state)
 
 	text_input.ui_interact(user)
 	text_input.wait()
@@ -61,6 +62,8 @@
 	var/encode
 	/// Controls the trimming of leading and trailing spaces.
 	var/trim
+	/// Whether the input should be submitted when pressing Enter.
+	var/submit_on_enter
 	/// The entry that the user has return_typed in.
 	var/entry
 	/// The maximum length for text entry
@@ -78,7 +81,7 @@
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
+/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, trim, submit_on_enter, timeout, ui_state)
 	src.default = default
 	src.encode = encode
 	src.trim = trim
@@ -86,6 +89,7 @@
 	src.message = message
 	src.multiline = multiline
 	src.title = title
+	src.submit_on_enter = submit_on_enter
 	src.state = ui_state
 
 	if(timeout)
@@ -127,6 +131,7 @@
 	data["large_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS
 	data["swapped_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 	data["title"] = title
+	data["submitOnEnter"] = submit_on_enter
 	return data
 
 /datum/tgui_input_text/ui_data(mob/user)

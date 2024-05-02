@@ -184,7 +184,7 @@
 /obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
-		var/reason = tgui_input_text(user,"Enter a reason for the release", "Write", multiline = TRUE)
+		var/reason = tgui_input_text(user,"Enter a reason for the release", "Write", multiline = TRUE, submit_on_enter = FALSE)
 		reason += "<span class=\"paper_field\"></span>"
 		var/english_symptoms = list()
 		for(var/I in D.symptoms)

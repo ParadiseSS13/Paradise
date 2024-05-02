@@ -63,7 +63,7 @@
 			name = ""
 		if("import")
 			var/t = ""
-			t = tgui_input_text(usr, "Please paste the entire song, formatted:", parent.name, max_length = (MUSIC_MAXLINECHARS * MUSIC_MAXLINES), multiline = TRUE)
+			t = tgui_input_text(usr, "Please paste the entire song, formatted:", parent.name, max_length = (MUSIC_MAXLINECHARS * MUSIC_MAXLINES), multiline = TRUE, submit_on_enter = FALSE)
 			if(!in_range(parent, usr))
 				return
 			parse_song(t)

@@ -73,7 +73,7 @@
 
 	switch(action)
 		if("Edit")
-			var/n = tgui_input_text(usr, "Please enter message", name, note, multiline = TRUE, encode = FALSE)
+			var/n = tgui_input_text(usr, "Please enter message", name, note, multiline = TRUE, encode = FALSE, submit_on_enter = FALSE)
 			if(isnull(n))
 				return
 

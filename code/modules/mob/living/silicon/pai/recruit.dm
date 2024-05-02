@@ -73,7 +73,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				candidate.pai_name = t
 
 			if("desc")
-				t = tgui_input_text(usr, "Enter a description for your pAI", "pAI Description", candidate.description, multiline = TRUE)
+				t = tgui_input_text(usr, "Enter a description for your pAI", "pAI Description", candidate.description, multiline = TRUE, submit_on_enter = FALSE)
 				if(!t)
 					return
 				candidate.description = t
@@ -85,7 +85,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				candidate.role = t
 
 			if("ooc")
-				t = tgui_input_text(usr, "Enter any OOC comments", "pAI OOC Comments", candidate.ooc_comments, multiline = TRUE)
+				t = tgui_input_text(usr, "Enter any OOC comments", "pAI OOC Comments", candidate.ooc_comments, multiline = TRUE, submit_on_enter = FALSE)
 				if(!t)
 					return
 				candidate.ooc_comments = t

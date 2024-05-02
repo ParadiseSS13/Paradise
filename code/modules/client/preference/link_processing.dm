@@ -65,21 +65,21 @@
 			user << browse(null, "window=records")
 
 		if(href_list["task"] == "med_record")
-			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE, submit_on_enter = FALSE)
 			if(isnull(medmsg))
 				return
 			active_character.med_record = medmsg
 			active_character.SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE, submit_on_enter = FALSE)
 			if(isnull(secmsg))
 				return
 			active_character.sec_record = secmsg
 			active_character.SetRecords(user)
 
 		if(href_list["task"] == "gen_record")
-			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE, submit_on_enter = FALSE)
 			if(isnull(genmsg))
 				return
 			active_character.gen_record = genmsg
@@ -318,7 +318,7 @@
 						active_character.autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
-					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE, encode = FALSE)
+					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE, encode = FALSE, submit_on_enter = FALSE)
 					if(isnull(new_metadata))
 						return
 					active_character.metadata = new_metadata
@@ -705,7 +705,7 @@
 						active_character.height = new_height
 
 				if("flavor_text")
-					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE, submit_on_enter = FALSE)
 					if(isnull(msg))
 						return
 					active_character.flavor_text = msg

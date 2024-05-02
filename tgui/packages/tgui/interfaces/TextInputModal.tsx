@@ -13,6 +13,7 @@ type TextInputData = {
   placeholder: string;
   timeout: number;
   title: string;
+  submitOnEnter: boolean;
 };
 
 export const sanitizeMultiline = (toSanitize: string) => {
@@ -32,6 +33,7 @@ export const TextInputModal = (props, context) => {
     placeholder,
     timeout,
     title,
+    submitOnEnter,
   } = data;
   const [input, setInput] = useLocalState<string>(
     context,
@@ -61,7 +63,7 @@ export const TextInputModal = (props, context) => {
       <Window.Content
         onKeyDown={(event) => {
           const keyCode = window.event ? event.which : event.keyCode;
-          if (keyCode === KEY_ENTER && (!visualMultiline || !event.shiftKey)) {
+          if (keyCode === KEY_ENTER && !event.shiftKey && submitOnEnter) {
             act('submit', { entry: input });
           }
           if (keyCode === KEY_ESCAPE) {
@@ -93,7 +95,7 @@ export const TextInputModal = (props, context) => {
 /** Gets the user input and invalidates if there's a constraint. */
 const InputArea = (props, context) => {
   const { act, data } = useBackend<TextInputData>(context);
-  const { max_length, multiline } = data;
+  const { max_length, multiline, submitOnEnter } = data;
   const { input, onType } = props;
 
   const visualMultiline = multiline || input.length >= 40;
@@ -106,7 +108,7 @@ const InputArea = (props, context) => {
       maxLength={max_length}
       onEscape={() => act('cancel')}
       onEnter={(event) => {
-        if (visualMultiline && event.shiftKey) {
+        if (event.shiftKey || !submitOnEnter) {
           return;
         }
         event.preventDefault();

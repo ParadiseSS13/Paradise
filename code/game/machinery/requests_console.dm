@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
-			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE, submit_on_enter = FALSE)
 			if(isnull(new_message))
 				return
 			message = new_message
