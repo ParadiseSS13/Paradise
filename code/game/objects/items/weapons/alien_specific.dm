@@ -59,17 +59,6 @@
 /obj/item/reagent_containers/spray/alien/acid/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("facid", volume / 2, 2 * coeff) // Volume / 2 here becuase there should be an even amount of both chems.
 	reagents.check_and_add("sacid", volume / 2, 2 * coeff)
-/*
-/obj/item/reagent_containers/spray/alien/stun	// TODO: This doesn't actually function due to ether not having a touch reaction.
-	name = "paralytic toxin synthesizer"
-	desc = "Sprays incapacitating toxins."
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "borg-spray-stun"
-	list_reagents = list("ether" = 250)
-
-/obj/item/reagent_containers/spray/alien/stun/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("ether", volume, 2 * coeff)
-*/
 
 /obj/item/flash/cyborg/alien
 	name = "eye flash"
