@@ -110,7 +110,7 @@
 			gripped_item = I
 			return TRUE
 		
-		to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
+		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
 		return FALSE
 
 	// Everything past this point requires being able to engineer.
@@ -149,9 +149,9 @@
 
 	return TRUE
 
-/******************************
-/     UNIVERSAL GRIPPER
-******************************/
+////////////////////////////////
+// MARK:	UNIVERSAL GRIPPER
+////////////////////////////////
 /// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
 /obj/item/gripper/universal		
 	name = "cyborg gripper"
@@ -161,9 +161,9 @@
 	can_help_up = TRUE
 	can_hold_all_items = TRUE
 
-/******************************
-/       MEDICAL GRIPPER
-******************************/
+////////////////////////////////
+// MARK:	MEDICAL GRIPPER
+////////////////////////////////
 // For medical borgs, for doing medical stuff!
 // Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 /obj/item/gripper/medical
@@ -174,9 +174,9 @@
 	// REMOVE actions_types from here if you add a can_hold list for this gripper!
 	actions_types = list()
 
-/******************************
-/       SERVICE GRIPPER
-******************************/
+////////////////////////////////
+// MARK:	SERVICE GRIPPER
+////////////////////////////////
 // For service borgs. To make them slightly better at their job.
 /obj/item/gripper/service
 	name = "service gripper"
@@ -193,9 +193,9 @@
 		/obj/item/toy/plushie
 	)
 
-/******************************
-/     ENGINEERING GRIPPER
-******************************/
+////////////////////////////////
+// MARK:	ENGINEERING GRIPPER
+////////////////////////////////
 // For engineering and sabotage borgs, and drones.
 /obj/item/gripper/engineering
 	name = "engineering gripper"
