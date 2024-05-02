@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/datum/holocall/HC = I
 		HC.Disconnect(src)
 
-/obj/machinery/hologram/holopad/interact(mob/living/user) //Carn: hologram requests.
+/obj/machinery/hologram/holopad/interact(mob/living/user) 
 	if(!istype(user))
 		return
 	if(!anchored)
