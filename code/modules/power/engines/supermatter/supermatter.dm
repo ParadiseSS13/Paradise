@@ -441,6 +441,14 @@
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = T.return_air()
 
+	// Kill off any fires that would burn out next tick.
+	if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		S.write_air(env)
+		if((env.toxins < 0.5 || env.oxygen < 1.3) && istype(S.active_hotspot))
+			qdel(S.active_hotspot)
+			S.active_hotspot = null
+
 	var/datum/gas_mixture/removed
 	if(produces_gas)
 		//Remove gas from surrounding area

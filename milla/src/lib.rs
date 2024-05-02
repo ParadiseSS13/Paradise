@@ -389,7 +389,9 @@ fn set_tile_atmos(
         bounded_byond_to_option_f32(agent_b, 0.0, f32::INFINITY)?,
         bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?,
         None,
-        bounded_byond_to_option_f32(innate_heat_capacity, 0.0, f32::INFINITY)?,
+        // Temporarily disabled to better match the existing system.
+        //bounded_byond_to_option_f32(innate_heat_capacity, 0.0, f32::INFINITY)?,
+        Some(0.0),
     );
     Ok(Default::default())
 }
@@ -912,9 +914,8 @@ fn tick_z_level(
                 let my_change = share_air(
                     my_atmos,
                     their_atmos,
-                    // Use the larger of the two connected_dirs settings, so we don't accidentally
-                    // transfer too much air out of a tile.
-                    my_connected_dirs.max(their_connected_dirs),
+                    my_connected_dirs,
+                    their_connected_dirs,
                 );
 
                 // Transfer it.
@@ -977,6 +978,7 @@ fn tick_z_level(
                         my_inactive_atmos,
                         &their_atmos,
                         1,
+                        1,
                     );
 
                     // Transfer it.
@@ -1033,6 +1035,7 @@ fn tick_z_level(
                         my_inactive_atmos,
                         &their_atmos,
                         1,
+                        1,
                     );
 
                     // Transfer it.
@@ -1088,7 +1091,8 @@ fn tick_z_level(
                 fuel_burnt += nitrous_decomposed;
             }
             // Plasmafire!
-            if temperature(my_inactive_atmos) > PLASMA_BURN_MIN_TEMP {
+            const SIGNIFICANCE: f32 = 0.01;
+            if my_inactive_atmos[ATMOS_TOXINS] > SIGNIFICANCE && my_inactive_atmos[ATMOS_OXYGEN] > SIGNIFICANCE && temperature(my_inactive_atmos) > PLASMA_BURN_MIN_TEMP{
                 // How efficient is the burn?
                 // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
                 let efficiency = ((temperature(my_inactive_atmos) - PLASMA_BURN_MIN_TEMP)
@@ -1207,7 +1211,8 @@ fn tick_z_level(
 fn share_air(
     mine: &[f32; ATMOS_DEPTH],
     theirs: &[f32; ATMOS_DEPTH],
-    connected_dirs: i32,
+    my_connected_dirs: i32,
+    their_connected_dirs: i32,
 ) -> [f32; ATMOS_DEPTH] {
     let mut delta_atmos: [f32; ATMOS_DEPTH] = [0.0; ATMOS_DEPTH];
 
@@ -1219,12 +1224,16 @@ fn share_air(
     // Each gas is handled separately. This is dumb, but it's how LINDA did it, so it's used in V1.
     for gas in 0..GAS_COUNT {
         delta_atmos[GAS_OFFSET + gas] =
-            (theirs[GAS_OFFSET + gas] - mine[GAS_OFFSET + gas]) / ((connected_dirs + 1) as f32);
+            theirs[GAS_OFFSET + gas] - mine[GAS_OFFSET + gas];
         if delta_atmos[GAS_OFFSET + gas] > 0.0 {
+            // Gas flowing in from the other tile, limit by its connected_dirs.
+            delta_atmos[GAS_OFFSET + gas] /= (their_connected_dirs + 1) as f32;
             // Heat flowing in.
             delta_atmos[ATMOS_THERMAL_ENERGY] +=
                 SPECIFIC_HEATS[gas] * delta_atmos[GAS_OFFSET + gas] * their_old_temperature;
         } else {
+            // Gas flowing out from this tile, limit by our connected_dirs.
+            delta_atmos[GAS_OFFSET + gas] /= (my_connected_dirs + 1) as f32;
             // Heat flowing out.
             delta_atmos[ATMOS_THERMAL_ENERGY] +=
                 SPECIFIC_HEATS[gas] * delta_atmos[GAS_OFFSET + gas] * my_old_temperature;
@@ -1275,7 +1284,7 @@ fn superconduct(
 ) {
     // Superconduction is scaled to the smaller directional superconductivity setting of the two
     // tiles.
-    let transfer_coefficient: f32;
+    let mut transfer_coefficient: f32;
     if is_east {
         transfer_coefficient =
             my_atmos[ATMOS_SUPERCONDUCTIVITY_EAST].min(their_atmos[ATMOS_SUPERCONDUCTIVITY_WEST]);
@@ -1289,6 +1298,11 @@ fn superconduct(
     if transfer_coefficient <= 0.0 || my_heat_capacity <= 0.0 || their_heat_capacity <= 0.0 {
         // Nothing to do.
         return;
+    }
+
+    // Temporary workaround to match LINDA better for high temperatures.
+    if temperature(my_atmos) > T20C || temperature(their_atmos) > T20C {
+        transfer_coefficient = (transfer_coefficient * 100.0).min(OPEN_HEAT_TRANSFER_COEFFICIENT);
     }
 
     // This is the formula from LINDA. I have no idea if it's a good one, I just copied it.
@@ -1510,7 +1524,7 @@ mod tests {
         let atmos_a: [f32; ATMOS_DEPTH] = [0.0; ATMOS_DEPTH];
         let atmos_b: [f32; ATMOS_DEPTH] = [0.0; ATMOS_DEPTH];
 
-        let delta_atmos = share_air(&atmos_a, &atmos_b, 1);
+        let delta_atmos = share_air(&atmos_a, &atmos_b, 1, 1);
         for i in 0..ATMOS_DEPTH {
             assert_eq!(delta_atmos[i], 0.0, "{}", i);
         }
@@ -1528,7 +1542,7 @@ mod tests {
         atmos_b[ATMOS_NITROGEN] = 20.0;
         atmos_b[ATMOS_THERMAL_ENERGY] = 100.0;
 
-        let delta_atmos = share_air(&atmos_a, &atmos_b, 1);
+        let delta_atmos = share_air(&atmos_a, &atmos_b, 1, 1);
         for i in 0..ATMOS_DEPTH {
             assert_eq!(delta_atmos[i], 0.0, "{}", i);
         }
@@ -1542,7 +1556,7 @@ mod tests {
         atmos_a[ATMOS_THERMAL_ENERGY] = 100.0;
         let atmos_b: [f32; ATMOS_DEPTH] = [0.0; ATMOS_DEPTH];
 
-        let delta_atmos = share_air(&atmos_a, &atmos_b, 1);
+        let delta_atmos = share_air(&atmos_a, &atmos_b, 1, 1);
         for i in 0..ATMOS_DEPTH {
             if i == ATMOS_OXYGEN {
                 assert_eq!(delta_atmos[i], -50.0);
@@ -1562,7 +1576,7 @@ mod tests {
         atmos_a[ATMOS_THERMAL_ENERGY] = 100.0;
         let atmos_b: [f32; ATMOS_DEPTH] = [0.0; ATMOS_DEPTH];
 
-        let delta_atmos = share_air(&atmos_a, &atmos_b, 4);
+        let delta_atmos = share_air(&atmos_a, &atmos_b, 4, 4);
         for i in 0..ATMOS_DEPTH {
             if i == ATMOS_OXYGEN {
                 assert_eq!(delta_atmos[i], -20.0);
@@ -1948,6 +1962,7 @@ mod tests {
     }
 
     // Four equal dead-end tiles around a vacuum should distribute air evenly between all 5 tiles.
+    // Temp: Or not, because we're matching MILLA behavior.
     #[test]
     fn tick_merges_properly() {
         let test_z = 7;
@@ -1977,14 +1992,18 @@ mod tests {
             &[
                 "#####", //
                 "##x##", //
-                "#xxx#", //
+                "#x!x#", //
                 "##x##", //
                 "#####", //
             ],
             |c: char| match c {
+                '!' => Air(Box::new([
+                    (ATMOS_OXYGEN, 200.0), //
+                    (ATMOS_THERMAL_ENERGY, 200.0),
+                ])),
                 'x' => Air(Box::new([
-                    (ATMOS_OXYGEN, 80.0), //
-                    (ATMOS_THERMAL_ENERGY, 80.0),
+                    (ATMOS_OXYGEN, 50.0), //
+                    (ATMOS_THERMAL_ENERGY, 50.0),
                 ])),
                 '#' => Wall,
                 _ => Vacuum,
@@ -2083,8 +2102,8 @@ mod tests {
             ],
             |c: char| match c {
                 'x' => Air(Box::new([
-                    (ATMOS_OXYGEN, 80.0), //
-                    (ATMOS_THERMAL_ENERGY, 80.0),
+                    (ATMOS_OXYGEN, 50.0), //
+                    (ATMOS_THERMAL_ENERGY, 50.0),
                 ])),
                 '#' => Wall,
                 _ => Space,
