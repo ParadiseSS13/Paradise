@@ -57,7 +57,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	/// Is the robot's maintenance panel open?
 	var/opened = FALSE
+	/// Does the robot have a non-default sprite for an open service panel?
 	var/custom_panel = null
+	/// Robot skins with non-default sprites for an open service panel.
 	var/list/custom_panel_names = list("Cricket")
 	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
 	var/list/custom_eye_names = list("Cricket", "Standard")
