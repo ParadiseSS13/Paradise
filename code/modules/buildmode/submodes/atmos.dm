@@ -59,7 +59,7 @@
 					S_air.agent_b = ppratio_to_moles(agentbx)
 					S.write_air(S_air)
 					S.update_visuals()
-					S.air_update_turf()
+					S.recalculate_atmos_connectivity()
 			else if(ctrl_click) // overwrite "default" space air
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)
@@ -68,7 +68,7 @@
 				T.carbon_dioxide = ppratio_to_moles(cdiox)
 				T.sleeping_agent = ppratio_to_moles(nitrox)
 				T.agent_b = ppratio_to_moles(agentbx)
-				T.air_update_turf()
+				T.recalculate_atmos_connectivity()
 
 		// admin log
 		log_admin("Build Mode: [key_name(user)] changed the atmos of region [COORD(cornerA)] to [COORD(cornerB)]. T: [temperature], P: [pressure], Ox: [oxygen]%, N2: [nitrogen]%, Plsma: [plasma]%, CO2: [cdiox]%, N2O: [nitrox]%. [ctrl_click ? "Overwrote base space turf gases." : ""]")

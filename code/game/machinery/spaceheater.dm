@@ -183,7 +183,7 @@
 								removed.temperature = max(removed.temperature - heating_power/heat_capacity, TCMB)
 							cell.use(heating_power/20000)
 					env.merge(removed)
-					air_update_turf()
+					recalculate_atmos_connectivity()
 		else
 			on = FALSE
 			update_icon()

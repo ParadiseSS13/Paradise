@@ -656,7 +656,7 @@
 	GLOB.poi_list.Remove(src)
 	if(loc)
 		loc.assume_air(cabin_air)
-		air_update_turf()
+		recalculate_atmos_connectivity()
 	else
 		qdel(cabin_air)
 	cabin_air = null
@@ -1471,7 +1471,7 @@
 			var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(0.10)
 			if(loc)
 				loc.assume_air(leaked_gas)
-				air_update_turf()
+				recalculate_atmos_connectivity()
 			else
 				qdel(leaked_gas)
 

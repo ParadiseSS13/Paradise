@@ -1291,7 +1291,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	density = FALSE
 	if(width > 1)
 		set_fillers_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
@@ -1333,7 +1333,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	density = TRUE
 	if(width > 1)
 		set_fillers_density(TRUE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	if(!override)
 		sleep(4)
 	if(!safe)

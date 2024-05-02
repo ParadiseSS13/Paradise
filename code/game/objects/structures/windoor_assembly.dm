@@ -55,12 +55,12 @@
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/windoor_assembly/Destroy()
 	density = FALSE
 	QDEL_NULL(electronics)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/windoor_assembly/Move()

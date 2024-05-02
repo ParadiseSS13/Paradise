@@ -32,7 +32,7 @@
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
 
-	air_update_turf(TRUE) //atmos can pass otherwise
+	recalculate_atmos_connectivity() //atmos can pass otherwise
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/window/grilled

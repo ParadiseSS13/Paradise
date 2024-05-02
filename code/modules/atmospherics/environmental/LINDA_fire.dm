@@ -64,7 +64,7 @@
 		SSair.hotspots += src
 		perform_exposure()
 	dir = pick(GLOB.cardinal)
-	air_update_turf()
+	recalculate_atmos_connectivity()
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc

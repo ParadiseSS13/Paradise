@@ -77,7 +77,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 /obj/structure/window/proc/toggle_polarization()
 	if(opacity)
@@ -268,7 +268,7 @@
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
-			air_update_turf(TRUE)
+			recalculate_atmos_connectivity()
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -278,7 +278,7 @@
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
@@ -400,7 +400,7 @@
 
 /obj/structure/window/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_nearby_icons()
 	return ..()
 

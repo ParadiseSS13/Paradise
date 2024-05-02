@@ -86,7 +86,7 @@
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 /obj/structure/holosign/barrier/atmos/CanAtmosPass(direction)
 	return FALSE
@@ -94,7 +94,7 @@
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"

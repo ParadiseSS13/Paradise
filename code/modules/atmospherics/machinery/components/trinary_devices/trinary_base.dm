@@ -209,7 +209,7 @@
 		to_release.merge(air2.remove(shared_loss))
 		to_release.merge(air3.remove(shared_loss))
 		T.assume_air(to_release)
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 
 /obj/machinery/atmospherics/trinary/process_atmos()
 	..()

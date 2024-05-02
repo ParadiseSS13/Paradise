@@ -43,20 +43,14 @@
 /atom/movable/proc/get_superconductivity(direction)
 	return OPEN_HEAT_TRANSFER_COEFFICIENT
 
-/atom/movable/proc/air_update_turf(command = 0)
-	if(!isturf(loc) && command)
-		return
+/atom/movable/proc/recalculate_atmos_connectivity()
 	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
-		T.air_update_turf(command)
-
-/turf/proc/air_update_turf(command = 0)
-	if(command)
-		recalculate_atmos_connectivity()
+		T.recalculate_atmos_connectivity()
 
 /atom/movable/proc/move_update_air(turf/T)
 	if(isturf(T))
-		T.air_update_turf(1)
-	air_update_turf(1)
+		T.recalculate_atmos_connectivity()
+	recalculate_atmos_connectivity()
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share

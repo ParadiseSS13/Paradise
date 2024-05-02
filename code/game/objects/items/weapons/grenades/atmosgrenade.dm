@@ -12,7 +12,7 @@
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
-		target_turf.air_update_turf()
+		target_turf.recalculate_atmos_connectivity()
 	qdel(src)
 
 /obj/item/grenade/gas/plasma

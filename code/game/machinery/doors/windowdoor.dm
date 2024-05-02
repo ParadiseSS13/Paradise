@@ -203,7 +203,7 @@
 
 	density = FALSE
 //	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 
 	if(operating) //emag again
@@ -227,7 +227,7 @@
 	density = TRUE
 	if(polarized_on)
 		set_opacity(TRUE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(10)
 

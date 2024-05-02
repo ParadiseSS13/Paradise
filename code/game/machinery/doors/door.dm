@@ -67,7 +67,7 @@
 	explosion_block = EXPLOSION_BLOCK_PROC
 
 	update_icon()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -86,7 +86,7 @@
 
 /obj/machinery/door/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
@@ -375,7 +375,7 @@
 	if(width > 1)
 		set_fillers_opacity(0)
 	operating = NONE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
@@ -410,7 +410,7 @@
 		if(width > 1)
 			set_fillers_opacity(TRUE)
 	operating = NONE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()

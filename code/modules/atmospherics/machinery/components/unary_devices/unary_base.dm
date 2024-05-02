@@ -98,7 +98,7 @@
 
 		var/datum/gas_mixture/to_release = air_contents.remove(lost)
 		T.assume_air(to_release)
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 
 /obj/machinery/atmospherics/unary/process_atmos()
 	..()

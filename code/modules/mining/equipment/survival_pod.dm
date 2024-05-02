@@ -264,11 +264,11 @@
 
 /obj/structure/fans/Initialize(loc)
 	..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/fans/Destroy()
 	arbitraryatmosblockingvar = 0
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/fans/CanAtmosPass(direction)

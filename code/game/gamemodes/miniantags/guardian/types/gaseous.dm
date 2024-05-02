@@ -41,7 +41,7 @@
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(linda_flags, moles_of_gas)
-		target_turf.air_update_turf()
+		target_turf.recalculate_atmos_connectivity()
 
 /mob/living/simple_animal/hostile/guardian/gaseous/ToggleMode()
 	var/picked_gas = tgui_input_list(src, "Select a gas to expel.", "Gas Producer", possible_gases)

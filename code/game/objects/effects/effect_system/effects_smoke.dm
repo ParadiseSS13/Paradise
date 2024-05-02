@@ -153,7 +153,7 @@
 			var/datum/gas_mixture/G = T.read_air()
 			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 				G.temperature = 2
-			T.air_update_turf()
+			T.recalculate_atmos_connectivity()
 			for(var/obj/effect/hotspot/H in T)
 				qdel(H)
 				if(G.toxins)

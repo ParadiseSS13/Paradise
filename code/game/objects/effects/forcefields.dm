@@ -40,12 +40,12 @@
 /obj/structure/forcefield/Initialize(mapload)
 	. = ..()
 	if(blocks_atmos)
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 
 /obj/structure/forcefield/Destroy()
 	if(blocks_atmos)
 		blocks_atmos = FALSE
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/forcefield/CanAtmosPass(direction)

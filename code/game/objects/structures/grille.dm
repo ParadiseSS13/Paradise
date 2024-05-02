@@ -205,7 +205,7 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)

@@ -144,7 +144,7 @@
 			var/transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			loc.assume_air(removed)
-			air_update_turf()
+			recalculate_atmos_connectivity()
 			parent.update = TRUE
 
 	else //external -> internal
@@ -160,7 +160,7 @@
 			if(isnull(removed)) //in space
 				return
 			air_contents.merge(removed)
-			air_update_turf()
+			recalculate_atmos_connectivity()
 			parent.update = TRUE
 
 	return TRUE

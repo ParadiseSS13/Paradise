@@ -26,11 +26,11 @@
 /obj/structure/mineral_door/Initialize()
 	. = ..()
 	initial_state = icon_state
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/mineral_door/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/mineral_door/Move()
@@ -97,7 +97,7 @@
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
@@ -167,7 +167,7 @@
 /obj/structure/mineral_door/transparent/operate_update()
 	density = !density
 	state_open = !state_open
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 

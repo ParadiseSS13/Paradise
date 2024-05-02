@@ -35,7 +35,7 @@
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/falsewall/examine_status(mob/user)
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -52,7 +52,7 @@
 
 /obj/structure/falsewall/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/falsewall/CanAtmosPass(direction)
@@ -84,7 +84,7 @@
 		density = TRUE
 		set_opacity(TRUE)
 		icon_state = "fwall_closing"
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	opening = FALSE
 	update_icon()
 

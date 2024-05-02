@@ -583,7 +583,7 @@
 			if(issimulatedturf(T))
 				var/turf/simulated/S = T
 				S.write_air(env)
-			air_update_turf()
+			recalculate_atmos_connectivity()
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.

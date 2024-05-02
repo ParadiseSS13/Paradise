@@ -152,7 +152,7 @@
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)
 		to_release.merge(air2.remove(shared_loss))
 		T.assume_air(to_release)
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 
 /obj/machinery/atmospherics/binary/process_atmos()
 	..()

@@ -55,7 +55,7 @@
 	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	if(!is_alien)
 		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
@@ -69,7 +69,7 @@
 	var/turf/T = get_turf(src)
 	playsound(loc, 'sound/effects/alien_resin_break2.ogg', 100, TRUE)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
@@ -135,7 +135,7 @@
 /obj/structure/alien/resin/door/Destroy()
 	density = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/alien/resin/door/Move()
@@ -197,7 +197,7 @@
 	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
 /obj/structure/alien/resin/door/proc/operate_update(bumped_open)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 

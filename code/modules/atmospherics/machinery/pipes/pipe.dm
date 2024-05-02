@@ -53,7 +53,7 @@
 	if(air_temporary)
 		var/turf/T = loc
 		T.assume_air(air_temporary)
-		air_update_turf()
+		recalculate_atmos_connectivity()
 
 /obj/machinery/atmospherics/pipe/return_air()
 	RETURN_TYPE(/datum/gas_mixture)
