@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/datum/holocall/HC = I
 		HC.Disconnect(src)
 
-/obj/machinery/hologram/holopad/interact(mob/living/carbon/human/user) //Carn: hologram requests.
+/obj/machinery/hologram/holopad/interact(mob/living/user) 
 	if(!istype(user))
 		return
 	if(!anchored)
@@ -262,20 +262,24 @@ GLOBAL_LIST_EMPTY(holopads)
 	updateDialog()
 
 //do not allow AIs to answer calls or people will use it to meta the AI satellite
-/obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
-	if(!istype(user))
+/obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai_or_robot)
+	var/mob/living/silicon/ai/ai = ai_or_robot
+	var/mob/living/silicon/robot/robot = ai_or_robot
+	if(!istype(ai) && !istype(robot))
 		return
 	if(outgoing_call)
 		return
+	if(istype(robot))
+		interact(robot)
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
 	This may change in the future but for now will suffice.*/
-	if(user.eyeobj.loc != loc)//Set client eye on the object if it's not already.
-		user.eyeobj.setLoc(get_turf(src))
-	else if(!LAZYLEN(masters) || !masters[user])//If there is no hologram, possibly make one.
-		activate_holo(user, 1)
+	else if(ai.eyeobj.loc != loc)//Set client eye on the object if it's not already.
+		ai.eyeobj.setLoc(get_turf(src))
+	else if(!LAZYLEN(masters) || !masters[ai])//If there is no hologram, possibly make one.
+		activate_holo(ai, 1)
 	else//If there is a hologram, remove it.
-		clear_holo(user)
+		clear_holo(ai)
 
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
@@ -373,8 +377,13 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(isAI(user))
 			hologram.icon = AI.holo_icon
 		else	//make it like real life
-			hologram.icon = getHologramIcon(get_id_photo(user))
-			hologram.icon_state = user.icon_state
+			if(isrobot(user))
+				var/mob/living/silicon/robot/robot = user
+				hologram.icon = getHologramIcon(icon(robot.icon))
+				hologram.icon_state = robot.icon_state
+			else
+				hologram.icon = getHologramIcon(get_id_photo(user))
+				hologram.icon_state = user.icon_state
 			hologram.alpha = 100
 			hologram.Impersonation = user
 
