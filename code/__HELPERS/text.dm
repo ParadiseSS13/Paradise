@@ -528,7 +528,7 @@
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
 
-	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
+	text = copytext_char(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 
 /proc/convert_pencode_arg(text, tag, arg)
