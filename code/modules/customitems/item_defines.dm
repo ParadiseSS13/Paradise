@@ -1832,5 +1832,13 @@
 	desc = "Make your ID look like the property of a nerd. Applies to any ID."
 	decal_icon_state = "lifetimeid"
 
+// TheFlagbearer: Colin Earle
+/obj/item/clothing/under/costume/rebeloutfit
+	name = "rebel outfit"
+	desc = "Made in Seattle, 2216."
+	icon_state = "colin_earle"
+	item_state = "colin_earle"
+	item_color = "colin_earle"
+
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

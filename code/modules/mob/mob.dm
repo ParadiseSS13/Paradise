@@ -106,31 +106,31 @@
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
-/mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
-
-	if(!client)	return
+/mob/proc/show_message(msg, type, alt, alt_type, chat_message_type) // Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+	if(!client)
+		return
 
 	if(type)
-		if(type & EMOTE_VISIBLE && !has_vision(information_only=TRUE))//Vision related
+		if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE)) // Vision related
 			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-		if(type & EMOTE_AUDIBLE && !can_hear())//Hearing related
+			msg = alt
+			type = alt_type
+
+		if(type & EMOTE_AUDIBLE && !can_hear()) // Hearing related
 			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-				if(type & EMOTE_VISIBLE && !has_vision(information_only=TRUE))
-					return
+			msg = alt
+			type = alt_type
+			if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE))
+				return
+
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
-	else
-		to_chat(src, msg)
-	return
+		to_chat(src, "<i>... You can almost hear someone talking ...</i>", MESSAGE_TYPE_LOCALCHAT)
+		return
+
+	to_chat(src, msg, chat_message_type)
 
 // Show a message to all mobs in sight of this one
 // This would be for visible actions by the src mob
@@ -138,7 +138,7 @@
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
-/mob/visible_message(message, self_message, blind_message)
+/mob/visible_message(message, self_message, blind_message, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/M as anything in get_mobs_in_view(3, src))
 			if(M.see_invisible < invisibility)
@@ -150,7 +150,7 @@
 				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
 					continue
 				msg = blind_message
-			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
 	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
@@ -158,7 +158,7 @@
 		var/msg = message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
@@ -1077,8 +1077,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return TRUE
 
 
-//Can the mob see reagents inside of containers?
-/mob/proc/can_see_reagents()
+// Can the mob see reagents inside of transparent containers?
+/mob/proc/reagent_vision()
+	return FALSE
+
+// Can the mob see reagents inside any container and also identify blood types?
+/mob/proc/advanced_reagent_vision()
 	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
