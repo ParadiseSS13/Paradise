@@ -418,7 +418,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	if(isobserver(target))
-		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		to_chat(src, "<span class='warning'>[target] is a ghost, and cannot be observed.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is in the lobby, and cannot be observed.</span>")
 		return
 
 	admin_observe_target(target)
