@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
 		return
 
-	if(isobserver(mob))
+	if(isobserver(target))
 		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
