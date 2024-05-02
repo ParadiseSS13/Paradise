@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/custom_panel_names = list("Cricket")
 	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
 	var/list/custom_eye_names = list("Cricket", "Standard")
+	/// Has the robot been emagged?
 	var/emagged = FALSE
 	/// Can the robot be emagged?
 	var/is_emaggable = TRUE
