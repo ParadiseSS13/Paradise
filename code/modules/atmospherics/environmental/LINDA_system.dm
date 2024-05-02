@@ -158,7 +158,7 @@
 // Rust deals in thermal energy, but converts when talking to DM.
 #define ATMOS_TEMPERATURE 13
 #define ATMOS_INNATE_HEAT_CAPACITY 18
-/proc/milla_to_gas_mixture(var/list/raw_atmos)
+/proc/milla_to_gas_mixture(list/raw_atmos)
 	var/datum/gas_mixture/air = new()
 	// Numbers from milla/src/lib.rs, plus one due to array indexing.
 	air.oxygen = raw_atmos[GAS_OFFSET + 0]
