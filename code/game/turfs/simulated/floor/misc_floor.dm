@@ -234,9 +234,10 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = 14
-	oxygen = 8
-	temperature = 500
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"

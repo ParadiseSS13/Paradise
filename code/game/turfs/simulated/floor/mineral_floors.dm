@@ -287,6 +287,7 @@
 	return //unburnable
 
 /turf/simulated/floor/plating/abductor/lavaland_air
-	temperature = 500
-	oxygen = 8
-	nitrogen = 14
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
