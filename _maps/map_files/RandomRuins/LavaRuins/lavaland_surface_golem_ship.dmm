@@ -257,6 +257,15 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
+"U" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/shuttle/freegolem)
 
 (1,1,1) = {"
 a
@@ -587,14 +596,14 @@ b
 h
 h
 b
-h
-h
+U
+U
 b
 z
 E
 b
-h
-h
+U
+U
 b
 h
 h
