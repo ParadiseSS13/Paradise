@@ -1,7 +1,3 @@
-Note:  New submissions as of 5th January 2015 now fall under AGPL v3, prior code is
-still licensed GPL v3, see README.md for details.
-
-
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 

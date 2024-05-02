@@ -1486,7 +1486,7 @@
 /area/holodeck/source_snowfield)
 "wJ" = (
 /obj/structure/chair,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/tdomeobserve,

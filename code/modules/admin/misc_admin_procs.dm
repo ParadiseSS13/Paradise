@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -660,7 +660,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Nuclear Operative"
 	if(iswizard(M))
 		antag_list += "Wizard"
-	if(ischangeling(M))
+	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
@@ -670,7 +670,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Vampire Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
-	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
+	if(IS_MINDSLAVE(M))
 		antag_list += "Mindslave"
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M

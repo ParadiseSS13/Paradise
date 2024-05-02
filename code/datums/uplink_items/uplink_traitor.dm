@@ -77,6 +77,7 @@
 	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
 	job = list("Mime", "Chef")
 
+// Shaft miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -85,6 +86,15 @@
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
 	job = list("Shaft Miner")
 	surplus = 0 // Requires a KA to even be used.
+
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 25
+	job = list("Shaft Miner")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -308,7 +318,7 @@
 // Tarot card generator, librarian and Chaplain.
 
 /datum/uplink_item/jobspecific/tarot_generator
-	name = "Enchanted tarot card deck"
+	name = "Enchanted Tarot Card Deck"
 	desc = "A magic tarot card deck \"borrowed\" from a Wizard federation storage unit. \
 	Capable of producing magic tarot cards of the 22 major arcana, and their reversed versions. Each card has a different effect. \
 	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 25 second cooldown, can have up to 3 cards in the world."
@@ -587,7 +597,7 @@
 	else if(!AT)
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
 		return
-	else if(ischangeling(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
+	else if(IS_CHANGELING(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
 		return
 

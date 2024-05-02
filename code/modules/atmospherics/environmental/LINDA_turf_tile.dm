@@ -18,6 +18,9 @@
 
 	return GM
 
+/turf/return_analyzable_air()
+	return return_air()
+
 /turf/remove_air(amount)
 	var/datum/gas_mixture/GM = new
 

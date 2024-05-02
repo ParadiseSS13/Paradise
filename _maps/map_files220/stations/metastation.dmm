@@ -6291,7 +6291,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aHe" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall,
 /area/station/service/bar)
 "aHg" = (
@@ -34673,9 +34673,9 @@
 "ctp" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/white,
-/obj/item/clothing/head/soft/mime,
+/obj/item/clothing/head/soft/white,
 /obj/item/clothing/under/color/white,
-/obj/item/clothing/head/soft/mime,
+/obj/item/clothing/head/soft/white,
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/mask/surgical,
 /turf/simulated/floor/plasteel{

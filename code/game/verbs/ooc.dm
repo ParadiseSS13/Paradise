@@ -198,7 +198,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
+				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><em>[display_name][admin_stuff]:</em> <span class='message'>[msg]</span></span></span>", MESSAGE_TYPE_OOC)
 
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.

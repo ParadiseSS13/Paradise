@@ -174,7 +174,7 @@
 				back = /obj/item/storage/backpack
 				shoes = /obj/item/clothing/shoes/workboots
 				mask = /obj/item/clothing/mask/gas
-				head = /obj/item/clothing/head/soft/grey
+				head = /obj/item/clothing/head/soft
 				belt = /obj/item/storage/belt/fannypack/white
 				gloves = /obj/item/clothing/gloves/color/grey
 				l_hand = /obj/item/storage/toolbox/mechanical
@@ -215,7 +215,7 @@
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/workboots
 	mask = /obj/item/clothing/mask/gas
-	head = /obj/item/clothing/head/soft/grey
+	head = /obj/item/clothing/head/soft
 	belt = /obj/item/storage/belt/fannypack/white
 	gloves = /obj/item/clothing/gloves/color/grey
 	l_hand = /obj/item/storage/toolbox/mechanical
