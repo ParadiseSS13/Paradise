@@ -50,14 +50,15 @@
 /obj/structure/transit_tube/station/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
 	for(var/atom/atom in pod.contents)
 		var/client/client = CLIENT_FROM_VAR(atom)
-		if(client)
-			var/datum/input_data/input_data = client.input_data
-			for(var/held_key in input_data.keys_held)
-				if(held_key in client.movement_kb_dirs)
-					var/held_dir = client.movement_kb_dirs[held_key]
-					// if they're holding a different direction down,
-					// stop to let them get out/change direction
-					return held_dir != from_dir
+		if(!client)
+			return
+
+		for(var/held_key in client.input_data.keys_held)
+			if(held_key in client.movement_kb_dirs)
+				var/held_dir = client.movement_kb_dirs[held_key]
+				// if they're holding a different direction down,
+				// stop to let them get out/change direction
+				return held_dir != from_dir
 
 	return TRUE
 
