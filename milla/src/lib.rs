@@ -20,7 +20,7 @@ use std::sync::{Mutex, OnceLock};
 use std::thread;
 use std::thread::ScopedJoinHandle;
 
-// Simple logging function, appends to ./rust_log.txt
+// Simple logging function, appends to ./milla_log.txt
 #[allow(dead_code)]
 fn write_log<T: AsRef<[u8]>>(x: T) {
     let mut f = File::options()
@@ -31,7 +31,7 @@ fn write_log<T: AsRef<[u8]>>(x: T) {
     writeln!(&mut f, "{}", String::from_utf8_lossy(x.as_ref())).unwrap();
 }
 
-// Panic handler that dumps info out to ./rust_panic.txt (overwriting) if we crash.
+// Panic handler that dumps info out to ./milla_panic.txt (overwriting) if we crash.
 fn setup_panic_handler() {
     std::panic::set_hook(Box::new(|info| {
         std::fs::write("./milla_panic.txt", format!("Panic {:#?}", info)).unwrap();
