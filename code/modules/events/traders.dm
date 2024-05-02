@@ -27,9 +27,9 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 								/datum/traders/nian)
 
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
-		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
+		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused", 'sound/AI/traderdeny.ogg')
 		return
-	GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
+	GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted", 'sound/AI/tradergranted.ogg')
 
 
 /datum/event/traders/start()
