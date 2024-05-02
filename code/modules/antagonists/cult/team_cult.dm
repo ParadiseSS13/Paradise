@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/team/cult)
+
 /datum/team/cult
 	name = "Cult"
 	antag_datum_type = /datum/antagonist/cultist
@@ -25,6 +27,9 @@
 
 	// Disables the station-wide announcements, unused except for admin editing.
 	var/no_announcements = FALSE
+
+	/// Boolean that prevents all_members_timer from being called multiple times
+	var/is_in_transition = FALSE
 
 /datum/team/cult/create_team(list/starting_members)
 	cult_threshold_check() // Set this ALWAYS before any check_cult_size check, or
@@ -143,6 +148,9 @@
 	INVOKE_ASYNC(src, PROC_REF(remove_member), deleting_cultist.mind)
 
 /datum/team/cult/proc/check_cult_size()
+	if(is_in_transition)
+		return
+
 	if(!ascend_percent)
 		stack_trace("[src]'s check_cult_size was called before cult_threshold_check, which leads to weird logic! This should be fixed ASAP.")
 		cult_threshold_check()
@@ -163,36 +171,36 @@
 		cult_ascend()
 
 /datum/team/cult/proc/cult_rise()
-	cult_risen = TRUE
+	is_in_transition = TRUE
 	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 
-	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise), VARSET_CALLBACK(src, cult_risen, TRUE)), 20 SECONDS)
 
 /datum/team/cult/proc/cult_ascend()
-	cult_ascendant = TRUE
+	is_in_transition = TRUE
 	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
 
-	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend), VARSET_CALLBACK(src, cult_ascendant, TRUE)), 20 SECONDS)
 	if(!no_announcements)
 		GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie")] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/team/cult/proc/cult_fall()
-	cult_ascendant = FALSE
+	is_in_transition = TRUE
 	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
 
-	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend), VARSET_CALLBACK(src, cult_ascendant, FALSE)), 20 SECONDS)
 	if(!no_announcements)
 		GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
 									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
@@ -207,13 +215,18 @@
  * Created so that we don't make 1000 timers, and I'm too lazy to make a proc for all of these.
  * Used in callbacks for some *magic bullshit*.
  */
-/datum/team/cult/proc/all_members_timer(proc_ref_to_call)
+/datum/team/cult/proc/all_members_timer(cultist_proc_ref, datum/callback/varset_callback)
+	if(istype(varset_callback))
+		varset_callback.Invoke()
+
 	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
 		if(cultist)
-			call(cultist, proc_ref_to_call)() // yes this is a type proc ref passed by a callback, i know its deranged
+			call(cultist, cultist_proc_ref)() // yes this is a type proc ref passed by a callback, i know its deranged
+
+	is_in_transition = FALSE
 
 /datum/team/cult/proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)

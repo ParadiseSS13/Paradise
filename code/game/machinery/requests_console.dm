@@ -225,6 +225,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
 			if(has_active_secondary_goal || !secondaryGoalAuth)
 				return
+			var/found_message_server = FALSE
+			for(var/obj/machinery/message_server/MS as anything in GLOB.message_servers)
+				if(MS.active)
+					found_message_server = TRUE
+					break
+			if(!found_message_server)
+				screen = RCS_SENTFAIL
+				return
+
 			generate_secondary_goal(department, goalRequester, usr)
 			reset_message(FALSE)
 			view_messages()
@@ -235,7 +244,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				screen = RCS_SENTPASS
 			else
 				screen = RCS_SENTFAIL
-				atom_say("No server detected!")
 
 		//Handle screen switching
 		if("setScreen")
@@ -393,8 +401,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(!message)
 		return
 	var/found_message_server = FALSE
-	for(var/M in GLOB.message_servers)
-		var/obj/machinery/message_server/MS = M
+	for(var/obj/machinery/message_server/MS as anything in GLOB.message_servers)
 		if(!MS.active)
 			continue
 		MS.send_rc_message(ckey(recipient), sender, message, stamped, verified, priority)

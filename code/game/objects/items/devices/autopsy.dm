@@ -43,7 +43,7 @@
 	return W
 
 /obj/item/autopsy_scanner/proc/add_data(obj/item/organ/O)
-	if(O.autopsy_data.len)
+	if(length(O.autopsy_data))
 		for(var/V in O.autopsy_data)
 			var/datum/autopsy_data/W = O.autopsy_data[V]
 
@@ -62,7 +62,7 @@
 			qdel(D.organs_scanned[O.name])
 			D.organs_scanned[O.name] = W.copy()
 
-	if(O.trace_chemicals.len)
+	if(length(O.trace_chemicals))
 		for(var/V in O.trace_chemicals)
 			if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
 				chemtraces += V
@@ -97,7 +97,7 @@
 	else
 		scan_data += "<b>Time of death:</b> Unknown / Still alive<br><br>"
 
-	if(wdata.len)
+	if(length(wdata))
 		var/n = 1
 		for(var/wdata_idx in wdata)
 			var/datum/autopsy_data_scanner/D = wdata[wdata_idx]
@@ -140,7 +140,7 @@
 
 			n++
 
-	if(chemtraces.len)
+	if(length(chemtraces))
 		scan_data += "<b>Trace Chemicals: </b><br>"
 		for(var/chemID in chemtraces)
 			scan_data += chemID

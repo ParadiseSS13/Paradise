@@ -101,10 +101,10 @@
 	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with the excess energy from the discharge."
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
-	energy_drain = 300 // This is per shot + 1x cost, so 1500 per shotgun shot
+	energy_drain = 215 // This is per shot + 1x cost, so ~1500 per shotgun shot
 	projectile = /obj/item/projectile/ion/weak
-	projectiles_per_shot = 4
-	variance = 35
+	projectiles_per_shot = 6
+	variance = 40
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/action()
@@ -495,19 +495,18 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
 			return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade
 	name = "\improper \"Little boy\" Mining Grenade Launcher"
-	icon_state = "mecha_missilerack_six"
+	icon_state = "mining_launcher"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/projectile/bullet/reusable/mining_bomb/mecha
 	fire_sound = 'sound/effects/bang.ogg'
-	energy_drain = 350 // cost A LOT, but powerful miner tool
+	energy_drain = 150 // cost a lot, but powerful miner tool
 	equip_cooldown = 2 SECONDS
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/action()
 	if(!lavaland_equipment_pressure_check(get_turf(chassis)))

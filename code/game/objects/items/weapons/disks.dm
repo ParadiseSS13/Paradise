@@ -67,7 +67,7 @@
 
 /obj/item/storage/box/disks
 	name = "Diskette Box"
-	icon_state = "disk_kit"
+	icon_state = "disk_box"
 
 /obj/item/storage/box/disks/populate_contents()
 	for(var/i in 1 to 7)

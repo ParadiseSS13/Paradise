@@ -7,7 +7,7 @@
 
 /obj/item/ashtray/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/cigbutt) || istype(I, /obj/item/clothing/mask/cigarette) || istype(I, /obj/item/match))
-		if(contents.len >= max_butts)
+		if(length(contents) >= max_butts)
 			to_chat(user, "This ashtray is full.")
 			return
 		if(!user.unEquip(I))
@@ -31,18 +31,18 @@
 		return ..()
 
 /obj/item/ashtray/update_icon_state()
-	if(contents.len == max_butts)
+	if(length(contents) == max_butts)
 		icon_state = icon_full
-	else if(contents.len > max_butts * 0.5)
+	else if(length(contents) > max_butts * 0.5)
 		icon_state = icon_half
 	else
 		icon_state = initial(icon_state)
 
 /obj/item/ashtray/update_desc()
 	. = ..()
-	if(contents.len == max_butts)
+	if(length(contents) == max_butts)
 		desc = initial(desc) + " It's stuffed full."
-	else if(contents.len > max_butts * 0.5)
+	else if(length(contents) > max_butts * 0.5)
 		desc = initial(desc) + " It's half-filled."
 	else
 		desc = initial(desc)
@@ -53,7 +53,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/ashtray/throw_impact(atom/hit_atom)
-	if(contents.len)
+	if(length(contents))
 		visible_message("<span class='warning'>[src] slams into [hit_atom] spilling its contents!</span>")
 	empty_tray()
 	return ..()

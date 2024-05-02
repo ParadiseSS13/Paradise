@@ -106,25 +106,6 @@
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/wrench))
-		if(health < maxHealth)
-			adjustBruteLoss(-25)
-			updatehealth()
-			user.visible_message(
-				"<span class='notice'>[user] repairs [src]!</span>",
-				"<span class='notice'>You repair [src]!</span>"
-			)
-		else
-			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
-		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -138,15 +119,57 @@
 	update_icon()
 	return
 
+/mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
+	if(!open || !cell)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	cell.add_fingerprint(user)
+	cell.forceMove(loc)
+	cell = null
+	visible_message("[user] crowbars out the power cell from [src].",
+					"<span class='notice'>You pry the powercell out of [src].</span>")
+	update_controls()
+
+/mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
+	if(!open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	attack_hand(user)
+
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(!.)
 		return
-
 	if(open)
 		on = FALSE
 	update_controls()
 	update_icon()
+
+/mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(health >= maxHealth)
+		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+		return
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	adjustBruteLoss(-25)
+	updatehealth()
+	user.visible_message(
+		"<span class='notice'>[user] repairs [src]!</span>",
+		"<span class='notice'>You repair [src]!</span>"
+	)
+
+/mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/I)
+	if(!open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	attack_hand(user)
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(!emagged)
@@ -672,7 +695,7 @@
 			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
 			if(!B)
 				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
-			if(blood_DNA && blood_DNA.len)
+			if(blood_DNA && length(blood_DNA))
 				B.blood_DNA |= blood_DNA.Copy()
 			B.basecolor = currentBloodColor
 			var/newdir = get_dir(next, loc)
