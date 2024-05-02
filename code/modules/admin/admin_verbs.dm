@@ -474,7 +474,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	// observers don't need to ghost, so we don't need to worry about adding any traits
 	if(isobserver(mob))
 		var/mob/dead/observer/ghost = mob
-		log_admin("[key_name(src)] has activated Aobserve to follow [target]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
 		ghost.do_observe(target)
 		return
@@ -489,6 +488,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
 		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
 		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
+		log_admin("[key_name(src)] has mobserved out of their body to follow [target].")
+	else
+		log_admin("[key_name(src)] is aobserving [target].")
+
 
 	ghost.do_observe(target)
 
