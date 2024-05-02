@@ -55,12 +55,9 @@
 			for(var/held_key in input_data.keys_held)
 				if(held_key in client.movement_kb_dirs)
 					var/held_dir = client.movement_kb_dirs[held_key]
-					if(held_dir == from_dir)
-						return FALSE
-					else
-						// if they're holding a different direction down,
-						// stop to let them get out/change direction
-						return TRUE
+					// if they're holding a different direction down,
+					// stop to let them get out/change direction
+					return held_dir != from_dir
 
 	return TRUE
 
