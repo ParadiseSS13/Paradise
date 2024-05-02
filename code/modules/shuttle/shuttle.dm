@@ -512,10 +512,12 @@
 		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
 		//lighting stuff
 		T1.lighting_build_overlay()
+		T1.recalculate_atmos_connectivity()
 
 		if(!should_transit)
 			continue // Don't want to actually change the skipped turf
 		T0.ChangeTurf(turf_type, keep_icon = FALSE)
+		T0.recalculate_atmos_connectivity()
 
 	areaInstance.moving = transit
 	for(var/A1 in L1)
