@@ -239,7 +239,7 @@
 	if(QDELETED(src) || QDELETED(SM))
 		return
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/C = pick(candidates)
 		SM.key = C.key
 		dust_if_respawnable(C)
@@ -539,7 +539,7 @@
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
 				stopped_atoms |= M
-			else if(istype(A, /obj/item/projectile))
+			else if(isprojectile(A))
 				var/obj/item/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
