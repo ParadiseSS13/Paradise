@@ -508,11 +508,20 @@
 		user.layer = 9
 
 		user.flying = TRUE
-		for(var/i=0, i<10, i++)
+		for(var/i in 1 to 10)
+			var/turf/hit_turf = get_step(user, user.dir)
+			var/atom/hit_atom = get_blocking_atom(hit_turf)
+			if(hit_atom)
+				hit_atom.hit_by_thrown_mob(user, damage = 10)
+				break
+
 			step(user, user.dir)
-			if(i < 5) user.pixel_y += 8
-			else user.pixel_y -= 8
+			if(i < 6)
+				user.pixel_y += 8
+			else
+				user.pixel_y -= 8
 			sleep(1)
+
 		user.flying = prevFlying
 
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
@@ -538,6 +547,23 @@
 			sleep(1)
 		container.pixel_x = 0
 		container.pixel_y = 0
+
+/datum/spell/leap/proc/get_blocking_atom(turf/turf_to_check)
+	if(!turf_to_check)
+		return FALSE
+
+	if(turf_to_check.density)
+		return turf_to_check
+
+	for(var/mob/living/hit_mob in turf_to_check)
+		if(hit_mob.density)
+			return hit_mob
+
+	for(var/obj/hit_obj in turf_to_check)
+		if(hit_obj.density)
+			return hit_obj
+
+	return FALSE
 
 ////////////////////////////////////////////////////////////////////////
 
