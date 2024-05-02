@@ -8,10 +8,10 @@
 	var/update = 1
 
 /datum/pipeline/New()
-	SSair.networks += src
+	SSair.pipenets += src
 
 /datum/pipeline/Destroy()
-	SSair.networks -= src
+	SSair.pipenets -= src
 	if(air && air.volume)
 		temporarily_store_air()
 	for(var/obj/machinery/atmospherics/pipe/P in members)

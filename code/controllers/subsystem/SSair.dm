@@ -15,41 +15,80 @@ SUBSYSTEM_DEF(air)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
-	var/cost_milla_tick = 0
-	var/cost_interesting_tiles = 0
-	var/cost_hotspots = 0
-	var/cost_pipenets = 0
-	var/cost_deferred_pipenets = 0
-	var/cost_atmos_machinery = 0
 
+	/// The cost of a MILLA tick in ms, shown in SS Info's C block as MT.
+	var/cost_milla_tick = 0
+	/// The cost of a pass through interesting tiles, shown in SS Info's C block as IT.
+	var/datum/resumable_cost_counter/cost_interesting_tiles = new()
+	/// The cost of a pass through hotspots, shown in SS Info's C block as HS.
+	var/datum/resumable_cost_counter/cost_hotspots = new()
+	/// The cost of a pass through pipenets, shown in SS Info's C block as PN.
+	var/datum/resumable_cost_counter/cost_pipenets = new()
+	/// The cost of a pass through building pipenets, shown in SS Info's C block as DPN.
+	var/datum/resumable_cost_counter/cost_pipenets_to_build = new()
+	/// The cost of a pass through atmos machinery, shown in SS Info's C block as AM.
+	var/datum/resumable_cost_counter/cost_atmos_machinery = new()
+
+	/// The length of the most recent interesting tiles list, shown in SS Info as IT.
 	var/interesting_tile_count = 0
+	/// The set of current active hotspots. Length shown in SS Info as HS.
 	var/list/hotspots = list()
-	var/list/deferred_pipenet_rebuilds = list()
-	var/list/networks = list()
+	/// The set of pipenets that need to be built. Length shown in SS Info as PTB.
+	var/list/pipenets_to_build = list()
+	/// The set of active pipenets. Length shown in SS Info as PN.
+	var/list/pipenets = list()
+	/// The set of active atmos machinery. Length shown in SS Info as AM.
 	var/list/atmos_machinery = list()
-	var/list/pipe_init_dirs_cache = list()
+
+	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
 
 	/// Pipe overlay/underlay icon manager
 	var/datum/pipe_icon_manager/icon_manager
 
+	/// An arbitrary list of stuff currently being processed.
 	var/list/currentrun = list()
+
+	/// Which step we're currently on, used to let us resume if our time budget elapses.
 	var/currentpart = SSAIR_DEFERREDPIPENETS
+
+	/// Tracks whether we've had any MILLA tick, and can safely ask about interesting tiles.
 	var/has_ticked_milla = FALSE
+
+/// A cost counter for resumable, repeating processes.
+/datum/resumable_cost_counter
+	var/last_complete_ms = 0
+	var/ongoing_ms = 0
+
+/// Updates the counter based on the time spent making progress and whether we finished the task.
+/datum/resumable_cost_counter/proc/record_progress(cost_ms, finished)
+	if(finished)
+		last_complete_ms = ongoing_ms + cost_ms
+		ongoing_ms = 0
+	else
+		ongoing_ms += cost_ms
+
+/// Gets a display string for this cost counter.
+/datum/resumable_cost_counter/proc/to_string()
+	if(ongoing_ms > last_complete_ms)
+		// We're in the middle of a task that's already longer than the prior one took in total, report the in-progress time instead, but mark that it's still incomplete with a +
+		return "[round(ongoing_ms, 1)]+"
+	return "[round(last_complete_ms, 1)]"
 
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
 	msg += "MT:[round(cost_milla_tick,1)]|"
-	msg += "IT:[round(cost_interesting_tiles,1)]|"
-	msg += "HS:[round(cost_hotspots,1)]|"
-	msg += "PN:[round(cost_pipenets,1)]|"
-	msg += "DPN:[round(cost_deferred_pipenets,1)]|"
-	msg += "AM:[round(cost_atmos_machinery,1)]"
+	msg += "IT:[cost_interesting_tiles.to_string()]|"
+	msg += "HS:[cost_hotspots.to_string()]|"
+	msg += "PN:[cost_pipenets.to_string()]|"
+	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
+	msg += "AM:[cost_atmos_machinery.to_string()]"
 	msg += "} "
 	msg += "IT:[interesting_tile_count]|"
 	msg += "HS:[length(hotspots)]|"
-	msg += "PN:[length(networks)]|"
+	msg += "PN:[length(pipenets)]|"
+	msg += "AM:[length(atmos_machinery)]|"
 	return msg.Join("")
 
 /datum/controller/subsystem/air/get_metrics()
@@ -69,10 +108,9 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/Recover()
 	hotspots = SSair.hotspots
-	deferred_pipenet_rebuilds = SSair.deferred_pipenet_rebuilds
-	networks = SSair.networks
+	pipenets_to_build = SSair.pipenets_to_build
+	pipenets = SSair.pipenets
 	atmos_machinery = SSair.atmos_machinery
-	pipe_init_dirs_cache = SSair.pipe_init_dirs_cache
 	machinery_to_construct = SSair.machinery_to_construct
 	icon_manager = SSair.icon_manager
 	currentrun = SSair.currentrun
@@ -82,8 +120,8 @@ SUBSYSTEM_DEF(air)
 	var/timer = TICK_USAGE_REAL
 
 	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
-		process_deferred_pipenets(resumed)
-		cost_deferred_pipenets = MC_AVERAGE(cost_deferred_pipenets, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		build_pipenets(resumed)
+		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
@@ -91,7 +129,7 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
 		process_pipenets(resumed)
-		cost_pipenets = MC_AVERAGE(cost_pipenets, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		cost_pipenets.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
@@ -100,7 +138,7 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
 		process_atmos_machinery(resumed)
-		cost_atmos_machinery = MC_AVERAGE(cost_atmos_machinery, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
@@ -112,7 +150,7 @@ SUBSYSTEM_DEF(air)
 		// been initialized.
 		if(has_ticked_milla)
 			process_interesting_tiles(resumed)
-		cost_interesting_tiles = MC_AVERAGE(cost_interesting_tiles, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
@@ -121,7 +159,7 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_HOTSPOTS)
 		timer = TICK_USAGE_REAL
 		process_hotspots(resumed)
-		cost_hotspots = MC_AVERAGE(cost_hotspots, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
@@ -131,16 +169,16 @@ SUBSYSTEM_DEF(air)
 		timer = TICK_USAGE_REAL
 		spawn_milla_tick_thread()
 		has_ticked_milla = TRUE
-		cost_milla_tick = MC_AVERAGE(cost_milla_tick, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		cost_milla_tick = TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
 
 	currentpart = SSAIR_DEFERREDPIPENETS
 
-/datum/controller/subsystem/air/proc/process_deferred_pipenets(resumed = 0)
+/datum/controller/subsystem/air/proc/build_pipenets(resumed = 0)
 	if(!resumed)
-		src.currentrun = deferred_pipenet_rebuilds.Copy()
+		src.currentrun = pipenets_to_build.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
@@ -149,13 +187,13 @@ SUBSYSTEM_DEF(air)
 		if(A)
 			A.build_network(remove_deferral = TRUE)
 		else
-			deferred_pipenet_rebuilds.Remove(A)
+			pipenets_to_build.Remove(A)
 		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
 	if(!resumed)
-		src.currentrun = networks.Copy()
+		src.currentrun = pipenets.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
@@ -164,7 +202,7 @@ SUBSYSTEM_DEF(air)
 		if(thing)
 			thing.process()
 		else
-			networks.Remove(thing)
+			pipenets.Remove(thing)
 		if(MC_TICK_CHECK)
 			return
 
@@ -264,7 +302,7 @@ SUBSYSTEM_DEF(air)
 //	pipenet can be built.
 /datum/controller/subsystem/air/proc/setup_pipenets(list/pipes)
 	var/watch = start_watch()
-	log_startup_progress("Initializing pipe networks...")
+	log_startup_progress("Initializing pipe pipenets...")
 	var/count = _setup_pipenets(pipes)
 	log_startup_progress("Initialized [count] pipenets in [stop_watch(watch)]s.")
 
