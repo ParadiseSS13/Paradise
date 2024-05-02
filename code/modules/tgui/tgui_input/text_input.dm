@@ -87,11 +87,11 @@
 	src.default = default
 	src.encode = encode
 	src.trim = trim
+	src.submit_on_enter = submit_on_enter
 	src.max_length = max_length
 	src.message = message
 	src.multiline = multiline
 	src.title = title
-	src.submit_on_enter = submit_on_enter
 	src.state = ui_state
 
 	if(timeout)
