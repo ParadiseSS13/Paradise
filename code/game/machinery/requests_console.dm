@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(has_active_secondary_goal || !secondaryGoalAuth)
 				return
 			var/found_message_server = FALSE
-			for(var/obj/machinery/message_server/MS in GLOB.message_servers)
+			for(var/obj/machinery/message_server/MS as anything in GLOB.message_servers)
 				if(MS.active)
 					found_message_server = TRUE
 					break
@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(!message)
 		return
 	var/found_message_server = FALSE
-	for(var/obj/machinery/message_server/MS in GLOB.message_servers)
+	for(var/obj/machinery/message_server/MS as anything in GLOB.message_servers)
 		if(!MS.active)
 			continue
 		MS.send_rc_message(ckey(recipient), sender, message, stamped, verified, priority)
