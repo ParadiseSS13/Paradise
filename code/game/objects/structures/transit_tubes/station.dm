@@ -47,7 +47,21 @@
 			tube_dirs = list(NORTH, SOUTH)
 	boarding_dir = reverse_direction(dir)
 
-/obj/structure/transit_tube/station/should_stop_pod(pod, from_dir)
+/obj/structure/transit_tube/station/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
+	for(var/atom/atom in pod.contents)
+		var/client/client = CLIENT_FROM_VAR(atom)
+		if(client)
+			var/datum/input_data/input_data = client.input_data
+			for(var/held_key in input_data.keys_held)
+				if(held_key in client.movement_kb_dirs)
+					var/held_dir = client.movement_kb_dirs[held_key]
+					if(held_dir == from_dir)
+						return FALSE
+					else
+						// if they're holding a different direction down,
+						// stop to let them get out/change direction
+						return TRUE
+
 	return TRUE
 
 /obj/structure/transit_tube/station/Bumped(mob/living/L)
@@ -187,6 +201,9 @@
 	reverse_launch = TRUE
 	uninstalled_type = /obj/structure/transit_tube_construction/terminus
 
+/obj/structure/transit_tube/station/reverse/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
+	return TRUE
+
 /obj/structure/transit_tube/station/reverse/init_tube_dirs()
 	tube_dirs = list(turn(dir, -90))
 	boarding_dir = reverse_direction(dir)
@@ -259,6 +276,9 @@
 	icon_state = "open_terminusdispenser0"
 	base_icon_state = "terminusdispenser0"
 	uninstalled_type = /obj/structure/transit_tube_construction/terminus/dispenser
+
+/obj/structure/transit_tube/station/dispenser/reverse/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
+	return TRUE
 
 /obj/structure/transit_tube/station/dispenser/reverse/init_tube_dirs()
 	tube_dirs = list(turn(dir, -90))
