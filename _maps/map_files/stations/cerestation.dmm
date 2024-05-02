@@ -23132,7 +23132,7 @@
 "cvm" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/fingerless,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},

@@ -23086,7 +23086,7 @@
 /area/station/maintenance/port)
 "bsg" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft/grey{
+/obj/item/clothing/head/soft{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -71294,9 +71294,9 @@
 "mIA" = (
 /obj/structure/table,
 /obj/item/stamp/granted,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /obj/item/hand_labeler,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
