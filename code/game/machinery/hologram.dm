@@ -75,7 +75,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/list/holorays = list()
 	/// Last request time, to prevent request spam. ~Carn
 	var/last_request = 0 
-	/// Change to change how far the AI can move away from the holopad before deactivating.
 	/// The range, in tiles, that a holopad can project a hologram.
 	var/holo_range = 5
 	var/temp = ""
