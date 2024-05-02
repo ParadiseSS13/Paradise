@@ -169,6 +169,7 @@
 	air.agent_b = raw_atmos[GAS_OFFSET + 5]
 	air.temperature = raw_atmos[ATMOS_TEMPERATURE]
 	air.innate_heat_capacity = raw_atmos[ATMOS_INNATE_HEAT_CAPACITY]
+	return air
 #undef GAS_OFFSET
 #undef ATMOS_TEMPERATURE
 #undef ATMOS_INNATE_HEAT_CAPACITY

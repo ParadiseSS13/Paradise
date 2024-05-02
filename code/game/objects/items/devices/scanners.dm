@@ -661,7 +661,7 @@ SLIME SCANNER
 			message += "<span class='info'>Atmos Blocked East: [milla[2]]</span>"
 			message += "<span class='info'>Atmos Blocked South: [milla[3]]</span>"
 			message += "<span class='info'>Atmos Blocked West: [milla[4]]</span>"
-			switch(milla[4])
+			switch(milla[5])
 				// These are enum values, so they don't get increased.
 				if(0)
 					message += "<span class='info'>Atmos Mode: Space</span>"

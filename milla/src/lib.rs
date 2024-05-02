@@ -577,7 +577,7 @@ impl TryFrom<InterestingTile> for ByondValue {
     }
 }
 
-// BYOND API for getting a list of interesting turfs this tick.
+// BYOND API for getting a list of interesting tiles this tick.
 // There are three kinds:
 // * Turfs that are hot eough to cause fires.
 // * Turfs that just passed the threshold for showing plasma or sleeping gas.
@@ -606,6 +606,11 @@ fn get_random_interesting_tile() {
     setup_panic_handler();
     let interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
     let length = interesting_tiles.len() as f32;
+    if length <= 0.0 {
+        return Err(eyre!(
+            "No interesting tiles."
+        ));
+    }
     let random: f32 = rand::random();
     let chosen = (random * length) as usize;
     Ok(ByondValue::try_from(interesting_tiles[chosen])?)

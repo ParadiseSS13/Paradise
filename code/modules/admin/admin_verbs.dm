@@ -988,6 +988,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	var/list/coords = get_random_interesting_tile()
+	if(!length(coords))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
 
 	var/turf/T = locate(coords[1], coords[2], coords[3])
 	var/mob/dead/observer/O = mob
