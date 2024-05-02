@@ -599,8 +599,14 @@ SLIME SCANNER
  * Outputs a message to the user describing the target's gasmixes.
  * Used in chat-based gas scans.
  */
-/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE)
-	var/mixture = target.return_analyzable_air()
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
+	var/mixture
+	var/list/milla = null
+	if(milla_turf_details)
+		milla = get_tile_atmos(target.x, target.y, target.z)
+		mixture = milla_to_gas_mixture(milla)
+	else
+		mixture = target.return_analyzable_air()
 	if(!mixture)
 		return FALSE
 
@@ -648,6 +654,30 @@ SLIME SCANNER
 		else
 			message += length(airs) > 1 ? "<span class='info'>This node is empty!</span>" : "<span class='info'>[target] is empty!</span>"
 			message += "<span class='info'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+
+		if(milla)
+			// Values from milla/src/lib.rs, +1 due to array indexing difference.
+			message += "<span class='info'>Atmos Blocked North: [milla[1]]</span>"
+			message += "<span class='info'>Atmos Blocked East: [milla[2]]</span>"
+			message += "<span class='info'>Atmos Blocked South: [milla[3]]</span>"
+			message += "<span class='info'>Atmos Blocked West: [milla[4]]</span>"
+			switch(milla[4])
+				// These are enum values, so they don't get increased.
+				if(0)
+					message += "<span class='info'>Atmos Mode: Space</span>"
+				if(1)
+					message += "<span class='info'>Atmos Mode: Sealed</span>"
+				if(2)
+					message += "<span class='info'>Atmos Mode: Lavaland</span>"
+				if(3)
+					message += "<span class='info'>Atmos Mode: Earthlike</span>"
+				else
+					message += "<span class='info'>Atmos Mode: Unknown ([milla[5]]), contact a coder.</span>"
+			message += "<span class='info'>Superconductivity North: [milla[14]]</span>"
+			message += "<span class='info'>Superconductivity East: [milla[15]]</span>"
+			message += "<span class='info'>Superconductivity South: [milla[16]]</span>"
+			message += "<span class='info'>Superconductivity West: [milla[17]]</span>"
+			message += "<span class='info'>Turf's Innate Heat Capacity: [milla[18]]</span>"
 
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE

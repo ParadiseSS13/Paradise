@@ -11,3 +11,4 @@ crate-type = ["cdylib"]
 [dependencies]
 byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.4.4" }
 eyre = "0.6.12"
+rand = { version = "0.8.5", features = ["small_rng"] }

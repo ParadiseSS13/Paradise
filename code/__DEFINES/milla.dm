@@ -128,6 +128,11 @@
 
 	return REAL_SET_TILE_ATMOS_BLOCKING(x, y, z, north, east, south, west)
 
+#define REAL_GET_RANDOM_INTERESTING_TILE MILLA_CALL(get_random_interesting_tile)
+
+/proc/get_random_interesting_tile()
+	return REAL_GET_RANDOM_INTERESTING_TILE
+
 #undef MILLA
 #undef MILLA_CALL
 #undef REAL_SET_TILE_ATMOS
@@ -137,3 +142,4 @@
 #undef REAL_REDUCE_SUPERCONDUCTIVITY
 #undef REAL_RESET_SUPERCONDUCTIVITY
 #undef REAL_SET_TILE_ATMOS_BLOCKING
+#undef REAL_GET_RANDOM_INTERESTING_TILE

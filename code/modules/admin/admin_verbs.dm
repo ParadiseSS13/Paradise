@@ -168,7 +168,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
-	/client/proc/debug_global_variables
+	/client/proc/debug_global_variables,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -234,7 +236,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
 	/client/proc/debug_timers,
-	/client/proc/timer_log
+	/client/proc/timer_log,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf
 ))
 
 /client/proc/add_admin_verbs()
@@ -960,3 +964,32 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(ishuman(mob))
 		var/mob/living/carbon/human/H = mob
 		H.export_dmi_json()
+
+/client/proc/raw_gas_scan()
+	set name = "Raw Gas Scan"
+	set category = "Debug"
+	set desc = "Scans your current tile, including LINDA data not normally displayed."
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	atmos_scan(mob, get_turf(mob), silent = TRUE, milla_turf_details = TRUE)
+
+/client/proc/teleport_interesting_turf()
+	set name = "Interesting Turf"
+	set category = "Debug"
+	set desc = "Teleports you to a random Interesting Turf from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(!isobserver(mob))
+		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
+		return
+
+	var/list/coords = get_random_interesting_tile()
+
+	var/turf/T = locate(coords[1], coords[2], coords[3])
+	var/mob/dead/observer/O = mob
+	admin_forcemove(O, T)
+	O.ManualFollow(T)

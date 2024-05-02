@@ -85,10 +85,10 @@ const ATMOS_AGENT_B: usize = 11;
 const ATMOS_THERMAL_ENERGY: usize = 12;
 // The thermal conductivity in each direction. Starts at OPEN_HEAT_TRANSFER_COEFFICIENT, but can be
 // reduced by the tile and its contents.
-const ATMOS_SUPERCONDUCTIVITY_EAST: usize = 13;
-const ATMOS_SUPERCONDUCTIVITY_NORTH: usize = 14;
-const ATMOS_SUPERCONDUCTIVITY_WEST: usize = 15;
-const ATMOS_SUPERCONDUCTIVITY_SOUTH: usize = 16;
+const ATMOS_SUPERCONDUCTIVITY_NORTH: usize = 13;
+const ATMOS_SUPERCONDUCTIVITY_EAST: usize = 14;
+const ATMOS_SUPERCONDUCTIVITY_SOUTH: usize = 15;
+const ATMOS_SUPERCONDUCTIVITY_WEST: usize = 16;
 // How much heat capacity the tile itself adds, in joules per kelvin, in addition to any air on it.
 const ATMOS_INNATE_HEAT_CAPACITY: usize = 17;
 
@@ -368,7 +368,7 @@ fn set_tile_atmos(
     sleeping_agent: ByondValue,
     agent_b: ByondValue,
     temperature: ByondValue,
-    innate_heat_capacity: ByondValue,
+    _innate_heat_capacity: ByondValue,
 ) {
     setup_panic_handler();
     internal_set_tile_atmos(
@@ -543,6 +543,7 @@ fn internal_get_tile_atmos(
 }
 
 // A tile that we consider interesting for some reason.
+#[derive(Debug, Copy, Clone)]
 struct InterestingTile {
     x: i32,
     y: i32,
@@ -584,11 +585,11 @@ impl TryFrom<InterestingTile> for ByondValue {
 #[byondapi::bind]
 fn get_interesting_tiles() {
     setup_panic_handler();
-    let mut interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
+    let interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
     let initial_interesting_tiles = interesting_tiles.len();
     let byond_interesting_tiles = interesting_tiles
-        .drain(..)
-        .map(|v| ByondValue::try_from(v))
+        .iter()
+        .map(|v| ByondValue::try_from(*v))
         .flatten()
         .collect::<Vec<ByondValue>>();
     if byond_interesting_tiles.len() != initial_interesting_tiles {
@@ -597,6 +598,17 @@ fn get_interesting_tiles() {
         ));
     }
     Ok(byond_interesting_tiles.as_slice().try_into()?)
+}
+
+// BYOND API for getting a single random interesting tile.
+#[byondapi::bind]
+fn get_random_interesting_tile() {
+    setup_panic_handler();
+    let interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
+    let length = interesting_tiles.len() as f32;
+    let random: f32 = rand::random();
+    let chosen = (random * length) as usize;
+    Ok(ByondValue::try_from(interesting_tiles[chosen])?)
 }
 
 // Calculates the pressure flow out from this tile to the two neighboring tiles on this axis.
@@ -792,6 +804,12 @@ fn count_connected_dirs(
 
 // Runs a single tick of the atmospherics model, multi-threaded by Z level.
 fn tick() {
+    // Psssh, that was interesting *last* tick.
+    {
+        let mut interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
+        interesting_tiles.clear();
+    }
+
     let mut active_buffer_map = get_active_atmos_buffer_map().lock().unwrap();
     let mut inactive_buffer_map = get_inactive_atmos_buffer_map().lock().unwrap();
 
@@ -1336,7 +1354,7 @@ mod tests {
             let result = result_tile[i];
             match i {
                 // Superconductivity should start at the maximum.
-                ATMOS_SUPERCONDUCTIVITY_EAST..=ATMOS_SUPERCONDUCTIVITY_SOUTH => {
+                ATMOS_SUPERCONDUCTIVITY_NORTH..=ATMOS_SUPERCONDUCTIVITY_WEST => {
                     assert_eq!(result, OPEN_HEAT_TRANSFER_COEFFICIENT)
                 }
                 // Everything else should be zero.

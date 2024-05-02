@@ -151,3 +151,24 @@
 	var/datum/gas_mixture/full_air = read_air()
 	full_air.merge(G)
 	write_air(full_air)
+
+// From milla/src/lib.rs
+// Increased by 1 due to the difference in array indexing.
+#define GAS_OFFSET 7
+// Rust deals in thermal energy, but converts when talking to DM.
+#define ATMOS_TEMPERATURE 13
+#define ATMOS_INNATE_HEAT_CAPACITY 18
+/proc/milla_to_gas_mixture(var/list/raw_atmos)
+	var/datum/gas_mixture/air = new()
+	// Numbers from milla/src/lib.rs, plus one due to array indexing.
+	air.oxygen = raw_atmos[GAS_OFFSET + 0]
+	air.carbon_dioxide = raw_atmos[GAS_OFFSET + 1]
+	air.nitrogen = raw_atmos[GAS_OFFSET + 2]
+	air.toxins = raw_atmos[GAS_OFFSET + 3]
+	air.sleeping_agent = raw_atmos[GAS_OFFSET + 4]
+	air.agent_b = raw_atmos[GAS_OFFSET + 5]
+	air.temperature = raw_atmos[ATMOS_TEMPERATURE]
+	air.innate_heat_capacity = raw_atmos[ATMOS_INNATE_HEAT_CAPACITY]
+#undef GAS_OFFSET
+#undef ATMOS_TEMPERATURE
+#undef ATMOS_INNATE_HEAT_CAPACITY
