@@ -188,25 +188,34 @@ Works together with spawning an observer, noted above.
 	return 1
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
-	if(key)
-		if(player_logged) //if they have disconnected we want to remove their SSD overlay
-			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
-		if(GLOB.non_respawnable_keys[ckey])
-			flags &= ~GHOST_CAN_REENTER
-		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		if(ghost.can_reenter_corpse)
-			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
-		else
-			GLOB.non_respawnable_keys[ckey] = 1
-		if(user_color)
-			add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
-			ghost.color = user_color
-		if(ghost_name)
-			ghost.name = ghost_name
-		ghost.key = key
-		ghost.client?.init_verbs()
-		return ghost
+	if(!key)
+		return
+	if(player_logged) //if they have disconnected we want to remove their SSD overlay
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+	if(GLOB.non_respawnable_keys[ckey])
+		flags &= ~GHOST_CAN_REENTER
+	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+	ghost.timeofdeath = src.timeofdeath //BS12 EDIT
+	if(ghost.can_reenter_corpse)
+		ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
+	else
+		GLOB.non_respawnable_keys[ckey] = 1
+	if(user_color)
+		add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
+		ghost.color = user_color
+	if(ghost_name)
+		ghost.name = ghost_name
+	ghost.key = key
+
+
+	// mods, mentors, and the like will have admin observe anyway, so this is moot
+	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+		ghost.verbs |= /mob/dead/observer/proc/do_observe
+		ghost.verbs |= /mob/dead/observer/proc/observe
+
+	ghost.client?.init_verbs()
+
+	return ghost
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -498,13 +507,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/add_observer_verbs()
 	verbs.Add(
 		/mob/dead/observer/proc/ManualFollow,
-		/mob/dead/observer/proc/observe,
-		/mob/dead/observer/proc/do_observe
 	)
 
 /mob/dead/observer/proc/remove_observer_verbs()
 	verbs.Remove(
 		/mob/dead/observer/proc/ManualFollow,
+		// these might not necessarily be here, but we want to make sure they're gonezo anyway
 		/mob/dead/observer/proc/observe,
 		/mob/dead/observer/proc/do_observe
 	)
