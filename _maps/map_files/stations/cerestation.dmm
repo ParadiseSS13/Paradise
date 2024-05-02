@@ -3620,7 +3620,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/station/public/quantum/service)
@@ -26138,10 +26137,6 @@
 "cMz" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore)
-"cMA" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/maintenance/gambling_den)
 "cME" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -48367,10 +48362,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/spacebridge/serveng)
-"iwJ" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/service/bar)
 "iwU" = (
 /obj/structure/sign/directions/evac{
 	dir = 4;
@@ -54698,7 +54689,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/station/public/quantum/service)
@@ -62093,6 +62083,9 @@
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
+/obj/machinery/barsign{
+	pixel_y = -32
+	},
 /turf/simulated/floor/carpet,
 /area/station/hallway/primary/port/east)
 "mJX" = (
@@ -62400,6 +62393,9 @@
 "mPu" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -70189,16 +70185,6 @@
 	icon_state = "white"
 	},
 /area/station/science/misc_lab)
-"pqq" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/public/quantum/security)
 "pqr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -116888,7 +116874,7 @@ xla
 sZf
 aWA
 iEe
-pqq
+bNX
 ibX
 jzf
 hPy
@@ -118729,7 +118715,7 @@ pkc
 iqL
 rZl
 mJT
-iwJ
+aZZ
 iox
 bjr
 rRc
@@ -122101,7 +122087,7 @@ bhO
 hUU
 sbn
 sbn
-cMA
+uJT
 mPu
 mER
 oWa
