@@ -723,6 +723,7 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 /datum/gas_mixture/bound_to_turf/Destroy()
 	bound_turf = null
+	return ..()
 
 /datum/gas_mixture/bound_to_turf/set_dirty()
 	dirty = TRUE

@@ -30,7 +30,8 @@
 	if(T.blocks_air)
 		environment_temperature = T.temperature
 	else
-		environment_temperature = T.get_air().temperature()
+		var/datum/gas_mixture/environment = T.get_air()
+		environment_temperature = environment.temperature()
 
 	if(abs(environment_temperature-pipe_air.temperature()) > minimum_temperature_difference)
 		parent.temperature_interact(T, volume, thermal_conductivity)
