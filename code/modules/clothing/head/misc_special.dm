@@ -74,7 +74,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/living/carbon/human/M = location
-		if(M.is_holding(src) || M.head == src)
+		if(M.l_hand == src || M.r_hand == src || M.head == src)
 			location = M.loc
 
 	if(isturf(location))

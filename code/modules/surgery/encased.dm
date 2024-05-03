@@ -10,8 +10,7 @@
 	name = "saw bone"
 	allowed_tools = list(
 		TOOL_SAW = 100,
-		/obj/item/hatchet = 90,
-		/obj/item/wirecutters = 35 // silly goose
+		/obj/item/hatchet = 90
 	)
 
 	time = 5.4 SECONDS
@@ -21,8 +20,7 @@
 
 	user.visible_message(
 		"[user] begins to cut through [target]'s [affected.encased] with \the [tool].",
-		"You begin to cut through [target]'s [affected.encased] with \the [tool].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"You begin to cut through [target]'s [affected.encased] with \the [tool]."
 	)
 	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -32,8 +30,7 @@
 
 	user.visible_message(
 		"<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",
-		"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>"
 	)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 	affected.fracture(silent = TRUE)
@@ -44,8 +41,7 @@
 
 	user.visible_message(
 		"<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" ,
-		"<span class='warning'> Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='warning'> Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>"
 	)
 
 	affected.receive_damage(20)
@@ -69,8 +65,7 @@
 
 	user.visible_message(
 		"[user] starts to force open the [affected.encased] in [target]'s [affected.name] with \the [tool].",
-		"You start to force open the [affected.encased] in [target]'s [affected.name] with \the [tool].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"You start to force open the [affected.encased] in [target]'s [affected.name] with \the [tool]."
 	)
 	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -81,8 +76,7 @@
 
 	user.visible_message(
 		"<span class='notice'> [user] forces open [target]'s [affected.encased] with \the [tool].</span>",
-		"<span class='notice'> You force open [target]'s [affected.encased] with \the [tool].</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='notice'> You force open [target]'s [affected.encased] with \the [tool].</span>"
 	)
 
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -94,8 +88,7 @@
 
 	user.visible_message(
 		"<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased]!</span>",
-		"<span class='warning'> Your hand slips, cracking [target]'s  [affected.encased]!</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='warning'> Your hand slips, cracking [target]'s  [affected.encased]!</span>"
 	)
 
 	affected.receive_damage(20)
@@ -118,8 +111,7 @@
 
 	user.visible_message(
 		"[user] starts bending [target]'s [affected.encased] back into place with \the [tool].",
-		"You start bending [target]'s [affected.encased] back into place with \the [tool].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"You start bending [target]'s [affected.encased] back into place with \the [tool]."
 	)
 	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -129,8 +121,7 @@
 
 	user.visible_message(
 		"<span class='notice'>[user] bends [target]'s [affected.encased] back into place with \the [tool].</span>",
-		"<span class='notice'>You bend [target]'s [affected.encased] back into place with \the [tool].</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='notice'>You bend [target]'s [affected.encased] back into place with \the [tool].</span>"
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -140,8 +131,7 @@
 
 	user.visible_message(
 		"<span class='warning'>[user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>",
-		"<span class='warning'>Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='warning'>Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
 	)
 
 	affected.receive_damage(20)
@@ -163,8 +153,7 @@
 
 	user.visible_message(
 		"[user] starts applying \the [tool] to [target]'s [affected.encased].",
-		"You start applying \the [tool] to [target]'s [affected.encased].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"You start applying \the [tool] to [target]'s [affected.encased]."
 	)
 	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -174,8 +163,7 @@
 
 	user.visible_message(
 		"<span class='notice'> [user] applied \the [tool] to [target]'s [affected.encased].</span>",
-		"<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>"
 	)
 
 	affected.open = ORGAN_ORGANIC_OPEN

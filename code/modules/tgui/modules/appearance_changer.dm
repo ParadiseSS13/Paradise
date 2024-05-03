@@ -214,6 +214,7 @@
 
 	data["specimen"] = owner.dna.species.name
 	data["gender"] = owner.gender
+	data["has_gender"] = owner.dna.species.has_gender
 	data["change_race"] = can_change(APPEARANCE_RACE)
 	if(data["change_race"])
 		var/list/species = list()

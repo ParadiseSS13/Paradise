@@ -11,6 +11,7 @@
 	. = ..()
 	if(user.mind?.miming)
 		return FALSE  // shh
+	return .
 
 /datum/emote/living/blush
 	key = "blush"

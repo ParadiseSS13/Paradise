@@ -6218,6 +6218,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"aHe" = (
+/obj/structure/sign/barsign,
+/turf/simulated/wall,
+/area/station/service/bar)
 "aHg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10924,7 +10928,7 @@
 /area/station/public/locker)
 "aVT" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft{
+/obj/item/clothing/head/soft/grey{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -42598,11 +42602,11 @@
 "cZp" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 16;
+	dwidth = 15;
 	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 41
+	width = 33
 	},
 /turf/space,
 /area/space)
@@ -71461,6 +71465,20 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"oDZ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "oEe" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
@@ -86635,14 +86653,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
-"uXN" = (
-/obj/machinery/barsign{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
-/area/station/hallway/primary/starboard)
 "uYf" = (
 /obj/machinery/light{
 	dir = 8
@@ -115239,7 +115249,7 @@ nBj
 cgt
 cdT
 wfa
-bqQ
+oDZ
 cCj
 cdT
 kNJ
@@ -127038,8 +127048,8 @@ bjp
 bez
 vtx
 boY
-uXN
-bsp
+bqA
+aHe
 ded
 bEv
 bEv

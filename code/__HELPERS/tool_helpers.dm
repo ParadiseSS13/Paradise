@@ -26,6 +26,11 @@
 		return TRUE
 	return FALSE
 
+/proc/iscrowbar(O)
+	if(istype(O, /obj/item/crowbar))
+		return TRUE
+	return FALSE
+
 /proc/iscoil(O)
 	if(istype(O, /obj/item/stack/cable_coil))
 		return TRUE

@@ -55,8 +55,6 @@ GLOBAL_VAR(bomb_set)
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
-	///Bombs Internal Radio
-	var/obj/item/radio/radio
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -76,16 +74,11 @@ GLOBAL_VAR(bomb_set)
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
-	radio = new(src)
-	radio.listening = FALSE
-	radio.follow_target = src
-	radio.config(list("Special Ops" = 0))
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(core)
-	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
@@ -511,11 +504,9 @@ GLOBAL_VAR(bomb_set)
 					update_icon(UPDATE_OVERLAYS)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
-					if(!is_syndicate && SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_EPSILON)
+					if(!is_syndicate)
 						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
-					if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
-						radio.autosay("<span class='reallybig'>The Nuclear Bomb has been armed, retreat from the station immediately!</span>", name, "Special Ops")
 				else
 					GLOB.bomb_set = TRUE
 			else

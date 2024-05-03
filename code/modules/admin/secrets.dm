@@ -1,3 +1,6 @@
+/datum/admins
+	var/current_tab =0
+
 /datum/admins/proc/Secrets()
 
 

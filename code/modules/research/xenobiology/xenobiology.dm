@@ -539,7 +539,7 @@
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
 				stopped_atoms |= M
-			else if(isprojectile(A))
+			else if(istype(A, /obj/item/projectile))
 				var/obj/item/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P

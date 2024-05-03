@@ -101,7 +101,7 @@
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
 
-	if(IS_CHANGELING(target))
+	if(ischangeling(target))
 		decoy_brain = TRUE
 
 	if(!brain_already_exists)

@@ -6,7 +6,6 @@
 	var/real_name							//our character's name
 	var/be_random_name = FALSE				//whether we are a random name every round
 	var/gender = MALE						//gender of character (well duh)
-	var/body_type = MALE					//body sprite variant
 	var/age = 30							//age of character
 	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
@@ -119,13 +118,13 @@
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
-	if(length(organ_data))
+	if(!isemptylist(organ_data))
 		organ_list = list2params(organ_data)
-	if(length(rlimb_data))
+	if(!isemptylist(rlimb_data))
 		rlimb_list = list2params(rlimb_data)
-	if(length(player_alt_titles))
+	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
-	if(length(loadout_gear))
+	if(!isemptylist(loadout_gear))
 		gearlist = json_encode(loadout_gear)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
@@ -142,7 +141,6 @@
 					real_name=:real_name,
 					name_is_always_random=:be_random_name,
 					gender=:gender,
-					body_type=:body_type,
 					age=:age,
 					species=:species,
 					language=:language,
@@ -195,8 +193,7 @@
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
 					custom_emotes=:custom_emotes,
-					cyborg_brain_type=:cyborg_brain_type,
-					body_type=:body_type
+					cyborg_brain_type=:cyborg_brain_type
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -204,7 +201,6 @@
 						"real_name" = real_name,
 						"be_random_name" = be_random_name,
 						"gender" = gender,
-						"body_type" = body_type,
 						"age" = age,
 						"species" = species,
 						"language" = language,
@@ -298,7 +294,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -325,7 +321,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -334,7 +330,6 @@
 		"name" = real_name,
 		"be_random_name" = be_random_name,
 		"gender" = gender,
-		"body_type" = body_type,
 		"age" = age,
 		"species" = species,
 		"language" = language,
@@ -399,10 +394,6 @@
 	return 1
 
 
-/**
- * Load in and process the database's information on the player's character save.
- * The order of indices here is the relative order from get_query() in 20-load-characters.dm.
- */
 /datum/character_save/proc/load(datum/db_query/query)
 	//Character
 	metadata = query.item[1]
@@ -480,7 +471,6 @@
 	physique = query.item[56]
 	height = query.item[57]
 	cyborg_brain_type = query.item[58]
-	body_type = query.item[59]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -514,7 +504,7 @@
 		real_name = random_name(gender, species)
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender, FALSE)
+	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
 	age				= sanitize_integer(age, SP.min_age, SP.max_age, initial(age))
 	h_colour		= sanitize_hexcolor(h_colour)
 	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
@@ -600,10 +590,9 @@
 		gender = gender_override
 	else
 		gender = pick(MALE, FEMALE)
-	body_type = pick(MALE, FEMALE)
-	underwear = random_underwear(body_type, species)
-	undershirt = random_undershirt(body_type, species)
-	socks = random_socks(body_type, species)
+	underwear = random_underwear(gender, species)
+	undershirt = random_undershirt(gender, species)
+	socks = random_socks(gender, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
@@ -805,8 +794,7 @@
 	qdel(preview_icon)
 
 	var/g = "m"
-	if(body_type == FEMALE)
-		g = "f"
+	if(gender == FEMALE)	g = "f"
 
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
@@ -1175,7 +1163,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "lgloves"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "mime"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suspenders"), ICON_OVERLAY)
 				has_gloves = TRUE
 				switch(backbag)
@@ -1324,7 +1312,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigoff"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "bluesoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "bluesoft"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)
@@ -1368,7 +1356,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret_hos"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_hos"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -1411,7 +1399,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/security.dmi', "security_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret_officer"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_officer"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -1820,7 +1808,6 @@
 	character.gen_record = gen_record
 
 	character.change_gender(gender)
-	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here
 	character.age = age
 
 	//Head-specific
@@ -1898,10 +1885,10 @@
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(character.gender == NEUTER)
+	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
 		if(isliving(src)) //Ghosts get neuter by default
-			message_admins("[key_name_admin(character)] has spawned with their gender as neuter. Please notify coders.")
-			character.change_gender(PLURAL)
+			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
+			character.change_gender(MALE)
 
 	character.change_eye_color(e_colour, skip_icons = TRUE)
 	character.original_eye_color = e_colour

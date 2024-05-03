@@ -414,6 +414,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/crematorium
 	access = ACCESS_CREMATORIUM
 
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/crematorium
+	access = ACCESS_CREMATORIUM
+
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/library
 	access = ACCESS_LIBRARY
 

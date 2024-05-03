@@ -68,6 +68,8 @@
 
 		. += "/([name])"
 
+	return .
+
 /proc/key_name_admin(whom)
 	if(whom)
 		var/datum/whom_datum = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
@@ -90,7 +92,3 @@
 /proc/log_and_message_admins(message)
 	log_admin("[key_name(usr)] " + message)
 	message_admins("[key_name_admin(usr)] " + message)
-
-/proc/log_and_message_admins_no_usr(message)
-	log_admin(message)
-	message_admins(message)

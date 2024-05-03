@@ -1,3 +1,13 @@
+/* Example for reference when defining recipes
+/datum/crafting_recipe/food
+	name = ""			//in-game display name
+	reqs[] = list()		//type paths of items/reagents consumed associated with how many are needed (equivalent to var/list/items and var/list/reagents combined)
+	result				//type path of item resulting from this craft
+	tools[] = list()	//type paths of items needed but not consumed
+	time = 30			//time in deciseconds
+	parts[] = list()	//type paths of items that will be placed in the result
+*/
+
 /datum/crafting_recipe/sandwich
 	name = "Sandwich"
 	reqs = list(
@@ -74,7 +84,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/boiled_shrimp = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Ebi)
 	category = CAT_FOOD
@@ -85,7 +94,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/boiled_shrimp = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Ebi_maki)
@@ -97,7 +105,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/salmon = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Ikura)
 	category = CAT_FOOD
@@ -108,7 +115,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/salmon = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Ikura_maki)
@@ -120,7 +126,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/fried_tofu = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Inari)
 	category = CAT_FOOD
@@ -131,7 +136,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/fried_tofu = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Inari_maki)
@@ -143,7 +147,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/salmonmeat = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Sake)
 	category = CAT_FOOD
@@ -154,7 +157,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/salmonmeat = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Sake_maki)
@@ -166,7 +168,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/salmonsteak = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_SmokedSalmon)
 	category = CAT_FOOD
@@ -177,7 +178,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/salmonsteak = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/SmokedSalmon_maki)
@@ -189,7 +189,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/goldfish = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Masago)
 	category = CAT_FOOD
@@ -200,7 +199,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/goldfish = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Masago_maki)
@@ -212,7 +210,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/shark = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Tobiko)
 	category = CAT_FOOD
@@ -223,7 +220,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/shark = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Tobiko_maki)
@@ -235,7 +231,6 @@
 	reqs = list(
 		/obj/item/food/snacks/sushi_Tobiko = 1,
 		/obj/item/food/snacks/egg = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_TobikoEgg)
 	category = CAT_FOOD
@@ -246,7 +241,6 @@
 	reqs = list(
 		/obj/item/food/snacks/sushi_Tobiko = 4,
 		/obj/item/food/snacks/egg = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/TobikoEgg_maki)
@@ -258,7 +252,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/catfishmeat = 1,
-		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/snacks/sushi_Tai)
 	category = CAT_FOOD
@@ -269,7 +262,6 @@
 	reqs = list(
 		/obj/item/food/snacks/boiledrice = 1,
 		/obj/item/food/snacks/catfishmeat = 4,
-		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
 	result = list(/obj/item/food/snacks/sliceable/Tai_maki)

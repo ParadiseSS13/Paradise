@@ -57,7 +57,7 @@
 	if(ismachineperson(target))
 		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
 		return FALSE
-	if(IS_CHANGELING(target))
+	if(ischangeling(target))
 		sting_feedback(user, target)
 		take_chemical_cost()
 		return FALSE
@@ -67,7 +67,7 @@
 	if(!target)
 		return
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
-	if(IS_CHANGELING(target))
+	if(ischangeling(target))
 		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return TRUE

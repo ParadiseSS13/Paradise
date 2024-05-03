@@ -277,6 +277,7 @@
 /datum/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
+	panel = "Abilities"
 
 	base_cooldown = 1200
 
@@ -347,6 +348,7 @@
 /datum/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
+	panel = "Abilities"
 
 	base_cooldown = 300
 
@@ -469,6 +471,8 @@
 /datum/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
+	panel = "Abilities"
+
 	base_cooldown = 60
 
 	clothes_req = FALSE
@@ -560,6 +564,7 @@
 /datum/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
+	panel = "Abilities"
 	base_cooldown = 1800
 
 	clothes_req = FALSE
@@ -721,6 +726,7 @@
 /datum/spell/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
+	panel = "Abilities"
 	base_cooldown = 1800
 
 	clothes_req = FALSE

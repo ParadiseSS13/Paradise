@@ -56,8 +56,7 @@ const PdaMenu = (props, context) => {
                       width: '32px',
                       margin: '0px',
                       'margin-left': '0px',
-                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                      'image-rendering': 'pixelated',
+                      '-ms-interpolation-mode': 'nearest-neighbor',
                     }}
                   />
                 </Table.Cell>
@@ -84,8 +83,7 @@ const PdaImage = (props, context) => {
             width: '160px',
             margin: '0px',
             'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-            'image-rendering': 'pixelated',
+            '-ms-interpolation-mode': 'nearest-neighbor',
           }}
         />
         <Button
@@ -112,8 +110,7 @@ const PdaImage = (props, context) => {
             width: '160px',
             margin: '0px',
             'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-            'image-rendering': 'pixelated',
+            '-ms-interpolation-mode': 'nearest-neighbor',
           }}
         />
       </Section>

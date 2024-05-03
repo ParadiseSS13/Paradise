@@ -86,8 +86,7 @@ const CloningConsoleMain = (props, context) => {
                   )}
                   style={{
                     width: '100%',
-                    '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                    'image-rendering': 'pixelated',
+                    '-ms-interpolation-mode': 'nearest-neighbor',
                   }}
                 />
                 <Button

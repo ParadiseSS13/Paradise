@@ -6,7 +6,7 @@
 
 	if(height==0)
 		return 1
-	if(isprojectile(mover))
+	if(istype(mover, /obj/item/projectile))
 		return projectile_hit_check(mover)
 	if(mover.throwing)
 		return (!density || horizontal || (mover.throwing.thrower == src))
@@ -245,10 +245,10 @@
 		return
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
-		if(INCORPOREAL_MOVE_NORMAL)
+		if(1)
 			L.forceMove(get_step(L, direct))
 			L.dir = direct
-		if(INCORPOREAL_MOVE_NINJA)
+		if(2)
 			if(prob(50))
 				var/locx
 				var/locy
@@ -287,7 +287,7 @@
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				L.forceMove(get_step(L, direct))
 			L.dir = direct
-		if(INCORPOREAL_MOVE_HOLY_BLOCK)
+		if(3) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
@@ -297,7 +297,7 @@
 			else
 				L.forceMove(get_step(L, direct))
 				L.dir = direct
-	return TRUE
+	return 1
 
 
 ///Process_Spacemove
@@ -361,9 +361,6 @@
 	if(A == loc && pulling.density)
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
-		return
-	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
-	if(!Adjacent(target_turf)) //Make sure the turf we are trying to pull to is adjacent to the user.
 		return
 	if(ismob(pulling))
 		var/mob/M = pulling

@@ -605,7 +605,7 @@ Difficulty: Hard
 		return FALSE
 	if(mover == caster.pulledby)
 		return TRUE
-	if(isprojectile(mover))
+	if(istype(mover, /obj/item/projectile))
 		var/obj/item/projectile/P = mover
 		if(P.firer == caster)
 			return TRUE

@@ -76,7 +76,7 @@
 		var/obj/item/I = AM
 		if(I.flags & ABSTRACT)
 			return
-		else if(isprojectile(AM))
+		else if(istype(AM, /obj/item/projectile))
 			var/obj/item/projectile/P = AM
 			if(P.original != parent)
 				return

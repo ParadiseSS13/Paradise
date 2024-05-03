@@ -185,6 +185,12 @@
 //returns first-found touching shuttleport
 /obj/docking_port/stationary/get_docked()
 	return locate(/obj/docking_port/mobile) in loc
+	/*
+	for(var/turf/T in return_ordered_turfs())
+		. = locate(/obj/docking_port/mobile) in loc
+		if(.)
+			return .
+	*/
 
 /obj/docking_port/stationary/transit
 	name = "In transit"

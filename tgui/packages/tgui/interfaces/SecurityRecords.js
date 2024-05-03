@@ -316,11 +316,7 @@ const SecurityRecordsPageView = (properties, context) => {
               <Stack.Item>
                 <LabeledList>
                   {security.fields.map((field, i) => (
-                    <LabeledList.Item
-                      key={i}
-                      label={field.field}
-                      preserveWhitespace
-                    >
+                    <LabeledList.Item key={i} label={field.field} prewrap>
                       {decodeHtmlEntities(field.value)}
                       {!!field.edit && (
                         <Button
@@ -360,7 +356,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
       <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
-            <LabeledList.Item key={i} label={field.field} preserveWhitespace>
+            <LabeledList.Item key={i} label={field.field} prewrap>
               {decodeHtmlEntities('' + field.value)}
               {!!field.edit && (
                 <Button
@@ -383,8 +379,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
                 width: '96px',
                 'margin-top': '5rem',
                 'margin-bottom': '0.5rem',
-                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                '-ms-interpolation-mode': 'nearest-neighbor',
               }}
             />
             <br />
@@ -416,7 +411,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           <Box color="label">No comments found.</Box>
         ) : (
           security.comments.map((comment, i) => (
-            <Box key={i} preserveWhitespace>
+            <Box key={i} prewrap>
               <Box color="label" inline>
                 {comment.header || 'Auto-generated'}
               </Box>

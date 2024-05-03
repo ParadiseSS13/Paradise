@@ -70,8 +70,7 @@ export const pda_mob_hunt = (props, context) => {
                 src={resolveAsset(entry.sprite)}
                 style={{
                   width: '64px',
-                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  '-ms-interpolation-mode': 'nearest-neighbor',
                 }}
               />
             </Flex.Item>

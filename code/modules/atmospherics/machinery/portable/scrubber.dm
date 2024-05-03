@@ -108,8 +108,6 @@
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/scrubber/attack_ghost(mob/user)
-	if(..())
-		return
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/scrubber/attack_hand(mob/user)
@@ -190,6 +188,12 @@
 
 /obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
+
+/obj/machinery/atmospherics/portable/scrubber/huge/attackby(obj/item/W, mob/user, params)
+	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
+		atmosanalyzer_scan(air_contents, user)
+		return
+	return ..()
 
 /obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE

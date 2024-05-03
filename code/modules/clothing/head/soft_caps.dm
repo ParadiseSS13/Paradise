@@ -1,16 +1,14 @@
 /obj/item/clothing/head/soft
-	name = "grey cap"
-	desc = "It's a baseball hat in a tasteless grey colour."
-	icon = 'icons/obj/clothing/head/softcap.dmi'
-	icon_state = "greysoft"
-	item_state = 'icons/mob/clothing/head/softcap.dmi'
-	icon_override = 'icons/mob/clothing/head/softcap.dmi'
-	item_color = "grey"
+	name = "cargo cap"
+	desc = "It's a baseball hat in a tasteless yellow colour."
+	icon_state = "cargosoft"
+	item_state = "helmet"
+	item_color = "cargo"
 	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
-	dog_fashion = /datum/dog_fashion/head/softcap
+	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 	dyeable = TRUE
 
@@ -64,17 +62,24 @@
 	item_color = "yellow"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
+/obj/item/clothing/head/soft/grey
+	name = "grey cap"
+	desc = "It's a baseball hat in a tasteful grey colour."
+	icon_state = "greysoft"
+	item_color = "grey"
+	dog_fashion = /datum/dog_fashion/head/softcap
+
 /obj/item/clothing/head/soft/orange
 	name = "orange cap"
 	desc = "It's a baseball hat in a tasteless orange colour."
 	icon_state = "orangesoft"
 	item_color = "orange"
 
-/obj/item/clothing/head/soft/white
+/obj/item/clothing/head/soft/mime
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
-	icon_state = "whitesoft"
-	item_color = "white"
+	icon_state = "mimesoft"
+	item_color = "mime"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/purple
@@ -98,13 +103,6 @@
 	item_color = "rainbow"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
-/obj/item/clothing/head/soft/cargo
-	name = "cargo cap"
-	desc = "It's a baseball hat in a tasteless yellow colour."
-	icon_state = "cargosoft"
-	item_color = "cargo"
-	dog_fashion = /datum/dog_fashion/head/cargo_tech
-
 /obj/item/clothing/head/soft/deliverysoft
 	name = "delivery boy cap"
 	desc = "It's a baseball hat that is part of the delivery boy uniform."
@@ -112,9 +110,10 @@
 	item_color = "delivery"
 	dog_fashion = /datum/dog_fashion/head/softcap
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head/softcap.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head/softcap.dmi'
+		"Human" = 'icons/mob/clothing/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/head/soft/janitorgrey
@@ -178,7 +177,7 @@
 /obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
-	icon_state = "solgovcelitesoft_flipped"
+	armor= list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF

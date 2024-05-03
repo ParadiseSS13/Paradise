@@ -126,11 +126,6 @@
 /obj/structure/bed,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
-"Z" = (
-/obj/structure/table/wood,
-/obj/item/blank_tarot_card,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/ruin/space/powered)
 
 (1,1,1) = {"
 a
@@ -282,7 +277,7 @@ b
 j
 r
 w
-Z
+n
 j
 b
 a

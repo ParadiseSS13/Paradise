@@ -168,12 +168,6 @@
 	icon_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
 
-/obj/item/reagent_containers/glass/bottle/love
-	name = "love bottle"
-	desc = "A small bottle of love."
-	icon_state = "round_bottle"
-	list_reagents = list("love" = 50)
-
 //Reagent bottles
 
 /obj/item/reagent_containers/glass/bottle/reagent

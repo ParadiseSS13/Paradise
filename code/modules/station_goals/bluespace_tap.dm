@@ -116,11 +116,7 @@
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 3,
-		/obj/item/clothing/gloves/combat = 5,
-		/obj/item/blank_tarot_card = 5,
-		/obj/item/tarot_card_pack = 5,
-		/obj/item/tarot_card_pack/jumbo = 3,
-		/obj/item/tarot_card_pack/mega = 2
+		/obj/item/clothing/gloves/combat = 5
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic

@@ -22947,11 +22947,11 @@
 "brK" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 16;
+	dwidth = 15;
 	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 41
+	width = 33
 	},
 /turf/space,
 /area/space)
@@ -23086,7 +23086,7 @@
 /area/station/maintenance/port)
 "bsg" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft{
+/obj/item/clothing/head/soft/grey{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -24963,6 +24963,10 @@
 "bzd" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/station/hallway/secondary/exit)
+"bze" = (
+/obj/structure/sign/barsign,
+/turf/simulated/wall,
+/area/station/service/bar)
 "bzf" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -40406,7 +40410,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "cDL" = (
@@ -52969,6 +52972,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment,
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -63676,12 +63680,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
-"iYj" = (
-/obj/machinery/barsign{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard/west)
 "iYo" = (
 /obj/item/taperecorder,
 /obj/structure/table,
@@ -67425,6 +67423,13 @@
 	icon_state = "darkyellow"
 	},
 /area/station/science/robotics/chargebay)
+"kOa" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/science/toxins/test)
 "kOt" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -71300,9 +71305,9 @@
 "mIA" = (
 /obj/structure/table,
 /obj/item/stamp/granted,
-/obj/item/clothing/head/soft/cargo,
+/obj/item/clothing/head/soft,
 /obj/item/hand_labeler,
-/obj/item/clothing/head/soft/cargo,
+/obj/item/clothing/head/soft,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -72195,15 +72200,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"nhM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/station/science/toxins/test)
 "nhZ" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -74890,6 +74886,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "owP" = (
+/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/asmaint)
@@ -87548,11 +87545,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
-"uGP" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel/airless,
-/area/station/science/toxins/test)
 "uHC" = (
 /obj/machinery/computer/communications{
 	dir = 4
@@ -93756,13 +93748,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"xQI" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/station/science/toxins/test)
 "xQL" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -130571,8 +130556,8 @@ bmq
 bmq
 bmq
 bzo
-aUS
-iYj
+bze
+bAk
 bHy
 bDb
 bEy
@@ -152694,9 +152679,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+doE
+doE
+doE
 aaa
 aaa
 aab
@@ -152949,15 +152934,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aab
+gnU
+ldS
+clB
+cnk
+cid
 cie
-cij
+cie
+cie
 cvs
 cie
 cie
@@ -153206,18 +153191,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aab
-aab
-cie
-xQI
+ldS
 cjZ
-nhM
+cjZ
+cjZ
 cie
+cie
+ckb
+cdK
+cjZ
+udq
+ckb
 cie
 cie
 clA
@@ -153463,19 +153448,19 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
 aab
-aab
-cie
-cie
+ldS
+cjZ
+cjZ
+cjZ
+clB
+ckb
+ckb
 cdK
 cjZ
 udq
 ckb
-cie
+ckb
 cie
 jgm
 cjZ
@@ -153720,13 +153705,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 aab
-aab
+ldS
+clA
+kOa
+jgm
 cie
-cie
+ckb
 ckb
 cdK
 cjZ
@@ -153978,9 +153963,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aab
-aab
+cid
+cid
+cie
 cie
 cie
 ckb
@@ -154235,10 +154220,10 @@ aaa
 aaa
 aaa
 aaa
-aab
-aab
+cid
 cie
 cie
+ckb
 ckb
 ckb
 ckb
@@ -154491,10 +154476,10 @@ aaa
 aaa
 aaa
 aaa
-aab
-aab
+aaa
+cij
 cie
-cie
+ckb
 ckb
 ckb
 ckb
@@ -154748,9 +154733,9 @@ aaa
 aaa
 aaa
 aaa
-aab
+aaa
 cie
-cie
+ckb
 ckb
 ckb
 ckb
@@ -155264,7 +155249,7 @@ aaa
 aaa
 aab
 cie
-uGP
+ckb
 ckb
 ckb
 ckb

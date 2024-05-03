@@ -70,21 +70,19 @@
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
-	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret_officer"
-	item_state = 'icons/mob/clothing/head/beret.dmi'
-	icon_override = 'icons/mob/clothing/head/beret.dmi'
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_inv = null
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "\improper Trans-Solar Federation commander's beret"
 	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
-	icon_state = "beret_solgovcelite"
+	icon_state = "solgovceliteberet"
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"

@@ -123,7 +123,7 @@
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE
-	if(isprojectile(mover))
+	if(istype(mover, /obj/item/projectile))
 		return (prob(30) || !density)
 
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)

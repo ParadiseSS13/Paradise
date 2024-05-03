@@ -110,7 +110,7 @@
 		go_rabid()
 		return
 
-	if(!master.is_holding(src))
+	if(!(src in list(master.l_hand, master.r_hand)))
 		go_rabid()
 		return
 

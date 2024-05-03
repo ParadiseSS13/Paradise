@@ -1,3 +1,9 @@
+/datum/game_mode
+	/// A list of all minds which have the traitor antag datum.
+	var/list/datum/mind/traitors = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
+	var/list/datum/mind/implanted = list()
+
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"

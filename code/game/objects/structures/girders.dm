@@ -410,7 +410,7 @@
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return prob(girderpasschance)
 	else
-		if(isprojectile(mover))
+		if(istype(mover, /obj/item/projectile))
 			return prob(girderpasschance)
 		else
 			return 0

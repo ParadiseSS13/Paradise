@@ -61,8 +61,7 @@
 		custom_emotes,
 		physique,
 		height,
-		cyborg_brain_type,
-		body_type
+		cyborg_brain_type
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

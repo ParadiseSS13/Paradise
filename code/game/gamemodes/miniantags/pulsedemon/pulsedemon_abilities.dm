@@ -9,6 +9,7 @@
 #define PD_UPGRADE_MAX_CHARGE   "Capacity"
 
 /datum/spell/pulse_demon
+	panel = "Pulse Demon"
 	school = "pulse demon"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_pulsedemon"
@@ -27,10 +28,10 @@
 /datum/spell/pulse_demon/proc/update_info()
 	if(locked)
 		name = "[initial(name)] (Locked) ([format_si_suffix(unlock_cost)]W)"
-		desc = "[initial(desc)] It costs [format_si_suffix(unlock_cost)]W to unlock. <b>Alt-Click</b> this spell to unlock it."
+		desc = "[initial(desc)] It costs [format_si_suffix(unlock_cost)]W to unlock."
 	else
 		name = "[initial(name)][cast_cost == 0 ? "" : " ([format_si_suffix(cast_cost)]W)"]"
-		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade. <b>Alt-Click</b> this spell to upgrade it."]"
+		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade."]"
 	action.name = name
 	action.desc = desc
 	action.UpdateButtons()

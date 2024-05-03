@@ -41,16 +41,14 @@
 	if(times_repeated >= max_times_to_check)
 		user.visible_message(
 				"<span class='notice'>[user] seems to have had enough and stops checking inside [target].</span>",
-				"<span class='notice'>There doesn't seem to be anything inside, you've checked enough times.</span>",
-				chat_message_type = MESSAGE_TYPE_COMBAT
+				"<span class='notice'>There doesn't seem to be anything inside, you've checked enough times.</span>"
 		)
 		return SURGERY_BEGINSTEP_SKIP
 
 	I = locate(/obj/item/bio_chip) in target
 	user.visible_message(
 		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
-		"You start poking around inside [target]'s [affected.name] with \the [tool].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"You start poking around inside [target]'s [affected.name] with \the [tool]."
 	)
 	affected.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
@@ -61,8 +59,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'>[user] grips onto [target]'s [affected.name] by mistake, tearing it!</span>",
-		"<span class='warning'>You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
+		"<span class='warning'>You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!</span>"
 	)
 	affected.receive_damage(10)
 	return SURGERY_STEP_RETRY
@@ -73,8 +70,7 @@
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
 			"<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>",
-			"<span class='notice'>You take \an [I] out of [target]'s [affected.name]s with \the [tool].</span>",
-			chat_message_type = MESSAGE_TYPE_COMBAT
+			"<span class='notice'>You take \an [I] out of [target]'s [affected.name]s with \the [tool].</span>"
 		)
 
 		I.removed(target)
@@ -98,8 +94,7 @@
 	else
 		user.visible_message(
 			"<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
-			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>",
-			chat_message_type = MESSAGE_TYPE_COMBAT
+			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>"
 		)
 	return SURGERY_STEP_CONTINUE
 

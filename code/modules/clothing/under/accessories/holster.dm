@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
 		return
 
-	if(!isgun(I))
+	if(!istype(I, /obj/item/gun))
 		to_chat(user, "<span class='warning'>Only guns can be holstered!</span>")
 		return
 

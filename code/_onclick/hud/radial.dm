@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/datum/radial_menu/parent
 
 /atom/movable/screen/radial/Destroy()
-	parent.current_user.screen -= src
 	parent = null
 	return ..()
 
@@ -246,7 +245,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	QDEL_LIST_CONTENTS(elements)
 	QDEL_NULL(close_button)
 	anchor = null
-	return ..()
+	. = ..()
 
 /*
 	Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)

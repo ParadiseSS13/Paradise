@@ -81,9 +81,9 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
+			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
 			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
-			round_start_time = world.time + pregame_timeleft
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -95,9 +95,12 @@ SUBSYSTEM_DEF(ticker)
 				return
 
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
-			pregame_timeleft = max(0, round_start_time - world.time)
+			if(!delay_end)
+				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
+			else
+				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
 
-			if(pregame_timeleft <= 1 MINUTES && !tipped)
+			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
 				tipped = TRUE
 

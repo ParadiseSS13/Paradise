@@ -181,7 +181,7 @@
 		if(!(M.mobility_flags & MOBILITY_MOVE))
 			return TRUE
 		return prob(80)
-	if(isprojectile(mover))
+	if(istype(mover, /obj/item/projectile))
 		return prob(20)
 	return ..()
 

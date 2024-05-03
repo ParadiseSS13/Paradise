@@ -61,7 +61,7 @@
 /obj/structure/fence/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
-	if(isprojectile(mover))
+	if(istype(mover, /obj/item/projectile))
 		return TRUE
 	if(!density)
 		return TRUE

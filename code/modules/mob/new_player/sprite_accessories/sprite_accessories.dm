@@ -18,14 +18,10 @@
 */
 
 /proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female, list/full_list)
-	if(!istype(L))
-		L = list()
-	if(!istype(male))
-		male = list()
-	if(!istype(female))
-		female = list()
-	if(!istype(full_list))
-		full_list = list()
+	if(!istype(L))	L = list()
+	if(!istype(male))	male = list()
+	if(!istype(female))	female = list()
+	if(!istype(full_list))	full_list = list()
 
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
@@ -37,11 +33,9 @@
 				L[D.name] = D
 				full_list[D.name] = D
 
-			switch(D.body_type)
-				if(MALE)
-					male[D.name] = D
-				if(FEMALE)
-					female[D.name] = D
+			switch(D.gender)
+				if(MALE)	male[D.name] = D
+				if(FEMALE)	female[D.name] = D
 				else
 					male[D.name] = D
 					female[D.name] = D
@@ -51,7 +45,7 @@
 	var/icon			//the icon file the accessory is located in
 	var/icon_state		//the icon_state of the accessory
 	var/name			//the preview name of the accessory
-	var/body_type = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
+	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
@@ -80,6 +74,7 @@
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
+	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
 	icon = 'icons/mob/sprite_accessories/human/human_facial_hair.dmi'
 	var/over_hair
 
@@ -179,6 +174,7 @@
 	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
 	"Kidan" = 'icons/mob/clothing/species/kidan/underwear.dmi'
 	)
+	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
@@ -186,7 +182,7 @@
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 /datum/sprite_accessory/underwear/male
-	body_type = MALE
+	gender = MALE
 
 /datum/sprite_accessory/underwear/male/male_white
 	name = "Mens White"
@@ -196,7 +192,7 @@
 	name = "Mens Grey"
 	icon_state = "male_grey"
 
-/datum/sprite_accessory/underwear/male/male_grey_alt
+/datum/sprite_accessory/underwear/male/male_grey
 	name = "Mens Grey Alt"
 	icon_state = "male_greyalt"
 
@@ -237,7 +233,7 @@
 	icon_state = "male_mankini"
 
 /datum/sprite_accessory/underwear/female
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/underwear/female/female_red
 	name = "Ladies Red"
@@ -309,6 +305,7 @@
 	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
 	"Kidan" = 'icons/mob/clothing/species/kidan/underwear.dmi'
 	)
+	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -497,17 +494,17 @@
 /datum/sprite_accessory/undershirt/tank_redtop
 	name = "Red Crop-Top"
 	icon_state = "tank_redtop"
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_whitetop
 	name = "White Crop-Top"
 	icon_state = "tank_whitetop"
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_midriff
 	name = "White Mid Tank-Top"
 	icon_state = "tank_midriff"
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_white
 	name = "White Tank-Top"
@@ -550,6 +547,7 @@
 	"Nian" = 'icons/mob/clothing/species/nian/underwear.dmi'
 
 	)
+	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
@@ -583,7 +581,7 @@
 /datum/sprite_accessory/socks/thin_knee
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/socks/striped_norm
 	name = "Normal Striped"
@@ -608,7 +606,7 @@
 /datum/sprite_accessory/socks/thin_thigh
 	name = "Thigh-high Thin"
 	icon_state = "thin_thigh"
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/socks/striped_thigh
 	name = "Thigh-high Striped"
@@ -621,7 +619,7 @@
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
-	body_type = FEMALE
+	gender = FEMALE
 
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"

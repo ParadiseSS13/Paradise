@@ -96,13 +96,13 @@
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()
 	if(!on)
-		return FALSE
+		return 0
 
 	var/output_starting_pressure = air3.return_pressure()
 
-	if(output_starting_pressure >= target_pressure || (filter_type != FILTER_NOTHING && air2.return_pressure() >= target_pressure))
+	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure)
 		//No need to mix if target is already full!
-		return TRUE
+		return 1
 
 	//Calculate necessary moles to transfer using PV=nRT
 
@@ -158,7 +158,7 @@
 
 	parent1.update = 1
 
-	return TRUE
+	return 1
 
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)

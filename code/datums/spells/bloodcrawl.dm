@@ -8,6 +8,7 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
+	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 

@@ -101,7 +101,7 @@ const RecordView = (props, context) => {
               <LabeledList.Item label="Details">
                 {medical.cdi_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Important Notes" preserveWhitespace>
+              <LabeledList.Item label="Important Notes">
                 {medical.notes}
               </LabeledList.Item>
             </LabeledList>
@@ -133,7 +133,7 @@ const RecordView = (props, context) => {
               <LabeledList.Item label="Details">
                 {security.ma_crim_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Important Notes" preserveWhitespace>
+              <LabeledList.Item label="Important Notes">
                 {security.notes}
               </LabeledList.Item>
             </LabeledList>

@@ -1,5 +1,8 @@
 #define NUKESCALINGMODIFIER 6
 
+/datum/game_mode
+	var/list/datum/mind/syndicates = list()
+
 /proc/issyndicate(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 

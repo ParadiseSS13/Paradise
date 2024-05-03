@@ -232,7 +232,7 @@
 //////////////////
 
 ////////////////////////////////////////
-// MARK: Totally Crippling
+// Totally Crippling
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mute
@@ -252,7 +252,7 @@
 	return ""
 
 ////////////////////////////////////////
-// MARK: Harmful to everyone
+// Harmful to others as well as self
 ////////////////////////////////////////
 
 /datum/mutation/disability/radioactive
@@ -283,7 +283,7 @@
 	return "rads_s"
 
 ////////////////////////////////////////
-// MARK: Other disabilities
+// Other disabilities
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/fat
@@ -447,7 +447,7 @@
 	return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
 //////////////////
-// MARK: USELESS SHIT
+// USELESS SHIT //
 //////////////////
 
 // WAS: /datum/bioEffect/strong
@@ -490,6 +490,7 @@
 /datum/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
+	panel = "Abilities"
 
 	base_cooldown = 600
 

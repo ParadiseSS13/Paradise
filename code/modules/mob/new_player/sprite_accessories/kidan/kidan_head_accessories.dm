@@ -16,6 +16,10 @@
 	name = "Curious Antennae"
 	icon_state = "curious"
 
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "mopey"
+
 /datum/sprite_accessory/head_accessory/kidan/crescent_antennae
 	name = "Crescent Antennae"
 	icon_state = "crescent"

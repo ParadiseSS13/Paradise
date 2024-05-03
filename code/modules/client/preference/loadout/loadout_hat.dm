@@ -114,7 +114,7 @@
 
 /datum/gear/hat/capwhite
 	display_name = "Cap, white"
-	path = /obj/item/clothing/head/soft/white
+	path = /obj/item/clothing/head/soft/mime
 
 /datum/gear/hat/caporange
 	display_name = "Cap, orange"
@@ -122,7 +122,7 @@
 
 /datum/gear/hat/capgrey
 	display_name = "Cap, grey"
-	path = /obj/item/clothing/head/soft
+	path = /obj/item/clothing/head/soft/grey
 
 /datum/gear/hat/capyellow
 	display_name = "Cap, yellow"
@@ -179,12 +179,12 @@
 
 /datum/gear/hat/beret_job/captain
 	display_name = "Beret, captain's"
-	path = /obj/item/clothing/head/beret/captain
+	path = /obj/item/clothing/head/caphat/beret
 	allowed_roles = list("Captain")
 
 /datum/gear/hat/beret_job/captain_white
 	display_name = "Beret, captain's white"
-	path = /obj/item/clothing/head/beret/captain/white
+	path = /obj/item/clothing/head/caphat/beret/white
 	allowed_roles = list("Captain")
 
 /datum/gear/hat/beret_job/sec
@@ -199,12 +199,12 @@
 
 /datum/gear/hat/beret_job/hop
 	display_name = "Beret, head of personnel"
-	path = /obj/item/clothing/head/beret/hop
+	path = /obj/item/clothing/head/hop/beret
 	allowed_roles = list("Head of Personnel")
 
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
-	path = /obj/item/clothing/head/beret/qm
+	path = /obj/item/clothing/head/qm/beret
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/hat/beret_job/sci

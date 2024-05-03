@@ -3133,6 +3133,10 @@
 	icon_state = "stage_stairs"
 	},
 /area/ruin/space/derelict/crew_quarters)
+"hF" = (
+/obj/structure/sign/barsign,
+/turf/simulated/wall/mineral/titanium/nodecon,
+/area/ruin/space/derelict/crew_quarters)
 "hH" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
@@ -7567,13 +7571,6 @@
 	req_access_txt = 0
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/ruin/space/derelict/crew_quarters)
-"Qq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/barsign{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "QN" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
@@ -13523,8 +13520,8 @@ gn
 gG
 gG
 gG
-aV
-Qq
+hF
+hT
 in
 iK
 je

@@ -523,7 +523,7 @@
 /obj/item/paper_bin{
 	pixel_x = -6
 	},
-/obj/item/pen/multi/syndicate,
+/obj/item/pen,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "MA" = (

@@ -101,9 +101,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcer/proc/Message(message, garbled_message, receivers, garbled_receivers)
 	for(var/mob/M in receivers)
-		to_chat(M, message, MESSAGE_TYPE_WARNING)
+		to_chat(M, message)
 	for(var/mob/M in garbled_receivers)
-		to_chat(M, garbled_message, MESSAGE_TYPE_WARNING)
+		to_chat(M, garbled_message)
 
 /datum/announcer/proc/Format(message, title, subtitle = null)
 	var/formatted_message

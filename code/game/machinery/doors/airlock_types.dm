@@ -1,5 +1,5 @@
 /*
-	MARK: Station Airlocks Regular
+	Station Airlocks Regular
 */
 
 /obj/machinery/door/airlock/command
@@ -60,7 +60,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Station Airlocks Glass
+	Station Airlocks Glass
 */
 
 /obj/machinery/door/airlock/glass
@@ -116,7 +116,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Station Airlocks Mineral
+	Station Airlocks Mineral
 */
 
 /obj/machinery/door/airlock/gold
@@ -273,7 +273,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Station2 Airlocks
+	Station2 Airlocks
 */
 
 /obj/machinery/door/airlock/public
@@ -287,7 +287,7 @@
 
 //////////////////////////////////
 /*
-	MARK: External Airlocks
+	External Airlocks
 */
 
 /obj/machinery/door/airlock/external
@@ -317,7 +317,7 @@
 
 //////////////////////////////////
 /*
-	MARK: CentCom Airlocks
+	CentCom Airlocks
 */
 
 /obj/machinery/door/airlock/centcom
@@ -339,7 +339,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Vault Airlocks
+	Vault Airlocks
 */
 
 /obj/machinery/door/airlock/vault
@@ -354,7 +354,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Hatch Airlocks
+	Hatch Airlocks
 */
 
 /obj/machinery/door/airlock/hatch
@@ -400,7 +400,7 @@
 
 //////////////////////////////////
 /*
-	MARK: High Security Airlocks
+	High Security Airlocks
 */
 
 /obj/machinery/door/airlock/highsecurity
@@ -474,7 +474,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Cult Airlocks
+	Cult Airlocks
 */
 
 /obj/machinery/door/airlock/cult
@@ -610,7 +610,7 @@
 
 //////////////////////////////////
 /*
-	MARK: Misc Airlocks
+	Misc Airlocks
 */
 
 //Terribly sorry for the code doubling, but things go derpy otherwise.

@@ -79,9 +79,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/scrying,
 	/obj/item/clothing/suit/space/hardsuit/wizard,
 	/obj/item/immortality_talisman,
-	/obj/item/melee/ghost_sword,
-	/obj/item/tarot_card_pack,
-	/obj/item/tarot_card_pack/jumbo))
+	/obj/item/melee/ghost_sword))
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/animate,
@@ -89,8 +87,7 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/contract,
 	/obj/item/gun/magic/staff/chaos,
 	/obj/item/necromantic_stone,
-	/obj/item/blood_contract,
-	/obj/item/tarot_generator))
+	/obj/item/blood_contract))
 
 //everything above except for single use spellbooks, because they are counted separately (and are for basic bitches anyways)
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
@@ -103,8 +100,7 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/necromantic_stone,
 	/obj/item/scrying,
 	/obj/item/spellbook,
-	/obj/item/storage/belt/wands/full,
-	/obj/item/tarot_generator))
+	/obj/item/storage/belt/wands/full))
 
 // If true, it's the probability of triggering "survivor" antag.
 GLOBAL_VAR_INIT(summon_guns_triggered, FALSE)

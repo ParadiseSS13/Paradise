@@ -81,7 +81,7 @@
 	return TRUE
 
 /*******************/
-// MARK: COMMON
+/****	COMMON	****/
 /*******************/
 
 /obj/item/borg/upgrade/reset
@@ -268,7 +268,7 @@
 	return TRUE
 
 /***********************/
-// MARK: Security
+/****	SECURITY	****/
 /***********************/
 
 /obj/item/borg/upgrade/disablercooler
@@ -294,7 +294,7 @@
 	return TRUE
 
 /*******************/
-// MARK: Mining
+/****	MINING	****/
 /*******************/
 
 /obj/item/borg/upgrade/ddrill
@@ -333,7 +333,7 @@
 	return TRUE
 
 /***********************/
-// MARK: Engineer
+/****	ENGINEER	****/
 /***********************/
 
 /obj/item/borg/upgrade/rcd
@@ -360,7 +360,7 @@
 	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
-// MARK: Janitor
+/****	JANITOR		****/
 /***********************/
 
 /obj/item/borg/upgrade/floorbuffer
@@ -411,7 +411,7 @@
 	)
 
 /***********************/
-// MARK: Syndicate
+/****	SYNDIE		****/
 /***********************/
 
 /obj/item/borg/upgrade/syndicate
@@ -439,7 +439,7 @@
 	)
 
 /***********************/
-// MARK: Abductor
+/****	ABDUCTOR	****/
 /***********************/
 
 /obj/item/borg/upgrade/abductor_engi

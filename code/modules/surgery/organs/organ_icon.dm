@@ -151,7 +151,7 @@
 	return mob_icon //Don't need to blend the above into this as it's handled in human/update_icons(). The overlays are for rendering stuff on disembodied heads.
 
 /obj/item/organ/external/proc/get_icon_state(skeletal)
-	var/body
+	var/gender
 	var/icon_file
 	var/new_icon_state
 	if(!dna)
@@ -159,17 +159,18 @@
 		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
 	else
 		if(gendered_icon)
-			switch(dna.GetUITriState(DNA_UI_BODY_TYPE))
+			switch(dna.GetUITriState(DNA_UI_GENDER))
 				if(DNA_GENDER_FEMALE)
-					body = "f"
+					gender = "f"
+				if(DNA_GENDER_MALE)
+					gender = "m"
 				else
-					body = "m"
-
+					gender = "f"	//Default to "f" (per line 162). Using a pick("m", "f") will make different body parts different genders for the same character.
 		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 
-		new_icon_state = "[icon_name][body ? "_[body]" : ""]"
+		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'

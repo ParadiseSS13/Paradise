@@ -65,6 +65,8 @@
 
 
 //Personal shielding for the combat module.
+/obj/item/borg
+	var/powerneeded // Percentage of power remaining required to run item
 
 /obj/item/borg/destroyer/mobility
 	name = "mobility module"

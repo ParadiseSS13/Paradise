@@ -524,7 +524,7 @@
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
-		if(isprojectile(I))
+		if(istype(I, /obj/item/projectile))
 			return
 		if(prob(75) || (istype(mover.throwing.thrower) && (HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS) || HAS_TRAIT(mover.throwing.thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
 			I.forceMove(src)

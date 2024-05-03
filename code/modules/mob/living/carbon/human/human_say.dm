@@ -6,24 +6,23 @@
 		return " (as [get_id_name("Unknown")])"
 	return ..()
 
-/mob/living/carbon/human/say_understands(atom/movable/other, datum/language/speaking = null)
+/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(dna.species.can_understand(other))
-		return TRUE
+		return 1
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking && ismob(other))
+	if(!speaking)
 		if(isnymph(other))
-			var/mob/nymph = other
-			if(length(nymph.languages) >= 2) //They've sucked down some blood and can speak common now.
-				return TRUE
+			if(length(other.languages) >= 2) //They've sucked down some blood and can speak common now.
+				return 1
 		if(issilicon(other))
-			return TRUE
+			return 1
 		if(isbot(other))
-			return TRUE
+			return 1
 		if(isbrain(other))
-			return TRUE
+			return 1
 		if(isslime(other))
-			return TRUE
+			return 1
 
 	return ..()
 

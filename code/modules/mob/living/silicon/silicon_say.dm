@@ -58,15 +58,15 @@
 
 /mob/living/silicon/say_understands(other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking && ismob(other))
+	if(!speaking)
 		if(iscarbon(other))
-			return TRUE
+			return 1
 		if(issilicon(other))
-			return TRUE
+			return 1
 		if(isbot(other))
-			return TRUE
+			return 1
 		if(isbrain(other))
-			return TRUE
+			return 1
 	return ..()
 
 //For holopads only. Usable by AI.
@@ -99,7 +99,7 @@
 		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
 		for(var/mob/M in viewers(T.loc))
-			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+			M.show_message(rendered, EMOTE_VISIBLE)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.

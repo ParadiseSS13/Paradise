@@ -50,9 +50,6 @@
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	destruction_sleep_duration = 2 SECONDS
 
-/obj/mecha/combat/gygax/dark/trader
-	operation_req_access = list() //Jailbroken mech
-
 /obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot

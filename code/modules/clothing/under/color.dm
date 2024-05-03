@@ -146,6 +146,11 @@
 	icon_state = "lightgreen"
 	item_color = "lightgreen"
 
+/obj/item/clothing/under/color/lightblue
+	name = "light blue jumpsuit"
+	icon_state = "lightblue"
+	item_color = "lightblue"
+
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
 	icon_state = "lightbrown"

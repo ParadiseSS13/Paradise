@@ -5,7 +5,7 @@
 	var/list/obj/machinery/atmospherics/pipe/members = list()
 	var/list/obj/machinery/atmospherics/other_atmosmch = list()
 
-	var/update = TRUE
+	var/update = 1
 
 /datum/pipeline/New()
 	SSair.networks += src
@@ -22,7 +22,7 @@
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
 	if(update)
-		update = FALSE
+		update = 0
 		reconcile_air()
 	return
 
@@ -179,7 +179,7 @@
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
 			air.temperature -= heat/total_heat_capacity
-	update = TRUE
+	update = 1
 
 /datum/pipeline/proc/reconcile_air()
 	var/list/datum/gas_mixture/GL = list()

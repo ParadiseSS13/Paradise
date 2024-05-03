@@ -13,6 +13,7 @@
 	return TRUE
 
 /datum/spell/vampire
+	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
