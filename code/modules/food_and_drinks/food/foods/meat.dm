@@ -49,7 +49,7 @@
 
 /obj/item/food/snacks/meat/kangaroo
 	name = "kangaroo meat"
-	desc = "Extremely muscular and tender meat"
+	desc = "Extremely muscular and tender meat."
 	list_reagents = list("protein" = 4, "iron" = 5, "vitamin" = 1)
 	tastes = list("punch in the face" = 1, "fowl" = 3)
 
