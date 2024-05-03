@@ -67,7 +67,7 @@
 	var/datum/gas_mixture/air = get_air()
 	air.merge(giver)
 	write_air(air)
-	update_visuals(air)
+	update_visuals()
 
 	return TRUE
 
@@ -91,7 +91,7 @@
 	var/datum/gas_mixture/air = get_air()
 	var/datum/gas_mixture/removed = air.remove(amount)
 	write_air(air)
-	update_visuals(air)
+	update_visuals()
 	return removed
 
 /turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
@@ -112,7 +112,8 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-/turf/simulated/proc/update_visuals(datum/gas_mixture/air)
+/turf/simulated/proc/update_visuals()
+	var/datum/gas_mixture/air = get_air()
 	var/new_overlay_type = tile_graphic(air)
 	if(new_overlay_type == atmos_overlay_type)
 		return

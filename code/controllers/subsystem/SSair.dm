@@ -215,8 +215,8 @@ SUBSYSTEM_DEF(air)
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
 		currentrun.len--
-		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
-			atmos_machinery.Remove(M)
+		if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= M
 		if(MC_TICK_CHECK)
 			return
 
@@ -235,10 +235,8 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-/// The number of gases we have.
-#define GAS_COUNT 6
 /// The number of values per interesting tile.
-#define INTERESTING_TILE_SIZE (7 + GAS_COUNT)
+#define INTERESTING_TILE_SIZE 6
 /// Interesting because it needs a display update.
 #define REASON_DISPLAY	(1 << 0)
 /// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
@@ -247,7 +245,7 @@ SUBSYSTEM_DEF(air)
 #define REASON_WIND		(1 << 2)
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
 	if(!resumed)
-		// Fetch the list of interesting tiles from Rust.
+		// Fetch the list of interesting tiles from MILLA.
 		src.currentrun = get_interesting_atmos_tiles()
 		interesting_tile_count = length(src.currentrun) / INTERESTING_TILE_SIZE
 	//cache for sanic speed (lists are references anyways)
@@ -261,15 +259,6 @@ SUBSYSTEM_DEF(air)
 		var/reasons = currentrun[offset + 4]
 		var/x_flow = currentrun[offset + 5]
 		var/y_flow = currentrun[offset + 6]
-
-		var/datum/gas_mixture/air_copy = new()
-		air_copy.temperature = currentrun[offset + 7]
-		air_copy.oxygen = currentrun[offset + 8]
-		air_copy.carbon_dioxide = currentrun[offset + 9]
-		air_copy.nitrogen = currentrun[offset + 10]
-		air_copy.toxins = currentrun[offset + 11]
-		air_copy.sleeping_agent = currentrun[offset + 12]
-		air_copy.agent_b = currentrun[offset + 13]
 		currentrun.len -= INTERESTING_TILE_SIZE
 
 		var/turf/simulated/T = locate(x, y, z)
@@ -279,13 +268,14 @@ SUBSYSTEM_DEF(air)
 			continue
 
 		if(reasons & REASON_DISPLAY)
-			T.update_visuals(air_copy)
+			T.update_visuals()
 
 		if(reasons & REASON_HOT)
-			T.hotspot_expose(air_copy.temperature, CELL_VOLUME)
+			var/datum/gas_mixture/air = T.get_air()
+			T.hotspot_expose(air.temperature, CELL_VOLUME)
 			for(var/atom/movable/item in T)
-				item.temperature_expose(air_copy, air_copy.temperature, CELL_VOLUME)
-			T.temperature_expose(air_copy, air_copy.temperature, CELL_VOLUME)
+				item.temperature_expose(air, air.temperature, CELL_VOLUME)
+			T.temperature_expose(air, air.temperature, CELL_VOLUME)
 
 		if(reasons & REASON_WIND)
 			T.high_pressure_movements(x_flow, y_flow)

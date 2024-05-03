@@ -223,8 +223,9 @@
 
 	for(var/datum/gas_mixture/G in GL)
 		total_volume += G.volume
-		total_thermal_energy += G.thermal_energy()
-		total_heat_capacity += G.heat_capacity()
+		var/heat_capacity = G.heat_capacity()
+		total_heat_capacity += heat_capacity
+		total_thermal_energy += G.temperature * heat_capacity
 
 		total_oxygen += G.oxygen
 		total_nitrogen += G.nitrogen

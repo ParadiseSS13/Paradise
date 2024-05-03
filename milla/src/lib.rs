@@ -571,8 +571,6 @@ struct InterestingTile {
     // is cheap.
     #[allow(dead_code)]
     fuel_burnt: f32,
-    temperature: f32,
-    gases: [f32; GAS_COUNT],
 }
 
 // Convert an InterestingTile into a flat vector of ByondValues.
@@ -582,7 +580,7 @@ struct InterestingTile {
 // and datums isn't possible.
 impl From<InterestingTile> for Vec<ByondValue> {
     fn from(value: InterestingTile) -> Self {
-        let mut v = vec![
+        vec![
             // +1 here to convert from our 0-indexing to BYOND's 1-indexing.
             ByondValue::from((value.x + 1) as f32),
             ByondValue::from((value.y + 1) as f32),
@@ -590,10 +588,7 @@ impl From<InterestingTile> for Vec<ByondValue> {
             ByondValue::from(value.reasons as f32),
             ByondValue::from(value.flow_x),
             ByondValue::from(value.flow_y),
-            ByondValue::from(value.temperature),
-        ];
-        v.extend(value.gases.iter().map(|v| ByondValue::from(*v)));
-        v
+        ]
     }
 }
 
@@ -1271,8 +1266,6 @@ fn tick_z_level(
                 flow_x: flow_x,
                 flow_y: flow_y,
                 fuel_burnt: fuel_burnt,
-                temperature: temperature,
-                gases: my_inactive_atmos[GAS_OFFSET..GAS_OFFSET + GAS_COUNT].try_into().unwrap(),
             });
         }
     }
