@@ -57,7 +57,7 @@
 	var/dual_wield_spread = 24
 	/// Restrict what species can fire this gun.
 	var/list/restricted_species
-	/// Bigger values make shots less precice.
+	/// Bigger values make shots less precise.
 	var/spread = 0
 	/// If TRUE, allows the gun to be renamed with a pen.
 	var/unique_rename = TRUE
