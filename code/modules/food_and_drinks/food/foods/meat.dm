@@ -47,6 +47,12 @@
 	desc = "Much meatier than monkey meat."
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 
+/obj/item/food/snacks/meat/kangaroo
+	name = "kangaroo meat"
+	desc = "Extremely muscular and tender meat"
+	list_reagents = list("protein" = 4, "iron" = 5, "vitamin" = 1)
+	tastes = list("punch in the face" = 1, "fowl" = 3)
+
 /obj/item/food/snacks/meat/monkey
 	//same as plain meat
 
