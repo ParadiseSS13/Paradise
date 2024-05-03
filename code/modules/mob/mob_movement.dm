@@ -363,7 +363,7 @@
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
 	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
-	if(!Adjacent(target_turf)) //Make sure the turf we are trying to pull to is adjacent to the user.
+	if(get_dist(target_turf, loc) > 1) //Make sure the turf we are trying to pull to is adjacent to the user.
 		return
 	if(ismob(pulling))
 		var/mob/M = pulling
