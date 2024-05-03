@@ -105,7 +105,7 @@
 		return
 
 	// Let high-rank admins use advanced pencode.
-	if(check_rights(R_SERVER|R_DEBUG,0))
+	if(check_rights(R_SERVER|R_DEBUG, 0))
 		msg = admin_pencode_to_html(msg)
 
 	var/send_span
