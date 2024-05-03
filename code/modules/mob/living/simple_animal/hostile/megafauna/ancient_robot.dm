@@ -105,19 +105,19 @@ Difficulty: Hard
 	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX, CRYO) //picks one of the 6 cores
 	switch(mode)
 		if(BLUESPACE)
-			desc += "It emits sparks of blue energy."
+			desc += " It emits sparks of blue energy."
 		if(GRAV)
-			desc += "Gravity seems to distort around it."
+			desc += " Gravity seems to distort around it."
 		if(PYRO)
-			desc += "You see flames burning around it."
+			desc += " You see flames burning around it."
 		if(FLUX) // Main attack is shock, so flux makes it stronger
 			melee_damage_lower = 25
 			melee_damage_upper = 25
-			desc += "It seems to overflow with energy."
+			desc += " It seems to overflow with energy."
 		if(VORTEX)
-			desc += "You see space bend and distort around it."
+			desc += " You see space bend and distort around it."
 		if(CRYO)
-			desc += "The air surrounding it is cold and listless."
+			desc += " The air surrounding it is cold and listless."
 	body_shield()
 	add_overlay("[mode]")
 	add_overlay("eyes")
