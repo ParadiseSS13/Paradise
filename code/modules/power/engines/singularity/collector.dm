@@ -60,7 +60,7 @@
 			loaded_tank = I
 			I.forceMove(src)
 			update_icons()
-	else if(iscrowbar(I))
+	else if(I.tool_behaviour == TOOL_CROWBAR)
 		if(loaded_tank && !locked)
 			eject()
 			return TRUE

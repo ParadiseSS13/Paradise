@@ -128,7 +128,7 @@
 				A.amount = 5
 				return
 		if(3)
-			if(istype(P, /obj/item/crowbar))
+			if(P.tool_behaviour == TOOL_CROWBAR)
 				playsound(src.loc, P.usesound, 50, 1)
 				state = 2
 				circuit.loc = src.loc
