@@ -354,6 +354,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_stamina_hud()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -1129,3 +1130,8 @@
 	. = ..()
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
+
+/mob/living/Crossed(atom/movable/mover)
+	if(istype(mover, /obj/singularity/energy_ball))
+		dust()
+	return ..()

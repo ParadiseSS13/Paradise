@@ -1061,3 +1061,6 @@
 
 /// Used by admin-tooling to remove radiation
 #define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"
+
+/// Sent when bodies transfer between shades/shards and constructs
+#define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
