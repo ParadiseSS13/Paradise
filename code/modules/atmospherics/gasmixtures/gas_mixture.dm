@@ -654,7 +654,7 @@ What are the archived variables for?
 #undef ATMOS_TEMPERATURE
 #undef ATMOS_INNATE_HEAT_CAPACITY
 
-/proc/share_many_airs(var/list/mixtures)
+/proc/share_many_airs(list/mixtures)
 	var/total_volume = 0
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0
