@@ -23,47 +23,6 @@
 			prefs.active_character.autohiss_mode = AUTOHISS_OFF
 			to_chat(src, "Auto-hiss is now OFF.")
 
-/datum/species/unathi
-	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss")
-		)
-	autohiss_extra_map = list(
-			"x" = list("ks", "kss", "ksss")
-		)
-	autohiss_exempt = list("Sinta'unathi")
-
-/datum/species/tajaran
-	autohiss_basic_map = list(
-			"r" = list("rr", "rrr", "rrrr")
-		)
-	autohiss_exempt = list("Siik'tajr")
-
-/datum/species/plasmaman
-	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss")
-		)
-
-/datum/species/kidan
-	autohiss_basic_map = list(
-			"z" = list("zz", "zzz", "zzzz"),
-			"v" = list("vv", "vvv", "vvvv")
-		)
-	autohiss_extra_map = list(
-			"s" = list("z", "zs", "zzz", "zzsz")
-		)
-	autohiss_exempt = list("Chittin")
-
-/datum/species/drask
-	autohiss_basic_map = list(
-			"o" = list ("oo", "ooo"),
-			"u" = list ("uu", "uuu")
-		)
-	autohiss_extra_map = list(
-			"m" = list ("mm", "mmm")
-		)
-	autohiss_exempt = list("Orluum")
-
-
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)
 	if(!autohiss_basic_map)
 		return message

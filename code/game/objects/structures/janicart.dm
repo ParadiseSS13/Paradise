@@ -87,31 +87,39 @@
 				put_in_cart(I, user)
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
-		else if(istype(I, /obj/item/crowbar))
-			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 30 * I.toolspeed, target = src))
-				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
-				reagents.reaction(src.loc)
-				src.reagents.clear_reagents()
-		else if(istype(I, /obj/item/wrench))
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = TRUE
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = FALSE
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+
+/obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
+	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
+	reagents.reaction(loc)
+	reagents.clear_reagents()
+
+/obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!anchored && !isinspace())
+		if(!I.use_tool(src, user, I.tool_volume))
+			return
+		user.visible_message( \
+			"[user] tightens [src]'s casters.", \
+			"<span class='notice'>You have tightened [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = TRUE
+		return
+	if(anchored)
+		if(!I.use_tool(src, user, I.tool_volume))
+			return
+		user.visible_message( \
+			"[user] loosens [src]'s casters.", \
+			"<span class='notice'>You have loosened [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = FALSE
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	var/list/cart_items = list()

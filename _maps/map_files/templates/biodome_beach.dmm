@@ -491,10 +491,6 @@
 	},
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
-"Ds" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/mineral/sandstone,
-/area/ruin/powered/beach)
 "Ec" = (
 /obj/machinery/door/airlock/sandstone{
 	name = "Beach Access"
@@ -565,6 +561,12 @@
 	light_power = 3
 	},
 /turf/simulated/floor/pod,
+/area/ruin/powered/beach)
+"Yz" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 
 (1,1,1) = {"
@@ -1087,8 +1089,8 @@ aC
 aC
 aC
 JF
-Ds
-bE
+aj
+Yz
 bE
 bE
 bE
