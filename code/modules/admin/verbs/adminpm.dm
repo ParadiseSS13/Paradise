@@ -223,7 +223,7 @@
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
 				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
+					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
