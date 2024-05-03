@@ -7,14 +7,14 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   top: 0;
   bottom: 0;
   left: 0;
-  width: base.em(420px);
+  width: base.em(390px);
 }
 
 .GeneModder__right {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: base.em(420px);
+  left: base.em(390px);
   right: 0;
   background-color: $background-color;
 }

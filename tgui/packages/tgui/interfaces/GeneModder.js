@@ -15,7 +15,7 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window width={750} height={650}>
+    <Window width={850} height={650}>
       <div className="GeneModder__left">
         <Window.Content>
           <Disks scrollable />
@@ -130,7 +130,8 @@ const Storage = (props, context) => {
             <Button
               ml={3.3}
               content={show_disk}
-              onClick={() => act('eject_disk')}
+              tooltip="Select Empty Disk"
+              onClick={() => act('select_empty_disk')}
             />
           </Stack.Item>
         </LabeledList.Item>
@@ -283,27 +284,51 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item}>
                     <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={13}>
+                    <Stack.Item width={15}>
+                      {item.stat === 'All' ? (
+                        <Button
+                          content="Replace All"
+                          tooltip="Write disk stats to seed"
+                          disabled={!item?.ready}
+                          icon="arrow-circle-down"
+                          onClick={() =>
+                            act('bulk_replace_core', { index: item.index })
+                          }
+                        />
+                      ) : (
+                        <Button
+                          width={6}
+                          icon="arrow-circle-down"
+                          tooltip="Write disk stat to seed"
+                          content="Replace"
+                          onClick={() =>
+                            act('replace', {
+                              index: item.index,
+                              stat: item.stat,
+                            })
+                          }
+                        />
+                      )}
                       <Button
                         width={6}
-                        icon="arrow-down"
-                        tooltip="Write Disk Stats to Plant"
-                        content="Replace"
+                        icon="arrow-right"
+                        content="Select"
+                        tooltip="Choose as target for extracted genes"
+                        tooltipPosition="bottom-start"
                         onClick={() =>
-                          act('replace', {
+                          act('select', {
                             index: item.index,
-                            stat: item.stat,
                           })
                         }
                       />
                       <Button
                         width={6}
-                        icon="Eject"
+                        icon="arrow-down"
                         content="Eject"
                         tooltip="Eject Disk"
                         tooltipPosition="bottom-start"
                         onClick={() =>
-                          act('eject', {
+                          act('eject_disk', {
                             index: item.index,
                           })
                         }
@@ -325,11 +350,11 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item}>
                     <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={13}>
+                    <Stack.Item width={15}>
                       <Button
                         width={6}
-                        icon="arrow-down"
-                        tooltip="Write Disk Stats to Plant"
+                        icon="arrow-circle-down"
+                        tooltip="Add disk trait to seed"
                         content="Insert"
                         onClick={() =>
                           act('insert', {
@@ -339,12 +364,24 @@ const Disks = (props, context) => {
                       />
                       <Button
                         width={6}
-                        icon="Eject"
+                        icon="arrow-right"
+                        content="Select"
+                        tooltip="Choose as target for extracted genes"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('select', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="arrow-down"
                         content="Eject"
                         tooltip="Eject Disk"
                         tooltipPosition="bottom-start"
                         onClick={() =>
-                          act('eject', {
+                          act('eject_disk', {
                             index: item.index,
                           })
                         }
@@ -366,11 +403,11 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item}>
                     <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={13}>
+                    <Stack.Item width={15}>
                       <Button
                         width={6}
-                        icon="arrow-down"
-                        tooltip="Write Disk Stats to Plant"
+                        icon="arrow-circle-down"
+                        tooltip="Add disk reagent to seed"
                         content="Insert"
                         onClick={() =>
                           act('insert', {
@@ -380,12 +417,24 @@ const Disks = (props, context) => {
                       />
                       <Button
                         width={6}
-                        icon="Eject"
+                        icon="arrow-right"
+                        content="Select"
+                        tooltip="Choose as target for extracted genes"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('select', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="arrow-down"
                         content="Eject"
                         tooltip="Eject Disk"
                         tooltipPosition="bottom-start"
                         onClick={() =>
-                          act('eject', {
+                          act('eject_disk', {
                             index: item.index,
                           })
                         }

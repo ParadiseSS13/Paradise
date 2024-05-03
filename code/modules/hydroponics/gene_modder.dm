@@ -28,6 +28,8 @@
 	var/min_weed_rate = 10
 	var/seeds_for_bulk_core = 5
 
+	var/disk_index = 0
+
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
@@ -264,8 +266,10 @@
 	for(var/i in 1 to length(contents))
 		if(contents[i].type == /obj/item/disk/plantgene)
 			var/obj/item/disk/plantgene/D = contents[i]
-			if(!D.gene)
+			if(!D.gene && !D.is_bulk_core)
 				empty_disks++
+			else if(D.is_bulk_core)
+				stats.Add(list(list("display_name" = D.ui_name, "index" = i, "stat" = "All", "ready" = D.seeds_needed <= D.seeds_scanned)))
 			else if(type2parent(D.gene.type) == /datum/plant_gene/core)
 				var/datum/plant_gene/core/C = D.gene
 				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name)))
@@ -298,7 +302,7 @@
 
 	if(params["id"])
 		target = seed?.get_gene(params["id"])
-	else if(params["stat"])
+	else if(params["stat"] && params["stat"] != "All")
 		for(var/datum/plant_gene/core/c_gene in core_genes)
 			if(c_gene.name == params["stat"])
 				target = c_gene
@@ -317,9 +321,10 @@
 					add_seed(I, user)
 
 		if("eject_disk")
-			if(disk)
-				disk.forceMove(loc)
-				user.put_in_hands(disk)
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			if(D)
+				D.forceMove(loc)
+				user.put_in_hands(D)
 				disk = null
 				update_genes()
 			else
@@ -355,13 +360,13 @@
 			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate = PROC_REF(gene_extract))
 
 		if("bulk_replace_core")
+			disk_index = text2num(params["index"])
 			ui_modal_boolean(src, action, "Are you sure you want to replace ALL core genes of the [seed]?" , yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(bulk_replace_core))
 
 		if("replace")
-			var/index = text2num(params["index"])
-			var/obj/item/disk/plantgene/D = contents[index]
-			if(ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [D.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel"))
-				gene_replace(index)
+			disk_index = text2num(params["index"])
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [D.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(gene_replace))
 
 		if("remove")
 			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel", delegate = PROC_REF(gene_remove))
@@ -376,6 +381,25 @@
 					seed.reagents_from_genes()
 				update_genes()
 				repaint_seed()
+
+		if("select")
+			disk = contents[text2num(params["index"])]
+
+		if("select_empty_disk")
+			for(var/obj/item/disk/plantgene/D in contents)
+				if(!D.gene && !D.is_bulk_core)
+					disk =	D
+					return
+
+		if("eject_empty_disk")
+			for(var/obj/item/disk/plantgene/D in contents)
+				if(!D.gene && !D.is_bulk_core)
+					D.forceMove(loc)
+					user.put_in_hands(D)
+					update_genes()
+					return
+			to_chat(world,"<span class='warning'> No Empty Disks to Eject!</span>")
+
 
 
 /obj/machinery/plantgenes/proc/gene_remove()
@@ -406,9 +430,13 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
 	target = null
+	for(var/obj/item/disk/plantgene/D in contents)
+		if(!D.gene && !D.is_bulk_core)
+			disk = D
+			return
 
-/obj/machinery/plantgenes/proc/gene_replace(index)
-	var/obj/item/disk/plantgene/D = contents[index]
+/obj/machinery/plantgenes/proc/gene_replace()
+	var/obj/item/disk/plantgene/D = contents[disk_index]
 	if(!D?.gene || D.is_bulk_core)
 		return
 	if(!istype(target, /datum/plant_gene/core))
@@ -445,14 +473,15 @@
 	target = null
 
 /obj/machinery/plantgenes/proc/bulk_replace_core()
-	if(!disk?.is_bulk_core)
+	var/obj/item/disk/plantgene/D = contents[disk_index]
+	if(!D?.is_bulk_core)
 		return
-	if(disk.seeds_scanned < disk.seeds_needed)
+	if(D.seeds_scanned < D.seeds_needed)
 		return
 	for(var/datum/plant_gene/gene in seed.genes)
 		if(istype(gene, /datum/plant_gene/core))
 			seed.genes -= gene
-	for(var/datum/plant_gene/core/gene in disk.core_genes)
+	for(var/datum/plant_gene/core/gene in D.core_genes)
 		var/datum/plant_gene/core/C = gene.Copy()
 		seed.genes += C
 		C.apply_stat(seed)
