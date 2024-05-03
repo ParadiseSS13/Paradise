@@ -9,6 +9,7 @@
 	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
+	goal_department = "Bar"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
@@ -125,6 +126,7 @@
 	drink_name = "Hooch"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 	taste_description = "pure resignation"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
 	if(M.mind && M.mind.assigned_role == "Assistant")
@@ -161,6 +163,7 @@
 	drink_name = "Glass of Mojito"
 	drink_desc = "Fresh from Spesscuba."
 	taste_description = "mojito"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/vodka
 	name = "Vodka"
@@ -242,6 +245,7 @@
 	drink_name = "Suicider"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 	taste_description = "approaching death"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/ale
 	name = "Ale"
@@ -291,6 +295,7 @@
 	drink_name = "Glass of bilk"
 	drink_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
 	taste_description = "bilk"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/atomicbomb
 	name = "Atomic Bomb"
@@ -303,6 +308,7 @@
 	drink_name = "Atomic Bomb"
 	drink_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
 	taste_description = "a long, fiery burn"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Iced Tea"
@@ -315,6 +321,7 @@
 	drink_name = "Three Mile Island Ice Tea"
 	drink_desc = "A glass of this is sure to prevent a meltdown."
 	taste_description = "a creeping heat"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/goldschlager
 	name = "Goldschlager"
@@ -351,6 +358,7 @@
 	drink_name = "Gin and Tonic"
 	drink_desc = "A mild but still great cocktail. Drink up, like a true Englishman."
 	taste_description = "bitter medicine"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/cuba_libre
 	name = "Cuba Libre"
@@ -363,6 +371,7 @@
 	drink_name = "Cuba Libre"
 	drink_desc = "A classic mix of rum and cola."
 	taste_description = "liberation"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/whiskey_cola
 	name = "Whiskey Cola"
@@ -375,6 +384,7 @@
 	drink_name = "Whiskey Cola"
 	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 	taste_description = "whiskey and coke"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/daiquiri
 	name = "Daiquiri"
@@ -387,6 +397,7 @@
 	drink_name = "Daiquiri"
 	drink_desc = "When Botany gives you limes, make daiquiris."
 	taste_description = "sweetened lime juice and rum"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"
@@ -399,6 +410,7 @@
 	drink_name = "Classic Martini"
 	drink_desc = "Damn, the bartender even stirred it, not shook it."
 	taste_description = "class"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/vodkamartini
 	name = "Vodka Martini"
@@ -411,6 +423,7 @@
 	drink_name = "Vodka martini"
 	drink_desc ="A bastardisation of the classic martini. Still great."
 	taste_description = "class and potatoes"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/white_russian
 	name = "White Russian"
@@ -423,6 +436,7 @@
 	drink_name = "White Russian"
 	drink_desc = "A very nice looking drink. But that's just, like, your opinion, man."
 	taste_description = "very creamy alcohol"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail
 	name = "Screwdriver"
@@ -435,6 +449,7 @@
 	drink_name = "Screwdriver"
 	drink_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 	taste_description = "a naughty secret"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"
@@ -447,6 +462,7 @@
 	drink_name = "Booger"
 	drink_desc = "Eww..."
 	taste_description = "a fruity mess"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/bloody_mary
 	name = "Bloody Mary"
@@ -459,6 +475,7 @@
 	drink_name = "Bloody Mary"
 	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
 	taste_description = "tomatoes with booze"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
@@ -471,6 +488,7 @@
 	drink_name = "Pan-Galactic Gargle Blaster"
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 	taste_description = "the number fourty two"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/flaming_homer
 	name = "Flaming Moe"
@@ -483,6 +501,7 @@
 	drink_name = "Flaming Moe"
 	drink_desc = "Happiness is just a Flaming Moe away!"
 	taste_description = "caramelised booze and sweet, salty medicine"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
@@ -507,6 +526,7 @@
 	drink_name = "Tequila Sunrise"
 	drink_desc = "Oh great, now you feel nostalgic about sunrises back on Terra..."
 	taste_description = "fruity alcohol"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/toxins_special
 	name = "Toxins Special"
@@ -519,6 +539,7 @@
 	drink_name = "Toxins Special"
 	drink_desc = "Whoah, this thing is on FIRE"
 	taste_description = "FIRE"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
@@ -536,6 +557,7 @@
 	drink_name = "Beepsky Smash"
 	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
 	taste_description = "THE LAW"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
@@ -560,6 +582,7 @@
 	drink_name = "The Manly Dorf"
 	drink_desc = "A manly concotion made from Ale and Beer. Intended for true men only."
 	taste_description = "manliness"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/longislandicedtea
 	name = "Long Island Iced Tea"
@@ -572,6 +595,7 @@
 	drink_name = "Long Island Iced Tea"
 	drink_desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
 	taste_description = "fruity alcohol"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/moonshine
 	name = "Moonshine"
@@ -584,6 +608,7 @@
 	drink_name = "Moonshine"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 	taste_description = "prohibition"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/b52
 	name = "B-52"
@@ -596,6 +621,7 @@
 	drink_name = "B-52"
 	drink_desc = "Kahlua, Irish Cream, and congac. You will get bombed."
 	taste_description = "destruction"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/irishcoffee
 	name = "Irish Coffee"
@@ -608,6 +634,7 @@
 	drink_name = "Irish Coffee"
 	drink_desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
 	taste_description = "coffee and booze"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/margarita
 	name = "Margarita"
@@ -620,6 +647,7 @@
 	drink_name = "Margarita"
 	drink_desc = "On the rocks with salt on the rim. Arriba~!"
 	taste_description = "daisies"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/black_russian
 	name = "Black Russian"
@@ -632,6 +660,7 @@
 	drink_name = "Black Russian"
 	drink_desc = "For the lactose-intolerant. Still as classy as a White Russian."
 	taste_description = "sweet alcohol"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/manhattan
 	name = "Manhattan"
@@ -656,6 +685,7 @@
 	drink_name = "Manhattan Project"
 	drink_desc = "A scientist's drink of choice, for thinking how to blow up the station."
 	taste_description = "the apocalypse"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/whiskeysoda
 	name = "Whiskey Soda"
@@ -668,6 +698,7 @@
 	drink_name = "Whiskey Soda"
 	drink_desc = "Ultimate refreshment."
 	taste_description = "mediocrity"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/antifreeze
 	name = "Anti-freeze"
@@ -680,6 +711,7 @@
 	drink_name = "Anti-freeze"
 	drink_desc = "The ultimate refreshment."
 	taste_description = "poor life choices"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
@@ -698,6 +730,7 @@
 	drink_name = "Admin Freeze"
 	drink_desc = "The ultimate punishment."
 	taste_description = "a series of bad decisions"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/adminfreeze/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
 	..()
@@ -716,6 +749,7 @@
 	drink_name = "Barefoot"
 	drink_desc = "Barefoot and pregnant"
 	taste_description = "pregnancy"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/snowwhite
 	name = "Snow White"
@@ -728,6 +762,7 @@
 	drink_name = "Snow White"
 	drink_desc = "A cold refreshment."
 	taste_description = "a poisoned apple"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/demonsblood
 	name = "Demons Blood"
@@ -741,6 +776,7 @@
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
 	taste_description = "<span class='warning'>evil</span>"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/vodkatonic
 	name = "Vodka and Tonic"
@@ -754,6 +790,7 @@
 	drink_name = "Vodka and Tonic"
 	drink_desc = "For when a gin and tonic isn't russian enough."
 	taste_description = "bitter medicine"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/ginfizz
 	name = "Gin Fizz"
@@ -767,6 +804,7 @@
 	drink_name = "Gin Fizz"
 	drink_desc = "Refreshingly lemony, deliciously dry."
 	taste_description = "fizzy alcohol"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/bahama_mama
 	name = "Bahama mama"
@@ -779,6 +817,7 @@
 	drink_name = "Bahama Mama"
 	drink_desc = "Tropic cocktail"
 	taste_description = "HONK"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
@@ -792,6 +831,7 @@
 	drink_name = "Singulo"
 	drink_desc = "A bluespace beverage."
 	taste_description = "infinity"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/sbiten
 	name = "Sbiten"
@@ -804,6 +844,7 @@
 	drink_name = "Sbiten"
 	drink_desc = "A spicy mix of Vodka and Spice. Very hot."
 	taste_description = "comforting warmth"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
@@ -821,6 +862,7 @@
 	drink_name = "Devils Kiss"
 	drink_desc = "Creepy time!"
 	taste_description = "naughtiness"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/red_mead
 	name = "Red Mead"
@@ -833,6 +875,7 @@
 	drink_name = "Red Mead"
 	drink_desc = "A True Vikings Beverage, though its color is strange."
 	taste_description = "blood"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/mead
 	name = "Mead"
@@ -875,6 +918,7 @@
 	drink_name = "Grog"
 	drink_desc = "A fine and cepa drink for Space."
 	taste_description = "strongly diluted rum"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/aloe
 	name = "Aloe"
@@ -887,6 +931,7 @@
 	drink_name = "Aloe"
 	drink_desc = "Very, very, very good."
 	taste_description = "healthy skin"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/andalusia
 	name = "Andalusia"
@@ -899,6 +944,7 @@
 	drink_name = "Andalusia"
 	drink_desc = "A nice, strange named drink."
 	taste_description = "sweet alcohol"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/alliescocktail
 	name = "Allies Cocktail"
@@ -911,6 +957,7 @@
 	drink_name = "Allies cocktail"
 	drink_desc = "A drink made from your allies."
 	taste_description = "victory"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/acid_spit
 	name = "Acid Spit"
@@ -923,6 +970,7 @@
 	drink_name = "Acid Spit"
 	drink_desc = "A drink from Nanotrasen. Made from live aliens."
 	taste_description = "PAIN"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/amasec
 	name = "Amasec"
@@ -935,6 +983,7 @@
 	drink_name = "Amasec"
 	drink_desc = "Always handy before COMBAT!!!"
 	taste_description = "a stunbaton"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/neurotoxin
 	name = "Neuro-toxin"
@@ -949,6 +998,7 @@
 	drink_name = "Neurotoxin"
 	drink_desc = "A drink that is guaranteed to knock you silly."
 	taste_description = "brain damageeeEEeee"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -971,6 +1021,7 @@
 	drink_name = "Hippie's Delight"
 	drink_desc = "A drink enjoyed by people during the 1960's."
 	taste_description = "colors"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1009,6 +1060,7 @@
 	drink_name = "Changeling Sting"
 	drink_desc = "A stingy drink."
 	taste_description = "a tiny prick"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/dublindrop
 	name = "Dublin Drop"
@@ -1022,6 +1074,7 @@
 	drink_name = "Dublin Drop"
 	drink_desc = "A Dublin drop. Pub legends say one of the ingredients can bring back the dead."
 	taste_description = "a belt in the gob"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -1034,6 +1087,7 @@
 	drink_name = "Syndicate Bomb"
 	drink_desc = "A syndicate bomb."
 	taste_description = "a job offer"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/erikasurprise
 	name = "Erika Surprise"
@@ -1046,6 +1100,7 @@
 	drink_name = "Erika Surprise"
 	drink_desc = "The surprise is, it's green!"
 	taste_description = "disappointment"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/driestmartini
 	name = "Driest Martini"
@@ -1059,6 +1114,7 @@
 	drink_name = "Driest Martini"
 	drink_desc = "Only for the experienced. You think you see sand floating in the glass."
 	taste_description = "dust and ashes"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/driestmartini/on_mob_life(mob/living/M)
 	if(current_cycle >= 55 && current_cycle < 115)
@@ -1093,6 +1149,7 @@
 	drink_name = "Gin and Sonic"
 	drink_desc = "An extremely high amperage drink. Absolutely not for the true Englishman."
 	taste_description = "SPEED"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/ginsonic/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1121,6 +1178,7 @@
 	drink_name = "Glass of applejack"
 	drink_desc = "When cider isn't strong enough, you gotta jack it."
 	taste_description = "strong cider"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/jackrose
 	name = "Jack Rose"
@@ -1132,6 +1190,7 @@
 	drink_name = "Jack Rose"
 	drink_desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
 	taste_description = "style"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/drunkenblumpkin
 	name = "Drunken Blumpkin"
@@ -1143,6 +1202,7 @@
 	drink_name = "Drunken Blumpkin"
 	drink_desc = "A drink for the drunks"
 	taste_description = "weirdness"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/eggnog
 	name = "Eggnog"
@@ -1155,6 +1215,7 @@
 	drink_name = "Eggnog"
 	drink_desc = "For enjoying the most wonderful time of the year."
 	taste_description = "christmas spirit"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /// inaccessible to players, but here for admin shennanigans
 /datum/reagent/consumable/ethanol/dragons_breath
@@ -1256,6 +1317,7 @@
 	drink_name = "Glass of Trinary"
 	drink_desc = "Colorful drink made for synthetic crewmembers. It doesn't seem like it would taste well."
 	taste_description = "modem static"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/synthanol/servo
 	name = "Servo"
@@ -1268,6 +1330,7 @@
 	drink_name = "Glass of Servo"
 	drink_desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
 	taste_description = "motor oil and cocoa"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/synthanol/uplink
 	name = "Uplink"
@@ -1280,6 +1343,7 @@
 	drink_name = "Glass of Uplink"
 	drink_desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
 	taste_description = "a GUI in visual basic"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/synthanol/synthnsoda
 	name = "Synth 'n Soda"
@@ -1292,6 +1356,7 @@
 	drink_name = "Glass of Synth 'n Soda"
 	drink_desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
 	taste_description = "fizzy motor oil"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/synthanol/synthignon
 	name = "Synthignon"
@@ -1389,7 +1454,7 @@
 			alcohol_description = "watery" //How the hell did you get negative boozepwr?
 
 	var/list/fruits = list()
-	if(names_in_order.len <= 3)
+	if(length(names_in_order) <= 3)
 		fruits = names_in_order
 	else
 		for(var/i in 1 to 3)
@@ -1399,10 +1464,10 @@
 	description = "A [alcohol_description] wine brewed from [fruit_list]."
 
 	var/flavor = ""
-	if(!primary_tastes.len)
+	if(!length(primary_tastes))
 		primary_tastes = list("[alcohol_description] alcohol")
 	flavor += english_list(primary_tastes)
-	if(secondary_tastes.len)
+	if(length(secondary_tastes))
 		flavor += ", with a hint of "
 		flavor += english_list(secondary_tastes)
 	taste_description = flavor
@@ -1464,6 +1529,7 @@
 	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
 	taste_description = "low class heaven"
 	remove_nutrition = 1
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/gimlet
 	name = "Gimlet"
@@ -1475,6 +1541,7 @@
 	drink_name = "Gimlet"
 	drink_desc = "There are debates on whether this drink should be half gin and half lime, or three parts gin and one part lime. All you know is, it's alcohol."
 	taste_description = "sharpness"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/sidecar
 	name = "Sidecar"
@@ -1486,6 +1553,7 @@
 	drink_name = "Sidecar"
 	drink_desc = "You can smell the citrus from here!"
 	taste_description = "smooth cognac and tart citrus"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/whiskey_sour
 	name = "Whiskey Sour"
@@ -1497,6 +1565,7 @@
 	drink_name = "Whiskey Sour"
 	drink_desc = "Lemon and whiskey, with a cute foamy head!"
 	taste_description = "warm whiskey and sweetness"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/mint_julep
 	name = "Mint Julep"
@@ -1508,6 +1577,7 @@
 	drink_name = "Mint Julep"
 	drink_desc = "A dainty glass of whiskey and mint on the rocks. Perfect for summer!"
 	taste_description = "sweet and cooling mint"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/pina_colada
 	name = "Pina Colada"
@@ -1519,6 +1589,7 @@
 	drink_name = "Pina Colada"
 	drink_desc = "After taking a sip, you feel contractually obligated to start singing a certain song of the same name."
 	taste_description = "tart and tropical pineapple"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/bilkshake
 	name = "Bilkshake"
@@ -1531,6 +1602,7 @@
 	drink_name = "Bilkshake"
 	drink_desc = "Your mind bubbles and oozes as it tries to comprehend what it's seeing. What the HELL is this?"
 	taste_description = "bilk, cream, and cold tears"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/sontse
 	name = "Sontse"
@@ -1543,6 +1615,7 @@
 	drink_desc = "The Sun, The Sun, The Sun, The Sun, The Sun, THE SUN!"
 	taste_description = "warmth and brightness"
 	var/light_activated = FALSE
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
 	if(current_cycle != 5 || !ismoth(M))
@@ -1571,6 +1644,7 @@
 	drink_desc = "Blizzard in a glass. Tajaran signature drink!"
 	taste_description = "ice"
 	var/min_achievable_temp = 250
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
 	. = ..()
@@ -1587,6 +1661,7 @@
 	drink_name = "Feast by the Beach"
 	drink_desc = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
 	taste_description = "sand"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/beach_feast/on_mob_life(mob/living/M)
 	if(!isunathi(M))
@@ -1605,6 +1680,7 @@
 	drink_name = "Jungle Vox"
 	drink_desc = "Classy drink in a glass vox head with a bit of liquid nitrogen added on."
 	taste_description = "bubbles"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
 	if(current_cycle <= 5 || !isvox(M))
@@ -1624,6 +1700,7 @@
 	drink_name = "Slime Mold"
 	drink_desc = "You can swear that this jelly looks alive."
 	taste_description = "jelly"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/slime_mold/on_mob_life(mob/living/M)
 	if(!isslimeperson(M))
@@ -1644,6 +1721,7 @@
 	drink_name = "Die Seife"
 	drink_desc = "There is a piece of soap at the bottom of the glass and it is slowly melting."
 	taste_description = "soap"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/die_seife/on_mob_life(mob/living/M)
 	if(current_cycle % 10 != 0 || !isdrask(M))
@@ -1664,6 +1742,7 @@
 	drink_name = "Acid Dreams"
 	drink_desc = "This one looks just weird and reeks of acid."
 	taste_description = "acid"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
 	if(current_cycle % 10 != 0 || !isgrey(M))
@@ -1671,7 +1750,7 @@
 	if(prob(50))
 		var/list/mob/living/targets = list()
 		for(var/mob/living/L in orange(14, M))
-			if(L.is_dead() || !L.client) //we don't care about dead mobs
+			if(L.stat == DEAD || !L.client) //we don't care about dead mobs
 				continue
 			targets += L
 		if(length(targets))
@@ -1689,6 +1768,7 @@
 	drink_name = "Islay Whiskey"
 	drink_desc = "Named in honor of one of the most gritty and earth smelling types of Whiskey of Earth, this drink is a treat for any Diona."
 	taste_description = "soil"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/islay_whiskey/on_mob_life(mob/living/M)
 	if(current_cycle <=5 || !isdiona(M))
@@ -1715,6 +1795,7 @@
 	drink_desc = "In the triangle of fire, this is apex of fuel."
 	taste_description = "fire"
 	var/on_fire = FALSE
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/ultramatter/on_mob_life(mob/living/M)
 	// species agnostic as it is DRINKS on_fire, so only plasmaman can get it
@@ -1747,6 +1828,7 @@
 	drink_name = "Howler"
 	drink_desc = "Old classic human drink that was adopted by Vulpkanin."
 	taste_description = "citrus"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
 	if(!isvulpkanin(M))
@@ -1769,6 +1851,7 @@
 	drink_desc = "Fake Diona is floating carelessly in the middle of this drink."
 	taste_description = "the crunch"
 	var/mutated = FALSE
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/diona_smash/on_mob_life(mob/living/M)
 	if(mutated || !iskidan(M))

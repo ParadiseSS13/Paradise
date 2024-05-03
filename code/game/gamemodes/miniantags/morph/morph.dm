@@ -45,11 +45,11 @@
 	/// How much weaken a successful ambush attack applies
 	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
-	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
+	var/datum/spell/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
-	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
+	var/datum/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
-	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
+	var/datum/spell/morph_spell/pass_airlock/pass_airlock_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -60,8 +60,8 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
-	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/open_vent)
+	AddSpell(new /datum/spell/morph_spell/reproduce)
+	AddSpell(new /datum/spell/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 
@@ -83,8 +83,8 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/smoke)
-	AddSpell(new /obj/effect/proc_holder/spell/forcewall)
+	AddSpell(new /datum/spell/smoke)
+	AddSpell(new /datum/spell/forcewall)
 
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/A)
@@ -113,6 +113,7 @@
 			var/obj/item/clothing/under/U = H.w_uniform
 			U.turn_sensors_off()
 
+		A.pulledby?.stop_pulling()
 		A.extinguish_light()
 		A.forceMove(src)
 		var/food_value = calc_food_gained(A)

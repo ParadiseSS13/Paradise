@@ -1,5 +1,6 @@
 /obj/item/paper_bin
 	name = "paper bin"
+	desc = "The second-most important part of bureaucracy, after the pen of course."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
 	item_state = "sheet-metal"
@@ -68,8 +69,8 @@
 			update_icon()
 
 		var/obj/item/paper/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
+		if(length(papers) > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[length(papers)]
 			papers.Remove(P)
 		else
 			if(letterhead_type && alert("Choose a style", null,"Letterhead","Blank")=="Letterhead")
@@ -132,8 +133,8 @@
 			update_icon()
 
 		var/obj/item/paper/carbon/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
+		if(length(papers) > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[length(papers)]
 			papers.Remove(P)
 		else
 			P = new /obj/item/paper/carbon

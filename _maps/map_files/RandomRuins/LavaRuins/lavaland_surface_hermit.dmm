@@ -175,6 +175,10 @@
 /obj/effect/baseturf_helper,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"P" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "X" = (
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plating,
@@ -189,14 +193,14 @@ a
 a
 a
 a
-s
-s
-s
-s
-s
-s
-s
-s
+P
+P
+P
+a
+a
+a
+a
+a
 "}
 (2,1,1) = {"
 a
@@ -209,12 +213,12 @@ a
 a
 a
 a
+P
+P
 s
-s
-s
-s
-s
-s
+a
+a
+a
 "}
 (3,1,1) = {"
 a
@@ -227,12 +231,12 @@ a
 a
 a
 a
+P
+P
+P
 s
-s
-s
-s
-s
-s
+a
+a
 "}
 (4,1,1) = {"
 a
@@ -246,11 +250,11 @@ a
 a
 a
 a
+P
+P
+P
 s
-s
-s
-s
-s
+a
 "}
 (5,1,1) = {"
 a
@@ -266,9 +270,9 @@ t
 t
 t
 t
-s
-s
-s
+P
+P
+a
 "}
 (6,1,1) = {"
 a
@@ -284,8 +288,8 @@ v
 x
 B
 t
-s
-s
+P
+P
 s
 "}
 (7,1,1) = {"
@@ -302,9 +306,9 @@ w
 y
 y
 D
-s
-s
-s
+P
+P
+a
 "}
 (8,1,1) = {"
 a
@@ -320,9 +324,9 @@ o
 z
 C
 t
-s
-s
-s
+P
+P
+a
 "}
 (9,1,1) = {"
 b
@@ -338,9 +342,9 @@ o
 t
 t
 t
+P
 s
-s
-s
+a
 "}
 (10,1,1) = {"
 b
@@ -356,8 +360,8 @@ o
 A
 b
 a
-s
-s
+P
+P
 s
 "}
 (11,1,1) = {"
@@ -375,7 +379,7 @@ c
 b
 a
 a
-s
+P
 s
 "}
 (12,1,1) = {"
@@ -446,7 +450,7 @@ a
 a
 a
 a
-G
+F
 J
 G
 "}

@@ -170,12 +170,12 @@
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin/)) //Matter bins for storage modifier
-			storage_modifier = round(10 * (SP.rating / 2)) //5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+		if(istype(SP, /obj/item/stock_parts/matter_bin/)) // Matter bins for storage modifier
+			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
-			price_modifier = -(SP.rating / 10) + 1.2 //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
-			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
+			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
 
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
@@ -184,9 +184,7 @@
 	organ_storage_capacity = storage_modifier
 	biomass_storage_capacity = storage_modifier * 400
 
-
-
-//Process
+// Process
 /obj/machinery/clonepod/process()
 
 	//Basically just isolate_reagent() with extra functionality.
@@ -239,7 +237,7 @@
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
 				clone_progress += speed_modifier
 				return
-			if(11 to 90)
+			if(10 to 90)
 				clone_progress += speed_modifier
 				if(!clone)
 					create_clone()
@@ -282,7 +280,7 @@
 					clone.regenerate_icons()
 					return
 
-			if(91 to 100)
+			if(90 to 100)
 				if(length(limbs_to_grow) || current_limb) //This shouldn't happen, but just in case.. (no more feetless clones)
 					clone_progress -= 5
 				if(eject_clone())
@@ -291,11 +289,14 @@
 				desc_flavor = "You see [src] finalizing the cloning process."
 				clone_progress += speed_modifier
 				return
-			if(101 to INFINITY) //this state can be reached with an upgraded cloner
+			if(100 to INFINITY) //this state can be reached with an upgraded cloner
 				if(eject_clone())
 					return
 				clone.setCloneLoss(0) //get out of the pod!!
 				return
+
+			else
+				clone_progress += 1 // I don't know how we got here but we just keep incrementing
 
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
@@ -357,6 +358,7 @@
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
 	clone.Weaken(4 SECONDS)
+	ADD_TRAIT(clone, TRAIT_NOFIRE, "cloning") // Plasmamen shouldn't catch fire while cloning
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
 /obj/machinery/clonepod/proc/eject_clone(force = FALSE)
@@ -375,6 +377,7 @@
 		patient_mind.transfer_to(clone)
 		clone.grab_ghost()
 		clone.update_revive()
+		REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
 		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 
@@ -385,14 +388,15 @@
 		return FALSE
 
 	clone.forceMove(loc)
-	new /obj/effect/gibspawner/generic(get_turf(src), clone)
+	new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 	patient_mind.transfer_to(clone)
 	clone.grab_ghost()
 	clone.update_revive()
-	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+	REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
+	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 
 	reset_cloning()
@@ -563,11 +567,17 @@
 		return
 
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(allowed(user))
-			locked = !locked
-			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-		else
+		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			return
+
+		switch(tgui_alert(user, "Change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access", "Emergency ejection")))
+			if("Change access")
+				locked = !locked
+				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
+			if("Emergency ejection")
+				eject_clone(TRUE) // GET OUT
+				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
 		return
 
 	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!

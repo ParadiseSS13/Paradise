@@ -5200,6 +5200,7 @@
 	},
 /obj/item/coin/antagtoken/syndicate,
 /obj/structure/table,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rk" = (
@@ -6864,10 +6865,8 @@
 "yD" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 24
+/obj/machinery/alarm/monitor/directional/east{
+	locked = 0
 	},
 /obj/item/analyzer,
 /turf/simulated/floor/plasteel{

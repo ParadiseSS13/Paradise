@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/rod_form
+/datum/spell/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path."
 	clothes_req = TRUE
@@ -13,10 +13,10 @@
 	sound = 'sound/effects/whoosh.ogg'
 	var/rod_delay = 2
 
-/obj/effect/proc_holder/spell/rod_form/create_new_targeting()
+/datum/spell/rod_form/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/rod_form/cast(list/targets,mob/user = usr)
+/datum/spell/rod_form/cast(list/targets,mob/user = usr)
 	if(get_turf(user) != user.loc)
 		to_chat(user, "<span class='warning'>You cannot summon a rod in the ether, the spell fizzles out!</span>")
 		revert_cast()

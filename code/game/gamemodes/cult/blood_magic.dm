@@ -265,7 +265,7 @@
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
-	var/obj/effect/proc_holder/horror/PH
+	var/datum/spell/horror/PH
 	charges = 4
 
 /datum/action/innate/cult/blood_spell/horror/New()
@@ -274,7 +274,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/horror/Destroy()
-	var/obj/effect/proc_holder/horror/destroy = PH
+	var/datum/spell/horror/destroy = PH
 	. = ..()
 	if(!QDELETED(destroy))
 		QDEL_NULL(destroy)
@@ -283,24 +283,24 @@
 	PH.toggle(owner) //the important bit
 	return TRUE
 
-/obj/effect/proc_holder/horror
+/datum/spell/horror
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
-/obj/effect/proc_holder/horror/Destroy()
+/datum/spell/horror/Destroy()
 	var/datum/action/innate/cult/blood_spell/AA = attached_action
 	. = ..()
 	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
-/obj/effect/proc_holder/horror/proc/toggle(mob/user)
+/datum/spell/horror/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, "<span class='cult'>You dispel the magic...</span>")
 	else
 		add_ranged_ability(user, "<span class='cult'>You prepare to horrify a target...</span>")
 
-/obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
+/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
@@ -546,7 +546,7 @@
 
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+	if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !actual_selected_rune)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_FLOORED))
@@ -561,7 +561,7 @@
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
+	else if(!is_station_level(user.z) || isspacearea(get_area(user)))
 		actual_selected_rune.handle_portal("space", origin)
 
 	if(user == target)

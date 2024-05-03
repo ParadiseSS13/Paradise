@@ -189,7 +189,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job.job_banned_gamemode) // you cannot open a slot for more sec/legal after revs win
 			return FALSE
-		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
+		if((job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100)))
 			return FALSE
 		if(opened_positions[job.title] < 0)
 			return TRUE
@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
-		if(SSjobs.prioritized_jobs.len >= 3)
+		if(length(SSjobs.prioritized_jobs) >= 3)
 			return FALSE
 		if(job.total_positions <= job.current_positions)
 			return FALSE
@@ -645,7 +645,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(R.fields["id"] == E.fields["id"])
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command", list(z))
+								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command")
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
 								log_game("[key_name(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".")
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
@@ -676,7 +676,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("account") // card account number
 			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 9999999, 1000000)
-			if(!scan || !modify || !account_num)
+			if(isnull(account_num) || !scan || !modify)
 				return FALSE
 			modify.associated_account_number = account_num
 			//for future reference, you should never be able to modify the money account datum through the card computer
