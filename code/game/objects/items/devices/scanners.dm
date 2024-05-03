@@ -634,17 +634,17 @@ SLIME SCANNER
 
 		if(total_moles)
 			message += "<span class='info'>Total: [round(total_moles, 0.01)] moles</span>"
-			if(air.oxygen && air.oxygen / total_moles > 0.01)
+			if(air.oxygen && (milla_turf_details || air.oxygen / total_moles > 0.01))
 				message += "  <span class='oxygen'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(air.oxygen / total_moles * 100, 0.01)] %)</span>"
-			if(air.nitrogen && air.nitrogen / total_moles > 0.01)
+			if(air.nitrogen && (milla_turf_details || air.nitrogen / total_moles > 0.01))
 				message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen, 0.01)] moles ([round(air.nitrogen / total_moles * 100, 0.01)] %)</span>"
-			if(air.carbon_dioxide && air.carbon_dioxide / total_moles > 0.01)
+			if(air.carbon_dioxide && (milla_turf_details || air.carbon_dioxide / total_moles > 0.01))
 				message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] moles ([round(air.carbon_dioxide / total_moles * 100, 0.01)] %)</span>"
-			if(air.toxins && air.toxins / total_moles > 0.01)
+			if(air.toxins && (milla_turf_details || air.toxins / total_moles > 0.01))
 				message += "  <span class='plasma'>Plasma: [round(air.toxins, 0.01)] moles ([round(air.toxins / total_moles * 100, 0.01)] %)</span>"
-			if(air.sleeping_agent && air.sleeping_agent / total_moles > 0.01)
+			if(air.sleeping_agent && (milla_turf_details || air.sleeping_agent / total_moles > 0.01))
 				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent, 0.01)] moles ([round(air.sleeping_agent / total_moles * 100, 0.01)] %)</span>"
-			if(air.agent_b && air.agent_b / total_moles > 0.01)
+			if(air.agent_b && (milla_turf_details || air.agent_b / total_moles > 0.01))
 				message += "  <span class='agent_b'>Agent B: [round(air.agent_b, 0.01)] moles ([round(air.agent_b / total_moles * 100, 0.01)] %)</span>"
 			message += "<span class='info'>Temperature: [round(air.temperature-T0C)] &deg;C ([round(air.temperature)] K)</span>"
 			message += "<span class='info'>Volume: [round(volume)] Liters</span>"

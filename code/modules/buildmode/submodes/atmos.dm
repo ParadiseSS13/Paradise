@@ -49,17 +49,15 @@
 				// this feels slightly icky
 				var/turf/simulated/S = T
 				if(!S.blocks_air)
-					var/datum/gas_mixture/S_air = S.read_air()
-					S_air.temperature = temperature
-					S_air.oxygen = ppratio_to_moles(oxygen)
-					S_air.nitrogen = ppratio_to_moles(nitrogen)
-					S_air.toxins = ppratio_to_moles(plasma)
-					S_air.carbon_dioxide = ppratio_to_moles(cdiox)
-					S_air.sleeping_agent = ppratio_to_moles(nitrox)
-					S_air.agent_b = ppratio_to_moles(agentbx)
-					S.write_air(S_air)
-					S.update_visuals()
-					S.recalculate_atmos_connectivity()
+					var/datum/gas_mixture/air = new()
+					air.temperature = temperature
+					air.oxygen = ppratio_to_moles(oxygen)
+					air.nitrogen = ppratio_to_moles(nitrogen)
+					air.toxins = ppratio_to_moles(plasma)
+					air.carbon_dioxide = ppratio_to_moles(cdiox)
+					air.sleeping_agent = ppratio_to_moles(nitrox)
+					air.agent_b = ppratio_to_moles(agentbx)
+					S.get_air().copy_from(air)
 			else if(ctrl_click) // overwrite "default" space air
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)
@@ -68,7 +66,6 @@
 				T.carbon_dioxide = ppratio_to_moles(cdiox)
 				T.sleeping_agent = ppratio_to_moles(nitrox)
 				T.agent_b = ppratio_to_moles(agentbx)
-				T.recalculate_atmos_connectivity()
 
 		// admin log
 		log_admin("Build Mode: [key_name(user)] changed the atmos of region [COORD(cornerA)] to [COORD(cornerB)]. T: [temperature], P: [pressure], Ox: [oxygen]%, N2: [nitrogen]%, Plsma: [plasma]%, CO2: [cdiox]%, N2O: [nitrox]%. [ctrl_click ? "Overwrote base space turf gases." : ""]")

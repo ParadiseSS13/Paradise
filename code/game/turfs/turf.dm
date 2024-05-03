@@ -312,7 +312,7 @@
 	return W
 
 /turf/proc/BeforeChange()
-	var/datum/gas_mixture/G = read_air()
+	var/datum/gas_mixture/G = get_air()
 	temperature = G.temperature
 	return
 
@@ -349,41 +349,25 @@
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
-	var/aoxy = 0 //Holders to assimilate air from nearby turfs
-	var/anitro = 0
-	var/aco = 0
-	var/atox = 0
-	var/asleep = 0
-	var/ab = 0
-	var/atemp = 0
-
+	var/datum/gas_mixture/merged = new()
 	var/turf_count = 0
 
+	// Merge together all the neighboring air.
 	for(var/turf/T in GetAtmosAdjacentTurfs())
-		if(isspaceturf(T))//Counted as no air
-			turf_count++//Considered a valid turf for air calcs
-			continue
-		else if(isfloorturf(T))
-			var/turf/simulated/S = T
-			var/datum/gas_mixture/S_air = S.read_air()
-			aoxy += S_air.oxygen
-			anitro += S_air.nitrogen
-			aco += S_air.carbon_dioxide
-			atox += S_air.toxins
-			asleep += S_air.sleeping_agent
-			ab += S_air.agent_b
-			atemp += S_air.temperature
+		if(!T.blocks_air)
+			merged.merge(T.get_air().copy())
 			turf_count++
 
-	var/datum/gas_mixture/air = new()
-	air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-	air.nitrogen = (anitro / max(turf_count, 1))
-	air.carbon_dioxide = (aco / max(turf_count, 1))
-	air.toxins = (atox / max(turf_count, 1))
-	air.sleeping_agent = (asleep / max(turf_count, 1))
-	air.agent_b = (ab / max(turf_count, 1))
-	air.temperature = (atemp / max(turf_count, 1))
-	write_air(air)
+	// Divide the air amount by the number of airs merged to average them.
+	if(turf_count > 0)
+		merged.oxygen /= turf_count
+		merged.nitrogen /= turf_count
+		merged.carbon_dioxide /= turf_count
+		merged.toxins /= turf_count
+		merged.sleeping_agent /= turf_count
+		merged.agent_b /= turf_count
+
+	get_air().copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf, keep_icon = FALSE)
@@ -625,7 +609,7 @@
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
-/turf/proc/read_air()
+/turf/proc/get_air()
 	return milla_to_gas_mixture(get_tile_atmos(x, y, z))
 
 /turf/proc/write_air(datum/gas_mixture/air)

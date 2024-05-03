@@ -235,24 +235,42 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
+/// The number of gases we have.
+#define GAS_COUNT 6
+/// The number of values per interesting tile.
+#define INTERESTING_TILE_SIZE (7 + GAS_COUNT)
+/// Interesting because it needs a display update.
+#define REASON_DISPLAY	(1 << 0)
+/// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
+#define REASON_HOT		(1 << 1)
+/// Interesting because it has wind that can push stuff around.
+#define REASON_WIND		(1 << 2)
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
 	if(!resumed)
 		// Fetch the list of interesting tiles from Rust.
 		src.currentrun = get_interesting_atmos_tiles()
-		interesting_tile_count = length(src.currentrun)
+		interesting_tile_count = length(src.currentrun) / INTERESTING_TILE_SIZE
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
 		// Pop a tile off the list.
-		var/list/interesting_tile = currentrun[length(currentrun)]
-		currentrun.len--
+		var/offset = length(currentrun) - INTERESTING_TILE_SIZE
+		var/x = currentrun[offset + 1]
+		var/y = currentrun[offset + 2]
+		var/z = currentrun[offset + 3]
+		var/reasons = currentrun[offset + 4]
+		var/x_flow = currentrun[offset + 5]
+		var/y_flow = currentrun[offset + 6]
 
-		var/x = interesting_tile[1]
-		var/y = interesting_tile[2]
-		var/z = interesting_tile[3]
-		var/x_flow = interesting_tile[4]
-		var/y_flow = interesting_tile[5]
-		var/fuel_burnt = interesting_tile[6]
+		var/datum/gas_mixture/air_copy = new()
+		air_copy.temperature = currentrun[offset + 7]
+		air_copy.oxygen = currentrun[offset + 8]
+		air_copy.carbon_dioxide = currentrun[offset + 9]
+		air_copy.nitrogen = currentrun[offset + 10]
+		air_copy.toxins = currentrun[offset + 11]
+		air_copy.sleeping_agent = currentrun[offset + 12]
+		air_copy.agent_b = currentrun[offset + 13]
+		currentrun.len -= INTERESTING_TILE_SIZE
 
 		var/turf/simulated/T = locate(x, y, z)
 		if(!istype(T))
@@ -260,20 +278,24 @@ SUBSYSTEM_DEF(air)
 				return
 			continue
 
-		var/datum/gas_mixture/air = T.read_air()
-		T.fuel_burnt = fuel_burnt
-		if(air.temperature > PLASMA_MINIMUM_BURN_TEMPERATURE)
-			T.hotspot_expose(air.temperature, CELL_VOLUME)
+		if(reasons & REASON_DISPLAY)
+			T.update_visuals(air_copy)
+
+		if(reasons & REASON_HOT)
+			T.hotspot_expose(air_copy.temperature, CELL_VOLUME)
 			for(var/atom/movable/item in T)
-				item.temperature_expose(air, air.temperature, CELL_VOLUME)
-			T.temperature_expose(air, air.temperature, CELL_VOLUME)
+				item.temperature_expose(air_copy, air_copy.temperature, CELL_VOLUME)
+			T.temperature_expose(air_copy, air_copy.temperature, CELL_VOLUME)
 
-		T.high_pressure_movements(x_flow, y_flow)
-
-		T.update_visuals(air)
+		if(reasons & REASON_WIND)
+			T.high_pressure_movements(x_flow, y_flow)
 
 		if(MC_TICK_CHECK)
 			return
+#undef INTERESTING_TILE_SIZE
+#undef REASON_DISPLAY
+#undef REASON_HOT
+#undef REASON_WIND
 
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	for(var/thing in turfs_to_init)

@@ -74,7 +74,6 @@
 					environment.merge(removed)
 				else
 					loc.assume_air(removed)
-					recalculate_atmos_connectivity()
 		else
 			var/pressure_delta = target_pressure - air_contents.return_pressure()
 			//Can not have a pressure delta that would cause environment pressure > tank pressure
@@ -89,7 +88,6 @@
 					removed = environment.remove(transfer_moles)
 				else
 					removed = loc.remove_air(transfer_moles)
-					recalculate_atmos_connectivity()
 
 				air_contents.merge(removed)
 

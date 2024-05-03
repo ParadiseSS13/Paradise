@@ -64,7 +64,7 @@
 	if(blocks_air)
 		return ..()
 
-	var/datum/gas_mixture/air = read_air()
+	var/datum/gas_mixture/air = get_air()
 	air.merge(giver)
 	write_air(air)
 	update_visuals(air)
@@ -74,7 +74,7 @@
 /turf/simulated/proc/copy_air_with_tile(turf/simulated/T)
 	if(!istype(T) || T.blocks_air || blocks_air)
 		return
-	write_air(T.read_air())
+	get_air().copy_from(T.get_air())
 
 /turf/simulated/proc/copy_air(datum/gas_mixture/copy)
 	if(!copy || blocks_air)
@@ -85,10 +85,10 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	if(blocks_air)
 		return ..()
-	return read_air()
+	return get_air()
 
 /turf/simulated/remove_air(amount)
-	var/datum/gas_mixture/air = read_air()
+	var/datum/gas_mixture/air = get_air()
 	var/datum/gas_mixture/removed = air.remove(amount)
 	write_air(air)
 	update_visuals(air)
@@ -138,7 +138,7 @@
 	if(blocks_air)
 		return
 	if(!istype(air))
-		air = read_air()
+		air = get_air()
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
@@ -257,7 +257,3 @@
 #undef INDEX_EAST
 #undef INDEX_SOUTH
 #undef INDEX_WEST
-
-/turf/simulated/Initialize_Atmos(times_fired)
-	..()
-	update_visuals()

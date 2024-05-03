@@ -388,7 +388,7 @@
 		T.MakeSlippery()
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.read_air()
+		var/datum/gas_mixture/lowertemp = T.get_air()
 		lowertemp.temperature = max(min(lowertemp.temperature-2000, lowertemp.temperature / 2), 0)
 		lowertemp.react()
 		T.write_air(lowertemp)

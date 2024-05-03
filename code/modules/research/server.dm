@@ -138,7 +138,6 @@
 					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
 
 				env.merge(removed)
-				recalculate_atmos_connectivity()
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(exchange_parts(user, O))

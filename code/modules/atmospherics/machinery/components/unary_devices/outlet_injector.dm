@@ -67,7 +67,6 @@ GLOBAL_LIST_EMPTY(air_injectors)
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
 		loc.assume_air(removed)
-		recalculate_atmos_connectivity()
 
 		parent.update = TRUE
 

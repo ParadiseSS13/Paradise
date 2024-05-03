@@ -160,7 +160,6 @@
 		ground_zero.assume_air(air_contents)
 		ground_zero.hotspot_expose(1000, 125)
 
-	recalculate_atmos_connectivity()
 	if(master)
 		qdel(master)
 	qdel(src)
@@ -171,4 +170,3 @@
 	if(!T)
 		return
 	T.assume_air(removed)
-	recalculate_atmos_connectivity()

@@ -177,7 +177,6 @@
 			air_contents.merge(filtered_out)
 
 			tile.assume_air(removed)
-			tile.recalculate_atmos_connectivity()
 
 	else //Just siphoning all air
 		if(air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
@@ -188,9 +187,9 @@
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 
 		air_contents.merge(removed)
-		tile.recalculate_atmos_connectivity()
 
-	parent.update = 1
+	if(istype(parent))
+		parent.update = 1
 
 	return 1
 

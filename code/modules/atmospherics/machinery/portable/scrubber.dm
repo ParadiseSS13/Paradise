@@ -97,7 +97,6 @@
 			environment.merge(removed)
 		else
 			tile.assume_air(removed)
-			tile.recalculate_atmos_connectivity()
 
 /obj/machinery/atmospherics/portable/scrubber/return_air()
 	RETURN_TYPE(/datum/gas_mixture)

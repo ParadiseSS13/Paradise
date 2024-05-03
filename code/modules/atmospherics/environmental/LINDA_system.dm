@@ -142,7 +142,7 @@
 		G.oxygen += MOLES_O2STANDARD * amount
 		G.nitrogen += MOLES_N2STANDARD * amount
 
-	var/datum/gas_mixture/full_air = read_air()
+	var/datum/gas_mixture/full_air = get_air()
 	full_air.merge(G)
 	write_air(full_air)
 

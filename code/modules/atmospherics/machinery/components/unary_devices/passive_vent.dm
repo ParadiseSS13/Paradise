@@ -45,7 +45,6 @@
 
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			loc.assume_air(removed)
-			recalculate_atmos_connectivity()
 	else
 		// transfer from environment to pipe air
 		pressure_delta = -pressure_delta
@@ -55,7 +54,6 @@
 
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 			air_contents.merge(removed)
-			recalculate_atmos_connectivity()
 
 	parent.update = 1
 	return 1

@@ -656,7 +656,6 @@
 	GLOB.poi_list.Remove(src)
 	if(loc)
 		loc.assume_air(cabin_air)
-		recalculate_atmos_connectivity()
 	else
 		qdel(cabin_air)
 	cabin_air = null

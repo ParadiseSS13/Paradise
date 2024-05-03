@@ -134,7 +134,6 @@
 		var/turf/T = get_turf(src)
 		if(T)
 			T.assume_air(air_contents)
-			recalculate_atmos_connectivity()
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 

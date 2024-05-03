@@ -151,7 +151,7 @@
 			var/delta_temperature = 0
 			var/sharer_heat_capacity = 0
 
-			var/datum/gas_mixture/modeled_location_air = modeled_location.read_air()
+			var/datum/gas_mixture/modeled_location_air = modeled_location.get_air()
 			delta_temperature = (air.temperature - modeled_location_air.temperature)
 			sharer_heat_capacity = modeled_location_air.heat_capacity()
 

@@ -376,7 +376,6 @@
 					heat_capacity = 1
 				removed.temperature = min((removed.temperature*heat_capacity + 100000)/heat_capacity, 1000)
 			env.merge(removed)
-			recalculate_atmos_connectivity()
 			investigate_log("Experimentor has released hot air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -422,7 +421,6 @@
 					heat_capacity = 1
 				removed.temperature = (removed.temperature*heat_capacity - 75000)/heat_capacity
 			env.merge(removed)
-			recalculate_atmos_connectivity()
 			investigate_log("Experimentor has released cold air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))

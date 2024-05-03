@@ -99,7 +99,7 @@
 	if(!issimulatedturf(T) || T.density)
 		return
 	var/turf/simulated/S = T
-	var/datum/gas_mixture/S_air = S.read_air()
+	var/datum/gas_mixture/S_air = S.get_air()
 	var/initial_temperature = S_air.temperature
 	if(initial_temperature <= lower_temperature_limit) //Can we actually cool this?
 		return
@@ -118,7 +118,7 @@
 		return
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
-		var/datum/gas_mixture/S_air = S.read_air()
+		var/datum/gas_mixture/S_air = S.get_air()
 		if(S_air.temperature > T0C + 1)
 			return
 	if(locate(/obj/effect/snowcloud, T)) //Ice to see you

@@ -436,8 +436,6 @@
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = env.remove(transfer_moles)
 		air_contents.merge(removed)
-		recalculate_atmos_connectivity()
-
 
 	// if full enough, switch to ready mode
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
@@ -717,8 +715,6 @@
 /obj/structure/disposalholder/proc/vent_gas(atom/location)
 	if(location)
 		location.assume_air(gas)  // vent all gas to turf
-	recalculate_atmos_connectivity()
-	return
 
 // Disposal pipes
 

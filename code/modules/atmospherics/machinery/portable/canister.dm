@@ -221,7 +221,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
 	var/turf/T = get_turf(src)
 	T.assume_air(expelled_gas)
-	recalculate_atmos_connectivity()
 
 	stat |= BROKEN
 	density = FALSE
@@ -260,7 +259,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				environment.merge(removed)
 			else
 				loc.assume_air(removed)
-				recalculate_atmos_connectivity()
 			update_icon()
 
 
