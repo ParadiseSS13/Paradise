@@ -9,8 +9,9 @@
 
 /obj/item/whiteship_port_generator/examine(mob/user)
 	. = ..()
-	var/plural = length(placed_docks) > 1
-	. += "There [plural ? "are" : "is"] [max_docks - length(placed_docks)] use[plural ? "s" : ""] left."
+	var/count = max_docks - length(placed_docks)
+	var/plural = count > 1
+	. += "There [plural ? "are" : "is"] [count] use[plural ? "s" : ""] left."
 
 /obj/item/whiteship_port_generator/attack_self(mob/living/user)
 	if(is_station_level(user.z))
