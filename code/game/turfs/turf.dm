@@ -355,7 +355,8 @@
 	// Merge together all the neighboring air.
 	for(var/turf/T in GetAtmosAdjacentTurfs())
 		if(!T.blocks_air)
-			merged.merge(T.get_air().copy())
+			var/datum/gas_mixture/copy = T.get_air()
+			merged.merge(copy)
 			turf_count++
 
 	// Divide the air amount by the number of airs merged to average them.
