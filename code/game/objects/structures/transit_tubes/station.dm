@@ -33,6 +33,11 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/structure/transit_tube/station/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>While in transit, hold the directional key matching the pod's direction to skip a station.</span>"
+	. += "<span class='notice'>While at a station, press a directional key to quickly leave the station in that direction.</span>"
+
 /obj/structure/transit_tube/station/init_tube_dirs()
 	// Tube station directions are simply 90 to either side of
 	//  the exit.
