@@ -61,7 +61,7 @@
 
 	var/player_count = 0
 	var/traitor_count = 0
-	var/possible_traitors[0]
+	var/list/possible_traitors = list()
 	for(var/mob/living/player in GLOB.mob_list)
 		if(player.client && player.stat != DEAD)
 			player_count += 1
