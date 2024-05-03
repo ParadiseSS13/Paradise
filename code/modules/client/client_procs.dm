@@ -257,6 +257,10 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	// TODO: Remove with 516
+	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
+		winset(src, "", "browser-options=byondstorage")
+
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
