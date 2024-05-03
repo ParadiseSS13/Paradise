@@ -63,8 +63,17 @@ SUBSYSTEM_DEF(air)
 	/// Which step we're currently on, used to let us resume if our time budget elapses.
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-	/// Tracks how many MILLA ticks we've run. Used to safely run Interesting Tiles, and to track whether bound gas mixtures have read their MILLA value this tick.
-	var/milla_ticks = 0
+	/// Is MILLA currently in synchronous mode? TRUE if data is fresh and changes can be made, FALSE if data is from last tick and changes cannot be made (because this tick is still processing).
+	var/is_synchronous = TRUE
+
+	/// Is MILLA (and hence SSair) reliably healthy?
+	var/healthy = TRUE
+
+	/// When was MILLA last seen unhealthy?
+	var/last_unhealthy = 0
+
+	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
+	var/list/waiting_for_sync = list()
 
 /// A cost counter for resumable, repeating processes.
 /datum/resumable_cost_counter
@@ -132,6 +141,16 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
 
+	if(!is_synchronous)
+		if(healthy)
+			log_debug("MILLA is unhealthy: SSair cannot start processing because MILLA is still read-only! This message will be suppressed until MILLA recovers.")
+			healthy = FALSE
+		last_unhealthy = times_fired
+		return
+	else if(!healthy && times_fired - last_unhealthy >= 10)
+		log_debug("MILLA has recovered: SSair was able to start 10 times in a row.")
+		healthy = TRUE
+
 	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
 		build_pipenets(resumed)
 		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
@@ -159,10 +178,7 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_INTERESTING_TILES)
 		timer = TICK_USAGE_REAL
-		// We gate this on a MILLA tick happening, so that both buffers have
-		// been initialized.
-		if(milla_ticks > 0)
-			process_interesting_tiles(resumed)
+		process_interesting_tiles(resumed)
 		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
 			return
@@ -189,8 +205,9 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_MILLA_TICK)
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
+		is_synchronous = FALSE
 		spawn_milla_tick_thread()
-		milla_ticks++
+		spawn_wait_proc()
 
 		if(state != SS_RUNNING)
 			return
@@ -392,6 +409,24 @@ SUBSYSTEM_DEF(air)
 	B.bound_turf = T
 	T.bound_air = B
 	bound_mixtures += B
+
+/datum/controller/subsystem/air/proc/spawn_wait_proc()
+	if(!is_milla_synchronous())
+		addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc)))
+		return
+
+	is_synchronous = TRUE
+	for(var/datum/callback/CB as anything in waiting_for_sync)
+		CB.InvokeAsync()
+	waiting_for_sync.Cut()
+
+/// Similar to addtimer, but triggers once MILLA enters synchronous mode.
+/datum/controller/subsystem/air/proc/when_synchronous(datum/callback/CB)
+	if(is_synchronous)
+		CB.InvokeAsync()
+		return
+
+	waiting_for_sync += CB
 
 #undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS

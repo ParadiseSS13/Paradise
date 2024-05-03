@@ -18,9 +18,9 @@ use std::fs::File;
 use std::io::Write;
 use std::sync::RwLock;
 use std::sync::{Mutex, OnceLock};
-use std::time::Instant;
 use std::thread;
 use std::thread::ScopedJoinHandle;
+use std::time::Instant;
 
 // Simple logging function, appends to ./milla_log.txt
 #[allow(dead_code)]
@@ -178,17 +178,19 @@ static BUFFER_FLIPPER: OnceLock<Mutex<ActiveBuffer>> = OnceLock::new();
 // during computation.
 //
 // Data type explanation:
-// * OnceLock and Mutex are used as in BUFFER_FLIPPER.
+// * OnceLock is used as in BUFFER_FLIPPER.
+// * The outer RwLock is used like Mutex, but allowing multiple readers at the same time, as long
+//   as no one needs to write it.
 // * HashMap maps Z-levels to their buffer.
-// * RwLock allows us to borrow the buffers independently of each other, so we can thread across
-//   them.
+// * The inner RwLock allows us to borrow the buffers independently of each other, so we can thread
+//   across them.
 // * Box places the data on the heap, so we don't overflow our stack.
 // * Each buffer is fundamentally a large array of f32s.
 static ATMOS_A: OnceLock<
-    Mutex<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>>,
+    RwLock<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>>,
 > = OnceLock::new();
 static ATMOS_B: OnceLock<
-    Mutex<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>>,
+    RwLock<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>>,
 > = OnceLock::new();
 
 // The list of interesting tiles, built during tick() and fetched by BYOND before the next tick.
@@ -208,22 +210,22 @@ static TICK_TIME: OnceLock<Mutex<f32>> = OnceLock::new();
 // Fetches the active buffer map, the HashMap in either ATMOS_A or ATMOS_B, initializing the HashMap
 // if needed.
 fn get_active_atmos_buffer_map(
-) -> &'static Mutex<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>> {
+) -> &'static RwLock<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>> {
     let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(ActiveBuffer::A));
     match *flipper.lock().unwrap() {
-        ActiveBuffer::A => ATMOS_A.get_or_init(|| Mutex::new(HashMap::new())),
-        ActiveBuffer::B => ATMOS_B.get_or_init(|| Mutex::new(HashMap::new())),
+        ActiveBuffer::A => ATMOS_A.get_or_init(|| RwLock::new(HashMap::new())),
+        ActiveBuffer::B => ATMOS_B.get_or_init(|| RwLock::new(HashMap::new())),
     }
 }
 
 // Fetches the inactive buffer map, the HashMap in either ATMOS_A or ATMOS_B, initializing the
 // HashMap if needed.
 fn get_inactive_atmos_buffer_map(
-) -> &'static Mutex<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>> {
+) -> &'static RwLock<HashMap<i32, RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>>> {
     let flipper = BUFFER_FLIPPER.get_or_init(|| Mutex::new(ActiveBuffer::A));
     match *flipper.lock().unwrap() {
-        ActiveBuffer::A => ATMOS_B.get_or_init(|| Mutex::new(HashMap::new())),
-        ActiveBuffer::B => ATMOS_A.get_or_init(|| Mutex::new(HashMap::new())),
+        ActiveBuffer::A => ATMOS_B.get_or_init(|| RwLock::new(HashMap::new())),
+        ActiveBuffer::B => ATMOS_A.get_or_init(|| RwLock::new(HashMap::new())),
     }
 }
 
@@ -282,8 +284,15 @@ macro_rules! get_atmos {
     };
 }
 
+// Fetches the buffer out of the buffer map, and strips it down to just the boxed array.
+macro_rules! get_readonly_atmos {
+    ( $var: ident, $buffer_map: ident, $z: expr ) => {
+        let $var = $buffer_map.get(&$z).unwrap().read().unwrap();
+    };
+}
+
 // Fetches the buffer out of the buffer map, without initializing or stripping off the RwLock.
-// Prefer gat_atmos if you can use it.
+// Prefer gat_atmos or get_readonly_atmos if you can use them.
 macro_rules! get_atmos_raw {
     ( $var: ident, $buffer: ident, $z: expr ) => {
         let $var = $buffer.get(&$z).unwrap();
@@ -368,6 +377,18 @@ fn f32_to_option_f32(value: f32) -> Option<f32> {
     }
 }
 
+// BYOND API for ensuring the buffers are usable.
+#[byondapi::bind]
+fn initialize(byond_z: ByondValue) {
+    setup_panic_handler();
+    let z = f32::try_from(byond_z)? as i32;
+    let mut active_buffer_map = get_active_atmos_buffer_map().write().unwrap();
+    init_atmos!(active_buffer_map, z);
+    let mut inactive_buffer_map = get_inactive_atmos_buffer_map().write().unwrap();
+    init_atmos!(inactive_buffer_map, z);
+    Ok(Default::default())
+}
+
 // BYOND API for setting the atmos details of a tile.
 #[byondapi::bind]
 fn set_tile_atmos(
@@ -411,7 +432,7 @@ fn set_tile_atmos(
         // Temporarily disabled to better match the existing system.
         //bounded_byond_to_option_f32(innate_heat_capacity, 0.0, f32::INFINITY)?,
         Some(0.0),
-    );
+    )?;
     Ok(Default::default())
 }
 
@@ -447,7 +468,7 @@ fn set_tile_atmos_blocking(
         None,
         None,
         None,
-    );
+    )?;
     Ok(Default::default())
 }
 
@@ -471,13 +492,14 @@ fn internal_set_tile_atmos(
     temperature: Option<f32>,
     thermal_energy: Option<f32>,
     innate_heat_capacity: Option<f32>,
-) {
-    let locked = get_active_atmos_buffer_map().lock();
-    match locked {
-        Err(ref e) => println!("{}", e),
-        _ => (),
+) -> Result<()> {
+    let maybe_buffer = get_active_atmos_buffer_map().try_write();
+    if maybe_buffer.is_err() {
+        return Err(eyre!(
+            "Tried to write during asynchronous, read-only atmos. Use SSair.when_synchronous"
+        ));
     }
-    let mut buffer = locked.unwrap();
+    let mut buffer = maybe_buffer.unwrap();
     get_atmos!(atmos, buffer, z);
     get_mutable_tile!(tile_atmos, atmos, x, y);
     if blocked_north.is_some() {
@@ -527,6 +549,8 @@ fn internal_set_tile_atmos(
     if thermal_energy.is_some() {
         tile_atmos[ATMOS_THERMAL_ENERGY] = thermal_energy.unwrap();
     }
+
+    Ok(Default::default())
 }
 
 // BYOND API for fetching the atmos details of a tile.
@@ -556,8 +580,8 @@ fn internal_get_tile_atmos(
     y: i32,
     z: i32,
 ) -> Result<[f32; ATMOS_DEPTH], TryFromSliceError> {
-    let mut buffer = get_active_atmos_buffer_map().lock().unwrap();
-    get_atmos!(atmos, buffer, z);
+    let buffer = get_active_atmos_buffer_map().read().unwrap();
+    get_readonly_atmos!(atmos, buffer, z);
     Ok(atmos[calc_index(x, y, 0)..calc_index(x, y, ATMOS_DEPTH)].try_into()?)
 }
 
@@ -703,7 +727,7 @@ fn reduce_superconductivity(
     let rust_west = bounded_byond_to_option_f32(west, 0.0, 1.0)?;
     internal_reduce_superconductivity(
         rust_x, rust_y, rust_z, rust_north, rust_east, rust_south, rust_west,
-    );
+    )?;
     Ok(Default::default())
 }
 
@@ -718,8 +742,14 @@ fn internal_reduce_superconductivity(
     east: Option<f32>,
     south: Option<f32>,
     west: Option<f32>,
-) {
-    let mut buffer = get_active_atmos_buffer_map().lock().unwrap();
+) -> Result<()> {
+    let maybe_buffer = get_active_atmos_buffer_map().try_write();
+    if maybe_buffer.is_err() {
+        return Err(eyre!(
+            "Tried to write during asynchronous, read-only atmos. Use SSair.when_synchronous"
+        ));
+    }
+    let mut buffer = maybe_buffer.unwrap();
     get_atmos!(atmos, buffer, z);
     let tile_atmos: &mut [f32; ATMOS_DEPTH] = (&mut atmos
         [calc_index(x, y, 0)..calc_index(x, y, ATMOS_DEPTH)])
@@ -741,6 +771,7 @@ fn internal_reduce_superconductivity(
         let index = ATMOS_SUPERCONDUCTIVITY_WEST;
         tile_atmos[index] = tile_atmos[index].min(west.unwrap());
     }
+    Ok(Default::default())
 }
 
 // BYOND API for resetting the superconductivity of a tile.
@@ -749,13 +780,19 @@ fn reset_superconductivity(x: ByondValue, y: ByondValue, z: ByondValue) {
     let rust_x = f32::try_from(x)? as i32 - 1;
     let rust_y = f32::try_from(y)? as i32 - 1;
     let rust_z = f32::try_from(z)? as i32;
-    internal_reset_superconductivity(rust_x, rust_y, rust_z);
+    internal_reset_superconductivity(rust_x, rust_y, rust_z)?;
     Ok(Default::default())
 }
 
 // Rust version of resetting the superconductivity of a tile.
-fn internal_reset_superconductivity(x: i32, y: i32, z: i32) {
-    let mut buffer = get_active_atmos_buffer_map().lock().unwrap();
+fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
+    let maybe_buffer = get_active_atmos_buffer_map().try_write();
+    if maybe_buffer.is_err() {
+        return Err(eyre!(
+            "Tried to write during asynchronous, read-only atmos. Use SSair.when_synchronous"
+        ));
+    }
+    let mut buffer = maybe_buffer.unwrap();
     get_atmos!(atmos, buffer, z);
     let tile_atmos: &mut [f32; ATMOS_DEPTH] = (&mut atmos
         [calc_index(x, y, 0)..calc_index(x, y, ATMOS_DEPTH)])
@@ -765,6 +802,7 @@ fn internal_reset_superconductivity(x: i32, y: i32, z: i32) {
     tile_atmos[ATMOS_SUPERCONDUCTIVITY_EAST] = OPEN_HEAT_TRANSFER_COEFFICIENT;
     tile_atmos[ATMOS_SUPERCONDUCTIVITY_SOUTH] = OPEN_HEAT_TRANSFER_COEFFICIENT;
     tile_atmos[ATMOS_SUPERCONDUCTIVITY_WEST] = OPEN_HEAT_TRANSFER_COEFFICIENT;
+    Ok(Default::default())
 }
 
 // BYOND API for starting an atmos tick.
@@ -788,6 +826,16 @@ fn get_tick_time() {
     let tick_time_mutex = TICK_TIME.get_or_init(|| Mutex::new(0.0));
     let active = tick_time_mutex.lock().unwrap();
     Ok(ByondValue::from(*active))
+}
+
+// BYOND API for asking if MILLA is in synchronous mode and can be written to.
+#[byondapi::bind]
+fn is_synchronous() {
+    let maybe_buffer = get_active_atmos_buffer_map().try_write();
+    if maybe_buffer.is_err() {
+        return Ok(ByondValue::from(0.0));
+    }
+    Ok(ByondValue::from(1.0))
 }
 
 // Counts the number of adjacent tiles that can share atmos with this tile, i.e. have no blockers
@@ -843,21 +891,25 @@ fn tick() {
         interesting_tiles.clear();
     }
 
-    let mut active_buffer_map = get_active_atmos_buffer_map().lock().unwrap();
-    let mut inactive_buffer_map = get_inactive_atmos_buffer_map().lock().unwrap();
-
-    // Collect the Z levels so we don't try to double-borrow active_buffer.
     let mut z_levels = Vec::<i32>::new();
-    for z in (*active_buffer_map).keys() {
-        z_levels.push(*z);
+    let mut inactive_buffer_map = get_inactive_atmos_buffer_map().write().unwrap();
+    {
+        let mut active_buffer_map = get_active_atmos_buffer_map().write().unwrap();
+
+        // Collect the Z levels so we don't try to double-borrow active_buffer.
+        for z in (*active_buffer_map).keys() {
+            z_levels.push(*z);
+        }
+
+        // Ensure all the buffers are initialized so we don't need mutable
+        // access to the HashMap in the next loop.
+        for z in z_levels.iter() {
+            init_atmos!(active_buffer_map, *z);
+            init_atmos!(inactive_buffer_map, *z);
+        }
     }
 
-    // Ensure all the buffers are initialized so we don't need mutable
-    // access to the HashMap in the next loop.
-    for z in z_levels.iter() {
-        init_atmos!(active_buffer_map, *z);
-        init_atmos!(inactive_buffer_map, *z);
-    }
+    let active_buffer_map = get_active_atmos_buffer_map().read().unwrap();
 
     // The scope tells Rust that all the threads we create here will end by the time the scope
     // closes. This allows us to pass things into them that are only borrowed for the lifetime of
@@ -1129,7 +1181,8 @@ fn tick_z_level(
                 // Recalculate existing thermal energy to account for the decrease in heat capacity
                 // caused by turning very high capacity toxins into much lower capacity carbon
                 // dioxide.
-                my_inactive_atmos[ATMOS_THERMAL_ENERGY] = my_inactive_temperature * heat_capacity(my_inactive_atmos);
+                my_inactive_atmos[ATMOS_THERMAL_ENERGY] =
+                    my_inactive_temperature * heat_capacity(my_inactive_atmos);
                 // THEN we can add in the new thermal energy.
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] +=
                     co2_converted * AGENT_B_CONVERSION_ENERGY;
@@ -1154,7 +1207,8 @@ fn tick_z_level(
                 // Recalculate existing thermal energy to account for the decrease in heat capacity
                 // caused by turning very high capacity toxins into much lower capacity carbon
                 // dioxide.
-                my_inactive_atmos[ATMOS_THERMAL_ENERGY] = my_inactive_temperature * heat_capacity(my_inactive_atmos);
+                my_inactive_atmos[ATMOS_THERMAL_ENERGY] =
+                    my_inactive_temperature * heat_capacity(my_inactive_atmos);
                 // THEN we can add in the new thermal energy.
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] +=
                     NITROUS_BREAKDOWN_ENERGY * nitrous_decomposed;
@@ -1184,8 +1238,9 @@ fn tick_z_level(
                 // Capped by oxygen availability. Significantly more oxygen is required than is
                 // consumed. This means that if there is enough oxygen to burn all the plasma, the
                 // oxygen-to-plasm ratio will increase while burning.
-                let burnable_plasma = my_inactive_atmos[ATMOS_TOXINS]
-                    .min(my_inactive_atmos[ATMOS_OXYGEN] / PLASMA_BURN_REQUIRED_OXYGEN_AVAILABILITY);
+                let burnable_plasma = my_inactive_atmos[ATMOS_TOXINS].min(
+                    my_inactive_atmos[ATMOS_OXYGEN] / PLASMA_BURN_REQUIRED_OXYGEN_AVAILABILITY,
+                );
 
                 // Actual burn amount.
                 let plasma_burnt = efficiency * PLASMA_BURN_MAX_RATIO * burnable_plasma;
@@ -1196,7 +1251,8 @@ fn tick_z_level(
                 // Recalculate existing thermal energy to account for the decrease in heat capacity
                 // caused by turning very high capacity toxins into much lower capacity carbon
                 // dioxide.
-                my_inactive_atmos[ATMOS_THERMAL_ENERGY] = my_inactive_temperature * heat_capacity(my_inactive_atmos);
+                my_inactive_atmos[ATMOS_THERMAL_ENERGY] =
+                    my_inactive_temperature * heat_capacity(my_inactive_atmos);
                 // THEN we can add in the new thermal energy.
                 my_inactive_atmos[ATMOS_THERMAL_ENERGY] += PLASMA_BURN_ENERGY * plasma_burnt;
                 fuel_burnt += plasma_burnt;
@@ -1235,7 +1291,8 @@ fn tick_z_level(
                         if fuel_burnt > 0.0 {
                             // Active fires are interesting, even if it's hot here normally.
                             reasons |= REASON_HOT
-                        } else if my_inactive_atmos[ATMOS_EXTERNAL_TEMPERATURE] + 1.0 >= temperature {
+                        } else if my_inactive_atmos[ATMOS_EXTERNAL_TEMPERATURE] + 1.0 >= temperature
+                        {
                             // No active fire, not hotter than normal. Not interesting.
                         } else {
                             // Oh, hey, we're hotter than normal, and can start fires.
@@ -1244,7 +1301,7 @@ fn tick_z_level(
                         }
                     }
                     // Anywhere else is interesting if it can start fires.
-                    _ => reasons |= REASON_HOT
+                    _ => reasons |= REASON_HOT,
                 }
             }
 
@@ -1414,6 +1471,12 @@ mod tests {
         // test_z is used throughout to split the tests into different Z levels, because they all
         // run on the same model, in random order.
         let test_z = 1;
+        {
+            let mut active_buffer_map = get_active_atmos_buffer_map().write().unwrap();
+            init_atmos!(active_buffer_map, test_z);
+            let mut inactive_buffer_map = get_inactive_atmos_buffer_map().write().unwrap();
+            init_atmos!(inactive_buffer_map, test_z);
+        }
 
         let result_tile = internal_get_tile_atmos(1, 2, test_z).unwrap();
         for i in 0..ATMOS_DEPTH {
@@ -1454,7 +1517,8 @@ mod tests {
             None,
             None,
             Some(1.0),
-        );
+        )
+        .unwrap();
 
         // Check that we got the same data back.
         {
@@ -1490,7 +1554,8 @@ mod tests {
             None,
             Some(1.0),
             None,
-        );
+        )
+        .unwrap();
 
         // Check that we got the same data back.
         {
@@ -1512,6 +1577,12 @@ mod tests {
     #[test]
     fn flip_works() {
         let test_z = 3;
+        {
+            let mut active_buffer_map = get_active_atmos_buffer_map().write().unwrap();
+            init_atmos!(active_buffer_map, test_z);
+            let mut inactive_buffer_map = get_inactive_atmos_buffer_map().write().unwrap();
+            init_atmos!(inactive_buffer_map, test_z);
+        }
 
         // Write some arbitrary data to the first buffer.
         internal_set_tile_atmos(
@@ -1533,7 +1604,8 @@ mod tests {
             None,
             None,
             Some(1.0),
-        );
+        )
+        .unwrap();
 
         flip_buffers();
 
@@ -1567,7 +1639,8 @@ mod tests {
             None,
             Some(1.0),
             None,
-        );
+        )
+        .unwrap();
 
         flip_buffers();
 
@@ -1727,7 +1800,8 @@ mod tests {
                         Some(0.0),
                         Some(0.0),
                         Some(0.0),
-                    ),
+                    )
+                    .unwrap(),
                 }
             }
         }
@@ -1829,7 +1903,8 @@ mod tests {
             None,
             value_map.get(&ATMOS_THERMAL_ENERGY).copied(),
             value_map.get(&ATMOS_INNATE_HEAT_CAPACITY).copied(),
-        );
+        )
+        .unwrap();
     }
 
     // Used to create Wall and SuperconductingWall tiles.
@@ -1866,7 +1941,8 @@ mod tests {
             // Apply the specified thermal energy and heat capacity.
             Some(thermal_energy),
             Some(heat_capacity),
-        );
+        )
+        .unwrap();
         internal_reduce_superconductivity(
             x,
             y,
@@ -1875,7 +1951,8 @@ mod tests {
             Some(superconductivity),
             Some(superconductivity),
             Some(superconductivity),
-        );
+        )
+        .unwrap();
     }
 
     enum Tile {

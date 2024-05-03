@@ -34,32 +34,26 @@
 
 #define MILLA_CALL(func, args...) call_ext(MILLA, "byond:[#func]_ffi")(args)
 
-#define REAL_SET_TILE_ATMOS(args...) MILLA_CALL(set_tile_atmos, args)
+/proc/milla_init_z(z)
+	return MILLA_CALL(initialize, z)
+
+/proc/is_milla_synchronous()
+	return MILLA_CALL(is_synchronous)
 
 /proc/set_tile_atmos(x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-	return REAL_SET_TILE_ATMOS(x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-
-#define REAL_GET_TILE_ATMOS(args...) MILLA_CALL(get_tile_atmos, args)
+	return MILLA_CALL(set_tile_atmos, x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
 
 /proc/get_tile_atmos(x, y, z)
-	return REAL_GET_TILE_ATMOS(x, y, z)
-
-#define REAL_SPAWN_TICK_THREAD MILLA_CALL(spawn_tick_thread)
+	return MILLA_CALL(get_tile_atmos, x, y, z)
 
 /proc/spawn_milla_tick_thread()
-	return REAL_SPAWN_TICK_THREAD
-
-#define REAL_GET_TICK_TIME MILLA_CALL(get_tick_time)
+	return MILLA_CALL(spawn_tick_thread)
 
 /proc/get_milla_tick_time()
-	return REAL_GET_TICK_TIME
-
-#define REAL_GET_INTERESTING_TILES MILLA_CALL(get_interesting_tiles)
+	return MILLA_CALL(get_tick_time)
 
 /proc/get_interesting_atmos_tiles()
-	return REAL_GET_INTERESTING_TILES
-
-#define REAL_REDUCE_SUPERCONDUCTIVITY(args...) MILLA_CALL(reduce_superconductivity, args)
+	return MILLA_CALL(get_interesting_tiles)
 
 /proc/reduce_superconductivity(x, y, z, list/superconductivity)
 	var/north = superconductivity[1]
@@ -67,14 +61,10 @@
 	var/south = superconductivity[3]
 	var/west = superconductivity[4]
 
-	return REAL_REDUCE_SUPERCONDUCTIVITY(x, y, z, north, east, south, west)
-
-#define REAL_RESET_SUPERCONDUCTIVITY(args...) MILLA_CALL(reset_superconductivity, args)
+	return MILLA_CALL(reduce_superconductivity, x, y, z, north, east, south, west)
 
 /proc/reset_superconductivity(x, y, z)
-	return REAL_RESET_SUPERCONDUCTIVITY(x, y, z)
-
-#define REAL_SET_TILE_ATMOS_BLOCKING(args...) MILLA_CALL(set_tile_atmos_blocking, args)
+	return MILLA_CALL(reset_superconductivity, x, y, z)
 
 /proc/set_tile_atmos_blocking(x, y, z, list/blocking)
 	var/north = blocking[1]
@@ -82,20 +72,10 @@
 	var/south = blocking[3]
 	var/west = blocking[4]
 
-	return REAL_SET_TILE_ATMOS_BLOCKING(x, y, z, north, east, south, west)
-
-#define REAL_GET_RANDOM_INTERESTING_TILE MILLA_CALL(get_random_interesting_tile)
+	return MILLA_CALL(set_tile_atmos_blocking, x, y, z, north, east, south, west)
 
 /proc/get_random_interesting_tile()
-	return REAL_GET_RANDOM_INTERESTING_TILE
+	return MILLA_CALL(get_random_interesting_tile)
 
 #undef MILLA
 #undef MILLA_CALL
-#undef REAL_SET_TILE_ATMOS
-#undef REAL_GET_TILE_ATMOS
-#undef REAL_SPAWN_TICK_THREAD
-#undef REAL_GET_INTERESTING_TILES
-#undef REAL_REDUCE_SUPERCONDUCTIVITY
-#undef REAL_RESET_SUPERCONDUCTIVITY
-#undef REAL_SET_TILE_ATMOS_BLOCKING
-#undef REAL_GET_RANDOM_INTERESTING_TILE
