@@ -74,7 +74,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
-	if(do_after(user, 50 * toolspeed, target = AM))
+	if(do_after(user, 1.5 SECONDS * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
 		target = AM
