@@ -53,9 +53,9 @@
 		return
 
 	//Calculate necessary moles to transfer using PV = nRT
-	if(inlet.temperature > 0)
+	if(inlet.temperature() > 0)
 		var/pressure_delta = (input_starting_pressure - output_starting_pressure) / 2
-		var/transfer_moles = pressure_delta * outlet.volume/(inlet.temperature * R_IDEAL_GAS_EQUATION)
+		var/transfer_moles = pressure_delta * outlet.volume/(inlet.temperature() * R_IDEAL_GAS_EQUATION)
 
 		if(last_pressure_delta != pressure_delta)
 			last_pressure_delta = pressure_delta

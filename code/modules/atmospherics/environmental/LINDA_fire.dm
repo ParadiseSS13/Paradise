@@ -15,14 +15,14 @@
 		return FALSE
 	if(active_hotspot)
 		if(soh)
-			if(air.toxins > 0.5 && air.oxygen > 0.5)
+			if(air.toxins() > 0.5 && air.oxygen() > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
 		return TRUE
 
-	if(exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE && air.oxygen > 0.5 && air.toxins > 0.5)
+	if(exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE && air.oxygen() > 0.5 && air.toxins() > 0.5)
 		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
@@ -60,9 +60,9 @@
 		return FALSE
 
 	var/datum/gas_mixture/location_air = location.get_air()
-	if(location_air.temperature >= min(temperature, PLASMA_UPPER_TEMPERATURE))
+	if(location_air.temperature() >= min(temperature, PLASMA_UPPER_TEMPERATURE))
 		// The cell is already hot enough, no need to do more.
-		temperature = location_air.temperature
+		temperature = location_air.temperature()
 		volume = CELL_VOLUME
 		color = heat2color(temperature)
 		set_light(l_color = color)
@@ -72,31 +72,31 @@
 	var/datum/gas_mixture/burning = location_air.remove_ratio(volume / location_air.volume)
 
 	// Temporarily boost the temperature of this air to the hotspot temperature.
-	var/old_temperature = burning.temperature
-	burning.temperature = temperature
+	var/old_temperature = burning.temperature()
+	burning.set_temperature(temperature)
 
 	// Record how much plasma we had initially.
-	var/old_toxins = burning.toxins
+	var/old_toxins = burning.toxins()
 
 	// Burn it.
 	burning.react()
 
 	// Calculate how much thermal energy was produced.
 	// (Yes, gas_mixture has its own .fuel_burnt, but I dont' trust that code.)
-	var/fuel_burnt = old_toxins - burning.toxins
+	var/fuel_burnt = old_toxins - burning.toxins()
 	var/thermal_energy = FIRE_PLASMA_ENERGY_RELEASED * fuel_burnt
 
 	// Update the hotspot based on the reaction.
-	temperature = burning.temperature
+	temperature = burning.temperature()
 	volume = min(CELL_VOLUME, fuel_burnt * FIRE_GROWTH_RATE)
 	color = heat2color(temperature)
 	set_light(l_color = color)
 
 	// Revert the air's temperature to where it started.
-	burning.temperature = old_temperature
+	burning.set_temperature(old_temperature)
 
 	// Add in the produced thermal energy.
-	burning.temperature += thermal_energy / burning.heat_capacity()
+	burning.set_temperature(burning.temperature() + thermal_energy / burning.heat_capacity())
 
 	// And add it back to the tile.
 	location_air.merge(burning)
@@ -112,7 +112,7 @@
 		return
 
 	var/datum/gas_mixture/location_air = location.get_air()
-	if(location.blocks_air || location_air.toxins < 0.5 || location_air.oxygen < 0.5)
+	if(location.blocks_air || location_air.toxins() < 0.5 || location_air.oxygen() < 0.5)
 		qdel(src)
 		return
 

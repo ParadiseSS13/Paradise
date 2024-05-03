@@ -152,14 +152,12 @@
 		if(!T.blocks_air)
 			var/datum/gas_mixture/G = T.get_air()
 			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-				G.temperature = 2
-			T.recalculate_atmos_connectivity()
+				G.set_temperature(2)
 			for(var/obj/effect/hotspot/H in T)
 				qdel(H)
-				if(G.toxins)
-					G.nitrogen += (G.toxins)
-					G.toxins = 0
-			T.write_air(G)
+				if(G.toxins())
+					G.set_nitrogen(G.nitrogen() + (G.toxins()))
+					G.set_toxins(0)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 				V.welded = TRUE

@@ -29,9 +29,9 @@
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
 
-	air_contents.oxygen = MOLES_O2STANDARD * 2
-	air_contents.nitrogen = MOLES_N2STANDARD
-	air_contents.temperature = T20C
+	air_contents.set_oxygen(MOLES_O2STANDARD * 2)
+	air_contents.set_nitrogen(MOLES_N2STANDARD)
+	air_contents.set_temperature(T20C)
 
 	for(var/obj/structure/transit_tube/tube in loc)
 		dir = pick(tube.directions())

@@ -889,10 +889,10 @@
 	var/loc_temp = T0C
 	if(ismecha(loc))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
+		loc_temp = M.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
@@ -902,12 +902,12 @@
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
 
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			loc_temp = environment.temperature()
 		else
-			loc_temp = C.air_contents.temperature
+			loc_temp = C.air_contents.temperature()
 
 	else
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	return loc_temp
 

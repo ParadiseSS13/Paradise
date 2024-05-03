@@ -100,16 +100,15 @@
 		return
 	var/turf/simulated/S = T
 	var/datum/gas_mixture/S_air = S.get_air()
-	var/initial_temperature = S_air.temperature
+	var/initial_temperature = S_air.temperature()
 	if(initial_temperature <= lower_temperature_limit) //Can we actually cool this?
 		return
 	var/old_thermal_energy = S_air.thermal_energy()
 	var/amount_cooled = initial_temperature - modifier * 8000 / S_air.heat_capacity()
-	S_air.temperature = max(amount_cooled, lower_temperature_limit)
+	S_air.set_temperature(max(amount_cooled, lower_temperature_limit))
 	recalculate_atmos_connectivity()
 	var/new_thermal_energy = S_air.thermal_energy()
 	power_used_this_cycle += (old_thermal_energy - new_thermal_energy) / 100
-	S.write_air(S_air)
 
 /obj/machinery/snow_machine/proc/make_snowcloud(turf/T)
 	if(isspaceturf(T))
@@ -119,7 +118,7 @@
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
 		var/datum/gas_mixture/S_air = S.get_air()
-		if(S_air.temperature > T0C + 1)
+		if(S_air.temperature() > T0C + 1)
 			return
 	if(locate(/obj/effect/snowcloud, T)) //Ice to see you
 		return

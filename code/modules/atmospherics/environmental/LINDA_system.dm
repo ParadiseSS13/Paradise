@@ -112,58 +112,35 @@
 	var/datum/gas_mixture/G = new()
 
 	if(flag & LINDA_SPAWN_20C)
-		G.temperature = T20C
+		G.set_temperature(T20C)
 
 	if(flag & LINDA_SPAWN_HEAT)
-		G.temperature += 1000
+		G.set_temperature(G.temperature() + 1000)
 
 	if(flag & LINDA_SPAWN_COLD)
-		G.temperature = TCMB
+		G.set_temperature(TCMB)
 
 	if(flag & LINDA_SPAWN_TOXINS)
-		G.toxins += amount
+		G.set_toxins(G.toxins() + amount)
 
 	if(flag & LINDA_SPAWN_OXYGEN)
-		G.oxygen += amount
+		G.set_oxygen(G.oxygen() + amount)
 
 	if(flag & LINDA_SPAWN_CO2)
-		G.carbon_dioxide += amount
+		G.set_carbon_dioxide(G.carbon_dioxide() + amount)
 
 	if(flag & LINDA_SPAWN_NITROGEN)
-		G.nitrogen += amount
+		G.set_nitrogen(G.nitrogen() + amount)
 
 	if(flag & LINDA_SPAWN_N2O)
-		G.sleeping_agent += amount
+		G.set_sleeping_agent(G.sleeping_agent() + amount)
 
 	if(flag & LINDA_SPAWN_AGENT_B)
-		G.agent_b += amount
+		G.set_agent_b(G.agent_b() + amount)
 
 	if(flag & LINDA_SPAWN_AIR)
-		G.oxygen += MOLES_O2STANDARD * amount
-		G.nitrogen += MOLES_N2STANDARD * amount
+		G.set_oxygen(G.oxygen() + MOLES_O2STANDARD * amount)
+		G.set_nitrogen(G.nitrogen() + MOLES_N2STANDARD * amount)
 
-	var/datum/gas_mixture/full_air = get_air()
-	full_air.merge(G)
-	write_air(full_air)
-
-// From milla/src/lib.rs
-// Increased by 1 due to the difference in array indexing.
-#define GAS_OFFSET 7
-// Rust deals in thermal energy, but converts when talking to DM.
-#define ATMOS_TEMPERATURE 13
-#define ATMOS_INNATE_HEAT_CAPACITY 18
-/proc/milla_to_gas_mixture(list/raw_atmos)
-	var/datum/gas_mixture/air = new()
-	// Numbers from milla/src/lib.rs, plus one due to array indexing.
-	air.oxygen = raw_atmos[GAS_OFFSET + 0]
-	air.carbon_dioxide = raw_atmos[GAS_OFFSET + 1]
-	air.nitrogen = raw_atmos[GAS_OFFSET + 2]
-	air.toxins = raw_atmos[GAS_OFFSET + 3]
-	air.sleeping_agent = raw_atmos[GAS_OFFSET + 4]
-	air.agent_b = raw_atmos[GAS_OFFSET + 5]
-	air.temperature = raw_atmos[ATMOS_TEMPERATURE]
-	air.innate_heat_capacity = raw_atmos[ATMOS_INNATE_HEAT_CAPACITY]
-	return air
-#undef GAS_OFFSET
-#undef ATMOS_TEMPERATURE
-#undef ATMOS_INNATE_HEAT_CAPACITY
+	var/datum/gas_mixture/air = get_air()
+	air.merge(G)

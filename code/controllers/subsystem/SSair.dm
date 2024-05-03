@@ -3,8 +3,9 @@
 #define SSAIR_ATMOSMACHINERY 3
 #define SSAIR_INTERESTING_TILES 4
 #define SSAIR_HOTSPOTS 5
-#define SSAIR_RUST_TICK 6
-#define SSAIR_SUPERCONDUCTIVITY 7
+#define SSAIR_BOUND_MIXTURES 6
+#define SSAIR_MILLA_TICK 7
+#define SSAIR_SUPERCONDUCTIVITY 8
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -16,6 +17,8 @@ SUBSYSTEM_DEF(air)
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 
+	/// The cost of a pass through bound gas mixtures, shown in SS Info's C block as BM.
+	var/datum/resumable_cost_counter/cost_bound_mixtures = new()
 	/// The cost of a MILLA tick in ms, shown in SS Info's C block as MT.
 	var/cost_milla_tick = 0
 	/// The cost of a pass through interesting tiles, shown in SS Info's C block as IT.
@@ -29,6 +32,14 @@ SUBSYSTEM_DEF(air)
 	/// The cost of a pass through atmos machinery, shown in SS Info's C block as AM.
 	var/datum/resumable_cost_counter/cost_atmos_machinery = new()
 
+	/// The set of current bound mixtures. Shown in SS Info as BM:x+y, where x is the length at the start of the most recent processing, and y is the number of mixtures that have been added during processing.
+	var/list/bound_mixtures = list()
+	/// The original length of bound_mixtures.
+	var/original_bound_mixtures = 0
+	/// The number of bound mixtures we saw when we last stopped processing them.
+	var/last_bound_mixtures = 0
+	/// The number of bound mixtures that were added during this processing cycle.
+	var/added_bound_mixtures = 0
 	/// The length of the most recent interesting tiles list, shown in SS Info as IT.
 	var/interesting_tile_count = 0
 	/// The set of current active hotspots. Length shown in SS Info as HS.
@@ -52,8 +63,8 @@ SUBSYSTEM_DEF(air)
 	/// Which step we're currently on, used to let us resume if our time budget elapses.
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-	/// Tracks whether we've had any MILLA tick, and can safely ask about interesting tiles.
-	var/has_ticked_milla = FALSE
+	/// Tracks how many MILLA ticks we've run. Used to safely run Interesting Tiles, and to track whether bound gas mixtures have read their MILLA value this tick.
+	var/milla_ticks = 0
 
 /// A cost counter for resumable, repeating processes.
 /datum/resumable_cost_counter
@@ -78,6 +89,7 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
+	msg += "BM:[cost_bound_mixtures.to_string()]|"
 	msg += "MT:[round(cost_milla_tick,1)]|"
 	msg += "IT:[cost_interesting_tiles.to_string()]|"
 	msg += "HS:[cost_hotspots.to_string()]|"
@@ -85,6 +97,7 @@ SUBSYSTEM_DEF(air)
 	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
 	msg += "AM:[cost_atmos_machinery.to_string()]"
 	msg += "} "
+	msg += "BM:[original_bound_mixtures]+[added_bound_mixtures]|"
 	msg += "IT:[interesting_tile_count]|"
 	msg += "HS:[length(hotspots)]|"
 	msg += "PN:[length(pipenets)]|"
@@ -148,7 +161,7 @@ SUBSYSTEM_DEF(air)
 		timer = TICK_USAGE_REAL
 		// We gate this on a MILLA tick happening, so that both buffers have
 		// been initialized.
-		if(has_ticked_milla)
+		if(milla_ticks > 0)
 			process_interesting_tiles(resumed)
 		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
 		if(state != SS_RUNNING)
@@ -163,12 +176,21 @@ SUBSYSTEM_DEF(air)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
-		currentpart = SSAIR_RUST_TICK
+		currentpart = SSAIR_BOUND_MIXTURES
 
-	if(currentpart == SSAIR_RUST_TICK)
+	if(currentpart == SSAIR_BOUND_MIXTURES)
+		timer = TICK_USAGE_REAL
+		process_bound_mixtures(resumed)
+		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
+		if(state != SS_RUNNING)
+			return
+		resumed = 0
+		currentpart = SSAIR_MILLA_TICK
+
+	if(currentpart == SSAIR_MILLA_TICK)
 		timer = TICK_USAGE_REAL
 		spawn_milla_tick_thread()
-		has_ticked_milla = TRUE
+		milla_ticks++
 		cost_milla_tick = TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer)
 		if(state != SS_RUNNING)
 			return
@@ -274,8 +296,8 @@ SUBSYSTEM_DEF(air)
 			var/datum/gas_mixture/air = T.get_air()
 			T.hotspot_expose(air.temperature, CELL_VOLUME)
 			for(var/atom/movable/item in T)
-				item.temperature_expose(air, air.temperature, CELL_VOLUME)
-			T.temperature_expose(air, air.temperature, CELL_VOLUME)
+				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
+			T.temperature_expose(air, air.temperature(), CELL_VOLUME)
 
 		if(reasons & REASON_WIND)
 			T.high_pressure_movements(x_flow, y_flow)
@@ -286,6 +308,26 @@ SUBSYSTEM_DEF(air)
 #undef REASON_DISPLAY
 #undef REASON_HOT
 #undef REASON_WIND
+
+/datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
+	if(!resumed)
+		original_bound_mixtures = length(bound_mixtures)
+		last_bound_mixtures = length(bound_mixtures)
+	// Note that we do NOT copy this list. We're fine with things being added to it as we work, because it all needs to get written before the next MILLA tick.
+	src.currentrun = bound_mixtures
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
+	added_bound_mixtures = length(currentrun) - last_bound_mixtures
+	while(length(currentrun))
+		var/datum/gas_mixture/bound_to_turf/mixture = currentrun[length(currentrun)]
+		currentrun.len--
+		if(mixture.dirty)
+			mixture.write()
+		mixture.bound_turf.bound_air = null
+		mixture.bound_turf = null
+		if(MC_TICK_CHECK)
+			last_bound_mixtures = length(bound_mixtures)
+			return
 
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	for(var/thing in turfs_to_init)
@@ -344,10 +386,18 @@ SUBSYSTEM_DEF(air)
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
 
+/datum/controller/subsystem/air/proc/bind_turf(turf/T)
+	var/datum/gas_mixture/bound_to_turf/B = new()
+	B.copy_from_milla(get_tile_atmos(T.x, T.y, T.z), mark_dirty = FALSE)
+	B.bound_turf = T
+	T.bound_air = B
+	bound_mixtures += B
+
 #undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
 #undef SSAIR_INTERESTING_TILES
 #undef SSAIR_HOTSPOTS
-#undef SSAIR_RUST_TICK
+#undef SSAIR_BOUND_MIXTURES
+#undef SSAIR_MILLA_TICK
 #undef SSAIR_SUPERCONDUCTIVITY

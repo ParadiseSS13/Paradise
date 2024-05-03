@@ -39,8 +39,8 @@
 
 	if(pressure_delta > 0)
 		// transfer from pipe air to environment
-		if((air_contents.total_moles() > 0) && (air_contents.temperature > 0))
-			var/transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+		if((air_contents.total_moles() > 0) && (air_contents.temperature() > 0))
+			var/transfer_moles = pressure_delta * environment.volume / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			transfer_moles = min(transfer_moles, volume)
 
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
@@ -48,8 +48,8 @@
 	else
 		// transfer from environment to pipe air
 		pressure_delta = -pressure_delta
-		if((environment.total_moles() > 0) && (environment.temperature > 0))
-			var/transfer_moles = pressure_delta * air_contents.volume / (environment.temperature * R_IDEAL_GAS_EQUATION)
+		if((environment.total_moles() > 0) && (environment.temperature() > 0))
+			var/transfer_moles = pressure_delta * air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
 			transfer_moles = min(transfer_moles, volume)
 
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)

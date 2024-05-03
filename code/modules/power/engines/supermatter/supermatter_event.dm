@@ -66,21 +66,21 @@
 	name = "D-1"
 
 /datum/supermatter_event/delta_tier/sleeping_gas/on_start()
-	environment.sleeping_agent += 200
+	environment.set_sleeping_agent(environment.sleeping_agent() + 200)
 
 // nitrogen
 /datum/supermatter_event/delta_tier/nitrogen
 	name = "D-2"
 
 /datum/supermatter_event/delta_tier/nitrogen/on_start()
-	environment.nitrogen += 200
+	environment.set_nitrogen(environment.nitrogen() + 200)
 
 // carbon dioxide
 /datum/supermatter_event/delta_tier/carbon_dioxide
 	name = "D-3"
 
 /datum/supermatter_event/delta_tier/carbon_dioxide/on_start()
-	environment.carbon_dioxide += 250
+	environment.set_carbon_dioxide(environment.carbon_dioxide() + 250)
 
 
 // C class events
@@ -97,14 +97,14 @@
 	name = "C-1"
 
 /datum/supermatter_event/charlie_tier/oxygen/on_start()
-	environment.oxygen += 250
+	environment.set_oxygen(environment.oxygen() + 250)
 
 // plasma
 /datum/supermatter_event/charlie_tier/plasma
 	name = "C-2"
 
 /datum/supermatter_event/charlie_tier/plasma/on_start()
-	environment.toxins += 200
+	environment.set_toxins(environment.toxins() + 200)
 
 // lowers the temp required for the SM to take damage.
 /datum/supermatter_event/charlie_tier/heat_penalty_threshold

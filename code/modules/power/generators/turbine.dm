@@ -298,7 +298,7 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	if(compressor.gas_contained.temperature < 500)
+	if(compressor.gas_contained.temperature() < 500)
 		lastgen = 0
 	else
 		lastgen = ((compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * productivity * POWER_CURVE_MOD
@@ -307,7 +307,7 @@
 
 	// Weird function but it works. Should be something else...
 
-	var/newrpm = ((compressor.gas_contained.temperature) * compressor.gas_contained.total_moles())/4
+	var/newrpm = ((compressor.gas_contained.temperature()) * compressor.gas_contained.total_moles())/4
 
 	newrpm = max(0, newrpm)
 
@@ -378,7 +378,7 @@
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
-		data["temperature"] = compressor.gas_contained.return_temperature()
+		data["temperature"] = compressor.gas_contained.temperature()
 	return data
 
 /obj/machinery/power/turbine/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -444,7 +444,7 @@
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
-		data["temperature"] = compressor.gas_contained.return_temperature()
+		data["temperature"] = compressor.gas_contained.temperature()
 		data["bearing_heat"] = clamp((compressor.overheat / OVERHEAT_THRESHOLD) * 100, 0, 100)
 	return data
 

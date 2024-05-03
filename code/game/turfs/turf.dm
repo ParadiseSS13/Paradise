@@ -78,6 +78,8 @@
 	/// The general behavior of atmos on this tile.
 	var/atmos_mode = ATMOS_MODE_SEALED
 
+	var/datum/gas_mixture/bound_to_turf/bound_air
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -136,6 +138,7 @@
 	visibilityChanged()
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
+	bound_air = null
 	..()
 
 /turf/attack_hand(mob/user as mob)
@@ -313,7 +316,7 @@
 
 /turf/proc/BeforeChange()
 	var/datum/gas_mixture/G = get_air()
-	temperature = G.temperature
+	temperature = G.temperature()
 	return
 
 /turf/proc/is_safe()
@@ -355,20 +358,22 @@
 	// Merge together all the neighboring air.
 	for(var/turf/T in GetAtmosAdjacentTurfs())
 		if(!T.blocks_air)
-			var/datum/gas_mixture/copy = T.get_air()
+			var/datum/gas_mixture/copy = new()
+			copy.copy_from(T.get_air())
 			merged.merge(copy)
 			turf_count++
 
 	// Divide the air amount by the number of airs merged to average them.
 	if(turf_count > 0)
-		merged.oxygen /= turf_count
-		merged.nitrogen /= turf_count
-		merged.carbon_dioxide /= turf_count
-		merged.toxins /= turf_count
-		merged.sleeping_agent /= turf_count
-		merged.agent_b /= turf_count
+		merged.set_oxygen(merged.oxygen() / turf_count)
+		merged.set_nitrogen(merged.nitrogen() / turf_count)
+		merged.set_carbon_dioxide(merged.carbon_dioxide() / turf_count)
+		merged.set_toxins(merged.toxins() / turf_count)
+		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
+		merged.set_agent_b(merged.agent_b() / turf_count)
 
-	get_air().copy_from(merged)
+	var/datum/gas_mixture/air = get_air()
+	air.copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf, keep_icon = FALSE)
@@ -611,7 +616,6 @@
 		C.KnockDown(3 SECONDS)
 
 /turf/proc/get_air()
-	return milla_to_gas_mixture(get_tile_atmos(x, y, z))
-
-/turf/proc/write_air(datum/gas_mixture/air)
-	set_tile_atmos(x, y, z, oxygen = air.oxygen, carbon_dioxide = air.carbon_dioxide, nitrogen = air.nitrogen, toxins = air.toxins, sleeping_agent = air.sleeping_agent, agent_b = air.agent_b, temperature = air.temperature)
+	if(isnull(bound_air))
+		SSair.bind_turf(src)
+	return bound_air

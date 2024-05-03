@@ -27,7 +27,7 @@
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
 		var/datum/gas_mixture/G = S.get_air()
-		turf_hotness = G.temperature
+		turf_hotness = G.temperature()
 	if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 		qdel(src)
 		return
@@ -46,7 +46,7 @@
 	if(issimulatedturf(T))
 		var/turf/simulated/S = T
 		var/datum/gas_mixture/G = S.get_air()
-		if(prob(75 + G.temperature - T0C)) //Colder turf = more chance of snow
+		if(prob(75 + G.temperature() - T0C)) //Colder turf = more chance of snow
 			return
 	new /obj/effect/snow(T)
 
@@ -89,9 +89,9 @@
 	else if(issimulatedturf(T))
 		var/turf/simulated/S = T
 		var/datum/gas_mixture/G = S.get_air()
-		if(G.temperature <= T0C)
+		if(G.temperature() <= T0C)
 			return
-		if(prob(10 + G.temperature - T0C))
+		if(prob(10 + G.temperature() - T0C))
 			qdel(src)
 
 /obj/effect/snow/attack_hand(mob/living/carbon/human/user)

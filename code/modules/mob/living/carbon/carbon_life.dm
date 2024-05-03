@@ -95,7 +95,7 @@
 	if(breath)
 		loc.assume_air(breath)
 		recalculate_atmos_connectivity()
-		if(ishuman(src) && !internal && environment.temperature < 273 && environment.return_pressure() > 20) //foggy breath :^)
+		if(ishuman(src) && !internal && environment.temperature() < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 
 //Third and last link in a breath chain
@@ -119,12 +119,12 @@
 	var/SA_para_min = 1
 	var/SA_sleep_min = 1
 	var/oxygen_used = 0
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
+	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature())/BREATH_VOLUME
 
-	var/O2_partialpressure = (breath.oxygen/breath.total_moles())*breath_pressure
-	var/Toxins_partialpressure = (breath.toxins/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath.carbon_dioxide/breath.total_moles())*breath_pressure
-	var/SA_partialpressure = (breath.sleeping_agent/breath.total_moles())*breath_pressure
+	var/O2_partialpressure = (breath.oxygen()/breath.total_moles())*breath_pressure
+	var/Toxins_partialpressure = (breath.toxins()/breath.total_moles())*breath_pressure
+	var/CO2_partialpressure = (breath.carbon_dioxide()/breath.total_moles())*breath_pressure
+	var/SA_partialpressure = (breath.sleeping_agent()/breath.total_moles())*breath_pressure
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
@@ -133,18 +133,18 @@
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			oxygen_used = breath.oxygen*ratio
+			oxygen_used = breath.oxygen()*ratio
 		else
 			adjustOxyLoss(3)
 		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen
+		oxygen_used = breath.oxygen()
 		clear_alert("not_enough_oxy")
 
-	breath.oxygen -= oxygen_used
-	breath.carbon_dioxide += oxygen_used
+	breath.set_oxygen(breath.oxygen() - oxygen_used)
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + oxygen_used)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -163,14 +163,14 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.toxins/safe_tox_max) * 10
+		var/ratio = (breath.toxins()/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
 	//TRACE GASES
-	if(breath.sleeping_agent)
+	if(breath.sleeping_agent())
 		if(SA_partialpressure > SA_para_min)
 			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)

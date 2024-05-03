@@ -49,15 +49,15 @@
 				// this feels slightly icky
 				var/turf/simulated/S = T
 				if(!S.blocks_air)
-					var/datum/gas_mixture/air = new()
-					air.temperature = temperature
-					air.oxygen = ppratio_to_moles(oxygen)
-					air.nitrogen = ppratio_to_moles(nitrogen)
-					air.toxins = ppratio_to_moles(plasma)
-					air.carbon_dioxide = ppratio_to_moles(cdiox)
-					air.sleeping_agent = ppratio_to_moles(nitrox)
-					air.agent_b = ppratio_to_moles(agentbx)
-					S.get_air().copy_from(air)
+					var/datum/gas_mixture/air = S.get_air()
+					air.set_temperature(temperature)
+					air.set_oxygen(ppratio_to_moles(oxygen))
+					air.set_nitrogen(ppratio_to_moles(nitrogen))
+					air.set_toxins(ppratio_to_moles(plasma))
+					air.set_carbon_dioxide(ppratio_to_moles(cdiox))
+					air.set_sleeping_agent(ppratio_to_moles(nitrox))
+					air.set_agent_b(ppratio_to_moles(agentbx))
+					S.update_visuals()
 			else if(ctrl_click) // overwrite "default" space air
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)

@@ -81,11 +81,11 @@
 	var/gas_breathed = 0
 
 	//Partial pressures in our breath
-	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen)
-	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen)
-	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins)
-	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide)
-	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent)
+	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
+	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
+	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins())
+	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide())
+	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent())
 
 
 	//-- OXY --//
@@ -93,7 +93,7 @@
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = (breath.oxygen / safe_oxygen_max / safe_oxygen_max) * 10
+			var/ratio = (breath.oxygen() / safe_oxygen_max / safe_oxygen_max) * 10
 			H.apply_damage_type(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 		else
@@ -102,16 +102,16 @@
 	//Too little oxygen!
 	if(safe_oxygen_min)
 		if(O2_pp < safe_oxygen_min)
-			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen)
+			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen())
 			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.oxygen
+			gas_breathed = breath.oxygen()
 			H.clear_alert("not_enough_oxy")
 
 	//Exhale
-	breath.oxygen -= gas_breathed
-	breath.carbon_dioxide += gas_breathed
+	breath.set_oxygen(breath.oxygen() - gas_breathed)
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
 	gas_breathed = 0
 
 	//-- Nitrogen --//
@@ -119,7 +119,7 @@
 	//Too much nitrogen!
 	if(safe_nitro_max)
 		if(N2_pp > safe_nitro_max)
-			var/ratio = (breath.nitrogen / safe_nitro_max) * 10
+			var/ratio = (breath.nitrogen() / safe_nitro_max) * 10
 			H.apply_damage_type(clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
 			H.throw_alert("too_much_nitro", /atom/movable/screen/alert/too_much_nitro)
 		else
@@ -128,16 +128,16 @@
 	//Too little nitrogen!
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
-			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
+			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen())
 			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.nitrogen
+			gas_breathed = breath.nitrogen()
 			H.clear_alert("not_enough_nitro")
 
 	//Exhale
-	breath.nitrogen -= gas_breathed
-	breath.carbon_dioxide += gas_breathed
+	breath.set_nitrogen(breath.nitrogen() - gas_breathed)
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
 	gas_breathed = 0
 
 	//-- CO2 --//
@@ -163,16 +163,16 @@
 	//Too little CO2!
 	if(safe_co2_min)
 		if(CO2_pp < safe_co2_min)
-			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide)
+			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide())
 			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.carbon_dioxide
+			gas_breathed = breath.carbon_dioxide()
 			H.clear_alert("not_enough_co2")
 
 	//Exhale
-	breath.carbon_dioxide -= gas_breathed
-	breath.oxygen += gas_breathed
+	breath.set_carbon_dioxide(breath.carbon_dioxide() - gas_breathed)
+	breath.set_oxygen(breath.oxygen() + gas_breathed)
 	gas_breathed = 0
 
 
@@ -181,7 +181,7 @@
 	//Too much toxins!
 	if(safe_toxins_max)
 		if(Toxins_pp > safe_toxins_max)
-			var/ratio = (breath.toxins / safe_toxins_max) * 10
+			var/ratio = (breath.toxins() / safe_toxins_max) * 10
 			H.apply_damage_type(clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type)
 			H.throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 		else
@@ -191,22 +191,22 @@
 	//Too little toxins!
 	if(safe_toxins_min)
 		if(Toxins_pp < safe_toxins_min)
-			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins)
+			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins())
 			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.toxins
+			gas_breathed = breath.toxins()
 			H.clear_alert("not_enough_tox")
 
 	//Exhale
-	breath.toxins -= gas_breathed
-	breath.carbon_dioxide += gas_breathed
+	breath.set_toxins(breath.toxins() - gas_breathed)
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
 	gas_breathed = 0
 
 
 	//-- TRACES --//
 
-	if(breath.sleeping_agent)	// If there's some other shit in the air lets deal with it here.
+	if(breath.sleeping_agent())	// If there's some other shit in the air lets deal with it here.
 		if(SA_pp > SA_para_min)
 			H.Paralyse(6 SECONDS) // 6 seconds gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
@@ -236,7 +236,7 @@
 
 
 /datum/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
-	var/breath_temperature = breath.temperature
+	var/breath_temperature = breath.temperature()
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/CM = abs(H.dna.species.coldmod)

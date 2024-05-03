@@ -7,14 +7,14 @@
 	//Create gas mixture to hold data for passing
 	var/datum/gas_mixture/GM = new
 
-	GM.oxygen = oxygen
-	GM.carbon_dioxide = carbon_dioxide
-	GM.nitrogen = nitrogen
-	GM.toxins = toxins
-	GM.sleeping_agent = sleeping_agent
-	GM.agent_b = agent_b
+	GM.set_oxygen(oxygen)
+	GM.set_carbon_dioxide(carbon_dioxide)
+	GM.set_nitrogen(nitrogen)
+	GM.set_toxins(toxins)
+	GM.set_sleeping_agent(sleeping_agent)
+	GM.set_agent_b(agent_b)
 
-	GM.temperature = temperature
+	GM.set_temperature(temperature)
 
 	return GM
 
@@ -26,32 +26,28 @@
 
 	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
 	if(sum > 0)
-		GM.oxygen = (oxygen / sum) * amount
-		GM.carbon_dioxide = (carbon_dioxide / sum) * amount
-		GM.nitrogen = (nitrogen / sum) * amount
-		GM.toxins = (toxins / sum) * amount
-		GM.sleeping_agent = (sleeping_agent / sum) * amount
-		GM.agent_b = (agent_b / sum) * amount
+		GM.set_oxygen((oxygen / sum) * amount)
+		GM.set_carbon_dioxide((carbon_dioxide / sum) * amount)
+		GM.set_nitrogen((nitrogen / sum) * amount)
+		GM.set_toxins((toxins / sum) * amount)
+		GM.set_sleeping_agent((sleeping_agent / sum) * amount)
+		GM.set_agent_b((agent_b / sum) * amount)
 
-	GM.temperature = temperature
+	GM.set_temperature(temperature)
 
 	return GM
 
 /turf/simulated/Initialize(mapload)
 	. = ..()
 	if(!blocks_air)
-		var/datum/gas_mixture/air = new()
-
-		air.oxygen = oxygen
-		air.carbon_dioxide = carbon_dioxide
-		air.nitrogen = nitrogen
-		air.toxins = toxins
-		air.sleeping_agent = sleeping_agent
-		air.agent_b = agent_b
-
-		air.temperature = temperature
-
-		write_air(air)
+		var/datum/gas_mixture/air = get_air()
+		air.set_oxygen(oxygen)
+		air.set_carbon_dioxide(carbon_dioxide)
+		air.set_nitrogen(nitrogen)
+		air.set_toxins(toxins)
+		air.set_sleeping_agent(sleeping_agent)
+		air.set_agent_b(agent_b)
+		air.set_temperature(temperature)
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
@@ -66,7 +62,6 @@
 
 	var/datum/gas_mixture/air = get_air()
 	air.merge(giver)
-	write_air(air)
 	update_visuals()
 
 	return TRUE
@@ -74,12 +69,14 @@
 /turf/simulated/proc/copy_air_with_tile(turf/simulated/T)
 	if(!istype(T) || T.blocks_air || blocks_air)
 		return
-	get_air().copy_from(T.get_air())
+	var/datum/gas_mixture/air = get_air()
+	air.copy_from(T.get_air())
 
 /turf/simulated/proc/copy_air(datum/gas_mixture/copy)
 	if(!copy || blocks_air)
 		return
-	write_air(copy)
+	var/datum/gas_mixture/air = get_air()
+	air.copy_from(copy)
 
 /turf/simulated/return_air()
 	RETURN_TYPE(/datum/gas_mixture)
@@ -90,27 +87,8 @@
 /turf/simulated/remove_air(amount)
 	var/datum/gas_mixture/air = get_air()
 	var/datum/gas_mixture/removed = air.remove(amount)
-	write_air(air)
 	update_visuals()
 	return removed
-
-/turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
-	var/delta_temperature = (temperature_archived - model.temperature)
-	if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
-
-		var/heat = conduction_coefficient*delta_temperature* \
-			(heat_capacity*model.heat_capacity/(heat_capacity+model.heat_capacity))
-		temperature -= heat/heat_capacity
-
-/turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduction_coefficient)
-	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
-	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER && heat_capacity && sharer.heat_capacity)
-
-		var/heat = conduction_coefficient*delta_temperature* \
-			(heat_capacity*sharer.heat_capacity/(heat_capacity+sharer.heat_capacity))
-
-		temperature -= heat/heat_capacity
-		sharer.temperature += heat/sharer.heat_capacity
 
 /turf/simulated/proc/update_visuals()
 	var/datum/gas_mixture/air = get_air()
@@ -140,10 +118,10 @@
 		return
 	if(!istype(air))
 		air = get_air()
-	if(air.toxins > MOLES_PLASMA_VISIBLE)
+	if(air.toxins() > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
-	if(air.sleeping_agent > 1)
+	if(air.sleeping_agent() > 1)
 		return "sleeping_agent"
 	return null
 
@@ -203,16 +181,14 @@
 /turf/proc/Initialize_Atmos(times_fired)
 	recalculate_atmos_connectivity()
 
-	var/datum/gas_mixture/air = new()
-	air.oxygen = oxygen
-	air.carbon_dioxide = carbon_dioxide
-	air.nitrogen = nitrogen
-	air.toxins = toxins
-	air.sleeping_agent = sleeping_agent
-	air.agent_b = agent_b
-	air.temperature = temperature
-
-	write_air(air)
+	var/datum/gas_mixture/air = get_air()
+	air.set_oxygen(oxygen)
+	air.set_carbon_dioxide(carbon_dioxide)
+	air.set_nitrogen(nitrogen)
+	air.set_toxins(toxins)
+	air.set_sleeping_agent(sleeping_agent)
+	air.set_agent_b(agent_b)
+	air.set_temperature(temperature)
 
 /turf/proc/recalculate_atmos_connectivity()
 	if(blocks_air)

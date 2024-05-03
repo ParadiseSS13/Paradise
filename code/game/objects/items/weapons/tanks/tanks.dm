@@ -22,7 +22,7 @@
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	populate_gas()
 
@@ -85,7 +85,7 @@
 			. += "<span class='notice'>It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.</span>"
 		return
 
-	var/celsius_temperature = air_contents.temperature - T0C
+	var/celsius_temperature = air_contents.temperature() - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
@@ -227,7 +227,7 @@
 	var/tank_pressure = air_contents.return_pressure()
 	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature())
 
 	return remove_air(moles_needed)
 

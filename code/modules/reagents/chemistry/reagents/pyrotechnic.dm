@@ -429,9 +429,8 @@
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.get_air()
-		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), 0)
+		lowertemp.set_temperature(max(min(lowertemp.temperature()-(CT*1000), lowertemp.temperature() / CT), 0))
 		lowertemp.react()
-		T.write_air(lowertemp)
 		qdel(hotspot)
 
 /datum/reagent/plasma_dust

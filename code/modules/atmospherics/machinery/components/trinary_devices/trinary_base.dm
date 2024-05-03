@@ -200,9 +200,9 @@
 	if(T)
 		//Remove the gas from air1+air2+air3 and assume it
 		var/datum/gas_mixture/environment = T.return_air()
-		var/lost = pressures*environment.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
-		lost += pressures*environment.volume/(air3.temperature * R_IDEAL_GAS_EQUATION)
+		var/lost = pressures*environment.volume/(air1.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures*environment.volume/(air2.temperature() * R_IDEAL_GAS_EQUATION)
+		lost += pressures*environment.volume/(air3.temperature() * R_IDEAL_GAS_EQUATION)
 		var/shared_loss = lost/3
 
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)

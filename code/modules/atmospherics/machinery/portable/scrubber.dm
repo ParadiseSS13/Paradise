@@ -75,20 +75,20 @@
 	if(removed)
 		var/datum/gas_mixture/filtered_out = new
 
-		filtered_out.temperature = removed.temperature
+		filtered_out.set_temperature(removed.temperature())
 
 
-		filtered_out.toxins = removed.toxins
-		removed.toxins = 0
+		filtered_out.set_toxins(removed.toxins())
+		removed.set_toxins(0)
 
-		filtered_out.carbon_dioxide = removed.carbon_dioxide
-		removed.carbon_dioxide = 0
+		filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+		removed.set_carbon_dioxide(0)
 
-		filtered_out.sleeping_agent = removed.sleeping_agent
-		removed.sleeping_agent = 0
+		filtered_out.set_sleeping_agent(removed.sleeping_agent())
+		removed.set_sleeping_agent(0)
 
-		filtered_out.agent_b = removed.agent_b
-		removed.agent_b = 0
+		filtered_out.set_agent_b(removed.agent_b())
+		removed.set_agent_b(0)
 
 	//Remix the resulting gases
 		air_contents.merge(filtered_out)

@@ -75,7 +75,7 @@
 		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
-	switch(environment.temperature)
+	switch(environment.temperature())
 		if(0 to T0C)
 			health = min(100, health + 1)
 		if(T0C to (T20C + 20))
@@ -124,7 +124,7 @@
 		var/turf/simulated/L = loc
 		if(istype(L))
 			var/datum/gas_mixture/env = L.return_air()
-			if(env.temperature < (heat_amt+T0C))
+			if(env.temperature() < (heat_amt+T0C))
 
 				var/transfer_moles = 0.25 * env.total_moles()
 
@@ -135,7 +135,7 @@
 					var/heat_capacity = removed.heat_capacity()
 					if(heat_capacity == 0 || heat_capacity == null)
 						heat_capacity = 1
-					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
+					removed.set_temperature(min((removed.temperature()*heat_capacity + heating_power)/heat_capacity, 1000))
 
 				env.merge(removed)
 

@@ -141,7 +141,7 @@
 	var/datum/gas_mixture/environment = tile.return_air()
 
 	if(scrubbing)
-		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.sleeping_agent) || (environment.agent_b))
+		if((scrub_O2 && environment.oxygen()>0.001) || (scrub_N2 && environment.nitrogen()>0.001) || (scrub_CO2 && environment.carbon_dioxide()>0.001) || (scrub_Toxins && environment.toxins()>0.001) || (environment.sleeping_agent()) || (environment.agent_b()))
 			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
 
 			//Take a gas sample
@@ -151,27 +151,27 @@
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
-			filtered_out.temperature = removed.temperature
+			filtered_out.set_temperature(removed.temperature())
 			if(scrub_O2)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
 			if(scrub_N2)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
 			if(scrub_Toxins)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
 			if(scrub_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
 
-			if(removed.agent_b)
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+			if(removed.agent_b())
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 
 			if(scrub_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
 
 			//Remix the resulting gases
 			air_contents.merge(filtered_out)

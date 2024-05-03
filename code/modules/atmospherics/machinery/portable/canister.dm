@@ -249,8 +249,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		//Can not have a pressure delta that would cause environment pressure > tank pressure
 
 		var/transfer_moles = 0
-		if((air_contents.temperature > 0) && (pressure_delta > 0))
-			transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+		if((air_contents.temperature() > 0) && (pressure_delta > 0))
+			transfer_moles = pressure_delta * environment.volume / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 
 			//Actually transfer the gas
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
@@ -274,7 +274,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/proc/return_temperature()
 	var/datum/gas_mixture/GM = return_air()
 	if(GM && GM.volume>0)
-		return GM.temperature
+		return GM.temperature()
 	return
 
 /obj/machinery/atmospherics/portable/canister/proc/return_pressure()
@@ -382,12 +382,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				if(!holding_tank)
 					logmsg = "Valve was <b>opened</b> by [key_name(ui.user)], starting a transfer into the air.<br>"
 
-					if(air_contents.toxins > 0)
+					if(air_contents.toxins() > 0)
 						message_admins("[key_name_admin(ui.user)] opened a canister that contains plasma in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(ui.user)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of plasma")
 
-					if(air_contents.sleeping_agent > 0)
+					if(air_contents.sleeping_agent() > 0)
 						message_admins("[key_name_admin(ui.user)] opened a canister that contains N2O in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(ui.user)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of N2O")
@@ -460,7 +460,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 
 	canister_color["prim"] = "orange"
-	air_contents.toxins = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_toxins((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 
@@ -468,7 +468,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 
 	canister_color["prim"] = "blue"
-	air_contents.oxygen = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_oxygen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 
@@ -476,7 +476,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 
 	canister_color["prim"] = "redws"
-	air_contents.sleeping_agent = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_sleeping_agent((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 
@@ -484,7 +484,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 
 	canister_color["prim"] = "red"
-	air_contents.nitrogen = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_nitrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 
@@ -493,7 +493,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 
 	canister_color["prim"] = "black"
-	air_contents.carbon_dioxide = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_carbon_dioxide((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 
@@ -501,8 +501,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 
 	canister_color["prim"] = "grey"
-	air_contents.oxygen = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.nitrogen = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_oxygen((O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	air_contents.set_nitrogen((N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
 

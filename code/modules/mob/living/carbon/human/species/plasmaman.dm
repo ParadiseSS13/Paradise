@@ -154,7 +154,7 @@
 		if(environment)
 			if(environment.total_moles())
 				if(!HAS_TRAIT(H, TRAIT_NOFIRE))
-					if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
+					if(environment.oxygen() && environment.oxygen() >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 						H.adjust_fire_stacks(0.5)
 						if(!H.on_fire && H.fire_stacks > 0)
 							H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")

@@ -110,13 +110,13 @@
 
 		if(cold_air && hot_air)
 
-			//log_debug("hot_air = [hot_air] temperature = [hot_air.temperature]; cold_air = [cold_air] temperature = [hot_air.temperature];")
+			//log_debug("hot_air = [hot_air] temperature = [hot_air.temperature()]; cold_air = [cold_air] temperature = [hot_air.temperature()];")
 
 			//log_debug("coldair and hotair pass")
 			var/cold_air_heat_capacity = cold_air.heat_capacity()
 			var/hot_air_heat_capacity = hot_air.heat_capacity()
 
-			var/delta_temperature = hot_air.temperature - cold_air.temperature
+			var/delta_temperature = hot_air.temperature() - cold_air.temperature()
 
 			//log_debug("delta_temperature = [delta_temperature]; cold_air_heat_capacity = [cold_air_heat_capacity]; hot_air_heat_capacity = [hot_air_heat_capacity]")
 
@@ -130,8 +130,8 @@
 
 				//log_debug("lastgen = [lastgen]; heat = [heat]; delta_temperature = [delta_temperature]; hot_air_heat_capacity = [hot_air_heat_capacity]; cold_air_heat_capacity = [cold_air_heat_capacity];")
 
-				hot_air.temperature = hot_air.temperature - energy_transfer / hot_air_heat_capacity
-				cold_air.temperature = cold_air.temperature + heat / cold_air_heat_capacity
+				hot_air.set_temperature(hot_air.temperature() - energy_transfer / hot_air_heat_capacity)
+				cold_air.set_temperature(cold_air.temperature() + heat / cold_air_heat_capacity)
 
 				//log_debug("POWER: [lastgen] W generated at [efficiency * 100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]")
 
@@ -221,10 +221,10 @@
 		data["hot_dir"] = dir2text(hot_dir)
 		data["output_power"] = round(lastgen)
 		// Temps are K, pressures are kPa, power is W
-		data["cold_inlet_temp"] = round(cold_circ_air2.temperature, 0.1)
-		data["hot_inlet_temp"] = round(hot_circ_air2.temperature, 0.1)
-		data["cold_outlet_temp"] = round(cold_circ_air1.temperature, 0.1)
-		data["hot_outlet_temp"] = round(hot_circ_air1.temperature, 0.1)
+		data["cold_inlet_temp"] = round(cold_circ_air2.temperature(), 0.1)
+		data["hot_inlet_temp"] = round(hot_circ_air2.temperature(), 0.1)
+		data["cold_outlet_temp"] = round(cold_circ_air1.temperature(), 0.1)
+		data["hot_outlet_temp"] = round(hot_circ_air1.temperature(), 0.1)
 		data["cold_delta_temp"] = data["cold_outlet_temp"] - data["cold_inlet_temp"]
 		data["cold_inlet_pressure"] = round(cold_circ_air2.return_pressure(), 0.1)
 		data["hot_inlet_pressure"] = round(hot_circ_air2.return_pressure(), 0.1)

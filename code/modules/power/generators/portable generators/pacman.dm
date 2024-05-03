@@ -128,7 +128,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure() / ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		lower_limit += ambient * ratio
 		upper_limit += ambient * ratio
 
@@ -157,7 +157,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		cooling_temperature += ambient*ratio
 
 	if(temperature > cooling_temperature)

@@ -96,13 +96,13 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
+	t+= "<span class='warning'>Temperature: [environment.temperature()] \n</span>"
+	t+= "<span class='notice'>Nitrogen: [environment.nitrogen()] \n</span>"
+	t+= "<span class='notice'>Oxygen: [environment.oxygen()] \n</span>"
+	t+= "<span class='notice'>Plasma : [environment.toxins()] \n</span>"
+	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
