@@ -158,7 +158,7 @@
 	disk = new_disk
 	disk.forceMove(src)
 	to_chat(world,"<span class='danger'>length of contents: [length(contents)], [new_disk.name], [new_disk.gene ? type2parent(new_disk.gene.type) : "empty"], [new_disk.name], [new_disk.gene ? type2parent(new_disk.gene.type) == /datum/plant_gene/trait : "empty"]</span>")
-	for(var/i in 1 to length(contents))
+	for(var/obj/item/disk/plantgene/i in 1 to length(contents))
 		to_chat(world,"<span class='danger'> details: [contents[i].name] [contents[i].gene ? contents[i].gene.type : "empty"]</span>")
 	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
 	ui_interact(user)
@@ -265,7 +265,7 @@
 			empty_disks++
 		else if(type2parent(contents[i].gene.type) == /datum/plant_gene/core)
 			stats.Add(list(list("display_name" = contents[i].name, "index" = i)))
-		else if(type2parent(contents[i].gene.type) == /datum/plant_gene/trait)
+		else if(type2parent(contents[i].gene.type) == /datum/plant_gene/trait || type2parent(contents[i].gene.type) == /datum/plant_gene/trait/plant_type)
 			traits.Add(list(list("display_name" = contents[i].name, "index" = i)))
 		else if(contents[i].gene.type == /datum/plant_gene/reagent)
 			reagents.Add(list(list("display_name" = contents[i].name, "index" = i)))

@@ -16,16 +16,18 @@ export const GeneModder = (props, context) => {
 
   return (
     <Window width={750} height={650}>
-      <Window.Content>
-        <Stack fill horizontal>
+      <div className="GeneModder__left">
+        <Window.Content>
           <Disks />
-          <Stack fill vertical>
-            <Storage />
-            <ComplexModal maxWidth="70%" maxHeight="75%" />
-            {has_seed === 0 ? <MissingSeed /> : <Genes />}
-          </Stack>
-        </Stack>
-      </Window.Content>
+        </Window.Content>
+      </div>
+      <div className="GeneModder__right">
+        <Window.Content>
+          <Storage />
+          <ComplexModal maxWidth="75%" maxHeight="75%" />
+          {has_seed === 0 ? <MissingSeed /> : <Genes />}
+        </Window.Content>
+      </div>
     </Window>
   );
 };
@@ -143,7 +145,7 @@ const CoreGenes = (props, context) => {
     <Collapsible key="Core Genes" title="Core Genes" open>
       {core_genes.map((gene) => (
         <Stack key={gene} py="2px" className="candystripe">
-          <Stack.Item width="40%" ml="2px">
+          <Stack.Item width="100%" ml="2px">
             {gene.name}
           </Stack.Item>
           <Stack.Item>
@@ -224,7 +226,7 @@ const OtherGenes = (props, context) => {
       {do_we_show ? (
         gene_set.map((gene) => (
           <Stack key={gene} py="2px" className="candystripe">
-            <Stack.Item width="40%" ml="2px">
+            <Stack.Item width="100%" ml="2px">
               {gene.name}
             </Stack.Item>
             <Stack.Item>
@@ -254,10 +256,21 @@ const OtherGenes = (props, context) => {
 const Disks = (props, context) => {
   const { title, gene_set, do_we_show } = props;
   const { act, data } = useBackend(context);
-  const { stat_disks, trait_disks, reagent_disks } = data;
+  const { empty_disks, stat_disks, trait_disks, reagent_disks } = data;
 
   return (
-    <Section title="disks" width="80%">
+    <Section title="disks">
+      <br />
+      Empty Disks: {empty_disks}
+      <br />
+      <br />
+      <Button
+        width={12}
+        icon="arrow-down"
+        tooltip="Eject an Empty disk"
+        content="Eject Empty Disk"
+        onClick={() => act('eject_empty_disk')}
+      />
       <Stack fill vertical>
         <Section title="Stats">
           <Stack fill vertical>
@@ -267,7 +280,7 @@ const Disks = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="80%">{item.display_name}</Stack.Item>
+                    <Stack.Item width="70%">{item.display_name}</Stack.Item>
                     <Stack.Item width={20}>
                       <Button
                         width={12}
@@ -306,7 +319,7 @@ const Disks = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="100%">{item.display_name}</Stack.Item>
+                    <Stack.Item width="70%">{item.display_name}</Stack.Item>
                     <Stack.Item width={20}>
                       <Button
                         width={12}
@@ -345,7 +358,7 @@ const Disks = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="100%">{item.display_name}</Stack.Item>
+                    <Stack.Item width="70%">{item.display_name}</Stack.Item>
                     <Stack.Item width={20}>
                       <Button
                         width={12}
