@@ -17,6 +17,7 @@
 	var/list/stat_disks = list()
 	var/list/trait_disks = list()
 	var/list/reagent_disks = list()
+	var/disk_capacity = 100
 
 	var/datum/plant_gene/target
 	var/max_potency = 50 // See RefreshParts() for how these work
@@ -26,6 +27,7 @@
 	var/min_weed_chance = 67
 	var/min_weed_rate = 10
 	var/seeds_for_bulk_core = 5
+
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
@@ -150,7 +152,7 @@
 	ui_interact(user)
 
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
-	if(FALSE)
+	if(length(contents) >= disk_capacity)
 		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
 		return
 	if(!user.drop_item())
@@ -158,8 +160,8 @@
 	disk = new_disk
 	disk.forceMove(src)
 	to_chat(world,"<span class='danger'>length of contents: [length(contents)], [new_disk.name], [new_disk.gene ? type2parent(new_disk.gene.type) : "empty"], [new_disk.name], [new_disk.gene ? type2parent(new_disk.gene.type) == /datum/plant_gene/trait : "empty"]</span>")
-	for(var/obj/item/disk/plantgene/i in 1 to length(contents))
-		to_chat(world,"<span class='danger'> details: [contents[i].name] [contents[i].gene ? contents[i].gene.type : "empty"]</span>")
+	for(var/obj/item/disk/plantgene/D in 1 to length(contents))
+		to_chat(world,"<span class='danger'> details: [D.name] [D.gene ? D.gene.type : "empty"]</span>")
 	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
 	ui_interact(user)
 
@@ -260,15 +262,18 @@
 	data["reagent_disks"] = list()
 
 	for(var/i in 1 to length(contents))
-		if(contents[i].type != /obj/item/disk/plantgene)
-		else if(!contents[i].gene)
-			empty_disks++
-		else if(type2parent(contents[i].gene.type) == /datum/plant_gene/core)
-			stats.Add(list(list("display_name" = contents[i].name, "index" = i)))
-		else if(type2parent(contents[i].gene.type) == /datum/plant_gene/trait || type2parent(contents[i].gene.type) == /datum/plant_gene/trait/plant_type)
-			traits.Add(list(list("display_name" = contents[i].name, "index" = i)))
-		else if(contents[i].gene.type == /datum/plant_gene/reagent)
-			reagents.Add(list(list("display_name" = contents[i].name, "index" = i)))
+		if(contents[i].type == /obj/item/disk/plantgene)
+			var/obj/item/disk/plantgene/D = contents[i]
+			if(!D.gene)
+				empty_disks++
+			else if(type2parent(D.gene.type) == /datum/plant_gene/core)
+				var/datum/plant_gene/core/C = D.gene
+				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name)))
+			else if(type2parent(D.gene.type) == /datum/plant_gene/trait || type2parent(D.gene.type) == /datum/plant_gene/trait/plant_type)
+				traits.Add(list(list("display_name" = D.gene.name, "index" = i)))
+			else if(D.gene.type == /datum/plant_gene/reagent)
+				var/datum/plant_gene/reagent/R = D.gene
+				reagents.Add(list(list("display_name" = R.name +" "+ num2text(R.rate*100) +"%", "index" = i)))
 	if(length(stats))
 		data["stat_disks"] = stats
 	if(length(traits))
@@ -291,7 +296,12 @@
 
 	var/mob/user = ui.user
 
-	target = seed?.get_gene(params["id"])
+	if(params["id"])
+		target = seed?.get_gene(params["id"])
+	else if(params["stat"])
+		for(var/datum/plant_gene/core/c_gene in core_genes)
+			if(c_gene.name == params["stat"])
+				target = c_gene
 
 	switch(action)
 		if("eject_seed")
@@ -348,19 +358,24 @@
 			ui_modal_boolean(src, action, "Are you sure you want to replace ALL core genes of the [seed]?" , yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(bulk_replace_core))
 
 		if("replace")
-			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(gene_replace))
+			var/index = text2num(params["index"])
+			var/obj/item/disk/plantgene/D = contents[index]
+			if(ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [D.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel"))
+				gene_replace(index)
 
 		if("remove")
 			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel", delegate = PROC_REF(gene_remove))
 
 		if("insert")
-			if(!istype(disk.gene, /datum/plant_gene/core) && !disk.is_bulk_core && disk.gene.can_add(seed))
-				seed.genes += disk.gene.Copy()
-				if(istype(disk.gene, /datum/plant_gene/reagent))
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			to_chat(world, "<span class= 'info'>index: [text2num(params["index"])] gene: [D.gene ? D.gene.type : "empty"] can add?: [D.gene.can_add(seed)]</span>")
+			if(D.gene && (type2parent(D.gene.type) == /datum/plant_gene/trait || D.gene.type == /datum/plant_gene/reagent) && D.gene.can_add(seed))
+				to_chat(world, "<span class= 'info'>Adding gene</span>")
+				seed.genes += D.gene.Copy()
+				if(D.gene.type ==  /datum/plant_gene/reagent)
 					seed.reagents_from_genes()
 				update_genes()
 				repaint_seed()
-				// this doesnt need a modal, its easy enough to just remove the inserted gene
 
 
 /obj/machinery/plantgenes/proc/gene_remove()
@@ -392,15 +407,16 @@
 	update_genes()
 	target = null
 
-/obj/machinery/plantgenes/proc/gene_replace()
-	if(!disk?.gene || disk.is_bulk_core)
+/obj/machinery/plantgenes/proc/gene_replace(index)
+	var/obj/item/disk/plantgene/D = contents[index]
+	if(!D?.gene || D.is_bulk_core)
 		return
 	if(!istype(target, /datum/plant_gene/core))
 		return
-	if(!istype(disk.gene, target.type))
+	if(!istype(D.gene, target.type))
 		return // you can't replace a endurance gene with a weed chance gene, etc
 	seed.genes -= target
-	var/datum/plant_gene/core/C = disk.gene.Copy()
+	var/datum/plant_gene/core/C = D.gene.Copy()
 	seed.genes += C
 	C.apply_stat(seed)
 	repaint_seed()

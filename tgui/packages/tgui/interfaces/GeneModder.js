@@ -18,14 +18,16 @@ export const GeneModder = (props, context) => {
     <Window width={750} height={650}>
       <div className="GeneModder__left">
         <Window.Content>
-          <Disks />
+          <Disks scrollable />
         </Window.Content>
       </div>
       <div className="GeneModder__right">
         <Window.Content>
-          <Storage />
-          <ComplexModal maxWidth="75%" maxHeight="75%" />
-          {has_seed === 0 ? <MissingSeed /> : <Genes />}
+          <Stack fill vertical scrollable>
+            <Storage />
+            <ComplexModal maxWidth="75%" maxHeight="75%" />
+            {has_seed === 0 ? <MissingSeed /> : <Genes />}
+          </Stack>
         </Window.Content>
       </div>
     </Window>
@@ -46,7 +48,7 @@ const Genes = (props, context) => {
           content="Insert Gene from Disk"
           disabled={!disk || !disk.can_insert || disk.is_core}
           icon="arrow-circle-down"
-          onClick={() => act('insert')}
+          onClick={() => act('insert', { index: 1 })}
         />
       }
     >
@@ -273,22 +275,25 @@ const Disks = (props, context) => {
       />
       <Stack fill vertical>
         <Section title="Stats">
-          <Stack fill vertical>
+          <Stack fill vertical scrollable>
             {stat_disks
               .slice()
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="70%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={20}>
+                    <Stack.Item width="50%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={13}>
                       <Button
-                        width={12}
+                        width={6}
                         icon="arrow-down"
                         tooltip="Write Disk Stats to Plant"
-                        content="Replace/Insert"
+                        content="Replace"
                         onClick={() =>
-                          act('vend', { index: item.vend, amount: 1 })
+                          act('replace', {
+                            index: item.index,
+                            stat: item.stat,
+                          })
                         }
                       />
                       <Button
@@ -299,7 +304,7 @@ const Disks = (props, context) => {
                         tooltipPosition="bottom-start"
                         onClick={() =>
                           act('eject', {
-                            name: item,
+                            index: item.index,
                           })
                         }
                       />
@@ -312,22 +317,24 @@ const Disks = (props, context) => {
           </Stack>
         </Section>
         <Section title="Traits">
-          <Stack fill vertical>
+          <Stack fill vertical scrollable>
             {trait_disks
               .slice()
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="70%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={20}>
+                    <Stack.Item width="50%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={13}>
                       <Button
-                        width={12}
+                        width={6}
                         icon="arrow-down"
                         tooltip="Write Disk Stats to Plant"
-                        content="Replace/Insert"
+                        content="Insert"
                         onClick={() =>
-                          act('vend', { index: item.vend, amount: 1 })
+                          act('insert', {
+                            index: item.index,
+                          })
                         }
                       />
                       <Button
@@ -338,7 +345,7 @@ const Disks = (props, context) => {
                         tooltipPosition="bottom-start"
                         onClick={() =>
                           act('eject', {
-                            name: item,
+                            index: item.index,
                           })
                         }
                       />
@@ -351,22 +358,24 @@ const Disks = (props, context) => {
           </Stack>
         </Section>
         <Section title="Reagents">
-          <Stack fill vertical>
+          <Stack fill vertical scrollable>
             {reagent_disks
               .slice()
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
                   <Stack key={item}>
-                    <Stack.Item width="70%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={20}>
+                    <Stack.Item width="50%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={13}>
                       <Button
-                        width={12}
+                        width={6}
                         icon="arrow-down"
                         tooltip="Write Disk Stats to Plant"
-                        content="Replace/insert"
+                        content="Insert"
                         onClick={() =>
-                          act('vend', { index: item.vend, amount: 1 })
+                          act('insert', {
+                            index: item.index,
+                          })
                         }
                       />
                       <Button
@@ -377,7 +386,7 @@ const Disks = (props, context) => {
                         tooltipPosition="bottom-start"
                         onClick={() =>
                           act('eject', {
-                            name: item,
+                            index: item.index,
                           })
                         }
                       />
