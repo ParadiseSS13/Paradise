@@ -18,6 +18,7 @@ use std::fs::File;
 use std::io::Write;
 use std::sync::RwLock;
 use std::sync::{Mutex, OnceLock};
+use std::time::Instant;
 use std::thread;
 use std::thread::ScopedJoinHandle;
 
@@ -196,6 +197,13 @@ static ATMOS_B: OnceLock<
 // * OnceLock and Mutex are used as in BUFFER_FLIPPER.
 // * It's fundamentally a vector of InterestingTile structs.
 static INTERESTING_TILES: OnceLock<Mutex<Vec<InterestingTile>>> = OnceLock::new();
+
+// How long the most recent MILLA tick took, in milliseconds.
+//
+// Data type explanation:
+// * OnceLock and Mutex are used as in BUFFER_FLIPPER.
+// * It's fundamentally a 32-bit floating point number.
+static TICK_TIME: OnceLock<Mutex<f32>> = OnceLock::new();
 
 // Fetches the active buffer map, the HashMap in either ATMOS_A or ATMOS_B, initializing the HashMap
 // if needed.
@@ -764,9 +772,22 @@ fn internal_reset_superconductivity(x: i32, y: i32, z: i32) {
 fn spawn_tick_thread() {
     setup_panic_handler();
     thread::spawn(|| {
+        let now = Instant::now();
         tick();
+        let tick_time_mutex = TICK_TIME.get_or_init(|| Mutex::new(0.0));
+        let mut active = tick_time_mutex.lock().unwrap();
+        *active = now.elapsed().as_millis() as f32;
     });
     Ok(Default::default())
+}
+
+// BYOND API for asking how long the prior tick took.
+#[byondapi::bind]
+fn get_tick_time() {
+    setup_panic_handler();
+    let tick_time_mutex = TICK_TIME.get_or_init(|| Mutex::new(0.0));
+    let active = tick_time_mutex.lock().unwrap();
+    Ok(ByondValue::from(*active))
 }
 
 // Counts the number of adjacent tiles that can share atmos with this tile, i.e. have no blockers

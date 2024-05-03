@@ -49,6 +49,11 @@
 /proc/spawn_milla_tick_thread()
 	return REAL_SPAWN_TICK_THREAD
 
+#define REAL_GET_TICK_TIME MILLA_CALL(get_tick_time)
+
+/proc/get_milla_tick_time()
+	return REAL_GET_TICK_TIME
+
 #define REAL_GET_INTERESTING_TILES MILLA_CALL(get_interesting_tiles)
 
 /proc/get_interesting_atmos_tiles()

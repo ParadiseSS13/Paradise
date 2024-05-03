@@ -188,10 +188,10 @@ SUBSYSTEM_DEF(air)
 		currentpart = SSAIR_MILLA_TICK
 
 	if(currentpart == SSAIR_MILLA_TICK)
-		timer = TICK_USAGE_REAL
+		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
 		spawn_milla_tick_thread()
 		milla_ticks++
-		cost_milla_tick = TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer)
+
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
