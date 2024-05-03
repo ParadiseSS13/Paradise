@@ -347,7 +347,7 @@
 		else if(i > 50)
 			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before causality stabilization.</b>"
 		else
-			speaking = "<span class='reallybig'>[i*0.1]...</span>"
+			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
 		radio.autosay(speaking, name, null)
 		sleep(10)
 
