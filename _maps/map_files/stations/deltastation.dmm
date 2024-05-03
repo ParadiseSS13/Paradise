@@ -35240,7 +35240,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table,
-/obj/machinery/syndicatebomb/training,
+/obj/item/toy/figure/crew/secofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80651,7 +80651,6 @@
 "ngl" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
-/obj/item/toy/figure/crew/secofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
