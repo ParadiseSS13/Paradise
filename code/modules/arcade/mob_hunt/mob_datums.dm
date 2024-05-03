@@ -65,10 +65,10 @@
 
 /datum/mob_hunt/proc/select_spawn()
 	var/list/possible_areas = get_possible_areas()
-	if(!possible_areas.len)
+	if(!length(possible_areas))
 		log_admin("No possible areas to spawn [type] found. Possible code/mapping error?")
 		return 0
-	while(possible_areas.len)
+	while(length(possible_areas))
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
 		var/spawn_area_path = pickweight(possible_areas)
 		var/area/spawn_area = locate(spawn_area_path)
@@ -77,7 +77,7 @@
 			break
 		//clear and generate a fresh list of turfs in the selected area, weighted based on white/black lists
 		var/list/possible_turfs = get_possible_turfs(spawn_area)
-		if(!possible_turfs.len)		//If we don't have any possible turfs, this attempt was a failure. Try again.
+		if(!length(possible_turfs))		//If we don't have any possible turfs, this attempt was a failure. Try again.
 			continue
 		//if we got this far, we're spawning on this attempt, hooray!
 		spawn_point = pickweight(possible_turfs)

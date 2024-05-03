@@ -101,7 +101,7 @@ jobs:
           # Check if a workflow file would be modified by the merge (permissions prevent pushes if so)
           latest_workflow_commit=$(git log -n 1 --pretty=format:"%H" upstream/$BASE_BRANCH -- .github/workflows)
           if ! git branch --contains $latest_workflow_commit | grep -q "$(git rev-parse --abbrev-ref HEAD)"; then
-            gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not push to this branch as workflow files have been changed since your branch was last updated. Please update your branch past https://github.com/ParadiseSS13/Paradise/commit/$latest_workflow_commit before using this command again."#
+            gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not push to this branch as workflow files have been changed since your branch was last updated. Please update your branch past https://github.com/ParadiseSS13/Paradise/commit/$latest_workflow_commit before using this command again."
             echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
             exit 1
           fi

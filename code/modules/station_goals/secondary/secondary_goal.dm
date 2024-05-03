@@ -84,6 +84,7 @@
 	else
 		built.send_report(ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name)
 	SSticker.mode.secondary_goals += built
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(built.name, "times generated"))
 
 /datum/station_goal/secondary/Topic(href, href_list)
 	if(!check_rights(R_EVENT))

@@ -399,7 +399,7 @@ Difficulty: Medium
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message)
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, chat_message_type)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
