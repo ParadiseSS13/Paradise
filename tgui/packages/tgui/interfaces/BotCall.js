@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
+import { Box, Button, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 let bot_model = 'Security';
 
@@ -23,6 +23,7 @@ const BotStatus = (mode) => {
 
 export const BotCall = (props, context) => {
   const { act, data } = useBackend(context);
+  const { bots } = data;
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const botNames = {
     0: 'Security',
@@ -32,29 +33,13 @@ export const BotCall = (props, context) => {
     4: 'Mule',
     5: 'Honkbot',
   };
+
   const decideTab = (index) => {
-    switch (index) {
-      case 0:
-        bot_model = 'Security';
-        return <BotExists />;
-      case 1:
-        bot_model = 'Medical';
-        return <BotExists />;
-      case 2:
-        bot_model = 'Clean';
-        return <BotExists />;
-      case 3:
-        bot_model = 'Floor';
-        return <BotExists />;
-      case 4:
-        bot_model = 'Mule';
-        return <BotExists />;
-      case 5:
-        bot_model = 'Honk';
-        return <BotExists />;
-      default:
-        return 'This should not happen. Report on Paradise Github';
-    }
+    bots[index] ? (
+      <BotExists model={bot_model} />
+    ) : (
+      'This should not happen. Report on Paradise Github'
+    );
   };
 
   return (
@@ -65,9 +50,9 @@ export const BotCall = (props, context) => {
             <Tabs fluid textAlign="center">
               {Array.from({ length: 6 }).map((_, index) => (
                 <Tabs.Tab
-                  key={index}
-                  selected={tabIndex === index}
-                  onClick={() => setTabIndex(index)}
+                  key={bot_model}
+                  selected={tabIndex === bot_model}
+                  onClick={() => setTabIndex(bot_model)}
                 >
                   {botNames[index]}
                 </Tabs.Tab>
@@ -84,7 +69,7 @@ export const BotCall = (props, context) => {
 const BotExists = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
-  if (bots[bot_model] !== undefined) {
+  if (bots[_properties.bot_model] !== undefined) {
     return <MapBot />;
   } else {
     return <NoBot />;
