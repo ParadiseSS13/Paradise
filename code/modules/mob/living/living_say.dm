@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/message_range = world.view
 
 	//speaking into radios
-	if(used_radios.len)
+	if(length(used_radios))
 		italics = TRUE
 		message_range = 1
 		if(first_piece.speaking)
@@ -440,7 +440,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
-	if(eavesdropping.len)
+	if(length(eavesdropping))
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
 			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
-	if(watching.len)
+	if(length(watching))
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)

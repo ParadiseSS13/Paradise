@@ -49,6 +49,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
+	preloadTemplates(path = "code/modules/unit_tests/atmos/")
 
 	// Load the station
 	loadStation()
@@ -203,7 +204,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
-	if(!z_levels || !z_levels.len)
+	if(!z_levels || !length(z_levels))
 		WARNING("No Z levels provided - Not generating ruins")
 		return
 
@@ -230,10 +231,10 @@ SUBSYSTEM_DEF(mapping)
 			continue
 		ruins_availible[R] = R.placement_weight
 
-	while(budget > 0 && (ruins_availible.len || forced_ruins.len))
+	while(budget > 0 && (length(ruins_availible) || length(forced_ruins)))
 		var/datum/map_template/ruin/current_pick
 		var/forced = FALSE
-		if(forced_ruins.len) //We have something we need to load right now, so just pick it
+		if(length(forced_ruins)) //We have something we need to load right now, so just pick it
 			for(var/ruin in forced_ruins)
 				current_pick = ruin
 				if(forced_ruins[ruin] > 0) //Load into designated z

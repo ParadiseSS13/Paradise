@@ -218,7 +218,6 @@
 				/obj/item/soap = 50,
 				/obj/item/clothing/under/syndicate/combat = 50,
 				/obj/item/soap/syndie = 50,
-				/obj/item/lighter/zippo/gonzofist = 50,
 				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
 				/obj/item/clothing/mask/holo_cigar = 100,
@@ -338,8 +337,7 @@
 				// Ranged weapons
 				/obj/item/storage/box/enforcer_rubber = 50, //Lethal ammo can be printed at an autolathe, so no need for the lethal subtype
 				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100, // cycler shotgun, not normally available to crew
-				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50, //Weapon crafting, lets officers experiment however lets not have it be C class
-
+				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 20
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
@@ -417,7 +415,328 @@
 				/obj/structure/constructshell = 50 //Fuck it we ball what could go wrong
 				)
 
+/obj/effect/spawner/lootdrop/trade_sol/federation_minor
+	name = "11. trans-solar federation small gear"
+	loot = list(
+				/obj/item/storage/box/enforcer_rubber = 50,
+				/obj/item/lighter/zippo/gonzofist = 50,
+				/obj/item/clothing/glasses/welding/superior = 50,
+				/obj/item/clothing/suit/armor/bulletproof = 50,
+				/obj/item/clothing/mask/gas/explorer/marines = 50,
+				/obj/item/clothing/gloves/combat = 50,
+				/obj/item/storage/belt/military/assault = 50,
+				/obj/item/clothing/under/solgov = 50,
+				/obj/item/mod/module/dispenser = 50,
+				/obj/item/flag/solgov = 30
+				)
 
+/obj/effect/spawner/lootdrop/trade_sol/federation_major
+	name = "12. trans-solar federation large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/storage/box/deagle = 20, //One mag
+				/obj/item/gun/projectile/automatic/pistol/m1911 = 30, //Again, one mag. Don't lose it.
+				/obj/item/melee/baseball_bat/homerun = 50,
+				/obj/item/rcd/combat = 50,
+				/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 50,
+				/obj/item/storage/box/buck = 30, //Only seven shots, make them count
+				/obj/item/mod/module/noslip = 40,
+				/obj/item/clothing/mask/holo_cigar = 50
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/cybersun_minor
+	name = "11. cybersun industries small gear"
+	loot = list(
+				/obj/item/storage/box/syndidonkpockets = 50,
+				/obj/item/clothing/suit/jacket/syndicatebomber = 50,
+				/obj/item/storage/box/syndie_kit/space = 50,
+				/obj/item/clothing/glasses/meson/sunglasses = 50,
+				/obj/item/storage/pill_bottle/zoom = 50,
+				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 50,
+				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 30,
+				/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine = 30,
+				/obj/item/flag/syndi = 30
+				)
+
+// Damn near all of this is illegal. Gives officers something to do on a shift quiet enough to spawn traders.
+/obj/effect/spawner/lootdrop/trade_sol/cybersun_major 
+	name = "12. cybersun industries large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/shield/energy = 20,
+				/obj/item/gun/projectile/automatic/pistol = 50,
+				/obj/item/bio_chip/storage = 50,
+				/obj/item/melee/knuckleduster/syndie = 50,
+				/obj/item/clothing/glasses/thermal/eyepatch = 50,
+				/obj/item/toy/syndicateballoon = 60,
+				/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
+				/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
+				/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual = 30,
+				/obj/item/clothing/mask/holo_cigar = 50,
+				/obj/mecha/combat/marauder/mauler/trader = 3 //Extremely rare, unloaded so crew need to arm it for it to have any use. Also most definitely needs one helluva permit.
+				)
+	lootdoubles = FALSE //No double mechs.
+
+/obj/effect/spawner/lootdrop/trade_sol/ussp_minor
+	name = "11. USSP small gear"
+	lootcount = 8 //Mostly flavor items
+	loot = list(
+				/obj/item/clothing/under/new_soviet = 50,
+				/obj/item/clothing/suit/sovietcoat = 50,
+				/obj/item/clothing/head/ushanka = 50,
+				/obj/item/food/snacks/grown/potato = 50,
+				/obj/item/reagent_containers/drinks/bottle/vodka/badminka = 50,
+				/obj/item/clothing/head/sovietsidecap = 50,
+				/obj/item/flag/ussp = 30,
+				/obj/item/ammo_box/magazine/apsm10mm = 15, //Spare mags for APS pistol. Sometimes you don't get the APS, in which case, soviet logistics.
+				/obj/item/ammo_box/a762 = 15
+				)
+
+// Lots of things to write permits for. Gives officers something to do on a shift quiet enough to spawn traders.
+/obj/effect/spawner/lootdrop/trade_sol/ussp_major 
+	name = "12. USSP large gear"
+	lootcount = 2 //Lots of dangerous stuff here - reduced amount
+	loot = list(
+				/obj/item/gun/projectile/revolver/nagant = 50,
+				/obj/item/gun/projectile/automatic/pistol/APS = 30,
+				/obj/item/gun/projectile/shotgun/boltaction = 50,
+				/obj/item/clothing/suit/space/hardsuit/soviet = 40,
+				/obj/item/clothing/glasses/thermal/eyepatch = 50,
+				/obj/item/clothing/mask/holo_cigar = 10
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/glintscale_minor
+	name = "11. glint-scale small gear"
+	loot = list(
+				/obj/item/clothing/suit/armor/vest/combat = 50,
+				/obj/item/clothing/under/syndicate/combat = 50,
+				/obj/item/claymore/ceremonial = 50,
+				/obj/item/harpoon = 50,
+				/obj/item/nullrod/claymore/chainsaw_sword = 50,
+				/obj/item/whetstone = 50,
+				/obj/item/flag/species/unathi = 20,
+				/obj/item/clothing/suit/armor/riot/knight/templar = 40,
+				/obj/item/clothing/head/helmet/riot/knight/templar = 40,
+				/obj/item/clothing/suit/unathi/robe = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/glintscale_major
+	name = "12. glint-scale large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/melee/energy/sword/pirate = 30,
+				/obj/item/storage/box/breacher = 30,
+				/obj/item/fireaxe = 50,
+				/obj/item/fireaxe/boneaxe = 50,
+				/obj/item/gun/energy/kinetic_accelerator/crossbow/large = 10 //Big ebow.
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/steadfast_minor
+	name = "11. steadfast trading co. small gear"
+	lootcount = 8 //Since it's a lot of seeds, boosted amount
+	loot = list(
+				/obj/item/storage/box/botany_labelled_seeds = 50,
+				/obj/item/seeds/chili/ice = 20,
+				/obj/item/seeds/chili/ghost = 20,
+				/obj/item/seeds/cannabis/ultimate = 10,
+				/obj/item/seeds/cannabis/white = 20,
+				/obj/item/seeds/wheat/meat = 20,
+				/obj/item/seeds/glowshroom = 20,
+				/obj/item/seeds/glowshroom/glowcap = 20,
+				/obj/item/seeds/tobacco/space = 20,
+				/obj/item/storage/box/hydroponics_starter = 40,
+				/obj/item/mod/module/thermal_regulator = 20,
+				/obj/item/flag/species/vulp = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/steadfast_major
+	name = "12. steadfast trading co. large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/mod/construction/plating/research = 30,
+				/obj/item/assembly/signaler/anomaly/random = 20,
+				/obj/item/gun/energy/gun = 50,
+				/obj/item/storage/box/dragonsbreath = 30,
+				/obj/item/storage/box/turbine_kit = 20,
+				/obj/item/mod/module/firefighting_tank = 40,
+				/obj/item/mod/module/jetpack/advanced = 40
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/syntheticunion_minor
+	name = "11. synthetic union small gear"
+	lootcount = 8 //A lot of these are available on station, so the amount of items spawned here is increased
+	loot = list(
+				/obj/item/clothing/glasses/meson/sunglasses = 50,
+				/obj/item/clothing/glasses/thermal/monocle = 50,
+				/obj/item/organ/internal/cyberimp/arm/toolset = 50,
+				/obj/item/organ/internal/cyberimp/arm/surgery = 50,
+				/obj/item/organ/internal/cyberimp/arm/janitorial = 50,
+				/obj/item/organ/internal/cyberimp/brain/anti_stam = 50,
+				/obj/item/organ/internal/cyberimp/brain/anti_sleep = 50,
+				/obj/item/organ/internal/cyberimp/brain/clown_voice = 40,
+				/obj/item/organ/internal/cyberimp/mouth/breathing_tube = 50,
+				/obj/item/organ/internal/cyberimp/chest/ipc_repair = 50,
+				/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints = 50,
+				/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed = 50,
+				/obj/item/autosurgeon/organ = 10,
+				/obj/item/flag/species/machine = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/syntheticunion_major
+	name = "12. synthetic union large gear"
+	lootcount = 4
+	loot = list(
+				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 20,
+				/obj/item/organ/internal/cyberimp/arm/esword = 10,
+				/obj/item/organ/internal/cyberimp/arm/flash = 50,
+				/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened = 50,
+				/obj/item/organ/internal/cyberimp/arm/telebaton = 25, //Security'll love this one
+				/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
+				/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
+				/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened = 20,
+				/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened = 30,
+				/obj/item/surveillance_upgrade = 35
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/skipjack_minor
+	name = "11. skipjack small gear"
+	loot = list(
+				/obj/item/clothing/glasses/meson/gar = 50,
+				/obj/item/clothing/glasses/thermal/eyepatch = 50,
+				/obj/item/melee/energy/sword/pirate = 50,
+				/obj/item/clothing/suit/hooded/vox_robes = 30,
+				/obj/item/clothing/under/vox/vox_casual = 30,
+				/obj/item/clothing/gloves/color/yellow/vox = 10, //Species limited - rare item
+				/obj/item/clothing/shoes/magboots/vox = 10, //Species limited - rare item
+				/obj/item/organ/internal/cyberimp/mouth/breathing_tube = 50,
+				/obj/item/mod/module/jetpack/advanced = 50,
+				/obj/item/gun/energy/plasma_pistol = 50,
+				/obj/item/mod/control/pre_equipped/standard = 40,
+				/obj/item/flag/species/vox = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/skipjack_major //contains a variety of things - raider loot
+	name = "12. skipjack large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/storage/box/vox_spacesuit = 20,
+				/obj/item/storage/box/syndie_kit/chameleon = 50,
+				/obj/item/organ/internal/cyberimp/arm/esword = 10,
+				/obj/item/gun/energy/spikethrower = 20,
+				/obj/item/organ/internal/cyberimp/arm/medibeam = 50,
+				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 50,
+				/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened = 10,
+				/obj/item/organ/internal/cyberimp/arm/gun/laser = 10,
+				/obj/item/fireaxe = 10,
+				/obj/item/gun/projectile/revolver/nagant = 10,
+				/obj/item/bio_chip/storage = 10,
+				/obj/item/rcd/combat = 10
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/solarcentral_minor
+	name = "11. skrellian central authority small gear" //Medical and protection theme - shields, mods, meds, and love
+	loot = list(
+				/obj/item/mod/control/pre_equipped/rescue = 60,
+				/obj/item/pen/sleepy/love = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
+				/obj/item/reagent_containers/glass/bottle/love = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent = 50,
+				/obj/item/reagent_containers/applicator/dual = 50,
+				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 30,
+				/obj/item/storage/firstaid/surgery = 40,
+				/obj/item/dnainjector/nobreath = 50,
+				/obj/item/dnainjector/regenerate = 50,
+				/obj/item/dnainjector/insulation = 50,
+				/obj/item/flag/species/skrell = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/solarcentral_major
+	name = "12. skrellian central authority large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/mod/module/energy_shield = 40,
+				/obj/item/shield/energy = 40,
+				/obj/item/reagent_containers/applicator/dual/syndi = 50, //Same as the above but comes emagged
+				/obj/item/gun/medbeam = 30,
+				/obj/item/gun/syringe/syndicate = 50,
+				/obj/item/storage/box/skrell_suit/black = 30,
+				/obj/item/storage/box/skrell_suit/white = 30,
+				/obj/item/rod_of_asclepius = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/technocracy_minor
+	name = "11. technocracy small gear"
+	loot = list(
+				/obj/item/paper/researchnotes = 150, //More research from the smart ones
+				/obj/item/storage/box/beakers/bluespace = 50,
+				/obj/item/storage/box/stockparts/deluxe = 50,
+				/obj/item/clothing/glasses/thermal/monocle = 50,
+				/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 30,
+				/obj/item/organ/internal/cyberimp/arm/surgery = 40,
+				/obj/item/organ/internal/cyberimp/arm/advmop = 30,
+				/obj/item/organ/internal/cyberimp/brain/anti_stam = 50,
+				/obj/item/organ/internal/cyberimp/brain/anti_sleep = 50,
+				/obj/item/organ/internal/cyberimp/brain/anti_drop = 50,
+				/obj/item/autosurgeon/organ = 10,
+				/obj/item/flag/species/greys = 20
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/technocracy_major
+	name = "12. technocracy large gear"
+	lootcount = 3
+	loot = list(
+				/obj/item/storage/box/syndie_kit/prescan = 30,
+				/obj/item/gun/energy/decloner = 50,
+				/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened = 20,
+				/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened = 30,
+				/obj/item/assembly/signaler/anomaly/random = 50,
+				/obj/item/surveillance_upgrade = 35,
+				/obj/item/mod/module/storage/bluespace = 40
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/merchantguild_minor
+	name = "11. merchant guild small gear"
+	lootcount = 12 //Much larger selection due to it being almost all clothes.
+	loot = list(
+				/obj/item/flag/species/nian = 20,
+				/obj/item/clothing/under/suit/really_black = 50,
+				/obj/item/clothing/under/syndicate/combat = 50,
+				/obj/item/clothing/under/syndicate/sniper = 50,
+				/obj/item/clothing/under/new_soviet/sovietofficer = 50,
+				/obj/item/clothing/under/solgov/elite = 50,
+				/obj/item/clothing/under/solgov/command = 50,
+				/obj/item/clothing/under/retro/security = 50,
+				/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 50,
+				/obj/item/clothing/under/misc/durathread = 50,
+				/obj/item/clothing/under/psysuit = 50,
+				/obj/item/clothing/under/costume/cuban_suit = 50,
+				/obj/item/clothing/suit/armor/vest/jacket = 50,
+				/obj/item/clothing/head/collectable/petehat = 20,
+				/obj/item/clothing/head/collectable/tophat = 50,
+				/obj/item/clothing/head/collectable/police = 50,
+				/obj/item/clothing/head/collectable/kitty = 50,
+				/obj/item/clothing/under/costume/janimaid = 50,
+				/obj/item/clothing/under/costume/maid = 50,
+				/obj/item/storage/box/syndie_kit/chameleon = 60
+				)
+
+/obj/effect/spawner/lootdrop/trade_sol/merchantguild_major
+	name = "12. merchant guild large gear"
+	lootcount = 6 //Low-risk items, flavorful knick knacks - higher stock
+	loot = list(
+				/obj/item/clothing/suit/pimpcoat = 50,
+				/obj/item/dualsaber/toy = 50,
+				/obj/item/toy/sword = 50,
+				/obj/item/toy/plushie/carpplushie/dragon = 50,
+				/obj/item/toy/plushie/carpplushie/void = 50,
+				/obj/item/toy/plushie/ipcplushie = 30,
+				/obj/item/toy/plushie/nukeplushie = 30,
+				/obj/item/toy/plushie/nianplushie = 50, //*buzz
+				/obj/item/toy/windup_toolbox = 50,
+				/obj/item/toy/AI = 50,
+				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 50,
+				/obj/item/storage/box/syndie_kit/chameleon = 50
+				)
 
 /obj/effect/spawner/lootdrop/three_course_meal
 	name = "three course meal spawner"

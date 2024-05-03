@@ -200,17 +200,18 @@
 	else
 		receive_message = chat_box_ahelp(receive_message)
 	to_chat(C, receive_message)
-	var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
-		send_window_link = ticket_link
-	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
-		send_window_link = ticket_link
-	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
-	if(message_type == MESSAGE_TYPE_MENTORPM)
-		send_message = chat_box_mhelp(send_message)
-	else
-		send_message = chat_box_ahelp(send_message)
-	to_chat(src, send_message)
+	if(C != src)
+		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
+			send_window_link = ticket_link
+		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
+			send_window_link = ticket_link
+		var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]"
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			send_message = chat_box_mhelp(send_message)
+		else
+			send_message = chat_box_ahelp(send_message)
+		to_chat(src, send_message)
 
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -235,10 +236,10 @@
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
 				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, third_party_message)
+					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-					to_chat(X, third_party_message)
+					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	if(length(tickets))
 		tickets_system.addResponse(tickets, src, msg)

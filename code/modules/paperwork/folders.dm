@@ -31,7 +31,7 @@
 
 /obj/item/folder/update_overlays()
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += "folder_paper"
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)

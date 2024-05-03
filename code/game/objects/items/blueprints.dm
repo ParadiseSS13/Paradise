@@ -211,7 +211,7 @@
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
-	for(var/i in 1 to turfs.len)
+	for(var/i in 1 to length(turfs))
 		var/turf/thing = turfs[i]
 		var/area/old_area = thing.loc
 		A.contents += thing
@@ -293,8 +293,8 @@
 /obj/item/areaeditor/proc/detect_room(turf/first)
 	var/list/turf/found = new
 	var/list/turf/pending = list(first)
-	while(pending.len)
-		if(found.len+pending.len > 300)
+	while(length(pending))
+		if(found.len+length(pending) > 300)
 			return ROOM_ERR_TOOLARGE
 		var/turf/T = pending[1] //why byond havent list::pop()?
 		pending -= T

@@ -59,12 +59,12 @@
 	if(!files)
 		files = new /datum/research(src)
 	var/list/temp_list
-	if(!id_with_upload.len)
+	if(!length(id_with_upload))
 		temp_list = list()
 		temp_list = splittext(id_with_upload_string, ";")
 		for(var/N in temp_list)
 			id_with_upload += text2num(N)
-	if(!id_with_download.len)
+	if(!length(id_with_download))
 		temp_list = list()
 		temp_list = splittext(id_with_download_string, ";")
 		for(var/N in temp_list)
@@ -142,15 +142,15 @@
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(exchange_parts(user, O))
-		return 1
+		return TRUE
+	return ..()
 
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			griefProtection()
-			default_deconstruction_crowbar(user, O)
-			return 1
-	else
-		return ..()
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	griefProtection()
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
 	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)

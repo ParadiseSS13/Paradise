@@ -119,7 +119,7 @@
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if(temp_tech.len == 0)
+		if(length(temp_tech) == 0)
 			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 			return
 		if(!user.drop_item())
@@ -229,7 +229,7 @@
 		if(prob(probtocheck))
 			result = TRUE
 			return from[counter+1]
-		if(counter + 2 < from.len)
+		if(counter + 2 < length(from))
 			counter = counter + 2
 		else
 			counter = 1
@@ -458,7 +458,7 @@
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
 					throwAt.Add(AM)
-			for(var/counter = 1, counter < throwAt.len, ++counter)
+			for(var/counter = 1, counter < length(throwAt), ++counter)
 				var/atom/movable/cast = throwAt[counter]
 				spawn(0)
 					cast.throw_at(pick(throwAt),10,1)
