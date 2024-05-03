@@ -36,7 +36,7 @@
 
 		L.Weaken(rand(4 SECONDS, 8 SECONDS))
 
-	if(used || !length(targets))
+	if(used)
 		playsound(get_turf(user), 'sound/effects/paradox_display_inability.ogg', 10, TRUE)
 	else
 		revert_cast()
