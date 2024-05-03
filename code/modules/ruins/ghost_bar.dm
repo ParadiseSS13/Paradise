@@ -97,6 +97,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	return I
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/proc/clear_references_to_owner(mob/mob_to_obliterate)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	GLOB.occupants_by_key -= mob_to_obliterate.ckey
 
 /obj/structure/ghost_bar_cryopod
