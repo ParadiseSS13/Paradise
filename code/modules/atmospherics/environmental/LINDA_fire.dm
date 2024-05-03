@@ -4,41 +4,31 @@
 		reagents.temperature_reagents(exposed_temperature)
 	return null
 
-
-
 /turf/proc/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
-	return
-
+	return FALSE
 
 /turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
-	var/datum/gas_mixture/air_contents = return_air()
+	var/datum/gas_mixture/air = get_air()
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
-	if(!air_contents)
-		return 0
+	if(!air)
+		return FALSE
 	if(active_hotspot)
 		if(soh)
-			if(air_contents.toxins > 0.5 && air_contents.oxygen > 0.5)
+			if(air.toxins > 0.5 && air.oxygen > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
-		return 1
+		return TRUE
 
-	var/igniting = 0
-
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.toxins > 0.5)
-		igniting = 1
-
-	if(igniting)
-		if(air_contents.oxygen < 1.3 || air_contents.toxins < 0.5)
-			return 0
-
+	if(exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE && air.oxygen > 0.5 && air.toxins > 0.5)
 		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
-		active_hotspot.just_spawned = TRUE
-	return igniting
+		return TRUE
+
+	return FALSE
 
 //This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
 /obj/effect/hotspot
@@ -53,8 +43,6 @@
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-	var/just_spawned = 1
-	var/bypassing = 0
 	var/fake = FALSE
 	var/burn_time = 0
 
@@ -62,48 +50,58 @@
 	..()
 	if(!fake)
 		SSair.hotspots += src
-		perform_exposure()
+		burn_plasma()
 	dir = pick(GLOB.cardinal)
-	recalculate_atmos_connectivity()
 
-/obj/effect/hotspot/proc/perform_exposure()
+/// Burns the air affected by this hotspot. A hotspot is effectively a gas fire that might not cover the entire tile yet. This proc makes that "partial fire" burn, altering the tile as a whole, and potentially setting the entire tile on fire.
+/obj/effect/hotspot/proc/burn_plasma()
 	var/turf/simulated/location = loc
 	if(!istype(location) || location.blocks_air)
 		return FALSE
 
-	var/datum/gas_mixture/location_air = location.read_air()
-	if(location_air.temperature >= temperature)
-		bypassing = TRUE
-	else
-		bypassing = FALSE
-
-	if(bypassing)
+	var/datum/gas_mixture/location_air = location.get_air()
+	if(location_air.temperature >= min(temperature, PLASMA_UPPER_TEMPERATURE))
+		// The cell is already hot enough, no need to do more.
 		temperature = location_air.temperature
 		volume = CELL_VOLUME
-	else
-		var/datum/gas_mixture/affected = location_air.remove_ratio(volume / location_air.volume)
-		affected.temperature = temperature
-		affected.react()
-		temperature = affected.temperature
-		volume = affected.fuel_burnt * FIRE_GROWTH_RATE
-		location_air.merge(affected)
-		location.write_air(location_air)
+		color = heat2color(temperature)
+		set_light(l_color = color)
+		return
 
-	for(var/A in loc)
-		var/atom/item = A
-		if(!QDELETED(item) && item != src) // It's possible that the item is deleted in temperature_expose
-			item.fire_act(null, temperature, volume)
+	// Get some of the surrounding air for the hotspot to burn.
+	var/datum/gas_mixture/burning = location_air.remove_ratio(volume / location_air.volume)
 
+	// Temporarily boost the temperature of this air to the hotspot temperature.
+	var/old_temperature = burning.temperature
+	burning.temperature = temperature
+
+	// Record how much plasma we had initially.
+	var/old_toxins = burning.toxins
+
+	// Burn it.
+	burning.react()
+
+	// Calculate how much thermal energy was produced.
+	// (Yes, gas_mixture has its own .fuel_burnt, but I dont' trust that code.)
+	var/fuel_burnt = old_toxins - burning.toxins
+	var/thermal_energy = FIRE_PLASMA_ENERGY_RELEASED * fuel_burnt
+
+	// Update the hotspot based on the reaction.
+	temperature = burning.temperature
+	volume = min(CELL_VOLUME, fuel_burnt * FIRE_GROWTH_RATE)
 	color = heat2color(temperature)
 	set_light(l_color = color)
-	return FALSE
 
+	// Revert the air's temperature to where it started.
+	burning.temperature = old_temperature
+
+	// Add in the produced thermal energy.
+	burning.temperature += thermal_energy / burning.heat_capacity()
+
+	// And add it back to the tile.
+	location_air.merge(burning)
 
 /obj/effect/hotspot/process()
-	if(just_spawned)
-		just_spawned = 0
-		return 0
-
 	var/turf/simulated/location = loc
 	if(!istype(location))
 		qdel(src)
@@ -113,22 +111,27 @@
 		qdel(src)
 		return
 
-	var/datum/gas_mixture/location_air = location.read_air()
+	var/datum/gas_mixture/location_air = location.get_air()
 	if(location.blocks_air || location_air.toxins < 0.5 || location_air.oxygen < 0.5)
 		qdel(src)
 		return
 
-	perform_exposure()
+	burn_plasma()
+
+	for(var/A in loc)
+		var/atom/item = A
+		if(!QDELETED(item) && item != src) // It's possible that the item is deleted in temperature_expose
+			item.fire_act(null, temperature, volume)
 
 	if(location.wet) location.wet = TURF_DRY
 
-	if(bypassing)
+	if(volume >= CELL_VOLUME * 0.95)
 		icon_state = "3"
 		location.burn_tile()
 
 		//Possible spread due to radiated heat
-		if(location_air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
-			var/radiated_temperature = location_air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
+		if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
+			var/radiated_temperature = temperature*FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/direction in GLOB.cardinal)
 				var/turf/simulated/T = get_step(location, direction)
 				if(!istype(T))
@@ -148,7 +151,7 @@
 		location.max_fire_temperature_sustained = temperature
 
 	if(location.heat_capacity && temperature > location.heat_capacity)
-		location.to_be_destroyed = 1
+		location.to_be_destroyed = TRUE
 		/*if(prob(25))
 			location.ReplaceWithSpace()
 			return 0*/
