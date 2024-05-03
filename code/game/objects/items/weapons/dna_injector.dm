@@ -209,7 +209,6 @@
 	name = "DNA injector"
 	desc = "Good. Let the hate flow through you."
 
-
 /obj/item/dnainjector/antitele
 	name = "DNA-Injector (Anti-Tele.)"
 	desc = "Will make you not able to control your mind."
@@ -551,28 +550,6 @@
 
 /obj/item/dnainjector/antiblind/Initialize()
 	block = GLOB.blindblock
-	..()
-
-/obj/item/dnainjector/telemut
-	name = "DNA-Injector (Tele.)"
-	desc = "Super brain man!"
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/telemut/Initialize()
-	block = GLOB.teleblock
-	..()
-
-/obj/item/dnainjector/antitele
-	name = "DNA-Injector (Anti-Tele.)"
-	desc = "Will make you not able to control your mind."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antitele/Initialize()
-	block = GLOB.teleblock
 	..()
 
 /obj/item/dnainjector/deafmut
