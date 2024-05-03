@@ -1,7 +1,7 @@
 
 /datum/spell/paradox_spell/click_target/energy_exchange
 	name = "Energy Exchange"
-	desc = "You commit a paradox and exchange stamina with a chosen victim. Works even if target it's not a human and even when you unconscious."
+	desc = "You commit a paradox and exchange stamina, slowness, confusion and other negative effects with a chosen victim. Works even if target it's not a human and even when you unconscious."
 	action_icon_state = "stamina_exchange"
 	base_cooldown = 80 SECONDS
 	base_range = 12
@@ -19,7 +19,7 @@
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/H = target
 
-	if(!istype(target, /mob/living/carbon))
+	if(!istype(target, /mob/living/carbon)) //if can't exchange powers then just get a vampire's stun clear
 		var/mob/living/carbon/human/U = user
 		U.SetWeakened(0)
 		U.SetStunned(0)

@@ -9,7 +9,7 @@
 	alpha = 120
 	var/live_span = 40 SECONDS
 	var/alive_time = 0 SECONDS
-	var/mob/living/carbon/human/orig
+	var/mob/living/carbon/human/the_original
 
 /mob/camera/paradox/Login()
 	..()
@@ -24,76 +24,76 @@
 	to_chat(src, "<span class='biggerdanger'>Ten seconds left.</span>")
 
 /mob/camera/paradox/proc/expire()
-	if(!orig)
+	if(!the_original)
 		to_chat(src, "<span class='biggerdanger'>The Original disappeared... Aborting...</span>")
 		qdel(src)
 		return
 
-	var/list/main_objectives = list("Kill" = 8, "Protect" = 2)
-	var/list/escape_objectives = list("Escape" = 5, "Survive" = 5)
+	var/list/main_objectives = list("Kill" = 9, "Protect" = 1)
+	var/list/escape_objectives = list("Escape" = 4, "Survive" = 6)
 
 	var/datum/spell/paradox_spell/objective_spell
 
 	do_sparks(rand(1, 2), FALSE, get_turf(src))
-	var/mob/living/carbon/human/clone = do_clone(orig, src)
+	var/mob/living/carbon/human/clone = do_clone(the_original, src)
 	clone.set_nutrition(NUTRITION_LEVEL_FULL)
 
-	var/mob/camera/paradox/no = src
+	var/mob/camera/paradox/the_camera = src
 
-	var/mob/dead/observer/G = no.ghostize()
-	qdel(no)
+	var/mob/dead/observer/G = the_camera.ghostize()
+	qdel(the_camera)
 
 	clone.key = G.key
 
 	clone.mind.add_antag_datum(/datum/antagonist/paradox_clone)
 	qdel(src)
-	var/datum/antagonist/paradox_clone/pc = clone.mind.has_antag_datum(/datum/antagonist/paradox_clone)
-	pc.original = orig
+	var/datum/antagonist/paradox_clone/para_clone_datum = clone.mind.has_antag_datum(/datum/antagonist/paradox_clone)
+	var/mob/living/carbon/human/para = para_clone_datum.owner.current
+	var/datum/mind/para_mind = para_clone_datum.owner
+	para_clone_datum.original = the_original
 
-	if(orig.mind.martial_art)
-		for(var/datum/martial_art/MA as anything in orig.mind.known_martial_arts)
+	if(the_original.mind.martial_art)
+		for(var/datum/martial_art/MA as anything in the_original.mind.known_martial_arts)
 			if(!istype(MA, /datum/martial_art/krav_maga))
-				MA.teach(pc.owner.current)
+				MA.teach(para_mind.current)
 
-	if(orig.mind.spell_list)
-		for(var/datum/spell/S as anything in orig.mind.spell_list)
+	if(the_original.mind.spell_list)
+		for(var/datum/spell/S as anything in the_original.mind.spell_list)
 			if(istype(S, /datum/spell/vampire))
 				return
-			pc.owner.AddSpell(S)
-			pc.owner.spell_list += S
+			para_mind.AddSpell(S)
+			para_mind.spell_list += S
 
-	if(length(orig.mind.job_objectives))
-		pc.owner.job_objectives += orig.mind.job_objectives
+	if(length(the_original.mind.job_objectives))
+		para_mind.job_objectives += the_original.mind.job_objectives
 
-	var/obj/item/organ/internal/body_egg/egg = pc.owner.current.get_int_organ(/obj/item/organ/internal/body_egg) //OH NO WHY I AM ALREADY INFESTED WITH XENOMORPH EGG!??!??
+	var/obj/item/organ/internal/body_egg/egg = para_mind.current.get_int_organ(/obj/item/organ/internal/body_egg) //OH NO WHY I AM ALREADY INFESTED WITH XENOMORPH EGG!??!??
 	if(egg)
-		egg.remove(pc.owner.current)
+		egg.remove(para_mind.current)
 		qdel(egg)
 
-	pc.owner.current.reagents.add_reagent("mutadone", 1)
-	for(var/datum/disease/D in pc.owner.current.viruses) //OH NO WHY I AM ALREADY INFESTED WITH GBS
+	para_mind.current.reagents.add_reagent("mutadone", 1)
+	for(var/datum/disease/D in para_mind.current.viruses) //OH NO WHY I AM ALREADY INFESTED WITH GBS
 		D.cure()
 
-	pc.owner.miming = orig.mind.miming
+	para_mind.miming = the_original.mind.miming
 
-	pc.owner.memory = orig.mind.memory
+	para_mind.memory = the_original.mind.memory
 
-	pc.owner.isblessed = orig.mind.isblessed
-	pc.owner.num_blessed = orig.mind.num_blessed
+	para_mind.isblessed = the_original.mind.isblessed
+	para_mind.num_blessed = the_original.mind.num_blessed
 
-	if(orig.mind.assigned_role)
-		pc.owner.assigned_role = orig.mind.assigned_role
+	if(the_original.mind.assigned_role)
+		para_mind.assigned_role = the_original.mind.assigned_role
 
-	if(orig.mind.role_alt_title)
-		pc.owner.role_alt_title = orig.mind.role_alt_title
+	if(the_original.mind.role_alt_title)
+		para_mind.role_alt_title = the_original.mind.role_alt_title
 
-	if(orig.mind.initial_account)
-		pc.owner.initial_account = orig.mind.initial_account
+	if(the_original.mind.initial_account)
+		para_mind.initial_account = the_original.mind.initial_account
 
-	if(orig.mind.learned_recipes)
-		pc.owner.learned_recipes = orig.mind.learned_recipes
-
-	var/mob/living/carbon/human/para = pc.owner.current
+	if(the_original.mind.learned_recipes)
+		para_mind.learned_recipes = the_original.mind.learned_recipes
 
 	for(var/obj/item/organ/internal/I in para.internal_organs)
 		I.heal_internal_damage(400) //I'm not using rejuvenate cus it can break some things
@@ -102,10 +102,10 @@
 		var/obj/item/card/id/W = para.wear_id
 		W.owner_ckey = para.key
 
-	if(orig.mind.assigned_role == "Clown")
+	if(the_original.mind.assigned_role == "Clown")
 		var/datum/outfit/job/clown/clo = new()
 		clo.post_equip(clone, FALSE)
-		pc.handle_clown_mutation(para, granting_datum = TRUE)
+		para_clone_datum.handle_clown_mutation(para, granting_datum = TRUE)
 
 	var/main_objective = pickweight(main_objectives)
 
@@ -113,50 +113,50 @@
 
 	if(main_objective == "Kill")
 		var/datum/objective/paradox_replace/kill = new()
-		make_owner_and_target(kill, pc, orig.mind)
-		pc.add_antag_objective(kill)
+		make_owner_and_target(kill, para_clone_datum, the_original.mind)
+		para_clone_datum.add_antag_objective(kill)
 		objective_spell = /datum/spell/paradox_spell/click_target/replace
 
 	if(main_objective == "Protect")
 		var/datum/objective/protect/paradox_shield = new()
-		make_owner_and_target(paradox_shield, pc, orig.mind)
+		make_owner_and_target(paradox_shield, para_clone_datum, the_original.mind)
 		paradox_shield.explanation_text += " Check your ability 'United Bonds'. It can help you with this objective."
-		pc.add_antag_objective(paradox_shield)
+		para_clone_datum.add_antag_objective(paradox_shield)
 		objective_spell = /datum/spell/paradox_spell/self/united_bonds //yes, I know this power is kinda useless, but I love even numbers and sometimes it can help...
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	if(escape_objective == "Escape")
 		var/datum/objective/escape/esc = new()
-		esc.owner = pc.owner
-		pc.add_antag_objective(esc)
+		esc.owner = para_mind
+		para_clone_datum.add_antag_objective(esc)
 
 	if(escape_objective == "Survive")
 		var/datum/objective/survive/minecraft_mode = new()
-		minecraft_mode.owner = pc.owner
-		pc.add_antag_objective(minecraft_mode)
+		minecraft_mode.owner = para_mind
+		para_clone_datum.add_antag_objective(minecraft_mode)
 
-	pc.owner.objective_holder.objective_owner = pc.owner
+	para_mind.objective_holder.objective_owner = para_mind
 
-	pc.owner.AddSpell(new objective_spell(pc.owner.current))
-	pc.owner.spell_list += objective_spell
-	pc.current_powers += objective_spell
+	para_mind.AddSpell(new objective_spell(para_mind.current))
+	para_mind.spell_list += objective_spell
+	para_clone_datum.current_powers += objective_spell
 
 	var/list/messages = list()
 	messages.Add("<span class='userdanger'>You are a Paradox Clone!</span>")
-	messages.Add(pc.greet())
-	messages.Add(pc.owner.prepare_announce_objectives())
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[pc.wiki_page_name])</span>")
+	messages.Add(para_clone_datum.greet())
+	messages.Add(para_mind.prepare_announce_objectives())
+	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[para_clone_datum.wiki_page_name])</span>")
 
-	to_chat(pc.owner.current, chat_box_red(messages.Join("<br>")))
+	to_chat(para_mind.current, chat_box_red(messages.Join("<br>")))
 
 	var/datum/language/paradox/P = new()
-	to_chat(pc.owner.current, "<span class='danger'><B><center>Use :[P.key] to commune with other paradox clones.</center></b></span>")
+	to_chat(para_mind.current, "<span class='danger'><B><center>Use [P.key] to commune with other paradox clones.</center></b></span>")
 
 	var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = para.apply_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
-	PS.target_brain = orig.get_int_organ(/obj/item/organ/internal/brain)
+	PS.target_brain = the_original.get_int_organ(/obj/item/organ/internal/brain)
 
-	addtimer(CALLBACK(SSjobs, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), pc.owner.current.client, pc.owner), 1 SECONDS)
+	addtimer(CALLBACK(SSjobs, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), para_mind.current.client, para_mind), 1 SECONDS)
 
 /mob/camera/paradox/proc/make_owner_and_target(datum/objective/O, datum/antagonist/paradox_clone/pc, datum/mind/orig)
 	O.owner = pc.owner
@@ -170,13 +170,14 @@
 		var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = attached_effect
 		var/list/allowed_targets = list()
 		var/mob/living/carbon/human/P = usr
-		var/datum/antagonist/paradox_clone/pc = P.mind.has_antag_datum(/datum/antagonist/paradox_clone)
+		var/datum/antagonist/paradox_clone/para_clone_datum = P.mind.has_antag_datum(/datum/antagonist/paradox_clone)
+		var/mob/living/carbon/human/para = para_clone_datum.owner.current
 		for(var/mob/living/carbon/human/H in world)
 			var/obj/item/organ/internal/brain/HB = H.get_int_organ(/obj/item/organ/internal/brain)
-			if(H.z == P.z && H.mind && H.key && P != H && HB && H != PS.owner && H || is_paradox_clone(H) || H == pc.original)
+			if(H.z == P.z && H.mind && H.key && P != H && HB && H != PS.owner && H || is_paradox_clone(H) || H == para_clone_datum.original)
 				allowed_targets += H
 		if(!length(allowed_targets))
-			to_chat(pc.owner.current, "<span class='notice'>No available targets.</b></span>")
+			to_chat(para, "<span class='notice'>No available targets.</b></span>")
 			if(tgui_alert(P, "No available targets. Do you want to hide the alert?", "No targets.", list("Yes", "No")) == "Yes")
 				src.icon_state = "null"
 				to_chat(P, "<span class='notice'>To return the pinpoint, click on the empty space where it was previously located.</b></span>")
@@ -185,7 +186,7 @@
 		if(target)
 			var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
 			if(!B)
-				to_chat(pc.owner.current, "<span class='notice'>[target.real_name] doesn't have a brain! Can't sense...</b></span>")
+				to_chat(para, "<span class='notice'>[target.real_name] doesn't have a brain! Can't sense...</b></span>")
 				return
 			icon_state = "pinon"
 			PS.target_brain = B

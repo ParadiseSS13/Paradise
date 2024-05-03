@@ -1,7 +1,7 @@
 
 /datum/spell/paradox_spell/self/digital_supersede
 	name = "Digital Supersede"
-	desc = "With the help of the paradox, you completely remove the cameras from yourself, leaving only interference..."
+	desc = "With the help of the paradox, you completely remove yourself from cameras, leaving only interference..."
 	action_icon_state = "digital_supersede"
 	base_cooldown = 1 SECONDS
 
@@ -9,10 +9,10 @@
 	if(HAS_TRAIT_FROM(user, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT)
 		user.set_invisible(INVISIBILITY_MINIMUM)
-		to_chat(user, "<span class='notice'>You've reconnected with this world...</span>")
+		to_chat(user, "<span class='notice'>You've become more connected with this world, making you slightly more visible to machines.</span>")
 	else
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, PARADOX_CLONE_TRAIT)
-		to_chat(user, "<span class='notice'>The connection with this world has decreased. There's only interference from you on the cameras, and no machine will track you.</span>")
+		to_chat(user, "<span class='notice'>The connection with this world has decreased. You're nothing but a bit of noise on cameras, and no machine will track you.</span>")
 		user.set_invisible(SEE_INVISIBLE_LIVING)
 
 	add_attack_logs(user, user, "(Paradox Clone) Digital Superseded")

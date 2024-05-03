@@ -13,11 +13,6 @@
 	pass_flags = PASSTABLE | PASSMOB | PASSGRILLE | LETPASSTHROW | PASSFENCE | PASSDOOR | PASSGLASS | PASSGIRDER
 	attacktext = "grabs"
 	attack_sound = 'sound/hallucinations/growl3.ogg'
-	maxHealth = 200
-	health = 200
-	faction = list(ROLE_PARADOX_CLONE)
-	life_span = 12 SECONDS //how long until they despawn
-	var/mob/living/parent
 	deathmessage = "vanishes..."
 	del_on_death = TRUE
 	dodging = FALSE
@@ -29,6 +24,11 @@
 	gold_core_spawnable = NO_SPAWN
 	see_in_dark = 99
 	sight = SEE_MOBS
+	maxHealth = 200 //max health
+	health = 200 //health
+	faction = list(ROLE_PARADOX_CLONE) //don't attack paradox clones
+	life_span = 12 SECONDS //how long until they despawn
+	var/mob/living/parent // okay I'm autodoccing it this is who is the parent of this illusion just who summoned it
 
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
@@ -49,14 +49,22 @@
 
 /mob/living/simple_animal/hostile/illusion/paradox/proc/GetOppositeDir(var/dir)
 	switch(dir)
-		if(NORTH)     return SOUTH
-		if(SOUTH)     return NORTH
-		if(EAST)      return WEST
-		if(WEST)      return EAST
-		if(SOUTHWEST) return NORTHEAST
-		if(NORTHWEST) return SOUTHEAST
-		if(NORTHEAST) return SOUTHWEST
-		if(SOUTHEAST) return NORTHWEST
+		if(NORTH)
+			return SOUTH
+		if(SOUTH)
+			return NORTH
+		if(EAST)
+			return WEST
+		if(WEST)
+			return EAST
+		if(SOUTHWEST)
+			return NORTHEAST
+		if(NORTHWEST)
+			return SOUTHEAST
+		if(NORTHEAST)
+			return SOUTHWEST
+		if(SOUTHEAST)
+			return NORTHWEST
 	return 0
 
 /mob/living/simple_animal/hostile/illusion/paradox/attack_hand(mob/living/user)

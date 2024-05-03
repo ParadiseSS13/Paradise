@@ -68,7 +68,7 @@
 		var/mob/camera/paradox/P = new /mob/camera/paradox(T)
 		addtimer(CALLBACK(P, TYPE_PROC_REF(/mob/camera/paradox, expire)), 40 SECONDS, TIMER_STOPPABLE)
 		addtimer(CALLBACK(P, TYPE_PROC_REF(/mob/camera/paradox, warning)), 30 SECONDS, TIMER_STOPPABLE)
-		P.orig = chosen
+		P.the_original = chosen
 		P.key = lucky_one.key
 		SEND_SOUND(P, sound('sound/ambience/antag/paradox_camera_alert.ogg'))
 		do_sparks(rand(1, 2), FALSE, P)

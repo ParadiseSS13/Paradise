@@ -13,14 +13,23 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	special_role = SPECIAL_ROLE_PARADOX_CLONE
 	antag_hud_name = "hudparadoxclone"
 	antag_hud_type = ANTAG_HUD_PARADOX_CLONE //they see each other hud
-	clown_gain_text = "<span class='paradox'>You are from alternative universe, where are clowns not clumsy actually. This allows you to wield weapons without harming yourself.</span>"
-	clown_removal_text = "<span class='paradox'>The connection with the native universe fades, which is why you are now an ordinary clown of the new universe.</span>"
+	clown_gain_text = "<span class='notice'>You are from alternative universe, where clowns are actually quite dextrous. This allows you to wield weapons without harming yourself.</span>"
+	clown_removal_text = "<span class='danger'>Your connection with your native universe fades, and with it goes your dexterity.</span>"
 	wiki_page_name = "Paradox_Clone"
 	var/paradox_id = "Paradox"
 	var/real_id
-	var/static/list/paradox_powers = list(/datum/spell/paradox_spell/click_target/gaze, /datum/spell/touch/paradox_spell/space_distortion, /datum/spell/paradox_spell/self/digital_supersede,
-	/datum/spell/paradox_spell/click_target/mind_interference, /datum/spell/paradox_spell/self/illusion, /datum/spell/paradox_spell/click_target/energy_exchange, /datum/spell/touch/paradox_spell/microcircuit_disorder,
-	/datum/spell/paradox_spell/self/intangibility, /datum/spell/touch/paradox_spell/suppression, /datum/spell/paradox_spell/aoe/display_inability)
+	var/static/list/paradox_powers = list(
+		/datum/spell/paradox_spell/click_target/gaze,
+		/datum/spell/touch/paradox_spell/space_distortion,
+		/datum/spell/paradox_spell/self/digital_supersede,
+		/datum/spell/paradox_spell/click_target/mind_interference,
+		/datum/spell/paradox_spell/self/illusion,
+		/datum/spell/paradox_spell/click_target/energy_exchange,
+		/datum/spell/touch/paradox_spell/microcircuit_disorder,
+		/datum/spell/paradox_spell/self/intangibility,
+		/datum/spell/touch/paradox_spell/suppression,
+		/datum/spell/paradox_spell/aoe/display_inability
+	)
 	//"replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
 	var/mob/living/carbon/human/original
 	var/list/current_powers = list()
@@ -47,7 +56,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	else
 		paradox_id = "[prefix] [rand(1,999)]"
 
-	for(var/mob/living/carbon/human/clone in world)
+	for(var/mob/living/carbon/human/clone in GLOB.human_list)
 		if(clone != H && is_paradox_clone(clone))
 			to_chat("<span class='danger'>You have a feeling, that something familiar and native appeared in this dark universe...</span>")
 

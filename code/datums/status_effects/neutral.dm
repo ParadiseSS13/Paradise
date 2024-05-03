@@ -344,7 +344,8 @@
 		return
 	linked_alert.setDir(get_dir(here, there))
 
-	var/dist = (get_dist(here, there))
+	var/dist = get_dist(here, there)
+
 	if(dist >= 1 && dist <= range_mid)
 		linked_alert.icon_state = "pinonclose"
 	else if(dist > range_mid && dist <= range_far)

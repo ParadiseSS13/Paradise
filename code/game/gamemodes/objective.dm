@@ -803,7 +803,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/paradox_replace/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role] and replace them! Use 'Replace' ability to erase their body! Don't forget, your mission is to blend up, try to don't kill anyone else."
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role] and replace them! Use 'Replace' ability to erase their body! Don't forget, your mission is to blend in, so try to avoid collateral damage."
 	else
 		explanation_text = "Free Objective"
 
@@ -819,7 +819,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/paradox_replace/on_target_cryo()
-	to_chat(owner.current, "<span class='paradox'>There's a feeling... Your original are out of your area affection!</span>")
+	to_chat(owner.current, "<span class='biggerdanger'>You have a strange feeling that your original is no longer a concern...</span>")
 	target = null
 	completed = TRUE
 
