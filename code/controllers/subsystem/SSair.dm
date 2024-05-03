@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(air)
 
 		if(reasons & REASON_HOT)
 			var/datum/gas_mixture/air = T.get_air()
-			T.hotspot_expose(air.temperature, CELL_VOLUME)
+			T.hotspot_expose(air.temperature(), CELL_VOLUME)
 			for(var/atom/movable/item in T)
 				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
 			T.temperature_expose(air, air.temperature(), CELL_VOLUME)
