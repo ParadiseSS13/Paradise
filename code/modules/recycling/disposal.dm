@@ -428,6 +428,9 @@
 	var/atom/L = loc						// recharging from loc turf
 
 	var/datum/gas_mixture/env = L.return_air()
+	env.synchronize(CALLBACK(src, PROC_REF(take_air), env))
+
+/obj/machinery/disposal/proc/take_air(datum/gas_mixture/env)
 	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
 
 	if(env.temperature() > 0)
@@ -441,7 +444,6 @@
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
 		mode = 2
 		update()
-	return
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
@@ -714,7 +716,11 @@
 	// called to vent all gas in holder to a location
 /obj/structure/disposalholder/proc/vent_gas(atom/location)
 	if(location)
-		location.assume_air(gas)  // vent all gas to turf
+		var/datum/gas_mixture/env = location.return_air()
+		env.synchronize(CALLBACK(src, PROC_REF(vent_gas_sync), env))
+
+/obj/structure/disposalholder/proc/vent_gas_sync(datum/gas_mixture/env)
+	env.merge(gas)  // vent all gas to turf
 
 // Disposal pipes
 
