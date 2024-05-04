@@ -95,8 +95,10 @@
 	// Revert the air's temperature to where it started.
 	burning.set_temperature(old_temperature)
 
-	// Add in the produced thermal energy.
-	burning.set_temperature(burning.temperature() + thermal_energy / burning.heat_capacity())
+	var/heat_capacity = burning.heat_capacity()
+	if(heat_capacity)
+		// Add in the produced thermal energy.
+		burning.set_temperature(burning.temperature() + thermal_energy / burning.heat_capacity())
 
 	// And add it back to the tile.
 	location_air.merge(burning)
@@ -123,7 +125,12 @@
 		if(!QDELETED(item) && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
-	if(location.wet) location.wet = TURF_DRY
+	if(!istype(location))
+		// We are now space. No need to do anything else.
+		return
+
+	if(location.wet)
+		location.wet = TURF_DRY
 
 	if(volume >= CELL_VOLUME * 0.95)
 		icon_state = "3"

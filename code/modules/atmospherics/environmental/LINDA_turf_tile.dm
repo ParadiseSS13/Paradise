@@ -191,8 +191,10 @@
 	air.set_temperature(temperature)
 
 /turf/proc/recalculate_atmos_connectivity()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(true)
 	if(!SSair.is_synchronous)
-		SSair.synchronize(src, PROC_REF(recalculate_atmos_connectivity))
+		SSair.synchronize(CALLBACK(src, PROC_REF(recalculate_atmos_connectivity)))
 		return
 
 	if(blocks_air)

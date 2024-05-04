@@ -65,6 +65,8 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 /obj/machinery/atmospherics/proc/process_atmos() //If you dont use process why are you here
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	return PROCESS_KILL
 
 /obj/machinery/atmospherics/proc/atmos_init()

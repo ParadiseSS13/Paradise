@@ -765,43 +765,43 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	return TRUE
 
 /datum/gas_mixture/bound_to_turf/set_dirty()
-	ASSERT(synchronized)
 	dirty = TRUE
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_oxygen = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_carbon_dioxide(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_carbon_dioxide = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_nitrogen(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_nitrogen = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_toxins = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_sleeping_agent = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_agent_b = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
-	ASSERT(synchronized)
 	dirty = TRUE
 	private_temperature = value
+	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/proc/write()
 	set_tile_atmos(bound_turf.x, bound_turf.y, bound_turf.z, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)

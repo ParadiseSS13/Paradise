@@ -39,6 +39,10 @@
 	return ((ppratio * pressure) * CELL_VOLUME) / (temperature * R_IDEAL_GAS_EQUATION)
 
 /datum/buildmode_mode/atmos/handle_selected_region(mob/user, params)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+	if(!SSair.is_synchronous)
+		SSair.synchronize(CALLBACK(src, PROC_REF(handle_selected_region), user, params))
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/ctrl_click = pa.Find("ctrl")

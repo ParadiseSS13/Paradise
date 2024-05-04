@@ -37,8 +37,8 @@
 /proc/milla_init_z(z)
 	return MILLA_CALL(initialize, z)
 
-/proc/is_milla_synchronous()
-	return MILLA_CALL(is_synchronous)
+/proc/is_milla_synchronous(tick)
+	return MILLA_CALL(is_synchronous, tick)
 
 /proc/set_tile_atmos(x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
 	return MILLA_CALL(set_tile_atmos, x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)

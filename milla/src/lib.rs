@@ -207,6 +207,13 @@ static INTERESTING_TILES: OnceLock<Mutex<Vec<InterestingTile>>> = OnceLock::new(
 // * It's fundamentally a 32-bit floating point number.
 static TICK_TIME: OnceLock<Mutex<f32>> = OnceLock::new();
 
+// How many ticks has MILLA completed?
+//
+// Data type explanation:
+// * OnceLock and Mutex are used as in BUFFER_FLIPPER.
+// * It's fundamentally a 32-bit floating point number.
+static TICK_COUNT: OnceLock<Mutex<f32>> = OnceLock::new();
+
 // Fetches the active buffer map, the HashMap in either ATMOS_A or ATMOS_B, initializing the HashMap
 // if needed.
 fn get_active_atmos_buffer_map(
@@ -243,6 +250,12 @@ fn flip_buffers() {
 // HashMap if needed.
 fn get_interesting_tiles_vector() -> &'static Mutex<Vec<InterestingTile>> {
     INTERESTING_TILES.get_or_init(|| Mutex::new(Vec::new()))
+}
+
+// Returns the number of completed MILLA ticks.
+fn get_tick_count() -> f32 {
+    let tick_count_mutex = TICK_COUNT.get_or_init(|| Mutex::new(0.0));
+    *tick_count_mutex.lock().unwrap()
 }
 
 // Ensures the buffer map has a buffer for the given Z level.
@@ -809,14 +822,19 @@ fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
 #[byondapi::bind]
 fn spawn_tick_thread() {
     setup_panic_handler();
+    let tick_count = get_tick_count();
     thread::spawn(|| {
         let now = Instant::now();
         tick();
         let tick_time_mutex = TICK_TIME.get_or_init(|| Mutex::new(0.0));
         let mut active = tick_time_mutex.lock().unwrap();
         *active = now.elapsed().as_millis() as f32;
+
+        let tick_count_mutex = TICK_COUNT.get_or_init(|| Mutex::new(0.0));
+        let mut tick_count = tick_count_mutex.lock().unwrap();
+        *tick_count += 1.0;
     });
-    Ok(Default::default())
+    Ok(ByondValue::from(tick_count + 1.0))
 }
 
 // BYOND API for asking how long the prior tick took.
@@ -829,12 +847,25 @@ fn get_tick_time() {
 }
 
 // BYOND API for asking if MILLA is in synchronous mode and can be written to.
+// If specified, for_tick demands that we also have completed the specified MILLA tick.
+// This is useful for ensuring you don't get ahead of yourself and decide a pending tick is already
+// completed.
 #[byondapi::bind]
-fn is_synchronous() {
+fn is_synchronous(for_tick: ByondValue) {
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
+        // No, buffer is locked.
         return Ok(ByondValue::from(0.0));
     }
+    if for_tick.is_null() {
+        // Yes, buffer is unlocked and we don't care which tick.
+        return Ok(ByondValue::from(1.0));
+    }
+    if f32::try_from(for_tick)? > get_tick_count() {
+        // No, buffer is unlocked, but we haven't finished the requested tick yet.
+        return Ok(ByondValue::from(0.0));
+    }
+    // All good!
     Ok(ByondValue::from(1.0))
 }
 

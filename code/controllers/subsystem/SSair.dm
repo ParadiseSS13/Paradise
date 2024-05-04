@@ -206,8 +206,7 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_MILLA_TICK)
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
 		is_synchronous = FALSE
-		spawn_milla_tick_thread()
-		spawn_wait_proc()
+		spawn_wait_proc(spawn_milla_tick_thread())
 
 		if(state != SS_RUNNING)
 			return
@@ -428,13 +427,9 @@ SUBSYSTEM_DEF(air)
 	B.synchronized = is_synchronous
 	bound_mixtures += B
 
-/datum/controller/subsystem/air/proc/spawn_wait_proc(waiting_for_thread_start = TRUE)
-	if(waiting_for_thread_start)
-		if(is_milla_synchronous())
-			addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc), TRUE))
-		return
-	if(!is_milla_synchronous())
-		addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc), FALSE))
+/datum/controller/subsystem/air/proc/spawn_wait_proc(tick)
+	if(!is_milla_synchronous(tick))
+		addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc), tick))
 		return
 
 	is_synchronous = TRUE
