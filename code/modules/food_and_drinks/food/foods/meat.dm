@@ -51,7 +51,7 @@
 	name = "kangaroo meat"
 	desc = "Extremely muscular and tender meat."
 	list_reagents = list("protein" = 4, "iron" = 5, "vitamin" = 1)
-	tastes = list("punch in the face" = 1, "fowl" = 3)
+	tastes = list("a punch in the face" = 1, "fowl" = 3)
 
 /obj/item/food/snacks/meat/monkey
 	//same as plain meat
