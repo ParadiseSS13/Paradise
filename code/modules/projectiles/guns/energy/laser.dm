@@ -22,9 +22,9 @@
 	Shellguard discontinued warranties due to widespread customization and has moved its attention to later EG series."
 
 /obj/item/gun/energy/laser/cyborg
-	can_charge = FALSE
 	name = "mounted LG-5 laser carbine"
 	desc = "A modified LG-5 laser carbine that draws power directly from your internal energy cell. This probably would have voided the gun's warranty if Shellguard hadn't already discontinued LG-5 warranties."
+	can_charge = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	origin_tech = null
 

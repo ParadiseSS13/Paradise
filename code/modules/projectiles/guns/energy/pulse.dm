@@ -86,7 +86,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/annihilator/attack_self(mob/living/user)
-	to_chat(user, "<span class='boldannounceic'>The [src] is now set to 'ANNIHILATE'.</span>")
+	to_chat(user, "<span class='boldannounceic'>[src] is now set to 'ANNIHILATE'.</span>")
 
 /obj/item/gun/energy/pulse/pistol/m1911
 	name = "\improper M1911-P"
