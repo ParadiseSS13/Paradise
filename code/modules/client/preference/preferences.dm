@@ -606,7 +606,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<a href='byond://?_src_=prefs;preference=action_keybinds;clear_all=1'>Clear</a><br /></div>"
 					dat += "<tr><td colspan=4><hr></td></tr>"
 					dat += "<tr><td colspan=4><div align='center'><b>Please note, some specific actions may bind to multiple buttons.</b></div></td></tr>"
-					dat += "<tr><td colspan=4><hr></td></tr>"
 					dat += "<table align='center' width='100%'>"
 
 					// Lookup lists to make our life easier

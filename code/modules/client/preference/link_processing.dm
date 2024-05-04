@@ -1353,7 +1353,6 @@
 									if(!length(key_overrides))
 										keybindings_overrides -= initial(to_set_to.name)
 									else
-										to_chat(usr, "[initial(to_set_to.name)]")
 										keybindings_overrides[initial(to_set_to.name)] = key_overrides
 
 								user << browse(null, "window=captureactionkeypress")
