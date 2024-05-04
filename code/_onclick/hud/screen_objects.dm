@@ -204,7 +204,7 @@
 		return
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
+		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
 			return
 
 		var/list/new_contents = S.contents.Copy()
@@ -486,9 +486,9 @@
 		var/mob/M = usr
 		switch(name)
 			if("right hand", "r_hand")
-				M.activate_hand("r")
+				M.activate_hand(HAND_BOOL_RIGHT)
 			if("left hand", "l_hand")
-				M.activate_hand("l")
+				M.activate_hand(HAND_BOOL_LEFT)
 	return TRUE
 
 /atom/movable/screen/swap_hand
@@ -562,3 +562,7 @@
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/healths/stamina
+	icon_state = "stamina_0"
+	screen_loc = ui_stamina

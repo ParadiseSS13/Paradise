@@ -333,7 +333,6 @@
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/robotanalyzer,
-		/obj/item/reagent_scanner/adv,
 		/obj/item/borg_defib,
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
@@ -600,7 +599,6 @@
 		/obj/item/razor,
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
-		/obj/item/reagent_scanner/adv,
 		/obj/item/rsf,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
@@ -823,13 +821,11 @@
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/melee/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
-		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/alien/acid)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/alien/acid,
-		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke
 	)
 

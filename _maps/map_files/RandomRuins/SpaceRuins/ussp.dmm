@@ -3010,20 +3010,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
-"hp" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/ruin/space/derelict/solar_control)
 "hq" = (
 /obj/item/stack/ore/uranium,
 /turf/template_noop,
@@ -3146,10 +3132,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_stairs"
 	},
-/area/ruin/space/derelict/crew_quarters)
-"hF" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/crew_quarters)
 "hH" = (
 /obj/machinery/door/airlock/public/glass{
@@ -7502,7 +7484,6 @@
 "sp" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -7537,7 +7518,6 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "st" = (
-/obj/structure/cable,
 /obj/machinery/power/tracker,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -7569,12 +7549,26 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"Ef" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
 "Nv" = (
 /obj/effect/spawner/airlock{
 	req_access_txt = 0
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"NK" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/template_noop,
+/area/template_noop)
 "Oh" = (
 /obj/effect/spawner/airlock/w_to_e{
 	req_access_txt = 0
@@ -13529,8 +13523,8 @@ gn
 gG
 gG
 gG
-hF
-hT
+aV
+Ef
 in
 iK
 je
@@ -14166,7 +14160,7 @@ ac
 ac
 ac
 ac
-ac
+NK
 ac
 ac
 ac
@@ -14356,18 +14350,18 @@ ac
 ac
 ac
 ac
-hp
-hp
-hp
-hp
-hp
+hs
+hs
+hs
+hs
+hs
 ac
 jO
 ac
 jO
 ag
 hs
-hp
+hs
 hs
 hs
 hs

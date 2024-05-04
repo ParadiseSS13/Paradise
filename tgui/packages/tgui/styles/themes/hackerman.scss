@@ -30,6 +30,14 @@
     )
   );
   @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: (
+      'color-default': darken(colors.$primary, 25%),
+      'color-disabled': #363636,
+      'color-selected': lighten(colors.$primary, 25%)
+    )
+  );
+  @include meta.load-css(
     '../components/Input.scss',
     $with: ('border-color': colors.$primary)
   );

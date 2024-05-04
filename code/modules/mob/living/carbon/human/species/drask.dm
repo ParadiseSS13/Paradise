@@ -32,7 +32,6 @@
 	species_traits = list(LIPS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS | BALD | SHAVED
-	has_gender = FALSE
 	dietflags = DIET_OMNI
 
 	cold_level_1 = -1 //Default 260 - Lower is better
@@ -58,6 +57,14 @@
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
+	autohiss_basic_map = list(
+			"o" = list ("oo", "ooo"),
+			"u" = list ("uu", "uuu")
+		)
+	autohiss_extra_map = list(
+			"m" = list ("mm", "mmm")
+		)
+	autohiss_exempt = list("Orluum")
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

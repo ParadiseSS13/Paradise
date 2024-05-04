@@ -74,7 +74,7 @@
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 				singulo.energy = 300 //To give it a small boost
-				message_admins("[key_name_admin(user)] detonated a bag of holding <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				message_admins("[key_name_admin(user)] detonated a bag of holding <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				log_game("[key_name(user)] detonated a bag of holding")
 				qdel(src)
 			else
@@ -720,7 +720,8 @@
 		/obj/item/warp_cube/red = 1,
 		/obj/item/reagent_containers/drinks/everfull = 2,
 		/obj/item/clothing/suit/space/hardsuit/wizard = 2,
-		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
+		/obj/item/immortality_talisman = 1, //spells recharge when invincible
+		/obj/item/tarot_generator/wizard = 2)
 	var/obj/item/pickeda = pick(list_a)
 	value += list_a[pickeda]
 	new pickeda(src)

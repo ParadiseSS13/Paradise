@@ -232,7 +232,7 @@
 //////////////////
 
 ////////////////////////////////////////
-// Totally Crippling
+// MARK: Totally Crippling
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mute
@@ -252,7 +252,7 @@
 	return ""
 
 ////////////////////////////////////////
-// Harmful to others as well as self
+// MARK: Harmful to everyone
 ////////////////////////////////////////
 
 /datum/mutation/disability/radioactive
@@ -283,7 +283,7 @@
 	return "rads_s"
 
 ////////////////////////////////////////
-// Other disabilities
+// MARK: Other disabilities
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/fat
@@ -435,7 +435,7 @@
 
 	var/list/words = splittext(message," ")
 	var/list/rearranged = list()
-	for(var/i=1;i<=words.len;i++)
+	for(var/i=1;i<=length(words);i++)
 		var/cword = pick(words)
 		words.Remove(cword)
 		var/suffix = copytext(cword,length(cword)-1,length(cword))
@@ -447,7 +447,7 @@
 	return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
 //////////////////
-// USELESS SHIT //
+// MARK: USELESS SHIT
 //////////////////
 
 // WAS: /datum/bioEffect/strong
@@ -490,7 +490,6 @@
 /datum/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	panel = "Abilities"
 
 	base_cooldown = 600
 

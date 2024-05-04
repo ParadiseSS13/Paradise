@@ -85,7 +85,7 @@
 	if(!detect_state && GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z))
 		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
 		if(chunk)
-			if(chunk.seenby.len)
+			if(length(chunk.seenby))
 				for(var/mob/camera/aiEye/A in chunk.seenby)
 					//Checks if the A is to be detected or not
 					if(!A.ai_detector_visible)

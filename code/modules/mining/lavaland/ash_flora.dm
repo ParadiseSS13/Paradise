@@ -237,7 +237,7 @@
 	maturation = 7
 	production = 4
 	yield = 4
-	potency = 15
+	potency = 50
 	growthstages = 3
 	rarity = 20
 	reagents_add = list("nutriment" = 0.1)
