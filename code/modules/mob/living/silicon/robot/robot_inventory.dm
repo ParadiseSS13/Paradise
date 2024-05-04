@@ -261,16 +261,16 @@
  * * add - whether or not the item is being added, or removed.
  */
 /mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_module, add = TRUE)
-	if(length(observers))
-		for(var/M in observers)
-			var/mob/dead/observe = M
-			if(observe.client && observe.client.eye == src)
-				if(add)
-					observe.client.screen += item_module
-				else
-					observe.client.screen -= item_module
+	if(!length(observers))
+		return
+	for(var/mob/dead/observe in observers)
+		if(observe.client && observe.client.eye == src)
+			if(add)
+				observe.client.screen += item_module
 			else
-				observers -= observe
-				if(!length(observers))
-					observers = null
-					break
+				observe.client.screen -= item_module
+		else
+			observers -= observe
+			if(!length(observers))
+				observers = null
+				break

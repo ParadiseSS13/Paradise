@@ -1070,8 +1070,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		worn_item.screen_loc = ui_hand_position(left ? 1 : 2)
 		client.screen += worn_item
 		if(length(observers))
-			for(var/M in observers)
-				var/mob/dead/observe = M
+			for(var/mob/dead/observe in observers)
 				if(observe.client && observe.client.eye == src)
 					observe.client.screen += worn_item
 				else

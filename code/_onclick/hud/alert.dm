@@ -115,6 +115,7 @@
 
 /atom/movable/screen/alert/proc/attach_owner(mob/new_owner)
 	owner = new_owner
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(remove_owner))
 
 /atom/movable/screen/alert/proc/remove_owner(mob/source, force)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
@@ -133,7 +134,7 @@
 	return ..()
 
 /atom/movable/screen/alert/Click(location, control, params)
-	. = ..()
+	..()
 	if(!usr || !usr.client)
 		return FALSE
 	if(usr != owner)
@@ -385,7 +386,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "direction_lock"
 
 /atom/movable/screen/alert/direction_lock/Click()
-	if(isliving(usr))
+	if(isliving(usr) && ..())
 		var/mob/living/L = usr
 		return L.clear_forced_look()
 
