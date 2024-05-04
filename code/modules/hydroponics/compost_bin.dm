@@ -26,7 +26,7 @@
 	var/potassium = 0
 	/// amount of potash in the compost bin
 	var/potash = 0
-	/// amount of saltpetre in the conpost bin
+	/// amount of saltpetre in the compost bin
 	var/saltpetre = 0
 	/// The maximum amount of biomass the compost bin can store.
 	var/biomass_capacity = 1500
@@ -34,7 +34,7 @@
 	var/compost_capacity = 1500
 	/// The maximum amount of potassium the compost bin can store.
 	var/potassium_capacity = 200
-	/// The maximum amount of potassium the compost bin can store.
+	/// The maximum amount of potash the compost bin can store.
 	var/potash_capacity = 500
 
 /obj/machinery/compost_bin/on_deconstruction()
@@ -120,7 +120,7 @@
 			to_chat(user, "<span class='warning'>The contents of [src] are saturated with potassium and it cannot hold more potash!</span>")
 			return
 		// Won't pour in more than the amount of potassium that can be accepted, even if the beaker is not filled with pure potassium.
-		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this),potassium_capacity - potassium) / B.reagents.total_volume
+		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this), potassium_capacity - potassium) / B.reagents.total_volume
 
 		// Since the character doesn't know what's in the beaker, I'm assuming it is assuming the beaker is full of pure potassium and pours according to that.
 		for(var/E in B.reagents.reagent_list)
@@ -189,7 +189,7 @@
 		conversion_amount -= potassium_saltpetre_conversion
 		potassium -= used_potassium
 
-	if(saltpetre/4 >= 1)
+	if(saltpetre / 4 >= 1)
 		new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre/4))
 		saltpetre -= round(saltpetre)
 

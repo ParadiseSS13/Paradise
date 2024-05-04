@@ -699,7 +699,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/saltpetre_crystal
 	name = "saltpetre crystal"
-	desc = "A bunch of saltpetre crystals"
+	desc = "A bunch of saltpetre crystals. Can be ground to get liquid saltpetre that can be used to dope hydroponics trays and soil plots"
 	singular_name = "saltpetre crystal"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-saltpetre"
