@@ -156,7 +156,10 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)
-		name = R.name
+		if(reagent_id == "holywater")
+			name = "Holy Water"
+		else
+			name = R.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
 	..()

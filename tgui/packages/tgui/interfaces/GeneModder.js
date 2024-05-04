@@ -15,7 +15,7 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window width={850} height={650}>
+    <Window width={940} height={650}>
       <div className="GeneModder__left">
         <Window.Content>
           <Disks scrollable />
@@ -39,19 +39,7 @@ const Genes = (props, context) => {
   const { disk } = data;
 
   return (
-    <Section
-      title="Genes"
-      fill
-      scrollable
-      buttons={
-        <Button
-          content="Insert Gene from Disk"
-          disabled={!disk || !disk.can_insert || disk.is_core}
-          icon="arrow-circle-down"
-          onClick={() => act('insert', { index: 1 })}
-        />
-      }
-    >
+    <Section title="Genes" fill scrollable>
       <CoreGenes />
       <ReagentGenes />
       <TraitGenes />
@@ -159,14 +147,6 @@ const CoreGenes = (props, context) => {
               onClick={() => act('extract', { id: gene.id })}
             />
           </Stack.Item>
-          <Stack.Item>
-            <Button
-              content="Replace"
-              disabled={!gene.is_type || !disk.can_insert}
-              icon="arrow-circle-down"
-              onClick={() => act('replace', { id: gene.id })}
-            />
-          </Stack.Item>
         </Stack>
       ))}{' '}
       {
@@ -177,14 +157,6 @@ const CoreGenes = (props, context) => {
               disabled={!disk?.can_extract}
               icon="save"
               onClick={() => act('bulk_extract_core')}
-            />
-          </Stack.Item>
-          <Stack.Item>
-            <Button
-              content="Replace All"
-              disabled={!disk?.is_bulk_core}
-              icon="arrow-circle-down"
-              onClick={() => act('bulk_replace_core')}
             />
           </Stack.Item>
         </Stack>
@@ -259,10 +231,10 @@ const OtherGenes = (props, context) => {
 const Disks = (props, context) => {
   const { title, gene_set, do_we_show } = props;
   const { act, data } = useBackend(context);
-  const { empty_disks, stat_disks, trait_disks, reagent_disks } = data;
+  const { seed, empty_disks, stat_disks, trait_disks, reagent_disks } = data;
 
   return (
-    <Section title="disks">
+    <Section title="Disks">
       <br />
       Empty Disks: {empty_disks}
       <br />
@@ -282,14 +254,14 @@ const Disks = (props, context) => {
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
-                  <Stack key={item}>
+                  <Stack key={item} mr={2}>
                     <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={15}>
+                    <Stack.Item width={20}>
                       {item.stat === 'All' ? (
                         <Button
                           content="Replace All"
                           tooltip="Write disk stats to seed"
-                          disabled={!item?.ready}
+                          disabled={!item?.ready || !seed}
                           icon="arrow-circle-down"
                           onClick={() =>
                             act('bulk_replace_core', { index: item.index })
@@ -300,6 +272,7 @@ const Disks = (props, context) => {
                           width={6}
                           icon="arrow-circle-down"
                           tooltip="Write disk stat to seed"
+                          disabled={!seed}
                           content="Replace"
                           onClick={() =>
                             act('replace', {
@@ -348,12 +321,13 @@ const Disks = (props, context) => {
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
-                  <Stack key={item}>
+                  <Stack key={item} mr={2}>
                     <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={15}>
+                    <Stack.Item width={20}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
+                        disabled={!item || !item.can_insert}
                         tooltip="Add disk trait to seed"
                         content="Insert"
                         onClick={() =>
@@ -401,12 +375,13 @@ const Disks = (props, context) => {
               .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
-                  <Stack key={item}>
+                  <Stack key={item} mr={2}>
                     <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={15}>
+                    <Stack.Item width={20}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
+                        disabled={!item || !item.can_insert}
                         tooltip="Add disk reagent to seed"
                         content="Insert"
                         onClick={() =>

@@ -12,11 +12,7 @@
 
 	var/list/core_genes = list()
 	var/list/reagent_genes = list()
-	var/empty_disks = 0
 	var/list/trait_genes = list()
-	var/list/stat_disks = list()
-	var/list/trait_disks = list()
-	var/list/reagent_disks = list()
 	var/disk_capacity = 100
 
 	var/datum/plant_gene/target
@@ -138,7 +134,7 @@
 	else if(istype(I, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
 		return ..()
-	else if(istype(I, /obj/item/disk/plantgene))
+	else if(istype(I, /obj/item/disk/plantgene) || I.type == /obj/item/storage/box || type2parent(I.type) == /obj/item/storage/box)
 		add_disk(I, user)
 	else
 		return ..()
@@ -155,15 +151,24 @@
 
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
 	if(length(contents) >= disk_capacity)
-		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
+		to_chat(user, "<span class='warning'>[src] cannot hold any more disks!</span>")
+		return
+	if(new_disk.type == /obj/item/storage/box || type2parent(new_disk.type) == /obj/item/storage/box)
+		for(var/obj/item/disk/plantgene/D in new_disk.contents)
+			if(length(contents) >= disk_capacity)
+				to_chat(user, "<span class='notice'>You fill [src] with disks.</span>")
+				break
+			D.forceMove(src)
+			if(!disk)
+				disk = D
+		to_chat(user, "<span class='notice'>You load [src] from [new_disk].</span>")
+		SStgui.update_uis(src)
 		return
 	if(!user.drop_item())
 		return
-	disk = new_disk
-	disk.forceMove(src)
-	to_chat(world,"<span class='danger'>length of contents: [length(contents)], [new_disk.name], [new_disk.gene ? type2parent(new_disk.gene.type) : "empty"], [new_disk.name], [new_disk.gene ? type2parent(new_disk.gene.type) == /datum/plant_gene/trait : "empty"]</span>")
-	for(var/obj/item/disk/plantgene/D in 1 to length(contents))
-		to_chat(world,"<span class='danger'> details: [D.name] [D.gene ? D.gene.type : "empty"]</span>")
+	if(!disk)
+		disk = new_disk
+	new_disk.forceMove(src)
 	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
 	ui_interact(user)
 
@@ -258,6 +263,7 @@
 	var/list/stats = list()
 	var/list/traits = list()
 	var/list/reagents = list()
+	var/empty_disks = 0
 
 	data["stat_disks"] = list()
 	data["trait_disks"] = list()
@@ -274,10 +280,12 @@
 				var/datum/plant_gene/core/C = D.gene
 				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name)))
 			else if(type2parent(D.gene.type) == /datum/plant_gene/trait || type2parent(D.gene.type) == /datum/plant_gene/trait/plant_type)
-				traits.Add(list(list("display_name" = D.gene.name, "index" = i)))
+				var/insertable = D.gene?.can_add(seed)
+				traits.Add(list(list("display_name" = D.gene.name, "index" = i, "can_insert" = insertable)))
 			else if(D.gene.type == /datum/plant_gene/reagent)
 				var/datum/plant_gene/reagent/R = D.gene
-				reagents.Add(list(list("display_name" = R.name +" "+ num2text(R.rate*100) +"%", "index" = i)))
+				var/insertable = R?.can_add(seed)
+				reagents.Add(list(list("display_name" = R.name +" "+ num2text(R.rate*100) +"%", "index" = i,  "can_insert" = insertable)))
 	if(length(stats))
 		data["stat_disks"] = stats
 	if(length(traits))
@@ -373,9 +381,7 @@
 
 		if("insert")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
-			to_chat(world, "<span class= 'info'>index: [text2num(params["index"])] gene: [D.gene ? D.gene.type : "empty"] can add?: [D.gene.can_add(seed)]</span>")
-			if(D.gene && (type2parent(D.gene.type) == /datum/plant_gene/trait || D.gene.type == /datum/plant_gene/reagent) && D.gene.can_add(seed))
-				to_chat(world, "<span class= 'info'>Adding gene</span>")
+			if(D.gene && (type2parent(D.gene.type) == /datum/plant_gene/trait || type2parent(D.gene.type) == /datum/plant_gene/trait/plant_type || D.gene.type == /datum/plant_gene/reagent) && D.gene.can_add(seed))
 				seed.genes += D.gene.Copy()
 				if(D.gene.type ==  /datum/plant_gene/reagent)
 					seed.reagents_from_genes()
@@ -430,8 +436,9 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
 	target = null
+	//replace with empty disk if possible and if the current disk isn't a core stat disk that isn't ready yet.
 	for(var/obj/item/disk/plantgene/D in contents)
-		if(!D.gene && !D.is_bulk_core)
+		if(!D.gene)
 			disk = D
 			return
 
@@ -471,6 +478,12 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
 	target = null
+
+	if(disk.seeds_scanned >= disk.seeds_needed)
+		for(var/obj/item/disk/plantgene/D in contents)
+			if(!D.gene && (!D.is_bulk_core))
+				disk = D
+				return
 
 /obj/machinery/plantgenes/proc/bulk_replace_core()
 	var/obj/item/disk/plantgene/D = contents[disk_index]
