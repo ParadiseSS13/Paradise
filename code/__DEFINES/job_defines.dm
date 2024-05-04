@@ -49,7 +49,7 @@
 #define JOB_QUARTERMASTER		(1<<6)
 #define JOB_CARGOTECH			(1<<7)
 #define JOB_MINER				(1<<8)
-#define JOB_LAWYER				(1<<9)
+#define JOB_INTERNAL_AFFAIRS	(1<<9)
 #define JOB_CHAPLAIN			(1<<10)
 #define JOB_CLOWN				(1<<11)
 #define JOB_MIME				(1<<12)

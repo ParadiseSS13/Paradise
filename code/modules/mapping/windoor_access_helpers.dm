@@ -181,7 +181,7 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service
@@ -390,7 +390,7 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service

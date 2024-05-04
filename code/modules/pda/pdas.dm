@@ -150,9 +150,9 @@
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/pda/lawyer
-	default_cartridge = /obj/item/cartridge/lawyer
-	icon_state = "pda-lawyer"
+/obj/item/pda/internal_affairs
+	default_cartridge = /obj/item/cartridge/internal_affairs
+	icon_state = "pda-internal-affairs"
 	ttone = "..."
 	default_pen = /obj/item/pen/multi
 
