@@ -36,7 +36,10 @@
 
 /obj/item/desk_bell/attackby(obj/item/I, mob/user, params)
 	// can only attach it while in hand
-	if(istype(I, /obj/item/assembly/signaler) && in_inventory)
+	if(istype(I, /obj/item/assembly/signaler))
+		if(!in_inventory)
+			to_chat(user, "<span class='warning'>[src] needs to be in your inventory if you want to attach [I] to it!</span>")
+			return
 		if(!isnull(attached_signaler))
 			to_chat(user, "<span class='notice'>There's already a signaller attached!</span>")
 			return
