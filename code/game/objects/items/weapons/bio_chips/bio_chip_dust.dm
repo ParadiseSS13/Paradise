@@ -5,7 +5,7 @@
 	desc = "A remote controlled bio-chip that will dust the user upon activation (or death of user)."
 	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "dust"
-	actions_types = list(/datum/action/item_action/hands_free/implant_action/always_usable)
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/always_usable/dusting_implant)
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE | BIOCHIP_TRIGGER_NOT_WHEN_GIBBED
 	implant_data = /datum/implant_fluff/dust
 	implant_state = "implant-nanotrasen"

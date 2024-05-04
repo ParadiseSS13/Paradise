@@ -22,6 +22,11 @@
 	var/required_blood
 	var/deduct_blood_on_cast = TRUE
 
+/datum/spell/vampire/New()
+	..()
+	if(required_blood)
+		name = "[initial(name)] ([required_blood])"
+
 /datum/spell/vampire/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
 	H.required_blood = required_blood
@@ -148,7 +153,6 @@
 			vamp.add_subclass(SUBCLASS_DANTALION)
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
-
 
 /datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add

@@ -7,7 +7,7 @@
 	origin_tech = "materials=2;biotech=4;combat=5;syndicate=4"
 	implant_data = /datum/implant_fluff/krav_maga
 	implant_state = "implant-default"
-
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/krav_implant)
 	var/datum/martial_art/krav_maga/style = new
 
 /obj/item/bio_chip/krav_maga/activate()

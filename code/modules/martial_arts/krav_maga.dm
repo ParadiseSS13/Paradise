@@ -8,7 +8,8 @@
 	can_horizontally_grab = FALSE
 
 /datum/action/neutral_stance
-	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
+	name = "Neutral Stance"
+	desc = "You relax, cancelling your last Krav Maga stance attack."
 	button_icon_state = "neutralstance"
 	keybinding_category = AKB_CATEGORY_MARTIAL_ART
 
@@ -23,7 +24,8 @@
 	H.mind.martial_art.in_stance = FALSE
 
 /datum/action/neck_chop
-	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
+	name = "Neck Chop"
+	desc = "Injures the neck, stopping the victim from speaking for a while."
 	button_icon_state = "neckchop"
 	keybinding_category = AKB_CATEGORY_MARTIAL_ART
 
@@ -42,7 +44,8 @@
 	H.mind.martial_art.reset_combos()
 	H.mind.martial_art.in_stance = TRUE
 /datum/action/leg_sweep
-	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
+	name = "Leg Sweep"
+	desc = "Trips the victim, rendering them prone and unable to move for a short time."
 	button_icon_state = "legsweep"
 	keybinding_category = AKB_CATEGORY_MARTIAL_ART
 
@@ -65,7 +68,8 @@
 	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
-	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
+	name = "Lung Punch"
+	desc = "Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
 	button_icon_state = "lungpunch"
 	keybinding_category = AKB_CATEGORY_MARTIAL_ART
 

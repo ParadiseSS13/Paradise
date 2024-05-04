@@ -7,7 +7,7 @@
 	uses = 4
 	implant_data = /datum/implant_fluff/freedom
 	implant_state = "implant-syndicate"
-
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/freedom_implant)
 
 /obj/item/bio_chip/freedom/activate()
 	uses--
@@ -45,6 +45,7 @@
 	uses = 1
 	implant_data = /datum/implant_fluff/protofreedom
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/proto_freedom_implant)
 
 /obj/item/bio_chip_implanter/freedom/prototype
 	name = "bio-chip implanter (proto-freedom)"

@@ -1,5 +1,5 @@
 /datum/spell/vampire/self/vamp_claws
-	name = "Vampiric Claws (30)"
+	name = "Vampiric Claws"
 	desc = "You channel blood magics to forge deadly vampiric claws that leech blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
 	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
 	base_cooldown = 30 SECONDS
@@ -105,7 +105,7 @@
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
 
 /datum/spell/vampire/blood_tendrils
-	name = "Blood Tendrils (10)"
+	name = "Blood Tendrils"
 	desc = "You summon blood tendrils from bluespace after a delay to ensnare people in an area, slowing them down."
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
@@ -150,7 +150,7 @@
 	duration = 2 SECONDS
 
 /datum/spell/vampire/blood_barrier
-	name = "Blood Barrier (40)"
+	name = "Blood Barrier"
 	desc = "Select two points within 3 tiles of each other and make a barrier between them."
 	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
 	required_blood = 40
@@ -245,7 +245,7 @@
 
 
 /datum/spell/ethereal_jaunt/blood_pool
-	name = "Sanguine Pool (50)"
+	name = "Sanguine Pool"
 	desc = "You shift your form into a pool of blood, making you invulnerable and able to move through anything that's not a wall or space. You leave a trail of blood behind you when you do this."
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
@@ -298,7 +298,7 @@
 	to_chat(user, "<span class='cultlarge'>[message]</span>")
 
 /datum/spell/vampire/blood_eruption
-	name = "Blood Eruption (100)"
+	name = "Blood Eruption"
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	required_blood = 100

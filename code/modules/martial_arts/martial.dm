@@ -238,7 +238,8 @@
 			return "H"
 
 /datum/action/defensive_stance
-	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
+	name = "Defensive Stance"
+	desc = "Ready yourself to be attacked, allowing you to parry incoming melee hits."
 	button_icon_state = "block"
 	keybinding_category = AKB_CATEGORY_MARTIAL_ART
 

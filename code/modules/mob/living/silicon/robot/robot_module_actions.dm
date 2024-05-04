@@ -16,29 +16,30 @@
 	R.update_sight()
 	active = FALSE
 
-/datum/action/innate/robot_sight/xray
-	name = "X-ray Vision"
-	sight_mode = BORGXRAY
-
 /datum/action/innate/robot_sight/thermal
 	name = "Thermal Vision"
+	desc = "Toggles your Cyborg thermal vision."
 	sight_mode = BORGTHERM
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "thermal"
 
 // ayylmao
 /datum/action/innate/robot_sight/thermal/alien
+	name = "Alien Thermal Vision"
+	desc = "Toggles your alien thermal vision."
 	icon_icon = 'icons/mob/alien.dmi'
 	button_icon_state = "borg-extra-vision"
 
 /datum/action/innate/robot_sight/meson
 	name = "Meson Vision"
+	desc = "Toggles your cyborg meson vision."
 	sight_mode = BORGMESON
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "meson"
 
 /datum/action/innate/robot_magpulse
 	name = "Magnetic pulse"
+	desc = "Toggles your cyborg magtraction. Slows you down while in use."
 	icon_icon = 'icons/obj/clothing/shoes.dmi'
 	button_icon_state = "magboots0"
 	keybinding_category = AKB_CATEGORY_CYBORG

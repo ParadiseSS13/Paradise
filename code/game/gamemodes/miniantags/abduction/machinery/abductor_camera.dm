@@ -67,7 +67,8 @@
 	return ..()
 
 /datum/action/innate/teleport_in
-	name = "Send To"
+	name = "Beam Down"
+	desc = "Teleports anyone on your teleportation pad to the targeted location. You cannot retrieve anyone who was teleported down for 10 seconds."
 	button_icon_state = "beam_down"
 	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
@@ -82,7 +83,8 @@
 		P.PadToLoc(remote_eye.loc)
 
 /datum/action/innate/teleport_out
-	name = "Retrieve"
+	name = "Retrieve Marked target"
+	desc = "Teleports your marked target up to your teleportation pad. You cannot retrieve anyone who was teleported down for 10 seconds."
 	button_icon_state = "beam_up"
 	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
@@ -96,7 +98,8 @@
 		playsound(owner, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /datum/action/innate/teleport_self
-	name = "Send Self"
+	name = "Beam down Self"
+	desc = "Teleports yourself down to the targeted point. You cannot retrieve anyone who was teleported down for 10 seconds."
 	button_icon_state = "beam_down"
 	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
@@ -112,6 +115,7 @@
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
+	desc = "Toggles the linked vest from stealth mode to adrenaline mode and vice versa."
 	button_icon_state = "vest_mode"
 	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
@@ -123,6 +127,7 @@
 
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
+	desc = "Toggles the linked vest's disguise. Anyone you scanned through an abductor science tool is a valid disguise."
 	button_icon_state = "vest_disguise"
 	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
@@ -134,6 +139,7 @@
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
+	desc = "Set the release point for your specimens after using the experimentation machine on them."
 	button_icon_state = "set_drop"
 	keybinding_category = AKB_CATEGORY_ABDUCTOR
 

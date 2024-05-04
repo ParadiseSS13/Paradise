@@ -36,7 +36,7 @@
 	V.handle_vampire_cloak()
 
 /datum/spell/vampire/shadow_snare
-	name = "Shadow Snare (20)"
+	name = "Shadow Snare"
 	desc = "You summon a trap on the ground. When crossed it will blind the target, extinguish any lights they may have, and ensnare them."
 	gain_desc = "You have gained the ability to summon a trap that will blind, ensnare, and turn off the lights of anyone who crosses it."
 	base_cooldown = 20 SECONDS
@@ -112,7 +112,7 @@
 	return ..()
 
 /datum/spell/vampire/soul_anchor
-	name = "Soul Anchor (30)"
+	name = "Soul Anchor"
 	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
 	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you will fake a recall."
 	required_blood = 30
@@ -145,7 +145,6 @@
 
 	if(anchor) // second cast, teleport us back
 		recall(user)
-
 
 /datum/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
@@ -210,7 +209,7 @@
 	resistance_flags = INDESTRUCTIBLE
 
 /datum/spell/vampire/dark_passage
-	name = "Dark Passage (30)"
+	name = "Dark Passage"
 	desc = "You teleport to a targeted turf."
 	gain_desc = "You have gained the ability to blink a short distance towards a targeted turf."
 	base_cooldown = 40 SECONDS
@@ -256,7 +255,7 @@
 			A.extinguish_light()
 
 /datum/spell/vampire/shadow_boxing
-	name = "Shadow Boxing (50)"
+	name = "Shadow Boxing"
 	desc = "Target someone to have your shadow beat them up. You must stay within 2 tiles for this to work."
 	gain_desc = "You have gained the ability to make your shadow fight for you."
 	base_cooldown = 30 SECONDS

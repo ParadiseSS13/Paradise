@@ -5,6 +5,7 @@
 
 /datum/action/innate/terrorspider/web
 	name = "Web"
+	desc = "Wrap a web across a tile."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "stickyweb1"
 
@@ -12,8 +13,13 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.Web()
 
+/datum/action/innate/terrorspider/web/Grant(mob/living/simple_animal/hostile/poison/terror_spider/spider_owner)
+	..()
+	desc = "[initial(desc)] Takes [spider_owner.delay_web / 10] seconds to spool a web."
+	
 /datum/action/innate/terrorspider/wrap
 	name = "Wrap"
+	desc = "Wrap up a tile in a range of 1 tile from you. Wrapping up a living thing will satiate your hunger."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon_large1"
 
@@ -26,6 +32,7 @@
 
 /datum/action/innate/terrorspider/greeneggs
 	name = "Lay Green Eggs"
+	desc = "Lays your green spider eggs. Takes 2 wrapped mobs to lay 1 green egg. If there are two or less brown or black terror spiders alive, you can lay eggs for both of them. Else you can only lay Green, Red, or Grey terror spider eggs."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
@@ -33,11 +40,11 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/green/user = owner
 	user.DoLayGreenEggs()
 
-
 // ---------- BOSS ACTIONS
 
 /datum/action/innate/terrorspider/ventsmash
 	name = "Smash Welded Vent"
+	desc = "Smashes open a welded vent within range. Takes 4 seconds to smash open a vent."
 	icon_icon = 'icons/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
@@ -47,6 +54,7 @@
 
 /datum/action/innate/terrorspider/remoteview
 	name = "Remote View"
+	desc = "Allows you to see from the eyes of all other living terror spiders. Use this while remote viewing to return to your original body."
 	icon_icon = 'icons/obj/eyes.dmi'
 	button_icon_state = "heye"
 
@@ -54,11 +62,11 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoRemoteView()
 
-
 // ---------- MOTHER ACTIONS
 
 /datum/action/innate/terrorspider/mother/royaljelly
 	name = "Lay Royal Jelly"
+	desc = "Allows you to lay royal jelly. Takes 10 seconds to lay 1 royal jelly. Takes one wrapped mob per 2 royal jellies. Royal jelly gives double the regeneration that a wrap would normally give."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "spiderjelly"
 
@@ -68,6 +76,7 @@
 
 /datum/action/innate/terrorspider/mother/gatherspiderlings
 	name = "Gather Spiderlings"
+	desc = "Picks up all spiderlings around you."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "spiderling"
 
@@ -77,6 +86,7 @@
 
 /datum/action/innate/terrorspider/mother/incubateeggs
 	name = "Incubate Eggs"
+	desc = "Allows you to speed up the growth process of any terror eggs under you. Per wrapped target you can incubate an egg eight times. After 4 uses, a new egg will grow fully."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
@@ -88,6 +98,7 @@
 
 /datum/action/innate/terrorspider/queen/queennest
 	name = "Nest"
+	desc = "Forces you into nesting mode. You cannot ventcrawl but you can smash walls and lay eggs."
 	icon_icon = 'icons/mob/terrorspider.dmi'
 	button_icon_state = "terror_queen"
 
@@ -97,6 +108,7 @@
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Hive Sense"
+	desc = "Gives you a report on all your spiders. Tells you if a spider is dead, alive, controlled by a player, along with their health."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "mindswap"
 
@@ -106,6 +118,7 @@
 
 /datum/action/innate/terrorspider/queen/queeneggs
 	name = "Lay Queen Eggs"
+	desc = "Allows you to lay your queen of terror eggs. If you survive for 30 or more minutes, you can summon a tier 3 terror spider. If you have 2 or less tier 2 spiders of each time, you can lay that kind of spider. You get an egg every 120 seconds and get another egg for every 10 minutes you're alive."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
@@ -113,11 +126,11 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
 	user.LayQueenEggs()
 
-
 // ---------- EMPRESS
 
 /datum/action/innate/terrorspider/queen/empress/empresserase
 	name = "Empress Erase Brood"
+	desc = "Kills all spiders (Except you)."
 	icon_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "mgibbl1"
 
@@ -127,13 +140,13 @@
 
 /datum/action/innate/terrorspider/queen/empress/empresslings
 	name = "Empresss Spiderlings"
+	desc = "Lay a truly ungodly amount of eggs."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "spiderling"
 
 /datum/action/innate/terrorspider/queen/empress/empresslings/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
 	user.EmpressLings()
-
 
 // ---------- WEB
 
@@ -257,8 +270,8 @@
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
 		stop_automated_movement = TRUE
-		walk(src,0)
-		if(do_after(src, 40, target = cocoon_target.loc))
+		walk(src, 0)
+		if(do_after(src, 4 SECONDS, target = cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
 					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
@@ -310,7 +323,7 @@
 		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
 	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
-	if(do_after(src, 40, target = loc))
+	if(do_after(src, 4 SECONDS, target = loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
 				P.welded = FALSE

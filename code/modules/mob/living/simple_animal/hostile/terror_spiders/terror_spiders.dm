@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	var/ai_spins_webs = TRUE // AI web-spinning behavior
 	var/freq_spins_webs = 600
 	var/last_spins_webs = 0 // leave this, changed by procs.
-	var/delay_web = 40 // delay between starting to spin web, and finishing
+	var/delay_web = 4 SECONDS // delay between starting to spin web, and finishing
 
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.

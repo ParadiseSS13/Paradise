@@ -6,6 +6,7 @@
 	uses = 3
 	implant_data = /datum/implant_fluff/adrenaline
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/adrenaline_implant)
 
 /obj/item/bio_chip/adrenalin/activate()
 	uses--
@@ -41,6 +42,7 @@
 	uses = 1
 	implant_data = /datum/implant_fluff/proto_adrenaline
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/mini_adrenaline_implant)
 
 /obj/item/bio_chip/proto_adrenalin/activate()
 	uses--

@@ -19,7 +19,7 @@
 			var/datum/keybinding/mob/trigger_action_button/linked_bind = button.linked_keybind
 			active_keybindings[linked_bind.binded_to] += list(linked_bind)
 	for(var/datum/action/actions as anything in mob?.actions)
-		var/to_set_to = prefs?.keybindings_overrides[istype(actions, /datum/action/spell_action) ? initial(actions.target.name) : initial(actions.name)]
+		var/to_set_to = prefs?.keybindings_overrides?[istype(actions, /datum/action/spell_action) ? initial(actions.target.name) : initial(actions.name)]
 		if(to_set_to)
 			for(var/datum/hud/hud in actions.viewers)
 				var/atom/movable/screen/movable/action_button/button = actions.viewers[hud]

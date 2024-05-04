@@ -503,12 +503,74 @@
 /datum/action/item_action/hands_free/implant_action
 	keybinding_category = AKB_CATEGORY_ORGAN
 
+/datum/action/item_action/hands_free/implant_action/abductor_recall_implant
+	name = "Recall to Abductor ship"
+	desc = "Recall yourself to your mothership. Has a 60 second cooldown between uses."
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
+
+/datum/action/item_action/hands_free/implant_action/adrenaline_implant
+	name = "Activate Adrenaline Bio-chip"
+	desc = "Activates your adrenaline biochip. Has 3 total uses."
+	
+/datum/action/item_action/hands_free/implant_action/mini_adrenaline_implant
+	name = "Activate Proto Adrenaline Bio-chip"
+	desc = "Activates your adrenaline biochip. Has 1 use."
+
+/datum/action/item_action/hands_free/implant_action/chemical_implant
+	name = "Activate Chemical Bio-Chip"
+	desc = "Activates your chemical biochip, injecting you with all stored chemicals in that implant."
+
+/datum/action/item_action/hands_free/implant_action/freedom_implant
+	name = "Activate Freedom Bio-Chip"
+	desc = "Activates your freedom biochip, freeing yourself from any restraints. Has 4 total uses."
+
+/datum/action/item_action/hands_free/implant_action/proto_freedom_implant
+	name = "Activate Prototype Freedom Bio-Chip"
+	desc = "Activates your prototype freedom biochip, freeing yourself from any restraints. Has 1 use."
+
+/datum/action/item_action/hands_free/implant_action/emp_implant
+	name = "Activate Emp Bio-Chip"
+	desc = "Activates your emp biochip, releasing an emp with a heavy range of 3 and a light range of 5. Has 2 uses."
+
+/datum/action/item_action/hands_free/implant_action/gorilla_implant
+	name = "Activate Gorilla Bio-Chip"
+	desc = "Activates your gorilla biochip, turning you into a gorilla."
+
+/datum/action/item_action/hands_free/implant_action/krav_implant
+	name = "Activate Krav Bio-Chip"
+	desc = "Activates your Krav biochip, giving you krav maga."
+
+/datum/action/item_action/hands_free/implant_action/shock_implant
+	name = "Activate Power Bio-Chip"
+	desc = "Activates your power biochip, giving you control over electricity."
+
+/datum/action/item_action/hands_free/implant_action/storage_implant
+	name = "Activate Storage Bio-Chip"
+	desc = "Activates your storage biochip."
+
+/datum/action/item_action/hands_free/implant_action/uplink_implant
+	name = "Activate Uplink Bio-Chip"
+	desc = "Activates your uplink biochip, allowing you to interface with your internal uplink."
+
 /datum/action/item_action/hands_free/implant_action/always_usable
 	check_flags = null
 	keybinding_category = AKB_CATEGORY_ORGAN
 
+/datum/action/item_action/hands_free/implant_action/always_usable/dusting_implant
+	name = "Activate Dusting Bio-Chip"
+	desc = "Activates your dusting biochip. Will not activate when EMPed."
+
+/datum/action/item_action/hands_free/implant_action/always_usable/explosive_implant
+	name = "Activate Explosive Bio-Chip"
+	desc = "Activates your explosive biochip. Will not activate on an EMPed."
+
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
+
+/datum/action/item_action/hands_free/activate/toggle_suit_mode
+	name = "Toggle Abductor vest mode"
+	desc = "Toggles your vest from stealth mode to adrenaline mode and vice versa."
+	keybinding_category = AKB_CATEGORY_ABDUCTOR
 
 /datum/action/item_action/hands_free/activate/always
 	check_flags = null
@@ -552,6 +614,7 @@
 
 /datum/action/item_action/drop_gripped_item
 	name = "Drop gripped item"
+	desc = "Drops your currently gripped item."
 	keybinding_category = AKB_CATEGORY_CYBORG
 
 // Clown Acrobat Shoes
@@ -579,7 +642,6 @@
 
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
-
 
 ///prset for organ actions
 /datum/action/item_action/organ_action

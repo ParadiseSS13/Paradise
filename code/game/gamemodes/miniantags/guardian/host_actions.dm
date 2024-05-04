@@ -4,7 +4,6 @@
  * These are used by guardian hosts to interact with their guardians. These are not buttons that guardians themselves use.
  */
 /datum/action/guardian
-	name = "Generic guardian host action"
 	icon_icon = 'icons/mob/guardian.dmi'
 	button_icon_state = "base"
 	keybinding_category = AKB_CATEGORY_GUARDIAN

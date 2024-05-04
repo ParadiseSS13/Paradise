@@ -1,5 +1,5 @@
 /datum/spell/vampire/self/blood_swell
-	name = "Blood Swell (30)"
+	name = "Blood Swell"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
 	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
 	base_cooldown = 40 SECONDS
@@ -13,7 +13,7 @@
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
 
 /datum/spell/vampire/self/stomp
-	name = "Seismic Stomp (30)"
+	name = "Seismic Stomp"
 	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if you legs are impared by a bola or similar."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
 	action_icon_state = "seismic_stomp"
@@ -91,7 +91,7 @@
 		user.status_flags |= CANPUSH
 
 /datum/spell/vampire/self/blood_rush
-	name = "Blood Rush (30)"
+	name = "Blood Rush"
 	desc = "Infuse yourself with blood magic to boost your movement speed."
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
 	base_cooldown = 30 SECONDS
@@ -106,7 +106,7 @@
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
 /datum/spell/fireball/demonic_grasp
-	name = "Demonic Grasp (20)"
+	name = "Demonic Grasp"
 	desc = "Fire a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
 	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
 	base_cooldown = 30 SECONDS
@@ -179,7 +179,7 @@
 	duration = 1 SECONDS
 
 /datum/spell/vampire/charge
-	name = "Charge (30)"
+	name = "Charge"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
@@ -205,7 +205,7 @@
 #define ARENA_SIZE 3
 
 /datum/spell/vampire/arena
-	name = "Desecrated Duel (150)"
+	name = "Desecrated Duel"
 	desc = "You leap towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
 	gain_desc = "You can now leap to a target and trap them in a conjured arena."
 	required_blood = 150

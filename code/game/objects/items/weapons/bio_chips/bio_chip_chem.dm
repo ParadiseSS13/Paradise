@@ -7,6 +7,7 @@
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem
 	implant_state = "implant-nanotrasen"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/chemical_implant)
 
 /obj/item/bio_chip/chem/Initialize(mapload)
 	. = ..()

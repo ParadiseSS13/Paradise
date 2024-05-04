@@ -7,6 +7,7 @@
 	uses = 1
 	implant_data = /datum/implant_fluff/gorilla_rampage
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/gorilla_implant)
 
 /obj/item/bio_chip/gorilla_rampage/activate()
 	if(!iscarbon(imp_in))

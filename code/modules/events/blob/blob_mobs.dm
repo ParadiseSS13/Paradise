@@ -207,6 +207,7 @@
 	name = "Speak with the overmind"
 	icon_icon = 'icons/mob/guardian.dmi'
 	button_icon_state = "communicate"
+	desc = "Allows you to communicate with the overmind. Appears in orange text."
 	keybinding_category = AKB_CATEGORY_BLOB
 
 /datum/action/innate/communicate_overmind_blob/Activate()
