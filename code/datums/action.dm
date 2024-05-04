@@ -149,7 +149,7 @@
 		return
 	viewer.actions |= src // Move this in
 	ShowTo(viewer)
-	viewer.client.update_active_keybindings()
+	viewer?.client?.update_active_keybindings()
 
 //Adds our action button to the screen of a player
 /datum/action/proc/ShowTo(mob/viewer)
