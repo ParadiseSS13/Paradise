@@ -37031,7 +37031,7 @@
 	pixel_x = -30
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/crew/internal_affairs,
+/obj/item/toy/figure/crew/iaa,
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "caH" = (

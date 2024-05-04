@@ -777,7 +777,7 @@
 					/obj/item/clothing/glasses/sunglasses/big = 2,
 					/obj/item/clothing/accessory/armband/procedure = 2)
 
-	contraband = list(/obj/item/toy/figure/crew/internal_affairs = 1)
+	contraband = list(/obj/item/toy/figure/crew/iaa = 1)
 
 	prices = list(/obj/item/clothing/under/rank/procedure/iaa = 50,
 				/obj/item/clothing/under/rank/procedure/iaa/blue = 50,

@@ -310,7 +310,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
-/datum/job/internal_affairs
+/datum/job/iaa
 	title = "Internal Affairs Agent"
 	flag = JOB_INTERNAL_AFFAIRS
 	department_flag = JOBCAT_SUPPORT
@@ -335,12 +335,12 @@
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
-	outfit = /datum/outfit/job/internal_affairs
+	outfit = /datum/outfit/job/iaa
 	important_information = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Space Law affairs, nor can you override it. You are NOT a prisoner defence lawyer."
 
-/datum/outfit/job/internal_affairs
+/datum/outfit/job/iaa
 	name = "Internal Affairs Agent"
-	jobtype = /datum/job/internal_affairs
+	jobtype = /datum/job/iaa
 	uniform = /obj/item/clothing/under/rank/procedure/iaa
 	suit = /obj/item/clothing/suit/storage/iaa/blackjacket
 	shoes = /obj/item/clothing/shoes/brown
@@ -350,7 +350,7 @@
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/clothing/accessory/legal_badge/iaa
 	l_hand = /obj/item/storage/briefcase
-	pda = /obj/item/pda/internal_affairs
+	pda = /obj/item/pda/iaa
 	backpack_contents = list(
 		/obj/item/flash = 1
 	)

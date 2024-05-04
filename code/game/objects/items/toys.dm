@@ -1460,7 +1460,7 @@
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
-/obj/item/toy/figure/crew/internal_affairs
+/obj/item/toy/figure/crew/iaa
 	name = "\improper Internal Affairs Agent action figure"
 	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
 	icon_state = "internal_affairs"
