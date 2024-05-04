@@ -35,9 +35,9 @@ def do_dmmtools_call(file):
         exec_path = "dmm-tools.exe"
     # Linux - CI
     else:
-        exec_path = "tools/nanomaps/nanomap-renderer"
+        exec_path = "tools/github-actions/nanomap-renderer"
 
-    exec_args = [exec_path, "map-info", file]
+    exec_args = f"{exec_path} map-info \"{file}\""
     result = subprocess.run(exec_args, shell=True, capture_output=True, text=True)
 
     res_obj = json.loads(result.stdout)
