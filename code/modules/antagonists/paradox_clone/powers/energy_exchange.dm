@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/click_target/energy_exchange
 	name = "Energy Exchange"
 	desc = "You commit a paradox and exchange stamina, slowness, confusion and other negative effects with a chosen victim. Works even if target it's not a human and even when you unconscious."

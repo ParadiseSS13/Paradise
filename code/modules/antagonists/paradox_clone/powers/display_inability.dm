@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/aoe/display_inability
 	name = "Display Inability"
 	desc = "Causes paradoxial interference in the HUDs for nearby humans and silicons. Blinds them for a while."

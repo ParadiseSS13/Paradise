@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/self/intangibility
 	name = "Intangibility"
 	desc = "Just one moment of disappearance, and handcuffs, bolas and other obstacles go out of your way. Freedom."

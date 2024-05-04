@@ -1,4 +1,3 @@
-
 /datum/spell/touch/paradox_spell/microcircuit_disorder
 	name = "Microcircuit Disorder"
 	desc = "Make a system failure and some short circuit causes silicon (and machinery) to disable. Need physical contact."

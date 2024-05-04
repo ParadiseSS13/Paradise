@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/click_target/replace //objective "kill"
 	name = "Replace"
 	desc = "You take hold of your original, and you start slowly sending it into the void, limb by limb, until there's nothing left of them..."

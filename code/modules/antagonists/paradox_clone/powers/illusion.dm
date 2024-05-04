@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/self/illusion
 	name = "Illusion"
 	desc = "You strain and release a piece of yourself into this world - an illusion that attacks everybody. Lives twenty seconds, useful for finishing off recumbent targets, blocking the passage or stalling the time."

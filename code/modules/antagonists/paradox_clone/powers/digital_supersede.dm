@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/self/digital_supersede
 	name = "Digital Supersede"
 	desc = "With the help of the paradox, you completely remove yourself from cameras, leaving only interference..."

@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/click_target/gaze
 	name = "Gaze"
 	desc = "A close look at the victim, which causes her to fall off her feet."

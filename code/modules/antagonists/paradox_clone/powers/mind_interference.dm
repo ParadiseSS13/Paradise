@@ -1,4 +1,3 @@
-
 /datum/spell/paradox_spell/click_target/mind_interference
 	name = "Mind Interference"
 	desc = "You climbing into the very halls of the mind, disrupting the normal functioning of victim's brain."

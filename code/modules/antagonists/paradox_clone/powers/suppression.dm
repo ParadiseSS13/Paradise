@@ -1,4 +1,3 @@
-
 /datum/spell/touch/paradox_spell/suppression
 	name = "Suppression"
 	desc = "After touching the victim, all their radio devices start to jam for a while and no machine will track them."
