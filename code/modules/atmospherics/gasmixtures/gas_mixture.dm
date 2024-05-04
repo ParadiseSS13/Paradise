@@ -44,8 +44,40 @@ What are the archived variables for?
 	var/private_agent_b_archived = 0
 	var/private_temperature_archived = 0
 
+	/// Is this mixture currently synchronized with MILLA? Always true for non-bound mixtures.
+	var/synchronized = TRUE
+
+	/// Tracks the callbacks from synchronize() that haven't run yet.
+	var/list/waiting_for_sync = list()
+
+/datum/gas_mixture/Destroy()
+	waiting_for_sync.Cut()
+	return ..()
+
+/// Marks this gas mixture as changed from MILLA. Does nothing on non-bound mixtures.
 /datum/gas_mixture/proc/set_dirty()
 	return
+
+/// Runs the callback once MILLA is synchronous. This works on non-bound mixtures, but is pointless unless you're working with bound mixtures as well.
+/datum/gas_mixture/proc/synchronize(datum/callback/CB)
+	if(synchronized)
+		CB.InvokeAsync()
+		return
+
+	waiting_for_sync += CB
+	if(length(waiting_for_sync) == 1)
+		SSair.synchronize(CALLBACK(src, PROC_REF(on_sync)))
+
+/// Callback for when MILLA enters synchronous mode.
+/datum/gas_mixture/proc/on_sync()
+	if(update_from_milla())
+		for(var/datum/callback/CB as anything in waiting_for_sync)
+			CB.InvokeAsync()
+	waiting_for_sync.Cut()
+
+/// Fetches the data for this gas mixture from MILLA. Does nothing on non-bound mixtures.
+/datum/gas_mixture/proc/update_from_milla()
+	return TRUE
 
 /datum/gas_mixture/proc/oxygen()
 	return private_oxygen
@@ -639,9 +671,7 @@ What are the archived variables for?
 // Rust deals in thermal energy, but converts when talking to DM.
 #define ATMOS_TEMPERATURE 13
 #define ATMOS_INNATE_HEAT_CAPACITY 18
-/datum/gas_mixture/proc/copy_from_milla(list/milla, mark_dirty = TRUE)
-	if(mark_dirty)
-		set_dirty()
+/datum/gas_mixture/proc/copy_from_milla(list/milla)
 	private_oxygen = milla[GAS_OFFSET + 1]
 	private_carbon_dioxide = milla[GAS_OFFSET + 2]
 	private_nitrogen = milla[GAS_OFFSET + 3]
@@ -719,40 +749,57 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 /datum/gas_mixture/bound_to_turf
 	var/dirty = FALSE
+	synchronized = FALSE
 	var/turf/bound_turf = null
 
 /datum/gas_mixture/bound_to_turf/Destroy()
 	bound_turf = null
 	return ..()
 
+/datum/gas_mixture/bound_to_turf/update_from_milla()
+	if(isnull(bound_turf))
+		return FALSE
+
+	copy_from_milla(get_tile_atmos(bound_turf.x, bound_turf.y, bound_turf.z))
+	dirty = FALSE
+	return TRUE
+
 /datum/gas_mixture/bound_to_turf/set_dirty()
+	ASSERT(synchronized)
 	dirty = TRUE
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_oxygen = value
 
 /datum/gas_mixture/bound_to_turf/set_carbon_dioxide(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_carbon_dioxide = value
 
 /datum/gas_mixture/bound_to_turf/set_nitrogen(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_nitrogen = value
 
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_toxins = value
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_sleeping_agent = value
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_agent_b = value
 
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
+	ASSERT(synchronized)
 	dirty = TRUE
 	private_temperature = value
 

@@ -352,6 +352,22 @@ SUBSYSTEM_DEF(air)
 		T.Initialize_Atmos(times_fired)
 		CHECK_TICK
 
+	var/watch = start_watch()
+	log_startup_progress("Writing tiles to MILLA...")
+
+	//cache for sanic speed (lists are references anyways)
+	var/list/cache = bound_mixtures
+	var/count = length(cache)
+	while(length(cache))
+		var/datum/gas_mixture/bound_to_turf/mixture = cache[length(cache)]
+		cache.len--
+		if(mixture.dirty)
+			mixture.write()
+		mixture.bound_turf.bound_air = null
+		mixture.bound_turf = null
+
+	log_startup_progress("Wrote [count] tiles in [stop_watch(watch)]s.")
+
 /datum/controller/subsystem/air/proc/setup_atmos_machinery(list/machines_to_init)
 	var/watch = start_watch()
 	log_startup_progress("Initializing atmospherics machinery...")
@@ -405,14 +421,20 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/bind_turf(turf/T)
 	var/datum/gas_mixture/bound_to_turf/B = new()
-	B.copy_from_milla(get_tile_atmos(T.x, T.y, T.z), mark_dirty = FALSE)
-	B.bound_turf = T
 	T.bound_air = B
+	B.bound_turf = T
+	B.copy_from_milla(get_tile_atmos(T.x, T.y, T.z))
+	B.dirty = FALSE
+	B.synchronized = is_synchronous
 	bound_mixtures += B
 
-/datum/controller/subsystem/air/proc/spawn_wait_proc()
+/datum/controller/subsystem/air/proc/spawn_wait_proc(waiting_for_thread_start = TRUE)
+	if(waiting_for_thread_start)
+		if(is_milla_synchronous())
+			addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc), TRUE))
+		return
 	if(!is_milla_synchronous())
-		addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc)))
+		addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc), FALSE))
 		return
 
 	is_synchronous = TRUE
@@ -421,7 +443,7 @@ SUBSYSTEM_DEF(air)
 	waiting_for_sync.Cut()
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
-/datum/controller/subsystem/air/proc/when_synchronous(datum/callback/CB)
+/datum/controller/subsystem/air/proc/synchronize(datum/callback/CB)
 	if(is_synchronous)
 		CB.InvokeAsync()
 		return

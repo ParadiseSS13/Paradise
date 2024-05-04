@@ -191,6 +191,10 @@
 	air.set_temperature(temperature)
 
 /turf/proc/recalculate_atmos_connectivity()
+	if(!SSair.is_synchronous)
+		SSair.synchronize(src, PROC_REF(recalculate_atmos_connectivity))
+		return
+
 	if(blocks_air)
 		set_tile_atmos_blocking(x, y, z, list(TRUE, TRUE, TRUE, TRUE))
 		reset_superconductivity(x, y, z)

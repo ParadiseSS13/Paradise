@@ -496,7 +496,7 @@ fn internal_set_tile_atmos(
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use SSair.when_synchronous"
+            "Tried to write during asynchronous, read-only atmos. Use gas_mixture.synchronize or SSair.synchronize"
         ));
     }
     let mut buffer = maybe_buffer.unwrap();
@@ -746,7 +746,7 @@ fn internal_reduce_superconductivity(
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use SSair.when_synchronous"
+            "Tried to write during asynchronous, read-only atmos. Use gas_mixture.synchronize or SSair.synchronize"
         ));
     }
     let mut buffer = maybe_buffer.unwrap();
@@ -789,7 +789,7 @@ fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use SSair.when_synchronous"
+            "Tried to write during asynchronous, read-only atmos. Use gas_mixture.synchronize or SSair.synchronize"
         ));
     }
     let mut buffer = maybe_buffer.unwrap();
