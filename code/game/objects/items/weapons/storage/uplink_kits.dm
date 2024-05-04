@@ -144,7 +144,7 @@
 		/obj/item/clothing/gloves/combat, // accounted in belt + toolbox
 		/obj/item/flashlight/emp) // 4TC
 
-/// 168TC + Telekinesis
+/// 170TC + Telekinesis
 /obj/item/storage/box/syndie_kit/bundle/darklord
 	name = "Dark Lord Bundle"
 	desc = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT."
@@ -408,7 +408,7 @@
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
 
-/obj/item/storage/box/syndie_kit/chameleon/nukie
+/obj/item/storage/box/syndie_kit/chameleon/nuke
 	name = "operative's chameleon kit"
 
 /obj/item/storage/box/syndie_kit/chameleon_nuke/populate_contents()
