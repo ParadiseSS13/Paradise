@@ -665,7 +665,7 @@
 "bV" = (
 /obj/structure/table,
 /obj/item/folder/syndicate/yellow,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

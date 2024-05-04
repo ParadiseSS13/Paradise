@@ -3134,10 +3134,6 @@
 	icon_state = "stage_stairs"
 	},
 /area/ruin/space/derelict/crew_quarters)
-"hF" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/mineral/titanium/nodecon,
-/area/ruin/space/derelict/crew_quarters)
 "hH" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Eastern Annex"
@@ -7569,6 +7565,13 @@
 	icon_state = "white"
 	},
 /area/ruin/space/derelict/arrival)
+"Ef" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
 "Nv" = (
 /obj/effect/spawner/airlock{
 	req_access_txt = 0
@@ -13567,8 +13570,8 @@ gn
 gG
 gG
 gG
-hF
-hT
+aV
+Ef
 in
 iK
 je

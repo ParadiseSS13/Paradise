@@ -377,6 +377,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
+"bA" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -1116,6 +1120,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
+/area/ghost_bar)
+"et" = (
+/obj/machinery/barsign/ghost_bar{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "ev" = (
 /turf/simulated/floor/beach/sand,
@@ -2685,6 +2695,15 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"jA" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "jB" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
@@ -2878,12 +2897,12 @@
 "kf" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_syndicate";
 	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -4489,11 +4508,11 @@
 "pf" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_transit";
 	name = "emergency in transit";
-	width = 33
+	width = 41
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -5371,10 +5390,6 @@
 /obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
-"sd" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "se" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -6181,7 +6196,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "vf" = (
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -6281,7 +6296,7 @@
 /area/centcom/control)
 "vu" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
@@ -6331,7 +6346,7 @@
 /area/trader_station/sol)
 "vD" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
@@ -7981,7 +7996,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/admin)
 "Cv" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /obj/machinery/icemachine,
@@ -9234,7 +9249,7 @@
 /area/centcom/specops)
 "GT" = (
 /obj/structure/chair,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -12184,11 +12199,11 @@
 	},
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_away";
 	name = "emergency centcom";
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -12756,6 +12771,10 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"SU" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -12922,7 +12941,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -13923,11 +13942,6 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
-"Xi" = (
-/obj/effect/spawner/window,
-/obj/structure/sign/barsign,
-/turf/simulated/floor/plating,
-/area/centcom/evac)
 "Xj" = (
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
@@ -46015,8 +46029,8 @@ Ng
 Ng
 So
 Vs
-Xi
-Xx
+Qe
+jA
 YO
 ZZ
 gI
@@ -48808,9 +48822,9 @@ vG
 of
 oI
 pc
-rK
+bA
 pc
-uP
+SU
 pc
 vY
 of
@@ -49322,9 +49336,9 @@ vG
 of
 oS
 pc
-pa
+rK
 pc
-pa
+uP
 pc
 wa
 of
@@ -49336,8 +49350,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -49375,10 +49389,10 @@ Db
 aN
 aN
 aN
+Db
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -50621,8 +50635,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -50656,14 +50670,14 @@ XB
 od
 ux
 ux
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -51906,8 +51920,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -51941,14 +51955,14 @@ Pb
 vy
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -52420,8 +52434,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -52455,14 +52469,14 @@ JC
 vy
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -53705,8 +53719,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -53740,14 +53754,14 @@ qF
 od
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -54990,11 +55004,6 @@ aN
 aN
 aN
 aN
-aN
-Db
-aN
-aN
-aN
 Db
 aN
 aN
@@ -55030,9 +55039,14 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
+Db
+aN
+aN
+Db
 aN
 aN
 aN
@@ -73022,8 +73036,8 @@ vd
 Ml
 vd
 xy
-sd
-Jy
+Me
+et
 Jy
 Jy
 Jy

@@ -126,6 +126,11 @@
 /obj/structure/bed,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
+"Q" = (
+/obj/structure/table/wood,
+/obj/item/blank_tarot_card,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
 "R" = (
 /obj/structure/table/wood,
 /obj/item/salvage/ruin/tablet,
@@ -282,7 +287,7 @@ b
 j
 r
 w
-n
+Q
 j
 b
 a

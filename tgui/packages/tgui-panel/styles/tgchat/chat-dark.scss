@@ -12,7 +12,7 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor;
+  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
   image-rendering: pixelated;
 }
 
@@ -1061,4 +1061,30 @@ span.body .coderesponses {
 
 .boxed_message.thick_border {
   border-width: thick;
+}
+
+/* GASES */
+
+.oxygen {
+  color: #449dff;
+}
+
+.nitrogen {
+  color: #f94541;
+}
+
+.carbon_dioxide {
+  color: #cccccc;
+}
+
+.plasma {
+  color: #eb6b00;
+}
+
+.sleeping_agent {
+  color: #f28b89;
+}
+
+.agent_b {
+  color: teal;
 }

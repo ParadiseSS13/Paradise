@@ -242,7 +242,6 @@
 			continue
 		if(is_same_root_atom(M, speaker_coverage[ear]))
 			. |= M
-	return .
 
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
 	var/turf/T

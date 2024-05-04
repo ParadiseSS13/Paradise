@@ -165,13 +165,6 @@
 /obj/item/book/manual/hydroponics_pod_people,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
-"aF" = (
-/obj/structure/table/wood,
-/obj/item/salvage/ruin/tablet,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/ruin/space/unpowered)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal,
@@ -510,6 +503,24 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
+"YM" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table/wood,
+/obj/item/salvage/ruin/tablet,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/wood,
+/obj/item/blank_tarot_card,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 aa
@@ -748,7 +759,7 @@ ah
 an
 av
 aC
-aF
+YM
 aC
 aO
 aC

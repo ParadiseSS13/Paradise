@@ -498,6 +498,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "tX" = (

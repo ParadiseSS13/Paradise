@@ -558,7 +558,6 @@
 	info = "Nothing of interest to report.";
 	name = "november report"
 	},
-/obj/item/pen,
 /obj/item/tape,
 /obj/item/radio/intercom{
 	freerange = 1;
@@ -566,7 +565,7 @@
 	name = "intercom"
 	},
 /obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)

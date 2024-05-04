@@ -42,6 +42,7 @@
 		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
 		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150)
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
@@ -50,6 +51,8 @@
 		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
 		EQUIPMENT("Chasm Jaunter Recovery Grenade", /obj/item/grenade/jaunter_grenade, 1500),
 		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 1000),
+		EQUIPMENT("Mining Charge", /obj/item/grenade/plastic/miningcharge/lesser, 150),
+		EQUIPMENT("Industrial Mining Charge", /obj/item/grenade/plastic/miningcharge, 500),
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
@@ -71,7 +74,7 @@
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
-		EQUIPMENT("Mecha Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 3000),
+		EQUIPMENT("Mecha Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 2500),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -209,12 +212,7 @@
 	add_fingerprint()
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
-			remove_id()
-			default_deconstruction_crowbar(user, I)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
 		if(!has_power())
@@ -234,6 +232,17 @@
 		return
 	return ..()
 
+/obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	remove_id()
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/mineral/equipment_vendor/screwdriver_act(mob/living/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
+		return TRUE
+
 /**
   * Called when someone slaps the machine with a mining voucher
   *
@@ -242,7 +251,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Jaunter Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Mining Explosives Kit", "Jaunter Kit", "Mining Conscription Kit")
 
 	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -268,6 +277,8 @@
 			new /obj/item/kinetic_crusher(drop_location)
 		if("Plasma Cutter")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
+		if("Mining Explosives Kit")
+			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if("Jaunter Kit")
 			new /obj/item/wormhole_jaunter(drop_location)
 			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
