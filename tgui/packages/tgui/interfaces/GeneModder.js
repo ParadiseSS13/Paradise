@@ -255,8 +255,8 @@ const Disks = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item} mr={2}>
-                    <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={20}>
+                    <Stack.Item width="49%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={23}>
                       {item.stat === 'All' ? (
                         <Button
                           content="Replace All"
@@ -322,8 +322,8 @@ const Disks = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item} mr={2}>
-                    <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={20}>
+                    <Stack.Item width="49%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={23}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
@@ -376,8 +376,8 @@ const Disks = (props, context) => {
               .map((item) => {
                 return (
                   <Stack key={item} mr={2}>
-                    <Stack.Item width="50%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={20}>
+                    <Stack.Item width="49%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={23}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"

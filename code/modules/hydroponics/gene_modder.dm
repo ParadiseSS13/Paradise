@@ -154,14 +154,20 @@
 		to_chat(user, "<span class='warning'>[src] cannot hold any more disks!</span>")
 		return
 	if(new_disk.type == /obj/item/storage/box || type2parent(new_disk.type) == /obj/item/storage/box)
+		var/has_disks = FALSE
 		for(var/obj/item/disk/plantgene/D in new_disk.contents)
 			if(length(contents) >= disk_capacity)
 				to_chat(user, "<span class='notice'>You fill [src] with disks.</span>")
 				break
+			has_disks = TRUE
 			D.forceMove(src)
 			if(!disk)
 				disk = D
-		to_chat(user, "<span class='notice'>You load [src] from [new_disk].</span>")
+		if(has_disks)
+			playsound(loc, 'sound/items/handling/cardboardbox_drop.ogg', 50)
+			to_chat(user, "<span class='notice'>You load [src] from [new_disk].</span>")
+		else
+			to_chat(user, "<span class='notice'>[new_disk] contains no disks.</span>")
 		SStgui.update_uis(src)
 		return
 	if(!user.drop_item())
@@ -436,9 +442,9 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
 	target = null
-	//replace with empty disk if possible and if the current disk isn't a core stat disk that isn't ready yet.
+	//replace with empty disk if possible
 	for(var/obj/item/disk/plantgene/D in contents)
-		if(!D.gene)
+		if(!D.gene && !D.is_bulk_core)
 			disk = D
 			return
 
