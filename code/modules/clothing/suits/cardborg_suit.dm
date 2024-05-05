@@ -11,12 +11,14 @@ CONTENTS:
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
 	desc = "A helmet made out of a box."
+	icon = 'icons/obj/clothing/head/cardborg.dmi'
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
+	icon_override = 'icons/mob/clothing/head/cardborg.dmi'
 	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head/cardborg.dmi',
+	"Vox" = 'icons/mob/clothing/species/vox/head/cardborg.dmi'
 	)
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS
@@ -113,8 +115,10 @@ CONTENTS:
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them."
+	icon = 'icons/obj/clothing/suits/cardborg.dmi'
 	icon_state = "cardborg"
 	item_state = "cardborg"
+	icon_override = 'icons/mob/clothing/suits/cardborg.dmi'
 	dog_fashion = /datum/dog_fashion/back
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT

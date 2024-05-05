@@ -398,8 +398,9 @@
 	)
 	selected_disguise = disguise_spraypaint_items[selected_disguise][is_cardborg_head]
 	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
-	new selected_disguise(get_turf(target)) 	// Spawn the desired cardborg item.
-	qdel(target)							// Get rid of the old one.
+	user.unEquip(target)
+	user.put_in_hands(new selected_disguise())	// Spawn the desired cardborg item.
+	qdel(target)								// Get rid of the old one.
 
 #undef CRAYON_MESSAGE_MAX_LENGTH
 #undef CARDBORG_HEAD
