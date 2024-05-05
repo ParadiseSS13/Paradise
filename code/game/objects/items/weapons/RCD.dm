@@ -263,9 +263,10 @@
 
 /obj/item/rcd/Initialize()
 	. = ..()
-	possible_actions = list()
-	for(var/action_type in subtypesof(/datum/rcd_act))
-		possible_actions += new action_type()
+	if(!length(possible_actions))
+		possible_actions = list()
+		for(var/action_type in subtypesof(/datum/rcd_act))
+			possible_actions += new action_type()
 
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
