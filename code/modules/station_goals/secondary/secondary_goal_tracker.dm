@@ -2,6 +2,7 @@
 	var/datum/secondary_goal_progress/real_progress
 	var/datum/secondary_goal_progress/temporary_progress
 	var/datum/station_goal/secondary/goal
+	var/registered = FALSE
 
 /datum/secondary_goal_tracker/New(datum/station_goal/secondary/goal_in, datum/secondary_goal_progress/progress)
 	goal = goal_in
@@ -11,6 +12,8 @@
 /datum/secondary_goal_tracker/proc/reset()
 	real_progress = new real_progress.type(goal)
 	temporary_progress = real_progress.Copy()
+	if(!registered)
+		register(SSshuttle.supply)
 
 /datum/secondary_goal_tracker/proc/register(shuttle)
 	RegisterSignal(shuttle, COMSIG_CARGO_BEGIN_SCAN,		PROC_REF(reset_tempporary_progress))
@@ -19,6 +22,7 @@
 	RegisterSignal(shuttle, COMSIG_CARGO_DO_PRIORITY_SELL,	PROC_REF(update_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_SEND_ERROR,		PROC_REF(update_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_END_SELL,			PROC_REF(check_for_completion))
+	registered = TRUE
 
 /datum/secondary_goal_tracker/proc/unregister(shuttle)
 	UnregisterSignal(shuttle, COMSIG_CARGO_BEGIN_SCAN)
@@ -27,6 +31,7 @@
 	UnregisterSignal(shuttle, COMSIG_CARGO_DO_PRIORITY_SELL)
 	UnregisterSignal(shuttle, COMSIG_CARGO_SEND_ERROR)
 	UnregisterSignal(shuttle, COMSIG_CARGO_END_SELL)
+	registered = FALSE
 
 // Resets the temporary porgress to match the real progress.
 /datum/secondary_goal_tracker/proc/reset_tempporary_progress(obj/docking_port/mobile/supply/shuttle)
