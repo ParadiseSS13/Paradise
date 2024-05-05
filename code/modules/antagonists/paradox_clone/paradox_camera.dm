@@ -179,6 +179,9 @@
 
 		para.equip_in_one_of_slots(key, slots)
 
+#undef NANOTRASEN
+#undef SYNDICATE
+
 	var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = para.apply_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 	PS.target_brain = the_original.get_int_organ(/obj/item/organ/internal/brain)
 

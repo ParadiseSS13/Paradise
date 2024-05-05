@@ -14,6 +14,16 @@
 
 	var/used = FALSE
 
+	for(var/obj/O in targets)
+		if(istype(O, /obj/machinery/porta_turret))
+			used = TRUE
+		if(istype(O, /obj/mecha))
+			var/obj/mecha/M = O
+			used = TRUE
+			M.occupant += targets
+
+		O.emp_act(EMP_LIGHT)
+
 	for(var/mob/living/L in targets)
 		if(is_paradox_clone(L))
 			continue
@@ -37,11 +47,6 @@
 			L.EyeBlurry(6 SECONDS)
 
 		L.Weaken(rand(4 SECONDS, 8 SECONDS))
-
-	for(var/obj/O in targets)
-		if(istype(O, /obj/mecha || istype(O, /obj/machinery/porta_turret)))
-			used = TRUE
-			O.emp_act(EMP_LIGHT)
 
 	if(used)
 		playsound(get_turf(user), 'sound/effects/paradox_display_inability.ogg', 10, TRUE)
