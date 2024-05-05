@@ -4,7 +4,6 @@
 	animate_movement = 2
 	pressure_resistance = 8
 	throwforce = 10
-	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
@@ -18,6 +17,7 @@
 	var/atom/movable/screen/m_select = null
 	var/atom/movable/screen/healths = null
 	var/atom/movable/screen/throw_icon = null
+	var/atom/movable/screen/staminas = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -44,7 +44,7 @@
 	var/memory = ""
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
-	var/hand = null
+	var/hand = HAND_BOOL_RIGHT
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""

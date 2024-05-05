@@ -53,7 +53,7 @@
 	if(!I.tool_start_check(user, amount = 0))
 		return
 	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-	if(I.use_tool(src, user, 40, volume = 50))
+	if(I.use_tool(src, user, 4 SECONDS, I.tool_volume))
 		obj_integrity = max_integrity
 		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
@@ -102,7 +102,7 @@
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return TRUE
 	if(ismob(mover))
 		var/mob/living/M = mover
@@ -130,7 +130,7 @@
 	var/mob/living/M = O
 	if(istype(O) && O.checkpass(PASSFENCE))
 		return TRUE
-	if(istype(O, /obj/item/projectile))
+	if(isprojectile(O))
 		return TRUE
 	if(istype(M))
 		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))

@@ -71,6 +71,7 @@
 		M.overlays = disguise.overlays
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
+		SEND_SIGNAL(M, COMSIG_CARBON_REGENERATE_ICONS)
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -531,7 +532,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		species = "<span clas=='notice'>[H.dna.species.name]</span>"
-		if(ischangeling(L))
+		if(IS_CHANGELING(L))
 			species = "<span class='warning'>Changeling lifeform</span>"
 		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
 		if(temp)
