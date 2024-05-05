@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 	///toggle for ghost gas analyzer
-	var/gas_analyzer = FALSE
+	var/gas_scan = FALSE
 	///toggle for ghost plant analyzer
 	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
@@ -217,7 +217,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
 	if(frozen)
-		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>")
+		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>", MESSAGE_TYPE_WARNING)
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
 
@@ -575,17 +575,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
-/mob/dead/observer/verb/toggle_gas_anaylzer()
-	set name = "Toggle Gas Analyzer"
-	set desc = "Toggles wether you can anaylze gas contents on click"
+/mob/dead/observer/verb/toggle_gas_scan()
+	set name = "Toggle Gas Scan"
+	set desc = "Toggles whether you analyze gas contents on click"
 	set category = "Ghost"
 
-	if(gas_analyzer)
-		to_chat(src, "<span class='notice'>Gas Analyzer disabled.</span>")
-		gas_analyzer = FALSE
+	gas_scan = !gas_scan
+	if(gas_scan)
+		to_chat(src, "<span class='notice'>Gas scan enabled.</span>")
 	else
-		to_chat(src, "<span class='notice'>Gas Analyzer enabled. Click on a pipe to analyze.</span>")
-		gas_analyzer = TRUE
+		to_chat(src, "<span class='notice'>Gas scan disabled.</span>")
 
 /mob/dead/observer/verb/toggle_plant_anaylzer()
 	set name = "Toggle Plant Analyzer"
@@ -598,62 +597,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
 		plant_analyzer = TRUE
-
-/mob/dead/observer/verb/analyze_air()
-	set name = "Analyze Air"
-	set category = "Ghost"
-
-	if(!isobserver(usr))
-		return
-
-	// Shamelessly copied from the Gas Analyzers
-	if(!isturf(usr.loc))
-		return
-
-	var/datum/gas_mixture/environment = usr.loc.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(src, "<span class='boldnotice'>Results:</span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(src, "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>")
-	else
-		to_chat(src, "<span class='warning'>Pressure: [round(pressure, 0.1)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.oxygen / total_moles
-		var/n2_concentration = environment.nitrogen / total_moles
-		var/co2_concentration = environment.carbon_dioxide / total_moles
-		var/plasma_concentration = environment.toxins / total_moles
-		var/n2o_concentration = environment.sleeping_agent / total_moles
-
-		var/unknown_concentration = 1 - (o2_concentration + n2_concentration + co2_concentration + plasma_concentration + n2o_concentration)
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration * 100)]% ([round(environment.oxygen, 0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration * 100)]% ([round(environment.oxygen, 0.01)] moles)</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration * 100)]% ([round(environment.carbon_dioxide, 0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration * 100)]% ([round(environment.carbon_dioxide, 0.01)] moles)</span>")
-
-		if(plasma_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration * 100)]% ([round(environment.toxins, 0.01)] moles)</span>")
-
-		if(n2o_concentration > 0.01)
-			to_chat(src, "<span class='warning'>N2O: [round(n2o_concentration * 100)]% ([round(environment.sleeping_agent, 0.01)] moles)</span>")
-
-		if(unknown_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration * 100)]% ([round(unknown_concentration * total_moles, 0.01)] moles)</span>")
-
-		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature - T0C, 0.1)]&deg;C</span>")
-		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(), 0.1)]</span>")
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
@@ -762,7 +705,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	updateghostimages()
 
-/mob/dead/observer/can_see_reagents()
+/mob/dead/observer/advanced_reagent_vision()	// Ghosts can see all the reagents inside things.
 	return TRUE
 
 /proc/updateallghostimages()

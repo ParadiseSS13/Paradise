@@ -329,7 +329,7 @@
 					/obj/item/clothing/under/rank/security/warden/corporate,
 					/obj/item/clothing/head/beret/sec/warden,
 					/obj/item/clothing/under/rank/security/head_of_security/corporate,
-					/obj/item/clothing/head/HoS/beret)
+					/obj/item/clothing/head/beret/hos)
 	cost = 200
 	containername = "security clothing crate"
 

@@ -2985,7 +2985,7 @@
 	dir = 8
 	},
 /obj/item/hand_labeler,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -3423,7 +3423,7 @@
 "th" = (
 /obj/structure/table,
 /obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
@@ -3760,7 +3760,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "vd" = (
 /obj/structure/table,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /obj/item/paper_bin,
 /obj/item/stamp/syndicate,
 /obj/machinery/light_switch{
@@ -8462,7 +8462,7 @@
 	dir = 8
 	},
 /obj/item/hand_labeler,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkgreen"
