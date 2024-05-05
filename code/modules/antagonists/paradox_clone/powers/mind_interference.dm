@@ -11,7 +11,6 @@
 	var/mob/living/targ = target
 	return targ.stat != DEAD && !is_paradox_clone(target)
 
-
 /datum/spell/paradox_spell/click_target/mind_interference/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/H = target

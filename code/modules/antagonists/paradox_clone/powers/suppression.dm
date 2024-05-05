@@ -29,3 +29,4 @@
 	desc = "It's a bug, if you see this!"
 	range = 1
 	active = TRUE
+	invisibility = SEE_INVISIBLE_LIVING

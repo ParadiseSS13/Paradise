@@ -1,12 +1,12 @@
 /datum/spell/paradox_spell/aoe/display_inability
 	name = "Display Inability"
-	desc = "Causes paradoxial interference in the HUDs for nearby humans and silicons. Blinds them for a while."
+	desc = "Causes paradoxial interference in the HUDs and vision for nearby humans (even in mechas) turrets, bots and silicons. Blinds them for a while."
 	action_icon_state = "display_inability"
 	base_cooldown = 140 SECONDS
 
 /datum/spell/paradox_spell/aoe/create_new_targeting()
 	var/datum/spell_targeting/aoe/A = new
-	A.allowed_type = /mob/living
+	A.allowed_type = /atom
 	A.range = 6
 	return A
 
@@ -22,18 +22,26 @@
 			var/mob/living/carbon/human/H = L
 			var/obj/item/clothing/glasses/G = H.glasses
 			if(istype(G, /obj/item/clothing/glasses/hud))
-				H.flash_eyes(1, TRUE, type = /atom/movable/screen/fullscreen/flash/noise, TRUE)
+				H.flash_eyes(10, TRUE, type = /atom/movable/screen/fullscreen/flash/noise)
 				H.KnockDown(1 SECONDS)
 				H.EyeBlurry(10 SECONDS)
 		if(istype(L, /mob/living/silicon))
 			used = TRUE
 			var/mob/living/silicon/S = L
 			S.remove_med_sec_hud()
-			S.flash_eyes(2, TRUE, 1, type = /atom/movable/screen/fullscreen/flash/noise, TRUE)
-			S.emp_act(EMP_LIGHT)
+			S.flash_eyes(20, TRUE, 1, type = /atom/movable/screen/fullscreen/flash/noise)
 			S.EyeBlurry(20 SECONDS)
+		if(istype(L, /mob/living/simple_animal/bot))
+			L.emp_act(EMP_LIGHT)
+			L.flash_eyes(8, TRUE, 1, type = /atom/movable/screen/fullscreen/flash/noise)
+			L.EyeBlurry(6 SECONDS)
 
 		L.Weaken(rand(4 SECONDS, 8 SECONDS))
+
+	for(var/obj/O in targets)
+		if(istype(O, /obj/mecha || istype(O, /obj/machinery/porta_turret)))
+			used = TRUE
+			O.emp_act(EMP_LIGHT)
 
 	if(used)
 		playsound(get_turf(user), 'sound/effects/paradox_display_inability.ogg', 10, TRUE)

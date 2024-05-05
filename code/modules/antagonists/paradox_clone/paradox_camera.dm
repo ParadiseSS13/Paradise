@@ -148,15 +148,41 @@
 	messages.Add(para_mind.prepare_announce_objectives())
 	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[para_clone_datum.wiki_page_name])</span>")
 
-	to_chat(para_mind.current, chat_box_red(messages.Join("<br>")))
+	to_chat(para, chat_box_red(messages.Join("<br>")))
+
+#define NANOTRASEN 1
+#define SYNDICATE 2
 
 	var/datum/language/paradox/P = new()
-	to_chat(para_mind.current, "<span class='danger'><B><center>Use [P.key] to commune with other paradox clones.</center></b></span>")
+	to_chat(para, "<span class='danger'><B><center>Use [P.key] to commune with other paradox clones.</center></b></span>")
+	if(findtextEx(para_clone_datum.paradox_id, "Agent"))
+		var/static/list/slots = list(
+			"backpack" = SLOT_HUD_IN_BACKPACK,
+			"left pocket" = SLOT_HUD_LEFT_STORE,
+			"right pocket" = SLOT_HUD_RIGHT_STORE,
+			"left hand" = SLOT_HUD_LEFT_HAND,
+			"right hand" = SLOT_HUD_RIGHT_HAND,
+		)
+
+		var/obj/item/encryptionkey/key
+		to_chat(para, "<span class='danger'><center>Welcome, [para_clone_datum.paradox_id]</center></span>")
+		var/employer = rand(1,2)
+		switch(employer)
+			if(NANOTRASEN)
+				to_chat(para, "<span class='warning'><center>We have discovered that someone does not meet our expectations in another universe. Replace them.</center></span>")
+				to_chat(para, "<span class='warning'><center>NanoTrasen has given you an encryption key with access to all channels.</center></span>")
+				key = new /obj/item/encryptionkey/heads/captain(para)
+			if(SYNDICATE)
+				to_chat(para, "<span class='warning'><center>It's time to help our partners from another universe.</center></span>")
+				to_chat(para, "<span class='warning'><center>Syndicate has given you an encryption key.</center></span>")
+				key = new /obj/item/encryptionkey/syndicate(para)
+
+		para.equip_in_one_of_slots(key, slots)
 
 	var/datum/status_effect/internal_pinpointer/paradox_stalking/PS = para.apply_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 	PS.target_brain = the_original.get_int_organ(/obj/item/organ/internal/brain)
 
-	addtimer(CALLBACK(SSjobs, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), para_mind.current.client, para_mind), 1 SECONDS)
+	addtimer(CALLBACK(SSjobs, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), para.client, para_mind), 1 SECONDS)
 
 /mob/camera/paradox/proc/make_owner_and_target(datum/objective/O, datum/antagonist/paradox_clone/pc, datum/mind/orig)
 	O.owner = pc.owner
@@ -172,7 +198,7 @@
 		var/mob/living/carbon/human/P = usr
 		var/datum/antagonist/paradox_clone/para_clone_datum = P.mind.has_antag_datum(/datum/antagonist/paradox_clone)
 		var/mob/living/carbon/human/para = para_clone_datum.owner.current
-		for(var/mob/living/carbon/human/H in world)
+		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			var/obj/item/organ/internal/brain/HB = H.get_int_organ(/obj/item/organ/internal/brain)
 			if(H.z == P.z && H.mind && H.key && P != H && HB && H != PS.owner && H || is_paradox_clone(H) || H == para_clone_datum.original)
 				allowed_targets += H
