@@ -6218,10 +6218,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"aHe" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/service/bar)
 "aHg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10928,7 +10924,7 @@
 /area/station/public/locker)
 "aVT" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft/grey{
+/obj/item/clothing/head/soft{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -42602,11 +42598,11 @@
 "cZp" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 33
+	width = 41
 	},
 /turf/space,
 /area/space)
@@ -45393,6 +45389,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
+"dKD" = (
+/obj/machinery/barsign{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/starboard)
 "dKK" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -127034,8 +127038,8 @@ bjp
 bez
 vtx
 boY
-bqA
-aHe
+dKD
+bsp
 ded
 bEv
 bEv
