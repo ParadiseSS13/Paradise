@@ -413,11 +413,11 @@
 			return
 
 		if(!allow_pai || key)
-			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
-			return
-			
-		if(locked || open || hijacked)
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
+			return
+
+		if(locked || open || hijacked)
+			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 			return
 
 		var/obj/item/paicard/card = W
@@ -431,7 +431,7 @@
 
 		if(!user.drop_item())
 			return
-			
+
 		W.forceMove(src)
 		paicard = card
 		user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
@@ -447,7 +447,7 @@
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 			return
-			
+
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			if(paicard)
