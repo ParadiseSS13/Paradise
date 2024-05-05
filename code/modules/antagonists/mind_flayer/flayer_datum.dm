@@ -163,6 +163,10 @@
 		var/datum/mindflayer_passive/passive = spell
 		passive.on_apply()
 
+/datum/antagonist/mindflayer/proc/remove_all_abilities()
+	for(var/path as anything in powers)
+		remove_ability(path)
+
 /datum/antagonist/mindflayer/proc/remove_ability(path)
 	if(get_ability(path))
 		force_remove_ability(path)
