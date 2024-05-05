@@ -26,15 +26,6 @@
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"h" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/shuttle/freegolem)
 "i" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -593,8 +584,8 @@ b
 "}
 (19,1,1) = {"
 b
-h
-h
+U
+U
 b
 U
 U
@@ -605,8 +596,8 @@ b
 U
 U
 b
-h
-h
+U
+U
 b
 "}
 (20,1,1) = {"
