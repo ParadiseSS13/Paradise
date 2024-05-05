@@ -26,7 +26,7 @@
 		return
 
 	if(istype(target, /mob/living/silicon/))
-		target.flash_eyes(40, 1, 1, type = /atom/movable/screen/fullscreen/flash/noise)
+		target.flash_eyes(40, 1, 1, type = /atom/movable/screen/fullscreen/flash)
 
 	target.emp_act(EMP_HEAVY)
 	playsound(get_turf(target), 'sound/effects/paradox_emp.ogg', 80, TRUE)
