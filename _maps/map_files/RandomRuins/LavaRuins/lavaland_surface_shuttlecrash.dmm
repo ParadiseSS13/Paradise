@@ -570,10 +570,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Wi" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/mineral/titanium,
-/area/ruin/unpowered/misc_lavaruin)
 "WF" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/molten_object/large,
@@ -913,7 +909,7 @@ ng
 kk
 Dt
 dD
-Wi
+It
 dD
 NG
 "}
@@ -956,7 +952,7 @@ ge
 Et
 SH
 dD
-Wi
+It
 Gt
 "}
 (18,1,1) = {"
@@ -1020,7 +1016,7 @@ hK
 hK
 hK
 hK
-Wi
+It
 "}
 (21,1,1) = {"
 hK
