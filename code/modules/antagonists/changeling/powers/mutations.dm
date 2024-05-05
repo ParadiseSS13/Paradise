@@ -583,8 +583,6 @@
 	flags_inv = HIDEEARS
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
-<<<<<<< HEAD
-
 // Bone Shard
 
 /datum/action/changeling/weapon/bones
@@ -598,7 +596,8 @@
 	weapon_type = /obj/item/throwing_star/boneshard
 	weapon_name_simple = "bone"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
+	category = /datum/changeling_power_category/offence
+
 
 /obj/item/throwing_star/boneshard
 	name = "bone shard"
