@@ -42,8 +42,8 @@ SUBSYSTEM_DEF(tgui)
 		src.current_run = open_uis.Copy()
 	// Cache for sanic speed (lists are references anyways)
 	var/list/current_run = src.current_run
-	while(current_run.len)
-		var/datum/tgui/ui = current_run[current_run.len]
+	while(length(current_run))
+		var/datum/tgui/ui = current_run[length(current_run)]
 		current_run.len--
 		// TODO: Move user/src_object check to process()
 		if(ui && ui.user && ui.src_object)
@@ -187,7 +187,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs updated.
  */
-/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object)
+/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object, full_update = FALSE)
 	var/count = 0
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
@@ -196,7 +196,10 @@ SUBSYSTEM_DEF(tgui)
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
 		if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
-			ui.process(force = TRUE)
+			if(full_update)
+				ui.send_full_update(null, TRUE)
+			else
+				ui.process(force = TRUE)
 			count++
 	return count
 

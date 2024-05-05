@@ -93,24 +93,33 @@
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
 	if(panel_open)
-		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O, time = 6 SECONDS)
-		if(component_parts && istype(O, /obj/item/crowbar))
-			if(tickets)		//save the tickets!
-				print_tickets()
-			default_deconstruction_crowbar(user, O)
 		return
 
 	return ..()
 
+/obj/machinery/prize_counter/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open || !component_parts)
+		return
+	. = TRUE
+	if(tickets)		//save the tickets!
+		print_tickets()
+	default_deconstruction_crowbar(user, I)
+
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return
-	I.play_tool_sound(src)
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
 	update_icon(UPDATE_ICON_STATE)
-	return TRUE
+
+/obj/machinery/prize_counter/wrench_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 6 SECONDS)
 
 /obj/machinery/prize_counter/attack_hand(mob/user)
 	if(..())

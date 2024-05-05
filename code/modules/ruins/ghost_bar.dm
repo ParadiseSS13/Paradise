@@ -55,7 +55,7 @@
 		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
 	if(!H.shoes)
 		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
-	equip_item(H, /obj/item/stack/spacecash/c100, SLOT_HUD_LEFT_STORE)
+	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_STORE)
 
 	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
 	our_id.assignment = assignedrole

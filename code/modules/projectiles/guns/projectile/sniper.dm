@@ -192,7 +192,7 @@
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
-	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+	if(ammo && istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
 		. += ".50mag-r"
 	else if(ammo)
 		. += ".50mag-f"
