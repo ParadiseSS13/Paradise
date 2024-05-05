@@ -262,7 +262,7 @@
 	sharp = TRUE
 	origin_tech = "combat=6;syndicate=5"
 	attack_verb = list("slashed", "cleaved", "chopped")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/swordhitheavy.ogg'
 	materials = list(MAT_METAL = 2000)
 	needs_permit = TRUE
 
@@ -322,7 +322,7 @@
 			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
 							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
 							"<span class='italics'>You hear a thud.</span>")
-			playsound(loc, 'sound/weapons/genhit2.ogg', 70, TRUE, -1)
+			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
 			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 			add_attack_logs(user, H, "Slammed by a breach cleaver.", ATKLOG_ALL)
