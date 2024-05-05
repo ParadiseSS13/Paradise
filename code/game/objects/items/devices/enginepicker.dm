@@ -28,8 +28,7 @@
 		return
 
 	locatebeacons()
-	var/default = null
-	var/E = input("Select the station's Engine:", "[src]", default) as null|anything in list_enginebeacons
+	var/E = tgui_input_list(user, "Select the station's Engine", "[src]", list_enginebeacons)
 	if(E)
 		processchoice(E, user)
 	else
@@ -50,9 +49,8 @@
 	var/G						//Generator that will be spawned
 	var/turf/T = get_turf(choice)
 
-	if(choice.enginetype.len > 1)	//If the beacon has multiple engine types
-		var/default = null
-		var/E = input("You have selected a combined beacon, which option would you prefer?", "[src]", default) as null|anything in choice.enginetype
+	if(length(choice.enginetype) > 1)	//If the beacon has multiple engine types
+		var/E = tgui_input_list(user, "You have selected a combined beacon, which option would you prefer?", "[src]", choice.enginetype)
 		if(E)
 			engtype = E
 			issuccessful = TRUE
@@ -78,7 +76,7 @@
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			announcer.say(";Engine delivery detected. Type: [engtype].")	//Let's announce the terrible choice to everyone
 

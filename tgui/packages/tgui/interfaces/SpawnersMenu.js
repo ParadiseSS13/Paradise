@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
@@ -7,7 +6,7 @@ export const SpawnersMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const spawners = data.spawners || [];
   return (
-    <Window resizable>
+    <Window width={700} height={600}>
       <Window.Content scrollable>
         <Section>
           {spawners.map((spawner) => (
@@ -17,7 +16,7 @@ export const SpawnersMenu = (props, context) => {
               title={spawner.name + ' (' + spawner.amount_left + ' left)'}
               level={2}
               buttons={
-                <Fragment>
+                <>
                   <Button
                     icon="chevron-circle-right"
                     content="Jump"
@@ -36,7 +35,7 @@ export const SpawnersMenu = (props, context) => {
                       })
                     }
                   />
-                </Fragment>
+                </>
               }
             >
               <Box

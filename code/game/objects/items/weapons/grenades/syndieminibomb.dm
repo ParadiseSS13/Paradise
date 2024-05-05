@@ -1,6 +1,6 @@
 /obj/item/grenade/syndieminibomb
-	desc = "A syndicate manufactured explosive used to sow destruction and chaos"
 	name = "syndicate minibomb"
+	desc = "A syndicate manufactured explosive used to sow destruction and chaos."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "grenade"
@@ -23,4 +23,16 @@
 		flags |= NODROP
 		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
 		to_chat(user, "<span class='sans'>Uh oh.</span>")
+	. = ..()
+
+/obj/item/grenade/syndieminibomb/pen
+	name = "pen"
+	desc = "It's a normal black ink pen."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "pen"
+	item_state = "pen"
+
+/obj/item/grenade/syndieminibomb/pen/attack_self(mob/user)
+	if(!active)
+		visible_message("<span class='notice'>[user] fumbles with [src]!</span>")
 	. = ..()

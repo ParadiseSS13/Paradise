@@ -1,8 +1,3 @@
-/datum/game_mode
-	var/abductor_teams = 0
-	var/list/datum/mind/abductors = list()
-	var/list/datum/mind/abductees = list()
-
 /datum/game_mode/abduction
 	name = "abduction"
 	config_tag = "abduction"
@@ -10,6 +5,7 @@
 	required_players = 15
 	var/max_teams = 4
 	abductor_teams = 1
+	single_antag_positions = list()
 	var/list/datum/mind/scientists = list()
 	var/list/datum/mind/agents = list()
 	var/list/datum/objective/team_objectives = list()
@@ -26,11 +22,11 @@
 /datum/game_mode/abduction/pre_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
 
-	if(!possible_abductors.len)
+	if(!length(possible_abductors))
 		return 0
 
 	abductor_teams = max(1, min(max_teams,round(num_players()/15)))
-	var/possible_teams = max(1,round(possible_abductors.len / 2))
+	var/possible_teams = max(1,round(length(possible_abductors) / 2))
 	abductor_teams = min(abductor_teams,possible_teams)
 
 	abductors.len = 2*abductor_teams
@@ -47,7 +43,7 @@
 
 /datum/game_mode/abduction/proc/make_abductor_team(team_number,preset_agent=null,preset_scientist=null)
 	//Team Name
-	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
+	team_names[team_number] = "Mothership [pick(GLOB.greek_letters)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
 	team_objective.abductor_team_number = team_number
@@ -55,7 +51,7 @@
 	//Team Members
 
 	if(!preset_agent || !preset_scientist)
-		if(possible_abductors.len <=2)
+		if(length(possible_abductors) <=2)
 			return 0
 
 	var/datum/mind/scientist
@@ -206,27 +202,27 @@
 		if(console.experiment.points >= objective.target_amount)
 			to_chat(world, "<span class='greenannounce'>[team_name] team fulfilled its mission!</span>")
 		else
-			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
+			to_chat(world, "<span class='boldannounceic'>[team_name] team failed its mission.</span>")
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_abduction()
-	var/text = ""
-	if(abductors.len)
+	var/list/text = list()
+	if(length(abductors))
 		text += "<br><span class='big'><b>The abductors were:</b></span><br>"
 		for(var/datum/mind/abductor_mind in abductors)
 			text += printplayer(abductor_mind)
 			text += "<br>"
 			text += printobjectives(abductor_mind)
 			text += "<br>"
-		if(abductees.len)
+		if(length(abductees))
 			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
 			for(var/datum/mind/abductee_mind in abductees)
 				text += printplayer(abductee_mind)
 				text += "<br>"
 				text += printobjectives(abductee_mind)
 				text += "<br>"
-	to_chat(world, text)
+		return text.Join("")
 
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships

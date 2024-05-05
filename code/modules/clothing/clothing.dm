@@ -3,8 +3,12 @@
 	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
-	var/list/species_restricted = null //Only these species can wear this kit.
-	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
+	/// Only these species can wear this kit.
+	var/list/species_restricted
+	/// Can the wearer see reagents inside transparent containers while it's equipped?
+	var/scan_reagents = FALSE
+	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
+	var/scan_reagents_advanced = FALSE
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -62,7 +66,7 @@
 		C.head_update(src, forced = 1)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	return TRUE
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
@@ -83,38 +87,38 @@
 	return FALSE
 
 //BS12: Species-restricted clothing check.
-/obj/item/clothing/mob_can_equip(M as mob, slot)
+/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 
 	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
-		return 0
+		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
 	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
-		return 1
+		return TRUE
 
 	if(species_restricted && ishuman(M))
 
-		var/wearable = null
-		var/exclusive = null
+		var/wearable = FALSE
+		var/exclusive = FALSE
 		var/mob/living/carbon/human/H = M
 
 		if("exclude" in species_restricted)
-			exclusive = 1
+			exclusive = TRUE
 
 		if(H.dna.species)
 			if(exclusive)
 				if(!(H.dna.species.name in species_restricted))
-					wearable = 1
+					wearable = TRUE
 			else
 				if(H.dna.species.name in species_restricted)
-					wearable = 1
+					wearable = TRUE
 
 			if(!wearable)
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
-				return 0
+				return FALSE
 
-	return 1
+	return TRUE
 
 /obj/item/clothing/proc/refit_for_species(target_species)
 	//Set icon
@@ -142,7 +146,9 @@
 	slot_flags = SLOT_FLAG_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
+		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi'
+		)
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -236,16 +242,10 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 
-	var/action_fluff = "You adjust \the [src]"
-	if(user.glasses == src)
-		if(!user.canUnEquip(src))
-			to_chat(user, "<span class='warning'>[src] is stuck to you!</span>")
-			return
-		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
-			action_fluff = "You remove \the [src] and adjust it"
-
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	if(user.glasses == src)
+		user.update_inv_glasses()
+	to_chat(user, "<span class='notice'>You adjust [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
 //Gloves
 /obj/item/clothing/gloves
@@ -260,12 +260,13 @@
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	///Master pickpocket?
-	var/pickpocket = 0
-	var/clipped = 0
+	var/pickpocket = FALSE
+	var/clipped = FALSE
 	///Do they protect the wearer from poison ink?
 	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
+	var/transfer_blood = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -311,15 +312,15 @@
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
-
+	if(!switchMode)
+		return
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if(loc == user)
@@ -356,7 +357,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-/obj/item/clothing/under/AltShiftClick(mob/user)
+/obj/item/clothing/under/AltClick(mob/user)
 	set_sensors(user)
 
 //Head
@@ -450,7 +451,7 @@
 	usr.update_inv_head()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
@@ -465,6 +466,10 @@
 	var/chained = FALSE
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
+	var/no_slip = FALSE
+	var/knife_slot = FALSE
+	var/obj/item/kitchen/knife/combat/hidden_blade
+
 	body_parts_covered = FEET
 	slot_flags = SLOT_FLAG_FEET
 
@@ -478,6 +483,22 @@
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 		)
+
+/obj/item/clothing/shoes/equipped(mob/user, slot)
+	. = ..()
+	if(!no_slip || slot != SLOT_HUD_SHOES)
+		return
+	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
+
+/obj/item/clothing/shoes/dropped(mob/user)
+	..()
+	if(!no_slip)
+		return
+	var/mob/living/carbon/human/H = user
+	if(!user)
+		return
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
@@ -502,8 +523,23 @@
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
 		return
-	else
-		return ..()
+
+	if(istype(I, /obj/item/kitchen/knife/combat))
+		if(!knife_slot)
+			to_chat(user, "<span class='notice'>There is no place to put [I] in [src]!</span>")
+			return
+		if(hidden_blade)
+			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
+			return
+		if(!user.unEquip(I))
+			return
+		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
+			"<span class='notice'>You place [I] into the side of your [name]!</span>")
+		I.forceMove(src)
+		hidden_blade = I
+		return
+
+	return ..()
 
 /obj/item/clothing/shoes/update_name()
 	. = ..()
@@ -523,8 +559,29 @@
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
 
-/obj/item/proc/negates_gravity()
-	return
+/obj/item/clothing/shoes/AltClick(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !knife_slot)
+		return
+	if(!hidden_blade)
+		to_chat(user, "<span class='warning'>There's nothing in your [name]!</span>")
+		return
+
+	if(user.get_active_hand() && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need an empty hand to pull out [hidden_blade]!</span>")
+		return
+
+	user.visible_message("<span class='notice'>[user] pulls [hidden_blade] from their [name]!</span>", \
+		"<span class='notice'>You draw [hidden_blade] from your [name]!</span>")
+	user.put_in_hands(hidden_blade)
+	hidden_blade.add_fingerprint(user)
+	hidden_blade = null
+
+/obj/item/clothing/shoes/examine(mob/user)
+	. = ..()
+	if(knife_slot)
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
+		if(hidden_blade)
+			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
 
 //Suit
 /obj/item/clothing/suit
@@ -544,6 +601,36 @@
 	var/list/hide_tail_by_species = null
 	/// Maximum weight class of an item in the suit storage slot.
 	var/max_suit_w = WEIGHT_CLASS_BULKY
+
+/obj/item/clothing/suit/Initialize(mapload)
+	. = ..()
+	setup_shielding()
+
+/**
+ * Wrapper proc to apply shielding through AddComponent().
+ * Called in /obj/item/clothing/Initialize().
+ * Override with an AddComponent(/datum/component/shielded, args) call containing the desired shield statistics.
+ * See /datum/component/shielded documentation for a description of the arguments
+ **/
+/obj/item/clothing/suit/proc/setup_shielding()
+	return
+
+///Hierophant card shielding. Saves me time.
+/obj/item/clothing/suit/proc/setup_hierophant_shielding()
+	var/datum/component/shielded/shield = GetComponent(/datum/component/shielded)
+	if(!shield)
+		AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon = "shield-hierophant", run_hit_callback = CALLBACK(src, PROC_REF(hierophant_shield_damaged)))
+		return
+	if(shield.shield_icon == "shield-hierophant") //If the hierophant shield has been used, recharge it. Otherwise, it's a shielded component we don't want to touch
+		shield.current_charges = 3
+
+/// A proc for callback when the shield breaks, since I am stupid and want custom effects.
+/obj/item/clothing/suit/proc/hierophant_shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of dark-purple sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks/hierophant(get_turf(wearer))
+	playsound(wearer,'sound/magic/blind.ogg', 200, TRUE, -2)
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
@@ -581,7 +668,7 @@
 		to_chat(user, "You [flavour] \the [src].")
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	else
 		var/flavour = "open"
 		icon_state += "_open"
@@ -591,7 +678,7 @@
 		to_chat(user, "You [flavour] \the [src].")
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 
 	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
@@ -761,7 +848,7 @@
 	data["accessories"] = accessories_list
 	for(var/obj/item/clothing/accessory/A in accessories)
 		accessories_list.len++
-		accessories_list[accessories_list.len] = A.serialize()
+		accessories_list[length(accessories_list)] = A.serialize()
 
 	return data
 
@@ -814,14 +901,14 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='info'>Alt-shift-click to toggle the sensors mode.</span>"
+			. += "<span class='info'>Alt-click to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='info'>Alt-click to remove an accessory.</span>"
+	. += "<span class='info'>Alt-Shift-Click to remove an accessory.</span>"
 	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
 
 
@@ -855,7 +942,7 @@
 		body_parts_covered &= ~LOWER_TORSO
 		body_parts_covered &= ~ARMS
 
-/obj/item/clothing/under/AltClick(mob/user)
+/obj/item/clothing/under/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(!length(accessories))

@@ -7,7 +7,7 @@ export const AtmosFilter = (props, context) => {
   const { on, pressure, max_pressure, filter_type, filter_type_list } = data;
 
   return (
-    <Window>
+    <Window width={380} height={140}>
       <Window.Content>
         <Section>
           <LabeledList>

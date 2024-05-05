@@ -30,10 +30,12 @@
 			admin = 1
 
 	// Lets see if they are logged in on another paradise server
+	#ifdef MULTIINSTANCE
 	if(SSdbcore.IsConnected())
 		var/other_server_login = SSinstancing.check_player(ckey)
 		if(other_server_login)
 			return list("reason"="duplicate login", "desc"="\nReason: You are already logged in on server '[other_server_login]'. Please contact the server host if you believe this is an error.")
+	#endif
 
 	//Guest Checking
 	if(GLOB.configuration.general.guest_ban && check_guest && IsGuestKey(key))
@@ -205,7 +207,7 @@
 		if(log_info)
 			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		qdel(query)
-		return .
+		return
 	qdel(query)
 
 	. = ..()	//default pager ban stuff
@@ -222,4 +224,3 @@
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")
 			if(log_info)
 				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
-	return .

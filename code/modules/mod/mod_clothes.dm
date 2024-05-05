@@ -10,11 +10,13 @@
 	body_parts_covered = HEAD
 	heat_protection = HEAD
 	cold_protection = HEAD
+	permeability_coefficient = 0.01
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 
 /obj/item/clothing/suit/mod
@@ -35,11 +37,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
+	permeability_coefficient = 0.01
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 
 
@@ -55,10 +59,12 @@
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
+	permeability_coefficient = 0.01
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 
 
@@ -74,12 +80,10 @@
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
+	permeability_coefficient = 0.01
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
-	var/magbooted
-
-/obj/item/clothing/shoes/mod/negates_gravity()
-	return magbooted

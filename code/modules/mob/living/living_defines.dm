@@ -26,8 +26,8 @@
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
-	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
-	var/incorporeal_move = 0 //0 is off, 1 is normal, 2 is for ninjas.
+	/// Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
+	var/incorporeal_move = NO_INCORPOREAL_MOVE
 
 	var/now_pushing = null
 
@@ -42,7 +42,7 @@
 	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 
-	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
+	var/ventcrawler = VENTCRAWLER_NONE
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent
 
@@ -71,6 +71,8 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	/// A multiplier for the ammount of time it takes for someone to regenerate stamina damage.
+	var/stamina_regen_block_modifier = 1
 	var/stam_paralyzed = FALSE //knocks you down
 
 	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
@@ -88,6 +90,20 @@
 	/// the type of holder that will be created when a mob gets scooped up
 	var/holder_type
 
+	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/forced_look = null
+
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null
+
+	/// Famous last words -- if succumbing, what the user's last words were
+	var/last_words
+
+	/*
+	Taste Vars
+	*/
+	/// Stores a var of the last world time we tasted something. used so we don't spam people messages while they eat
+	var/last_taste_time
+	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
+	var/last_taste_text

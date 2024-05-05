@@ -33,7 +33,7 @@
 		to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
 		return
 
-	if(contents.len)
+	if(length(contents))
 		to_chat(user, "<span class='notice'>[src] already has something inside it.</span>")
 		return
 
@@ -41,11 +41,7 @@
 		if(isstorage(I.loc))	//in a container.
 			var/obj/item/storage/U = I.loc
 			U.remove_from_storage(I, src)
-		else if(user.l_hand == I)					//in a hand
-			user.drop_l_hand()
-		else if(user.r_hand == I)					//in a hand
-			user.drop_r_hand()
-		else
+		else if(!user.is_holding(I) || !user.unEquip(I))					//in a hand
 			return
 
 	user.visible_message("<span class='notice'>[user] puts [I] into [src].</span>", "<span class='notice'>You put [I] inside [src].</span>",\
@@ -70,7 +66,7 @@
 	return 1
 
 /obj/item/evidencebag/attack_self(mob/user)
-	if(contents.len)
+	if(length(contents))
 		var/obj/item/I = contents[1]
 		user.visible_message("<span class='notice'>[user] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>",\
 		"<span class='notice'>You hear someone rustle around in a plastic bag, and remove something.</span>")

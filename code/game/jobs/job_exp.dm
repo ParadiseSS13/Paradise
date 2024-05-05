@@ -3,7 +3,6 @@
 GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// NT ROLES
 	ROLE_PAI = 0,
-	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 40, // High, because they're team-based, and we want ERT to be robust
 	ROLE_DEATHSQUAD = 50, // Higher, see ERT and also they're OP as heck
@@ -17,14 +16,12 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_VAMPIRE = 5,
 	ROLE_BLOB = 20,
 	ROLE_REVENANT = 3,
-	ROLE_NINJA = 20,
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,
 	ROLE_ELITE = 5,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
-	ROLE_GSPIDER = 5,
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
@@ -35,18 +32,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_ABDUCTOR = 20,
 ))
 
-// Client Verbs
-
-/client/verb/cmd_check_own_playtime()
-	set category = "Special Verbs"
-	set name = "Check my playtime"
-
-	if(!GLOB.configuration.jobs.enable_exp_tracking)
-		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
-		return
-
-	to_chat(src, "<span class='notice'>Your [EXP_TYPE_CREW] playtime is [get_exp_type(EXP_TYPE_CREW)].</span>")
-
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
@@ -54,10 +39,11 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	set name = "Check Player Playtime"
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
-	var/msg = "<html><head><title>Playtime Report</title></head><body>"
+	var/list/msg = list()
+	msg  += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
-	msg += "<TABLE border ='1'><TR><TH>Player</TH><TH>Job</TH><TH>Crew</TH>"
+	msg += "<table border ='1'><tr><th>Player</th><th>Job</th><th>Crew</th>"
 	for(var/thisdept in EXP_DEPT_TYPE_LIST)
 		msg += "<TH>[thisdept]</TH>"
 	msg += "</TR>"
@@ -78,12 +64,12 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
 
-		msg += "<TD><A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
+		msg += "<TD><A href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
 		msg += "[C.get_exp_dept_string()]"
 		msg += "</TR>"
 
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_playtime_check")
+	src << browse(msg.Join(""), "window=Player_playtime_check")
 
 
 /datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
@@ -178,7 +164,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
-	if(!play_records.len)
+	if(!length(play_records))
 		return "[key] has no records."
 	var/return_text = "<UL>"
 	var/list/exp_data = list()
@@ -203,11 +189,11 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 					jobs_unlocked += job.title
 				else
 					jobs_locked += "[job.title] - [job.get_exp_restrictions(mob.client)]"
-		if(jobs_unlocked.len)
+		if(length(jobs_unlocked))
 			return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
 			return_text += jobs_unlocked.Join("</LI><LI>")
 			return_text += "</LI></UL>"
-		if(jobs_locked.len)
+		if(length(jobs_locked))
 			return_text += "<BR><BR>Jobs Not Unlocked:<UL><LI>"
 			return_text += jobs_locked.Join("</LI><LI>")
 			return_text += "</LI></UL>"

@@ -46,6 +46,37 @@
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
 
+	/*
+	Atmos Vars
+	*/
+	/// The pressure difference between the turf and it's neighbors. Affects movables by pulling them in the path of least resistance
+	var/pressure_difference = 0
+	/// The direction movables should travel when affected by pressure. Set to the biggest difference in atmos by turf neighbors
+	var/pressure_direction = 0
+	/// The neighbors of the turf.
+	var/list/atmos_adjacent_turfs = list()
+	/// makes turfs less picky about where they transfer gas. Largely just used in the SM
+	var/atmos_superconductivity = 0
+
+	/*
+	Lighting Vars
+	*/
+	/// Handles if the lighting should be dynamic. Generally lighting is dynamic if it's not in space
+	var/dynamic_lighting = TRUE
+
+	/// If you're curious why these are TMP vars, I don't know! TMP only affects savefiles so this does nothing :) - GDN
+
+	/// Is the lighting on this turf inited
+	var/tmp/lighting_corners_initialised = FALSE
+	/// List of light sources affecting this turf.
+	var/tmp/list/datum/light_source/affecting_lights
+	/// The lighting Object affecting us
+	var/tmp/atom/movable/lighting_object/lighting_object
+	/// A list of our lighting corners.
+	var/tmp/list/datum/lighting_corner/corners
+	/// Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
+	var/tmp/has_opaque_atom = FALSE
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -111,6 +142,21 @@
 /turf/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_animal(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_alien(mob/living/carbon/alien/user)
+	user.Move_Pulled(src)
+
+/turf/attack_larva(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_slime(mob/user)
+	user.Move_Pulled(src)
+
 /turf/ex_act(severity)
 	return FALSE
 
@@ -123,6 +169,8 @@
 				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
 				return
 		our_rpd.create_disposals_pipe(user, src)
+	else if(our_rpd.mode == RPD_TRANSIT_MODE)
+		our_rpd.create_transit_tube(user, src)
 	else if(our_rpd.mode == RPD_ROTATE_MODE)
 		our_rpd.rotate_all_pipes(user, src)
 	else if(our_rpd.mode == RPD_FLIP_MODE)
@@ -228,6 +276,7 @@
 	var/old_corners = corners
 
 	BeforeChange()
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 
 	var/old_baseturf = baseturf
 	changing_turf = TRUE
@@ -338,7 +387,7 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	ChangeTurf(baseturf)
+	ChangeTurf(baseturf, keep_icon = FALSE)
 	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/remove_plating(mob/user)
@@ -569,10 +618,14 @@
 	return I
 
 
-/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/turf/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
-	C.take_organ_damage(damage)
-	C.KnockDown(3 SECONDS)
+	if(issilicon(C))
+		C.adjustBruteLoss(damage)
+		C.Weaken(3 SECONDS)
+	else
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)

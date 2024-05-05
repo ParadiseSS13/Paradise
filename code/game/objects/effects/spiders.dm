@@ -47,7 +47,7 @@
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	else if(isprojectile(mover))
 		return prob(30)
 	return TRUE
 
@@ -132,7 +132,7 @@
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -218,9 +218,9 @@
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
-		C.stored_comms["wood"] += 2
-		C.stored_comms["glass"] += 2
+		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		C.stored_comms["metal"] += 2
+		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()

@@ -70,7 +70,7 @@
 		internal_paper.attackby(P, user) //spoofed attack to update internal paper.
 		update_icon()
 
-	else if(is_hot(P))
+	else if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
@@ -107,20 +107,6 @@
 		if(E)
 			E.take_damage(8, 1)
 		H.emote("scream")
-
-/obj/item/paper/AltClick(mob/user, obj/item/I)
-	if(in_range(user, src) && !user.incapacitated())
-		if(is_pen(user.get_active_hand()))
-			rename()
-			return
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		I = H.is_in_hands(/obj/item/paper)
-		if(I)
-			ProcFoldPlane(H, I)
-	else
-		..()
 
 /obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
 	if(istype(user))

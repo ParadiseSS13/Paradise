@@ -53,7 +53,7 @@
 	if(..())
 		return TRUE
 	for(var/obj/machinery/dna_vault/V in GLOB.machines)
-		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && is_station_contact(V.z))
+		if(length(V.animals) >= animal_count && length(V.plants) >= plant_count && length(V.dna) >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
 
@@ -215,11 +215,14 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/dna_vault/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "DnaVault", name, 350, 400, master_ui, state)
+		ui = new(user, src, "DnaVault", name)
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
@@ -265,7 +268,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 				return TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
-	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
+	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
@@ -302,7 +305,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
-			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
+			var/datum/organ/lungs/L = H.get_int_organ_datum(ORGAN_DATUM_LUNGS)
 			if(L)
 				L.tox_breath_dam_min = 0
 				L.tox_breath_dam_max = 0

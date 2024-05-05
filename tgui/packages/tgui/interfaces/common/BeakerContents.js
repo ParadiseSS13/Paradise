@@ -1,4 +1,4 @@
-import { Box } from '../../components';
+import { Stack } from '../../components';
 const PropTypes = require('prop-types');
 
 const formatUnits = (a) => a + ' unit' + (a === 1 ? '' : 's');
@@ -10,25 +10,22 @@ const formatUnits = (a) => a + ' unit' + (a === 1 ? '' : 's');
 export const BeakerContents = (props) => {
   const { beakerLoaded, beakerContents = [], buttons } = props;
   return (
-    <Box>
-      {(!beakerLoaded && <Box color="label">No beaker loaded.</Box>) ||
+    <Stack vertical>
+      {(!beakerLoaded && (
+        <Stack.Item color="label">No beaker loaded.</Stack.Item>
+      )) ||
         (beakerContents.length === 0 && (
-          <Box color="label">Beaker is empty.</Box>
+          <Stack.Item color="label">Beaker is empty.</Stack.Item>
         ))}
       {beakerContents.map((chemical, i) => (
-        <Box key={chemical.name} width="100%">
-          <Box color="label" display="inline" verticalAlign="middle">
+        <Stack key={chemical.name}>
+          <Stack.Item key={chemical.name} color="label" grow>
             {formatUnits(chemical.volume)} of {chemical.name}
-          </Box>
-          {!!buttons && (
-            <Box float="right" display="inline">
-              {buttons(chemical, i)}
-            </Box>
-          )}
-          <Box clear="both" />
-        </Box>
+          </Stack.Item>
+          {!!buttons && <Stack.Item>{buttons(chemical, i)}</Stack.Item>}
+        </Stack>
       ))}
-    </Box>
+    </Stack>
   );
 };
 

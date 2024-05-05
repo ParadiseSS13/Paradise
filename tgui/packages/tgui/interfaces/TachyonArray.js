@@ -13,7 +13,7 @@ export const TachyonArray = (props, context) => {
   const { act, data } = useBackend(context);
   const { records = [], explosion_target, toxins_tech, printing } = data;
   return (
-    <Window>
+    <Window width={500} height={600}>
       <Window.Content scrollable>
         <Section>
           <LabeledList>

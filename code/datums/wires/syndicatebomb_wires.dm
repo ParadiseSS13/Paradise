@@ -3,8 +3,6 @@
 	holder_type = /obj/machinery/syndicatebomb
 	wire_count = 5
 	proper_name = "Syndicate bomb"
-	window_x = 320
-	window_y = 22
 
 /datum/wires/syndicatebomb/New(atom/_holder)
 	wires = list(WIRE_BOMB_DELAY, WIRE_EXPLODE, WIRE_BOMB_UNBOLT,WIRE_BOMB_PROCEED, WIRE_BOMB_ACTIVATE)

@@ -20,6 +20,9 @@
 
 /datum/objective_holder/Destroy(force, ...)
 	clear()
+	objective_owner = null
+	QDEL_NULL(on_add_callback)
+	QDEL_NULL(on_remove_callback)
 	return ..()
 
 /**

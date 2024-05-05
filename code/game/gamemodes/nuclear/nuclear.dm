@@ -1,8 +1,5 @@
 #define NUKESCALINGMODIFIER 6
 
-/datum/game_mode
-	var/list/datum/mind/syndicates = list()
-
 /proc/issyndicate(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
@@ -13,6 +10,7 @@
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
+	single_antag_positions = list()
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
@@ -33,13 +31,13 @@
 	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
 
-	if(possible_syndicates.len < 1)
+	if(length(possible_syndicates) < 1)
 		return 0
 
 	if(LAZYLEN(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
-		agent_number = possible_syndicates.len
+		agent_number = length(possible_syndicates)
 
 	var/n_players = num_players()
 	if(agent_number > n_players)
@@ -114,7 +112,7 @@
 		break
 
 	for(var/datum/mind/synd_mind in syndicates)
-		if(spawnpos > synd_spawn.len)
+		if(spawnpos > length(synd_spawn))
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
 		synd_mind.offstation_role = TRUE
@@ -150,8 +148,8 @@
 	var/player_tc
 	var/remainder
 
-	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
-	remainder = total_tc % GLOB.nuclear_uplink_list.len
+	player_tc = round(total_tc / length(GLOB.nuclear_uplink_list)) //round to get an integer and not floating point
+	remainder = total_tc % length(GLOB.nuclear_uplink_list)
 
 	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
 		U.hidden_uplink.uses += player_tc
@@ -309,7 +307,7 @@
 				synd_mob.update_action_buttons_icon()
 
 	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
+	var/obj/item/bio_chip/explosive/E = new/obj/item/bio_chip/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
@@ -389,8 +387,8 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_nuclear()
-	if(syndicates.len || GAMEMODE_IS_NUCLEAR)
-		var/text = "<br><FONT size=3><B>The syndicate operatives were:</B></FONT>"
+	if(length(syndicates) || GAMEMODE_IS_NUCLEAR)
+		var/list/text = list("<br><FONT size=3><B>The syndicate operatives were:</B></FONT>")
 
 		var/purchases = ""
 		var/TC_uses = 0
@@ -420,12 +418,11 @@
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
 
-		to_chat(world, text)
-	return 1
+		return text.Join("")
 
 /proc/nukelastname(mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(GLOB.last_names)
-	var/newname = sanitize(copytext(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname),1,MAX_NAME_LEN))
+	var/newname = sanitize(copytext_char(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change", randomname), 1, MAX_NAME_LEN))
 
 	if(!newname)
 		newname = randomname

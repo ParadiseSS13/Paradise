@@ -7,7 +7,7 @@ export const LatheSearch = (properties, context) => {
     <Box>
       <Input
         placeholder="Search..."
-        onChange={(e, value) => act('search', { to_search: value })}
+        onEnter={(e, value) => act('search', { to_search: value })}
       />
     </Box>
   );

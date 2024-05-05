@@ -67,7 +67,7 @@
 	. = ..()
 	update_weight()
 
-/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, mob/user, prevent_warning)
 	. = ..()
 	update_weight()
 
@@ -77,7 +77,7 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon_state()
-	switch(contents.len)
+	switch(length(contents))
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)
@@ -134,11 +134,10 @@
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
-/obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
-
-	if(slot==SLOT_HUD_HEAD && contents.len)
+/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
+	if(slot == SLOT_HUD_HEAD && length(contents))
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
-		return 0
+		return FALSE
 	return ..()
 
 
@@ -182,7 +181,8 @@
 	name = "cyborg mining satchel"
 	flags = NODROP
 
-/obj/item/storage/bag/ore/holding //miners, your messiah has arrived
+/// miners, your messiah has arrived
+/obj/item/storage/bag/ore/holding
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
@@ -202,11 +202,17 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
-	storage_slots = 100 //the number of plant pieces it can carry.
-	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
+	storage_slots = 40 //the number of plant pieces it can carry.
+	max_combined_w_class = 40 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora,/obj/item/reagent_containers/food/snacks/honeycomb)
+	can_hold = list(
+		/obj/item/seeds,
+		/obj/item/unsorted_seeds,
+		/obj/item/food/snacks/grown,
+		/obj/item/grown,
+		/obj/item/food/snacks/grown/ash_flora,
+		/obj/item/food/snacks/honeycomb)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -238,13 +244,31 @@
 	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
 		process_plants(user)
 
+/obj/item/storage/bag/plants/seed_sorting_tray
+	name = "seed sorting tray"
+	desc = "A simple wooden tray with compartments for manually sorting seeds. It's better than nothing, but a plant analyzer would be more effective."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "seed_sorting_tray"
+	can_hold = list(
+		/obj/item/seeds,
+		/obj/item/unsorted_seeds)
+
+/obj/item/storage/bag/plants/seed_sorting_tray/attack_self(mob/user)
+	var/depth = 0
+	for(var/obj/item/unsorted_seeds/unsorted in src)
+		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
+			break
+		depth = min(8, depth + 1)
+		unsorted.sort(depth)
+
 // -----------------------------
 //        Sheet Snatcher
 // -----------------------------
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/storage/bag/sheetsnatcher // what is this even used for
+/// what is this even used for
+/obj/item/storage/bag/sheetsnatcher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"
@@ -271,7 +295,7 @@
 
 
 // Modified handle_item_insertion.  Would prefer not to, but...
-/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
+/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, mob/user, prevent_warning = FALSE)
 	var/obj/item/stack/sheet/S = W
 	if(!istype(S)) return 0
 
@@ -312,7 +336,7 @@
 // Sets up numbered display to show the stack size of each stored mineral
 // NOTE: numbered display is turned off currently because it's broken
 /obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user as mob)
-	var/adjusted_contents = contents.len
+	var/adjusted_contents = length(contents)
 
 	//Numbered contents display
 	var/list/datum/numbered_display/numbered_contents
@@ -353,7 +377,7 @@
 	if(!istype(S)) return 0
 
 	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't recieve a different object than you clicked on.
+	// that calls this can't receive a different object than you clicked on.
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
@@ -477,8 +501,9 @@
 		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
-			contents.Remove(I)
+			remove_from_storage(I)
+			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
+			I.forceMove(target.loc)
 			dropped_something = TRUE
 			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
@@ -497,7 +522,7 @@
 
 
 /obj/item/storage/bag/tray/cookies_tray
-	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
+	var/cookie = /obj/item/food/snacks/cookie
 
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
@@ -506,7 +531,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
-	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
+	cookie = /obj/item/food/snacks/sugarcookie
 
 /*
  *	Chemistry bag
@@ -520,7 +545,10 @@
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
+	can_hold = list(/obj/item/reagent_containers/pill,
+					/obj/item/reagent_containers/patch,
+					/obj/item/reagent_containers/glass/beaker,
+					/obj/item/reagent_containers/glass/bottle)
 	resistance_flags = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)
@@ -534,7 +562,7 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract, /obj/item/reagent_containers/food/snacks/monkeycube,
+	can_hold = list(/obj/item/slime_extract, /obj/item/food/snacks/monkeycube,
 					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
 					/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)
@@ -554,4 +582,20 @@
 	max_combined_w_class = 28
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper, /obj/item/mail_scanner)
+	resistance_flags = FLAMMABLE
+
+/*
+ *	Construction bag
+ */
+
+/obj/item/storage/bag/construction
+	name = "construction bag"
+	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "construction_bag"
+	item_state = "construction_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE

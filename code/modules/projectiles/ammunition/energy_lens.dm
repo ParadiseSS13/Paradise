@@ -13,7 +13,8 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
+/// to balance cyborg energy cost seperately
+/obj/item/ammo_casing/energy/laser/cyborg
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/lasergun
@@ -40,6 +41,11 @@
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
+/obj/item/ammo_casing/energy/laser/sparker
+	projectile_type = /obj/item/projectile/beam/laser/sparker
+	select_name = "spark"
+	e_cost = (100 / 3) * 2 // 15 * 12.5 damage = 187.5 damage. Almost as much as a base laser gun, but takes longer to get all the shots out.
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse/hitscan
@@ -166,7 +172,17 @@
 	harmful = FALSE
 	delay = 0.6 SECONDS
 
-/obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
+/obj/item/ammo_casing/energy/disabler/smg
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	e_cost = 25
+	fire_sound = 'sound/weapons/taser3.ogg'
+	click_cooldown_override = 2
+	variance = 15
+	randomspread = 1
+	delay = 2
+
+/// seperate balancing for cyborg, again
+/obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/disabler/hos
@@ -176,7 +192,7 @@
 	projectile_type = /obj/item/projectile/plasma
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
+	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
 	e_cost = 75
 
@@ -230,15 +246,6 @@
 	projectile_type = /obj/item/projectile/beam/instakill/red
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
-/obj/item/ammo_casing/energy/plasma
-	projectile_type = /obj/item/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
-	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/pulse.ogg'
-
-/obj/item/ammo_casing/energy/plasma/adv
-	projectile_type = /obj/item/projectile/plasma/adv
-
 /obj/item/ammo_casing/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	e_cost = 200
@@ -286,7 +293,7 @@
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/emitter
-	projectile_type = /obj/item/projectile/beam/emitter/hitscan
+	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
 	e_cost = 100
@@ -297,7 +304,8 @@
 	e_cost = 350 // about 42 shots on an engineering borg from a borging machine, Reads a lot better than it actually is because people miss shots and often your better abilities require charge as well
 	delay = 1 SECONDS
 
-/obj/item/ammo_casing/energy/emitter/cyborg/proto // needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+/// needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+/obj/item/ammo_casing/energy/emitter/cyborg/proto
 	e_cost = 500
 	delay = 2 SECONDS
 

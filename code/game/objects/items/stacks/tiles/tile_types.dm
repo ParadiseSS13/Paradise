@@ -65,8 +65,54 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood_tile
+	energy_type = /datum/robot_storage/energy/wood_tile
 	is_cyborg = TRUE
+
+
+//Bamboo
+/obj/item/stack/tile/bamboo
+	name = "bamboo mat pieces"
+	singular_name = "bamboo mat piece"
+	gender = PLURAL
+	desc = "A piece of a bamboo mat with a decorative trim."
+	icon_state = "tile_bamboo"
+	turf_type = /turf/simulated/floor/bamboo
+	merge_type = /obj/item/stack/tile/bamboo
+	parent_stack = TRUE
+	resistance_flags = FLAMMABLE
+
+/obj/item/stack/tile/bamboo/twenty
+	amount = 20
+
+/obj/item/stack/tile/bamboo/tatami
+	name = "tatami with green rim"
+	singular_name = "green tatami floor tile"
+	icon_state = "tile_tatami_green"
+	turf_type = /turf/simulated/floor/bamboo/tatami
+	merge_type = /obj/item/stack/tile/bamboo/tatami
+
+/obj/item/stack/tile/bamboo/tatami/twenty
+	amount = 20
+
+/obj/item/stack/tile/bamboo/tatami/purple
+	name = "tatami with purple rim"
+	singular_name = "purple tatami floor tile"
+	icon_state = "tile_tatami_purple"
+	turf_type = /turf/simulated/floor/bamboo/tatami/purple
+	merge_type = /obj/item/stack/tile/bamboo/tatami/purple
+
+/obj/item/stack/tile/bamboo/tatami/purple/twenty
+	amount = 20
+
+/obj/item/stack/tile/bamboo/tatami/black
+	name = "tatami with black rim"
+	singular_name = "black tatami floor tile"
+	icon_state = "tile_tatami_black"
+	turf_type = /turf/simulated/floor/bamboo/tatami/black
+	merge_type = /obj/item/stack/tile/bamboo/tatami/black
+
+/obj/item/stack/tile/bamboo/tatami/black/twenty
+	amount = 20
 
 //Carpets
 /obj/item/stack/tile/carpet
@@ -186,7 +232,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg
-	energy_type = /datum/robot_energy_storage/metal_tile
+	energy_type = /datum/robot_storage/energy/metal_tile
 	is_cyborg = TRUE
 
 //Light
@@ -290,5 +336,5 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/catwalk/cyborg
-	energy_type = /datum/robot_energy_storage/catwalk
+	energy_type = /datum/robot_storage/energy/catwalk
 	is_cyborg = TRUE

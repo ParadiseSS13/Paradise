@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(timer)
   * Generates a string with details about the timed event for debugging purposes
   */
 /datum/controller/subsystem/timer/proc/get_timer_debug_string(datum/timedevent/TE)
-	. = "Timer: [TE]"
+	. = "Timer: [TE.getTimerInfo()]"
 	. += "Prev: [TE.prev ? TE.prev : "NULL"], Next: [TE.next ? TE.next : "NULL"]"
 	if(TE.spent)
 		. += ", SPENT([TE.spent])"
@@ -341,7 +341,7 @@ SUBSYSTEM_DEF(timer)
 		return
 
 	// Sort it first
-	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
+	var/list/sorted = sortTim(GLOB.timers_by_proc, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 
 	// DOOMP EET
 	var/timer_json_file = file("[GLOB.log_directory]/timers.json")
@@ -502,14 +502,8 @@ SUBSYSTEM_DEF(timer)
   * If the timed event is tracking client time, it will be added to a special bucket.
   */
 /datum/timedevent/proc/bucketJoin()
-	// Generate debug-friendly name for timer
-	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
-	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
-		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
-		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
-
 	if(bucket_joined)
-		stack_trace("Bucket already joined! [name]")
+		stack_trace("Bucket already joined! [getTimerInfo()]")
 
 	// Check if this timed event should be diverted to the client time bucket, or the secondary queue
 	var/list/L
@@ -529,7 +523,7 @@ SUBSYSTEM_DEF(timer)
 
 	if(bucket_pos < SStimer.practical_offset && timeToRun < (SStimer.head_offset + TICKS2DS(BUCKET_LEN)))
 		WARNING("Bucket pos in past: bucket_pos = [bucket_pos] < practical_offset = [SStimer.practical_offset] \
-			&& timeToRun = [timeToRun] < [SStimer.head_offset + TICKS2DS(BUCKET_LEN)], Timer: [name]")
+			&& timeToRun = [timeToRun] < [SStimer.head_offset + TICKS2DS(BUCKET_LEN)], Timer: [getTimerInfo()]")
 		bucket_pos = SStimer.practical_offset // Recover bucket_pos to avoid timer blocking queue
 
 	var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
@@ -551,6 +545,21 @@ SUBSYSTEM_DEF(timer)
 	bucket_list[bucket_pos] = src
 
 /**
+ * Returns debug information about timer
+ */
+/datum/timedevent/proc/getTimerInfo()
+	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
+	if(!name)
+		name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
+			callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
+			callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+	return name
+
+/datum/timedevent/can_vv_get(var_name)
+	getTimerInfo()
+	return ..()
+
+/**
   * Returns a string of the type of the callback for this timer
   */
 /datum/timedevent/proc/getcallingtype()
@@ -562,14 +571,14 @@ SUBSYSTEM_DEF(timer)
 			CRASH("this timer is attached to no object, the attempted proc to call was [callBack.delegate]")
 		. = "[callBack.object.type]"
 
-GLOBAL_LIST_EMPTY(timers_by_type)
+GLOBAL_LIST_EMPTY(timers_by_proc)
 // Allows us to track what types generate the most timers. Just invokes the global addtimer
 /datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
-	var/tt = "[type]"
-	if(tt in GLOB.timers_by_type)
-		GLOB.timers_by_type[tt]++
+	var/timer_function = "[type][callback.delegate]"
+	if(timer_function in GLOB.timers_by_proc)
+		GLOB.timers_by_proc[timer_function]++
 	else
-		GLOB.timers_by_type[tt] = 1
+		GLOB.timers_by_proc[timer_function] = 1
 	return global.addtimer(callback, wait, flags)
 
 /**
@@ -585,7 +594,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
-	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
+	var/list/sorted = sortTim(GLOB.timers_by_proc, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"

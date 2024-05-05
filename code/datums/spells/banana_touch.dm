@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/banana
+/datum/spell/touch/banana
 	name = "Banana Touch"
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
@@ -18,6 +18,17 @@
 	on_use_sound = 'sound/items/AirHorn.ogg'
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
+
+/datum/spell/touch/banana/apprentice
+	hand_path = /obj/item/melee/touch_attack/banana/apprentice
+
+/obj/item/melee/touch_attack/banana/apprentice
+
+/obj/item/melee/touch_attack/banana/apprentice/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(iswizard(target) && target != user)
+		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
+		return
+	..()
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

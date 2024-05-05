@@ -53,12 +53,6 @@ SUBSYSTEM_DEF(changelog)
 	if(!ss_ready)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
 
-	if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
-	else
-		winset(C, "rpane.changelog", "background-color=none;font-style=none")
-
-
 	C.prefs.lastchangelog = current_cl_timestamp
 
 	var/datum/db_query/updatePlayerCLTime = SSdbcore.NewQuery(
@@ -76,22 +70,12 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)
 	// If SQL aint even enabled, or we aint ready just set the button to default style
 	if(!SSdbcore.IsConnected() || !ss_ready)
-		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-		else
-			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
 		return
 
 	// If we are ready, process the button style
 	if(C.prefs.lastchangelog != current_cl_timestamp)
-		winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+		winset(C, "rpane.changelog", "border=line;background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
 		to_chat(C, "<span class='boldnotice'>Changelog has changed since your last visit.</span>")
-	else
-		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-		else
-			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
-
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
 	// If SQL isnt enabled, dont even queue them, just tell them it wont work
@@ -113,7 +97,7 @@ SUBSYSTEM_DEF(changelog)
 /client/verb/changes()
 	set name = "Changelog"
 	set desc = "View the changelog."
-	set category = "OOC"
+	set category = null
 	// Just invoke the actual CL thing
 	SSchangelog.OpenChangelog(src)
 
@@ -204,10 +188,13 @@ SUBSYSTEM_DEF(changelog)
 
 	return data
 
-/datum/controller/subsystem/changelog/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/controller/subsystem/changelog/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/controller/subsystem/changelog/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChangelogView", name, 750, 800, master_ui, state)
+		ui = new(user, src, "ChangelogView", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -224,13 +211,13 @@ SUBSYSTEM_DEF(changelog)
 		if("open_pr")
 			var/pr_num = params["pr_number"]
 			if(GLOB.configuration.url.github_url)
-				if(alert("This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", "Yes", "No") == "No")
+				if(tgui_alert(usr, "This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", list("Yes", "No")) != "Yes")
 					return
 
 				// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
 				var/url = "[GLOB.configuration.url.github_url]/pull/[pr_num]"
 				usr << link(url)
-				return
+				return TRUE
 
 			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")
 

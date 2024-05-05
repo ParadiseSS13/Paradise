@@ -1,13 +1,10 @@
-//This is a list of words which are ignored by the parser when comparing message contents for names. MUST BE IN LOWER CASE!
-GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of", "monkey", "alien", "as"))
-
 /client/verb/adminhelp()
 	set category = "Admin"
 	set name = "Adminhelp"
 
 	//handle muting and automuting
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
+		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 		return
 
 	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
@@ -24,17 +21,26 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize_simple(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize_simple(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg) // No message after sanitisation
 		return
 
+	var/span_type
+	var/message_type
+	var/datum/ticket/T
 	if(selected_type == "Mentorhelp")
-		SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
+		T = SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
+		span_type = "mentorhelp"
+		message_type = MESSAGE_TYPE_MENTORPM
+		//show it to the person mentorhelping too
+		to_chat(src, chat_box_mhelp("<span class='[span_type]'><b>[selected_type]</b><br><br>[msg]</span>"), message_type, confidential = TRUE)
 	else
-		SStickets.newHelpRequest(src, msg) // Ahelp
+		T = SStickets.newHelpRequest(src, msg) // Ahelp
+		span_type = "adminhelp"
+		message_type = MESSAGE_TYPE_ADMINPM
+		//show it to the person adminhelping too
+		to_chat(src, chat_box_ahelp("<span class='[span_type]'><b>[selected_type]</b><br><br>[msg]</span>"), message_type, confidential = TRUE)
 
-	//show it to the person adminhelping too
-	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	switch(selected_type)
@@ -44,11 +50,11 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 			var/active_admins = admincount[1]
 
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_admins] non-AFK admins.")
-			GLOB.discord_manager.send2discord_simple_noadmins("**\[Adminhelp]** [key_name(src)]: [msg]", check_send_always = TRUE)
+			GLOB.discord_manager.send2discord_simple_noadmins("**\[Adminhelp]** Ticket [T.ticketNum], [key_name(src)]: [msg]", check_send_always = TRUE)
 
 		if("Mentorhelp")
 			var/list/mentorcount = staff_countup(R_MENTOR)
 			var/active_mentors = mentorcount[1]
 
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_mentors] non-AFK mentors.")
-			GLOB.discord_manager.send2discord_simple_mentor("[key_name(src)]: [msg]")
+			GLOB.discord_manager.send2discord_simple_mentor("Ticket [T.ticketNum], [key_name(src)]: [msg]")

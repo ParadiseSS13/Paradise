@@ -123,7 +123,7 @@
 
 /turf/simulated/floor/transparent/glass/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!thing || !prying_tool_list.Find(thing.tool_behaviour))
+	if(!thing || !(thing.tool_behaviour in get_prying_tools()))
 		return
 	to_chat(user, "<span class='danger'>You need to hold two sheets of metal to dismantle \the [src]!</span>")
 

@@ -340,10 +340,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"wQ" = (
-/obj/effect/spawner/window/shuttle,
-/turf/space,
-/area/shuttle/administration)
 "xm" = (
 /obj/structure/table/reinforced,
 /obj/item/rcd/preloaded,
@@ -960,7 +956,7 @@ vk
 NQ
 NQ
 NQ
-wQ
+NQ
 vk
 vk
 vk

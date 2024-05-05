@@ -4,8 +4,6 @@
 	holder_type = /obj/machinery/camera
 	wire_count = 2
 	proper_name = "Camera"
-	window_x = 350
-	window_y = 95
 
 /datum/wires/camera/New(atom/_holder)
 	wires = list(WIRE_FOCUS, WIRE_MAIN_POWER1)

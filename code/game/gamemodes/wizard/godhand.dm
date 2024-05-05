@@ -1,10 +1,11 @@
 /obj/item/melee/touch_attack
-	name = "\improper outstretched hand"
+	name = "outstretched hand"
 	desc = "High Five?"
 	var/catchphrase = "High Five!"
 	var/on_use_sound = null
-	var/obj/effect/proc_holder/spell/touch/attached_spell
-	icon_state = "syndballoon"
+	var/datum/spell/touch/attached_spell
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "disintegrate"
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
@@ -23,10 +24,7 @@
 		attached_spell.UnregisterSignal(attached_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/touch_attack/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
 
 /obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)

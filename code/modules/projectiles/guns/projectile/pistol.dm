@@ -30,8 +30,8 @@
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
-	name = "\improper Enforcer"
-	desc = "A pistol of modern design."
+	name = "\improper NF10 'Enforcer' pistol"
+	desc = "A 9mm sidearm commonly used by Nanotrasen Asset Protection."
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer

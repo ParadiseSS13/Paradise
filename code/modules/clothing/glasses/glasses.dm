@@ -119,6 +119,13 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
+/obj/item/clothing/glasses/meson/sunglasses
+	name = "meson HUD sunglasses"
+	desc = "Sunglasses with an inbuilt scanner that can see through both walls and flooring."
+	icon_state = "sunhudmeson"
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
 
@@ -150,7 +157,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = TRUE
-	scan_reagents = 1 //You can see reagents while wearing science goggles
+	scan_reagents = TRUE // You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
 	sprite_sheets = list(
@@ -163,7 +170,7 @@
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_GLASSES)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/science/night
 	name = "night vision science goggles"
@@ -364,7 +371,7 @@
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_GLASSES)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
@@ -392,8 +399,8 @@
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Outfitted with an apparatus to scan individual reagents, tech potentials, and machines internal components."
-	scan_reagents = 1
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Outfitted with an apparatus to scan individual reagents, tech potentials, and the internal components of machines."
+	scan_reagents = TRUE
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/sunglasses/reagent/item_action_slot_check(slot)

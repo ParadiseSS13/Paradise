@@ -9,22 +9,23 @@
 	health = 25
 	density = FALSE
 
+	var/temperature_resistance = T0C+75
 	var/amount_grown = 0
 	var/max_grown = 200
-	var/time_of_birth
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
+	hud_type = /datum/hud/larva
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
 	. = ..()
-	if(name == "alien larva")
-		name = "alien larva ([rand(1, 1000)])"
+
+	name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+	AddSpell(new /datum/spell/alien_spell/evolve_larva)
 	var/datum/action/innate/hide/alien_larva_hide/hide = new()
 	hide.Grant(src)
 
@@ -39,9 +40,10 @@
 	. += /obj/item/organ/internal/alien/plasmavessel/larva
 
 
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
+/mob/living/carbon/alien/larva/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Progress:", "[amount_grown]/[max_grown]")
 
 /mob/living/carbon/alien/larva/add_plasma(amount)
 	if(stat != DEAD && amount > 0)
@@ -78,14 +80,8 @@
 /mob/living/carbon/alien/larva/restrained()
 	return FALSE
 
-/mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
-
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
-
-
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE

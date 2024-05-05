@@ -6,7 +6,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -100,7 +100,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "q" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "A" = (

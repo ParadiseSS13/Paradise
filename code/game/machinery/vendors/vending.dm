@@ -238,12 +238,10 @@
 
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
-		set_light(0)
 		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
-		set_light(light_range_on, light_power_on)
 		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
 	update_icon(UPDATE_OVERLAYS)
@@ -552,6 +550,7 @@
 /obj/machinery/economy/vending/emag_act(mob/user)
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
+	return TRUE
 
 /obj/machinery/economy/vending/ex_act(severity)
 	. = ..()
@@ -589,13 +588,13 @@
 	ui_interact(user)
 	wires.Interact(user)
 
-/obj/machinery/economy/vending/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/economy/vending/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/economy/vending/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/estimated_height = 100 + min(length(product_records) * 34, 500)
-		if(length(prices) > 0)
-			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
+		ui = new(user, src, "Vending",  name)
 		ui.open()
 
 /obj/machinery/economy/vending/ui_data(mob/user)
@@ -961,6 +960,7 @@
 		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
 		if(.)
 			tilted = TRUE
+			anchored = FALSE
 			layer = ABOVE_MOB_LAYER
 
 	var/should_throw_at_target = TRUE
@@ -987,13 +987,12 @@
 		attacker.visible_message("<span class='notice'>[attacker] lightly presses [target] against [src].</span>", "<span class='warning'>You lightly press [target] against [src], you don't want to hurt [target.p_them()]!</span>")
 	return TRUE
 
-/obj/machinery/economy/vending/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/machinery/economy/vending/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(HAS_TRAIT(C, TRAIT_FLATTENED))
 		return ..()
 	tilt(C, from_combat = TRUE)
 	mob_hurt = TRUE
 	return ..()
-
 
 /*
  * Vending machine types

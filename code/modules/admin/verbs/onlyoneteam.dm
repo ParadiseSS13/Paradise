@@ -17,7 +17,7 @@
 			S.copy_to(H)
 
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/implant))
+			if(istype(I, /obj/item/bio_chip))
 				continue
 			qdel(I)
 

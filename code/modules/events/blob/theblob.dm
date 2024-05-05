@@ -1,8 +1,8 @@
 //I will need to recode parts of this but I am way too tired atm
 
 GLOBAL_LIST_EMPTY(blobs)
-GLOBAL_LIST_EMPTY(blob_cores)
 GLOBAL_LIST_EMPTY(blob_nodes)
+GLOBAL_LIST_EMPTY(blob_minions)
 
 /obj/structure/blob
 	name = "blob"
@@ -70,6 +70,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /obj/structure/blob/blob_act(obj/structure/blob/B)
 	return
 
+/obj/structure/blob/bullet_act(obj/item/projectile/P)
+	if(istype(P, /obj/item/projectile/kinetic))
+		P.damage /= 2
+	return ..()
+
 /obj/structure/blob/proc/Life()
 	return
 
@@ -114,7 +119,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/list/dirs = list(1,2,4,8)
 	dirs.Remove(origin_dir)//Dont pulse the guy who pulsed us
 	for(var/i = 1 to 4)
-		if(!dirs.len)	break
+		if(!length(dirs))	break
 		var/dirn = pick(dirs)
 		dirs.Remove(dirn)
 		var/turf/T = get_step(src, dirn)
@@ -268,7 +273,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			return B.blob_reagent_datum.description
 	return "something unknown"
 
-/obj/structure/blob/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/blob/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.25 // Lets not have sorium be too much of a blender / rapidly kill itself
 	return ..()
 

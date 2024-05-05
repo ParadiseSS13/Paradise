@@ -4,7 +4,6 @@
 	animate_movement = 2
 	pressure_resistance = 8
 	throwforce = 10
-	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
@@ -13,11 +12,12 @@
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/pullin = null
-	var/obj/screen/i_select = null
-	var/obj/screen/m_select = null
-	var/obj/screen/healths = null
-	var/obj/screen/throw_icon = null
+	var/atom/movable/screen/pullin = null
+	var/atom/movable/screen/i_select = null
+	var/atom/movable/screen/m_select = null
+	var/atom/movable/screen/healths = null
+	var/atom/movable/screen/throw_icon = null
+	var/atom/movable/screen/staminas = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -25,8 +25,8 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
-	var/obj/screen/leap_icon = null
-	var/obj/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/leap_icon = null
+	var/atom/movable/screen/healthdoll/healthdoll = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
@@ -40,11 +40,11 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
+	var/list/grab_do_not_move = list()  /// other mobs we wont move when we're grab pulled. Not empty only when being grab pulled
 	var/memory = ""
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
-	var/hand = null
+	var/hand = HAND_BOOL_RIGHT
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -54,7 +54,6 @@
 	var/lastpuke = 0
 	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
-	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
@@ -85,6 +84,7 @@
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
+	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
 
 	hud_possible = list(SPECIALROLE_HUD)
@@ -122,8 +122,9 @@
 
 	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
-	/// Whether antagHUD has been enabled previously.
-	var/has_enabled_antagHUD = FALSE
+	/// The type of HUD that this mob uses. Not to
+	var/hud_type = /datum/hud
+
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
@@ -131,16 +132,6 @@
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
-
-	/* //Also unlike the spell list, this would only store the object in contents, not an object in itself.
-
-	Add this line to whatever stat module you need in order to use the proc holder list.
-	Unlike the object spell system, it's also possible to attach verb procs from these objects to right-click menus.
-	This requires creating a verb for the object proc holder.
-
-	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
-			statpanel("[P.panel]","",P)*/
 
 //The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
 	var/mob/living/carbon/LAssailant = null
@@ -204,10 +195,9 @@
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
-	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
 
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+	var/datum/spell/ranged_ability //Any ranged ability the mob has, as a click override
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
@@ -219,7 +209,7 @@
 	var/suiciding = FALSE
 	/// Used for some screen objects, such as
 	var/list/screens = list()
-	/// lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly
+	/// lazy list. contains /atom/movable/screen/alert only,  On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 	/// Makes items bloody if you touch them
 	var/bloody_hands = 0
@@ -231,10 +221,10 @@
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	/// Assoc list for tracking how "bloody" a mobs feet are, used for creating bloody foot/shoeprints on turfs when moving
 	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
-	/// set when typing in an input window instead of chatline, this var could probably be removed soon enough
-	var/hud_typing = 0
 	/// Affects if you have a typing indicator
 	var/typing
+	/// Affects if you have a thinking indicator
+	var/thinking
 	/// Last thing we typed in to the typing indicator, probably does not need to exist
 	var/last_typed
 	/// Last time we typed something in to the typing popup
@@ -256,3 +246,7 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
+
+	/// Does this mob speak OOC?
+	/// Controls whether they can say some symbols.
+	var/speaks_ooc = FALSE

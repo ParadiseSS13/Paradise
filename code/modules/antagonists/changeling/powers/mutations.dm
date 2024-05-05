@@ -5,7 +5,6 @@
 		Space Suit
 		Shield
 		Armor
-		Bone Shard
 */
 
 /datum/action/changeling/weapon
@@ -17,6 +16,8 @@
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
+	/// How much does the chemical recharge rate get reduced by having this weapon out?
+	var/recharge_slowdown
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
@@ -31,13 +32,15 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
+	cling.chem_recharge_slowdown += recharge_slowdown
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
+	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
 	SIGNAL_HANDLER
-	if(!ischangeling(owner))
+	if(!IS_CHANGELING(owner))
 		return
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
@@ -51,7 +54,9 @@
 		owner.update_inv_r_hand()
 		done = TRUE
 	if(done && !silent)
+		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+	cling.chem_recharge_slowdown -= recharge_slowdown // We handle this here because more things can retract without going through try_to_sting
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
@@ -74,6 +79,7 @@
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
 		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple].</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
+		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(H.wear_suit)
 		qdel(H.head)
 		H.update_inv_wear_suit()
@@ -113,20 +119,22 @@
 \***************************************/
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
-	chemical_cost = 25
+	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
+	recharge_slowdown = 0.75
+	category = /datum/changeling_power_category/offence
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
 	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
+	hitsound = 'sound/weapons/armblade.ogg'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -162,10 +170,7 @@
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
-/obj/item/melee/arm_blade/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/melee/arm_blade/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
 
 /***************************************\
@@ -189,12 +194,11 @@
 	weapon_name_simple = "tentacle"
 	silent = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
+	category = /datum/changeling_power_category/offence
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
-	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "tentacle"
@@ -210,10 +214,7 @@
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/gun/magic/tentacle/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/gun/magic/tentacle/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>"
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
@@ -222,6 +223,7 @@
 	if(ismob(loc))
 		if(!silent)
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 		else
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
 
@@ -230,13 +232,14 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 		parent_action = null
+		playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle
@@ -386,7 +389,7 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
+	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
@@ -394,13 +397,12 @@
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/obj/item/shield/changeling/S = ..(user)
 	if(!S)
 		return FALSE
-	S.remaining_uses = round(cling.absorbed_count * 3)
 	return TRUE
 
 /obj/item/shield/changeling
@@ -409,25 +411,30 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses //Set by the changeling ability.
+	var/remaining_uses = 6
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
+	. = ..()
+	if(!.)
+		return
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
+			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			H.unEquip(src, 1)
 		qdel(src)
-		return 0
+		return FALSE
 	else
 		remaining_uses--
-		return ..()
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -447,7 +454,7 @@
 	helmet_name_simple = "space helmet"
 	recharge_slowdown = 0.5
 	blood_on_castoff = 1
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
@@ -493,7 +500,7 @@
 	suit_name_simple = "armor"
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"
@@ -511,6 +518,7 @@
 	. = ..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage)
 	. = ..()
@@ -573,45 +581,4 @@
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
-
-// Bone Shard
-
-/datum/action/changeling/weapon/bones
-	name = "Bone Shard"
-	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
-	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
-	button_icon_state = "boneshard"
-	chemical_cost = 15
-	dna_cost = 3
-	req_human = TRUE
-	weapon_type = /obj/item/throwing_star/boneshard
-	weapon_name_simple = "bone"
-	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
-
-/obj/item/throwing_star/boneshard
-	name = "bone shard"
-	desc = "A serrated shard of bone laden with vicious barbs."
-	icon_state = "bone_star"
-	throwforce = 15
-	embedded_fall_chance = 5
-	embedded_impact_pain_multiplier = 3
-	embedded_unsafe_removal_pain_multiplier = 6
-	embedded_pain_chance = 10
-
-/obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	if(isliving(hit_atom))
-		name = "bone fragment"
-		desc = "A dull shard of fractured bone. It has little use as a weapon."
-		throwforce = 0
-		embed_chance = 0
-
-/obj/item/throwing_star/boneshard/Initialize(mapload)
-	. = ..()
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		C.throw_mode_on()
-		if(loc)
-			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-			C.visible_message("<span class='warning'>Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!</span>", "<span class='warning'>We expel shards of bone into our hands.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH

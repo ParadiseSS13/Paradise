@@ -21,7 +21,7 @@
 					/obj/item/healthanalyzer = 1)
 
 	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
-					/obj/item/reagent_containers/food/pill/tox = 1)
+					/obj/item/reagent_containers/pill/tox = 1)
 
 /obj/machinery/economy/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
@@ -68,10 +68,10 @@
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_FOOD
-	products = list(/obj/item/reagent_containers/food/snacks/chips = 6,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 6,
-					/obj/item/reagent_containers/food/snacks/syndicake = 6,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
+	products = list(/obj/item/food/snacks/chips = 6,
+					/obj/item/food/snacks/sosjerky = 6,
+					/obj/item/food/snacks/syndicake = 6,
+					/obj/item/food/snacks/cheesiehonkers = 6)
 
 /obj/machinery/economy/vending/hydroseeds/syndicate_druglab
 	products = list(/obj/item/seeds/ambrosia/deus = 2,

@@ -1,13 +1,13 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section } from '../components';
+import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const TransferValve = (props, context) => {
   const { act, data } = useBackend(context);
   const { tank_one, tank_two, attached_device, valve } = data;
   return (
-    <Window>
-      <Window.Content>
+    <Window width={460} height={285}>
+      <Window.Content scrollable>
         <Section>
           <LabeledList>
             <LabeledList.Item label="Valve Status">
@@ -24,8 +24,6 @@ export const TransferValve = (props, context) => {
           title="Assembly"
           buttons={
             <Button
-              textAlign="center"
-              width="150px"
               icon="cog"
               content="Configure Assembly"
               disabled={!attached_device}
@@ -34,50 +32,50 @@ export const TransferValve = (props, context) => {
           }
         >
           <LabeledList>
-            {attached_device ? (
-              <LabeledList.Item label="Attachment">
+            <LabeledList.Item label="Attachment">
+              {attached_device ? (
                 <Button
-                  icon="eject"
+                  icon={'eject'}
                   content={attached_device}
                   disabled={!attached_device}
                   onClick={() => act('remove_device')}
                 />
-              </LabeledList.Item>
-            ) : (
-              <NoticeBox textAlign="center">Attach Assembly</NoticeBox>
-            )}
+              ) : (
+                <Box color="average">No Assembly</Box>
+              )}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Attachment One">
           <LabeledList>
-            {tank_one ? (
-              <LabeledList.Item label="Attachment">
+            <LabeledList.Item label="Attachment">
+              {tank_one ? (
                 <Button
-                  icon="eject"
+                  icon={'eject'}
                   content={tank_one}
                   disabled={!tank_one}
                   onClick={() => act('tankone')}
                 />
-              </LabeledList.Item>
-            ) : (
-              <NoticeBox textAlign="center">Attach Tank</NoticeBox>
-            )}
+              ) : (
+                <Box color="average">No Tank</Box>
+              )}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Attachment Two">
           <LabeledList>
-            {tank_two ? (
-              <LabeledList.Item label="Attachment">
+            <LabeledList.Item label="Attachment">
+              {tank_two ? (
                 <Button
-                  icon="eject"
+                  icon={'eject'}
                   content={tank_two}
                   disabled={!tank_two}
                   onClick={() => act('tanktwo')}
                 />
-              </LabeledList.Item>
-            ) : (
-              <NoticeBox textAlign="center">Attach Tank</NoticeBox>
-            )}
+              ) : (
+                <Box color="average">No Tank</Box>
+              )}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Window.Content>

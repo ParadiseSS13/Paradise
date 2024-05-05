@@ -4,7 +4,7 @@
 	var/rights
 
 /datum/keybinding/admin/can_use(client/C, mob/M)
-	if(rights && !check_rights(rights, FALSE))
+	if(rights && !check_rights(rights, FALSE, M))
 		return FALSE
 	return !isnull(C.holder) && ..()
 
@@ -19,22 +19,6 @@
 		SSdebugview.stop_processing(C)
 		return
 	SSdebugview.start_processing(C)
-
-/datum/keybinding/admin/msay
-	name = "Msay"
-	keys = list("F4")
-
-/datum/keybinding/admin/msay/down(client/C)
-	. = ..()
-	C.get_mentor_say()
-
-/datum/keybinding/admin/asay
-	name = "Asay"
-	keys = list("F5")
-
-/datum/keybinding/admin/asay/down(client/C)
-	. = ..()
-	C.get_admin_say()
 
 /datum/keybinding/admin/aghost
 	name = "Aghost"
@@ -68,11 +52,3 @@
 /datum/keybinding/admin/invisimin/down(client/C)
 	. = ..()
 	C.invisimin()
-
-/datum/keybinding/admin/dsay
-	name = "Dsay"
-	keys = list("F10")
-
-/datum/keybinding/admin/dsay/down(client/C)
-	. = ..()
-	C.get_dead_say()

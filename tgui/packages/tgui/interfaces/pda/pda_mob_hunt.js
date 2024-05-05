@@ -1,5 +1,6 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Box, Button, Section, Flex } from '../../components';
+import { resolveAsset } from '../../assets';
 
 export const pda_mob_hunt = (props, context) => {
   const { act, data } = useBackend(context);
@@ -66,10 +67,11 @@ export const pda_mob_hunt = (props, context) => {
           <Flex>
             <Flex.Item>
               <img
-                src={entry.sprite}
+                src={resolveAsset(entry.sprite)}
                 style={{
                   width: '64px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
             </Flex.Item>

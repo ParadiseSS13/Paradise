@@ -174,7 +174,7 @@
 	starter = FALSE
 	last_overheat = world.time
 	overheat -= 50
-	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering", list(z))
+	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering")
 	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 /obj/machinery/power/compressor/proc/time_until_overheat_done()
@@ -358,10 +358,13 @@
 	. = ..()
 	ui_interact(user)
 
-/obj/machinery/power/turbine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/turbine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/turbine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 150, master_ui, state)
+		ui = new(user, src, "TurbineComputer", name)
 		ui.open()
 
 /obj/machinery/power/turbine/ui_data(mob/user)
@@ -421,10 +424,13 @@
 	compressor = M.buffer
 	to_chat(user, "<span class='notice'>You link [src] to the turbine compressor in [I]'s buffer.</span>")
 
-/obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/turbine_computer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 200, master_ui, state)
+		ui = new(user, src, "TurbineComputer", name)
 		ui.open()
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
@@ -472,3 +478,12 @@
 #undef VERY_FAST
 #undef FAST
 #undef SLOW
+
+#undef OVERHEAT_TIME
+#undef OVERHEAT_THRESHOLD
+#undef OVERHEAT_MESSAGE
+#undef COMPFRICTION
+#undef COMPSTARTERLOAD
+#undef TURBPOWER
+#undef TURBCURVESHAPE
+#undef POWER_CURVE_MOD

@@ -39,7 +39,7 @@
 	update_brightness()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	return TRUE
 
 /obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
@@ -175,6 +175,11 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
@@ -197,6 +202,8 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
+	hitsound = "swing_hit"
+	attack_verb = list()
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
@@ -215,15 +222,20 @@
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!fuel)
+	if(isdrone(user) && !fuel)
 		C.stored_comms["metal"] += 1
 		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()
+
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
 
 // GLOWSTICKS
 
@@ -386,7 +398,8 @@
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
 
-/obj/item/flashlight/spotlight //invisible lighting source
+/// invisible lighting source
+/obj/item/flashlight/spotlight
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null

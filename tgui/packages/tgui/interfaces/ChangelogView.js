@@ -35,7 +35,7 @@ export const ChangelogView = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={750} height={800}>
       <Window.Content scrollable>
         <Section
           title="ParadiseSS13 Changelog"

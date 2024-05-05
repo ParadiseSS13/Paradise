@@ -10,12 +10,10 @@
 #define EMOTE_VISIBLE (1<<0)
 /// Emote is audible (in character).
 #define EMOTE_AUDIBLE (1<<1)
-/// Emote makes a sound. These emotes will specifically not be runechatted.
-#define EMOTE_SOUND (1<<2)
 /// Regardless of its existing flags, an emote with this flag will not be sent to runechat.
-#define EMOTE_FORCE_NO_RUNECHAT (1<<3)
+#define EMOTE_FORCE_NO_RUNECHAT (1<<2)
 /// This emote uses the mouth, and so should be blocked if the user is muzzled or can't breathe (for humans).
-#define EMOTE_MOUTH (1<<4)
+#define EMOTE_MOUTH (1<<3)
 
 // User audio cooldown system.
 // This is a value stored on the user and represents their current ability to perform audio emotes.

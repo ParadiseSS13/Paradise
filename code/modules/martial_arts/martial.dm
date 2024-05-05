@@ -97,19 +97,19 @@
 				if(MARTIAL_COMBO_FAIL)
 					current_combos -= MC
 				if(MARTIAL_COMBO_DONE_NO_CLEAR)
-					. = TRUE
+					. = MARTIAL_ARTS_ACT_SUCCESS
 					current_combos -= MC
 				if(MARTIAL_COMBO_DONE)
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 				if(MARTIAL_COMBO_DONE_BASIC_HIT)
 					basic_hit(user, target)
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 				if(MARTIAL_COMBO_DONE_CLEAR_COMBOS)
 					combos.Cut()
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 	if(!LAZYLEN(current_combos))
 		reset_combos()
 		if(HAS_COMBOS && could_start_new_combo)
@@ -159,7 +159,7 @@
 		if(istype(MA, src))
 			return
 	if(has_explaination_verb)
-		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 	temporary = make_temporary
 	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
@@ -172,7 +172,7 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	remove_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
 /datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
@@ -256,31 +256,6 @@
 	else
 		to_chat(H, "<span class='warning'>Your hands are full.</span>")
 
-//ITEMS
-
-/obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style
-
-/obj/item/clothing/gloves/boxing/Initialize()
-	. = ..()
-	style = new()
-
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_GLOVES)
-		var/mob/living/carbon/human/H = user
-		style.teach(H, TRUE)
-	return
-
-/obj/item/clothing/gloves/boxing/dropped(mob/user)
-	..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
-		style.remove(H)
-
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
 	var/datum/martial_art/wrestling/style
@@ -325,7 +300,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, "<span class='boldannounceic'>You have learned the ancient martial art of Plasma Fist.</span>")
 		used = TRUE
 		desc = "It's completely blank."
 		name = "empty scroll"
@@ -341,7 +316,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -365,7 +340,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -375,7 +350,7 @@
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, "<span class='boldannounceic'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()
@@ -386,6 +361,7 @@
 /obj/item/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bostaff0"
 	base_icon_state = "bostaff"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
@@ -444,7 +420,7 @@
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								"<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
-			H.adjustStaminaLoss(rand(13,20))
+			H.apply_damage(rand(13,20), STAMINA)
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									"<span class='userdanger'>Your legs give out!</span>")
@@ -463,25 +439,25 @@
 /obj/item/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return 0
+	return FALSE
 
-/obj/screen/combo
+/atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
-/obj/screen/combo/proc/clear_streak()
+/atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
-/obj/screen/combo/update_icon(updates, _streak)
+/atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
 
-/obj/screen/combo/update_overlays()
+/atom/movable/screen/combo/update_overlays()
 	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
@@ -489,7 +465,7 @@
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
 		. += intent_icon
 
-/obj/screen/combo/update_icon_state()
+/atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return

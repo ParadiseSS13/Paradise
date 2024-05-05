@@ -1,6 +1,7 @@
 //entirely neutral or internal status effects go here
 
-/datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
+/// tracks the damage dealt to this mob by kinetic crushers
+/datum/status_effect/crusher_damage
 	id = "crusher_damage"
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
@@ -202,6 +203,12 @@
 	id = "impact_immune"
 	alert_type = null
 
+/datum/status_effect/recently_succumbed
+	id = "recently_succumbed"
+	alert_type = null
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+
 #define LWAP_LOCK_CAP 10
 
 /datum/status_effect/lwap_scope
@@ -270,3 +277,19 @@
 /datum/status_effect/delayed/on_timeout()
 	. = ..()
 	expire_proc.Invoke()
+
+/datum/status_effect/action_status_effect
+	alert_type = null
+	tick_interval = -1
+
+/datum/status_effect/action_status_effect/remove_handcuffs
+	id = "remove_handcuffs"
+
+/datum/status_effect/action_status_effect/break_handcuffs
+	id = "break_handcuffs"
+
+/datum/status_effect/action_status_effect/remove_muzzle
+	id = "remove_muzzle"
+
+/datum/status_effect/action_status_effect/unbuckle
+	id = "unbuckle"

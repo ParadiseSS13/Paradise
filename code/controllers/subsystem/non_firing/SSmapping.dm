@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(mapping)
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
 	///What do we have as the lavaland theme today?
-	var/turf/simulated/floor/lavaland_theme
+	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
 	var/cave_theme
 
@@ -29,10 +29,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+			map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -40,12 +40,16 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
-	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
+	ASSERT(lavaland_theme_type)
+	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+
 	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
 	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
+	preloadTemplates(path = "code/modules/unit_tests/atmos/")
 
 	// Load the station
 	loadStation()
@@ -71,47 +75,56 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-		switch(lavaland_theme)
-			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface)
-				spawn_rivers(level_name_to_num(MINING)) //Default spawn, no tweaks needed
-			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma) //More rivers, smaller
-				spawn_rivers(level_name_to_num(MINING), nodes = 2)
-				spawn_rivers(level_name_to_num(MINING), nodes = 2)
-			if(/turf/simulated/floor/chasm/straight_down/lava_land_surface) //Thiner chasms, bridges, reaches to edge of map.
-				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 7, max_x = 250, max_y = 225, prob = 10, prob_loss = 5)
+		if(lavaland_theme)
+			lavaland_theme.setup()
+			lavaland_theme.setup_caves()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
 		log_startup_progress("Skipping lavaland ruins...")
 
 	// Now we make a list of areas for teleport locs
+	// Located below is some of the worst code I've ever seen
+	// Checking all areas to see if they have a turf in them? Nice one ssmapping!
+
+	var/list/all_areas = list()
+	for(var/area/areas in world)
+		all_areas += areas
+
 	teleportlocs = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(AR.no_teleportlocs)
 			continue
 		if(teleportlocs[AR.name])
 			continue
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			teleportlocs[AR.name] = AR
 
 	teleportlocs = sortAssoc(teleportlocs)
 
-
 	ghostteleportlocs = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(ghostteleportlocs[AR.name])
 			continue
-		var/list/turfs = get_area_turfs(AR.type)
-		if(turfs.len)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+		if(length(pickable_turfs))
 			ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
-	for(var/area/AR in world)
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+	for(var/area/AR as anything in all_areas)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR
 
@@ -121,6 +134,11 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MESSY))
+		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
+
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
 	// load in extra levels of space ruins
@@ -129,6 +147,8 @@ SUBSYSTEM_DEF(mapping)
 	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
+		CHECK_TICK
+
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
 
 	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
@@ -184,7 +204,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
-	if(!z_levels || !z_levels.len)
+	if(!z_levels || !length(z_levels))
 		WARNING("No Z levels provided - Not generating ruins")
 		return
 
@@ -211,10 +231,10 @@ SUBSYSTEM_DEF(mapping)
 			continue
 		ruins_availible[R] = R.placement_weight
 
-	while(budget > 0 && (ruins_availible.len || forced_ruins.len))
+	while(budget > 0 && (length(ruins_availible) || length(forced_ruins)))
 		var/datum/map_template/ruin/current_pick
 		var/forced = FALSE
-		if(forced_ruins.len) //We have something we need to load right now, so just pick it
+		if(length(forced_ruins)) //We have something we need to load right now, so just pick it
 			for(var/ruin in forced_ruins)
 				current_pick = ruin
 				if(forced_ruins[ruin] > 0) //Load into designated z
