@@ -434,7 +434,7 @@
 
 		W.forceMove(src)
 		paicard = card
-		user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
+		user.visible_message("[user] inserts [W] into [src]!", "<span class='notice'>You insert [W] into [src].</span>")
 		paicard.pai.mind.transfer_to(src)
 		to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
 		bot_name = name
