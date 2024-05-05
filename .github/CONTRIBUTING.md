@@ -87,7 +87,7 @@ The only difference is that you run `cargo` from the `milla/` directory, and don
 
 The server will automatically detect that you have a local build, and use that over the default Windows one.
 
-When you're ready to make a PR, please DO NOT modify `milla.dll` or `tools/ci/libmilla_ci.so`.  Leave "Allow edits and access to secrets by maintainers" enabled, and we (or a bot) will update them for you.
+When you're ready to make a PR, please DO NOT modify `milla.dll` or `tools/ci/libmilla_ci.so`.  Leave "Allow edits and access to secrets by maintainers" enabled, and post a comment on your PR saying `!build_milla`. A bot will automatically build them for you and update your branch.
 
 ## Specifications
 
