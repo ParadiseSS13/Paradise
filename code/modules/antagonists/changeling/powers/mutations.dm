@@ -590,7 +590,7 @@
 	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
 	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
 	button_icon_state = "boneshard"
-	chemical_cost = 20
+	chemical_cost =
 	dna_cost = 3
 	req_human = TRUE
 	weapon_type = /obj/item/throwing_star/boneshard
@@ -608,6 +608,7 @@
 	embedded_impact_pain_multiplier = 3
 	embedded_unsafe_removal_pain_multiplier = 6
 	embedded_pain_chance = 10
+	materials = list(MAT_METAL=0, MAT_GLASS=0)
 
 /obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
