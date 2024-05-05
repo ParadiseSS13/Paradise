@@ -152,6 +152,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_GOTTAGOFAST		"gottagofast"
 #define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast"
+#define TRAIT_GOTTAGOSLOW		"gottagoslow"
 #define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
@@ -226,6 +227,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
 #define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown
 #define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
+#define TRAIT_I_WANT_BRAINS "mob_zombie"
+#define TRAIT_ABSTRACT_HANDS "abstract_hands"
+#define TRAIT_SLOW_GRABBER "slow_grabber"
+#define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -289,6 +294,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_TRAIT "cult"
 #define INNATE_TRAIT "innate"
 #define VAMPIRE_TRAIT "vampire"
+#define ZOMBIE_TRAIT "zombie"
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"

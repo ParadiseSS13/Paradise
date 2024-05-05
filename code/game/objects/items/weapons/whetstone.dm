@@ -61,7 +61,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/datum/unarmed_attack/attack = H.dna.species.unarmed
+		var/datum/unarmed_attack/attack = H.get_unarmed_attack()
 		if(istype(attack, /datum/unarmed_attack/claws))
 			var/datum/unarmed_attack/claws/C = attack
 			if(!C.has_been_sharpened)

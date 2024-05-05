@@ -187,7 +187,7 @@
 
 	. = ..()
 
-/obj/item/organ/external/hand/necrotize(update_sprite)
+/obj/item/organ/external/hand/necrotize(update_sprite, ignore_vital_death = FALSE)
 	. = ..()
 	update_hand_missing()
 

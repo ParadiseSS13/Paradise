@@ -76,7 +76,7 @@
 				mob_icon.ColorTone(rgb(10,50,0))
 				mob_icon.SetIntensity(0.7)
 
-			if(!isnull(s_tone))
+			else if(!isnull(s_tone)) // we use an else here because it fucks with shit. It would be nice to fix this someday so that colors affect dead limbs
 				if(s_tone >= 0)
 					mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
 				else

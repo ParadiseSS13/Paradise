@@ -305,7 +305,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(!user.unEquip(src, silent = TRUE))
+		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
 			return 0
 
 	if(flags & ABSTRACT)

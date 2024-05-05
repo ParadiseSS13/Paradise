@@ -89,7 +89,7 @@
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.blood_type
 
-/obj/item/organ/proc/necrotize(update_sprite = TRUE)
+/obj/item/organ/proc/necrotize(update_sprite = TRUE, ignore_vital_death = FALSE)
 	damage = max_damage
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)

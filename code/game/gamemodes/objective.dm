@@ -815,3 +815,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
 	completed = TRUE
+
+/datum/objective/zombie
+	explanation_text = "Hunger grows within us, we need to feast on the brains of the uninfected. Scratch, bite, and spread the plague."
+	needs_target = FALSE
+	completed = TRUE

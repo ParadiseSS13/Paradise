@@ -118,7 +118,7 @@
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
-	var/datum/unarmed_attack/attack = A.dna.species.unarmed
+	var/datum/unarmed_attack/attack = A.get_unarmed_attack()
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(IS_HORIZONTAL(D))

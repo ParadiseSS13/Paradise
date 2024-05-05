@@ -22,16 +22,14 @@
 		if(check_access(W))
 			locked = !locked
 			if(locked)
-				icon_state = icon_locked
 				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
 				if(user.s_active)
 					user.s_active.close(user)
-				return
 			else
-				icon_state = icon_closed
 				to_chat(user, "<span class='warning'>You unlock \the [src]!</span>")
 				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
-				return
+			update_icon()
+			return
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
@@ -50,12 +48,24 @@
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 		return
+	if(!locked && user.s_active != src)
+		return ..()
 	if(allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
-		icon_state = "[locked ? icon_locked : icon_closed]"
+		update_icon()
+		if(user.s_active == src)
+			close(user)
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+
+/obj/item/storage/lockbox/update_icon_state()
+	if(broken)
+		icon_state = icon_broken
+	else if(locked)
+		icon_state = icon_locked
+	else
+		icon_state = icon_closed // good variable name bro
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
@@ -76,9 +86,9 @@
 		broken = TRUE
 		locked = FALSE
 		desc = "It appears to be broken."
-		icon_state = icon_broken
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+		update_icon()
 		return
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M as mob, list/message_pieces)
