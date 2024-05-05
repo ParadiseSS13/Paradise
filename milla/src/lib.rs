@@ -10,6 +10,7 @@
 // Search for #[byondapi::bind] to find the functions exposed to BYOND.
 #![crate_name = "milla"]
 
+use std::ffi::CString;
 use byondapi::{byond_string, prelude::*, Error};
 use eyre::{eyre, Result};
 use std::array::TryFromSliceError;
@@ -21,6 +22,7 @@ use std::sync::{Mutex, OnceLock};
 use std::thread;
 use std::thread::ScopedJoinHandle;
 use std::time::Instant;
+use tracy_full::{frame, zone, set_thread_name};
 
 // Simple logging function, appends to ./milla_log.txt
 #[allow(dead_code)]
@@ -393,6 +395,7 @@ fn f32_to_option_f32(value: f32) -> Option<f32> {
 // BYOND API for ensuring the buffers are usable.
 #[byondapi::bind]
 fn initialize(byond_z: ByondValue) {
+    zone!("byond:initialize");
     setup_panic_handler();
     let z = f32::try_from(byond_z)? as i32;
     let mut active_buffer_map = get_active_atmos_buffer_map().write().unwrap();
@@ -423,6 +426,7 @@ fn set_tile_atmos(
     temperature: ByondValue,
     _innate_heat_capacity: ByondValue,
 ) {
+    zone!("byond:set_tile_atmos");
     setup_panic_handler();
     internal_set_tile_atmos(
         f32::try_from(x)? as i32 - 1,
@@ -461,6 +465,7 @@ fn set_tile_atmos_blocking(
     blocked_south: ByondValue,
     blocked_west: ByondValue,
 ) {
+    zone!("byond:set_tile_atmos_blocking");
     setup_panic_handler();
     internal_set_tile_atmos(
         f32::try_from(x)? as i32 - 1,
@@ -506,6 +511,7 @@ fn internal_set_tile_atmos(
     thermal_energy: Option<f32>,
     innate_heat_capacity: Option<f32>,
 ) -> Result<()> {
+    zone!("rust:set_tile_atmos");
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         return Err(eyre!(
@@ -569,22 +575,25 @@ fn internal_set_tile_atmos(
 // BYOND API for fetching the atmos details of a tile.
 #[byondapi::bind]
 fn get_tile_atmos(x: ByondValue, y: ByondValue, z: ByondValue) {
+    zone!("byond:get_tile_atmos");
     setup_panic_handler();
     let rust_x = f32::try_from(x)? as i32 - 1;
     let rust_y = f32::try_from(y)? as i32 - 1;
     let rust_z = f32::try_from(z)? as i32;
     let mut tile_atmos = internal_get_tile_atmos(rust_x, rust_y, rust_z)?.clone();
+    zone!("byond:get_tile_atmos");
     // Convert thermal energy to temperature for BYOND.
     tile_atmos[ATMOS_THERMAL_ENERGY] /= heat_capacity(&tile_atmos);
     if tile_atmos[ATMOS_THERMAL_ENERGY].is_nan() {
         tile_atmos[ATMOS_THERMAL_ENERGY] = 0.0;
     }
-    Ok(tile_atmos
+    let ret = Ok(tile_atmos
         .iter()
         .map(|v| ByondValue::from(*v))
         .collect::<Vec<ByondValue>>()
         .as_slice()
-        .try_into()?)
+        .try_into()?);
+    return ret;
 }
 
 // Rust version of fetching the atmos details of a tile.
@@ -593,9 +602,11 @@ fn internal_get_tile_atmos(
     y: i32,
     z: i32,
 ) -> Result<[f32; ATMOS_DEPTH], TryFromSliceError> {
+    zone!("rust:get_tile_atmos");
     let buffer = get_active_atmos_buffer_map().read().unwrap();
     get_readonly_atmos!(atmos, buffer, z);
-    Ok(atmos[calc_index(x, y, 0)..calc_index(x, y, ATMOS_DEPTH)].try_into()?)
+    let ret = Ok(atmos[calc_index(x, y, 0)..calc_index(x, y, ATMOS_DEPTH)].try_into()?);
+    return ret;
 }
 
 // A tile that we consider interesting for some reason.
@@ -644,19 +655,23 @@ impl From<InterestingTile> for Vec<ByondValue> {
 // * Turfs with strong airflow out.
 #[byondapi::bind]
 fn get_interesting_tiles() {
+    zone!("byond:get_interesting_tiles");
     setup_panic_handler();
     let interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
+    zone!("byond:get_interesting_tiles");
     let byond_interesting_tiles = interesting_tiles
         .iter()
         .map(|v| Vec::from(*v))
         .flatten()
         .collect::<Vec<ByondValue>>();
-    Ok(byond_interesting_tiles.as_slice().try_into()?)
+    let ret = Ok(byond_interesting_tiles.as_slice().try_into()?);
+    return ret;
 }
 
 // BYOND API for getting a single random interesting tile.
 #[byondapi::bind]
 fn get_random_interesting_tile() {
+    zone!("byond:get_random_interesting_tile");
     setup_panic_handler();
     let interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
     let length = interesting_tiles.len() as f32;
@@ -665,7 +680,8 @@ fn get_random_interesting_tile() {
     }
     let random: f32 = rand::random();
     let chosen = (random * length) as usize;
-    Ok(Vec::from(interesting_tiles[chosen]).as_slice().try_into()?)
+    let ret = Ok(Vec::from(interesting_tiles[chosen]).as_slice().try_into()?);
+    return ret;
 }
 
 // Calculates the pressure flow out from this tile to the two neighboring tiles on this axis.
@@ -731,6 +747,7 @@ fn reduce_superconductivity(
     south: ByondValue,
     west: ByondValue,
 ) {
+    zone!("byond:reduce_superconductivity");
     let rust_x = f32::try_from(x)? as i32 - 1;
     let rust_y = f32::try_from(y)? as i32 - 1;
     let rust_z = f32::try_from(z)? as i32;
@@ -756,6 +773,7 @@ fn internal_reduce_superconductivity(
     south: Option<f32>,
     west: Option<f32>,
 ) -> Result<()> {
+    zone!("rust:reduce_superconductivity");
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         return Err(eyre!(
@@ -790,6 +808,7 @@ fn internal_reduce_superconductivity(
 // BYOND API for resetting the superconductivity of a tile.
 #[byondapi::bind]
 fn reset_superconductivity(x: ByondValue, y: ByondValue, z: ByondValue) {
+    zone!("byond:reset_superconductivity");
     let rust_x = f32::try_from(x)? as i32 - 1;
     let rust_y = f32::try_from(y)? as i32 - 1;
     let rust_z = f32::try_from(z)? as i32;
@@ -799,6 +818,7 @@ fn reset_superconductivity(x: ByondValue, y: ByondValue, z: ByondValue) {
 
 // Rust version of resetting the superconductivity of a tile.
 fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
+    zone!("rust:reset_superconductivity");
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         return Err(eyre!(
@@ -821,6 +841,7 @@ fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
 // BYOND API for starting an atmos tick.
 #[byondapi::bind]
 fn spawn_tick_thread() {
+    zone!("byond:spawn_tick_thread");
     setup_panic_handler();
     let tick_count = get_tick_count();
     thread::spawn(|| {
@@ -833,13 +854,16 @@ fn spawn_tick_thread() {
         let tick_count_mutex = TICK_COUNT.get_or_init(|| Mutex::new(0.0));
         let mut tick_count = tick_count_mutex.lock().unwrap();
         *tick_count += 1.0;
+        frame!();
     });
-    Ok(ByondValue::from(tick_count + 1.0))
+    let ret = Ok(ByondValue::from(tick_count + 1.0));
+    return ret;
 }
 
 // BYOND API for asking how long the prior tick took.
 #[byondapi::bind]
 fn get_tick_time() {
+    zone!("byond:reset_superconductivity");
     setup_panic_handler();
     let tick_time_mutex = TICK_TIME.get_or_init(|| Mutex::new(0.0));
     let active = tick_time_mutex.lock().unwrap();
@@ -852,6 +876,7 @@ fn get_tick_time() {
 // completed.
 #[byondapi::bind]
 fn is_synchronous(for_tick: ByondValue) {
+    zone!("byond:is_synchronous");
     let maybe_buffer = get_active_atmos_buffer_map().try_write();
     if maybe_buffer.is_err() {
         // No, buffer is locked.
@@ -916,6 +941,8 @@ fn count_connected_dirs(
 
 // Runs a single tick of the atmospherics model, multi-threaded by Z level.
 fn tick() {
+    set_thread_name(CString::new("tick".as_bytes()).unwrap());
+    zone!("rust:tick");
     // Psssh, that was interesting *last* tick.
     {
         let mut interesting_tiles = get_interesting_tiles_vector().lock().unwrap();
@@ -976,6 +1003,9 @@ fn tick_z_level(
     inactive_atmos_lock: &RwLock<Box<[f32; MAP_SIZE * MAP_SIZE * ATMOS_DEPTH]>>,
     z: i32,
 ) {
+    let name = "tick_z_".to_owned() + &z.to_string();
+    set_thread_name(CString::new(name.as_bytes()).unwrap());
+    zone!("rust:tick_z");
     let active_atmos = active_atmos_lock.read().unwrap();
     let mut inactive_atmos = inactive_atmos_lock.write().unwrap();
     for y in 0..MAP_SIZE as i32 {
