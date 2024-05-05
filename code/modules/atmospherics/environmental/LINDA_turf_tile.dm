@@ -195,7 +195,7 @@
 
 /turf/proc/recalculate_atmos_connectivity()
 	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(true)
+	SHOULD_NOT_SLEEP(TRUE)
 	if(!SSair.is_synchronous)
 		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, recalculate_atmos_connectivity)))
 		return
