@@ -334,10 +334,7 @@
 	if(capped)
 		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
 		return
-	if(istype(target, /obj/item/clothing/head/cardborg))	// Spraypainting your cardborg suit for more fashion options.
-		cardborg_recolor(target, user)
-		return
-	if(istype(target, /obj/item/clothing/suit/cardborg))
+	if(istype(target, /obj/item/clothing/head/cardborg) || istype(target, /obj/item/clothing/suit/cardborg))	// Spraypainting your cardborg suit for more fashion options.
 		cardborg_recolor(target, user)
 		return
 	if(iscarbon(target))
