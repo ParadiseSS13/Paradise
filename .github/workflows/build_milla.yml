@@ -30,11 +30,11 @@ jobs:
       - name: PR Data
         run: |
           pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
-          #if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
-          #  gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
-          #  echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
-          #  exit 1
-          #fi
+          if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
+            gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
+            echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
+            exit 1
+          fi
           echo "PR_REPO=`jq -r '.head.repo.full_name' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_HEAD_LABEL=`jq -r '.head.label' <<<$pr_json`" >> $GITHUB_ENV
