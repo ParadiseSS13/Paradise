@@ -36,7 +36,7 @@
 	..()
 	STOP_PROCESSING(SSobj, src)
 
-///Returns false if it couldn't get upgraded, Call ..() at the start of every passive's on_apply
+///Returns false if it couldn't get upgraded, Call if(!..()) at the start of every passive's on_apply to properly apply the level check
 /datum/mindflayer_passive/proc/on_apply()
 	SHOULD_CALL_PARENT(TRUE)
 	if(level >= max_level)
@@ -63,7 +63,8 @@
 	var/armor_value = 0
 
 /datum/mindflayer_passive/armored_plating/on_apply()
-	..()
+	if(!..())
+		return
 	var/owner_armor = owner.dna.species.armor
 	var/temp_armor_value = owner_armor - (5 * (level - 1)) // We store our current armor value here just in case they already have armor
 	armor_value = temp_armor_value + 5 * level
@@ -81,16 +82,17 @@
 	max_level = 2
 
 /datum/mindflayer_passive/fluid_feet/on_apply()
-	..()
+	if(!..())
+		return
 	switch(level)
 		if(POWER_LEVEL_ONE)
 			qdel(owner.GetComponent(/datum/component/footstep))
 		if(POWER_LEVEL_TWO)
-			ADD_TRAIT(owner, TRAIT_NOSLIP, UID())
+			ADD_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/fluid_feet/on_remove()
 	owner.AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	REMOVE_TRAIT(owner, TRAIT_NOSLIP, UID())
+	REMOVE_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/new_crit
 	name = "NEW CRIT WHOOPEE!"
@@ -101,7 +103,8 @@
 	category = CATEGORY_DESTROYER
 
 /datum/mindflayer_passive/new_crit/on_apply()
-	..()
+	if(!..())
+		return
 	owner.dna.species.dies_at_threshold = FALSE
 
 /datum/mindflayer_passive/badass
@@ -113,11 +116,12 @@
 	cost = 100
 
 /datum/mindflayer_passive/badass/on_apply()
-	..()
-	ADD_TRAIT(owner, TRAIT_BADASS, src)
+	if(!..())
+		return
+	ADD_TRAIT(owner, TRAIT_BADASS, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/badass/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_BADASS, src)
+	REMOVE_TRAIT(owner, TRAIT_BADASS, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/emp_resist
 	name = "Internal Faraday Cage"
@@ -128,16 +132,17 @@
 	max_level = 2
 
 /datum/mindflayer_passive/emp_resist/on_apply()
-	..()
+	if(!..())
+		return
 	switch(level)
 		if(1)
-			ADD_TRAIT(owner, TRAIT_EMP_RESIST, src)
+			ADD_TRAIT(owner, TRAIT_EMP_RESIST, UNIQUE_TRAIT_SOURCE(src))
 		if(2)
-			ADD_TRAIT(owner, TRAIT_EMP_IMMUNE, src)
+			ADD_TRAIT(owner, TRAIT_EMP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/emp_resist/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_EMP_IMMUNE, src)
-	REMOVE_TRAIT(owner, TRAIT_EMP_RESIST, src)
+	REMOVE_TRAIT(owner, TRAIT_EMP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_EMP_RESIST, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/insulated
 	name = "Insulated Chassis"
@@ -148,11 +153,12 @@
 	max_level = 1
 
 /datum/mindflayer_passive/shock_resist/on_apply()
-	. = ..()
-	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, src)
+	if(!..())
+		return
+	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/shock_resist/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, src)
+	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/processed/regen
 	name = "Regeneration"
@@ -175,19 +181,19 @@
 	upgrade_text = "Increasing visible wavelength to infrared."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	cost = 50
+	cost = 40
 
 /datum/mindflayer_passive/eye_enhancement/on_apply()
 	..()
 	switch(level)
 		if(1)
-			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, src)
+			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
 		if(2)
-			ADD_TRAIT(owner, TRAIT_THERMAL_VISION, src)
+			ADD_TRAIT(owner, TRAIT_THERMAL_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/eye_enhancement/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, src)
-	REMOVE_TRAIT(owner, TRAIT_THERMAL_VISION, src)
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_THERMAL_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/drain_speed
 	name = "Swarm Absorbtion Efficiency"
@@ -199,8 +205,26 @@
 	cost = 50
 
 /datum/mindflayer_passive/drain_speed/on_apply()
-	..()
+	if(!..())
+		return
 	flayer.drain_multiplier++
 
-/datum/mindflayer_passive/on_remove()
+/datum/mindflayer_passive/drain_speed/on_remove()
 	flayer.drain_multiplier = initial(flayer.drain_multiplier)
+
+/datum/mindflayer_passive/improved_joints
+	name = "Reinforced Joints"
+	purchase_text = "Prevents your limbs from falling off due to damage."
+	gain_text = "Makes joints gooder"
+	max_level = 1
+	cost = 50
+
+/datum/mindflayer_passive/improved_joints/on_apply()
+	if(!..())
+		return
+	ADD_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/mindflayer_passive/improved_joints/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED, UNIQUE_TRAIT_SOURCE(src))
+
+
