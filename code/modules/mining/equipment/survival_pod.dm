@@ -111,10 +111,22 @@
 	icon_regular_floor = "podfloor_light"
 	floor_tile = /obj/item/stack/tile/pod/light
 
+/turf/simulated/floor/pod/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
+
 /turf/simulated/floor/pod/dark
 	icon_state = "podfloor_dark"
 	icon_regular_floor = "podfloor_dark"
 	floor_tile = /obj/item/stack/tile/pod/dark
+
+/turf/simulated/floor/pod/dark/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
 
 //Door
 /obj/machinery/door/airlock/survival_pod
