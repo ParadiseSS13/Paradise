@@ -23,7 +23,7 @@
 
 /// Attempt the action. This should not need to be overridden.
 /datum/rcd_act/proc/try_act(atom/A, obj/item/rcd/rcd, mob/user)
-	if(!can_act(A, rcd, user))
+	if(!can_act(A, rcd))
 		return FALSE
 	// We don't use the sound effect from use_tool because RCDs have a different sound effect for the start and end.
 	playsound(get_turf(rcd), 'sound/machines/click.ogg', 50, TRUE)
@@ -41,7 +41,7 @@
 	if(start_effect)
 		qdel(start_effect)
 	// If time elapsed, check our preconditions again.
-	if(delay && !can_act(A, rcd, user))
+	if(delay && !can_act(A, rcd))
 		return FALSE
 	if(end_effect_type)
 		new end_effect_type(get_turf(A))
@@ -50,7 +50,7 @@
 	return TRUE
 
 /// Test to see if the act is possible. You should usually override this.
-/datum/rcd_act/proc/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/proc/can_act(atom/A, obj/item/rcd/rcd)
 	SHOULD_CALL_PARENT(TRUE)
 	return rcd.mode == mode
 
@@ -64,7 +64,7 @@
 	start_message = "Building floor..."
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_floor/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_floor/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isspaceturf(A) || istype(A, /obj/structure/lattice)
@@ -81,7 +81,7 @@
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/short
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_wall/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_wall/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isfloorturf(A)
@@ -98,7 +98,7 @@
 	start_effect_type = /obj/effect/temp_visual/rcd_effect
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_airlock/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_airlock/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isfloorturf(A) && !(/obj/machinery/door/airlock in A.contents)
@@ -122,7 +122,7 @@
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/short
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_window/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_window/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isfloorturf(A) && !(/obj/structure/grille in A.contents)
@@ -142,7 +142,7 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_floor/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_floor/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isfloorturf(A)
@@ -158,7 +158,7 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_wall/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_wall/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	if(isreinforcedwallturf(A) && !rcd.canRwall)
@@ -178,7 +178,7 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_airlock/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_airlock/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return istype(A, /obj/machinery/door/airlock)
@@ -193,7 +193,7 @@
 	delay = 2 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse_short
 
-/datum/rcd_act/remove_window/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_window/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return istype(A, /obj/structure/window)
@@ -574,7 +574,7 @@
 
 	for(var/act_type in possible_actions)
 		var/datum/rcd_act/act = new act_type
-		if(act.can_act(A, src, user))
+		if(act.can_act(A, src))
 			. = act.try_act(A, src, user)
 			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
