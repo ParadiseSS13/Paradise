@@ -184,11 +184,14 @@
 //Mind Flayer Flak Cannon
 /obj/item/pneumatic_cannon/flayer
 	name = "Pneumatic Flak Gun"
-	desc = "Blasts debris in the direction you shoot it, but it's hard to aim."
+	desc = "Shoots a condensed burst of scrap metal."
 	flags = ABSTRACT | NODROP
 	requires_tank = FALSE
 	max_weight_class = 5
+	pressure_setting = 2
 	var/charge_time = 15 SECONDS
+	///If the cannon is going to condense the shots, or focus them on one turf
+	var/spread_shot = FALSE
 	COOLDOWN_DECLARE(charge_cooldown)
 
 /obj/item/pneumatic_cannon/flayer/New()
@@ -199,13 +202,18 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/pneumatic_cannon/flayer/attack_self(mob/user)
+	spread_shot = !(spread_shot)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	to_chat(user, "<span class='notice'>You switch the cannon to [spread_shot ? "spread" : "focus"]-shot mode.</span>")
+
 /obj/item/pneumatic_cannon/flayer/process()
 	if(!COOLDOWN_FINISHED(src, charge_cooldown))
 		return
 	if(loaded_weight_class >= max_weight_class)
 		return
-	COOLDOWN_START(src, charge_cooldown, 1 SECONDS) //ONLY FOR DEBUGGING!!!!!!!!!!!!
-	var/obj/item/shard/scrap/to_load = new /obj/item/shard/scrap()
+	COOLDOWN_START(src, charge_cooldown, 1 SECONDS) //TODO ONLY FOR DEBUGGING!!!!!!!!!!!!
+	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel()
 	load_item(to_load)
 
 /obj/item/pneumatic_cannon/flayer/load_item(obj/item/I)
@@ -214,17 +222,20 @@
 	I.forceMove(src)
 
 /obj/item/pneumatic_cannon/flayer/fire(mob/living/carbon/human/user, atom/target)
-	var/target_range = get_dist_euclidian(user, target)
-	var/left_target = get_ranged_target_turf_direct(user.loc, target, target_range, -45) //-45 degrees
-	var/right_target = get_ranged_target_turf_direct(user.loc, target, target_range, 45) //45 degrees
-	var/list/line = get_line(left_target, right_target) //the COOOOOOOOONE!
-	playsound(loc, 'sound/weapons/resonator_fire.ogg', 50, TRUE)
-	for(var/obj/item/loaded_item in loaded_items)
-		var/turf_to_throw_at = pick(line)
-		loaded_items.Remove(loaded_item)
-		loaded_weight_class -= loaded_item.w_class
-		loaded_item.forceMove(get_turf(src))
-		loaded_item.throw_at(turf_to_throw_at, target_range, 2, user)
+	if(spread_shot)
+		var/target_range = (get_dist_euclidian(user, target) + 2) //Get a turf slightly behind the target
+		var/left_target = get_ranged_target_turf_direct(user.loc, target, target_range, -45) //-45 degrees
+		var/right_target = get_ranged_target_turf_direct(user.loc, target, target_range, 45) //45 degrees
+		var/list/line = get_line(left_target, right_target) //the COOOOOOOOONE!
+		playsound(loc, 'sound/weapons/resonator_fire.ogg', 50, TRUE)
+		for(var/obj/item/loaded_item in loaded_items)
+			var/turf_to_throw_at = pick(line)
+			loaded_items.Remove(loaded_item)
+			loaded_weight_class -= loaded_item.w_class
+			loaded_item.forceMove(get_turf(src))
+			loaded_item.throw_at(turf_to_throw_at, target_range, 2, user)
+	else
+		..()
 
 /obj/item/pneumatic_cannon/flayer/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
