@@ -530,7 +530,7 @@
 
 	user.do_attack_animation(target, attack.animation_type)
 	if(attack.harmless)
-		playsound(target.loc, attack.attack_sound, 25, 1, -1)
+		playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
 		return FALSE
 	add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
@@ -547,7 +547,7 @@
 	damage += attack.damage
 	damage += user.physiology.melee_bonus
 	if(!damage)
-		playsound(target.loc, attack.miss_sound, 25, 1, -1)
+		playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
 		target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
 		return FALSE
 
@@ -555,7 +555,7 @@
 	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 	var/armor_block = target.run_armor_check(affecting, MELEE)
 
-	playsound(target.loc, attack.attack_sound, 25, 1, -1)
+	playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
 
 	target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
 	target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
@@ -1101,7 +1101,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			return TRUE
 
 		if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
-			to_chat(user, "<span class='warning zombie'>We can't smell any fresh brains in [target]</span>")
+			to_chat(user, "<span class='warning zombie'>We can't smell any fresh brains in [target].</span>")
 			return
 
 		var/obj/item/organ/internal/brain/eat_brain = target.get_organ_slot("brain")
@@ -1152,7 +1152,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return TRUE
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
-			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh!</span>")
 			return TRUE
 		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")

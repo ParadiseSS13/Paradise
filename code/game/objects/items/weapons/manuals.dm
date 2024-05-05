@@ -437,7 +437,6 @@
 				</head>
 				<body>
 
-				<h3></h3>
 				For years, we've seen "zombies" on the news and in movies, but have you ever thought how would would be cured?
 				Each strain of the "Advanced Resurection Virus" or simply "Necrotizing Plague" has its own unique bio-signature.
 				Therefore, each strain has a unique step of anti-virals, that each have progressively stronger effects on the plague.
@@ -450,7 +449,7 @@
 					<li><a href='#5'>Known Recipes</a></li>
 				</ol>
 
-				<a name='1'><h4>Step 1: Preparation</h4>
+				<a name='1' /><h4>Step 1: Preparation</h4></>
 				First step is knowledge. The necrotizing plague can only be spread through direct fluid contact with an infected individual. \
 				Therefore, you should do your best to stay away from the claws and or teeth of zombies. Their claws are covered in a slimy fluid \
 				that has a chance of transmitting the disease. Their bites are much more dangerous however, guaranteeing an infection of the plague. \
