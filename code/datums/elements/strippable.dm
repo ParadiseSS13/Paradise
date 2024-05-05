@@ -278,7 +278,7 @@
 	var/list/interactions
 
 	/// Associated list of "[icon][icon_state]" = base64 representation of icon. Used for PERFORMANCE.
-	var/list/base64_cache = list()
+	var/static/list/base64_cache = list()
 
 /datum/strip_menu/New(atom/movable/owner, datum/element/strippable/strippable)
 	. = ..()
@@ -288,7 +288,6 @@
 /datum/strip_menu/Destroy()
 	owner = null
 	strippable = null
-	base64_cache.Cut()
 
 	return ..()
 
@@ -345,7 +344,7 @@
 
 		LAZYINITLIST(result)
 
-		var/key = "[item.icon][item.icon_state]"
+		var/key = "[item.icon],[item.icon_state]"
 		if(!(key in base64_cache))
 			base64_cache[key] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
 		result["icon"] = base64_cache[key]
