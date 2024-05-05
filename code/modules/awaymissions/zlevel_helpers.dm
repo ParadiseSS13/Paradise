@@ -1,6 +1,10 @@
 // Call this before you remove the last dirt on a z level - that way, all objects
 // will have proper atmos and other important enviro things
+// Should be run with SSair.synchronize.
 /proc/late_setup_level(turfs, smoothTurfs)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/total_timer = start_watch()
 	var/subtimer = start_watch()
 	if(!smoothTurfs)

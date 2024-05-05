@@ -265,7 +265,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-			S.produce_heat(100)
+			var/datum/gas_mixture/env = S.loc.return_air()
+			env.synchronize(CALLBACK(S, TYPE_PROC_REF(/obj/machinery/r_n_d/server, produce_heat), env, 100))
 
 	SStgui.update_uis(src)
 

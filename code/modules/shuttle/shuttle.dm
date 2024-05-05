@@ -447,6 +447,13 @@
 		if(!canMove())
 			return -1
 
+	// We're going to modify terrain in ways that affect atmos, so sync up with MILLA first.
+	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/docking_port/mobile, dock_sync), S1, force, transit))
+
+/obj/docking_port/mobile/proc/dock_sync(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
+	// Any proc that wants MILLA to be synchronous should not sleep
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space

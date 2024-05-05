@@ -1472,8 +1472,8 @@
 			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
 			var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(0.10)
 			if(loc)
-				loc.assume_air(leaked_gas)
-				recalculate_atmos_connectivity()
+				var/datum/gas_mixture/environment = loc.return_air()
+				environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, release_gas), environment, leaked_gas))
 			else
 				qdel(leaked_gas)
 
@@ -1482,6 +1482,12 @@
 			spark_system.start()
 			cell.charge -= min(20,cell.charge)
 			cell.maxcharge -= min(20,cell.maxcharge)
+
+/obj/mecha/proc/release_gas(datum/gas_mixture/environment, datum/gas_mixture/leaked_gas)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	environment.merge(leaked_gas)
 
 /obj/mecha/proc/regulate_temp()
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)

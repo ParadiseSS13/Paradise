@@ -113,6 +113,9 @@
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
+	if(QDELETED(parent))
+		// We're orphaned!
+		return FALSE
 	var/turf/T = loc
 	if(T.density) //No, you should not be able to get free air from walls
 		return

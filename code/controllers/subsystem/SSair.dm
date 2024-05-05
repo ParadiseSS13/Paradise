@@ -127,6 +127,7 @@ SUBSYSTEM_DEF(air)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
 	setup_allturfs()
+	setup_write_to_milla()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -359,11 +360,18 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
 		T.Initialize_Atmos(times_fired)
+		var/turf/simulated/S = T
+		if(istype(S))
+			S.update_visuals()
 		CHECK_TICK
 
+/datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
 	log_startup_progress("Writing tiles to MILLA...")
 

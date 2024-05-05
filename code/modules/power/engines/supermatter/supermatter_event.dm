@@ -20,7 +20,7 @@
 
 /datum/supermatter_event/proc/start_event()
 	supermatter.event_active = src
-	environment.synchronize(src, CALLBACK(TYPE_PROC_REF(/datum/supermatter_event, on_start)))
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/supermatter_event, on_start)))
 	alert_engi()
 	supermatter.investigate_log("event [src] has been triggered", "supermatter")
 	if(duration)
