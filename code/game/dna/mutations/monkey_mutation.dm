@@ -62,11 +62,13 @@
 		H.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
-	sleep(22)
+	addtimer(CALLBACK(src, PROC_REF(finish_unmonkeyize), H, !has_greater_form), 2.2 SECONDS)
+
+/datum/mutation/monkey/proc/finish_unmonkeyize(mob/living/carbon/human/H, should_gib)
 	REMOVE_TRAITS_IN(H, TRANSFORMING_TRAIT)
 	H.invisibility = initial(H.invisibility)
 
-	if(!has_greater_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
+	if(should_gib) //If the pre-change mob in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
 
@@ -75,4 +77,3 @@
 
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
-	return H

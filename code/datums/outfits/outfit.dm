@@ -63,7 +63,7 @@
 /datum/outfit/proc/on_mind_initialize(mob/living/carbon/human/H)
 	SIGNAL_HANDLER // COMSIG_MIND_INITALIZE
 	SHOULD_CALL_PARENT(TRUE)
-	UnregisterSignal(H, COMSIG_MIND_INITALIZE)
+	UnregisterSignal(H, COMSIG_MIND_INITALIZE) // prevent this call from being called multiple times on a human
 
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)

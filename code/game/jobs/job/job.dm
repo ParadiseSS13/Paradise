@@ -285,9 +285,12 @@
 /datum/outfit/job/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/card/id/id = H.wear_id
-	if(id)
-		var/datum/job/J = SSjobs.GetJobType(jobtype)
-		if(!J)
-			J = SSjobs.GetJob(H.job)
-		id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
-		id.associated_account_number = H.mind.initial_account.account_number
+	if(!id)
+		return
+	var/datum/job/J = SSjobs.GetJobType(jobtype)
+	if(!J)
+		J = SSjobs.GetJob(H.job)
+	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(!H.mind.initial_account)
+		return
+	id.associated_account_number = H.mind.initial_account.account_number
