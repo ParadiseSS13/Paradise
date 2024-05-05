@@ -23086,7 +23086,7 @@
 /area/station/maintenance/port)
 "bsg" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft/grey{
+/obj/item/clothing/head/soft{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -24963,10 +24963,6 @@
 "bzd" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/station/hallway/secondary/exit)
-"bze" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/service/bar)
 "bzf" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71298,9 +71294,9 @@
 "mIA" = (
 /obj/structure/table,
 /obj/item/stamp/granted,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /obj/item/hand_labeler,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -76275,6 +76271,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"pcF" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/west)
 "pcH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -130569,8 +130571,8 @@ bmq
 bmq
 bmq
 bzo
-bze
-bAk
+aUS
+pcF
 bHy
 bDb
 bEy

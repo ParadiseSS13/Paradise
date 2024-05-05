@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -77,6 +77,7 @@
 	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
 	job = list("Mime", "Chef")
 
+// Shaft miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -85,6 +86,15 @@
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
 	job = list("Shaft Miner")
 	surplus = 0 // Requires a KA to even be used.
+
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 25
+	job = list("Shaft Miner")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -323,7 +333,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
@@ -410,7 +420,7 @@
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -421,7 +431,7 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
@@ -538,7 +548,7 @@
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/cyber_implants/sensory_enhancer
 	name = "Qani-Laaca Sensory Computer Autoimplanter"
@@ -649,7 +659,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -661,7 +671,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/New()
 	..()
@@ -677,7 +687,7 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
