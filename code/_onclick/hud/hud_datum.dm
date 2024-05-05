@@ -252,7 +252,7 @@
 	. = ..()
 	if(!.)
 		return
-	update_robot_modules_display()
+	update_robot_modules_display(viewmob)
 
 /datum/hud/proc/hidden_inventory_update(mob/viewer)
 	return
