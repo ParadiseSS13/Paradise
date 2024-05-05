@@ -151,13 +151,7 @@
 		var/turf/simulated/T = A
 		if(!T.blocks_air)
 			var/datum/gas_mixture/G = T.get_air()
-			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-				G.set_temperature(2)
-			for(var/obj/effect/hotspot/H in T)
-				qdel(H)
-				if(G.toxins())
-					G.set_nitrogen(G.nitrogen() + (G.toxins()))
-					G.set_toxins(0)
+			G.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/effect_system/smoke_spread/freezing, chill_air), G, T))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 				V.welded = TRUE
@@ -172,6 +166,18 @@
 			L.ExtinguishMob()
 		for(var/obj/item/Item in T)
 			Item.extinguish()
+
+/datum/effect_system/smoke_spread/freezing/proc/chill_air(datum/gas_mixture/G, turf/simulated/T)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+		G.set_temperature(2)
+	for(var/obj/effect/hotspot/H in T)
+		qdel(H)
+		if(G.toxins())
+			G.set_nitrogen(G.nitrogen() + (G.toxins()))
+			G.set_toxins(0)
 
 /datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = FALSE)
 	..()

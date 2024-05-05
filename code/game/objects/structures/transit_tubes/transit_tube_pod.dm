@@ -211,10 +211,16 @@
 	var/transfer_in = max(0.1, 0.5 * (env_pressure - int_pressure) / total_pressure)
 	var/transfer_out = max(0.1, 0.3 * (int_pressure - env_pressure) / total_pressure)
 
-	var/datum/gas_mixture/from_env = loc.remove_air(environment.total_moles() * transfer_in)
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/structure/transit_tube_pod, mix_air_sync), environment, transfer_in, transfer_out))
+
+/obj/structure/transit_tube_pod/proc/mix_air_sync(datum/gas_mixture/environment, transfer_in, transfer_out)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/datum/gas_mixture/from_env = environment.remove(environment.total_moles() * transfer_in)
 	var/datum/gas_mixture/from_int = air_contents.remove(air_contents.total_moles() * transfer_out)
 
-	loc.assume_air(from_int)
+	environment.merge(from_int)
 	air_contents.merge(from_env)
 
 

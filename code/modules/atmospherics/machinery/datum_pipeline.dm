@@ -130,6 +130,13 @@
 		member.air_temporary.set_temperature(air.temperature())
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
+	var/datum/gas_mixture/environment = target.get_air()
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/pipeline, temperature_interact_sync), environment, target, share_volume, thermal_conductivity))
+
+/datum/pipeline/proc/temperature_interact_sync(datum/gas_mixture/environment, turf/target, share_volume, thermal_conductivity)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/total_heat_capacity = air.heat_capacity()
 	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.volume)
 
@@ -151,9 +158,8 @@
 			var/delta_temperature = 0
 			var/sharer_heat_capacity = 0
 
-			var/datum/gas_mixture/modeled_location_air = modeled_location.get_air()
-			delta_temperature = (air.temperature() - modeled_location_air.temperature())
-			sharer_heat_capacity = modeled_location_air.heat_capacity()
+			delta_temperature = (air.temperature() - environment.temperature())
+			sharer_heat_capacity = environment.heat_capacity()
 
 			var/self_temperature_delta = 0
 			var/sharer_temperature_delta = 0
@@ -169,7 +175,7 @@
 
 			air.set_temperature(air.temperature() + self_temperature_delta)
 
-			modeled_location_air.set_temperature(modeled_location_air.temperature() + sharer_temperature_delta)
+			environment.set_temperature(environment.temperature() + sharer_temperature_delta)
 
 
 	else

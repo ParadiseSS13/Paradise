@@ -98,7 +98,8 @@
 	if(delay)
 		delay--
 	else
-		produce_heat(heat_gen)
+		var/datum/gas_mixture/env = loc.return_air()
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/r_n_d/server, produce_heat), env, heat_gen))
 		delay = initial(delay)
 
 /obj/machinery/r_n_d/server/emp_act(severity)
@@ -119,11 +120,13 @@
 	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
 		files.push_data(C.files)
 
-/obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
+/obj/machinery/r_n_d/server/proc/produce_heat(datum/gas_mixture/env, heat_amt)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.
 		var/turf/simulated/L = loc
 		if(istype(L))
-			var/datum/gas_mixture/env = L.return_air()
 			if(env.temperature() < (heat_amt+T0C))
 
 				var/transfer_moles = 0.25 * env.total_moles()

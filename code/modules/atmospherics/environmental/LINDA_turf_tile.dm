@@ -41,13 +41,16 @@
 	. = ..()
 	if(!blocks_air)
 		var/datum/gas_mixture/air = get_air()
-		air.set_oxygen(oxygen)
-		air.set_carbon_dioxide(carbon_dioxide)
-		air.set_nitrogen(nitrogen)
-		air.set_toxins(toxins)
-		air.set_sleeping_agent(sleeping_agent)
-		air.set_agent_b(agent_b)
-		air.set_temperature(temperature)
+		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, set_initial_air), air))
+
+/turf/simulated/proc/set_initial_air(datum/gas_mixture/air)
+	air.set_oxygen(oxygen)
+	air.set_carbon_dioxide(carbon_dioxide)
+	air.set_nitrogen(nitrogen)
+	air.set_toxins(toxins)
+	air.set_sleeping_agent(sleeping_agent)
+	air.set_agent_b(agent_b)
+	air.set_temperature(temperature)
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
@@ -194,7 +197,7 @@
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(true)
 	if(!SSair.is_synchronous)
-		SSair.synchronize(CALLBACK(src, PROC_REF(recalculate_atmos_connectivity)))
+		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, recalculate_atmos_connectivity)))
 		return
 
 	if(blocks_air)

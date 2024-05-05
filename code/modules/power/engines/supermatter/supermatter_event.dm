@@ -20,13 +20,15 @@
 
 /datum/supermatter_event/proc/start_event()
 	supermatter.event_active = src
-	on_start()
+	environment.synchronize(src, CALLBACK(TYPE_PROC_REF(/datum/supermatter_event, on_start)))
 	alert_engi()
 	supermatter.investigate_log("event [src] has been triggered", "supermatter")
 	if(duration)
 		addtimer(CALLBACK(src, PROC_REF(on_end)), duration)
 
 /datum/supermatter_event/proc/on_start()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /datum/supermatter_event/proc/alert_engi()

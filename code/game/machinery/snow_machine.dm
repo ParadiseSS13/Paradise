@@ -100,6 +100,11 @@
 		return
 	var/turf/simulated/S = T
 	var/datum/gas_mixture/S_air = S.get_air()
+	S_air.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/snow_machine, affect_turf_temperature_sync), S_air, modifier))
+
+/obj/machinery/snow_machine/proc/affect_turf_temperature_sync(datum/gas_mixture/S_air, modifier)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	var/initial_temperature = S_air.temperature()
 	if(initial_temperature <= lower_temperature_limit) //Can we actually cool this?
 		return

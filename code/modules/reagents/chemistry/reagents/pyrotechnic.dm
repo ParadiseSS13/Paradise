@@ -428,10 +428,10 @@
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.get_air()
-		lowertemp.set_temperature(max(min(lowertemp.temperature()-(CT*1000), lowertemp.temperature() / CT), 0))
-		lowertemp.react()
 		qdel(hotspot)
+
+		var/datum/gas_mixture/environment = T.get_air()
+		environment.synchronize(CALLBACK(T, TYPE_PROC_REF(/turf/simulated, cool_by), environment, 1000, CT))
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"

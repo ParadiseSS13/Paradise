@@ -118,7 +118,7 @@
 	if(opacity)
 		has_opaque_atom = TRUE
 
-	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature))
+	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, initialize_milla)))
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -326,7 +326,7 @@
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	recalculate_atmos_connectivity()
-	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature), innate_heat_capacity = heat_capacity, temperature = temperature)
+	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, initialize_milla)))
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
@@ -348,10 +348,14 @@
 	..()
 	RemoveLattice()
 	if(!ignore_air)
-		Assimilate_Air()
+		var/datum/gas_mixture/air = get_air()
+		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, Assimilate_Air), air))
 
 //////Assimilate Air//////
-/turf/simulated/proc/Assimilate_Air()
+/turf/simulated/proc/Assimilate_Air(datum/gas_mixture/air)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/datum/gas_mixture/merged = new()
 	var/turf_count = 0
 
@@ -372,7 +376,6 @@
 		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
 		merged.set_agent_b(merged.agent_b() / turf_count)
 
-	var/datum/gas_mixture/air = get_air()
 	air.copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
@@ -619,3 +622,8 @@
 	if(isnull(bound_air))
 		SSair.bind_turf(src)
 	return bound_air
+
+/turf/proc/initialize_milla()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature), innate_heat_capacity = heat_capacity, temperature = temperature)

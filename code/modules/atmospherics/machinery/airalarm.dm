@@ -265,7 +265,7 @@
 	var/datum/gas_mixture/environment = location.return_air()
 	var/datum/tlv/cur_tlv
 
-	handle_heating_cooling(environment, cur_tlv, location)
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/alarm, handle_heating_cooling), environment, cur_tlv, location))
 
 	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature()/environment.volume
 
@@ -315,6 +315,9 @@
 
 
 /obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(!thermostat_state)
 		return
 	cur_tlv = TLV["temperature"]

@@ -428,9 +428,11 @@
 	var/atom/L = loc						// recharging from loc turf
 
 	var/datum/gas_mixture/env = L.return_air()
-	env.synchronize(CALLBACK(src, PROC_REF(take_air), env))
+	env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/disposal, take_air), env))
 
 /obj/machinery/disposal/proc/take_air(datum/gas_mixture/env)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
 
 	if(env.temperature() > 0)
@@ -717,9 +719,11 @@
 /obj/structure/disposalholder/proc/vent_gas(atom/location)
 	if(location)
 		var/datum/gas_mixture/env = location.return_air()
-		env.synchronize(CALLBACK(src, PROC_REF(vent_gas_sync), env))
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/structure/disposalholder, vent_gas_sync), env))
 
 /obj/structure/disposalholder/proc/vent_gas_sync(datum/gas_mixture/env)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	env.merge(gas)  // vent all gas to turf
 
 // Disposal pipes

@@ -141,28 +141,36 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
 
-	if(!is_synchronous)
-		if(healthy)
-			log_debug("MILLA is unhealthy: SSair cannot start processing because MILLA is still read-only! This message will be suppressed until MILLA recovers.")
-			healthy = FALSE
-		last_unhealthy = times_fired
-		return
-	else if(!healthy && times_fired - last_unhealthy >= 10)
+	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
+	while(!is_synchronous)
+		// Sleep for 1ms.
+		sleep(0.01)
+		if(MC_TICK_CHECK)
+			if(healthy)
+				log_debug("MILLA is unhealthy: SSair cannot start processing because MILLA is still read-only! This message will be suppressed until MILLA recovers.")
+				healthy = FALSE
+			last_unhealthy = times_fired
+			return
+
+		if(is_synchronous)
+			break
+
+	if(!healthy && times_fired - last_unhealthy >= 10)
 		log_debug("MILLA has recovered: SSair was able to start 10 times in a row.")
 		healthy = TRUE
 
 	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
 		build_pipenets(resumed)
-		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
-		if(state != SS_RUNNING)
+		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_PIPENETS
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
 		process_pipenets(resumed)
-		cost_pipenets.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
-		if(state != SS_RUNNING)
+		cost_pipenets.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_ATMOSMACHINERY
@@ -170,8 +178,8 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
 		process_atmos_machinery(resumed)
-		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
-		if(state != SS_RUNNING)
+		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_INTERESTING_TILES
@@ -179,8 +187,8 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_INTERESTING_TILES)
 		timer = TICK_USAGE_REAL
 		process_interesting_tiles(resumed)
-		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
-		if(state != SS_RUNNING)
+		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_HOTSPOTS
@@ -188,8 +196,8 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_HOTSPOTS)
 		timer = TICK_USAGE_REAL
 		process_hotspots(resumed)
-		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
-		if(state != SS_RUNNING)
+		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_BOUND_MIXTURES
@@ -197,8 +205,8 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_BOUND_MIXTURES)
 		timer = TICK_USAGE_REAL
 		process_bound_mixtures(resumed)
-		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state == SS_RUNNING)
-		if(state != SS_RUNNING)
+		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_MILLA_TICK
@@ -208,7 +216,7 @@ SUBSYSTEM_DEF(air)
 		is_synchronous = FALSE
 		spawn_wait_proc(spawn_milla_tick_thread())
 
-		if(state != SS_RUNNING)
+		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 
@@ -329,10 +337,9 @@ SUBSYSTEM_DEF(air)
 	if(!resumed)
 		original_bound_mixtures = length(bound_mixtures)
 		last_bound_mixtures = length(bound_mixtures)
-	// Note that we do NOT copy this list. We're fine with things being added to it as we work, because it all needs to get written before the next MILLA tick.
-	src.currentrun = bound_mixtures
+	// Note that we do NOT copy this list to src.currentrun. We're fine with things being added to it as we work, because it all needs to get written before the next MILLA tick.
 	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
+	var/list/currentrun = bound_mixtures
 	added_bound_mixtures = length(currentrun) - last_bound_mixtures
 	while(length(currentrun))
 		var/datum/gas_mixture/bound_to_turf/mixture = currentrun[length(currentrun)]

@@ -57,10 +57,22 @@
 
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = get_air()
-		lowertemp.set_temperature(max(min(lowertemp.temperature()-2000,lowertemp.temperature() / 2), 0))
-		lowertemp.react()
 		qdel(hotspot)
+
+		var/datum/gas_mixture/air = get_air()
+		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, cool_by), air, 2000, 2))
+
+/// Not intentionally used, but it gets called if the turf becomes space while the proc is waiting.
+/turf/proc/cool_by(datum/gas_mixture/air, max_delta, max_divisor)
+	return
+
+/// Cools down the turf's air by the given parameters.
+/turf/simulated/cool_by(datum/gas_mixture/air, max_delta, max_divisor)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	air.set_temperature(max(min(air.temperature()-max_delta,air.temperature() / max_divisor), 0))
+	air.react()
 
 /*
  * Makes a turf slippery using the given parameters

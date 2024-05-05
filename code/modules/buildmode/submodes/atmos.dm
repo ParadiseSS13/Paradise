@@ -42,7 +42,8 @@
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 	if(!SSair.is_synchronous)
-		SSair.synchronize(CALLBACK(src, PROC_REF(handle_selected_region), user, params))
+		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/buildmode_mode/atmos, handle_selected_region), user, params))
+		return
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/ctrl_click = pa.Find("ctrl")

@@ -219,17 +219,24 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/proc/canister_break()
 	disconnect()
 	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
-	var/turf/T = get_turf(src)
-	T.assume_air(expelled_gas)
-
 	stat |= BROKEN
 	density = FALSE
 	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	update_icon()
 
+	var/turf/T = get_turf(src)
 	if(holding_tank)
 		holding_tank.forceMove(T)
 		holding_tank = null
+
+	var/datum/gas_mixture/environment = T.get_air()
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/portable/canister, canister_break_sync), environment, expelled_gas))
+
+/obj/machinery/atmospherics/portable/canister/proc/canister_break_sync(datum/gas_mixture/environment, datum/gas_mixture/expelled_gas)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	environment.merge(expelled_gas)
 
 /obj/machinery/atmospherics/portable/canister/process_atmos()
 	if(stat & BROKEN)

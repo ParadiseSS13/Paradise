@@ -42,20 +42,19 @@
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
 	if(times_fired % 2 == 1)
-		breathe() //Breathe every other tick, unless suffocating
+		var/datum/gas_mixture/environment = loc?.return_air()
+		if(environment)
+			//Breathe every other tick, unless suffocating
+			environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, breathe), environment))
 	else
 		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src, 0)
 
 //Second link in a breath chain, calls check_breath()
-/mob/living/carbon/proc/breathe()
+/mob/living/carbon/proc/breathe(datum/gas_mixture/environment)
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
-
-	var/datum/gas_mixture/environment
-	if(loc)
-		environment = loc.return_air()
 
 	var/datum/gas_mixture/breath
 
@@ -84,7 +83,7 @@
 				if(environment)
 					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
-				breath = loc.remove_air(breath_moles)
+				breath = environment.remove(breath_moles)
 		else //Breathe from loc as obj again
 			if(isobj(loc))
 				var/obj/loc_as_obj = loc
@@ -93,8 +92,7 @@
 	check_breath(breath)
 
 	if(breath)
-		loc.assume_air(breath)
-		recalculate_atmos_connectivity()
+		environment.merge(breath)
 		if(ishuman(src) && !internal && environment.temperature() < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 

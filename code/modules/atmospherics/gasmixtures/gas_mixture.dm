@@ -66,14 +66,19 @@ What are the archived variables for?
 
 	waiting_for_sync += CB
 	if(length(waiting_for_sync) == 1)
-		SSair.synchronize(CALLBACK(src, PROC_REF(on_sync)))
+		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/gas_mixture, on_sync)))
 
 /// Callback for when MILLA enters synchronous mode.
 /datum/gas_mixture/proc/on_sync()
 	if(update_from_milla())
+		synchronized = TRUE
 		for(var/datum/callback/CB as anything in waiting_for_sync)
 			CB.InvokeAsync()
 	waiting_for_sync.Cut()
+
+/// Immediately synchronizes this mixture with MILLA. Does nothing on non-bound mixtures. On bound mixtures, runtimes if MILLA is not in synchronous mode.
+/datum/gas_mixture/proc/synchronize_now()
+	return
 
 /// Fetches the data for this gas mixture from MILLA. Does nothing on non-bound mixtures.
 /datum/gas_mixture/proc/update_from_milla()
@@ -756,6 +761,12 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	bound_turf = null
 	return ..()
 
+/datum/gas_mixture/bound_to_turf/synchronize_now()
+	if(!synchronized)
+		update_from_milla()
+		synchronized = TRUE
+		ASSERT(SSair.is_synchronous)
+
 /datum/gas_mixture/bound_to_turf/update_from_milla()
 	if(isnull(bound_turf))
 		return FALSE
@@ -765,43 +776,39 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	return TRUE
 
 /datum/gas_mixture/bound_to_turf/set_dirty()
+	// TEMP
+	if(!synchronized)
+		stack_trace()
+	synchronize_now()
 	dirty = TRUE
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
-	dirty = TRUE
+	set_dirty()
 	private_oxygen = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_carbon_dioxide(value)
-	dirty = TRUE
+	set_dirty()
 	private_carbon_dioxide = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_nitrogen(value)
-	dirty = TRUE
+	set_dirty()
 	private_nitrogen = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
-	dirty = TRUE
+	set_dirty()
 	private_toxins = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
-	dirty = TRUE
+	set_dirty()
 	private_sleeping_agent = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
-	dirty = TRUE
+	set_dirty()
 	private_agent_b = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
-	dirty = TRUE
+	set_dirty()
 	private_temperature = value
-	ASSERT(synchronized)
 
 /datum/gas_mixture/bound_to_turf/proc/write()
 	set_tile_atmos(bound_turf.x, bound_turf.y, bound_turf.z, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)

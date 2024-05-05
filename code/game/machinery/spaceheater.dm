@@ -168,22 +168,27 @@
 			var/turf/simulated/L = loc
 			if(istype(L))
 				var/datum/gas_mixture/env = L.return_air()
-				if(env.temperature() != set_temperature + T0C)
-					var/transfer_moles = 0.25 * env.total_moles()
-
-					var/datum/gas_mixture/removed = env.remove(transfer_moles)
-
-					if(removed)
-						var/heat_capacity = removed.heat_capacity()
-
-						if(heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
-							if(removed.temperature() < set_temperature + T0C)
-								removed.set_temperature(min(removed.temperature() + heating_power/heat_capacity, 1000)) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
-							else
-								removed.set_temperature(max(removed.temperature() - heating_power/heat_capacity, TCMB))
-							cell.use(heating_power/20000)
-					env.merge(removed)
-					recalculate_atmos_connectivity()
+				env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/space_heater, process_sync), env))
 		else
 			on = FALSE
 			update_icon()
+
+/obj/machinery/space_heater/proc/process_sync(datum/gas_mixture/env)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+	if(env.temperature() != set_temperature + T0C)
+		var/transfer_moles = 0.25 * env.total_moles()
+
+		var/datum/gas_mixture/removed = env.remove(transfer_moles)
+
+		if(removed)
+			var/heat_capacity = removed.heat_capacity()
+
+			if(heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
+				if(removed.temperature() < set_temperature + T0C)
+					removed.set_temperature(min(removed.temperature() + heating_power/heat_capacity, 1000)) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
+				else
+					removed.set_temperature(max(removed.temperature() - heating_power/heat_capacity, TCMB))
+				cell.use(heating_power/20000)
+		env.merge(removed)
+		recalculate_atmos_connectivity()
