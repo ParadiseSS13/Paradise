@@ -449,7 +449,7 @@
 					<li><a href='#5'>Known Recipes</a></li>
 				</ol>
 
-				<a name='1' /><h4>Step 1: Preparation</h4></>
+				<a name='1' /><h4>Step 1: Preparation</h4>
 				First step is knowledge. The necrotizing plague can only be spread through direct fluid contact with an infected individual. \
 				Therefore, you should do your best to stay away from the claws and or teeth of zombies. Their claws are covered in a slimy fluid \
 				that has a chance of transmitting the disease. Their bites are much more dangerous however, guaranteeing an infection of the plague. \
@@ -460,13 +460,13 @@
 				zombie is dead and severely damaged. Damaged zombies will slowly heal, and re-awaken once they are healed. \
 				Then use a syringe to extract a blood sample, and return to your virology lab. <br>
 
-				<a name='2'><h4>Step 2: Containing a test subject</h4>
+				<a name='2' /><h4>Step 2: Containing a test subject</h4>
 				With your new blood sample of the plague, place a monkey in a solitary pen, and infect it with the virus. This test subject \
 				will provide us with a steady source of plague blood to experiment with. Lower-sapience creatures are normally not advanced enough to \
 				actively seek out the flesh of living creatures, and are safe in captivity. Containing an active zombie is much harder and will require \
 				a cell of pure walls or doors. Otherwise, the zombie will be able to break out of it's cell using its claws.
 
-				<a name='3'><h4>Step 3: Creating Cures</h4>
+				<a name='3' /><h4>Step 3: Creating Cures</h4>
 				Now that a steady source of infected blood is available, we can begin making cures. There are 4 tiers of "cures" for the plague, \
 				these are referred to as "Anti-Plague Sequences". By combining chemicals with the plague and viral symptoms, more advanced sequences \
 				can be created. These sequences are M-RNA that alters protein synthesis of plague-infected individuals and alter B-lymphocytes to induce\
@@ -476,7 +476,7 @@
 				Since each of zombie strains are unique, there is no known recipe for these, and will require experimentation. \
 				However, several researchers have compiled chemicals that are commonly found in these cures in the "Known Recipes" section below.
 
-				<a name='4'><h4>Step 5: Cure Effects</h4>
+				<a name='4' /><h4>Step 5: Cure Effects</h4>
 				Anti-Plague Sequence Alpha is the simplest anti-viral, but it still is the first step against the plague. \
 				This cure prevents infection from scratches while in system of the user, and can cure stage 1 infections. <br>
 
@@ -491,7 +491,7 @@
 				the final cure for any Advanced Resurection Virus. This cure prevents zombies from reviving when in their system, and will \
 				slowly return their body to normal, non-infected state. <br>
 
-				<a name='5'><h4>Step 6: Known Recipes</h4>
+				<a name='5' /><h4>Step 6: Known Recipes</h4>
 				<b>Anti-Plague Sequence Alpha</b>
 				<ul>
 					<li>1 unit of blood containing any zombie plague</li>
@@ -575,9 +575,9 @@
 
 
 				<p>Congratulations! You are now qualitifed in creating Anti-Plague Sequences for combatting Class-C resurrecting un-dead beings. \
-				Please direct any further questions you have to your Chief Medical Officer.
+				Please direct any further questions you have to your Chief Medical Officer.</p>
 				</body>
-				</html>"}) // ctodo update this
+				</html>"})
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
