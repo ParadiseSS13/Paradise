@@ -15,9 +15,9 @@
 	/// The message (if any) to send the user when the action starts.
 	var/start_message
 	/// The effect (if any) to create when the action starts.
-	var/start_effect_type
+	var/obj/effect/start_effect_type
 	/// The effect (if any) to create when the action completes.
-	var/end_effect_type
+	var/obj/effect/end_effect_type
 	/// The mode the RCD must be in.
 	var/mode
 
@@ -31,7 +31,7 @@
 		return FALSE
 	if(start_message)
 		to_chat(user, start_message)
-	var/start_effect
+	var/obj/effect/start_effect
 	if(start_effect_type)
 		start_effect = new start_effect_type(get_turf(A))
 	if(!rcd.use_tool(A, user, delay, cost))
@@ -101,7 +101,7 @@
 /datum/rcd_act/place_airlock/can_act(atom/A, obj/item/rcd/rcd, mob/user)
 	if(!..())
 		return FALSE
-	return isfloorturf(A) && !(locate(/obj/machinery/door/airlock) in A.contents)
+	return isfloorturf(A) && !(/obj/machinery/door/airlock in A.contents)
 
 /datum/rcd_act/place_airlock/act(atom/A, obj/item/rcd/rcd, mob/user)
 	var/obj/machinery/door/airlock/T = new rcd.door_type(A)
@@ -125,7 +125,7 @@
 /datum/rcd_act/place_window/can_act(atom/A, obj/item/rcd/rcd, mob/user)
 	if(!..())
 		return FALSE
-	return isfloorturf(A) && !(locate(/obj/structure/grille) in A.contents)
+	return isfloorturf(A) && !(/obj/structure/grille in A.contents)
 
 /datum/rcd_act/place_window/act(atom/A, obj/item/rcd/rcd, mob/user)
 	var/turf/act_on= A
@@ -149,7 +149,7 @@
 
 /datum/rcd_act/remove_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
 	var/turf/act_on = get_turf(A)
-	act_on.ChangeTurf(AT.baseturf)
+	act_on.ChangeTurf(act_on.baseturf)
 
 /datum/rcd_act/remove_wall
 	mode = MODE_DECON
