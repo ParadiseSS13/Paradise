@@ -35,7 +35,7 @@
 	if(start_effect_type)
 		start_effect = new start_effect_type(get_turf(A))
 	if(!rcd.use_tool(A, user, delay, cost))
-		if(start_effect)
+		if(!QDELETED(start_effect))
 			qdel(start_effect)
 		return FALSE
 	if(start_effect)
@@ -70,8 +70,8 @@
 	return isspaceturf(A) || istype(A, /obj/structure/lattice)
 
 /datum/rcd_act/place_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(/turf/simulated/floor/plating)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/floor/plating)
 
 /datum/rcd_act/place_wall
 	mode = MODE_TURF
@@ -87,8 +87,8 @@
 	return isfloorturf(A)
 
 /datum/rcd_act/place_wall/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(/turf/simulated/wall)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/wall)
 
 /datum/rcd_act/place_airlock
 	mode = MODE_AIRLOCK
@@ -128,12 +128,12 @@
 	return isfloorturf(A) && !(locate(/obj/structure/grille) in A.contents)
 
 /datum/rcd_act/place_window/act(atom/A, obj/item/rcd/rcd, mob/user)
-	for(var/obj/structure/window/W in A)
-		qdel(W)
-	new /obj/structure/grille(A)
-	new /obj/structure/window/full/reinforced(A)
-	var/turf/AT = A
-	AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+	var/turf/act_on= A
+	for(var/obj/structure/window/window_to_delete in act_on)
+		qdel(window_to_delete)
+	new /obj/structure/grille(act_on)
+	new /obj/structure/window/full/reinforced(act_on)
+	act_on.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 
 /datum/rcd_act/remove_floor
 	mode = MODE_DECON
@@ -148,8 +148,8 @@
 	return isfloorturf(A)
 
 /datum/rcd_act/remove_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(AT.baseturf)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(AT.baseturf)
 
 /datum/rcd_act/remove_wall
 	mode = MODE_DECON
@@ -168,8 +168,8 @@
 	return iswallturf(A)
 
 /datum/rcd_act/remove_wall/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(/turf/simulated/floor/plating)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/floor/plating)
 
 /datum/rcd_act/remove_airlock
 	mode = MODE_DECON
@@ -199,11 +199,10 @@
 	return istype(A, /obj/structure/window)
 
 /datum/rcd_act/remove_window/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
+	var/turf/act_on = get_turf(A)
 	qdel(A)
-	for(var/obj/structure/grille/G in AT.contents)
-		qdel(G)
-
+	for(var/obj/structure/grille/grill_to_destroy in act_on)
+		qdel(grill_to_destroy)
 
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
