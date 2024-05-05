@@ -1,7 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Stack, Table, Tabs } from '../components';
+import { Box, Button, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
-let bot_model = 'Security';
 
 const BotStatus = (mode) => {
   const statusMap = [
@@ -33,28 +32,11 @@ export const BotCall = (props, context) => {
     5: 'Honkbot',
   };
   const decideTab = (index) => {
-    switch (index) {
-      case 0:
-        bot_model = 'Security';
-        return <BotExists />;
-      case 1:
-        bot_model = 'Medical';
-        return <BotExists />;
-      case 2:
-        bot_model = 'Clean';
-        return <BotExists />;
-      case 3:
-        bot_model = 'Floor';
-        return <BotExists />;
-      case 4:
-        bot_model = 'Mule';
-        return <BotExists />;
-      case 5:
-        bot_model = 'Honk';
-        return <BotExists />;
-      default:
-        return 'This should not happen. Report on Paradise Github';
-    }
+    return botNames[index] ? (
+      <BotExists model={botNames[index]} />
+    ) : (
+      'This should not happen. Report on Paradise Github'
+    );
   };
 
   return (
@@ -81,28 +63,28 @@ export const BotCall = (props, context) => {
   );
 };
 
-const BotExists = (_properties, context) => {
+const BotExists = (props, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
-  if (bots[bot_model] !== undefined) {
-    return <MapBot />;
+  if (bots[props.model] !== undefined) {
+    return <MapBot model={[props.model]} />;
   } else {
-    return <NoBot />;
+    return <NoBot model={[props.model]} />;
   }
 };
 
-const NoBot = (_properties, context) => {
+const NoBot = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Stack justify="center" align="center" fill vertical>
       <Box bold={1} color="bad">
-        No {bot_model} detected
+        No {[props.model]} detected
       </Box>
     </Stack>
   );
 };
 
-const MapBot = (_properties, context) => {
+const MapBot = (props, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
 
@@ -118,7 +100,7 @@ const MapBot = (_properties, context) => {
             <Table.Cell>Interface</Table.Cell>
             <Table.Cell>Call</Table.Cell>
           </Table.Row>
-          {bots[bot_model].map((bot) => (
+          {bots[props.model].map((bot) => (
             <Table.Row key={bot.UID}>
               <Table.Cell>{bot.name}</Table.Cell>
               <Table.Cell>{bot.model}</Table.Cell>
