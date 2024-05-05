@@ -157,10 +157,6 @@
 		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
 		return
 
-	else if(istype(I, /obj/item/crowbar))
-		to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
-		return
-
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
 		// Currently not functional, so commenting out until it's fixed to avoid confusion
@@ -205,6 +201,10 @@
 		return
 
 	..()
+
+/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
 
 /mob/living/silicon/robot/drone/Destroy()
 	. = ..()

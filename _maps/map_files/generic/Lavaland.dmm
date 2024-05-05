@@ -550,11 +550,7 @@
 /area/mine/outpost/storage)
 "bX" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellowcorners"
@@ -792,11 +788,6 @@
 	},
 /area/mine/laborcamp/security)
 "cz" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1469,11 +1460,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -2627,11 +2614,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Communications";
 	network = list("Mining Outpost");
@@ -2783,11 +2766,7 @@
 /area/mine/laborcamp)
 "gw" = (
 /obj/machinery/economy/vending/snack,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -3236,10 +3215,7 @@
 	network = list("Mining Outpost");
 	dir = 5
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -4366,11 +4342,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = -28
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/table,
 /obj/item/paper_bin{
 	pixel_x = 1;
@@ -4532,10 +4504,7 @@
 /area/mine/laborcamp)
 "oa" = (
 /obj/machinery/computer/card/minor/qm,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "ob" = (
@@ -5378,10 +5347,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -6524,11 +6490,7 @@
 	},
 /area/mine/laborcamp)
 "Ai" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - West Hallway";
 	dir = 1;
@@ -8007,10 +7969,7 @@
 "Jl" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/machine,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "Jn" = (
@@ -8818,11 +8777,7 @@
 /obj/machinery/light/small,
 /obj/structure/closet,
 /obj/item/storage/bag/trash,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/storage/box/lights/mixed,
 /obj/item/caution,
 /obj/item/caution,
@@ -8902,11 +8857,7 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -10008,11 +9959,7 @@
 	},
 /area/mine/laborcamp)
 "Ww" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -10116,11 +10063,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "WX" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -10341,10 +10284,7 @@
 /area/mine/laborcamp)
 "Yk" = (
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

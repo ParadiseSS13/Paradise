@@ -169,7 +169,6 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
 	desc = "A 12 gauge buckshot shell. Fires a spread of lethal shot."
@@ -246,9 +245,10 @@
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
 	desc = "An advanced 12 gauge shell that fires a spread of ion bolts."
+	icon_state = "ionshell"
 	projectile_type = /obj/item/projectile/ion/weak
-	pellets = 4
-	variance = 35
+	pellets = 6
+	variance = 40
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE

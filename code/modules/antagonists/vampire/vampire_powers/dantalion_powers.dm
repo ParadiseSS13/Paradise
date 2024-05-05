@@ -55,7 +55,7 @@
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
 		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
 		return
-	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
+	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDSLAVE(C))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return
 	if(HAS_MIND_TRAIT(C, TRAIT_HOLY))

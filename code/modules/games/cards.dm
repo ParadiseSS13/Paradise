@@ -50,10 +50,16 @@
 
 /obj/item/deck/Initialize(mapload)
 	. = ..()
+	build_decks()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/deck/proc/build_decks()
+	if(length(cards))
+		// prevent building decks more than once
+		return
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = length(cards)
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -191,8 +197,8 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", max_value = length(cards))
-	if(!dcard)
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
+	if(isnull(dcard))
 		return
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
@@ -227,8 +233,10 @@
 	var/mob/living/user = usr
 	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
+
+		if(user)
+			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		cooldown = world.time
 
 
@@ -349,9 +357,9 @@
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/t in cards)
-		dat += "<a href='?src=[UID()];pick=[t]'>The [t]</a><br>"
+		dat += "<a href='byond://?src=[UID()];pick=[t]'>The [t]</a><br>"
 	dat += "Which card will you remove next?<br>"
-	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
+	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_content(dat)
 	popup.open()

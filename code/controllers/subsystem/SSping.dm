@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(ping)
 	var/list/current_run = src.current_run
 
 	while(length(current_run))
-		var/client/client = current_run[current_run.len]
+		var/client/client = current_run[length(current_run)]
 		current_run.len--
 
 		if(client?.tgui_panel?.is_ready())

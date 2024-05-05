@@ -145,6 +145,16 @@
 	build_path = /obj/item/weaponcrafting/gunkit/plasma
 	category = list("Weapons")
 
+/datum/design/sparker
+	name = "SPRK-12 Pistol Parts Kit"
+	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though it's beams are weaker. Good at dual wielding, however."
+	id = "sparker"
+	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1000, MAT_SILVER = 1500)
+	build_path = /obj/item/weaponcrafting/gunkit/sparker
+	category = list("Weapons")
+
 //WT550 Mags
 /datum/design/mag_oldsmg
 	name = "WT-550 PDW Magazine (4.6x30mm)"
@@ -190,7 +200,7 @@
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")
 
-/datum/design/mag_laser
+/datum/design/laser_rifle_magazine
 	name = "Laser Rifle Projector Magazine"
 	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
 	id = "mag_laser"
@@ -200,10 +210,10 @@
 	build_path = /obj/item/ammo_box/magazine/laser
 	category = list("Weapons")
 
-/datum/design/mag_laser
+/datum/design/laser_rifle_ammo_box
 	name = "Laser Rifle Projector Ammunition"
 	desc = "A 20 round encased projector box for the IK Laser Rifle series."
-	id = "mag_laser"
+	id = "box_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
