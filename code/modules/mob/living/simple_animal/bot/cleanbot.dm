@@ -81,6 +81,7 @@
 	target = null
 	oldloc = null
 	area_locked = null
+	update_icon()
 
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "You corrupt [name]'s cleaning software."
