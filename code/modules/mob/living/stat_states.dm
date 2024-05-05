@@ -42,7 +42,7 @@
 
 	if(updating)
 		update_sight()
-		update_blind_effects()
+		update_blind_effects(force_clear_sleeping = TRUE)
 		if(hud_used && client)
 			hud_used.show_hud(HUD_STYLE_STANDARD)
 
