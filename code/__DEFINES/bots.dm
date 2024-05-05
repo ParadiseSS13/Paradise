@@ -30,10 +30,10 @@
 //Bot types
 #define SEC_BOT				"Security"	// Secutritrons (Beepsky) and ED-209s
 #define MULE_BOT			"Mule"	// MULEbots
-#define FLOOR_BOT			"Floor"	// Floorbots
-#define CLEAN_BOT			"Clean"	// Cleanbots
-#define MED_BOT				"Medical"	// Medibots
-#define HONK_BOT			"Honk"	// Honkbots
+#define FLOOR_BOT			"Floorbot"	// Floorbots
+#define CLEAN_BOT			"Cleanbot"	// Cleanbots
+#define MED_BOT				"Medibot"	// Medibots
+#define HONK_BOT			"Honkbot"	// Honkbots
 #define GRIEF_BOT			"Grief"	// Griefsky
 
 //Sentience types

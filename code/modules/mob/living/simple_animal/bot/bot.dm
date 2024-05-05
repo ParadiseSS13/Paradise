@@ -118,8 +118,8 @@
 
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
-	/// The type of bot it is, for radio control.
-	var/bot_type = 0
+	/// Type of bot with defines.
+	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
 	// This holds text for what the bot is mode doing, reported on the remote bot control interface.
