@@ -32,18 +32,18 @@
 			var/mob/living/carbon/human/H = L
 			var/obj/item/clothing/glasses/G = H.glasses
 			if(istype(G, /obj/item/clothing/glasses/hud))
-				H.flash_eyes(10, TRUE, type = /atom/movable/screen/fullscreen/flash)
+				H.flash_eyes(10, TRUE, type = /atom/movable/screen/fullscreen/flash/noise)
 				H.KnockDown(1 SECONDS)
 				H.EyeBlurry(10 SECONDS)
 		if(istype(L, /mob/living/silicon))
 			used = TRUE
 			var/mob/living/silicon/S = L
 			S.remove_med_sec_hud()
-			S.flash_eyes(20, TRUE, 1, type = /atom/movable/screen/fullscreen/flash)
+			S.flash_eyes(20, TRUE, 1, type = /atom/movable/screen/fullscreen/flash/noise)
 			S.EyeBlurry(20 SECONDS)
 		if(istype(L, /mob/living/simple_animal/bot))
 			L.emp_act(EMP_LIGHT)
-			L.flash_eyes(8, TRUE, 1, type = /atom/movable/screen/fullscreen/flash)
+			L.flash_eyes(8, TRUE, 1, type = /atom/movable/screen/fullscreen/flash/noise)
 			L.EyeBlurry(6 SECONDS)
 
 		L.Weaken(rand(4 SECONDS, 8 SECONDS))
