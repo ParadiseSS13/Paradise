@@ -411,7 +411,7 @@
 /obj/item/storage/box/syndie_kit/chameleon/nuke
 	name = "operative's chameleon kit"
 
-/obj/item/storage/box/syndie_kit/chameleon_nuke/populate_contents()
+/obj/item/storage/box/syndie_kit/chameleon/nuke/populate_contents()
 	new /obj/item/clothing/under/chameleon(src)
 	new /obj/item/clothing/suit/chameleon(src)
 	new /obj/item/clothing/gloves/chameleon(src)
