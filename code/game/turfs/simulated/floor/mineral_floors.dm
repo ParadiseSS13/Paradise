@@ -80,6 +80,12 @@
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
 
+/turf/simulated/floor/mineral/silver/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_LAVALAND
+
 /turf/simulated/floor/mineral/silver/fancy
 	icon_state = "silverfancy"
 	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
