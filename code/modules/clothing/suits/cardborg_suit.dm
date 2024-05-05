@@ -29,7 +29,7 @@ CONTENTS:
 	var/list/available_disguises = list("Standard")
 	/// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
-	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be percieved as being an actual robot by other robots, \
+	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be perceived as being an actual robot by other robots, \
 	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
 	The wearer may also hallucinate themselves as being a robot as well."
 
@@ -124,7 +124,7 @@ CONTENTS:
 	flags_inv = HIDEJUMPSUIT
 	species_disguise = "High-tech robot"
 	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
-	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be percieved as being an actual robot by other robots, \
+	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be perceived as being an actual robot by other robots, \
 	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
 	The wearer may also hallucinate themselves as being a robot as well."
 
@@ -161,7 +161,7 @@ CONTENTS:
 	species_disguise = "High-tech service robot"
 
 /obj/item/clothing/suit/cardborg/medical
-	name = "cardborg suit"
+	name = "blue cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted blue."
 	icon_state = "cardborg_medical"
 	item_state = "cardborg_medical"
@@ -175,7 +175,7 @@ CONTENTS:
 	species_disguise = "High-tech janitor robot"
 
 /obj/item/clothing/suit/cardborg/xeno
-	name = "black cardborg suit"
+	name = "white cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted white."
 	icon_state = "cardborg_xeno"
 	item_state = "cardborg_xeno"
@@ -233,6 +233,6 @@ CONTENTS:
 	else
 		selected_borg_eyes = selected_borg_disguise	// Otherwise the eyes are already bespoke for the skin so we just match them.
 	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = selected_borg_disguise, loc = H)	// Now you're a robot!
-	I.override = 1
+	I.override = TRUE
 	I.overlays += image(icon = 'icons/mob/robots.dmi', icon_state = "eyes-[selected_borg_eyes]")	// Gotta look realistic! Check to see if the borg type has eyes - if yes, apply them.
 	H.add_alt_appearance("selected_borg_disguise", I, GLOB.silicon_mob_list + H)	// You look like a robot to robots (including yourself because you're totally a robot)!
