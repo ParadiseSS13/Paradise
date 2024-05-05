@@ -1798,7 +1798,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
-	SEND_SIGNAL(src, COMSIG_MIND_INITALIZE)
+	SEND_SIGNAL(src, COMSIG_MIND_INITIALIZEE)
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()

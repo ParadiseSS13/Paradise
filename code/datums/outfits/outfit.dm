@@ -57,13 +57,13 @@
 	if(H.mind)
 		on_mind_initialize(H)
 		return
-	RegisterSignal(H, COMSIG_MIND_INITALIZE, PROC_REF(on_mind_initialize))
+	RegisterSignal(H, COMSIG_MIND_INITIALIZE, PROC_REF(on_mind_initialize))
 
 // Guaranteed access to mind, will never be called if visualsOnly = TRUE
 /datum/outfit/proc/on_mind_initialize(mob/living/carbon/human/H)
-	SIGNAL_HANDLER // COMSIG_MIND_INITALIZE
+	SIGNAL_HANDLER // COMSIG_MIND_INITIALIZE
 	SHOULD_CALL_PARENT(TRUE)
-	UnregisterSignal(H, COMSIG_MIND_INITALIZE) // prevent this call from being called multiple times on a human
+	UnregisterSignal(H, COMSIG_MIND_INITIALIZE) // prevent this call from being called multiple times on a human
 
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
