@@ -10,11 +10,11 @@
 // Search for #[byondapi::bind] to find the functions exposed to BYOND.
 #![crate_name = "milla"]
 
-use std::ffi::CString;
 use byondapi::{byond_string, prelude::*, Error};
 use eyre::{eyre, Result};
 use std::array::TryFromSliceError;
 use std::collections::HashMap;
+use std::ffi::CString;
 use std::fs::File;
 use std::io::Write;
 use std::sync::RwLock;
@@ -22,7 +22,7 @@ use std::sync::{Mutex, OnceLock};
 use std::thread;
 use std::thread::ScopedJoinHandle;
 use std::time::Instant;
-use tracy_full::{frame, zone, set_thread_name};
+use tracy_full::{frame, set_thread_name, zone};
 
 // Simple logging function, appends to ./milla_log.txt
 #[allow(dead_code)]
