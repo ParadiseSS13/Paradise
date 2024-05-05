@@ -7,10 +7,14 @@
 /datum/hud
 	var/mob/mymob
 
-	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
-	var/hud_version = 1				//Current displayed version of the HUD
-	var/inventory_shown = TRUE		//the inventory
-	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	/// Used for the HUD toggle (F12)
+	var/hud_shown = TRUE
+	/// Current displayed version of the HUD
+	var/hud_version = 1
+	/// Whether or not their toggleable inventory
+	var/inventory_shown = TRUE
+	/// This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	var/hotkey_ui_hidden = FALSE
 
 	var/atom/movable/screen/lingchemdisplay
 	var/atom/movable/screen/lingstingdisplay
@@ -28,14 +32,28 @@
 	var/atom/movable/screen/module_store_icon
 	var/atom/movable/screen/combo/combo_display
 
-	var/list/static_inventory = list()		//the screen objects which are static
-	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
-	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
-	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
-	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /atom/movable/screen/inventory objects, ordered by their slot ID.
+	// Elements used for action buttons
+	// -- the main clickable buttons
+	var/atom/movable/screen/button_palette/toggle_palette
+	var/atom/movable/screen/palette_scroll/down/palette_down
+	var/atom/movable/screen/palette_scroll/up/palette_up
+	/// the groups of actions, such as palette (previously normal) actions
+	var/datum/action_group/palette/palette_actions
+	/// action group for expanded actions, the normal action set
+	var/datum/action_group/listed/listed_actions
+	/// A list of action buttons which aren't owned by any action group, and are just floating somewhere on the hud.
+	var/list/floating_actions
 
-	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
-	var/action_buttons_hidden = FALSE
+	// the screen objects which are static
+	var/list/static_inventory = list()
+	/// the screen objects which can be hidden (your human items on the left)
+	var/list/toggleable_inventory = list()
+	/// the buttons that can be used via hotkeys
+	var/list/hotkeybuttons = list()
+	//the screen objects that display mob info (health, alien plasma, etc...)
+	var/list/infodisplay = list()
+	/// /atom/movable/screen/inventory objects, ordered by their slot ID.
+	var/list/inv_slots[SLOT_HUD_AMOUNT]
 
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
@@ -45,13 +63,31 @@
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
-		hud_used = new /datum/hud(src)
+		if(!ispath(hud_type))
+			CRASH("Hud type must be a type, was instead [hud_type]!")
+		set_hud_used(new hud_type(src))
 		update_sight()
+		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
+
+/mob/proc/set_hud_used(datum/hud/new_hud)
+	hud_used = new_hud
+	new_hud.build_action_groups()
+
+/datum/hud/proc/get_all_action_buttons()
+	var/list/all_action_buttons = list()
+	all_action_buttons += palette_actions.actions
+	all_action_buttons += listed_actions.actions
+	return all_action_buttons
 
 /datum/hud/New(mob/owner)
 	mymob = owner
-	hide_actions_toggle = new
-	hide_actions_toggle.InitialiseIcon(mymob)
+
+	toggle_palette = new()
+	toggle_palette.set_hud(src)
+	palette_down = new()
+	palette_down.set_hud(src)
+	palette_up = new()
+	palette_up.set_hud(src)
 
 	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
 		var/atom/movable/screen/plane_master/instance = new mytype()
@@ -69,10 +105,14 @@
 	if(mymob.hud_used == src)
 		mymob.hud_used = null
 
-	QDEL_NULL(hide_actions_toggle)
+	QDEL_NULL(toggle_palette)
+	QDEL_NULL(palette_down)
+	QDEL_NULL(palette_up)
+	QDEL_NULL(palette_actions)
+	QDEL_NULL(listed_actions)
+	QDEL_LIST_CONTENTS(floating_actions)
 
 	QDEL_NULL(module_store_icon)
-
 	QDEL_LIST_CONTENTS(static_inventory)
 
 	inv_slots.Cut()
@@ -125,29 +165,29 @@
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				mymob.client.screen += static_inventory
-			if(toggleable_inventory.len && inventory_shown)
+			if(length(toggleable_inventory) && inventory_shown)
 				mymob.client.screen += toggleable_inventory
-			if(hotkeybuttons.len && !hotkey_ui_hidden)
+			if(length(hotkeybuttons) && !hotkey_ui_hidden)
 				mymob.client.screen += hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				mymob.client.screen += infodisplay
 
-			mymob.client.screen += hide_actions_toggle
+			mymob.client.screen += toggle_palette
 
 			if(action_intent)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = FALSE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				mymob.client.screen -= static_inventory
-			if(toggleable_inventory.len)
+			if(length(toggleable_inventory))
 				mymob.client.screen -= toggleable_inventory
-			if(hotkeybuttons.len)
+			if(length(hotkeybuttons))
 				mymob.client.screen -= hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				mymob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
@@ -161,12 +201,21 @@
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
+			if(length(static_inventory))
+				mymob.client.screen -= static_inventory
+			if(length(toggleable_inventory))
+				mymob.client.screen -= toggleable_inventory
+			if(length(hotkeybuttons))
+				mymob.client.screen -= hotkeybuttons
+			if(length(infodisplay))
+				mymob.client.screen -= infodisplay
+
+		if(HUD_STYLE_ACTIONHUD)	//No HUD
+			hud_shown = TRUE	//Governs behavior of other procs
 			if(static_inventory.len)
 				mymob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
 				mymob.client.screen -= toggleable_inventory
-			if(hotkeybuttons.len)
-				mymob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
 				mymob.client.screen -= infodisplay
 
@@ -204,11 +253,18 @@
 	return
 
 /mob/proc/hide_hud()
+	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) && isliving(src))
+		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
+		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(src, "<span class ='info'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
+		to_chat(src, "<span class='info'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
 	else
-		to_chat(src, "<span class ='warning'>This mob type does not use a HUD.</span>")
+		to_chat(src, "<span class='warning'>This mob type does not use a HUD.</span>")
 
 /datum/hud/proc/update_locked_slots()
 	return
+
+/datum/hud/proc/remove_vampire_hud()
+	static_inventory -= vampire_blood_display
+	QDEL_NULL(vampire_blood_display)

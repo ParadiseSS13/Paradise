@@ -321,6 +321,13 @@
 	throwforce = 22
 	armour_penetration_percentage = 15				//Enhanced armor piercing
 
+//Blatant imitation of spear, but all natural. Also not valid for explosive modification.
+/obj/item/spear/bamboo
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	base_icon_state = "bamboo_spear"
+	icon_state = "bamboo_spear0"
+	throwforce = 22
 
 //GREY TIDE
 /obj/item/spear/grey_tide
@@ -394,13 +401,6 @@
 		mounted_head = null
 	qdel(src)
 
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-	base_icon_state = "kindanspear"
-	icon_state = "kidanspear0"
-
-
 // DIY CHAINSAW
 /obj/item/chainsaw
 	name = "chainsaw"
@@ -448,7 +448,7 @@
 		user.update_inv_r_hand()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/chainsaw/attack_hand(mob/user)
 	. = ..()
@@ -928,7 +928,7 @@
 		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
 		var/obj/trashed_into
 		if(bag?.can_be_inserted(garbage, TRUE))
-			bag.handle_item_insertion(garbage, TRUE)
+			bag.handle_item_insertion(garbage, user, TRUE)
 			trashed_into = bag
 		else if(target_bin)
 			move_into_storage(user, target_bin, garbage)

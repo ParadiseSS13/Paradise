@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			if(!G.client.is_afk())
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
-		for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every SIT member selected.
+		for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every SIT member selected.
 			var/candidate = input("Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
 			possible_ghosts -= candidate
 			infiltrators += candidate
@@ -58,7 +58,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
 		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a Syndicate infiltrator?", ROLE_TRAITOR, TRUE, source = I, role_cleanname = "Syndicate infiltrator")
 
-	if(!infiltrators.len)
+	if(!length(infiltrators))
 		to_chat(src, "Nobody volunteered.")
 		return 0
 
@@ -76,10 +76,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/num_spawned = 1
 	var/team_leader = null
 	for(var/obj/effect/landmark/L in sit_spawns)
-		if(!infiltrators.len && !spawn_dummies) break
+		if(!length(infiltrators) && !spawn_dummies) break
 		syndicate_leader_selected = num_spawned == 1?1:0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
-		if(infiltrators.len)
+		if(length(infiltrators))
 			var/mob/theguy = pick(infiltrators)
 			if(theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key

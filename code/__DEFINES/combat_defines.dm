@@ -40,6 +40,7 @@
 #define FIRELOSS		(1<<1)
 #define TOXLOSS			(1<<2)
 #define OXYLOSS			(1<<3)
+/// Stam crits the effected mob, as well as ensures they dont die from suicide
 #define SHAME 			(1<<4)
 #define OBLITERATION 	(1<<5)
 
@@ -156,3 +157,10 @@
 #define STATUS_EFFECT_CONSTANT * 20
 
 #define IS_HORIZONTAL(x) x.body_position
+
+/// Compatible firemode is in the gun. Wait until it's held in the user hands.
+#define AUTOFIRE_STAT_IDLE (1<<0)
+/// Gun is active and in the user hands. Wait until user does a valid click.
+#define AUTOFIRE_STAT_ALERT	(1<<1)
+/// Gun is shooting.
+#define AUTOFIRE_STAT_FIRING (1<<2)

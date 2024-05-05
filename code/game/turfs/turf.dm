@@ -56,7 +56,7 @@
 	/// The neighbors of the turf.
 	var/list/atmos_adjacent_turfs = list()
 	/// makes turfs less picky about where they transfer gas. Largely just used in the SM
-	var/atmos_supeconductivity = 0
+	var/atmos_superconductivity = 0
 
 	/*
 	Lighting Vars
@@ -140,6 +140,21 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	user.Move_Pulled(src)
+
+/turf/attack_robot(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_animal(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_alien(mob/living/carbon/alien/user)
+	user.Move_Pulled(src)
+
+/turf/attack_larva(mob/user)
+	user.Move_Pulled(src)
+
+/turf/attack_slime(mob/user)
 	user.Move_Pulled(src)
 
 /turf/ex_act(severity)

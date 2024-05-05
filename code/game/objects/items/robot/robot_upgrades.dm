@@ -7,7 +7,7 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	/// Whether or not the cyborg needs to have a chosen module before they can recieve this upgrade.
+	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
 	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
 	var/module_type = null
@@ -81,7 +81,7 @@
 	return TRUE
 
 /*******************/
-/****	COMMON	****/
+// MARK: COMMON
 /*******************/
 
 /obj/item/borg/upgrade/reset
@@ -202,7 +202,7 @@
 		icon_state = "selfrepair_[on ? "on" : "off"]"
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	else
 		icon_state = "cyborg_upgrade5"
 
@@ -268,7 +268,7 @@
 	return TRUE
 
 /***********************/
-/****	SECURITY	****/
+// MARK: Security
 /***********************/
 
 /obj/item/borg/upgrade/disablercooler
@@ -294,7 +294,7 @@
 	return TRUE
 
 /*******************/
-/****	MINING	****/
+// MARK: Mining
 /*******************/
 
 /obj/item/borg/upgrade/ddrill
@@ -333,7 +333,7 @@
 	return TRUE
 
 /***********************/
-/****	ENGINEER	****/
+// MARK: Engineer
 /***********************/
 
 /obj/item/borg/upgrade/rcd
@@ -360,14 +360,15 @@
 	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
-/****	JANITOR		****/
+// MARK: Janitor
 /***********************/
 
 /obj/item/borg/upgrade/floorbuffer
-	name = "janitor cyborg floor buffer upgrade"
-	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs."
+	name = "janitorial floor buffer upgrade"
+	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs and mobile janicarts."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "upgrade"
+	origin_tech = "materials=3;engineering=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	/// How much speed the cyborg loses while the buffer is active
@@ -410,7 +411,7 @@
 	)
 
 /***********************/
-/****	SYNDIE		****/
+// MARK: Syndicate
 /***********************/
 
 /obj/item/borg/upgrade/syndicate
@@ -438,7 +439,7 @@
 	)
 
 /***********************/
-/****	ABDUCTOR	****/
+// MARK: Abductor
 /***********************/
 
 /obj/item/borg/upgrade/abductor_engi

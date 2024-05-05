@@ -43,10 +43,10 @@
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	. = ..()
 	//chance to go crazy and start wacking stuff
-	if(!enemies.len && prob(1))
+	if(!length(enemies) && prob(1))
 		Retaliate()
 
-	if(enemies.len && prob(10))
+	if(length(enemies) && prob(10))
 		enemies = list()
 		LoseTarget()
 		visible_message("<span class='notice'>[src] calms down.</span>")
@@ -202,7 +202,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/snacks/meat/chicken = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -213,6 +213,7 @@
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
+	holder_type = /obj/item/holder/chicken
 	can_hide = TRUE
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -243,6 +244,11 @@
 /mob/living/simple_animal/chick/npc_safe(mob/user)
 	return TRUE
 
+/mob/living/simple_animal/chick/attack_hand(mob/living/carbon/human/M)
+	if(M.a_intent == INTENT_HELP)
+		get_scooped(M, TRUE)
+	..()
+
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
 
@@ -261,7 +267,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/food/snacks/meat = 2)
+	butcher_results = list(/obj/item/food/snacks/meat/chicken = 2)
 	var/egg_type = /obj/item/food/snacks/egg
 	var/food_type = /obj/item/food/snacks/grown/wheat
 	response_help  = "pets"

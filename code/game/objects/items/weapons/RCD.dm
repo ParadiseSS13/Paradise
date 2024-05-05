@@ -15,37 +15,37 @@
 	/// The message (if any) to send the user when the action starts.
 	var/start_message
 	/// The effect (if any) to create when the action starts.
-	var/start_effect_type
+	var/obj/effect/start_effect_type
 	/// The effect (if any) to create when the action completes.
-	var/end_effect_type
+	var/obj/effect/end_effect_type
 	/// The mode the RCD must be in.
 	var/mode
 
 /// Attempt the action. This should not need to be overridden.
 /datum/rcd_act/proc/try_act(atom/A, obj/item/rcd/rcd, mob/user)
-	if(!can_act(A, rcd, user))
+	if(!can_act(A, rcd))
 		return FALSE
 	// We don't use the sound effect from use_tool because RCDs have a different sound effect for the start and end.
-	playsound(rcd.loc, 'sound/machines/click.ogg', 50, TRUE)
+	playsound(get_turf(rcd), 'sound/machines/click.ogg', 50, TRUE)
 	if(!rcd.tool_use_check(user, cost))
 		return FALSE
 	if(start_message)
 		to_chat(user, start_message)
-	var/start_effect = null
+	var/obj/effect/start_effect
 	if(start_effect_type)
 		start_effect = new start_effect_type(get_turf(A))
 	if(!rcd.use_tool(A, user, delay, cost))
-		if(start_effect)
+		if(!QDELETED(start_effect))
 			qdel(start_effect)
 		return FALSE
 	if(start_effect)
 		qdel(start_effect)
 	// If time elapsed, check our preconditions again.
-	if(delay && !can_act(A, rcd, user))
+	if(delay && !can_act(A, rcd))
 		return FALSE
 	if(end_effect_type)
 		new end_effect_type(get_turf(A))
-	playsound(rcd.loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	playsound(get_turf(rcd), 'sound/items/deconstruct.ogg', 50, TRUE)
 	act(A, rcd, user)
 	return TRUE
 
@@ -55,7 +55,7 @@
 	return rcd.mode == mode
 
 /// Perform the act. You should usually override this.
-/datum/rcd_act/proc/act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/proc/act(atom/A, obj/item/rcd/rcd)
 	return
 
 /datum/rcd_act/place_floor
@@ -64,14 +64,14 @@
 	start_message = "Building floor..."
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_floor/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_floor/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isspaceturf(A) || istype(A, /obj/structure/lattice)
 
 /datum/rcd_act/place_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(/turf/simulated/floor/plating)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/floor/plating)
 
 /datum/rcd_act/place_wall
 	mode = MODE_TURF
@@ -81,14 +81,14 @@
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/short
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_wall/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_wall/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isfloorturf(A)
 
 /datum/rcd_act/place_wall/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(/turf/simulated/wall)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/wall)
 
 /datum/rcd_act/place_airlock
 	mode = MODE_AIRLOCK
@@ -98,10 +98,10 @@
 	start_effect_type = /obj/effect/temp_visual/rcd_effect
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_airlock/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_airlock/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
-	return isfloorturf(A) && !(locate(/obj/machinery/door/airlock) in A.contents)
+	return isfloorturf(A) && !(/obj/machinery/door/airlock in A.contents)
 
 /datum/rcd_act/place_airlock/act(atom/A, obj/item/rcd/rcd, mob/user)
 	var/obj/machinery/door/airlock/T = new rcd.door_type(A)
@@ -122,18 +122,18 @@
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/short
 	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
 
-/datum/rcd_act/place_window/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/place_window/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
-	return isfloorturf(A) && !(locate(/obj/structure/grille) in A.contents)
+	return isfloorturf(A) && !(/obj/structure/grille in A.contents)
 
 /datum/rcd_act/place_window/act(atom/A, obj/item/rcd/rcd, mob/user)
-	for(var/obj/structure/window/W in A)
-		qdel(W)
-	new /obj/structure/grille(A)
-	new /obj/structure/window/full/reinforced(A)
-	var/turf/AT = A
-	AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+	var/turf/act_on= A
+	for(var/obj/structure/window/window_to_delete in act_on)
+		qdel(window_to_delete)
+	new /obj/structure/grille(act_on)
+	new /obj/structure/window/full/reinforced(act_on)
+	act_on.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 
 /datum/rcd_act/remove_floor
 	mode = MODE_DECON
@@ -142,14 +142,14 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_floor/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_floor/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return isfloorturf(A)
 
 /datum/rcd_act/remove_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(AT.baseturf)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(act_on.baseturf)
 
 /datum/rcd_act/remove_wall
 	mode = MODE_DECON
@@ -158,7 +158,7 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_wall/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_wall/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	if(isreinforcedwallturf(A) && !rcd.canRwall)
@@ -168,8 +168,8 @@
 	return iswallturf(A)
 
 /datum/rcd_act/remove_wall/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
-	AT.ChangeTurf(/turf/simulated/floor/plating)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/floor/plating)
 
 /datum/rcd_act/remove_airlock
 	mode = MODE_DECON
@@ -178,7 +178,7 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_airlock/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_airlock/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return istype(A, /obj/machinery/door/airlock)
@@ -193,16 +193,16 @@
 	delay = 2 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse_short
 
-/datum/rcd_act/remove_window/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_window/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return istype(A, /obj/structure/window)
 
 /datum/rcd_act/remove_window/act(atom/A, obj/item/rcd/rcd, mob/user)
-	var/turf/AT = get_turf(A)
+	var/turf/act_on = get_turf(A)
 	qdel(A)
-	for(var/obj/structure/grille/G in AT.contents)
-		qdel(G)
+	for(var/obj/structure/grille/grill_to_destroy in act_on)
+		qdel(grill_to_destroy)
 
 /datum/rcd_act/remove_user
 	mode = MODE_DECON
@@ -272,9 +272,16 @@
 	var/static/list/door_types_ui_list = list()
 	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/door_accesses_list = list()
+	/// The list of potential RCD actions.
+	var/static/list/possible_actions
 
 /obj/item/rcd/Initialize()
 	. = ..()
+	if(!length(possible_actions))
+		possible_actions = list()
+		for(var/action_type in subtypesof(/datum/rcd_act))
+			possible_actions += new action_type()
+
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -604,9 +611,8 @@
 	if(!is_type_in_list(A, allowed_targets))
 		return FALSE
 
-	for(var/act_type in subtypesof(/datum/rcd_act))
-		var/datum/rcd_act/act = new act_type
-		if(act.can_act(A, src, user))
+	for(var/datum/rcd_act/act in possible_actions)
+		if(act.can_act(A, src))
 			. = act.try_act(A, src, user)
 			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)

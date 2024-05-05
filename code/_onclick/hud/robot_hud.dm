@@ -85,11 +85,6 @@
 /atom/movable/screen/robot/mov_intent/Click()
 	usr.toggle_move_intent()
 
-
-/mob/living/silicon/robot/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/robot(src)
-
 /datum/hud/robot/New(mob/user)
 	..()
 
@@ -210,7 +205,7 @@
 	if(!R.module)
 		return
 
-	if(R.shown_robot_modules && hud_shown)
+	if(R.shown_robot_modules && hud_version == HUD_STYLE_STANDARD)
 		//Modules display is shown
 		R.client.screen += module_store_icon	//"store" icon
 
@@ -221,7 +216,7 @@
 		if(!R.robot_modules_background)
 			return
 
-		var/display_rows = CEILING(R.module.modules.len / 8, 1)
+		var/display_rows = CEILING(length(R.module.modules) / 8, 1)
 		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
 		R.client.screen += R.robot_modules_background
 

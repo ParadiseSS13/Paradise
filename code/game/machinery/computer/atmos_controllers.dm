@@ -327,7 +327,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/VP as anything in GLOB.all_vent_pumps)
 			if(VP.autolink_id == outlet_vent_autolink_id)
 				outlet_vent_uid = VP.UID()
-				get_area(VP).vents -= VP
+				var/area/our_area = get_area(src)
+				our_area.vents -= VP
 				VP.on = TRUE
 				VP.releasing = FALSE
 				VP.internal_pressure_bound = outlet_setting
@@ -404,7 +405,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			outlet_vent_uid = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			var/obj/machinery/atmospherics/unary/vent_pump/VP = linked_datum
 			// Setup some defaults
-			get_area(VP).vents -= VP
+			var/area/our_area = get_area(src)
+			our_area.vents -= VP
 			VP.on = TRUE
 			VP.releasing = FALSE
 			VP.internal_pressure_bound = outlet_setting

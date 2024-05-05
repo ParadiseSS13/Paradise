@@ -44,8 +44,8 @@
 
 /atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
 	. = ..()
-	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
-	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
+	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/stretch/lighting_backdrop/lit)
+	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/stretch/lighting_backdrop/unlit)
 
 /atom/movable/screen/plane_master/lighting/Initialize()
 	. = ..()
@@ -105,7 +105,7 @@
 	render_target = GRAVITY_PULSE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR
 
-/obj/screen/plane_master/smoke
+/atom/movable/screen/plane_master/smoke
 	name = "point plane master"
 	plane = SMOKE_PLANE
 	appearance_flags = PLANE_MASTER

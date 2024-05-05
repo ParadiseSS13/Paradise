@@ -18,6 +18,9 @@
 
 	return GM
 
+/turf/return_analyzable_air()
+	return return_air()
+
 /turf/remove_air(amount)
 	var/datum/gas_mixture/GM = new
 
@@ -126,7 +129,7 @@
 	//cache for sanic speed
 	var/list/adjacent_turfs = atmos_adjacent_turfs
 	var/datum/excited_group/our_excited_group = excited_group
-	var/adjacent_turfs_length = adjacent_turfs.len
+	var/adjacent_turfs_length = length(adjacent_turfs)
 
 	if(planetary_atmos)
 		adjacent_turfs_length++
@@ -404,7 +407,7 @@
 		//Does particate in air exchange so only consider directions not considered during process_cell()
 		for(var/direction in GLOB.cardinal)
 			var/turf/T = get_step(src, direction)
-			if(!(T in atmos_adjacent_turfs) && !(atmos_supeconductivity & direction))
+			if(!(T in atmos_adjacent_turfs) && !(atmos_superconductivity & direction))
 				conductivity_directions += direction
 
 	if(conductivity_directions > 0)

@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
-	if(!uplink_items.len)
+	if(!length(uplink_items))
 
 		var/list/last = list()
 		for(var/path in GLOB.uplink_items)
@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 5)
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// This makes an item on the uplink only show up to the specified species
 	var/list/species = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
-	var/cant_discount = FALSE
+	var/can_discount = TRUE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 	var/refundable = FALSE
@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SKD"
 	item = /obj/item/melee/knuckleduster/syndie
 	cost = 10
-	cant_discount = TRUE
+	can_discount = FALSE
 
 // GRENADES AND EXPLOSIVES
 
@@ -751,7 +751,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -808,6 +808,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/bio_chip_implanter/traitor
 	cost = 50
 
+/datum/uplink_item/bio_chips/proto_adrenal
+	name = "Proto-Adrenal Bio-chip"
+	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
+	reference = "PAI"
+	item = /obj/item/bio_chip_implanter/proto_adrenalin
+	cost = 18
+
 /datum/uplink_item/bio_chips/adrenal
 	name = "Adrenal Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
@@ -852,6 +859,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "(Pointless) Badassery"
 	surplus = 0
 
+/datum/uplink_item/badass/pen
+	name = "Syndicate Fountain Pen"
+	desc = "A slick Syndicate-branded pen, to show everyone at the meeting that you mean business."
+	reference = "PEN"
+	item = /obj/item/pen/multi/syndicate
+	cost = 1
+
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
@@ -873,7 +887,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 100
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/badass/bomber
 	name = "Syndicate Bomber Jacket"
@@ -892,7 +906,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "Raw Telecrystal"

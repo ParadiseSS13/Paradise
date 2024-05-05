@@ -35,8 +35,6 @@
 
 	var/has_gravity = TRUE
 
-	var/no_air = null
-
 	var/air_doors_activated = FALSE
 
 	var/tele_proof = FALSE
@@ -102,13 +100,13 @@
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
-	..()
+	GLOB.all_areas += src
+	return ..()
 
 /area/Initialize(mapload)
 	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
-	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
@@ -510,7 +508,9 @@
 
 /proc/has_gravity(atom/AT, turf/T)
 	if(!T)
-		T = get_turf(AT)
+		T = get_turf(AT) // If we still don't have a turf, don't process the other stuff
+		if(!T)
+			return
 	var/area/A = get_area(T)
 	if(isspaceturf(T)) // Turf never has gravity
 		return 0

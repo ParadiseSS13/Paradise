@@ -434,7 +434,7 @@
 	user.update_inv_wear_suit()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
@@ -476,7 +476,7 @@
 
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
 	if(prob(hit_reaction_chance))
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			if(istype(P, /obj/item/projectile/ion))
 				return FALSE
