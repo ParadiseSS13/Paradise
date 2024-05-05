@@ -259,10 +259,14 @@
 	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/door_accesses_list = list()
 	/// The list of potential RCD actions.
-	var/static/list/possible_actions = subtypesof(/datum/rcd_act)
+	var/static/list/possible_actions
 
 /obj/item/rcd/Initialize()
 	. = ..()
+	possible_actions = list()
+	for(var/action_type in subtypesof(/datum/rcd_act))
+		possible_actions += new action_type()
+
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
