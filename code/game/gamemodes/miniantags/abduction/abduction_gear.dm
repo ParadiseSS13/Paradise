@@ -657,8 +657,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien crowbar"
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
-	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
+	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
