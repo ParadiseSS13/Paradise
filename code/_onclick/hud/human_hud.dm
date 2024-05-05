@@ -69,7 +69,7 @@
 
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
-	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/stretch/see_through_darkness)
 
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
@@ -405,7 +405,8 @@
 	var/mob/living/carbon/human/H = mymob
 
 	var/mob/screenmob = viewer || H
-	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown)
+	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown && screenmob.hud_used.hud_version == HUD_STYLE_STANDARD)
+
 		if(H.shoes)
 			H.shoes.screen_loc = ui_shoes
 			screenmob.client.screen += H.shoes
@@ -458,11 +459,10 @@
 		return
 	..()
 	var/mob/living/carbon/human/H = mymob
-
 	var/mob/screenmob = viewer || H
 
 	if(screenmob.hud_used)
-		if(screenmob.hud_used.hud_shown)
+		if(screenmob.hud_used.hud_shown && screenmob.hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(H.s_store)
 				H.s_store.screen_loc = ui_sstore1
 				screenmob.client.screen += H.s_store

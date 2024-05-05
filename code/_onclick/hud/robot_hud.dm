@@ -251,7 +251,7 @@
 		screenmob.client?.screen -= screenmob.hud_used.module_store_icon
 		return
 
-	if(shown_robot_modules && hud_shown)
+	if(shown_robot_modules && hud_shown && hud_version == HUD_STYLE_STANDARD)
 		//Modules display is shown
 		screenmob.client.screen += module_store_icon	//"store" icon
 
