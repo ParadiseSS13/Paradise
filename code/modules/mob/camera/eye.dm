@@ -137,7 +137,7 @@
 	for(var/i in 0 to sprint step sprint_threshold)
 		var/turf/next_step= get_turf(get_step(src, direct))
 		if(next_step)
-			src.setLoc(next_step)
+			setLoc(next_step)
 
 	cooldown = world.timeofday + cooldown_rate
 	if(acceleration)
