@@ -6183,9 +6183,6 @@
 	icon_state = "barber"
 	},
 /area/mine/laborcamp)
-"yz" = (
-/turf/simulated/wall/mineral/titanium/interior,
-/area/lavaland/surface/outdoors)
 "yC" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away2";
@@ -7843,9 +7840,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/hallway/east)
 "ID" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
-	},
+/obj/structure/door_assembly/door_assembly_silver,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/lavaland/surface/outdoors)
 "IE" = (
@@ -8484,6 +8479,14 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/west)
+"MQ" = (
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "MS" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -8993,6 +8996,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/laborcamp/security)
+"PZ" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "Qa" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -13267,7 +13278,7 @@ an
 an
 Wy
 zm
-Wy
+PZ
 an
 an
 an
@@ -13522,7 +13533,7 @@ an
 an
 an
 an
-Wy
+MQ
 VE
 Wy
 an
@@ -13781,7 +13792,7 @@ an
 an
 wb
 JD
-yz
+an
 an
 an
 an
