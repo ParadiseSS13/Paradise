@@ -776,7 +776,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /////////////////////////////////////////
 /obj/item/mop/advanced/abductor
 	name = "alien mop"
-	desc = "A collapsable mop clearly used by aliens to clean up any evidence of a close encounter. The head produces a constant supply of water when run over a surface, seemingly out of nowhere."
+	desc = "A collapsible mop clearly used by aliens to clean up any evidence of a close encounter. The head produces a constant supply of water when run over a surface, seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "mop_abductor"
 	mopcap = 100
@@ -812,7 +812,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/spray/cleaner/safety/abductor	// Essentially an Advanced Space Cleaner, but abductor-themed. For the implant.
 	name = "alien space cleaner"
-	desc = "An alien spraybottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
+	desc = "An alien spray bottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cleaner_abductor"
 	item_state = "cleaner_abductor"
