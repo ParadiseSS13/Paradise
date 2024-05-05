@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 5)
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// This makes an item on the uplink only show up to the specified species
 	var/list/species = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
-	var/cant_discount = FALSE
+	var/can_discount = TRUE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 	var/refundable = FALSE
@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SKD"
 	item = /obj/item/melee/knuckleduster/syndie
 	cost = 10
-	cant_discount = TRUE
+	can_discount = FALSE
 
 // GRENADES AND EXPLOSIVES
 
@@ -751,7 +751,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -887,7 +887,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 100
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/badass/bomber
 	name = "Syndicate Bomber Jacket"
@@ -906,7 +906,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "Raw Telecrystal"

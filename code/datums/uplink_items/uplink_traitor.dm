@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -333,7 +333,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
@@ -420,7 +420,7 @@
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -431,7 +431,7 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
@@ -548,7 +548,7 @@
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/cyber_implants/sensory_enhancer
 	name = "Qani-Laaca Sensory Computer Autoimplanter"
@@ -659,7 +659,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -671,7 +671,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/New()
 	..()
@@ -687,7 +687,7 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
