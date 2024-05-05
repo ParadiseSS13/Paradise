@@ -41,9 +41,9 @@
 /datum/buildmode_mode/atmos/handle_selected_region(mob/user, params)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
-	if(!SSair.is_synchronous)
-		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/buildmode_mode/atmos, handle_selected_region), user, params))
-		return
+	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/buildmode_mode/atmos, handle_selected_region_sync), user, params))
+
+/datum/buildmode_mode/atmos/proc/handle_selected_region_sync(mob/user, params)
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/ctrl_click = pa.Find("ctrl")
