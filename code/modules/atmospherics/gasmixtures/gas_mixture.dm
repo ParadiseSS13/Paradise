@@ -776,8 +776,9 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	return TRUE
 
 /datum/gas_mixture/bound_to_turf/set_dirty()
-	// TEMP
-	if(!synchronized)
+	// TEMPORARY, TODO: Remove before merge.
+	// The reason this is temporary is that the ASSERT in synchronize_now is enough to catch anyone who fails to synchronize and actually causes problems. This is just here so we can catch callers during TM who failed to synchronize, and might cause problems later.
+	if(!synchronized && !SSair.processing_atmos_machinery)
 		stack_trace()
 	synchronize_now()
 	dirty = TRUE
