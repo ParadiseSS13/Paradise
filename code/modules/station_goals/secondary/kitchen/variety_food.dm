@@ -1,13 +1,13 @@
 /datum/station_goal/secondary/variety_food
 	name = "Variety of Food"
 	progress_type = /datum/secondary_goal_progress/variety_food
+	department = "Kitchen"
+	abstract = FALSE
 	var/different_types = 10
 	var/amount_per = 3
 	var/department_account
 	var/generic_name_plural = "dishes"
 	var/reward
-	department = "Kitchen"
-	abstract = FALSE
 
 /datum/station_goal/secondary/variety_food/randomize_params()
 	..()
