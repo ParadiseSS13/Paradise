@@ -170,7 +170,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
 	/client/proc/raw_gas_scan,
-	/client/proc/teleport_interesting_turf
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -238,7 +239,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_timers,
 	/client/proc/timer_log,
 	/client/proc/raw_gas_scan,
-	/client/proc/teleport_interesting_turf
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs
 ))
 
 /client/proc/add_admin_verbs()
@@ -976,17 +978,40 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	atmos_scan(mob, get_turf(mob), silent = TRUE, milla_turf_details = TRUE)
 
 /client/proc/teleport_interesting_turf()
-	set name = "View all Interesting Turfs"
+	set name = "Interesting Turf"
 	set category = "Debug"
 	set desc = "Teleports you to a random Interesting Turf from MILLA"
 
 	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
-	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-	var/confirm = alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "Im sure", "Nope")
-	if(confirm != "Im sure")
+	if(!isobserver(mob))
+		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
 		return
+
+	var/list/coords = get_random_interesting_tile()
+	if(!length(coords))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	var/turf/T = locate(coords[1], coords[2], coords[3])
+	var/mob/dead/observer/O = mob
+	admin_forcemove(O, T)
+	O.ManualFollow(T)
+
+/client/proc/visualize_interesting_turfs()
+	set name = "Visualize Interesting Turfs"
+	set category = "Debug"
+	set desc = "Shows all the Interesting Turfs from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(SSair.interesting_tile_count > 500)
+		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+		var/confirm = alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "I am sure", "Nope")
+		if(confirm != "I am sure")
+			return
 
 	var/display_turfs_overlay = FALSE
 	var/do_display_turf_overlay = alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
