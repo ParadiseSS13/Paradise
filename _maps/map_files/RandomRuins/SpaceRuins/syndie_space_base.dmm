@@ -2847,7 +2847,6 @@
 	icon_state = "4-8";
 	d1 = 4
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ps" = (
