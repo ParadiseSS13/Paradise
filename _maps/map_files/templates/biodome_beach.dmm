@@ -247,7 +247,7 @@
 /area/ruin/powered/beach)
 "bl" = (
 /obj/effect/turf_decal/sand,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "bm" = (
 /obj/machinery/light{
@@ -268,7 +268,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "bp" = (
 /obj/machinery/light/small{
@@ -427,11 +427,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/pod/light{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "lM" = (
 /obj/structure/dresser,
@@ -464,7 +460,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "sp" = (
 /obj/structure/chair/wood{
@@ -511,7 +507,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "Gc" = (
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "HC" = (
 /obj/structure/rack,
@@ -547,11 +543,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/pod/light{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "TW" = (
 /obj/structure/table/reinforced,
