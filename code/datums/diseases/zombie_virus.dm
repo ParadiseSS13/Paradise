@@ -17,8 +17,6 @@
 	cure_chance = 20
 	/// How far this particular virus is in being cured (0-4)
 	var/cure_stage = 0
-	/// Tracks if the affected mob is a zombie, more specifically if it has zombie healing applied
-	var/currently_a_zombie = FALSE
 
 /datum/disease/zombie/stage_act()
 	if(!..())
@@ -76,7 +74,6 @@
 			if(!handle_rot(TRUE))
 				stage = 6
 				return
-			ADD_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
 			if(!affected_mob.mind)
 				return
 			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
@@ -98,9 +95,10 @@
 			limb.necrotize(FALSE, TRUE)
 			return FALSE
 
-	if(!currently_a_zombie)
-		affected_mob.AddComponent(/datum/component/zombie_regen)
-		currently_a_zombie = TRUE
+	affected_mob.AddComponent(/datum/component/zombie_regen)
+	ADD_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
+	affected_mob.med_hud_set_health()
+	affected_mob.med_hud_set_status()
 	return TRUE
 
 
@@ -129,4 +127,6 @@
 	affected_mob.mind?.remove_antag_datum(/datum/antagonist/zombie)
 	REMOVE_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
 	qdel(affected_mob.GetComponent(/datum/component/zombie_regen))
+	affected_mob.med_hud_set_health()
+	affected_mob.med_hud_set_status()
 	. = ..()
