@@ -192,7 +192,7 @@
 	name = "Explorer"
 	jobtype = /datum/job/explorer
 	l_ear = /obj/item/radio/headset/headset_cargo/expedition
-	head = /obj/item/clothing/head/expedition
+	head = /obj/item/clothing/head/soft/expedition
 	uniform = /obj/item/clothing/under/rank/cargo/expedition
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
