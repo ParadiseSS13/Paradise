@@ -1,6 +1,3 @@
-/datum/spell/chef/expert_chef/create_new_targeting()
-	return new /datum/spell_targeting/self
-
 /datum/spell/chef/expert_chef
 	name = "Expert Chef Knowledge"
 	desc = "Find things you can cook with the items in reach."
@@ -16,3 +13,6 @@
 /datum/spell/chef/expert_chef/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = targets[1]
 	H.expert_chef_knowledge()
+
+/datum/spell/chef/expert_chef/create_new_targeting()
+	return new /datum/spell_targeting/self
