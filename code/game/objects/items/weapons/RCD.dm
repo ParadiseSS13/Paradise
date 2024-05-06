@@ -211,7 +211,7 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
 	return TRUE
