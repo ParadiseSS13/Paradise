@@ -3,7 +3,9 @@
 	progress_type = /datum/secondary_goal_progress/variety_food
 	department = "Kitchen"
 	abstract = FALSE
+	/// How many different types of food are needed.
 	var/different_types = 10
+	/// How many of each food type are needed.
 	var/amount_per = 3
 	var/department_account
 	var/generic_name_plural = "dishes"
