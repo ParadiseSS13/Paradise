@@ -26,7 +26,7 @@
 
 
 /datum/action/changeling/environmental_adaptation/proc/enable_ability(mob/living/carbon/human/cling) //Enable the adaptation
-	animate(cling, alpha = 65,time = 3 SECONDS)
+	animate(cling, alpha = 65, time = 3 SECONDS)
 	cling.visible_message("<span class='warning'>[cling]'s skin suddenly starts becoming translucent!</span>", \
 					"<span class='notice'>We adapt our pigmentation to suit the environment around us.</span>")
 	var/datum/antagonist/changeling/changeling_data = cling.mind?.has_antag_datum(/datum/antagonist/changeling)
