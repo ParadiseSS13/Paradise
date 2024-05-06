@@ -9,8 +9,8 @@
 	height = 500
 	count = 10
 	spawning = 10
-	lifespan = 0.3 SECONDS
-	fade = 0.2 SECONDS
+	lifespan = 0.5 SECONDS
+	fade = 0.3 SECONDS
 	drift = generator("circle", 0, 7)
 	scale = 0.3
 	velocity = list(50, 0)
@@ -85,7 +85,7 @@
 		debris_visuals.particles.scale = debris_scale
 	smoke_visuals.layer = ABOVE_OBJ_LAYER + 0.01
 
-	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.5 SECONDS)
 
 /datum/component/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder/smoke_visuals, obj/effect/abstract/particle_holder/debris_visuals)
 	QDEL_NULL(smoke_visuals)
