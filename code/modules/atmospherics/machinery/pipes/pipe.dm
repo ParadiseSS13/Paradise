@@ -22,8 +22,9 @@
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
-	releaseAirToTurf()
-	QDEL_NULL(air_temporary)
+	if(istype(loc, /turf/simulated))
+		var/datum/gas_mixture/env = loc.return_air()
+		env.synchronize(CALLBACK(loc, TYPE_PROC_REF(/atom, assume_air)))
 
 	var/turf/T = loc
 	for(var/obj/machinery/atmospherics/meter/meter in T)
@@ -48,11 +49,6 @@
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
-
-/obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
-	if(air_temporary)
-		var/turf/T = loc
-		T.assume_air(air_temporary)
 
 /obj/machinery/atmospherics/pipe/return_air()
 	RETURN_TYPE(/datum/gas_mixture)

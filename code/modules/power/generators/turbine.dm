@@ -181,6 +181,13 @@
 	return max(last_overheat + OVERHEAT_TIME - world.time, 0)
 
 /obj/machinery/power/compressor/process()
+	var/datum/gas_mixture/environment = inturf.return_air()
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/power/compressor, process_sync), environment))
+
+/obj/machinery/power/compressor/proc/process_sync(datum/gas_mixture/environment)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(!turbine)
 		stat = BROKEN
 	if(stat & BROKEN || panel_open)
@@ -196,7 +203,6 @@
 	else if(overheat > 0)
 		overheat -= 2
 	rpm = 0.9* rpm + 0.1 * rpmtarget
-	var/datum/gas_mixture/environment = inturf.return_air()
 
 	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
 	//2023 note: It works, im not touc
@@ -286,6 +292,12 @@
 	return !density
 
 /obj/machinery/power/turbine/process()
+	var/datum/gas_mixture/environment = outturf.return_air()
+	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/power/turbine, process_sync), environment))
+
+/obj/machinery/power/turbine/proc/process_sync(datum/gas_mixture/environment)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 
 	if(!compressor)
 		stat = BROKEN
@@ -317,7 +329,7 @@
 	if(compressor.gas_contained.total_moles()>0)
 		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm+100)/35000*compressor.capacity)
 		var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
-		outturf.assume_air(removed)
+		environment.merge(removed)
 
 	if((lastgen > 100) != generator_threshold)
 		generator_threshold = !generator_threshold
