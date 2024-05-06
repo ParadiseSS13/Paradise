@@ -42,7 +42,7 @@
 	. = FALSE
 	if(!C)
 		CRASH("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]")
-	if(!user.mind.som)
+	if(!user.mind.mindslave_master)
 		CRASH("Dantalion Thrall datum ended up null.")
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
@@ -52,7 +52,7 @@
 		return
 
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
+	if(V.subclass.thrall_cap <= length(user.mind.mindslave_master.serv))
 		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
 		return
 	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDSLAVE(C))
@@ -86,25 +86,13 @@
 	return
 
 /datum/spell_targeting/select_vampire_network/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
-	var/list/mob/living/targets = list()
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire) // if the user is a vampire
 
-	if(!V)
-		for(var/datum/mind/M in user.mind.som.masters) // if the user is a thrall
-			V = M.has_antag_datum(/datum/antagonist/vampire)
-			if(V)
-				break
-
-	if(!V)
-		return
-	if(!V.owner.som) // I hate som
+	var/datum/mindslaves/mindslave_datum = istype(V) ? user.mind.mindslave_master : user.mind.mindslave_slave
+	if(!mindslave_datum)
 		stack_trace("Dantalion Thrall datum ended up null.")
 		return
-
-	for(var/datum/mind/thrall in V.owner.som.serv)
-		targets += thrall.current
-	targets += V.owner.current
-	return targets
+	return mindslave_datum.masters | mindslave_datum.serv
 
 /datum/spell/vampire/thrall_commune/create_new_targeting()
 	var/datum/spell_targeting/select_vampire_network/T = new

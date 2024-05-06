@@ -104,9 +104,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Bio-chip ((top left of screen)) <BR> - Dust Bio-chip ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink bio-chip")
-		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-		opshud.join_hud(new_syndicate_infiltrator.mind.current)
-		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
+
+		new_syndicate_infiltrator.mind.add_antag_hud(new_syndicate_infiltrator.mind.current, ANTAG_HUD_OPS, "hudoperative")
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
 		if(!teamsize)

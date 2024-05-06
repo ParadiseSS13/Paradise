@@ -155,6 +155,9 @@
 	check_vampire_upgrade(announce)
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
+	if(subclass_to_add == SUBCLASS_DANTALION) // did you know mindslaves are the worst thing ever
+		var/datum/mindslaves/the_thrallening = new /datum/mindslaves
+		the_thrallening.add_master(owner)
 
 /datum/spell/vampire/glare
 	name = "Glare"

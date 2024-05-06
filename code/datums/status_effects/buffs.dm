@@ -709,7 +709,7 @@
 	START_PROCESSING(SSfastprocess, src)
 	target_UIDs += owner.UID()
 	var/list/view_cache = view(7, owner)
-	for(var/datum/mind/M in owner.mind.som.serv)
+	for(var/datum/mind/M in owner.mind.mindslave_master.serv)
 		if(!M.has_antag_datum(/datum/antagonist/mindslave/thrall))
 			continue
 		if(!(M.current in view_cache))

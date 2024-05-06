@@ -45,8 +45,6 @@
 /atom/proc/prepare_huds()
 	hud_list = list()
 	var/static/list/hud_dmis = list(
-		SPECIALROLE_HUD = 'icons/mob/hud/antaghud.dmi',
-
 		DIAG_TRACK_HUD = 'icons/mob/hud/diaghud.dmi',
 		DIAG_AIRLOCK_HUD = 'icons/mob/hud/diaghud.dmi',
 		DIAG_STAT_HUD = 'icons/mob/hud/diaghud.dmi',
@@ -74,6 +72,9 @@
 	)
 
 	for(var/hud in hud_possible)
+		if(hud == SPECIALROLE_HUD)
+			hud_list[SPECIALROLE_HUD] = list() // handled with /datum/antag_hud_helper
+			continue
 		var/use_this_dmi = hud_dmis[hud]
 		if(!use_this_dmi)
 			use_this_dmi = 'icons/mob/hud/hud_misc.dmi'

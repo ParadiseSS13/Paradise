@@ -3562,9 +3562,7 @@
 	if(killthem)
 		to_chat(hunter_mob, "<b>If you kill [H.p_them()], [H.p_they()] cannot be revived.</b>");
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
-	var/datum/atom_hud/antag/tatorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	tatorhud.join_hud(hunter_mob)
-	set_antag_hud(hunter_mob, "hudsyndicate")
+	hunter_mob.mind.add_antag_hud(hunter_mob, ANTAG_HUD_TRAITOR, "hudsyndicate")
 
 /proc/admin_jump_link(atom/target)
 	if(!target) return

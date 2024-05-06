@@ -334,9 +334,6 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
 	mob_override = ..()
-	if(!owner.som) //thralls and mindslaves
-		owner.som = new()
-		owner.som.masters += owner
 
 	mob_override.dna?.species.hunger_type = "vampire"
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'

@@ -171,18 +171,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	return 1
 
 
-/*
-Transfer_mind is there to check if mob is being deleted/not going to have a body.
-Works together with spawning an observer, noted above.
-*/
-/mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
-	var/client/C = U.client
-	for(var/mob/living/carbon/human/target in target_list)
-		C.images += target.hud_list[SPECIALROLE_HUD]
-	for(var/mob/living/silicon/target in target_list)
-		C.images += target.hud_list[SPECIALROLE_HUD]
-	return 1
-
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay

@@ -170,9 +170,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * antag_mob - the mob to add the antag hud to.
  */
 /datum/antagonist/proc/add_antag_hud(mob/living/antag_mob)
-	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
-	hud.join_hud(antag_mob)
-	set_antag_hud(antag_mob, antag_hud_name)
+	antag_mob.mind.add_antag_hud(antag_mob, antag_hud_type, antag_hud_name)
 
 /**
  * Removes this datum's antag hud from `antag_mob`.
@@ -181,9 +179,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * antag_mob - the mob to remove the antag hud from.
  */
 /datum/antagonist/proc/remove_antag_hud(mob/living/antag_mob)
-	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
-	hud.leave_hud(antag_mob)
-	set_antag_hud(antag_mob, null)
+	antag_mob.mind.remove_antag_hud(antag_mob, antag_hud_type, antag_hud_name)
 
 /**
  * Handles adding and removing the clumsy mutation from clown antags.

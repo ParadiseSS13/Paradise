@@ -31,9 +31,7 @@
 	B.add_ventcrawl(vent)
 
 	// Mark it on antag HUD
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
-	antaghud.join_hud(B.mind.current)
-	set_antag_hud(B.mind.current, "hudblob")
+	B.mind.add_antag_hud(B.mind.current, ANTAG_HUD_BLOB, "hudblob")
 
 	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
 	to_chat(B, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")

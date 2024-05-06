@@ -11,19 +11,19 @@ GLOBAL_LIST_INIT(huds, list(
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(),
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(),
 	DATA_HUD_JANITOR = new/datum/atom_hud/data/janitor(),
-	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
-	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
-	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),
-	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(),
-	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(),
-	ANTAG_HUD_TRAITOR = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_CULT = new/datum/atom_hud/antag(ANTAG_HUD_CULT),
+	ANTAG_HUD_REV = new/datum/atom_hud/antag(ANTAG_HUD_REV),
+	ANTAG_HUD_OPS = new/datum/atom_hud/antag(ANTAG_HUD_OPS),
+	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(ANTAG_HUD_WIZ),
+	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(ANTAG_HUD_SHADOW),
+	ANTAG_HUD_TRAITOR = new/datum/atom_hud/antag/hidden(ANTAG_HUD_TRAITOR),
+	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(ANTAG_HUD_NINJA),
+	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(ANTAG_HUD_CHANGELING),
+	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(ANTAG_HUD_VAMPIRE),
+	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(ANTAG_HUD_ABDUCTOR),
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),
-	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()
+	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(ANTAG_HUD_EVENTMISC),
+	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden(ANTAG_HUD_BLOB)
 	))
 
 /datum/atom_hud

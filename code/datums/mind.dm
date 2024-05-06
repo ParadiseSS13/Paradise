@@ -59,9 +59,9 @@
 	/// A lazy list of all teams the player is part of but doesnt have an antag role for, (i.e. a custom admin team)
 	var/list/teams
 
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
-	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/antag_hud_helper/antag_hud //this mind's antag HUD
+	var/datum/mindslaves/mindslave_master // We are a master of this group
+	var/datum/mindslaves/mindslave_slave // We are a slave to this group
 
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
@@ -128,7 +128,6 @@
 	return out_ckey
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
-	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
@@ -150,7 +149,7 @@
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+	antag_hud?.transfer_antag_huds(old_current, current) // inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)

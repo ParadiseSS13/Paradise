@@ -76,14 +76,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/game_mode/proc/update_synd_icons_added(datum/mind/synd_mind)
-	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-	opshud.join_hud(synd_mind.current)
-	set_antag_hud(synd_mind.current, "hudoperative")
+	synd_mind.add_antag_hud(synd_mind.current, ANTAG_HUD_OPS, "hudoperative")
 
 /datum/game_mode/proc/update_synd_icons_removed(datum/mind/synd_mind)
-	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-	opshud.leave_hud(synd_mind.current)
-	set_antag_hud(synd_mind.current, null)
+	synd_mind.remove_antag_hud(synd_mind.current, ANTAG_HUD_OPS, "hudoperative")
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////

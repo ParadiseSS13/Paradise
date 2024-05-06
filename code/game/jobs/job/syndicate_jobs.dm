@@ -55,8 +55,6 @@
 	U.implant(H)
 	U.hidden_uplink.uses = 2500
 	H.faction += "syndicate"
-	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-	opshud.join_hud(H.mind.current)
 	H.mind.offstation_role = TRUE
-	set_antag_hud(H.mind.current, "hudoperative")
+	H.mind.add_antag_hud(H.mind.current, ANTAG_HUD_OPS, "hudoperative")
 	H.regenerate_icons()

@@ -783,9 +783,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.mind.assigned_role = SPECIAL_ROLE_WIZARD
 	H.mind.special_role = SPECIAL_ROLE_WIZARD
 
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.join_hud(H)
-	set_antag_hud(H, "apprentice")
+	H.mind.add_antag_hud(H, ANTAG_HUD_WIZ, "apprentice")
 
 	H.say("NYA!~")
 

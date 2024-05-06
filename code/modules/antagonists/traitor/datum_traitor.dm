@@ -16,16 +16,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
 	var/give_uplink = TRUE
+	var/datum/mindslaves/mindslave_datum
 	blurb_r = 200
 	blurb_a = 0.75
-
-/datum/antagonist/traitor/on_gain()
-	// Create this in case the traitor wants to mindslaves someone.
-	if(!owner.som)
-		owner.som = new /datum/mindslaves
-
-	owner.som.masters += owner
-	..()
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -52,12 +45,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		QDEL_NULL(A.malf_picker)
 
 	// Leave the mindslave hud.
-	if(owner.som)
-		var/datum/mindslaves/slaved = owner.som
-		slaved.masters -= owner
-		slaved.serv -= owner
-		slaved.leave_serv_hud(owner)
-		owner.som = null
+	if(owner.mindslave_master)
+		owner.mindslave_master.remove_master(owner)
 
 	// Need to bring this functionality back to TGchat
 	// owner.current.client?.chatOutput?.clear_syndicate_codes()

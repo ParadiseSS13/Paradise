@@ -25,9 +25,7 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	..()
 
 /datum/antagonist/mindslave/Destroy(force, ...)
-	if(owner.som)
-		owner.som.serv -= owner
-		owner.som.leave_serv_hud(owner)
+	owner.mindslave_slave.remove_servant(owner)
 	// Remove the master reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
 	if(master.current)
 		master = "[master.current.real_name]"
@@ -36,18 +34,13 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
-	var/datum/mindslaves/slaved = master.som
+	var/datum/mindslaves/slaved = master.mindslave_master
 	if(!slaved) // If the master didn't already have this, we need to make a new mindslaves datum.
+		// if your master is a vampire and shit got here, this will probably be weird.
 		slaved = new
-		slaved.masters += master
-		master.som = slaved
+		slaved.add_master(master)
 
-	// Update our master's HUD to give him the "M" icon.
-	// Basically a copy and paste of what's in [/datum/antagonist/proc/add_antag_hud] in case the master doesn't have a traitor datum.
-	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
-	hud.join_hud(master.current)
-	set_antag_hud(master.current, "hudmaster")
-	slaved.add_serv_hud(master, "master")
+	slaved.add_servant(owner, antag_hud_name)
 	return ..()
 
 /datum/antagonist/mindslave/add_owner_to_gamemode()
@@ -65,26 +58,20 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	// Show them the custom greeting text if it exists.
 	if(greet_text)
 		return "<span class='biggerdanger'>[greet_text]</span>"
-	else // Default greeting text if nothing is given.
-		return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
-							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
+	// Default greeting text if nothing is given.
+	return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
+			You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)
 		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master]!</span>")
 
-/datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
-	. = ..()
-	// Make the mindslave hud icon show to the mindslave.
-	var/datum/mindslaves/slaved = master.som
-	owner.som = slaved
-	slaved.serv += owner
-	slaved.add_serv_hud(owner, antag_hud_name)
+// /datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
+// 	. = ..()
+// 	// Make the mindslave hud icon show to the mindslave.
+// 	master.mindslave_master.add_servant(owner)
 
-/datum/antagonist/mindslave/remove_antag_hud(mob/living/antag_mob)
-	. = ..()
-	// Remove the mindslave antag hud from the mindslave.
-	var/datum/mindslaves/slaved = owner.som
-	slaved.serv -= owner
-	slaved.leave_serv_hud(owner)
-	owner.som = null
+// /datum/antagonist/mindslave/remove_antag_hud(mob/living/antag_mob)
+// 	. = ..()
+// 	// Remove the mindslave antag hud from the mindslave.
+// 	owner.mindslave_slave.remove_servant(owner)
