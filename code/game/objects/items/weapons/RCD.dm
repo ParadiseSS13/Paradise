@@ -50,7 +50,7 @@
 	return TRUE
 
 /// Test to see if the act is possible. You should usually override this.
-/datum/rcd_act/proc/can_act(atom/A, obj/item/rcd/rcd, mob/user)
+/datum/rcd_act/proc/can_act(atom/A, obj/item/rcd/rcd)
 	SHOULD_CALL_PARENT(TRUE)
 	return rcd.mode == mode
 
