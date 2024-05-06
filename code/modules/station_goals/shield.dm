@@ -32,7 +32,7 @@
 		if(!A.active || !is_station_level(A.z))
 			continue
 		coverage |= view(A.kill_range, A)
-	return coverage.len
+	return length(coverage)
 
 /obj/item/circuitboard/computer/sat_control
 	board_name = "Satellite Network Control"

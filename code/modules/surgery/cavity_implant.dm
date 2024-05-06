@@ -136,7 +136,8 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>"
+		"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(20)
 	return SURGERY_STEP_RETRY
@@ -156,7 +157,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].",
-		"You start making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]."
+		"You start making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("The pain in your chest is living hell!")
 	return ..()
@@ -165,7 +167,8 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
-		"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>"
+		"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -186,7 +189,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts mending [target]'s [get_cavity(affected)] cavity wall with \the [tool].",
-		"You start mending [target]'s [get_cavity(affected)] cavity wall with \the [tool]."
+		"You start mending [target]'s [get_cavity(affected)] cavity wall with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("The pain in your chest is living hell!")
 	return ..()
@@ -195,7 +199,8 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
-		"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>"
+		"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -218,7 +223,8 @@
 	// Check even if there isn't anything inside
 	user.visible_message(
 		"[user] checks for items in [target]'s [target_zone].",
-		"<span class='notice'>You check for items in [target]'s [target_zone]...</span>"
+		"<span class='notice'>You check for items in [target]'s [target_zone]...</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -239,7 +245,8 @@
 		return SURGERY_STEP_CONTINUE
 	user.visible_message(
 		"<span class='notice'>[user] pulls [extracting] out of [target]'s [target_zone]!</span>",
-		"<span class='notice'>You pull [extracting] out of [target]'s [target_zone].</span>"
+		"<span class='notice'>You pull [extracting] out of [target]'s [target_zone].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	user.put_in_hands(extracting)
 	affected.hidden = null
@@ -249,7 +256,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'>[user] grabs onto something else by mistake, damaging it!.</span>",
-		"<span class='warning'>You grab onto something else inside [target]'s [get_cavity(affected)] cavity by mistake, damaging it!</span>"
+		"<span class='warning'>You grab onto something else inside [target]'s [get_cavity(affected)] cavity by mistake, damaging it!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.damage += rand(3, 5)
@@ -298,7 +306,8 @@
 
 	user.visible_message(
 		"[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.",
-		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity."
+		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("The pain in your [target_zone] is living hell!")
 	return ..()
@@ -311,13 +320,14 @@
 
 	user.visible_message(
 		"<span class='notice'>[user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>",
-		"<span class='notice'>You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>"
+		"<span class='notice'>You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
 		user.visible_message(
 			"<span class='warning'>[user] tears some blood vessels trying to fit the object in the cavity!</span>",
 			"<span class='danger'>You tear some blood vessels trying to fit the object into the cavity!</span>",
-			"<span class='warning'>You hear some gentle tearing.</span>")
+			"<span class='warning'>You hear some gentle tearing.</span>", MESSAGE_TYPE_COMBAT)
 		affected.cause_internal_bleeding()
 	user.drop_item()
 	affected.hidden = tool

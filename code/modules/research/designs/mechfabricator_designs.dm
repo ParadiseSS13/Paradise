@@ -1125,7 +1125,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/floorbuffer
 	req_tech = list("materials" = 4, "engineering" = 4)
-	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	materials = list(MAT_METAL = 9000, MAT_GLASS = 7600)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 

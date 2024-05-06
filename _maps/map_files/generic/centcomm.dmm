@@ -377,6 +377,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
+"bA" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -1116,6 +1120,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
+/area/ghost_bar)
+"et" = (
+/obj/machinery/barsign/ghost_bar{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "ev" = (
 /turf/simulated/floor/beach/sand,
@@ -1958,7 +1968,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "hm" = (
-/obj/machinery/door_control/no_emag{
+/obj/machinery/door_control/no_emag/no_cyborg{
 	pixel_y = 24;
 	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
@@ -2685,6 +2695,15 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"jA" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "jB" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
@@ -2878,12 +2897,12 @@
 "kf" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_syndicate";
 	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -2925,7 +2944,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ko" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/bsg/prebuilt{
 	pixel_x = 3;
 	pixel_y = -3
@@ -2935,6 +2953,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -3209,7 +3228,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "ln" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/immolator/multi{
 	pixel_x = -4;
 	pixel_y = 4
@@ -3219,6 +3237,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -3631,10 +3650,6 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mt" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -3646,10 +3661,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "mw" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -4497,11 +4508,11 @@
 "pf" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_transit";
 	name = "emergency in transit";
-	width = 33
+	width = 41
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -4681,7 +4692,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "pT" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/pulse/pistol{
 	pixel_x = -3;
 	pixel_y = 3
@@ -4691,6 +4701,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -5379,10 +5390,6 @@
 /obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
-"sd" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "se" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -6189,7 +6196,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "vf" = (
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -6289,7 +6296,7 @@
 /area/centcom/control)
 "vu" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
@@ -6339,7 +6346,7 @@
 /area/trader_station/sol)
 "vD" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
@@ -7287,6 +7294,15 @@
 /obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"zK" = (
+/obj/machinery/door_control/no_emag/no_cyborg{
+	pixel_x = 24;
+	req_access_txt = "114";
+	name = "Specops Teleporter Shutters";
+	id = "CCTELE"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
 "zL" = (
 /obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
@@ -7980,7 +7996,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/admin)
 "Cv" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /obj/machinery/icemachine,
@@ -8297,10 +8313,6 @@
 /area/centcom/suppy)
 "DD" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -8344,15 +8356,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DL" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -8363,11 +8366,6 @@
 /area/centcom/specops)
 "DN" = (
 /obj/mecha/combat/marauder/ares/loaded,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "DO" = (
@@ -8440,10 +8438,6 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DY" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
@@ -9255,7 +9249,7 @@
 /area/centcom/specops)
 "GT" = (
 /obj/structure/chair,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -12205,11 +12199,11 @@
 	},
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_away";
 	name = "emergency centcom";
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -12777,6 +12771,10 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"SU" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -12943,7 +12941,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -13944,11 +13942,6 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
-"Xi" = (
-/obj/effect/spawner/window,
-/obj/structure/sign/barsign,
-/turf/simulated/floor/plating,
-/area/centcom/evac)
 "Xj" = (
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
@@ -13978,10 +13971,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Xo" = (
-/obj/machinery/door_control/no_emag{
-	id = "SPECOPS";
+/obj/machinery/door_control/no_emag/no_cyborg{
 	name = "Nanotrasen Asset Protection Shutters";
-	pixel_y = -24
+	req_access_txt = "114";
+	pixel_y = -24;
+	id = "SPECOPS"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -14525,16 +14519,6 @@
 "Ze" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"Zg" = (
-/obj/machinery/door_control/no_emag{
-	id = "CCTELE";
-	name = "Specops Teleporter Shutters";
-	pixel_x = 24;
-	pixel_y = null;
-	req_access_txt = "114"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/specops)
 "Zi" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
@@ -14589,7 +14573,6 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "Zt" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/ammo_box/magazine/smgm9mm/toxin,
 /obj/item/ammo_box/magazine/smgm9mm/toxin,
 /obj/item/ammo_box/magazine/smgm9mm/toxin,
@@ -14611,6 +14594,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -14624,7 +14608,6 @@
 /turf/simulated/floor/beach/coastline,
 /area/holodeck/source_beach)
 "Zw" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/plasma_pistol{
 	pixel_x = -3;
 	pixel_y = 3
@@ -14634,6 +14617,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -14654,7 +14638,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "ZD" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/mindflayer{
 	pixel_x = -3;
 	pixel_y = 3
@@ -14664,6 +14647,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet/cc,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -35769,7 +35753,7 @@ Ra
 Xz
 Zr
 Zm
-Zg
+zK
 Ra
 Ra
 Ra
@@ -46045,8 +46029,8 @@ Ng
 Ng
 So
 Vs
-Xi
-Xx
+Qe
+jA
 YO
 ZZ
 gI
@@ -48838,9 +48822,9 @@ vG
 of
 oI
 pc
-rK
+bA
 pc
-uP
+SU
 pc
 vY
 of
@@ -49352,9 +49336,9 @@ vG
 of
 oS
 pc
-pa
+rK
 pc
-pa
+uP
 pc
 wa
 of
@@ -49366,8 +49350,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -49405,10 +49389,10 @@ Db
 aN
 aN
 aN
+Db
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -50651,8 +50635,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -50686,14 +50670,14 @@ XB
 od
 ux
 ux
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -51936,8 +51920,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -51971,14 +51955,14 @@ Pb
 vy
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -52450,8 +52434,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -52485,14 +52469,14 @@ JC
 vy
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -53735,8 +53719,8 @@ aN
 aN
 aN
 aN
-aN
 Db
+aN
 aN
 aN
 aN
@@ -53770,14 +53754,14 @@ qF
 od
 Iv
 Zp
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Db
-aN
-aN
-aN
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -55020,11 +55004,6 @@ aN
 aN
 aN
 aN
-aN
-Db
-aN
-aN
-aN
 Db
 aN
 aN
@@ -55060,9 +55039,14 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
+Db
+aN
+aN
+Db
 aN
 aN
 aN
@@ -73052,8 +73036,8 @@ vd
 Ml
 vd
 xy
-sd
-Jy
+Me
+et
 Jy
 Jy
 Jy

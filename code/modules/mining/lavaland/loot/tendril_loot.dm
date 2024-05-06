@@ -6,6 +6,11 @@
 	desc = "Somehow, it's in two places at once."
 	max_combined_w_class = 60
 	max_w_class = WEIGHT_CLASS_NORMAL
+	var/obj/item/shared_storage/red
+	var/obj/item/shared_storage/blue
+
+/obj/item/storage/backpack/shared/Adjacent(atom/neighbor, recurse = 1)
+	return red?.Adjacent(neighbor, recurse) || blue?.Adjacent(neighbor, recurse)
 
 //External
 /obj/item/shared_storage
@@ -16,6 +21,10 @@
 	slot_flags = SLOT_FLAG_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
+
+/obj/item/shared_storage/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	bag?.update_viewers()
 
 /obj/item/shared_storage/red
 	name = "paradox bag"
@@ -29,19 +38,27 @@
 
 		bag = S
 		blue.bag = S
+		bag.red = src
+		bag.blue = blue
+
+/obj/item/shared_storage/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
 /obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
-	if(bag)
-		bag.loc = user
-		bag.attackby(W, user, params)
+	bag?.attackby(W, user, params)
+
+/obj/item/shared_storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		bag?.show_to(user)
+	return ..()
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
-	if(src == user.l_hand || src == user.r_hand)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
+	if(user.is_holding(src))
+		bag?.open(user)
 	else
 		..()
 
@@ -49,11 +66,16 @@
 	if(!iscarbon(user))
 		return
 	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
+		bag?.open(user)
 	else
 		..()
+
+/obj/item/shared_storage/AltClick(mob/user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		bag?.open(user)
+		add_fingerprint(user)
+	else if(isobserver(user))
+		bag?.show_to(user)
 
 /obj/item/shared_storage/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
@@ -72,9 +94,8 @@
 				if(!M.unEquip(src))
 					return
 				M.put_in_active_hand(src)
-			else if(bag)
-				bag.loc = usr
-				bag.attack_hand(usr)
+			else
+				bag?.open(usr)
 
 			add_fingerprint(M)
 

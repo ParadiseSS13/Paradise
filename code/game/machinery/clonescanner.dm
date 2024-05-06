@@ -60,7 +60,7 @@
 	if(console)
 		console.scanner = null
 	if(occupant)
-		remove_mob(occupant)
+		remove_mob()
 	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
@@ -84,22 +84,20 @@
 	if(!occupant)
 		return
 	if(issilicon(user))
-		remove_mob(occupant)
+		remove_mob()
 		return
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	remove_mob(occupant)
+	remove_mob()
 
 /obj/machinery/clonescanner/relaymove(mob/user)
 	if(user.stat)
 		return
-	remove_mob(user)
+	remove_mob()
 
 /obj/machinery/clonescanner/proc/try_scan(mob/living/carbon/human/scanned)
 	if(!scanned)
 		return
-
-	occupant.notify_ghost_cloning()
 
 	has_scanned = TRUE
 
@@ -111,7 +109,7 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
-	if(!scanned.ckey || !scanned.client || ischangeling(scanned))
+	if(!scanned.ckey || !scanned.client || IS_CHANGELING(scanned))
 		return SCANNER_NO_SOUL
 	if(scanned.suiciding || !scanned.get_int_organ(/obj/item/organ/internal/brain))
 		return SCANNER_BRAIN_ISSUE
@@ -160,10 +158,10 @@
 	occupant = inserted
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/clonescanner/proc/remove_mob(mob/living/carbon/human/removed)
-	if(!istype(removed))
+/obj/machinery/clonescanner/proc/remove_mob()
+	if(!occupant)
 		return
-	removed.forceMove(get_turf(loc))
+	occupant.forceMove(get_turf(loc))
 	occupant = null
 	update_scan_status()
 	update_icon(UPDATE_ICON_STATE)
@@ -194,3 +192,6 @@
 		return
 	var/obj/item/multitool/M = I
 	M.set_multitool_buffer(user, src)
+
+/obj/machinery/clonescanner/force_eject_occupant(mob/target)
+	remove_mob()

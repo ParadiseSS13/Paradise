@@ -528,7 +528,7 @@
 	id = "syndbaseigniter";
 	pixel_y = 20
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "de" = (
 /obj/machinery/light{
@@ -779,11 +779,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "eD" = (
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/machinery/alarm/syndicate/directional/west,
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -1068,7 +1064,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "fP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1149,11 +1145,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "gt" = (
 /obj/structure/table/reinforced,
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/machinery/alarm/syndicate/directional/west,
 /obj/item/storage/box/monkeycubes/syndicate{
 	pixel_x = 7;
 	pixel_y = 7
@@ -1868,7 +1860,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "kh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2055,11 +2047,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "ld" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = -24;
-	dir = 1;
-	name = "Syndie South Air Alarm"
-	},
+/obj/machinery/alarm/syndicate/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "lo" = (
@@ -2553,7 +2541,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "syndiebase_mix_sensor"
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "nI" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -2997,7 +2985,7 @@
 	dir = 8
 	},
 /obj/item/hand_labeler,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -3362,7 +3350,7 @@
 	autolink_id = "syndiebase_mix_out";
 	dir = 8
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "sF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3435,7 +3423,7 @@
 "th" = (
 /obj/structure/table,
 /obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
@@ -3772,7 +3760,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "vd" = (
 /obj/structure/table,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /obj/item/paper_bin,
 /obj/item/stamp/syndicate,
 /obj/machinery/light_switch{
@@ -4003,11 +3991,7 @@
 /obj/item/reagent_containers/drinks/flask/barflask,
 /obj/item/reagent_containers/drinks/flask/barflask,
 /obj/structure/table/wood,
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/machinery/alarm/syndicate/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4210,11 +4194,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/machinery/alarm/syndicate/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/green{
@@ -4330,10 +4310,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "xO" = (
-/obj/machinery/alarm/syndicate{
-	name = "Syndie North Air Alarm";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -5199,10 +5176,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "CR" = (
-/obj/machinery/alarm/syndicate{
-	name = "Syndie North Air Alarm";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5546,10 +5520,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "EU" = (
-/obj/machinery/alarm/syndicate{
-	name = "Syndie North Air Alarm";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -5750,11 +5721,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "FP" = (
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/machinery/alarm/syndicate/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/green{
@@ -6142,10 +6109,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Ik" = (
-/obj/machinery/alarm/syndicate{
-	name = "Syndie North Air Alarm";
-	pixel_y = 24
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Il" = (
@@ -7130,11 +7094,7 @@
 /obj/item/handheld_defibrillator,
 /obj/item/handheld_defibrillator,
 /obj/item/defibrillator,
-/obj/machinery/alarm/syndicate{
-	pixel_x = 24;
-	name = "Syndie West Air Alarm";
-	dir = 8
-	},
+/obj/machinery/alarm/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -7480,7 +7440,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "QB" = (
 /obj/machinery/optable,
@@ -7780,7 +7740,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Su" = (
 /obj/structure/table,
@@ -8028,7 +7988,7 @@
 	autolink_id = "syndiebase_mix_in";
 	dir = 8
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Tp" = (
 /obj/machinery/light{
@@ -8144,11 +8104,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "TW" = (
 /obj/structure/table,
-/obj/machinery/alarm/syndicate{
-	pixel_y = -24;
-	dir = 1;
-	name = "Syndie South Air Alarm"
-	},
+/obj/machinery/alarm/syndicate/directional/south,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/storage/box/beakers,
@@ -8255,11 +8211,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "UC" = (
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/machinery/alarm/syndicate/directional/west,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -8510,7 +8462,7 @@
 	dir = 8
 	},
 /obj/item/hand_labeler,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkgreen"
@@ -8577,11 +8529,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "Wr" = (
-/obj/machinery/alarm/syndicate{
-	pixel_x = 24;
-	name = "Syndie West Air Alarm";
-	dir = 8
-	},
+/obj/machinery/alarm/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8781,11 +8729,7 @@
 "Xn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/alarm/syndicate{
-	pixel_x = 24;
-	name = "Syndie West Air Alarm";
-	dir = 8
-	},
+/obj/machinery/alarm/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

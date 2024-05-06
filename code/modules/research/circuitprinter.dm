@@ -75,28 +75,31 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(default_deconstruction_screwdriver(user, "circuit_imprinter_t", "circuit_imprinter", O))
-		if(linked_console)
-			linked_console.linked_imprinter = null
-			linked_console = null
-		return
-
 	if(exchange_parts(user, O))
 		return
-
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/reagent_containers/glass/beaker))
-					reagents.trans_to(I, reagents.total_volume)
-				I.loc = src.loc
-			materials.retrieve_all()
-			default_deconstruction_crowbar(user, O)
-			return
-		else
-			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
-			return
+		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		return
 	if(O.is_open_container())
 		return FALSE
 	else
 		return ..()
+
+/obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	for(var/obj/component in component_parts)
+		if(istype(component, /obj/item/reagent_containers/glass/beaker))
+			reagents.trans_to(component, reagents.total_volume)
+		component.loc = src.loc
+	materials.retrieve_all()
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!default_deconstruction_screwdriver(user, "circuit_imprinter_t", "circuit_imprinter", I))
+		return
+	if(linked_console)
+		linked_console.linked_imprinter = null
+		linked_console = null

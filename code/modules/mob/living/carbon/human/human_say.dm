@@ -6,23 +6,24 @@
 		return " (as [get_id_name("Unknown")])"
 	return ..()
 
-/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
+/mob/living/carbon/human/say_understands(atom/movable/other, datum/language/speaking = null)
 	if(dna.species.can_understand(other))
-		return 1
+		return TRUE
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking)
+	if(!speaking && ismob(other))
 		if(isnymph(other))
-			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
-				return 1
+			var/mob/nymph = other
+			if(length(nymph.languages) >= 2) //They've sucked down some blood and can speak common now.
+				return TRUE
 		if(issilicon(other))
-			return 1
+			return TRUE
 		if(isbot(other))
-			return 1
+			return TRUE
 		if(isbrain(other))
-			return 1
+			return TRUE
 		if(isslime(other))
-			return 1
+			return TRUE
 
 	return ..()
 
@@ -165,7 +166,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 
-		if(span)
+		if(span && !speaks_ooc)
 			S.message = "<span class='[span]'>[S.message]</span>"
 
 	if(wear_mask)
