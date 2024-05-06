@@ -406,6 +406,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
 			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
 		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
+		to_chat(mychild, "<span class='warning'>Do not attack the Mining Station or Labour Camp, unless the Shaft Miner you are actively fighting runs into the Station/Camp. \n\
+		 After they are killed, you must withdraw. If you wish to continue attacking the Station, you MUST ahelp. \n\
+		 If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>")
 	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/tumor_shard
