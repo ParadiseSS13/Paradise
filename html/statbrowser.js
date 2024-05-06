@@ -15,6 +15,8 @@ if (!String.prototype.trim) {
 }
 
 // For sending BYOND debug logs -----------------------------------------------
+// If you use this, you'll need to uncomment the Statpanel-Debug message
+// handling, currently in code/modules/client/client_procs.dm
 function log_debug(data) {
 	Byond.sendMessage("Statpanel-Debug", JSON.stringify(data));
 }

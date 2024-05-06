@@ -1236,8 +1236,10 @@
 				SSstatpanels.refresh_client_obj_view(src)
 			else
 				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
-		if("Statpanel-Debug")
-			log_debug(payload)
+		// Uncomment to enable log_debug in stat panel code.
+		// Disabled normally due to HREF exploit concerns.
+		//if("Statpanel-Debug")
+		//	log_debug(payload)
 		if("Resend-Asset")
 			SSassets.transport.send_assets(src, list(payload))
 		if("Debug-Stat-Entry")
