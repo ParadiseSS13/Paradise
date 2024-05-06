@@ -46,7 +46,8 @@
 				N.timing = FALSE
 				N.audible_message("<span class='boldnotice'>The timer on [N] stops!</span>", hearing_distance = 1)
 				N.update_icon(UPDATE_OVERLAYS)
-				GLOB.bomb_set = FALSE
+				if(!N.training)
+					GLOB.bomb_set = FALSE
 				if(!N.is_syndicate && !N.training)
 					SSsecurity_level.set_level(N.previous_level)
 			else if(N.timing && !is_cut(WIRE_NUKE_CONTROL))
