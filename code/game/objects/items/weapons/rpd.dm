@@ -114,7 +114,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
-	if(istype(user.get_inactive_hand(), /obj/item/wrench) && P in direct_access())
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (P in direct_access()))
 		P.wrench_act(user, user.get_inactive_hand())
 	activate_rpd(TRUE)
 
@@ -127,7 +127,7 @@
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
-	if(istype(user.get_inactive_hand(), /obj/item/wrench) && P in direct_access())
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (P in direct_access()))
 		P.attackby(user.get_inactive_hand(), user)
 	activate_rpd(TRUE)
 
@@ -144,7 +144,7 @@
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
-			if(istype(user.get_inactive_hand(), /obj/item/wrench) && S in direct_access())
+			if(istype(user.get_inactive_hand(), /obj/item/wrench) && (S in direct_access()))
 				S.wrench_act(user, user.get_inactive_hand())
 			activate_rpd(TRUE)
 
