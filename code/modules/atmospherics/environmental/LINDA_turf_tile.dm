@@ -44,13 +44,22 @@
 		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, set_initial_air), air))
 
 /turf/simulated/proc/set_initial_air(datum/gas_mixture/air)
-	air.set_oxygen(oxygen)
-	air.set_carbon_dioxide(carbon_dioxide)
-	air.set_nitrogen(nitrogen)
-	air.set_toxins(toxins)
-	air.set_sleeping_agent(sleeping_agent)
-	air.set_agent_b(agent_b)
-	air.set_temperature(temperature)
+	if(!blocks_air)
+		air.set_oxygen(oxygen)
+		air.set_carbon_dioxide(carbon_dioxide)
+		air.set_nitrogen(nitrogen)
+		air.set_toxins(toxins)
+		air.set_sleeping_agent(sleeping_agent)
+		air.set_agent_b(agent_b)
+		air.set_temperature(temperature)
+	else
+		air.set_oxygen(0)
+		air.set_carbon_dioxide(0)
+		air.set_nitrogen(0)
+		air.set_toxins(0)
+		air.set_sleeping_agent(0)
+		air.set_agent_b(0)
+		air.set_temperature(0)
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
@@ -184,14 +193,15 @@
 /turf/proc/Initialize_Atmos(times_fired)
 	recalculate_atmos_connectivity()
 
-	var/datum/gas_mixture/air = get_air()
-	air.set_oxygen(oxygen)
-	air.set_carbon_dioxide(carbon_dioxide)
-	air.set_nitrogen(nitrogen)
-	air.set_toxins(toxins)
-	air.set_sleeping_agent(sleeping_agent)
-	air.set_agent_b(agent_b)
-	air.set_temperature(temperature)
+	if(!blocks_air)
+		var/datum/gas_mixture/air = get_air()
+		air.set_oxygen(oxygen)
+		air.set_carbon_dioxide(carbon_dioxide)
+		air.set_nitrogen(nitrogen)
+		air.set_toxins(toxins)
+		air.set_sleeping_agent(sleeping_agent)
+		air.set_agent_b(agent_b)
+		air.set_temperature(temperature)
 
 /turf/proc/recalculate_atmos_connectivity()
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -202,8 +212,9 @@
 
 	if(blocks_air)
 		set_tile_atmos_blocking(x, y, z, list(TRUE, TRUE, TRUE, TRUE))
-		reset_superconductivity(x, y, z)
-		reduce_superconductivity(x, y, z, list(thermal_conductivity, thermal_conductivity, thermal_conductivity, thermal_conductivity))
+		// Will be needed when we go back to having solid tile conductivity.
+		//reset_superconductivity(x, y, z)
+		reduce_superconductivity(x, y, z, list(0, 0, 0, 0))
 		return
 
 	var/list/atmos_blocks = list(
