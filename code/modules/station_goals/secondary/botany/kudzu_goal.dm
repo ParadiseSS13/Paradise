@@ -86,6 +86,6 @@
 	if(sent < needed)
 		return
 
-	three_way_reward(manifest, "Hydroponics", GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), SSeconomy.credits_per_kudzu_goal,  "Secondary goal complete: [needed] samples of kudzu seeds.")
+	three_way_reward(manifest, "Hydroponics", GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), SSeconomy.credits_per_kudzu_goal, "Secondary goal complete: [needed] samples of kudzu seeds.")
 
 	return TRUE
