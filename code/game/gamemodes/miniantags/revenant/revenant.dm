@@ -223,6 +223,10 @@
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
 	icon_state = "revenant_draining"
+	INVOKE_ASYNC(src, PROC_REF(do_revenant_death_animation))
+
+/mob/living/simple_animal/revenant/proc/do_revenant_death_animation()
+	pixel_y = 0 // Reset the pixel y to 0 for dramatic effect
 	for(var/i = alpha, i > 0, i -= 10)
 		sleep(0.1)
 		alpha = i
