@@ -347,12 +347,12 @@
 				back_to_hunt()
 				return
 			// target is stunned and nearby
-			if(no_handcuffs) // should we not cuff?
-				back_to_idle()
-				return
 
 			if(!(iscarbon(target) && target.canBeHandcuffed()))
 				back_to_idle()
+				return
+
+			if(no_handcuffs) // should we not cuff?
 				return
 
 			if(currently_cuffing)
