@@ -608,7 +608,7 @@
 	embedded_impact_pain_multiplier = 3
 	embedded_unsafe_removal_pain_multiplier = 6
 	embedded_pain_chance = 10
-	materials = list(MAT_METAL=0, MAT_GLASS=0)
+	materials = list(MAT_METAL = 0, MAT_GLASS = 0)
 
 /obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
