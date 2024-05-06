@@ -144,13 +144,9 @@ SUBSYSTEM_DEF(statpanels)
 	var/i = 0
 	for(var/atom/turf_item as anything in obj_window.atoms_to_show)
 		// Limit what we send to the client's rendered section.
-		if(i < min_index)
-			i++
-			continue
-		if(i >= max_index)
-			i++
-			continue
 		i++
+		if(i <= min_index || i > max_index)
+			continue
 
 		// First, we fill up the list of refs to display
 		// If we already have one, just use that
