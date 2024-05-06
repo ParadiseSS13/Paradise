@@ -182,11 +182,11 @@
 "aO" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "aP" = (
 /obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "aQ" = (
 /obj/structure/flora/grass/both,
@@ -198,7 +198,7 @@
 /area/ruin/powered/snow_biodome)
 "bi" = (
 /obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_cabin)
 "bj" = (
 /obj/effect/decal/cleanable/blood/writing{
@@ -268,7 +268,7 @@
 /area/ruin/powered/snow_biodome)
 "dS" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "et" = (
 /obj/item/paper/fluff/ruins/snowbiodome/cabin2,
@@ -279,11 +279,11 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "gz" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "hA" = (
 /obj/machinery/light/built{
@@ -311,7 +311,7 @@
 "qt" = (
 /obj/machinery/door/airlock/silver,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "rv" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -345,7 +345,7 @@
 "vf" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_cabin)
 "wM" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
@@ -358,7 +358,7 @@
 /area/ruin/powered/snow_biodome)
 "AM" = (
 /obj/machinery/economy/vending/coffee/free,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "BF" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -370,11 +370,11 @@
 /obj/item/clothing/suit/hooded/wintercoat/science,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/gloves/fingerless,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Ef" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Ex" = (
 /obj/structure/barricade/wooden,
@@ -384,14 +384,14 @@
 "Ez" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "FP" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "GS" = (
 /obj/item/paper/fluff/ruins/snowbiodome/altar,
@@ -406,11 +406,11 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "HP" = (
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Mp" = (
 /obj/item/clothing/mask/balaclava,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "MA" = (
 /turf/simulated/wall/mineral/silver,
@@ -434,13 +434,13 @@
 "PD" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "PK" = (
 /obj/structure/table,
 /obj/item/pen,
 /obj/item/paper/fluff/ruins/snowbiodome/entrance,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Qa" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -455,7 +455,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
 /obj/item/paper,
 /obj/item/pen,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "QN" = (
 /obj/effect/spawner/window,
@@ -463,7 +463,7 @@
 /area/ruin/powered/snow_biodome)
 "Ub" = (
 /obj/structure/filingcabinet,
-/turf/simulated/floor/pod/dark/lavaland_air,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Wg" = (
 /turf/simulated/wall/r_wall,
