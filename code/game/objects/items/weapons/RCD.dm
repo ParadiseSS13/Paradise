@@ -572,8 +572,7 @@
 	if(!is_type_in_list(A, allowed_targets))
 		return FALSE
 
-	for(var/act_type in possible_actions)
-		var/datum/rcd_act/act = new act_type
+	for(var/datum/rcd_act/act in possible_actions)
 		if(act.can_act(A, src))
 			. = act.try_act(A, src, user)
 			update_icon(UPDATE_OVERLAYS)

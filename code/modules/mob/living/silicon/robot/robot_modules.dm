@@ -517,7 +517,7 @@
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
-	malf_modules = list(/obj/item/stack/cyborg_mine)
+	malf_modules = list(/obj/item/stack/caution/proximity_sign/malf)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
