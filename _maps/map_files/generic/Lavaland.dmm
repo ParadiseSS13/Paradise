@@ -2472,8 +2472,8 @@
 /area/mine/laborcamp)
 "fO" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced/tinted/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/window/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "fP" = (
