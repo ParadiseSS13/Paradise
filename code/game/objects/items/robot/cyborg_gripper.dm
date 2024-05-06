@@ -26,9 +26,8 @@
 
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
-	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, \
-	they can be used just as effectively as a regular hand with enough practice.<br><br>\
-	Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
+	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, they can be used just as effectively as a regular hand with enough practice."
+	. += "Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
 	protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
 
 
