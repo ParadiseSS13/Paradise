@@ -396,8 +396,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= input("Please enter the sender's name.")
-						customsender	= trim_strip_html_properly(customsender)
+						customsender 	= clean_input("Please enter the sender's name.")
 
 					//Select Receiver
 					if("Recepient")
@@ -409,20 +408,18 @@
 							if(!PM || !PM.can_receive())
 								continue
 							sendPDAs += P
-						if(GLOB.PDAs && GLOB.PDAs.len > 0)
+						if(GLOB.PDAs && length(GLOB.PDAs) > 0)
 							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", items = sortAtom(sendPDAs))
 						else
 							customrecepient = null
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= input("Please enter the sender's job.")
-						customjob		= trim_strip_html_properly(customjob)
+						customjob	 	= clean_input("Please enter the sender's job.")
 
 					//Enter message
 					if("Message")
-						custommessage	= input("Please enter your message.")
-						custommessage	= trim_strip_html_properly(custommessage)
+						custommessage	= clean_input("Please enter your message.")
 
 					//Send message
 					if("Send")

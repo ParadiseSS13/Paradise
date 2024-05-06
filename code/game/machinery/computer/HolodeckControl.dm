@@ -233,7 +233,6 @@
 	icon_state = "carpet-255"
 	base_icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
-	broken_states = list("damaged")
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET)
@@ -251,6 +250,9 @@
 		return 0
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
+
+/turf/simulated/floor/holofloor/carpet/get_broken_states()
+	return list("damaged")
 
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"

@@ -45,7 +45,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/message_sound2 = new_sound2 ? sound(new_sound2) : null
 
 	if(!msg_sanitized)
-		message = trim_strip_html_properly(message, allow_lines = TRUE)
+		message = html_encode(message)
 
 	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
 
@@ -101,9 +101,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcer/proc/Message(message, garbled_message, receivers, garbled_receivers)
 	for(var/mob/M in receivers)
-		to_chat(M, message)
+		to_chat(M, message, MESSAGE_TYPE_WARNING)
 	for(var/mob/M in garbled_receivers)
-		to_chat(M, garbled_message)
+		to_chat(M, garbled_message, MESSAGE_TYPE_WARNING)
 
 /datum/announcer/proc/Format(message, title, subtitle = null)
 	var/formatted_message

@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -111,9 +111,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "<a href='byond://?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
-		if(M.client.related_accounts_cid.len)
+		if(length(M.client.related_accounts_cid))
 			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
+		if(length(M.client.related_accounts_ip))
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
@@ -613,6 +613,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		log_admin("[key_name(usr)] delayed the game.")
 	else
 		SSticker.ticker_going = TRUE
+		SSticker.round_start_time = world.time + SSticker.pregame_timeleft
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
 
@@ -659,7 +660,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Nuclear Operative"
 	if(iswizard(M))
 		antag_list += "Wizard"
-	if(ischangeling(M))
+	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
@@ -669,7 +670,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Vampire Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
-	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
+	if(IS_MINDSLAVE(M))
 		antag_list += "Mindslave"
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
@@ -726,11 +727,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(copytext("[path]", -needle_length) == object)
 				matches += path
 
-	if(matches.len==0)
+	if(length(matches)==0)
 		return
 
 	var/chosen
-	if(matches.len==1)
+	if(length(matches)==1)
 		chosen = matches[1]
 	else
 		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches

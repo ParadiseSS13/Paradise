@@ -3,9 +3,9 @@
 	var/list/RGB2 = rgb2num(rgb2)
 
 	// add missing alpha if needed
-	if(RGB1.len < RGB2.len) RGB1 += 255
-	else if(RGB2.len < RGB1.len) RGB2 += 255
-	var/usealpha = RGB1.len > 3
+	if(length(RGB1) < length(RGB2)) RGB1 += 255
+	else if(length(RGB2) < length(RGB1)) RGB2 += 255
+	var/usealpha = length(RGB1) > 3
 
 	var/r = round(RGB1[1] + (RGB2[1] - RGB1[1]) * amount, 1)
 	var/g = round(RGB1[2] + (RGB2[2] - RGB1[2]) * amount, 1)

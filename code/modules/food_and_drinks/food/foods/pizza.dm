@@ -268,9 +268,9 @@
 	. = ..()
 	if(open && pizza)
 		desc = "A box suited for pizzas. It appears to have a [pizza.name] inside."
-	else if(boxes.len > 0)
-		desc = "A pile of boxes suited for pizzas. There appears to be [boxes.len + 1] boxes in the pile."
-		var/obj/item/pizzabox/top_box = boxes[boxes.len]
+	else if(length(boxes) > 0)
+		desc = "A pile of boxes suited for pizzas. There appears to be [length(boxes) + 1] boxes in the pile."
+		var/obj/item/pizzabox/top_box = boxes[length(boxes)]
 		var/top_tag = top_box.box_tag
 		if(top_tag != "")
 			desc = "[desc] The box on top has a tag, it reads: '[top_tag]'."
@@ -298,8 +298,8 @@
 	else
 		// Stupid code because byondcode sucks
 		var/set_tag = TRUE
-		if(boxes.len > 0)
-			var/obj/item/pizzabox/top_box = boxes[boxes.len]
+		if(length(boxes) > 0)
+			var/obj/item/pizzabox/top_box = boxes[length(boxes)]
 			if(top_box.box_tag != "")
 				set_tag = TRUE
 		else
@@ -307,7 +307,7 @@
 				set_tag = TRUE
 		if(!open && set_tag)
 			var/image/tag = image("food/pizza.dmi", icon_state = "pizzabox_tag")
-			tag.pixel_y = boxes.len * 3
+			tag.pixel_y = length(boxes) * 3
 			. += tag
 
 /obj/item/pizzabox/attack_hand(mob/user)
@@ -318,11 +318,11 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 
-	if(boxes.len > 0)
+	if(length(boxes) > 0)
 		if(user.is_in_inactive_hand(src))
 			..()
 			return
-		var/obj/item/pizzabox/box = boxes[boxes.len]
+		var/obj/item/pizzabox/box = boxes[length(boxes)]
 		boxes -= box
 		user.put_in_hands(box)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
@@ -339,7 +339,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/attack_self(mob/user)
-	if(boxes.len > 0)
+	if(length(boxes) > 0)
 		return
 	open = !open
 	if(open && pizza)
@@ -355,7 +355,7 @@
 			boxestoadd += box
 			for(var/obj/item/pizzabox/i in box.boxes)
 				boxestoadd += i
-			if((boxes.len+1) + boxestoadd.len <= 5)
+			if((boxes.len+1) + length(boxestoadd) <= 5)
 				user.drop_item()
 				box.loc = src
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
@@ -389,8 +389,8 @@
 		if(!t)
 			return
 		var/obj/item/pizzabox/boxtotagto = src
-		if(boxes.len > 0)
-			boxtotagto = boxes[boxes.len]
+		if(length(boxes) > 0)
+			boxtotagto = boxes[length(boxes)]
 		boxtotagto.box_tag = copytext("[t]", 1, 30)
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return

@@ -40,7 +40,7 @@
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
 	SIGNAL_HANDLER
-	if(!ischangeling(owner))
+	if(!IS_CHANGELING(owner))
 		return
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
