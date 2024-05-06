@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		if(get_dist(src, flame) < 1) // It's on the same turf
 			merge_flames(flame)
 
-	for(var/atom/thing_to_burn in get_turf(src))
+	for(var/atom/movable/thing_to_burn in get_turf(src))
 		if(isliving(thing_to_burn))
 			var/mob/living/mob_to_burn = thing_to_burn
 			mob_to_burn.adjustFireLoss(temperature / 100)
