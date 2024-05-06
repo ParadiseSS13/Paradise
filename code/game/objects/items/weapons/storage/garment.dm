@@ -134,7 +134,7 @@
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/suit/mantle/chief_engineer(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/ce(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/glasses/meson/sunglasses(src)
@@ -208,7 +208,7 @@
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/clothing/suit/qmcoat(src)
 	new /obj/item/clothing/suit/mantle/qm(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/qm(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 

@@ -100,7 +100,7 @@
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"
-	desc = "It's a baseball hat in a tasteless yellow colour."
+	desc = "It's a brown baseball hat with a grey cargo technician shield."
 	icon_state = "cargosoft"
 	item_color = "cargo"
 	dog_fashion = /datum/dog_fashion/head/cargo_tech

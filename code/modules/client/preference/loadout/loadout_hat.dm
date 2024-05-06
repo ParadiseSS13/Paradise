@@ -202,6 +202,11 @@
 	path = /obj/item/clothing/head/beret/hop
 	allowed_roles = list("Head of Personnel")
 
+/datum/gear/hat/beret_job/cargo
+	display_name = "Beret, cargo"
+	path = /obj/item/clothing/head/beret/cargo
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
 	path = /obj/item/clothing/head/beret/qm

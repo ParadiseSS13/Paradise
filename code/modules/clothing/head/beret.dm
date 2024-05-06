@@ -156,6 +156,15 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
 	)
 
+/obj/item/clothing/head/beret/cargo
+	name = "cargo beret"
+	desc = "A brown beret with a grey cargo insignia emblazoned on it. Haul crates with style."
+	icon_state = "beret_cargo"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+	)
+
 //Special Roles
 /obj/item/clothing/head/beret/solgov/command
 	name = "\improper Trans-Solar Federation Lieutenant's beret"

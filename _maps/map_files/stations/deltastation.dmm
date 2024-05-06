@@ -13427,7 +13427,7 @@
 	dir = 8
 	},
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest/staff,
 /obj/item/clothing/mask/gas,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -46468,11 +46468,11 @@
 /area/station/service/expedition)
 "czW" = (
 /obj/structure/closet/crate/internals,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest/staff,
+/obj/item/clothing/suit/storage/hazardvest/staff,
+/obj/item/clothing/suit/storage/hazardvest/staff,
+/obj/item/clothing/suit/storage/hazardvest/staff,
+/obj/item/clothing/suit/storage/hazardvest/staff,
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/tank/internals/emergency_oxygen/double,
