@@ -1,5 +1,5 @@
 /obj/item/gun/energy/gun
-	name = "EG-7 energy gun"
+	name = "\improper EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It uses an internal rechargable battery to fire. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
@@ -162,4 +162,4 @@
 
 /obj/item/gun/energy/gun/nuclear/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The advanced energy gun's cell recharges on it's own. Known to drive people mad by forcing them to wait for shots to recharge.</span>"
+	. += "<span class='notice'>[src]'s cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge.</span>"

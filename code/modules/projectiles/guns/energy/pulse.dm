@@ -78,7 +78,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
-	to_chat(user, "<span class='notice'>The [src] is now set to 'DESTROY'.</span>")
+	to_chat(user, "<span class='notice'>[src] is now set to 'DESTROY'.</span>")
 
 /obj/item/gun/energy/pulse/destroyer/annihilator
 	name = "pulse ANNIHILATOR"
