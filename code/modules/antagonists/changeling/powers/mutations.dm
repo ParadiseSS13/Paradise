@@ -609,7 +609,7 @@
 	embedded_unsafe_removal_pain_multiplier = 6
 	embedded_pain_chance = 10
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL=0, MAT_GLASS=0)
+	materials = list()
 
 /obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
