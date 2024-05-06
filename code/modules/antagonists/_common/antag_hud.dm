@@ -165,7 +165,8 @@
 	old_mob.hud_list[SPECIALROLE_HUD] = list()
 	var/list/temp_huds = antag_huds.Copy()
 	our_mind.leave_all_huds()
-	for(var/image/I as anything in new_mob.hud_list[SPECIALROLE_HUD])
+	for(var/key as anything in new_mob.hud_list[SPECIALROLE_HUD])
+		var/image/I = new_mob.hud_list[SPECIALROLE_HUD][key]
 		I.loc = new_mob
 	for(var/datum/atom_hud/antag/swaphud in temp_huds)
 		swaphud.join_hud(new_mob)
