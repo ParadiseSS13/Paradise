@@ -301,7 +301,7 @@
 	disable_message = "You will no longer see runechat."
 	blackbox_message = "Toggle Runechat"
 
-/datum/preference_toggle/toggle_runechat
+/datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Toggle Ghost Death Notifications"
 	description = "Toggle a notification when a player dies"
 	preftoggle_bitflag = PREFTOGGLE_2_DEATHMESSAGE
