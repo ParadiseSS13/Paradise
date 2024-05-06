@@ -3,6 +3,8 @@
 #define MIN_CONVERSION 10
 #define BIOMASS_POTASH_RATIO 6
 #define BIOMASS_POTASSIUM_RATIO 8
+#define POTASH_SALPETRE_MULT 2
+
 /**
   * # compost bin
   * used to make soil from plants.
@@ -99,7 +101,7 @@
 
 	if(istype(O, /obj/item/food/snacks/grown))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
-			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated with potassium!</span>")
+			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and its contents are saturated with potassium!</span>")
 			return
 		if(!user.unEquip(O))
 			return
@@ -122,7 +124,7 @@
 		// Won't pour in more than the amount of potassium that can be accepted, even if the beaker is not filled with pure potassium.
 		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this), potassium_capacity - potassium) / B.reagents.total_volume
 
-		// Since the character doesn't know what's in the beaker, I'm assuming it is assuming the beaker is full of pure potassium and pours according to that.
+		// Since the character may not know what's in the beaker, I'm assuming it is assuming the beaker is full of pure potassium and pours according to that.
 		for(var/E in B.reagents.reagent_list)
 			var/datum/reagent/R = E
 			switch(R.id)
@@ -178,7 +180,7 @@
 	if(potash > 0)
 		potash_saltpetre_conversion = min(conversion_amount, potash * BIOMASS_POTASH_RATIO)
 		used_potash = potash_saltpetre_conversion / BIOMASS_POTASH_RATIO
-		saltpetre += used_potash * 2
+		saltpetre += used_potash * POTASH_SALPETRE_MULT
 		conversion_amount -= potash_saltpetre_conversion
 		potash -= used_potash
 
@@ -262,3 +264,4 @@
 #undef MIN_CONVERSION
 #undef BIOMASS_POTASH_RATIO
 #undef BIOMASS_POTASSIUM_RATIO
+#undef POTASH_SALPETRE_MULT
