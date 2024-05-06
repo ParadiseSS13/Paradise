@@ -1023,7 +1023,7 @@
 			if(isslimeperson(H))
 				new /obj/item/organ/internal/bone_tumor/slime_tumor(H)
 			else
-				new/obj/item/organ/internal/bone_tumor(H)
+				new /obj/item/organ/internal/bone_tumor(H)
 
 	return ..()
 
