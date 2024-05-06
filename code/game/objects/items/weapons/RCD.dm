@@ -214,9 +214,7 @@
 /datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd, mob/user)
 	if(!..())
 		return FALSE
-	return user.suiciding
-
-/datum/rcd_act/remove_user/act(atom/A, obj/item/rcd/rcd, mob/user)
+	return TRUE
 
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
@@ -257,6 +255,7 @@
 	var/door_name = "Airlock"
 	/// If the glass airlock is polarized.
 	var/electrochromic = FALSE
+	/// If the airlock will be created with glass so it can be seen through.
 	var/airlock_glass = FALSE
 	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
 	var/one_access = TRUE
@@ -359,6 +358,8 @@
 			flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff (held items fall to the floor when dusting).
 			user.dust()
 			return OBLITERATION
+		flags &= ~NODROP // If we got past the above check without dying, remove the superglue from the RCD.
+		return SHAME // Ensure that we do not accidentally perform the other flavour of suicide act.
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(afterattack(suicide_tile, user, TRUE))
