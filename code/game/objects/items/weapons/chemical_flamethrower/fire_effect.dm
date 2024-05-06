@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		fizzle()
 		return
 
-	duration -= 1 SECONDS
+	duration -= 2 SECONDS
 
 /obj/effect/fire/water_act(volume, temperature, source, method)
 	. = ..()
