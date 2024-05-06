@@ -23,8 +23,7 @@
 	assemblytype = /obj/structure/firelock_frame
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
-	// Temporarily disabled to avoid changing things from LINDA.
-	//superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE

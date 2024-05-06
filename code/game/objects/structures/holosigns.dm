@@ -88,8 +88,13 @@
 	. = ..()
 	recalculate_atmos_connectivity()
 
+// Airtight.
 /obj/structure/holosign/barrier/atmos/CanAtmosPass(direction)
 	return FALSE
+
+// Heatproof.
+/obj/structure/holosign/barrier/atmos/get_superconductivity(direction)
+	return 0
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
