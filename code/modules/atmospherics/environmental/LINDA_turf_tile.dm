@@ -74,7 +74,6 @@
 
 	var/datum/gas_mixture/air = get_air()
 	air.merge(giver)
-	update_visuals()
 
 	return TRUE
 
@@ -99,7 +98,6 @@
 /turf/simulated/remove_air(amount)
 	var/datum/gas_mixture/air = get_air()
 	var/datum/gas_mixture/removed = air.remove(amount)
-	update_visuals()
 	return removed
 
 /turf/simulated/proc/update_visuals()

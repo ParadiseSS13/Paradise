@@ -363,10 +363,8 @@ SUBSYSTEM_DEF(air)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
-	for(var/turf/simulated/T as anything in turfs_to_init)
+	for(var/turf/T as anything in turfs_to_init)
 		T.Initialize_Atmos(times_fired)
-		if(istype(T))
-			T.update_visuals()
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()

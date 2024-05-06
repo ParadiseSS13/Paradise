@@ -63,7 +63,6 @@
 					air.set_carbon_dioxide(ppratio_to_moles(cdiox))
 					air.set_sleeping_agent(ppratio_to_moles(nitrox))
 					air.set_agent_b(ppratio_to_moles(agentbx))
-					S.update_visuals()
 			else if(ctrl_click) // overwrite "default" space air
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)

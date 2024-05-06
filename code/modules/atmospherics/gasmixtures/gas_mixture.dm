@@ -798,10 +798,16 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
 	set_dirty()
 	private_toxins = value
+	if(istype(bound_turf, /turf/simulated))
+		var/turf/simulated/S = bound_turf
+		S.update_visuals()
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
 	set_dirty()
 	private_sleeping_agent = value
+	if(istype(bound_turf, /turf/simulated))
+		var/turf/simulated/S = bound_turf
+		S.update_visuals()
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
 	set_dirty()
