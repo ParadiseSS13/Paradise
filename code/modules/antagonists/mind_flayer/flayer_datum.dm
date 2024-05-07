@@ -89,7 +89,7 @@
 	while(do_mob(owner.current, H, time = DRAIN_TIME, progress = FALSE) && check_valid_harvest(H))
 		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME)
 		var/damage_to_deal = (1/2 * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
-		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE)
+		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
 		adjust_swarms(damage_to_deal)
 		drained_humans[unique_drain_id] += damage_to_deal
 		drain_total_damage += damage_to_deal //TODO, give some sort of effect/max HP loss based on how high this ends up

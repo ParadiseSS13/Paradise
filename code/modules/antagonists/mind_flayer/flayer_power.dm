@@ -65,14 +65,16 @@ POWERS// OOORAAAH WE HAVE POWERS
 		if(spell.stage > flayer.category_stage[power_category])
 			continue
 		possible_powers += spell
-	get_ability(user, possible_powers, power_category)
+	open_shop(user, possible_powers, power_category)
 
-/datum/spell/flayer/self/augment_menu/proc/get_ability(mob/user, list/all_powers = list(), power_category)
+/datum/spell/flayer/self/augment_menu/proc/open_shop(mob/user, list/all_powers = list(), power_category)
 	if(!length(all_powers))
 		flayer.send_swarm_message("Either you bought all the powers, or something went terribly wrong. Contact a coder or admin if you should have powers to buy.")
 		return
 	var/path = tgui_input_list(user, "whaddya wanna buy", "Buy power", all_powers)
-	flayer.add_ability(path)
+	if(!path)
+		return
+	on_purchase(user, flayer, path)
 	flayer.send_swarm_message("nice one dude")
 
 /* This is all the TGUI stuff that will need to be fleshed out once I figure out all the stuff I need to get the data working
