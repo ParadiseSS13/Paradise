@@ -137,7 +137,7 @@
 	Deployed only in the direst of emergencies, it will inevitably be the lynchpin of any defense or assault.</i>"
 
 /obj/mecha/combat/marauder/mauler
-	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
+	desc = "Heavy-duty combat exosuit, modified with illegal technology and weapons."
 	name = "Mauler"
 	icon_state = "mauler"
 	initial_icon = "mauler"
@@ -163,3 +163,12 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
+
+/obj/mecha/combat/marauder/mauler/examine(mob/user)
+	..()
+	. = list()
+	. += "<i>A bulky, brutish combat mech painted a deep, matte black, highlighted with a menacing red; the Mauler is an illegal retrofit of Defiance's Marauder chassis. \
+	Armed to the teeth with various weapons and armored more thickly than some main battle tanks, this mechanical monstrosity is incredibly rare, and little is known about who makes them or why they exist</i>."
+	. += ""
+	. += "<i>The few confirmed sightings have recently been in the hands of the Gorlex Marauders, a group of hostile pirates with suspected ties to the Syndicate. \
+	The Mauler poses a severe threat to any force and should never be taken lightly</i>."
