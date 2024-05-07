@@ -343,9 +343,9 @@
 	if(force_move)
 		movement_dir = force_move
 	if(target && prob(20))
-		movement_dir = get_dir(src,target) //moves to a random spot on the map
+		movement_dir = get_dir(src, target) //moves to a random spot on the map
 	if(beacon_target && prob(60))
-		movement_dir = get_dir(src,target) //moves to a singulo beacon, if there is one
+		movement_dir = get_dir(src, target) //moves to a singulo beacon, if there is one
 
 	step(src, movement_dir)
 
