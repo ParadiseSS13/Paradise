@@ -192,19 +192,20 @@
 
 /obj/item/melee/arm_blade/fleshy_maul
 	name = "fleshy maul"
-	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
+	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust."
 	icon_state = "fleshy_maul"
 	item_state = "fleshy_maul"
 	sharp = FALSE
 	force = 10
-	armour_penetration_flat = 20
-	armour_penetration_percentage = 40
+	armour_penetration_flat = 40
+	armour_penetration_percentage = 80
 	hitsound = "swing_hit"
 	reach = 2
 	var/swing = TRUE
 
 /obj/item/melee/arm_blade/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	REMOVE_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 
 /obj/item/melee/arm_blade/fleshy_maul/attack_self(mob/user)
 	..()
@@ -226,11 +227,11 @@
 				var/obj/structure/table/T = target
 				T.deconstruct(FALSE)
 				return
-			S.attack_generic(user, 120, BRUTE, "melee", 0)
+			S.attack_generic(user, 80, BRUTE, "melee", 0)
 
 	else if(istype(target, /obj/machinery))
 		var/obj/machinery/M = target
-		M.attack_generic(user, 200, BRUTE, "melee", 0)
+		M.attack_generic(user, 100, BRUTE, "melee", 0)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
