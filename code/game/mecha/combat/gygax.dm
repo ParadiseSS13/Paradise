@@ -1,5 +1,5 @@
 /obj/mecha/combat/gygax
-	desc = "A lightweight, security exosuit. Popular among private and corporate security."
+	desc = "A lightweight security exosuit. Popular among private and corporate security."
 	name = "Gygax"
 	icon_state = "gygax"
 	initial_icon = "gygax"
@@ -78,3 +78,12 @@
 
 /obj/mecha/combat/gygax/dark/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
+/obj/mecha/combat/gygax/dark/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>A light, fast and cheap combat mech designed and produced by Shellguard Munitions, though this one appears to be modified. \
+	With minor alterations to the loadout, armor, and a slick black paint job, this variant strikes a menacing silhouette, its owner clearly being someone you should not mess with</i>. \"
+	. += ""
+	. += "<i>Despite the flaws of the base model, this modified Gygax has no trouble being a speedy, dangerous killing machine. \
+	Alterations such as this are common amongst fringe users and outlaw groups, and the upgrades are most certainly illegal. Don't cut yourself</i>."
