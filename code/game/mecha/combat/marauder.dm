@@ -55,7 +55,7 @@
 
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
-	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
+	desc = "Heavy-duty combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
 	icon_state = "ares"
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
@@ -79,6 +79,15 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
+
+/obj/mecha/combat/marauder/ares/examine_more(mob/user)
+	..()
+	. = list()
+	. =+ "Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and amrketed as the final word in biohazard containment and protection.\
+	Heavily armed and armoured, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
+	. =+ ""
+	. =+ "Defiance does not sell the license for the Ares to be produced, and as such, it is rarer than most combat mechs, but is more commonly seen among civilian markets compared to their mainline Marauder chassis. \
+	Nanotrases supports a small stable of Ares battlemechs to be used in times of dire emergency.</i>"
 
 /obj/mecha/combat/marauder/seraph
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
