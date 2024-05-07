@@ -83,8 +83,8 @@
 /obj/mecha/combat/marauder/ares/examine_more(mob/user)
 	..()
 	. = list()
-	. += "Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and amrketed as the final word in biohazard containment and protection.\
-	Heavily armed and armoured, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
+	. += "Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and marketed as the final word in biohazard containment and protection.\
+	 Heavily armed and armored, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
 	. += ""
 	. += "Defiance does not sell the license for the Ares to be produced, and as such, it is rarer than most combat mechs, but is more commonly seen among civilian markets compared to their mainline Marauder chassis. \
 	Nanotrases supports a small stable of Ares battlemechs to be used in times of dire emergency.</i>"
