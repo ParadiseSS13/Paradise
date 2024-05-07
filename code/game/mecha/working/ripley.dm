@@ -79,7 +79,7 @@
 	Shortly after initial production, Hephaestus licensed production rights for the Ripley to other corporations, earning royalties as the exosuit grew more popular.</i>"
 	. += ""
 	. += "<i>Depending on the configuration, the Ripley can be used for many purposes, including mining, construction, and even goods transport. \
-	To this day, it remains one of the most valuable mechs ever produced, and Hepaestus enjoys a substantial profit from sales of this aging but rugged design. \
+	To this day, it remains one of the most valuable mechs ever produced, and Hephaestus enjoys a substantial profit from sales of this aging but rugged design. \
 	As with all station-side mechs, Nanotrasen has purchased the license to make the Ripley in their facilities.</i>"
 
 /obj/mecha/working/ripley/firefighter
