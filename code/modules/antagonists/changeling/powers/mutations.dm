@@ -2,6 +2,7 @@
 	Changeling Mutations! ~By Miauw (ALL OF IT :V)
 	Contains:
 		Arm Blade
+		Fleshy Maul
 		Space Suit
 		Shield
 		Armor
@@ -172,6 +173,69 @@
 
 /obj/item/melee/arm_blade/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
+
+/***************************************\
+|**************FLESHY MAUL**************|
+\***************************************/
+/datum/action/changeling/weapon/fleshy_maul
+	name = "Fleshy Maul"
+	desc = "We reform one of our arms into a enourmous maul. Costs 10 chemicals."
+	helptext = "We may retract our maul in the same manner as we form it. Cannot be used while in lesser form."
+	button_icon_state = "fleshy_maul"
+	power_type = CHANGELING_PURCHASABLE_POWER
+	dna_cost = 4
+	chemical_cost = 10
+	weapon_type = /obj/item/melee/arm_blade/fleshy_maul
+	weapon_name_simple = "maul"
+	recharge_slowdown = 0.75
+	category = /datum/changeling_power_category/offence
+
+/obj/item/melee/arm_blade/fleshy_maul
+	name = "fleshy maul"
+	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
+	icon_state = "fleshy_maul"
+	item_state = "fleshy_maul"
+	sharp = FALSE
+	force = 30
+	armour_penetration_percentage = 40
+	hitsound = "swing_hit"
+
+/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
+	if(!proximity)
+		return
+
+	if(isstructure(target))
+		var/obj/structure/S = target
+		if(!QDELETED(S))
+			S.attack_generic(user, 100, BRUTE, "melee", 0)
+
+	else if(iswallturf(target))
+		var/turf/simulated/wall/wall = target
+		wall.take_damage(20)
+		user.do_attack_animation(wall)
+		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
+
+	else if(isliving(target))
+		var/mob/living/M = target
+		M.Slowed(2 SECONDS, 5)
+		var/atom/throw_target = get_edge_target_turf(M, user.dir)
+		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
+		M.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
+			if(O.brute_dam > 20)
+				O.fracture()
+
+/obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+	if(target && !iscarbon(hit_atom) && hit_atom.density)
+		target.Weaken(1 SECONDS)
+
+/obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
+	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
+
+/obj/item/melee/arm_blade/fleshy_maul/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a horrifying maul from flesh.</span>"
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
