@@ -126,6 +126,16 @@
 	ME.attach(src)
 	return
 
+/obj/mecha/working/ripley/deathripley/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>A functioning, well-made collectable for the popular Nanotrasen-Funded holovid show, 'Deathsquad'. \
+	A retrofitted and repainted Ripley chassis, the Death Ripley was created and used by the leader of the Deathsquad, Master Sergeant Killjoy, during the climactic battle with the Spider Queen “Xerxes” at the end of Season 4. \
+	The mech bears the signature mark of the team’s engineer, Corporal Ironhead, who assisted Killjoy in its construction.</i>"
+	. += ""
+	. += "<i>Replicas such as this are sought-after collectibles among the biggest fans of Deathsquad. \
+	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
+
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
