@@ -53,7 +53,7 @@
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
 /obj/mecha/combat/durand/old/examine_more(mob/user)
-	+ ..()
+	..()
 	+ . = list()
 	. += "<i>A relic of a mech, once produced by Defiance Arms nearly one hundred years ago. \
 	It is now sought after by collectors and museums alike and has found its way into the hands of many a black market over the decades since its later versions replaced it.</i>"
