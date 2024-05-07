@@ -48,7 +48,7 @@
 /obj/mecha/combat/marauder/examine_more(mob/user)
 	. = ..()
 	. += "<i>The newest combat mech developed by Defiance Arms, the Marauder is now their mainline offering in the galactic arms market. \
-	Based on the earlier Durand chassis, the Marauder is a high-tech weapon of war and destruction, fulfilling the spearhead role of Defiance's earlier design while supporting more firepower than ever before</i>"
+	Based on the earlier Durand chassis, the Marauder is a high-tech weapon of war and destruction, fulfilling the spearhead role of Defiance's earlier design while supporting more firepower than ever before.</i>"
 	. += ""
 	. += "<i>The Marauder is rarely seen in civilian hands; instead, it is marketed towards military and mercenary forces. \
 	Recently, Defiance has opened sales to more customers; This includes Nanotrasen, who uses it to equip their ERT dvision.</i>"
@@ -168,7 +168,7 @@
 	..()
 	. = list()
 	. += "<i>A bulky, brutish combat mech painted a deep, matte black, highlighted with a menacing red; the Mauler is an illegal retrofit of Defiance's Marauder chassis. \
-	Armed to the teeth with various weapons and armored more thickly than some main battle tanks, this mechanical monstrosity is incredibly rare, and little is known about who makes them or why they exist</i>."
+	Armed to the teeth with various weapons and armored more thickly than some main battle tanks, this mechanical monstrosity is incredibly rare, and little is known about who makes them or why they exist.</i>"
 	. += ""
 	. += "<i>The few confirmed sightings have recently been in the hands of the Gorlex Marauders, a group of hostile pirates with suspected ties to the Syndicate. \
-	The Mauler poses a severe threat to any force and should never be taken lightly</i>."
+	The Mauler poses a severe threat to any force and should never be taken lightly.</i>"

@@ -35,7 +35,7 @@
 	Supplanted by newer, more advanced models, these old machines found themselves on the open market and are popular among corporations, private security firms, and planetary militia.</i>"
 	. += ""
 	. += "<i>Able to bear a wide array of heavy weapons and defensive tools, Nanotrasen found a use for the Durand as a machine to counter biohazards and hostile alien lifeforms, using it to secure new research installations or to fend off hostile fauna and bioforms. \
-	As with all station-side mechs, Nanotrasen has purchased the license to produce the Durand in their facilities. </i>"
+	As with all station-side mechs, Nanotrasen has purchased the license to produce the Durand in their facilities.</i>"
 
 /obj/mecha/combat/durand/old
 	desc = "A retired, third-generation combat exosuit designed by Defiance Arms. Originally developed to combat hostile alien lifeforms"

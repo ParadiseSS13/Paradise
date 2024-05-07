@@ -56,4 +56,4 @@
 	. += ""
 	. += "<i>Due to the nature of finding Anomaly Cores, Phazons are exceedingly rare. \
 	It seems to hum with stored energy, the edges of its chassis blurry in the eyes of others, even at rest. \
-	Early test pilots report strange hallucinations and “visions” after extensive use of the phasing ability. </i>"
+	Early test pilots report strange hallucinations and “visions” after extensive use of the phasing ability.</i>"
