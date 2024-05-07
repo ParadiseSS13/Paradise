@@ -14800,10 +14800,10 @@
 /area/centcom/ss220/admin1)
 "jZg" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/tofukabob,
-/obj/item/food/snacks/tofukabob,
-/obj/item/food/snacks/tofukabob,
-/obj/item/food/snacks/tofukabob,
+/obj/item/food/snacks/tofukebab,
+/obj/item/food/snacks/tofukebab,
+/obj/item/food/snacks/tofukebab,
+/obj/item/food/snacks/tofukebab,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},

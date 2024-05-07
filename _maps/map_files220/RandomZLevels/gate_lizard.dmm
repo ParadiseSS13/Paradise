@@ -1589,7 +1589,7 @@
 /area/awaymission/jungle_planet/outside)
 "ccc" = (
 /obj/structure/closet/crate/wooden/barrel,
-/obj/item/food/snacks/monkeykabob,
+/obj/item/food/snacks/syntikebab,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "cco" = (
