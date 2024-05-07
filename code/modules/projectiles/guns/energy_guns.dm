@@ -34,18 +34,12 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
-	/// Extra flavour text generated when shift-clicking twice in quick succession.
-	var/extended_description = "<span class='notice'><i>You examine the weapon closer, but find nothing of interest...</i></span>"
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
-
-/obj/item/gun/energy/examine_more(mob/user)	// Used to display the extended_description in guns that have one.
-	. = ..()
-	. += extended_description
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
