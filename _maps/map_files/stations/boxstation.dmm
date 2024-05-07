@@ -23086,7 +23086,7 @@
 /area/station/maintenance/port)
 "bsg" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft/grey{
+/obj/item/clothing/head/soft{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -24963,10 +24963,6 @@
 "bzd" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/station/hallway/secondary/exit)
-"bze" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/service/bar)
 "bzf" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53843,7 +53839,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "eiv" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
@@ -59939,7 +59935,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "gZn" = (
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
@@ -63605,7 +63601,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "iUF" = (
 /obj/structure/cable{
@@ -64817,7 +64813,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "jzT" = (
 /obj/machinery/door/airlock/command{
@@ -69806,7 +69802,7 @@
 /area/station/maintenance/apmaint2)
 "lVB" = (
 /obj/machinery/atmospherics/unary/passive_vent,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "lVK" = (
 /obj/machinery/door/airlock/maintenance,
@@ -71298,9 +71294,9 @@
 "mIA" = (
 /obj/structure/table,
 /obj/item/stamp/granted,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /obj/item/hand_labeler,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -73554,7 +73550,7 @@
 	id = "toxinsigniter";
 	pixel_x = -20
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "nTm" = (
 /obj/machinery/sparker{
@@ -74567,7 +74563,7 @@
 	dir = 6
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "opg" = (
 /obj/item/seeds/potato,
@@ -76275,6 +76271,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"pcF" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/west)
 "pcH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -76563,7 +76565,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "plJ" = (
 /obj/structure/cable{
@@ -77519,7 +77521,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "pMv" = (
 /obj/machinery/light_switch{
@@ -130569,8 +130571,8 @@ bmq
 bmq
 bmq
 bzo
-bze
-bAk
+aUS
+pcF
 bHy
 bDb
 bEy

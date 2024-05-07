@@ -56,9 +56,8 @@
 	return copy
 
 /datum/secondary_goal_progress/random_ripley/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	var/datum/component/label/goal/label = AM.GetComponent(/datum/component/label/goal)
 	// Not labelled for this goal? Ignore.
-	if(!istype(label) || label.label_name != goal_requester)
+	if(!check_personal_crate(AM))
 		return
 	if(!istype(AM, /obj/mecha/working/ripley))
 		return
