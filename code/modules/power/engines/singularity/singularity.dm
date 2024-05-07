@@ -22,7 +22,7 @@
 	var/consume_range = 0 //How many tiles out do we eat
 	var/event_chance = 15 //Prob for event each tick
 	var/target = null //Its target. Moves slowly towards this.
-	var/becaon_target = null //Syndicate singularity beacon. Moves fast towards this.
+	var/beacon_target = null //Syndicate singularity beacon. Moves fast towards this.
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
@@ -48,7 +48,7 @@
 	GLOB.singularities += src
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
 		if(singubeacon.active)
-			becaon_target = singubeacon
+			beacon_target = singubeacon
 			break
 	all_possible_areas = findUnrestrictedEventArea()
 
@@ -344,7 +344,7 @@
 		movement_dir = force_move
 	if(target && prob(20))
 		movement_dir = get_dir(src,target) //moves to a random spot on the map
-	if(becaon_target && prob(60))
+	if(beacon_target && prob(60))
 		movement_dir = get_dir(src,target) //moves to a singulo beacon, if there is one
 
 	step(src, movement_dir)
