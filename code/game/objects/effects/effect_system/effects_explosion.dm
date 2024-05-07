@@ -19,3 +19,15 @@
 			for(var/j in 1 to steps_amt)
 				sleep(1)
 				step(expl,direct)
+
+// Yes this is a double empty path. It exists for extra readability
+/datum/effect_system/explosion/smoke
+
+/datum/effect_system/explosion/smoke/proc/create_smoke()
+	var/datum/effect_system/smoke_spread/S = new
+	S.set_up(5, FALSE, location, null)
+	S.start()
+
+/datum/effect_system/explosion/smoke/start()
+	..()
+	addtimer(CALLBACK(src, PROC_REF(create_smoke)), 0.5 SECONDS)

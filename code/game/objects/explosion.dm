@@ -114,6 +114,11 @@
 		else if(light_impact_range > 0)
 			new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
 
+		if(smoke)
+			var/datum/effect_system/explosion/smoke/E = new()
+			E.set_up(epicenter)
+			E.start()
+
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
 		if(GLOB.configuration.general.reactionary_explosions)
