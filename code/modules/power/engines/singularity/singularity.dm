@@ -21,7 +21,8 @@
 	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
 	var/consume_range = 0 //How many tiles out do we eat
 	var/event_chance = 15 //Prob for event each tick
-	var/target = null //its target. moves towards the target if it has one
+	var/target = null //Its target. Moves slowly towards this.
+	var/becaon_target = null //Syndicate singularity beacon. Moves fast towards this.
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
@@ -30,6 +31,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	/// Whether or not we've pinged ghosts
 	var/isnt_shutting_down = FALSE
+	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
+	var/list/all_possible_areas = list()
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
@@ -45,8 +48,9 @@
 	GLOB.singularities += src
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
 		if(singubeacon.active)
-			target = singubeacon
+			becaon_target = singubeacon
 			break
+	all_possible_areas = findUnrestrictedEventArea()
 
 /obj/singularity/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -323,6 +327,10 @@
 
 	return
 
+/obj/singularity/proc/assign_target()
+	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
+	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
+	target = pick(target_area_turfs) // Grabs a single turf from the entire list
 
 /obj/singularity/proc/move(force_move = 0)
 	if(!move_self)
@@ -330,10 +338,13 @@
 
 	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
 
+	if(get_turf(src) == target || !target)
+		assign_target()
 	if(force_move)
 		movement_dir = force_move
-
-	if(target && prob(60))
+	if(target && prob(20))
+		movement_dir = get_dir(src,target) //moves to a random spot on the map
+	if(becaon_target && prob(60))
 		movement_dir = get_dir(src,target) //moves to a singulo beacon, if there is one
 
 	step(src, movement_dir)
