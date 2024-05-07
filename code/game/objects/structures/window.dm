@@ -194,6 +194,7 @@
 			to_chat(user, "<span class='notice'>You start rebuilding the broken grille.</span>")
 			if(do_after(user, 4 SECONDS, FALSE, G))
 				G.repair(user, I)
+			return
 
 	else if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I
@@ -222,6 +223,22 @@
 					M.Weaken(10 SECONDS)
 					M.apply_damage(30)
 					take_damage(75)
+
+	else if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = I
+		if(S.get_amount()<2)
+			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
+			return
+		else if(/obj/structure/barricade/wooden in get_turf(src))
+			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
+			return
+		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
+		if(do_after(user, 20, target = src))
+			S.use(2)
+			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
+			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
+			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+			transfer_fingerprints_to(newbarricade)
 	else
 		return ..()
 

@@ -127,6 +127,13 @@
 	max_integrity = 50
 	proj_pass_rate = 65
 
+//To make sure you can't wall off barricaded windows or airlocks
+/obj/structure/barricade/wooden/crude/attackby(/obj/item/I, mob/user, params)
+	var/obj/item/stack/sheet/wood/S
+	var/obj/item/I = S
+	if(istype(I, /obj/item/stack/sheet/wood))
+		to_chat(user, "<span class='warning'>This barricade is too crude to support a wall!</span>")
+
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
