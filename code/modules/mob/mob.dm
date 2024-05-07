@@ -918,7 +918,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return
 
 /mob/proc/activate_hand(selhand)
-	return
+	return FALSE
 
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
@@ -1254,7 +1254,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
 /mob/proc/sync_nightvision_screen()
-	var/atom/movable/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	var/atom/movable/screen/fullscreen/stretch/see_through_darkness/S = screens["see_through_darkness"]
 	if(S)
 		var/suffix = ""
 		switch(see_in_dark)
