@@ -51,7 +51,7 @@
 	Based on the earlier Durand chassis, the marauder is a high-tech weapon of war and destruction, fulfilling the spearhead role of Defiance's earlier design while supporting more firepower than ever before</i>"
 	. += ""
 	. += "<i>The Marauder is rarely seen in civilian hands; instead, it is marketed towards military and mercenary forces. \
-	Recently, Defiance has opened sales to more customers, including nanotrasen, for use in their ERT teams.</i>"
+	Recently, Defiance has opened sales to more customers, including nanotrasen, for use in their ERT forces.</i>"
 
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
