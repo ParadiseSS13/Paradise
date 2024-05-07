@@ -216,6 +216,10 @@
 
 	to_chat(user, "<span class='changeling'>We ready to [swing ? "swing at" : "crush"] our prey!</span>")
 
+/obj/item/melee/arm_blade/fleshy_maul/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is ready to [swing ? "swing" : "crush"]."
+
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
 	if(get_dist(target, user) > 2)
 		return
