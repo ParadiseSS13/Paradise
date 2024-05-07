@@ -37,7 +37,7 @@
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = calculate_blood_cost(vampire)
-	vampire.bloodusable = clamp(vampire.bloodusable - blood_cost, 0, vampire.bloodusable)
+	vampire.subtract_usable_blood(blood_cost)
 
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
 	var/blood_cost_modifier = 1 + vampire.nullified / 100
