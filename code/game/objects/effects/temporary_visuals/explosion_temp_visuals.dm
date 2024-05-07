@@ -1,7 +1,7 @@
 /obj/effect/temp_visual/explosion
 	name = "boom"
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "explosion"
+	icon_state = "explosion2"
 	duration = 10 SECONDS
 	/// Smoke wave particle holder
 	var/obj/effect/abstract/particle_holder/smoke_wave
