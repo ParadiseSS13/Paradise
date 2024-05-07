@@ -238,13 +238,13 @@
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(60, , armour_penetration_flat = apf, armour_penetration_percentage = app)
+		wall.take_damage(60, armour_penetration_flat = apf, armour_penetration_percentage = app)
 		user.do_attack_animation(wall)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/airlock/door = target
-		door.take_damage(50, , armour_penetration_flat = apf, armour_penetration_percentage = app)
+		door.take_damage(50, armour_penetration_flat = apf, armour_penetration_percentage = app)
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
