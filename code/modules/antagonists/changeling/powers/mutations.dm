@@ -179,15 +179,15 @@
 \***************************************/
 /datum/action/changeling/weapon/fleshy_maul
 	name = "Fleshy Maul"
-	desc = "We reform one of our arms into a enourmous maul. Costs 10 chemicals."
+	desc = "We reform one of our arms into a enourmous maul. Costs 20 chemicals."
 	helptext = "We may retract our maul in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "fleshy_maul"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 4
-	chemical_cost = 10
+	chemical_cost = 20
 	weapon_type = /obj/item/melee/arm_blade/fleshy_maul
 	weapon_name_simple = "maul"
-	recharge_slowdown = 0.75
+	recharge_slowdown = 1
 	category = /datum/changeling_power_category/offence
 
 /obj/item/melee/arm_blade/fleshy_maul
@@ -196,9 +196,10 @@
 	icon_state = "fleshy_maul"
 	item_state = "fleshy_maul"
 	sharp = FALSE
-	force = 30
-	armour_penetration_percentage = 40
+	force = 10
+	armour_penetration_percentage = 60
 	hitsound = "swing_hit"
+	reach = 2
 
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
 	if(!proximity)
@@ -220,22 +221,17 @@
 		M.Slowed(2 SECONDS, 5)
 		var/atom/throw_target = get_edge_target_turf(M, user.dir)
 		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
-		M.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-			if(O.brute_dam > 20)
-				O.fracture()
+		M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
 
 /obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
-		target.Weaken(1 SECONDS)
+		target.Slowed(1 SECONDS)
 
 /obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
 /obj/item/melee/arm_blade/fleshy_maul/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a horrifying maul from flesh.</span>"
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a enormous maul from flesh.</span>"
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
