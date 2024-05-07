@@ -47,13 +47,6 @@
 	cost = 100
 	category = MERCH_CAT_TOY
 
-/datum/merch_item/nanomob_booster
-	name = "Nano-Mob Hunter Trading Card Booster Pack"
-	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	typepath = /obj/item/storage/box/nanomob_booster_pack
-	cost = 125
-	category = MERCH_CAT_TOY
-
 /datum/merch_item/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
