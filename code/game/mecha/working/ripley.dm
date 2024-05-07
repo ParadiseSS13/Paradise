@@ -72,6 +72,16 @@
 	else
 		. += occupant ? "ripley-g" : "ripley-g-open"
 
+/obj/mecha/working/ripley/examine_more(mob/user)
+	. = ..()
+	. += "<i>The Ripley is a robust, venerable utility exosuit originally produced by Hephaestus Industries. \
+	It now sees widespread use in and around the Orion sector, being one of the most pervasive mechs ever produced. \
+	Shortly after initial production, Hephaestus licensed production rights for the Ripley to other corporations, earning royalties as the exosuit grew more popular.</i>"
+	. += ""
+	. += "<i>Depending on the configuration, the Ripley can be used for many purposes, including mining, construction, and even goods transport. \
+	To this day, it remains one of the most valuable mechs ever produced, and Hepaestus enjoys a substantial profit from sales of this aging but rugged design. \
+	As with all station-side mechs, Nanotrasen has purchased the license to make the Ripley in their facilities.</i>"
+
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
 	name = "APLU \"Firefighter\""
