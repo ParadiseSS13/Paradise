@@ -164,7 +164,7 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
-/obj/mecha/combat/marauder/mauler/examine(mob/user)
+/obj/mecha/combat/marauder/mauler/examine_more(mob/user)
 	..()
 	. = list()
 	. += "<i>A bulky, brutish combat mech painted a deep, matte black, highlighted with a menacing red; the Mauler is an illegal retrofit of Defiance's Marauder chassis. \
