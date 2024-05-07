@@ -95,6 +95,15 @@
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 
+/obj/mecha/working/ripley/firefighter/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>Based on the venerable Ripley chassis, designed initially by Hephaestus Industries, the Firefighter is a retrofit created by Nanotrasen as their mining operations expanded, and a robust, fireproof exosuit was needed. \
+	Adapted to fit heat-resistant shielding, the Firefighter became a popular mech for mining teams in dangerous environments.</i>"
+	. += ""
+	. += "<i>Since Nanotrasen's expansion into Epsilon Eridani and their mining operations on Lavaland, the Firefighter has grown more popular among seasoned miners looking for a safer, armored way to mine in even the hottest of biomes. \
+	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
+
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "DEATH-RIPLEY"
