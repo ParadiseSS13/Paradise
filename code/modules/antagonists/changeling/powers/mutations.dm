@@ -210,7 +210,7 @@
 	else
 		swing = TRUE
 
-	to_chat("<span class='changeling'>We ready to [swing ? "swing at" : "crush"] our prey!</span>")
+	to_chat(user, "<span class='changeling'>We ready to [swing ? "swing at" : "crush"] our prey!</span>")
 
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
 
@@ -221,21 +221,21 @@
 				var/obj/structure/table/T = target
 				T.deconstruct(FALSE)
 				return
-			S.attack_generic(user, 120, BRUTE, "melee", 0)
+			S.attack_generic(user, 120, BRUTE, "melee", 0, armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
 
-	else if(istype(target, /obj/machinery/computer))
-		var/obj/machinery/computer/C = target
-		C.attack_alien(user)
+	else if(istype(target, /obj/machinery))
+		var/obj/machinery/M = target
+		M.attack_generic(user, 200, BRUTE, "melee", 0, armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(60)
+		wall.take_damage(60, , armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
 		user.do_attack_animation(wall)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/airlock/door = target
-		door.take_damage(50)
+		door.take_damage(50, , armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
