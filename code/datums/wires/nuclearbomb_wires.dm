@@ -34,7 +34,7 @@
 		if(WIRE_NUKE_DETONATOR)
 			if(N.timing)
 				if(!N.training)
-					message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonator wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
+					message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonator wire, causing it to explode (<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 				N.explode()
 			else
 				N.audible_message("<span class='warning'>[N] whirrs ominously.</span>", hearing_distance = 1)
@@ -68,7 +68,7 @@
 		if(WIRE_NUKE_DETONATOR)
 			if(N.timing && !mend)
 				if(!N.training)
-					message_admins("[key_name_admin(usr)] cut a nuclear bomb's detonator wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
+					message_admins("[key_name_admin(usr)] cut a nuclear bomb's detonator wire, causing it to explode (<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 				N.explode()
 
 		if(WIRE_NUKE_LIGHT)
