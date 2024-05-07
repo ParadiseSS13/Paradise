@@ -144,6 +144,12 @@
 	//Make sure the item is still there after our sleep
 	if(!AM || QDELETED(AM))
 		return
+	if(ismecha(AM))
+		var/obj/mecha/M = AM
+		if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in M.equipment)
+			if(M.use_power(100)) // cost a LOT to keep mech at fly in such gravitation
+				return
+
 	falling_atoms[AM] = TRUE
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
