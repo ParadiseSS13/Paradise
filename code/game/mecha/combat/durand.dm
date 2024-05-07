@@ -53,9 +53,10 @@
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
 /obj/mecha/combat/durand/old/examine_more(mob/user)
-		. = ..()
-		. += "<i>A relic of a mech, once produced by Defiance Arms nearly one hundred years ago. \
-		It is now sought after by collectors and museums alike and has found its way into the hands of many a black market over the decades since its later versions replaced it.</i>"
-		. += ""
-		. += "<i>Built initially to break into and destroy Xenomorph infestations, bigger and better war machines exist. \
-		But many still uphold this version of the Durand as an unstoppable classic, and finding one intact and functional has become increasingly rare</i>"
+	+ ..()
+	+ . = list()
+	. += "<i>A relic of a mech, once produced by Defiance Arms nearly one hundred years ago. \
+	It is now sought after by collectors and museums alike and has found its way into the hands of many a black market over the decades since its later versions replaced it.</i>"
+	. += ""
+	. += "<i>Built initially to break into and destroy Xenomorph infestations, bigger and better war machines exist. \
+	But many still uphold this version of the Durand as an unstoppable classic, and finding one intact and functional has become increasingly rare</i>"
