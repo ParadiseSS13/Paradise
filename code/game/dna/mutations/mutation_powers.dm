@@ -476,6 +476,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_jump"
+	var/leap_distance = 10
 
 /datum/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -508,7 +509,7 @@
 		user.layer = 9
 
 		user.flying = TRUE
-		for(var/i in 1 to 10)
+		for(var/i in 1 to leap_distance)
 			var/turf/hit_turf = get_step(user, user.dir)
 			var/atom/hit_atom = get_blocking_atom(hit_turf)
 			if(hit_atom)
@@ -555,13 +556,14 @@
 	if(turf_to_check.density)
 		return turf_to_check
 
-	for(var/mob/living/hit_mob in turf_to_check)
-		if(hit_mob.density)
-			return hit_mob
+	for(var/atom/movable/hit_thing in turf_to_check)
+		if(isliving(hit_thing))
+			var/mob/living/hit_mob = hit_thing
+			return hit_mob.density
 
-	for(var/obj/hit_obj in turf_to_check)
-		if(hit_obj.density)
-			return hit_obj
+		if(isobj(hit_thing))
+			var/obj/hit_obj = hit_thing
+			return hit_obj.density
 
 	return FALSE
 
