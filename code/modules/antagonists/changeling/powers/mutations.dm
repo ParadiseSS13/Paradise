@@ -202,13 +202,9 @@
 	hitsound = "swing_hit"
 	reach = 2
 	var/swing = TRUE
-	var/apf
-	var/app
 
 /obj/item/melee/arm_blade/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()
-	apf = armour_penetration_flat
-	app = armour_penetration_percentage
 
 /obj/item/melee/arm_blade/fleshy_maul/attack_self(mob/user)
 	..()
@@ -230,21 +226,21 @@
 				var/obj/structure/table/T = target
 				T.deconstruct(FALSE)
 				return
-			S.attack_generic(user, 120, BRUTE, "melee", 0, armour_penetration_flat = apf, armour_penetration_percentage = app)
+			S.attack_generic(user, 120, BRUTE, "melee", 0)
 
 	else if(istype(target, /obj/machinery))
 		var/obj/machinery/M = target
-		M.attack_generic(user, 200, BRUTE, "melee", 0, armour_penetration_flat = apf, armour_penetration_percentage = app)
+		M.attack_generic(user, 200, BRUTE, "melee", 0)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(60, armour_penetration_flat = apf, armour_penetration_percentage = app)
+		wall.take_damage(60)
 		user.do_attack_animation(wall)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/airlock/door = target
-		door.take_damage(50, armour_penetration_flat = apf, armour_penetration_percentage = app)
+		door.take_damage(50)
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
