@@ -183,8 +183,8 @@
 
 //Mind Flayer Flak Cannon
 /obj/item/pneumatic_cannon/flayer
-	name = "Pneumatic Flak Gun"
-	desc = "Shoots a condensed burst of scrap metal."
+	name = "Pneumatic Flak Cannon"
+	desc = "An arm-mounted cannon that can shoot concentrated bursts, or a spread shot of flak."
 	flags = ABSTRACT | NODROP
 	requires_tank = FALSE
 	max_weight_class = 5
@@ -224,8 +224,8 @@
 /obj/item/pneumatic_cannon/flayer/fire(mob/living/carbon/human/user, atom/target)
 	if(spread_shot)
 		var/target_range = (get_dist_euclidian(user, target) + 2) //Get a turf slightly behind the target
-		var/left_target = get_ranged_target_turf_direct(user.loc, target, target_range, -45) //-45 degrees
-		var/right_target = get_ranged_target_turf_direct(user.loc, target, target_range, 45) //45 degrees
+		var/left_target = get_ranged_target_turf_direct(user.loc, target, target_range, -40) //-40 degrees, slightly below a full cone
+		var/right_target = get_ranged_target_turf_direct(user.loc, target, target_range, 40) //40 degrees
 		var/list/line = get_line(left_target, right_target) //the COOOOOOOOONE!
 		playsound(loc, 'sound/weapons/resonator_fire.ogg', 50, TRUE)
 		for(var/obj/item/loaded_item in loaded_items)
@@ -233,7 +233,7 @@
 			loaded_items.Remove(loaded_item)
 			loaded_weight_class -= loaded_item.w_class
 			loaded_item.forceMove(get_turf(src))
-			loaded_item.throw_at(turf_to_throw_at, target_range, 2, user)
+			loaded_item.throw_at(turf_to_throw_at, target_range, 3, user)
 	else
 		..()
 
