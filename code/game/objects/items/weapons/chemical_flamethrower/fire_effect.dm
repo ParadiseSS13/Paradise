@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 #define MAX_FIRE_EXIST_TIME 10 MINUTES // That's a lot of fuel, but you are not gonna make it last for longer
 
 /obj/effect/fire
-	name = "\improper Fire"
+	name = "fire"
 	desc = "You don't think you should touch this."
 	icon = 'icons/effects/chemical_fire.dmi'
 	icon_state = "fire1"
@@ -31,19 +31,6 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		if(get_dist(src, flame) < 1) // It's on the same turf
 			merge_flames(flame)
 
-	for(var/atom/movable/thing_to_burn in get_turf(src))
-		if(isliving(thing_to_burn))
-			var/mob/living/mob_to_burn = thing_to_burn
-			mob_to_burn.adjustFireLoss(temperature / 100)
-			mob_to_burn.adjust_fire_stacks(application_stacks)
-			mob_to_burn.IgniteMob()
-			continue
-
-		if(isobj(thing_to_burn))
-			var/obj/obj_to_burn = thing_to_burn
-			obj_to_burn.fire_act(null, temperature)
-			continue
-
 	GLOB.flame_effects += src
 	START_PROCESSING(SSprocessing, src)
 
@@ -56,8 +43,30 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(duration <= 0)
 		fizzle()
 		return
-
 	duration -= 2 SECONDS
+
+	for(var/atom/movable/thing_to_burn in get_turf(src))
+		if(isliving(thing_to_burn))
+			var/mob/living/mob_to_burn = thing_to_burn
+
+			var/fire_damage = temperature / 100
+			if(ishuman(mob_to_burn))
+				var/mob/living/carbon/human/human_to_burn = mob_to_burn
+				var/fire_armour = human_to_burn.get_thermal_protection()
+				if(fire_armour == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+					continue
+				fire_damage /= ARMOUR_VALUE_TO_PERCENTAGE(fire_armour)
+
+			mob_to_burn.adjustFireLoss(fire_damage)
+			mob_to_burn.adjust_fire_stacks(application_stacks)
+			mob_to_burn.IgniteMob()
+			continue
+
+		if(isobj(thing_to_burn))
+			var/obj/obj_to_burn = thing_to_burn
+			obj_to_burn.fire_act(null, temperature)
+			continue
+
 
 /obj/effect/fire/water_act(volume, temperature, source, method)
 	. = ..()

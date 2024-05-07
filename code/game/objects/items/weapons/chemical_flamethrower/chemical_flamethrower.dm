@@ -32,7 +32,11 @@
 	. = ..()
 	if(!length(canisters))
 		canisters += new /obj/item/chemical_canister
-	get_canister_stats()
+	update_canister_stats()
+
+/obj/item/chemical_flamethrower/Destroy()
+	QDEL_LIST_CONTENTS(canisters)
+	return ..()
 
 /obj/item/chemical_flamethrower/attack_self(mob/user)
 	. = ..()
@@ -63,9 +67,9 @@
 	canisters += I
 	I.forceMove(src)
 
-	get_canister_stats()
+	update_canister_stats()
 
-/obj/item/chemical_flamethrower/proc/get_canister_stats()
+/obj/item/chemical_flamethrower/proc/update_canister_stats()
 	if(!length(canisters))
 		canister_burn_temp = null
 		canister_burn_duration = null
@@ -114,6 +118,8 @@
 
 	var/turf/previousturf = get_turf(src)
 	for(var/turf/simulated/T in turflist)
+		if(iswallturf(T)) // No going through walls
+			break
 		if(!use_ammo(5))
 			to_chat(user, "<span class='warning'>You hear a click!</span>")
 			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
@@ -131,7 +137,7 @@
 			break
 
 		make_flame(T)
-		get_canister_stats() // In case we ran out of some fuel this fire
+		update_canister_stats() // In case we ran out of some fuel this fire
 		sleep(1)
 		previousturf = T
 
@@ -206,7 +212,7 @@
 
 	current_reagent_id = reagents.get_master_reagent_id()
 	reagents.isolate_reagent(current_reagent_id)
-	var/has_enough_reagents = reagents.total_volume >= required_volume ? TRUE : FALSE
+	var/has_enough_reagents = reagents.total_volume >= required_volume
 	visible_message("<span class='notice'>[src] removes all reagents except for [current_reagent_id]. \
 					The reservoir has [reagents.total_volume] out of [required_volume] units. \
 					Reagent effects are [has_enough_reagents ? "in effect" : "not active"].</span>")

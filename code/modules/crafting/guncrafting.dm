@@ -100,7 +100,7 @@
 	outcome = /obj/item/gun/energy/disabler/silencer
 
 /obj/item/weaponcrafting/gunkit/chemical_flamethrower
-	name = "extended chemical flamethrower parts kit."
+	name = "extended chemical flamethrower parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard chemical flamethrower into a version that can accept two cartridges instead of one."
 	origin_tech = "combat=5;engineering=6;plasmatech=4"
 	outcome = /obj/item/chemical_flamethrower/extended
