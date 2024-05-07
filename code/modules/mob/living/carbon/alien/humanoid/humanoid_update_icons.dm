@@ -5,11 +5,7 @@
 #define X_R_HAND_LAYER			4
 #define X_TARGETED_LAYER			5
 #define X_FIRE_LAYER			6
-#define X_TOTAL_LAYERS			6
 /////////////////////////////////
-
-/mob/living/carbon/alien/humanoid
-	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
 	overlays.Cut()
@@ -76,7 +72,7 @@
 		inv.update_icon()
 
 	if(wear_suit)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
 				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD
@@ -144,4 +140,3 @@
 #undef X_R_HAND_LAYER
 #undef X_TARGETED_LAYER
 #undef X_FIRE_LAYER
-#undef X_TOTAL_LAYERS

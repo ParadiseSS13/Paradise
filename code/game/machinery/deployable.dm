@@ -27,6 +27,10 @@
 	//The list of directions to block a projectile from
 	var/list/directional_list = list()
 
+/obj/structure/barricade/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
+
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		make_debris()
@@ -56,7 +60,7 @@
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
 	if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
-	else if(istype(mover, /obj/item/projectile))
+	else if(isprojectile(mover))
 		if(!anchored)
 			return TRUE
 		var/obj/item/projectile/proj = mover
@@ -449,7 +453,7 @@
 
 /obj/structure/barricade/dropwall/firewall/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!istype(AM, /obj/item/projectile))
+	if(!isprojectile(AM))
 		return
 	var/obj/item/projectile/P = AM
 	P.immolate ++

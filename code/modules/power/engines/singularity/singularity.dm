@@ -348,7 +348,7 @@
 			if(STAGE_ONE)
 				steps = 1
 			if(STAGE_TWO)
-				steps = 3//Yes this is right
+				steps = 2
 			if(STAGE_THREE)
 				steps = 3
 			if(STAGE_FOUR)
@@ -519,7 +519,7 @@
 
 /obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!istype(AM, /obj/item/projectile))
+	if(!isprojectile(AM))
 		return
 	var/obj/item/projectile/P = AM
 	var/distance = distance_to_singulo
