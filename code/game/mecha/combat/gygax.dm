@@ -33,6 +33,16 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	ME.attach(src)
 
+/obj/mecha/combat/gygax/examine_more(mob/user)
+	. = ..()
+	. += "<i>A light, fast and cheap combat mech designed and produced by Shellguard Munitions. \
+	Originally developed as a mobile flanker for open combat scenarios, a substantial flaw in the mech's Leg Overdrive systems caused poor sales. \
+	When using this system, the legs of the Gygax are prone to overheating and damaging the rest of the machine, leading overzealous pilots to harm themselves more than the enemy</i>."
+	. += ""
+	. += "<i>Despite this flaw, Shellguard was able to reconsider the use of the mech and instead marketed it as a civil defence and policing mech. \
+	Popularity soared, especially among corporations like Nanotrasen, who were seeking a light, fast, cheap design to use to equip their security teams. \
+	As with all station-side mechs, Nanotrasen has purchased the license to produce the Gygax in their facilities</i>."
+
 /obj/mecha/combat/gygax/dark
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
 	name = "Dark Gygax"
