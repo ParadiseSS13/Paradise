@@ -10,7 +10,8 @@
 	name = "saw bone"
 	allowed_tools = list(
 		TOOL_SAW = 100,
-		/obj/item/hatchet = 90
+		/obj/item/hatchet = 90,
+		/obj/item/wirecutters = 35 // silly goose
 	)
 
 	time = 5.4 SECONDS
