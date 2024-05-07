@@ -60,7 +60,6 @@
 	addtimer(CALLBACK(src, PROC_REF(set_count_long)), 8 SECONDS)
 
 /obj/effect/temp_visual/explosion/proc/set_count_short()
-
 	explosion_smoke.particles.count = 0
 	sparks.particles.count = 0
 	large_kickup.particles.count = 0
