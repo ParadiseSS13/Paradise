@@ -1,5 +1,5 @@
 /obj/mecha/combat/marauder
-	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
+	desc = "Heavy-duty combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "Marauder"
 	icon_state = "marauder"
 	initial_icon = "marauder"
@@ -44,6 +44,14 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
+
+/obj/mecha/combat/marauder/examine_more(mob/user)
+	. = ..()
+	. += "<i>The newest combat mech developed by Defiance Arms, the Marauder is now their mainline offering in the galactic arms market. \
+	Based on the earlier Durand chassis, the marauder is a high-tech weapon of war and destruction, fulfilling the spearhead role of Defiance's earlier design while supporting more firepower than ever before</i>"
+	. += ""
+	. += "<i>The Marauder is rarely seen in civilian hands; instead, it is marketed towards military and mercenary forces. \
+	Recently, Defiance has opened sales to more customers, including nanotrasen, for use in their ERT teams.</i>"
 
 /obj/mecha/combat/marauder/ares
 	name = "Ares"

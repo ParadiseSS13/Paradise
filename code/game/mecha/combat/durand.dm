@@ -39,7 +39,7 @@
 
 /obj/mecha/combat/durand/old
 	desc = "A retired, third-generation combat exosuit designed by Defiance Arms. Originally developed to combat hostile alien lifeforms"
-	name = "Durand"
+	name = "Old Durand"
 	icon_state = "old_durand"
 	initial_icon = "old_durand"
 	step_in = 4
@@ -59,4 +59,4 @@
 	It is now sought after by collectors and museums alike and has found its way into the hands of many a black market over the decades since its later versions replaced it.</i>"
 	. += ""
 	. += "<i>Built initially to break into and destroy Xenomorph infestations, bigger and better war machines exist. \
-	But many still uphold this version of the Durand as an unstoppable classic, and finding one intact and functional has become increasingly rare</i>"
+	But many still uphold this version of the Durand as an unstoppable classic, and finding one intact and functional has become increasingly rare.</i>"
