@@ -528,7 +528,7 @@
 	id = "syndbaseigniter";
 	pixel_y = 20
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "de" = (
 /obj/machinery/light{
@@ -1064,7 +1064,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "fP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1860,7 +1860,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "kh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2541,7 +2541,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "syndiebase_mix_sensor"
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "nI" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -3350,7 +3350,7 @@
 	autolink_id = "syndiebase_mix_out";
 	dir = 8
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "sF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7440,7 +7440,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "QB" = (
 /obj/machinery/optable,
@@ -7740,7 +7740,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Su" = (
 /obj/structure/table,
@@ -7988,7 +7988,7 @@
 	autolink_id = "syndiebase_mix_in";
 	dir = 8
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Tp" = (
 /obj/machinery/light{
