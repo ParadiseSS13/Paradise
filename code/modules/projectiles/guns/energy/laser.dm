@@ -1,5 +1,5 @@
 /obj/item/gun/energy/laser
-	name = "LG-5 laser carbine"
+	name = "\improper LG-5 laser carbine"
 	desc = "A compact and lightweight laser carbine manufactured by Shellguard Munitions Co. Considered the most widely used laserarm in the Orion sector, it only fires lethal rounds and requires a recharger to reload."
 	icon_state = "laser"
 	item_state = "laser"
@@ -36,7 +36,7 @@
 	return
 
 /obj/item/gun/energy/laser/practice
-	name = "LG-5(T) training laser carbine"
+	name = "\improper LG-5(T) training laser carbine"
 	desc = "A training model of Shellguard Munitions' LG-5 laser rifle. It shoots low-power laser shots designed for target practice."
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
@@ -48,7 +48,7 @@
 	. += "<span class='warning'>This weapon's shots are too weak to harm anyone, it is useless as an offensive weapon.</span>"
 
 /obj/item/gun/energy/laser/retro
-	name ="L-1 'retro' laser gun"
+	name ="\improper L-1 'retro' laser gun"
 	icon_state = "retro"
 	item_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
@@ -152,7 +152,7 @@
 	return
 
 /obj/item/gun/energy/lwap
-	name = "LWAP laser sniper"
+	name = "\improper LWAP laser sniper"
 	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly. Comes with a super advanced scope, which can highlight threats through walls, and pierce one object, after being deployed for a while."
 	icon_state = "esniper"
 	item_state = null
@@ -254,7 +254,7 @@
 	..()
 
 /obj/item/gun/energy/xray
-	name = "X-ray laser gun"
+	name = "\improper X-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated X-ray beams. These beams can penetrate any number of solid objects, but will decrease in power the longer they have to travel."
 	icon_state = "xray"
 	item_state = null

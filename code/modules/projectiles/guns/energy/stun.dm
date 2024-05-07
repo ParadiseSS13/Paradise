@@ -1,5 +1,5 @@
 /obj/item/gun/energy/taser
-	name = "X-260 taser"
+	name = "\improper X-260 taser"
 	desc = "A less-lethal pistol that fires electrodes to incapacitate targets."
 	icon_state = "taser"
 	item_state = null	//so the human update icon uses the icon_state instead.
@@ -28,7 +28,7 @@
 
 
 /obj/item/gun/energy/gun/advtaser
-	name = "XD-2600 hybrid taser"
+	name = "\improper XD-2600 hybrid taser"
 	desc = "An upgrade to Shellguard Munitions' X-260 that adds an integrated disabler for long-range takedowns. The fire selector has two settings: 'stun', and 'disable'."
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)

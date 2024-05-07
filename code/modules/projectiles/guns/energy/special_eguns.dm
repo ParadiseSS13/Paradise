@@ -763,7 +763,7 @@
 	..()
 
 /obj/item/gun/energy/detective
-	name = "DL-88 energy revolver"
+	name = "\improper DL-88 energy revolver"
 	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tac Industries. The fire selector has two settings: 'tracker', and 'disable'."
 	icon_state = "handgun"
 	item_state = null

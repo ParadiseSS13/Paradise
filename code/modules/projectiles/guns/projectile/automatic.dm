@@ -112,7 +112,7 @@
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "WT-550 PDW"
+	name = "\improper WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "wt550"
@@ -346,7 +346,7 @@
 	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/laserrifle
-	name = "IK-M1 laser rifle"
+	name = "\improper IK-M1 laser rifle"
 	desc = "A sleek, Warp-Tac Industries laser rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
 	icon_state = "laserrifle"
 	item_state = "lasercarbine"

@@ -36,7 +36,7 @@
 	return
 
 /obj/item/gun/energy/gun/mini
-	name = "EG-8 miniature energy gun"
+	name = "\improper EG-8 miniature energy gun"
 	desc = "A pistol-sized energy gun with a built-in flashlight. The power cell is smaller too. Issued for self-defence purposes. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
@@ -91,7 +91,7 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/gun/energy/gun/blueshield
-	name = "EG-14 advanced energy revolver"
+	name = "\improper EG-14 advanced energy revolver"
 	desc = "An advanced, pistol sized energy gun. It looks stylish, and the design makes it slightly better at bludgeoning. The fire selector has two settings: 'disable', and 'kill'."
 	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
@@ -118,7 +118,7 @@
 	Whilst it can occasionally be found in civilian settings, it's most likely to be seen in the holster of a soldier, mercenary, or elite corporate security."
 
 /obj/item/gun/energy/gun/turret
-	name = "AG(H)-22 hybrid turret gun"
+	name = "\improper AG(H)-22 hybrid turret gun"
 	desc = "A heavy hybrid energy cannon made for mounted emplacements. The fire selector has two settings: 'stun', and 'kill'."
 	icon_state = "turretlaser"
 	item_state = "turretlaser"
