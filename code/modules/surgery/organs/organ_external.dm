@@ -634,6 +634,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	var/organ_spilled = FALSE
+	var/something_else = FALSE
 	var/turf/T = get_turf(C)
 	C.add_splatter_floor(T)
 	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
@@ -645,8 +646,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			O.forceMove(T)
 			organ_spilled = TRUE
 
+	var/obj/item/organ/external/org = C.get_organ(spillage_zone)
+	if(istype(org))
+		for(var/obj/item/content in org)
+			content.forceMove(T)
+			content.dropped(owner, TRUE)
+
+
 	if(organ_spilled)
 		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+	if(something_else)
+		C.visible_message("<span class='danger'>Some things fall out of [C]!</span>")
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb()

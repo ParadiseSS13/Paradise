@@ -446,8 +446,21 @@
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
 		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+		if(ismob(the_item.loc) && isitem(the_item))
+			var/obj/item/eaten = the_item
+			var/mob/the_owner = the_item.loc
+			the_owner.unEquip(eaten, TRUE, TRUE)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			var/obj/item/organ/external/chest/target_place = H.get_organ(BODY_ZONE_CHEST)
+			if(istype(target_place))
+				the_item.forceMove(target_place)
+				doHeal(user)
+				return
+
 		qdel(the_item)
 		doHeal(user)
+
 
 ////////////////////////////////////////////////////////////////////////
 

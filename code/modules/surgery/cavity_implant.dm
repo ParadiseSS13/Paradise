@@ -232,13 +232,7 @@
 	var/obj/item/extracting
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	for(var/obj/item/I in affected.contents)
-		if(!istype(I, /obj/item/organ))
-			extracting = I
-			break
-
-	if(!extracting && affected.hidden)
-		extracting = affected.hidden
+	extracting = get_item_inside(affected)
 
 	if(!extracting)
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
@@ -249,7 +243,8 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	user.put_in_hands(extracting)
-	affected.hidden = null
+	if(extracting == affected.hidden)
+		affected.hidden = null
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/cavity/remove_item/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
