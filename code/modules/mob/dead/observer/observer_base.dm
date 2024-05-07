@@ -200,6 +200,11 @@ Works together with spawning an observer, noted above.
 		ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 	else
 		GLOB.non_respawnable_keys[ckey] = 1
+
+	// mods, mentors, and the like will have admin observe anyway, so this is moot
+	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+		ghost.verbs |= /mob/dead/observer/proc/do_observe
+		ghost.verbs |= /mob/dead/observer/proc/observe
 	if(user_color)
 		add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
 		ghost.color = user_color
@@ -208,10 +213,7 @@ Works together with spawning an observer, noted above.
 	ghost.key = key
 
 
-	// mods, mentors, and the like will have admin observe anyway, so this is moot
-	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
-		ghost.verbs |= /mob/dead/observer/proc/do_observe
-		ghost.verbs |= /mob/dead/observer/proc/observe
+
 
 	ghost.client?.init_verbs()
 

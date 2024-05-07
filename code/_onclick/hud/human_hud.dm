@@ -405,7 +405,7 @@
 	var/mob/living/carbon/human/H = mymob
 
 	var/mob/screenmob = viewer || H
-	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown && screenmob.hud_used.hud_version == HUD_STYLE_STANDARD)
+	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown)
 
 		if(H.shoes)
 			H.shoes.screen_loc = ui_shoes
