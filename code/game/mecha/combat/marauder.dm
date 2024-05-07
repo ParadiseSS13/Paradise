@@ -83,14 +83,14 @@
 /obj/mecha/combat/marauder/ares/examine_more(mob/user)
 	..()
 	. = list()
-	. += "Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and marketed as the final word in biohazard containment and protection.\
-	 Heavily armed and armored, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
+	. += "Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and marketed as the final word in biohazard containment and protection. \
+	Heavily armed and armored, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
 	. += ""
 	. += "Defiance does not sell the license for the Ares to be produced, and as such, it is rarer than most combat mechs, but is more commonly seen among civilian markets compared to their mainline Marauder chassis. \
 	Nanotrases supports a small stable of Ares battlemechs to be used in times of dire emergency.</i>"
 
 /obj/mecha/combat/marauder/seraph
-	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
+	desc = "Heavy-duty command-type exosuit. This is a custom model, utilized only by high-ranking personnel."
 	name = "Seraph"
 	icon_state = "seraph"
 	initial_icon = "seraph"
@@ -126,6 +126,15 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
+
+/obj/mecha/combat/marauder/seraph/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>In the field, Nanotrasen teams often needed a command and control unit that could assist where comms failed, and thus, they created a retrofit of the Marauder. \
+	This new Seraph variant would serve as a command model, with enhanced comms and command capabilities, but would otherwise be incredibly rare.</i>"
+	. += ""
+	. += "<i>Due to the rarity of the Seraph, it can be assumed that things are well and truly fucked if one is seen operating. \
+	Deployed only in the direst of emergencies, it will inevitably be the lynchpin of any defense or assault.</i>"
 
 /obj/mecha/combat/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
