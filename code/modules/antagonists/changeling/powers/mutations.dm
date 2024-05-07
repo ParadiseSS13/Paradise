@@ -202,6 +202,13 @@
 	hitsound = "swing_hit"
 	reach = 2
 	var/swing = TRUE
+	var/apf
+	var/app
+
+/obj/item/melee/arm_blade/fleshy_maul/Initialize(mapload, silent, new_parent_action)
+	. = ..()
+	apf = armour_penetration_flat
+	app = armour_penetration_percentage
 
 /obj/item/melee/arm_blade/fleshy_maul/attack_self(mob/user)
 	..()
@@ -213,6 +220,8 @@
 	to_chat(user, "<span class='changeling'>We ready to [swing ? "swing at" : "crush"] our prey!</span>")
 
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
+	if(get_dist(target, user) > 2)
+		return
 
 	if(isstructure(target))
 		var/obj/structure/S = target
@@ -221,21 +230,21 @@
 				var/obj/structure/table/T = target
 				T.deconstruct(FALSE)
 				return
-			S.attack_generic(user, 120, BRUTE, "melee", 0, armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
+			S.attack_generic(user, 120, BRUTE, "melee", 0, armour_penetration_flat = apf, armour_penetration_percentage = app)
 
 	else if(istype(target, /obj/machinery))
 		var/obj/machinery/M = target
-		M.attack_generic(user, 200, BRUTE, "melee", 0, armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
+		M.attack_generic(user, 200, BRUTE, "melee", 0, armour_penetration_flat = apf, armour_penetration_percentage = app)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(60, , armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
+		wall.take_damage(60, , armour_penetration_flat = apf, armour_penetration_percentage = app)
 		user.do_attack_animation(wall)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/airlock/door = target
-		door.take_damage(50, , armour_penetration_flat = armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
+		door.take_damage(50, , armour_penetration_flat = apf, armour_penetration_percentage = app)
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
