@@ -39,7 +39,7 @@
 	storage_slots = 30
 	max_combined_w_class = 30
 	can_hold = list() // any
-	cant_hold = list(/obj/item/disk/nuclear)
+	cant_hold = list(/obj/item/disk/nuclear, /obj/item/grown/bananapeel/traitorpeel)
 
 /obj/item/storage/bag/trash/proc/update_weight()
 	if(!length(contents))
@@ -213,6 +213,7 @@
 		/obj/item/grown,
 		/obj/item/food/snacks/grown/ash_flora,
 		/obj/item/food/snacks/honeycomb)
+	cant_hold = list(/obj/item/grown/bananapeel/traitorpeel)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder

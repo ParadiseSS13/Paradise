@@ -42,6 +42,7 @@
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
+	AddComponent(/datum/component/debris, DEBRIS_ROCK, -20, 10, 1)
 
 /turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
