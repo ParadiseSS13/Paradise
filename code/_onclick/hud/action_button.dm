@@ -68,7 +68,8 @@
 		last_hovered.MouseExited(over_location, over_control, params)
 		closeToolTip(usr)
 	last_hovered_ref = UID(over_object)
-	over_object.MouseEntered(over_location, over_control, params)
+	if(!isnull(over_object))
+		over_object.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	last_hovered_ref = null

@@ -860,7 +860,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Observe a mob."
 	set category = "Ghost"
 
-	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", GLOB.player_list)
+	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", GLOB.player_list - GLOB.new_player_mobs)
 	if(!istype(target))
 		return
 	do_observe(target)
@@ -871,7 +871,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = null
 
 	if(isnewplayer(mob_eye))
-		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
+		to_chat(src, "<span class='warning'>You can't observe someone in the lobby.</span>")
 		return
 
 	if(isobserver(mob_eye))
