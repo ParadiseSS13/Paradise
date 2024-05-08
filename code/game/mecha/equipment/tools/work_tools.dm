@@ -261,6 +261,13 @@
 					S.ChangeTurf(/turf/simulated/floor/plating)
 					playsound(S, usesound, 50, 1)
 					chassis.spark_system.start()
+			if(ischasm(target))
+				var/turf/simulated/floor/chasm/C = target
+				occupant_message("Building Floor...")
+				if(do_after_cooldown(C))
+					C.ChangeTurf(/turf/simulated/floor/plating)
+					playsound(C, usesound, 50, 1)
+					chassis.spark_system.start()
 			else if(isfloorturf(target))
 				var/turf/simulated/floor/F = target
 				occupant_message("Building Wall...")
