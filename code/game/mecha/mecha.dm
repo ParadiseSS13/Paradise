@@ -830,11 +830,17 @@
 	else if(state == 3)
 		state = 2
 		to_chat(user, "You close the hatch to the power unit")
+	else if(ishuman(occupant))
+		user.visible_message("[user] begins levering out the driver from the [src].", "You begin to lever out the driver from the [src].")
+		to_chat(occupant, span_warning("[user] is prying you out of the exosuit!"))
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+			user.visible_message(span_notice("[user] pries the driver out of the [src]!"), span_notice("You finish removing the driver from the [src]!"))
+			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) && pilot_is_mmi())
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
