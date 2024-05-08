@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal
 	name = "metal"
-	desc = "Sheets made out of metal."
+	desc = "Sheets made out of steel."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
@@ -135,6 +135,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 /obj/item/stack/sheet/metal/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
+
+/obj/item/stack/sheet/metal/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "At its core, steel is an alloy of iron and carbon. Many different elements can be added to precicely control nearly every property of the resulting alloy, from hardness and ductility to corrosion resistance."
+	. += ""
+	. += "Its use is ubiquitous across all post-industrial civilisations and is extensively used all areas of construction and the manufacture of almost any device that one can care to imagine."
 
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_storage/material/metal
@@ -193,6 +200,15 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
+
+/obj/item/stack/sheet/plasteel/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "A high-performance steel superalloy that incorporates a significant quantity of plasma. The plasma forms cross-links with the other constituants of the metal, pulling them in and bonding with them extremely strongly. \
+	It is exceptionally strong, heat-resistant, corrosion-resistant, and about 2.5 times as dense as regular steel."
+	. += ""
+	. += "It is used in the constuction of top-grade building and vehicle armour and some specialised tools and weapons. It is too heavy to make starships out of, although it is sometimes incorporated into the armour \
+	of critical areas. Its high density also makes it an excellent material for radiation shielding."
 
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50

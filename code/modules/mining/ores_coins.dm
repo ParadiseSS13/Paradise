@@ -136,10 +136,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt
 	name = "volcanic ash"
+	desc = "Looks like you could shove some on a girder to make a false rock wall"
 	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
-	desc = "Looks like you could shove some on a girder to make a false rock wall"
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
@@ -149,6 +149,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
+	desc = "The reason you're here."
 	icon_state = "plasma_ore"
 	item_state = "plasma_ore"
 	origin_tech = "plasmatech=2;materials=2"
@@ -169,6 +170,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/gold
 	name = "gold ore"
+	desc = "WE'RE RICH!"
 	icon_state = "gold_ore"
 	item_state = "gold_ore"
 	origin_tech = "materials=4"
@@ -224,7 +226,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/gibtonite
 	name = "gibtonite ore"
-	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under space law."
+	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under Space Law."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Gibtonite ore"
 	item_state = "Gibtonite ore"

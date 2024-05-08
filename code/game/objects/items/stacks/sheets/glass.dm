@@ -168,6 +168,14 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	point_value = 19
 	table_type = /obj/structure/table/glass/plasma
 
+/obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "A mixture of silica glass and plasma. The plasma forces the normally amorphous glass to assume a regular crystal structure. The plasma encourges heavy cross-linking, \
+	massively improving the strength of the glass whilst also giving it exceptional thermal resistance. The denser molecular structure is also better at blocking radiation."
+	. += ""
+	. += "Unlike metal alloys incorporating plasma, plasma glass is not common - the secrets of producing it are a closely guarded trade secret of Nanotrasen, very demanding conditions are required to correctly combine plasma and silica, \
+	and without this knowledge the process is fraught with great risk of igniting the plasma and (at best) destroying the production equipment."
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
 
@@ -216,6 +224,15 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	point_value = 23
 	table_type = /obj/structure/table/glass/reinforced/plasma
 
+/obj/item/stack/sheet/plasmarglass/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "A mixture of silica glass and plasma. The plasma forces the normally amorphous glass to assume a regular crystal structure. The plasma encourges heavy cross-linking, \
+	massively improving the strength of the glass whilst also giving it exceptional thermal resistance. The denser molecular structure is also better at blocking radiation."
+	. += ""
+	. += "Unlike metal alloys incorporating plasma, plasma glass is not common - the secrets of producing it are a closely guarded trade secret of Nanotrasen, very demanding conditions are required to correctly combine plasma and silica, \
+	and without this knowledge the process is fraught with great risk of igniting the plasma and (at best) destroying the production equipment."
+
 /obj/item/stack/sheet/plasmarglass/fifty
 	amount = 50
 
@@ -229,7 +246,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
-	desc = "A glass sheet made out of a titanium-silicate alloy."
+	desc = "A glass sheet made out of a titanium-silicate mixture."
 	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-titaniumglass"
@@ -239,6 +256,13 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
 	table_type = /obj/structure/table/glass/reinforced/titanium
+
+/obj/item/stack/sheet/titaniumglass/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "Titanium-silicate mixes are an old but highly effective technology that produces a relatively lightweight, very strong glass that is can withstand a good amount of punishment."
+	. += ""
+	. += "It is extensively used in the production of starship viewports and transparent armour, and is notably used extensively in space station construction by the USSP."
 
 /obj/item/stack/sheet/titaniumglass/fifty
 	amount = 50
@@ -253,7 +277,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 
 /obj/item/stack/sheet/plastitaniumglass
 	name = "plastitanium glass"
-	desc = "A glass sheet made out of a plasma-titanium-silicate alloy."
+	desc = "A glass sheet made out of a plasma-titanium-silicate mixture."
 	singular_name = "plastitanium glass sheet"
 	icon_state = "sheet-plastitaniumglass"
 	item_state = "sheet-plastitaniumglass"
@@ -263,6 +287,14 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
+
+/obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "A mixture of silica glass, and plastitanium. It boasts similar material properties to plastitanium whilst also being optically transparent."
+	. += ""
+	. += "Unlike regular plasma glass, the production process of plastitanium glass is relatively safer and better known, as the titanium helps to control the plasma's reactivity whilst it is being mixed with the silica. \
+	It is extensively employed for military-grade transparant armour and optics."
 
 /obj/item/stack/sheet/plastitaniumglass/fifty
 	amount = 50
