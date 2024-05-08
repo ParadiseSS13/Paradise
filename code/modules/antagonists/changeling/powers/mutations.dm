@@ -201,7 +201,7 @@
 	armour_penetration_flat = 60
 	armour_penetration_percentage = 80
 	hitsound = "swing_hit"
-	reach = 2
+	reach = 1
 	var/swing = TRUE
 
 /obj/item/melee/arm_blade/fleshy_maul/Initialize(mapload, silent, new_parent_action)
