@@ -13,7 +13,6 @@
 	return TRUE
 
 /datum/spell/vampire
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
@@ -222,9 +221,6 @@
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /datum/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
-	// Are they on the same tile? We'll return partial deviation. This may be someone flashing while lying down
-	if(victim.loc == attacker.loc)
-		return DEVIATION_PARTIAL
 
 	// If the victim was looking at the attacker, this is the direction they'd have to be facing.
 	var/attacker_to_victim = get_dir(attacker, victim)
@@ -237,14 +233,15 @@
 	// Attacker within 45 degrees of where the victim is facing.
 	if(attacker_dir & attacker_to_victim)
 		return DEVIATION_NONE
-
+	// Are they on the same tile? This is probably the victim crawling under the vampire, and looking down shouldn't be too tough.
+	if(victim.loc == attacker.loc)
+		return DEVIATION_NONE
 	// # # #
 	// - V - Attacker facing south
 	// - - -
 	// Victim at 135 or more degrees of where the victim is facing.
 	if(attacker_dir & reverse_direction(attacker_to_victim))
 		return DEVIATION_FULL
-
 	// - - -
 	// # V # Attacker facing south
 	// - - -

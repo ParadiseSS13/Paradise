@@ -124,12 +124,6 @@
 	cost = 500
 	category = MERCH_CAT_TOY
 
-/datum/merch_item/baby
-	name = "Toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
-	typepath = /obj/item/toddler
-	cost = 500
-	category = MERCH_CAT_TOY
 
 /datum/merch_item/flag_slime
 	name = "Slime People Flag"

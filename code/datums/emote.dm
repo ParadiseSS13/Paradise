@@ -209,11 +209,11 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>")
+					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
+				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
@@ -283,10 +283,10 @@
 	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
 			for(var/obj/item/holder/H in O.contents)
-				H.show_message(text, EMOTE_VISIBLE)
+				H.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 			for(var/mob/living/M in O.contents)
-				M.show_message(text, EMOTE_VISIBLE)
+				M.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
@@ -636,7 +636,7 @@
 			if(!ghost.client)
 				continue
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
-				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
+				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 	visible_message(text)
 

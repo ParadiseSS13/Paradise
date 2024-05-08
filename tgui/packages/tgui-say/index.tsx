@@ -1,19 +1,11 @@
 import './styles/main.scss';
-import { createRenderer } from 'tgui/renderer';
+import { render } from 'inferno';
+
 import { TguiSay } from './TguiSay';
 
-const renderApp = createRenderer(() => {
-  return <TguiSay />;
-});
+document.onreadystatechange = function () {
+  if (document.readyState !== 'complete') return;
 
-const setupApp = () => {
-  // Delay setup
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupApp);
-    return;
-  }
-
-  renderApp();
+  const root = document.getElementById('react-root');
+  render(<TguiSay />, root);
 };
-
-setupApp();

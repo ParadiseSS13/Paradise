@@ -145,7 +145,7 @@
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		else if(!EMP_D && !(bagholding.len && !flawless)) // This is where the fun begins
+		else if(!EMP_D && !(length(bagholding) && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
 		else // Emp activated? Bag of holding? No saving throw for you
@@ -271,7 +271,7 @@
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
 		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
 		return
-	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
 		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
 		return
 	if(used)

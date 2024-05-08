@@ -905,7 +905,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(ischangeling(M))
+					if(IS_CHANGELING(M))
 						return
 					M.delayed_gib(TRUE)
 					return
@@ -979,7 +979,7 @@
 	var/mob/living/carbon/human/H = M
 	if(volume < 20)
 		if(prob(10))
-			to_chat(H, "<span class='warning>You cough up some congealed blood.</span>")
+			to_chat(H, "<span class='warning'>You cough up some congealed blood.</span>")
 			H.vomit(blood = TRUE, should_confuse = FALSE) //mostly visual
 		else if(prob(10))
 			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")
