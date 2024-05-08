@@ -177,6 +177,7 @@
 /***************************************\
 |**************FLESHY MAUL**************|
 \***************************************/
+
 /datum/action/changeling/weapon/fleshy_maul
 	name = "Fleshy Maul"
 	desc = "We reform one of our arms into a enourmous maul. Costs 20 chemicals."
@@ -192,12 +193,12 @@
 
 /obj/item/melee/arm_blade/fleshy_maul
 	name = "fleshy maul"
-	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust."
+	desc = "An enormous maul made out of bone and flesh that crushes limbs into paste."
 	icon_state = "fleshy_maul"
 	item_state = "fleshy_maul"
 	sharp = FALSE
-	force = 10
-	armour_penetration_flat = 40
+	force = 12
+	armour_penetration_flat = 60
 	armour_penetration_percentage = 80
 	hitsound = "swing_hit"
 	reach = 2
@@ -213,7 +214,6 @@
 		swing = FALSE
 	else
 		swing = TRUE
-
 	to_chat(user, "<span class='changeling'>We ready to [swing ? "swing at" : "crush"] our prey!</span>")
 
 /obj/item/melee/arm_blade/fleshy_maul/examine(mob/user)
@@ -221,7 +221,7 @@
 	. += "<span class='notice'>It is ready to [swing ? "swing" : "crush"]."
 
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
-	if(get_dist(target, user) > 2)
+	if(get_dist(target, user) > reach)
 		return
 
 	if(isstructure(target))
@@ -257,13 +257,14 @@
 			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
 
 		if(istype(M, /mob/living/simple_animal/bot) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
-			M.apply_damage(9999) //little and annoying. one smash and they're destroyed. really, this is a big fucking maul.
+			M.apply_damage(9999) // little and annoying. one smash and they're destroyed. really, this is a big fucking maul.
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-			if(O.brute_dam > 40 && prob(80)) // increased bone breaking chance is a feature. btw we have only 10 damage...
+			if(O.brute_dam >= 30 && prob(80)) // increased bone breaking chance is a feature. btw we have only 10 damage...
 				O.fracture()
+			H.KnockDown(rand(0, 2) SECONDS)
 
 /obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
@@ -273,7 +274,7 @@
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
 /obj/item/melee/arm_blade/fleshy_maul/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a enormous maul from flesh.</span>"
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a enormous maul from flesh and jagged bone spurs.</span>"
 
 /***************************************\
 |***********COMBAT TENTACLES*************|

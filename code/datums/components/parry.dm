@@ -97,6 +97,9 @@
 		armour_penetration_percentage = I.armour_penetration_percentage
 		armour_penetration_flat = I.armour_penetration_flat
 
+	if(istype(I, /obj/item/melee/arm_blade/fleshy_maul))
+		return
+
 	if(armour_penetration_flat + armour_penetration_percentage >= 100)
 		return
 
