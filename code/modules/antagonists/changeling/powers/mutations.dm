@@ -198,7 +198,7 @@
 	item_state = "fleshy_maul"
 	sharp = FALSE
 	force = 10
-	armour_penetration_flat = 60
+	armour_penetration_flat = 40
 	armour_penetration_percentage = 80
 	hitsound = "swing_hit"
 	reach = 1
@@ -219,9 +219,10 @@
 /obj/item/melee/arm_blade/fleshy_maul/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It is ready to [swing ? "swing" : "crush"]."
+	. += "<span class='notice'>It can't be <b>parried</b> by any weapon or shield."
 
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
-	if(get_dist(target, user) > reach)
+	if(get_dist(target, user) > reach && proximity)
 		return
 
 	if(isstructure(target))
@@ -233,7 +234,7 @@
 				return
 			S.attack_generic(user, 80, BRUTE, "melee", 0)
 
-	else if(istype(target, /obj/machinery))
+	else if(istype(target, /obj/machinery) && !istype(target, /obj/machinery/door))
 		var/obj/machinery/M = target
 		M.attack_generic(user, 100, BRUTE, "melee", 0)
 
@@ -245,16 +246,16 @@
 
 	else if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/airlock/door = target
-		door.take_damage(50)
+		door.take_damage(50, sound_effect = FALSE)
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
 		M.Slowed(2 SECONDS, 5)
 		var/atom/throw_target = get_edge_target_turf(M, user.dir)
-		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
+		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact), TRUE)
 
 		if(swing && prob(60))
-			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
+			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M)
 
 		if(istype(M, /mob/living/simple_animal/bot) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
 			M.apply_damage(9999) // little and annoying. one smash and they're destroyed. really, this is a big fucking maul.
@@ -262,9 +263,10 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-			if(O.brute_dam >= 30 && prob(80)) // increased bone breaking chance is a feature. btw we have only 10 damage...
+			if(O.brute_dam >= 40 && prob(70)) // increased bone breaking chance is a feature. btw we have only 10 damage...
 				O.fracture()
-			H.KnockDown(rand(0, 2) SECONDS)
+			if(prob(40))
+				H.KnockDown(rand(1, 2) SECONDS)
 
 /obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
