@@ -124,7 +124,7 @@
 	screenmob.client.screen += static_inventory
 
 
-//We should only see observed mob alerts.
+// We should only see observed mob alerts.
 /datum/hud/ghost/reorganize_alerts(mob/viewmob)
 	var/mob/dead/observer/O = mymob
 	if(istype(O) && O.mob_observed)

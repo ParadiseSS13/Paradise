@@ -190,12 +190,12 @@ Works together with spawning an observer, noted above.
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
 	if(!key)
 		return
-	if(player_logged) //if they have disconnected we want to remove their SSD overlay
+	if(player_logged) // if they have disconnected we want to remove their SSD overlay
 		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 	if(GLOB.non_respawnable_keys[ckey])
 		flags &= ~GHOST_CAN_REENTER
-	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
-	ghost.timeofdeath = src.timeofdeath //BS12 EDIT
+	var/mob/dead/observer/ghost = new(src, flags) // Transfer safety to observer spawning proc.
+	ghost.timeofdeath = src.timeofdeath // BS12 EDIT
 	if(ghost.can_reenter_corpse)
 		ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 	else
@@ -211,9 +211,6 @@ Works together with spawning an observer, noted above.
 	if(ghost_name)
 		ghost.name = ghost_name
 	ghost.key = key
-
-
-
 
 	ghost.client?.init_verbs()
 
@@ -563,8 +560,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			rot_seg = 5
 		if(GHOST_ORBIT_HEXAGON)
 			rot_seg = 6
-		else //Circular
-			rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+		else // Circular
+			rot_seg = 36 // 360/10 bby, smooth enough aproximation of a circle
 
 	to_chat(src, "<span class='notice'>Now following [target].</span>")
 	orbit(target, orbitsize, FALSE, 20, rot_seg)
@@ -891,7 +888,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		stop_orbit()
 		cleanup_observe()
 
-	//Istype so we filter out points of interest that are not mobs
+	// Istype so we filter out points of interest that are not mobs
 	if(client && ismob(mob_eye))
 		// follow the mob so they're technically right there for visible messages n stuff
 		// call the sub-proc since the base one checks for usr

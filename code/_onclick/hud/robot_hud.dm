@@ -111,7 +111,7 @@
 	usr.toggle_move_intent()
 
 /datum/hud/robot
-	var/shown_robot_modules = FALSE	//Used to determine whether they have the module menu shown or not
+	var/shown_robot_modules = FALSE	// Used to determine whether they have the module menu shown or not
 	var/atom/movable/screen/robot_modules_background
 
 /datum/hud/robot/New(mob/user)
@@ -120,7 +120,7 @@
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer 20, UI should be just below it.
+	robot_modules_background.layer = HUD_LAYER // Objects that appear on screen are on layer 20, UI should be just below it.
 	robot_modules_background.plane = HUD_PLANE
 
 	var/atom/movable/screen/using
@@ -240,7 +240,6 @@
 	var/mob/living/silicon/robot/R = mymob
 
 	var/mob/screenmob = viewer || R
-
 
 	if(!R.client)
 		return

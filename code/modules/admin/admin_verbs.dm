@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/admin_observe,			/*allows us to freely observe mobs */
-	/client/proc/admin_observe_target,  /*and gives it to us on right click*/
+	/client/proc/admin_observe_target,			/*and gives it to us on right click*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -402,7 +402,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Admin"
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
-
 
 	if(isnewplayer(mob))
 		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
