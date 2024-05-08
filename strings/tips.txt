@@ -1,6 +1,6 @@
 Space map levels' connections are randomized between rounds, but are otherwise kept consistent in the same round.
 You can catch thrown items by toggling on your throw mode with an empty hand active.
-To crack the safe in the vault, use a stethoscope or thermal drill. You can also steal the combonation paper from the captain's office, if they didn't secure it.
+To crack the safe in the vault, use a stethoscope or thermal drill. You can also steal the combination paper from the captain's office, if they didn't secure it.
 You can climb onto a table by dragging yourself onto one. This takes some time. Clicking on a table that someone else is climbing onto will knock them down.
 You can drag other players onto yourself to open the strip menu, letting you remove their equipment or force them to wear something. Note that exosuits or helmets will block your access to the clothing beneath them, and that certain items take longer to strip or put on than others.
 Clicking on a windoor rather than bumping into it will keep it open. You can click it again to close it.
