@@ -99,7 +99,7 @@ export const CameraConsole220 = (props, context) => {
 };
 
 export const CameraConsoleMapContent = (props, context) => {
-  const { act, data, config } = useBackend(context);
+  const { act, data } = useBackend(context);
   const cameras = selectCameras(data.cameras);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const { mapRef, activeCamera, stationLevel } = data;
@@ -108,18 +108,11 @@ export const CameraConsoleMapContent = (props, context) => {
     activeCamera
   );
   return (
-    <Stack
-      fill
-      vertical
-      style={{
-        display: 'flex',
-      }}
-    >
+    <Stack fill>
       <Stack.Item
         height="100%"
         style={{
-          display: 'flex',
-          flex: '0 0 475px',
+          flex: '0 0 474px',
         }}
       >
         <NanoMap onZoom={(v) => setZoom(v)}>
@@ -142,7 +135,7 @@ export const CameraConsoleMapContent = (props, context) => {
             ))}
         </NanoMap>
       </Stack.Item>
-      <Stack.Item height="100%" resizable className="CameraConsole__right_map">
+      <Stack.Item height="100%" m={0.1} className="CameraConsole__right_map">
         <div className="CameraConsole__header">
           <div className="CameraConsole__toolbar">
             <b>Камера: </b>
@@ -170,7 +163,6 @@ export const CameraConsoleMapContent = (props, context) => {
           </div>
         </div>
         <ByondUi
-          resizable
           className="CameraConsole__map"
           overflow="hidden"
           params={{

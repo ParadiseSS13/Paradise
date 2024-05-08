@@ -57,8 +57,7 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   position: relative;
   display: flex;
   flex: 1;
-  height: 90%;
-  bottom: 3em;
+  bottom: 32px;
   flex-direction: column;
   background-color: $background-color;
 }
