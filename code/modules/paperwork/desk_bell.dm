@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/item/desk_bell/attackby(obj/item/I, mob/user, params)
-	// can only attach it while in hand
+	// can only attach its on your person
 	if(istype(I, /obj/item/assembly/signaler))
 		if(!in_inventory)
 			to_chat(user, "<span class='warning'>[src] needs to be in your inventory if you want to attach [I] to it!</span>")
@@ -66,7 +66,6 @@
 		to_chat(user, "<span class='notice'>[src] is silent. Some idiot broke it.</span>")
 	ring_cooldown = world.time + ring_cooldown_length
 	return TRUE
-
 
 /obj/item/desk_bell/attack_hand(mob/living/user)
 	if(in_inventory && ishuman(user))
