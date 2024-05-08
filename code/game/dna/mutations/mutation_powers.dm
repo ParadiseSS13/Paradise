@@ -445,7 +445,7 @@
 			doHeal(user)
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 		if(ismob(the_item.loc) && isitem(the_item))
 			var/obj/item/eaten = the_item
 			var/mob/the_owner = the_item.loc
