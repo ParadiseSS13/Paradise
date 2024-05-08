@@ -45,27 +45,22 @@
 	return copy
 
 /datum/secondary_goal_progress/variety_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not a reagent container? Ignore.
-	if(!istype(AM, /obj/item/reagent_containers))
-		return
-
 	// Not in a matching personal crate? Ignore.
 	if(!check_personal_crate(AM))
 		return
 
-	var/obj/item/reagent_containers/container = AM
 	// No reagents? Ignore.
-	if(!container.reagents.reagent_list)
+	if(!AM.reagents?.reagent_list)
 		return
 
-	var/datum/reagent/reagent = container.reagents?.get_master_reagent()
+	var/datum/reagent/reagent = AM.reagents.get_master_reagent()
 
 	// Make sure it's for our department.
 	if(!reagent || reagent.goal_department != department)
 		return
 
 	// Isolated reagents only, please.
-	if(length(container.reagents.reagent_list) != 1)
+	if(length(AM.reagents.reagent_list) != 1)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "mixed reagents"))
