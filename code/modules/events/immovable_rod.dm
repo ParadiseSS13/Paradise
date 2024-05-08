@@ -20,7 +20,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	new /obj/effect/immovablerod/event(startT, endT)
 
 /obj/effect/immovablerod
-	name = "Immovable Rod"
+	name = "\improper Immovable Rod"
 	desc = "What the fuck is that?"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "immrod"
@@ -81,13 +81,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(isturf(clong) || isobj(clong))
 		if(clong.density)
-			clong.ex_act(2)
+			clong.ex_act(EXPLODE_HEAVY)
 
 	else if(ismob(clong))
 		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
-			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" ,
-				"<span class='userdanger'>The rod penetrates you!</span>" ,
+			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>",
+				"<span class='userdanger'>The rod penetrates you!</span>",
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
@@ -114,7 +114,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/smite
 	/// The target that we're gonna aim for between start and end
 	var/obj/effect/portal/exit
-	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/smite/New(atom/_start, atom/_end)
 	new /obj/effect/portal(start, lifespan = 2 SECONDS)
@@ -123,10 +122,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/smite/Move()
 	var/atom/oldloc = loc
 	. = ..()
-	if(prob(floor_rip_chance))
-		var/turf/simulated/floor/T = get_turf(oldloc)
-		if(istype(T))
-			T.ex_act(EXPLODE_HEAVY)
 	if(get_turf(src) == get_turf(end))
 		// our exit condition: get outta there kowalski
 		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
