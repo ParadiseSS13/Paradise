@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/diamond/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "The hardest known material, made of carbon arranged in a tightly packed cubic crystal structure. excellent thermal conductivity, a high refractive index, and very pretty to look at.
+	. += "The hardest known material, made of carbon arranged in a tightly packed cubic crystal structure. excellent thermal conductivity, a high refractive index, and very pretty to look at."
 	. += ""
 	. += "Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."
 
@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
  */
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
-	description = "It feels much lighter than it looks."
+	desc = "It feels much lighter than it looks."
 	icon_state = "sheet-titanium"
 	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
