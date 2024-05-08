@@ -1,3 +1,5 @@
+#define REAGENT_TIME_RATIO 2.5
+
 /*
 CONTAINS:
 CIGARETTES
@@ -525,6 +527,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				return
 			O.reagents.trans_to(src, src.chem_volume)
 			to_chat(user, "<span class='notice'>You stuff the [O.name] into the pipe.</span>")
+			smoketime = max(src.reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
 			qdel(O)
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
@@ -544,7 +547,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cobpipeoff"
 	icon_on = "cobpipeon"  //Note - these are in masks.dmi
 	icon_off = "cobpipeoff"
-	smoketime = 400
+	smoketime = 0 //there is nothing to smoke initially
 	chem_volume = 160
 	list_reagents = list()
 
@@ -579,3 +582,5 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 	else
 		..()
+
+#undef REAGENT_TIME_RATIO
