@@ -119,10 +119,9 @@
 
 /atom/movable/screen/alert/proc/remove_owner(mob/source, force)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
-	if(owner == source)
-		owner = null
+	if(owner == source && !isnull(owner))
 		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
-
+		owner = null
 
 /atom/movable/screen/alert/Destroy()
 	if(owner)
