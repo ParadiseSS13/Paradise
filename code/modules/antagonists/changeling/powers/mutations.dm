@@ -197,7 +197,7 @@
 	icon_state = "fleshy_maul"
 	item_state = "fleshy_maul"
 	sharp = FALSE
-	force = 12
+	force = 10
 	armour_penetration_flat = 60
 	armour_penetration_percentage = 80
 	hitsound = "swing_hit"
@@ -253,7 +253,7 @@
 		var/atom/throw_target = get_edge_target_turf(M, user.dir)
 		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
 
-		if(swing)
+		if(swing && prob(60))
 			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
 
 		if(istype(M, /mob/living/simple_animal/bot) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
