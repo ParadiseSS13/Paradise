@@ -118,10 +118,11 @@
 		create_reagents()
 	// the cooking oil should spread through the foam.
 	// when it gets added, it's at 1000 degrees so it quickly fireflashes and reacts to form inert cooking oil.
-	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000)
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000, no_react = TRUE)
 	reagents.chem_temp = 1000
-	var/datum/effect_system/foam_spread/S = new()
+	var/datum/effect_system/foam_spread/oil/S = new()
 	S.set_up(ice_amount * 2, loc, reagents, FALSE)
+	S.temperature = 1000
 	S.start()
 
 

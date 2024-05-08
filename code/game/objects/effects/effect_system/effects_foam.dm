@@ -2,9 +2,13 @@
 // Similar to smoke, but spreads out more
 // metal foams leave behind a foamed metal wall
 
+/// The chemicals in the foam (if any) will never react.
 #define FOAM_REACT_NEVER			(2<<0)
-#define FOAM_REACT_AFTER_SPREAD 	(2<<1)
+/// Chemicals in the foam will only react when the foam dissipates.
+#define FOAM_REACT_ON_DISSIPATE		(2<<1)
+/// Chemicals in the foam will react while the foam is still processing.
 #define FOAM_REACT_DURING_SPREAD	(2<<2)
+/// Chemicals in the foam will react when the foam first reaches a tile.
 #define FOAM_REACT_BEFORE_SPREAD	(2<<3)
 
 /obj/effect/particle_effect/foam
@@ -22,82 +26,106 @@
 	/// How long it takes this, once it's spread, to stop spreading and disperse its chems
 	var/solidify_time = 12 SECONDS
 	/// Whether it reacts on or after dispersion (or both)
-	var/react_mode = FOAM_REACT_BEFORE_SPREAD
+	var/react_mode = FOAM_REACT_ON_DISSIPATE
 	/// Maximum amount of reagents gained by spreading onto a foamed tile
 	var/max_amount_on_spread = 27
+	/// We will never fill a mob with more than this many units of a given reagent
+	var/max_reagent_filling = 25
+	/// Whether or not to spread at a range when spreading
+	var/spread_at_range = FALSE
 
 
 
 /obj/effect/particle_effect/foam/Initialize(mapload, loc)
 	. = ..()
+	create_reagents(25)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(initial_process)), spread_time)
+
 
 /obj/effect/particle_effect/foam/proc/disperse_reagents()
 	if(!reagents)
 		return
 	reagents.handle_reactions()
-	for(var/atom/A in oview(1, src))
+	for(var/atom/A in (spread_at_range ? oview(1, src) : view(0, src)))
 		if(A == src)
 			continue
-		if(reagents.total_volume)
-			var/fraction = 5 / reagents.total_volume
-			reagents.reaction(A, REAGENT_TOUCH, fraction)
+		fill_with_reagents(A)
+
+/obj/effect/particle_effect/foam/proc/fill_with_reagents(atom/A)
+	if(reagents.total_volume)
+		var/fraction = 5 / reagents.total_volume
+		reagents.reaction(A, REAGENT_TOUCH, fraction)
+
+	if(ismob(A) && !QDELETED(A))
+		var/mob/M = A
+		for(var/reagent_id in reagents.reagent_list)
+			var/amount = M.reagents.get_reagent_amount(reagent_id)
+			if(amount < max_reagent_filling)
+				M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
 
 /obj/effect/particle_effect/foam/proc/initial_process()
 	process()
+	START_PROCESSING(SSobj, src)
 	addtimer(CALLBACK(src, PROC_REF(stop_processing)), solidify_time)
-	addtimer(CALLBACK(src, PROC_REF(disperse)), solidify_time + 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(dissipate)), solidify_time + 3 SECONDS)
 
 /obj/effect/particle_effect/foam/proc/stop_processing()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/effect/particle_effect/foam/proc/disperse()
+/obj/effect/particle_effect/foam/proc/dissipate()
 
-	if(react_mode & FOAM_REACT_AFTER_SPREAD)
-		disperse
+	if(react_mode & FOAM_REACT_ON_DISSIPATE)
 		addtimer(CALLBACK(src, PROC_REF(disperse_reagents)), 0.3 SECONDS)
 	flick("[icon_state]-disolve", src)
 	QDEL_IN(src, 0.5 SECONDS)
+
+/obj/effect/particle_effect/foam/proc/try_spread_to(turf/target_turf)
+	if(!target_turf || !target_turf.Enter(src))
+		return
+
+	var/obj/effect/particle_effect/foam/new_foam
+
+	new_foam = locate() in target_turf
+	if(new_foam)
+		return
+
+	new_foam = new type(target_turf)
+	new_foam.spread_amount = spread_amount
+	new_foam.spread_time = spread_time
+	new_foam.solidify_time = solidify_time
+	new_foam.max_amount_on_spread = max_amount_on_spread
+	new_foam.spread_at_range = spread_at_range
+	new_foam.react_mode = react_mode
+	new_foam.max_reagent_filling = max_reagent_filling
+
+
+	// add the new amount of foam
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			new_foam.reagents.add_reagent(R.id, min(R.volume, 5), R.data, reagents.chem_temp)
+		new_foam.color = mix_color_from_reagents(reagents.reagent_list)
+	if(react_mode & FOAM_REACT_BEFORE_SPREAD)
+		new_foam.disperse_reagents()
+
+/obj/effect/particle_effect/foam/proc/spread()
+	for(var/direction in GLOB.cardinal)
+		var/turf/T = get_step(src, direction)
+		try_spread_to(T)
 
 /obj/effect/particle_effect/foam/proc/generate_color()
 	color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/effect/particle_effect/foam/process()
-	var/obj/effect/particle_effect/foam/new_foam
-
-	if(--spread_amount < 0)
-		return
-
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		if(!T)
-			continue
-
-		if(!T.Enter(src))
-			continue
-
-		new_foam = locate() in T
-		if(new_foam)
-			new_foam.spread_amount = min(spread_amount + new_foam.spread_amount, max_amount_on_spread)
-			if(react_mode & FOAM_REACT_DURING_SPREAD)
-				new_foam.disperse_reagents()
-			continue
-
-		// just so it's clear
-		new_foam = new type(T)
-		new_foam.spread_amount = spread_amount
-		new_foam.create_reagents(25)
-		if(reagents)
-			for(var/datum/reagent/R in reagents.reagent_list)
-				new_foam.reagents.add_reagent(R.id, min(R.volume, 5), R.data, reagents.chem_temp)
-			new_foam.color = mix_color_from_reagents(reagents.reagent_list)
-		if(react_mode & FOAM_REACT_BEFORE_SPREAD)
-			new_foam.disperse_reagents()
 
 	if(react_mode & FOAM_REACT_DURING_SPREAD)
 		disperse_reagents()
 
+	if(--spread_amount < 0)
+		return
+
+
+	spread()
 
 
 // foam disolves when heated
@@ -111,24 +139,18 @@
 		QDEL_IN(src, 0.5 SECONDS)
 
 /obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
-	if(iscarbon(AM))
-		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 10 SECONDS))
-			if(reagents)
-				for(var/reagent_id in reagents.reagent_list)
-					var/amount = M.reagents.get_reagent_amount(reagent_id)
-					if(amount < 25)
-						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
-				if(reagents.total_volume)
-					var/fraction = 5 / reagents.total_volume
-					reagents.reaction(M, REAGENT_TOUCH, fraction)
+	if(!iscarbon(AM))
+		return
+	var/mob/living/carbon/M = AM
+	if((M.slip("foam", 10 SECONDS) || IS_HORIZONTAL(M)) && reagents)
+		fill_with_reagents(M)
 
 
 /obj/effect/particle_effect/foam/metal
 	name = "metal foam"
 	icon_state = "mfoam"  // finally mentor foam
-	spread_time = 12 SECONDS
-	react_mode = FOAM_REACT_AFTER_SPREAD
+	spread_time = 1.2 SECONDS
+	react_mode = FOAM_REACT_ON_DISSIPATE
 	/// Represents the icon state that we'll become when we solidify
 	var/metal = METAL_FOAM_ALUMINUM
 
@@ -159,8 +181,6 @@
 	var/spread_size = 5
 	/// the IDs of reagents present when the foam was mixed
 	var/list/carried_reagents
-	/// which type of foam this generates
-	var/foam_type = /obj/effect/particle_effect/foam
 	/// the temperature that the reagents in the foam will be set to
 	var/temperature = T0C
 	/// the reagents that we don't want in smoke
@@ -185,8 +205,6 @@
 			carried_reagents[R.id] = R.volume
 
 /datum/effect_system/foam_spread/proc/setup_reagents(obj/effect/particle_effect/foam/working_foam)
-	working_foam.create_reagents(25)
-
 	if(!carried_reagents)
 		return
 	for(var/id in carried_reagents)
@@ -194,36 +212,51 @@
 			continue
 		var/datum/reagent/reagent_volume = carried_reagents[id]
 		working_foam.reagents.add_reagent(id, min(reagent_volume, 5), null, temperature)
+	working_foam.reagents.chem_temp = temperature
 	working_foam.color = mix_color_from_reagents(working_foam.reagents.reagent_list)
 
 /datum/effect_system/foam_spread/proc/spread()
 	var/obj/effect/particle_effect/foam/working_foam = locate() in location
 	if(working_foam)
 		working_foam.spread_amount = min(working_foam.spread_amount + working_foam.spread_amount, working_foam.max_amount_on_spread)
-		if(FOAM_REACT_DURING_SPREAD)
-			working_foam.disperse_reagents()
+		// if(working_foam.react_mode & FOAM_REACT_DURING_SPREAD)
+		// 	working_foam.disperse_reagents()
 		return
 
-	working_foam = new foam_type(location)
+	working_foam = new effect_type(location)
 	working_foam.spread_amount = spread_size
 	setup_reagents(working_foam)
+
+/datum/effect_system/foam_spread/start()
+	INVOKE_ASYNC(src, PROC_REF(spread))
 
 /datum/effect_system/foam_spread/cleaner
 
 /datum/effect_system/foam_spread/cleaner/setup_reagents(obj/effect/particle_effect/foam/F)
-	F.reagents.add_reagent("cleaner", 1)
+	F.react_mode = FOAM_REACT_ON_DISSIPATE
+	F.spread_at_range = TRUE
 	F.color = mix_color_from_reagents(F.reagents.reagent_list)
 
-/datum/effect_system/foam_spread/start()
-	INVOKE_ASYNC(src, PROC_REF(spread))
 
 /datum/effect_system/foam_spread/metal
 	/// The type of metal that will be formed from this
 	var/metal_type = METAL_FOAM_ALUMINUM
 	effect_type = /obj/effect/particle_effect/foam/metal
 
+/datum/effect_system/foam_spread/metal/set_up(amt, where, datum/reagents/carry, _metal_type = METAL_FOAM_ALUMINUM)
+	. = ..()
+	metal_type = _metal_type
+
+
 /datum/effect_system/foam_spread/metal/setup_reagents()
 	return
+
+/obj/effect/particle_effect/foam/oil
+	react_mode = FOAM_REACT_DURING_SPREAD | FOAM_REACT_ON_DISSIPATE
+
+/datum/effect_system/foam_spread/oil
+	effect_type = /obj/effect/particle_effect/foam/oil
+	temperature = 1000
 
 // wall formed by metal foams
 // dense and opaque, but easy to break

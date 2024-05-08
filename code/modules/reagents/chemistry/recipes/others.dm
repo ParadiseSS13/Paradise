@@ -24,6 +24,22 @@
 	s.start()
 	holder.clear_reagents()
 
+/datum/chemical_reaction/widefoam
+	name = "Wide-Spreading Foam"
+	id = "widefoam"
+	result = null
+	required_reagents = list("fluorosurfactant" = 1, "water" = 1, "hydrogen" = 1)
+	result_amount = 2
+
+/datum/chemical_reaction/widefoam/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
+
+	var/datum/effect_system/foam_spread/cleaner/s = new()
+	s.set_up(created_volume, location, holder, 0)
+	s.start()
+	holder.clear_reagents()
+
 
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
@@ -37,7 +53,7 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
+	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume, location, holder, METAL_FOAM_ALUMINUM)
 	s.start()
 
@@ -54,7 +70,7 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
+	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume, location, holder, METAL_FOAM_IRON)
 	s.start()
 
