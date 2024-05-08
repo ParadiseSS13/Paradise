@@ -522,12 +522,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(I, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/O = I
 		if(O.dry)
-			if(src.reagents.total_volume == src.reagents.maximum_volume)
+			if(reagents.total_volume == reagents.maximum_volume)
 				to_chat(user, "<span class='warning'>[src] is full!</span>")
 				return
-			O.reagents.trans_to(src, src.chem_volume)
+			O.reagents.trans_to(src, chem_volume)
 			to_chat(user, "<span class='notice'>You stuff the [O.name] into the pipe.</span>")
-			smoketime = max(src.reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
+			smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
 			qdel(O)
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
