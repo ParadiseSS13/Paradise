@@ -89,7 +89,6 @@
 /mob/living/carbon/proc/update_hud_back(obj/item/I)
 	return
 
-
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
 	if(!length(observers))
 		return
