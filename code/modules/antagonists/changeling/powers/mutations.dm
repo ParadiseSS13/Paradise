@@ -255,7 +255,7 @@
 		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact), TRUE)
 
 		if(swing && prob(60))
-			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact))
+			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
 
 		if(istype(M, /mob/living/simple_animal/bot) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
 			M.apply_damage(9999) // little and annoying. one smash and they're destroyed. really, this is a big fucking maul.
