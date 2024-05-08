@@ -185,8 +185,7 @@
 				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe.</span>")
 				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
 					// admins always get aobserve
-					observer.verbs |= /mob/dead/observer/proc/do_observe
-					observer.verbs |= /mob/dead/observer/proc/observe
+					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")

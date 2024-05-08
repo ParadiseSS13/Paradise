@@ -857,8 +857,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Observe a mob."
 	set category = "Ghost"
 
-	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", GLOB.player_list - GLOB.new_player_mobs)
-	if(!istype(target))
+	var/list/possible_targets = list()
+	for(var/mob/living/L in GLOB.player_list)
+		if(!L.mind)
+			continue
+		possible_targets.Add(L)
+
+	if(!length(possible_targets))
+		to_chat(src, "<span class='warning'>There's nobody for you to observe!</span>")
+		return
+
+	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", possible_targets)
+	if(!istype(target) || QDELETED(target))
 		return
 	do_observe(target)
 
