@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/diamond/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "The hardest known material, made of carbon arranged in a tightly packed cubic crystal structure. excellent thermal conductivity, a high refractive index, and very pretty to look at."
+	. += "The hardest known material, made of carbon arranged in a tightly packed cubic crystal structure. Excellent thermal conductivity, a high refractive index, and very pretty to look at."
 	. += ""
 	. += "Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."
 
@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/uranium/examine_more(mob/user)
 	. = ..()
 	. =list()
-	. += "An extremely dense metal. It finds uses in a great nunder of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, and weapons."
+	. += "An extremely dense metal. It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
 
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
-	desc = "Beautiful pure purple crystals, ready to burst into flames if a naked flame touches them..."
+	desc = "Beautiful pure purple crystals, ready to ignite if a naked flame touches them..."
 	icon_state = "sheet-plasma"
 	item_state = "sheet-plasma"
 	singular_name = "plasma sheet"
@@ -278,12 +278,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the intersteller megacorporation it is today."
+	. += "Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today."
 	. += ""
 	. += "Plasma is a metastable exotic matter, capable of existing in all 3 basic states of matter across a wide range of tempratures and pressures. It is widely used as starship fuel for both conventional engines and \
 	Faster-Than-Light drives. It is also used in the creation of several classes of high-performance supermaterials and other advanced technologies. New uses for this wonder material are constantly being researched."
 	. += ""
-	. += "Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogentic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."
+	. += "Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
@@ -345,7 +345,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
-	desc = "Shiny as a mirror. Alledgedly repells warewolves and other mythical creatures."
+	desc = "Shiny as a mirror. Allegedly repels werewolves and other mythical creatures."
 	icon_state = "sheet-silver"
 	item_state = "sheet-silver"
 	singular_name = "silver bar"
@@ -384,7 +384,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/bananium/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "Bananium. An extremely rare crytaline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
+	. += "Bananium. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
 	It makes a squeaking sound when something compresses it."
 	. += ""
 	. += "It is sought after by clowns all across the known galaxy and is used in the creation of many clownish contraptions."
@@ -415,7 +415,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/tranquillite/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "Tranquilite. An extremely rare crytaline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
+	. += "Tranquilite. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
 	Uniquely, it makes no sounds when bent, broken, smashed, or otherwise manipulated in any way, remaining deathly silent at all times. \
 	It also dampens sounds around it, and can become completely transparent when properly manipulated."
 	. += ""

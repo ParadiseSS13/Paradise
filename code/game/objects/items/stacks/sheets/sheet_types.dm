@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = list()
 	. += "At its core, steel is an alloy of iron and carbon. Many different elements can be added to precicely control nearly every property of the resulting alloy, from hardness and ductility to corrosion resistance."
 	. += ""
-	. += "Its use is ubiquitous across all post-industrial civilisations and is extensively used all areas of construction and the manufacture of almost any device that one can care to imagine."
+	. += "Its use is ubiquitous across all post-industrial civilisations and is extensively used within all areas of construction, as well as the manufacture of almost any device that one can care to imagine."
 
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_storage/material/metal
