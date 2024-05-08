@@ -167,6 +167,17 @@
 #define METAL_FOAM_ALUMINUM 	1
 #define METAL_FOAM_IRON 		2
 
+// Defines for foam
+
+/// The chemicals in the foam (if any) will never react.
+#define FOAM_REACT_NEVER			(2<<0)
+/// Chemicals in the foam will only react when the foam dissipates.
+#define FOAM_REACT_ON_DISSIPATE		(2<<1)
+/// Chemicals in the foam will react while the foam is still processing.
+#define FOAM_REACT_DURING_SPREAD	(2<<2)
+/// Chemicals in the foam will react when the foam first reaches a tile.
+#define FOAM_REACT_BEFORE_SPREAD	(2<<3)
+
 //Human Overlays Indexes/////////
 #define EYES_OVERLAY_LAYER		42
 #define WING_LAYER				41
@@ -692,3 +703,4 @@ do { \
 #define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
 #define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
 #define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
+

@@ -2,14 +2,6 @@
 // Similar to smoke, but spreads out more
 // metal foams leave behind a foamed metal wall
 
-/// The chemicals in the foam (if any) will never react.
-#define FOAM_REACT_NEVER			(2<<0)
-/// Chemicals in the foam will only react when the foam dissipates.
-#define FOAM_REACT_ON_DISSIPATE		(2<<1)
-/// Chemicals in the foam will react while the foam is still processing.
-#define FOAM_REACT_DURING_SPREAD	(2<<2)
-/// Chemicals in the foam will react when the foam first reaches a tile.
-#define FOAM_REACT_BEFORE_SPREAD	(2<<3)
 
 /obj/effect/particle_effect/foam
 	name = "foam"
@@ -26,13 +18,13 @@
 	/// How long it takes this, once it's spread, to stop spreading and disperse its chems
 	var/solidify_time = 12 SECONDS
 	/// Whether it reacts on or after dispersion (or both)
-	var/react_mode = FOAM_REACT_ON_DISSIPATE
+	var/react_mode = FOAM_REACT_ON_DISSIPATE | FOAM_REACT_BEFORE_SPREAD
 	/// Maximum amount of reagents gained by spreading onto a foamed tile
 	var/max_amount_on_spread = 27
 	/// We will never fill a mob with more than this many units of a given reagent
 	var/max_reagent_filling = 25
 	/// Whether or not to spread at a range when spreading
-	var/spread_at_range = FALSE
+	var/spread_at_range = TRUE
 
 
 
@@ -253,6 +245,7 @@
 
 /obj/effect/particle_effect/foam/oil
 	react_mode = FOAM_REACT_DURING_SPREAD | FOAM_REACT_ON_DISSIPATE
+	spread_at_range = FALSE
 
 /datum/effect_system/foam_spread/oil
 	effect_type = /obj/effect/particle_effect/foam/oil
