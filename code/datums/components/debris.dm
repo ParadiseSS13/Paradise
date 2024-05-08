@@ -74,7 +74,7 @@
 	smoke_visuals.particles.position = list(position_offset, position_offset)
 	smoke_visuals.particles.velocity = list(x_component_smoke, y_component_smoke)
 
-	if(debris && !(P.damage_type == BURN))
+	if(debris && P.damage_type == BRUTE)
 		debris_visuals = new(parent, /particles/debris)
 		debris_visuals.particles.position = generator("circle", position_offset, position_offset)
 		debris_visuals.particles.velocity = list(x_component, y_component)
