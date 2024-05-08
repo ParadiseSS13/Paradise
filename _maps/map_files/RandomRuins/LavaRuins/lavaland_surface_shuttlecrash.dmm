@@ -331,7 +331,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "Dt" = (
 /obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "DM" = (
 /obj/item/stack/rods/ten,
