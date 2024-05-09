@@ -211,11 +211,6 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
-/datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd)
-	if(!..())
-		return FALSE
-	return TRUE
-
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
