@@ -457,7 +457,6 @@
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
 
-
 /obj/docking_port/mobile/emergency/proc/random_docking_go()
 	var/cycles = 1000
 	var/stop = FALSE

@@ -8,7 +8,6 @@
 	var/description
 	var/admin_notes
 
-
 /datum/map_template/shuttle/proc/preload()
 	return
 
