@@ -108,8 +108,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	return ..()
 
 
-/obj/item/radio/Initialize()
-	..()
+/obj/item/radio/Initialize(mapload)
+	. = ..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)

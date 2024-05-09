@@ -393,7 +393,7 @@
 
 //Preload Syringes
 /obj/item/gun/syringemalf/Initialize(mapload)
-	..()
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 	process_chamber()
 
