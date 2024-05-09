@@ -183,12 +183,14 @@ As a Terror Spider, protect the queen at all cost!
 As a Terror Spider, don't forget you can move your nest if the crew is pressuring you too badly.
 As a Terror Spider, try putting webs on white floor tiles, they are much harder to see there.
 As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure victory in melee combat.
+Remote signalers are extremely versatile. They can be used in bombs, hacking, counteracting anomalies, and much more. Get creative!
+Need to perform surgery? No surgery kit? No worries! You can use a wide variety of improvised tools to perform ghetto surgery! For example, using a wrench as a stand-in for a bone setter, or a cigarette as a cautery. You can even use alcohol as a makeshift painkiller. Just be aware that these tools may not work as well as proper ones.
 If you examine something twice in quick succession, you will perform an extended examination. Many items have extended descriptions that give you more information about the world.
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
-Sleeping in a bed can heal minor amounts of brute and burn damage.
+Sleeping in a bed can heal minor amounts of brute and burn damage. It can also cure the common cold.
 The Experimentor has a chance to spawn hostile mobs. Be ready to run for your life when using it.
 Space ruins can contain all kinds of interesting goodies, even a wand that can raise the dead!
 Having a mindshield, or having an agent ID card will make officer Beepsky consider you less arrest-worthy.
