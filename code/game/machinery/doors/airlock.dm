@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	..(user)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user)
-	..(user)
+		return ..(user)
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(electrified_until != 0)
@@ -1021,11 +1021,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
 			return
 		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
-		if(do_after_once(user, 20, target = src))
+		if(do_after_once(user, 40, target = src))
 			S.use(2)
 			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
 			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+			update_icon(src)
 			transfer_fingerprints_to(newbarricade)
 		return
 
