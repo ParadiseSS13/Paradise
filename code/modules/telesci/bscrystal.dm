@@ -75,4 +75,4 @@ Natural bluespace crystals are excruciatingly rare, an issue exacerbated by thei
 
 Whilst the crystals produced by current synthetic processes are not as potent as natural ones, they can be used in most bluespace technologies with no noticable loss in performance.
 
-The manufacturing process is one of Nanotrasen's most closely guarded trade secrets, were it ever to get out, it would have severe consequences for the company.}
+The manufacturing process is one of Nanotrasen's most closely guarded trade secrets, were it ever to get out, it would have severe consequences for the company."}
