@@ -119,6 +119,17 @@
 	new /obj/item/stack/sheet/wood(get_turf(src), 5)
 	qdel(src)
 
+//This is for when barricades are constructed or deconstructed on windows or doors to prevent stacking
+/obj/structure/barricade/wooden/Initialize(mapload)
+	. = ..()
+	for((var/obj/machinery/door/D) in get_turf(loc))
+		D.door_barricaded += 1
+
+/obj/structure/barricade/wooden/deconstruct(disassembled) //doesn't work atm will fix later
+	. = ..()
+	for((var/obj/machinery/door/D) in get_turf(loc))
+		D.door_barricaded -= 1
+
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."

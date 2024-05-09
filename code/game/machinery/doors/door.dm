@@ -46,6 +46,8 @@
 	var/id
 	var/polarized_glass = FALSE
 	var/polarized_on
+	//Are we barricaded? Stops the door from opening if so
+	var/door_barricaded = 0
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -236,6 +238,23 @@
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
+
+	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = I
+		if(S.get_amount()<2)
+			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
+			return
+		if(src.door_barricaded > 0)
+			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
+			return
+		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
+		if(do_after_once(user, 40, target = src))
+			S.use(2)
+			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
+			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
+			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+			transfer_fingerprints_to(newbarricade)
+			return
 
 	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
 		try_to_crowbar(user, I)
