@@ -35,8 +35,6 @@
 	var/mutable_appearance/edge_overlay
 	/// Minimum environment smash level (found on simple animals) to break through this instantly
 	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
-	//Is the window barricaded?
-	var/barricaded = 0
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -190,13 +188,14 @@
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
-		for(var/obj/structure/grille/G in get_turf(src))
-			if(!G.broken)
-				continue
+		var/obj/structure/grille/G = I
+		if(locate(G in get_turf(src)))
+			return TRUE
+		if(G.broken)
 			to_chat(user, "<span class='notice'>You start rebuilding the broken grille.</span>")
 			if(do_after(user, 4 SECONDS, FALSE, G))
 				G.repair(user, I)
-
+			return
 
 	else if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I
@@ -231,16 +230,15 @@
 		if(S.get_amount()<2)
 			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
 			return
-		if(src.barricaded > 0)
+		if(locate(/obj/structure/barricade/wooden) in get_turf(src))
 			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
 			return
 		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
-		if(do_after_once(user, 40, target = src))
+		if(do_after_once(user, 20, target = src))
 			S.use(2)
 			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
 			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-			src.barricaded = TRUE
 			transfer_fingerprints_to(newbarricade)
 	else
 		return ..()

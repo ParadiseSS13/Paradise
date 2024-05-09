@@ -91,21 +91,6 @@
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
 
-
-/obj/structure/barricade/wooden/Initialize(mapload)
-	.=..()
-	for(var/obj/machinery/door/door_to_barricade in get_turf(loc))
-		door_to_barricade.barricaded + 1
-	for(var/obj/structure/window/window_to_barricade in get_turf(loc))
-		window_to_barricade.barricaded + 1
-
-/obj/structure/barricade/wooden/Destroy()
-	. = ..()
-	for(var/obj/machinery/door/door_to_barricade in get_turf(loc))
-		door_to_barricade.barricaded - 1
-	for(var/obj/structure/window/window_to_barricade in get_turf(loc))
-		window_to_barricade.barricaded - 1
-
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/W = I

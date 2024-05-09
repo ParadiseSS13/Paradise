@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	..(user)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user)
-	..(user)
+		return ..(user)
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(electrified_until != 0)
@@ -1011,6 +1011,24 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 						update_icon()
 					return
+
+	if(istype(C, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = C
+		if(S.get_amount()<2)
+			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
+			return
+		if(locate(/obj/structure/barricade/wooden) in get_turf(src))
+			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
+			return
+		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
+		if(do_after_once(user, 40, target = src))
+			S.use(2)
+			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
+			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
+			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+			update_icon(src)
+			transfer_fingerprints_to(newbarricade)
+		return
 
 	if(istype(C, /obj/item/assembly/signaler))
 		return interact_with_panel(user)

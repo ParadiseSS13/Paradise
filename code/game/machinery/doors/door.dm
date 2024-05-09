@@ -42,9 +42,6 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
-	//Is the door barricaded?
-	var/barricaded = 0
-
 	/// ID for the window tint button, or another external control
 	var/id
 	var/polarized_glass = FALSE
@@ -143,8 +140,6 @@
 	if(operating)
 		return
 	add_fingerprint(user)
-	if(barricaded > 0)
-		return
 	if(density && !emagged)
 		if(allowed(user))
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -239,16 +234,13 @@
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
-		barricade(user)
-		return TRUE
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
 	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
 		try_to_crowbar(user, I)
 		return TRUE
-	else if(!(I.flags & NOBLUDGEON) && barricaded == 0 && user.a_intent != INTENT_HARM)
+	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return TRUE
 	return ..()
@@ -322,24 +314,6 @@
 		open()
 	else
 		close()
-
-/obj/machinery/door/proc/barricade(woodstack, mob/living/user)
-var/obj/item/stack/sheet/wood/woodstack = S
-	if(S.get_amount()<2)
-		to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
-			return
-	if(src.barricaded > 0)
-		to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
-			return
-	to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
-	if(do_after_once(user, 40, target = src))
-		S.use(2)
-		to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
-		user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
-		var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
-		update_icon(src)
-		transfer_fingerprints_to(newbarricade)
-			return
 
 /obj/machinery/door/proc/soundcooldown()
 	if(!sound_ready)
