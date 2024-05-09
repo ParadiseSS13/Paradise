@@ -36,7 +36,7 @@
 	/// Minimum environment smash level (found on simple animals) to break through this instantly
 	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 	//Is the window barricaded?
-	var/barricaded = FALSE
+	var/barricaded = 0
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -231,7 +231,7 @@
 		if(S.get_amount()<2)
 			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
 			return
-		if(src.barricaded)
+		if(src.barricaded > 0)
 			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
 			return
 		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
