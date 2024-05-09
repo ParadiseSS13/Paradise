@@ -95270,7 +95270,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_y = 24;
-	req_access_txt = "10"
+	req_access_txt = "32"
 	},
 /obj/machinery/camera{
 	c_tag = "SM South";

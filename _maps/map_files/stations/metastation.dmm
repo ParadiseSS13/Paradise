@@ -8848,7 +8848,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_x = 24;
-	req_access_txt = "10"
+	req_access_txt = "32"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -53327,12 +53327,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/storage)
-"hak" = (
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "hal" = (
 /obj/effect/spawner/airlock/s_to_n,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -60134,12 +60128,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/control)
-"jPM" = (
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/station/engineering/control)
 "jPQ" = (
 /obj/structure/cable{
@@ -140139,8 +140127,8 @@ aCg
 nRh
 nBp
 aOd
-jPM
-hak
+nRh
+nRh
 nRh
 aSp
 jbk
