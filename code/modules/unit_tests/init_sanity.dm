@@ -8,4 +8,4 @@
 			"[BAD_INIT_NO_HINT]" = "No Initialize() Hint Returned",
 		)
 		for(var/failure in SSatoms.BadInitializeCalls)
-			log_world("[failure]: [init_failures_to_text["[SSatoms.BadInitializeCalls[failure]]"]]") // You like stacked brackets?
+			Fail("[failure]: [init_failures_to_text["[SSatoms.BadInitializeCalls[failure]]"]]") // You like stacked brackets?
