@@ -372,7 +372,6 @@
 
 /obj/item/dnainjector/eatmut/GetInitBlock()
 	return GLOB.eatblock
-	return ..()
 
 /obj/item/dnainjector/antieat
 	name = "DNA-Injector (Anti-Matter Eater)"
@@ -383,7 +382,6 @@
 
 /obj/item/dnainjector/antieat/GetInitBlock()
 	return GLOB.eatblock
-	return ..()
 
 /////////////////////////////////////
 /obj/item/dnainjector/antiglasses
