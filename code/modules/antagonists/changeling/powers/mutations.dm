@@ -36,6 +36,7 @@
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[W.name]"))
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
@@ -419,6 +420,7 @@
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
