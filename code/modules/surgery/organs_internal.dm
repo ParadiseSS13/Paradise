@@ -835,7 +835,8 @@
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
-		TOOL_WELDER = 30
+		TOOL_WELDER = 30,
+		/obj/item/flamethrower = 1
 	)
 
 	time = 2.4 SECONDS
