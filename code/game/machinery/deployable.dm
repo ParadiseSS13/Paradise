@@ -93,7 +93,7 @@
 
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
-	if(istype(I,/obj/item/stack/sheet/wood))
+	if(istype(I,/obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
@@ -107,7 +107,8 @@
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
 			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
-	return ..()
+	else
+		return ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -127,11 +128,22 @@
 	max_integrity = 50
 	proj_pass_rate = 65
 
-//To make sure you can't wall off barricaded windows or airlocks
-/obj/structure/barricade/wooden/crude/attackby(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/stack/sheet/wood))
-		to_chat(user, "<span class='warning'>This barricade is too crude to support a wall!</span>")
+//Barricade repairs
+/obj/structure/barricade/wooden/crude/attackby(obj/item/stack/sheet/wood/S, mob/user, params)
+	if((istype(S,/obj/item/stack/sheet/wood/)) && user.a_intent == INTENT_HELP)
+		if(src.obj_integrity >= max_integrity)
+			to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
+			return
+		to_chat(user, "<span class='notice'> You start repairing \the [src]...</span>")
+		if(do_after(user, 20, target = src))
+			S.use(1)
+			to_chat(user, "<span class='notice'> You repair \the [src].</span>")
+			user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
+			src.obj_integrity = src.max_integrity
+			transfer_fingerprints_to(src)
 		return
+	else
+		return ..()
 
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
