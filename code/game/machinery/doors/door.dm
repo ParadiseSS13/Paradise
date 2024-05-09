@@ -42,6 +42,8 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
+	//Is the door barricaded?
+	var/barricaded = FALSE
 
 	/// ID for the window tint button, or another external control
 	var/id
@@ -245,6 +247,24 @@
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return TRUE
+
+	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+		var/obj/item/stack/sheet/wood/S = I
+		if(S.get_amount()<2)
+			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
+			return
+		if(src.barricaded)
+			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
+			return
+		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
+		if(do_after_once(user, 40, target = src))
+			S.use(2)
+			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
+			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
+			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
+			update_icon(src)
+			transfer_fingerprints_to(newbarricade)
+		return
 	return ..()
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
@@ -528,9 +548,9 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-	
+
 	QDEL_LIST_CONTENTS(fillers)
-	
+
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
