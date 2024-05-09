@@ -576,6 +576,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
