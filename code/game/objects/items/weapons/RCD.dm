@@ -55,7 +55,7 @@
 	return rcd.mode == mode
 
 /// Perform the act. You should usually override this.
-/datum/rcd_act/proc/act(atom/A, obj/item/rcd/rcd)
+/datum/rcd_act/proc/act(atom/A, obj/item/rcd/rcd, mob/user)
 	return
 
 /datum/rcd_act/place_floor
