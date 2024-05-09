@@ -188,9 +188,10 @@
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
-		for(var/obj/structure/grille/G in get_turf(src))
-			if(!G.broken)
-				continue
+		var/obj/structure/grille/G = I
+		if(locate(G in get_turf(src)))
+			return TRUE
+		if(G.broken)
 			to_chat(user, "<span class='notice'>You start rebuilding the broken grille.</span>")
 			if(do_after(user, 4 SECONDS, FALSE, G))
 				G.repair(user, I)
@@ -233,7 +234,7 @@
 			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
 			return
 		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
-		if(do_after_once(user, 20, target = src))
+		if(do_after_once(user, 40, target = src))
 			S.use(2)
 			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
 			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
