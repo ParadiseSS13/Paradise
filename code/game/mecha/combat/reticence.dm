@@ -30,7 +30,7 @@
 /obj/mecha/combat/reticence/examine_more(mob/user)
 	. = ..()
 	. += "<i>A dour, colorless modification of a Gygax chassis, the Reticence is a sight to behold…or not behold. \
-	It utilizes a mysterious dampening field, added by a cabal of nearly unheard-of mimes, to be entirely silent as it moves over any terrain, making it a favored weapon of this supposed conspiracy…and the assassins they may or may not employ.</i>"
+	It utilizes a mysterious dampening field, added by a cabal of nearly unheard-of mimes, to be entirely silent as it moves over any terrain, making it a favored weapon of this supposed conspiracy and the assassins they may, or may not, employ.</i>"
 	. += ""
 	. += "<i>Armed with an S.H.H. “Quietus” Carbine, an utterly silent weapon that can drain the stamina of targets unfortunate enough to be shot by it, it can ensure swift getaways. \
 	As a secondary tool, it comes equipped with a mime R.C.D., a device capable of replicating a mime's mysterious ability to create impenetrable, invisible walls. \
