@@ -177,6 +177,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 
 /obj/item/stack/sheet/mineral/sandbags
 	name = "sandbags"
+	desc = "Cloth bags full of sand. They can be used to construct robust defensive emplacements that block movement and provide protection from gunfire."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sandbags"
 	singular_name = "sandbag"
@@ -193,7 +194,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/emptysandbag
 	name = "empty sandbag"
-	desc = "A bag to be filled with sand."
+	desc = "A cloth bag to be filled with sand."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
@@ -225,9 +226,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/diamond/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "The hardest known material, made of carbon arranged in a tightly packed cubic crystal structure. Excellent thermal conductivity, a high refractive index, and very pretty to look at."
-	. += ""
-	. += "Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."
+	. += {"Diamond is the hardest known material, made of elemental carbon arranged in a tightly packed cubic crystal structure. It has excellent thermal conductivity, a high refractive index, and is very pretty to look at.
+
+Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."}
+
 
 
 /obj/item/stack/sheet/mineral/diamond/New()
@@ -252,7 +254,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/uranium/examine_more(mob/user)
 	. = ..()
 	. =list()
-	. += "An extremely dense metal. It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+	. += {"Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235.
+
+It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."}
 
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
@@ -278,12 +282,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today."
-	. += ""
-	. += "Plasma is a metastable exotic matter, capable of existing in all 3 basic states of matter across a wide range of tempratures and pressures. It is widely used as starship fuel for both conventional engines and \
-	Faster-Than-Light drives. It is also used in the creation of several classes of high-performance supermaterials and other advanced technologies. New uses for this wonder material are constantly being researched."
-	. += ""
-	. += "Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."
+	. += {"Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today.
+
+Plasma is a metastable exotic matter, capable of existing in all 3 basic states of matter across a wide range of tempratures and pressures. It is widely used as starship fuel for both conventional engines and \
+Faster-Than-Light drives. It is also used in the creation of several classes of high-performance supermaterials and other advanced technologies. New uses for this wonder material are constantly being researched.
+
+Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."}
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
@@ -331,10 +335,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/gold/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "A dense, soft, yellow precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. It has an exceptionally low reactivity and excellent corrosion resistance, \
-	being the most noble of the metallic elements."
-	. += ""
-	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
+	. += {"A dense, soft, yellow precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. \
+	It has an exceptionally low reactivity and excellent corrosion resistance, being the most noble of the metallic elements.
+
+It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."}
 
 /obj/item/stack/sheet/mineral/gold/fifty
 	amount = 50
@@ -358,9 +362,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/silver/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "A shiny grey precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. It has very high thermal and electrical conductivity, and exhibits antimicrobial properties."
-	. += ""
-	. += "It is widely used in the production of advanced electronics, chemical catalysts, medicines, and some high performance materials."
+	. += {"A shiny grey precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. \
+It has very high thermal and electrical conductivity, and exhibits antimicrobial properties.
+
+It is widely used in the production of advanced electronics, chemical catalysts, medicines, and some high performance materials."}
 
 /obj/item/stack/sheet/mineral/silver/fifty
 	amount = 50
@@ -384,10 +389,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/bananium/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "Bananium. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
-	It makes a squeaking sound when something compresses it."
-	. += ""
-	. += "It is sought after by clowns all across the known galaxy and is used in the creation of many clownish contraptions."
+	. += {"Bananium. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
+	It makes a squeaking sound when something compresses it.
+
+It is sought after by clowns all across the known galaxy and is used in the creation of many clownish contraptions."}
 
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
@@ -415,11 +420,11 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/tranquillite/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "Tranquilite. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
-	Uniquely, it makes no sounds when bent, broken, smashed, or otherwise manipulated in any way, remaining deathly silent at all times. \
-	It also dampens sounds around it, and can become completely transparent when properly manipulated."
-	. += ""
-	. += "It is sought after by mimes all across the known galaxy and is used in the creation of many of their mysterious contraptions. Various other groups also express an interest in its unusual properites."
+	. += {"Tranquilite. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
+Uniquely, it makes no sounds when bent, broken, smashed, or otherwise manipulated in any way, remaining deathly silent at all times. \
+It also dampens sounds around it, and can become completely transparent when properly manipulated.
+
+It is sought after by mimes all across the known galaxy and is used in the creation of many of their mysterious contraptions. Various other groups also express an interest in its unusual properites."}
 
 /obj/item/stack/sheet/mineral/tranquillite/ten
 	amount = 10
@@ -453,9 +458,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/titanium/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "A strong, lightweight metal. Titanium has a strength similar to most steel alloys whilst being about 45% less dense, whilst also exhibiting superior corrosion resistance. It is also very good at reflecting energy weapon attacks."
-	. += ""
-	. += "It is widely used in robotics, aerospace applications, and in starship construction thanks to its excellent strength-to-weight ratio. Notably, it is also extensively used in space station construction by the USSP."
+	. += {"A strong, lightweight metal. Titanium has a strength similar to most steel alloys whilst being about 45% less dense, whilst also exhibiting superior corrosion resistance. \
+It is also very good at reflecting energy weapon attacks. Careful where you fire that laser gun!
+
+It is widely used in robotics, aerospace applications, and in starship construction thanks to its excellent strength-to-weight ratio. Notably, it is also extensively used in space station construction by the USSP."}
 
 GLOBAL_LIST_INIT(titanium_recipes, list(
 	new /datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
@@ -494,9 +500,9 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 /obj/item/stack/sheet/mineral/plastitanium/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "A high-performance superalloy of plasma and titanium, plastitanium is exceptionally light and strong, and has excellent thermal resistance."
-	. += ""
-	. += "It is used in the construction of military-grade starship hulls, top-of-the-line personal armour, and melee weaponry."
+	. += {"A high-performance superalloy of plasma and titanium, plastitanium is exceptionally light and strong, and has excellent thermal resistance.
+
+It is used in the construction of military-grade starship hulls, top-of-the-line personal armour, and melee weaponry."}
 
 /obj/item/stack/sheet/mineral/plastitanium/fifty
 	amount = 50

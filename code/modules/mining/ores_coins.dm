@@ -191,6 +191,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
+	desc = "HONK!"
 	icon_state = "bananium_ore"
 	item_state = "bananium_ore"
 	origin_tech = "materials=4"
@@ -201,6 +202,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/tranquillite
 	name = "tranquillite ore"
+	desc = "..."
 	icon_state = "tranquillite_ore"
 	item_state = "tranquillite_ore"
 	origin_tech = "materials=4"
@@ -220,7 +222,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/slag
 	name = "slag"
-	desc = "Completely useless"
+	desc = "Completely useless."
 	icon_state = "slag"
 	singular_name = "slag chunk"
 
@@ -238,6 +240,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
 	var/attacher = "UNKNOWN"
 	var/datum/wires/explosive/gibtonite/wires
+
+/obj/item/gibtonite/examine(mob/user)
+	. = ..()
+	. += "<span class = 'notice'>You can use a mining scanner to stop an activated gibtonite crystal from detonating.</span>"
+	. += "<span class = 'notice'>In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!</span>"
 
 /obj/item/gibtonite/Initialize(mapload)
 	. = ..()
