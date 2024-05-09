@@ -40,8 +40,8 @@
 	icon_state = "smoke3"
 	width = 1000
 	height = 1000
-	count = 75
-	spawning = 75
+	count = 45
+	spawning = 45
 	gradient = list("#FA9632", "#C3630C", "#333333", "#808080", "#FFFFFF")
 	lifespan = 2.5 SECONDS
 	fade = 2 SECONDS
@@ -60,8 +60,8 @@
 	velocity = generator(GEN_CIRCLE, 23, 23)
 
 /particles/explosion_smoke/small
-	count = 25
-	spawning = 25
+	count = 15
+	spawning = 15
 	scale = 0.25
 	velocity = generator(GEN_CIRCLE, 10, 10)
 
@@ -77,16 +77,16 @@
 	gradient = list("#BA9F6D", "#808080", "#FFFFFF")
 	color = generator(GEN_NUM, 0, 0.25)
 	color_change = generator(GEN_NUM, 0.08, 0.07)
-	velocity = generator(GEN_CIRCLE, 25, 25)
+	velocity = generator(GEN_CIRCLE, 15, 15)
 	rotation = generator(GEN_NUM, -45, 45)
-	scale = 0.25
+	scale = 0.15
 	grow = 0.05
-	friction = 0.05
+	friction = 0.1
 
 /particles/smoke_wave/small
 	count = 45
 	spawning = 45
-	scale = 0.1
+	scale = 0.05
 	lifespan = 2 SECONDS
 	fade = 5 SECONDS
 
@@ -114,7 +114,7 @@
 	fade = 4 SECONDS
 	fadein = 0.3 SECONDS
 	scale = generator(GEN_NUM, 1, 1.1)
-	velocity = list(0, 12)
+	position = list(0, 10)
 	grow = list(0, 0.01)
 
 /particles/dirt_kickup_large
@@ -127,6 +127,7 @@
 	fade = 4 SECONDS
 	fadein = 0.3 SECONDS
 	scale = generator(GEN_NUM, 1.1, 1.2)
+	position = list(0, 20)
 	grow = list(0, 0.025)
 
 /particles/dirt_kickup_large/deva
