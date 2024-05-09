@@ -175,7 +175,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 massively improving the strength of the glass whilst also giving it exceptional thermal resistance. The denser molecular structure is also better at blocking radiation.
 
 Unlike metal alloys incorporating plasma, plasma glass is not common - the secrets of producing it are a closely guarded trade secret of Nanotrasen, \
-very demanding conditions are required to correctly combine plasma and silica, and without this knowledge the process is fraught with great risk of igniting the plasma and (at best) destroying the production equipment."}
+very demanding conditions are required to correctly combine plasma and silica, and without this knowledge the process is fraught with great risk of igniting the plasma and (at best) destroying the production equipment.
+
+Despite plastitanium glass being a structurally more robust material, pure plasma glass has some unique properties that Nanotrasen exploits in some of its experimental energy weapons, such as the immolator laser."}
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
 
@@ -231,7 +233,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 massively improving the strength of the glass whilst also giving it exceptional thermal resistance. The denser molecular structure is also better at blocking radiation.
 
 Unlike metal alloys incorporating plasma, plasma glass is not common - the secrets of producing it are a closely guarded trade secret of Nanotrasen, \
-very demanding conditions are required to correctly combine plasma and silica, and without this knowledge the process is fraught with great risk of igniting the plasma and (at best) destroying the production equipment."}
+very demanding conditions are required to correctly combine plasma and silica, and without this knowledge the process is fraught with great risk of igniting the plasma and (at best) destroying the production equipment.
+
+Despite plastitanium glass being a structurally more robust material, pure plasma glass has some unique properties that Nanotrasen exploits in some of its experimental energy weapons, such as the immolator laser."}
 
 /obj/item/stack/sheet/plasmarglass/fifty
 	amount = 50

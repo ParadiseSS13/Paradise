@@ -287,7 +287,10 @@ It finds uses in a great number of applications, including medicine, nuclear pow
 Plasma is a metastable exotic matter, capable of existing in all 3 basic states of matter across a wide range of tempratures and pressures. It is widely used as starship fuel for both conventional engines and \
 Faster-Than-Light drives. It is also used in the creation of several classes of high-performance supermaterials and other advanced technologies. New uses for this wonder material are constantly being researched.
 
-Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."}
+Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust.
+
+Despite its flammability, plasma-enhanced materials such as plasteel or plasma glass generally possess extreme fire resistance, ultra-low thermal conductivity, and a high emissivity. \
+This allows, for example, a relatively thin pane of plasma glass to be cool to the touch even when a massive inferno is bruning on the other side."}
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
@@ -458,7 +461,7 @@ It is sought after by mimes all across the known galaxy and is used in the creat
 /obj/item/stack/sheet/mineral/titanium/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += {"A strong, lightweight metal. Titanium has a strength similar to most steel alloys whilst being about 45% less dense, whilst also exhibiting superior corrosion resistance. \
+	. += {"A strong, lightweight metal. Titanium has a strength similar to most steel alloys despite being about 45% less dense, whilst also exhibiting superior corrosion resistance. \
 It is also very good at reflecting energy weapon attacks. Careful where you fire that laser gun!
 
 It is widely used in robotics, aerospace applications, and in starship construction thanks to its excellent strength-to-weight ratio. Notably, it is also extensively used in space station construction by the USSP."}
@@ -500,7 +503,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 /obj/item/stack/sheet/mineral/plastitanium/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += {"A high-performance superalloy of plasma and titanium, plastitanium is exceptionally light and strong, and has excellent thermal resistance.
+	. += {"A high-performance superalloy of plasma and titanium, plastitanium is exceptionally light and strong, and has excellent thermal and corrosion resistance.
 
 It is used in the construction of military-grade starship hulls, top-of-the-line personal armour, and melee weaponry."}
 
@@ -540,7 +543,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/abductor/examine_more(mob/user)
 	. = ..()
 	. = list()
-	. += "An out-of-this-world material used in the construction of exceptionally advanced technologies. Known to be associated strongly with abductors, the secrets of its production are also known to the Grey..."
+	. += "An out-of-this-world material used in the construction of exceptionally advanced technologies. Known to be associated strongly with abductors."
 
 /obj/item/stack/sheet/mineral/abductor/fifty
 	amount = 50
