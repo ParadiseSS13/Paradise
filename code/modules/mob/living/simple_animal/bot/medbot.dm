@@ -273,7 +273,7 @@
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
 		if((last_warning + 300) < world.time)
-			speak("<span class='danger'>Movement restrained! Unit on standby!</span>")
+			speak("Movement restrained! Unit on standby!")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 			last_warning = world.time
 		return
@@ -568,3 +568,8 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
 
+
+#undef MEDBOT_MIN_HEALING_THRESHOLD
+#undef MEDBOT_MAX_HEALING_THRESHOLD
+#undef MEDBOT_MIN_INJECTION_AMOUNT
+#undef MEDBOT_MAX_INJECTION_AMOUNT

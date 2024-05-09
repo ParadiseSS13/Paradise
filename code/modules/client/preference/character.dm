@@ -6,6 +6,7 @@
 	var/real_name							//our character's name
 	var/be_random_name = FALSE				//whether we are a random name every round
 	var/gender = MALE						//gender of character (well duh)
+	var/body_type = MALE					//body sprite variant
 	var/age = 30							//age of character
 	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
@@ -38,7 +39,8 @@
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
-
+	/// If a spawned cyborg should have an MMI, a positronic, or a robobrain. MMI by default
+	var/cyborg_brain_type = MMI_BORG
 	/// The body accessory name of the mob (e.g. wings, tail).
 	var/body_accessory = null
 
@@ -110,20 +112,20 @@
 	real_name = random_name(gender, species)
 
 /datum/character_save/proc/save(client/C)
-	var/organlist
-	var/rlimblist
+	var/organ_list
+	var/rlimb_list
 	var/playertitlelist
 	var/gearlist
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
-	if(!isemptylist(organ_data))
-		organlist = list2params(organ_data)
-	if(!isemptylist(rlimb_data))
-		rlimblist = list2params(rlimb_data)
-	if(!isemptylist(player_alt_titles))
+	if(length(organ_data))
+		organ_list = list2params(organ_data)
+	if(length(rlimb_data))
+		rlimb_list = list2params(rlimb_data)
+	if(length(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
-	if(!isemptylist(loadout_gear))
+	if(length(loadout_gear))
 		gearlist = json_encode(loadout_gear)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
@@ -140,6 +142,7 @@
 					real_name=:real_name,
 					name_is_always_random=:be_random_name,
 					gender=:gender,
+					body_type=:body_type,
 					age=:age,
 					species=:species,
 					language=:language,
@@ -177,8 +180,8 @@
 					gen_record=:gen_record,
 					player_alt_titles=:playertitlelist,
 					disabilities=:disabilities,
-					organ_data=:organlist,
-					rlimb_data=:rlimblist,
+					organ_data=:organ_list,
+					rlimb_data=:rlimb_list,
 					nanotrasen_relation=:nanotrasen_relation,
 					physique=:physique,
 					height=:height,
@@ -191,7 +194,9 @@
 					hair_gradient_offset=:h_grad_offset,
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
-					custom_emotes=:custom_emotes
+					custom_emotes=:custom_emotes,
+					cyborg_brain_type=:cyborg_brain_type,
+					body_type=:body_type
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -199,6 +204,7 @@
 						"real_name" = real_name,
 						"be_random_name" = be_random_name,
 						"gender" = gender,
+						"body_type" = body_type,
 						"age" = age,
 						"species" = species,
 						"language" = language,
@@ -236,8 +242,8 @@
 						"gen_record" = gen_record,
 						"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 						"disabilities" = disabilities,
-						"organlist" = (organlist ? organlist : ""),
-						"rlimblist" = (rlimblist ? rlimblist : ""),
+						"organ_list" = (organ_list ? organ_list : ""),
+						"rlimb_list" = (rlimb_list ? rlimb_list : ""),
 						"nanotrasen_relation" = nanotrasen_relation,
 						"physique" = physique,
 						"height" = height,
@@ -251,6 +257,7 @@
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
+						"cyborg_brain_type" = cyborg_brain_type,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -291,7 +298,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -316,9 +323,9 @@
 			:sec_record,
 			:gen_record,
 			:playertitlelist,
-			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :physique, :height, :speciesprefs,
+			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -327,6 +334,7 @@
 		"name" = real_name,
 		"be_random_name" = be_random_name,
 		"gender" = gender,
+		"body_type" = body_type,
 		"age" = age,
 		"species" = species,
 		"language" = language,
@@ -364,8 +372,8 @@
 		"gen_record" = gen_record,
 		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentional. It wont work without it!
 		"disabilities" = disabilities,
-		"organlist" = (organlist ? organlist : ""),
-		"rlimblist" = (rlimblist ? rlimblist : ""),
+		"organ_list" = (organ_list ? organ_list : ""),
+		"rlimb_list" = (rlimb_list ? rlimb_list : ""),
 		"nanotrasen_relation" = nanotrasen_relation,
 		"physique" = physique,
 		"height" = height,
@@ -379,6 +387,7 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
+		"cyborg_brain_type" = cyborg_brain_type
 	))
 
 	if(!query.warn_execute())
@@ -390,6 +399,10 @@
 	return 1
 
 
+/**
+ * Load in and process the database's information on the player's character save.
+ * The order of indices here is the relative order from get_query() in 20-load-characters.dm.
+ */
 /datum/character_save/proc/load(datum/db_query/query)
 	//Character
 	metadata = query.item[1]
@@ -466,6 +479,8 @@
 	var/custom_emotes_tmp = query.item[55]
 	physique = query.item[56]
 	height = query.item[57]
+	cyborg_brain_type = query.item[58]
+	body_type = query.item[59]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -499,7 +514,7 @@
 		real_name = random_name(gender, species)
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
+	gender			= sanitize_gender(gender, FALSE)
 	age				= sanitize_integer(age, SP.min_age, SP.max_age, initial(age))
 	h_colour		= sanitize_hexcolor(h_colour)
 	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
@@ -551,7 +566,7 @@
 	loadout_gear = sanitize_json(loadout_gear)
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
-
+	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
@@ -585,9 +600,10 @@
 		gender = gender_override
 	else
 		gender = pick(MALE, FEMALE)
-	underwear = random_underwear(gender, species)
-	undershirt = random_undershirt(gender, species)
-	socks = random_socks(gender, species)
+	body_type = pick(MALE, FEMALE)
+	underwear = random_underwear(body_type, species)
+	undershirt = random_undershirt(body_type, species)
+	socks = random_socks(body_type, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
@@ -789,7 +805,8 @@
 	qdel(preview_icon)
 
 	var/g = "m"
-	if(gender == FEMALE)	g = "f"
+	if(body_type == FEMALE)
+		g = "f"
 
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
@@ -1087,7 +1104,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "poncho"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "qmcoat"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1158,7 +1175,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "lgloves"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "mime"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suspenders"), ICON_OVERLAY)
 				has_gloves = TRUE
 				switch(backbag)
@@ -1307,7 +1324,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigoff"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "bluesoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "bluesoft"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)
@@ -1351,7 +1368,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_hos"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret_hos"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -1394,7 +1411,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/security.dmi', "security_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_officer"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret_officer"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -1613,7 +1630,7 @@
 	return 0
 
 /datum/character_save/proc/ShowDisabilityState(mob/user, flag, label)
-	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
+	return "<li><b>[label]:</b> <a href='byond://?_src_=prefs;task=input;preference=disabilities;disability=[flag]'>[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/character_save/proc/SetDisabilities(mob/user)
 	var/datum/species/S = GLOB.all_species[species]
@@ -1637,8 +1654,8 @@
 
 
 	HTML += {"</ul>
-		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
-		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
+		<a href='byond://?_src_=prefs;task=close;preference=disabilities'>\[Done\]</a>
+		<a href='byond://?_src_=prefs;task=reset;preference=disabilities'>\[Reset\]</a>
 		</center></tt>"}
 
 	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 380)
@@ -1654,21 +1671,21 @@
 	if(length(med_record) <= 40)
 		HTML += "[med_record]"
 	else
-		HTML += "[copytext(med_record, 1, 37)]..."
+		HTML += "[copytext_char(med_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
 	if(length(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
-		HTML += "[copytext(gen_record, 1, 37)]..."
+		HTML += "[copytext_char(gen_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
-		HTML += "[copytext(sec_record, 1, 37)]...<br>"
+		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
@@ -1803,6 +1820,7 @@
 	character.gen_record = gen_record
 
 	character.change_gender(gender)
+	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here
 	character.age = age
 
 	//Head-specific
@@ -1880,10 +1898,10 @@
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
+	if(character.gender == NEUTER)
 		if(isliving(src)) //Ghosts get neuter by default
-			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
-			character.change_gender(MALE)
+			message_admins("[key_name_admin(character)] has spawned with their gender as neuter. Please notify coders.")
+			character.change_gender(PLURAL)
 
 	character.change_eye_color(e_colour, skip_icons = TRUE)
 	character.original_eye_color = e_colour
@@ -1971,13 +1989,13 @@
 	html += "<body>"
 	if(!length(SSjobs.occupations))
 		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
 	else
 		html += "<tt><center>"
 		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
 		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
-		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
@@ -2010,7 +2028,7 @@
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
-				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
+				rank = "<a href='byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]'>[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
 			lastJob = job
@@ -2068,9 +2086,9 @@
 				prefLowerLevel = 1
 
 
-			html += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
+			html += "<a class='white' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
-	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
+	//			HTML += "<a href='byond://?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
 			if(job.title == "Assistant") // Assistant is special
 				if(job_support_low & JOB_ASSISTANT)
@@ -2101,14 +2119,14 @@
 
 		switch(alternate_option)
 			if(GET_RANDOM_JOB)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
 			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
 			if(RETURN_TO_LOBBY)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 
-		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
-		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
+		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
 		html += "</tt>"
 
 	user << browse(null, "window=preferences")

@@ -385,7 +385,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		message_admins("[machine] exploit attempted by [key_name(usr, TRUE)]!")
 		return
 
-	if(being_built.make_reagents.len) // build_type should equal BIOGENERATOR though..
+	if(length(being_built.make_reagents)) // build_type should equal BIOGENERATOR though..
 		return
 
 	var/max_amount = is_lathe ? 10 : 1
@@ -579,7 +579,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))=="No")
+			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")

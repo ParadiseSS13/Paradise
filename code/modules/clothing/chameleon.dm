@@ -94,10 +94,14 @@
 			qdel(O)
 	..()
 
-/datum/action/item_action/chameleon/change/proc/initialize_disguises()
-	if(button)
+/datum/action/item_action/chameleon/change/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
+	. = ..()
+	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+
+/datum/action/item_action/chameleon/change/proc/initialize_disguises()
+	UpdateButtons()
 	chameleon_blacklist |= typecacheof(target.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
@@ -141,7 +145,7 @@
 		update_item(picked_item)
 		var/obj/item/thing = target
 		thing.update_slot_icon()
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
 	target.name = initial(picked_item.name)
@@ -465,8 +469,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 	)
 
-	var/obj/item/voice_changer/voice_changer
-
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
@@ -478,10 +480,7 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
-	voice_changer = new(src)
-
 /obj/item/clothing/mask/chameleon/Destroy()
-	QDEL_NULL(voice_changer)
 	QDEL_NULL(chameleon_action)
 	return ..()
 
@@ -492,6 +491,23 @@
 /obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/mask/chameleon/voice_change
+	name = "gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow."
+	icon_state = "swat"
+	item_state = "swat"
+
+	var/obj/item/voice_changer/voice_changer
+
+/obj/item/clothing/mask/chameleon/voice_change/Destroy()
+	QDEL_NULL(voice_changer)
+	return ..()
+
+/obj/item/clothing/mask/chameleon/voice_change/Initialize(mapload)
+	. = ..()
+
+	voice_changer = new(src)
 
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
@@ -648,3 +664,31 @@
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
+	. = ..()
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+			return
+		C.current_disguise = TRUE
+		C.item_state = initial(picked_item.item_state)
+		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+
+/datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+				return
+		if(C.active || C.activating)
+			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			return
+	..()
+
+
+#undef EMP_RANDOMISE_TIME

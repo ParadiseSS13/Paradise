@@ -1,5 +1,3 @@
-#define WALL_DENT_HIT 1
-#define WALL_DENT_SHOT 2
 #define MAX_DENT_DECALS 15
 
 /turf/simulated/wall
@@ -63,6 +61,7 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10, 1)
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -118,9 +117,9 @@
 		. += dent_decals
 		return
 
-	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
-	if(overlay > damage_overlays.len)
-		overlay = damage_overlays.len
+	var/overlay = round(damage / damage_cap * length(damage_overlays)) + 1
+	if(overlay > length(damage_overlays))
+		overlay = length(damage_overlays)
 
 	if(length(dent_decals))
 		. += dent_decals
@@ -129,9 +128,9 @@
 	. += dent_decals
 
 /turf/simulated/wall/proc/generate_overlays()
-	var/alpha_inc = 256 / damage_overlays.len
+	var/alpha_inc = 256 / length(damage_overlays)
 
-	for(var/i = 1; i <= damage_overlays.len; i++)
+	for(var/i = 1; i <= length(damage_overlays); i++)
 		var/image/img = image(icon = 'icons/turf/walls.dmi', icon_state = "overlay_damage")
 		img.blend_mode = BLEND_MULTIPLY
 		img.alpha = (i * alpha_inc) - 1
@@ -210,7 +209,7 @@
 	if(prob(50))
 		dismantle_wall()
 	else
-		add_dent(WALL_DENT_HIT)
+		add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
@@ -235,7 +234,7 @@
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			else
-				add_dent(WALL_DENT_HIT)
+				add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 		if(TOX)
@@ -333,7 +332,7 @@
 		dismantle_wall(TRUE)
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		add_dent(WALL_DENT_HIT)
+		add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 		to_chat(user, "<span class='notice'>You punch the wall.</span>")
 	return TRUE
 
@@ -423,7 +422,7 @@
 			dismantle_wall()
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+	if((!I.sharp && I.force >= 10) || I.force >= 20)
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
@@ -544,9 +543,9 @@
 
 	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
 	switch(denttype)
-		if(WALL_DENT_SHOT)
+		if(PROJECTILE_IMPACT_WALL_DENT_SHOT)
 			decal.icon_state = "bullet_hole"
-		if(WALL_DENT_HIT)
+		if(PROJECTILE_IMPACT_WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
 	decal.pixel_x = x

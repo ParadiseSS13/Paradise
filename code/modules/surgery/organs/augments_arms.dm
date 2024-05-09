@@ -81,7 +81,7 @@
 		return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src) || check_cuffs())
+	if(!holder || (holder in src))
 		return
 	if(status & ORGAN_DEAD)
 		return
@@ -146,7 +146,7 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !contents.len))
+	if(crit_fail || (!holder && !length(contents)))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -157,7 +157,7 @@
 
 	if(!holder || (holder in src))
 		holder = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)
@@ -329,7 +329,8 @@
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced /// ERT implant, i dont overly expect this to get into the hands of crew
+/// ERT implant, i dont overly expect this to get into the hands of crew
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	name = "advanced janitorial toolset implant"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/advanced)
@@ -338,14 +339,15 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 	emp_proof = TRUE
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l /// its for ERT, but still probably a good idea.
+/// its for ERT, but still probably a good idea.
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
 /obj/item/organ/internal/cyberimp/arm/botanical
 	name = "botanical toolset implant"
 	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
-	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
+	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/reagent_containers/spray/weedspray, /obj/item/reagent_containers/spray/pestspray)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "botanybelt")
@@ -462,7 +464,7 @@
 	desc = "A long length of monomolecular filament, built into the back of your hand. \
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	icon_state = "razorwire_weapon"
@@ -688,7 +690,7 @@
 	set_light(3)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
 			return FALSE

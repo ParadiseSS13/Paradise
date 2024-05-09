@@ -5,14 +5,14 @@
 #define REAGENT_OVERDOSE_EFFECT 1
 #define REAGENT_OVERDOSE_FLAGS 2
 // container_type defines
-#define INJECTABLE		1	// Makes it possible to add reagents through droppers and syringes.
-#define DRAWABLE		2	// Makes it possible to remove reagents through syringes.
+#define INJECTABLE		(1<<0)	// Makes it possible to add reagents through droppers and syringes.
+#define DRAWABLE		(1<<1)	// Makes it possible to remove reagents through syringes.
 
-#define REFILLABLE		4	// Makes it possible to add reagents through any reagent container.
-#define DRAINABLE		8	// Makes it possible to remove reagents through any reagent container.
+#define REFILLABLE		(1<<2)	// Makes it possible to add reagents through any reagent container.
+#define DRAINABLE		(1<<3)	// Makes it possible to remove reagents through any reagent container.
 
-#define TRANSPARENT		16	// Used on containers which you want to be able to see the reagents off.
-#define AMOUNT_VISIBLE	32	// For non-transparent containers that still have the general amount of reagents in them visible.
+#define TRANSPARENT		(1<<4)	// Used on containers which you want to be able to see the reagents off.
+#define AMOUNT_VISIBLE	(1<<5)	// For non-transparent containers that still have the general amount of reagents in them visible.
 
 // Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
@@ -29,3 +29,12 @@
 #define SYRINGE_DRAW 0
 #define SYRINGE_INJECT 1
 #define SYRINGE_BROKEN 2
+
+/// Like O- blood but doesn't contribute to blood_volume or vampire nutrition
+#define BLOOD_TYPE_FAKE_BLOOD	"Vh Null"
+
+/// Used for secondary goals.
+#define REAGENT_GOAL_SKIP 0
+#define REAGENT_GOAL_EASY 1
+#define REAGENT_GOAL_NORMAL 2
+#define REAGENT_GOAL_HARD 3

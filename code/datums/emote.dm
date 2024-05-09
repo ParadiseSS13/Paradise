@@ -209,11 +209,11 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>")
+					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
+				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
@@ -280,13 +280,13 @@
 		runechat_text = "[copytext(text, 1, 101)]..."
 	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
-	for(var/mob/O in can_see)
+	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
 			for(var/obj/item/holder/H in O.contents)
-				H.show_message(text, EMOTE_VISIBLE)
+				H.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 			for(var/mob/living/M in O.contents)
-				M.show_message(text, EMOTE_VISIBLE)
+				M.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
@@ -521,6 +521,11 @@
 		var/mob/living/sender = user
 		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
+		if(isbrain(sender))
+			var/mob/living/brain/B = user
+			if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+				var/obj/item/mmi/robotic_brain/robobrain = B.container
+				return !robobrain.silenced
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
@@ -631,7 +636,7 @@
 			if(!ghost.client)
 				continue
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
-				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
+				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 	visible_message(text)
 

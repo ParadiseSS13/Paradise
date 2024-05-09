@@ -104,11 +104,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "w" = (
-/obj/machinery/power/apc/off_station{
-	keep_preset_name = 1;
-	name = "Outpost APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "x" = (

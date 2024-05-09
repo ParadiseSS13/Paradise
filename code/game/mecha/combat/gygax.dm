@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 250
 	deflect_chance = 5
-	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, rad = 0, fire = 100, acid = 75)
 	max_temperature = 25000
 	infra_luminosity = 6
 	leg_overload_coeff = 2
@@ -49,6 +49,9 @@
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	destruction_sleep_duration = 2 SECONDS
+
+/obj/mecha/combat/gygax/dark/trader
+	operation_req_access = list() //Jailbroken mech
 
 /obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()

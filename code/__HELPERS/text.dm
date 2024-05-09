@@ -38,6 +38,10 @@
 /proc/sanitize(t, list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/// sanitize() with a pre-set list of characters to remove from IC speech.
+/proc/sanitize_for_ic(t)
+	return sanitize(t, list("<" = "", ">" = "", "\[" = "", "]" = "", "{" = "", "}" = ""))
+
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
@@ -69,10 +73,10 @@
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length=512)
-	if(length(text) > max_length)	return			//message too long
+	if(length_char(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
-	for(var/i=1, i<=length(text), i++)
-		switch(text2ascii(text,i))
+	for(var/i=1, i<=length_char(text), i++)
+		switch(text2ascii_char(text,i))
 			if(62,60,92,47)	return			//rejects the text if it contains these bad characters: <, >, \ or /
 			if(127 to 255)	return			//rejects weird letters like �
 			if(0 to 31)		return			//more weird stuff
@@ -103,25 +107,25 @@
 /proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
 	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
-	if(!t_in || length(t_in) > max_length)
+	if(!t_in || length_char(t_in) > max_length)
 		return //Rejects the input if it is null or if it is longer than the max length allowed
 
 	var/number_of_alphanumeric	= 0
 	var/last_char_group			= 0
 	var/t_out = ""
 
-	for(var/i=1, i<=length(t_in), i++)
-		var/ascii_char = text2ascii(t_in,i)
+	for(var/i=1, i<=length_char(t_in), i++)
+		var/ascii_char = text2ascii_char(t_in,i)
 		switch(ascii_char)
-			// A  .. Z
-			if(65 to 90)			//Uppercase Letters
+			// A  .. Z, А .. Я, Ё
+			if(65 to 90, 1040 to 1071, 1025)			//Uppercase Letters
 				t_out += ascii2text(ascii_char)
 				number_of_alphanumeric++
 				last_char_group = 4
 
-			// a  .. z
-			if(97 to 122)			//Lowercase Letters
-				if(last_char_group<2)		t_out += ascii2text(ascii_char-32)	//Force uppercase first character
+			// a  .. z, а .. я, ё
+			if(97 to 122, 1072 to 1103, 1105)			//Lowercase Letters
+				if(last_char_group<2)		t_out += uppertext(ascii2text(ascii_char))	//Force uppercase first character
 				else						t_out += ascii2text(ascii_char)
 				number_of_alphanumeric++
 				last_char_group = 4
@@ -192,21 +196,21 @@
 /proc/dd_hasprefix(text, prefix)
 	var/start = 1
 	var/end = length(prefix) + 1
-	return findtext(text, prefix, start, end)
+	return findtext_char(text, prefix, start, end)
 
 //Checks the beginning of a string for a specified sub-string. This proc is case sensitive
 //Returns the position of the substring or 0 if it was not found
 /proc/dd_hasprefix_case(text, prefix)
 	var/start = 1
 	var/end = length(prefix) + 1
-	return findtextEx(text, prefix, start, end)
+	return findtextEx_char(text, prefix, start, end)
 
 //Checks the end of a string for a specified substring.
 //Returns the position of the substring or 0 if it was not found
 /proc/dd_hassuffix(text, suffix)
 	var/start = length(text) - length(suffix)
 	if(start)
-		return findtext(text, suffix, start, null)
+		return findtext_char(text, suffix, start, null)
 	return
 
 //Checks the end of a string for a specified substring. This proc is case sensitive
@@ -214,7 +218,7 @@
 /proc/dd_hassuffix_case(text, suffix)
 	var/start = length(text) - length(suffix)
 	if(start)
-		return findtextEx(text, suffix, start, null)
+		return findtextEx_char(text, suffix, start, null)
 
 /*
  * Text modification
@@ -222,7 +226,7 @@
 // See bygex.dm
 /proc/replace_characters(t, list/repl_chars)
 	for(var/char in repl_chars)
-		t = replacetext(t, char, repl_chars[char])
+		t = replacetext_char(t, char, repl_chars[char])
 	return t
 
 //Strips the first char and returns it and the new string as a list
@@ -276,7 +280,7 @@
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(t as text)
-	return uppertext(copytext(t, 1, 2)) + copytext(t, 2)
+	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
@@ -342,35 +346,23 @@
 		new_text += copytext(text, i, i+1)
 	return new_text
 
-//This proc strips html properly, but it's not lazy like the other procs.
-//This means that it doesn't just remove < and > and call it a day.
-//Also limit the size of the input, if specified.
-/proc/strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+/// Strips HTML tags (and only tags) from the input.
+/// The result may still include HTML entities, like &#39; for '
+/proc/strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
-		return
-	var/opentag = 1 //These store the position of < and > respectively.
-	var/closetag = 1
-	while(1)
-		opentag = findtext(input, "<")
-		closetag = findtext(input, ">")
-		if(closetag && opentag)
-			if(closetag < opentag)
-				input = copytext(input, (closetag + 1))
-			else
-				input = copytext(input, 1, opentag) + copytext(input, (closetag + 1))
-		else if(closetag || opentag)
-			if(opentag)
-				input = copytext(input, 1, opentag)
-			else
-				input = copytext(input, (closetag + 1))
-		else
-			break
+		return ""
+	var/static/regex/tags = regex("<\[^>]*>", "g")
+	if(!tags)
+		tags = regex("<\[^>]*>", "g")
+	input = tags.Replace(input, "")
 	if(max_length)
-		input = copytext(input,1,max_length)
-	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
+		input = copytext_char(input, 1, max_length)
+	if(allow_lines)
+		return sanitize_simple(input, list("\t" = " "))
+	return sanitize_simple(input, list("\n" = " ", "\t" = " "))
 
-/proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-	return trim(strip_html_properly(input, max_length, allow_lines))
+/proc/trim_strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+	return trim(strip_html_tags(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
@@ -464,6 +456,8 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
+	text = replacetext(text, "\[s\]",		"<S>")
+	text = replacetext(text, "\[/s\]",		"</S>")
 	if(findtext(text, "\[signfont\]") || findtext(text, "\[/signfont\]")) // Make sure the text is there before giving off an error
 		if(check_rights(R_EVENT))
 			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
@@ -547,9 +541,9 @@
 
 	if(tag == "img")
 		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
+		if(length(img_props) == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
+		if(length(img_props) == 2)
 			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
 		return "<img src='[arg]'>"
 
@@ -735,11 +729,6 @@
 		return "#e67e22" // Patreon orange
 	return null
 
-
-// Removes HTML tags, preserving text
-/proc/strip_html_tags(the_text)
-	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
-	return html_replacer.Replace(the_text, "")
 
 /proc/starts_with_vowel(text)
 	var/start_char = copytext(text, 1, 2)

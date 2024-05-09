@@ -59,6 +59,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
+		H.update_int_organs()
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
@@ -70,6 +71,10 @@
 	if(vital)
 		M.update_stat("Vital organ inserted")
 	STOP_PROCESSING(SSobj, src)
+	if(owner.stat == DEAD)
+		ADD_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_revival))
+
 
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
@@ -78,6 +83,9 @@
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
+	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -179,15 +187,6 @@
 // Rendering!
 /obj/item/organ/internal/proc/render()
 	return
-
-/obj/item/food/snacks/organ
-	name = "appendix"
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/food/snacks/organ/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent("nutriment", 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
@@ -394,3 +393,8 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			receive_damage(1, silent = prob(30))
+
+/obj/item/organ/internal/proc/on_revival() //The goal of this proc / trait is to prevent one implanting organs in a corpse, in order to remove them with the organ extractor. Has to be legitimently implanted, or on just a living person, which has risk
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)

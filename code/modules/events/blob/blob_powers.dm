@@ -22,9 +22,9 @@
 	set name = "Jump to Node"
 	set desc = "Transport back to a selected node."
 
-	if(GLOB.blob_nodes.len)
+	if(length(GLOB.blob_nodes))
 		var/list/nodes = list()
-		for(var/i = 1; i <= GLOB.blob_nodes.len; i++)
+		for(var/i = 1; i <= length(GLOB.blob_nodes); i++)
 			var/obj/structure/blob/node/B = GLOB.blob_nodes[i]
 			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = tgui_input_list(src, "Choose a node to jump to.", "Node Jump", nodes)
@@ -362,7 +362,7 @@
 	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
-	if(!surrounding_turfs.len)
+	if(!length(surrounding_turfs))
 		return
 
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.alive_mob_list)
@@ -469,7 +469,7 @@
 	for(var/obj/structure/blob/BL in GLOB.blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
-	for(var/mob/living/simple_animal/hostile/blob/BLO)
+	for(var/mob/living/simple_animal/hostile/blob/BLO in GLOB.blob_minions)
 		BLO.adjustcolors(blob_reagent_datum.complementary_color)
 
 	to_chat(src, "Your reagent is now: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")

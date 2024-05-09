@@ -26,8 +26,8 @@
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
-	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
-	var/incorporeal_move = 0 //0 is off, 1 is normal, 2 is for ninjas.
+	/// Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
+	var/incorporeal_move = NO_INCORPOREAL_MOVE
 
 	var/now_pushing = null
 
@@ -96,3 +96,14 @@
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null
+
+	/// Famous last words -- if succumbing, what the user's last words were
+	var/last_words
+
+	/*
+	Taste Vars
+	*/
+	/// Stores a var of the last world time we tasted something. used so we don't spam people messages while they eat
+	var/last_taste_time
+	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
+	var/last_taste_text

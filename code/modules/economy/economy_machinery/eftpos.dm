@@ -96,7 +96,7 @@
 			var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 9999, min_value = 1000)
 			if(attempt_code == access_code)
 				var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 9999, min_value = 1000)
-				if(!trycode)
+				if(isnull(trycode))
 					return
 				access_code = trycode
 				print_reference()
@@ -105,25 +105,7 @@
 		if("link_account")
 			if(!account_database)
 				reconnect_database()
-			if(account_database)
-				var/attempt_account_num = tgui_input_number(user, "Enter account number to pay EFTPOS charges into:", "New account number", max_value = 9999999, min_value = 1000000)
-				if(!attempt_account_num)
-					return
-				var/attempt_pin = tgui_input_number(user, "Enter pin code", "Account pin", max_value = 99999, min_value = 10000)
-				if(!check_user_position(user) || !account_database || !attempt_pin)
-					return
-				var/datum/money_account/target_account = GLOB.station_money_database.find_user_account(attempt_account_num, include_departments = TRUE)
-				if(!target_account)
-					for(var/department_key in GLOB.station_money_database.department_accounts)
-						var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[department_key]
-						if(department_account.account_number == attempt_account_num)
-							target_account = department_account
-				if(target_account && GLOB.station_money_database.try_authenticate_login(target_account, attempt_pin, TRUE, FALSE, FALSE))
-					linked_account = target_account
-				else
-					to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputed account.</span>")
-					return
-			else
+			if(!account_database)
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 				return
 			var/datum/money_account/target_account = locateUID(params["account"])
@@ -140,7 +122,7 @@
 			transaction_purpose = purpose
 		if("trans_value")
 			var/try_num = tgui_input_number(user, "Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount, MAX_EFTPOS_CHARGE)
-			if(!check_user_position(user) || !try_num)
+			if(!check_user_position(user) || isnull(try_num))
 				return
 			transaction_amount = try_num
 		if("toggle_lock")
@@ -236,7 +218,7 @@
 
 /obj/item/eftpos/register
 	name = "point of sale"
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, and had an EFTPOS module fitted in it."
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, and had an EFTPOS module fitted in it. Swipe your ID card to make purchases electronically."
 	icon = 'icons/obj/machines/pos.dmi'
 	icon_state = "pos"
 	force = 10
@@ -310,3 +292,5 @@
 	else
 		WRENCH_UNANCHOR_MESSAGE
 	SStgui.close_uis(src)
+
+#undef MAX_EFTPOS_CHARGE

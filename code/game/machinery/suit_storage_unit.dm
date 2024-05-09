@@ -169,8 +169,15 @@
 	name = "mining suit storage unit"
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
+	boots_type = /obj/item/clothing/shoes/workboots/mining
 	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
+
+/obj/machinery/suit_storage_unit/gulag
+	name = "gulag suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/prisoner_gulag
+	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
+	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
@@ -234,7 +241,7 @@
 
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
-	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
+	switch(pick("red", "green", "ntblue", "purple", "yellow", "ltblue"))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
 			suit_type = /obj/item/clothing/suit/space/nasavoid
@@ -340,16 +347,6 @@
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
-			if(occupant || helmet || suit || storage || boots)
-				to_chat(user, "<span class='warning'>There are contents that prevent you from deconstructing [src]!</span>")
-				return
-			if(locked)
-				to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
-				return
-			dump_contents() // probably still a good idea for just incase?
-			default_deconstruction_crowbar(user, I)
-			return
 		wires.Interact(user)
 		return
 	if(state_open)
@@ -362,10 +359,25 @@
 		return
 	return ..()
 
-/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+/obj/machinery/suit_storage_unit/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
 		return
 	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	if(occupant || helmet || suit || storage || boots)
+		to_chat(user, "<span class='warning'>There are contents that prevent you from deconstructing [src]!</span>")
+		return
+	if(locked)
+		to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
+		return
+	dump_contents() // probably still a good idea for just incase?
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return

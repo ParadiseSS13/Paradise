@@ -1,5 +1,6 @@
 /obj/structure/girder
 	name = "girder"
+	desc = "The basis of any wall, and therefore any space station or ship."
 	icon_state = "girder"
 	anchored = TRUE
 	density = TRUE
@@ -12,6 +13,10 @@
 	var/can_displace = TRUE //If the girder can be moved around by crowbarring it
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
 	var/metal_type = /obj/item/stack/sheet/metal
+
+/obj/structure/girder/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/girder/examine(mob/user)
 	. = ..()
@@ -85,6 +90,9 @@
 			return
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
 			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
+			return
+		if(istype(W, /obj/item/stack/sheet/bamboo)) // pending wall resprite(tm)
+			to_chat(user, "<span class='warning'>The bamboo doesn't seem to fit around the girder.</span>")
 			return
 
 		if(istype(W,/obj/item/stack/rods))
@@ -406,7 +414,7 @@
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return prob(girderpasschance)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(isprojectile(mover))
 			return prob(girderpasschance)
 		else
 			return 0
@@ -454,11 +462,11 @@
 
 /obj/structure/girder/cult/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.cult_girder_icon_state
+	icon_state = GET_CULT_DATA(cult_girder_icon_state, initial(icon_state))
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
+	if(istype(W, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)

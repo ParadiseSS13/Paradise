@@ -21,7 +21,7 @@ GLOBAL_VAR(bomb_set)
 	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
 	power_state = NO_POWER_USE
-	requires_power = FALSE
+	interact_offline = TRUE
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
@@ -55,6 +55,8 @@ GLOBAL_VAR(bomb_set)
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
+	///Bombs Internal Radio
+	var/obj/item/radio/radio
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -74,11 +76,16 @@ GLOBAL_VAR(bomb_set)
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Special Ops" = 0))
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(core)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
@@ -440,13 +447,14 @@ GLOBAL_VAR(bomb_set)
 				return
 			// If no code set, enter new one
 			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
-			if(tempcode)
-				code = tempcode
-				if(code == r_code)
-					yes_code = TRUE
-					code = null
-				else
-					code = "ERROR"
+			if(isnull(tempcode))
+				return
+			code = tempcode
+			if(code == r_code)
+				yes_code = TRUE
+				code = null
+			else
+				code = "ERROR"
 			return
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
@@ -479,7 +487,7 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("set_time")
 			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
-			if(!time)
+			if(isnull(time))
 				return
 			timeleft = time
 		if("toggle_safety")
@@ -503,9 +511,11 @@ GLOBAL_VAR(bomb_set)
 					update_icon(UPDATE_OVERLAYS)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
-					if(!is_syndicate)
+					if(!is_syndicate && SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_EPSILON)
 						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
+					if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
+						radio.autosay("<span class='reallybig'>The Nuclear Bomb has been armed, retreat from the station immediately!</span>", name, "Special Ops")
 				else
 					GLOB.bomb_set = TRUE
 			else
@@ -673,14 +683,14 @@ GLOBAL_VAR(bomb_set)
 	var/turf/diskturf = get_turf(src)
 
 	if(force)
-		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
+		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
 		GLOB.poi_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
 	if(!restricted_to_station) // Non-restricted NADs should be allowed to be deleted, otherwise it becomes a restricted NAD when teleported
-		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
+		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
 		log_game("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]). It will not respawn.")
 		GLOB.poi_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
@@ -691,7 +701,7 @@ GLOBAL_VAR(bomb_set)
 		GLOB.poi_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(new_spawn)
 		transfer_fingerprints_to(NEWDISK)
-		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
+		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
 		..()
 		return QDEL_HINT_HARDDEL_NOW // We want this to be deleted ASAP, but we want refs properly cleared too

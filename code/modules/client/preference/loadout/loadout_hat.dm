@@ -82,6 +82,16 @@
 	path = /obj/item/clothing/head/soft/deliverysoft
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/hat/capjanigrey
+	display_name = "Cap, janitor grey"
+	path = /obj/item/clothing/head/soft/janitorgrey
+	allowed_roles = list("Janitor")
+
+/datum/gear/hat/capjanipurple
+	display_name = "Cap, janitor purple"
+	path = /obj/item/clothing/head/soft/janitorpurple
+	allowed_roles = list("Janitor")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -104,7 +114,7 @@
 
 /datum/gear/hat/capwhite
 	display_name = "Cap, white"
-	path = /obj/item/clothing/head/soft/mime
+	path = /obj/item/clothing/head/soft/white
 
 /datum/gear/hat/caporange
 	display_name = "Cap, orange"
@@ -112,7 +122,7 @@
 
 /datum/gear/hat/capgrey
 	display_name = "Cap, grey"
-	path = /obj/item/clothing/head/soft/grey
+	path = /obj/item/clothing/head/soft
 
 /datum/gear/hat/capyellow
 	display_name = "Cap, yellow"
@@ -137,6 +147,11 @@
 /datum/gear/hat/cowboyhat/pink
 	display_name = "Cowboy hat, pink"
 	path = /obj/item/clothing/head/cowboyhat/pink
+
+/datum/gear/hat/cowboyhat/sec
+	display_name = "Cowboy hat, security"
+	path = /obj/item/clothing/head/cowboyhat/sec
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"
@@ -164,12 +179,12 @@
 
 /datum/gear/hat/beret_job/captain
 	display_name = "Beret, captain's"
-	path = /obj/item/clothing/head/caphat/beret
+	path = /obj/item/clothing/head/beret/captain
 	allowed_roles = list("Captain")
 
 /datum/gear/hat/beret_job/captain_white
 	display_name = "Beret, captain's white"
-	path = /obj/item/clothing/head/caphat/beret/white
+	path = /obj/item/clothing/head/beret/captain/white
 	allowed_roles = list("Captain")
 
 /datum/gear/hat/beret_job/sec
@@ -177,10 +192,20 @@
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/beret_job/jani
+	display_name = "Beret, janitor"
+	path = /obj/item/clothing/head/beret/janitor
+	allowed_roles = list("Janitor")
+
 /datum/gear/hat/beret_job/hop
 	display_name = "Beret, head of personnel"
-	path = /obj/item/clothing/head/hop/beret
+	path = /obj/item/clothing/head/beret/hop
 	allowed_roles = list("Head of Personnel")
+
+/datum/gear/hat/beret_job/qm
+	display_name = "Beret, quartermaster"
+	path = /obj/item/clothing/head/beret/qm
+	allowed_roles = list("Quartermaster")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"

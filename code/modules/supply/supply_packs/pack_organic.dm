@@ -37,7 +37,8 @@
 	cost = 500
 	containername = "Pizza crate"
 
-/datum/supply_packs/misc/randomised/ingredients // its a bit hacky...
+/// its a bit hacky...
+/datum/supply_packs/misc/randomised/ingredients
 	num_contained = 25
 	contains = list(/obj/item/food/snacks/grown/wheat,
 					/obj/item/food/snacks/grown/tomato,
@@ -134,7 +135,8 @@
 	name = "Bar Starter Kit"
 	contains = list(/obj/item/storage/box/drinkingglasses,
 					/obj/item/circuitboard/chem_dispenser/soda,
-					/obj/item/circuitboard/chem_dispenser/beer)
+					/obj/item/circuitboard/chem_dispenser/beer,
+					/obj/item/barsign_electronics)
 	cost = 250
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
@@ -161,6 +163,9 @@
 /datum/supply_packs/organic/chicken
 	name = "Chicken Crate"
 	cost = 100
+	contains_special = list(
+		"4 to 6 chickens"
+	)
 	containertype = /obj/structure/closet/critter/chick
 	containername = "chicken crate"
 
@@ -234,7 +239,8 @@
 
 ////// hippy gear
 
-/datum/supply_packs/organic/hydroponics // -- Skie
+/// -- Skie
+/datum/supply_packs/organic/hydroponics
 	name = "Hydroponics Supply Crate"
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/spray/plantbgone,

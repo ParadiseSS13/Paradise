@@ -65,34 +65,25 @@
 			user << browse(null, "window=records")
 
 		if(href_list["task"] == "med_record")
-			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, multiline = TRUE, encode = FALSE)
-
-			if(medmsg != null)
-				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				medmsg = html_encode(medmsg)
-
-				active_character.med_record = medmsg
-				active_character.SetRecords(user)
+			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(medmsg))
+				return
+			active_character.med_record = medmsg
+			active_character.SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, multiline = TRUE, encode = FALSE)
-
-			if(secmsg != null)
-				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				secmsg = html_encode(secmsg)
-
-				active_character.sec_record = secmsg
-				active_character.SetRecords(user)
+			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(secmsg))
+				return
+			active_character.sec_record = secmsg
+			active_character.SetRecords(user)
 
 		if(href_list["task"] == "gen_record")
-			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, multiline = TRUE, encode = FALSE)
-
-			if(genmsg != null)
-				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				genmsg = html_encode(genmsg)
-
-				active_character.gen_record = genmsg
-				active_character.SetRecords(user)
+			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(genmsg))
+				return
+			active_character.gen_record = genmsg
+			active_character.SetRecords(user)
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
@@ -177,13 +168,13 @@
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						active_character.m_colours["tail"] = rand_hex_color()
 				if("underwear")
-					active_character.underwear = random_underwear(active_character.gender, active_character.species)
+					active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("undershirt")
-					active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+					active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("socks")
-					active_character.socks = random_socks(active_character.gender, active_character.species)
+					active_character.socks = random_socks(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("eyes")
 					active_character.e_colour = rand_hex_color()
@@ -200,7 +191,7 @@
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", null, user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -235,8 +226,6 @@
 						return
 					if(prev_species != active_character.species)
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						if(NS.has_gender && active_character.gender == PLURAL)
-							active_character.gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
@@ -274,15 +263,15 @@
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.underwear = random_underwear(active_character.gender, active_character.species)
+							active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 
 						SA = GLOB.undershirt_list[active_character.undershirt]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+							active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 
 						SA = GLOB.socks_list[active_character.socks]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.socks = random_socks(active_character.gender, active_character.species)
+							active_character.socks = random_socks(active_character.body_type, active_character.species)
 
 						//reset skin tone and colour
 						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
@@ -328,7 +317,7 @@
 
 				if("metadata")
 					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE, encode = FALSE)
-					if(!new_metadata)
+					if(isnull(new_metadata))
 						return
 					active_character.metadata = new_metadata
 
@@ -588,10 +577,6 @@
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
 							continue
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
 							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
@@ -617,9 +602,10 @@
 					var/list/valid_underwear = list()
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
+						// soon...
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
@@ -633,11 +619,11 @@
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
+							continue
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
@@ -650,11 +636,11 @@
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
+							continue
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
@@ -714,13 +700,10 @@
 						active_character.height = new_height
 
 				if("flavor_text")
-					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, multiline = TRUE, encode = FALSE)
-
-					if(msg != null)
-						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-						msg = html_encode(msg)
-
-						active_character.flavor_text = msg
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+					if(isnull(msg))
+						return
+					active_character.flavor_text = msg
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
@@ -819,11 +802,11 @@
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
 								if(subchoice)
 									choice = subchoice
@@ -867,14 +850,18 @@
 							organ = "kidneys"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
-					if(!new_state) return
-
+					if(!new_state)
+						return
 					switch(new_state)
 						if("Normal")
 							active_character.organ_data[organ] = null
 						if("Cybernetic")
 							active_character.organ_data[organ] = "cybernetic"
-
+				if("cyborg_brain_type")
+					var/brain_type = tgui_input_list(user, "What type of brain would you like to have as a cyborg?", "Cyborg Brain Type", GLOB.borg_brain_choices, active_character.cyborg_brain_type)
+					if(!(brain_type in GLOB.borg_brain_choices))
+						return
+					active_character.cyborg_brain_type = brain_type
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
@@ -904,23 +891,25 @@
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
-					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
-						if(!newgender)
-							return
-						switch(newgender)
-							if("Male")
-								active_character.gender = MALE
-							if("Female")
-								active_character.gender = FEMALE
-							if("Genderless")
-								active_character.gender = PLURAL
-					else
-						if(active_character.gender == MALE)
-							active_character.gender = FEMALE
-						else
+					var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
+					if(!newgender)
+						return
+					switch(newgender)
+						if("Male")
+
 							active_character.gender = MALE
-					active_character.underwear = random_underwear(active_character.gender)
+						if("Female")
+							active_character.gender = FEMALE
+						if("Genderless")
+							active_character.gender = PLURAL
+
+				if("body_type")
+					if(active_character.body_type == MALE)
+						active_character.body_type = FEMALE
+					else
+						active_character.body_type = MALE
+
+					active_character.underwear = random_underwear(active_character.body_type)
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
@@ -1024,7 +1013,7 @@
 				if("thought_bubble")
 					toggles2 ^= PREFTOGGLE_2_THOUGHT_BUBBLE
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/point/PM = locate(/obj/screen/plane_master/point) in parent.screen
+						var/atom/movable/screen/plane_master/point/PM = locate(/atom/movable/screen/plane_master/point) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("be_special")
@@ -1104,7 +1093,7 @@
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("parallax")
@@ -1128,7 +1117,7 @@
 
 				if("screentip_mode")
 					var/desired_screentip_mode = tgui_input_number(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size", screentip_mode, 20, 0)
-					if(!desired_screentip_mode)
+					if(isnull(desired_screentip_mode))
 						return
 					screentip_mode = desired_screentip_mode
 
@@ -1276,6 +1265,10 @@
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
+				if("preference_toggles")
+					if(href_list["toggle"])
+						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
+						toggle.set_toggles(user.client)
 
 	ShowChoices(user)
-	return 1
+	return TRUE

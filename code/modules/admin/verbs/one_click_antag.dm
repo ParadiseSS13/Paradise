@@ -13,13 +13,13 @@
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
-		<a href='?src=[UID()];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
-		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
-		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
+		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
+		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
+		<a href='byond://?src=[UID()];makeAntag=4'>Make Cult</a><br>
+		<a href='byond://?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
+		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -60,8 +60,8 @@
 		if(CandCheck(ROLE_TRAITOR, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numTraitors = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numTraitors = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numTraitors, i++)
 			H = pick(candidates)
@@ -91,8 +91,8 @@
 		if(CandCheck(ROLE_CHANGELING, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numChangelings = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numChangelings = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
@@ -121,8 +121,8 @@
 		if(CandCheck(ROLE_REV, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numRevs = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numRevs = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numRevs, i++)
 			H = pick(candidates)
@@ -142,15 +142,16 @@
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
 
 		var/mob/living/carbon/human/new_character = makeBody(selected)
-		new_character.mind.make_Wizard()
+		new_character.mind.add_antag_datum(/datum/antagonist/wizard)
+		new_character.forceMove(pick(GLOB.wizardstart))
 		dust_if_respawnable(selected)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/admins/proc/makeCult()
@@ -162,7 +163,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
-	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Cult with One-Click-Antag")
@@ -171,17 +172,17 @@
 		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
-	if(length(candidates))
-		var/numCultists = min(length(candidates), antnum)
+	if(!length(candidates))
+		return FALSE
 
-		for(var/I in 1 to numCultists)
-			H = pick(candidates)
-			to_chat(H, CULT_GREETING)
-			SSticker.mode.add_cultist(H.mind)
-			SSticker.mode.equip_cultist(H)
-			candidates.Remove(H)
-		return TRUE
-	return FALSE
+	for(var/I in 1 to antnum)
+		if(!length(candidates))
+			return
+		H = pick_n_take(candidates)
+
+		var/datum/antagonist/cultist/cultist = H.mind.add_antag_datum(/datum/antagonist/cultist)
+		cultist.equip_roundstart_cultist(H)
+	return TRUE
 
 //Abductors
 /datum/admins/proc/makeAbductorTeam()
@@ -275,8 +276,8 @@
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numVampires = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numVampires = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)

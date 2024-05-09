@@ -55,7 +55,7 @@
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
 	if(check_rights(R_EVENT))
 		var/outfit_pick = tgui_alert(user, "Do you want to pick an outfit or respawn?", "Pick an Outfit?", list("Pick outfit", "Respawn", "Cancel"))
-		if(outfit_pick == "Cancel")
+		if(!outfit_pick || outfit_pick == "Cancel")
 			return
 		if(outfit_pick == "Pick outfit")
 			var/new_outfit = user.client.robust_dress_shop()

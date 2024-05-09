@@ -97,7 +97,7 @@
 
 /obj/machinery/economy/vending/coffee
 	name = "\improper Solar's Best Hot Drinks"
-	desc = "A vending machine which dispenses hot drinks."
+	desc = "A vending machine which dispenses coffee, coffee, hot chocolate, and more coffee!"
 	ads_list = list("Have a drink!",
 					"Drink up!",
 					"It's good for you!",
@@ -1231,7 +1231,8 @@
 /obj/machinery/economy/vending/cigarette/syndicate/free
 	prices = list()
 
-/obj/machinery/economy/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
+/// Used in the lavaland_biodome_beach.dmm ruin
+/obj/machinery/economy/vending/cigarette/beach
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"
 	slogan_list = list("Turn on, tune in, drop out!",

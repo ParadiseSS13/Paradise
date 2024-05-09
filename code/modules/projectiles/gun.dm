@@ -35,6 +35,8 @@
 	var/semicd = 0						//cooldown handler
 	var/execution_speed = 6 SECONDS
 	var/weapon_weight = WEAPON_LIGHT
+	/// Additional spread when dual wielding.
+	var/dual_wield_spread = 24
 	var/list/restricted_species
 
 	var/spread = 0
@@ -73,10 +75,9 @@
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
-	if(gun_light)
-		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -172,12 +173,11 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			if(HAS_TRAIT(user, TRAIT_BADASS))
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
 				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
 			else
 				handle_suicide(user, target, params)
 			return
-
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
@@ -195,24 +195,31 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	var/loop_counter = 0
-	if(ishuman(user) && user.a_intent == INTENT_HARM)
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
-				continue
-			else if(G.can_trigger_gun(user))
-				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					bonus_spread += 24 * G.weapon_weight
-				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+	if(!(ishuman(user) && user.a_intent == INTENT_HARM))
+		process_fire(target, user, TRUE, params, null, bonus_spread)
+		return
+	var/mob/living/carbon/human/H = user
+	var/obj/item/gun/GUN_1 = H.get_active_hand()
+	if(istype(H.get_inactive_hand(), /obj/item/gun)) //We do not need to check gun one, as it is controlled by the afterattack
+		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
 
-	process_fire(target,user,1,params, null, bonus_spread)
+		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
+			process_fire(target, user, TRUE, params, null, bonus_spread)
+			return
+		if(GUN_2.can_trigger_gun(user))
+			if(!HAS_TRAIT(user, TRAIT_BADASS))
+				var/temporary_weapon_weight = GUN_2.weapon_weight
+				if(GUN_1.type != GUN_2.type)
+					temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
+				bonus_spread += dual_wield_spread * temporary_weapon_weight
+			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
+
+	process_fire(target, user, TRUE, params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+	if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1
@@ -389,7 +396,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)
@@ -398,6 +405,7 @@
 	if(knife_overlay)
 		overlays -= knife_overlay
 		knife_overlay = null
+		update_icon()
 	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)
@@ -441,16 +449,18 @@
 		return FALSE
 	return TRUE
 
-/obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
-	if(!ishuman(user) || !ishuman(target))
+/obj/item/gun/proc/handle_suicide(mob/user, mob/living/carbon/human/target, params)
+	if(!ishuman(target)) // So only human-type mobs can be executed.
 		return
 
 	if(semicd)
 		return
 
 	if(user == target)
+		if(!ishuman(user))	// Borg suicide needs a refactor for this to work.
+			return
 		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+		"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
 			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")

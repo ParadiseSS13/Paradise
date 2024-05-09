@@ -23,7 +23,7 @@
 	displayTo - a list of MOBS to show this appearance to
 */
 /datum/alternate_appearance/proc/display_to(list/displayTo)
-	if(!displayTo || !displayTo.len)
+	if(!displayTo || !length(displayTo))
 		return
 	for(var/m in displayTo)
 		var/mob/M = m
@@ -47,7 +47,7 @@
 		var/mob/M = m
 		if(M.client)
 			M.client.images -= img
-		if(M.viewing_alternate_appearances && M.viewing_alternate_appearances.len)
+		if(M.viewing_alternate_appearances && length(M.viewing_alternate_appearances))
 			M.viewing_alternate_appearances -= src
 		viewers -= M
 
@@ -64,15 +64,6 @@
 /datum/alternate_appearance/Destroy()
 	remove()
 	return ..()
-
-
-
-/atom
-	var/list/alternate_appearances //the alternate appearances we own
-	var/list/viewing_alternate_appearances //the alternate appearances we're viewing, stored here to reestablish them after Logout()s
-	//these lists are built as necessary, so atoms aren't all lugging around empty lists
-	var/drag_start = 0 /*whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom, otherwile will be 0
-	It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click */
 
 /*
 	Builds an alternate_appearance datum for the supplied args, optionally displaying it straight away
@@ -103,7 +94,7 @@
 	if(alternate_appearances[key])
 		qdel(alternate_appearances[key])
 	alternate_appearances[key] = AA
-	if(displayTo && displayTo.len)
+	if(displayTo && length(displayTo))
 		display_alt_appearance(key, displayTo)
 
 

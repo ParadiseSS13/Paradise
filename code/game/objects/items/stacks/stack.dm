@@ -12,8 +12,8 @@
 	origin_tech = "materials=1"
 	/// Whether this stack is a `/cyborg` subtype or not.
 	var/is_cyborg = FALSE
-	/// The energy storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
-	var/datum/robot_energy_storage/source
+	/// The storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
+	var/datum/robot_storage/source
 	/// Which `robot_energy_storage` to choose when this stack is created in cyborgs. Used only with `/cyborg` type stacks.
 	var/energy_type
 	/// How much energy using 1 sheet from the stack costs. Used only with `/cyborg` type stacks.
@@ -143,7 +143,7 @@
 		recipe_list = srl.recipes
 
 	var/t1 = "Amount Left: [get_amount()]<br>"
-	for(var/i in 1 to recipe_list.len)
+	for(var/i in 1 to length(recipe_list))
 		var/E = recipe_list[i]
 		if(isnull(E))
 			t1 += "<hr>"
@@ -154,7 +154,7 @@
 
 		if(istype(E, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/srl = E
-			t1 += "<a href='?src=[UID()];sublist=[i]'>[srl.title]</a>"
+			t1 += "<a href='byond://?src=[UID()];sublist=[i]'>[srl.title]</a>"
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
@@ -169,7 +169,7 @@
 				title += "[R.title]"
 			title += " ([R.req_amount] [src.singular_name]\s)"
 			if(can_build)
-				t1 += "<A href='?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
+				t1 += "<A href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
 			else
 				t1 += "[title]"
 				continue
@@ -180,9 +180,9 @@
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)
-						t1 += " <A href='?src=[UID()];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
+						t1 += " <A href='byond://?src=[UID()];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
 				if(!(max_multiplier in multipliers))
-					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
+					t1 += " <A href='byond://?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
 
 	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)
@@ -213,75 +213,19 @@
 				message_admins("[key_name_admin(usr)] just attempted to href exploit sheet crafting with an invalid multiplier. Ban highly advised.")
 			multiplier = 1
 
-		if(get_amount() < R.req_amount * multiplier)
-			if(R.req_amount * multiplier > 1)
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
-			else
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return FALSE
-
-		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
-			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate(R.result_type) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return FALSE
-
-		if(R.on_floor && !issimulatedturf(get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return FALSE
-		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
-			return FALSE
-
-		if(R.cult_structure)
-			if(usr.holy_check())
-				return
-			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
-				return
-			if(locate(/obj/structure/cult) in get_turf(src))
-				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-				return FALSE
-
-		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
-			if(!do_after(usr, R.time, target = loc))
-				return FALSE
-
-		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
-
-		if(get_amount() < R.req_amount * multiplier)
+		if(!R.try_build(usr, src, multiplier))
 			return
-
-		var/atom/O
-		if(R.max_res_amount > 1) //Is it a stack?
-			O = new R.result_type(get_turf(src), R.res_amount * multiplier)
-		else
-			O = new R.result_type(get_turf(src))
-		O.setDir(usr.dir)
-		use(R.req_amount * multiplier)
-		updateUsrDialog()
-
-		R.post_build(src, O)
+		var/obj/O
+		O = R.do_build(usr, src, multiplier, O)
+		if(!O)
+			return
+		R.post_build(usr, src, O)
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
-			if(isitem(O))
-				usr.put_in_hands(O)
-
-		O.add_fingerprint(usr)
-		//BubbleWrap - so newly formed boxes are empty
-		if(isstorage(O))
-			for(var/obj/item/I in O)
-				qdel(I)
-		//BubbleWrap END
 
 	if(src && usr.machine == src) //do not reopen closed window
 		spawn(0)
@@ -306,8 +250,8 @@
 		return amount
 
 	if(!source) // The energy source has not yet been initializied
-		return 0
-	return round(source.energy / cost)
+		return FALSE
+	return round(source.amount / cost)
 
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
@@ -349,7 +293,7 @@
 	var/min = 0
 	var/max = get_amount()
 	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack? (Max: [max])", "Stack Split", max_value = max)
-	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
+	if(isnull(stackmaterial) || stackmaterial <= min || stackmaterial > get_amount())
 		return
 	if(!Adjacent(user, 1))
 		return
@@ -377,7 +321,7 @@
 // Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(is_cyborg)
-		return source.energy < cost
+		return source.amount < cost
 	if(amount < 1)
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
@@ -395,7 +339,7 @@
 		return FALSE
 	var/transfer = get_amount()
 	if(S.is_cyborg)
-		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
+		transfer = min(transfer, round((S.source.max_amount - S.source.amount) / S.cost))
 	else
 		transfer = min(transfer, S.max_amount - S.amount)
 	if(transfer <= 0)

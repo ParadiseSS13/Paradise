@@ -1,7 +1,7 @@
 /obj/item/melee/knuckleduster
 	name = "knuckleduster"
 	desc = "Simple metal punch enhancers, perfect for bar brawls."
-	icon = 'icons/obj/knuckleduster.dmi'
+	icon = 'icons/obj/weapons/knuckleduster.dmi'
 	icon_state = "knuckleduster"
 	flags = CONDUCT
 	force = 10
@@ -29,9 +29,13 @@
 		to_chat(user, "You relax your grip on [src].")
 		flags &= ~(NODROP | ABSTRACT)
 
+/obj/item/melee/knuckleduster/dropped(mob/user, silent)
+	. = ..()
+	gripped = FALSE
+	flags &= ~(NODROP | ABSTRACT)
+
 /obj/item/melee/knuckleduster/attack/(mob/living/user)
-	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 
-'sound/weapons/punch4.ogg')
+	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 	return ..()
 
 /obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)

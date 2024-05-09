@@ -156,7 +156,7 @@
 	last_warning = world.time
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
-		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
 /obj/singularity/proc/do_dissipate()
@@ -314,10 +314,10 @@
 		set_light(10)
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] is consumed by [src]!</span>")
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!</span>")
 			investigate_log("has been destroyed by Nar'Sie","singulo")
 			qdel(src)
 
@@ -348,7 +348,7 @@
 			if(STAGE_ONE)
 				steps = 1
 			if(STAGE_TWO)
-				steps = 3//Yes this is right
+				steps = 2
 			if(STAGE_THREE)
 				steps = 3
 			if(STAGE_FOUR)
@@ -519,7 +519,7 @@
 
 /obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!istype(AM, /obj/item/projectile))
+	if(!isprojectile(AM))
 		return
 	var/obj/item/projectile/P = AM
 	var/distance = distance_to_singulo

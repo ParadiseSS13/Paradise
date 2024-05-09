@@ -1,15 +1,3 @@
-/proc/GetOppositeDir(dir)
-	switch(dir)
-		if(NORTH)     return SOUTH
-		if(SOUTH)     return NORTH
-		if(EAST)      return WEST
-		if(WEST)      return EAST
-		if(SOUTHWEST) return NORTHEAST
-		if(NORTHWEST) return SOUTHEAST
-		if(NORTHEAST) return SOUTHWEST
-		if(SOUTHEAST) return NORTHWEST
-	return 0
-
 /proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
@@ -42,7 +30,7 @@
 			continue
 		valid_picks += test
 
-	if(!valid_picks.len) valid_picks += "Nude"
+	if(!length(valid_picks)) valid_picks += "Nude"
 
 	return pick(valid_picks)
 
@@ -54,8 +42,6 @@
 
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
-			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
@@ -70,7 +56,7 @@
 			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
 
-	if(valid_hairstyles.len)
+	if(length(valid_hairstyles))
 		h_style = pick(valid_hairstyles)
 
 	return h_style
@@ -83,8 +69,6 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
-			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
@@ -99,7 +83,7 @@
 			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	if(valid_facial_hairstyles.len)
+	if(length(valid_facial_hairstyles))
 		f_style = pick(valid_facial_hairstyles)
 
 	return f_style
@@ -114,7 +98,7 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	if(valid_head_accessories.len)
+	if(length(valid_head_accessories))
 		ha_style = pick(valid_head_accessories)
 
 	return ha_style
@@ -153,7 +137,7 @@
 					continue
 		valid_markings += marking
 
-	if(valid_markings.len)
+	if(length(valid_markings))
 		m_style = pick(valid_markings)
 
 	return m_style
@@ -183,10 +167,13 @@
 		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
-		if(gender==FEMALE)
-			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else
-			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		switch(gender)
+			if(FEMALE)
+				return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
+			if(MALE)
+				return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+			else
+				return capitalize(pick(GLOB.first_names_male + GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 	else
 		return current_species.get_random_name(gender)
 
@@ -202,7 +189,6 @@
 		return min(max(. + rand(-25, 25), -185), 34)
 	else if(species == "Vox")
 		. = rand(1, 6)
-		return .
 
 /proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
@@ -218,12 +204,14 @@
 			else					return "unknown"
 	else if(species == "Vox")
 		switch(tone)
-			if(2)					return "dark green"
+			if(2)					return "plum"
 			if(3)					return "brown"
 			if(4)					return "gray"
 			if(5)					return "emerald"
 			if(6)					return "azure"
-			else					return "green"
+			if(7)					return "crimson"
+			if(8)					return "nebula"
+			else					return "lime"
 	else
 		return "unknown"
 
@@ -317,7 +305,11 @@
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
-	var/area/A = get_area(MT)
+	var/area/A
+	if(isatom(MT) && !QDELETED(MT))
+		A = get_area(MT)
+	else
+		A = get_area(user)
 	if(A && A.hide_attacklogs)
 		loglevel = ATKLOG_ALL
 	else if(istype(MT))
@@ -550,7 +542,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	else
 		health_description = "This mob type has no health to speak of."
 
-	//Gener
+	//Gender
 	switch(M.gender)
 		if(MALE, FEMALE)
 			gender_description = "[M.gender]"
@@ -562,7 +554,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
+	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -591,14 +583,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
+
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
 	LogMouseMacro(".click", params)
+
 /mob/verb/DblClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"
@@ -613,21 +608,34 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	var/viewX
 	var/viewY
 	if(isnum(view))
-		var/totalviewrange = 1 + 2 * view
+		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
 		viewX = totalviewrange
 		viewY = totalviewrange
-	else
+	else if(istext(view))
 		var/list/viewrangelist = splittext(view, "x")
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
+	else if(islist(view) && length(view) == 2 && isnum(view[1]) && isnum(view[2]))
+		// better be a list of nums!
+		viewX = view[1]
+		viewY = view[2]
+	else
+		CRASH("Invalid view type parameter passed to getviewsize: [view]")
+
 	return list(viewX, viewY)
+
+/proc/in_view_range(mob/user, atom/A)
+	var/list/view_range = getviewsize(user.client.view)
+	var/turf/source = get_turf(user)
+	var/turf/target = get_turf(A)
+	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[2], source.y + view_range[2])
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
 	var/static/list/mob_spawn_meancritters = list() // list of possible hostile mobs
 	var/static/list/mob_spawn_nicecritters = list() // and possible friendly mobs
 
-	if(mob_spawn_meancritters.len <= 0 || mob_spawn_nicecritters.len <= 0)
+	if(length(mob_spawn_meancritters) <= 0 || length(mob_spawn_nicecritters) <= 0)
 		for(var/T in typesof(/mob/living/simple_animal))
 			var/mob/living/simple_animal/SA = T
 			switch(initial(SA.gold_core_spawnable))
@@ -706,3 +714,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+/// rounds value to limited symbols after the period for organ damage and other values
+/proc/round_health(health)
+	return round(health, 0.01)

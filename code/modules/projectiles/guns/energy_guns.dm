@@ -61,7 +61,7 @@
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
 	select = clamp(select, 1, length(ammo_type)) // If we decrease ammo types while selecting a removed one, we want to make sure it doesnt try to select an out of bounds index
-	for(var/i = 1, i <= ammo_type.len, i++)
+	for(var/i = 1, i <= length(ammo_type), i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
 		ammo_type[i] = shot
@@ -90,7 +90,7 @@
 	newshot()
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
-	if(ammo_type.len > 1)
+	if(length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
 		if(ishuman(user)) //This has to be here or else if you toggle modes by clicking the gun in hand
@@ -127,7 +127,7 @@
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
-	if(select > ammo_type.len)
+	if(select > length(ammo_type))
 		select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
@@ -198,9 +198,9 @@
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_shoot())
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		sleep(25)
-		if(user.l_hand == src || user.r_hand == src)
+		if(user.is_holding(src))
 			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with [src]!</span>")
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]

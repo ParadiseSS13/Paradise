@@ -118,7 +118,6 @@
 	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
 	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
-	var/has_gender = TRUE
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
 
@@ -284,7 +283,7 @@
 
 	if(!has_gravity(H))
 		return
-	if(!IS_HORIZONTAL(H))
+	if(!IS_HORIZONTAL(H) || (HAS_TRAIT(H, TRAIT_NOKNOCKDOWNSLOWDOWN) && !H.resting)) //You are slowed if crawling without noknockdownslowdown. However, if you are self crawling, you don't ignore it, so no self crawling to not drop items
 		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
 		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
@@ -318,7 +317,7 @@
 			ADD_SLOWDOWN(H.r_hand.slowdown)
 
 	if(ignoreslow)
-		return . // Only malusses after here
+		return // Only malusses after here
 
 	if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
@@ -425,7 +424,7 @@
 
 	var/obj/item/organ/external/organ = null
 	if(!spread_damage)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			organ = def_zone
 		else
 			if(!def_zone)
@@ -500,6 +499,9 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
+	if(!attacker_style && target.buckled)
+		target.buckled.user_unbuckle_mob(target, user)
+		return TRUE
 	if(attacker_style && attacker_style.grab_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	else
@@ -691,9 +693,6 @@
 		if(INTENT_DISARM)
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
-	return message
-
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
@@ -858,13 +857,13 @@
 		if(SLOT_HUD_IN_BACKPACK)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = H.back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+				if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
 			if(H.back && ismodcontrol(H.back))
 				var/obj/item/mod/control/C = H.back
 				if(C.bag)
 					var/obj/item/storage/backpack/B = C.bag
-					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+					if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 						return TRUE
 			return FALSE
 		if(SLOT_HUD_TIE)
@@ -1033,16 +1032,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	return
 
-/proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
+/// Returns a list of names of non-blacklisted or hazardous species.
+/proc/get_safe_species()
 	var/static/list/random_species = list()
-	if(!random_species.len)
-		for(var/thing  in subtypesof(/datum/species))
-			var/datum/species/S = thing
+	if(!length(random_species))
+		for(var/datum/species/S as anything in subtypesof(/datum/species))
 			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
 				random_species += initial(S.name)
-	var/picked_species = pick(random_species)
-	var/datum/species/selected_species = GLOB.all_species[picked_species]
-	return species_name ? picked_species : selected_species.type
+	return random_species
 
 /datum/species/proc/can_hear(mob/living/carbon/human/H)
 	. = FALSE

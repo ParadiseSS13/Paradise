@@ -234,11 +234,11 @@
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = clean_input("Line 1", "Enter Message Text", stat_msg1)
+			stat_msg1 = tgui_input_text(ui.user, "Line 1", stat_msg1, "Enter Message Text", encode = FALSE)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = clean_input("Line 2", "Enter Message Text", stat_msg2)
+			stat_msg2 = tgui_input_text(ui.user, "Line 2", stat_msg2, "Enter Message Text", encode = FALSE)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -246,8 +246,8 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
-				var/input = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.")
-				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				var/input = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.", encode = FALSE)
+				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(ui.user, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -255,7 +255,7 @@
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(ui.user)] has requested the nuclear codes from Centcomm")
-				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruction device have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested", 'sound/AI/nuke_codes.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
@@ -264,7 +264,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
-				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "CentComm Message")
+				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "CentComm Message", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -283,7 +283,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Arrays recycling.  Please stand by.")
 					return
-				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement. Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "Send Message")
+				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement. Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "Send Message", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -475,7 +475,7 @@
 	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
 
 	var/list/msg_data = list()
-	for(var/i = 1; i <= messagetext.len; i++)
+	for(var/i = 1; i <= length(messagetext); i++)
 		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
 
 	data["messages"]        = msg_data
@@ -562,7 +562,7 @@
 		return
 
 	if(!sanitized)
-		reason = trim_strip_html_properly(reason, allow_lines = TRUE)
+		reason = trim_strip_html_tags(reason, allow_lines = TRUE)
 
 	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")
@@ -648,3 +648,15 @@
 			C.messagetext.Add(text)
 
 #undef ADMIN_CHECK
+
+#undef COMM_SCREEN_MAIN
+#undef COMM_SCREEN_STAT
+#undef COMM_SCREEN_MESSAGES
+#undef COMM_SCREEN_ANNOUNCER
+#undef COMM_AUTHENTICATION_NONE
+#undef COMM_AUTHENTICATION_HEAD
+#undef COMM_AUTHENTICATION_CAPT
+#undef COMM_AUTHENTICATION_CENTCOM
+#undef COMM_AUTHENTICATION_AGHOST
+#undef COMM_MSGLEN_MINIMUM
+#undef COMM_CCMSGLEN_MINIMUM

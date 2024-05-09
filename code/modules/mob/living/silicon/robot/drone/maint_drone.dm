@@ -18,8 +18,13 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
+	hat_offset_y = -15
+	is_centered = TRUE
+	can_be_hatted = TRUE
+	can_wear_restricted_hats = TRUE
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
+
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -45,7 +50,13 @@
 	)
 
 	holder_type = /obj/item/holder/drone
+
 	var/datum/pathfinding_mover/pathfinding
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/set_mail_tag,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor)
 
 
 /mob/living/silicon/robot/drone/New()
@@ -74,7 +85,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	verbs -= /mob/living/silicon/robot/verb/Namepick
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 	// Give us our action button
 	var/datum/action/innate/hide/drone_hide/hide = new()
@@ -105,7 +116,7 @@
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
-	connected_ai = null
+	set_connected_ai(null)
 
 	aiCamera = new /obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = ";"
@@ -129,6 +140,7 @@
 			overlays += "eyes-repairbot-pathfinding"
 	else
 		overlays -= "eyes"
+	update_hat_icons()
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
@@ -143,10 +155,6 @@
 /mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
-		return
-
-	else if(istype(I, /obj/item/crowbar))
-		to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
 		return
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -194,6 +202,10 @@
 
 	..()
 
+/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
+
 /mob/living/silicon/robot/drone/Destroy()
 	. = ..()
 	QDEL_NULL(stack_glass)
@@ -237,7 +249,7 @@
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
 	update_icons()
-	connected_ai = null
+	set_connected_ai(null)
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
@@ -369,10 +381,10 @@
 			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	verbs |= silicon_subsystems
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	verbs -= silicon_subsystems
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	..()
@@ -468,3 +480,5 @@
 	pathfinding = new_pathfind
 	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
 	update_icons()
+
+#undef EMAG_TIMER

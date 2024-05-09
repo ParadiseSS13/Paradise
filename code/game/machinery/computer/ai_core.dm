@@ -174,7 +174,7 @@
 					GLOB.empty_playable_ai_cores += D
 			else
 				if(brain.brainmob.mind)
-					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					brain.brainmob.mind.remove_antag_datum(/datum/antagonist/cultist)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
@@ -271,7 +271,7 @@
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
-	if(!cores.len)
+	if(!length(cores))
 		to_chat(src, "No deactivated AI cores were found.")
 
 	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores

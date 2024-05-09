@@ -1,7 +1,7 @@
 
 /client/proc/forceEvent(type in SSevents.allEvents)
 	set name = "Trigger Event"
-	set category = "Debug"
+	set category = "Event"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -64,7 +64,8 @@
 	active_with_role["Cyborg"] = 0
 	active_with_role["Janitor"] = 0
 	active_with_role["Botanist"] = 0
-	active_with_role["Any"] = GLOB.player_list.len
+	active_with_role["Chemist"] = 0
+	active_with_role["Any"] = length(GLOB.player_list)
 
 	for(var/mob/M in GLOB.player_list)
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
@@ -104,6 +105,9 @@
 
 		if(M.mind.assigned_role == "Botanist")
 			active_with_role["Botanist"]++
+
+		if(M.mind.assigned_role == "Chemist")
+			active_with_role["Chemist"]++
 
 	return active_with_role
 

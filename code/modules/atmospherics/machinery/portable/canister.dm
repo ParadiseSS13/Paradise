@@ -43,14 +43,14 @@
 
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
-#define HOLDING_TANK 1
-#define CONNECTED_PORT 2
-#define LOW_PRESSURE 4
-#define NORMAL_PRESSURE 8
-#define HIGH_PRESSURE 16
-#define EXTREME_PRESSURE 32
-#define NEW_COLOR 64
-#define RESET 68
+#define HOLDING_TANK 		(1<<0)
+#define CONNECTED_PORT 		(1<<1)
+#define LOW_PRESSURE 		(1<<2)
+#define NORMAL_PRESSURE 	(1<<3)
+#define HIGH_PRESSURE 		(1<<4)
+#define EXTREME_PRESSURE 	(1<<5)
+#define NEW_COLOR 			(1<<6)
+#define RESET 				(LOW_PRESSURE | NEW_COLOR)
 
 /obj/machinery/atmospherics/portable/canister
 	name = "canister"
@@ -302,6 +302,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/canister/attack_ghost(mob/user)
+	if(..())
+		return
 	return ui_interact(user)
 
 /obj/machinery/atmospherics/portable/canister/attack_hand(mob/user)
@@ -383,12 +385,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 					logmsg = "Valve was <b>opened</b> by [key_name(ui.user)], starting a transfer into the air.<br>"
 
 					if(air_contents.toxins > 0)
-						message_admins("[key_name_admin(ui.user)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains plasma in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(ui.user)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of plasma")
 
 					if(air_contents.sleeping_agent > 0)
-						message_admins("[key_name_admin(ui.user)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains N2O in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(ui.user)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of N2O")
 

@@ -1,4 +1,4 @@
-#define SOLAR_MAX_DIST 40
+
 
 /obj/machinery/power/solar
 	name = "solar panel"
@@ -25,9 +25,9 @@
 	unset_control() //remove from control computer
 	return ..()
 
-//set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
+//set the control of the panel to a given computer if closer than SOLAR_MACHINERY_MAX_DIST
 /obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
-	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
+	if(!SC || (get_dist(src, SC) > SOLAR_MACHINERY_MAX_DIST))
 		return FALSE
 	control = SC
 	SC.connected_panels |= src
@@ -102,7 +102,7 @@
 		panel.transform = M
 		. += panel
 
-//calculates the fraction of the sunlight that the panel recieves
+//calculates the fraction of the sunlight that the panel receives
 /obj/machinery/power/solar/proc/update_solar_exposure()
 	if(obscured)
 		sunfrac = 0
@@ -211,19 +211,7 @@
 
 /obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
 
-	if(!anchored && isturf(loc))
-		if(istype(W, /obj/item/wrench))
-			anchored = TRUE
-			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
-			playsound(src.loc, W.usesound, 50, 1)
-			return 1
-	else
-		if(istype(W, /obj/item/wrench))
-			anchored = FALSE
-			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
-			playsound(src.loc, W.usesound, 50, 1)
-			return 1
-
+	if(anchored || !isturf(loc))
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
@@ -237,24 +225,40 @@
 			else
 				to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>")
 				return
-			return 1
+			return TRUE
 
 	if(!tracker)
 		if(istype(W, /obj/item/tracker_electronics))
 			if(!user.drop_item())
 				return
-			tracker = 1
+			tracker = TRUE
 			qdel(W)
 			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
-			return 1
-	else if(istype(W, /obj/item/crowbar))
-		new /obj/item/tracker_electronics(src.loc)
-		tracker = 0
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
-		return 1
+			return TRUE
 	else
 		return ..()
+
+/obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
+	if(!tracker)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	new /obj/item/tracker_electronics(loc)
+	tracker = FALSE
+	user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
+
+/obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
+	if(!anchored && isturf(loc))
+		if(I.use_tool(src, user, I.tool_volume))
+			anchored = TRUE
+			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
+			return TRUE
+	else
+		if(I.use_tool(src, user, I.tool_volume))
+			anchored = FALSE
+			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
+			return TRUE
 
 //
 // Solar Control Computer
@@ -385,13 +389,13 @@
 /obj/machinery/power/solar_control/ui_data(mob/user)
 	var/list/data = list()
 	data["generated"] = round(lastgen) //generated power by all connected panels
-	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
+	data["generated_ratio"] = data["generated"] / round(max(length(connected_panels), 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
 	data["direction"] = angle2text(cdir)	//current orientation of the panels
 	data["cdir"] = cdir	//current orientation of the of the panels in degrees
 	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
 	data["tracking_rate"] = trackrate //rotation speed of tracker in degrees/h
 	data["rotating_direction"] = (trackrate < 0 ? "Counter clockwise" : "Clockwise") //direction of tracker
-	data["connected_panels"] = connected_panels.len
+	data["connected_panels"] = length(connected_panels)
 	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
 	return data
 
@@ -514,3 +518,7 @@
 /obj/item/paper/solar
 	name = "paper- 'Going green! Setup your own solar array instructions.'"
 	info = "<h1>Welcome</h1><p>At greencorps we love the environment, and space. With this package you are able to help mother nature and produce energy without any usage of fossil fuel or plasma! Singularity energy is dangerous while solar energy is safe, which is why it's better. Now here is how you setup your own solar array.</p><p>You can make a solar panel by wrenching the solar assembly onto a cable node. Adding a glass panel, reinforced or regular glass will do, will finish the construction of your solar panel. It is that easy!</p><p>Now after setting up 19 more of these solar panels you will want to create a solar tracker to keep track of our mother nature's gift, the sun. These are the same steps as before except you insert the tracker equipment circuit into the assembly before performing the final step of adding the glass. You now have a tracker! Now the last step is to add a computer to calculate the sun's movements and to send commands to the solar panels to change direction with the sun. Setting up the solar computer is the same as setting up any computer, so you should have no trouble in doing that. You do need to put a wire node under the computer, and the wire needs to be connected to the tracker.</p><p>Congratulations, you should have a working solar array. If you are having trouble, here are some tips. Make sure all solar equipment are on a cable node, even the computer. You can always deconstruct your creations if you make a mistake.</p><p>That's all to it, be safe, be green!</p>"
+
+#undef TRACKER_OFF
+#undef TRACKER_TIMED
+#undef TRACKER_AUTO

@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 		// If we somehow send two polls for the same mob type, but with a duration on the second one shorter than the time left on the first one,
 		// we need to keep the first one's timeout rather than use the shorter one
-		var/obj/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
+		var/atom/movable/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
 		var/alert_time = poll_time
 		var/alert_poll = P
 		if(current_alert && current_alert.timeout > (world.time + poll_time - world.tick_lag))
@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			alert_poll = current_alert.poll
 
 		// Send them an on-screen alert
-		var/obj/screen/alert/notify_action/A = M.throw_alert(category, /obj/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
+		var/atom/movable/screen/alert/notify_action/A = M.throw_alert(category, /atom/movable/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
 		if(!A)
 			continue
 
@@ -130,8 +130,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 		// Chat message
 		var/act_jump = ""
 		if(isatom(source))
-			act_jump = "<a href='?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
-		var/act_signup = "<a href='?src=[A.UID()];signup=1'>\[Sign Up]</a>"
+			act_jump = "<a href='byond://?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
+		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Sign Up]</a>"
 		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]</span></big>")
 
 		// Start processing it so it updates visually the timer

@@ -140,9 +140,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	deconstruct()
 
 /obj/structure/cable/proc/cable_color(colorC)
-	if(!colorC)
-		color = COLOR_RED
-	else if(colorC == "rainbow")
+	if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
 		color = COLOR_ORANGE
@@ -337,8 +335,6 @@ By design, d1 is the smallest direction and d2 is the highest
 			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1)) //get diagonally matching cables
 	T = get_turf(src)
 	. += T.power_list(src, d2) //get on turf matching cables
-
-	return .
 
 //should be called after placing a cable which extends another cable, creating a "smooth" cable that no longer terminates in the centre of a turf.
 //needed as this can, unlike other placements, disconnect cables
