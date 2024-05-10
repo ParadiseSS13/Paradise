@@ -553,7 +553,7 @@
 	icon_opened = "mailopen"
 	icon_closed = "mailsealed"
 	material_drop = /obj/item/stack/sheet/plastic
-	material_drop_amount = 4
+	material_drop_amount = 10
 	var/list/possible_contents = list(/obj/item/envelope/security,
 										/obj/item/envelope/science,
 										/obj/item/envelope/supply,
@@ -569,6 +569,18 @@
 	for(var/i in 1 to rand(5, 10))
 		var/item = pick(possible_contents)
 		new item(src)
+
+/obj/structure/closet/crate/mail/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	new /obj/item/stack/sheet/plastic(loc, 10)(src)
+	var/turf/T = get_turf(src)
+	for(var/O in contents)
+		var/atom/movable/A = O
+		A.forceMove(T)
+	user.visible_message("<span class='notice'>[user] pries [src] open.</span>", \
+						"<span class='notice'>You pry open [src].</span>", \
+						"<span class='notice'>You hear cracking plastic.</span>")
+	qdel(src)
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
