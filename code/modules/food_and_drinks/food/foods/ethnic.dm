@@ -135,35 +135,43 @@
 //	Middle Eastern	//
 //////////////////////
 
-/obj/item/food/snacks/human/kabob
-	name = "-kabob"
-	icon_state = "kabob"
-	desc = "Human meat, on a stick."
-	trash = /obj/item/stack/rods
-	filling_color = "#A85340"
-	list_reagents = list("nutriment" = 8)
-
-/obj/item/food/snacks/monkeykabob
-	name = "meat-kabob"
-	icon_state = "kabob"
+/obj/item/food/snacks/meatkebab
+	name = "meat-kebab"
 	desc = "Delicious meat, on a stick."
+	icon_state = "kebab"
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/tofukabob
-	name = "tofu-kabob"
-	icon_state = "kabob"
+/obj/item/food/snacks/syntikebab
+	name = "synthimeat-kebab"
+	desc = "Delicious synthetic meat, on a stick."
+	icon_state = "kebab"
+	trash = /obj/item/stack/rods
+	filling_color = "#A85340"
+	list_reagents = list("nutriment" = 8)
+
+/obj/item/food/snacks/human/kebab
+	name = "-kebab"
+	desc = "Human meat, on a stick."
+	icon_state = "kebab"
+	trash = /obj/item/stack/rods
+	filling_color = "#A85340"
+	list_reagents = list("nutriment" = 8)
+
+/obj/item/food/snacks/tofukebab
+	name = "tofu-kebab"
 	desc = "Vegan meat, on a stick."
+	icon_state = "kebab"
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/picoss_kabob
-	name = "picoss-kabob"
-	desc = "A popular Moghes streetfood consisting of vinegar-marinated space carp on a skewer with onion and chillis."
+/obj/item/food/snacks/picoss_kebab
+	name = "picoss-kebab"
+	desc = "A popular Moghes street food consisting of vinegar-marinated space carp on a skewer with onion and chillis."
 	icon_state = "picoss_skewer"
 	trash = /obj/item/stack/rods
 	list_reagents = list("protein" = 8, "vitamin" = 4, "vinegar" = 1, "capsaicin" = 1)

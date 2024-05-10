@@ -15,10 +15,18 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - id: create_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - run: echo "GH_TOKEN=${{ steps.create_token.outputs.token }}" >> "$GITHUB_ENV"
+      - run: echo "FAIL_NOTIFIED=false" >> "$GITHUB_ENV"
+
       - name: Like the comment
         env:
           BASE_REPOSITORY: ${{ github.repository }}
-          GH_TOKEN: ${{ github.token }}
         run: |
           gh api \
             --method POST \
@@ -43,13 +51,13 @@ jobs:
         with:
           repository: ${{ env.PR_REPO }}
           ref: ${{ env.PR_BRANCH }}
-          token: ${{ github.token }}
+          token: ${{ env.GH_TOKEN }}
 
       - name: Build MILLA
         env:
           BASE_BRANCH: ${{ github.event.repository.default_branch }}
           BASE_REPOSITORY: ${{ github.repository }}
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ env.GH_TOKEN }}
         run: |
           # Get the code.
           git config user.name paradisess13[bot]
@@ -74,20 +82,10 @@ jobs:
           cp target/i686-unknown-linux-gnu/release/libmilla.so ../tools/ci/libmilla_ci.so
           cp target/i686-pc-windows-gnu/release/milla.dll ../milla.dll
 
-          # Check if a workflow file would be modified by the merge (permissions prevent pushes if so)
-          latest_workflow_commit=$(git log -n 1 --pretty=format:"%H" upstream/$BASE_BRANCH -- .github/workflows)
-          if ! git branch --contains $latest_workflow_commit | grep -q "$(git rev-parse --abbrev-ref HEAD)"; then
-            gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not push to this branch as workflow files have been changed since your branch was last updated. Please update your branch past https://github.com/$BASE_REPOSITORY/commit/$latest_workflow_commit before using this command again."
-            echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
-            exit 1
-          fi
-
           git commit -a -m "Build MILLA" --allow-empty
           git push origin
 
       - name: Notify Failure
         if: failure() && env.FAIL_NOTIFIED != 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr comment ${{ github.event.issue.html_url }} -b 'Building MILLA failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
