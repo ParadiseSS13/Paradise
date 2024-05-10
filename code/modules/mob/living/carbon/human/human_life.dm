@@ -773,10 +773,10 @@
 	if(decaytime > 4800 && decaytime <= 9600)//16 minutes for decaylevel2 -- bloated and very stinky
 		decaylevel = 1
 
-	if(decaytime > 9600 && decaytime <= 14400)//30 minutes for decaylevel3 -- rotting and gross
+	if(decaytime > 9600 && decaytime <= 14400)//24 minutes for decaylevel3 -- rotting and gross
 		decaylevel = 2
 
-	if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
+	if(decaytime > 14400 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
 		decaylevel = 3
 
 	if(decaytime > 27000)
