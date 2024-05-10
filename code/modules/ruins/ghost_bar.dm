@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(occupants_by_key)
+
 /obj/effect/mob_spawn/human/alive/ghost_bar
 	name = "ghastly rejuvenator"
 	mob_name = "ghost bar occupant"
