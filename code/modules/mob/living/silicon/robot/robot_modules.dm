@@ -517,7 +517,7 @@
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
-	malf_modules = list(/obj/item/stack/cyborg_mine)
+	malf_modules = list(/obj/item/stack/caution/proximity_sign/malf)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
@@ -821,13 +821,11 @@
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/melee/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
-		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/alien/acid)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/alien/acid,
-		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke
 	)
 

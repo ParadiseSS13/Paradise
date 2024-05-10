@@ -4,7 +4,6 @@
 	animate_movement = 2
 	pressure_resistance = 8
 	throwforce = 10
-	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
@@ -45,7 +44,7 @@
 	var/memory = ""
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
-	var/hand = null
+	var/hand = HAND_BOOL_RIGHT
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
