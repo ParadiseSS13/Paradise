@@ -572,7 +572,7 @@
 
 /obj/structure/closet/crate/mail/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	new /obj/item/stack/sheet/plastic(loc, 10)(src)
+	new /obj/item/stack/sheet/plastic(loc, 10)
 	var/turf/T = get_turf(src)
 	for(var/O in contents)
 		var/atom/movable/A = O
