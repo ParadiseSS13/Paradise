@@ -63,8 +63,15 @@
 /obj/item/clothing/head/collectable/beret
 	name = "collectable beret"
 	desc = "A Collectable red Beret. It smells faintly of Garlic."
+	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret"
+	item_state = 'icons/mob/clothing/head/beret.dmi'
+	icon_override = 'icons/mob/clothing/head/beret.dmi'
 	dog_fashion = /datum/dog_fashion/head/beret
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
+		)
 
 /obj/item/clothing/head/collectable/welding
 	name = "collectable welding helmet"
