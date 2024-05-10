@@ -21,14 +21,16 @@
 	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
 	var/consume_range = 0 //How many tiles out do we eat
 	var/event_chance = 15 //Prob for event each tick
-	var/target = null //Its target. Moves slowly towards this.
-	var/beacon_target = null //Syndicate singularity beacon. Moves fast towards this.
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/warps_projectiles = TRUE
 	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	/// The target of the singularity. It will wander slowly towards this, and pick another target once it reaches it.
+	var/target = null
+	/// If there is a syndicate beacon, the singularity will move quickly towards it.
+	var/beacon_target = null
 	/// Whether or not we've pinged ghosts
 	var/isnt_shutting_down = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
