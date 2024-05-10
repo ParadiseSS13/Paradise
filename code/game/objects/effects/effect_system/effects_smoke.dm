@@ -64,7 +64,7 @@
 	if(!breather.can_breathe_gas())
 		return FALSE
 	if(breather.smoke_delay)
-		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), breather), 10) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
+		addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), breather), 1 SECONDS) //Sometimes during testing I'd somehow end up with a permanent smoke delay, so this is in case of that
 		return FALSE
 	if(reagents)
 		reagents.trans_to(breather, reagents.total_volume)
@@ -73,7 +73,7 @@
 		breather.adjustOxyLoss(1)
 		INVOKE_ASYNC(breather, TYPE_PROC_REF(/mob/living/carbon, emote), "cough")
 	breather.smoke_delay++
-	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), breather), 10)
+	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), breather), 1 SECONDS)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
