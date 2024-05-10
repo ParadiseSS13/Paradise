@@ -47,8 +47,9 @@
 	var/id
 	var/polarized_glass = FALSE
 	var/polarized_on
+
 	//Are we barricaded? Stops the door from opening if so
-	var/door_barricaded = 0
+	var/door_barricaded = FALSE
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -92,7 +93,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(operating || emagged)
+	if(operating || emagged || door_barricaded)
 		return
 	if(ismob(AM))
 		var/mob/B = AM
@@ -144,7 +145,7 @@
 		return
 	add_fingerprint(user)
 
-	if(density && !emagged)
+	if(density && !emagged && !door_barricaded)
 		if(allowed(user))
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
 				cmag_switch(FALSE, user)
@@ -165,7 +166,8 @@
 	. = TRUE
 	if(isterrorspider(user))
 		return
-
+	if(door_barricaded)
+		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -203,7 +205,7 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged)
+	if(operating || emagged || door_barricaded)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
@@ -243,17 +245,20 @@
 
 	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/S = I
+		if(!density)
+			to_chat(user, "<span class='warning'>\The [src] must be closed!</span>")
+			return
 		if(S.get_amount()<2)
-			to_chat(user, "<span class='warning'> You need at least 2 planks of wood to barricade this!</span>")
+			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
-		if(src.door_barricaded > 0)
-			to_chat(user, "<span class='warning'> There's already a barricade here!</span>")
+		if(door_barricaded)
+			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
-		to_chat(user, "<span class='notice'> You start barricading [src]...</span>")
+		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
 		if(do_after_once(user, 40, target = src))
 			S.use(2)
-			to_chat(user, "<span class='notice'> You barricade \the [src] shut.</span>")
-			user.visible_message("<span class='notice'> [user] barricades \the [src] shut.</span>")
+			to_chat(user, "<span class='notice'>You barricade \the [src] shut.</span>")
+			user.visible_message("<span class='notice'>[user] barricades \the [src] shut.</span>")
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 			transfer_fingerprints_to(newbarricade)
 			return
@@ -547,7 +552,7 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-	
+
 	QDEL_LIST_CONTENTS(fillers)
 
 	if(dir in list(EAST, WEST))

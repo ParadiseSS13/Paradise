@@ -116,27 +116,28 @@
 	user.visible_message("<span class='notice'>[user] starts ripping [src] down!</span>", "<span class='notice'>You struggle to pull [src] apart...</span>", "<span class='warning'>You hear wood splintering...</span>")
 	if(!I.use_tool(src, user, 6 SECONDS, volume = I.tool_volume))
 		return
-	new /obj/item/stack/sheet/wood(get_turf(src), 5)
-	qdel(src)
+	deconstruct()
 
 //This is for when barricades are constructed or deconstructed on windows or doors to prevent stacking
 /obj/structure/barricade/wooden/Initialize(mapload)
 	. = ..()
-	for((var/obj/machinery/door/D) in get_turf(loc))
-		D.door_barricaded += 1
+	for(var/obj/machinery/door/door in get_turf(loc))
+		door.door_barricaded = TRUE
 
-/obj/structure/barricade/wooden/deconstruct(disassembled) //doesn't work atm will fix later
+//doesn't work atm will fix later
+/obj/structure/barricade/wooden/deconstruct(disassembled)
+	for(var/obj/machinery/door/door in get_turf(src))
+		door.door_barricaded = FALSE
 	. = ..()
-	for((var/obj/machinery/door/D) in get_turf(loc))
-		D.door_barricaded -= 1
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."
 	icon_state = "woodenbarricade-old"
-	drop_amount = 1
+	drop_amount = 2
 	max_integrity = 50
 	proj_pass_rate = 65
+	layer = 5
 
 //Barricade repairs
 /obj/structure/barricade/wooden/crude/attackby(obj/item/stack/sheet/wood/S, mob/user, params)
