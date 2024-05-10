@@ -767,13 +767,13 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
+	if(decaytime <= 4800) //8 minutes for decaylevel1 -- stinky
 		return
 
-	if(decaytime > 6000 && decaytime <= 12000)//20 minutes for decaylevel2 -- bloated and very stinky
+	if(decaytime > 4800 && decaytime <= 9600)//16 minutes for decaylevel2 -- bloated and very stinky
 		decaylevel = 1
 
-	if(decaytime > 12000 && decaytime <= 18000)//30 minutes for decaylevel3 -- rotting and gross
+	if(decaytime > 9600 && decaytime <= 14400)//30 minutes for decaylevel3 -- rotting and gross
 		decaylevel = 2
 
 	if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
