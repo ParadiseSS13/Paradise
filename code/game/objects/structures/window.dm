@@ -188,14 +188,12 @@
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
-		var/obj/structure/grille/G = I
-		if(locate(G) in get_turf(src))
-			return TRUE
-		if(G.broken)
+		for(var/obj/structure/grille/G in get_turf(src))
+			if(!G.broken)
+				continue
 			to_chat(user, "<span class='notice'>You start rebuilding the broken grille.</span>")
 			if(do_after(user, 4 SECONDS, FALSE, G))
 				G.repair(user, I)
-			return
 
 	else if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I

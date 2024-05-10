@@ -42,6 +42,7 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
+
 	/// ID for the window tint button, or another external control
 	var/id
 	var/polarized_glass = FALSE
@@ -142,6 +143,7 @@
 	if(operating)
 		return
 	add_fingerprint(user)
+
 	if(density && !emagged)
 		if(allowed(user))
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -545,7 +547,7 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-
+	
 	QDEL_LIST_CONTENTS(fillers)
 
 	if(dir in list(EAST, WEST))
