@@ -53874,7 +53874,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "eiv" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
@@ -59970,7 +59970,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "gZn" = (
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
@@ -63636,7 +63636,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "iUF" = (
 /obj/structure/cable{
@@ -64848,7 +64848,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "jzT" = (
 /obj/machinery/door/airlock/command{
@@ -69837,7 +69837,7 @@
 /area/station/maintenance/apmaint2)
 "lVB" = (
 /obj/machinery/atmospherics/unary/passive_vent,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "lVK" = (
 /obj/machinery/door/airlock/maintenance,
@@ -73585,7 +73585,7 @@
 	id = "toxinsigniter";
 	pixel_x = -20
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "nTm" = (
 /obj/machinery/sparker{
@@ -74598,7 +74598,7 @@
 	dir = 6
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "opg" = (
 /obj/item/seeds/potato,
@@ -76600,7 +76600,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "plJ" = (
 /obj/structure/cable{
@@ -77556,7 +77556,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "pMv" = (
 /obj/machinery/light_switch{

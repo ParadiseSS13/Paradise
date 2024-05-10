@@ -63,25 +63,25 @@
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
-/obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack(mob/AM, mob/user, flag)
 	if(!flag)
 		return
-	if(iscarbon(AM))
-		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
+	if(ismob(AM) && AM.stat == CONSCIOUS)
+		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]! Perhaps if [AM] was asleep or dead you could attach it?</span>")
 		return
 	if(isobserver(AM))
 		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
-	if(do_after(user, 50 * toolspeed, target = AM))
+	if(do_after(user, 5 SECONDS * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
 		target = AM
 		loc = null
 
 		if(notify_admins)
-			message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse", 0, 1)
+			message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse", 0, 1)
 			log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
 		AddComponent(/datum/component/persistent_overlay, image_overlay, target)

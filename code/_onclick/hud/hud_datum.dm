@@ -210,6 +210,15 @@
 			if(length(infodisplay))
 				mymob.client.screen -= infodisplay
 
+		if(HUD_STYLE_ACTIONHUD)	//No HUD
+			hud_shown = TRUE	//Governs behavior of other procs
+			if(static_inventory.len)
+				mymob.client.screen -= static_inventory
+			if(toggleable_inventory.len)
+				mymob.client.screen -= toggleable_inventory
+			if(infodisplay.len)
+				mymob.client.screen -= infodisplay
+
 	hud_version = display_hud_version
 	persistent_inventory_update()
 	mymob.update_action_buttons(1)
@@ -244,6 +253,9 @@
 	return
 
 /mob/proc/hide_hud()
+	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) && isliving(src))
+		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
+		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
 		to_chat(src, "<span class='info'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
