@@ -66,7 +66,7 @@
 /obj/item/grenade/plastic/afterattack(mob/AM, mob/user, flag)
 	if(!flag)
 		return
-	if(ismob(AM) && !AM.stat)
+	if(ismob(AM) && AM.stat == CONSCIOUS)
 		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]! Perhaps if [AM] was asleep or dead you could attach it?</span>")
 		return
 	if(isobserver(AM))
