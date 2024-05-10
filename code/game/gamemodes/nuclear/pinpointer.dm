@@ -96,15 +96,15 @@
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
-		the_disk = locate()
+		the_disk = locate() in GLOB.poi_list
 
 /obj/item/pinpointer/proc/scanbomb()
 	if(!syndicate)
 		if(!the_bomb)
-			the_bomb = locate()
+			the_bomb = locate() in GLOB.poi_list
 	else
 		if(!the_s_bomb)
-			the_s_bomb = locate()
+			the_s_bomb = locate() in GLOB.poi_list
 
 /obj/item/pinpointer/proc/point_at_target(atom/target)
 	if(!target)

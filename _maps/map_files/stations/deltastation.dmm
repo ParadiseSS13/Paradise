@@ -50038,7 +50038,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "cKw" = (
 /obj/structure/table,
@@ -51858,7 +51858,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "cRz" = (
 /obj/structure/girder,
@@ -71217,7 +71217,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "hsE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -72382,7 +72382,7 @@
 /area/station/engineering/control)
 "ieu" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "iev" = (
 /obj/machinery/door/window/classic/reversed{
@@ -74554,7 +74554,7 @@
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "jAs" = (
 /obj/machinery/door/firedoor,
@@ -79515,19 +79515,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
-"mBa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/smes)
 "mBy" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -86158,7 +86145,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "qwZ" = (
 /obj/machinery/door/poddoor{
@@ -90438,7 +90425,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "sMn" = (
 /obj/structure/table/glass,
@@ -95032,7 +95019,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "burn_sensor"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "vBT" = (
 /obj/machinery/door/window/brigdoor{
@@ -97281,7 +97268,7 @@
 	autolink_id = "air_in";
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "wSw" = (
 /obj/machinery/economy/vending/cola,
@@ -127251,7 +127238,7 @@ bwP
 fsO
 oNV
 ucB
-mBa
+fsO
 clv
 bQr
 bQr

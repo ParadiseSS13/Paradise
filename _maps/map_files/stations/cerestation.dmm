@@ -21593,7 +21593,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "clR" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -21797,7 +21797,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "cnm" = (
 /obj/structure/sign/poster/random{
@@ -62391,7 +62391,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "mQh" = (
 /obj/machinery/firealarm{
@@ -64451,7 +64451,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "nyv" = (
 /obj/machinery/door/airlock/maintenance{
@@ -70032,7 +70032,7 @@
 /obj/machinery/igniter{
 	id = "Incinerator"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "pow" = (
 /obj/machinery/economy/vending/artvend,
@@ -83115,7 +83115,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "txQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -95126,7 +95126,7 @@
 /area/station/maintenance/port)
 "xbh" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "xbm" = (
 /obj/structure/disposalpipe/trunk,

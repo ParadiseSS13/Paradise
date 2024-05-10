@@ -10,7 +10,6 @@
  *		Toy Nuke
  *		Card Deck
  *		Therapy dolls
- *		Toddler doll
  *		Inflatable duck
  *		Foam armblade
  *		Mini Gibber
@@ -437,14 +436,6 @@
 /obj/item/toy/therapy/green
 	item_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
-
-/obj/item/toddler
-	icon_state = "toddler"
-	name = "toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
-	force = 5
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
 
 
 //This should really be somewhere else but I don't know where. w/e
