@@ -436,21 +436,21 @@
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = special_blend[r_id]
 
-			if(amount <= 0)
-				if(amount == 0)
-					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-				else
-					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+
+			if(amount == 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+			else if(amount < 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 			else
 				O.reagents.trans_id_to(beaker, r_id, min(amount, space))
 
@@ -470,21 +470,20 @@
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = special_blend[r_id]
 
-			if(amount <= 0)
-				if(amount == 0)
-					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-				else
-					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+			if(amount == 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+			else if(amount < 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 			else
 				O.reagents.trans_id_to(beaker, r_id, min(amount, space))
 
@@ -518,26 +517,6 @@
 				break
 			if(beaker.reagents.holder_full())
 				return
-
-	// Plants
-	for(var/obj/item/grown/O in holdingitems)
-		var/list/special_blend = get_special_blend(O)
-		for(var/r_id in special_blend)
-			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-			var/amount = special_blend[r_id]
-
-			if(amount == 0)
-				if(O.reagents.has_reagent(r_id))
-					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
-			else
-				beaker.reagents.add_reagent(r_id, min(amount * efficiency, space))
-
-			if(beaker.reagents.holder_full())
-				break
-
-		remove_object(O)
-		if(beaker.reagents.holder_full())
-			return
 
 	// Slime Extracts
 	for(var/obj/item/slime_extract/O in holdingitems)
