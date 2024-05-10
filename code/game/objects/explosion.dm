@@ -1,4 +1,3 @@
-
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
 #define DEVASTATION_PROB 30 //The probability modifier for devistation, maths!
 #define HEAVY_IMPACT_PROB 5 //ditto
