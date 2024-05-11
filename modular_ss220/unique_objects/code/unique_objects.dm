@@ -41,6 +41,12 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/mooniverse/soo
+	name = "Офицер специальных операций"
+	desc = "Статуя одного из офицеров специальных операций. Возможно этот офицер хорошо служит ЦК..."
+	icon = 'modular_ss220/unique_objects/icons/statue.dmi'
+	icon_state = "mooniverse_soo"
+
 /obj/structure/statue/themis
 	name = "Фемида"
 	desc = "Статуя древнегреческой богини правосудия."
@@ -50,6 +56,30 @@
 	pixel_y = 7
 	anchored = TRUE
 	oreAmount = 0
+
+/obj/structure/statue/gold/heinrich_traisen
+	name = "Генрих Трейзен Третий"
+	desc = "Золотая статуя текущего главы семьи Трейзен. Его успешная агрессивная политика в отношении конкурентов, формирование окончательной монополии на рынке и мудрое распоряжение имеющимися активами привели к получению Корпорацией исключительных прав на разработку, переработку и продажу плазмы во многих известных мирах. Именно благодаря Генриху Трейзену Третьему мы сегодня знаем Компанию Нанотрейзен такой, какая она есть."
+	icon = 'modular_ss220/unique_objects/icons/statue.dmi'
+	icon_state = "henri"
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+	oreAmount = 30
+
+/obj/structure/statue/holo_planet
+	name = "планетарная голограмма"
+	desc = "Установка, позволяющая показывать подробные голографические карты известных миров."
+	icon = 'modular_ss220/unique_objects/icons/statue.dmi'
+	icon_state = "planet"
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/sandstone/venus/pure
+	name = "Венера"
+	desc = "Эта мраморная реплика античной статуи восхлавляет женскую красоту и грацию, привлекая внимание своими изящными формами. Скульптура создает величественный образ, который восхищает своим великолепием."
+	icon = 'modular_ss220/unique_objects/icons/statuelarge.dmi'
+	icon_state = "venus_pure"
 
 // Cyberiad statue
 /obj/structure/statue/cyberiad
