@@ -50,40 +50,12 @@
 	var/datum/spell/demon_charge/charge_holder
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill. \
-						       You may use the blood crawl icon when on blood pools to travel through them, appearing and disappearing from the station with a short delay. \
-						       While blood crawling you will heal back to half your health pool. Slowly. \
-						       If sink into your blood while dead or critical mobs are around you, you will pull them in with you, allowing you to feast. Healing 100HP each. \
-						       A bonus of 10 maximum hp is given per sentient humanoid consumed, every fourth corpse eaten will increase health by another 50. \
-						       Attacking sentient humanoids grants a 5% damage increase and a 5% damage reduction, stacking up to 50% extra. Maxing out at 45 damage. You will loose this buff out of combat however.<B>"
+						You may use the blood crawl icon when on blood pools to travel through them, appearing and disappearing from the station with a short delay. \
+						While blood crawling you will heal back to half your health pool. Slowly. \
+						If sink into your blood while dead or critical mobs are around you, you will pull them in with you, allowing you to feast. Healing 100HP each. \
+						A bonus of 10 maximum hp is given per sentient humanoid consumed, every fourth corpse eaten will increase health by another 50. \
+						Attacking sentient humanoids grants a 5% damage increase and a 5% damage reduction, stacking up to 50% extra. Maxing out at 45 damage. You will loose this buff out of combat however.<B>"
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
-
-/mob/living/simple_animal/demon/slaughter_demon/laughter
-	// The laughter demon! It's everyone's best friend! It just wants to hug
-	// them so much, it wants to hug everyone at once!
-	name = "laughter demon"
-	real_name = "laughter demon"
-	desc = "A large, adorable creature covered in armor with pink bows."
-	speak_emote = list("giggles", "titters", "chuckles")
-	emote_hear = list("gaffaws", "laughs")
-	response_help = "hugs"
-	attacktext = "wildly tickles"
-
-	attack_sound = 'sound/items/bikehorn.ogg'
-	feast_sound = 'sound/spookoween/scary_horn2.ogg'
-	death_sound = 'sound/misc/sadtrombone.ogg'
-
-	icon_state = "bowmon"
-	icon_living = "bowmon"
-	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
-	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
-
-/mob/living/simple_animal/demon/slaughter_demon/laughter/release_consumed(mob/living/M)
-	if(M.revive())
-		M.grab_ghost(force = TRUE)
-		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
-		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
-	..(M)
-
 
 /mob/living/simple_animal/demon/slaughter_demon/New()
 	..()
@@ -323,3 +295,31 @@
 	pixel_x = -96
 	pixel_y = -96
 	layer = ABOVE_NORMAL_TURF_LAYER
+
+/mob/living/simple_animal/demon/slaughter_demon/laughter
+	// The laughter demon! It's everyone's best friend! It just wants to hug
+	// them so much, it wants to hug everyone at once!
+	name = "laughter demon"
+	real_name = "laughter demon"
+	desc = "A large, adorable creature covered in armor with pink bows."
+	speak_emote = list("giggles", "titters", "chuckles")
+	emote_hear = list("gaffaws", "laughs")
+	response_help = "hugs"
+	attacktext = "wildly tickles"
+
+	attack_sound = 'sound/items/bikehorn.ogg'
+	feast_sound = 'sound/spookoween/scary_horn2.ogg'
+	death_sound = 'sound/misc/sadtrombone.ogg'
+
+	icon_state = "bowmon"
+	icon_living = "bowmon"
+	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
+	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
+
+/mob/living/simple_animal/demon/slaughter_demon/laughter/release_consumed(mob/living/M)
+	if(M.revive())
+		M.grab_ghost(force = TRUE)
+		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
+		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+	..(M)
+

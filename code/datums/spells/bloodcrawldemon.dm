@@ -24,26 +24,25 @@
 	var/atom/target = targets[1]
 	if(!isslaughterdemon(user))
 		return
+	var/mob/living/simple_animal/demon/slaughter_demon/D = user
+	if(D.channeling)
+		return
+	if(D.phased)
+		to_chat(D, "<span class='notice'>You begin to channel yourself into the blood!</span>")
+		D.channel_target = get_turf(target)
+		ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
+		D.phase_out_chanel_time = world.time + 2 SECONDS
+		D.channeling = TRUE
+		D.icon_state = "daemonchanneling"
+		cooldown_handler.recharge_duration = 5 SECONDS
+		cooldown_handler.start_recharge(5 SECONDS)
 	else
-		var/mob/living/simple_animal/demon/slaughter_demon/D = user
-		if(D.channeling)
-			return
-		if(D.phased)
-			to_chat(D, "<span class='notice'>You begin to channel yourself into the blood!</span>")
-			D.channel_target = get_turf(target)
-			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
-			D.phase_out_chanel_time = world.time + 2 SECONDS
-			D.channeling = TRUE
-			D.icon_state = "daemonchanneling"
-			cooldown_handler.recharge_duration = 5 SECONDS
-			cooldown_handler.start_recharge(5 SECONDS)
-		else
-			to_chat(D, "<span class='notice'>You begin to channel back into reality!</span>")
-			D.channel_target = get_turf(target)
-			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
-			D.channeling = TRUE
-			new /obj/effect/temp_visual/bloodstorm(get_turf(target))
-			D.phase_in_chanel_time = world.time + 5 SECONDS
-			cooldown_handler.recharge_duration = 20 SECONDS
-			cooldown_handler.start_recharge(20 SECONDS)
+		to_chat(D, "<span class='notice'>You begin to channel back into reality!</span>")
+		D.channel_target = get_turf(target)
+		ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
+		D.channeling = TRUE
+		new /obj/effect/temp_visual/bloodstorm(get_turf(target))
+		D.phase_in_chanel_time = world.time + 5 SECONDS
+		cooldown_handler.recharge_duration = 20 SECONDS
+		cooldown_handler.start_recharge(20 SECONDS)
 
