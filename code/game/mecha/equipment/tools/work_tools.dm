@@ -254,19 +254,12 @@
 					qdel(target)
 					playsound(target, usesound, 50, 1)
 		if(MECH_RCD_MODE_WALL_OR_FLOOR)
-			if(isspaceturf(target))
+			if(isspaceturf(target) || ischasm(target))
 				var/turf/space/S = target
 				occupant_message("Building Floor...")
 				if(do_after_cooldown(S))
 					S.ChangeTurf(/turf/simulated/floor/plating)
 					playsound(S, usesound, 50, 1)
-					chassis.spark_system.start()
-			if(ischasm(target))
-				var/turf/simulated/floor/chasm/C = target
-				occupant_message("Building Floor...")
-				if(do_after_cooldown(C))
-					C.ChangeTurf(/turf/simulated/floor/plating)
-					playsound(C, usesound, 50, 1)
 					chassis.spark_system.start()
 			else if(isfloorturf(target))
 				var/turf/simulated/floor/F = target
