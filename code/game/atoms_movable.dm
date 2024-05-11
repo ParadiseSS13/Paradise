@@ -355,6 +355,9 @@
 	if(has_gravity(src))
 		return 1
 
+	if(anchored)
+		return 1
+
 	if(pulledby && !pulledby.pulling)
 		return 1
 
