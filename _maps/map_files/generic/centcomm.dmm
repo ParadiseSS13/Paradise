@@ -5410,7 +5410,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "sh" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
@@ -5419,6 +5418,7 @@
 	name = "Privacy Shutters";
 	opacity = 0
 	},
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "sj" = (
