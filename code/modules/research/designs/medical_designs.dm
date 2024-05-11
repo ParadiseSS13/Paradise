@@ -429,7 +429,7 @@
 	name = "Abductor Surgical Toolset Implant"
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	id = "ci-med-abductor"
-	req_tech = list("materials" = 6, "engineering" = 6, "plasmatech" = 6, "abductor" = 3)
+	req_tech = list("materials" = 6, "magnets" = 6, "biotech" = 6, "abductor" = 3)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	construction_time = 200
