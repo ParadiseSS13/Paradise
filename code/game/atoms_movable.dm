@@ -199,7 +199,8 @@
 	Moved(old_loc, direction, TRUE)
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) return FALSE
+	if(!loc || !newloc) 
+		return FALSE
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
