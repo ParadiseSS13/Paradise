@@ -48,7 +48,7 @@
 		createFootprintsFrom(src, src.dir, get_turf(src))
 	if(get_dist(start_turf, get_turf(src)) >= max_distance)
 		qdel(src)
-	..()
+	return ..()
 
 /obj/effect/immovablerod/demon/Destroy()
 	if(caster)
