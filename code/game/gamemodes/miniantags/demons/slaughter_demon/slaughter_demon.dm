@@ -136,7 +136,7 @@
 					break
 	if(!foundblood && !foundtarget)
 		channeling = FALSE
-		to_chat(src, "<span class ='warning'>The blood has all been cleaned!</span>")
+		to_chat(src, "<span class='warning'>The blood has all been cleaned!</span>")
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
 		return
 	for(var/obj/effect/decal/cleanable/C in view(2, origin_turf))
