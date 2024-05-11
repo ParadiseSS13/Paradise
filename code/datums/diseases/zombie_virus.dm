@@ -22,11 +22,8 @@
 	if(!..())
 		return FALSE
 	if(HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS) || affected_mob.mind?.has_antag_datum(/datum/antagonist/zombie))
-		handle_rot()
+		handle_rot(TRUE)
 		stage = 7
-		if(!affected_mob.mind)
-			return
-		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
 		return FALSE
 	switch(stage)
 		if(1) // cured by lvl 1 cure
@@ -74,9 +71,7 @@
 			if(!handle_rot(TRUE))
 				stage = 6
 				return
-			if(!affected_mob.mind)
-				return
-			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+
 
 
 /datum/disease/zombie/proc/handle_rot(forced = FALSE)
@@ -95,10 +90,13 @@
 			limb.necrotize(FALSE, TRUE)
 			return FALSE
 
-	affected_mob.AddComponent(/datum/component/zombie_regen)
-	ADD_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
-	affected_mob.med_hud_set_health()
-	affected_mob.med_hud_set_status()
+	if(!HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS))
+		affected_mob.AddComponent(/datum/component/zombie_regen)
+		ADD_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
+		affected_mob.med_hud_set_health()
+		affected_mob.med_hud_set_status()
+	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
+		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
 	return TRUE
 
 
