@@ -14,6 +14,7 @@
 	. = ..()
 	basic_modules.Remove(/obj/item/gripper_engineering)
 	basic_modules |= list(
+		/obj/item/lightreplacer/cyborg,
 		/obj/item/gripper,
 		/obj/item/inflatable/cyborg,
 		/obj/item/inflatable/cyborg/door,
