@@ -51,7 +51,7 @@
 	if(QDELETED(A))
 		return
 
-	if(client.click_intercept)
+	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 

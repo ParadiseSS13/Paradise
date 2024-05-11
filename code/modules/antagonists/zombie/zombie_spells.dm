@@ -7,6 +7,7 @@
 	clothes_req = FALSE
 	base_cooldown = 0 SECONDS
 	var/list/our_claws = list()
+	var/infection_stage = 1 // mostly for adminbus and testing
 
 /datum/spell/zombie_claws/Destroy()
 	QDEL_LIST_CONTENTS(our_claws)
@@ -17,6 +18,7 @@
 		return
 
 	var/obj/item/zombie_claw/claws = new /obj/item/zombie_claw(user.loc, src)
+	claws.infection_stage = infection_stage
 	if(user.put_in_hands(claws))
 		our_claws += claws
 	else
@@ -56,6 +58,7 @@
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
 	var/datum/spell/zombie_claws/parent_spell
 	var/force_weak = 10
+	var/infection_stage = 1
 
 /obj/item/zombie_claw/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -104,11 +107,11 @@
 		return
 
 	if(target.getarmor(brain_holder, MELEE) > 0) // dont count negative armor
-		to_chat(user, "<span class='warning'>[target]'s brains are blocked.</span>")
+		to_chat(user, "<span class='warning zombie'>[target]'s brains are blocked.</span>")
 		return // Armor blocks zombies trying to eat your brains!
 
 	to_chat(target, "<span class='userdanger'[user]'s claws dig into your [brain_holder.encased]!</span>")
-	user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_holder.name]!</span>", "<span class='danger'>We dig into [target]'s [brain_holder.encased]...</span>")
+	user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_holder.name]!</span>", "<span class='danger zombie'>We dig into [target]'s [brain_holder.encased ? brain_holder.encased : brain_holder]...</span>")
 	playsound(user, 'sound/weapons/armblade.ogg', 50, TRUE)
 	if(!do_mob(user, target, 3 SECONDS))
 		return FALSE
@@ -118,7 +121,7 @@
 	brain_holder.broken_description = "split open"
 	brain_holder.open = ORGAN_ORGANIC_VIOLENT_OPEN
 	to_chat(target, "<span class='userdanger'>Your [brain_holder.name] is violently cracked open!</span>")
-	user.visible_message("<span class='danger'>[user] violently splits apart [target]'s [brain_holder.name]!</span>", "<span class='danger'>We crack apart [target]'s [brain_holder.name]!</span>")
+	user.visible_message("<span class='danger'>[user] violently splits apart [target]'s [brain_holder.name]!</span>", "<span class='danger zombie'>We crack apart [target]'s [brain_holder.name]!</span>")
 	return TRUE
 
 
@@ -132,13 +135,15 @@
 		return FALSE
 	if(target.reagents.has_reagent("zombiecure1") || target.reagents.has_reagent("spaceacillin"))
 		return
-	if(!prob(3 * target.getarmor(user.zone_selected, MELEE)) || prob(50)) // more than 33.34 melee armor will always protect you! Or just get lucky B)
+	if(prob(3 * target.getarmor(user.zone_selected, MELEE)) || prob(50)) // more than 33.34 melee armor will always protect you! Or just get lucky B)
 		return // Armor blocks zombies trying to eat your brains!
 
 	// already have the disease, or have contracted it. Good for feedback when being attacked while wearing a biosuit
 	if(target.HasDisease(/datum/disease/zombie) || target.ContractDisease(new /datum/disease/zombie))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 		target.bleed_rate = max(20, target.bleed_rate + 1) // it transfers via blood, you know. It had to get in somehow.
+		for(var/datum/disease/zombie/zomb in target.viruses)
+			zomb.stage = max(zomb.stage, infection_stage)
 
 
 /obj/item/zombie_claw/attack_self(mob/user)

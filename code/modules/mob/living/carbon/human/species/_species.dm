@@ -1090,12 +1090,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(!target.HasDisease(/datum/disease/zombie))
 				var/datum/disease/zombie/zomb = new /datum/disease/zombie
 				if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
-					zomb.stage = rand(3, 4)
 					target.ForceContractDisease(zomb)
 					target.Dizzy(10 SECONDS)
 					target.Confused(10 SECONDS)
 				else
 					qdel(zomb)
+
+			for(var/datum/disease/zombie/zomb in target.viruses)
+				zomb.stage = max(rand(3, 4), zomb.stage)
 
 			qdel(grabby)
 			return TRUE
@@ -1126,8 +1128,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_house.name], eating their [eat_brain]!</span>", "<span class='danger zombie'>We feast on [target]'s brains.</span>")
 		if(!target.HasDisease(/datum/disease/zombie))
 			var/datum/disease/zombie/zomb = new /datum/disease/zombie
-			zomb.stage = 5
 			target.ContractDisease(zomb)
+
+		for(var/datum/disease/zombie/zomb in target.viruses)
+			zomb.stage = max(5, zomb.stage)
 
 		if(!do_mob(user, target, 1 SECONDS))
 			return

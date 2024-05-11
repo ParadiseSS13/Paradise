@@ -22,13 +22,16 @@
 		healing_factor *= 2
 	zomboid.heal_overall_damage(healing_factor, healing_factor)
 	zomboid.adjustBrainLoss(-healing_factor)
-	if(zomboid.stat == DEAD && zomboid.getBruteLoss() <= 1 && zomboid.getFireLoss() <= 1 && (zomboid.timeofdeath + 30 SECONDS <= world.time))
+	if(zomboid.stat == DEAD && zomboid.getBruteLoss() <= 1 && zomboid.getFireLoss() <= 1 && (zomboid.timeofdeath + 15 SECONDS <= world.time))
 		var/datum/reagent/the_cure = zomboid.reagents.has_reagent("zombiecure4")
 		if(the_cure) // dead bodies dont process chemicals, so we gotta do it manually.
 			zomboid.reagents.remove_reagent("zombiecure4", the_cure.metabolization_rate * zomboid.metabolism_efficiency)
 			return
 		zombie_rejuv()
 		to_chat(zomboid, "<span class='zombielarge'>We... Awaken...</span>")
+
+	// if(!zomboid.mind && zomboid.stat == CONSCIOUS && !HAS_TRAIT(zomboid, TRAIT_HANDS_BLOCKED))
+	// 	mindless_hunger()
 
 /datum/component/zombie_regen/proc/zombie_rejuv()
 	var/mob/living/carbon/human/zomboid = parent
@@ -74,6 +77,18 @@
 	if(zomboid.buckled) //Unbuckle the mob and clear the alerts.
 		zomboid.buckled.unbuckle_mob(src, force = TRUE)
 
+	var/datum/organ/heart/heart = zomboid.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/heart_type = zomboid.dna?.species?.has_organ["heart"]
+	if(!heart && heart_type)
+		var/obj/item/organ/internal/new_heart = new heart_type()
+		new_heart.insert(zomboid)
+
+	var/datum/organ/lungs/lungs = zomboid.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	var/lung_type = zomboid.dna?.species?.has_organ["lungs"]
+	if(!lungs && lung_type)
+		var/obj/item/organ/internal/new_lungs = new lung_type()
+		new_lungs.insert(zomboid)
+
 	zomboid.set_heartattack(FALSE)
 	zomboid.restore_blood()
 	zomboid.decaylevel = 0
@@ -89,7 +104,44 @@
 	zomboid.regenerate_icons()
 	zomboid.restore_blood()
 	zomboid.update_eyes()
-	zomboid.update_dna()
 
 	for(var/datum/disease/critical/crit in zomboid.viruses) // cure all crit conditions
 		crit.cure()
+
+// /datum/component/zombie_regen/proc/mindless_hunger()
+// 	var/mob/living/carbon/human/zomboid = parent
+// 	var/list/targets = list()
+// 	for(var/mob/living/carbon/human/target in view(6, zomboid))
+// 		if(target.stat == CONSCIOUS && !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+// 			targets |= target
+
+// 	var/target
+// 	if(length(targets))
+// 		target = pick(targets)
+
+// 	if(zomboid.Adjacent(target) && safe_active_hand(zomboid))
+// 		zomboid.a_intent = INTENT_HARM
+// 		zomboid.ClickOn(target)
+// 		return
+
+// 	if(!target && prob(90)) // a small chance to wander
+// 		return
+
+// 	var/targetted_direction = pick(GLOB.cardinal)
+// 	if(target)
+// 		targetted_direction = get_dir(zomboid, target)
+
+// 	var/delay = zomboid.movement_delay()
+// 	if(IS_DIR_DIAGONAL(targetted_direction))
+// 		delay *= SQRT_2
+// 	zomboid.glide_for(delay)
+// 	step(zomboid, targetted_direction)
+
+// /datum/component/zombie_regen/proc/safe_active_hand(mob/living/carbon/human/zomboid)
+// 	if(zomboid.get_organ("[zomboid.hand ? "l" : "r" ]_hand"))
+// 		return TRUE
+// 	zomboid.swap_hand()
+// 	if(zomboid.get_organ("[zomboid.hand ? "l" : "r" ]_hand"))
+// 		return TRUE
+// 	return FALSE
+

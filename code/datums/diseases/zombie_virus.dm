@@ -19,6 +19,15 @@
 	var/cure_stage = 0
 
 /datum/disease/zombie/stage_act()
+	if(stage == 8)
+		// adminbus for immediate zombie
+		var/mob/living/carbon/human/H = affected_mob
+		if(!istype(H))
+			return FALSE
+		for(var/obj/item/organ/limb as anything in H.bodyparts)
+			if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
+				limb.necrotize(TRUE, TRUE)
+
 	if(!..())
 		return FALSE
 	if(HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS) || affected_mob.mind?.has_antag_datum(/datum/antagonist/zombie))
@@ -95,6 +104,7 @@
 		ADD_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
 		affected_mob.med_hud_set_health()
 		affected_mob.med_hud_set_status()
+		affected_mob.update_hands_hud()
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
 		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
 	return TRUE
