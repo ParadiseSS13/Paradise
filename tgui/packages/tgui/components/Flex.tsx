@@ -24,10 +24,11 @@ export const computeFlexClassName = (props: FlexProps) => {
 };
 
 export const computeFlexProps = (props: FlexProps) => {
-  const { className, direction, wrap, align, justify, inline, ...rest } = props;
+  const { className, direction, wrap, align, justify, inline, style, ...rest } =
+    props;
   return computeBoxProps({
     style: {
-      ...rest.style,
+      ...style,
       'flex-direction': direction,
       'flex-wrap': wrap === true ? 'wrap' : wrap,
       'align-items': align,
