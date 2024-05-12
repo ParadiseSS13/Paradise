@@ -211,3 +211,19 @@
 						/obj/item/clothing/under/prisoner_skirt = 175,
 						/obj/item/clothing/under/rainbow_skirt = 100)
 	. = ..()
+
+/obj/machinery/economy/vending/wallmed/emergency_ntmed
+	name = "\improper Advanced Nanomed"
+	desc = "Продвинутая экстренная аптечка на все случаи жизни."
+	products = list(
+		/obj/item/reagent_containers/applicator/dual = 1,
+		/obj/item/reagent_containers/syringe/charcoal = 4,
+		/obj/item/reagent_containers/hypospray/autoinjector/nt_emergency = 4,
+		/obj/item/healthanalyzer/advanced = 1
+		)
+	refill_canister = /obj/item/vending_refill/adv_ntmed
+
+/obj/item/reagent_containers/hypospray/autoinjector/nt_emergency
+	name = "advanced emergency autoinjector"
+	desc = "Компания всегда ставит жизни и здоровье своих сотрудников превыше всего."
+	list_reagents = list("nanites" = 10)

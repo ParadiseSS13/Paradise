@@ -222,3 +222,7 @@
 	icon = 'modular_ss220/clothing/icons/object/helmet.dmi'
 	icon_state = "hardsuit0-sec"
 	icon_override = 'modular_ss220/clothing/icons/mob/helmet.dmi'
+
+/* SOO jacket */
+/obj/item/clothing/suit/space/deathsquad/officer/soo_brown
+	icon_state = "brtrenchcoat_open"
