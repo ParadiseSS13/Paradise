@@ -454,6 +454,16 @@
 	// Any proc that wants MILLA to be synchronous should not sleep
 	SHOULD_NOT_SLEEP(TRUE)
 
+	// Re-check that it's OK to dock.
+	if(S1.get_docked() == src)
+		remove_ripples()
+		return
+	if(!force)
+		if(!check_dock(S1))
+			return
+		if(!canMove())
+			return
+
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space
