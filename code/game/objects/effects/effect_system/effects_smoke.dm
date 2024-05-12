@@ -206,3 +206,11 @@
 
 /datum/effect_system/smoke_spread/sleeping
 	effect_type = /obj/effect/particle_effect/smoke/sleeping
+
+/////////////////////////////////////////////
+// Changeling smoke
+/////////////////////////////////////////////
+
+/obj/effect/particle_effect/smoke/changeling
+	color = "#7A61B0"
+	lifetime = 10
