@@ -71,10 +71,10 @@ export const PanDEMIC = (props, context) => {
               buttons={<CommonCultureActions />}
             >
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
+              {resistances?.length > 0 && <ResistancesSection />}
             </Section>
           )}
           {!!beakerContainsVirus && <CultureInformationSection />}
-          {resistances?.length > 0 && <ResistancesSection />}
         </Stack>
       </Window.Content>
     </Window>
@@ -351,11 +351,7 @@ const ResistancesSection = (props, context) => {
   const { synthesisCooldown, beakerContainsVirus, resistances } = data;
   return (
     <Stack.Item>
-      <Section
-        title="Antibodies"
-        fill
-        buttons={!beakerContainsVirus && <CommonCultureActions />}
-      >
+      <Section title="Antibodies" fill>
         <Stack horizontal wrap>
           {resistances.map((r, i) => (
             <Stack.Item key={i}>
