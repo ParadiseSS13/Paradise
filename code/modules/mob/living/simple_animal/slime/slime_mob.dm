@@ -194,7 +194,7 @@
 					healths.icon_state = "slime_health7"
 					severity = 6
 			if(severity > 0)
-				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/stretch/brute, severity)
 			else
 				clear_fullscreen("brute")
 
@@ -467,3 +467,7 @@
 		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
 		return
 	..()
+
+/mob/living/simple_animal/slime/unit_test_dummy
+	wander = FALSE
+	stop_automated_movement = TRUE

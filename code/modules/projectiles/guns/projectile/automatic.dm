@@ -112,7 +112,7 @@
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "WT-550 PDW"
+	name = "\improper WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "wt550"
