@@ -77,6 +77,8 @@
 
 	/// The general behavior of atmos on this tile.
 	var/atmos_mode = ATMOS_MODE_SEALED
+	/// The external environment that this tile is exposed to for ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	var/atmos_environment
 
 	var/datum/gas_mixture/bound_to_turf/bound_air
 
@@ -626,4 +628,4 @@
 /turf/proc/initialize_milla()
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
-	set_tile_atmos(x, y, z, atmos_mode = atmos_mode, external_temperature = initial(temperature), innate_heat_capacity = heat_capacity, temperature = temperature)
+	set_tile_atmos(src, atmos_mode = atmos_mode, environment_id = SSmapping.environments[atmos_environment], innate_heat_capacity = heat_capacity, temperature = temperature)

@@ -603,7 +603,8 @@ SLIME SCANNER
 	var/mixture
 	var/list/milla = null
 	if(milla_turf_details)
-		milla = get_tile_atmos(target.x, target.y, target.z)
+		milla = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(target, milla)
 		var/datum/gas_mixture/GM = new()
 		GM.copy_from_milla(milla)
 		mixture = GM
@@ -659,27 +660,25 @@ SLIME SCANNER
 
 		if(milla)
 			// Values from milla/src/lib.rs, +1 due to array indexing difference.
-			message += "<span class='info'>Atmos Blocked North: [milla[1]]</span>"
-			message += "<span class='info'>Atmos Blocked East: [milla[2]]</span>"
-			message += "<span class='info'>Atmos Blocked South: [milla[3]]</span>"
-			message += "<span class='info'>Atmos Blocked West: [milla[4]]</span>"
-			switch(milla[5])
+			message += "<span class='info'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
+			message += "<span class='info'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
+			message += "<span class='info'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
+			message += "<span class='info'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
+			switch(milla[MILLA_INDEX_ATMOS_MODE])
 				// These are enum values, so they don't get increased.
 				if(0)
 					message += "<span class='info'>Atmos Mode: Space</span>"
 				if(1)
 					message += "<span class='info'>Atmos Mode: Sealed</span>"
 				if(2)
-					message += "<span class='info'>Atmos Mode: Lavaland</span>"
-				if(3)
-					message += "<span class='info'>Atmos Mode: Earthlike</span>"
+					message += "<span class='info'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
 				else
-					message += "<span class='info'>Atmos Mode: Unknown ([milla[5]]), contact a coder.</span>"
-			message += "<span class='info'>Superconductivity North: [milla[14]]</span>"
-			message += "<span class='info'>Superconductivity East: [milla[15]]</span>"
-			message += "<span class='info'>Superconductivity South: [milla[16]]</span>"
-			message += "<span class='info'>Superconductivity West: [milla[17]]</span>"
-			message += "<span class='info'>Turf's Innate Heat Capacity: [milla[18]]</span>"
+					message += "<span class='info'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
+			message += "<span class='info'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
+			message += "<span class='info'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
+			message += "<span class='info'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
+			message += "<span class='info'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
+			message += "<span class='info'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
 
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE

@@ -209,13 +209,13 @@
 		return
 
 	if(blocks_air)
-		set_tile_atmos_blocking(x, y, z, list(TRUE, TRUE, TRUE, TRUE))
+		set_tile_airtight(src, list(TRUE, TRUE, TRUE, TRUE))
 		// Will be needed when we go back to having solid tile conductivity.
-		//reset_superconductivity(x, y, z)
-		reduce_superconductivity(x, y, z, list(0, 0, 0, 0))
+		//reset_superconductivity(src)
+		reduce_superconductivity(src, list(0, 0, 0, 0))
 		return
 
-	var/list/atmos_blocks = list(
+	var/list/atmos_airtight = list(
 		!CanAtmosPass(NORTH, FALSE),
 		!CanAtmosPass(EAST, FALSE),
 		!CanAtmosPass(SOUTH, FALSE),
@@ -232,21 +232,21 @@
 			// Items can't block atmos.
 			continue
 		if(!O.CanAtmosPass(NORTH))
-			atmos_blocks[INDEX_NORTH] = TRUE
+			atmos_airtight[INDEX_NORTH] = TRUE
 		if(!O.CanAtmosPass(EAST))
-			atmos_blocks[INDEX_EAST] = TRUE
+			atmos_airtight[INDEX_EAST] = TRUE
 		if(!O.CanAtmosPass(SOUTH))
-			atmos_blocks[INDEX_SOUTH] = TRUE
+			atmos_airtight[INDEX_SOUTH] = TRUE
 		if(!O.CanAtmosPass(WEST))
-			atmos_blocks[INDEX_WEST] = TRUE
+			atmos_airtight[INDEX_WEST] = TRUE
 		superconductivity[INDEX_NORTH] = min(superconductivity[INDEX_NORTH], O.get_superconductivity(NORTH))
 		superconductivity[INDEX_EAST] = min(superconductivity[INDEX_EAST], O.get_superconductivity(EAST))
 		superconductivity[INDEX_SOUTH] = min(superconductivity[INDEX_SOUTH], O.get_superconductivity(SOUTH))
 		superconductivity[INDEX_WEST] = min(superconductivity[INDEX_WEST], O.get_superconductivity(WEST))
 
-	set_tile_atmos_blocking(x, y, z, atmos_blocks)
-	reset_superconductivity(x, y, z)
-	reduce_superconductivity(x, y, z, superconductivity)
+	set_tile_airtight(src, atmos_airtight)
+	reset_superconductivity(src)
+	reduce_superconductivity(src, superconductivity)
 
 #undef INDEX_NORTH
 #undef INDEX_EAST

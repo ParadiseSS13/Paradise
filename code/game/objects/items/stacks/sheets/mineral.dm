@@ -287,6 +287,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
+	loc.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/stack/sheet/mineral/plasma, fire_act_sync)))
+
+/obj/item/stack/sheet/mineral/plasma/proc/fire_act_sync()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, amount*10)
 	qdel(src)
 

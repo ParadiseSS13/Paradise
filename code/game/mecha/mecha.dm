@@ -658,7 +658,7 @@
 	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	if(loc)
-		loc.assume_air(cabin_air)
+		loc.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, dump_air), cabin_air))
 	else
 		qdel(cabin_air)
 	cabin_air = null
@@ -669,6 +669,12 @@
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
+
+/obj/mecha/proc/dump_air(datum/gas_mixture/air)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	loc.assume_air(air)
 
 //TODO
 /obj/mecha/emp_act(severity)
@@ -1521,7 +1527,7 @@
 			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
 			if(t_air)
-				t_air.merge(removed)
+				t_air.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, dump_air), removed))
 			else //just delete the cabin gas, we're in space or some shit
 				qdel(removed)
 

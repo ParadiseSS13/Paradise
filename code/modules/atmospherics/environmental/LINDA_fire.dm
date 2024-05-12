@@ -50,11 +50,14 @@
 	..()
 	if(!fake)
 		SSair.hotspots += src
-		burn_plasma()
+		loc.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/hotspot, burn_plasma)))
 	dir = pick(GLOB.cardinal)
 
 /// Burns the air affected by this hotspot. A hotspot is effectively a gas fire that might not cover the entire tile yet. This proc makes that "partial fire" burn, altering the tile as a whole, and potentially setting the entire tile on fire.
 /obj/effect/hotspot/proc/burn_plasma()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/turf/simulated/location = loc
 	if(!istype(location) || location.blocks_air)
 		return FALSE

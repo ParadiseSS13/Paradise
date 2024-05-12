@@ -40,11 +40,11 @@
 /proc/is_milla_synchronous(tick)
 	return MILLA_CALL(is_synchronous, tick)
 
-/proc/set_tile_atmos(x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-	return MILLA_CALL(set_tile_atmos, x, y, z, blocked_north, blocked_east, blocked_south, blocked_west, atmos_mode, external_temperature, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+	return MILLA_CALL(set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
 
-/proc/get_tile_atmos(x, y, z)
-	return MILLA_CALL(get_tile_atmos, x, y, z)
+/proc/get_tile_atmos(turf/T, list/L)
+	return MILLA_CALL(get_tile, T, L)
 
 /proc/spawn_milla_tick_thread()
 	return MILLA_CALL(spawn_tick_thread)
@@ -55,27 +55,72 @@
 /proc/get_interesting_atmos_tiles()
 	return MILLA_CALL(get_interesting_tiles)
 
-/proc/reduce_superconductivity(x, y, z, list/superconductivity)
+/proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
 	var/east = superconductivity[2]
 	var/south = superconductivity[3]
 	var/west = superconductivity[4]
 
-	return MILLA_CALL(reduce_superconductivity, x, y, z, north, east, south, west)
+	return MILLA_CALL(reduce_superconductivity, T, north, east, south, west)
 
-/proc/reset_superconductivity(x, y, z)
-	return MILLA_CALL(reset_superconductivity, x, y, z)
+/proc/reset_superconductivity(turf/T)
+	return MILLA_CALL(reset_superconductivity, T)
 
-/proc/set_tile_atmos_blocking(x, y, z, list/blocking)
-	var/north = blocking[1]
-	var/east = blocking[2]
-	var/south = blocking[3]
-	var/west = blocking[4]
+/proc/set_tile_airtight(turf/T, list/airtight)
+	var/north = airtight[1]
+	var/east = airtight[2]
+	var/south = airtight[3]
+	var/west = airtight[4]
 
-	return MILLA_CALL(set_tile_atmos_blocking, x, y, z, north, east, south, west)
+	return MILLA_CALL(set_tile_airtight, T, north, east, south, west)
 
 /proc/get_random_interesting_tile()
 	return MILLA_CALL(get_random_interesting_tile)
 
+/proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+	return MILLA_CALL(create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+
 #undef MILLA
 #undef MILLA_CALL
+
+// Indexes for Tiles and InterestingTiles
+// Must match the order in milla/src/model.rs
+#define MILLA_INDEX_AIRTIGHT_DIRECTIONS 	1
+#define MILLA_INDEX_OXYGEN					2
+#define MILLA_INDEX_CARBON_DIOXIDE			3
+#define MILLA_INDEX_NITROGEN				4
+#define MILLA_INDEX_TOXINS					5
+#define MILLA_INDEX_SLEEPING_AGENT			6
+#define MILLA_INDEX_AGENT_B					7
+#define MILLA_INDEX_ATMOS_MODE				8
+#define MILLA_INDEX_ENVIRONMENT_ID			9
+#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH	10
+#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST	11
+#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH	12
+#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	13
+#define MILLA_INDEX_INNATE_HEAT_CAPACITY	14
+#define MILLA_INDEX_TEMPERATURE				15
+
+/// The number of values per tile.
+#define MILLA_TILE_SIZE						MILLA_INDEX_TEMPERATURE
+
+// These are only for InterestingTiles.
+#define MILLA_INDEX_TURF					16
+#define MILLA_INDEX_INTERESTING_REASONS		17
+#define MILLA_INDEX_AIRFLOW_X				18
+#define MILLA_INDEX_AIRFLOW_Y				19
+
+/// The number of values per interesting tile.
+#define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y
+
+/// Interesting because it needs a display update.
+#define MILLA_INTERESTING_REASON_DISPLAY	(1 << 0)
+/// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
+#define MILLA_INTERESTING_REASON_HOT		(1 << 1)
+/// Interesting because it has wind that can push stuff around.
+#define MILLA_INTERESTING_REASON_WIND		(1 << 2)
+
+#define MILLA_NORTH	(1 << 0)
+#define MILLA_EAST	(1 << 1)
+#define MILLA_SOUTH	(1 << 2)
+#define MILLA_WEST	(1 << 3)

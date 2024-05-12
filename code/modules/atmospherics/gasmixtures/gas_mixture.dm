@@ -671,23 +671,15 @@ What are the archived variables for?
 /datum/gas_mixture/proc/get_true_breath_pressure(partial_pressure)
 	return (partial_pressure * BREATH_VOLUME) / (R_IDEAL_GAS_EQUATION * private_temperature)
 
-// From milla/src/lib.rs
-#define GAS_OFFSET 6
-// Rust deals in thermal energy, but converts when talking to DM.
-#define ATMOS_TEMPERATURE 13
-#define ATMOS_INNATE_HEAT_CAPACITY 18
 /datum/gas_mixture/proc/copy_from_milla(list/milla)
-	private_oxygen = milla[GAS_OFFSET + 1]
-	private_carbon_dioxide = milla[GAS_OFFSET + 2]
-	private_nitrogen = milla[GAS_OFFSET + 3]
-	private_toxins = milla[GAS_OFFSET + 4]
-	private_sleeping_agent = milla[GAS_OFFSET + 5]
-	private_agent_b = milla[GAS_OFFSET + 6]
-	private_temperature = milla[ATMOS_TEMPERATURE]
-	innate_heat_capacity = milla[ATMOS_INNATE_HEAT_CAPACITY]
-#undef GAS_OFFSET
-#undef ATMOS_TEMPERATURE
-#undef ATMOS_INNATE_HEAT_CAPACITY
+	private_oxygen = milla[MILLA_INDEX_OXYGEN]
+	private_carbon_dioxide = milla[MILLA_INDEX_CARBON_DIOXIDE]
+	private_nitrogen = milla[MILLA_INDEX_NITROGEN]
+	private_toxins = milla[MILLA_INDEX_TOXINS]
+	private_sleeping_agent = milla[MILLA_INDEX_SLEEPING_AGENT]
+	private_agent_b = milla[MILLA_INDEX_AGENT_B]
+	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
+	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 
 /proc/share_many_airs(list/mixtures)
 	var/total_volume = 0
@@ -771,7 +763,9 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	if(isnull(bound_turf))
 		return FALSE
 
-	copy_from_milla(get_tile_atmos(bound_turf.x, bound_turf.y, bound_turf.z))
+	var/milla[MILLA_TILE_SIZE]
+	get_tile_atmos(bound_turf, milla)
+	copy_from_milla(milla)
 	dirty = FALSE
 	return TRUE
 
@@ -779,9 +773,12 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	// TEMPORARY, TODO: Remove before merge.
 	// The reason this is temporary is that the ASSERT in synchronize_now is enough to catch anyone who fails to synchronize and actually causes problems. This is just here so we can catch callers during TM who failed to synchronize, and might cause problems later.
 	if(!synchronized && !SSair.processing_atmos_machinery)
-		stack_trace()
+		stack_trace("Possible failure to sync.")
 	synchronize_now()
 	dirty = TRUE
+	if(istype(bound_turf, /turf/simulated))
+		var/turf/simulated/S = bound_turf
+		S.update_visuals()
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
 	set_dirty()
@@ -798,16 +795,10 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
 	set_dirty()
 	private_toxins = value
-	if(istype(bound_turf, /turf/simulated))
-		var/turf/simulated/S = bound_turf
-		S.update_visuals()
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
 	set_dirty()
 	private_sleeping_agent = value
-	if(istype(bound_turf, /turf/simulated))
-		var/turf/simulated/S = bound_turf
-		S.update_visuals()
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
 	set_dirty()
@@ -818,4 +809,4 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	private_temperature = value
 
 /datum/gas_mixture/bound_to_turf/proc/write()
-	set_tile_atmos(bound_turf.x, bound_turf.y, bound_turf.z, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)
+	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)

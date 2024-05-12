@@ -5,7 +5,6 @@
 #define SSAIR_HOTSPOTS 5
 #define SSAIR_BOUND_MIXTURES 6
 #define SSAIR_MILLA_TICK 7
-#define SSAIR_SUPERCONDUCTIVITY 8
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -17,6 +16,8 @@ SUBSYSTEM_DEF(air)
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 
+	/// How long we spent sleeping while waiting for MILLA to finish the last tick, shown in SS Info's C block as ZZZ.
+	var/datum/resumable_cost_counter/time_slept = new()
 	/// The cost of a pass through bound gas mixtures, shown in SS Info's C block as BM.
 	var/datum/resumable_cost_counter/cost_bound_mixtures = new()
 	/// The cost of a MILLA tick in ms, shown in SS Info's C block as MT.
@@ -66,6 +67,9 @@ SUBSYSTEM_DEF(air)
 	/// Is MILLA currently in synchronous mode? TRUE if data is fresh and changes can be made, FALSE if data is from last tick and changes cannot be made (because this tick is still processing).
 	var/is_synchronous = TRUE
 
+	/// When did we start the last MILLA tick?
+	var/milla_tick_start = null
+
 	/// Is MILLA (and hence SSair) reliably healthy?
 	var/healthy = TRUE
 
@@ -102,6 +106,7 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
+	msg += "ZZZ:[time_slept.to_string()]|"
 	msg += "BM:[cost_bound_mixtures.to_string()]|"
 	msg += "MT:[round(cost_milla_tick,1)]|"
 	msg += "IT:[cost_interesting_tiles.to_string()]|"
@@ -144,28 +149,26 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSair.currentpart
 
 /datum/controller/subsystem/air/fire(resumed = 0)
-	var/timer = TICK_USAGE_REAL
+	var/timer = 0
 
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
-	while(!is_synchronous)
-		// Sleep for 1ms.
-		sleep(0.01)
-		if(MC_TICK_CHECK)
-			if(healthy)
-				log_debug("MILLA is unhealthy: SSair cannot start processing because MILLA is still read-only! This message will be suppressed until MILLA recovers.")
-				healthy = FALSE
-			last_unhealthy = times_fired
-			return
+	if(!is_synchronous)
+		timer = TICK_USAGE_REAL
 
-		if(is_synchronous)
-			break
+		while(!is_synchronous)
+			// Sleep for 1ms.
+			sleep(0.01)
+			if(MC_TICK_CHECK)
+				time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+				return
 
-	if(!healthy && times_fired - last_unhealthy >= 10)
-		log_debug("MILLA has recovered: SSair was able to start 10 times in a row.")
-		healthy = TRUE
+		time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), TRUE)
 
 	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
+		timer = TICK_USAGE_REAL
+
 		build_pipenets(resumed)
+
 		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
@@ -173,7 +176,10 @@ SUBSYSTEM_DEF(air)
 		currentpart = SSAIR_PIPENETS
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
+		timer = TICK_USAGE_REAL
+
 		process_pipenets(resumed)
+
 		cost_pipenets.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
@@ -182,7 +188,9 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
+
 		processing_atmos_machinery = TRUE
+
 		process_atmos_machinery(resumed)
 		processing_atmos_machinery = FALSE
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
@@ -193,7 +201,9 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_INTERESTING_TILES)
 		timer = TICK_USAGE_REAL
+
 		process_interesting_tiles(resumed)
+
 		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
@@ -202,7 +212,9 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_HOTSPOTS)
 		timer = TICK_USAGE_REAL
+
 		process_hotspots(resumed)
+
 		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
@@ -211,7 +223,9 @@ SUBSYSTEM_DEF(air)
 
 	if(currentpart == SSAIR_BOUND_MIXTURES)
 		timer = TICK_USAGE_REAL
+
 		process_bound_mixtures(resumed)
+
 		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
@@ -219,10 +233,12 @@ SUBSYSTEM_DEF(air)
 		currentpart = SSAIR_MILLA_TICK
 
 	if(currentpart == SSAIR_MILLA_TICK)
-		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
-		is_synchronous = FALSE
-		spawn_wait_proc(spawn_milla_tick_thread())
+		// Self-timed.
 
+		spawn_milla_tick_thread()
+		is_synchronous = FALSE
+
+		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
@@ -288,57 +304,54 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-/// The number of values per interesting tile.
-#define INTERESTING_TILE_SIZE 6
-/// Interesting because it needs a display update.
-#define REASON_DISPLAY	(1 << 0)
-/// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
-#define REASON_HOT		(1 << 1)
-/// Interesting because it has wind that can push stuff around.
-#define REASON_WIND		(1 << 2)
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
 	if(!resumed)
 		// Fetch the list of interesting tiles from MILLA.
 		src.currentrun = get_interesting_atmos_tiles()
-		interesting_tile_count = length(src.currentrun) / INTERESTING_TILE_SIZE
+		interesting_tile_count = length(src.currentrun) / MILLA_INTERESTING_TILE_SIZE
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
 		// Pop a tile off the list.
-		var/offset = length(currentrun) - INTERESTING_TILE_SIZE
-		var/x = currentrun[offset + 1]
-		var/y = currentrun[offset + 2]
-		var/z = currentrun[offset + 3]
-		var/reasons = currentrun[offset + 4]
-		var/x_flow = currentrun[offset + 5]
-		var/y_flow = currentrun[offset + 6]
-		currentrun.len -= INTERESTING_TILE_SIZE
-
-		var/turf/simulated/T = locate(x, y, z)
+		var/offset = length(currentrun) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = currentrun[offset + MILLA_INDEX_TURF]
 		if(!istype(T))
+			currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 			if(MC_TICK_CHECK)
 				return
 			continue
 
-		if(reasons & REASON_DISPLAY)
-			T.update_visuals()
+		var/reasons = currentrun[offset + MILLA_INDEX_INTERESTING_REASONS]
+		var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
+		var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
+		var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
+		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 
-		if(reasons & REASON_HOT)
+		// Bind the MILLA tile we got, if needed.
+		if(isnull(T.bound_air))
+			bind_turf(T, milla_tile)
+		else if(!T.bound_air.synchronized)
+			T.bound_air.copy_from_milla(milla_tile)
+			T.bound_air.dirty = FALSE
+			T.bound_air.synchronized = is_synchronous
+
+		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
+			var/turf/simulated/S = T
+			if(istype(S))
+				S.update_visuals()
+
+		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/datum/gas_mixture/air = T.get_air()
 			T.hotspot_expose(air.temperature(), CELL_VOLUME)
 			for(var/atom/movable/item in T)
 				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
 			T.temperature_expose(air, air.temperature(), CELL_VOLUME)
 
-		if(reasons & REASON_WIND)
+		if(reasons & MILLA_INTERESTING_REASON_WIND)
 			T.high_pressure_movements(x_flow, y_flow)
 
 		if(MC_TICK_CHECK)
 			return
-#undef INTERESTING_TILE_SIZE
-#undef REASON_DISPLAY
-#undef REASON_HOT
-#undef REASON_WIND
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
 	if(!resumed)
@@ -434,24 +447,18 @@ SUBSYSTEM_DEF(air)
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
 
-/datum/controller/subsystem/air/proc/bind_turf(turf/T)
+/datum/controller/subsystem/air/proc/bind_turf(turf/T, list/milla_tile = null)
 	var/datum/gas_mixture/bound_to_turf/B = new()
 	T.bound_air = B
 	B.bound_turf = T
-	B.copy_from_milla(get_tile_atmos(T.x, T.y, T.z))
+	if(isnull(milla_tile))
+		milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(T, milla_tile)
+	B.copy_from_milla(milla_tile)
 	B.dirty = FALSE
 	B.synchronized = is_synchronous
 	bound_mixtures += B
 
-/datum/controller/subsystem/air/proc/spawn_wait_proc(tick)
-	if(!is_milla_synchronous(tick))
-		addtimer(CALLBACK(src, PROC_REF(spawn_wait_proc), tick))
-		return
-
-	is_synchronous = TRUE
-	for(var/datum/callback/CB as anything in waiting_for_sync)
-		CB.InvokeAsync()
-	waiting_for_sync.Cut()
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/callback/CB)
@@ -461,6 +468,12 @@ SUBSYSTEM_DEF(air)
 
 	waiting_for_sync += CB
 
+/proc/milla_tick_finished()
+	SSair.is_synchronous = TRUE
+	for(var/datum/callback/CB as anything in SSair.waiting_for_sync)
+		CB.InvokeAsync()
+	SSair.waiting_for_sync.Cut()
+
 #undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
@@ -468,4 +481,3 @@ SUBSYSTEM_DEF(air)
 #undef SSAIR_HOTSPOTS
 #undef SSAIR_BOUND_MIXTURES
 #undef SSAIR_MILLA_TICK
-#undef SSAIR_SUPERCONDUCTIVITY

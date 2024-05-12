@@ -92,7 +92,7 @@
 	check_breath(breath)
 
 	if(breath)
-		environment.merge(breath)
+		loc.assume_air(breath)
 		if(ishuman(src) && !internal && environment.temperature() < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 

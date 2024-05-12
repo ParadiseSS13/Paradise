@@ -155,5 +155,11 @@
 // From milla/src/lib.rs
 #define ATMOS_MODE_SPACE 0
 #define ATMOS_MODE_SEALED 1
-#define ATMOS_MODE_LAVALAND 2
-#define ATMOS_MODE_EARTHLIKE 3
+#define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2
+
+/// Lavaland environment: hot, low pressure.
+#define ENVIRONMENT_LAVALAND "lavaland"
+/// Temperate environment: Normal atmosphere, 20 C.
+#define ENVIRONMENT_TEMPERATE "temperate"
+/// Cold environment: Normal atmosphere, -93 C.
+#define ENVIRONMENT_COLD "cold"

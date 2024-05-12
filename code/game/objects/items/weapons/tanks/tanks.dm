@@ -133,9 +133,16 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			T.assume_air(air_contents)
+			T.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, dump_air), air_contents))
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
+
+/obj/item/tank/proc/dump_air(datum/gas_mixture/air)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/turf/T = get_turf(src)
+	T?.assume_air(air)
 
 /obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

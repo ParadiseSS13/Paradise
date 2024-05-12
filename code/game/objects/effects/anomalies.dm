@@ -355,13 +355,23 @@
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
+		T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, spawn_fire), T))
+
+/obj/effect/anomaly/pyro/proc/spawn_fire(turf/simulated/T)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
-		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
+		var/turf/T = get_turf(src)
+		T.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, makepyroslime)))
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
@@ -409,7 +419,7 @@
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
-			T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+			T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/cryo, spawn_air), T, LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20))
 
 	if(prob(10))
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
@@ -436,7 +446,13 @@
 /obj/effect/anomaly/cryo/detonate()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T) && drops_core)
-		T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000)
+		T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/cryo, spawn_air), T, LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000))
+
+/obj/effect/anomaly/cryo/proc/spawn_air(turf/simulated/T, flags, amount)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	T.atmos_spawn_air(flags, amount)
 
 /////////////////////
 

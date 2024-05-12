@@ -32,7 +32,8 @@
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	atmos_mode = ATMOS_MODE_EARTHLIKE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/beach/away/Initialize(mapload)
 	. = ..()
@@ -117,7 +118,8 @@
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_LAVALAND
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /// for boundary "walls"
 /turf/simulated/floor/beach/away/water/dense

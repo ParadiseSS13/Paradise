@@ -12,6 +12,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "atomic_float"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c4b08ed8a30ff7320117c190eb4d73d47f0ac0c930ab853b8224cef7cd9a5e7"
+
+[[package]]
 name = "bindgen"
 version = "0.69.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -42,8 +48,8 @@ checksum = "cf4b9d6a944f767f8e5e0db018570623c85f3d925ac718db4e06d0187adb21c1"
 
 [[package]]
 name = "byondapi"
-version = "0.4.4"
-source = "git+https://github.com/spacestation13/byondapi-rs.git#5afdd9863a0fc1d8d1d42dd2128c9978f54e12ca"
+version = "0.4.7"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#aa4addd95c33b66652b3e35e7401a0ad82aa028e"
 dependencies = [
  "byondapi-macros",
  "byondapi-sys",
@@ -57,7 +63,7 @@ dependencies = [
 [[package]]
 name = "byondapi-macros"
 version = "0.1.2"
-source = "git+https://github.com/spacestation13/byondapi-rs.git#5afdd9863a0fc1d8d1d42dd2128c9978f54e12ca"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#aa4addd95c33b66652b3e35e7401a0ad82aa028e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -67,7 +73,7 @@ dependencies = [
 [[package]]
 name = "byondapi-sys"
 version = "0.11.1"
-source = "git+https://github.com/spacestation13/byondapi-rs.git#5afdd9863a0fc1d8d1d42dd2128c9978f54e12ca"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#aa4addd95c33b66652b3e35e7401a0ad82aa028e"
 dependencies = [
  "bindgen",
  "doxygen-rs",
@@ -75,12 +81,6 @@ dependencies = [
  "rustc_version",
  "walkdir",
 ]
-
-[[package]]
-name = "cc"
-version = "1.0.96"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "065a29261d53ba54260972629f9ca6bffa69bac13cd1fed61420f7fa68b9f8bd"
 
 [[package]]
 name = "cexpr"
@@ -262,10 +262,13 @@ checksum = "6c8640c5d730cb13ebd907d8d04b52f55ac9a2eec55b440c8892f40d56c76c1d"
 name = "milla"
 version = "1.0.0"
 dependencies = [
+ "atomic_float",
+ "bitflags",
  "byondapi",
  "eyre",
  "rand",
- "tracy_full",
+ "scc",
+ "thread-priority",
 ]
 
 [[package]]
@@ -484,6 +487,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustversion"
+version = "1.0.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "092474d1a01ea8278f69e6a358998405fae5b8b963ddaeb2b0b04a128bf1dfb0"
+
+[[package]]
 name = "same-file"
 version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -491,6 +500,21 @@ checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
 dependencies = [
  "winapi-util",
 ]
+
+[[package]]
+name = "scc"
+version = "2.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76ad2bbb0ae5100a07b7a6f2ed7ab5fd0045551a4c507989b7a620046ea3efdc"
+dependencies = [
+ "sdd",
+]
+
+[[package]]
+name = "sdd"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b84345e4c9bd703274a082fb80caaa99b7612be48dfaa1dd9266577ec412309d"
 
 [[package]]
 name = "semver"
@@ -522,6 +546,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "thread-priority"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0d3b04d33c9633b8662b167b847c7ab521f83d1ae20f2321b65b5b925e532e36"
+dependencies = [
+ "bitflags",
+ "cfg-if",
+ "libc",
+ "log",
+ "rustversion",
+ "winapi",
+]
+
+[[package]]
 name = "toml_datetime"
 version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -536,26 +574,6 @@ dependencies = [
  "indexmap",
  "toml_datetime",
  "winnow",
-]
-
-[[package]]
-name = "tracy-client-sys"
-version = "0.22.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d104d610dfa9dd154535102cc9c6164ae1fa37842bc2d9e83f9ac82b0ae0882"
-dependencies = [
- "cc",
-]
-
-[[package]]
-name = "tracy_full"
-version = "1.7.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f168899957a9ace9328f8f5110c13cc73f9156dcefc706407da1690a9d4aa0b"
-dependencies = [
- "once_cell",
- "rustc_version",
- "tracy-client-sys",
 ]
 
 [[package]]
@@ -593,6 +611,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "winapi"
+version = "0.3.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
+dependencies = [
+ "winapi-i686-pc-windows-gnu",
+ "winapi-x86_64-pc-windows-gnu",
+]
+
+[[package]]
+name = "winapi-i686-pc-windows-gnu"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
+
+[[package]]
 name = "winapi-util"
 version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -600,6 +634,12 @@ checksum = "4d4cc384e1e73b93bafa6fb4f1df8c41695c8a91cf9c4c64358067d15a7b6c6b"
 dependencies = [
  "windows-sys",
 ]
+
+[[package]]
+name = "winapi-x86_64-pc-windows-gnu"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "windows-sys"

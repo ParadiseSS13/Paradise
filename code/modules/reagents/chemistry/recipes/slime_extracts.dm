@@ -338,7 +338,14 @@
 		if(holder && holder.my_atom)
 			var/turf/simulated/T = get_turf(holder.my_atom)
 			if(istype(T))
-				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
+				T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/chemical_reaction/slimefire, spawn_fire), holder))
+
+/datum/chemical_reaction/slimefire/proc/spawn_fire(datum/reagents/holder)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/turf/simulated/T = get_turf(holder?.my_atom)
+	T?.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
 
 //Yellow
 

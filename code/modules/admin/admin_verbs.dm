@@ -989,12 +989,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
 		return
 
-	var/list/coords = get_random_interesting_tile()
-	if(!length(coords))
+	var/list/interesting_tile = get_random_interesting_tile()
+	if(!length(interesting_tile))
 		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
 		return
 
-	var/turf/T = locate(coords[1], coords[2], coords[3])
+	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
 	var/mob/dead/observer/O = mob
 	admin_forcemove(O, T)
 	O.ManualFollow(T)
@@ -1028,13 +1028,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	while(length(coords))
-		var/offset = length(coords) - 6
-		var/x = coords[offset + 1]
-		var/y = coords[offset + 2]
-		var/z = coords[offset + 3]
-		coords.len -= 6
-
-		var/turf/T = locate(x, y, z)
+		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = coords[offset + MILLA_INDEX_TURF]
+		coords.len -= MILLA_INTERESTING_TILE_SIZE
 
 
 		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
