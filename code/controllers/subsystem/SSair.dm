@@ -16,6 +16,8 @@ SUBSYSTEM_DEF(air)
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 
+	/// How long we took for a full pass through the subsystem. Custom-tracked version of `cost`.
+	var/datum/resumable_cost_counter/cost_full = new()
 	/// How long we spent sleeping while waiting for MILLA to finish the last tick, shown in SS Info's C block as ZZZ.
 	var/datum/resumable_cost_counter/time_slept = new()
 	/// The cost of a pass through bound gas mixtures, shown in SS Info's C block as BM.
@@ -103,6 +105,9 @@ SUBSYSTEM_DEF(air)
 		return "[round(ongoing_ms, 1)]+"
 	return "[round(last_complete_ms, 1)]"
 
+/datum/controller/subsystem/air/get_cost()
+	return cost_full.to_string()
+
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
@@ -126,6 +131,7 @@ SUBSYSTEM_DEF(air)
 	. = ..()
 	var/list/cust = list()
 	cust["hotspots"] = length(hotspots)
+	.["cost"] = cost_full.last_complete_ms
 	.["custom"] = cust
 
 /datum/controller/subsystem/air/Initialize()
@@ -160,8 +166,10 @@ SUBSYSTEM_DEF(air)
 			sleep(0.01)
 			if(MC_TICK_CHECK)
 				time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+				cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 				return
 
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), TRUE)
 
 	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
@@ -170,6 +178,7 @@ SUBSYSTEM_DEF(air)
 		build_pipenets(resumed)
 
 		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
@@ -181,6 +190,7 @@ SUBSYSTEM_DEF(air)
 		process_pipenets(resumed)
 
 		cost_pipenets.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
@@ -194,6 +204,7 @@ SUBSYSTEM_DEF(air)
 		process_atmos_machinery(resumed)
 		processing_atmos_machinery = FALSE
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
@@ -205,6 +216,7 @@ SUBSYSTEM_DEF(air)
 		process_interesting_tiles(resumed)
 
 		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
@@ -216,6 +228,7 @@ SUBSYSTEM_DEF(air)
 		process_hotspots(resumed)
 
 		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
@@ -227,18 +240,20 @@ SUBSYSTEM_DEF(air)
 		process_bound_mixtures(resumed)
 
 		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
 		currentpart = SSAIR_MILLA_TICK
 
 	if(currentpart == SSAIR_MILLA_TICK)
-		// Self-timed.
+		timer = TICK_USAGE_REAL
 
 		spawn_milla_tick_thread()
 		is_synchronous = FALSE
 
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			return
 		resumed = 0
