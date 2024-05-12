@@ -311,7 +311,7 @@
 	return
 
 /turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
-    return
+	return
 
 /////////////////////Plastitanium walls/////////////////////
 
