@@ -256,8 +256,10 @@
 				break
 
 	var/list/strains = list()
+	var/hidden_virus = FALSE
 	for(var/datum/disease/D in GetViruses())
 		if(D.visibility_flags & HIDDEN_PANDEMIC)
+			hidden_virus = TRUE
 			continue
 
 		var/list/symptoms = list()
@@ -288,6 +290,7 @@
 			"isAdvanced" = istype(D, /datum/disease/advance),
 		))
 	data["strains"] = strains
+	data["hiddenVirus"] = hidden_virus
 
 	var/list/resistances = list()
 	for(var/resistance in GetResistances())
