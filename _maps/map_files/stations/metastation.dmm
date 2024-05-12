@@ -3958,7 +3958,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "axz" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -17270,6 +17270,12 @@
 "bmF" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
+"bmJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
+/area/station/science/lobby)
 "bmK" = (
 /obj/structure/rack{
 	dir = 1
@@ -23089,7 +23095,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "bCH" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood,
@@ -28047,7 +28053,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "bUS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -28901,7 +28907,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "bXG" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/storage)
@@ -31130,13 +31136,13 @@
 "cft" = (
 /obj/structure/sign/science,
 /turf/simulated/wall,
-/area/station/science/research)
+/area/station/science/lobby)
 "cfu" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cfv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -31149,7 +31155,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cfw" = (
 /turf/simulated/wall,
 /area/station/science/research)
@@ -31358,7 +31364,7 @@
 	dir = 5;
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cgv" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -31403,14 +31409,14 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cgA" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cgB" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/assistant,
@@ -31418,14 +31424,14 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cgE" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cgF" = (
 /obj/structure/table/glass,
 /obj/machinery/camera{
@@ -31439,7 +31445,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cgG" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/explab)
@@ -31916,7 +31922,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cic" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -31929,7 +31935,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cig" = (
 /obj/machinery/door/airlock/research,
 /obj/machinery/door/firedoor,
@@ -32340,7 +32346,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cjN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -32348,7 +32354,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cjO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -32624,23 +32630,23 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cla" = (
 /obj/structure/table/glass,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/stack/sheet/glass,
+/obj/item/assembly/signaler,
+/obj/item/assembly/timer,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/item/stack/sheet/glass,
-/obj/item/assembly/signaler,
-/obj/item/assembly/timer,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "clb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -38400,7 +38406,7 @@
 "cHM" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/station/science/research)
+/area/station/science/lobby)
 "cHO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/condiment/saltshaker{
@@ -39573,7 +39579,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cMb" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
@@ -41655,7 +41661,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "cUF" = (
 /obj/structure/chair/office/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -50644,7 +50650,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "fTV" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -51467,6 +51473,14 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"gkF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/lobby)
 "glf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -56394,7 +56408,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "ilJ" = (
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
@@ -57355,7 +57369,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "iFx" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -60387,10 +60401,15 @@
 	pixel_y = 6
 	},
 /obj/item/paicard,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "jUK" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -64656,6 +64675,12 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"lHY" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/science/lobby)
 "lHZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -67004,6 +67029,18 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/carpet/arcade,
 /area/station/maintenance/fore)
+"mHn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/lobby)
 "mHs" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -71545,10 +71582,15 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "oFz" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
@@ -78884,7 +78926,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "rFg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/medical,
@@ -79325,6 +79367,9 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
+"rNC" = (
+/turf/simulated/wall,
+/area/station/science/lobby)
 "rNN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/effect/landmark/lightsout,
@@ -89089,7 +89134,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/station/science/research)
+/area/station/science/lobby)
 "wez" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -89949,6 +89994,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
+"wyJ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/lobby)
 "wyP" = (
 /obj/machinery/door_timer/cell_4{
 	pixel_x = 32
@@ -92706,6 +92756,12 @@
 	icon_state = "white"
 	},
 /area/station/security/permabrig)
+"xIS" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/lobby)
 "xJy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -121919,7 +121975,7 @@ cas
 caY
 cAy
 ced
-cfw
+rNC
 cft
 cib
 bCG
@@ -122176,10 +122232,10 @@ cpP
 mwW
 cnB
 bab
-cfw
+rNC
 cgz
-cic
-bGl
+wyJ
+gkF
 bXF
 cIu
 coH
@@ -122948,7 +123004,7 @@ fSz
 bcX
 cee
 cfu
-cic
+wyJ
 iFm
 cie
 ckZ
@@ -123205,7 +123261,7 @@ cbG
 mOc
 ceh
 cfv
-fPC
+mHn
 bUR
 cie
 cla
@@ -123462,7 +123518,7 @@ jdP
 bcX
 cee
 cHM
-cxO
+lHY
 wey
 cjM
 cUE
@@ -124232,11 +124288,11 @@ cbi
 ben
 bqb
 fXo
-cfw
+rNC
 cgu
-qnt
-qnt
-oic
+xIS
+xIS
+bmJ
 uxR
 cic
 bVj
