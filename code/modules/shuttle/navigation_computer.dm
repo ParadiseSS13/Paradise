@@ -56,7 +56,6 @@
 		return
 
 	eyeobj = new /mob/camera/eye/shuttle_docker(get_turf(locate("landmark*Observer-Start")), name, src, current_user) // There should always be an observer start landmark
-	give_eye_control(current_user)
 	var/mob/camera/eye/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
@@ -73,6 +72,7 @@
 			I.plane = 0
 			I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			the_eye.placement_images[I] = list(x_off, y_off)
+	give_eye_control(current_user)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/give_eye_control(mob/user)
 	..()
