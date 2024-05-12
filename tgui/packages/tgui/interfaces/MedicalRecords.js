@@ -1,4 +1,4 @@
-import { createSearch } from 'common/string';
+import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -365,7 +365,8 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
                 width: '96px',
                 'margin-top': '2.5rem',
                 'margin-bottom': '0.5rem',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <br />
@@ -393,14 +394,13 @@ const MedicalRecordsViewMedical = (_properties, context) => {
       <Stack.Item grow>
         <LabeledList>
           {medical.fields.map((field, i) => (
-            <LabeledList.Item key={i} label={field.field}>
-              <Box height="20px" inline>
-                {field.value}
-              </Box>
+            <LabeledList.Item key={i} label={field.field} preserveWhitespace>
+              {decodeHtmlEntities(field.value)}
               {!!field.edit && (
                 <Button
                   icon="pen"
                   ml="0.5rem"
+                  mb={field.line_break ? '1rem' : 'initial'}
                   onClick={() => doEdit(context, field)}
                 />
               )}
@@ -433,7 +433,7 @@ const MedicalRecordsViewComments = (_properties, context) => {
           <Box color="label">No comments found.</Box>
         ) : (
           medical.comments.map((comment, i) => (
-            <Box key={i} prewrap>
+            <Box key={i}>
               <Box color="label" inline>
                 {comment.header}
               </Box>
