@@ -133,7 +133,8 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			T.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, dump_air), air_contents))
+			var/datum/gas_mixture/env = T.return_air()
+			env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, dump_air), air_contents))
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 

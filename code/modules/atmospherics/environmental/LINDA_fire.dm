@@ -50,7 +50,8 @@
 	..()
 	if(!fake)
 		SSair.hotspots += src
-		loc.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/hotspot, burn_plasma)))
+		var/datum/gas_mixture/env = loc.return_air()
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/hotspot, burn_plasma)))
 	dir = pick(GLOB.cardinal)
 
 /// Burns the air affected by this hotspot. A hotspot is effectively a gas fire that might not cover the entire tile yet. This proc makes that "partial fire" burn, altering the tile as a whole, and potentially setting the entire tile on fire.

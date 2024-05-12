@@ -355,7 +355,8 @@
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, spawn_fire), T))
+		var/datum/gas_mixture/env = T.get_air()
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, spawn_fire), T))
 
 /obj/effect/anomaly/pyro/proc/spawn_fire(turf/simulated/T)
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -419,7 +420,8 @@
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
-			T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/cryo, spawn_air), T, LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20))
+			var/datum/gas_mixture/env = T.get_air()
+			env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/cryo, spawn_air), T, LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20))
 
 	if(prob(10))
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
@@ -446,7 +448,8 @@
 /obj/effect/anomaly/cryo/detonate()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T) && drops_core)
-		T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/cryo, spawn_air), T, LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000))
+		var/datum/gas_mixture/env = T.get_air()
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/cryo, spawn_air), T, LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000))
 
 /obj/effect/anomaly/cryo/proc/spawn_air(turf/simulated/T, flags, amount)
 	// Any proc that wants MILLA to be synchronous should not sleep.

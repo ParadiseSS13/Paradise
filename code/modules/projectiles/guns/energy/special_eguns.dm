@@ -449,7 +449,8 @@
 	visible_message("<span class='danger'>[src] vents heated plasma!</span>")
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.get_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/gun/energy/plasma_pistol, plasma_leak), T))
+		var/datum/gas_mixture/env = T.get_air()
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/gun/energy/plasma_pistol, plasma_leak), T))
 
 /obj/item/gun/energy/plasma_pistol/proc/plasma_leak(turf/simulated/T)
 	// Any proc that wants MILLA to be synchronous should not sleep.
