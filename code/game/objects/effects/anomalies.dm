@@ -369,9 +369,6 @@
 	T.atmos_spawn_air(flags, amount)
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		var/datum/gas_mixture/env = T.get_air()
