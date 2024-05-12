@@ -41,7 +41,6 @@ interface PanDEMICData {
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
-  hiddenVirus: BooleanLike;
 }
 
 export const PanDEMIC = (props, context) => {
@@ -246,7 +245,7 @@ const StrainInformationSection = (
 
 const CultureInformationSection = (props, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { selectedStrainIndex, strains, hiddenVirus } = data;
+  const { selectedStrainIndex, strains } = data;
   const selectedStrain = strains[selectedStrainIndex - 1];
 
   if (strains.length === 1) {
