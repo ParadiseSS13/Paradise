@@ -376,7 +376,7 @@
 	species = list("Grey")
 
 // Unathi
-/datum/uplink_item/species_restricted/prescan
+/datum/uplink_item/species_restricted/breach_cleaver
 	name = "Breach Cleaver"
 	desc = "This massive blade harkons back to the wars on Moghes. Wielding it imbues you with the unquenchable desire for martial prowess. \
 	Requires two hands to be wielded. Comes in a scabbard. Has different effects based on intent."
