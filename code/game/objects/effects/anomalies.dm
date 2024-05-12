@@ -356,18 +356,17 @@
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		var/datum/gas_mixture/env = T.get_air()
-		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, spawn_fire), T))
-
-/obj/effect/anomaly/pyro/proc/spawn_fire(turf/simulated/T)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, spawn_air), T, LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20))
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
-		var/turf/T = get_turf(src)
-		T.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, makepyroslime)))
+		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
+
+/obj/effect/anomaly/pyro/proc/spawn_air(turf/simulated/T, flags, amount)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	T.atmos_spawn_air(flags, amount)
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -375,7 +374,8 @@
 
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
+		var/datum/gas_mixture/env = T.get_air()
+		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/anomaly/pyro, spawn_air), T, LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500)) //Make it hot and burny for the new slime
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
 	S.rabid = TRUE
