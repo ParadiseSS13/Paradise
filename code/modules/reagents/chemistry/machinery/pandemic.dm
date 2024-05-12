@@ -225,25 +225,6 @@
 		ui.open()
 
 /obj/machinery/computer/pandemic/ui_data(mob/user)
-	var/datum/reagent/blood/Blood = null
-	if(beaker)
-		var/datum/reagents/R = beaker.reagents
-		for(var/datum/reagent/blood/B in R.reagent_list)
-			if(B)
-				Blood = B
-				break
-
-	var/list/data = list(
-		"synthesisCooldown" = wait ? TRUE : FALSE,
-		"beakerLoaded" = beaker ? TRUE : FALSE,
-		"beakerContainsBlood" = Blood ? TRUE : FALSE,
-		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
-		"selectedStrainIndex" = selected_strain_index,
-	)
-
-	return data
-
-/obj/machinery/computer/pandemic/ui_static_data(mob/user)
 	var/list/data = list()
 	. = data
 
@@ -256,10 +237,8 @@
 				break
 
 	var/list/strains = list()
-	var/hidden_virus = FALSE
 	for(var/datum/disease/D in GetViruses())
 		if(D.visibility_flags & HIDDEN_PANDEMIC)
-			hidden_virus = TRUE
 			continue
 
 		var/list/symptoms = list()
@@ -290,7 +269,6 @@
 			"isAdvanced" = istype(D, /datum/disease/advance),
 		))
 	data["strains"] = strains
-	data["hiddenVirus"] = hidden_virus
 
 	var/list/resistances = list()
 	for(var/resistance in GetResistances())
@@ -303,6 +281,13 @@
 			if(D)
 				resistances += list(D.name)
 	data["resistances"] = resistances
+	data["synthesisCooldown"] = wait ? TRUE : FALSE
+	data["beakerLoaded"] = beaker ? TRUE : FALSE
+	data["beakerContainsBlood"] = Blood ? TRUE : FALSE
+	data["beakerContainsVirus"] = length(data["strains"]) != 0
+	data["selectedStrainIndex"] = selected_strain_index
+
+	return data
 
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
