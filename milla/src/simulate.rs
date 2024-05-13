@@ -242,10 +242,10 @@ pub(crate) fn check_interesting(
     Ok(())
 }
 
-pub(crate) fn react(my_tile: &Tile, my_inactive_tile: &mut Tile) -> f32 {
+pub(crate) fn react(my_inactive_tile: &mut Tile) -> f32 {
     let mut fuel_burnt: f32 = 0.0;
     // Handle reactions
-    let mut my_inactive_temperature = my_tile.temperature();
+    let mut my_inactive_temperature = my_inactive_tile.temperature();
     // Agent B converting CO2 to O2
     if my_inactive_temperature > AGENT_B_CONVERSION_TEMP
         && my_inactive_tile.gases.agent_b() >= REACTION_SIGNIFICANCE_MOLES

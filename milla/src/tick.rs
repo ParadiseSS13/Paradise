@@ -164,7 +164,7 @@ pub(crate) fn tick_z_level(
         }
 
         // Track how much "fuel" was burnt across all reactions.
-        let fuel_burnt = simulate::react(my_tile, my_inactive_tile);
+        let fuel_burnt = simulate::react(my_inactive_tile);
 
         // Sanitize the tile, to avoid negative/NaN/infinity spread.
         simulate::sanitize(my_inactive_tile, my_tile);
