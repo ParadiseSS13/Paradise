@@ -12,8 +12,6 @@
 	var/item_action_type
 	/// Time to scope up, if you want the scope to take time to boot up. Used by the LWAP
 	var/time_to_scope
-	/// Are we currently trying to scope in?
-	var/attempting_to_scope = FALSE
 	/// Do we let the user scope and click on the middle of their screen?
 	var/allow_middle_click = FALSE
 	/// Do we have the scope cancel on move?
@@ -158,15 +156,9 @@
 	if(HAS_TRAIT(user, TRAIT_SCOPED))
 		to_chat(user, "<span class='warning'>You are already zoomed in!</span>")
 		return
-	if(attempting_to_scope)
-		to_chat(user, "<span class='warning'>You are already trying to scope in!</span>")
-		return
 	if(time_to_scope)
-		attempting_to_scope = TRUE
-		if(!do_after(user, time_to_scope, target = parent))
-			attempting_to_scope = FALSE
+		if(!do_after_once(user, time_to_scope, target = parent))
 			return
-		attempting_to_scope = FALSE
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
 	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/stretch/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
