@@ -214,3 +214,12 @@
 /obj/effect/particle_effect/smoke/changeling
 	color = "#7A61B0"
 	lifetime = 10
+
+/obj/effect/particle_effect/smoke/changeling/smoke_mob(mob/living/carbon/M)
+	if(..())
+		M.drop_item()
+		M.Jitter(10 SECONDS)
+		M.AdjustSlur(10 SECONDS)
+		M.AdjustDrunk(10 SECONDS)
+		M.emote("drool")
+		return 1
