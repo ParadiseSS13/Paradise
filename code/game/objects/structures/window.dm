@@ -225,7 +225,7 @@
 
 	else if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/S = I
-		if(S.get_amount()<2)
+		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
 		if(locate(/obj/structure/barricade/wooden) in get_turf(src)) //don't need a var for this because it doesn't get called much i hope
