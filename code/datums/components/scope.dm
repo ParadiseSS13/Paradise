@@ -3,7 +3,7 @@
 	/// How far the view can be moved from the player. At 1, it can be moved by the player's view distance; other values scale linearly.
 	var/range_modifier = 1
 	/// Fullscreen object we use for tracking.
-	var/atom/movable/screen/fullscreen/cursor_catcher/scope/tracker
+	var/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope/tracker
 	/// The owner of the tracker's ckey. For comparing with the current owner mob, in case the client has left it (e.g. ghosted).
 	var/tracker_owner_ckey
 	/// The method which we zoom in and out
@@ -168,7 +168,7 @@
 			return
 		attempting_to_scope = FALSE
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
-	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/cursor_catcher/scope, istype(parent, /obj/item/gun))
+	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/stretch/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
 	if(movement_cancels_scope)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -245,24 +245,24 @@
 /datum/component/scope/proc/is_zoomed_in()
 	return !!tracker
 
-/atom/movable/screen/fullscreen/cursor_catcher/scope
+/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope
 	icon = 'icons/mob/screen_scope.dmi'
 	icon_state = "scope"
 	/// Multiplier for given_X an given_y.
 	var/range_modifier = 1
 
-/atom/movable/screen/fullscreen/cursor_catcher/scope/assign_to_mob(mob/new_owner, range_modifier)
+/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope/assign_to_mob(mob/new_owner, range_modifier)
 	src.range_modifier = range_modifier
 	return ..()
 
-/atom/movable/screen/fullscreen/cursor_catcher/scope/Click(location, control, params)
+/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope/Click(location, control, params)
 	if(usr == owner)
 		calculate_params()
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params)
 
 	return ..()
 
-/atom/movable/screen/fullscreen/cursor_catcher/scope/calculate_params()
+/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope/calculate_params()
 	var/list/modifiers = params2list(mouse_params)
 	var/icon_x = text2num(LAZYACCESS(modifiers, "vis-x"))
 	if(isnull(icon_x))
