@@ -217,11 +217,27 @@
 
 /obj/effect/particle_effect/smoke/changeling/smoke_mob(mob/living/carbon/M)
 	if(..())
+		var/datum/antagonist/changeling/C = M.mind?.has_antag_datum(/datum/antagonist/changeling)
+		if(C?.get_ability(/datum/action/changeling/miasmic_mist))
+			return
 		M.drop_item()
 		M.Jitter(10 SECONDS)
 		M.AdjustEyeBlurry(10 SECONDS)
 		M.AdjustDizzy(5 SECONDS)
 		M.AdjustSlur(10 SECONDS)
-		M.emote("drool","quiver","tremble","scream")
+		M.emote(pick("drool","quiver","tremble","scream"))
 		M.fakevomit()
+		M.adjustToxLoss(2)
+		M.drop_l_hand()
+		M.drop_r_hand()
 		return 1
+
+/obj/effect/particle_effect/smoke/changeling/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0)
+		return 1
+	if(istype(mover, /obj/item/projectile/beam))
+		var/obj/item/projectile/beam/B = mover
+		B.damage = (B.damage/2)
+	return 1
+/datum/effect_system/smoke_spread/changeling
+	effect_type = /obj/effect/particle_effect/smoke/changeling

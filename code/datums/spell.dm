@@ -405,6 +405,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 					smoke = new /datum/effect_system/smoke_spread/bad()
 				if(SMOKE_SLEEPING)
 					smoke = new /datum/effect_system/smoke_spread/sleeping()
+				if(SMOKE_CHANGELING)
+					smoke = new /datum/effect_system/smoke_spread/changeling()
 			smoke.set_up(smoke_amt, FALSE, location)
 			smoke.start()
 
