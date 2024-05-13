@@ -414,9 +414,6 @@
 	else if(check_mute(user?.client?.ckey, MUTE_IC))
 		to_chat(user, "<span class='boldwarning'>You cannot send IC messages (muted).</span>")
 		return FALSE
-	else if(HAS_TRAIT(src, TRAIT_EMOTE_MUTE))
-		to_chat(user, "<span class='userdanger'>You are unable to emote right now!</span>")
-		return FALSE
 	else if(!params)
 		custom_emote = tgui_input_text(user, "Choose an emote to display.", "Custom Emote")
 		if(custom_emote && !check_invalid(user, custom_emote))
