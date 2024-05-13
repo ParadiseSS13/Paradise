@@ -90,6 +90,7 @@
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
+	layer = 5
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
@@ -106,7 +107,6 @@
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
 			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
-	else
 		return ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
@@ -124,7 +124,6 @@
 	for(var/obj/machinery/door/door in get_turf(loc))
 		door.door_barricaded = TRUE
 
-//doesn't work atm will fix later
 /obj/structure/barricade/wooden/deconstruct(disassembled)
 	for(var/obj/machinery/door/door in get_turf(src))
 		door.door_barricaded = FALSE
@@ -137,7 +136,6 @@
 	drop_amount = 2
 	max_integrity = 50
 	proj_pass_rate = 65
-	layer = 5
 
 //Barricade repairs
 /obj/structure/barricade/wooden/crude/attackby(obj/item/stack/sheet/wood/S, mob/user, params)
