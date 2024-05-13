@@ -1439,6 +1439,7 @@
 #include "code\modules\antagonists\changeling\powers\hivemind.dm"
 #include "code\modules\antagonists\changeling\powers\humanform.dm"
 #include "code\modules\antagonists\changeling\powers\lesserform.dm"
+#include "code\modules\antagonists\changeling\powers\miasmic_mist.dm"
 #include "code\modules\antagonists\changeling\powers\mimic_voice.dm"
 #include "code\modules\antagonists\changeling\powers\mutations.dm"
 #include "code\modules\antagonists\changeling\powers\panacea.dm"

@@ -219,7 +219,9 @@
 	if(..())
 		M.drop_item()
 		M.Jitter(10 SECONDS)
+		M.AdjustEyeBlurry(10 SECONDS)
+		M.AdjustDizzy(5 SECONDS)
 		M.AdjustSlur(10 SECONDS)
-		M.AdjustDrunk(10 SECONDS)
-		M.emote("drool")
+		M.emote("drool","quiver","tremble","scream")
+		M.fakevomit()
 		return 1
