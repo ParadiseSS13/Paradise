@@ -2819,7 +2819,7 @@
 /area/station/maintenance/fore)
 "aqv" = (
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/item/wrench,
@@ -4880,7 +4880,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "avL" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -9070,7 +9070,7 @@
 /area/station/service/bar)
 "aGA" = (
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/machinery/chem_dispenser/soda{
@@ -10213,6 +10213,12 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
+"aJK" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "aJM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50098,7 +50104,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "cKw" = (
 /obj/structure/table,
@@ -51918,7 +51924,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "cRz" = (
 /obj/structure/girder,
@@ -54203,7 +54209,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -62695,17 +62701,6 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
-"dNS" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 15;
-	height = 21;
-	id = "emergency_home";
-	name = "emergency evac bay";
-	width = 33
-	},
-/turf/space,
-/area/space)
 "dNZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -64685,12 +64680,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
-"dUY" = (
-/obj/machinery/light,
-/obj/machinery/alarm/directional/south,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "dUZ" = (
 /obj/machinery/light,
 /obj/machinery/status_display{
@@ -69256,6 +69245,10 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fsmaint)
+"gcP" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "gdJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -71287,7 +71280,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "hsE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -72452,7 +72445,7 @@
 /area/station/engineering/control)
 "ieu" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "iev" = (
 /obj/machinery/door/window/classic/reversed{
@@ -73770,10 +73763,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/kitchen)
-"iVe" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -74646,7 +74635,7 @@
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "jAs" = (
 /obj/machinery/door/firedoor,
@@ -76123,6 +76112,17 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"ksE" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 16;
+	height = 21;
+	id = "emergency_home";
+	name = "emergency evac bay";
+	width = 41
+	},
+/turf/space,
+/area/space)
 "ksV" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -79593,19 +79593,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
-"mBa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/smes)
 "mBy" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -86252,7 +86239,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "qwZ" = (
 /obj/machinery/door/poddoor{
@@ -90537,7 +90524,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "sMn" = (
 /obj/structure/table/glass,
@@ -95131,7 +95118,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "burn_sensor"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "vBT" = (
 /obj/machinery/door/window/brigdoor{
@@ -97380,7 +97367,7 @@
 	autolink_id = "air_in";
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "wSw" = (
 /obj/machinery/economy/vending/cola,
@@ -127352,7 +127339,7 @@ bwP
 fsO
 oNV
 ucB
-mBa
+fsO
 clv
 bQr
 bQr
@@ -136431,7 +136418,7 @@ dUQ
 dYU
 dIx
 abj
-aaa
+abj
 aaa
 aaa
 aaa
@@ -136686,9 +136673,9 @@ dIx
 dIx
 dIx
 dIx
-iVe
+dIx
+gcP
 abj
-aaa
 aaa
 aaa
 aaa
@@ -136931,6 +136918,7 @@ dLA
 dMo
 dKP
 dKP
+dKP
 dOv
 dPb
 eBl
@@ -136946,7 +136934,6 @@ jJq
 dVb
 acF
 acF
-aaa
 aaa
 aaa
 aaa
@@ -137189,6 +137176,7 @@ sZI
 dPM
 dPM
 dPM
+dPM
 rCw
 dPM
 dPM
@@ -137202,7 +137190,6 @@ dIH
 dIH
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137446,6 +137433,7 @@ hVf
 dKo
 dKo
 dKo
+dKo
 rvx
 dKo
 dKo
@@ -137459,7 +137447,6 @@ kfC
 tjT
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137700,6 +137687,7 @@ cYk
 cYk
 cYk
 dbR
+cYk
 dbV
 ddw
 dNa
@@ -137716,7 +137704,6 @@ dKo
 dUT
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137957,6 +137944,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNN
 dOw
@@ -137972,7 +137960,6 @@ dKo
 dWA
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -138214,6 +138201,7 @@ dKo
 gkk
 dKo
 hVf
+dKo
 dNc
 dNO
 dXF
@@ -138230,7 +138218,6 @@ dUm
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138471,6 +138458,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNP
 dOw
@@ -138487,7 +138475,6 @@ dUn
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138728,6 +138715,7 @@ dKp
 dKp
 dKp
 dIh
+dKo
 dOu
 dNQ
 dOx
@@ -138741,10 +138729,9 @@ joI
 dNc
 dNQ
 dOw
-dUY
+aJK
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138985,6 +138972,7 @@ wgY
 rIb
 rIb
 pJE
+dKo
 dNb
 bGr
 dOw
@@ -139001,7 +138989,6 @@ dUp
 suy
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139245,6 +139232,7 @@ iFB
 iqq
 iqq
 iqq
+iqq
 uFa
 sbt
 sDb
@@ -139258,7 +139246,6 @@ dUq
 dUZ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139501,6 +139488,7 @@ nIs
 ngE
 kuJ
 kuJ
+kuJ
 tJT
 dXn
 dXn
@@ -139515,7 +139503,6 @@ dUr
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139758,6 +139745,7 @@ dTJ
 dMs
 jac
 jac
+jac
 vSW
 scA
 ajq
@@ -139771,7 +139759,6 @@ dTH
 dUs
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -140016,6 +140003,7 @@ dVp
 dKp
 dKp
 dKp
+dKp
 pGr
 rev
 vJu
@@ -140029,7 +140017,6 @@ dUt
 dVc
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140273,6 +140260,7 @@ ulH
 dTy
 dTy
 dTy
+dTy
 rmq
 msT
 dKP
@@ -140286,7 +140274,6 @@ dKP
 dXQ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140529,6 +140516,7 @@ kpd
 dHO
 evE
 evE
+evE
 tJT
 dKQ
 jpk
@@ -140543,7 +140531,6 @@ pjC
 dKQ
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140786,6 +140773,7 @@ abj
 abj
 abj
 abj
+abj
 pjC
 dKP
 pjC
@@ -140799,7 +140787,6 @@ dKP
 pjC
 dKP
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -141043,13 +141030,6 @@ aaa
 aaa
 aaa
 aaa
-pjC
-dKQ
-pjC
-dKQ
-pjC
-aaa
-aaa
 aaa
 pjC
 dKQ
@@ -141057,6 +141037,13 @@ pjC
 dKQ
 pjC
 aaa
+aaa
+aaa
+pjC
+dKQ
+pjC
+dKQ
+pjC
 aaa
 aaa
 aaa
@@ -141303,8 +141290,8 @@ aaa
 aaa
 aaa
 aaa
-dNS
 aaa
+ksE
 aaa
 aaa
 aaa
