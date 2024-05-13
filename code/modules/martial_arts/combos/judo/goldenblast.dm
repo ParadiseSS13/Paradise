@@ -6,12 +6,14 @@
 	combo_text_override = "Help, Disarm, Help, Grab, Disarm, Disarm, Grab, Help, Disarm, Disarm, Grab, Help"
 
 /datum/martial_combo/judo/goldenblast/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] blasts [target] with and energy blast, sending [target.p_them()] to the ground!</span>", \
-						"<span class='userdanger'>[user] blasts you with energy, slamming you into the ground!</span>")
-	playsound(get_turf(user), 'sound/weapons/taser.ogg', 40, TRUE, -1)
-	playsound(get_turf(user), 'sound/weapons/tase.ogg', 40, TRUE, -1)
+	target.visible_message("<span class='warning'>[user] blasts [target] with energy, sending [target.p_them()] to the ground!</span>", \
+						"<span class='userdanger'>[user] makes strange hand gestures, screams wildly and prods you directly in the chest! You feel the wrath of the GOLDEN BOLT surge through your body! You've been utterly robusted!</span>")
+	playsound(get_turf(target), 'sound/weapons/taser.ogg', 40, TRUE, -1)
+	playsound(get_turf(target), 'sound/weapons/tase.ogg', 40, TRUE, -1)
 	target.SpinAnimation(10, 1)
 	do_sparks(5, FALSE, target)
+	user.say("GOLDEN BLAST!")
+	playsound(get_turf(user), 'sound/weapons/goldenblast.ogg', 40, TRUE, -1)
 	target.apply_damage(120, STAMINA)
 	target.KnockDown(30 SECONDS)
 	target.SetConfused(30 SECONDS)
