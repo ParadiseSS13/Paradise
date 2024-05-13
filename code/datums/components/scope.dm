@@ -270,9 +270,9 @@
 	var/icon_y = text2num(LAZYACCESS(modifiers, "vis-y"))
 	if(isnull(icon_y))
 		icon_y = text2num(LAZYACCESS(modifiers, "icon-y"))
-	given_x = round(range_modifier * (icon_x - view_list[1]*world.icon_size/2))
-	given_y = round(range_modifier * (icon_y - view_list[2]*world.icon_size/2))
-	given_turf = locate(owner.x+round(given_x/world.icon_size, 1),owner.y+round(given_y/world.icon_size, 1),owner.z)
+	given_x = round(range_modifier * (icon_x - view_list[1] * world.icon_size / 2))
+	given_y = round(range_modifier * (icon_y - view_list[2] * world.icon_size / 2))
+	given_turf = locate(owner.x + round(given_x / world.icon_size, 1), owner.y + round(given_y / world.icon_size, 1), owner.z)
 
 
 /datum/action/zoom
