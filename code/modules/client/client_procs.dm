@@ -456,6 +456,7 @@
 	display_job_bans(TRUE)
 	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
 		winset(src, "debugmcbutton", "is-disabled=false")
+		winset(src, "profilecode", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
