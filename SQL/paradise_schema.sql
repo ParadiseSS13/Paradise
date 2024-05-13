@@ -405,7 +405,7 @@ CREATE TABLE `notes` (
   `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   `automated` TINYINT(3) UNSIGNED NULL DEFAULT '0',
   `deleted` TINYINT(4) NOT NULL DEFAULT '0',
-  `deletedby` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci'
+  `deletedby` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `deleted` (`deleted`)
