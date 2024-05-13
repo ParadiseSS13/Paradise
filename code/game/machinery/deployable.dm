@@ -107,7 +107,7 @@
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
 			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
-		return ..()
+	return ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
