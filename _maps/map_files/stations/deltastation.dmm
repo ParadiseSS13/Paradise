@@ -79593,19 +79593,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
-"mBa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/smes)
 "mBy" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -127352,7 +127339,7 @@ bwP
 fsO
 oNV
 ucB
-mBa
+fsO
 clv
 bQr
 bQr
