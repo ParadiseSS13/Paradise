@@ -254,9 +254,13 @@
 		if(door_barricaded)
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
+		if((/mob) in get_turf(src))
+			to_chat(user, "<span class='warning'>There's someone blocking \the [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
 		if(do_after_once(user, 4 SECONDS, target = src))
 			S.use(2)
+			close()
 			to_chat(user, "<span class='notice'>You barricade \the [src] shut.</span>")
 			user.visible_message("<span class='notice'>[user] barricades \the [src] shut.</span>")
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)

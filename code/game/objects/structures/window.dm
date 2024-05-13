@@ -228,8 +228,11 @@
 		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
-		if(locate(/obj/structure/barricade/wooden) in get_turf(src)) //don't need a var for this because it doesn't get called much i hope
+		if((/obj/structure/barricade/wooden) in get_turf(src)) //don't need a var for this because it doesn't get called much i hope
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
+			return
+		if((/mob) in get_turf(src))
+			to_chat(user, "<span class='warning'>There's someone blocking \the [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
 		if(do_after_once(user, 2 SECONDS, target = src))
