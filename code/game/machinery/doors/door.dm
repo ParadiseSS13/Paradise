@@ -248,14 +248,14 @@
 		if(!density)
 			to_chat(user, "<span class='warning'>\The [src] must be closed!</span>")
 			return
-		if(S.get_amount()<2)
+		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
 		if(door_barricaded)
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
-		if(do_after_once(user, 40, target = src))
+		if(do_after_once(user, 4 SECONDS, target = src))
 			S.use(2)
 			to_chat(user, "<span class='notice'>You barricade \the [src] shut.</span>")
 			user.visible_message("<span class='notice'>[user] barricades \the [src] shut.</span>")

@@ -92,7 +92,7 @@
 	stacktype = /obj/item/stack/sheet/wood
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
-	if(istype(I,/obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
+	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
@@ -141,12 +141,12 @@
 
 //Barricade repairs
 /obj/structure/barricade/wooden/crude/attackby(obj/item/stack/sheet/wood/S, mob/user, params)
-	if((istype(S,/obj/item/stack/sheet/wood/)) && user.a_intent == INTENT_HELP)
+	if((istype(S, /obj/item/stack/sheet/wood/)) && user.a_intent == INTENT_HELP)
 		if(src.obj_integrity >= max_integrity)
 			to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
 			return
 		to_chat(user, "<span class='notice'> You start repairing \the [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src))
 			S.use(1)
 			to_chat(user, "<span class='notice'> You repair \the [src].</span>")
 			user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
