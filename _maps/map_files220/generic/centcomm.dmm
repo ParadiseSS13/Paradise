@@ -28695,7 +28695,9 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/supply)
 "qIF" = (
-/obj/machinery/teleport/hub/upgraded,
+/obj/machinery/teleport/hub/upgraded{
+	admin_usage = 1
+	},
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
