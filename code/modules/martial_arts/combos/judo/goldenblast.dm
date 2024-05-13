@@ -12,7 +12,7 @@
 	playsound(get_turf(user), 'sound/weapons/tase.ogg', 40, TRUE, -1)
 	target.SpinAnimation(10, 1)
 	do_sparks(5, FALSE, target)
-	target.apply_damage(300, STAMINA)
+	target.apply_damage(120, STAMINA)
 	target.KnockDown(30 SECONDS)
 	target.SetConfused(30 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Golden Blast", ATKLOG_ALL)
