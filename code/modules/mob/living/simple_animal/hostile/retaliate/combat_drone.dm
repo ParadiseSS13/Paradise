@@ -94,7 +94,7 @@
 			advanced_bullet_dodge_chance = 25
 		update_icons()
 
-///We overide the basic effect, as malfunctioning drones are in space, and use jets to dodge. Also lets us do cool effects.
+/// We overide the basic effect, as malfunctioning drones are in space, and use jets to dodge. Also lets us do cool effects.
 /mob/living/simple_animal/hostile/malf_drone/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
 		return NONE
@@ -104,7 +104,7 @@
 		return NONE
 
 	source.visible_message(
-		"<span class='danger'>[source]'s jets [pick("boost", "propell", "pulse", "flare up and move", "shudders and pushes")] it out'[hitting_projectile]'s way!</span>",
+		"<span class='danger'>[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!</span>",
 		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg', 'sound/effects/refill.ogg'), 75, TRUE)

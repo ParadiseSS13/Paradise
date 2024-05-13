@@ -71,10 +71,10 @@
 	var/list/potential_first_directions = list(NORTH, SOUTH, EAST, WEST)
 	potential_first_directions -= dir_to_avoid
 	step(source, pick(potential_first_directions))
-	//Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
-	//If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
+	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
+	// If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
 	if(prob(50))
-		addtimer(VARSET_CALLBACK(src, advanced_bullet_dodge_chance, advanced_bullet_dodge_chance), 0.25 SECONDS) //Returns fast enough for multiple laser shots.
+		addtimer(VARSET_CALLBACK(src, advanced_bullet_dodge_chance, advanced_bullet_dodge_chance), 0.25 SECONDS) // Returns fast enough for multiple laser shots.
 		advanced_bullet_dodge_chance = 0
 	return ATOM_PREHIT_FAILURE
 
