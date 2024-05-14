@@ -223,7 +223,7 @@
 		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
 			H.change_hair(new_style)
 			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
-			H.visible_message("<span class='notice'>[H] changes hairstyle.</span>", "<span class='notice'>You changed your hairstyleя.</span>")
+			H.visible_message("<span class='notice'>[H] changes hairstyle.</span>", "<span class='notice'>You changed your hairstyle.</span>")
 		else
 			to_chat(H, "<span class='warning'>You lose concentration.</span>")
 
