@@ -111,21 +111,13 @@ const MapBot = (props, context) => {
               <Table.Cell>
                 <Button
                   content="Interface"
-                  onClick={() =>
-                    act('interface', {
-                      botref: bot.UID,
-                    })
-                  }
+                  onClick={() => act('interface', { botref: bot.UID })}
                 />
               </Table.Cell>
               <Table.Cell>
                 <Button
                   content="Call"
-                  onClick={() =>
-                    act('call', {
-                      botref: bot.UID,
-                    })
-                  }
+                  onClick={() => act('call', { botref: bot.UID })}
                 />
               </Table.Cell>
             </Table.Row>
