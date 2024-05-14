@@ -687,9 +687,6 @@
 	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
 
 /obj/item/paper/zombie_cure
-	name = "paper - 'Delivery Note'"
-
-/obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
 
 /obj/item/paper/zombie_cure/Initialize(mapload)
