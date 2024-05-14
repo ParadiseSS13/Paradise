@@ -15,7 +15,7 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window width={940} height={650}>
+    <Window width={950} height={650}>
       <div className="GeneModder__left">
         <Window.Content>
           <Disks scrollable />
@@ -231,7 +231,8 @@ const OtherGenes = (props, context) => {
 const Disks = (props, context) => {
   const { title, gene_set, do_we_show } = props;
   const { act, data } = useBackend(context);
-  const { seed, empty_disks, stat_disks, trait_disks, reagent_disks } = data;
+  const { has_seed, empty_disks, stat_disks, trait_disks, reagent_disks } =
+    data;
 
   return (
     <Section title="Disks">
@@ -256,12 +257,12 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item} mr={2}>
                     <Stack.Item width="49%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={23}>
+                    <Stack.Item width={26}>
                       {item.stat === 'All' ? (
                         <Button
                           content="Replace All"
                           tooltip="Write disk stats to seed"
-                          disabled={!item?.ready || !seed}
+                          disabled={!item?.ready || !has_seed}
                           icon="arrow-circle-down"
                           onClick={() =>
                             act('bulk_replace_core', { index: item.index })
@@ -272,7 +273,7 @@ const Disks = (props, context) => {
                           width={6}
                           icon="arrow-circle-down"
                           tooltip="Write disk stat to seed"
-                          disabled={!seed}
+                          disabled={!item || !has_seed}
                           content="Replace"
                           onClick={() =>
                             act('replace', {
@@ -306,6 +307,18 @@ const Disks = (props, context) => {
                           })
                         }
                       />
+                      <Button
+                        width={3}
+                        icon={item.read_only ? 'lock' : 'lock-open'}
+                        content=""
+                        tool_tip="Set/unset Read Only"
+                        onClick={() =>
+                          act('set_read_only', {
+                            index: item.index,
+                            read_only: item.read_only,
+                          })
+                        }
+                      />
                     </Stack.Item>
                   </Stack>
                 );
@@ -323,7 +336,7 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item} mr={2}>
                     <Stack.Item width="49%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={23}>
+                    <Stack.Item width={26}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
@@ -360,6 +373,18 @@ const Disks = (props, context) => {
                           })
                         }
                       />
+                      <Button
+                        width={3}
+                        icon={item.read_only ? 'lock' : 'lock-open'}
+                        content=""
+                        tool_tip="Set/unset Read Only"
+                        onClick={() =>
+                          act('set_read_only', {
+                            index: item.index,
+                            read_only: item.read_only,
+                          })
+                        }
+                      />
                     </Stack.Item>
                   </Stack>
                 );
@@ -377,7 +402,7 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item} mr={2}>
                     <Stack.Item width="49%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={23}>
+                    <Stack.Item width={26}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
@@ -411,6 +436,18 @@ const Disks = (props, context) => {
                         onClick={() =>
                           act('eject_disk', {
                             index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={3}
+                        icon={item.read_only ? 'lock' : 'lock-open'}
+                        content=""
+                        tool_tip="Set/unset Read Only"
+                        onClick={() =>
+                          act('set_read_only', {
+                            index: item.index,
+                            read_only: item.read_only,
                           })
                         }
                       />

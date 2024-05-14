@@ -281,17 +281,17 @@
 			if(!D.gene && !D.is_bulk_core)
 				empty_disks++
 			else if(D.is_bulk_core)
-				stats.Add(list(list("display_name" = D.ui_name, "index" = i, "stat" = "All", "ready" = D.seeds_needed <= D.seeds_scanned)))
+				stats.Add(list(list("display_name" = D.ui_name, "index" = i, "stat" = "All", "ready" = D.seeds_needed <= D.seeds_scanned, "read_only" = D.read_only)))
 			else if(type2parent(D.gene.type) == /datum/plant_gene/core)
 				var/datum/plant_gene/core/C = D.gene
-				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name)))
+				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name, "read_only" = D.read_only)))
 			else if(type2parent(D.gene.type) == /datum/plant_gene/trait || type2parent(D.gene.type) == /datum/plant_gene/trait/plant_type)
 				var/insertable = D.gene?.can_add(seed)
-				traits.Add(list(list("display_name" = D.gene.name, "index" = i, "can_insert" = insertable)))
+				traits.Add(list(list("display_name" = D.gene.name, "index" = i, "can_insert" = insertable, "read_only" = D.read_only)))
 			else if(D.gene.type == /datum/plant_gene/reagent)
 				var/datum/plant_gene/reagent/R = D.gene
 				var/insertable = R?.can_add(seed)
-				reagents.Add(list(list("display_name" = R.name +" "+ num2text(R.rate*100) +"%", "index" = i,  "can_insert" = insertable)))
+				reagents.Add(list(list("display_name" = R.name +" "+ num2text(R.rate*100) +"%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
 	if(length(stats))
 		data["stat_disks"] = stats
 	if(length(traits))
@@ -411,8 +411,9 @@
 					update_genes()
 					return
 			to_chat(world,"<span class='warning'> No Empty Disks to Eject!</span>")
-
-
+		if("set_read_only")
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			D.read_only = !D.read_only
 
 /obj/machinery/plantgenes/proc/gene_remove()
 	if(istype(target, /datum/plant_gene/core))
