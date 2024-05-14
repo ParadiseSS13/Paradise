@@ -160,7 +160,7 @@
         account_list += account.account_name
     return account_list
 
-/datum/money_account_database/main_station/proc/get_account_by_name(account_name)
+/datum/money_account_database/main_station/proc/get_account_from_name(account_name)
 	for(var/account in user_accounts)
 		if(account["account_name"] == account_name)
 			return account["account_number"]

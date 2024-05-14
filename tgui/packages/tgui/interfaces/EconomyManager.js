@@ -12,7 +12,7 @@ import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const EconomyManager = (props, context) => {
   return (
-    <Window width={600} height={350}>
+    <Window width={600} height={325}>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <EconomyButtons />
@@ -108,7 +108,7 @@ const EconomyButtons = (properties, context) => {
       </Section>
       <NoticeBox>
         <b>WARNING:</b> You take full responsibility for unbalancing the economy
-        with these buttons
+        with these buttons!
       </NoticeBox>
     </>
   );
