@@ -67,7 +67,7 @@
 	return !density
 
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)
-	if(is_operating)
+	if(is_operating || door_barricaded)
 		return
 	if(isliving(user))
 		var/mob/living/M = user
@@ -119,14 +119,12 @@
 		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
-	else if(user.a_intent != INTENT_HARM)
-		attack_hand(user)
 	else if(istype(W, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/wood/S = W
 		if(!density)
 			to_chat(user, "<span class='warning'>\The [src] must be closed!</span>")
 			return
-		if(S.get_amount()<2)
+		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
 		if(door_barricaded)
@@ -143,6 +141,8 @@
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 			transfer_fingerprints_to(newbarricade)
 			return
+	else if(user.a_intent != INTENT_HARM)
+		attack_hand(user)
 		return ..()
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
