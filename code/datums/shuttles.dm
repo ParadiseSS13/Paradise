@@ -134,7 +134,7 @@
 	description = "A brand new shuttle by Nanotrasen's finest in shuttle-engineering, it's designed to tactically slam into a destroyed station, \
 	dispatching threats and saving crew at the same time! \
 	Be careful to stay out of it's path. Comes with a beacon to choose where it docks!"
-	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it can not be unloaded."
+	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it cannot be unloaded."
 
 /datum/map_template/shuttle/emergency/lance/preload()
 	message_admins("Preloading [name]!")
