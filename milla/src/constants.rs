@@ -15,7 +15,8 @@ pub(crate) const TOXINS_VISIBILITY_MOLES: f32 = 0.5;
 
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
-pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.01;
+pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.5;
+pub(crate) const REACTION_SIGNIFICANCE_RATIO: f32 = 0.01;
 
 pub(crate) const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
 

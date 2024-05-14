@@ -242,15 +242,25 @@ pub(crate) fn check_interesting(
     Ok(())
 }
 
+pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
+    if tile.gases.values[gas] < REACTION_SIGNIFICANCE_MOLES {
+        return false;
+    }
+    if gas != GAS_AGENT_B && tile.gases.values[gas] / tile.gases.moles() < REACTION_SIGNIFICANCE_RATIO {
+        return false;
+    }
+    return true;
+}
+
 pub(crate) fn react(my_inactive_tile: &mut Tile) -> f32 {
     let mut fuel_burnt: f32 = 0.0;
     // Handle reactions
     let mut my_inactive_temperature = my_inactive_tile.temperature();
     // Agent B converting CO2 to O2
     if my_inactive_temperature > AGENT_B_CONVERSION_TEMP
-        && my_inactive_tile.gases.agent_b() >= REACTION_SIGNIFICANCE_MOLES
-        && my_inactive_tile.gases.carbon_dioxide() >= REACTION_SIGNIFICANCE_MOLES
-        && my_inactive_tile.gases.toxins() >= REACTION_SIGNIFICANCE_MOLES
+        && is_significant(my_inactive_tile, GAS_AGENT_B)
+        && is_significant(my_inactive_tile, GAS_CARBON_DIOXIDE)
+        && is_significant(my_inactive_tile, GAS_TOXINS)
     {
         let co2_converted = (my_inactive_tile.gases.carbon_dioxide() * 0.75)
             .min(my_inactive_tile.gases.toxins() * 0.25)
@@ -278,7 +288,7 @@ pub(crate) fn react(my_inactive_tile: &mut Tile) -> f32 {
     }
     // Nitrous Oxide breaking down into nitrogen and oxygen.
     if my_inactive_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
-        && my_inactive_tile.gases.sleeping_agent() >= REACTION_SIGNIFICANCE_MOLES
+        && is_significant(my_inactive_tile, GAS_SLEEPING_AGENT)
     {
         let reaction_percent = (0.00002
             * (my_inactive_temperature - (0.00001 * (my_inactive_temperature.powi(2)))))
@@ -308,8 +318,8 @@ pub(crate) fn react(my_inactive_tile: &mut Tile) -> f32 {
     }
     // Plasmafire!
     if my_inactive_temperature > PLASMA_BURN_MIN_TEMP
-        && my_inactive_tile.gases.toxins() >= REACTION_SIGNIFICANCE_MOLES
-        && my_inactive_tile.gases.oxygen() >= REACTION_SIGNIFICANCE_MOLES
+        && is_significant(my_inactive_tile, GAS_TOXINS)
+        && is_significant(my_inactive_tile, GAS_OXYGEN)
     {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.

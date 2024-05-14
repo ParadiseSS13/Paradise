@@ -72,6 +72,17 @@
 		set_light(l_color = color)
 		return
 
+	if(location_air.toxins() < 0.5 || location_air.oxygen() < 0.5)
+		// Burn what, exactly?
+		qdel(src)
+		return
+
+	var/total = location_air.total_moles()
+	if (location_air.toxins() < 0.01 * total || location_air.oxygen() < 0.01 * total)
+		// The rest of the gas is snuffing out the reaction.
+		qdel(src)
+		return
+
 	// Get some of the surrounding air for the hotspot to burn.
 	var/datum/gas_mixture/burning = location_air.remove_ratio(volume / location_air.volume)
 
@@ -123,6 +134,8 @@
 		return
 
 	burn_plasma()
+	if(QDELETED(src))
+		return
 
 	for(var/A in loc)
 		var/atom/item = A
