@@ -853,6 +853,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/autosurgeon/organ/syndicate/razorwire
 	cost = 20
 
+/datum/uplink_item/cyber_implants/scope_eyes
+	name = "Hardened Kaleido Optics Eyes Autoimplanter"
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. \
+	Many users find it disorienting, and find it hard to interact with things near them when active. \
+	This pair has been hardened for special operations personnel."
+	reference = "KOE"
+	item = /obj/item/autosurgeon/organ/syndicate/scope_eyes
+	cost = 20
+
+
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
