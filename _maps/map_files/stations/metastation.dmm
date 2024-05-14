@@ -8842,7 +8842,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_x = 24;
-	req_access_txt = "10"
+	req_access_txt = "32"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -66869,7 +66869,7 @@
 	name = "Supermatter Engine Room"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -66878,6 +66878,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "mCX" = (
@@ -72895,7 +72896,6 @@
 	name = "Supermatter Engine Room"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72904,6 +72904,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "pgs" = (
