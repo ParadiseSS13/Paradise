@@ -4457,7 +4457,7 @@
 /area/centcom/specops)
 "oQ" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -12873,7 +12873,7 @@
 /area/shuttle/transport)
 "Tu" = (
 /obj/machinery/door/airlock/centcom/glass{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
