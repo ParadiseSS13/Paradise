@@ -7,7 +7,7 @@
 /datum/ui_module/botcall/ui_state(mob/user)
 	return GLOB.default_state
 
-/datum/ui_module/botcall/ui_interact(mob/user, datum/tgui/ui) // Unable check at ai_mob.dm
+/datum/ui_module/botcall/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BotCall")
