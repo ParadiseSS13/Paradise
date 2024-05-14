@@ -62,8 +62,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "ancient"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/comm)
 "ao" = (
 /obj/effect/decal/cleanable/blood/oil,
@@ -193,7 +192,7 @@
 "aK" = (
 /obj/structure/sign/poster/contraband/random,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
+/turf/simulated/wall/indestructible,
 /area/ruin/ancientstation)
 "aL" = (
 /obj/structure/cable{
@@ -497,7 +496,7 @@
 "bD" = (
 /obj/structure/sign/greencross,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
+/turf/simulated/wall/indestructible,
 /area/ruin/ancientstation)
 "bE" = (
 /obj/structure/cable{
@@ -555,8 +554,7 @@
 /turf/simulated/wall,
 /area/ruin/ancientstation)
 "bM" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/thetacorridor)
 "bN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -621,9 +619,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "bX" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/transit_tube/horizontal,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation)
 "bY" = (
 /obj/structure/transit_tube_pod{
@@ -719,9 +716,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "cj" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/transit_tube/horizontal,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/thetacorridor)
 "ck" = (
 /obj/structure/lattice/catwalk,
@@ -987,7 +983,7 @@
 /area/ruin/ancientstation/betanorth)
 "cU" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
+/turf/simulated/wall/indestructible,
 /area/ruin/ancientstation/engi)
 "cV" = (
 /obj/structure/cable{
@@ -1198,7 +1194,7 @@
 "dA" = (
 /obj/structure/sign/poster/contraband/donut_corp,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
+/turf/simulated/wall/indestructible,
 /area/ruin/ancientstation/sec)
 "dB" = (
 /obj/machinery/alarm/all_access/directional/east{
@@ -1611,8 +1607,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "eC" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/engi)
 "eD" = (
 /obj/structure/cable/yellow{
@@ -1716,7 +1711,7 @@
 "eN" = (
 /obj/structure/sign/poster/official/here_for_your_safety,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
+/turf/simulated/wall/indestructible,
 /area/ruin/ancientstation/sec)
 "eO" = (
 /obj/structure/table,
@@ -2115,7 +2110,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -2127,7 +2121,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "ancient"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/powered)
 "fI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2343,7 +2337,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -2352,7 +2345,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/sec)
 "fZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2363,8 +2356,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/thetacorridor)
 "ga" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4382,8 +4374,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/atmo)
 "kE" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation/proto)
 "kF" = (
 /obj/structure/transit_tube_pod{
@@ -4937,18 +4928,33 @@
 /obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"ok" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible,
+/area/ruin/ancientstation)
+"qO" = (
+/turf/simulated/wall/indestructible/rock,
+/area/ruin/unpowered)
 "rN" = (
 /obj/structure/closet/crate/secure/weapon,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"tu" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/ancientstation/proto)
 "uQ" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"vV" = (
+/obj/structure/sign/poster/official/science,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible,
+/area/ruin/ancientstation/thetacorridor)
 "AP" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/ancientstation)
 "AY" = (
 /obj/machinery/recharge_station,
@@ -4973,10 +4979,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"Nk" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible,
+/area/ruin/ancientstation/thetacorridor)
+"Nl" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible,
+/area/ruin/ancientstation/sec)
 "Rc" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"Su" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible,
+/area/ruin/ancientstation/comm)
 "TF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
@@ -4985,6 +5003,11 @@
 /obj/structure/transit_tube/horizontal,
 /turf/template_noop,
 /area/space/nearstation)
+"Xc" = (
+/obj/structure/sign/poster/official/nanotrasen_logo,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible,
+/area/ruin/ancientstation/comm)
 "Xq" = (
 /mob/living/simple_animal/hostile/hivebot,
 /obj/effect/decal/cleanable/dirt,
@@ -6204,7 +6227,7 @@ uQ
 aa
 aa
 aa
-az
+ok
 AP
 bX
 AP
@@ -6252,7 +6275,7 @@ uQ
 aa
 aa
 aa
-az
+ok
 bB
 dz
 bC
@@ -6300,7 +6323,7 @@ uQ
 aa
 aa
 aa
-az
+ok
 bC
 bC
 cx
@@ -6344,11 +6367,11 @@ aa
 aa
 aa
 aa
-az
-az
-az
-az
-az
+ok
+ok
+ok
+ok
+ok
 bD
 bZ
 bD
@@ -6369,10 +6392,10 @@ it
 iG
 it
 cU
-az
-az
-az
-az
+ok
+ok
+ok
+ok
 aa
 aa
 aa
@@ -6390,8 +6413,8 @@ aa
 aa
 aa
 aa
-az
-az
+ok
+ok
 aK
 aR
 aX
@@ -6420,9 +6443,9 @@ az
 jx
 jM
 kb
-az
-az
-az
+ok
+ok
+ok
 aa
 aa
 aa
@@ -6438,7 +6461,7 @@ aa
 aa
 aa
 aa
-az
+ok
 dX
 aL
 aL
@@ -6470,7 +6493,7 @@ jN
 kc
 km
 dd
-az
+ok
 aa
 aa
 aa
@@ -6485,8 +6508,8 @@ aa
 aa
 aa
 aa
-al
-al
+Su
+Su
 al
 al
 al
@@ -6518,8 +6541,8 @@ az
 az
 az
 az
-az
-az
+ok
+ok
 aa
 aa
 aa
@@ -6532,8 +6555,8 @@ aa
 aa
 aa
 aa
-al
-al
+Su
+Su
 aM
 bi
 bk
@@ -6567,8 +6590,8 @@ kd
 kn
 kd
 bC
-az
-az
+ok
+ok
 aa
 aa
 aa
@@ -6580,7 +6603,7 @@ aa
 aa
 aa
 aa
-am
+Xc
 aM
 aO
 aF
@@ -6616,7 +6639,7 @@ bC
 bC
 bC
 jf
-az
+ok
 aa
 aa
 aa
@@ -6712,7 +6735,7 @@ bC
 bC
 bC
 bC
-az
+ok
 aa
 aa
 aa
@@ -6808,7 +6831,7 @@ bC
 bC
 bC
 bC
-az
+ok
 aa
 aa
 aa
@@ -6868,7 +6891,7 @@ aa
 aa
 aa
 aa
-am
+Xc
 bh
 aY
 aF
@@ -6904,7 +6927,7 @@ bC
 bC
 bC
 jf
-az
+ok
 aa
 aa
 aa
@@ -6916,8 +6939,8 @@ aa
 aa
 aa
 aa
-al
-al
+Su
+Su
 bh
 bj
 eL
@@ -6951,8 +6974,8 @@ kf
 ko
 kf
 bC
-az
-az
+ok
+ok
 aa
 aa
 aa
@@ -6965,8 +6988,8 @@ aa
 aa
 aa
 aa
-al
-al
+Su
+Su
 al
 al
 al
@@ -6998,8 +7021,8 @@ az
 az
 az
 az
-az
-az
+ok
+ok
 aa
 aa
 aa
@@ -7014,7 +7037,7 @@ aa
 aa
 aa
 aa
-az
+ok
 aI
 aP
 aU
@@ -7046,7 +7069,7 @@ bg
 kg
 kp
 bg
-az
+ok
 aa
 aa
 aa
@@ -7062,7 +7085,7 @@ aa
 aa
 aa
 aa
-az
+ok
 aJ
 aQ
 az
@@ -7092,9 +7115,9 @@ az
 jA
 bg
 kh
-az
-az
-az
+ok
+ok
+ok
 aa
 aa
 aa
@@ -7110,13 +7133,13 @@ aa
 aa
 aa
 aa
-az
-az
-az
-az
-az
-az
-az
+ok
+ok
+ok
+ok
+ok
+ok
+ok
 bL
 ch
 bL
@@ -7136,11 +7159,11 @@ dg
 bL
 iN
 bL
-az
-az
-az
-az
-az
+ok
+ok
+ok
+ok
+ok
 aa
 aa
 aa
@@ -7164,7 +7187,7 @@ aa
 aa
 aa
 aa
-az
+ok
 bC
 bC
 cG
@@ -7184,7 +7207,7 @@ dg
 cG
 bC
 bC
-az
+ok
 aa
 aa
 aa
@@ -7212,7 +7235,7 @@ aa
 aa
 aa
 aa
-az
+ok
 bC
 ci
 bC
@@ -7232,7 +7255,7 @@ dg
 bC
 kF
 bC
-az
+ok
 aa
 aa
 aa
@@ -7260,11 +7283,11 @@ aa
 aa
 aa
 aa
-az
+ok
 AP
 bX
 AP
-dg
+Nl
 el
 eI
 dY
@@ -7276,11 +7299,11 @@ eP
 eQ
 lG
 lM
-dg
+Nl
 AP
 bX
 AP
-az
+ok
 aa
 aa
 aa
@@ -7312,7 +7335,7 @@ aa
 aa
 VT
 aa
-dg
+Nl
 dA
 eR
 dY
@@ -7323,8 +7346,8 @@ eQ
 eQ
 eQ
 lH
-dg
-dg
+Nl
+Nl
 aa
 VT
 aa
@@ -7361,7 +7384,7 @@ VT
 aa
 aa
 aa
-dg
+Nl
 fg
 gv
 gN
@@ -7371,7 +7394,7 @@ lm
 lo
 lv
 lI
-dg
+Nl
 aa
 aa
 VT
@@ -7409,17 +7432,17 @@ aa
 dk
 cX
 aa
-dg
-dg
-dg
-dg
-dg
+Nl
+Nl
+Nl
+Nl
+Nl
 fY
-dg
-dg
-dg
-dg
-dg
+Nl
+Nl
+Nl
+Nl
+Nl
 aa
 aa
 VT
@@ -7644,27 +7667,27 @@ uQ
 aa
 aa
 aa
-bu
+Nk
 bM
 cj
 bM
-bu
+Nk
 aa
 ab
 ab
-bu
-bu
+Nk
+Nk
 fZ
-bu
-bu
+Nk
+Nk
 aa
 aa
 aa
-bu
+Nk
 bM
 cj
 bM
-bu
+Nk
 aa
 aa
 aa
@@ -7692,27 +7715,27 @@ aa
 aa
 aa
 aa
-bu
+Nk
 bN
 cl
 cI
-bu
+Nk
 aa
 aa
 aa
-bu
+Nk
 fi
 ga
 gw
-bu
+Nk
 aa
 aa
 aa
-bu
+Nk
 fq
 lO
 fq
-bu
+Nk
 aa
 aa
 aa
@@ -7740,27 +7763,27 @@ aa
 aa
 aa
 aa
-bu
+Nk
 bO
 cm
 cJ
-bu
+Nk
 aa
 aa
 aa
-bu
+Nk
 id
 gb
 gx
-bu
+Nk
 aa
 aa
 aa
-bu
+Nk
 iw
 fq
 fq
-bu
+Nk
 aa
 aa
 aa
@@ -7788,27 +7811,27 @@ aa
 aa
 aa
 aa
-bu
-bP
+Nk
+vV
 cn
-bP
-bu
-bu
-bu
-bu
-bu
+vV
+Nk
+Nk
+Nk
+Nk
+Nk
 bu
 hE
 bu
-bu
-bu
-bu
-bu
-bu
+Nk
+Nk
+Nk
+Nk
+Nk
 bP
 cn
 bP
-bu
+Nk
 aa
 aa
 aa
@@ -7828,16 +7851,16 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+qO
+qO
+qO
+qO
+qO
+qO
+qO
 aa
 aa
-bu
+Nk
 dK
 fw
 dh
@@ -7856,7 +7879,7 @@ ie
 fk
 fk
 jh
-bu
+Nk
 aa
 aa
 aa
@@ -7874,18 +7897,18 @@ gc
 (61,1,1) = {"
 aa
 aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+qO
+qO
+qO
+qO
+qO
+qO
+qO
+qO
+qO
+qO
 aa
-bu
+Nk
 cp
 fx
 di
@@ -7904,7 +7927,7 @@ if
 fl
 iR
 ji
-bu
+Nk
 aa
 aa
 aa
@@ -7921,8 +7944,8 @@ aa
 "}
 (62,1,1) = {"
 aa
-ab
-ab
+qO
+qO
 ac
 ac
 ac
@@ -7931,9 +7954,9 @@ ac
 ac
 ac
 ac
-ab
-ab
-bu
+qO
+qO
+Nk
 cq
 cM
 dj
@@ -7953,12 +7976,12 @@ dj
 iS
 jj
 jt
-jt
-jt
-jt
-jt
-jt
-jt
+tu
+tu
+tu
+tu
+tu
+tu
 aa
 aa
 aa
@@ -7969,7 +7992,7 @@ aa
 "}
 (63,1,1) = {"
 aa
-ab
+qO
 ac
 ad
 ap
@@ -7980,7 +8003,7 @@ co
 ap
 bc
 ac
-ab
+qO
 bu
 ev
 fy
@@ -8003,10 +8026,10 @@ lg
 jt
 jB
 jS
-jt
+tu
 kq
 ky
-jt
+tu
 aa
 aa
 aa
@@ -8017,7 +8040,7 @@ aa
 "}
 (64,1,1) = {"
 aa
-ab
+qO
 ac
 ap
 co
@@ -8051,10 +8074,10 @@ jk
 jt
 jC
 jT
-jt
+tu
 jT
 jC
-jt
+tu
 aa
 aa
 aa
@@ -8064,8 +8087,8 @@ aa
 aa
 "}
 (65,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ac
 ac
@@ -8102,7 +8125,7 @@ jU
 ki
 jU
 jU
-jt
+tu
 aa
 aa
 aa
@@ -8112,8 +8135,8 @@ aa
 aa
 "}
 (66,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ap
 cv
@@ -8150,7 +8173,7 @@ jV
 jV
 jV
 kz
-jt
+tu
 aa
 aa
 aa
@@ -8160,8 +8183,8 @@ aa
 aa
 "}
 (67,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ap
 ap
@@ -8208,8 +8231,8 @@ aa
 aa
 "}
 (68,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ac
 ac
@@ -8256,8 +8279,8 @@ aa
 aa
 "}
 (69,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ai
 ap
@@ -8294,7 +8317,7 @@ jV
 jV
 jV
 kz
-jt
+tu
 aa
 aa
 aa
@@ -8304,8 +8327,8 @@ aa
 aa
 "}
 (70,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ah
 ap
@@ -8316,7 +8339,7 @@ ai
 ap
 ah
 ac
-ab
+qO
 bu
 bO
 cO
@@ -8342,7 +8365,7 @@ jW
 kj
 jW
 jW
-jt
+tu
 aa
 aa
 aa
@@ -8352,8 +8375,8 @@ aa
 aa
 "}
 (71,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 aj
 ap
@@ -8364,7 +8387,7 @@ ah
 ap
 ao
 ac
-ab
+qO
 bu
 bO
 cN
@@ -8387,10 +8410,10 @@ fq
 jt
 jC
 jX
-jt
+tu
 jX
 jC
-jt
+tu
 aa
 aa
 aa
@@ -8400,8 +8423,8 @@ aa
 aa
 "}
 (72,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ah
 ai
@@ -8412,7 +8435,7 @@ ap
 ai
 ah
 ac
-ab
+qO
 bu
 ew
 fy
@@ -8435,10 +8458,10 @@ kS
 jt
 jJ
 jY
-jt
+tu
 kt
 kB
-jt
+tu
 aa
 aa
 aa
@@ -8448,8 +8471,8 @@ aa
 aa
 "}
 (73,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ah
 aq
@@ -8460,7 +8483,7 @@ ah
 aj
 ah
 ac
-ab
+qO
 bu
 cs
 cM
@@ -8480,13 +8503,13 @@ dj
 dj
 iS
 jn
-jt
-jt
-jt
-jt
-jt
-jt
-jt
+tu
+tu
+tu
+tu
+tu
+tu
+tu
 aa
 aa
 aa
@@ -8496,8 +8519,8 @@ aa
 aa
 "}
 (74,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ai
 ao
@@ -8508,7 +8531,7 @@ cL
 ao
 ah
 ac
-ab
+qO
 bu
 bO
 gW
@@ -8532,7 +8555,7 @@ Rc
 Xq
 bS
 rN
-bu
+Nk
 aa
 aa
 aa
@@ -8544,8 +8567,8 @@ aa
 aa
 "}
 (75,1,1) = {"
-ab
-ab
+qO
+qO
 ac
 ac
 ac
@@ -8556,7 +8579,7 @@ ac
 ac
 ac
 ac
-ab
+qO
 bu
 ct
 hn
@@ -8580,7 +8603,7 @@ bu
 Xq
 LD
 AY
-bu
+Nk
 aa
 aa
 aa
@@ -8593,7 +8616,7 @@ aa
 "}
 (76,1,1) = {"
 aa
-ab
+qO
 ac
 ak
 ar
@@ -8608,17 +8631,9 @@ bu
 bu
 cu
 bu
-bu
-bu
-bu
-bu
-bu
-bu
-cu
-bu
-bu
-bu
-bu
+Nk
+Nk
+Nk
 bu
 bu
 bu
@@ -8629,6 +8644,14 @@ bu
 bu
 bu
 bu
+bu
+cu
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
 aa
 aa
 aa
@@ -8641,8 +8664,8 @@ aa
 "}
 (77,1,1) = {"
 aa
-ab
-ab
+qO
+qO
 ac
 ai
 cL
@@ -8651,14 +8674,14 @@ cL
 cL
 ao
 ac
-ab
+qO
 bu
 dH
 dH
 bS
-bu
+Nk
 aa
-bu
+Nk
 ez
 ez
 ez
@@ -8671,7 +8694,7 @@ kV
 CG
 CG
 CG
-bu
+Nk
 aa
 aa
 aa
@@ -8689,24 +8712,24 @@ aa
 "}
 (78,1,1) = {"
 aa
-ab
-ab
-ab
+qO
+qO
+qO
 ai
 ay
 ai
 ay
 ai
 ay
-ab
-ab
-bu
+qO
+qO
+Nk
 bT
 ey
 cQ
-bu
+Nk
 aa
-bu
+Nk
 ez
 eX
 eX
@@ -8719,7 +8742,7 @@ kY
 CG
 CG
 CG
-bu
+Nk
 aa
 aa
 aa
@@ -8738,24 +8761,24 @@ aa
 (79,1,1) = {"
 aa
 aa
-ab
-ab
+qO
+qO
 as
 as
 as
 as
 as
 as
-ab
+qO
 aa
-bu
-bu
-bu
-bu
-bu
+Nk
+Nk
+Nk
+Nk
+Nk
 aa
-bu
-bu
+Nk
+Nk
 eX
 eX
 eX
@@ -8767,7 +8790,7 @@ bS
 CG
 CG
 CG
-bu
+Nk
 aa
 aa
 aa
@@ -8803,19 +8826,19 @@ aa
 aa
 aa
 aa
-bu
-bu
-bu
-bu
-bu
-bu
-bu
-bu
-bu
-bu
-bu
-bu
-bu
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
+Nk
 aa
 aa
 aa
