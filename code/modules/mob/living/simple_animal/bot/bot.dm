@@ -118,7 +118,7 @@
 
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
-	/// Type of bot with defines.
+	/// Type of bot, one of the *_BOT defines.
 	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
