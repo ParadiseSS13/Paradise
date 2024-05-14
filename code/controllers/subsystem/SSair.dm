@@ -81,10 +81,6 @@ SUBSYSTEM_DEF(air)
 	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
 	var/list/waiting_for_sync = list()
 
-	// TEMPORARY, TODO: Remove before merge.
-	// This is only here to support the temporary stack traces in gas_mixture.dm
-	var/processing_atmos_machinery = FALSE
-
 /// A cost counter for resumable, repeating processes.
 /datum/resumable_cost_counter
 	var/last_complete_ms = 0
@@ -199,10 +195,8 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
 
-		processing_atmos_machinery = TRUE
-
 		process_atmos_machinery(resumed)
-		processing_atmos_machinery = FALSE
+
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
