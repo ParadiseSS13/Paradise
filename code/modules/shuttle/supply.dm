@@ -177,11 +177,11 @@
 			return CARGO_PREVENT_SHUTTLE
 		var/sellable = SEND_SIGNAL(src, COMSIG_CARGO_CHECK_SELL, AM)
 		manifest.items_to_sell[AM] = sellable
-		if(top_level && !(sellable & COMSIG_CARGO_IS_SECURED))
-			manifest.loose_cargo = TRUE
-		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
-			if(top_level)
-				return CARGO_OK
+		if(top_level)
+			if(!AM.anchored && !(sellable & COMSIG_CARGO_IS_SECURED))
+				manifest.loose_cargo = TRUE
+			return CARGO_OK
+		if(found_priority || sellable & COMSIG_CARGO_SELL_PRIORITY)
 			return CARGO_HAS_PRIORITY
 
 	return CARGO_OK
@@ -220,9 +220,6 @@
 		if(E.is_cleanable())
 			return CARGO_OK
 
-	if(AM.anchored && !istype(AM, /obj/mecha/working))
-		return CARGO_SKIP_ATOM
-
 	return CARGO_OK
 
 
@@ -253,7 +250,7 @@
 			SSeconomy.sold_atoms += "[AM.name](mess)"
 			qdel_atoms += AM
 			continue
-		else if(!(sellable & COMSIG_CARGO_SELL_SKIP))
+		else if(!AM.anchored && !(sellable & COMSIG_CARGO_SELL_SKIP))
 			manifest.sent_trash = TRUE
 
 		rescue_atoms += AM
@@ -784,7 +781,7 @@
 
 /datum/economy/simple_seller/mechs/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/mecha/working))
-		return COMSIG_CARGO_SELL_NORMAL | COMSIG_CARGO_IS_SECURED
+		return COMSIG_CARGO_SELL_NORMAL
 
 
 // Skip mech parts to avoid complaining about them.

@@ -377,6 +377,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
+"bA" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -721,6 +725,7 @@
 	dir = 6;
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "cO" = (
@@ -1117,6 +1122,12 @@
 	icon_state = "cafeteria"
 	},
 /area/ghost_bar)
+"et" = (
+/obj/machinery/barsign/ghost_bar{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "ev" = (
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
@@ -1359,6 +1370,7 @@
 	dir = 4;
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fp" = (
@@ -1422,6 +1434,7 @@
 /obj/structure/chair/sofa/right{
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fx" = (
@@ -2685,6 +2698,15 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"jA" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "jB" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
@@ -5371,10 +5393,6 @@
 /obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
-"sd" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "se" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -5392,7 +5410,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "sh" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
@@ -5401,6 +5418,7 @@
 	name = "Privacy Shutters";
 	opacity = 0
 	},
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "sj" = (
@@ -6181,7 +6199,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "vf" = (
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -6281,7 +6299,7 @@
 /area/centcom/control)
 "vu" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
@@ -6331,7 +6349,7 @@
 /area/trader_station/sol)
 "vD" = (
 /obj/structure/railing,
-/obj/effect/landmark/spawner/soltrader,
+/obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
@@ -7981,7 +7999,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/admin)
 "Cv" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /obj/machinery/icemachine,
@@ -8144,6 +8162,7 @@
 	name = "wizard council throne";
 	dir = 1
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "CY" = (
@@ -9234,7 +9253,7 @@
 /area/centcom/specops)
 "GT" = (
 /obj/structure/chair,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -12062,6 +12081,7 @@
 /obj/structure/chair/sofa{
 	color = "#63009c"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "Qm" = (
@@ -12756,6 +12776,10 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"SU" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -12922,7 +12946,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -13923,11 +13947,6 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
-"Xi" = (
-/obj/effect/spawner/window,
-/obj/structure/sign/barsign,
-/turf/simulated/floor/plating,
-/area/centcom/evac)
 "Xj" = (
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
@@ -14249,6 +14268,7 @@
 /obj/structure/chair/comfy/purp{
 	name = "wizard council throne"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "Yp" = (
@@ -46015,8 +46035,8 @@ Ng
 Ng
 So
 Vs
-Xi
-Xx
+Qe
+jA
 YO
 ZZ
 gI
@@ -48808,9 +48828,9 @@ vG
 of
 oI
 pc
-rK
+bA
 pc
-uP
+SU
 pc
 vY
 of
@@ -49322,9 +49342,9 @@ vG
 of
 oS
 pc
-pa
+rK
 pc
-pa
+uP
 pc
 wa
 of
@@ -73022,8 +73042,8 @@ vd
 Ml
 vd
 xy
-sd
-Jy
+Me
+et
 Jy
 Jy
 Jy
