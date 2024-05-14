@@ -548,7 +548,7 @@
 					</li>
 				</ul>
 
-                <b>Anti-Plague Sequence Omega</b>
+				<b>Anti-Plague Sequence Omega</b>
 				<ul>
 					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Gamma</li>
 					<li>1 unit of blood containing an advanced virus with the <b>"Anti-Bodies Metabolism"</b> symptom</li>
