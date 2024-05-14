@@ -163,9 +163,11 @@
 			B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 		if("eject_beaker")
 			eject_beaker()
+			update_static_data(ui.user)
 		if("destroy_eject_beaker")
 			beaker.reagents.clear_reagents()
 			eject_beaker()
+			update_static_data(ui.user)
 		if("print_release_forms")
 			var/strain_index = text2num(params["strain_index"])
 			if(isnull(strain_index))
@@ -202,6 +204,7 @@
 			A.AssignName(new_name)
 			for(var/datum/disease/advance/AD in GLOB.active_diseases)
 				AD.Refresh()
+			update_static_data(ui.user)
 		if("switch_strain")
 			var/strain_index = text2num(params["strain_index"])
 			if(isnull(strain_index) || strain_index < 1)
@@ -225,6 +228,25 @@
 		ui.open()
 
 /obj/machinery/computer/pandemic/ui_data(mob/user)
+	var/datum/reagent/blood/Blood = null
+	if(beaker)
+		var/datum/reagents/R = beaker.reagents
+		for(var/datum/reagent/blood/B in R.reagent_list)
+			if(B)
+				Blood = B
+				break
+
+	var/list/data = list(
+		"synthesisCooldown" = wait ? TRUE : FALSE,
+		"beakerLoaded" = beaker ? TRUE : FALSE,
+		"beakerContainsBlood" = Blood ? TRUE : FALSE,
+		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
+		"selectedStrainIndex" = selected_strain_index,
+	)
+
+	return data
+
+/obj/machinery/computer/pandemic/ui_static_data(mob/user)
 	var/list/data = list()
 	. = data
 
@@ -281,13 +303,6 @@
 			if(D)
 				resistances += list(D.name)
 	data["resistances"] = resistances
-	data["synthesisCooldown"] = wait ? TRUE : FALSE
-	data["beakerLoaded"] = beaker ? TRUE : FALSE
-	data["beakerContainsBlood"] = Blood ? TRUE : FALSE
-	data["beakerContainsVirus"] = length(data["strains"]) != 0
-	data["selectedStrainIndex"] = selected_strain_index
-
-	return data
 
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)

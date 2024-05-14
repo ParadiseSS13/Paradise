@@ -248,6 +248,19 @@ const CultureInformationSection = (props, context) => {
   const { selectedStrainIndex, strains } = data;
   const selectedStrain = strains[selectedStrainIndex - 1];
 
+  if (strains.length === 0) {
+    return (
+      <Stack fill vertical>
+        <Section
+          title="Container Information"
+          buttons={<CommonCultureActions />}
+        >
+          <NoticeBox>No disease detected in provided blood sample.</NoticeBox>
+        </Section>
+      </Stack>
+    );
+  }
+
   if (strains.length === 1) {
     return (
       <>
