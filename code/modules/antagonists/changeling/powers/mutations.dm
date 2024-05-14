@@ -236,11 +236,8 @@
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
-		M.Slowed(2 SECONDS, 5)
-		var/atom/throw_target = get_edge_target_turf(M, user.dir)
-		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact), TRUE)
 
-		if(isbot(M)) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
+		if(isbot(M) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
 			M.apply_damage(9999) // little and annoying. one smash and they're destroyed. really, this is a big fucking maul.
 
 		if(ishuman(M))
@@ -248,13 +245,6 @@
 			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
 			if(O.brute_dam >= 40 && prob(70)) // increased bone breaking chance is a feature. btw we have only 10 damage...
 				O.fracture()
-
-/obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
-	if(target && !iscarbon(hit_atom) && hit_atom.density)
-		target.Slowed(1 SECONDS)
-
-/obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
-	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
 /obj/item/melee/arm_blade/fleshy_maul/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a enormous maul from flesh and jagged bone spurs.</span>"
