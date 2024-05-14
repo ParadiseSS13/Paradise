@@ -346,35 +346,23 @@
 		new_text += copytext(text, i, i+1)
 	return new_text
 
-//This proc strips html properly, but it's not lazy like the other procs.
-//This means that it doesn't just remove < and > and call it a day.
-//Also limit the size of the input, if specified.
-/proc/strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+/// Strips HTML tags (and only tags) from the input.
+/// The result may still include HTML entities, like &#39; for '
+/proc/strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
-		return
-	var/opentag = 1 //These store the position of < and > respectively.
-	var/closetag = 1
-	while(1)
-		opentag = findtext(input, "<")
-		closetag = findtext(input, ">")
-		if(closetag && opentag)
-			if(closetag < opentag)
-				input = copytext(input, (closetag + 1))
-			else
-				input = copytext(input, 1, opentag) + copytext(input, (closetag + 1))
-		else if(closetag || opentag)
-			if(opentag)
-				input = copytext(input, 1, opentag)
-			else
-				input = copytext(input, (closetag + 1))
-		else
-			break
+		return ""
+	var/static/regex/tags = regex("<\[^>]*>", "g")
+	if(!tags)
+		tags = regex("<\[^>]*>", "g")
+	input = tags.Replace(input, "")
 	if(max_length)
 		input = copytext_char(input, 1, max_length)
-	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
+	if(allow_lines)
+		return sanitize_simple(input, list("\t" = " "))
+	return sanitize_simple(input, list("\n" = " ", "\t" = " "))
 
-/proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-	return trim(strip_html_properly(input, max_length, allow_lines))
+/proc/trim_strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+	return trim(strip_html_tags(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
@@ -741,11 +729,6 @@
 		return "#e67e22" // Patreon orange
 	return null
 
-
-// Removes HTML tags, preserving text
-/proc/strip_html_tags(the_text)
-	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
-	return html_replacer.Replace(the_text, "")
 
 /proc/starts_with_vowel(text)
 	var/start_char = copytext(text, 1, 2)
