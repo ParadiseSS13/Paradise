@@ -1883,6 +1883,7 @@
 	drink_icon = "stoutglass"
 	drink_name = "Stout"
 	drink_desc = "A pitch black beer from Ireland, high in iron content"
+	taste_description = "the luck of the Irish"
 
 /datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it
 	if(ishuman(M))
