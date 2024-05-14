@@ -11923,7 +11923,6 @@
 /area/station/hallway/secondary/entry/north)
 "aMC" = (
 /obj/structure/table,
-/obj/machinery/computer/mob_healer_terminal,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aMD" = (
@@ -14876,9 +14875,6 @@
 /area/station/medical/reception)
 "aVy" = (
 /obj/machinery/economy/vending/coffee,
-/obj/machinery/computer/mob_healer_terminal{
-	pixel_x = 28
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -55778,13 +55774,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/medical/medbay3)
-"fes" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/machinery/computer/mob_battle_terminal/red,
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "feN" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
@@ -65342,12 +65331,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/supply/lobby)
-"jPN" = (
-/obj/machinery/computer/mob_battle_terminal/blue{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "jPZ" = (
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = 32
@@ -76992,10 +76975,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
-"pwU" = (
-/obj/effect/landmark/battle_mob_point,
-/turf/simulated/floor/engine,
-/area/holodeck/alphadeck)
 "pxv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
@@ -132341,7 +132320,7 @@ nXr
 aKQ
 fRL
 aPm
-jPN
+aPm
 lkw
 fho
 aPm
@@ -132590,7 +132569,7 @@ awE
 ayf
 azn
 arR
-fes
+tbC
 tbC
 tbC
 aPm
@@ -133621,10 +133600,10 @@ atG
 sHt
 sHt
 sHt
-pwU
 sHt
 sHt
-pwU
+sHt
+sHt
 sHt
 sHt
 sHt

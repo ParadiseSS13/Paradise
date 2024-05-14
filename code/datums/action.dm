@@ -78,6 +78,8 @@
 /datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
+		return FALSE
 	return TRUE
 
 /datum/action/proc/AltTrigger()
@@ -569,7 +571,6 @@
 
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
-
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
