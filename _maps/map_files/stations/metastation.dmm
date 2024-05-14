@@ -47039,13 +47039,25 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "exm" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/station/security/main)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/security/defusal)
 "exI" = (
 /obj/structure/table/glass,
 /obj/item/hand_labeler,
@@ -48601,6 +48613,37 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
+"ffH" = (
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/obj/item/disk/nuclear/training{
+	pixel_x = -5
+	},
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/structure/table,
+/obj/machinery/camera{
+	c_tag = "Defusal Workshop"
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/defusal)
 "fga" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -49971,6 +50014,24 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
+"fFo" = (
+/obj/structure/table,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/item/clothing/head/welding{
+	pixel_x = -4;
+	pixel_y = 19
+	},
+/obj/item/multitool{
+	pixel_x = 7;
+	pixel_y = 13
+	},
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/security/defusal)
 "fFL" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -50216,12 +50277,12 @@
 /area/station/hallway/primary/central/north)
 "fJr" = (
 /obj/machinery/disposal,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/trunk,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -59769,6 +59830,23 @@
 "jKj" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/ai_transit_tube)
+"jKG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/defusal)
 "jKP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -60570,6 +60648,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
+"jXY" = (
+/obj/machinery/nuclearbomb/training,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/defusal)
 "jYj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
@@ -69542,6 +69628,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"nEV" = (
+/turf/simulated/wall/r_wall,
+/area/station/security/defusal)
 "nFf" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/dropper,
@@ -79380,6 +79469,21 @@
 	icon_state = "dark"
 	},
 /area/station/security/permabrig)
+"rOj" = (
+/obj/machinery/syndicatebomb/training,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/defusal)
 "rOp" = (
 /obj/machinery/door/airlock/tranquillite{
 	name = "Old Mime's Storage"
@@ -79608,6 +79712,22 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/exam_room)
+"rUg" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/book/manual/wiki/hacking{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/defusal)
 "rUl" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -83827,10 +83947,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"tNe" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/fore)
 "tNg" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -88699,15 +88815,6 @@
 	},
 /area/station/medical/surgery/observation)
 "vVR" = (
-/obj/structure/table,
-/obj/item/screwdriver{
-	pixel_x = -2;
-	pixel_y = 18
-	},
-/obj/item/wirecutters{
-	pixel_y = 5
-	},
-/obj/machinery/syndicatebomb/training,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -124916,7 +125023,7 @@ aaa
 aaa
 laH
 aaa
-apO
+sRw
 fJr
 hwP
 vgv
@@ -125174,11 +125281,11 @@ aaa
 laH
 abq
 apO
-jSU
-apO
+nEV
+nEV
 exm
-apO
-apO
+nEV
+nEV
 xyP
 apO
 apO
@@ -125431,11 +125538,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-tNe
+nEV
+jXY
+jKG
+rOj
+nEV
 oQV
 ajg
 jiR
@@ -125688,11 +125795,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-ahH
+nEV
+ffH
+rUg
+fFo
+nEV
 alW
 akR
 aDY
@@ -125945,11 +126052,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-ahH
+nEV
+nEV
+nEV
+nEV
+nEV
 aDY
 wLB
 cnV
@@ -126207,8 +126314,8 @@ abq
 abq
 abq
 ajg
-ajg
-aVY
+ahH
+ahH
 ajg
 aWv
 cXu
