@@ -69,11 +69,11 @@
 							accounts_to_modify += member.member_account
 					log_and_message_admins("has modified the payroll of the [department_input] department's members by [num_input].")
 				if("crew_member")
-					var/account_input = tgui_input_list(ui.user, "Account Number", "Please Specify Account Number.", GLOB.station_money_database.get_all_user_accounts())
+					var/account_input = tgui_input_list(ui.user, "Select a User Account.", "Select User", GLOB.station_money_database.get_all_user_accounts())
 					if(!account_input)
 						return
 					var/datum/money_account/account = GLOB.station_money_database.get_account_by_name(account_input)
-					accounts_to_modify += account_input
+					accounts_to_modify += account
 					log_and_message_admins("has modified the payroll of [account_input] by [num_input].")
 			if(!length(accounts_to_modify))
 				return
