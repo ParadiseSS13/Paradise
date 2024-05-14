@@ -1890,5 +1890,5 @@
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.8
+				H.blood_volume += 0.4
 	return ..()
