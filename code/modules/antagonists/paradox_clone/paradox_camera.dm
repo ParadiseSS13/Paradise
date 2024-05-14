@@ -15,7 +15,7 @@
 	..()
 	to_chat(src, "<span class='danger'>Something is wrong with your body.. What is happening? Everything looks so familiar and not at the same time...</span>")
 	to_chat(src, "<span class='danger'>You are unstable, as if you are about to be transported to another universe very soon!</span>")
-	to_chat(src, "<span class='danger'>Quick! Find some remote and lonely place</span>")
+	to_chat(src, "<span class='danger'>Quick! Find some remote and lonely place!</span>")
 
 /mob/camera/paradox/say(message)
 	return
@@ -154,7 +154,7 @@
 #define SYNDICATE 2
 
 	var/datum/language/paradox/P = new()
-	to_chat(para, "<span class='danger'><B><center>Use [P.key] to commune with other paradox clones.</center></b></span>")
+	to_chat(para, "<span class='danger'><b><center>Use [P.key] to commune with other paradox clones.</center></b></span>")
 	if(findtextEx(para_clone_datum.paradox_id, "Agent"))
 		var/static/list/slots = list(
 			"backpack" = SLOT_HUD_IN_BACKPACK,
@@ -165,7 +165,7 @@
 		)
 
 		var/obj/item/encryptionkey/key
-		to_chat(para, "<span class='danger'><center>Welcome, [para_clone_datum.paradox_id]</center></span>")
+		to_chat(para, "<span class='danger'><center>Welcome, [para_clone_datum.paradox_id].</center></span>")
 		var/employer = rand(1,2)
 		switch(employer)
 			if(NANOTRASEN)
@@ -206,10 +206,10 @@
 			if(H.z == P.z && H.mind && H.key && P != H && HB && H != PS.owner && H || is_paradox_clone(H) || H == para_clone_datum.original)
 				allowed_targets += H
 		if(!length(allowed_targets))
-			to_chat(para, "<span class='notice'>No available targets.</b></span>")
+			to_chat(para, "<span class='notice'><b>No available targets.</b></span>")
 			if(tgui_alert(P, "No available targets. Do you want to hide the alert?", "No targets.", list("Yes", "No")) == "Yes")
 				src.icon_state = "null"
-				to_chat(P, "<span class='notice'>To return the pinpoint, click on the empty space where it was previously located.</b></span>")
+				to_chat(P, "<span class='notice'><b>To unhide the pinpointer, click on the empty space where it was previously located.</b></span>")
 			return
 		var/mob/living/carbon/human/target = input(usr,"Select target to track","Pinpointer") in allowed_targets
 		if(target)

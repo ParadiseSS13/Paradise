@@ -4,7 +4,7 @@
 	action_icon_state = "intangibility"
 	base_cooldown = 140 SECONDS
 
-/datum/spell/paradox_spell/self/intangibility/cast(list/targets, mob/user = usr)
+/datum/spell/paradox_spell/self/intangibility/cast(list/targets, mob/user)
 	var/mob/living/carbon/human/H = user
 	var/used = FALSE
 

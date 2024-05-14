@@ -1,11 +1,11 @@
 /datum/spell/paradox_spell/click_target/energy_exchange
 	name = "Energy Exchange"
-	desc = "You commit a paradox and exchange stamina, slowness, confusion and other negative effects with a chosen victim. Works even if target it's not a human and even when you unconscious."
+	desc = "You commit a paradox and exchange stamina, slowness, confusion and other negative effects with a chosen victim. Works even if target is not a human, as well as when you are unconscious."
 	action_icon_state = "stamina_exchange"
 	base_cooldown = 80 SECONDS
 	base_range = 12
-	selection_activated_message		= "<span class='warning'>Click on the target to exchange stamina!</span>"
-	selection_deactivated_message	= "<span class='notice'>You decided to do nothing... But is it for sure?</span>"
+	selection_activated_message = "<span class='warning'>Click on the target to exchange stamina!</span>"
+	selection_deactivated_message = "<span class='notice'>You decided to do nothing... But is it for sure?</span>"
 	stat_allowed = UNCONSCIOUS
 
 /datum/spell/paradox_spell/click_target/energy_exchange/create_new_targeting()
@@ -18,7 +18,7 @@
 	var/mob/living/target = targets[1]
 	var/mob/living/carbon/H = target
 
-	if(!istype(target, /mob/living/carbon)) //if can't exchange powers then just get a vampire's stun clear
+	if(!iscarbon(target)) // If we can't exchange powers then just get a vampire's stun clear
 		var/mob/living/carbon/human/U = user
 		U.SetWeakened(0)
 		U.SetStunned(0)
@@ -38,9 +38,9 @@
 		revert_cast()
 		return
 
-	H.AdjustHallucinate(rand(10,20) SECONDS)
-	do_sparks(rand(1,2), FALSE, H)
-	do_sparks(rand(1,2), FALSE, user)
+	H.AdjustHallucinate(rand(10, 20) SECONDS)
+	do_sparks(rand(1, 2), FALSE, H)
+	do_sparks(rand(1, 2), FALSE, user)
 
 	var/target_weakened = H.AmountWeakened()
 	var/target_stunned = H.AmountStun()
@@ -101,4 +101,4 @@
 				R.volume = R.overdose_threshold - 0.01
 			use.reagents.add_reagent(R.id, R.volume)
 
-	add_attack_logs(user, target, "(Paradox Clone) Stamina Exchanged")
+	add_attack_logs(user, target, "(Paradox Clone) Energy Exchanged")

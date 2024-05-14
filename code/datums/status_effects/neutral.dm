@@ -372,7 +372,7 @@
 
 /atom/movable/screen/alert/status_effect/internal_pinpointer/paradox_stalking
 	name = "Paradox Sense"
-	desc = "You can feel where are yours original's or your native clones brains..."
+	desc = "You feel this universe's version of you is in this direction...or at least their brain is."
 
 /datum/status_effect/internal_pinpointer/paradox_stalking
 	id = "paradox_stalking"

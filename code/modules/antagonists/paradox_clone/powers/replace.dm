@@ -4,8 +4,8 @@
 	action_icon_state = "replace"
 	base_cooldown = 10 SECONDS
 	base_range = 1
-	selection_activated_message		= "<span class='warning'>Click on the target to remove them from existence...</span>"
-	selection_deactivated_message	= "<span class='notice'>You decided to spare them. Probably.</span>"
+	selection_activated_message = "<span class='warning'>Click on the target to remove them from existence...</span>"
+	selection_deactivated_message = "<span class='notice'>You decided to spare them. Probably.</span>"
 
 /datum/spell/paradox_spell/click_target/replace/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
@@ -43,12 +43,12 @@
 			available_limbs += limb
 
 	while(length(available_limbs))
-		if(do_after(user, rand(4,8) SECONDS, target = target))
+		if(do_after(user, rand(4, 8) SECONDS, target = target))
 			var/obj/item/organ/external/limb_to_delete = pick_n_take(available_limbs)
-			if(do_after(user, rand(6,8) SECONDS, target = target) && istype(limb_to_delete, /obj/item/organ/external/head))
-				to_chat(user, "<span class='warning'>You need slighlty more time to vanish [limb_to_delete]</span>")
+			if(do_after(user, rand(6, 8) SECONDS, target = target) && istype(limb_to_delete, /obj/item/organ/external/head))
+				to_chat(user, "<span class='warning'>You need slightly more time to vanish [limb_to_delete]</span>")
 			limb_to_delete.droplimb()
-			do_sparks(rand(2,4), FALSE, target)
+			do_sparks(rand(2, 4), FALSE, target)
 			to_chat(target, "<span class='biggerdanger'>Your [limb_to_delete] just vanished!</span>")
 			qdel(limb_to_delete)
 
@@ -57,8 +57,8 @@
 
 	if(!length(available_limbs))
 		to_chat(user, "<span class='danger'>This is the final stage of replacement.</span>")
-		if(do_after(user, rand(10,20) SECONDS, target = target))
-			do_sparks(rand(10,20), FALSE, target)
+		if(do_after(user, rand(10, 20) SECONDS, target = target))
+			do_sparks(rand(10, 20), FALSE, target)
 			to_chat(target, "<span class='biggerdanger'>Game Over.</span>")
 			qdel(target)
 			var/datum/spell/paradox_spell/click_target/replace/R = locate() in evil_twin.owner.spell_list

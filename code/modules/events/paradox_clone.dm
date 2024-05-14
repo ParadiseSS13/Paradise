@@ -3,6 +3,7 @@
 
 /datum/event/paradox_clone/setup()
 	spawncount = (round(length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) / 40))
+	spawncount += rand(0, spawncount)
 
 /datum/event/paradox_clone/proc/abort()
 	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
@@ -17,7 +18,6 @@
 		abort()
 		return
 
-	var/count = spawncount
 	var/wait_time = 20 SECONDS
 	var/mob/living/carbon/human/chosen
 	var/list/possible_chosen = list()
@@ -32,8 +32,7 @@
 		abort()
 		return
 
-	while(count)
-		count--
+	for(var/countd in 1 to spawncount)
 		chosen = pick(possible_chosen) //not pick n take to have at least very LOW chance to create an interesting situation like one clone need to protect someone, and second clone need to kill them lol
 
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a paradox clone of [chosen.real_name], the [chosen.mind.assigned_role]?", ROLE_PARADOX_CLONE, TRUE, wait_time, source = chosen)

@@ -1,6 +1,6 @@
 /datum/spell/paradox_spell/self/digital_supersede
 	name = "Digital Supersede"
-	desc = "With the help of the paradox, you completely remove yourself from cameras, leaving only interference..."
+	desc = "With the help of the paradox, you cloak yourself from any camera feeds, leaving only interference in your place..."
 	action_icon_state = "digital_supersede"
 	base_cooldown = 1 SECONDS
 

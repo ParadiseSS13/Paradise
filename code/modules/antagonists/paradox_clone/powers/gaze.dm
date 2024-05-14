@@ -1,12 +1,12 @@
 /datum/spell/paradox_spell/click_target/gaze
 	name = "Gaze"
-	desc = "A close look at the victim, which causes her to fall off her feet."
+	desc = "A close look at the victim, which causes them to fall off her feet."
 	action_icon_state = "gaze"
 	base_cooldown = 20 SECONDS
 	base_range = 12
 	base_max_charges = 2
-	selection_activated_message		= "<span class='warning'>Click on a target to gaze at them...</span>"
-	selection_deactivated_message	= "<span class='notice'>You decided to not gaze at anyone... For now.</span>"
+	selection_activated_message = "<span class='warning'>Click on a target to gaze at them...</span>"
+	selection_deactivated_message = "<span class='notice'>You decided to not gaze at anyone... For now.</span>"
 
 /datum/spell/paradox_spell/click_target/gaze/valid_target(target, user)
 	var/mob/living/targ = target

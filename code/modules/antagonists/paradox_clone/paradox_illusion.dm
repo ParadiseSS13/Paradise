@@ -38,13 +38,13 @@
 /mob/living/simple_animal/hostile/illusion/paradox/Found(var/atom/A)
 	var/mob/living/T = A
 	if(is_paradox_clone(A) || !T.mind || T.stat == DEAD)
-		return 0
+		return FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/illusion/paradox/CanAttack(var/atom/the_target)
 	var/mob/living/T = the_target
 	if(is_paradox_clone(T) || !T.mind || T.stat == DEAD)
-		return 0
+		return FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/illusion/paradox/proc/GetOppositeDir(var/dir)
@@ -65,7 +65,7 @@
 			return SOUTHWEST
 		if(SOUTHEAST)
 			return NORTHWEST
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/hostile/illusion/paradox/attack_hand(mob/living/user)
 	if(user.a_intent != INTENT_HELP && (!is_paradox_clone(user)))
@@ -99,4 +99,4 @@
 		H.AdjustParalysis(2)
 
 	if(H.staminaloss >= 100)
-		H.adjustOxyLoss(rand(0,20))
+		H.adjustOxyLoss(rand(0, 20))

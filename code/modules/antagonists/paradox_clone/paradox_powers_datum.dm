@@ -32,10 +32,9 @@
 	action_icon_state = "gib"
 	still_recharging_msg = "<span class='notice'>The connection is being restored...</span>"
 
-/obj/item/melee/touch_attack/paradox/afterattack(atom/A, mob/living/user, params)
+/obj/item/melee/touch_attack/paradox/afterattack(atom/A, mob/living/user, proximity, params)
 	. = ..()
-	if(get_dist(user, A) != 1)
-		attached_spell.revert_cast()
+	if(!proximity)
 		return
 
 /obj/item/melee/touch_attack/paradox

@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/paradox_clone_alert.ogg'))
 
 /datum/antagonist/paradox_clone/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><B>You are becoming more and more a part of this universe...</b></span>")
+	to_chat(owner.current, "<span class='biggerdanger'><b>You are becoming more and more a part of this universe...</b></span>")
 	owner.current.remove_status_effect(/datum/status_effect/internal_pinpointer/paradox_stalking)
 
 /datum/antagonist/paradox_clone/apply_innate_effects(mob/living/mob_override)
@@ -133,20 +133,20 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 					SSblackbox.record_feedback("nested tally", "paradox_clone_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					SSblackbox.record_feedback("nested tally", "paradox_clone_objective", 1, list("[objective.type]", "FAIL"))
 					pc_win = FALSE
 				count++
 
 
 		if(pc_win)
-			text += "<br><font color='green'><B>The Paradox Clone was successful!</B></font>"
+			text += "<br><font color='green'><b>The Paradox Clone was successful!</b></font>"
 			SSblackbox.record_feedback("tally", "paradox_clone_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>The Paradox Clone has failed!</B></font>"
+			text += "<br><font color='red'><b>The Paradox Clone has failed!</b></font>"
 			SSblackbox.record_feedback("tally", "paradox_clone_success", 1, "FAIL")
 
 		return text.Join("")
