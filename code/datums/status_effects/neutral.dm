@@ -218,26 +218,11 @@
 	tick_interval = 4
 	/// The number of people the gun has locked on to. Caps at 10 for sanity.
 	var/locks = 0
-	/// What direction the owner was in when using the scope.
-	var/owner_dir = 0
-
-/datum/status_effect/lwap_scope/on_creation(mob/living/new_owner, stored_dir = 0)
-	owner_dir = stored_dir
-	return ..()
 
 /datum/status_effect/lwap_scope/tick()
 	locks = 0
-	var/turf/owner_turf = get_turf(owner)
-	var/scope_turf
-	for(var/turf/T in RANGE_EDGE_TURFS(7, owner_turf))
-		if(get_dir(owner, T) != owner_dir)
-			continue
-		if(T in range(owner, 6))
-			continue
-		scope_turf = T
-		break
-	if(scope_turf)
-		for(var/mob/living/L in range(10, scope_turf))
+	for(var/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope/our_scope in owner.client.screen)
+		for(var/mob/living/L in range(10, our_scope.given_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
 			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
