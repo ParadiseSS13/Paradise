@@ -257,7 +257,7 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item} mr={2}>
                     <Stack.Item width="49%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={26}>
+                    <Stack.Item width={25}>
                       {item.stat === 'All' ? (
                         <Button
                           content="Replace All"
@@ -296,7 +296,7 @@ const Disks = (props, context) => {
                         }
                       />
                       <Button
-                        width={6}
+                        width={5}
                         icon="arrow-down"
                         content="Eject"
                         tooltip="Eject Disk"
@@ -308,7 +308,7 @@ const Disks = (props, context) => {
                         }
                       />
                       <Button
-                        width={3}
+                        width={2}
                         icon={item.read_only ? 'lock' : 'lock-open'}
                         content=""
                         tool_tip="Set/unset Read Only"
@@ -336,7 +336,7 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item} mr={2}>
                     <Stack.Item width="49%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={26}>
+                    <Stack.Item width={25}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
@@ -362,7 +362,7 @@ const Disks = (props, context) => {
                         }
                       />
                       <Button
-                        width={6}
+                        width={5}
                         icon="arrow-down"
                         content="Eject"
                         tooltip="Eject Disk"
@@ -374,7 +374,7 @@ const Disks = (props, context) => {
                         }
                       />
                       <Button
-                        width={3}
+                        width={2}
                         icon={item.read_only ? 'lock' : 'lock-open'}
                         content=""
                         tool_tip="Set/unset Read Only"
@@ -402,7 +402,7 @@ const Disks = (props, context) => {
                 return (
                   <Stack key={item} mr={2}>
                     <Stack.Item width="49%">{item.display_name}</Stack.Item>
-                    <Stack.Item width={26}>
+                    <Stack.Item width={25}>
                       <Button
                         width={6}
                         icon="arrow-circle-down"
@@ -428,7 +428,7 @@ const Disks = (props, context) => {
                         }
                       />
                       <Button
-                        width={6}
+                        width={5}
                         icon="arrow-down"
                         content="Eject"
                         tooltip="Eject Disk"
@@ -440,7 +440,7 @@ const Disks = (props, context) => {
                         }
                       />
                       <Button
-                        width={3}
+                        width={2}
                         icon={item.read_only ? 'lock' : 'lock-open'}
                         content=""
                         tool_tip="Set/unset Read Only"
