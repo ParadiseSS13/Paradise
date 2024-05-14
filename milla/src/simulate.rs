@@ -246,7 +246,9 @@ pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
     if tile.gases.values[gas] < REACTION_SIGNIFICANCE_MOLES {
         return false;
     }
-    if gas != GAS_AGENT_B && tile.gases.values[gas] / tile.gases.moles() < REACTION_SIGNIFICANCE_RATIO {
+    if gas != GAS_AGENT_B
+        && tile.gases.values[gas] / tile.gases.moles() < REACTION_SIGNIFICANCE_RATIO
+    {
         return false;
     }
     return true;

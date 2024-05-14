@@ -78,7 +78,7 @@
 		return
 
 	var/total = location_air.total_moles()
-	if (location_air.toxins() < 0.01 * total || location_air.oxygen() < 0.01 * total)
+	if(location_air.toxins() < 0.01 * total || location_air.oxygen() < 0.01 * total)
 		// The rest of the gas is snuffing out the reaction.
 		qdel(src)
 		return
