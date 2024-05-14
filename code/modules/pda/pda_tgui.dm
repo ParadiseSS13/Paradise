@@ -60,11 +60,6 @@
 
 	return data
 
-/obj/item/pda/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/simple/mob_hunt)
-	)
-
 // Yes the stupid amount of args here is important, see L102
 /obj/item/pda/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
