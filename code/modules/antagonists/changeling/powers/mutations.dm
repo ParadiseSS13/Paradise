@@ -202,24 +202,10 @@
 	armour_penetration_percentage = 80
 	hitsound = "swing_hit"
 	reach = 1
-	var/swing = TRUE
 
 /obj/item/melee/arm_blade/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	REMOVE_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
-
-/obj/item/melee/arm_blade/fleshy_maul/attack_self(mob/user)
-	..()
-	if(swing)
-		swing = FALSE
-	else
-		swing = TRUE
-	to_chat(user, "<span class='changeling'>We ready to [swing ? "swing at" : "crush"] our prey!</span>")
-
-/obj/item/melee/arm_blade/fleshy_maul/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>It is ready to [swing ? "swing" : "crush"]."
-	. += "<span class='notice'>It can't be <b>parried</b> by any weapon or shield."
 
 /obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
 	if(get_dist(target, user) > reach && proximity)
@@ -254,10 +240,7 @@
 		var/atom/throw_target = get_edge_target_turf(M, user.dir)
 		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact), TRUE)
 
-		if(swing && prob(60))
-			M.throw_at(throw_target, 1, 6, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
-
-		if(istype(M, /mob/living/simple_animal/bot) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
+		if(isbot(M)) || istype(M, /mob/living/silicon/pai) || istype(M, /mob/living/silicon/robot/drone))
 			M.apply_damage(9999) // little and annoying. one smash and they're destroyed. really, this is a big fucking maul.
 
 		if(ishuman(M))
@@ -265,8 +248,6 @@
 			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
 			if(O.brute_dam >= 40 && prob(70)) // increased bone breaking chance is a feature. btw we have only 10 damage...
 				O.fracture()
-			if(prob(40))
-				H.KnockDown(rand(1, 2) SECONDS)
 
 /obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
