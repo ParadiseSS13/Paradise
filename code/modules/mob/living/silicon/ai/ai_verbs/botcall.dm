@@ -31,7 +31,7 @@
 	AI = usr
 	bot = locateUID(selected_UID)
 	if(!bot || bot.remote_disabled || AI.control_disabled)
-		return // If there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
+		return
 	switch(action)
 		if("interface")
 			bot.attack_ai(usr)
