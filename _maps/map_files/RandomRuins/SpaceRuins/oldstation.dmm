@@ -118,7 +118,7 @@
 /obj/structure/shuttle/engine/large{
 	dir = 4
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/ancientstation/hivebot)
 "az" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -4987,6 +4987,9 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/indestructible,
 /area/ruin/ancientstation/sec)
+"Ps" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/ancientstation/hivebot)
 "Rc" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
@@ -8715,11 +8718,11 @@ aa
 qO
 qO
 qO
-ai
+Ps
 ay
-ai
+Ps
 ay
-ai
+Ps
 ay
 qO
 qO
