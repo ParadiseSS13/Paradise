@@ -30,8 +30,8 @@ export class NanoMap extends Component {
     const Ycenter = window.innerHeight / 2 - 256;
 
     this.state = {
-      offsetX: 128,
-      offsetY: 48,
+      offsetX: 0,
+      offsetY: 0,
       dragging: false,
       originX: null,
       originY: null,
@@ -109,6 +109,9 @@ export class NanoMap extends Component {
       'margin-left': offsetX + 'px',
       'overflow': 'hidden',
       'position': 'relative',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
       'background-size': 'cover',
       'background-repeat': 'no-repeat',
       'text-align': 'center',
