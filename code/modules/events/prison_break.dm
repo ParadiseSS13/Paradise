@@ -1,5 +1,5 @@
 /datum/event/prison_break
-	startWhen		= 50
+	startWhen		= 40
 	announceWhen	= 75
 
 	var/releaseWhen = 60
@@ -46,7 +46,7 @@
 
 	if(areas && length(areas) > 0)
 		var/my_department = "[station_name()] firewall subroutines"
-		var/rc_message = "An unknown malicious program has been detected in the [english_list(areaName)] lighting and airlock control systems at [station_time_timestamp()]. Systems will be fully compromised within approximately thirty seconds. Direct intervention is required immediately.<br>"
+		var/rc_message = "An unknown malicious program has been detected in the [english_list(areaName)] lighting and airlock control systems at [station_time_timestamp()]. Systems will be fully compromised within approximately one minute. Direct intervention is required immediately.<br>"
 		for(var/obj/machinery/message_server/MS in GLOB.machines)
 			MS.send_rc_message("Engineering", my_department, rc_message, "", "", 2)
 	else
