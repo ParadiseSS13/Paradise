@@ -261,7 +261,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
 	if(broadcasting)
-		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3) )
+		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
 /obj/item/radio/proc/isBroadcasting()
 	if(broadcasting)
