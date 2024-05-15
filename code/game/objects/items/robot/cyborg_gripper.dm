@@ -24,12 +24,19 @@
 	/// The item currently being held.
 	var/obj/item/gripped_item
 
+/obj/item/gripper/examine(mob/user)
+	. = ..()
+	if(!gripped_item)
+		. += "<span class='notice'>[src] is empty.</span>"
+		return
+	. += "<span class='notice'>[src] is currently holding [gripped_item].</span>"
+
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
-	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, they can be used just as effectively as a regular hand with enough practice."
-	. += ""
-	. += "Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
-	protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
+	. += {"Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, they can be used just as effectively as a regular hand with enough practice.
+
+Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, \
+as part of their multi-layered protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."}
 
 
 /obj/item/gripper/Initialize(mapload)
@@ -116,7 +123,7 @@
 	// Everything past this point requires being able to engineer.
 	if(!engineering_machine_interaction)
 		return
-
+	// APC cells.
 	if(istype(target, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened && A.cell)
@@ -131,7 +138,7 @@
 			A.update_icon()
 
 			user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "<span class='warning'>You remove the power cell.</span>")
-
+	// Cell Chargers
 	else if(istype(target, /obj/machinery/cell_charger))
 		var/obj/machinery/cell_charger/cell_charger = target
 		if(cell_charger.charging)
@@ -139,7 +146,7 @@
 			cell_charger.charging.add_fingerprint(user)
 			cell_charger.charging.forceMove(src)
 			cell_charger.removecell()
-
+	// Putting lights in fixtures.
 	else if(istype(target, /obj/machinery/light))
 		var/obj/machinery/light/light = target
 		var/obj/item/light/L = light.drop_light_tube()
