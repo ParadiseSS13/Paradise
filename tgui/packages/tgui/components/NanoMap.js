@@ -187,6 +187,8 @@ const NanoMapMarker = (props, context) => {
   );
 };
 
+NanoMap.Marker = NanoMapMarker;
+
 const NanoMapMarkerIcon = (props, context) => {
   const {
     map: { zoom },
