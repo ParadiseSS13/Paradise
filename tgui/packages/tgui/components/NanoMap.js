@@ -140,8 +140,12 @@ export class NanoMap extends Component {
 
 const NanoMapMarker = (props, context) => {
   const { x, y, zoom = 1, icon, tooltip, color } = props;
-  const rx = x * 2 * zoom - zoom - 3;
-  const ry = y * 2 * zoom - zoom - 3;
+  const pixelsPerTurfAtZoom = PIXELS_PER_TURF * zoom;
+  const markerSize = PIXELS_PER_TURF * zoom + 4 / Math.ceil(zoom / 4);
+  const centerOffset = (markerSize - pixelsPerTurfAtZoom) / 2;
+  // For some reason the X and Y are offset by 1
+  const rx = (x - 1) * pixelsPerTurfAtZoom - centerOffset;
+  const ry = (y - 1) * pixelsPerTurfAtZoom - centerOffset;
   return (
     <div>
       <Tooltip content={tooltip}>
@@ -152,7 +156,7 @@ const NanoMapMarker = (props, context) => {
           bottom={ry + 'px'}
           left={rx + 'px'}
         >
-          <Icon name={icon} color={color} fontSize="6px" />
+          <Icon name={icon} color={color} fontSize={`${markerSize}px`} />
         </Box>
       </Tooltip>
     </div>
