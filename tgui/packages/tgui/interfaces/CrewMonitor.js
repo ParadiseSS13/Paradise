@@ -49,7 +49,15 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndexInternal] = useLocalState(
+    context,
+    'tabIndex',
+    data.tabIndex
+  );
+  const setTabIndex = (index) => {
+    setTabIndexInternal(index);
+    act('set_tab_index', { tab_index: index });
+  };
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -231,7 +239,18 @@ const CrewMonitorMapView = (_properties, context) => {
   const { highlightedNames } = data;
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
-      <NanoMap>
+      <NanoMap
+        zoom={data.zoom}
+        offsetX={data.offsetX}
+        offsetY={data.offsetY}
+        onZoom={(zoom) => act('set_zoom', { zoom })}
+        onOffsetChange={(e, state) =>
+          act('set_offset', {
+            offset_x: state.offsetX,
+            offset_y: state.offsetY,
+          })
+        }
+      >
         {data.crewmembers
           .filter((x) => x.sensor_type === 3 || data.ignoreSensors)
           .map((cm) => {

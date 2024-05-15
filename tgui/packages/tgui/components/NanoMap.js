@@ -30,12 +30,12 @@ export class NanoMap extends Component {
     const Ycenter = window.innerHeight / 2 - 256;
 
     this.state = {
-      offsetX: 0,
-      offsetY: 0,
+      offsetX: props.offsetX ?? 0,
+      offsetY: props.offsetY ?? 0,
       dragging: false,
       originX: null,
       originY: null,
-      zoom: 1,
+      zoom: props.zoom ?? 1,
     };
 
     // Dragging
@@ -64,6 +64,7 @@ export class NanoMap extends Component {
         } else {
           state.dragging = true;
         }
+        props.onOffsetChange?.(e, state);
         return state;
       });
       pauseEvent(e);
@@ -97,6 +98,7 @@ export class NanoMap extends Component {
         state.offsetY = 0;
         state.zoom = 1;
         this.handleZoom(e, 1);
+        props.onOffsetChange?.(e, state);
       });
     };
   }
