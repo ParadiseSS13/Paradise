@@ -1,5 +1,5 @@
-/datum/spell/paradox_spell/aoe/display_inability
-	name = "Display Inability"
+/datum/spell/paradox_spell/aoe/hud_malfunction
+	name = "HUD malfunction"
 	desc = "Causes paradoxial interference in the HUDs and vision for nearby humans, turrets, bots and silicons. Blinds them for a while."
 	action_icon_state = "display_inability"
 	base_cooldown = 140 SECONDS

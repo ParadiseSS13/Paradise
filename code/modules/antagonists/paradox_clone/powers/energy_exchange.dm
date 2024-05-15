@@ -2,7 +2,7 @@
 	name = "Energy Exchange"
 	desc = "You commit a paradox and exchange stamina, slowness, confusion and other negative effects with a chosen victim. Works even if target is not a human, as well as when you are unconscious."
 	action_icon_state = "stamina_exchange"
-	base_cooldown = 80 SECONDS
+	base_cooldown = 60 SECONDS
 	base_range = 12
 	selection_activated_message = "<span class='warning'>Click on the target to exchange stamina!</span>"
 	selection_deactivated_message = "<span class='notice'>You decided to do nothing... But is it for sure?</span>"

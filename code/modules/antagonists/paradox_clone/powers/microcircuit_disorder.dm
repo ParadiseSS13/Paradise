@@ -2,7 +2,7 @@
 	name = "Microcircuit Disorder"
 	desc = "Make a system failure and some short circuit causes silicon (and machinery) to disable. Need physical contact."
 	action_icon_state = "microcircuit_disorder"
-	base_cooldown = 70 SECONDS
+	base_cooldown = 60 SECONDS
 	hand_path = /obj/item/melee/touch_attack/paradox_emp
 
 /obj/item/melee/touch_attack/paradox_emp

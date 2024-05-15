@@ -2,7 +2,7 @@
 	name = "Space Distortion"
 	desc = "Warps space around you to let you pass into an object."
 	action_icon_state = "space_distortion"
-	base_cooldown = 10 SECONDS
+	base_cooldown = 30 SECONDS
 	hand_path = /obj/item/melee/touch_attack/space_distortion
 
 /obj/item/melee/touch_attack/space_distortion

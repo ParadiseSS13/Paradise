@@ -2,7 +2,7 @@
 	name = "Gaze"
 	desc = "A close look at the victim, which causes them to fall off her feet."
 	action_icon_state = "gaze"
-	base_cooldown = 20 SECONDS
+	base_cooldown = 40 SECONDS
 	base_range = 12
 	base_max_charges = 2
 	selection_activated_message = "<span class='warning'>Click on a target to gaze at them...</span>"
@@ -62,10 +62,11 @@
 			to_chat(user, "<span class='warning'>Useless. [target.name] is from our kin.</span>")
 			return
 
-		target.KnockDown(4 SECONDS)
-		target.AdjustSilence(2 SECONDS)
-		target.apply_damage(20, STAMINA)
-		target.Confused(2 SECONDS)
-		target.AdjustHallucinate(20 SECONDS)
+		target.KnockDown(8 SECONDS)
+		target.AdjustSilence(4 SECONDS)
+		target.apply_damage(30, STAMINA)
+		target.Weaken(6 SECONDS)
+		target.Confused(10 SECONDS)
+		target.AdjustHallucinate(40 SECONDS)
 
 		add_attack_logs(user, target, "(Paradox Clone) Gazed")

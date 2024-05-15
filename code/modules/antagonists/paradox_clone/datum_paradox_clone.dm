@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 		/datum/spell/touch/paradox_spell/microcircuit_disorder,
 		/datum/spell/paradox_spell/self/intangibility,
 		/datum/spell/touch/paradox_spell/suppression,
-		/datum/spell/paradox_spell/aoe/display_inability
+		/datum/spell/paradox_spell/aoe/hud_malfunction
 	)
 	//"replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
 	var/mob/living/carbon/human/original
