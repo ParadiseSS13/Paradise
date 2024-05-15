@@ -301,8 +301,9 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
-/obj/machinery/suit_storage_unit/Destroy()
-	dump_contents()
+/obj/machinery/suit_storage_unit/Destroy(force)
+	if(!force)
+		dump_contents()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()
