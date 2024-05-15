@@ -110,7 +110,7 @@ const AtmosControlDataView = (_properties, context) => {
 };
 
 const AtmosControlMapView = (_properties, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const { alarms } = data;
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
@@ -126,6 +126,7 @@ const AtmosControlMapView = (_properties, context) => {
               icon="circle"
               tooltip={aa.name}
               color={getStatusColour(aa.danger)}
+              onClick={() => act('open_alarm', { aref: aa.ref })}
             />
           ))}
       </NanoMap>

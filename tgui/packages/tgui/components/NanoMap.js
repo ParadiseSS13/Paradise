@@ -162,7 +162,7 @@ const NanoMapMarker = (props, context) => {
   const {
     map: { zoom },
   } = context;
-  const { x, y, icon, tooltip, color } = props;
+  const { x, y, icon, tooltip, color, ...rest } = props;
   const pixelsPerTurfAtZoom = PIXELS_PER_TURF * zoom;
   const markerSize = pixelsPerTurfAtZoom + 4 / Math.ceil(zoom / 4);
   // For some reason the X and Y are offset by 1
@@ -179,6 +179,7 @@ const NanoMapMarker = (props, context) => {
           left={rx + 'px'}
           width={pixelsPerTurfAtZoom + 'px'}
           height={pixelsPerTurfAtZoom + 'px'}
+          {...rest}
         >
           <Icon
             name={icon}
