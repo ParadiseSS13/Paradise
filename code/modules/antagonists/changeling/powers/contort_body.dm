@@ -7,6 +7,10 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
 
+/datum/action/changeling/contort_body/Remove(mob/M)
+	deactivate()
+	..()
+
 /datum/action/changeling/contort_body/sting_action(mob/living/user)
 	if(HAS_TRAIT_FROM(user, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT))
 		deactivate(user)
@@ -27,3 +31,4 @@
 	if(IS_HORIZONTAL(user))
 		user.layer = initial(user.layer)
 	to_chat(user, "<span class='notice'>Our body stiffens and returns to form.</span>")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
