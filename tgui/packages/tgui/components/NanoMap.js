@@ -32,7 +32,6 @@ export class NanoMap extends Component {
     this.state = {
       offsetX: 128,
       offsetY: 48,
-      transform: 'none',
       dragging: false,
       originX: null,
       originY: null,
