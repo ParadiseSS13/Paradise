@@ -230,7 +230,7 @@
 		M.adjustToxLoss(2)
 		M.drop_l_hand()
 		M.drop_r_hand()
-		return 1
+		return TRUE
 
 /obj/effect/particle_effect/smoke/changeling/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
