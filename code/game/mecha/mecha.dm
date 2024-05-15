@@ -18,6 +18,8 @@
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
+	/// Time it takes to enter the mech
+	var/mech_enter_time = 4 SECONDS
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
@@ -262,8 +264,9 @@
 
 
 //////////////////////////////////
-////////  Movement procs  ////////
+////////  MARK: Movement procs  
 //////////////////////////////////
+
 /obj/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(.)
@@ -449,7 +452,7 @@
 
 
 ///////////////////////////////////
-////////  Internal damage  ////////
+////////  MARK: Internal damage
 ///////////////////////////////////
 
 /obj/mecha/proc/check_for_internal_damage(list/possible_int_damage, ignore_threshold=null)
@@ -492,7 +495,7 @@
 
 
 ////////////////////////////////////////
-////////  Health related procs  ////////
+////////  MARK: Health related procs
 ////////////////////////////////////////
 
 /obj/mecha/proc/get_armour_facing(relative_dir)
@@ -686,7 +689,7 @@
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
-////// AttackBy //////
+////// MARK: AttackBy
 //////////////////////
 
 /obj/mecha/attackby(obj/item/W, mob/user, params)
@@ -918,7 +921,7 @@
 
 
 /////////////////////////////////////
-//////////// AI piloting ////////////
+//////////// MARK: AI piloting
 /////////////////////////////////////
 
 /obj/mecha/attack_ai(mob/living/silicon/ai/user)
@@ -1024,7 +1027,7 @@
 		GrantActions(AI, !AI.can_dominate_mechs)
 
 /////////////////////////////////////
-////////  Atmospheric stuff  ////////
+////////  MARK: Atmospheric stuff
 /////////////////////////////////////
 
 /obj/mecha/proc/get_turf_air()
@@ -1045,6 +1048,11 @@
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()
+
+/obj/mecha/return_analyzable_air()
+	if(use_internal_tank)
+		return cabin_air
+	return null
 
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
@@ -1149,7 +1157,7 @@
 	return TRUE
 
 /obj/mecha/proc/put_in(mob/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
-	if(do_after(user, 40, target = src))
+	if(do_after(user, mech_enter_time, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
@@ -1333,7 +1341,7 @@
 	go_out()
 
 /////////////////////////
-////// Access stuff /////
+////// MARK: Access stuff
 /////////////////////////
 
 /obj/mecha/proc/operation_allowed(mob/living/carbon/human/H)
@@ -1371,7 +1379,7 @@
 	return 1
 
 ///////////////////////
-///// Power stuff /////
+///// MARK: Power stuff
 ///////////////////////
 
 /obj/mecha/proc/has_charge(amount)
@@ -1431,7 +1439,7 @@
 	return icon_state
 
 //////////////////////////////////////////
-////////  Mecha global iterators  ////////
+////////  MARK: Mecha global iterators
 //////////////////////////////////////////
 
 /obj/mecha/process()

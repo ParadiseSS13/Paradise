@@ -169,7 +169,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
-	/client/proc/debug_global_variables
+	/client/proc/debug_global_variables,
+	/client/proc/profile_code
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -236,7 +237,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_global_variables,
 	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
-	/client/proc/timer_log
+	/client/proc/timer_log,
+	/client/proc/profile_code
 ))
 
 /client/proc/add_admin_verbs()
@@ -954,6 +956,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Debug"
 
 	src.stat_panel.send_message("create_debug")
+
+/client/proc/profile_code()
+	set name = "Profile Code"
+	set category = "Debug"
+
+	winset(usr, null, "command=.profile")
 
 /client/proc/export_current_character()
 	set name = "Export Character DMI/JSON"

@@ -905,7 +905,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(ischangeling(M))
+					if(IS_CHANGELING(M))
 						return
 					M.delayed_gib(TRUE)
 					return
@@ -1020,7 +1020,10 @@
 	if(ishuman(M) && prob(5))
 		var/mob/living/carbon/human/H = M
 		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
-			new/obj/item/organ/internal/bone_tumor(H)
+			if(isslimeperson(H))
+				new /obj/item/organ/internal/bone_tumor/slime_tumor(H)
+			else
+				new /obj/item/organ/internal/bone_tumor(H)
 
 	return ..()
 
