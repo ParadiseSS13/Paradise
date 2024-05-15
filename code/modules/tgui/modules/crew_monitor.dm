@@ -4,6 +4,10 @@
 	var/viewing_current_z_level
 	/// If true, we'll see everyone, regardless of their suit sensors.
 	var/ignore_sensors = FALSE
+	// This is intentionally a list of displayed names and NOT ckeys, refs, or uids.
+	// Exposing any of the aforementioned to the client could allow an exploit to detect
+	// changelings that are on sensors.
+	var/highlighted_names = list()
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -31,6 +35,16 @@
 			if(!is_advanced)
 				return
 			viewing_current_z_level = text2num(params["new_level"])
+		if("add_highlighted_name")
+			// Intentionally not sanitized as the name is not used for rendering
+			var/name = params["name"]
+			highlighted_names += list(name)
+		if("remove_highlighted_name")
+			// Intentionally not sanitized as the name is not used for rendering
+			var/name = params["name"]
+			highlighted_names -= list(name)
+		if("clear_highlighted_names")
+			highlighted_names = list()
 
 /datum/ui_module/crew_monitor/ui_state(mob/user)
 	return GLOB.default_state
@@ -61,6 +75,7 @@
 	data["isObserver"] = isobserver(user)
 	data["ignoreSensors"] = ignore_sensors
 	data["crewmembers"] = GLOB.crew_repository.health_data(viewing_current_z_level, ignore_sensors)
+	data["highlightedNames"] = highlighted_names
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
 
 	return data
