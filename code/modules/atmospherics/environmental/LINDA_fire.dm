@@ -23,6 +23,10 @@
 		return TRUE
 
 	if(exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE && air.oxygen() > 0.5 && air.toxins() > 0.5)
+		var/total = air.total_moles()
+		if(air.toxins() < 0.01 * total || air.oxygen() < 0.01 * total)
+			// The rest of the gas is snuffing out the reaction.
+			return FALSE
 		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
