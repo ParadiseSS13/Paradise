@@ -5,6 +5,10 @@ import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
 import { resolveAsset } from '../assets';
 
+const MAP_SIZE = 510;
+/** At zoom = 1 */
+const PIXELS_PER_TURF = 2;
+
 const pauseEvent = (e) => {
   if (e.stopPropagation) {
     e.stopPropagation();
@@ -98,7 +102,7 @@ export class NanoMap extends Component {
     const { children } = this.props;
 
     const mapUrl = config.map + '_nanomap_z1.png';
-    const mapSize = 510 * zoom + 'px';
+    const mapSize = MAP_SIZE * zoom + 'px';
     const newStyle = {
       width: mapSize,
       height: mapSize,
