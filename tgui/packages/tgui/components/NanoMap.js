@@ -158,7 +158,7 @@ export class NanoMap extends Component {
   }
 }
 
-const NanoMapMarker = (props, context) => {
+const NanoMapMarkerIcon = (props, context) => {
   const {
     map: { zoom },
   } = context;
@@ -198,7 +198,7 @@ const NanoMapMarker = (props, context) => {
   );
 };
 
-NanoMap.Marker = NanoMapMarker;
+NanoMap.MarkerIcon = NanoMapMarkerIcon;
 
 const NanoMapZoomer = (props, context) => {
   return (

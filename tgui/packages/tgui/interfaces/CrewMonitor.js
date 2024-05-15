@@ -195,7 +195,7 @@ const CrewMonitorMapView = (_properties, context) => {
         {data.crewmembers
           .filter((x) => x.sensor_type === 3 || data.ignoreSensors)
           .map((cm) => (
-            <NanoMap.Marker
+            <NanoMap.MarkerIcon
               key={cm.ref}
               x={cm.x}
               y={cm.y}

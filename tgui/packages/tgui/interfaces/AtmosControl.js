@@ -119,7 +119,7 @@ const AtmosControlMapView = (_properties, context) => {
           .filter((a) => a.z === 2)
           .map((aa) => (
             // The AA means air alarm, and nothing else
-            <NanoMap.Marker
+            <NanoMap.MarkerIcon
               key={aa.ref}
               x={aa.x}
               y={aa.y}
