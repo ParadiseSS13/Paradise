@@ -96,3 +96,6 @@ pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 /// We allow small deviations in tests, so that floating point precision doesn't cause problems.
 #[cfg(test)]
 pub(crate) const TEST_TOLERANCE: f32 = 0.00001;
+
+/// Lose this multiple of heat energy per tick if above T20C.
+pub(crate) const SPACE_COOLING_FACTOR: f32 = 0.005;

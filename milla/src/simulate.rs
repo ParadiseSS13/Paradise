@@ -420,8 +420,11 @@ pub(crate) fn apply_tile_mode(
             // Restore original superconductivity
             my_inactive_tile.superconductivity = real_superconductivity;
         }
-        // Do nothing in ATMOS_MODE_SEALED.
-        _ => (),
+        AtmosMode::Sealed => {
+            if my_inactive_tile.temperature() > T20C {
+                my_inactive_tile.thermal_energy *= 1.0 - SPACE_COOLING_FACTOR;
+            }
+        }
     }
     Ok(())
 }
