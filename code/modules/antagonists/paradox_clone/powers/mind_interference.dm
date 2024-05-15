@@ -29,9 +29,9 @@
 	H.KnockDown(1 SECONDS)
 	H.AdjustEyeBlind(1 SECONDS)
 	H.AdjustEyeBlurry(2 SECONDS)
-	H.AdjustDruggy(rand(1, 10 SECONDS)
-	H.AdjustDrunk(rand(1, 10 SECONDS)
-	H.AdjustDizzy(rand(1, 10 SECONDS)
+	H.AdjustDruggy(rand(1, 10) SECONDS)
+	H.AdjustDrunk(rand(1, 10) SECONDS)
+	H.AdjustDizzy(rand(1, 10) SECONDS)
 	H.AdjustLoseBreath(rand(1, 2) SECONDS)
 
 	to_chat(user, "<span class='userdanger'>Why are your head hurts so hard...</span>")
