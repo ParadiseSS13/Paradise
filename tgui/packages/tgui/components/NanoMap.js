@@ -57,8 +57,8 @@ export class NanoMap extends Component {
         const newOffsetX = e.screenX - state.originX;
         const newOffsetY = e.screenY - state.originY;
         if (prevState.dragging) {
-          state.offsetX += newOffsetX;
-          state.offsetY += newOffsetY;
+          state.offsetX += newOffsetX / state.zoom;
+          state.offsetY += newOffsetY / state.zoom;
           state.originX = e.screenX;
           state.originY = e.screenY;
         } else {
