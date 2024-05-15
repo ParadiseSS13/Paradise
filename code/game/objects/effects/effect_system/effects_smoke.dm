@@ -233,8 +233,8 @@
 		return TRUE
 
 /obj/effect/particle_effect/smoke/changeling/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+	if(height == 0)
+		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage/2)
