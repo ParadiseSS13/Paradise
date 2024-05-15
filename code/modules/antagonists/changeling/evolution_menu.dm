@@ -86,7 +86,7 @@
 	if(HAS_TRAIT(owner, TRAIT_FAKEDEATH)) // To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(owner, "<span class='warning'>We lack the energy to evolve new abilities right now.</span>")
 		return FALSE
-
+	SSblackbox.record_feedback("tally", "changeling_ability_purchased", 1, "[power_type]")
 	cling.give_power(new power_type)
 	return TRUE
 
