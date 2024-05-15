@@ -2712,6 +2712,7 @@
 #include "code\modules\shuttle\dock_generator.dm"
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\shuttle\ert_shuttle.dm"
+#include "code\modules\shuttle\lance_docking_targeter.dm"
 #include "code\modules\shuttle\navigation_computer.dm"
 #include "code\modules\shuttle\on_move.dm"
 #include "code\modules\shuttle\ripple.dm"
