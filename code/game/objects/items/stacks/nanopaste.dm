@@ -47,7 +47,7 @@
 		return
 	if(mecha.internal_damage & MECHA_INT_TANK_BREACH)
 		mecha.clearInternalDamage(MECHA_INT_TANK_BREACH)
-		user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+		user.visible_message("<span class='notice'>[user] repairs the damaged air tank.</span>", "<span class='notice'>You repair the damaged air tank.</span>")
 	else if(mecha.obj_integrity < mecha.max_integrity)
 		mecha.obj_integrity += min(20, mecha.max_integrity - mecha.obj_integrity)
 		use(1)
