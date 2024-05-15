@@ -33,7 +33,7 @@ type LabeledListItemProps = {
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
-  labelStyle: Record<string | symbol, any>?;
+  labelStyle?: Record<string | symbol, any>;
 };
 
 const LabeledListItem = (props: LabeledListItemProps) => {
