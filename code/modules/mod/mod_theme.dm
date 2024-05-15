@@ -850,7 +850,7 @@
 	)
 
 /obj/item/mod/armor/praetorian
-	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 40, RAD = 25, FIRE = INFINITY, ACID = 150) //Equivalent armor to Safeguard
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, RAD = 0, FIRE = 150, ACID = 150) //Equivalent armor to Security MODsuits
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
