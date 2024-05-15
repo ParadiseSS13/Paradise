@@ -1,5 +1,5 @@
 import { Component } from 'inferno';
-import { Box, Icon, Tooltip } from '.';
+import { Box, Button, Flex, Icon, Tooltip } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
@@ -90,6 +90,15 @@ export class NanoMap extends Component {
         return state;
       });
     };
+
+    this.handleReset = (e) => {
+      this.setState((state) => {
+        state.offsetX = 0;
+        state.offsetY = 0;
+        state.zoom = 1;
+        this.handleZoom(e, 1);
+      });
+    };
   }
 
   render() {
@@ -131,7 +140,11 @@ export class NanoMap extends Component {
           <img src={resolveAsset(mapUrl)} style={mapStyle} />
           <Box>{children}</Box>
         </Box>
-        <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />
+        <NanoMapZoomer
+          zoom={zoom}
+          onZoom={this.handleZoom}
+          onReset={this.handleReset}
+        />
       </Box>
     );
   }
@@ -168,15 +181,27 @@ const NanoMapZoomer = (props, context) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
-        <LabeledList.Item label="Zoom">
-          <Slider
-            minValue={1}
-            maxValue={8}
-            stepPixelSize={10}
-            format={(v) => v + 'x'}
-            value={props.zoom}
-            onDrag={(e, v) => props.onZoom(e, v)}
-          />
+        <LabeledList.Item
+          label="Zoom"
+          labelStyle={{ 'vertical-align': 'middle' }}
+        >
+          <Flex direction="row">
+            <Slider
+              minValue={1}
+              maxValue={8}
+              stepPixelSize={10}
+              format={(v) => v + 'x'}
+              value={props.zoom}
+              onDrag={(e, v) => props.onZoom(e, v)}
+            />
+            <Button
+              ml="0.5em"
+              float="right"
+              icon="sync"
+              tooltip="Reset View"
+              onClick={(e) => props.onReset?.(e)}
+            />
+          </Flex>
         </LabeledList.Item>
       </LabeledList>
     </Box>
