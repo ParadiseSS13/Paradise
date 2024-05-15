@@ -396,7 +396,6 @@
 #define INVESTIGATE_RENAME "renames"
 
 #define INVESTIGATE_BOMB "bombs"
-
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
