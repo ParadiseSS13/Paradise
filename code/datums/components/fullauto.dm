@@ -262,6 +262,9 @@
 		current_windup_reduction = (current_windup_reduction + round(autofire_shot_delay * windup_autofire_reduction_multiplier))
 		timerid = addtimer(CALLBACK(src, PROC_REF(windup_reset), FALSE), windup_spindown, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
 
+	if(shooter.next_move_modifier) //DNA vault, mephemdrone, bluespace slowness debuff.
+		next_delay = round(next_delay * shooter.next_move_modifier, SSprojectiles.wait)
+
 	COOLDOWN_START(src, next_shot_cd, next_delay)
 
 	if(SEND_SIGNAL(parent, COMSIG_AUTOFIRE_SHOT, target, shooter, allow_akimbo, mouse_parameters) & COMPONENT_AUTOFIRE_SHOT_SUCCESS)

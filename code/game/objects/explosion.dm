@@ -1,5 +1,3 @@
-//TODO: Flash range does nothing currently
-
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
 #define DEVASTATION_PROB 30 //The probability modifier for devistation, maths!
 #define HEAVY_IMPACT_PROB 5 //ditto
@@ -74,6 +72,10 @@
 				var/turf/M_turf = get_turf(M)
 				if(M_turf && M_turf.z == z0)
 					var/dist = get_dist(M_turf, epicenter)
+					if(isliving(M) && dist <= flash_range)
+						var/mob/living/to_flash = M
+						var/is_very_close_to_the_explosion = flash_range > (dist * 2)
+						to_flash.flash_eyes(is_very_close_to_the_explosion * 2, is_very_close_to_the_explosion, is_very_close_to_the_explosion) // Gets past sunglasses
 					var/baseshakeamount
 					if(orig_max_distance - dist > 0)
 						baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)

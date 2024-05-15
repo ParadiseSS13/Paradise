@@ -144,7 +144,7 @@
 		/obj/item/clothing/gloves/combat, // accounted in belt + toolbox
 		/obj/item/flashlight/emp) // 4TC
 
-/// 168TC + Telekinesis
+/// 170TC + Telekinesis
 /obj/item/storage/box/syndie_kit/bundle/darklord
 	name = "Dark Lord Bundle"
 	desc = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT."
@@ -155,7 +155,7 @@
 		/obj/item/dnainjector/telemut/darkbundle, // ?TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
-		/obj/item/clothing/mask/chameleon, // 8TC
+		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
 		/obj/item/encryptionkey/syndicate) // 10TC
@@ -403,11 +403,26 @@
 	new /obj/item/clothing/shoes/chameleon(src)
 	new /obj/item/clothing/glasses/chameleon(src)
 	new /obj/item/clothing/head/chameleon(src)
-	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
-	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/chameleon/nuke
+	name = "operative's chameleon kit"
+
+/obj/item/storage/box/syndie_kit/chameleon/nuke/populate_contents()
+	new /obj/item/clothing/under/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/pda/chameleon(src)
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/clothing/mask/chameleon/voice_change(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
