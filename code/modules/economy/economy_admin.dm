@@ -36,7 +36,7 @@
 	switch(action)
 		if("payroll_modification")
 			var/list/accounts_to_modify = list()
-			var/num_input = tgui_input_number(ui.user, "Amount (If for more than 4 people, keep around +/-$100 for the love of god)", "Input Amount")
+			var/num_input = tgui_input_number(ui.user, "Enter an amount. If for more than 4 people, keep around +/-$100 for the love of god!", "Input Amount")
 			if(!num_input)
 				return
 
@@ -51,7 +51,7 @@
 						SSeconomy.global_paycheck_deduction += -num_input
 					log_and_message_admins("has modified the global payroll by [num_input].")
 				if("department")
-					var/department_input = tgui_input_list(ui.user, "Which Department Account?", "Select Department", GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
+					var/department_input = tgui_input_list(ui.user, "Which department account?", "Select Department", GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
 					if(!department_input)
 						return
 					var/datum/money_account/department_account = GLOB.station_money_database.get_account_by_department(department_input)
@@ -60,7 +60,7 @@
 					accounts_to_modify += department_account
 					log_and_message_admins("has modified the payroll of the [department_input] department by [num_input].")
 				if("department_members")
-					var/department_input = tgui_input_list(ui.user, "Members from Which Department?", "Select Department", GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
+					var/department_input = tgui_input_list(ui.user, "Members from which department?", "Select Department", GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
 					var/datum/station_department/department = get_department_from_name(department_input)
 					if(!department)
 						return
@@ -69,7 +69,7 @@
 							accounts_to_modify += member.member_account
 					log_and_message_admins("has modified the payroll of the [department_input] department's members by [num_input].")
 				if("crew_member")
-					var/account_input = tgui_input_list(ui.user, "Which Crew Member Account?", "Select Crew Member", GLOB.station_money_database.get_all_user_accounts())
+					var/account_input = tgui_input_list(ui.user, "Which crew member account?", "Select Crew Member", GLOB.station_money_database.get_all_user_accounts())
 					if(!account_input)
 						return
 					var/datum/money_account/account = GLOB.station_money_database.get_account_from_name(account_input)
