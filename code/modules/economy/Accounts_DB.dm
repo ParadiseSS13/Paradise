@@ -161,9 +161,9 @@
     return account_list
 
 /datum/money_account_database/main_station/proc/get_account_from_name(account_name)
-	for(var/account in user_accounts)
-		if(account["account_name"] == account_name)
-			return account["account_number"]
+	for(var/datum/money_account/account in user_accounts)
+		if(account.account_name == account_name)
+			return account
 
 /datum/money_account_database/main_station/proc/get_all_department_accounts()
 	var/list/account_list = list()
