@@ -111,11 +111,10 @@ const AtmosControlDataView = (_properties, context) => {
 
 const AtmosControlMapView = (_properties, context) => {
   const { data } = useBackend(context);
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const { alarms } = data;
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
-      <NanoMap onZoom={(v) => setZoom(v)}>
+      <NanoMap>
         {alarms
           .filter((a) => a.z === 2)
           .map((aa) => (
@@ -124,7 +123,6 @@ const AtmosControlMapView = (_properties, context) => {
               key={aa.ref}
               x={aa.x}
               y={aa.y}
-              zoom={zoom}
               icon="circle"
               tooltip={aa.name}
               color={getStatusColour(aa.danger)}

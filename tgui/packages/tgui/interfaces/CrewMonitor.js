@@ -189,10 +189,9 @@ const CrewMonitorDataView = (_properties, context) => {
 
 const CrewMonitorMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
-      <NanoMap onZoom={(v) => setZoom(v)}>
+      <NanoMap>
         {data.crewmembers
           .filter((x) => x.sensor_type === 3 || data.ignoreSensors)
           .map((cm) => (
@@ -200,7 +199,6 @@ const CrewMonitorMapView = (_properties, context) => {
               key={cm.ref}
               x={cm.x}
               y={cm.y}
-              zoom={zoom}
               icon="circle"
               tooltip={cm.name + ' (' + cm.assignment + ')'}
               color={getStatColor(cm, data.critThreshold)}
