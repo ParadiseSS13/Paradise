@@ -83,10 +83,7 @@ export class NanoMap extends Component {
     this.handleZoom = (_e, value) => {
       this.setState((state) => {
         const newZoom = Math.min(Math.max(value, 1), 8);
-        let zoomDiff = (newZoom - state.zoom) * 1.5;
         state.zoom = newZoom;
-        state.offsetX = state.offsetX - 262 * zoomDiff;
-        state.offsetY = state.offsetY - 256 * zoomDiff;
         if (props.onZoom) {
           props.onZoom(state.zoom);
         }
@@ -105,8 +102,8 @@ export class NanoMap extends Component {
     const newStyle = {
       width: mapSize,
       height: mapSize,
-      'margin-top': offsetY + 'px',
-      'margin-left': offsetX + 'px',
+      'margin-top': offsetY * zoom + 'px',
+      'margin-left': offsetX * zoom + 'px',
       'overflow': 'hidden',
       'position': 'relative',
       top: '50%',
