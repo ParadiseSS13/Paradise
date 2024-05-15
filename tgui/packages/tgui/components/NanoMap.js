@@ -158,13 +158,12 @@ export class NanoMap extends Component {
   }
 }
 
-const NanoMapMarkerIcon = (props, context) => {
+const NanoMapMarker = (props, context) => {
   const {
     map: { zoom },
   } = context;
-  const { x, y, icon, tooltip, color, ...rest } = props;
+  const { x, y, icon, tooltip, color, children, ...rest } = props;
   const pixelsPerTurfAtZoom = PIXELS_PER_TURF * zoom;
-  const markerSize = pixelsPerTurfAtZoom + 4 / Math.ceil(zoom / 4);
   // For some reason the X and Y are offset by 1
   const rx = (x - 1) * pixelsPerTurfAtZoom;
   const ry = (y - 1) * pixelsPerTurfAtZoom;
@@ -181,20 +180,33 @@ const NanoMapMarkerIcon = (props, context) => {
           height={pixelsPerTurfAtZoom + 'px'}
           {...rest}
         >
-          <Icon
-            name={icon}
-            color={color}
-            fontSize={`${markerSize}px`}
-            style={{
-              position: 'relative',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          />
+          {children}
         </Box>
       </Tooltip>
     </div>
+  );
+};
+
+const NanoMapMarkerIcon = (props, context) => {
+  const {
+    map: { zoom },
+  } = context;
+  const { icon, color, ...rest } = props;
+  const markerSize = PIXELS_PER_TURF * zoom + 4 / Math.ceil(zoom / 4);
+  return (
+    <NanoMapMarker {...rest}>
+      <Icon
+        name={icon}
+        color={color}
+        fontSize={`${markerSize}px`}
+        style={{
+          position: 'relative',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      />
+    </NanoMapMarker>
   );
 };
 
