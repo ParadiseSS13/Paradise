@@ -237,7 +237,7 @@
 		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
-		B.damage = (B.damage/2)
-	return 1
+		B.damage = (B.damage / 2)
+	return TRUE
 /datum/effect_system/smoke_spread/changeling
 	effect_type = /obj/effect/particle_effect/smoke/changeling
