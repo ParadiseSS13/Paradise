@@ -9,9 +9,7 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/defence
 
-/datum/action/changeling/miasmic_mist/can_sting(mob/living/carbon/user)
-	if(!..())
-		return FALSE
+/datum/action/changeling/miasmic_mist/sting_action(mob/living/carbon/user)
 	var/datum/effect_system/smoke_spread/changeling/smoke = new
 	smoke.set_up(10, FALSE, get_turf(user))
 	smoke.start()
