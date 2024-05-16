@@ -17,7 +17,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
-		)
+	)
 
 /obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
 	toggle_veil(user, TRUE)
@@ -45,10 +45,9 @@
 			color_view = MATRIX_STANDARD
 			correct_wires = TRUE
 
-	if(ishuman(H))
-		if(H.glasses == src)
-			H.update_sight()
-			H.update_client_colour()
+	if(ishuman(H) && H.glasses == src)
+		H.update_sight()
+		H.update_client_colour()
 
 /obj/item/clothing/glasses/hud/tajblind/examine_more(mob/user)
 	. = ..()
@@ -110,7 +109,6 @@
 	name = "\improper Tajaran security veil"
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
-	var/global/list/jobs[0]
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
@@ -183,7 +181,6 @@
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	see_in_dark = 1
-	var/global/list/jobs[0]
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
