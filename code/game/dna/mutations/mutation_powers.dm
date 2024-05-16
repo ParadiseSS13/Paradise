@@ -443,6 +443,9 @@
 
 			doHeal(user)
 	else
+		if(!user.Adjacent(the_item))
+			to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+			return FALSE
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
 		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 		qdel(the_item)
