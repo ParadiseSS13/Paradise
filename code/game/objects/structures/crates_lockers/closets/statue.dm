@@ -51,7 +51,7 @@
 		M.adjustFireLoss(intialFire - M.getFireLoss())
 		M.adjustBruteLoss(intialBrute - M.getBruteLoss())
 		M.setOxyLoss(intialOxy)
-		M.Stun(2.5 SECONDS) //No using items inside a statue
+		M.Stun(2.5 SECONDS) // No using items inside a statue
 	if(timer <= 0)
 		dump_contents()
 		STOP_PROCESSING(SSobj, src)
