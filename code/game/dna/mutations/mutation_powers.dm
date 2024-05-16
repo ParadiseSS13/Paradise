@@ -415,7 +415,7 @@
 			revert_cast()
 			return FALSE
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
-		if(!do_mob(user,H,EAT_MOB_DELAY))
+		if(!do_mob(user, H, EAT_MOB_DELAY))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)
