@@ -56,7 +56,7 @@
 				sleep(3)
 				step_away(src, user, 15)
 
-/mob/living/silicon/robot/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
+/mob/living/silicon/robot/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		var/software_damage = (intensity * 30)
 		adjustStaminaLoss(software_damage)
