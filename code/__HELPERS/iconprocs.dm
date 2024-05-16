@@ -445,9 +445,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
  * * frame - what frame of the icon_state's animation for the icon being used
  * * moving - whether or not to use a moving state for the given icon
  * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
- * * extra_clases - string of extra css classes to use when returning the icon string
+ * * extra_classes - string of extra css classes to use when returning the icon string
  */
-/proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
+/proc/icon2asset(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
 	if(!thing)
 		return
 
@@ -516,17 +516,15 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
 	for(var/client_target in targets)
 		SSassets.transport.send_assets(client_target, key)
-	if(sourceonly)
-		return SSassets.transport.get_asset_url(key)
-	return "<img class='icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+	return key
 
-/// Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
-/proc/costly_icon2html(thing, target, sourceonly = FALSE)
+/// Costlier version of icon2asset() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
+/proc/costly_icon2asset(thing, target, sourceonly = FALSE)
 	if(!thing)
 		return
 
 	if(isicon(thing))
-		return icon2html(thing, target)
+		return icon2asset(thing, target)
 
 	var/icon/I = getFlatIcon(thing)
-	return icon2html(I, target, sourceonly = sourceonly)
+	return icon2asset(I, target)

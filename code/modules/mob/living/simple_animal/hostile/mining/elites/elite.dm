@@ -476,6 +476,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(isliving(mover))
 		return FALSE
 
+/obj/effect/temp_visual/elite_tumor_wall/gargantua
+	duration = 35 SECONDS // A bit longer than the spell lasts, it should be cleaned up by the spell otherwise it might not GC properly
+
 /obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
 	return FALSE
 

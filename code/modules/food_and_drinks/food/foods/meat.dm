@@ -63,6 +63,11 @@
 	desc = "For when you need to go ham."
 	list_reagents = list("protein" = 3, "porktonium" = 10)
 
+/obj/item/food/snacks/meat/chicken
+	name = "chicken meat"
+	desc = "Cluck cluck!"
+	icon_state = "birdmeat"
+
 /obj/item/food/snacks/meat/meatwheat
 	name = "meatwheat clump"
 	desc = "This doesn't look like meat, but your standards aren't <i>that</i> high to begin with."
@@ -124,7 +129,7 @@
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
-	list_reagents = list("protein" = 12, "morphine" = 3, "vitamin" = 2)
+	list_reagents = list("protein" = 12, "methamphetamine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
 /obj/item/food/snacks/monstermeat/xenomeat
@@ -202,6 +207,12 @@
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/snacks/meatsteak/chicken
+	name = "cooked chicken"
+	desc = "Cluck cluck!"
+	icon_state = "birdsteak"
+	tastes = list("chicken" = 1, "meat" = 1)
 
 /obj/item/food/snacks/bacon
 	name = "bacon"
@@ -561,6 +572,10 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
+
+/obj/item/food/snacks/organ/Initialize(mapload)
+	. = ..()
+	reagents.add_reagent("nutriment", 5)
 
 /obj/item/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future

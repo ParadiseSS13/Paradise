@@ -93,7 +93,8 @@
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/human/H = target
-	if(H.getStaminaLoss() >= 60)
+	// initial range - range gives approximate tile distance from user
+	if(initial(range) - range <= 5 && H.getStaminaLoss() >= 60)
 		H.KnockDown(8 SECONDS)
 
 /obj/item/projectile/bullet/pellet/assassination

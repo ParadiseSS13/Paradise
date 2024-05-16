@@ -58,7 +58,7 @@
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)
 		else
-			if(ischangeling(src))
+			if(IS_CHANGELING(src))
 				// if a changeling has no brain, they have no brain damage.
 				return 0
 
