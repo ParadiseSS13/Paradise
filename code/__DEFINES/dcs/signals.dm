@@ -717,9 +717,12 @@
 
 // /obj/item/gun signals
 
-/// called in /obj/item/gun/process_fire (user, target, params, zone_override)
-#define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
-/// called in /obj/item/gun/process_fire (user, target)
+///called in /obj/item/gun/fire_gun (user, target, flag, params)
+#define COMSIG_GUN_TRY_FIRE "gun_try_fire"
+	#define COMPONENT_CANCEL_GUN_FIRE (1<<0)
+///called in /obj/item/gun/afterattack (user, target, flag, params)
+#define COMSIG_MOB_TRY_FIRE "mob_fired_gun"
+///called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
 /// called in /datum/component/automatic_fire/proc/on_mouse_down: (client/clicker, atom/target, turf/location, control, params)
 #define COMSIG_AUTOFIRE_ONMOUSEDOWN "autofire_onmousedown"

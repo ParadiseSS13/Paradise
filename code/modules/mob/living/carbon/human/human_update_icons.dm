@@ -567,7 +567,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				w_uniform.screen_loc = ui_iclothing //...draw the item in the inventory screen
 			client.screen += w_uniform				//Either way, add the item to the HUD
@@ -644,7 +644,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(wear_id)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			wear_id.screen_loc = ui_id
 			client.screen += wear_id
 
@@ -660,7 +660,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(gloves)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
 			client.screen += gloves					//Either way, add the item to the HUD
@@ -702,7 +702,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(glasses)
 		var/mutable_appearance/new_glasses
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 			client.screen += glasses				//Either way, add the item to the HUD
@@ -744,7 +744,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(l_ear || r_ear)
 		if(l_ear)
-			if(client && hud_used && hud_used.hud_shown)
+			if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 				if(hud_used.inventory_shown)			//if the inventory is open ...
 					l_ear.screen_loc = ui_l_ear			//...draw the item in the inventory screen
 				client.screen += l_ear					//Either way, add the item to the HUD
@@ -761,7 +761,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
 
 		if(r_ear)
-			if(client && hud_used && hud_used.hud_shown)
+			if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 				if(hud_used.inventory_shown)			//if the inventory is open ...
 					r_ear.screen_loc = ui_r_ear			//...draw the item in the inventory screen
 				client.screen += r_ear					//Either way, add the item to the HUD
@@ -786,7 +786,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(shoes)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
 			client.screen += shoes					//Either way, add the item to the HUD
@@ -822,7 +822,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(s_store)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			s_store.screen_loc = ui_sstore1
 			client.screen += s_store
 
@@ -872,7 +872,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
-		if(hud_used.hud_shown && belt)
+		if(hud_used.hud_version == HUD_STYLE_STANDARD && belt)
 			client.screen += belt
 			belt.screen_loc = ui_belt
 
@@ -899,7 +899,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
 				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD
@@ -948,7 +948,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
-		if(hud_used.hud_shown)
+		if(hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(l_store)
 				client.screen += l_store
 				l_store.screen_loc = ui_storage1
@@ -1082,21 +1082,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //update whether our head item appears on our hud.
 /mob/living/carbon/human/update_hud_head(obj/item/I)
-	if(client && hud_used && hud_used.hud_shown)
+	if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 		if(hud_used.inventory_shown)
 			I.screen_loc = ui_head
 		client.screen += I
 
 //update whether our mask item appears on our hud.
 /mob/living/carbon/human/update_hud_wear_mask(obj/item/I)
-	if(client && hud_used && hud_used.hud_shown)
+	if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 		if(hud_used.inventory_shown)
 			I.screen_loc = ui_mask
 		client.screen += I
 
 //update whether our back item appears on our hud.
 /mob/living/carbon/human/update_hud_back(obj/item/I)
-	if(client && hud_used && hud_used.hud_shown)
+	if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 		I.screen_loc = ui_back
 		client.screen += I
 
