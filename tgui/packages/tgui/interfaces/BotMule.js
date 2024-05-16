@@ -135,7 +135,7 @@ const MuleStatus = (props, context) => {
 
 const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
-  const { noaccess, mode, load, destination } = data;
+  const { noaccess, mode, load, destination, cargo_IMG } = data;
   return (
     <Section fill scrollable>
       <Section title="Delivery Settings">
@@ -145,6 +145,9 @@ const MuleLoad = (props, context) => {
           disabled={noaccess}
           onClick={() => act('destination')}
         />
+        {cargo_IMG !== undefined && (
+          <img src={`data:image/jpeg;base64,${cargo_IMG}`} />
+        )}
       </Section>
       <Section title="Movement Settings">
         <Stack direction="row">

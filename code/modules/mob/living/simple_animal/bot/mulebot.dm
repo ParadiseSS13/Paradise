@@ -113,23 +113,27 @@
 				"<span class='notice'>[user] repairs [src]!</span>",
 				"<span class='notice'>You repair [src]!</span>"
 			)
-		else
-			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
+			return
+		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+		return
+
+	if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
 		return attack_hand(user)
 
-	else if(load && ismob(load))  // chance to knock off rider
+	if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
 			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
-									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
-		else
-			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
-			..()
-	else
+									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>"
+			)
+			return
+		to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
 		..()
+		return
+	..()
 	update_icon()
 	return
+
 
 /mob/living/simple_animal/bot/mulebot/proc/cell_insert(obj/item/I, mob/user)
 	if(!user.drop_item())
@@ -145,6 +149,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/cell_remove(obj/item/I, mob/user)
 	cell.add_fingerprint(user)
 	cell.forceMove(user.loc)
+	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
 	if(!open || !cell)
@@ -363,6 +368,10 @@
 	data["set_home"] = home_destination
 //	data[""] =
 	return data
+/mob/living/simple_animal/bot/mulebot/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["cargo_IMG"] = load ? icon2base64(icon(load?.icon_state)) : null
+	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -561,6 +570,7 @@
 	load = AM
 	mode = BOT_IDLE
 	update_icon()
+
 
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
 	can_buckle = TRUE
