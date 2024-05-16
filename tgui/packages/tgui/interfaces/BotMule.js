@@ -146,7 +146,16 @@ const MuleLoad = (props, context) => {
           onClick={() => act('destination')}
         />
         {cargo_IMG !== undefined && (
-          <img src={`data:image/jpeg;base64,${cargo_IMG}`} />
+          <img
+            src={`data:image/jpeg;base64,${cargo_IMG}`}
+            style={{
+              height: '20%',
+              width: '20%',
+              'vertical-align': 'middle',
+              '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+              'image-rendering': 'pixelated',
+            }}
+          />
         )}
       </Section>
       <Section title="Movement Settings">

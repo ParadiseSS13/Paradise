@@ -370,7 +370,7 @@
 	return data
 /mob/living/simple_animal/bot/mulebot/ui_static_data(mob/user)
 	var/list/data = ..()
-	data["cargo_IMG"] = load ? icon2base64(icon(load?.icon_state)) : null
+	data["cargo_IMG"] = load ? icon2base64(icon(load.icon, load.icon_state, dir = SOUTH, frame = 1, moving = FALSE)) : null
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
