@@ -1888,7 +1888,6 @@
 /datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.4
+		if(!(NO_BLOOD in H.dna.species.species_traits) && (H.blood_volume < BLOOD_VOLUME_NORMAL))
+			H.blood_volume += 0.4
 	return ..()
