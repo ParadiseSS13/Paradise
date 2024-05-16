@@ -116,7 +116,7 @@
 		status_tab_data[++status_tab_data.len] = list("Power Stored:", "[blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(NewLoc, Dir = 0)
-	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
+	var/obj/structure/blob/B = locate() in range(3, NewLoc)
 	if(B)
 		loc = NewLoc
 	else
