@@ -100,7 +100,7 @@
 	return total_slowdown
 
 /mob/living/silicon/robot/proc/get_stamina_slowdown()
-	return round((staminaloss / 50), 0.125)
+	return round((staminaloss / 40), 0.125)
 
 /mob/living/silicon/robot/heal_organ_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
