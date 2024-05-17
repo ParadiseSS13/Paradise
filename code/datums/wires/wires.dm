@@ -2,6 +2,8 @@
 /datum/wires
 	/// TRUE if the wires will be different every time a new wire datum is created.
 	var/randomize = FALSE
+	/// TRUE if the wires are labelled for every user
+	var/labelled = FALSE
 	/// The atom the wires belong too. For example: an airlock.
 	var/atom/holder
 	/// The holder type; used to make sure that the holder is the correct type.
@@ -281,6 +283,8 @@
 	var/can_probably_see_wires = FALSE
 	var/obj/item/held_item = user.get_active_hand()
 	var/obj/item/offhand = user.get_inactive_hand()
+	if(labelled)
+		can_probably_see_wires = TRUE
 	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
 		can_probably_see_wires = TRUE
 	if(istype(offhand) && HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO))

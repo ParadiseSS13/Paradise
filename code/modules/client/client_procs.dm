@@ -456,6 +456,7 @@
 	display_job_bans(TRUE)
 	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
 		winset(src, "debugmcbutton", "is-disabled=false")
+		winset(src, "profilecode", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -1230,6 +1231,18 @@
 		if("Set-Tab")
 			stat_tab = payload["tab"]
 			SSstatpanels.immediate_send_stat_data(src)
+		if("Listedturf-Scroll")
+			if(payload["min"] == payload["max"])
+				// Not properly loaded yet, send the default set.
+				SSstatpanels.refresh_client_obj_view(src)
+			else
+				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
+		// Uncomment to enable log_debug in stat panel code.
+		// Disabled normally due to HREF exploit concerns.
+		//if("Statpanel-Debug")
+		//	log_debug(payload)
+		if("Resend-Asset")
+			SSassets.transport.send_assets(src, list(payload))
 		if("Debug-Stat-Entry")
 			var/stat_item = locateUID(payload["stat_item_uid"])
 			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
