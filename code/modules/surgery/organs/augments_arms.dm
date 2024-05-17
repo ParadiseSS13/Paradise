@@ -491,7 +491,6 @@
 	razorwire_skin_options["Plasma Purple"] = "razorwire_purple"
 	razorwire_skin_options["Great Green"] = "razorwire_green"
 
-
 /obj/item/melee/razorwire/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click it to reskin it.</span>"
