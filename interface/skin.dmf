@@ -21,6 +21,11 @@ menu "menu"
 		name = "&Переподключиться"
 		command = ".reconnect"
 		category = "&Файл"
+	elem "profilecode"
+		name = "&Profile Code"
+		command = ".profile"
+		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Выход"
 		command = ".quit"

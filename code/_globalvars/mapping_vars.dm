@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(nukedisc_respawn)
 GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
+GLOBAL_LIST_EMPTY(roundstart_observer_start)
 
 // Away missions
 GLOBAL_LIST_EMPTY(awaydestinations)	// SS220 EDIT - ADDITION

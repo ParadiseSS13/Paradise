@@ -1300,7 +1300,6 @@
 	icon_panel = "wide_vendor"
 	category = VENDOR_TYPE_SUPPLIES
 	products = list(/obj/item/pda =10,
-					/obj/item/cartridge/mob_hunt_game = 25,
 					/obj/item/cartridge/medical = 10,
 					/obj/item/cartridge/chemistry = 10,
 					/obj/item/cartridge/engineering = 10,
@@ -1313,7 +1312,6 @@
 					/obj/item/cartridge/mime = 1)
 
 	prices = list(/obj/item/pda = 300,
-				/obj/item/cartridge/mob_hunt_game = 50,
 				/obj/item/cartridge/medical = 200,
 				/obj/item/cartridge/chemistry = 150,
 				/obj/item/cartridge/engineering = 100,

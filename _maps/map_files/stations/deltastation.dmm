@@ -28019,6 +28019,34 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
+"bDD" = (
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/obj/item/disk/nuclear/training{
+	pixel_x = -5
+	},
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "bDE" = (
 /obj/item/kirbyplants,
 /obj/machinery/status_display{
@@ -35212,7 +35240,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table,
-/obj/machinery/syndicatebomb/training,
+/obj/item/toy/figure/crew/secofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40235,6 +40263,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "cju" = (
+/obj/machinery/syndicatebomb/training,
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
+"cjv" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/security/range)
+"cjw" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
 	pixel_x = -6;
@@ -40247,26 +40285,7 @@
 	pixel_x = 7;
 	pixel_y = 3
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
-/area/station/security/range)
-"cjv" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/security/range)
-"cjw" = (
-/obj/structure/sign/securearea{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating,
-/area/station/security/range)
-"cjx" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
 /area/station/security/range)
 "cjy" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -40863,9 +40882,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -40901,10 +40917,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "clf" = (
@@ -41413,7 +41432,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "cmC" = (
@@ -41437,18 +41455,8 @@
 /turf/simulated/floor/plating,
 /area/station/security/range)
 "cmF" = (
-/obj/structure/table/reinforced,
-/obj/machinery/alarm/directional/south,
-/obj/item/gun/energy/laser/practice,
-/obj/item/gun/energy/laser/practice,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/ears/earmuffs,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/machinery/nuclearbomb/training,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "cmG" = (
@@ -44275,13 +44283,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
-"cut" = (
-/obj/machinery/light,
-/obj/structure/sign/securearea{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating,
-/area/station/security/range)
 "cuu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -59862,6 +59863,14 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/maintenance/starboard)
+"dxV" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/energy/laser/practice,
+/obj/item/gun/energy/laser/practice,
+/obj/item/clothing/ears/earmuffs,
+/obj/item/clothing/ears/earmuffs,
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "dyb" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
@@ -67079,6 +67088,23 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
+"eOg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/clothing/head/welding{
+	pixel_x = 9;
+	pixel_y = 10
+	},
+/obj/item/multitool{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -2;
+	pixel_x = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "eOt" = (
 /obj/structure/table/glass,
 /obj/structure/cable{
@@ -69896,6 +69922,19 @@
 	dir = 5
 	},
 /area/space/nearstation)
+"gAP" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "gAR" = (
 /obj/structure/closet/wardrobe/pjs,
 /obj/structure/cable{
@@ -79593,19 +79632,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
-"mBa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/smes)
 "mBy" = (
 /obj/structure/bed,
 /obj/item/bedsheet/green,
@@ -80612,7 +80638,6 @@
 "ngl" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
-/obj/item/toy/figure/crew/secofficer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92514,7 +92539,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/station/security/range)
 "tVV" = (
 /turf/simulated/floor/plasteel{
@@ -127352,7 +127378,7 @@ bwP
 fsO
 oNV
 ucB
-mBa
+fsO
 clv
 bQr
 bQr
@@ -152283,9 +152309,9 @@ cgr
 hFc
 cgr
 jIs
-cjv
-iCU
-cjv
+eOg
+gAP
+bDD
 cjr
 brS
 bHF
@@ -152542,7 +152568,7 @@ ccL
 jIs
 cjw
 tVO
-cjz
+dxV
 cjr
 eeN
 lnU
@@ -152797,9 +152823,9 @@ ccM
 ceC
 cgo
 jIs
-cjx
-tVO
-cut
+cjv
+iCU
+cjv
 cjr
 cpa
 cqI

@@ -355,7 +355,7 @@
 
 	explode()
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/explode()
+/obj/machinery/atmospherics/supermatter_crystal/proc/explode(forced_combined_gas = 0, forced_power = 0, forced_gasmix_power_ratio = 0)
 	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
@@ -381,14 +381,14 @@
 			else
 				to_chat(M, "<span class='boldannounceic'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
 
-	if(combined_gas > MOLE_CRUNCH_THRESHOLD)
+	if(max(combined_gas, forced_combined_gas) > MOLE_CRUNCH_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", "supermatter")
 		if(T)
 			var/obj/singularity/S = new(T)
 			S.energy = 800
 			S.consume(src)
 			return //No boom for me sir
-	else if(power > POWER_PENALTY_THRESHOLD)
+	else if(max(power, forced_power) > POWER_PENALTY_THRESHOLD)
 		investigate_log("has spawned additional energy balls.", "supermatter")
 		if(T)
 			var/obj/singularity/energy_ball/E = new(T)
@@ -399,6 +399,8 @@
 //		return //No boom for me sir
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	playsound(src, 'modular_ss220/aesthetics_sounds/sound/supermatter/explode.ogg', 100, FALSE, 40, 30, falloff_distance = 10) //SS220 EDIT - ADDITION
+	if(forced_gasmix_power_ratio)
+		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
 	qdel(src)
 
