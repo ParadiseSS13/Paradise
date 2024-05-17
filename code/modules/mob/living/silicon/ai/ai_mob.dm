@@ -750,24 +750,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 		return
 
-	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locate(href_list["callbot"]) in GLOB.bots_list
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-		waypoint_mode = TRUE
-		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
-		return
-
-	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in GLOB.bots_list
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return
-		Bot.attack_ai(src)
-
-	if(href_list["botrefresh"]) //Refreshes the bot control panel.
-		botcall()
-		return
-
 	if(href_list["ai_take_control"]) //Mech domination
 
 		var/obj/mecha/M = locate(href_list["ai_take_control"])
@@ -832,26 +814,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/d
-	var/area/bot_area
-	d += "<A href=byond://?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
-	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
-
-	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
-		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
-			bot_area = get_area(Bot)
-			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
-			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
-			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
-			d += "<td width='30%'>[bot_area.name]</td>"
-			d += "<td width='10%'><A href=byond://?src=[UID()];interface=\ref[Bot]>Interface</A></td>"
-			d += "<td width='10%'><A href=byond://?src=[UID()];callbot=\ref[Bot]>Call</A></td>"
-			d += "</tr>"
-			d = format_text(d)
-
-	var/datum/browser/popup = new(src, "botcall", "Remote Robot Control", 700, 400)
-	popup.set_content(d)
-	popup.open()
+	var/datum/ui_module/botcall/botcall
+	botcall	= new(src)
+	botcall.ui_interact(usr)
 
 /mob/living/silicon/ai/proc/set_waypoint(atom/A)
 	var/turf/turf_check = get_turf(A)
