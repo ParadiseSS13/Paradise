@@ -71,6 +71,17 @@
 		"разваливается на множество нимф!")
 
 /datum/species/drask
+	autohiss_basic_map = list(
+			"o" = list("oo", "ooo"),
+			"u" = list("uu", "uuu"),
+			"о" = list("оо", "ооо"),
+			"у" = list("уу", "ууу")
+		)
+	autohiss_extra_map = list(
+			"m" = list("mm", "mmm"),
+			"м" = list("мм", "ммм")
+		)
+	autohiss_exempt = list("Orluum")
 	suicide_messages = list(
 		"трёт себя до возгорания!",
 		"давит пальцами на свои большие глаза!",
