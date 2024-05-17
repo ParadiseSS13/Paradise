@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
-/obj/item/stack/sheet/animalhide/armor_plate/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/stack/sheet/animalhide/armor_plate/attackby(obj/item/W, mob/user, params)
 	return // no steel leather for ya
 
 /obj/item/stack/sheet/animalhide/ashdrake
