@@ -250,6 +250,17 @@
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
 	parent_organ = "l_arm"
 
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor
+	name = "alien janitorial toolset implant"
+	desc = "A set of alien janitorial tools, designed to be installed on subject's arm."
+	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=3"
+	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt_abductor")
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor/l
+	parent_organ = "l_arm"
+
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal, and highly dangerous cybernetic implant that can project a deadly blade of concentrated enregy."
