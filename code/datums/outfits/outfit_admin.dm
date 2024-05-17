@@ -1498,7 +1498,6 @@
 		var/S = new spell_path
 		H.mind.AddSpell(S)
 
-
 /datum/outfit/admin/viper
 	name = "Solar Federation Viper Infiltrator"
 
