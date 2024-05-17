@@ -87549,9 +87549,6 @@
 /area/station/maintenance/starboard)
 "rjL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube/cap{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -97341,9 +97338,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/structure/transit_tube/station{
-	dir = 1
-	},
+/obj/structure/transit_tube/station/reverse/flipped,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
