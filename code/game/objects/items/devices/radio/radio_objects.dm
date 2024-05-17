@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	ToggleBroadcast()
-	to_chat(user, "<span class='notice'>You <b>[isBroadcasting() ? "enable" : "disable"]</b> [src]'s hotmic!</span>")
+	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic!</span>")
 	add_fingerprint(user)
 
 /obj/item/radio/ui_state(mob/user)
@@ -263,10 +263,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(broadcasting)
 		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
-/obj/item/radio/proc/isBroadcasting()
-	if(broadcasting)
-		return TRUE
-	return FALSE
+/obj/item/radio/proc/is_broadcasting()
+	return broadcasting
 
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
