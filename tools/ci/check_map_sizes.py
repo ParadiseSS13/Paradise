@@ -4,6 +4,7 @@ import sys
 import subprocess
 import platform
 import json
+import time
 
 parent_directory = "_maps/**/*.dmm"
 
@@ -51,6 +52,7 @@ def do_dmmtools_call(file):
     return return_obj
 
 def main():
+    start = time.time()
     # simple way to check if we're running on github actions, or on a local machine
     on_github = os.getenv("GITHUB_ACTIONS") == "true"
 
@@ -72,10 +74,16 @@ def main():
 
         print(red(how_to_fix_message))
 
+        end = time.time()
+        print(f"\ncheck_map_sizes.py completed in {(end - start):.2f}s\n")
+
         sys.exit(1)
 
     else:
         print(green(f"No oversized maps found (checked {map_count} maps)."))
+
+    end = time.time()
+    print(f"\ncheck_map_sizes.py completed in {(end - start):.2f}s\n")
 
 if __name__ == "__main__":
     main()
