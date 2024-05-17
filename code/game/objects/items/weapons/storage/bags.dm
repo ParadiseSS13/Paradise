@@ -39,7 +39,7 @@
 	storage_slots = 30
 	max_combined_w_class = 30
 	can_hold = list() // any
-	cant_hold = list(/obj/item/disk/nuclear)
+	cant_hold = list(/obj/item/disk/nuclear, /obj/item/grown/bananapeel/traitorpeel)
 
 /obj/item/storage/bag/trash/proc/update_weight()
 	if(!length(contents))
@@ -77,7 +77,7 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon_state()
-	switch(contents.len)
+	switch(length(contents))
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)
@@ -213,6 +213,7 @@
 		/obj/item/grown,
 		/obj/item/food/snacks/grown/ash_flora,
 		/obj/item/food/snacks/honeycomb)
+	cant_hold = list(/obj/item/grown/bananapeel/traitorpeel)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -336,7 +337,7 @@
 // Sets up numbered display to show the stack size of each stored mineral
 // NOTE: numbered display is turned off currently because it's broken
 /obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user as mob)
-	var/adjusted_contents = contents.len
+	var/adjusted_contents = length(contents)
 
 	//Numbered contents display
 	var/list/datum/numbered_display/numbered_contents
@@ -377,7 +378,7 @@
 	if(!istype(S)) return 0
 
 	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't recieve a different object than you clicked on.
+	// that calls this can't receive a different object than you clicked on.
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 

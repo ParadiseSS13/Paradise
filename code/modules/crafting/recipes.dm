@@ -221,6 +221,21 @@
 	..()
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
+/datum/crafting_recipe/sparker
+	name = "SPRK-12 Pistol"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/sparker)
+	reqs = list(/obj/item/gun/energy/gun/mini = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/sparker = 1)
+	time = 10 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/sparker/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/gun/mini)
+
 /datum/crafting_recipe/teslarevolver
 	name = "Arc Revolver"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
@@ -476,6 +491,15 @@
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/spear_primal // alternative recipe for Ash Walkers
+	name = "Spear"
+	result = list(/obj/item/spear)
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
+				/obj/item/shard = 1,
+				/obj/item/stack/rods = 1)
+	time = 4 SECONDS
+	category = CAT_PRIMAL
 
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"

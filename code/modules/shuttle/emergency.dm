@@ -54,7 +54,7 @@
 			return
 
 		var/list/cardaccess = W:access
-		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
+		if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return
 
@@ -74,10 +74,10 @@
 			if("Authorize")
 				if(!authorized.Find(W:registered_name))
 					authorized += W:registered_name
-					if(auth_need - authorized.len > 0)
+					if(auth_need - length(authorized) > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-						GLOB.minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
+						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until shuttle is launched early")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
 						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
@@ -86,10 +86,10 @@
 
 			if("Repeal")
 				if(authorized.Remove(W:registered_name))
-					GLOB.minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
+					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed until shuttle is launched early")
 
 			if("Abort")
-				if(authorized.len)
+				if(length(authorized))
 					GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
 					authorized.Cut()
 
@@ -341,13 +341,27 @@
 
 	// The emergency shuttle doesn't work like others so this
 	// ripple check is slightly different
-	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
-		var/destination
+	if(!length(ripples) && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+		var/obj/docking_port/stationary/destination
 		if(mode == SHUTTLE_CALL)
 			destination = SSshuttle.getDock("emergency_home")
 		else if(mode == SHUTTLE_ESCAPE)
 			destination = SSshuttle.getDock("emergency_away")
+		if(lance_docking && !destination)
+			destination = random_docking_go()
 		create_ripples(destination)
+		if(lance_docking && is_station_level(destination.z))
+			var/list/L2 = list()
+			switch(destination.dir)
+				if(NORTH)
+					L2 = block(locate(destination.x-9, destination.y+36, destination.z), locate(destination.x+9, 255, destination.z))
+				if(SOUTH)
+					L2 = block(locate(destination.x-9, 1, destination.z), locate(destination.x+9, destination.y-36, destination.z))
+				if(EAST)
+					L2 = block(locate(destination.x+36, destination.y-9, destination.z), locate(255, destination.y+9, destination.z))
+				if(WEST)
+					L2 = block(locate(1, destination.y-9, destination.z), locate(destination.x-36, destination.y+9, destination.z))
+			create_lance_ripples(L2, destination)
 
 	switch(mode)
 		if(SHUTTLE_RECALL)
@@ -442,6 +456,55 @@
 			spawn(0)
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
+
+/obj/docking_port/mobile/emergency/proc/random_docking_go()
+	var/cycles = 1000
+	var/stop = FALSE
+	for(var/cycle in 1 to cycles)
+		// DRUNK DIALLING WOOOOOOOOO
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = 2
+		var/random_dir = pick(NORTH, SOUTH, EAST, WEST)
+		var/obj/docking_port/stationary/lance/port = new(locate(x, y, z))
+		port.dir = random_dir
+		if(isspaceturf(get_turf(port)))
+			qdel(port, force = TRUE)
+			continue
+
+		var/min_x = -1
+		var/min_y = -1
+		var/max_x = -1
+		var/max_y = -1
+
+		var/list/ordered_turfs = port.return_ordered_turfs()
+		for(var/turf/T in ordered_turfs)
+			if(stop)
+				break
+			min_x = min_x < 0 ? T.x : min(min_x, T.x)
+			min_y = min_y < 0 ? T.y : min(min_y, T.y)
+			max_x = max_x < 0 ? T.x : max(max_x, T.x)
+			max_y = max_y < 0 ? T.y : max(max_y, T.y)
+			for(var/obj/O in T.contents)
+				if(istype(O, /obj/machinery/atmospherics/supermatter_crystal) || istype(O, /obj/singularity))
+					qdel(port, force = TRUE)
+					stop = TRUE
+					break
+		if(stop)
+			stop = FALSE
+			continue
+		if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
+			qdel(port, force = TRUE)
+			continue
+		if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
+			qdel(port, force = TRUE)
+			continue
+		port.register()
+		return port
+
+/obj/docking_port/mobile/emergency/proc/create_lance_ripples(list/L2, obj/docking_port/stationary/S1)
+	for(var/turf/T in L2)
+		ripples += new /obj/effect/temp_visual/ripple/lance_crush(T)
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod

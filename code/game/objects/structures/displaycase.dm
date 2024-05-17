@@ -9,18 +9,27 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 100)
 	max_integrity = 200
 	integrity_failure = 50
-	var/obj/item/showpiece = null
-	var/alert = FALSE	//Basic display cases have no alarms
+	/// The object stored inside.
+	var/obj/item/showpiece
+	/// If true, this is alarmed and will set off a siren when opened without proper access.
+	var/alert = FALSE
+	/// If this is currently unlocked
 	var/open = FALSE
+	/// If false, this can never be opened, and the item inside should be inaccessible. Good for showcases.
 	var/openable = TRUE
+	/// The electronics currently installed in this showpiece.
 	var/obj/item/airlock_electronics/electronics
-	var/start_showpiece_type = null //add type for items on display
-	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	/// The type that should be instantiated to fill the showpiece.
+	var/start_showpiece_type
+	/// A list of random items that could possibly fill the case, as well as a flavor message for them.
+	/// Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	var/list/start_showpieces = list()
+	/// A flavor message to show with this item.
 	var/trophy_message = ""
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
-	if(start_showpieces.len && !start_showpiece_type)
+	if(length(start_showpieces) && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
 		if(showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
@@ -46,18 +55,29 @@
 
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()
-	if(alert)
-		. += "<span class='notice'>Hooked up with an anti-theft system.</span>"
-	if(emagged)
-		. += "<span class='warning'>The ID lock has been shorted out.</span>"
 	if(showpiece)
-		. += "<span class='notice'>There's [showpiece] inside.</span>"
+		. += "<span class='notice'>There's \a [showpiece] displayed inside.</span>"
+	else
+		. += "<span class='notice'>It's empty.</span>"
 	if(trophy_message)
 		. += "The plaque reads:\n [trophy_message]"
+	if(!openable)
+		. += "<span class='notice'>It seems to be sealed shut, there's no way you're getting that open.</span>"
+	else
+		if(!open)
+			. += "<span class='notice'>The ID lock is active, you need to swipe an ID to open it.</span>"
+		else if((broken || open) && showpiece)
+			. += "<span class='notice'>[showpiece] is held in a loose low gravity suspension field. You can take [showpiece] out[broken ? "." : ", or lock [src] with an ID"].</span>"
 
-/obj/structure/displaycase/proc/dump()
+	if(alert)
+		. += "<span class='notice'>It is hooked up with an anti-theft system.</span>"
+	if(emagged)
+		. += "<span class='warning'>The ID lock has been shorted out.</span>"
+
+/obj/structure/displaycase/proc/dump(mob/user)
 	if(showpiece)
-		showpiece.forceMove(loc)
+		if(!user || !user.put_in_hands(showpiece))
+			showpiece.forceMove(loc)
 		showpiece = null
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -109,9 +129,15 @@
 		. += "glassbox_closed"
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
-	if(I.GetID() && !broken && openable)
+	if(I.GetID())
+		if(!openable)
+			to_chat(user, "<span class='warning'>There is no ID scanner, looks like this one is sealed shut.</span>")
+			return
+		if(broken)
+			to_chat(user, "<span class='warning'>[src] is broken, the ID lock won't do anything.</span>")
+			return
 		if(allowed(user) || emagged)
-			to_chat(user, "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+			to_chat(user, "<span class='notice'>You use [I] to [open ? "close" : "open"] [src].</span>")
 			toggle_lock()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -181,17 +207,19 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(showpiece && (broken || open))
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
-		dump()
+		dump(user)
 		add_fingerprint(user)
 		update_icon(UPDATE_OVERLAYS)
 		return
-	else
-		//prevents remote "kicks" with TK
-		if(!Adjacent(user))
-			return
-		user.visible_message("<span class='danger'>[user] kicks the display case.</span>")
-		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-		take_damage(2)
+	if(!open && openable)
+		to_chat(user, "<span class='notice'>The ID lock is active, you'll need to unlock it first.</span>")
+		return
+	//prevents remote "kicks" with TK
+	if(!Adjacent(user))
+		return
+	user.visible_message("<span class='danger'>[user] kicks the display case.</span>")
+	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
+	take_damage(2)
 
 /obj/structure/displaycase_chassis
 	anchored = TRUE
@@ -205,9 +233,9 @@
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
+		playsound(loc, I.usesound, 50, TRUE)
 		if(do_after(user, 30, target = src))
-			var/obj/item/airlock_electronics/new_electronics = I 
+			var/obj/item/airlock_electronics/new_electronics = I
 			if(user.drop_item() && !new_electronics.is_installed)
 				new_electronics.forceMove(src)
 				electronics = new_electronics

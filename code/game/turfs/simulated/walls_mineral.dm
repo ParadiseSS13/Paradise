@@ -1,11 +1,11 @@
 /turf/simulated/wall/mineral
 	name = "mineral wall"
-	desc = "This shouldn't exist"
+	desc = "If you can see this, please make an issue report on GitHub."
 	icon_state = ""
-	var/last_event = 0
-	var/active = FALSE
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
+	var/last_event = 0
+	var/active = FALSE
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return //This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -243,7 +243,7 @@
 /turf/simulated/wall/mineral/titanium/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
@@ -310,6 +310,9 @@
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
 	return
 
+/turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
@@ -343,7 +346,7 @@
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state

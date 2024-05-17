@@ -2,8 +2,6 @@
 GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/toggleadminhelpsound,
-	/client/proc/togglementorhelpsound,
 	/client/proc/cmd_mentor_check_new_players,
 	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	))
@@ -13,8 +11,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
-	/client/proc/colorooc,				/*allows us to set a custom colour for everything we say in ooc*/
-	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
@@ -35,8 +31,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
-	/client/proc/toggleprayers,			/*toggles prayers on/off*/
-	/client/proc/toggle_hear_radio,     /*toggles whether we hear the radio*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
 	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
@@ -49,9 +43,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
-	/client/proc/toggleattacklogs,
-	/client/proc/toggleadminlogs,
-	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
@@ -140,8 +131,6 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
-	/client/proc/set_ooc,
-	/client/proc/reset_ooc,
 	/client/proc/set_next_map,
 	/client/proc/manage_queue,
 	/client/proc/add_queue_server_bypass
@@ -155,7 +144,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_debug_del_sing,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
-	/client/proc/toggledebuglogs,
 	/client/proc/cmd_display_del_log,
 	/client/proc/cmd_display_del_log_simple,
 	/client/proc/check_bomb_impacts,
@@ -182,7 +170,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/toggle_mctabs
+	/client/proc/profile_code
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -215,7 +203,6 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
-	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
@@ -226,9 +213,7 @@ GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
-	/client/proc/toggleticketlogs,
 	/client/proc/openMentorTicketUI,
-	/client/proc/toggleMentorTicketLogs,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets
 ))
@@ -246,7 +231,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
 	/client/proc/cmd_display_del_log,
 	/client/proc/cmd_display_del_log_simple,
-	/client/proc/toggledebuglogs,
 	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
@@ -254,7 +238,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
 	/client/proc/timer_log,
-	/client/proc/toggle_mctabs
+	/client/proc/profile_code
 ))
 
 /client/proc/add_admin_verbs()
@@ -871,7 +855,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.")
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
@@ -879,91 +863,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		SSjobs.FreeRole(job, force = TRUE)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
-
-/client/proc/toggleattacklogs()
-	set name = "Attack Log Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(prefs.atklog == ATKLOG_ALL)
-		prefs.atklog = ATKLOG_ALMOSTALL
-		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
-	else if(prefs.atklog == ATKLOG_ALMOSTALL)
-		prefs.atklog = ATKLOG_MOST
-		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides player v. NPC combat, and certain areas like lavaland syndie base and thunderdome)")
-	else if(prefs.atklog == ATKLOG_MOST)
-		prefs.atklog = ATKLOG_FEW
-		to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
-	else if(prefs.atklog == ATKLOG_FEW)
-		prefs.atklog = ATKLOG_NONE
-		to_chat(usr, "Your attack logs preference is now: show NO attack logs")
-	else if(prefs.atklog == ATKLOG_NONE)
-		prefs.atklog = ATKLOG_ALL
-		to_chat(usr, "Your attack logs preference is now: show ALL attack logs")
-	else
-		prefs.atklog = ATKLOG_ALL
-		to_chat(usr, "Your attack logs preference is now: show ALL attack logs (your preference was set to an invalid value, it has been reset)")
-
-	prefs.save_preferences(src)
-
-
-/client/proc/toggleadminlogs()
-	set name = "Admin Log Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_NO_ADMINLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS)
-		to_chat(usr, "You now won't get admin log messages.")
-	else
-		to_chat(usr, "You now will get admin log messages.")
-
-/client/proc/toggleMentorTicketLogs()
-	set name = "Mentor Ticket Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_MENTOR|R_ADMIN))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS)
-		to_chat(usr, "You now won't get mentor ticket messages.")
-	else
-		to_chat(usr, "You now will get mentor ticket messages.")
-
-/client/proc/toggleticketlogs()
-	set name = "Admin Ticket Messgaes"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_NO_TICKETLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)
-		to_chat(usr, "You now won't get admin ticket messages.")
-	else
-		to_chat(usr, "You now will get admin ticket messages.")
-
-/client/proc/toggledebuglogs()
-	set name = "Debug Log Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_VIEWRUNTIMES | R_DEBUG))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS)
-		to_chat(usr, "You now will get debug log messages")
-	else
-		to_chat(usr, "You now won't get debug log messages")
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
 	set name = "\[Admin\] Man Up"
@@ -1057,6 +956,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Debug"
 
 	src.stat_panel.send_message("create_debug")
+
+/client/proc/profile_code()
+	set name = "Profile Code"
+	set category = "Debug"
+
+	winset(usr, null, "command=.profile")
 
 /client/proc/export_current_character()
 	set name = "Export Character DMI/JSON"

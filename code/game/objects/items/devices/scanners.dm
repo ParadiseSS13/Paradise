@@ -80,13 +80,13 @@ SLIME SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounceic'>OVERDOSING</span>" : ".</span>"]"
 			else
 				msgs += "<span class='notice'>Subject contains no reagents.</span>"
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
@@ -520,50 +520,7 @@ SLIME SCANNER
 	if(!isturf(location))
 		return
 
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(user, "<span class='info'><B>Results:</B></span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(user, "<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>")
-	else
-		to_chat(user, "<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.oxygen/total_moles
-		var/n2_concentration = environment.nitrogen/total_moles
-		var/co2_concentration = environment.carbon_dioxide/total_moles
-		var/plasma_concentration = environment.toxins/total_moles
-		var/n2o_concentration = environment.sleeping_agent/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100)] %</span>")
-
-		if(plasma_concentration > 0.01)
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
-
-		if(n2o_concentration > 0.01)
-			to_chat(user, "<span class='info'>Nitrous Oxide: [round(n2o_concentration*100)] %</span>")
-
-		if(unknown_concentration > 0.01)
-			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
-
-		to_chat(user, "<span class='info'>Temperature: [round(environment.temperature-T0C)] &deg;C</span>")
-
+	atmos_scan(user, location)
 	add_fingerprint(user)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
@@ -629,6 +586,72 @@ SLIME SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!can_see(user, target, 1))
+		return
+	if(target.return_analyzable_air())
+		atmos_scan(user, target)
+	else
+		atmos_scan(user, get_turf(target))
+
+/**
+ * Outputs a message to the user describing the target's gasmixes.
+ * Used in chat-based gas scans.
+ */
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE)
+	var/mixture = target.return_analyzable_air()
+	if(!mixture)
+		return FALSE
+
+	var/list/message = list()
+	if(!silent && isliving(user))
+		user.visible_message("<span class='notice'>[user] uses the analyzer on [target].</span>", "<span class='notice'>You use the analyzer on [target].</span>")
+	message += "<span class='boldnotice'>Results of analysis of [bicon(target)] [target].</span>"
+
+	if(!print)
+		return TRUE
+
+	var/list/airs = islist(mixture) ? mixture : list(mixture)
+	for(var/datum/gas_mixture/air as anything in airs)
+		var/mix_name = capitalize(lowertext(target.name))
+		if(length(air) > 1) //not a unary gas mixture
+			var/mix_number = airs.Find(air)
+			message += "<span class='boldnotice'>Node [mix_number]</span>"
+			mix_name += " - Node [mix_number]"
+
+		var/total_moles = air.total_moles()
+		var/pressure = air.return_pressure()
+		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+		var/heat_capacity = air.heat_capacity()
+		var/thermal_energy = air.thermal_energy()
+
+		if(total_moles)
+			message += "<span class='info'>Total: [round(total_moles, 0.01)] moles</span>"
+			if(air.oxygen && air.oxygen / total_moles > 0.01)
+				message += "  <span class='oxygen'>Oxygen: [round(air.oxygen, 0.01)] moles ([round(air.oxygen / total_moles * 100, 0.01)] %)</span>"
+			if(air.nitrogen && air.nitrogen / total_moles > 0.01)
+				message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen, 0.01)] moles ([round(air.nitrogen / total_moles * 100, 0.01)] %)</span>"
+			if(air.carbon_dioxide && air.carbon_dioxide / total_moles > 0.01)
+				message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] moles ([round(air.carbon_dioxide / total_moles * 100, 0.01)] %)</span>"
+			if(air.toxins && air.toxins / total_moles > 0.01)
+				message += "  <span class='plasma'>Plasma: [round(air.toxins, 0.01)] moles ([round(air.toxins / total_moles * 100, 0.01)] %)</span>"
+			if(air.sleeping_agent && air.sleeping_agent / total_moles > 0.01)
+				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent, 0.01)] moles ([round(air.sleeping_agent / total_moles * 100, 0.01)] %)</span>"
+			if(air.agent_b && air.agent_b / total_moles > 0.01)
+				message += "  <span class='agent_b'>Agent B: [round(air.agent_b, 0.01)] moles ([round(air.agent_b / total_moles * 100, 0.01)] %)</span>"
+			message += "<span class='info'>Temperature: [round(air.temperature-T0C)] &deg;C ([round(air.temperature)] K)</span>"
+			message += "<span class='info'>Volume: [round(volume)] Liters</span>"
+			message += "<span class='info'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			message += "<span class='info'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+			message += "<span class='info'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+		else
+			message += length(airs) > 1 ? "<span class='info'>This node is empty!</span>" : "<span class='info'>[target] is empty!</span>"
+			message += "<span class='info'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+
+	to_chat(user, chat_box_examine(message.Join("\n")))
+	return TRUE
+
 /******************************/
 /***	REAGENT SCANNERS	***/
 /******************************/
@@ -664,14 +687,14 @@ SLIME SCANNER
 	if(!isnull(O.reagents))
 		var/dat = ""
 		var/blood_type = ""
-		if(O.reagents.reagent_list.len > 0)
+		if(length(O.reagents.reagent_list) > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB]<span class='notice'>[R] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
 				else
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB]<span class='notice'>[blood_type ? "[blood_type]" : ""] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat

@@ -5,7 +5,7 @@
 	var/list/obj/machinery/atmospherics/pipe/members = list()
 	var/list/obj/machinery/atmospherics/other_atmosmch = list()
 
-	var/update = 1
+	var/update = TRUE
 
 /datum/pipeline/New()
 	SSair.networks += src
@@ -22,7 +22,7 @@
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
 	if(update)
-		update = 0
+		update = FALSE
 		reconcile_air()
 	return
 
@@ -40,12 +40,12 @@
 	if(!air)
 		air = new
 	var/list/possible_expansions = list(base)
-	while(possible_expansions.len>0)
+	while(length(possible_expansions)>0)
 		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
 
 			var/list/result = borderline.pipeline_expansion(src)
 
-			if(result.len>0)
+			if(length(result)>0)
 				for(var/obj/machinery/atmospherics/P in result)
 					if(istype(P, /obj/machinery/atmospherics/pipe))
 						var/obj/machinery/atmospherics/pipe/item = P
@@ -179,14 +179,14 @@
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
 			air.temperature -= heat/total_heat_capacity
-	update = 1
+	update = TRUE
 
 /datum/pipeline/proc/reconcile_air()
 	var/list/datum/gas_mixture/GL = list()
 	var/list/datum/pipeline/PL = list()
 	PL += src
 
-	for(var/i=1;i<=PL.len;i++)
+	for(var/i=1;i<=length(PL);i++)
 		var/datum/pipeline/P = PL[i]
 		if(!P)
 			return

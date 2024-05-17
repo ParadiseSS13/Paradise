@@ -282,8 +282,7 @@
 					return
 				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
 
-			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE, timeout = timeout)
+			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE, timeout = 60 SECONDS)
 			if(!reason || (!is_public && !is_authorized(user)) || ..())
 				return
 			reason = sanitize(copytext_char(reason, 1, 75)) // very long reasons are bad

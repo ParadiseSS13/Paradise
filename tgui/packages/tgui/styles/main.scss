@@ -26,6 +26,7 @@
 @include meta.load-css('./components/Dropdown.scss');
 @include meta.load-css('./components/Flex.scss');
 @include meta.load-css('./components/Icon.scss');
+@include meta.load-css('./components/ImageButton.scss');
 @include meta.load-css('./components/Input.scss');
 @include meta.load-css('./components/Knob.scss');
 @include meta.load-css('./components/LabeledList.scss');
@@ -56,10 +57,11 @@
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
+@include meta.load-css('./interfaces/PanDEMIC.scss');
 @include meta.load-css('./interfaces/PDA.scss');
 @include meta.load-css('./interfaces/PdaPainter.scss');
 @include meta.load-css('./interfaces/PoolController.scss');
-@include meta.load-css('./interfaces/PrizeCounter.scss');
+@include meta.load-css('./interfaces/ReagentsEditor.scss');
 @include meta.load-css('./interfaces/RndConsole.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
 @include meta.load-css('./interfaces/Safe.scss');

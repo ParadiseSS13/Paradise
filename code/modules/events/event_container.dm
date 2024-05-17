@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 
 /datum/event_container/proc/acquire_event()
-	if(available_events.len == 0)
+	if(length(available_events) == 0)
 		return
 	var/active_with_role = number_active_with_role()
 
@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		else
 			possible_events -= event_meta
 
-	if(possible_events.len == 0)
+	if(length(possible_events) == 0)
 		return null
 
 	// Select an event and remove it from the pool of available events
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	// Otherwise, follow the standard setup process
 	else
 		var/playercount_modifier = 1
-		switch(GLOB.player_list.len)
+		switch(length(GLOB.player_list))
 			if(0 to 10)
 				playercount_modifier = 1.2
 			if(11 to 15)
@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Mundane News", 		/datum/event/mundane_news, 		300),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fungal Growth",		/datum/event/wallrot/fungus, 	50, 	list(ASSIGNMENT_CHEMIST = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100, list(ASSIGNMENT_ENGINEER = 10)),

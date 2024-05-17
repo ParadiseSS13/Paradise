@@ -35,6 +35,8 @@
 	var/semicd = 0						//cooldown handler
 	var/execution_speed = 6 SECONDS
 	var/weapon_weight = WEAPON_LIGHT
+	/// Additional spread when dual wielding.
+	var/dual_wield_spread = 24
 	var/list/restricted_species
 
 	var/spread = 0
@@ -65,22 +67,14 @@
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
 
-	//Zooming
-	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
-	var/zoomed = FALSE //Zoom toggle
-	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
-	var/datum/action/toggle_scope_zoom/azoom
-
 /obj/item/gun/Initialize(mapload)
 	. = ..()
-	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
 	QDEL_NULL(chambered)
-	QDEL_NULL(azoom)
 	QDEL_NULL(gun_light)
 	return ..()
 
@@ -152,6 +146,10 @@
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
 	if(firing_burst)
 		return
+	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
+		return
+	if(SEND_SIGNAL(src, COMSIG_MOB_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
+		return
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
@@ -193,24 +191,31 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	var/loop_counter = 0
-	if(ishuman(user) && user.a_intent == INTENT_HARM)
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
-				continue
-			else if(G.can_trigger_gun(user))
-				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					bonus_spread += 24 * G.weapon_weight
-				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+	if(!(ishuman(user) && user.a_intent == INTENT_HARM))
+		process_fire(target, user, TRUE, params, null, bonus_spread)
+		return
+	var/mob/living/carbon/human/H = user
+	var/obj/item/gun/GUN_1 = H.get_active_hand()
+	if(istype(H.get_inactive_hand(), /obj/item/gun)) //We do not need to check gun one, as it is controlled by the afterattack
+		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
 
-	process_fire(target,user,1,params, null, bonus_spread)
+		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
+			process_fire(target, user, TRUE, params, null, bonus_spread)
+			return
+		if(GUN_2.can_trigger_gun(user))
+			if(!HAS_TRAIT(user, TRAIT_BADASS))
+				var/temporary_weapon_weight = GUN_2.weapon_weight
+				if(GUN_1.type != GUN_2.type)
+					temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
+				bonus_spread += dual_wield_spread * temporary_weapon_weight
+			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
+
+	process_fire(target, user, TRUE, params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+	if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1
@@ -405,11 +410,6 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 
-/obj/item/gun/dropped(mob/user)
-	..()
-	zoom(user,FALSE)
-	if(azoom)
-		azoom.Remove(user)
 
 /obj/item/gun/AltClick(mob/user)
 	..()
@@ -440,16 +440,18 @@
 		return FALSE
 	return TRUE
 
-/obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
-	if(!ishuman(user) || !ishuman(target))
+/obj/item/gun/proc/handle_suicide(mob/user, mob/living/carbon/human/target, params)
+	if(!ishuman(target)) // So only human-type mobs can be executed.
 		return
 
 	if(semicd)
 		return
 
 	if(user == target)
+		if(!ishuman(user))	// Borg suicide needs a refactor for this to work.
+			return
 		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+		"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
 			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
@@ -474,93 +476,8 @@
 
 	process_fire(target, user, 1, params)
 
-/////////////
-// ZOOMING //
-/////////////
+/obj/item/gun/proc/on_scope_success()
+	return
 
-/datum/action/toggle_scope_zoom
-	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
-	button_icon_state = "sniper_zoom"
-	var/obj/item/gun/gun = null
-
-/datum/action/toggle_scope_zoom/Destroy()
-	gun = null
-	return ..()
-
-/datum/action/toggle_scope_zoom/Trigger(left_click)
-	gun.zoom(owner)
-
-/datum/action/toggle_scope_zoom/IsAvailable()
-	. = ..()
-	if(!. && gun)
-		gun.zoom(owner, FALSE)
-
-/datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
-	..()
-
-/obj/item/gun/proc/zoom(mob/living/user, forced_zoom)
-	if(!user || !user.client)
-		return
-
-	switch(forced_zoom)
-		if(FALSE)
-			zoomed = FALSE
-		if(TRUE)
-			zoomed = TRUE
-		else
-			zoomed = !zoomed
-
-	if(zoomed)
-		var/_x = 0
-		var/_y = 0
-		switch(user.dir)
-			if(NORTH)
-				_y = zoom_amt
-			if(EAST)
-				_x = zoom_amt
-			if(SOUTH)
-				_y = -zoom_amt
-			if(WEST)
-				_x = -zoom_amt
-
-		user.client.pixel_x = world.icon_size*_x
-		user.client.pixel_y = world.icon_size*_y
-	else
-		user.client.pixel_x = 0
-		user.client.pixel_y = 0
-
-
-//Proc, so that gun accessories/scopes/etc. can easily add zooming.
-/obj/item/gun/proc/build_zooming()
-	if(azoom)
-		return
-
-	if(zoomable)
-		azoom = new()
-		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
-
-/**
- * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
- *
- * This happens if the mob picks up the gun, or equips it to any of their slots.
- * If the slot is anything other than either of their hands (such as the back slot), un-zoom them, and `Remove` the zoom action button from the mob.
- * Otherwise, `Grant` the mob the zoom action button.
- *
- * Arguments:
- * * source - the gun that got equipped, which is `src`.
- * * user - the mob equipping the gun.
- * * slot - the slot the gun is getting equipped to.
- */
-/obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
-	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
-		// If its not in their hands, un-zoom, and remove the zoom action button.
-		zoom(user, FALSE)
-		azoom.Remove(user)
-		return FALSE
-
-	// The gun is equipped in their hands, give them the zoom ability.
-	azoom.Grant(user)
+/obj/item/gun/proc/on_scope_end()
+	return
