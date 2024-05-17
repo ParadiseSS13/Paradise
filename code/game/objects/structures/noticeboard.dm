@@ -121,9 +121,22 @@
 
 	return ..()
 
+/obj/structure/noticeboard/wrench_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(!(flags & NODECONSTRUCT))
+		WRENCH_UNANCHOR_WALL_MESSAGE
+		I.play_tool_sound(user, I.tool_volume)
+		deconstruct(TRUE)
+
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)
 	if(flags & NODECONSTRUCT)
 		return
+	if(notices)
+		for(var/I in contents)
+			var/obj/item/paper/notice = I
+			notice.forceMove(loc)
 	new /obj/item/mounted/noticeboard(loc)
 	qdel(src)
 
