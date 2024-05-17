@@ -1,5 +1,5 @@
 /datum/martial_combo/judo/goldenblast
-	//this is inredibly stupid. I love it.
+	// This is incredibly stupid. I love it.
 	name = "Golden Blast"
 	steps = list(MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
 	explaination_text = "Through use of a martial arts form, you can stun a foe with life energy. Or by overcharging the belt's nanites. Take your Pick."
