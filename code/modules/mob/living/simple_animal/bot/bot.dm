@@ -30,6 +30,8 @@
 	var/window_height = 0
 	var/obj/item/paicard/paicard 			// Inserted pai card.
 	var/allow_pai = TRUE					// Are we even allowed to insert a pai card.
+
+	/// storing bot_name prior to pai and restoring it. MULEBOT uses this for suffix system
 	var/bot_name
 
 	var/disabling_timer_id = null
@@ -116,8 +118,8 @@
 
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
-	/// The type of bot it is, for radio control.
-	var/bot_type = 0
+	/// Type of bot, one of the *_BOT defines.
+	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
 	// This holds text for what the bot is mode doing, reported on the remote bot control interface.
@@ -696,7 +698,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 
 
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Patrol and summon code!
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1164,3 +1165,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
 	return data
+
+// AI bot access verb TGUI
+/mob/living/simple_animal/bot/proc/get_bot_data()
+	. = list(
+	"name" = name ? name : model, // name is the actual bot name. PAI may change it. Mulebot suffix system uses bot_name // WHY, WHO MADE THIS
+	"model" = model, //
+	"status" = mode, // BOT_IDLE is 0, using mode_name will bsod tgui
+	"location" = get_area(src),
+	"on" = on,
+	"UID" = UID(),
+	)

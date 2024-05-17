@@ -51,6 +51,7 @@
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
+	gold_core_spawnable = NO_SPAWN
 	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 
