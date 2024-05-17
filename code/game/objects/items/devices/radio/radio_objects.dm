@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	RegisterSignal(crosser, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_listener_list))
 
 /obj/item/radio/proc/is_crosser_still_listening(mob/crosser)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
 	var/still_listening = FALSE
 	for(var/obj/effect/abstract/proximity_checker/checker in get_turf(crosser))
 		if(checker.monitor.hasprox_receiver == src)
@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	remove_from_listener_list(crosser)
 
 /obj/item/radio/proc/remove_from_listener_list(mob/crosser)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	listeners -= crosser
 	UnregisterSignal(crosser, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 
@@ -239,13 +239,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/update_hear_range(new_hear_range)
 	canhear_range = new_hear_range
 	var/datum/component/proximity_monitor/our_prox_component = GetComponent(/datum/component/proximity_monitor)
-	if(canhear_range)
-		if(our_prox_component)
-			our_prox_component.set_radius(canhear_range)
-		else
-			AddComponent(/datum/component/proximity_monitor, canhear_range)
-	else
+	if(!canhear_range)
 		QDEL_NULL(our_prox_component)
+		return
+
+	if(our_prox_component)
+		our_prox_component.set_radius(canhear_range)
+	else
+		AddComponent(/datum/component/proximity_monitor, canhear_range)
 
 /obj/item/radio/proc/list_secure_channels(mob/user)
 	var/list/dat = list()
@@ -833,13 +834,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	return M.say_dead(message)
 
-GLOBAL_DATUM_INIT(deadchat_radio, /obj/item/radio/dchat_radio_handler, new)
+GLOBAL_DATUM_INIT(deadchat_radio, /obj/item/radio/dchat_radio_handler, new())
 
 /obj/item/radio/dchat_radio_handler
 	name = "Deadchat radio handler. Do not fuck with"
 	canhear_range = 0
 
-/obj/item/radio/dchat_radio_handler/Destroy()
+/obj/item/radio/dchat_radio_handler/Destroy(force)
 	. = ..()
 	stack_trace("Someone just tried to delete the deadchat handler!")
 	if(!force)
