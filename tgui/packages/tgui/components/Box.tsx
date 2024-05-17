@@ -12,7 +12,7 @@ import { CSS_COLORS } from '../constants';
 export interface BoxProps {
   [key: string]: any;
   as?: string;
-  className?: string | BooleanLike;
+  className?: string;
   children?: InfernoNode;
   position?: string | BooleanLike;
   overflow?: string | BooleanLike;
