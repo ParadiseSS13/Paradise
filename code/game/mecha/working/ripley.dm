@@ -91,7 +91,6 @@
 	if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
 		desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
 
-
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
 // hides
