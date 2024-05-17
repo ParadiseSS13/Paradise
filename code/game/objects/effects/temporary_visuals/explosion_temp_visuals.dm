@@ -9,8 +9,6 @@
 	var/obj/effect/abstract/particle_holder/explosion_smoke
 	/// Sparks particle holder
 	var/obj/effect/abstract/particle_holder/sparks
-	/// Debris dirt kickup particle holder
-	var/obj/effect/abstract/particle_holder/dirt_kickup
 
 /obj/effect/temp_visual/explosion/Initialize(mapload, radius, color, small = FALSE, large = FALSE)
 	. = ..()
@@ -52,7 +50,6 @@
 	// The reason for these timers is to set the count to 0
 	// This causes any particle systems to not spawn in new particles, but not delete the currently existing ones
 	addtimer(CALLBACK(src, PROC_REF(set_count_short)), 1 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(set_count_long)), 3 SECONDS)
 
 /obj/effect/temp_visual/explosion/proc/set_count_short()
 	remove_light()
@@ -60,12 +57,8 @@
 	sparks.particles.count = 0
 	smoke_wave.particles.count = 0
 
-/obj/effect/temp_visual/explosion/proc/set_count_long()
-	dirt_kickup.particles.count = 0
-
 /obj/effect/temp_visual/explosion/Destroy()
 	QDEL_NULL(smoke_wave)
 	QDEL_NULL(explosion_smoke)
 	QDEL_NULL(sparks)
-	QDEL_NULL(dirt_kickup)
 	return ..()
