@@ -504,7 +504,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
-/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) //Extinguishes the pipe.
+/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
 	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = FALSE
@@ -517,7 +517,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(can_light_fancy(lighting_item))
 		return ..()
 
-//refill or light the pipe
+// Refill or light the pipe
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/O = I
