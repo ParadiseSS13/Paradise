@@ -394,6 +394,9 @@
 		return
 
 	var/atom/movable/the_item = targets[1]
+	if(!user.Adjacent(the_item))
+		to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+		return FALSE
 	if(ishuman(the_item))
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
@@ -412,15 +415,14 @@
 			revert_cast()
 			return FALSE
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
-		var/oldloc = H.loc
-		if(!do_mob(user,H,EAT_MOB_DELAY))
+		if(!do_mob(user, H, EAT_MOB_DELAY))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)
 				return
-			if(H.loc != oldloc)
-				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
-				return
+			if(!user.Adjacent(the_item))
+				to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+				return FALSE
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 

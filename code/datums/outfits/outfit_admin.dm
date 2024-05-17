@@ -863,7 +863,7 @@
 /datum/outfit/admin/trader/sol
 	name = "Trans-Solar Federation Trader"
 	suit = /obj/item/clothing/suit/jacket/cargobomber
-	head = /obj/item/clothing/head/soft
+	head = /obj/item/clothing/head/soft/cargo
 
 /datum/outfit/admin/trader/cyber
 	name = "Cybersun Industries Trader"

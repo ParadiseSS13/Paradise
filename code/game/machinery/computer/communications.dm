@@ -255,7 +255,7 @@
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(ui.user)] has requested the nuclear codes from Centcomm")
-				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested", 'sound/AI/nuke_codes.ogg')
+				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruction device have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested", 'sound/AI/nuke_codes.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
@@ -300,20 +300,7 @@
 			emagged = FALSE
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
-		if("RestartNanoMob")
-			if(SSmob_hunt)
-				if(SSmob_hunt.manual_reboot())
-					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
-										"Capturing all of them", "Fixing minor text issues", "Being the very best",
-										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
-					to_chat(ui.user, "<span class='notice'>Restarting Nano-Mob Hunter GO! game server. [loading_msg]...</span>")
-				else
-					to_chat(ui.user, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
-			else
-				to_chat(ui.user, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
-
 		// ADMIN CENTCOMM ONLY STUFF
-
 		if("send_to_cc_announcement_page")
 			if(!ADMIN_CHECK(ui.user))
 				return
@@ -562,7 +549,7 @@
 		return
 
 	if(!sanitized)
-		reason = trim_strip_html_properly(reason, allow_lines = TRUE)
+		reason = trim_strip_html_tags(reason, allow_lines = TRUE)
 
 	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")
