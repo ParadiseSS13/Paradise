@@ -17,13 +17,13 @@
 	var/list/cargo = new
 	var/cargo_capacity = 15
 
-	/// How many hides the Ripley has? Does not stack with other armor
+	/// How many goliath hides does the Ripley have? Does not stack with other armor
 	var/hides = 0
 
-	/// How many drake hides the Ripley has? Does not stack with other armor
+	/// How many drake hides does the Ripley have? Does not stack with other armor
 	var/drake_hides = 0
 
-	/// How many plates the Ripley has? Does not stack with other armor
+	/// How many plates does the Ripley have? Does not stack with other armor
 	var/plates = 0
 
 /obj/mecha/working/ripley/Move()
