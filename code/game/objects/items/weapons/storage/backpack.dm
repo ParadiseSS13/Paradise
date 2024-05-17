@@ -112,7 +112,7 @@
 /obj/item/storage/backpack/clown/syndie/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
-	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/mask/chameleon/voice_change(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
 	new /obj/item/storage/box/survival(src)
@@ -720,7 +720,8 @@
 		/obj/item/warp_cube/red = 1,
 		/obj/item/reagent_containers/drinks/everfull = 2,
 		/obj/item/clothing/suit/space/hardsuit/wizard = 2,
-		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
+		/obj/item/immortality_talisman = 1, //spells recharge when invincible
+		/obj/item/tarot_generator/wizard = 2)
 	var/obj/item/pickeda = pick(list_a)
 	value += list_a[pickeda]
 	new pickeda(src)

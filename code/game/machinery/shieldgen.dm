@@ -296,6 +296,12 @@
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
 
+/obj/machinery/shieldgen/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	if(active)
+		shields_down()
+		addtimer(CALLBACK(src, PROC_REF(shields_up)), 1 SECONDS)//Lets docking finish, prevents placing shields on shuttle tiles.
+
 /obj/machinery/shieldgen/raven
 	name = "military shield generator"
 	desc = "Military grade shield generators used to protect spaceships from incoming fire."

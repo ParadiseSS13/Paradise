@@ -777,6 +777,78 @@
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 
+/obj/item/storage/box/hydroponics_starter
+	name = "hydroponics starter kit"
+	desc = "Everything you need to start your own botany lab."
+
+/obj/item/storage/box/hydroponics_starter/populate_contents()
+	for(var/I in 1 to 2)
+		new /obj/item/circuitboard/hydroponics(src)
+		new /obj/item/stock_parts/matter_bin(src)
+		new /obj/item/stock_parts/matter_bin(src)
+		new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+
+/obj/item/storage/box/turbine_kit
+	name = "turbine kit"
+	desc = "Somehow, they managed to fit almost an entire turbine assembly into this box."
+
+/obj/item/storage/box/turbine_kit/populate_contents()
+	new /obj/item/circuitboard/turbine_computer(src)
+	new /obj/item/circuitboard/power_compressor(src)
+	new /obj/item/circuitboard/power_turbine(src)
+	for(var/I in 1 to 6)
+		new /obj/item/stock_parts/capacitor(src)
+		new /obj/item/stock_parts/manipulator(src)
+
+/obj/item/storage/box/deagle
+	name = "desert eagle handcannon kit"
+	desc = "A box marked with pictures of the iconic Desert Eagle pistol, one ammo clip, and the word 'LETHAL'."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/deagle/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+
+/obj/item/storage/box/skrell_suit
+	name = "skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/skrell_suit/white
+	name = "white skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is white."
+
+/obj/item/storage/box/skrell_suit/white/populate_contents()
+	new /obj/item/clothing/head/helmet/space/skrell/white(src)
+	new /obj/item/clothing/suit/space/skrell/white(src)
+
+/obj/item/storage/box/skrell_suit/black
+	name = "black skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is black."
+
+/obj/item/storage/box/skrell_suit/black/populate_contents()
+	new /obj/item/clothing/head/helmet/space/skrell/black(src)
+	new /obj/item/clothing/suit/space/skrell/black(src)
+
+/obj/item/storage/box/breacher
+	name = "unathi breacher suit box"
+	desc = "A box containing a bulky unathi battlesuit."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/breacher/populate_contents()
+	new /obj/item/clothing/suit/space/unathi/breacher(src)
+	new /obj/item/clothing/head/helmet/space/unathi/breacher(src)
+
+/obj/item/storage/box/vox_spacesuit
+	name = "vox voidsuit box"
+	desc = "A box containing an old, dusty voidsuit fit for vox."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/vox_spacesuit/populate_contents()
+	new /obj/item/clothing/head/helmet/space/vox/pressure(src)
+	new /obj/item/clothing/suit/space/vox/pressure(src)
+
 /obj/item/storage/box/telescience
 	name = "babies first telescience kit"
 	desc = "A now restricted kit for those who want to learn about telescience!"
