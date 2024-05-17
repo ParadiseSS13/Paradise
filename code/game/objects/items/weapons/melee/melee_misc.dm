@@ -248,12 +248,13 @@
 
 // Unathi Sword
 /obj/item/melee/breach_cleaver
-	name = "clan cleaver"
+	name = "breach cleaver"
 	desc = "This sharpened chunk of steel is too big and too heavy to be called a sword."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "secsword0"
-	item_state = "secsword0"
+	base_icon_state = "breach_cleaver"
+	icon_state = "breach_cleaver0"
+	item_state = "breach_cleaver0"
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
@@ -280,7 +281,7 @@
 			and harm intent deals heavy damage</span>"
 
 /obj/item/melee/breach_cleaver/update_icon_state()
-	icon_state = "secsword0"
+	icon_state = "breach_cleaver0"
 
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/user)
 	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
