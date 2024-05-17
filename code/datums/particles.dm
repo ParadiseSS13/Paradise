@@ -103,35 +103,3 @@
 	velocity = generator(GEN_CIRCLE, 30, 30)
 	scale = 0.1
 	friction = 0.1
-
-/particles/dirt_kickup
-	icon = 'icons/effects/96x157.dmi'
-	icon_state = "smoke"
-	width = 500
-	height = 500
-	count = 1
-	lifespan = 6 SECONDS
-	fade = 4 SECONDS
-	fadein = 0.3 SECONDS
-	scale = generator(GEN_NUM, 1, 1.1)
-	position = list(0, 10)
-	grow = list(0, 0.01)
-
-/particles/dirt_kickup_large
-	icon = 'icons/effects/96x157.dmi'
-	icon_state = "smoke"
-	width = 750
-	height = 750
-	count = 1
-	lifespan = 6 SECONDS
-	fade = 4 SECONDS
-	fadein = 0.3 SECONDS
-	scale = generator(GEN_NUM, 1.1, 1.2)
-	position = list(0, 20)
-	grow = list(0, 0.025)
-
-/particles/dirt_kickup_large/deva
-	velocity = list(0, 25)
-	scale = generator(GEN_NUM, 1.3, 1.4)
-	grow = list(0, 0.03)
-	fade = 1 SECONDS

@@ -11,8 +11,6 @@
 	var/obj/effect/abstract/particle_holder/sparks
 	/// Debris dirt kickup particle holder
 	var/obj/effect/abstract/particle_holder/dirt_kickup
-	/// Large dirt kickup particle holder
-	var/obj/effect/abstract/particle_holder/large_kickup
 
 /obj/effect/temp_visual/explosion/Initialize(mapload, radius, color, small = FALSE, large = FALSE)
 	. = ..()
@@ -39,13 +37,7 @@
 	else
 		explosion_smoke = new(src, /particles/explosion_smoke)
 
-	dirt_kickup = new(src, /particles/dirt_kickup)
 	sparks = new(src, /particles/sparks_outwards)
-
-	if(large)
-		large_kickup = new(src, /particles/dirt_kickup_large/deva)
-	else
-		large_kickup = new(src, /particles/dirt_kickup_large)
 
 	if(large)
 		smoke_wave.particles.velocity = generator(GEN_CIRCLE, 6 * radius, 6 * radius)
@@ -66,7 +58,6 @@
 	remove_light()
 	explosion_smoke.particles.count = 0
 	sparks.particles.count = 0
-	large_kickup.particles.count = 0
 	smoke_wave.particles.count = 0
 
 /obj/effect/temp_visual/explosion/proc/set_count_long()
@@ -76,6 +67,5 @@
 	QDEL_NULL(smoke_wave)
 	QDEL_NULL(explosion_smoke)
 	QDEL_NULL(sparks)
-	QDEL_NULL(large_kickup)
 	QDEL_NULL(dirt_kickup)
 	return ..()
