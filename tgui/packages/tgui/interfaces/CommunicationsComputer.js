@@ -365,14 +365,6 @@ const PlayerPage = (props, context) => {
                 onClick={() => act('messagelist')}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Misc">
-              <Button
-                icon="sync-alt"
-                content="Restart Nano-Mob Hunter GO! Server"
-                disabled={!authhead}
-                onClick={() => act('RestartNanoMob')}
-              />
-            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Stack.Item>

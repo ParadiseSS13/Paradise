@@ -1698,7 +1698,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
-	var/obj/item/gripper_engineering/G = get_active_hand()
+	var/obj/item/gripper/G = get_active_hand()
 	if(istype(G) && G.gripped_item)
 		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
 	else
