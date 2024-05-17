@@ -23,7 +23,7 @@ export type ButtonProps = BoxProps & {
   disabled?: BooleanLike;
   selected?: BooleanLike;
   tooltip?: string;
-  tooltipPosition: Placement;
+  tooltipPosition?: Placement;
   ellipsis?: BooleanLike;
   compact?: BooleanLike;
   circular?: BooleanLike;
