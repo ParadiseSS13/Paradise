@@ -215,6 +215,7 @@
 					gear_leftovers += G
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
 	if(visualsOnly)
 		return
 
@@ -283,3 +284,16 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+
+/datum/outfit/job/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	var/obj/item/card/id/id = H.wear_id
+	if(!id)
+		return
+	var/datum/job/J = SSjobs.GetJobType(jobtype)
+	if(!J)
+		J = SSjobs.GetJob(H.job)
+	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(!H.mind.initial_account)
+		return
+	id.associated_account_number = H.mind.initial_account.account_number

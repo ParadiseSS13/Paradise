@@ -39,8 +39,6 @@
 	var/movement_dir
 	/// Variable that defines whether it has a field generator close enough
 	var/has_close_field = FALSE
-	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
-	var/list/all_possible_areas = list()
 	/// How many tiles do we move per movement step?
 	var/steps_per_move = 8
 
