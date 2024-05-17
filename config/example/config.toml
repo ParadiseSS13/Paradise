@@ -736,6 +736,7 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_shuttlecrash.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
