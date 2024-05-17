@@ -19,7 +19,7 @@
 				var/mob/living/carbon/human/H = M
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
-			if(!M.mind || !ischangeling(M))
+			if(!M.mind || !IS_CHANGELING(M))
 				M.Deaf(30 SECONDS)
 				M.AdjustConfused(40 SECONDS)
 				M.Jitter(100 SECONDS)

@@ -166,7 +166,7 @@
 		return
 	if(timing)
 		if(timeleft() <= 0)
-			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
+			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security")
 			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
 			timing = FALSE
@@ -385,7 +385,7 @@
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				var/resettext = isobserver(usr) ? "for: [reset_reason]." : "by [usr.name] for: [reset_reason]."
-				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, "Security", list(z))
+				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, "Security")
 				notify_prisoner("Your brig timer has been reset for: '[reset_reason]'.")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
@@ -396,7 +396,7 @@
 			if(timing)
 				timer_end()
 				var/stoptext = isobserver(usr) ? "from cell control." : "by [usr.name]."
-				Radio.autosay("Timer stopped manually [stoptext]", name, "Security", list(z))
+				Radio.autosay("Timer stopped manually [stoptext]", name, "Security")
 			else
 				. = FALSE
 		if("flash")

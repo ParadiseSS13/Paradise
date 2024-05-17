@@ -111,6 +111,13 @@ $font-size: 24px;
     color: #fff;
     color: inherit;
 
+    &::placeholder {
+      font-style: italic;
+      color: #777;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    // TODO: Remove with 516
     &:-ms-input-placeholder {
       font-style: italic;
       color: #777;
