@@ -284,6 +284,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -294,6 +295,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/wingfangchu
 	name = "wing fang chu"
@@ -304,6 +306,7 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
 	tastes = list("soy" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/goliath_steak
 	name = "goliath steak"
@@ -314,6 +317,7 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
@@ -323,6 +327,7 @@
 	trash = /obj/item/trash/fried_vox
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("quills" = 1, "the shoal" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 //////////////////////
 //		Cubes		//
@@ -553,6 +558,7 @@
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/turkeyslice
 	name = "turkey serving"
