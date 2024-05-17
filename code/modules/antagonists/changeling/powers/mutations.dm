@@ -36,6 +36,7 @@
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[W.name]"))
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
