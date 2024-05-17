@@ -50,6 +50,8 @@ jobs:
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
           python tools/ci/check_map_sizes.py
+          python tools/ci/verify_sql_version.py
+          python tools/ci/no_duplicate_definitions.py
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
           python -m tools.maplint.source --github
@@ -93,13 +95,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype:
-          [
-            '/datum/map/boxstation',
-            '/datum/map/deltastation',
-            '/datum/map/metastation',
-            '/datum/map/cerestation',
-          ]
+        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation']
         byondtype: ['STABLE']
     services:
       mariadb:
