@@ -219,6 +219,14 @@
 		say("Intruder!")
 		depotarea.increase_alert(reason)
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/drop_loot()
+	// If a depot syndicate dies after the depot has been destroyed, assume it
+	// was gibbed as part of the destruction and don't drop its loot.
+	if(depotarea && depotarea.destroyed)
+		return
+
+	return ..()
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
 	if(!istype(depotarea))
 		return ..()
