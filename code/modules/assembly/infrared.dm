@@ -227,6 +227,9 @@
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
+/obj/effect/beam/i_beam/Process_Spacemove(movement_dir)
+	return TRUE
+
 /obj/effect/beam/i_beam/process()
 	life_cycles++
 	if(loc.density || !master || life_cycles >= life_cap)

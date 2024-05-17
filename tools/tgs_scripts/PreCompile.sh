@@ -39,7 +39,7 @@ fi
 
 echo "Deploying rust-g..."
 git reset --hard "$RUSTG_VERSION"
-./apply-patches.sh
+./apply_patches.sh
 cd paradise-rust-g
 env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --features all --target=i686-unknown-linux-gnu
 mv target/i686-unknown-linux-gnu/release/librust_g.so "$1/librust_g.so"
