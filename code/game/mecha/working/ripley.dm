@@ -115,8 +115,6 @@
 		else if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
 			. += occupant ? "ripley-d" : "ripley-d-open"
 
-
-
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
 	name = "APLU \"Firefighter\""
