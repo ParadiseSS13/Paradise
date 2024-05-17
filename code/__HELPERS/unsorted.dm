@@ -262,40 +262,6 @@
 /proc/format_frequency(f)
 	return "[round(f / 10)].[f % 10]"
 
-/obj/proc/atmosanalyzer_scan(datum/gas_mixture/air_contents, mob/user, obj/target = src)
-	var/obj/icon = target
-	if(isliving(user))
-		user.visible_message("<span class='notice'>[user] uses the analyzer on [target].</span>", "<span class='notice'>You use the analyzer on [target].</span>")
-	var/pressure = air_contents.return_pressure()
-	var/total_moles = air_contents.total_moles()
-	var/volume = air_contents.return_volume()
-
-	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
-	if(total_moles>0)
-		var/o2_concentration = air_contents.oxygen/total_moles
-		var/n2_concentration = air_contents.nitrogen/total_moles
-		var/co2_concentration = air_contents.carbon_dioxide/total_moles
-		var/plasma_concentration = air_contents.toxins/total_moles
-		var/n2o_concentration = air_contents.sleeping_agent/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
-
-		user.show_message("<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
-		user.show_message("<span class='notice'>Nitrogen: [round(n2_concentration*100)] % ([round(air_contents.nitrogen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Oxygen: [round(o2_concentration*100)] % ([round(air_contents.oxygen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Nitrous Oxide: [round(n2o_concentration*100)] % ([round(air_contents.sleeping_agent,0.01)] moles)</span>", 1)
-		if(unknown_concentration>0.01)
-			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
-		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
-		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
-	else
-		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
-		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
-	return
-
 //Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
@@ -1206,7 +1172,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign)))
+	/obj/structure/sign, /obj/machinery/barsign)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)

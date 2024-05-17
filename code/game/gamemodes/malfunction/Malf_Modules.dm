@@ -464,14 +464,15 @@
 
 	user.playsound_local(user, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1, user)
-	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
+	target.audible_message("<span class='danger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
+	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(detonate_machine), target), 5 SECONDS) //kaboom!
 	to_chat(user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
 /datum/spell/ai_spell/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0, 3, 5, 0)
+		explosion(get_turf(M), 0, 2, 3, 0)
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 

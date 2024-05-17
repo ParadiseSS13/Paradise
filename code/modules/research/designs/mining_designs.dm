@@ -111,6 +111,16 @@
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
 	category = list("Mining", "Cyborg Upgrade Modules")
 
+/datum/design/mining_charges
+	name = "Experimental Mining Charge"
+	desc = "An experimental mining charge used to make big holes in rocks."
+	id = "megacharge"
+	req_tech = list("materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
+	build_path = /obj/item/grenade/plastic/miningcharge/mega
+	category = list("Mining")
+
 /datum/design/lavarods
 	name = "Lava-Resistant Iron Rods"
 	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."

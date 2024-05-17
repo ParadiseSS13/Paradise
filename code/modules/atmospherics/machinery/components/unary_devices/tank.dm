@@ -7,7 +7,7 @@
 	max_integrity = 800
 	density = TRUE
 	/// in liters, 1 meters by 1 meters by 2 meters
-	var/volume = 10000 
+	var/volume = 10000
 
 /obj/machinery/atmospherics/unary/tank/update_underlays()
 	if(..())
@@ -17,12 +17,8 @@
 			return
 		add_underlay(T, node, dir)
 
-/obj/machinery/atmospherics/unary/tank/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		atmosanalyzer_scan(air_contents, user)
-		return
-
-	return ..()
+/obj/machinery/atmospherics/unary/tank/return_analyzable_air()
+	return air_contents
 
 /obj/machinery/atmospherics/unary/tank/air
 	name = "Pressure Tank (Air)"

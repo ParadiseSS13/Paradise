@@ -10,7 +10,7 @@
 	static_inventory += using
 	action_intent = using
 
-	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/stretch/see_through_darkness)
 
 /datum/hud/corgi/New(mob/user)
 	..()

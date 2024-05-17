@@ -1,0 +1,30 @@
+.symptoms-table {
+  border-collapse: separate;
+  border-spacing: 0 0.5ex;
+  height: 100%;
+}
+
+.symptoms-table > tbody > tr:first-child {
+  width: 100%;
+  font-weight: bold;
+}
+
+.symptoms-table > tbody > tr:nth-child(2) > td:first-child {
+  padding-top: 0.5ex;
+}
+
+.symptoms-table > tbody > tr > td:nth-child(n + 2) {
+  text-align: center;
+}
+
+.common-name-label > .LabeledList__cell {
+  vertical-align: middle;
+}
+
+.table-spacer {
+  height: 100%;
+}
+
+.remove-section-bottom-padding .Section__content {
+  padding-bottom: 0;
+}
