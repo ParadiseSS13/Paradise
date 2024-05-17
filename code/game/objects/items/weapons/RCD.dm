@@ -345,7 +345,7 @@
 	var/turf/suicide_tile = get_turf(src)
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-		var/datum/rcd_act/remove_user/act = new
+		var/datum/rcd_act/remove_user/act = new()
 		if(act.try_act(suicide_tile, src, user))
 			user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
 			for(var/obj/item/W in user)	// Do not delete all their stuff.
@@ -357,13 +357,11 @@
 		return SHAME // Ensure that we do not accidentally perform the other flavour of suicide act.
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	flags &= ~NODROP  // Ensure the RCD doesn't stick to the next person's hand.
 	if(afterattack(suicide_tile, user, TRUE))
 		user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
 		user.gib()
-		flags &= ~NODROP  // Ensure the RCD doesn't stick to the next person's hand.
-		return OBLITERATION
-
-	flags &= ~NODROP  // Ensure the RCD doesn't stick to the next person's hand.
+		return OBLITERATION	
 	return SHAME
 
 /**
