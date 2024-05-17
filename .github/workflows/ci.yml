@@ -64,6 +64,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - name: Setup .NET SDK 8.0.205 # Temporary step until opendream updates
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.205
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
