@@ -242,7 +242,7 @@
 	origin_tech = "magnets=1"
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
-	///How far away can the scanner scan mail or people
+	/// How far away can the scanner scan mail or people
 	var/scanner_range = 7
 
 /obj/item/mail_scanner/examine(mob/user)
