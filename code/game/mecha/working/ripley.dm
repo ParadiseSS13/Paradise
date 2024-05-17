@@ -72,24 +72,30 @@
 		return
 
 	// Goliath hides
-	if(hides == HIDES_COVERED_FULL)
-		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
-	else
-		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+	if(hides)
+		if(hides == HIDES_COVERED_FULL)
+			desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
+		else
+			desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+		return
 
 	// Metal plates
-	if(plates == PLATES_COVERED_FULL)
-		desc = "Autonomous Power Loader Unit. Its armor is completely lined with metal plating."
-	else
-		desc = "Autonomous Power Loader Unit. Its armor is reinforced with some metal plating."
+	if(plates)
+		if(plates == PLATES_COVERED_FULL)
+			desc = "Autonomous Power Loader Unit. Its armor is completely lined with metal plating."
+		else
+			desc = "Autonomous Power Loader Unit. Its armor is reinforced with some metal plating."
+		return
 
 	// Drake hides
-	if(drake_hides == DRAKE_HIDES_COVERED_FULL)
-		desc = "Autonomous Power Loader Unit. Its every corner is covered in ancient hide, creating a powerful shield. The pilot of this exosuit must be prepared for battles on the level of legend."
-	if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
-		desc = "Autonomous Power Loader Unit. Its armor is adorned with dragon hide plates, instilling fear in its enemies and guarding its pilot."
-	if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
-		desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
+	if(drake_hides)
+		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			desc = "Autonomous Power Loader Unit. Its every corner is covered in ancient hide, creating a powerful shield. The pilot of this exosuit must be prepared for battles on the level of legend."
+		if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
+			desc = "Autonomous Power Loader Unit. Its armor is adorned with dragon hide plates, instilling fear in its enemies and guarding its pilot."
+		if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
+			desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
+		return
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
