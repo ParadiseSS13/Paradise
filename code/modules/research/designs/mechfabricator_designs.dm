@@ -793,24 +793,35 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_ccw_armor
-	name = "Exosuit Module (Reactive Armor Booster Module)"
+	name = "Exosuit Module (Melee Armor Booster Module)"
 	desc = "Exosuit-mounted armor booster."
 	id = "mech_ccw_armor"
 	build_type = MECHFAB
-	req_tech = list("materials" = 5, "combat" = 4)
+	req_tech = list("materials" = 5, "combat" = 5, "engineering"=3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	materials = list(MAT_METAL=20000,MAT_SILVER=5000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_proj_armor
-	name = "Exosuit Module (Reflective Armor Booster Module)"
+	name = "Exosuit Module (Ranged Armor Booster Module)"
 	desc = "Exosuit-mounted armor booster."
 	id = "mech_proj_armor"
 	build_type = MECHFAB
 	req_tech = list("materials" = 5, "combat" = 5, "engineering"=3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	materials = list(MAT_METAL=20000,MAT_GOLD=5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_armor_plate
+	name = "Exosuit Mining Armor Plate"
+	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
+	id = "mech_plate_armor"
+	build_type = MECHFAB
+	req_tech = list("materials" = 5, "combat" = 5, "engineering" = 3)
+	build_path = /obj/item/stack/sheet/animalhide/armor_plate
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 5000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
@@ -1077,6 +1088,16 @@
 	build_path = /obj/item/borg/upgrade/abductor_medi
 	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
 	materials = list(MAT_METAL = 18000, MAT_GLASS = 1500, MAT_SILVER = 13000, MAT_GOLD = 1000, MAT_PLASMA = 4000, MAT_TITANIUM = 12000, MAT_DIAMOND = 1000) //Base abductor engineering tools *8 + IMS cost
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_abductor_jani
+	name = "Cyborg Upgrade (Abductor Janitorial Equipment)"
+	id = "borg_upgade_abductor_jani"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/abductor_jani
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 7500, MAT_PLASMA = 2500, MAT_TITANIUM = 7500, MAT_DIAMOND = 5000) //Base abductor jani tools *5
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 

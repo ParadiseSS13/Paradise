@@ -24,6 +24,9 @@
 	return ..()
 
 /obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(W.is_robot_module())
+		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+		return
 	if(istype(W, /obj/item/mop))
 		var/obj/item/mop/M = W
 		if(M.reagents.total_volume < M.reagents.maximum_volume)

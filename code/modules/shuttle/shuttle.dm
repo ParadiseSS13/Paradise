@@ -228,6 +228,8 @@
 	var/uses_lockdown = FALSE
 	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
 	var/lockeddown = FALSE
+	/// Is this a shuttle that completely destroys whatever dares to get in it's way?
+	var/lance_docking = FALSE
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -479,6 +481,18 @@
 	remove_ripples()
 
 	//move or squish anything in the way ship at destination
+	if(lance_docking && is_station_level(S1.z))
+		var/list/L2 = list()
+		switch(S1.dir)
+			if(NORTH)
+				L2 = block(locate(S1.x-9, S1.y+36, S1.z), locate(S1.x+9, 255, S1.z))
+			if(SOUTH)
+				L2 = block(locate(S1.x-9, 1, S1.z), locate(S1.x+9, S1.y-36, S1.z))
+			if(EAST)
+				L2 = block(locate(S1.x+36, S1.y-9, S1.z), locate(255, S1.y+9, S1.z))
+			if(WEST)
+				L2 = block(locate(1, S1.y-9, S1.z), locate(S1.x-36, S1.y+9, S1.z))
+		shuttle_smash(L2, S1)
 	roadkill(L0, L1, S1.dir)
 
 	for(var/i in 1 to length(L0))
@@ -614,6 +628,9 @@
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
 			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
+					var/obj/machinery/atmospherics/supermatter_crystal/bakoom = AM
+					addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
 				continue
 			if(ismob(AM))
 				var/mob/M = AM
@@ -627,6 +644,18 @@
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
 					L.gib()
+			else if(lance_docking) //corrupt the child, destroy them all
+				if(!AM.simulated)
+					continue
+				if(istype(AM, /mob/dead))
+					continue
+				if(istype(AM, /obj/item/organ))
+					continue
+				if(istype(AM, /obj/effect/landmark))
+					continue
+				if(istype(AM, /obj/docking_port))
+					continue
+				qdel(AM, force = TRUE)
 
 			// Move unanchored atoms
 			if(!AM.anchored && !ismob(AM))
@@ -634,6 +663,21 @@
 			else
 				if(AM.simulated) // Don't qdel lighting overlays, they are static
 					qdel(AM)
+
+/obj/docking_port/mobile/proc/shuttle_smash(list/L2, obj/docking_port/stationary/S1)
+	var/loud_crash_sound = sound('sound/effects/explosioncreak1.ogg')
+	for(var/player in GLOB.player_list)
+		var/mob/M = player
+		var/turf/mob_turf = get_turf(M)
+		if(atoms_share_level(S1, mob_turf))
+			SEND_SOUND(M, loud_crash_sound)
+	for(var/turf/T in L2)
+		for(var/atom/movable/A in T.contents)
+			A.ex_act(1)
+			if(istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+				var/obj/machinery/atmospherics/supermatter_crystal/bakoom = A
+				addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
+		T.ChangeTurf(T.baseturf) //I don't want to deal with turf decals
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
