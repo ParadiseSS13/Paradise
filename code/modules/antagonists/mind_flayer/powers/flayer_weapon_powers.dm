@@ -51,7 +51,7 @@
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augementation"
-	desc = "Our hand melts away, replaced with a laser mounted at the end."
+	desc = "Our hand melts away, replaced with the barrel of a laser gun."
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
 	category = CATEGORY_DESTROYER
