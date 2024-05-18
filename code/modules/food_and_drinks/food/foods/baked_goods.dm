@@ -16,6 +16,7 @@
 	filling_color = "#FFD675"
 	list_reagents = list("nutriment" = 20, "oculine" = 10, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/carrotcakeslice
 	name = "carrot cake slice"
@@ -39,6 +40,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 10, "nutriment" = 10, "mannitol" = 10, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "brains" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/braincakeslice
 	name = "brain cake slice"
@@ -61,6 +63,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 4, "cream cheese" = 3)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/cheesecakeslice
 	name = "cheese cake slice"
@@ -83,6 +86,7 @@
 	filling_color = "#F7EDD5"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "vanilla" = 1, "sweetness" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/plaincakeslice
 	name = "vanilla cake slice"
@@ -105,6 +109,7 @@
 	filling_color = "#FADA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "oranges" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/orangecakeslice
 	name = "orange cake slice"
@@ -127,6 +132,7 @@
 	filling_color = "#FADA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/bananacakeslice
 	name = "banana cake slice"
@@ -149,6 +155,7 @@
 	filling_color = "#CBFA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "unbearable sourness" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/limecakeslice
 	name = "lime cake slice"
@@ -171,6 +178,7 @@
 	filling_color = "#FAFA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 2, "sourness" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/lemoncakeslice
 	name = "lemon cake slice"
@@ -193,6 +201,7 @@
 	filling_color = "#805930"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 1, "chocolate" = 4)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/chocolatecakeslice
 	name = "chocolate cake slice"
@@ -215,6 +224,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sprinkles" = 10, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/birthdaycakeslice
 	name = "birthday cake slice"
@@ -237,6 +247,7 @@
 	filling_color = "#EBF5B8"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/applecakeslice
 	name = "apple cake slice"
@@ -369,6 +380,7 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "meat" = 1, "acid" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 
 /obj/item/food/snacks/applepie

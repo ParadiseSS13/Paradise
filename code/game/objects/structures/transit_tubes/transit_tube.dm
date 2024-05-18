@@ -58,7 +58,7 @@
 			return
 
 // Called to check if a pod should stop upon entering this tube.
-/obj/structure/transit_tube/proc/should_stop_pod(pod, from_dir)
+/obj/structure/transit_tube/proc/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
 	return FALSE
 
 // Called when a pod stops in this tube section.
@@ -274,18 +274,3 @@
 			tube_dirs = list(EAST, NORTHWEST, SOUTHWEST)
 		if(WEST)
 			tube_dirs = list(WEST, SOUTHEAST, NORTHEAST)
-
-
-// cosmetic "cap" for tubes. Note that tubes can't enter this.
-/obj/structure/transit_tube/cap
-	icon_state = "cap"
-
-/obj/structure/transit_tube/cap/init_tube_dirs()
-	tube_dirs = list(turn(dir, 180))  // back the way we came
-
-/obj/structure/transit_tube/cap/has_entrance(from_dir)
-	return FALSE
-
-/obj/structure/transit_tube/cap/create_tube_overlay()
-	// cap sprites already have overlays
-	return

@@ -20,6 +20,7 @@ import './styles/themes/securestorage.scss';
 import './styles/themes/security.scss';
 import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
+import './styles/themes/noticeboard.scss';
 
 import { perf } from 'common/perf';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
