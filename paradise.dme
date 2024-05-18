@@ -951,6 +951,7 @@
 #include "code\game\objects\effects\snowcloud.dm"
 #include "code\game\objects\effects\spiders.dm"
 #include "code\game\objects\effects\step_triggers.dm"
+#include "code\game\objects\effects\tar.dm"
 #include "code\game\objects\effects\warp_effect.dm"
 #include "code\game\objects\effects\decals\cleanable.dm"
 #include "code\game\objects\effects\decals\contraband_posters.dm"

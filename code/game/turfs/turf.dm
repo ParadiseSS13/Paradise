@@ -40,6 +40,8 @@
 
 	var/changing_turf = FALSE
 
+	var/has_tar = FALSE
+
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.

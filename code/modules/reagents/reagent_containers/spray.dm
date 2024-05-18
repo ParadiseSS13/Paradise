@@ -281,3 +281,16 @@
 	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
+
+
+/// Sticky tar spray
+/obj/item/reagent_containers/spray/sticky_tar
+    name = "Sticky tar applicator"
+    desc = "A suspicious looking spraycan filled with an extremely viscous and sticky fluid."
+    lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+    righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+    spray_maxrange = 2
+    spray_currentrange = 2
+    amount_per_transfer_from_this = 10
+    list_reagents = list("sticky_tar" = 150)
+
