@@ -1459,6 +1459,7 @@
 #include "code\modules\antagonists\mind_flayer\powers\flayer_passives.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayer_spawn_powers.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayer_weapon_powers.dm"
+#include "code\modules\antagonists\mind_flayer\powers\flayer_stealth_powers.dm"
 #include "code\modules\antagonists\revolutionary\datum_headrev.dm"
 #include "code\modules\antagonists\revolutionary\datum_revolutionary.dm"
 #include "code\modules\antagonists\revolutionary\team_revolution.dm"

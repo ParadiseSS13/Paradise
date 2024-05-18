@@ -1,4 +1,4 @@
-POWERS// OOORAAAH WE HAVE POWERS
+//POWERS// OOORAAAH WE HAVE POWERS
 #define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have // TODO: figure out wtf I meant with this comment // Okay so I think I meant this as a define to use in comparison with something, to check if it's bought or not?
 #define POWER_LEVEL_ONE		1
 #define POWER_LEVEL_TWO		2
@@ -105,6 +105,5 @@ POWERS// OOORAAAH WE HAVE POWERS
 	if(!user || !user.mind || !C)
 		qdel(src)
 		return
-	flayer = C
-	flayer.add_ability(path)
+	flayer.add_ability(path, C)
 	return TRUE

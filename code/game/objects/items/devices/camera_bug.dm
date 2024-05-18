@@ -57,6 +57,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/camera/portable/camera
 	var/index = "REPORT THIS TO CODERS"
+	var/camera_tag = "Hidden Camera"
 
 /obj/item/wall_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
 	. = ..()
@@ -83,7 +84,37 @@
 
 	camera = new /obj/machinery/camera/portable(src)
 	camera.network = list("camera_bug[camera_bug.UID()]")
-	camera.c_tag = "Hidden Camera [index]"
+	camera.c_tag = "[camera_tag] [index]"
+
+///Created by a mindflayer ability
+/obj/item/wall_bug/computer_bug
+	name = "Nanobot"
+	desc = "A small droplet of a shimmering metallic slurry."
+	camera_tag = "Surveilance Unit"
+	///Reference to the creator's antag datum
+	var/datum/antagonist/mindflayer/flayer
+	COOLDOWN_DECLARE(alert_cooldown)
+
+/obj/item/wall_bug/computer_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
+/obj/item/wall_bug/computer_bug/HasProximity(atom/movable/AM)
+	if(!isliving(AM))
+		return
+	if(!COOLDOWN_FINISHED(src, alert_cooldown))
+		return
+	if(!flayer)
+		return
+	var/mob/living/passerby = AM
+	var/area/room = get_area(passerby)
+	COOLDOWN_START(src, alert_cooldown, 2 SECONDS)
+	flayer.send_swarm_message("[passerby] was spotted passing by a hacked webcam in [room.name]")
+
+/obj/item/wall_bug/computer_bug/link_to_camera(obj/item/camera_bug/camera_bug, datum/antagonist/mindflayer/flayer_datum = null)
+	..()
+	if(flayer_datum)
+		flayer = flayer_datum
 
 /obj/item/paper/camera_bug
 	name = "Camera Bug Guide"
