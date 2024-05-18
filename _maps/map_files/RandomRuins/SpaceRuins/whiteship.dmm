@@ -31,7 +31,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "eE" = (
@@ -219,7 +218,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ys" = (
@@ -341,10 +340,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"NZ" = (
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "Of" = (
 /turf/simulated/floor/mineral/titanium/blue,
@@ -526,7 +521,7 @@ zO
 kO
 vB
 gd
-NZ
+Of
 Of
 zO
 zO
