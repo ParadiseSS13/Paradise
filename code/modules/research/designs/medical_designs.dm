@@ -436,7 +436,6 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/surgical_abductor
 	category = list("Medical")
 
-
 /datum/design/cyberimp_jani_hud
 	name = "Janitor HUD Implant"
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see. Wiggle eyes to control."
