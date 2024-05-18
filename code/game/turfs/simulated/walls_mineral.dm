@@ -1,6 +1,6 @@
 /turf/simulated/wall/mineral
 	name = "mineral wall"
-	desc = "This shouldn't exist"
+	desc = "If you can see this, please make an issue report on GitHub."
 	icon_state = ""
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
@@ -308,6 +308,9 @@
 	return
 
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
+	return
+
+/turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
 	return
 
 /////////////////////Plastitanium walls/////////////////////

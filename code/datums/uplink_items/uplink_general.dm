@@ -133,11 +133,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(limited_stock > 0)
 			limited_stock--
 			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+			user.create_log(MISC_LOG, "Uplink purchase: [name] was discounted to [cost]tc")
 			if(!user.mind.special_role)
 				message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 
 		else
 			log_game("[key_name(user)] purchased [name].")
+			user.create_log(MISC_LOG, "Uplink purchase: [name] for [cost]tc")
 			if(!user.mind.special_role)
 				message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 
@@ -603,7 +605,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Prototype Nanite Autoinjector"
-	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs."
+	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs. Heals organics organs, cybernetic organs, and limbs to fully operational conditions."
 	reference = "NCAI"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	cost = 10

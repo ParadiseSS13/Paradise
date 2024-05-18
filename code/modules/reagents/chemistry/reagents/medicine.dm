@@ -1508,7 +1508,8 @@
 	metabolization_rate = 0.5
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone")
+	process_flags = ORGANIC | SYNTHETIC
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone", "ultralube", "surge", "surge_plus", "combatlube")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1521,7 +1522,7 @@
 		if(1 to 19)
 			M.AdjustJitter(8 SECONDS)
 			if(prob(10))
-				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+				to_chat(M, "<span class='warning'>You feel great pain from the nanomachines inside you!</span>")
 				update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			for(var/datum/reagent/R in M.reagents.reagent_list)
 				if(stimulant_list.Find(R.id))
@@ -1549,7 +1550,10 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
-						I.heal_internal_damage(4)
+						I.heal_internal_damage(4, TRUE)
+						if(istype(I, /obj/item/organ/internal/cyberimp)) // Fix disabled implants like the ipc charging implant
+							var/obj/item/organ/internal/cyberimp/crit = I
+							crit.crit_fail = FALSE
 					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.7)// If below 70% blood, regenerate 150 units total
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
@@ -1559,8 +1563,8 @@
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-					update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-					update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = TRUE)
+					update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = TRUE)
 				else
 					if(prob(25))
 						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
