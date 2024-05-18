@@ -536,7 +536,7 @@
 	)
 
 /obj/item/robot_module/janitor/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/storage/bag/trash/T = locate(/obj/item/storage/bag/trash/) in modules
+	var/obj/item/storage/bag/trash/T = locate(/obj/item/storage/bag/trash) in modules
 	if(istype(T))
 		T.drop_inventory(R)
 
