@@ -332,8 +332,9 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	actions_types = list()
 	can_suppress = FALSE
-	burst_size = 2
+	burst_size = 1
 	execution_speed = 5 SECONDS
 
 /obj/item/gun/projectile/automatic/lasercarbine/examine_more(mob/user)
@@ -347,6 +348,10 @@
 	"",
 	"Warp-Tac bundles this weapon with a lifetime warranty. This weapon is favored by private military groups and mercenaries with money to throw around."
 	)
+
+/obj/item/gun/projectile/automatic/lasercarbine/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
