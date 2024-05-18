@@ -807,8 +807,8 @@
 /obj/item/storage/belt/sheath/breach_cleaver
 	name = "breach cleaver scabbard"
 	desc = "Can hold massive cleavers."
-	icon_state = "snakesfangsheath"
-	item_state = "snakesfangsheath"
+	icon_state = "breachcleaversheath"
+	item_state = "breachcleaversheath"
 	can_hold = list(/obj/item/melee/breach_cleaver)
 
 /obj/item/storage/belt/sheath/breach_cleaver/populate_contents()

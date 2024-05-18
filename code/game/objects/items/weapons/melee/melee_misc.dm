@@ -254,7 +254,6 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "breach_cleaver"
 	icon_state = "breach_cleaver0"
-	item_state = "breach_cleaver0"
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
@@ -281,16 +280,18 @@
 			and harm intent deals heavy damage</span>"
 
 /obj/item/melee/breach_cleaver/update_icon_state()
-	icon_state = "breach_cleaver0"
+	icon_state = "[base_icon_state]0"
 
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/user)
 	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
 	var/mob/living/carbon/human/H = user
 	H.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	update_icon_state()
 
 /obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/user)
 	var/mob/living/carbon/human/H = user
 	H.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	update_icon_state()
 
 /obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
