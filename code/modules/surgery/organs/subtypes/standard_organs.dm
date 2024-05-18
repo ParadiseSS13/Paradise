@@ -10,6 +10,7 @@
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_HUGE
 	body_part = UPPER_TORSO
+	body_zone = BODY_ZONE_CHEST
 	vital = TRUE
 	amputation_point = "spine"
 	gendered_icon = TRUE
@@ -36,6 +37,7 @@
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
+	body_zone = BODY_ZONE_PRECISE_GROIN
 	vital = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
@@ -49,6 +51,7 @@
 	min_broken_damage = 30
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = ARM_LEFT
+	body_zone = BODY_ZONE_L_ARM
 	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
@@ -69,6 +72,7 @@
 	name = "right arm"
 	icon_name = "r_arm"
 	body_part = ARM_RIGHT
+	body_zone = BODY_ZONE_R_ARM
 	amputation_point = "right shoulder"
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
@@ -80,6 +84,7 @@
 	min_broken_damage = 30
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = LEG_LEFT
+	body_zone = BODY_ZONE_L_LEG
 	icon_position = LEFT
 	parent_organ = "groin"
 	amputation_point = "left hip"
@@ -107,6 +112,7 @@
 	name = "right leg"
 	icon_name = "r_leg"
 	body_part = LEG_RIGHT
+	body_zone = BODY_ZONE_R_LEG
 	icon_position = RIGHT
 	amputation_point = "right hip"
 	convertable_children = list(/obj/item/organ/external/foot/right)
@@ -119,6 +125,7 @@
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = FOOT_LEFT
+	body_zone = BODY_ZONE_PRECISE_L_FOOT
 	icon_position = LEFT
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
@@ -149,6 +156,7 @@
 	name = "right foot"
 	icon_name = "r_foot"
 	body_part = FOOT_RIGHT
+	body_zone = BODY_ZONE_PRECISE_R_FOOT
 	icon_position = RIGHT
 	parent_organ = "r_leg"
 	amputation_point = "right ankle"
@@ -161,6 +169,7 @@
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = HAND_LEFT
+	body_zone = BODY_ZONE_PRECISE_L_HAND
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
@@ -214,6 +223,7 @@
 	name = "right hand"
 	icon_name = "r_hand"
 	body_part = HAND_RIGHT
+	body_zone = BODY_ZONE_PRECISE_R_HAND
 	parent_organ = "r_arm"
 	amputation_point = "right wrist"
 
@@ -225,6 +235,7 @@
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
+	body_zone = BODY_ZONE_HEAD
 	parent_organ = "chest"
 	amputation_point = "neck"
 	gendered_icon = TRUE

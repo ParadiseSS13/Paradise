@@ -144,6 +144,7 @@
 			else
 				item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] suddenly appears in [target]'s hand!</span>")
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
+			SEND_SIGNAL(item_to_retrieve, COMSIG_MAGIC_RECALL, user, item_to_retrieve)
 
 		if(message)
 			to_chat(target, message)

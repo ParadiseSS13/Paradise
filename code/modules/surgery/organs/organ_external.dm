@@ -17,6 +17,9 @@
 	var/body_part = null
 	var/icon_position = 0
 
+	/// body zone where this organ exists, e.g. BODY_ZONE_HEAD
+	var/body_zone
+
 	var/model
 	var/force_icon
 

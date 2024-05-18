@@ -643,7 +643,12 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 /// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
 #define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
-
+///from base of obj/item/embedded(): (atom/target, obj/item/bodypart/part)
+#define COMSIG_ITEM_EMBEDDED "item_embedded"
+///from base of datum/component/embedded/safeRemove(): (mob/living/carbon/victim)
+#define COMSIG_ITEM_UNEMBEDDED "item_unembedded"
+/// from base of obj/item/failedEmbed()
+#define COMSIG_ITEM_FAILED_EMBED "item_failed_embed"
 /// Defib-specific signals
 
 /// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
@@ -945,6 +950,10 @@
 ///from base of datum/action/proc/Trigger(): (datum/action)
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
+
+// /datum/spell signals ==CHUGAFIX==
+///When an object is retrieved by a magic recall spell. This will apply to all containers, mobs, etc. that are pulled by the spell.
+#define COMSIG_MAGIC_RECALL "magic_recall"
 
 // Note that this is only defined for actions because this could be a good bit expensive otherwise
 /// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
