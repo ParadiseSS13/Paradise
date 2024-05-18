@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/mounted/noticeboard/do_build(turf/on_wall, mob/user)
-	new /obj/structure/noticeboard(get_turf(user), get_dir(on_wall, user), building = TRUE)
+	new /obj/structure/noticeboard(get_turf(user), get_dir(on_wall, user), TRUE)
 	qdel(src)
 
 /obj/structure/noticeboard
@@ -29,21 +29,13 @@
 		set_pixel_offsets_from_dir(-32, 32, -30, 30)
 		update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/item/I in loc)
-		if(notices > 4) break
-		if(istype(I, /obj/item/paper))
-			I.loc = src
-			notices++
-	icon_state = "nboard0[notices]"
-
-/obj/structure/noticeboard/Initialize()
-	. = ..()
 	for(var/obj/item/paper in loc)
 		if(notices >= MAX_NOTICES)
 			break
 		if(istype(paper, /obj/item/paper))
 			paper.loc = src
 			notices++
+
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/noticeboard/update_icon_state()
