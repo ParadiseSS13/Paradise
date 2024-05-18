@@ -49,9 +49,7 @@
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer) && loaded_tank)
-		atmosanalyzer_scan(loaded_tank.air_contents, user)
-	else if(istype(I, /obj/item/tank/internals/plasma))
+	if(istype(I, /obj/item/tank/internals/plasma))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
 			return TRUE
@@ -62,7 +60,7 @@
 			loaded_tank = I
 			I.forceMove(src)
 			update_icons()
-	else if(iscrowbar(I))
+	else if(I.tool_behaviour == TOOL_CROWBAR)
 		if(loaded_tank && !locked)
 			eject()
 			return TRUE
@@ -95,6 +93,11 @@
 			return TRUE
 	else
 		return ..()
+
+/obj/machinery/power/rad_collector/return_analyzable_air()
+	if(loaded_tank)
+		return loaded_tank.return_analyzable_air()
+	return null
 
 /obj/machinery/power/rad_collector/examine(mob/user)
 	. = ..()

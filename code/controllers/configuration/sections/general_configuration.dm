@@ -18,7 +18,7 @@
 	var/allow_antag_hud = TRUE
 	/// Forbid players from rejoining if they use AntagHUD?
 	var/restrict_antag_hud_rejoin = TRUE
-	/// Enable respanws by default?
+	/// Enable respawns by default?
 	var/respawn_enabled = FALSE
 	/// Enable CID randomiser buster?
 	var/enabled_cid_randomiser_buster = FALSE
@@ -94,6 +94,7 @@
 	CONFIG_LOAD_BOOL(allow_antag_hud, data["allow_antag_hud"])
 	CONFIG_LOAD_BOOL(restrict_antag_hud_rejoin, data["restrict_antag_hud_rejoin"])
 	CONFIG_LOAD_BOOL(enabled_cid_randomiser_buster, data["enable_cid_randomiser_buster"])
+	CONFIG_LOAD_BOOL(respawn_enabled, data["respawn_enabled"])
 	CONFIG_LOAD_BOOL(forbid_singulo_possession, data["prevent_admin_singlo_possession"])
 	CONFIG_LOAD_BOOL(popup_admin_pm, data["popup_admin_pm"])
 	CONFIG_LOAD_BOOL(allow_holidays, data["allow_holidays"])
