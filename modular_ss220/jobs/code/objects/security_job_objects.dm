@@ -38,7 +38,7 @@
 	. = ..()
 	allowed_roles |= GLOB.security_positions_ss220
 
-/datum/gear/racial/taj/sec/New()
+/datum/gear/racial/taj/New()
 	. = ..()
 	allowed_roles |= GLOB.security_positions_ss220
 
