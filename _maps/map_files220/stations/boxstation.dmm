@@ -41614,9 +41614,6 @@
 /area/station/maintenance/turbine)
 "dgT" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/transit_tube/cap{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -49429,12 +49426,6 @@
 /obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
-"fes" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "feA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -58643,7 +58634,9 @@
 /area/station/maintenance/aft)
 "iuO" = (
 /obj/machinery/status_display/directional/north,
-/obj/structure/transit_tube/station,
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -62198,9 +62191,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"jPN" = (
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "jPW" = (
 /obj/machinery/door/airlock/silver,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -82400,9 +82390,6 @@
 /area/station/maintenance/asmaint)
 "raN" = (
 /obj/effect/turf_decal/stripes/end,
-/obj/structure/transit_tube/cap{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "raP" = (
@@ -139524,7 +139511,7 @@ nXr
 aKQ
 fRL
 aPm
-jPN
+aPm
 lkw
 fho
 aPm
@@ -139773,7 +139760,7 @@ awE
 ayf
 azn
 arR
-fes
+tbC
 tbC
 tbC
 aPm
