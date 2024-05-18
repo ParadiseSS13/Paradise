@@ -48,9 +48,10 @@
 					/obj/item/clothing/suit/fire/firefighter,
 					/obj/item/stack/sheet/plasteel = 15)
 	cost = 350
+	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper APLU \"Ripley\" construction crate"
 	announce_beacons = list("Research Division" = list("Robotics"))
-	department_restrictions = list(DEPARTMENT_SUPPLY, DEPARTMENT_ENGINEERING, DEPARTMENT_SCIENCE) // depending on module combinations, this is miner or engi mech
+	department_restrictions = list(DEPARTMENT_ENGINEERING, DEPARTMENT_SCIENCE) // depending on module combinations, this is miner or engi mech
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Construction Crate (Odysseus)"
@@ -59,6 +60,7 @@
 					/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
 					/obj/item/stack/sheet/plasteel = 5)
 	cost = 350
+	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper \"Odysseus\" construction crate"
 	department_restrictions = list(DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE) // medical mech for medical shenanigans
 
