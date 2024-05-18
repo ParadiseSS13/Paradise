@@ -52361,12 +52361,6 @@
 	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
-"dCJ" = (
-/obj/structure/transit_tube/cap{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "dCM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57731,9 +57725,11 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/transit_tube/station,
 /obj/structure/transit_tube_pod{
 	dir = 4
+	},
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -64100,9 +64096,6 @@
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
-	},
-/obj/structure/transit_tube/cap{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -72488,11 +72481,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "nrh" = (
-/obj/structure/transit_tube/station,
 /obj/structure/transit_tube_pod{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/transit_tube/station/reverse,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "nrD" = (
@@ -132033,7 +132026,7 @@ aab
 aaa
 cQp
 wza
-dCJ
+dnW
 dnv
 dnW
 diz
