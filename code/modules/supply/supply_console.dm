@@ -276,7 +276,7 @@
 				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
 				return
 			if(P.are_you_sure_you_want_to_be_banned)
-				var/we_warned_you = tgui_alert(user, "[P.are_you_sure_you_want_to_be_banned]", "ARE YOU SURE?", list("No", "Yes"))
+				var/we_warned_you = tgui_alert(user, "[P.are_you_sure_you_want_to_be_banned]", "ARE YOU SURE?", list("Yes", "No"))
 				if(!we_warned_you || we_warned_you == "No")
 					return
 			if(!P.singleton && params["multiple"])
