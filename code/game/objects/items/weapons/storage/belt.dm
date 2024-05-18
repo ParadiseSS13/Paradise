@@ -457,22 +457,6 @@
 		new /obj/item/grenade/empgrenade(src) // Two of each
 	new /obj/item/grenade/syndieminibomb(src) // One minibomb
 
-/obj/item/storage/belt/military/abductor
-	name = "agent belt"
-	desc = "A belt used by abductor agents."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "belt"
-	item_state = "security"
-
-/obj/item/storage/belt/military/abductor/full/populate_contents()
-	new /obj/item/screwdriver/abductor(src)
-	new /obj/item/wrench/abductor(src)
-	new /obj/item/weldingtool/abductor(src)
-	new /obj/item/crowbar/abductor(src)
-	new /obj/item/wirecutters/abductor(src)
-	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
-
 /obj/item/storage/belt/military/assault
 	name = "assault belt"
 	desc = "A tactical assault belt."

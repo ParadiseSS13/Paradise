@@ -1,82 +1,143 @@
+#define MAX_NOTICES 5
+
+/obj/item/mounted/noticeboard
+	name = "notice board"
+	desc = "A board for pinning important notices upon."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "noticeboard"
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/mounted/noticeboard/do_build(turf/on_wall, mob/user)
+	new /obj/structure/noticeboard(get_turf(user), get_dir(on_wall, user), building = TRUE)
+	qdel(src)
+
 /obj/structure/noticeboard
 	name = "notice board"
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "nboard00"
+	icon_state = "noticeboard-5"
 	density = FALSE
 	anchored = TRUE
 	max_integrity = 150
 	var/notices = 0
 
-/obj/structure/noticeboard/Initialize()
-	..()
-	for(var/obj/item/I in loc)
-		if(notices > 4) break
-		if(istype(I, /obj/item/paper))
-			I.loc = src
-			notices++
-	icon_state = "nboard0[notices]"
+/obj/structure/noticeboard/New(turf/loc, direction, building = FALSE)
+	. = ..()
+	if(building)
+		setDir(direction)
+		set_pixel_offsets_from_dir(-32, 32, -30, 30)
+		update_icon(UPDATE_ICON_STATE)
 
-//attaching papers!!
-/obj/structure/noticeboard/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/paper))
-		if(notices < 5)
-			O.add_fingerprint(user)
-			add_fingerprint(user)
-			user.drop_item()
-			O.loc = src
+/obj/structure/noticeboard/Initialize()
+	. = ..()
+	for(var/obj/item/paper in loc)
+		if(notices >= MAX_NOTICES)
+			break
+		if(istype(paper, /obj/item/paper))
+			paper.loc = src
 			notices++
-			icon_state = "nboard0[notices]"	//update sprite
-			to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
-		else
-			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/noticeboard/update_icon_state()
+	if(notices)
+		icon_state = "noticeboard-[notices]"
 		return
+	icon_state = "noticeboard"
+
+/obj/structure/noticeboard/attack_hand(mob/user)
+	ui_interact(user)
+
+/obj/structure/noticeboard/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/structure/noticeboard/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/structure/noticeboard/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Noticeboard", name)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/obj/structure/noticeboard/ui_data(mob/user)
+	var/list/data = list()
+
+	var/list/pinned_papers = list()
+	for(var/obj/item/paper/paper in src)
+		pinned_papers += list(list(
+			"name" = paper.name,
+			"contents" = paper.info,
+			"ref" = paper.UID(),
+		))
+	data["papers"] = pinned_papers
+
+	return data
+
+/obj/structure/noticeboard/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	. = TRUE
+
+	add_fingerprint(usr)
+	switch(action)
+		if("interact")
+			if(usr.stat || usr.restrained())
+				return
+			var/obj/item/paper/paper = locate(params["paper"])
+			if(!paper && paper.loc != src)
+				return
+			var/obj/item/held_item = usr.get_active_hand()
+			if(is_pen(held_item))
+				paper.attackby(held_item, usr)
+				return
+			else
+				usr.put_in_hands(paper)
+				paper.add_fingerprint(usr)
+				notices--
+				to_chat(usr, "<span class='notice'>You take a [paper.name] out of [src].</span>")
+				update_icon(UPDATE_ICON_STATE)
+		if("showFull")
+			var/obj/item/paper/paper = locate(params["paper"])
+			if(!paper && paper.loc != src)
+				return
+			paper.show_content(usr)
+			return
+
+/obj/structure/noticeboard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/paper))
+		if(notices >= MAX_NOTICES)
+			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
+			return
+		if(!user.drop_item())
+			return
+		I.forceMove(src)
+		notices++
+		to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
+		update_icon(UPDATE_ICON_STATE)
+		add_fingerprint(user)
+		SStgui.update_uis(src)
+		return
+
 	return ..()
 
-/obj/structure/noticeboard/attack_hand(user as mob)
-	var/dat = "<b>Noticeboard</b><br>"
-	for(var/obj/item/paper/P in src)
-		dat += "<a href='byond://?src=[UID()];read=\ref[P]'>[P.name]</a> <a href='byond://?src=[UID()];write=\ref[P]'>Write</a> <a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><br>"
-	user << browse("<!DOCTYPE html><meta charset='utf-8'><head><title>Notices</title></head>[dat]","window=noticeboard")
-	onclose(user, "noticeboard")
+/obj/structure/noticeboard/wrench_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(!(flags & NODECONSTRUCT))
+		WRENCH_UNANCHOR_WALL_MESSAGE
+		I.play_tool_sound(user, I.tool_volume)
+		deconstruct(TRUE)
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		new /obj/item/stack/sheet/metal (loc, 1)
+	if(flags & NODECONSTRUCT)
+		return
+	if(notices)
+		for(var/I in contents)
+			var/obj/item/paper/notice = I
+			notice.forceMove(loc)
+	new /obj/item/mounted/noticeboard(loc)
 	qdel(src)
 
-/obj/structure/noticeboard/Topic(href, href_list)
-	..()
-	usr.set_machine(src)
-	if(href_list["remove"])
-		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
-			return
-		var/obj/item/P = locate(href_list["remove"])
-		if(P && P.loc == src)
-			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
-			P.add_fingerprint(usr)
-			add_fingerprint(usr)
-			notices--
-			icon_state = "nboard0[notices]"
-
-	if(href_list["write"])
-		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
-			return
-		var/obj/item/P = locate(href_list["write"])
-
-		if((P && P.loc == src)) //ifthe paper's on the board
-			if(is_pen(usr.r_hand)) //and you're holding a pen
-				add_fingerprint(usr)
-				P.attackby(usr.r_hand, usr) //then do ittttt
-			else
-				if(is_pen(usr.l_hand)) //check other hand for pen
-					add_fingerprint(usr)
-					P.attackby(usr.l_hand, usr)
-				else
-					to_chat(usr, "<span class='notice'>You'll need something to write with!</span>")
-
-	if(href_list["read"])
-		var/obj/item/paper/P = locate(href_list["read"])
-		if(P && P.loc == src)
-			P.show_content(usr)
-	return
+#undef MAX_NOTICES

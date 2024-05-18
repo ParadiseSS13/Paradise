@@ -19446,9 +19446,11 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "bsI" = (
-/obj/structure/transit_tube/station,
 /obj/structure/sign/securearea{
 	pixel_y = 32
+	},
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -53883,9 +53885,6 @@
 	},
 /area/station/medical/virology)
 "hkm" = (
-/obj/structure/transit_tube/cap{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
