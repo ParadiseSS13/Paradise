@@ -342,6 +342,8 @@
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
 ///called on the mob instead of the mind
 #define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
+///called when the mind is initialized (called every time the mob logins)
+#define COMSIG_MIND_INITIALIZE "mind_initialize"
 
 // /mob signals
 
@@ -976,7 +978,7 @@
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
 
 // /datum/objective signals
-///from datum/objective/proc/find_target()
+///from datum/objective/proc/find_target(list/target_blacklist)
 #define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
 ///from datum/objective/is_invalid_target()
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"

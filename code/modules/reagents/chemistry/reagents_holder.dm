@@ -810,6 +810,15 @@
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
 
+/datum/reagents/proc/get_reagent_by_id(id)
+	var/list/cached_reagents = reagent_list
+	for(var/A in cached_reagents)
+		var/datum/reagent/R = A
+		if(R.id == id)
+			return R
+
+	return 
+
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))
 		return TRUE

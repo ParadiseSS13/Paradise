@@ -166,7 +166,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
-	)
+		)
+
 
 //Special Roles
 /obj/item/clothing/head/beret/solgov/command

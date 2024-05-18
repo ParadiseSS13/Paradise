@@ -106,6 +106,11 @@
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
+/datum/theft_objective/nukedisc/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/disk/nuclear/training)) //Haha no
+		return FALSE
+	return TRUE
+
 /datum/theft_objective/reactive
 	name = "any type of reactive armor"
 	typepath = /obj/item/clothing/suit/armor/reactive

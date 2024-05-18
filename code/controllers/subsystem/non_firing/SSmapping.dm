@@ -134,6 +134,11 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MESSY))
+		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
+
 /datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
 	log_startup_progress("Seeding space salvage...")
 	var/space_salvage_timer = start_watch()
@@ -194,10 +199,6 @@ SUBSYSTEM_DEF(mapping)
 		max_salvage_attempts -= 1
 
 	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_MESSY))
-		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
-		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
