@@ -204,7 +204,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 				return
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
@@ -256,7 +255,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			if(!use(1))
 				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 				return
-			use(1)
 			D.plates++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
@@ -290,7 +288,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			if(!use(1))
 				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 				return
-			use(1)
 			D.drake_hides++
 			D.max_integrity += 50
 			D.obj_integrity += 50
