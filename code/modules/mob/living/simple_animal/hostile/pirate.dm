@@ -21,7 +21,8 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	attacktext = "slashes"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = 'sound/weapons/blade1.ogg'
+	minbodytemp = 0
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speak_emote = list("yarrs")
@@ -67,6 +68,7 @@
 	projectilesound = 'sound/weapons/laser.ogg'
 	ranged = TRUE
 	rapid = 2
+	turns_per_move = 5
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam

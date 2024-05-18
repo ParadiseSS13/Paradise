@@ -37865,11 +37865,12 @@
 /area/station/legal/courtroom)
 "ccx" = (
 /obj/structure/table/reinforced,
-/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/hand_tele,
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat)
 "ccy" = (
@@ -40616,9 +40617,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "ckB" = (
-/obj/machinery/power/apc/directional/north,
 /obj/structure/table,
-/obj/item/hand_tele,
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -58892,6 +58892,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "dte" = (
+/obj/item/kirbyplants,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
