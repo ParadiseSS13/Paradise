@@ -190,7 +190,7 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		M.emote(pick("laugh", "giggle"))
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)) //let us see how this feels
@@ -398,7 +398,7 @@
 	update_flags |= M.adjustStaminaLoss(-30, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
 	return ..() | update_flags
@@ -596,8 +596,8 @@
 	// you can take 7 disabler shots (30 base * 0.5 stam mod = 15 stam damage each, 7 shots to 105 which is stamina crit. but you can heal 6 in 3 cycles) before going down.
 	// Strong combined with another drug, but frankly I could do meth crank hydro for a better mix. Will be interesting with batons?
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs. I want to turn this down, but someone will just iv drip a certian bar drink
+	if(prob(3 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs.
 	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	if(prob(8))
@@ -1163,7 +1163,7 @@
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(12 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
+	if(prob(6 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -1230,7 +1230,7 @@
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))
