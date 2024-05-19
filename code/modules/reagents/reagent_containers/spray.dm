@@ -292,6 +292,8 @@
 /obj/item/reagent_containers/spray/sticky_tar
 	name = "sticky tar applicator"
 	desc = "A suspicious looking spraycan filled with an extremely viscous and sticky fluid."
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	icon_state = "syndie_spraycan"
 	item_state = "syndie_spraycan"
 	container_type = AMOUNT_VISIBLE

@@ -60,6 +60,9 @@
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(iseffect(O))
 		var/obj/effect/E = O
+		if(istype(E, /obj/effect/cleanable/tar)) // We need to remove the slowdown from tar instead of just qdeling
+			var/obj/effect/cleanable/tar/T = E
+			T.remove_tar(T)
 		if(E.is_cleanable())
 			var/obj/effect/decal/cleanable/blood/B = E
 			if(!(istype(B) && B.off_floor))
@@ -474,4 +477,4 @@
 /datum/reagent/tar_compound/reaction_turf(turf/T, volume)
     if (volume >= 1)
         if (!T.has_tar)
-            new /obj/effect/tar(T)
+            new /obj/effect/cleanable/tar(T)

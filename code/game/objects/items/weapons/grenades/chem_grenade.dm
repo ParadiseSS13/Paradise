@@ -592,6 +592,24 @@
 	beakers += B2
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/grenade/chem_grenade/tar
+	payload_name = "sticky tar"
+	desc = "For spreading sticky tar. Become the anti-janitor!"
+	stage = READY
+
+/obj/item/grenade/chem_grenade/tar/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+
+	B1.reagents.add_reagent("sticky_tar", 15)
+	B1.reagents.add_reagent("potassium", 10)
+	B2.reagents.add_reagent("phosphorus", 10)
+	B2.reagents.add_reagent("sugar", 10)
+	beakers += B1
+	beakers += B2
+	update_icon(UPDATE_ICON_STATE)
+
 #undef EMPTY
 #undef WIRED
 #undef READY
