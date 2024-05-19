@@ -584,7 +584,6 @@
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
 // Bone Shard
-
 /datum/action/changeling/weapon/bones
 	name = "Bone Shard"
 	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
