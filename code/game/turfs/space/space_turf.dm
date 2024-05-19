@@ -127,8 +127,8 @@
 				L.pulling.forceMove(T)
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
-		A.newtonian_move(A.inertia_dir)
+		//sleep(0)//Let a diagonal move finish, if necessary
+		INVOKE_ASYNC(A, TYPE_PROC_REF(/atom/movable, newtonian_move), A.inertia_dir) // ===CHUGAFIX=== FUCK!!!!!!
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x

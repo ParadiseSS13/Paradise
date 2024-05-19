@@ -72,6 +72,8 @@
 
 #define isstack(I) (istype(I, /obj/item/stack))
 
+#define isorgan(I) (istype(I, /obj/item/organ)) // ===CHUAGFIX=== This probably needs to become organ/external but fuck that macro name
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

@@ -463,9 +463,9 @@
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
 		var/obj/item/shard = new shardtype(loc)
-		shard.embedded_ignore_throwspeed_threshold = TRUE
+		//shard.embedded_ignore_throwspeed_threshold = TRUE ===CHUGAFIX===
 		shard.throw_impact(C)
-		shard.embedded_ignore_throwspeed_threshold = FALSE
+		//shard.embedded_ignore_throwspeed_threshold = FALSE ===CHUGAFIX===
 		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/grille/G in T.contents)

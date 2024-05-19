@@ -102,15 +102,16 @@
 	for(var/i in 1 to machine.num_shards)
 		var/obj/item/shard/shard = new /obj/item/shard(get_turf(victim))
 		// do a little dance to force the embeds, but make sure the glass isn't gigapowered afterwards
-		shard.embed_chance = 100
-		shard.embedded_pain_chance = 5
-		shard.embedded_impact_pain_multiplier = 1
-		shard.embedded_ignore_throwspeed_threshold = TRUE
+		// ===CHUGAFIX===
+		//shard.embed_chance = 100
+		//shard.embedded_pain_chance = 5
+		//shard.embedded_impact_pain_multiplier = 1
+		//shard.embedded_ignore_throwspeed_threshold = TRUE
 		victim.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-		shard.embed_chance = initial(shard.embed_chance)
-		shard.embedded_pain_chance = initial(shard.embedded_pain_chance)
-		shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
-		shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
+		//shard.embed_chance = initial(shard.embed_chance)
+		//shard.embedded_pain_chance = initial(shard.embedded_pain_chance)
+		//shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
+		//shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
 
 	playsound(machine, "shatter", 50)
 

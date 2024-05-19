@@ -199,7 +199,7 @@
 	Moved(old_loc, direction, TRUE)
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) 
+	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
 
@@ -396,7 +396,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE) // ===CHUGAFIX===
 	if(!target || (flags & NODROP) || speed <= 0)
 		return FALSE
 

@@ -246,7 +246,7 @@
 			return
 
 	if(!. && isliving(A))
-		sleep(2 DECISECONDS)
+		//sleep(2 DECISECONDS) ===CHUGAFIX===
 		new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
 /turf/simulated/floor/engine/cult/narsie_act()

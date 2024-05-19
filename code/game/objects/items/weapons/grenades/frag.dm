@@ -29,7 +29,7 @@
 
 /obj/item/projectile/bullet/shrapnel/on_hit(atom/target, blocked)
 	. = ..()
-	var/obj/item/new_possible_embed = new embedded_type(get_turf(src)) // drop it on the floor if we hit somethig non-living
+	//var/obj/item/new_possible_embed = new embedded_type(get_turf(src)) // drop it on the floor if we hit somethig non-living
 	if(!.)
 		return
 	if(!ishuman(target))
@@ -39,7 +39,7 @@
 	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(H.getarmor(null, BOMB))))
 		to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
 		return
-	H.try_embed_object(new_possible_embed)
+	//H.try_embed_object(new_possible_embed)
 
 /obj/item/projectile/bullet/shrapnel/on_range()
 	var/obj/item/we_missed = new embedded_type(get_turf(src)) // we missed, lets toss the shrapnel
@@ -59,8 +59,7 @@
 	icon_state = "shrapnel1"
 	force = 8 // its a sharp piece of metal, but still not very effective
 	gender = PLURAL
-	embed_chance = 100
-	embedded_fall_chance = 0
+	embedding = list("embed_chance" = 100, "fall_chance" = 0)
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
 	hitsound = 'sound/weapons/pierce.ogg'

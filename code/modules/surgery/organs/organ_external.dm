@@ -274,9 +274,9 @@
 
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_limb_damage)
+		check_for_internal_bleeding(brute)
 		brute_dam += brute
 		burn_dam += burn
-		check_for_internal_bleeding(brute)
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
@@ -671,7 +671,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='notice'>You begin to cut open [src]...</span>")
 		if(do_after(user, 54, target = src))
 			drop_organs(user)
-			drop_embedded_objects()
 	else
 		return ..()
 
@@ -923,29 +922,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	embedded_objects -= I
 	UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
 
-/obj/item/organ/external/proc/drop_embedded_objects()
-	var/turf/T = get_turf(src)
-	for(var/obj/item/I in embedded_objects)
-		remove_embedded_object(I)
-		forceMove(T)
-
 /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
-	owner.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
+	if(I in embedded_objects)
+		return
 	embedded_objects += I
-	I.forceMove(owner)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
 
 //Remove all embedded objects from all limbs on the carbon mob
-/mob/living/carbon/human/proc/remove_all_embedded_objects()
-	var/turf/T = get_turf(src)
-
+/mob/living/carbon/human/proc/remove_all_embedded_objects() // ===CHUGAFIX=== only used in rejuvinate() right now
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/L = X
 		for(var/obj/item/I in L.embedded_objects)
 			L.remove_embedded_object(I)
-			I.forceMove(T)
-
-	clear_alert("embeddedobject")
 
 /mob/living/carbon/human/proc/has_embedded_objects()
 	. = 0

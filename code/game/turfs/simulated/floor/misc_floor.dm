@@ -192,8 +192,10 @@
 			return
 
 	if(!. && isliving(A))
-		sleep(2 DECISECONDS)
-		new /obj/effect/temp_visual/ratvar/floor(src)
+		addtimer(CALLBACK(src, PROC_REF(do_floor_effect)), 2 DECISECONDS)
+
+/turf/simulated/floor/clockwork/proc/do_floor_effect()
+	new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)

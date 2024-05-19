@@ -23,6 +23,8 @@
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
+	embedding = list(embed_chance = 50)
+	sharp = TRUE // this will harmlessly embed
 
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!</span>")
@@ -231,30 +233,30 @@
 
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
-	if(on)
-		on = FALSE
-		force = initial(force)
-		w_class = initial(w_class)
-		name = initial(name)
-		attack_verb = list()
-		hitsound = initial(hitsound)
-		embed_chance = initial(embed_chance)
-		throwforce = initial(throwforce)
-		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
-		set_light(0)
-	else
+	if(!on)
 		on = TRUE
 		force = 18
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/blade1.ogg'
-		embed_chance = 100 //rule of cool
+		embedding = list(embed_chance = 100)  //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 2, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
+	else
+		on = FALSE
+		force = initial(force)
+		w_class = initial(w_class)
+		name = initial(name)
+		attack_verb = list()
+		hitsound = initial(hitsound)
+		embedding = list(embed_chance = EMBED_CHANCE) // ===CHUGAFIX=== this technically gives a 5% less chance to embed than a normal pen when deactivated. thanks TG.
+		throwforce = initial(throwforce)
+		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
+		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		set_light(0)
 	set_sharpness(on)
 	update_icon()
 
