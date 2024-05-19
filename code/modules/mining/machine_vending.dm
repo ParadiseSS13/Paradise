@@ -395,6 +395,8 @@
 		EQUIPMENT("Tacticool Toolbelt", /obj/item/storage/belt/utility/expedition, 500),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
 		EQUIPMENT("GPS", /obj/item/gps, 200),
+		EQUIPMENT("Treasure Satchel", /obj/item/storage/bag/expedition, 100),
+		EQUIPMENT ("Robust Treasure Satchel", /obj/item/storage/bag/expedition/robust, 300),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
 		EQUIPMENT("Telecommunications Relay Kit", /obj/item/storage/box/relay_kit, 500),
 		EQUIPMENT("Tracking Beacon", /obj/item/radio/beacon, 200),

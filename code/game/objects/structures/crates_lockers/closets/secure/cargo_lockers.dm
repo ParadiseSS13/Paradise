@@ -29,6 +29,7 @@
 	new /obj/item/gps(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/expedition(src)
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
