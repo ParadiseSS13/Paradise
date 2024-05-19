@@ -45,13 +45,6 @@
 	item_state = "qm_whimsy"
 	item_color = "qm_whimsy"
 
-/obj/item/clothing/under/rank/cargo/deliveryboy
-	name = "delivery boy uniform"
-	desc = "It's a jumpsuit worn by the cargo delivery boy."
-	icon_state = "delivery"
-	item_state = "lb_suit"
-	item_color = "delivery"
-
 /obj/item/clothing/under/rank/cargo/tech
 	name = "cargo technician's jumpsuit"
 	desc = "A standard issue jumpsuit for cargo technicians. Snazzy!"
@@ -72,6 +65,13 @@
 	icon_state = "cargo_overalls"
 	item_state = "cargo_overalls"
 	item_color = "cargo_overalls"
+
+/obj/item/clothing/under/rank/cargo/tech/delivery
+	name = "delivery uniform"
+	desc = "It's a jumpsuit worn by the cargo delivery crew."
+	icon_state = "delivery"
+	item_state = "delivery"
+	item_color = "delivery"
 
 /obj/item/clothing/under/rank/cargo/miner
 	name = "shaft miner's jumpsuit"
