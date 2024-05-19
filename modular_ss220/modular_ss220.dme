@@ -80,6 +80,7 @@
 #include "species_whitelist/_species_whitelist.dme"
 #include "antagonists/_antagonists.dme"
 #include "uplink_items/_uplink_items.dme"
+#include "shuttles/_shuttles.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
