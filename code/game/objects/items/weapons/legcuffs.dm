@@ -148,7 +148,7 @@
 		message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
 		log_game("[key_name(usr)] has triggered an IED-rigged [name].")
 		spawn(IED.det_time)
-			IED.prime()
+			IED.detonate()
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"

@@ -96,7 +96,7 @@
 		if(nadeassembly)
 			nadeassembly.attack_self(user)
 			update_icon(UPDATE_ICON_STATE)
-		else if(clown_check(user))
+		else if(botch_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained].", INVESTIGATE_BOMB)
@@ -109,7 +109,7 @@
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
 			spawn(det_time)
-				prime()
+				detonate()
 
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
@@ -118,7 +118,7 @@
 		var/turf/T = get_turf(src)
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
-		prime()
+		detonate()
 		return 1 //It hit the grenade, not them
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
@@ -270,7 +270,7 @@
 		nadeassembly.process_movement()
 
 
-/obj/item/grenade/chem_grenade/prime()
+/obj/item/grenade/chem_grenade/detonate()
 	if(stage != READY)
 		return
 
@@ -331,7 +331,7 @@
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
 	threatscale = 1.1	// 10% more effective.
 
-/obj/item/grenade/chem_grenade/large/prime()
+/obj/item/grenade/chem_grenade/large/detonate()
 	if(stage != READY)
 		return
 
@@ -404,7 +404,7 @@
 			unit_spread = 5
 	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
 
-/obj/item/grenade/chem_grenade/adv_release/prime()
+/obj/item/grenade/chem_grenade/adv_release/detonate()
 	if(stage != READY)
 		return
 
@@ -432,7 +432,7 @@
 		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
 		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
 	else
-		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+		addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
 	var/turf/DT = get_turf(src)
 	var/area/DA = get_area(DT)
 	log_game("A grenade detonated at [DA.name] ([DT.x], [DT.y], [DT.z])")

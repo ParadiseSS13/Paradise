@@ -151,13 +151,13 @@
 				if(STRANGEOBJECT_FUNCTION_FLASH)
 					playsound(loc, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 					var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(get_turf(user))
-					CB.prime()
+					CB.detonate()
 					warn_admins(user, "Flash")
 
 				if(STRANGEOBJECT_FUNCTION_CLEAN)
 					playsound(loc, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 					var/obj/item/grenade/chem_grenade/cleaner/CL = new/obj/item/grenade/chem_grenade/cleaner(get_turf(user))
-					CL.prime()
+					CL.detonate()
 					warn_admins(user, "Clean", 0)
 
 				if(STRANGEOBJECT_FUNCTION_PET_SPAWN)

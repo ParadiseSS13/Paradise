@@ -5,7 +5,7 @@
 	icon_state = "enrager"
 	item_state = "grenade"
 
-/obj/item/grenade/megafauna_hardmode/prime()
+/obj/item/grenade/megafauna_hardmode/detonate()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))

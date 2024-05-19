@@ -199,18 +199,18 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
-	prime()
+	detonate()
 
 /obj/item/food/snacks/grown/cherry_bomb/deconstruct(disassembled = TRUE)
 	if(!disassembled)
-		prime()
+		detonate()
 	if(!QDELETED(src))
 		qdel(src)
 
 /obj/item/food/snacks/grown/cherry_bomb/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
-/obj/item/food/snacks/grown/cherry_bomb/proc/prime()
+/obj/item/food/snacks/grown/cherry_bomb/proc/detonate()
 	icon_state = "cherry_bomb_lit"
 	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, 0)
 	reagents.set_reagent_temp(1000) //Sets off the black powder

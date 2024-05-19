@@ -1587,7 +1587,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			add_attack_logs(src, target, "activated an implanted grenade [G] in [target] with CPR.", ATKLOG_MOST)
 			playsound(target.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
 			G.active = TRUE
-			addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/grenade, prime)), G.det_time)
+			addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/grenade, detonate)), G.det_time)
 
 #undef CPR_CHEST_COMPRESSION_ONLY
 #undef CPR_RESCUE_BREATHS

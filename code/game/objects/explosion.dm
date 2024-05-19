@@ -283,6 +283,7 @@
  * - /obj/item/projectile/shrapnel_type - the type of shrapnel bullets to shoot
  * - chance_to_hit_same_turf - the probability to hit someone on the same turf, doubled for someone lying down
  */
+// ===CHUGAFIX=== This should ALL be handled by pellet_cloud.dm!
 /proc/create_shrapnel(turf/epicenter, shrapnel_number = 10, obj/item/projectile/shrapnel_type = /obj/item/projectile/bullet/shrapnel, chance_to_hit_same_turf = 50)
 	epicenter = get_turf(epicenter)
 	if(!epicenter || !shrapnel_number || !shrapnel_type)

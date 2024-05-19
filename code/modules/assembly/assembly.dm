@@ -80,7 +80,7 @@
 		holder.process_activation(src, 0, 1)
 	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc
-		G.prime()                // Adios, muchachos
+		G.detonate()                // Adios, muchachos
 	return TRUE
 
 /obj/item/assembly/activate()

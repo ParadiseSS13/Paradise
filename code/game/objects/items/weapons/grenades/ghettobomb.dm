@@ -39,7 +39,7 @@
 
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
-		if(clown_check(user))
+		if(botch_check(user))
 			to_chat(user, "<span class='warning'>You light [src]!</span>")
 			active = TRUE
 			overlays -= "improvised_grenade_filled"
@@ -54,9 +54,9 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
-			addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+			addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
 
-/obj/item/grenade/iedcasing/prime() //Blowing that can up
+/obj/item/grenade/iedcasing/detonate() //Blowing that can up
 	update_mob()
 	explosion(loc, -1, -1, 2, flame_range = 4)	// small explosion, plus a very large fireball.
 	qdel(src)

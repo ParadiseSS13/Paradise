@@ -5,7 +5,7 @@
 	item_state = "emp"
 	origin_tech = "magnets=3;combat=2"
 
-/obj/item/grenade/empgrenade/prime()
+/obj/item/grenade/empgrenade/detonate()
 	update_mob()
 	empulse(src, 4, 10, 1)
 	qdel(src)

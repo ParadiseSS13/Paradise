@@ -8,7 +8,7 @@
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
 
-/obj/item/grenade/gas/prime()
+/obj/item/grenade/gas/detonate()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
@@ -41,7 +41,7 @@
 	var/rad_damage = 350
 	var/stamina_damage = 30
 
-/obj/item/grenade/gluon/prime()
+/obj/item/grenade/gluon/detonate()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, rad_damage)

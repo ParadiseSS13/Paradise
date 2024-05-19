@@ -50,7 +50,7 @@
 
 		else if(istype(locloc, /obj/item/grenade/chem_grenade))
 			var/obj/item/grenade/chem_grenade/CG = locloc
-			CG.prime()
+			CG.detonate()
 
 	return TRUE
 

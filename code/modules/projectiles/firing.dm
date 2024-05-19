@@ -1,23 +1,30 @@
 /obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
+	// ===CHUGAFIX=== this is straight ripped from the tg proc i wonder if it's going to break everything? :D
 	distro += variance
-	for(var/i = max(1, pellets), i > 0, i--)
-		var/targloc = get_turf(target)
-		ready_proj(target, user, quiet, zone_override, firer_source_atom)
+	var/targloc = get_turf(target)
+	ready_proj(target, user, quiet, zone_override, firer_source_atom)
+	var/obj/item/projectile/thrown_proj
+	if(pellets == 1)
 		if(distro) //We have to spread a pixel-precision bullet. throw_proj was called before so angles should exist by now...
 			if(randomspread)
 				spread = round((rand() - 0.5) * distro)
 			else //Smart spread
-				spread = round((i / pellets - 0.5) * distro)
-		if(!throw_proj(target, targloc, user, params, spread))
-			return 0
-		if(i > 1)
-			newshot()
-	if(click_cooldown_override)
-		user.changeNext_move(click_cooldown_override)
+				spread = round(1 - 0.5) * distro
+		thrown_proj = throw_proj(target, targloc, user, params, spread, firer_source_atom)
+		if(isnull(thrown_proj))
+			return FALSE
 	else
-		user.changeNext_move(CLICK_CD_RANGE)
+		if(isnull(BB))
+			return FALSE
+		AddComponent(/datum/component/pellet_cloud, projectile_type, pellets)
+
+	var/next_delay = click_cooldown_override || CLICK_CD_RANGE
+	user.changeNext_move(next_delay)
+	// ===CHUGAFIX=== this is straight ripped from the tg proc i wonder if it's going to break everything? :D
 	user.newtonian_move(get_dir(target, user))
-	update_icon()
+	update_appearance() // ===CHUGAFIX=== Was update_icon(), this is probably going to break but we have update_appearance() so :)
+	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, params, distro, thrown_proj)
+
 	return TRUE
 
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom)
@@ -39,27 +46,27 @@
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 	if(!istype(targloc) || !istype(curloc) || !BB)
-		return 0
+		return FALSE
 	BB.ammo_casing = src
 
 	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
-		return 1
+		return TRUE
 
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			BB.prehit(target)
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
-		return 1
+		return TRUE
 
 	BB.preparePixelProjectile(target, targloc, user, params, spread)
 	if(BB)
 		BB.fire()
 	BB = null
-	return 1
+	return TRUE
 
 /obj/item/ammo_casing/proc/spread(turf/target, turf/current, distro)
 	var/dx = abs(target.x - current.x)

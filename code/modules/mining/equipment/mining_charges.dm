@@ -67,10 +67,11 @@
 	playsound(src, 'sound/machines/twobeep.ogg', 50)
 	detonator.update_icon()
 
-/obj/item/grenade/plastic/miningcharge/proc/detonate()
-	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
+/// ===CHUGAFIX=== this WILL fuck up this item so PLEASE test it - what =is arm_grenade() even supposed to do here!?
+/obj/item/grenade/plastic/miningcharge/proc/prime() // ===CHUGAFIX=== sin
+	addtimer(CALLBACK(src, PROC_REF(detonate)), 3 SECONDS)
 
-/obj/item/grenade/plastic/miningcharge/prime()
+/obj/item/grenade/plastic/miningcharge/detonate()
 	if(hacked) //try not to blow your fingers off
 		explode()
 		return

@@ -291,7 +291,7 @@
 			investigate_log("Experimentor has transformed [savedName] into [loaded_item]", "experimentor")
 			if(istype(loaded_item,/obj/item/grenade/chem_grenade))
 				var/obj/item/grenade/chem_grenade/CG = loaded_item
-				CG.prime()
+				CG.detonate()
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_GAS)

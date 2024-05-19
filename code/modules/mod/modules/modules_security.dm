@@ -85,7 +85,7 @@
 	. = ..()
 	thrower = user
 
-/obj/item/grenade/mirage/prime()
+/obj/item/grenade/mirage/detonate()
 	do_sparks(rand(3, 6), FALSE, src)
 	if(thrower)
 		var/mob/living/simple_animal/hostile/illusion/mirage/M = new(get_turf(src))
@@ -274,7 +274,7 @@
 	. = ..()
 	thrower = user
 
-/obj/item/grenade/cryogrenade_mod/prime()
+/obj/item/grenade/cryogrenade_mod/detonate()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/turf/simulated/floor/T in view(freeze_range, loc))

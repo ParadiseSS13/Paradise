@@ -524,14 +524,14 @@
 /obj/structure/mining_bomb/Initialize(mapload, atom/movable/firer)
 	. = ..()
 	generate_image()
-	addtimer(CALLBACK(src, PROC_REF(prime), firer), prime_time)
+	addtimer(CALLBACK(src, PROC_REF(detonate), firer), prime_time)
 
 /obj/structure/mining_bomb/proc/generate_image()
 	explosion_image = image('icons/effects/96x96.dmi', "judicial_explosion")
 	explosion_image.pixel_x = -32
 	explosion_image.pixel_y = -32
 
-/obj/structure/mining_bomb/proc/prime(atom/movable/firer)
+/obj/structure/mining_bomb/proc/detonate(atom/movable/firer)
 	add_overlay(explosion_image)
 	addtimer(CALLBACK(src, PROC_REF(boom), firer), explosion_time)
 

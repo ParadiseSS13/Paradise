@@ -10,7 +10,7 @@
 	var/light_time = 0.2 SECONDS // The duration the area is illuminated
 	var/range = 7 // The range in tiles of the flashbang
 
-/obj/item/grenade/flashbang/prime()
+/obj/item/grenade/flashbang/detonate()
 	update_mob()
 	var/turf/T = get_turf(src)
 	if(T)

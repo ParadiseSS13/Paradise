@@ -6,7 +6,7 @@
 	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
-/obj/item/grenade/syndieminibomb/prime()
+/obj/item/grenade/syndieminibomb/detonate()
 	update_mob()
 	explosion(loc, 1, 2, 4, flame_range = 2)
 	qdel(src)

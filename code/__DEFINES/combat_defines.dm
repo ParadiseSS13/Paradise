@@ -158,6 +158,9 @@
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
 
+#define GRENADE_CLUMSY_FUMBLE 1
+#define GRENADE_NONCLUMSY_FUMBLE 2
+
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.
 * this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.

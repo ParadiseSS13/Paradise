@@ -45,6 +45,21 @@
 	if(.)
 		. = "e[.]"
 
+/datum/proc/plural_s(pluralize)
+	switch(copytext_char(pluralize, -2))
+		if ("ss")
+			return "es"
+		if ("sh")
+			return "es"
+		if ("ch")
+			return "es"
+		else
+			switch(copytext_char(pluralize, -1))
+				if("s", "x", "z")
+					return "es"
+				else
+					return "s"
+
 // Functionally the \a macro, for the cases where you put a bicon between "some [bicon] pop corn"
 /datum/proc/p_a(temp_gender)
 	var/backslash_a = "\a [src]"

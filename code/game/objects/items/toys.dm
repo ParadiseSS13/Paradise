@@ -558,7 +558,7 @@
 
 
 /obj/item/toy/plushie/proc/explosive_betrayal(obj/item/grenade/grenade_callback)
-	grenade_callback.prime()
+	grenade_callback.detonate()
 
 /obj/item/toy/plushie/Destroy()
 	QDEL_NULL(grenade)

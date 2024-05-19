@@ -569,7 +569,7 @@
 		if(istype(held_item, /obj/item/grenade))
 			var/obj/item/grenade/G = held_item
 			G.forceMove(loc)
-			G.prime()
+			G.detonate()
 			to_chat(src, "You let go of [held_item]!")
 			held_item = null
 			update_held_icon()

@@ -465,7 +465,7 @@
 
 /datum/tarot/the_tower/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
-	bakoom.prime()
+	bakoom.detonate()
 
 /// I'm sorry matt, this is very funny.
 /datum/tarot/the_stars
@@ -791,7 +791,7 @@
 
 /datum/tarot/reversed/the_devil/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/i_hate_nians = new(get_turf(target))
-	i_hate_nians.prime()
+	i_hate_nians.detonate()
 
 /datum/tarot/reversed/the_tower
 	name = "XVI - The Tower?"

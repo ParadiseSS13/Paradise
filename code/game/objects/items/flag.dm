@@ -290,7 +290,7 @@
 
 /obj/item/flag/chameleon/proc/prime_boobytrap()
 	boobytrap.forceMove(get_turf(loc))
-	boobytrap.prime()
+	boobytrap.detonate()
 	boobytrap = null
 	burn()
 

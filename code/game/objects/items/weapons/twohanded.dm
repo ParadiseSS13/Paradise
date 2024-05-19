@@ -300,13 +300,13 @@
 		return
 	if(explosive && HAS_TRAIT(src, TRAIT_WIELDED))
 		explosive.forceMove(AM)
-		explosive.prime()
+		explosive.detonate()
 		qdel(src)
 
 /obj/item/spear/throw_impact(atom/target)
 	. = ..()
 	if(explosive)
-		explosive.prime()
+		explosive.detonate()
 		qdel(src)
 
 /// Blatant imitation of spear, but made out of bone. Not valid for explosive modification.

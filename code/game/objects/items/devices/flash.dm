@@ -25,7 +25,7 @@
 	var/cooldown_duration = 5 SECONDS
 	var/use_sound = 'sound/weapons/flash.ogg'
 
-/obj/item/flash/proc/clown_check(mob/user)
+/obj/item/flash/proc/botch_check(mob/user)
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 30 SECONDS, 0)
 		return 0
@@ -92,7 +92,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	times_used++
 
-	if(user && !clown_check(user))
+	if(user && !botch_check(user))
 		return FALSE
 
 	return TRUE

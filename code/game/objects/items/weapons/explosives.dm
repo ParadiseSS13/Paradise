@@ -111,7 +111,7 @@
 
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(CALLBACK(src, PROC_REF(prime)), det_time SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(detonate)), det_time SECONDS)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
@@ -136,7 +136,7 @@
 	user.say(message_say)
 	target = user
 	sleep(10)
-	prime()
+	detonate()
 	user.gib()
 	return OBLITERATION
 
@@ -159,8 +159,8 @@
 	var/aim_dir
 	/// Range values given to the explosion proc when primed
 	var/ex_devastate = 0
-	var/ex_heavy = 0
-	var/ex_light = 3
+	ex_heavy = 0
+	ex_light = 3
 	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
 	var/ex_breach = FALSE
 
@@ -168,7 +168,7 @@
 	aim_dir = get_dir(user, AM)
 	..()
 
-/obj/item/grenade/plastic/c4/prime()
+/obj/item/grenade/plastic/c4/detonate()
 	var/turf/location
 	if(plastic_overlay_target && !QDELETED(plastic_overlay_target))
 		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
@@ -216,7 +216,7 @@
 	name = "C4 (flash)"
 	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
 
-/obj/item/grenade/plastic/c4/shaped/flash/prime()
+/obj/item/grenade/plastic/c4/shaped/flash/detonate()
 	var/turf/T
 	if(target && target.density)
 		T = get_step(get_turf(target), aim_dir)
@@ -226,7 +226,7 @@
 		T = get_turf(src)
 
 	var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(T)
-	CB.prime()
+	CB.detonate()
 
 	..()
 
@@ -237,7 +237,7 @@
 	icon_state = "t4breach0"
 	item_state = "t4breach"
 
-/obj/item/grenade/plastic/c4/thermite/prime()
+/obj/item/grenade/plastic/c4/thermite/detonate()
 	var/turf/location
 	if(plastic_overlay_target && !QDELETED(plastic_overlay_target))
 		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)

@@ -11,7 +11,7 @@
 	var/deliveryamt = 8
 	var/spawner_type = /obj/item/grown/bananapeel
 
-/obj/item/grenade/bananade/prime()
+/obj/item/grenade/bananade/detonate()
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
 		var/turf/T = get_turf(src)
@@ -40,7 +40,7 @@
 /obj/item/grenade/bananade/casing/attack_self()
 	return // Stop trying to break stuff
 
-/obj/item/grenade/bananade/casing/prime()
+/obj/item/grenade/bananade/casing/detonate()
 	return // The grenade isnt completed yet, dont even try to blow it up
 
 /obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user, params)

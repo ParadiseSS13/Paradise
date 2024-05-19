@@ -9,7 +9,7 @@
 	item_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
-/obj/item/grenade/clusterbuster/prime()
+/obj/item/grenade/clusterbuster/detonate()
 	update_mob()
 	var/numspawned = rand(4,8)
 	var/again = 0
@@ -45,10 +45,10 @@
 	active = TRUE
 	walk_away(src, loc, rand(1,4))
 	spawn(rand(15,60))
-		prime()
+		detonate()
 
 
-/obj/item/grenade/clusterbuster/segment/prime()
+/obj/item/grenade/clusterbuster/segment/detonate()
 
 	new /obj/effect/payload_spawner(loc, payload, rand(4,8))
 
@@ -70,7 +70,7 @@
 		spawn(rand(15,60))
 			if(!QDELETED(P))
 				if(istype(P, /obj/item/grenade))
-					P.prime()
+					P.detonate()
 			qdel(src)
 
 

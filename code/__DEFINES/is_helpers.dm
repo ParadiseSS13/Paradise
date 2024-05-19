@@ -74,6 +74,10 @@
 
 #define isorgan(I) (istype(I, /obj/item/organ)) // ===CHUAGFIX=== This probably needs to become organ/external but fuck that macro name
 
+#define isgrenade(A) (istype(A, /obj/item/grenade))
+
+#define isammocasing(A) (istype(A, /obj/item/ammo_casing))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

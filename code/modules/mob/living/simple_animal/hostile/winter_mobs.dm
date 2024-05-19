@@ -150,5 +150,5 @@
 		return FALSE
 	var/obj/item/grenade/clusterbuster/xmas/X = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
 	var/obj/item/grenade/clusterbuster/xmas/Y = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
-	X.prime()
-	Y.prime()
+	X.detonate()
+	Y.detonate()

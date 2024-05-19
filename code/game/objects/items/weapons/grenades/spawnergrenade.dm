@@ -10,7 +10,7 @@
 	var/flash_viewers = TRUE
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
 
-/obj/item/grenade/spawnergrenade/prime() // Prime now just handles the two loops that query for people in lockers and people who can see it.
+/obj/item/grenade/spawnergrenade/detonate() // Prime now just handles the two loops that query for people in lockers and people who can see it.
 
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
