@@ -2,10 +2,9 @@
 	gender = PLURAL
 	name = "tar"
 	desc = "A sticky substance."
-	icon_state = "tar"
+	icon_state = "tar2"
 	density = FALSE
 	opacity = FALSE
-	layer = ABOVE_NORMAL_TURF_LAYER
 	var/turf/target
 	var/old_slowdown
 
@@ -18,6 +17,10 @@
 	old_slowdown = target.slowdown // Store the original slowdown value
 	target.slowdown += 10 // Apply the slowdown effect to the turf
 	RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(remove_tar))
+
+
+	if(prob(50))
+		icon_state = "tar3"
 	..()
 
 /obj/effect/cleanable/tar/proc/remove_tar(datum/source)
