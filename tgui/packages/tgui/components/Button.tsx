@@ -13,6 +13,8 @@ import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
 import { Placement } from '@popperjs/core';
 
+const logger = createLogger('Button');
+
 export type ButtonProps = BoxProps & {
   fluid?: boolean;
   icon?: string;
