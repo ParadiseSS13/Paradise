@@ -302,7 +302,7 @@ export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
       iconSpin,
       tooltip,
       tooltipPosition,
-      color,
+      color = 'default',
       disabled,
       multiLine,
       ...rest
