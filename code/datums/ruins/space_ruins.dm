@@ -336,3 +336,10 @@
 	description = "A derelict operating base for NT engineering crew."
 	allow_duplicates = FALSE
 	cost = 1
+
+/datum/map_template/ruin/space/casino
+	id = "casino"
+	suffix = "casino.dmm"
+	name = "Dorian Casino"
+	description = "A swanky space casino."
+	allow_duplicates = FALSE
