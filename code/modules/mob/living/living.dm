@@ -414,6 +414,10 @@
 		L += contents
 		for(var/obj/item/storage/S in contents)	//Check for storage items
 			L += get_contents(S)
+		for(var/obj/item/mod/control/C in contents) //Check for modsuit storage
+			for(var/obj/item/mod/module/storage/MS in C.contents)
+				for(var/obj/item/storage/MSB in MS.contents)
+					L += get_contents(MSB)
 		for(var/obj/item/clothing/suit/storage/S in contents)//Check for labcoats and jackets
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
