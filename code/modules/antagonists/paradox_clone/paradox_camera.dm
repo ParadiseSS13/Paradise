@@ -54,7 +54,7 @@
 
 	if(the_original.mind.martial_art)
 		for(var/datum/martial_art/MA as anything in the_original.mind.known_martial_arts)
-			if(!istype(MA, /datum/martial_art/krav_maga))
+			if(!istype(MA, /datum/martial_art/krav_maga) || !istype(MA, /datum/martial_art/judo))
 				MA.teach(para_mind.current)
 
 	if(the_original.mind.spell_list)
