@@ -6,7 +6,7 @@
 #define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
-#define SLIMEPERSON_HAIRGROWTHDELAY 50
+#define SLIMEPERSON_HAIRGROWTHDELAY 40
 #define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
@@ -108,6 +108,23 @@
 					E.sync_colour_to_human(H)
 			H.update_hair()
 			H.update_body()
+			var/list/actions_to_color_change = list()
+			for(var/datum/action/innate/i in H.actions)
+				if(istype(i, /datum/action/innate/slimecolor))
+					actions_to_color_change += i
+				if(istype(i, /datum/action/innate/regrow))
+					actions_to_color_change += i
+				if(istype(i, /datum/action/innate/slimehair))
+					actions_to_color_change += i
+				if(istype(i, /datum/action/innate/slimebeard))
+					actions_to_color_change += i
+			for(var/datum/action/innate/i in actions_to_color_change)
+				var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
+				img.appearance_flags = RESET_COLOR | RESET_ALPHA
+				img.color = new_body_color
+				img.plane = FLOAT_PLANE + 1
+				var/atom/movable/screen/movable/action_button/button = i.viewers[i.owner.hud_used]
+				button.add_overlay(img)
 			blend(H)
 	..()
 
@@ -119,8 +136,7 @@
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_icon_state = "slime_recolor"
 
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -135,8 +151,7 @@
 /datum/action/innate/regrow
 	name = "Regrow limbs"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_icon_state = "slime_regrow"
 
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -211,8 +226,7 @@
 /datum/action/innate/slimehair
 	name = "Change Hairstyle"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_icon_state = "slime_grow_hair"
 
 /datum/action/innate/slimehair/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -230,8 +244,7 @@
 /datum/action/innate/slimebeard
 	name = "Change Beard"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_icon_state = "slime_grow_beard"
 
 /datum/action/innate/slimebeard/Activate()
 	var/mob/living/carbon/human/H = owner
