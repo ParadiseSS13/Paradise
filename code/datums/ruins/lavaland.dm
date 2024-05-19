@@ -224,3 +224,11 @@
 	suffix = "lavaland_surface_watcher_grave.dmm"
 	cost = 5
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/shuttlecrash
+	name = "Crashed Passenger Shuttle"
+	id = "shuttlecrash"
+	description = "A passenger shuttle crashsite of indeterminate origin."
+	suffix = "lavaland_surface_shuttlecrash.dmm"
+	cost = 5
+	allow_duplicates = FALSE

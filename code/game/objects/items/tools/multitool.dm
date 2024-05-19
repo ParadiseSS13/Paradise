@@ -171,19 +171,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
 
-/obj/item/multitool/abductor
-	name = "alien multitool"
-	desc = "An omni-technological interface."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "multitool"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "magnets=5;engineering=5;abductor=3"
-
-/obj/item/multitool/abductor/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
-
 #undef PROXIMITY_NONE
 #undef PROXIMITY_ON_SCREEN
 #undef PROXIMITY_NEAR

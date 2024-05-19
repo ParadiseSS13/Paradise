@@ -28,12 +28,13 @@
 #define BOT_EAT_TILE		19	// adding said tiles to inventory (floorbots)
 
 //Bot types
-#define SEC_BOT				(1<<0)	// Secutritrons (Beepsky) and ED-209s
-#define MULE_BOT			(1<<1)	// MULEbots
-#define FLOOR_BOT			(1<<2)	// Floorbots
-#define CLEAN_BOT			(1<<3)	// Cleanbots
-#define MED_BOT				(1<<4)	// Medibots
-#define HONK_BOT			(1<<5)	// Honkbots
+#define SEC_BOT				"Security"	// Secutritrons (Beepsky) and ED-209s
+#define MULE_BOT			"Mule"	// MULEbots
+#define FLOOR_BOT			"Floorbot"	// Floorbots
+#define CLEAN_BOT			"Cleanbot"	// Cleanbots
+#define MED_BOT				"Medibot"	// Medibots
+#define HONK_BOT			"Honkbot"	// Honkbots
+#define GRIEF_BOT			"Grief"	// Griefsky
 
 //Sentience types
 #define SENTIENCE_ORGANIC 1

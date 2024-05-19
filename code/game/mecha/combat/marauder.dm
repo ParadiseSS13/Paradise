@@ -45,6 +45,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
 /obj/mecha/combat/marauder/examine_more(mob/user)
 	. = ..()
 	. += "<i>The newest combat mech developed by Defiance Arms, the Marauder is now their mainline offering in the galactic arms market. \
@@ -101,9 +104,6 @@
 	internal_damage_threshold = 20
 	force = 80
 	max_equip = 8
-
-/obj/mecha/combat/marauder/seraph/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /obj/mecha/combat/marauder/seraph/loaded/Initialize(mapload)
 	. = ..()  //Let it equip whatever is needed.
