@@ -18377,11 +18377,11 @@
 "brK" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 11;
-	height = 18;
+	dwidth = 16;
+	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 29
+	width = 41
 	},
 /turf/space,
 /area/space)
@@ -62198,9 +62198,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"jPN" = (
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "jPW" = (
 /obj/machinery/door/airlock/silver,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -87720,12 +87717,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/supermatter_room)
-"tbC" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "tbJ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -139524,7 +139515,7 @@ nXr
 aKQ
 fRL
 aPm
-jPN
+aPm
 lkw
 fho
 aPm
@@ -139774,15 +139765,15 @@ ayf
 azn
 arR
 fes
-tbC
-tbC
+fes
+fes
 aPm
-tbC
-tbC
+fes
+fes
 aPm
-tbC
-tbC
-tbC
+fes
+fes
+fes
 aPm
 aPm
 aPm
