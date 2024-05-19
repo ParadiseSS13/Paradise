@@ -466,15 +466,15 @@
 	taste_description = "burnt dirt"
 
 /datum/reagent/tar_compound
-    name = "Sticky tar"
-    id = "sticky_tar"
-    description = "A sticky compound that creates tar on contact with surfaces."
-    reagent_state = LIQUID
-    color = "#4B4B4B"
-    harmless = FALSE
-    taste_description = "processed sludge"
+	name = "Sticky tar"
+	id = "sticky_tar"
+	description = "A sticky compound that creates tar on contact with surfaces."
+	reagent_state = LIQUID
+	color = "#4B4B4B"
+	harmless = FALSE
+	taste_description = "processed sludge"
 
 /datum/reagent/tar_compound/reaction_turf(turf/T, volume)
-    if (volume >= 1)
-        if (!T.has_tar)
-            new /obj/effect/cleanable/tar(T)
+	if(volume >= 1)
+		if(!T.has_tar)
+			new /obj/effect/cleanable/tar(T)

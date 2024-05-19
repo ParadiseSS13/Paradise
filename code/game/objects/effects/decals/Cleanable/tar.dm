@@ -10,7 +10,7 @@
 	var/old_slowdown
 
 /obj/effect/cleanable/tar/New(turf/loc)
-	if (loc.has_tar) // Check if the turf already has tar
+	if(loc.has_tar) // Check if the turf already has tar
 		qdel(src)
 		return
 	loc.has_tar = TRUE
@@ -22,20 +22,20 @@
 
 /obj/effect/cleanable/tar/proc/remove_tar(datum/source)
 	SIGNAL_HANDLER
-	if (target) // Check if the target turf is valid
+	if(target) // Check if the target turf is valid
 		target.slowdown = old_slowdown
 		target.has_tar = FALSE
 		qdel(src)
 
 /obj/effect/cleanable/tar/Crossed(AM as mob|obj)
-	if (isliving(AM))
+	if(isliving(AM))
 		var/mob/living/L = AM
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 
 /obj/effect/cleanable/tar/attackby(obj/item/P, mob/living/user, params)
-	if (P.get_heat())
-		if (!Adjacent(user)) // To prevent issues as a result of telepathically lighting tar.
+	if(P.get_heat())
+		if(!Adjacent(user)) // To prevent issues as a result of telepathically lighting tar.
 			return
 		playsound(P, 'sound/items/welder.ogg', 50, TRUE)
 		if(do_after(user, 3 SECONDS, FALSE, user))
