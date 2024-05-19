@@ -18,6 +18,7 @@
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
+	var/no_refill = FALSE
 
 /obj/item/reagent_containers/spray/Initialize(mapload)
 	. = ..()
@@ -35,6 +36,10 @@
 
 		if(reagents.total_volume >= reagents.maximum_volume)
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
+			return
+
+		if(no_refill)
+			to_chat(user, "<span class='notice'>[src] cannot be refilled.</span>")
 			return
 
 		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
@@ -285,12 +290,14 @@
 
 /// Sticky tar spray
 /obj/item/reagent_containers/spray/sticky_tar
-    name = "Sticky tar applicator"
-    desc = "A suspicious looking spraycan filled with an extremely viscous and sticky fluid."
-    lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
-    righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-    spray_maxrange = 2
-    spray_currentrange = 2
-    amount_per_transfer_from_this = 10
-    list_reagents = list("sticky_tar" = 150)
+	name = "sticky tar applicator"
+	desc = "A suspicious looking spraycan filled with an extremely viscous and sticky fluid."
+	icon_state = "syndie_spraycan"
+	item_state = "syndie_spraycan"
+	container_type = AMOUNT_VISIBLE
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
+	no_refill = TRUE
+	list_reagents = list("sticky_tar" = 100)
 

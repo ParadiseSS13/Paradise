@@ -168,6 +168,7 @@
 				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
 				/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
 				/obj/item/melee/knuckleduster/syndie = 2,
+				/obj/item/reagent_containers/spray/sticky_tar = 1,
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
@@ -460,7 +461,7 @@
 				)
 
 // Damn near all of this is illegal. Gives officers something to do on a shift quiet enough to spawn traders.
-/obj/effect/spawner/lootdrop/trade_sol/cybersun_major 
+/obj/effect/spawner/lootdrop/trade_sol/cybersun_major
 	name = "12. cybersun industries large gear"
 	lootcount = 3
 	loot = list(
@@ -494,7 +495,7 @@
 				)
 
 // Lots of things to write permits for. Gives officers something to do on a shift quiet enough to spawn traders.
-/obj/effect/spawner/lootdrop/trade_sol/ussp_major 
+/obj/effect/spawner/lootdrop/trade_sol/ussp_major
 	name = "12. USSP large gear"
 	lootcount = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(

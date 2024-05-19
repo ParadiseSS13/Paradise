@@ -473,5 +473,5 @@
 
 /datum/reagent/tar_compound/reaction_turf(turf/T, volume)
     if (volume >= 1)
-        if (!T.has_tar) // Check if the turf already has tar
-            new /obj/effect/tar(T) // Create a new tar instance
+        if (!T.has_tar)
+            new /obj/effect/tar(T)

@@ -627,6 +627,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/organ_extractor
 	cost = 20
 
+/datum/uplink_item/device_tools/tar_spray
+	name = "Sticky Tar Applicator"
+	desc = "A spray bottle containing an extremely viscous fluid that will leave behind tar whenever it is sprayed, greatly slowing down anyone who tries to walk over it. \
+	Comes with 10 uses worth of fluid and cannot be refilled."
+	reference = "TAR"
+	item = /obj/item/reagent_containers/spray/sticky_tar
+	cost = 15
+
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and MODsuits"
