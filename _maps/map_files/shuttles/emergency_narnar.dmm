@@ -152,9 +152,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aB" = (
@@ -165,19 +163,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aC" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	pixel_x = 28
-	},
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
+	pixel_y = -28
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -213,6 +201,15 @@
 /area/shuttle/escape)
 "aI" = (
 /obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aJ" = (
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_x = 28
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aK" = (
@@ -436,9 +433,9 @@ an
 ab
 au
 aj
-aC
+au
 ab
-aj
+aA
 aj
 aj
 aF
@@ -643,11 +640,11 @@ aa
 aa
 ab
 aj
-aA
 aj
 aj
-bb
-aA
+aj
+aj
+aJ
 aj
 aj
 aj
@@ -669,10 +666,10 @@ aa
 aa
 ab
 ab
-ab
 ac
-ab
-ab
+ac
+ac
+ac
 ab
 ac
 ac
