@@ -274,16 +274,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "aiZ" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 8
+/obj/structure/table/wood,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 5;
+	pixel_x = -7
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 4
-	},
-/obj/structure/mineral_door/wood{
-	name = "Changing chamber"
-	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "ajc" = (
 /obj/structure/chair/comfy/brown{
@@ -440,7 +436,6 @@
 /area/syndicate_mothership/cargo)
 "aoX" = (
 /obj/structure/light_fake/small{
-	dir = 2;
 	light_range = 6;
 	light_color = "red"
 	},
@@ -565,12 +560,10 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
 "arZ" = (
-/obj/structure/rack,
-/obj/item/kitchen/knife/ritual,
-/obj/structure/window/reinforced/clockwork{
-	dir = 4
+/obj/machinery/economy/vending/cola/free{
+	name = "\improper Wizbust Softdrinks"
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "ase" = (
 /obj/machinery/door/airlock/centcom{
@@ -1148,11 +1141,9 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "aIZ" = (
-/obj/machinery/computer/library{
-	pixel_y = 8
-	},
+/obj/machinery/recharger,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "aJf" = (
 /obj/structure/table/wood/fancy/black,
@@ -1217,8 +1208,8 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "aKO" = (
-/obj/structure/flora/tree/jungle/small,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "aKS" = (
 /obj/machinery/computer/drone_control{
@@ -1472,6 +1463,18 @@
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
+"aRM" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 5;
+	pixel_x = -7
+	},
+/obj/item/reagent_containers/drinks/mugwort{
+	pixel_y = 6;
+	pixel_x = 8
+	},
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "aRU" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -3675,8 +3678,14 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate_sit)
 "caA" = (
-/obj/structure/showcase,
-/turf/simulated/floor/wood/oak,
+/obj/structure/table/wood,
+/obj/item/razor{
+	pixel_x = 10
+	},
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "caG" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -4584,11 +4593,11 @@
 /area/syndicate_mothership)
 "cFS" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/trash/semki,
+/obj/item/storage/fancy/matches,
 /obj/effect/turf_decal/woodsiding{
-	dir = 9
+	dir = 1
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "cFW" = (
 /obj/machinery/door/airlock/centcom{
@@ -4628,16 +4637,8 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "cHw" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/candle/eternal/wizard{
-	pixel_x = -7;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/drinks/mugwort{
-	pixel_x = 8;
-	pixel_y = 6
-	},
-/turf/simulated/floor/carpet/purple,
+/mob/living/carbon/human/monkey/magic,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "cHz" = (
 /obj/structure/light_fake/spot{
@@ -4990,7 +4991,6 @@
 "cTi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "brown"
 	},
 /area/centcom/ss220/supply)
@@ -5681,6 +5681,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"dou" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet{
+	name = "our demands";
+	info = "Deliver five cream pies to the agreed place or your apprentice gets honked again"
+	},
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "dow" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -6927,7 +6935,6 @@
 /area/shuttle/syndicate)
 "dVH" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "brown"
 	},
 /area/centcom/ss220/supply)
@@ -7196,10 +7203,8 @@
 	},
 /area/centcom/ss220/admin1)
 "edZ" = (
-/obj/machinery/economy/vending/artvend{
-	name = "\improper WizArtVend"
-	},
-/turf/simulated/floor/wood/oak,
+/obj/item/kirbyplants,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "eed" = (
 /obj/structure/chair/stool/bar{
@@ -7650,7 +7655,6 @@
 /area/syndicate_mothership)
 "esG" = (
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkred"
 	},
 /area/centcom/ss220/supply)
@@ -8651,9 +8655,8 @@
 /area/centcom/ss220/evac)
 "eTP" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/dice,
 /obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "eTS" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -10679,7 +10682,6 @@
 	desc = "Слава Нанотрейзен!"
 	},
 /obj/structure/light_fake/small{
-	dir = 2;
 	light_range = 6;
 	light_color = "red"
 	},
@@ -10805,8 +10807,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "giy" = (
-/obj/item/flag/wiz,
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "giO" = (
 /obj/structure/light_fake/small{
@@ -10822,8 +10823,12 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "giY" = (
-/obj/structure/kitchenspike,
-/turf/simulated/floor/wood/oak,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/kirbyplants,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "gjQ" = (
 /obj/structure/sign/poster/official/random/north,
@@ -11023,10 +11028,12 @@
 	},
 /area/ghost_bar)
 "gqe" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corner{
+	dir = 6;
 	color = "#63009c"
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/landmark/spawner/roundstart_observer,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "gqH" = (
 /obj/effect/turf_decal/stripes/line{
@@ -11913,12 +11920,11 @@
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership/infteam)
 "gSz" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet{
-	info = "Deliver five cream pies to the agreed place or your apprentice gets honked again";
-	name = "our demands"
+/mob/living/simple_animal/hostile/creature{
+	name = "Experiment 35b"
 	},
-/turf/simulated/floor/carpet/purple,
+/obj/item/candle/eternal/wizard,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "gSF" = (
 /obj/structure/flora/ausbushes/brflowers,
@@ -12095,12 +12101,11 @@
 	},
 /area/syndicate_mothership)
 "gXA" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/mug/novelty,
-/obj/item/candle/eternal/wizard{
-	pixel_y = 11
+/obj/structure/chair/sofa/right{
+	color = "#63009c"
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/landmark/spawner/roundstart_observer,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "gXS" = (
 /obj/structure/fans/tiny/invisible,
@@ -12683,7 +12688,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "hnP" = (
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava/mapping_lava,
 /area/wizard_station)
 "hnT" = (
 /obj/machinery/economy/vending/wallmed/syndicate{
@@ -13929,11 +13934,17 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "hUk" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
 	},
-/area/centcom/ss220/medbay)
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/mineral_door/wood{
+	name = "Changing chamber"
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/wizard_station)
 "hUn" = (
 /obj/machinery/icemachine{
 	dir = 1
@@ -15097,6 +15108,11 @@
 /obj/item/deck/cards/black,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
+"ixW" = (
+/obj/effect/decal/cleanable/molten_object/large,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "iyK" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/indestructible/grass,
@@ -15521,6 +15537,16 @@
 	icon_state = "dark_small"
 	},
 /area/centcom/ss220/admin2)
+"iQF" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/gavelblock{
+	desc = "Smack it with a gavel hammer when the wizard council gets rowdy."
+	},
+/obj/item/gavelhammer{
+	desc = "Order, order! No bombs in my council chamber."
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "iQW" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/glass/bottle/morphine,
@@ -15542,7 +15568,6 @@
 "iRB" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
@@ -16313,6 +16338,7 @@
 /obj/structure/chair/comfy/purp{
 	name = "wizard council throne"
 	},
+/obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "jss" = (
@@ -16394,7 +16420,8 @@
 	},
 /area/centcom/ss220/admin3)
 "juJ" = (
-/turf/simulated/floor/wood/oak,
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "jvf" = (
 /obj/machinery/computer/account_database{
@@ -18828,7 +18855,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Main chamber"
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "kOF" = (
 /obj/structure/table/holotable/wood{
@@ -19026,10 +19053,10 @@
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/ss220/supply)
 "kTs" = (
-/obj/machinery/economy/vending/cola/free{
-	name = "\improper Wizbust Softdrinks"
+/obj/machinery/economy/vending/snack/free{
+	name = "\improper Wizmore Chocolate Corp"
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "kUd" = (
 /obj/structure/table/reinforced,
@@ -19413,11 +19440,11 @@
 /area/centcom/ss220/command)
 "leH" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/fancy/matches,
+/obj/item/stack/spacecash,
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "leS" = (
 /obj/structure/table/glass,
@@ -19691,8 +19718,12 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "lmc" = (
-/obj/item/kirbyplants,
-/turf/simulated/floor/wood/oak,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/stack/ore/uranium,
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "lmy" = (
 /obj/item/storage/bible,
@@ -19856,7 +19887,6 @@
 /area/centcom/ss220/supply)
 "lsx" = (
 /obj/structure/closet/secure_closet/guncabinet{
-	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access_txt = "114"
 	},
@@ -19996,9 +20026,9 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "luW" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1;
-	name = "wizard council throne"
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 24;
+	dir = 8
 	},
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
@@ -20141,7 +20171,6 @@
 	base_icon_state = "sleeper_s-open"
 	},
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkred"
 	},
 /area/centcom/ss220/admin3)
@@ -20346,8 +20375,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/polarized{
-	id = "cc_syrg_2";
-	dir = 2
+	id = "cc_syrg_2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -20911,10 +20939,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/general)
 "lSO" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa{
 	color = "#63009c"
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/landmark/spawner/roundstart_observer,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "lTh" = (
 /obj/structure/closet/cabinet{
@@ -22040,8 +22069,11 @@
 /area/centcom/ss220/general)
 "mGK" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/wood/oak,
+/obj/structure/pondering_orb,
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "mGP" = (
 /obj/structure/chair/sofa/corner{
@@ -23017,8 +23049,8 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/gamma/space)
 "nlm" = (
-/obj/structure/flora/rock/pile/largejungle,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "nls" = (
 /obj/structure/window/reinforced{
@@ -24846,7 +24878,8 @@
 	},
 /area/syndicate_mothership/cargo)
 "ouy" = (
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "ouD" = (
 /obj/structure/rack/gunrack,
@@ -25424,8 +25457,8 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "oJS" = (
-/obj/structure/flora/junglebush,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/flora/rock/pile/largejungle,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "oKb" = (
 /obj/structure/table,
@@ -26041,12 +26074,12 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "pai" = (
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/candle/eternal/wizard,
-/obj/effect/turf_decal/woodsiding{
-	dir = 8
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/mug/novelty,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "pas" = (
 /obj/structure/statue/cyberiad/north,
@@ -26581,12 +26614,7 @@
 	},
 /area/shuttle/syndicate)
 "pvL" = (
-/obj/structure/table/wood,
-/obj/item/candle/eternal/wizard{
-	pixel_x = -7;
-	pixel_y = 5
-	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "pvN" = (
 /obj/structure/chair/sofa/corp/right{
@@ -26749,8 +26777,7 @@
 /area/syndicate_mothership/infteam)
 "pAR" = (
 /obj/structure/window/reinforced/polarized{
-	id = "cc_syrg_2";
-	dir = 2
+	id = "cc_syrg_2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -27107,9 +27134,8 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
 "pMU" = (
-/obj/effect/decal/cleanable/molten_object/large,
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "pNe" = (
 /obj/structure/window/reinforced{
@@ -27965,10 +27991,8 @@
 	},
 /area/centcom/ss220/medbay)
 "qmm" = (
-/obj/machinery/economy/vending/snack/free{
-	name = "\improper Wizmore Chocolate Corp"
-	},
-/turf/simulated/floor/wood/oak,
+/obj/item/flag/wiz,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "qms" = (
 /obj/structure/table,
@@ -28150,11 +28174,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin2)
 "qsi" = (
-/obj/structure/chair/sofa/corner{
-	color = "#63009c";
-	dir = 6
+/obj/structure/chair/comfy/purp{
+	name = "wizard council throne";
+	dir = 1
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/landmark/spawner/roundstart_observer,
+/turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "qsk" = (
 /obj/effect/turf_decal/delivery,
@@ -28176,9 +28201,10 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/general)
 "qsK" = (
-/obj/machinery/recharger,
-/obj/structure/table/wood,
-/turf/simulated/floor/wood/oak,
+/obj/machinery/economy/vending/artvend{
+	name = "\improper WizArtVend"
+	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "qtv" = (
 /obj/machinery/cryopod/robot/offstation,
@@ -28708,7 +28734,6 @@
 /area/centcom/ss220/park)
 "qKs" = (
 /obj/structure/closet/secure_closet/guncabinet{
-	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access_txt = "114"
 	},
@@ -29104,14 +29129,8 @@
 	},
 /area/centcom/ss220/admin2)
 "qXy" = (
-/obj/structure/table/wood,
-/obj/item/razor{
-	pixel_x = 10
-	},
-/obj/item/candle/eternal/wizard{
-	pixel_y = 11
-	},
-/turf/simulated/floor/wood/oak,
+/obj/structure/kitchenspike,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "qXJ" = (
 /obj/machinery/door_control/no_emag/east{
@@ -29236,15 +29255,15 @@
 /area/centcom/ss220/medbay)
 "rae" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/dice/d20,
+/obj/item/trash/semki,
 /obj/effect/turf_decal/woodsiding{
-	dir = 5
+	dir = 9
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "rak" = (
-/obj/structure/flora/rock/jungle,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "ram" = (
 /obj/structure/mecha_wreckage/durand/old{
@@ -29398,8 +29417,7 @@
 "rfp" = (
 /obj/machinery/bodyscanner,
 /obj/structure/window/reinforced/polarized{
-	id = "cc_syrg_2";
-	dir = 2
+	id = "cc_syrg_2"
 	},
 /obj/structure/window/reinforced/polarized{
 	id = "cc_syrg_2";
@@ -29503,7 +29521,6 @@
 	},
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
@@ -30417,14 +30434,13 @@
 	},
 /area/centcom/ss220/jail)
 "rCd" = (
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/gavelblock{
-	desc = "Smack it with a gavel hammer when the wizard council gets rowdy."
+/obj/structure/chair/brass{
+	name = "arch wizard's throne"
 	},
-/obj/item/gavelhammer{
-	desc = "Order, order! No bombs in my council chamber."
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "rCj" = (
 /obj/structure/platform{
@@ -31378,7 +31394,6 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
@@ -31925,11 +31940,8 @@
 /turf/simulated/floor/wood,
 /area/centcom/ss220/court)
 "stQ" = (
-/obj/structure/chair/sofa/left{
-	color = "#63009c";
-	dir = 4
-	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "stR" = (
 /obj/machinery/door/airlock/centcom{
@@ -32198,8 +32210,8 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/bar)
 "sEk" = (
-/obj/structure/flora/grass/jungle,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "sEq" = (
 /obj/structure/bookcase/random,
@@ -33487,7 +33499,6 @@
 "tqp" = (
 /obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
@@ -33724,13 +33735,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "txR" = (
-/obj/structure/chair/brass{
-	name = "arch wizard's throne"
-	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 4
-	},
-/turf/simulated/floor/wood/oak,
+/obj/structure/showcase,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "tyo" = (
 /obj/effect/spawner/window,
@@ -34430,7 +34436,6 @@
 	color = "#6697cc"
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 2;
 	color = "red"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -35027,12 +35032,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "unm" = (
-/obj/structure/table/wood,
-/obj/item/candle/eternal/wizard{
-	pixel_y = 11
+/obj/structure/rack,
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -24;
+	dir = 4
 	},
-/obj/item/coin/uranium,
-/turf/simulated/floor/wood/oak,
+/obj/item/kitchen/knife/shiv/carrot,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "uns" = (
 /obj/structure/mirror{
@@ -35578,8 +35584,12 @@
 	},
 /area/syndicate_mothership/control)
 "uFa" = (
-/obj/structure/flora/junglebush/large,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/structure/chair/sofa/left{
+	dir = 4;
+	color = "#63009c"
+	},
+/obj/effect/landmark/spawner/roundstart_observer,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "uFW" = (
 /obj/structure/table/reinforced,
@@ -35683,8 +35693,12 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "uIE" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood/oak,
+/obj/structure/rack,
+/obj/item/kitchen/knife/ritual,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "uJb" = (
 /obj/structure/curtain/open/shower/security{
@@ -36487,11 +36501,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "vkP" = (
-/mob/living/simple_animal/hostile/creature{
-	name = "Experiment 35b"
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 24;
+	dir = 8
 	},
-/obj/item/candle/eternal/wizard,
-/turf/simulated/floor/grass/jungle/no_creep,
+/turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "vkU" = (
 /obj/machinery/door/airlock/centcom{
@@ -38140,9 +38154,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "wgG" = (
-/obj/structure/rack,
-/obj/item/kitchen/knife/shiv/carrot,
-/turf/simulated/floor/wood/oak,
+/obj/structure/bookcase/random,
+/obj/item/book/granter/spell/summon_cheese,
+/turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "wgM" = (
 /obj/structure/curtain/black{
@@ -38426,9 +38440,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -38553,12 +38565,12 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "wtd" = (
-/obj/structure/table/wood/fancy/royalblack,
-/obj/structure/pondering_orb,
-/obj/effect/turf_decal/woodsiding{
-	dir = 6
+/obj/structure/table/wood,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
 	},
-/turf/simulated/floor/wood/oak,
+/obj/item/coin/uranium,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "wti" = (
 /obj/machinery/economy/slot_machine,
@@ -38781,11 +38793,9 @@
 /area/centcom/ss220/supply)
 "wxt" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/stack/ore/uranium,
-/obj/effect/turf_decal/woodsiding{
-	dir = 10
-	},
-/turf/simulated/floor/wood/oak,
+/obj/item/dice,
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "wxv" = (
 /obj/structure/shuttle/engine/platform{
@@ -40750,8 +40760,12 @@
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
 "xzc" = (
-/mob/living/carbon/human/monkey/magic,
-/turf/simulated/floor/wood/oak,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/candle/eternal/wizard,
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "xzF" = (
 /obj/effect/turf_decal/loading_area{
@@ -41163,7 +41177,7 @@
 	},
 /area/centcom/ss220/supply)
 "xLF" = (
-/turf/simulated/wall/indestructible/riveted,
+/turf/simulated/wall/indestructible/boss,
 /area/space/centcomm)
 "xMa" = (
 /obj/structure/chair/office/dark{
@@ -41296,8 +41310,11 @@
 	},
 /area/centcom/ss220/bar)
 "xPy" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/grass/jungle/no_creep,
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 24;
+	dir = 8
+	},
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "xPO" = (
 /obj/structure/table/reinforced,
@@ -41829,11 +41846,11 @@
 /area/centcom/ss220/admin3)
 "ygr" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/stack/spacecash,
+/obj/item/dice/d20,
 /obj/effect/turf_decal/woodsiding{
-	dir = 1
+	dir = 5
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "ygI" = (
 /obj/machinery/conveyor/south{
@@ -41979,12 +41996,11 @@
 	},
 /area/centcom/ss220/admin1)
 "ylz" = (
-/obj/effect/decal/cleanable/cobweb2,
-/obj/item/kirbyplants,
-/obj/structure/window/reinforced/clockwork{
-	dir = 4
+/obj/machinery/computer/library{
+	pixel_y = 8
 	},
-/turf/simulated/floor/wood/oak,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "ylD" = (
 /obj/machinery/door/airlock/titanium/glass{
@@ -62014,7 +62030,7 @@ ipH
 uMr
 qlN
 qLq
-hUk
+eVA
 uMr
 sZR
 uKR
@@ -62271,7 +62287,7 @@ ttK
 uMr
 fZv
 qLq
-hUk
+eVA
 kdh
 hCE
 vWn
@@ -62785,7 +62801,7 @@ bGa
 uMr
 vTp
 bQB
-hUk
+eVA
 uMr
 kGg
 lLb
@@ -89727,39 +89743,39 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
 adJ
 adJ
 adJ
@@ -89984,39 +90000,39 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bQD
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+bQD
 adJ
 adJ
 adJ
@@ -90242,37 +90258,37 @@ adJ
 adJ
 adJ
 bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
+kKi
+lOn
+lOn
+lOn
+lOn
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+lOn
+lOn
+lOn
+lOn
+kKi
 bQD
 adJ
 adJ
@@ -90500,6 +90516,7 @@ adJ
 adJ
 bQD
 kKi
+lOn
 kKi
 kKi
 kKi
@@ -90517,6 +90534,7 @@ kKi
 kKi
 kKi
 kKi
+kSy
 kKi
 kKi
 kKi
@@ -90526,9 +90544,7 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
-kKi
+lOn
 kKi
 bQD
 adJ
@@ -90758,9 +90774,6 @@ adJ
 bQD
 kKi
 lOn
-lOn
-lOn
-lOn
 kKi
 kKi
 kKi
@@ -90782,9 +90795,12 @@ kKi
 kKi
 kKi
 kKi
-lOn
-lOn
-lOn
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
 lOn
 kKi
 bQD
@@ -91020,19 +91036,19 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
 kSy
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
 kKi
 kKi
 kKi
@@ -91271,7 +91287,6 @@ adJ
 adJ
 bQD
 kKi
-lOn
 kKi
 kKi
 kKi
@@ -91299,7 +91314,8 @@ kKi
 kKi
 kKi
 kKi
-lOn
+kKi
+kKi
 kKi
 bQD
 adJ
@@ -91528,13 +91544,6 @@ adJ
 adJ
 bQD
 kKi
-lOn
-kKi
-kKi
-kKi
-kKi
-kKi
-kSy
 kKi
 kKi
 kKi
@@ -91556,7 +91565,14 @@ kKi
 kKi
 kKi
 kKi
-lOn
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
 kKi
 bQD
 adJ
@@ -92064,7 +92080,7 @@ kKi
 kKi
 kKi
 kKi
-kKi
+kSy
 kKi
 kKi
 kKi
@@ -92578,7 +92594,7 @@ kKi
 kKi
 kKi
 kKi
-kSy
+kKi
 kKi
 kKi
 kKi
@@ -92815,7 +92831,7 @@ bQD
 kKi
 kKi
 kKi
-kKi
+kSy
 kKi
 kKi
 kKi
@@ -93329,31 +93345,31 @@ bQD
 kKi
 kKi
 kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+njf
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
+kKi
 kSy
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
 kKi
 kKi
 kKi
@@ -93597,9 +93613,9 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
-kKi
+njf
+njf
+njf
 kKi
 kKi
 kKi
@@ -93853,11 +93869,11 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
+hym
+hym
 njf
-kKi
-kKi
+njf
+njf
 kKi
 kKi
 kKi
@@ -94109,8 +94125,10 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
+hym
+hym
+hym
+sps
 njf
 njf
 njf
@@ -94122,9 +94140,7 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
-kKi
+kSy
 kKi
 kKi
 kKi
@@ -94369,8 +94385,8 @@ kKi
 kKi
 hym
 hym
-njf
-njf
+hym
+hym
 njf
 kKi
 kKi
@@ -94623,13 +94639,11 @@ kKi
 kKi
 kKi
 kKi
-hym
-hym
-hym
-sps
+kKi
+kKi
 njf
 njf
-njf
+hym
 kKi
 kKi
 kKi
@@ -94638,7 +94652,9 @@ kKi
 kKi
 kKi
 kKi
-kSy
+kKi
+kKi
+kKi
 kKi
 kKi
 kKi
@@ -94881,10 +94897,8 @@ kKi
 kKi
 kKi
 kKi
-hym
-hym
-hym
-hym
+kKi
+kKi
 njf
 kKi
 kKi
@@ -94895,7 +94909,9 @@ kKi
 kKi
 kKi
 kKi
-kSy
+kKi
+kKi
+kKi
 kKi
 kKi
 kKi
@@ -95139,9 +95155,9 @@ kKi
 kKi
 kKi
 kKi
-njf
-njf
-hym
+kKi
+kKi
+kKi
 kKi
 kKi
 kKi
@@ -95397,7 +95413,6 @@ kKi
 kKi
 kKi
 kKi
-njf
 kKi
 kKi
 kKi
@@ -95410,6 +95425,7 @@ kKi
 kKi
 kKi
 kKi
+kSy
 kKi
 kKi
 kKi
@@ -95640,7 +95656,7 @@ adJ
 adJ
 bQD
 kKi
-kKi
+kSy
 kKi
 kKi
 kKi
@@ -95923,7 +95939,7 @@ kKi
 kKi
 kKi
 kKi
-kSy
+kKi
 kKi
 kKi
 kKi
@@ -96154,7 +96170,7 @@ adJ
 adJ
 bQD
 kKi
-kSy
+kKi
 kKi
 kKi
 kKi
@@ -96672,7 +96688,7 @@ kKi
 kKi
 kKi
 kKi
-kKi
+kSy
 kKi
 kKi
 kKi
@@ -96925,6 +96941,7 @@ adJ
 adJ
 bQD
 kKi
+lOn
 kKi
 kKi
 kKi
@@ -96952,8 +96969,7 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
+lOn
 kKi
 bQD
 adJ
@@ -97182,12 +97198,7 @@ adJ
 adJ
 bQD
 kKi
-kKi
-kKi
-kKi
-kKi
-kSy
-kKi
+lOn
 kKi
 kKi
 kKi
@@ -97211,6 +97222,11 @@ kKi
 kKi
 kKi
 kKi
+kKi
+kKi
+kKi
+kKi
+lOn
 kKi
 bQD
 adJ
@@ -97452,6 +97468,7 @@ kKi
 kKi
 kKi
 kKi
+kSy
 kKi
 kKi
 kKi
@@ -97459,8 +97476,7 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
+kSy
 kKi
 kKi
 kKi
@@ -97697,6 +97713,9 @@ adJ
 bQD
 kKi
 lOn
+lOn
+lOn
+lOn
 kKi
 kKi
 kKi
@@ -97718,12 +97737,9 @@ kKi
 kKi
 kKi
 kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
+lOn
+lOn
+lOn
 lOn
 kKi
 bQD
@@ -97953,7 +97969,6 @@ adJ
 adJ
 bQD
 kKi
-lOn
 kKi
 kKi
 kKi
@@ -97966,7 +97981,6 @@ kKi
 kKi
 kKi
 kKi
-kSy
 kKi
 kKi
 kKi
@@ -97974,14 +97988,16 @@ kKi
 kKi
 kKi
 kKi
-kSy
 kKi
 kKi
 kKi
 kKi
 kKi
 kKi
-lOn
+kKi
+kKi
+kKi
+kKi
 kKi
 bQD
 adJ
@@ -98209,37 +98225,37 @@ adJ
 adJ
 adJ
 bQD
-kKi
-lOn
-lOn
-lOn
-lOn
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-lOn
-lOn
-lOn
-lOn
-kKi
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
+bQD
 bQD
 adJ
 adJ
@@ -98465,39 +98481,39 @@ adJ
 adJ
 adJ
 adJ
-bQD
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-kKi
-bQD
+adJ
+adJ
+adJ
+adJ
+adJ
+adJ
+adJ
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+adJ
+adJ
+adJ
+adJ
+adJ
 adJ
 adJ
 adJ
@@ -98722,39 +98738,39 @@ adJ
 adJ
 adJ
 adJ
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
-bQD
+adJ
+adJ
+adJ
+adJ
+adJ
+adJ
+adJ
+xLF
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+xLF
+adJ
+adJ
+adJ
+adJ
+adJ
 adJ
 adJ
 adJ
@@ -98985,27 +99001,27 @@ adJ
 adJ
 adJ
 adJ
+adJ
 xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
 xLF
 adJ
 adJ
@@ -99242,10 +99258,12 @@ adJ
 adJ
 adJ
 adJ
+adJ
 xLF
 hnP
 hnP
 hnP
+qvn
 hnP
 hnP
 hnP
@@ -99253,12 +99271,10 @@ hnP
 hnP
 hnP
 hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
+qvn
+qvn
+qvn
+qvn
 hnP
 hnP
 hnP
@@ -99499,9 +99515,11 @@ adJ
 adJ
 adJ
 adJ
+adJ
 xLF
 hnP
 hnP
+qvn
 hnP
 hnP
 hnP
@@ -99513,10 +99531,8 @@ hnP
 hnP
 hnP
 hnP
-hnP
-hnP
-hnP
-hnP
+qvn
+qvn
 hnP
 hnP
 hnP
@@ -99750,17 +99766,17 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
 xLF
 hnP
 hnP
-hnP
-hnP
+qvn
 hnP
 hnP
 hnP
@@ -100007,12 +100023,6 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
 xLF
 hnP
 hnP
@@ -100033,14 +100043,20 @@ hnP
 hnP
 hnP
 hnP
+qvn
+hnP
+hnP
+hnP
+hnP
+hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+xLF
+xLF
+xLF
+xLF
+xLF
+xLF
 adJ
 adJ
 adJ
@@ -100264,13 +100280,12 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
 xLF
+hnP
+hnP
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -100285,6 +100300,13 @@ hnP
 hnP
 hnP
 qvn
+qvn
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -100292,14 +100314,8 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+xLF
+xLF
 adJ
 adJ
 tWI
@@ -100522,15 +100538,9 @@ adJ
 adJ
 adJ
 xLF
-xLF
-xLF
-xLF
-xLF
-xLF
-xLF
 hnP
 hnP
-hnP
+qvn
 hnP
 hnP
 hnP
@@ -100546,18 +100556,24 @@ hnP
 hnP
 hnP
 hnP
+qvn
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+xLF
 adJ
 tWI
 eNi
@@ -100781,8 +100797,7 @@ adJ
 xLF
 hnP
 hnP
-hnP
-hnP
+qvn
 hnP
 hnP
 hnP
@@ -100797,7 +100812,17 @@ hnP
 hnP
 hnP
 hnP
-qvn
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -100806,15 +100831,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 eNi
@@ -101047,10 +101063,19 @@ hnP
 hnP
 hnP
 hnP
-qvn
-qvn
 hnP
 hnP
+hnP
+oTA
+oTA
+gGW
+gGW
+oTA
+oTA
+oTA
+oTA
+oTA
+oTA
 hnP
 hnP
 hnP
@@ -101063,15 +101088,6 @@ hnP
 hnP
 hnP
 xLF
-xLF
-xLF
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 eNi
@@ -101308,27 +101324,27 @@ hnP
 hnP
 hnP
 oTA
-oTA
+txR
+giy
+giy
+unm
 gGW
-gGW
-oTA
-oTA
-oTA
-oTA
-oTA
+ouy
+ixW
+sEk
 oTA
 hnP
 hnP
+hnP
+qvn
+hnP
+hnP
+hnP
+hnP
+qvn
 hnP
 hnP
 xLF
-xLF
-xLF
-adJ
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 eNi
@@ -101561,31 +101577,31 @@ hnP
 hnP
 hnP
 hnP
+qvn
+qvn
 hnP
-hnP
-hnP
-oTA
-caA
-juJ
-juJ
-wgG
 gGW
-sEk
+caA
+stQ
+giy
+giy
+gGW
+pvL
 pMU
-rak
+ouy
 oTA
 hnP
 hnP
 hnP
+qvn
+qvn
 hnP
 hnP
+hnP
+qvn
+qvn
 hnP
 xLF
-xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 eNi
@@ -101812,7 +101828,7 @@ hnP
 hnP
 hnP
 hnP
-hnP
+qvn
 hnP
 hnP
 hnP
@@ -101820,16 +101836,16 @@ hnP
 hnP
 qvn
 qvn
-hnP
+qvn
 gGW
 qXy
-uIE
-juJ
-juJ
+cHw
+giy
+stQ
 gGW
 ouy
 aKO
-sEk
+gSz
 oTA
 hnP
 hnP
@@ -101838,11 +101854,11 @@ hnP
 hnP
 hnP
 hnP
+hnP
+hnP
+qvn
+hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 dqH
@@ -102075,19 +102091,23 @@ hnP
 hnP
 hnP
 hnP
-qvn
-qvn
 hnP
-gGW
+hnP
+qvn
+oTA
 giY
-xzc
-juJ
+giy
+giy
 uIE
 gGW
 sEk
 oJS
-vkP
+ouy
 oTA
+qvn
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -102096,10 +102116,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 dqH
@@ -102328,23 +102344,27 @@ hnP
 hnP
 qvn
 hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
+oTA
+oTA
+oTA
+oTA
+oTA
+oTA
+qvn
 oTA
 ylz
-juJ
-juJ
+giy
+giy
 arZ
 gGW
 rak
 nlm
-sEk
+aKO
 oTA
+qvn
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -102353,10 +102373,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 dqH
@@ -102585,23 +102601,27 @@ hnP
 hnP
 qvn
 hnP
+gGW
+aWR
+cJw
+pQt
+rUC
 oTA
 oTA
-oTA
-oTA
-oTA
-oTA
-hnP
 oTA
 aIZ
-juJ
-juJ
+giy
+giy
 kTs
-gGW
-xPy
-uFa
-oJS
 oTA
+oTA
+oTA
+oTA
+oTA
+oTA
+qvn
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -102610,10 +102630,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 eNi
@@ -102835,31 +102851,35 @@ lap
 elh
 adJ
 xLF
-hnP
-hnP
-hnP
-hnP
-hnP
 qvn
 hnP
-gGW
-aWR
-cJw
-pQt
-rUC
+hnP
+hnP
+hnP
+hnP
+hnP
 oTA
-oTA
+xcx
+mLx
+mLx
+mLx
+aiZ
+kpL
 oTA
 qsK
-juJ
-juJ
+giy
+giy
 qmm
 oTA
 oTA
+qNg
+wgG
+ltk
 oTA
+gGW
 oTA
-oTA
-oTA
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -102867,10 +102887,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 eNi
@@ -103092,7 +103108,7 @@ lap
 lap
 adJ
 xLF
-hnP
+qvn
 hnP
 hnP
 hnP
@@ -103100,34 +103116,34 @@ hnP
 hnP
 hnP
 oTA
-xcx
+pJU
 mLx
 mLx
 mLx
-pvL
-kpL
+kqP
+eBq
 oTA
-edZ
-juJ
-juJ
+oTA
+pai
 giy
-oTA
-oTA
-qNg
-ltk
-ltk
-oTA
+giy
+biu
+aph
+aph
+aph
+aph
+aph
+aph
 oTA
 oTA
 hnP
 hnP
+hnP
+hnP
+qvn
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 iav
@@ -103349,42 +103365,42 @@ lap
 lap
 adJ
 xLF
+qvn
 hnP
 hnP
 hnP
 hnP
 hnP
 hnP
-hnP
-oTA
-pJU
+gGW
+leW
 mLx
 mLx
+vkP
 mLx
-kqP
-eBq
+siT
 oTA
 oTA
 gXA
-juJ
-juJ
+giy
+giy
 biu
+jsp
+rae
+xzc
+lmc
+qsi
 aph
-aph
-aph
-aph
-aph
-aph
-oTA
+ltk
 oTA
 hnP
+hnP
+hnP
+hnP
+qvn
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 adJ
@@ -103613,35 +103629,35 @@ hnP
 hnP
 hnP
 hnP
-gGW
-leW
-mLx
-mLx
-mLx
-mLx
-siT
+oTA
+oTA
+oTA
+hUk
+oTA
+oTA
+oTA
 oTA
 oTA
 lSO
 juJ
-juJ
+giy
 biu
 jsp
 cFS
-pai
+kPo
 wxt
-luW
+qsi
 aph
 ltk
 oTA
 hnP
 hnP
 hnP
+hnP
+qvn
+hnP
+hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 adJ
@@ -103871,34 +103887,34 @@ hnP
 hnP
 hnP
 oTA
+rbA
+mXv
+fWC
+tXw
+aRM
 oTA
-oTA
-aiZ
-oTA
-oTA
-oTA
-oTA
-oTA
+wtd
+uFa
 gqe
-juJ
-juJ
+giy
+giy
 biu
 jsp
 leH
-kPo
+iQF
 eTP
-luW
+qsi
 aph
 ltk
 oTA
 hnP
 hnP
 hnP
+hnP
+hnP
+hnP
+hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 tWI
@@ -104128,34 +104144,34 @@ hnP
 hnP
 hnP
 oTA
-rbA
-mXv
+dou
+vOJ
 fWC
-tXw
-cHw
-oTA
-unm
-stQ
-qsi
-juJ
-juJ
+kiC
+fWC
+kOi
+giy
+giy
+giy
+giy
+giy
 biu
 jsp
 ygr
 rCd
 mGK
-luW
+qsi
 aph
 ltk
 oTA
 hnP
 hnP
 hnP
+hnP
+hnP
+hnP
+hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 gPD
@@ -104383,36 +104399,36 @@ hnP
 hnP
 hnP
 hnP
-hnP
+qvn
 oTA
-gSz
-vOJ
+gTg
 fWC
-kiC
+fWC
+fWC
 fWC
 kOi
-juJ
-juJ
-juJ
-juJ
-juJ
+giy
+giy
+giy
+giy
+edZ
 biu
-jsp
-rae
-txR
-wtd
+aph
+aph
+aph
+aph
 luW
 aph
-ltk
 oTA
+oTA
+hnP
+hnP
+qvn
+hnP
 hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 skE
@@ -104638,38 +104654,38 @@ hnP
 hnP
 hnP
 hnP
+qvn
+qvn
+qvn
+oTA
+elf
+aRa
+fWC
+xPy
+gfg
+oTA
+oTA
+gGW
+gGW
+gGW
+oTA
+oTA
+oTA
+ltk
+jNk
+ltk
+oTA
+gGW
+oTA
+hnP
 hnP
 hnP
 qvn
-oTA
-gTg
-fWC
-fWC
-fWC
-fWC
-kOi
-juJ
-juJ
-juJ
-juJ
-lmc
-biu
-aph
-aph
-aph
-aph
-aph
-aph
-oTA
-oTA
+qvn
 hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 tMH
@@ -104895,38 +104911,38 @@ hnP
 hnP
 hnP
 hnP
-qvn
-qvn
-qvn
-oTA
-elf
-aRa
-fWC
-fWC
-gfg
+hnP
+hnP
+hnP
 oTA
 oTA
-gGW
-gGW
+oTA
 gGW
 oTA
 oTA
 oTA
-ltk
-jNk
-ltk
+hnP
+qvn
+qvn
+qvn
+qvn
+hnP
 oTA
 oTA
 oTA
+oTA
+oTA
+qvn
+qvn
+hnP
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 tWI
@@ -105155,24 +105171,28 @@ hnP
 hnP
 hnP
 hnP
-oTA
-oTA
-oTA
-gGW
-oTA
-oTA
-oTA
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
 hnP
 qvn
 qvn
-qvn
-qvn
 hnP
-oTA
-oTA
-oTA
-oTA
-oTA
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -105180,10 +105200,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 vPR
@@ -105428,7 +105444,7 @@ hnP
 hnP
 hnP
 hnP
-hnP
+qvn
 qvn
 hnP
 hnP
@@ -105436,11 +105452,11 @@ hnP
 hnP
 hnP
 hnP
+hnP
+hnP
+hnP
+hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 dgI
@@ -105672,14 +105688,21 @@ hnP
 hnP
 hnP
 hnP
+qvn
+qvn
+qvn
+hnP
+hnP
+hnP
+olA
+qvn
+qvn
 hnP
 hnP
 hnP
 hnP
 hnP
-hnP
-hnP
-hnP
+qvn
 hnP
 hnP
 hnP
@@ -105687,17 +105710,10 @@ hnP
 hnP
 qvn
 qvn
-hnP
-hnP
-hnP
 hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 oTI
@@ -105924,19 +105940,6 @@ hnP
 hnP
 hnP
 hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-qvn
-qvn
-qvn
-hnP
-hnP
-hnP
-olA
-qvn
 qvn
 hnP
 hnP
@@ -105948,13 +105951,26 @@ hnP
 hnP
 hnP
 hnP
+hnP
+hnP
+qvn
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+qvn
+qvn
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 tWI
 tWI
@@ -106178,22 +106194,11 @@ adJ
 xLF
 hnP
 hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
-hnP
 qvn
 hnP
 hnP
-hnP
-hnP
-hnP
-hnP
+qvn
+qvn
 qvn
 hnP
 hnP
@@ -106205,13 +106210,24 @@ hnP
 hnP
 hnP
 hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+hnP
+qvn
+qvn
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 adJ
 adJ
@@ -106435,6 +106451,8 @@ adJ
 xLF
 hnP
 hnP
+qvn
+qvn
 hnP
 hnP
 hnP
@@ -106456,6 +106474,9 @@ hnP
 hnP
 hnP
 hnP
+hnP
+qvn
+qvn
 hnP
 hnP
 hnP
@@ -106464,11 +106485,6 @@ hnP
 hnP
 hnP
 xLF
-xLF
-adJ
-adJ
-adJ
-adJ
 adJ
 adJ
 adJ
@@ -106698,6 +106714,8 @@ hnP
 hnP
 hnP
 hnP
+qvn
+qvn
 hnP
 hnP
 hnP
@@ -106712,6 +106730,9 @@ hnP
 hnP
 hnP
 hnP
+hnP
+qvn
+qvn
 hnP
 hnP
 hnP
@@ -106721,11 +106742,6 @@ hnP
 hnP
 hnP
 xLF
-adJ
-adJ
-adJ
-adJ
-adJ
 adJ
 adJ
 adJ
@@ -106969,6 +106985,12 @@ hnP
 hnP
 hnP
 hnP
+qvn
+qvn
+hnP
+hnP
+hnP
+hnP
 hnP
 hnP
 hnP
@@ -106977,12 +106999,6 @@ hnP
 hnP
 xLF
 xLF
-xLF
-adJ
-adJ
-adJ
-adJ
-adJ
 adJ
 adJ
 adJ
@@ -107232,13 +107248,13 @@ hnP
 hnP
 hnP
 hnP
+hnP
+hnP
+hnP
+hnP
 xLF
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+xLF
+xLF
 adJ
 adJ
 adJ
@@ -107490,10 +107506,10 @@ xLF
 xLF
 xLF
 xLF
-adJ
-adJ
-adJ
-adJ
+xLF
+xLF
+xLF
+xLF
 adJ
 adJ
 adJ
