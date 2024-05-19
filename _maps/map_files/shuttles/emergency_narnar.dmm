@@ -215,15 +215,6 @@
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
-"aJ" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
-/obj/machinery/light/spot{
-	dir = 4
-	},
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
 "aK" = (
 /obj/effect/rune,
 /mob/living/simple_animal/hostile/construct/wraith,
@@ -266,12 +257,6 @@
 	},
 /obj/machinery/light/spot,
 /turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aU" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
-/turf/space,
 /area/shuttle/escape)
 "aV" = (
 /mob/living/simple_animal/hostile/construct/harvester,
@@ -478,7 +463,7 @@ ab
 ac
 ay
 ac
-ac
+ab
 aj
 aF
 aH
@@ -538,7 +523,7 @@ aM
 aI
 aQ
 aF
-ac
+ab
 aa
 aa
 aa
@@ -564,7 +549,7 @@ aI
 aV
 aH
 aS
-aU
+ab
 ab
 ab
 ab
@@ -661,14 +646,14 @@ aj
 aA
 aj
 aj
-aj
-aJ
-aj
-aj
+bb
+aA
 aj
 aj
 aj
-ac
+aj
+aj
+ab
 aZ
 aZ
 aZ
@@ -693,7 +678,7 @@ ac
 ac
 ac
 ac
-ac
+ab
 ab
 ab
 ab
