@@ -37,7 +37,7 @@ export type ButtonProps = BoxProps & {
   /** @deprecated Use children. */
   content?: InfernoNode;
   onClick?: (e: UIEvent) => void;
-  onclick: ButtonProps['onClick'];
+  onclick?: ButtonProps['onClick'];
 };
 
 export const Button = (props: ButtonProps) => {
