@@ -11,6 +11,7 @@
 	var/range = 7 // The range in tiles of the flashbang
 
 /obj/item/grenade/flashbang/detonate()
+	. == ..()
 	update_mob()
 	var/turf/T = get_turf(src)
 	if(T)

@@ -211,6 +211,7 @@
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
 /obj/item/food/snacks/grown/cherry_bomb/proc/detonate()
+	. == ..()
 	icon_state = "cherry_bomb_lit"
 	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, 0)
 	reagents.set_reagent_temp(1000) //Sets off the black powder

@@ -204,6 +204,7 @@
 	to_chat(user, "[src] is now in [mode] mode.")
 
 /obj/item/grenade/barrier/detonate()
+	. == ..()
 	new /obj/structure/barricade/security(get_turf(loc))
 	switch(mode)
 		if(VERTICAL)
@@ -321,6 +322,7 @@
 		addtimer(CALLBACK(src, PROC_REF(detonate)), 1) //Wait for the throw to fully end
 
 /obj/item/grenade/barrier/dropwall/detonate()
+	. == ..()
 	if(deployed)
 		return
 	if(mode == AUTO)
@@ -471,6 +473,7 @@
 	return ..()
 
 /obj/item/grenade/turret/detonate()
+	. == ..()
 	var/obj/machinery/porta_turret/inflatable_turret/turret = new(get_turf(loc))
 	turret.owner_uid = owner_uid
 	qdel(src)

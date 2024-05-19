@@ -11,6 +11,7 @@
 	var/affected_area = 2
 
 /obj/item/grenade/clown_grenade/detonate()
+	. == ..()
 	..()
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)
 	var/i = 0

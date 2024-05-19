@@ -40,19 +40,19 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 
 		if(istext(key))
 			var/value = arguments[key]
-			if (isnull(value))
+			if(isnull(value))
 				fullid += key
 			else
-				if (!istext(value) && !isnum(value))
+				if(!istext(value) && !isnum(value))
 					value = text_ref(value)
 
-				if (!named_arguments)
+				if(!named_arguments)
 					named_arguments = list()
 
 				named_arguments[key] = value
 			continue
 
-		if (isnum(key))
+		if(isnum(key))
 			fullid += key
 		else
 			fullid += text_ref(key)

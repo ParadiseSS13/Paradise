@@ -744,7 +744,7 @@
 #define COMSIG_GRENADE_PRIME "grenade_prime"
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override) ===CHUGAFIX=== This is wrong as well!
 #define COMSIG_GRENADE_ARMED "grenade_armed"
-//from base of /obj/item/grenade/proc/detonate(): (mob/living/lanced_by)
+//from base of /obj/item/grenade/proc/detonate(): ()
 #define COMSIG_GRENADE_DETONATE "grenade_prime"
 
 

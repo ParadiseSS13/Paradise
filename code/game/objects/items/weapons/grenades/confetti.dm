@@ -4,6 +4,7 @@
 	icon_state = "confetti"
 
 /obj/item/grenade/confetti/detonate()
+	. == ..()
 	confettisize(src, 20, 4) //20 confettis. Yes.
 	qdel(src)
 

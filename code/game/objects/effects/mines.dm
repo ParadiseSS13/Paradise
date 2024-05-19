@@ -174,3 +174,20 @@
 	spawn(duration)
 		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 		to_chat(victim, "<span class='notice'>You slow down.</span>")
+
+/// These mines spawn pellet_clouds around them when triggered
+/obj/effect/mine/shrapnel
+	name = "shrapnel mine"
+	/// The type of projectiles we're shooting out of this
+	var/shrapnel_type = /obj/projectile/bullet/shrapnel
+	/// Broadly, how many pellets we're spawning, the total is n! - (n-1)! pellets, so don't set it too high. For reference, 15 is probably pushing it at MAX
+	var/shrapnel_magnitude = 3
+	/// If TRUE, we spawn extra pellets to eviscerate the person who stepped on it, otherwise it just spawns a ring of pellets around the tile we're on (making setting it off an offensive move)
+	var/shred_triggerer = FALSE
+
+/obj/effect/mine/shrapnel/mineEffect(mob/victim)
+	return
+
+/obj/effect/mine/shrapnel/triggermine(atom/movable/AM)
+	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
+	return ..()

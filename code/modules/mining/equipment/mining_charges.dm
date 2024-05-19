@@ -72,6 +72,7 @@
 	addtimer(CALLBACK(src, PROC_REF(detonate)), 3 SECONDS)
 
 /obj/item/grenade/plastic/miningcharge/detonate()
+	. == ..()
 	if(hacked) //try not to blow your fingers off
 		explode()
 		return

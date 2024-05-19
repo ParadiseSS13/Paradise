@@ -8,11 +8,11 @@
 	* without necessarily printing a separate message for every single impact. This component should be instantiated right when you need it (like the moment of firing), then activated
 	* by signal.
 	*
-	* Pellet cloud currently works on two classes of sources: directed (ammo casings), and circular (grenades, landmines).
+	* Pellet cloud currently works on two classes of sources: directed (ammo casings), and circular (grenades).
 	* -Directed: This means you're shooting multiple pellets, like buckshot. If an ammo casing is defined as having multiple pellets, it will automatically create a pellet cloud
 	* and call COMSIG_FIRE_CASING (see [/obj/item/ammo_casing/proc/fire_casing]). Thus, the only projectiles fired will be the ones fired here.
 	* The magnitude var controls how many pellets are created.
-	* -Circular: This results in a big spray of shrapnel flying all around the detonation point when the grenade fires COMSIG_GRENADE_DETONATE or landmine triggers COMSIG_MINE_TRIGGERED.
+	* -Circular: This results in a big spray of shrapnel flying all around the detonation point when the grenade fires COMSIG_GRENADE_DETONATE
 	* The magnitude var controls how big the detonation radius is (the bigger the magnitude, the more shrapnel is created). Grenades can be covered with bodies to reduce shrapnel output.
 	*
 	* Once all of the fired projectiles either hit a target or disappear due to ranging out/whatever else, we resolve the list of all the things we hit and print aggregate messages so we get
@@ -27,7 +27,7 @@
 
 	/// How many shrapnel projectiles are we responsible for tracking? May be reduced for grenades if someone dives on top of it. Defined by ammo casing for casings, derived from magnitude otherwise
 	var/num_pellets
-	/// For grenades/landmines, how big is the radius of turfs we're targeting? Note this does not effect the projectiles range, only how many we generate
+	/// For grenades, how big is the radius of turfs we're targeting? Note this does not effect the projectiles range, only how many we generate
 	var/radius = 4
 
 	/// The list of pellets we're responsible for tracking, once these are all accounted for, we finalize.
@@ -83,7 +83,7 @@
 		RegisterSignal(parent, COMSIG_GRENADE_DETONATE, PROC_REF(create_blast_pellets))
 
 /datum/component/pellet_cloud/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_FIRE_CASING, COMSIG_GRENADE_DETONATE, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_MINE_TRIGGERED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_FIRE_CASING, COMSIG_GRENADE_DETONATE, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_ITEM_DROPPED))
 
 /**
  * create_casing_pellets() is for directed pellet clouds for ammo casings that have multiple pellets (buckshot and scatter lasers for instance)
@@ -115,7 +115,7 @@
 		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(fired_from)
-		if (!istype(target_loc) || !istype(current_loc) || !(shell.BB))
+		if(!istype(target_loc) || !istype(current_loc) || !(shell.BB))
 			return
 		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, target_loc, shooter, params, spread, fired_from)
 
@@ -123,14 +123,13 @@
 			shell.newshot()
 
 /**
- * create_blast_pellets() is for when we have a central point we want to shred the surroundings of with a ring of shrapnel, namely frag grenades and landmines.
+ * create_blast_pellets() is for when we have a central point we want to shred the surroundings of with a ring of shrapnel, namely frag grenades.
  *
  * Note that grenades have extra handling for someone throwing themselves/being thrown on top of it, see [/datum/component/pellet_cloud/proc/handle_martyrs]
- * Landmines just have a small check for [/obj/effect/mine/shrapnel/var/shred_triggerer], and spawn extra shrapnel for them if so
  *
  * Arguments:
- * * O- Our parent, the thing making the shrapnel obviously (grenade or landmine)
- * * punishable_triggerer- For grenade lances or people who step on the landmines (if we shred the triggerer), we spawn extra shrapnel for them in addition to the normal spread
+ * * O- Our parent, the thing making the shrapnel obviously (grenade)
+ * * triggerer- CHUGAFIX
  */
 /datum/component/pellet_cloud/proc/create_blast_pellets(obj/O, mob/living/triggerer)
 	SIGNAL_HANDLER
@@ -139,13 +138,6 @@
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
 		INVOKE_ASYNC(src, PROC_REF(handle_martyrs), triggerer) // note that we can modify radius in this proc
-		// ===CHUGAFIX===
-	// else if(islandmine(parent))
-	// 	var/obj/effect/mine/shrapnel/triggered_mine = parent
-	// 	if(triggered_mine.shred_triggerer && istype(triggerer)) // free shrapnel for the idiot who stepped on it if we're a mine that shreds the triggerer
-	// 		pellet_delta += radius // so they don't count against the later total
-	// 		for(var/i in 1 to radius)
-	// 			INVOKE_ASYNC(src, PROC_REF(pew), triggerer, TRUE)
 
 	if(radius < 1)
 		return
@@ -246,14 +238,9 @@
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
 	if(terminated == num_pellets)
 		finalize()
-// ===CHUGAFIX=== ; UID == WEAKREF
-// var/thing_uid = datum.UID()
-// var/type=thing_actual  = locate_uid(thing)
-// If(!istype(thing))
-//   return
 
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
-/datum/component/pellet_cloud/proc/pew(atom/target, landmine_victim)
+/datum/component/pellet_cloud/proc/pew(atom/target)
 	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
 
 	//Shooting Code:
@@ -261,15 +248,12 @@
 	P.original = target
 	P.firer_source_atom = parent
 	P.firer = parent // don't hit ourself that would be really annoying
-	P.permutated = list(locateUID(parent) = TRUE) // don't hit the target we hit already with the flak
+	P.permutated = list(parent.UID() = TRUE) // don't hit the target we hit already with the flak
 	P.suppressed = TRUE // set the projectiles to make no message so we can do our own aggregate message
 	P.preparePixelProjectile(target, parent)
 	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
 	pellets += P
-	P.fire()
-	// if(landmine_victim)
-	// 	P.process_hit(get_turf(target), target)
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
@@ -336,7 +320,7 @@
 	bodies -= gone
 
 // ===CHUGAFIX=== Really not sure if this is critical or not. Seems to be a bugfix!
-/// Our grenade or landmine or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
+/// Our grenade or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
 // /datum/component/pellet_cloud/proc/nullspace_parent()
 // 	SIGNAL_HANDLER
 

@@ -65,6 +65,8 @@
  *
  * Arguments:
  * * mob/living/carbon/human/user - who is priming our grenade?
+ *
+ * Returns: TRUE if botched
  */
 /obj/item/grenade/proc/botch_check(mob/living/carbon/human/user)
 	if(sticky && prob(50)) // to add risk to sticky tape grenade cheese, no return cause we still prime as normal after.
@@ -98,7 +100,7 @@
 			flags ^= NODROP
 		return
 
-	if (active)
+	if(active)
 		return
 	if(!botch_check(user)) // if they botch the prime, it'll be handled in botch_check
 		arm_grenade(user)
@@ -115,6 +117,18 @@
 	if(shrapnel_type && shrapnel_radius)
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type = shrapnel_type, magnitude = shrapnel_radius)
+
+	var/turf/bombturf = get_turf(src)
+	var/area/A = get_area(bombturf)
+	message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+	log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
+	investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+	add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
+
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.throw_mode_on()
+
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, TRUE)
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
@@ -123,16 +137,13 @@
 
 /**
  * detonate (formerly prime) refers to when the grenade actually delivers its payload (whether or not a boom/bang/detonation is involved)
- *
- * Arguments:
- * * lanced_by- If this grenade was detonated by an elance, we need to pass that along with the COMSIG_GRENADE_DETONATE signal for pellet clouds
  */
-/obj/item/grenade/proc/detonate(mob/living/lanced_by)
+/obj/item/grenade/proc/detonate()
 	if(shrapnel_type && shrapnel_radius && !shrapnel_initialized) // add a second check for adding the component in case whatever triggered the grenade went straight to prime (badminnery for example)
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type = shrapnel_type, magnitude = shrapnel_radius)
 
-	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE)
 	if(ex_dev || ex_heavy || ex_light || ex_flame)
 		explosion(src, ex_dev, ex_heavy, ex_light, flame_range = ex_flame)
 
@@ -167,7 +178,7 @@
 	. = TRUE
 
 	var/newtime = tgui_input_list(user, "Please enter a new detonation time", "Detonation Timer", list("Instant", 3, 4, 5))
-	if (isnull(newtime))
+	if(isnull(newtime))
 		return
 	if(newtime == "Instant" && change_det_time(0))
 		to_chat(user, span_notice("You modify the time delay. It's set to be instantaneous."))
@@ -183,11 +194,11 @@
 	else
 		var/previous_time = det_time
 		switch(det_time)
-			if (0)
+			if(0)
 				det_time = 3 SECONDS
-			if (3 SECONDS)
+			if(3 SECONDS)
 				det_time = 5 SECONDS
-			if (5 SECONDS)
+			if(5 SECONDS)
 				det_time = 0
 		if(det_time == previous_time)
 			det_time = 5 SECONDS

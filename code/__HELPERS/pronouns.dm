@@ -47,11 +47,11 @@
 
 /datum/proc/plural_s(pluralize)
 	switch(copytext_char(pluralize, -2))
-		if ("ss")
+		if("ss")
 			return "es"
-		if ("sh")
+		if("sh")
 			return "es"
-		if ("ch")
+		if("ch")
 			return "es"
 		else
 			switch(copytext_char(pluralize, -1))

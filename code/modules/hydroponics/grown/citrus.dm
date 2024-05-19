@@ -140,6 +140,7 @@
 	qdel(src) //Ensuring that it's deleted by its own explosion
 
 /obj/item/food/snacks/grown/firelemon/proc/detonate()
+	. == ..()
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()
