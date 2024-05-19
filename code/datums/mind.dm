@@ -962,12 +962,12 @@
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])
 			if("clear")
-				if(ischangeling(current))
+				if(IS_CHANGELING(current))
 					remove_antag_datum(/datum/antagonist/changeling)
 					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
 			if("changeling")
-				if(!ischangeling(current))
+				if(!IS_CHANGELING(current))
 					add_antag_datum(/datum/antagonist/changeling)
 					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
@@ -1786,6 +1786,7 @@
 
 //Initialisation procs
 /mob/proc/mind_initialize()
+	SHOULD_CALL_PARENT(TRUE)
 	if(mind)
 		mind.key = key
 	else
@@ -1797,6 +1798,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	SEND_SIGNAL(src, COMSIG_MIND_INITIALIZE)
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()

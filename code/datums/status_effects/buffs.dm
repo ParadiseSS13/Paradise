@@ -62,6 +62,11 @@
 	id = "shadow_mend"
 	duration = 3 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
+	/// If this is true, the status effect will try to apply the debuff to others, rather than the user
+	var/devil = FALSE
+
+/datum/status_effect/shadow_mend/devil
+	devil = TRUE
 
 /atom/movable/screen/alert/status_effect/shadow_mend
 	name = "Shadow Mend"
@@ -78,10 +83,25 @@
 	owner.adjustFireLoss(-15)
 
 /datum/status_effect/shadow_mend/on_remove()
-	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
-	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
-	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	if(!devil)
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+		return
 
+	var/found_someone = FALSE
+
+	for(var/mob/living/L in oview(9, owner))
+		found_someone = TRUE
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	if(found_someone)
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+	else
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
 /datum/status_effect/void_price
 	id = "void_price"
@@ -110,6 +130,13 @@
 	tick_interval = 0
 	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
+	/// If this is the chariot subtype, which grants pacifism while the effect is active.
+	var/chariot = FALSE
+
+/datum/status_effect/blooddrunk/chariot
+	duration = 10 SECONDS
+	chariot = TRUE
+	blooddrunk_damage_mod_remove = 6
 
 /atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
@@ -120,6 +147,8 @@
 	. = ..()
 	if(.)
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
+		if(chariot)
+			ADD_TRAIT(owner, TRAIT_PACIFISM, "blooddrunk")
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			var/blooddrunk_damage_mod_add = 1 / blooddrunk_damage_mod_remove // Damage is multiplied by this at the start of the status effect. Don't modify this one directly.
@@ -144,6 +173,7 @@
 		H.physiology.stamina_mod *= blooddrunk_damage_mod_remove
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.remove_stun_absorption("blooddrunk")
 
@@ -183,7 +213,7 @@
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+	if(V?.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
 		H.physiology.melee_bonus += 10
 		H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
@@ -640,13 +670,13 @@
 	return ..()
 
 /datum/status_effect/drill_payback/on_apply()
-	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
 	return TRUE
 
 /datum/status_effect/drill_payback/proc/payback_phase_2()
 	owner.clear_fullscreen("payback")
-	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 1)
 
 /datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
@@ -776,3 +806,70 @@
 		var/mob/living/carbon/human/H = owner
 		H.physiology.stamina_mod /= 0.75
 		add_attack_logs(owner, owner, "lost bearserker rage resistances", ATKLOG_ALL)
+
+/datum/status_effect/xray
+	id = "xray"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 2 MINUTES
+	tick_interval = 0
+
+/datum/status_effect/xray/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, "XRAY_BUFF")
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "XRAY_BUFF")
+	owner.update_sight()
+
+/datum/status_effect/xray/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_XRAY_VISION, "XRAY_BUFF")
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "XRAY_BUFF")
+	owner.update_sight()
+
+/datum/status_effect/badass
+	id = "badass"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 2 MINUTES
+	tick_interval = 0
+
+/datum/status_effect/badass/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_BADASS, "BADDASS_BUFF")
+
+/datum/status_effect/badass/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_BADASS, "BADDASS_BUFF")
+
+/datum/status_effect/reversed_sun
+	id = "reversed_sun"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 1 MINUTES
+	tick_interval = 0.2 SECONDS
+
+/datum/status_effect/reversed_sun/on_apply()
+	. = ..()
+	owner.become_nearsighted("REVERSED_SUN")
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
+	owner.update_sight()
+	owner.set_light(7, -5, "#ddd6cf")
+
+/datum/status_effect/reversed_sun/on_remove()
+	. = ..()
+	owner.remove_light()
+	owner.cure_nearsighted("REVERSED_SUN")
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
+	owner.update_sight()
+
+/datum/status_effect/reversed_sun/tick()
+	for(var/atom/movable/AM in oview(8, owner))
+		if(isliving(AM))
+			var/mob/living/L = AM
+			if(L.affects_vampire(owner))
+				L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
+			continue
+		if(istype(AM, /obj/item/projectile))
+			var/obj/item/projectile/P = AM
+			if(P.flag == ENERGY || P.flag == LASER)
+				P.damage *= 0.85

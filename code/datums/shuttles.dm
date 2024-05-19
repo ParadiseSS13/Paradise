@@ -8,6 +8,9 @@
 	var/description
 	var/admin_notes
 
+/datum/map_template/shuttle/proc/preload()
+	return
+
 /datum/map_template/shuttle/New()
 	if(port_id && suffix)
 		shuttle_id = "[port_id]_[suffix]"
@@ -118,6 +121,49 @@
 	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
 	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
 	admin_notes = "Comes with turrets that will target simple mobs."
+
+/datum/map_template/shuttle/emergency/shadow
+	suffix = "shadow"
+	name = "The NTSS Shadow"
+	description = "Guaranteed to get you somewhere FAST. With a custom-built plasma engine, this bad boy will put more distance between you and certain danger than any other!"
+	admin_notes = "The aft of the ship has a plasma tank that starts ignited. May get released by crew. The plasma windows next to the engine heaters will also erupt into flame, and also risk getting released by crew."
+
+/datum/map_template/shuttle/emergency/lance
+	suffix = "lance"
+	name = "The Lance Crew Evacuation System"
+	description = "A brand new shuttle by Nanotrasen's finest in shuttle-engineering, it's designed to tactically slam into a destroyed station, \
+	dispatching threats and saving crew at the same time! \
+	Be careful to stay out of it's path. Comes with a beacon to choose where it docks!"
+	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it cannot be unloaded."
+
+/datum/map_template/shuttle/emergency/lance/preload()
+	message_admins("Preloading [name]!")
+	var/obj/docking_port/stationary/CCport
+	CCport = SSshuttle.getDock("emergency_away")
+	CCport.setDir(4)
+	CCport.forceMove(locate(136, 107, 1))
+	CCport.height = 50
+	CCport.dheight = 0
+	CCport.width = 19
+	CCport.dwidth = 9
+	var/obj/docking_port/stationary/CCtransit
+	CCtransit = SSshuttle.getDock("emergency_transit")
+	CCtransit.setDir(2)
+	CCtransit.forceMove(locate(113, 68, 1))
+	CCtransit.height = 50
+	CCtransit.dheight = 0
+	CCtransit.width = 19
+	CCtransit.dwidth = 9
+	var/obj/docking_port/stationary/syndicate
+	syndicate = SSshuttle.getDock("emergency_syndicate")
+	syndicate.setDir(8)
+	syndicate.forceMove(locate(202, 199, 1))
+	syndicate.height = 50
+	syndicate.dheight = 0
+	syndicate.width = 19
+	syndicate.dwidth = 9
+	qdel(SSshuttle.getDock("emergency_home"), TRUE)
+	SSshuttle.emergency_locked_in = TRUE
 
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"

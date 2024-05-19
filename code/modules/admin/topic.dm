@@ -2062,6 +2062,7 @@
 			ptypes += "Shamebrero"
 			ptypes += "Nugget"
 			ptypes += "Bread"
+			ptypes += "Rod"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2149,18 +2150,20 @@
 						if(ismindshielded(player.current))
 							possible_traitors -= player
 				if(length(possible_traitors))
-					var/datum/mind/newtraitormind = pick(possible_traitors)
+					var/datum/mind/new_traitor_mind = pick(possible_traitors)
 
 					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
 					kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
-					newtraitormind.add_mind_objective(kill_objective)
+					new_traitor_mind.add_mind_objective(kill_objective)
 
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
-					to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
-					newtraitormind.add_antag_datum(T)
+					to_chat(new_traitor_mind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(new_traitor_mind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
+					new_traitor_mind.add_antag_datum(T)
+					message_admins("[key_name_admin(new_traitor_mind)] was chosen to be the traitor for a smite!")
+					log_admin("[key_name(new_traitor_mind)] was made into a traitor to hunt [key_name(H)] for 'Crew Traitor' smite.")
 				else
 					to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
 					return
@@ -2183,7 +2186,6 @@
 				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 				logmsg = "nugget"
-
 			if("Bread")
 				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
 				var/bready = pick(/obj/item/food/snacks/customizable/cook/bread, /obj/item/food/snacks/sliceable/meatbread, /obj/item/food/snacks/sliceable/xenomeatbread, /obj/item/food/snacks/sliceable/spidermeatbread, /obj/item/food/snacks/sliceable/bananabread, /obj/item/food/snacks/sliceable/tofubread, /obj/item/food/snacks/sliceable/bread, /obj/item/food/snacks/sliceable/creamcheesebread, /obj/item/food/snacks/sliceable/banarnarbread, /obj/item/food/snacks/flatbread, /obj/item/food/snacks/baguette)
@@ -2194,6 +2196,13 @@
 				qdel(H)
 				logmsg = "baked"
 				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
+			if("Rod")
+
+				var/starting_turf_x = M.x + rand(10, 15) * pick(1, -1)
+				var/starting_turf_y = M.y + rand(10, 15) * pick(1, -1)
+				var/turf/start = locate(starting_turf_x, starting_turf_y, M.z)
+
+				new /obj/effect/immovablerod/smite(start, M)
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")

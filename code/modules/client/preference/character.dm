@@ -630,8 +630,10 @@
 		randomize_eyes_color()
 	if(S.bodyflags & HAS_SKIN_COLOR)
 		randomize_skin_color()
-	backbag = 2
+	backbag = pick(GLOB.backbaglist)
 	age = rand(S.min_age, S.max_age)
+	physique = pick(GLOB.character_physiques)
+	height = pick(GLOB.character_heights)
 
 
 /datum/character_save/proc/randomize_hair_color(target = "hair")
@@ -1175,7 +1177,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "lgloves"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "mime"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suspenders"), ICON_OVERLAY)
 				has_gloves = TRUE
 				switch(backbag)
@@ -1324,7 +1326,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigoff"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "bluesoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "bluesoft"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)
@@ -1368,7 +1370,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_hos"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret_hos"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -1411,7 +1413,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/security.dmi', "security_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_officer"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/head/beret.dmi', "beret_officer"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
