@@ -43,7 +43,7 @@
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
-	var/projectile_type = "/obj/item/projectile"
+	var/projectile_type = /obj/item/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
 	var/reflectability = REFLECTABILITY_PHYSICAL
@@ -114,6 +114,9 @@
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
 
+	///If defined, on hit we create an item of this type then call hitby() on the hit target with this, mainly used for embedding items (bullets) in targets
+	var/shrapnel_type
+
 /obj/item/projectile/New()
 	return ..()
 
@@ -130,6 +133,10 @@
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
+
+///Checks if the projectile can embed into someone
+/obj/item/projectile/proc/can_embed_into(atom/hit)
+	return embedding && shrapnel_type && iscarbon(hit) && !HAS_TRAIT(hit, TRAIT_PIERCEIMMUNE)
 
 /obj/item/projectile/proc/prehit(atom/target)
 	return TRUE

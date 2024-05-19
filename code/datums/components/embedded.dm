@@ -94,13 +94,13 @@
 	if(harmful)
 		victim.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 		playsound(victim,'sound/weapons/bladeslice.ogg', 40)
-		// if (limb.can_bleed())
-		// 	weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
+		weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
 		damage += weapon.w_class * impact_pain_mult
 
 	if(damage > 0)
+		// ===CHUGAFIX=== do we just have to use apply damage here?? this is insane!
 		//var/armor = victim.run_armor_check(limb.body_zone, MELEE, "Your armor has protected your [limb.name].", "Your armor has softened a hit to your [limb.name].",I.armour_penetration)
-		limb.receive_damage((1 - pain_stam_pct) * damage, sharp = I.sharp) // ==CHUGAFIX==
+		limb.receive_damage((1 - pain_stam_pct) * damage, sharp = I.sharp) // ==CHUGAFIX== This needs to go in but I don't know how to shove armor calculations into receive damage. WHY DO WE DO ARMOR CALCULATIONS IN
 		victim.adjustStaminaLoss(pain_stam_pct * damage)
 
 /datum/component/embedded/Destroy()
@@ -136,7 +136,7 @@
 
 	var/damage = weapon.w_class * pain_mult
 	var/pain_chance_current = SPT_PROB_RATE(pain_chance / 100, seconds_per_tick) * 100
-	if(pain_stam_pct && victim.incapacitated())//==CHUGAFIX== port this fucking trait PR i hate this fucking codebase && HAS_TRAIT_FROM(victim, TRAIT_INCAPACITATED, STAMINA)) //if it's a less-lethal embed, give them a break if they're already stamcritted
+	if(pain_stam_pct && victim.incapacitated())
 		pain_chance_current *= 0.2
 		damage *= 0.5
 	else if(victim.body_position == LYING_DOWN)
@@ -214,7 +214,7 @@
 /// Proc that actually does the damage associated with ripping something out of yourself. Call this before safeRemove.
 /datum/component/embedded/proc/damaging_removal(mob/living/carbon/human/victim, obj/item/removed, obj/item/organ/external/limb, ouch_multiplier = 1)
 	var/damage = weapon.w_class * remove_pain_mult * ouch_multiplier
-	limb.receive_damage((1-pain_stam_pct) * damage, sharp=TRUE) //It hurts to rip it out, get surgery you dingus. unlike the others, this CAN wound + increase slash bloodflow
+	limb.receive_damage((1 - pain_stam_pct) * damage, sharp = TRUE)
 	victim.adjustStaminaLoss(pain_stam_pct * damage)
 	victim.emote("scream")
 
@@ -225,7 +225,7 @@
 
 	var/mob/living/carbon/human/victim = parent
 	limb.remove_embedded_object(weapon)
-	UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED)) // have to do it here otherwise we trigger weaponDeleted()
+	UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED))
 
 	SEND_SIGNAL(weapon, COMSIG_ITEM_UNEMBEDDED, victim)
 	if(!weapon.unembedded()) // if it hasn't deleted itself due to drop del
@@ -261,14 +261,14 @@
 
 	if(ishuman(victim)) // check to see if the limb is actually exposed
 		var/mob/living/carbon/human/victim_human = victim
-		if(!victim_human.can_inject(user, TRUE)) // ===CHUGAFIX=== can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE
+		if(!victim_human.can_inject(user, TRUE)) // ===CHUGAFIX=== should be fine now?
 			return TRUE
 
 	INVOKE_ASYNC(src, PROC_REF(tweezePluck), possible_tweezers, user)
 	return COMPONENT_NO_AFTERATTACK
 
 /**
- * ===CHUGAFIX===
+ * ===CHUGAFIX=== untested
  */
 /// The actual action for pulling out an embedded object with a hemostat
 /datum/component/embedded/proc/tweezePluck(obj/item/possible_tweezers, mob/user)
@@ -318,9 +318,9 @@
 		return
 	var/damage = weapon.w_class * remove_pain_mult
 	limb.receive_damage((1-pain_stam_pct) * damage * 1.5, sharp=TRUE) // Performs exit wounds and flings the user to the caster if nearby
-	//victim.cause_wound_of_type_and_severity(WOUND_PIERCE, limb, WOUND_SEVERITY_MODERATE) ===CHUGAFIX=== this would be funny
+	//victim.cause_wound_of_type_and_severity(WOUND_PIERCE, limb, WOUND_SEVERITY_MODERATE) ===CHUGAFIX=== this would be extremely funny
 	victim.adjustStaminaLoss(pain_stam_pct * damage)
-	//playsound(get_turf(victim), 'sound/effects/wounds/blood2.ogg', 50, TRUE)
+	//playsound(get_turf(victim), 'sound/effects/wounds/blood2.ogg', 50, TRUE) ===CHUGAFIX=== this also sounds great
 
 	var/dist = get_dist(caster, victim) //Check if the caster is close enough to yank them in
 	if(dist < 7)
@@ -331,5 +331,5 @@
 	victim.visible_message(span_danger("[marked_item] is violently torn from [victim.name]'s [limb.name]!"), span_userdanger("[weapon] is violently torn from your [limb.name]!"))
 
 /**
- * ===CHUGAFIX===
+ * ===CHUGAFIX=== test this doesnt work!
  */

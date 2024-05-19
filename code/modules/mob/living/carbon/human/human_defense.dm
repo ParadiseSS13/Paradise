@@ -596,18 +596,6 @@ emp_act
 
 	return ..()
 
-// /mob/living/carbon/human/proc/try_embed_object(obj/item/I) // ===CHUGAFIX===
-// 	if(!can_embed(I))
-// 		return FALSE
-// 	if(!prob(I.embed_chance) || HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-// 		return FALSE
-// 	var/obj/item/organ/external/L = pick(bodyparts)
-// 	L.add_embedded_object(I)
-// 	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-// 	L.receive_damage(I.w_class * I.embedded_impact_pain_multiplier)
-// 	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
-// 	return TRUE
-
 /mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 
 	if(gloves)

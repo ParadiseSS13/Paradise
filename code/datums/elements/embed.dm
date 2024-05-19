@@ -12,7 +12,7 @@
 /datum/element/embed
 	element_flags = ELEMENT_BESPOKE
 	id_arg_index = 2
-	//var/initialized = FALSE /// whether we can skip assigning all the vars (since these are bespoke elements, we don't have to reset the vars every time we attach to something, we already know what we are!)
+	var/initialized = FALSE /// whether we can skip assigning all the vars (since these are bespoke elements, we don't have to reset the vars every time we attach to something, we already know what we are!)
 
 	// all of this stuff is explained in _DEFINES/combat.dm
 	var/embed_chance
@@ -44,19 +44,19 @@
 	//	payload_type = projectile_payload
 	//	RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
 
-	//if(!initialized) ===CHUGAFIX=== why the fuck doesn't this work
-	src.embed_chance = embed_chance
-	src.fall_chance = fall_chance
-	src.pain_chance = pain_chance
-	src.pain_mult = pain_mult
-	src.remove_pain_mult = remove_pain_mult
-	src.rip_time = rip_time
-	src.impact_pain_mult = impact_pain_mult
-	src.ignore_throwspeed_threshold = ignore_throwspeed_threshold
-	src.jostle_chance = jostle_chance
-	src.jostle_pain_mult = jostle_pain_mult
-	src.pain_stam_pct = pain_stam_pct
-	//initialized = TRUE
+	if(!initialized)
+		src.embed_chance = embed_chance
+		src.fall_chance = fall_chance
+		src.pain_chance = pain_chance
+		src.pain_mult = pain_mult
+		src.remove_pain_mult = remove_pain_mult
+		src.rip_time = rip_time
+		src.impact_pain_mult = impact_pain_mult
+		src.ignore_throwspeed_threshold = ignore_throwspeed_threshold
+		src.jostle_chance = jostle_chance
+		src.jostle_pain_mult = jostle_pain_mult
+		src.pain_stam_pct = pain_stam_pct
+		initialized = TRUE
 
 /datum/element/embed/Detach(obj/target)
 	. = ..()
@@ -139,7 +139,7 @@
  * That's awful, and it'll limit us to drop-deletable shrapnels in the worry of stuff like
  * arrows and harpoons being embeddable even when not let loose by their weapons.
  */
-// ===CHUGAFIX===
+// ===CHUGAFIX=== this starts working after shrapnel gets ripped up
 // /datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/source, atom/movable/firer, atom/hit, angle, hit_zone)
 // 	SIGNAL_HANDLER	// COMSIG_PROJECTILE_SELF_ON_HIT
 
@@ -208,7 +208,7 @@
 		return prob(actual_chance)
 
 	/**
-	 * ===CHUGAFIX=== figure out the armor value shit lmao
+	 * ===CHUGAFIX=== i can't do math right now i don't even know if i want to keep this
 	 */
 	//Keep this above 1, as it is a multiplier for the pen_mod for determining actual embed chance.
 	// var/penetrative_behaviour = embedding_item.weak_against_armour ? ARMOR_WEAKENED_MULTIPLIER : 1
