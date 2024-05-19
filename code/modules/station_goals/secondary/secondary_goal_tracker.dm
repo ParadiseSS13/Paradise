@@ -98,12 +98,16 @@
 	return FALSE
 
 /datum/secondary_goal_progress/proc/check_personal_crate(atom/movable/AM)
+	// Accept stuff that is properly labelled with a hand labeller.
+	var/datum/component/label/goal/label = AM.GetComponent(/datum/component/label/goal)
+	if(istype(label))
+		return !goal_requester || label.label_name == goal_requester
+
+	// Accept stuff in matching personal crates.
 	var/obj/structure/closet/crate/secure/personal/PC = get_atom_on_turf(AM, /obj/structure/closet/crate/secure/personal)
 	if(!istype(PC))
 		return FALSE
-	if(goal_requester && PC.registered_name != goal_requester)
-		return FALSE
-	return TRUE
+	return !goal_requester || PC.registered_name == goal_requester
 
 /datum/secondary_goal_progress/proc/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
 	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "payments made"))
@@ -125,6 +129,6 @@
 	personal_item.account = personal_account || department_account
 	personal_item.credits = reward / 3
 	personal_item.reason = message
+	personal_item.requests_console_department = department
 	manifest.line_items += personal_item
 
-	send_requests_console_message(message, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)

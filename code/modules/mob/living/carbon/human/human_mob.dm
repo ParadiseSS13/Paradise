@@ -1967,7 +1967,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
-
-/mob/living/carbon/human/proc/apply_offstation_roles(source)
-	SIGNAL_HANDLER
-	mind.offstation_role = TRUE

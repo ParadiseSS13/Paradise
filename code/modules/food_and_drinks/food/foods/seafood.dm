@@ -149,6 +149,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Ebi
 	name = "ebi sushi"
@@ -170,6 +171,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Ikura
 	name = "ikura sushi"
@@ -191,6 +193,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Sake
 	name = "sake sushi"
@@ -212,6 +215,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_SmokedSalmon
 	name = "smoked salmon sushi"
@@ -233,6 +237,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Tamago
 	name = "tamago sushi"
@@ -254,6 +259,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Inari
 	name = "inari sushi"
@@ -275,6 +281,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Masago
 	name = "masago sushi"
@@ -296,6 +303,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Tobiko
 	name = "tobiko sushi"
@@ -317,6 +325,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_TobikoEgg
 	name = "tobiko and egg sushi"
@@ -338,6 +347,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/sushi_Tai
 	name = "tai sushi"
