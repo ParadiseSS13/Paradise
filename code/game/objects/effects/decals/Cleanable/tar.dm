@@ -1,4 +1,4 @@
-/obj/effect/cleanable/tar
+/obj/effect/decal/cleanable/tar
 	gender = PLURAL
 	name = "tar"
 	desc = "A sticky substance."
@@ -8,7 +8,7 @@
 	var/turf/target
 	var/old_slowdown
 
-/obj/effect/cleanable/tar/New(turf/loc)
+/obj/effect/decal/cleanable/tar/New(turf/loc)
 	if(loc.has_tar) // Check if the turf already has tar
 		qdel(src)
 		return
@@ -23,20 +23,20 @@
 		icon_state = "tar3"
 	..()
 
-/obj/effect/cleanable/tar/proc/remove_tar(datum/source)
+/obj/effect/decal/cleanable/tar/proc/remove_tar(datum/source)
 	SIGNAL_HANDLER
 	if(target) // Check if the target turf is valid
 		target.slowdown = old_slowdown
 		target.has_tar = FALSE
 		qdel(src)
 
-/obj/effect/cleanable/tar/Crossed(AM as mob|obj)
+/obj/effect/decal/cleanable/tar/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 
-/obj/effect/cleanable/tar/attackby(obj/item/P, mob/living/user, params)
+/obj/effect/decal/cleanable/tar/attackby(obj/item/P, mob/living/user, params)
 	if(P.get_heat())
 		if(!Adjacent(user)) // To prevent issues as a result of telepathically lighting tar.
 			return
