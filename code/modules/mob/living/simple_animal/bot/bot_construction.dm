@@ -254,7 +254,7 @@
 		return
 	if(!istype(src, /obj/item/storage/toolbox))
 		return
-	if(contents.len >= 1)
+	if(length(contents) >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
 		return
 	if(T.use(10))
@@ -332,7 +332,7 @@
 		robot_arm = I.type
 
 	//Making a medibot!
-	if(contents.len)
+	if(length(contents))
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
@@ -618,7 +618,7 @@
 	else
 		robot_arm = W.type
 
-	if(contents.len)
+	if(length(contents))
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 

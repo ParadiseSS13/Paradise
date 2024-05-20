@@ -35,8 +35,8 @@ SUBSYSTEM_DEF(mobs)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
-	while(currentrun.len)
-		var/mob/living/L = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/mob/living/L = currentrun[length(currentrun)]
 		currentrun.len--
 		if(L)
 			L.Life(seconds, times_fired)

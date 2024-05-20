@@ -1,6 +1,6 @@
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
-	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. Capable of holding up to six slots worth of mod kits."
+	desc = "A self-recharging, ranged mining tool that does increased damage in low pressure environments. It can be upgraded using specialised mod kits."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
@@ -34,6 +34,7 @@
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. += "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -46,7 +47,7 @@
 	. = TRUE
 	if(!max_mod_capacity)
 		return
-	if(!modkits.len)
+	if(!length(modkits))
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -78,6 +79,15 @@
 	unique_frequency = TRUE
 	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
+
+/obj/item/gun/energy/kinetic_accelerator/cyborg/malf
+	name = "kinetic accelerator cannon"
+	desc = "A cyborg-modified kinetic accelerator that operates in pressurized environments, but cannot be upgraded and fires slowly."
+	icon_state = "kineticgun_h"
+	item_state = "kineticgun_h"
+	max_mod_capacity = 0
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/malf)
+	overheat_time = 2 SECONDS
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
@@ -185,6 +195,9 @@
 		var/obj/item/gun/energy/kinetic_accelerator/KA = loc
 		KA.modify_projectile(BB)
 
+//Malf casing
+/obj/item/ammo_casing/energy/kinetic/malf
+	projectile_type = /obj/item/projectile/kinetic/malf
 
 //Projectiles
 /obj/item/projectile/kinetic
@@ -198,6 +211,11 @@
 	var/pressure_decrease_active = FALSE
 	var/pressure_decrease = 0.25
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
+
+/obj/item/projectile/kinetic/malf
+	pressure_decrease = 1
+	color = "#FFFFFF"
+	icon_state = "ka_tracer"
 
 /obj/item/projectile/kinetic/pod
 	range = 4
@@ -421,7 +439,7 @@
 /obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
-	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
 			if(ismineralturf(T) && !is_ancient_rock(T))

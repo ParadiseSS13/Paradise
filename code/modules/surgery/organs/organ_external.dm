@@ -254,7 +254,7 @@
 	// High brute damage or sharp objects may damage internal organs
 	if(internal_organs && (brute_dam >= max_limb_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
 		// Damage an internal organ
-		if(internal_organs && internal_organs.len)
+		if(internal_organs && length(internal_organs))
 			var/obj/item/organ/internal/I = pick(internal_organs)
 			I.receive_damage(brute * 0.5)
 
@@ -304,9 +304,9 @@
 				for(var/organ in children)
 					if(organ)
 						possible_points += organ
-			if(forbidden_limbs.len)
+			if(length(forbidden_limbs))
 				possible_points -= forbidden_limbs
-			if(possible_points.len)
+			if(length(possible_points))
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
 				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
@@ -464,7 +464,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/internal/I in internal_organs)
 				if(I.germ_level < germ_level)
 					candidate_organs |= I
-			if(candidate_organs.len)
+			if(length(candidate_organs))
 				target_organ = pick(candidate_organs)
 
 		if(target_organ)

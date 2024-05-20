@@ -14,7 +14,7 @@
 /**
   * Message handler callback
   *
-  * This callback is ran when a message is recieved on the assigned channel.
+  * This callback is ran when a message is received on the assigned channel.
   * Make sure you override it on subtypes or it wont work.
   *
   * Arguments:

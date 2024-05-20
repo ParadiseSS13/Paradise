@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/vampire)
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -32,27 +34,6 @@
 	blurb_g = 221
 	blurb_b = 138
 	blurb_a = 1
-
-/datum/antagonist/mindslave/thrall
-	name = "Vampire Thrall"
-	antag_hud_type = ANTAG_HUD_VAMPIRE
-	antag_hud_name = "vampthrall"
-
-/datum/antagonist/mindslave/thrall/add_owner_to_gamemode()
-	SSticker.mode.vampire_enthralled += owner
-
-/datum/antagonist/mindslave/thrall/remove_owner_from_gamemode()
-	SSticker.mode.vampire_enthralled -= owner
-
-/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /datum/spell/vampire/thrall_commune)
-
-/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/datum/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
@@ -144,7 +125,7 @@
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
 				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
-			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+			else if(H.blood_volume <= BLOOD_VOLUME_STABLE && blood_volume_warning > BLOOD_VOLUME_STABLE)
 				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
@@ -247,7 +228,7 @@
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
 		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
-		bloodusable -= 10
+		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
 		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
@@ -297,6 +278,13 @@
 	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 	owner.current.alpha = 204 // 255 * 0.80
 
+/**
+ * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
+ *
+ * Arguments:
+ ** C: victim [/mob/living/carbon] that is being drained form.
+ ** blood_amount: amount of blood to add to vampire's usable and total pools.
+ */
 /datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
 	if(C)
 		var/unique_suck_id = C.UID()
@@ -311,6 +299,15 @@
 	for(var/datum/spell/S in powers)
 		if(S.action)
 			S.action.UpdateButtons()
+
+/**
+ * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.
+ *
+ * Arguments:
+ ** blood_amount: amount of blood to subtract.
+ */
+/datum/antagonist/vampire/proc/subtract_usable_blood(blood_amount)
+	bloodusable = clamp(bloodusable - blood_amount, 0, bloodtotal)
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
@@ -361,9 +358,7 @@
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
-/datum/hud/proc/remove_vampire_hud()
-	static_inventory -= vampire_blood_display
-	QDEL_NULL(vampire_blood_display)
+
 
 /datum/antagonist/vampire/custom_blurb()
 	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."

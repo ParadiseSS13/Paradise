@@ -131,6 +131,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	ui_interact(user)
 
+/obj/item/radio/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+		return
+
+	ToggleBroadcast()
+	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic!</span>")
+	add_fingerprint(user)
+
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -252,13 +260,15 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	if(broadcasting)
+		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
-	if(channel && channels && channels.len > 0)
+	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
@@ -274,10 +284,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	if(!connection)
 		return
-	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
-	A.name = from
-	A.role = role
-	A.message = message
 	var/jammed = FALSE
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
@@ -290,7 +296,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.connection = connection
-	tcm.sender = A
+	tcm.sender = src
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
@@ -312,29 +318,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
-	qdel(A)
-
-// Just a dummy mob used for making announcements, so we don't create AIs to do this
-// I'm not sure who thought that was a good idea. -- Crazylemon
-/mob/living/automatedannouncer
-	var/role = ""
-	var/lifetime_timer
-	var/message = ""
-	universal_speak = TRUE
-
-/mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
-	..()
-
-/mob/living/automatedannouncer/Destroy()
-	if(lifetime_timer)
-		deltimer(lifetime_timer)
-		lifetime_timer = null
-	return ..()
-
-/mob/living/automatedannouncer/proc/autocleanup()
-	stack_trace("An announcer somehow managed to outlive the radio! Deleting! (Message: [message])")
-	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
@@ -343,7 +326,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return radio_connection
 
 	// Otherwise, if a channel is specified, look for it.
-	if(channels && channels.len > 0)
+	if(channels && length(channels) > 0)
 		if(message_mode == "department") // Department radio shortcut
 			message_mode = channels[1]
 
@@ -527,7 +510,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-	if(!freq) //recieved on main frequency
+	if(!freq) //received on main frequency
 		if(!listening)
 			return -1
 	else
@@ -561,6 +544,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"

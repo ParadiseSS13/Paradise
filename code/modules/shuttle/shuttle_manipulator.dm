@@ -198,11 +198,14 @@
 				if(mdp)
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
-					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
+					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.")
 
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
 	if(isnull(loading_template))
 		CRASH("No template passed.")
+	if(istype(loading_template, /datum/map_template/shuttle/emergency) && SSshuttle.emergency_locked_in)
+		message_admins("The emergency shuttle has been locked in. You can not load another shuttle.")
+		return
 
 	if(preview_shuttle && (loading_template != preview_template))
 		preview_shuttle.jumpToNullSpace()
@@ -221,6 +224,10 @@
 	selected = null
 
 /obj/machinery/shuttle_manipulator/proc/action_load_old(datum/map_template/shuttle/loading_template)
+	if(istype(loading_template, /datum/map_template/shuttle/emergency) && SSshuttle.emergency_locked_in)
+		message_admins("The emergency shuttle has been locked in. You can not load another shuttle.")
+		return
+
 	// Check for an existing preview
 	if(preview_shuttle && (loading_template != preview_template))
 		preview_shuttle.jumpToNullSpace()
@@ -240,6 +247,8 @@
 		timer = existing_shuttle.timer
 		mode = existing_shuttle.mode
 		D = existing_shuttle.get_docked()
+		if(!D) //lance moment
+			D = SSshuttle.getDock("emergency_away")
 	else
 		D = preview_shuttle.findRoundstartDock()
 
