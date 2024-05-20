@@ -119,7 +119,7 @@
 	U.tracking = TRUE
 
 	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
-	sleep(min(30, get_dist(target, U.eyeobj) / 4))
+	sleep(5)
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
