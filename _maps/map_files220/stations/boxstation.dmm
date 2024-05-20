@@ -91639,8 +91639,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "uwh" = (
-/obj/structure/transit_tube/station{
-	dir = 4
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 8
 	},
 /obj/structure/transit_tube_pod{
 	dir = 1
