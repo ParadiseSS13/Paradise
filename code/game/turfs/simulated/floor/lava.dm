@@ -251,6 +251,22 @@
 		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
 		burn_human.adjustFireLoss(15)
 
+/turf/simulated/floor/lava/lava_land_surface/plasma/fuming
+	name = "liquid plasma"
+	desc = "A bubbling "
+	icon = 'icons/turf/floors/liquidplasma.dmi'
+	icon_state = "liquidplasma-255"
+	base_icon_state = "liquidplasma"
+	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma/fuming
+
+	temperature = 500
+	toxins = 8
+	light_range = 3
+	light_power = 0.75
+	light_color = LIGHT_COLOR_PINK
+
+	var/datum/gas_mixture/environment = tile.return_air()
+
 /turf/simulated/floor/lava/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
