@@ -35,12 +35,12 @@
 
 /obj/item/instrument/guitar
 	name = "guitar"
-	desc = "It's made of wood and has bronze strings."
+	desc = "It's made of wood and has a kit of varied strings."
 	icon_state = "guitar"
 	item_state = "guitar"
 	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
 	hitsound = 'sound/weapons/guitarslam.ogg'
-	allowed_instrument_ids = "guitar"
+	allowed_instrument_ids = list("guitar", "csteelgt", "cnylongt", "ccleangt", "cmutedgt")
 
 /// This is a special guitar for the emagged service borg that hits pretty hard and can still play music. Clonk.
 /obj/item/instrument/guitar/cyborg
@@ -63,21 +63,21 @@
 	desc = "Smooth metal bars perfect for any marching band."
 	icon_state = "glockenspiel"
 	item_state = "glockenspiel"
-	allowed_instrument_ids = "glockenspiel"
+	allowed_instrument_ids = list("glockenspiel", "crvibr")
 
 /obj/item/instrument/accordion
 	name = "accordion"
 	desc = "Pun-Pun not included."
 	icon_state = "accordion"
 	item_state = "accordion"
-	allowed_instrument_ids = "accordion"
+	allowed_instrument_ids = list("accordion", "crack", "crtango")
 
 /obj/item/instrument/trumpet
 	name = "trumpet"
 	desc = "To announce the arrival of the king!"
 	icon_state = "trumpet"
 	item_state = "trumpet"
-	allowed_instrument_ids = "trombone"
+	allowed_instrument_ids = list("crtrumpet")
 
 /obj/item/instrument/trumpet/spectral
 	name = "spectral trumpet"
@@ -122,8 +122,8 @@
 	name = "trombone"
 	desc = "How can any pool table ever hope to compete?"
 	icon_state = "trombone"
-	allowed_instrument_ids = "trombone"
 	item_state = "trombone"
+	allowed_instrument_ids = list("trombone", "crtrombone")
 
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
@@ -173,7 +173,7 @@
 	desc = "A percussion instrument with a bright tone."
 	icon_state = "xylophone"
 	item_state = "xylophone"
-	allowed_instrument_ids = "bikehorn"
+	allowed_instrument_ids = list("xylophone", "crvibr")
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"
@@ -188,7 +188,7 @@
 	throw_speed = 3
 	throw_range = 7
 	hitsound = 'sound/items/bikehorn.ogg'
-	allowed_instrument_ids = "bikehorn"
+	allowed_instrument_ids = list("bikehorn", "honk")
 
 // Crafting recipes
 /datum/crafting_recipe/violin
