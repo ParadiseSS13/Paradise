@@ -18,7 +18,7 @@
 	if(control_disabled || stat) return
 
 	if(ismob(A))
-		ai_actual_track(A)
+		ai_actual_track(A, TRUE)
 	else
 		A.move_camera_by_click()
 
