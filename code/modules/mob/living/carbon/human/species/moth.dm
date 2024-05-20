@@ -71,6 +71,7 @@
 			if(2) //Lighter Nian.
 				new_icobase = 'icons/mob/human_races/nian/r_moth_cream.dmi'
 			else  //Default.
+				new_icobase = 'icons/mob/human_races/nian/r_moth.dmi'
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
