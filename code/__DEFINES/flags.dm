@@ -50,35 +50,33 @@
 // languages that they know. So even if they wouldn't normally be able to
 // through mob or tongue restrictions, this flag allows them to ignore
 // those restrictions.
-#define OMNITONGUE_2			(1<<8)
-
+#define OMNITONGUE_2				(1<<8)
 /// Prevents mobs from getting chainshocked by teslas and the supermatter
-#define SHOCKED_2				(1<<9)
-
+#define SHOCKED_2					(1<<9)
 // Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
-#define NO_MAT_REDEMPTION_2		(1<<10)
-
+#define NO_MAT_REDEMPTION_2			(1<<10)
 // LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
-#define LAVA_PROTECT_2			(1<<11)
-
-#define OVERLAY_QUEUED_2		(1<<12)
-
-#define CHECK_RICOCHET_2		(1<<13)
-
+#define LAVA_PROTECT_2				(1<<11)
+#define OVERLAY_QUEUED_2			(1<<12)
+// ===CHUGAFIX=== JUST CRAM IT IN THERE!!! PLENTY OF ROOM!!!
+/// If the thing can reflect light (lasers/energy)
+#define RICOCHET_SHINY 				(1<<13)
+/// If the thing can reflect matter (bullets/bomb shrapnel)
+#define RICOCHET_HARD 				(1<<14)
 /// should the contents of this atom be acted upon
-#define RAD_PROTECT_CONTENTS_2	(1<<14)
+#define RAD_PROTECT_CONTENTS_2		(1<<15)
 /// should this object be allowed to be contaminated
-#define RAD_NO_CONTAMINATE_2	(1<<15)
+#define RAD_NO_CONTAMINATE_2		(1<<16)
 /// Prevents shuttles from deleting the item
-#define IMMUNE_TO_SHUTTLECRUSH_2 	(1<<16)
+#define IMMUNE_TO_SHUTTLECRUSH_2 	(1<<17)
 /// Prevents malf AI animate + overload ability
-#define NO_MALF_EFFECT_2			(1<<17)
+#define NO_MALF_EFFECT_2			(1<<18)
 /// Use when this shouldn't be obscured by large icons.
-#define CRITICAL_ATOM_2				(1<<18)
+#define CRITICAL_ATOM_2				(1<<19)
 /// Use this flag for items that can block randomly
-#define RANDOM_BLOCKER_2			(1<<19)
+#define RANDOM_BLOCKER_2			(1<<20)
 /// This flag allows for wearing of a belt item, even if you're not wearing a jumpsuit
-#define ALLOW_BELT_NO_JUMPSUIT_2	(1<<20)
+#define ALLOW_BELT_NO_JUMPSUIT_2	(1<<21)
 
 //Reagent flags
 #define REAGENT_NOREACT			1

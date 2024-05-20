@@ -7,12 +7,13 @@
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
 	flags = ON_BORDER
-	flags_2 = RAD_PROTECT_CONTENTS_2
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RICOCHET_HARD
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	receive_ricochet_chance_mod = 0.5
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE

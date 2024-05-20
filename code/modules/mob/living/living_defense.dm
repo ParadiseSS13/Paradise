@@ -52,7 +52,7 @@
 	return P.on_hit(src, armor, def_zone)
 
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
-	return 0
+	return FALSE
 
 ///As the name suggests, this should be called to apply electric shocks.
 /mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)

@@ -417,7 +417,7 @@
 	playsound(human_owner, 'sound/goonstation/items/hypo.ogg', 80, TRUE)
 
 	var/obj/item/telegraph_vial = new /obj/item/qani_laaca_telegraph(get_turf(owner))
-	var/turf/turf_we_throw_at = get_edge_target_turf(owner, reverse_direction(owner.dir))
+	var/turf/turf_we_throw_at = get_edge_target_turf(owner, REVERSE_DIR(owner.dir))
 	telegraph_vial.throw_at(turf_we_throw_at, 5, 1)
 
 	// Safety net in case the injection amount doesn't get reset. Apparently it happened to someone in a round.

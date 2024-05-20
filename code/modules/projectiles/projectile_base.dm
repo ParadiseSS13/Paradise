@@ -33,7 +33,9 @@
 	var/Angle = null
 	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
-	animate_movement = 0
+
+	/// Handles animation behavior during movement (gliding vs jumping). See DM reference. Possible values: NO_STEPS = 0, FORWARD_STEPS = 1, SLIDE_STEPS = 2, SYNC_STEPS = 3
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -66,9 +68,27 @@
 	var/immolate = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
+
+	/// how many times we've ricochet'd so far (instance variable, not a stat)
 	var/ricochets = 0
-	var/ricochets_max = 2
-	var/ricochet_chance = 30
+	/// how many times we can ricochet max
+	var/ricochets_max = 0
+	/// how many times we have to ricochet min (unless we hit an atom we can ricochet off)
+	var/min_ricochets = 0
+	/// 0-100 (or more, I guess), the base chance of ricocheting, before being modified by the atom we shoot and our chance decay
+	var/ricochet_chance = 0
+	/// 0-1 (or more, I guess) multiplier, the ricochet_chance is modified by multiplying this after each ricochet
+	var/ricochet_decay_chance = 0.7
+	/// 0-1 (or more, I guess) multiplier, the projectile's damage is modified by multiplying this after each ricochet
+	var/ricochet_decay_damage = 0.7
+	/// On ricochet, if nonzero, we consider all mobs within this range of our projectile at the time of ricochet to home in on like Revolver Ocelot, as governed by ricochet_auto_aim_angle
+	var/ricochet_auto_aim_range = 0
+	/// On ricochet, if ricochet_auto_aim_range is nonzero, we'll consider any mobs within this range of the normal angle of incidence to home in on, higher = more auto aim
+	var/ricochet_auto_aim_angle = 30
+	/// the angle of impact must be within this many degrees of the struck surface, set to 0 to allow any angle
+	var/ricochet_incidence_leeway = 40
+	/// Can our ricochet autoaim hit our firer?
+	var/ricochet_shoots_firer = TRUE
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
@@ -436,7 +456,8 @@
 
 
 /obj/item/projectile/proc/on_ricochet(atom/A)
-	return
+	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
+		return
 
 /obj/item/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
@@ -444,8 +465,12 @@
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_2)
+	if((flag in list(ENERGY, LASER)) && (A.flags_2 & RICOCHET_SHINY))
 		return TRUE
+
+	if((flag in list(BOMB, BULLET)) && (A.flags_2 & RICOCHET_HARD))
+		return TRUE
+
 	return FALSE
 
 /obj/item/projectile/set_angle(new_angle)

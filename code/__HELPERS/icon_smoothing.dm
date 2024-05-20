@@ -362,7 +362,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 				icon_state = "[base_icon_state]-[smoothing_junction]-d"
 				if(!fixed_underlay && new_junction != .) // Mutable underlays?
 					var/junction_dir = reverse_ndir(smoothing_junction)
-					var/turned_adjacency = reverse_direction(junction_dir)
+					var/turned_adjacency = REVERSE_DIR(junction_dir)
 					var/turf/neighbor_turf = get_step(src, turned_adjacency & (NORTH|SOUTH))
 					var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
 					if(neighbor_turf && (!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) || neighbor_turf.density)) //dense turfs are unwanted for underlays
