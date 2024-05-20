@@ -423,7 +423,7 @@
 		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
 		return
 	if(current.HasDisease(/datum/disease/zombie))
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'>dis-infect</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
 	else
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
 
@@ -1187,6 +1187,14 @@
 				if(!has_antag_datum(/datum/antagonist/zombie))
 					return
 				remove_antag_datum(/datum/antagonist/zombie)
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				if(ishuman(current))
+					var/mob/living/carbon/human/human_current = current
+					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
+						if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+							limb.status &= ~ORGAN_DEAD
+					human_current.update_body()
 				message_admins("[key_name_admin(usr)] has de-zombied'ed [key_name(current)].")
 				log_admin("[key_name(usr)] has de-zombied'ed [key_name(current)].")
 			if("zombie")

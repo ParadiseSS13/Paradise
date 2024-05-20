@@ -1265,6 +1265,9 @@
 	if(default_language)
 		return default_language
 
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
+		return GLOB.all_languages["Zombie"]
+
 	if(!dna.species)
 		return null
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null

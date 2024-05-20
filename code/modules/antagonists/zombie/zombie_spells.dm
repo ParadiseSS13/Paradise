@@ -141,7 +141,7 @@
 	// already have the disease, or have contracted it. Good for feedback when being attacked while wearing a biosuit
 	if(target.HasDisease(/datum/disease/zombie) || target.ContractDisease(new /datum/disease/zombie))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
-		target.bleed_rate = max(20, target.bleed_rate + 1) // it transfers via blood, you know. It had to get in somehow.
+		target.bleed_rate = max(5, target.bleed_rate + 1) // it transfers via blood, you know. It had to get in somehow.
 		for(var/datum/disease/zombie/zomb in target.viruses)
 			zomb.stage = max(zomb.stage, infection_stage)
 

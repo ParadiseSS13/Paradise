@@ -30,8 +30,13 @@
 		zombie_rejuv()
 		to_chat(zomboid, "<span class='zombielarge'>We... Awaken...</span>")
 
-	// if(!zomboid.mind && zomboid.stat == CONSCIOUS && !HAS_TRAIT(zomboid, TRAIT_HANDS_BLOCKED))
-	// 	mindless_hunger()
+	// If no client, but they were a player thats not SSD (debrained, revived but hasn't returned to body, etc)
+	if(zomboid.stat != CONSCIOUS || HAS_TRAIT(zomboid, TRAIT_HANDS_BLOCKED))
+		return
+	if(zomboid.client || isLivingSSD(zomboid))
+		return
+	if(zomboid.last_known_ckey && !zomboid.key) // make sure they were player inhabited and not admin ghosted
+		mindless_hunger()
 
 /datum/component/zombie_regen/proc/zombie_rejuv()
 	var/mob/living/carbon/human/zomboid = parent
@@ -74,6 +79,7 @@
 	zomboid.fire_stacks = 0
 	zomboid.on_fire = 0
 	zomboid.suiciding = 0
+	zomboid.set_nutrition(max(zomboid.nutrition, NUTRITION_LEVEL_HUNGRY))
 	if(zomboid.buckled) //Unbuckle the mob and clear the alerts.
 		zomboid.buckled.unbuckle_mob(src, force = TRUE)
 
@@ -108,40 +114,42 @@
 	for(var/datum/disease/critical/crit in zomboid.viruses) // cure all crit conditions
 		crit.cure()
 
-// /datum/component/zombie_regen/proc/mindless_hunger()
-// 	var/mob/living/carbon/human/zomboid = parent
-// 	var/list/targets = list()
-// 	for(var/mob/living/carbon/human/target in view(6, zomboid))
-// 		if(target.stat == CONSCIOUS && !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
-// 			targets |= target
+/datum/component/zombie_regen/proc/mindless_hunger()
+	var/mob/living/carbon/human/zomboid = parent
+	var/list/targets = list()
+	for(var/mob/living/carbon/human/target in view(6, zomboid))
+		if(target.stat == CONSCIOUS && !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+			targets |= target
+			if(zomboid.Adjacent(target))
+				break // we're just gonna hit em
 
-// 	var/target
-// 	if(length(targets))
-// 		target = pick(targets)
+	var/target
+	if(length(targets))
+		target = pick(targets)
 
-// 	if(zomboid.Adjacent(target) && safe_active_hand(zomboid))
-// 		zomboid.a_intent = INTENT_HARM
-// 		zomboid.ClickOn(target)
-// 		return
+	if(zomboid.Adjacent(target) && safe_active_hand(zomboid))
+		zomboid.a_intent = INTENT_HARM
+		zomboid.ClickOn(target)
+		return
 
-// 	if(!target && prob(90)) // a small chance to wander
-// 		return
+	if(!target && prob(90)) // a small chance to wander
+		return
 
-// 	var/targetted_direction = pick(GLOB.cardinal)
-// 	if(target)
-// 		targetted_direction = get_dir(zomboid, target)
+	var/targetted_direction = pick(GLOB.cardinal)
+	if(target)
+		targetted_direction = get_dir(zomboid, target)
 
-// 	var/delay = zomboid.movement_delay()
-// 	if(IS_DIR_DIAGONAL(targetted_direction))
-// 		delay *= SQRT_2
-// 	zomboid.glide_for(delay)
-// 	step(zomboid, targetted_direction)
+	var/delay = zomboid.movement_delay()
+	if(IS_DIR_DIAGONAL(targetted_direction))
+		delay *= SQRT_2
+	zomboid.glide_for(delay)
+	step(zomboid, targetted_direction)
 
-// /datum/component/zombie_regen/proc/safe_active_hand(mob/living/carbon/human/zomboid)
-// 	if(zomboid.get_organ("[zomboid.hand ? "l" : "r" ]_hand"))
-// 		return TRUE
-// 	zomboid.swap_hand()
-// 	if(zomboid.get_organ("[zomboid.hand ? "l" : "r" ]_hand"))
-// 		return TRUE
-// 	return FALSE
+/datum/component/zombie_regen/proc/safe_active_hand(mob/living/carbon/human/zomboid)
+	if(zomboid.get_organ("[zomboid.hand ? "l" : "r" ]_hand"))
+		return TRUE
+	zomboid.swap_hand()
+	if(zomboid.get_organ("[zomboid.hand ? "l" : "r" ]_hand"))
+		return TRUE
+	return FALSE
 

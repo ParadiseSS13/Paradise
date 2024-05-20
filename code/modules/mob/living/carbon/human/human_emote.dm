@@ -186,13 +186,7 @@
 	if(human.mind?.miming || !istype(human))
 		return
 	if(HAS_TRAIT(human, TRAIT_I_WANT_BRAINS))
-		return pick(list(
-				'sound/hallucinations/growl1.ogg',
-				'sound/hallucinations/growl2.ogg',
-				'sound/hallucinations/growl3.ogg',
-				'sound/hallucinations/veryfar_noise.ogg',
-				'sound/hallucinations/wail.ogg',
-			))
+		return 'sound/voice/zombie_scream.ogg'
 	if(human.gender == FEMALE)
 		return human.dna.species.female_scream_sound
 	else
