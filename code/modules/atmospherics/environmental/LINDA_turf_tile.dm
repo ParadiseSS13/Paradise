@@ -100,6 +100,24 @@
 	var/datum/gas_mixture/removed = air.remove(amount)
 	return removed
 
+/turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
+	var/delta_temperature = (temperature_archived - model.temperature)
+	if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
+
+		var/heat = conduction_coefficient*delta_temperature* \
+			(heat_capacity*model.heat_capacity/(heat_capacity+model.heat_capacity))
+		temperature -= heat/heat_capacity
+
+/turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduction_coefficient)
+	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
+	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER && heat_capacity && sharer.heat_capacity)
+
+		var/heat = conduction_coefficient*delta_temperature* \
+			(heat_capacity*sharer.heat_capacity/(heat_capacity+sharer.heat_capacity))
+
+		temperature -= heat/heat_capacity
+		sharer.temperature += heat/sharer.heat_capacity
+
 /turf/simulated/proc/update_visuals()
 	var/datum/gas_mixture/air = get_air()
 	var/new_overlay_type = tile_graphic(air)

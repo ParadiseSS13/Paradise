@@ -1259,6 +1259,17 @@
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
 
+/client/proc/try_open_reagent_editor(atom/target)
+	var/target_UID = target.UID()
+	var/datum/reagents_editor/editor
+	// editors is static, it can be accessed using a null reference
+	editor = editor.editors[target_UID]
+	if(!editor)
+		editor = new /datum/reagents_editor(target)
+		editor.editors[target_UID] = editor
+
+	editor.ui_interact(mob)
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

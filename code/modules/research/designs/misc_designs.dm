@@ -51,6 +51,16 @@
 	build_path = /obj/item/disk/tech_disk
 	category = list("Miscellaneous")
 
+/datum/design/training_disk
+	name = "Training Authentification Disk"
+	desc = "Replacement authentication disk for the nuclear training bomb."
+	id = "training_nad"
+	req_tech = list("programming" = 1)
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	build_path = /obj/item/disk/nuclear/training
+	category = list("Miscellaneous")
+
 /datum/design/digital_camera
 	name = "Digital Camera"
 	desc = "Produce an enhanced version of the standard issue camera."
