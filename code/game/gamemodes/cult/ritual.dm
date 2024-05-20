@@ -20,8 +20,8 @@
 	force = 16
 	scribe_multiplier = 0.1
 
-/obj/item/melee/cultblade/dagger/New()
-	..()
+/obj/item/melee/cultblade/dagger/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 	item_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 

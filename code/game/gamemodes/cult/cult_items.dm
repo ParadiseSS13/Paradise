@@ -6,9 +6,9 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(tome_icon, "tome")
-	..()
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -24,10 +24,10 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-/obj/item/melee/cultblade/New()
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
 	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
-	..()
 
 /obj/item/melee/cultblade/examine(mob/user)
 	. = ..()

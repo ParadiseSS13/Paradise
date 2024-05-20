@@ -427,12 +427,12 @@ CONTENTS:
 	item_state = "abductor_headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
-/obj/item/radio/headset/abductor/New()
-	..()
-	make_syndie()
+/obj/item/radio/headset/abductor/Initialize()
+	. = ..()
+	make_syndie() // Why the hell is this a proc why cant it just be a subtype
 
 /obj/item/radio/headset/abductor/screwdriver_act()
-	return// Stops humans from disassembling abductor headsets.
+	return // Stops humans from disassembling abductor headsets.
 
 /////////////////////////////////////////
 ///////////// SCIENTIST GEAR ////////////
