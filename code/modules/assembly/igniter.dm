@@ -54,6 +54,12 @@
 
 	return TRUE
 
+// For lighting cigarettes.
+/obj/item/assembly/igniter/attack(mob/living/carbon/M, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+		return ..()
+	cig.attackby(src, user, M)
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))

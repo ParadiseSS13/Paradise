@@ -74,6 +74,13 @@
 	else
 		return TRUE
 
+/obj/item/flamethrower/attack(mob/living/carbon/M, mob/living/carbon/user)
+	// For lighting cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP || !lit) 
+		return ..()
+	cig.attackby(src, user, M)
+
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)

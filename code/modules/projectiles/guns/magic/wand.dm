@@ -1,3 +1,16 @@
+/*
+CONTENTS:
+1. Wand of Nothing
+2. Wand of Death
+3. Wand of Healing
+4. Wand of Polymorph
+5. Wand of Teleportation
+6. Wand of Door Creation
+7. Wand of Fireball
+8. Wand of Slipping
+9. Wand of Chaos
+*/
+
 /obj/item/gun/magic/wand
 	name = "wand of nothing"
 	desc = "It's not just a stick, it's a MAGIC stick!"
@@ -60,7 +73,7 @@
 	add_attack_logs(user, user, "zapped [user.p_themselves()] with a [src]", ATKLOG_ALL)
 
 /////////////////////////////////////
-//WAND OF DEATH
+// MARK: WAND OF DEATH
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/death
@@ -86,7 +99,7 @@
 	user.death(FALSE)
 
 /////////////////////////////////////
-//WAND OF HEALING
+// MARK: WAND OF HEALING
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/resurrection
@@ -110,7 +123,7 @@
 	to_chat(user, "<span class='notice'>You feel great!</span>")
 
 /////////////////////////////////////
-//WAND OF POLYMORPH
+// MARK: WAND OF POLYMORPH
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/polymorph
@@ -128,7 +141,7 @@
 	charges--
 
 /////////////////////////////////////
-//WAND OF TELEPORTATION
+// MARK: WAND OF TELEPORTATION
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/teleport
@@ -150,7 +163,7 @@
 	..()
 
 /////////////////////////////////////
-//WAND OF DOOR CREATION
+// MARK: WAND OF DOOR CREATION
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/door
@@ -169,7 +182,7 @@
 	..()
 
 /////////////////////////////////////
-//WAND OF FIREBALL
+// MARK: WAND OF FIREBALL
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/fireball
@@ -186,8 +199,22 @@
 	charges--
 	..()
 
+/obj/item/gun/magic/wand/fireball/attack(atom/target, mob/living/user)
+	var/mob/living/carbon/M = target
+	if(istype(target, M))
+		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+		// For lighting cigarettes.
+		if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
+			if(target == user)	// Do not blow yourself up!
+				return
+			return ..()	// Blow everyone else up!
+
+		cig.attackby(src, user, M)
+		return
+	..()
+
 /////////////////////////////////////
-//WAND OF SLIPPING
+// MARK: WAND OF SLIPPING
 /////////////////////////////////////
 /obj/item/gun/magic/wand/slipping
 	name = "wand of slipping"
@@ -203,7 +230,7 @@
 	..()
 
 /////////////////////////////////////
-//WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
+// MARK: WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
 /////////////////////////////////////
 /obj/item/gun/magic/wand/chaos
 	name = "wand of chaos"

@@ -197,7 +197,9 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 		/obj/item/coin,
 		/obj/item/paper,
 		/obj/item/photo,
-		/obj/item/toy/plushie
+		/obj/item/toy/plushie,
+		/obj/item/clothing/mask/cigarette/,
+		/obj/item/storage/fancy/cigarettes/
 	)
 
 ////////////////////////////////

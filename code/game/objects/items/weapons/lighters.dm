@@ -1,4 +1,4 @@
-// Basic lighters
+// MARK: BASIC LIGHTERS
 /obj/item/lighter
 	name = "cheap lighter"
 	desc = "A cheap-as-free lighter."
@@ -90,26 +90,15 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!isliving(M))
-		return
-	M.IgniteMob()
-	if(!ismob(M))
-		return
+/obj/item/lighter/attack(mob/living/M as mob, mob/living/user as mob)
+	if(lit && M.IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
+		log_game("[key_name(user)] set [key_name(M)] on fire")
 
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)
-		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
-		if(M == user)
-			cig.attackby(src, user)
-		else
-			if(istype(src, /obj/item/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
-			else
-				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-			M.update_inv_wear_mask()
-	else
-		..()
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP || !lit) 
+		return ..()
+	cig.attackby(src, user, M)
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -128,7 +117,9 @@
 /obj/item/lighter/get_heat()
 	return lit * 1500
 
-// Zippo lighters
+//////////////////////////////
+// MARK: ZIPPO LIGHTERS
+//////////////////////////////
 /obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."
@@ -162,7 +153,9 @@
 /obj/item/lighter/zippo/attempt_light(mob/living/user)
 	return
 
-//EXTRA LIGHTERS
+//////////////////////////////
+// MARK: EXTRA LIGHTERS
+//////////////////////////////
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
@@ -192,9 +185,9 @@
 	icon_state = "zippo-gonzo"
 	item_state = "zippo-red"
 
-///////////
-//MATCHES//
-///////////
+//////////////////////////////
+// MARK: MATCHES
+//////////////////////////////
 /obj/item/match
 	name = "match"
 	desc = "A simple match stick, used for lighting fine smokables."
@@ -265,35 +258,15 @@
 	else
 		return TRUE
 
-/obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!isliving(M))
-		return ..()
+/obj/item/match/attack(mob/living/M, mob/living/user)
 	if(lit && M.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
 		log_game("[key_name(user)] set [key_name(M)] on fire")
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && user.a_intent == INTENT_HELP)
-		if(cig.lit)
-			to_chat(user, "<span class='notice'>[cig] is already lit.</span>")
-		if(M == user)
-			cig.attackby(src, user)
-		else
-			if(istype(src, /obj/item/match/unathi))
-				if(prob(50))
-					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
-					matchburnout()
-				else
-					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
-					var/obj/item/organ/external/head/affecting = M.get_organ("head")
-					affecting.receive_damage(0, 5)
-					M.UpdateDamageIcon()
-				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 
-			else
-				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-	else
-		..()
+	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP || !lit) 
+		return ..()
+	cig.attackby(src, user, M)
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && burnt)

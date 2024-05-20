@@ -27,7 +27,13 @@
 	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
 	throwforce_off = initial(throwforce)
 
-/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/attack(mob/living/target, mob/living/user)
+	// For lighting cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP || active || !istype(src, /obj/item/melee/energy/cleaving_saw)) // Because for some reason the cleaving saw is an energy blade.
+		cig.attackby(src, user, target)
+		return
+
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/F in target.faction)
@@ -39,7 +45,7 @@
 	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
-
+	
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
 						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))

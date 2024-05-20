@@ -56,6 +56,13 @@
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
 
+/obj/item/cautery/attack(mob/living/carbon/M, mob/living/user)
+	// For lighting cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+		return ..()
+	cig.attackby(src, user, M)
+
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
@@ -145,6 +152,13 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+
+/obj/item/scalpel/laser/attack(mob/living/carbon/M, mob/living/user)
+	// For lighting cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+		return ..()
+	cig.attackby(src, user, M)
 
 /// lasers also count as catuarys
 /obj/item/scalpel/laser/laser1
