@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(tickets)
 	var/sorted_responses
 
 	/// Who has what tickets open? Maps client -> open ticket number.
-	var/list/openDetailUIs = list()
+	var/list/open_detail_uis = list()
 
 /datum/controller/subsystem/tickets/get_metrics()
 	. = ..()
@@ -209,10 +209,10 @@ SUBSYSTEM_DEF(tickets)
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
 
-/datum/controller/subsystem/tickets/proc/refreshTickets(list/tickets)
+/datum/controller/subsystem/tickets/proc/refresh_tickets(list/tickets)
 	for(var/datum/ticket/T in tickets)
-		for(var/client/client in openDetailUIs)
-			if(client && openDetailUIs[client] == T.ticketNum)
+		for(var/client/client in open_detail_uis)
+			if(client && open_detail_uis[client] == T.ticketNum)
 				showDetailUI(client.mob, T.ticketNum)
 
 /datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
@@ -220,7 +220,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/datum/ticket/T in tickets)
 		ticket_numbers += T.ticketNum
 		T.addResponse(who, message)
-	refreshTickets(tickets)
+	refresh_tickets(tickets)
 
 	if(length(ticket_numbers) == 1)
 		for(var/datum/ticket/only_ticket in tickets)
@@ -546,7 +546,7 @@ UI STUFF
 	popup.set_content(dat)
 	popup.open()
 	// This isn't the detail tab, stop listening for the user's typing.
-	openDetailUIs -= user.client
+	open_detail_uis -= user.client
 
 /datum/controller/subsystem/tickets/proc/showDetailUI(mob/user, ticketID)
 	var/datum/ticket/T = allTickets[ticketID]
@@ -617,10 +617,10 @@ UI STUFF
 		</script>"})
 	popup.set_content(dat)
 	popup.open()
-	openDetailUIs[user.client] = T.ticketNum
+	open_detail_uis[user.client] = T.ticketNum
 
 /datum/controller/subsystem/tickets/proc/onCloseDetailUI(mob/user)
-	openDetailUIs -= user.client
+	open_detail_uis -= user.client
 
 /datum/controller/subsystem/tickets/proc/userDetailUI(mob/user)
 //dat
