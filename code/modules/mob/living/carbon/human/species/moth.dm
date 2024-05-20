@@ -10,14 +10,18 @@
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("nian")
-	species_traits = list(NO_HAIR)
+	species_traits = list()
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | BALD | SHAVED
+	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | SHAVED | HAS_SKIN_COLOR
 	reagent_tag = PROCESS_ORG
 	dietflags = DIET_HERB
 	tox_mod = 1.5
+
 	blood_color = "#b9ae9c"
+	flesh_color = "#b9ae9c"
+	base_color = "#b9ae9c"
+	
 	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "buzzes"
 	male_scream_sound = 'sound/voice/scream_moth.ogg'
@@ -81,7 +85,8 @@
 	return ..()
 
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
-	return H.m_colours["body"]
+	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
+	return E.eye_color
 
 /datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
