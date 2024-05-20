@@ -1,21 +1,15 @@
-// drone
-
+// Drone
 /obj/item/robot_module/drone/Initialize(mapload)
 	. = ..()
-	basic_modules.Remove(/obj/item/gripper_engineering)
 	basic_modules |= list(
-		/obj/item/gripper,
 		/obj/item/holosign_creator/atmos,
 		)
 
-// robots
-
+// Robots
 /obj/item/robot_module/engineering/Initialize(mapload)
 	. = ..()
-	basic_modules.Remove(/obj/item/gripper_engineering)
 	basic_modules |= list(
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/gripper,
 		/obj/item/inflatable/cyborg,
 		/obj/item/inflatable/cyborg/door,
 		/obj/item/gps/cyborg,
@@ -23,11 +17,10 @@
 
 /obj/item/robot_module/medical/Initialize(mapload)
 	. = ..()
-	basic_modules.Remove(/obj/item/gripper_medical, /obj/item/reagent_containers/borghypo)
+	basic_modules.Remove(/obj/item/reagent_containers/borghypo)
 	basic_modules |= list(
 		/obj/item/gps/cyborg,
 		/obj/item/rlf,
-		/obj/item/gripper/medical,
 		/obj/item/reagent_containers/borghypo/basic,
 		)
 
@@ -35,7 +28,6 @@
 	. = ..()
 	basic_modules |= list(
 		/obj/item/gps/cyborg,
-		/obj/item/gripper/service,
 		/obj/item/eftpos/cyborg,
 		)
 
@@ -52,7 +44,6 @@
 		)
 
 // Syndicate
-
 /obj/item/robot_module/syndicate/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
@@ -61,26 +52,22 @@
 
 /obj/item/robot_module/syndicate_medical/Initialize(mapload)
 	. = ..()
-	basic_modules.Remove(/obj/item/gripper_medical)
 	basic_modules |= list(
 		/obj/item/gps/cyborg,
 		/obj/item/rlf,
-		/obj/item/gripper/medical,
 		/obj/item/gripper/nuclear,
 	)
 
 /obj/item/robot_module/syndicate_saboteur/Initialize(mapload)
 	. = ..()
-	basic_modules.Remove(/obj/item/gripper_engineering)
 	basic_modules |= list(
-		/obj/item/gripper,
+		/obj/item/gripper/engineering,
 		/obj/item/gripper/nuclear,
 		/obj/item/holosign_creator/atmos,
 	)
 
 
 // Admin Spawns
-
 /obj/item/robot_module/deathsquad/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(

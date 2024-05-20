@@ -55,8 +55,11 @@
 	U.implant(H)
 	U.hidden_uplink.uses = 2500
 	H.faction += "syndicate"
+
+/datum/outfit/job/syndicateofficer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)
 	H.mind.offstation_role = TRUE
 	set_antag_hud(H.mind.current, "hudoperative")
-	H.regenerate_icons()
+	INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, regenerate_icons))

@@ -242,6 +242,8 @@
 	origin_tech = "magnets=1"
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
+	/// How far away can the scanner scan mail or people
+	var/scanner_range = 7
 
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
@@ -251,6 +253,9 @@
 	return
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
+	if(get_dist(A, user) > scanner_range)
+		to_chat(user, "<span class='warning'>The scanner doesn't reach that far!</span>")
+		return
 	if(istype(A, /obj/item/envelope))
 		var/obj/item/envelope/envelope = A
 		if(envelope.has_been_scanned)

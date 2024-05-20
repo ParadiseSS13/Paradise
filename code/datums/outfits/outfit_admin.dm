@@ -3,21 +3,15 @@
 
 /datum/outfit/admin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(!visualsOnly && H.mind)
-		H.mind.assigned_role = name
-		H.job = name
-
-/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-
 	if(visualsOnly)
 		return
 
-	if(H.mind)
-		H.mind.offstation_role = TRUE
-	else
-		H.RegisterSignal(H, COMSIG_HUMAN_LOGIN, TYPE_PROC_REF(/mob/living/carbon/human, apply_offstation_roles))
+	H.job = name
 
+/datum/outfit/admin/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.assigned_role = name
+	H.mind.offstation_role = TRUE
 
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
@@ -1254,17 +1248,17 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
 
-	if(H.mind)
-		if(!H.mind.has_antag_datum(/datum/antagonist/vampire))
-			H.mind.make_vampire(TRUE)
-		var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
-		V.bloodusable = 9999
-		V.bloodtotal = 9999
-		V.add_subclass(SUBCLASS_ANCIENT, FALSE)
-		H.dna.SetSEState(GLOB.jumpblock, TRUE)
-		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
-		H.update_mutations()
-		H.gene_stability = 100
+/datum/outfit/admin/ancient_vampire/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.make_vampire()
+	var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
+	V.bloodusable = 9999
+	V.bloodtotal = 9999
+	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
+	H.dna.SetSEState(GLOB.jumpblock, TRUE)
+	singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+	H.update_mutations()
+	H.gene_stability = 100
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"
@@ -1494,10 +1488,6 @@
 
 	H.real_name = "Unknown" //Enforcers sacrifice their name to Oblivion for their power
 
-	for(var/spell_path in spell_paths)
-		var/S = new spell_path
-		H.mind.AddSpell(S)
-
 	var/obj/item/clothing/suit/hooded/oblivion/robes = H.wear_suit
 	if(istype(robes))
 		robes.ToggleHood()
@@ -1505,6 +1495,12 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")
+
+/datum/outfit/admin/enforcer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	for(var/spell_path in spell_paths)
+		var/S = new spell_path
+		H.mind.AddSpell(S)
 
 /datum/outfit/admin/viper
 	name = "Solar Federation Viper Infiltrator"

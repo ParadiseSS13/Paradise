@@ -1,24 +1,7 @@
-// Simple borg hand.
-// Limited use.
-/obj/item/gripper
-	name = "magnetic gripper"
-	desc = "A simple grasping tool for synthetic assets."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "gripper"
-
-	actions_types = list(/datum/action/item_action/drop_gripped_item)
-
-	// Has a list of items that it can hold.
-	var/list/can_hold = list(
-		/obj/item/firealarm_electronics,
-		/obj/item/airalarm_electronics,
-		/obj/item/airlock_electronics,
-		/obj/item/firelock_electronics,
-		/obj/item/intercom_electronics,
-		/obj/item/apc_electronics,
-		/obj/item/tracker_electronics,
-		/obj/item/stock_parts,
-		/obj/item/vending_refill,
+/* Different Grippers */
+/obj/item/gripper/engineering/Initialize(mapload)
+	. = ..()
+	can_hold |= list(
 		/obj/item/mounted/frame/light_fixture,
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
@@ -27,54 +10,37 @@
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,
-		/obj/item/assembly/prox_sensor,
-		/obj/item/rack_parts,
-		/obj/item/camera_assembly,
-		/obj/item/tank,
-		/obj/item/circuitboard,
-		/obj/item/stack/tile/light,
-		/obj/item/stack/ore/bluespace_crystal,
-		/obj/item/assembly/igniter,
 		/obj/item/flash,
 	)
 
-	// Item currently being held.
-	var/obj/item/gripped_item = null
-
-
-// ===================
-// different grippers
-// ===================
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
-	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag,
-					/obj/item/robot_parts,
-					/obj/item/stack/sheet/mineral/plasma, // for repair plasmamans
-					/obj/item/mmi,
-					/obj/item/reagent_containers/pill,
-					/obj/item/reagent_containers/patch,
-					/obj/item/reagent_containers/drinks,
-					/obj/item/reagent_containers/glass,
-					/obj/item/reagent_containers/syringe,
-					)
+	can_hold = list(
+		/obj/item/organ,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts,
+		/obj/item/stack/sheet/mineral/plasma, // for repair plasmamans
+		/obj/item/mmi,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/syringe,
+	)
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
 
-/obj/item/gripper/service
-	name = "Card gripper"
-	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
-	can_hold = list(/obj/item/card,
-					/obj/item/camera_film,
-					/obj/item/paper,
-					/obj/item/photo,
-					/obj/item/toy/plushie,
-					/obj/item/disk/data,
-					/obj/item/disk/design_disk,
-					/obj/item/disk/plantgene,
-					)
+/obj/item/gripper/service/Initialize(mapload)
+	. = ..()
+	can_hold |= list(
+		/obj/item/card,
+		/obj/item/camera_film,
+		/obj/item/disk/data,
+		/obj/item/disk/design_disk,
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/nuclear
 	name = "Nuclear gripper"
@@ -83,10 +49,7 @@
 	icon_state = "diskgripper"
 	can_hold = list(/obj/item/disk/nuclear)
 
-
-// ===================
-// procs
-// ===================
+/* Procs */
 /obj/item/gripper/Initialize(mapload)
 	. = ..()
 	can_hold = typecacheof(can_hold)
@@ -119,15 +82,6 @@
 	gripped_item.attackby(weapon, user, params)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
-
-/obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
-	if(!gripped_item)
-		return FALSE
-	if(!silent)
-		to_chat(loc, span_warning("You drop [gripped_item]."))
-	gripped_item.forceMove(get_turf(src))
-	gripped_item = null
-	return TRUE
 
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
@@ -211,10 +165,7 @@
 
 	return TRUE
 
-
-// ===================
-// interactions
-// ===================
+/* Interactions */
 /turf/simulated/wall/attackby(obj/item/I, mob/user, params)
 	// The magnetic gripper does a separate attackby, so bail from this one
 	if(istype(I, /obj/item/gripper))

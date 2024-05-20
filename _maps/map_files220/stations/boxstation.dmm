@@ -41614,9 +41614,6 @@
 /area/station/maintenance/turbine)
 "dgT" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/transit_tube/cap{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -58643,7 +58640,9 @@
 /area/station/maintenance/aft)
 "iuO" = (
 /obj/machinery/status_display/directional/north,
-/obj/structure/transit_tube/station,
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -82397,9 +82396,6 @@
 /area/station/maintenance/asmaint)
 "raN" = (
 /obj/effect/turf_decal/stripes/end,
-/obj/structure/transit_tube/cap{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "raP" = (
@@ -91643,8 +91639,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "uwh" = (
-/obj/structure/transit_tube/station{
-	dir = 4
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 8
 	},
 /obj/structure/transit_tube_pod{
 	dir = 1

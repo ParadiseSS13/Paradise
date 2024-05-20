@@ -1,19 +1,10 @@
-// =============
-// ENGINEER
-// =============
-
-
-
+/* Engineer */
 // Небольшой багфикс "непрозрачного открытого шлюза"
 /obj/structure/inflatable/door/operate()
 	. = ..()
 	opacity = FALSE
 
-
-// =============
-// MEDICAL
-// =============
-
+/* Medical */
 /obj/item/reagent_containers/borghypo/basic/Initialize(mapload)
 	. = ..()
 	reagent_ids |= list("sal_acid", "charcoal")
@@ -26,11 +17,7 @@
 	total_reagents = 60
 	maximum_reagents = 60
 
-
-
-// =============
-// SERVICE
-// =============
+/* Service */
 /obj/item/rsf/attack_self(mob/user)
 	if(..() && power_mode >= 3000)
 		power_mode /= 2
@@ -59,10 +46,4 @@
 			else
 				to_chat(user, span_warning("[bicon(src)]No account connected to send transactions to.<"))
 			return TRUE
-		// if(isrobot(user))
-		// 	card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)
 	. = ..()
-
-// =============
-// MINER
-// =============

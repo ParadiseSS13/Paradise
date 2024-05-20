@@ -37,10 +37,6 @@
 	. = ..()
 	allowed_roles |= GLOB.medical_positions_ss220
 
-/datum/gear/racial/taj/med/New()
-	. = ..()
-	allowed_roles |= GLOB.medical_positions_ss220
-
 /datum/gear/suit/coat/job/med/New()
 	. = ..()
 	allowed_roles |= GLOB.medical_positions_ss220
