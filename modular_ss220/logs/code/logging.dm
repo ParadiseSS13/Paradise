@@ -7,10 +7,11 @@
 	log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[job.total_positions])")
 
 /datum/mind/proc/log_antag_objectives()
-	if(length(objective_holder.objectives))
+	var/list/objectives = get_all_objectives()
+	if(length(objectives))
 		log_game("GAME: Start objective log for [html_decode(key)]/[html_decode(name)]")
 		var/count = 1
-		for(var/datum/objective/objective in objective_holder.objectives)
+		for(var/datum/objective/objective in objectives)
 			log_game("GAME: Objective #[count]: [objective.explanation_text]")
 			count++
 		log_game("GAME: End objective log for [html_decode(key)]/[html_decode(name)]")

@@ -18377,11 +18377,11 @@
 "brK" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 11;
-	height = 18;
+	dwidth = 16;
+	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 29
+	width = 41
 	},
 /turf/space,
 /area/space)
@@ -49426,6 +49426,12 @@
 /obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
+"fes" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/dorms)
 "feA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -87707,12 +87713,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/supermatter_room)
-"tbC" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/dorms)
 "tbJ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -139760,16 +139760,16 @@ awE
 ayf
 azn
 arR
-tbC
-tbC
-tbC
+fes
+fes
+fes
 aPm
-tbC
-tbC
+fes
+fes
 aPm
-tbC
-tbC
-tbC
+fes
+fes
+fes
 aPm
 aPm
 aPm
