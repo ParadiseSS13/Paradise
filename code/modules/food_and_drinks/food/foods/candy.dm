@@ -125,6 +125,7 @@
 	filling_color = "#FFFFFF"
 	bitesize = 4
 	list_reagents = list("sugar" = 15)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/candy/candybar
 	name = "candy"
@@ -155,6 +156,7 @@
 	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/candy/gummyworm
 	name = "gummy worm"
@@ -163,6 +165,7 @@
 	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/candy/jellybean
 	name = "jelly bean"
@@ -171,6 +174,7 @@
 	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/candy/jawbreaker
 	name = "jawbreaker"
