@@ -31303,9 +31303,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "toxinaccess"
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "cgH" = (
@@ -43011,11 +43009,11 @@
 "cZp" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 11;
-	height = 18;
+	dwidth = 16;
+	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 29
+	width = 41
 	},
 /turf/space,
 /area/space)
@@ -53560,9 +53558,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -59539,9 +59535,7 @@
 	id_tag = "rdtoxins";
 	name = "Toxins Lab Shutters"
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
@@ -74464,9 +74458,7 @@
 	dir = 8;
 	id_tag = "toxinaccess"
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79933,9 +79925,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -81276,9 +81266,7 @@
 	},
 /area/station/security/execution)
 "uEr" = (
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment,
@@ -84952,9 +84940,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
