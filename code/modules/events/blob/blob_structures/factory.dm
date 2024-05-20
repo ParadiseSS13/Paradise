@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(spores_active, 0)
+#define MAX_GLOBAL_SPORES 25
 /obj/structure/blob/factory
 	name = "factory blob"
 	icon = 'icons/mob/blob.dmi'
@@ -5,7 +7,7 @@
 	max_integrity = 200
 	point_return = 18
 	var/list/spores = list()
-	var/max_spores = 3
+	var/max_spores = 5
 	var/spore_delay = 0
 
 /obj/structure/blob/factory/Destroy()
@@ -16,12 +18,14 @@
 	return ..()
 
 /obj/structure/blob/factory/run_action()
-	if(length(spores) >= max_spores)
+	if(length(spores) >= max_spores || GLOB.spores_active >= MAX_GLOBAL_SPORES)
 		return
 	if(spore_delay > world.time)
 		return
 	flick("blob_factory_glow", src)
-	spore_delay = world.time + 100 // 10 seconds
+	spore_delay = world.time + 10 SECONDS
 	var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore(src.loc, src)
 	if(overmind)
 		overmind.add_mob_to_overmind(BS)
+
+#undef MAX_GLOBAL_SPORES
