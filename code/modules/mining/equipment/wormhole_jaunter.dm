@@ -195,7 +195,7 @@
 	thrower = user
 
 /obj/item/grenade/jaunter_grenade/detonate()
-	. == ..()
+	. = ..()
 	update_mob()
 	var/list/destinations = list()
 	for(var/obj/item/radio/beacon/B in GLOB.global_radios)

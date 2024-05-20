@@ -70,7 +70,6 @@
 		step(src, pick(GLOB.alldirs))
 
 /obj/effect/anomaly/proc/detonate()
-	. == ..()
 	return
 
 /obj/effect/anomaly/ex_act(severity)
@@ -163,7 +162,6 @@
 		boing = FALSE
 
 /obj/effect/anomaly/grav/detonate()
-	. == ..()
 	if(!drops_core)
 		return
 	var/turf/T = get_turf(src)
@@ -222,7 +220,6 @@
 			M.KnockDown(3 SECONDS)
 
 /obj/effect/anomaly/flux/detonate()
-	. == ..()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18) //Low devastation, but hits a lot of stuff.
 	else
@@ -272,7 +269,6 @@
 		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8)
 
 /obj/effect/anomaly/bluespace/detonate()
-	. == ..()
 	if(!mass_teleporting)
 		return
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -362,7 +358,6 @@
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
 
 /obj/effect/anomaly/pyro/detonate()
-	. == ..()
 	if(produces_slime)
 		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
@@ -439,7 +434,6 @@
 	O.fire()
 
 /obj/effect/anomaly/cryo/detonate()
-	. == ..()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T) && drops_core)
 		T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000)

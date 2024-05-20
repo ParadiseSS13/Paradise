@@ -10,7 +10,7 @@
 	var/payload = /obj/item/grenade/flashbang/cluster
 
 /obj/item/grenade/clusterbuster/detonate()
-	. == ..()
+	. = ..()
 	update_mob()
 	var/numspawned = rand(4,8)
 	var/again = 0
@@ -50,7 +50,7 @@
 
 
 /obj/item/grenade/clusterbuster/segment/detonate()
-	. == ..()
+	. = ..()
 
 	new /obj/effect/payload_spawner(loc, payload, rand(4,8))
 

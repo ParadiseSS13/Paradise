@@ -335,7 +335,6 @@
 	..()
 
 /obj/item/bombcore/proc/detonate()
-	. == ..()
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
@@ -372,7 +371,6 @@
 		holder.updateDialog()
 
 /obj/item/bombcore/training/detonate()
-	. == ..()
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		attempts++
@@ -406,7 +404,6 @@
 	var/amt_summon = 1
 
 /obj/item/bombcore/badmin/summon/detonate()
-	. == ..()
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
 		var/atom/movable/X = new summon_path(get_turf(src))
@@ -460,7 +457,6 @@
 	return
 
 /obj/item/bombcore/emp/detonate()
-	. == ..()
 	if(adminlog && !adminlogged)
 		message_admins(adminlog)
 		log_game(adminlog)
@@ -488,8 +484,6 @@
 	var/time_release = 0
 
 /obj/item/bombcore/chemical/detonate()
-	. == ..()
-
 	if(time_release > 0)
 		var/total_volume = 0
 		for(var/obj/item/reagent_containers/RC in beakers)
@@ -650,7 +644,6 @@
 	return
 
 /obj/item/bombcore/toxins/detonate()
-	. == ..()
 	if(ttv)
 		ttv.toggle_valve()
 

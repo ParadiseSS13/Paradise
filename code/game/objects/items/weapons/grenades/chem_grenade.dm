@@ -271,7 +271,7 @@
 
 
 /obj/item/grenade/chem_grenade/detonate()
-	. == ..()
+	. = ..()
 	if(stage != READY)
 		return
 
@@ -333,7 +333,7 @@
 	threatscale = 1.1	// 10% more effective.
 
 /obj/item/grenade/chem_grenade/large/detonate()
-	. == ..()
+	. = ..()
 	if(stage != READY)
 		return
 
@@ -407,7 +407,7 @@
 	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
 
 /obj/item/grenade/chem_grenade/adv_release/detonate()
-	. == ..()
+	. = ..()
 	if(stage != READY)
 		return
 

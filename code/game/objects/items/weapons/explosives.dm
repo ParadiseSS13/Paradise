@@ -169,7 +169,7 @@
 	..()
 
 /obj/item/grenade/plastic/c4/detonate()
-	. == ..()
+	. = ..()
 	var/turf/location
 	if(plastic_overlay_target && !QDELETED(plastic_overlay_target))
 		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
@@ -218,7 +218,7 @@
 	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
 
 /obj/item/grenade/plastic/c4/shaped/flash/detonate()
-	. == ..()
+	. = ..()
 	var/turf/T
 	if(target && target.density)
 		T = get_step(get_turf(target), aim_dir)
@@ -240,7 +240,7 @@
 	item_state = "t4breach"
 
 /obj/item/grenade/plastic/c4/thermite/detonate()
-	. == ..()
+	. = ..()
 	var/turf/location
 	if(plastic_overlay_target && !QDELETED(plastic_overlay_target))
 		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
