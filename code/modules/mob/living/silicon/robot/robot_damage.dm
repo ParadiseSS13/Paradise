@@ -175,6 +175,7 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 */
 /mob/living/silicon/robot/proc/start_emergency_reboot()
 	rebooting = TRUE
+	playsound(src, 'sound/machines/shut_down.ogg', 100, FALSE, SOUND_RANGE_SET(10))
 	if(!has_power_source())
 		visible_message(
 		"<span class='warning'>[src]'s system sounds an alarm, ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN IMMINENT.\"</span>",
@@ -193,10 +194,12 @@ Finishes the stamcrit process. If the borg doesn't have a power source for the r
 */
 /mob/living/silicon/robot/proc/end_emergency_reboot()
 	rebooting = FALSE
+	setStaminaLoss(0) //Have you tried turning it off and on again?
 	if(!has_power_source()) //Can't turn itself back on
 		death()
+		return
 	if(!stat)
 		return
-	setStaminaLoss(0) //Have you tried turning it off and on again?
+	playsound(src, 'sound/machines/reboot_chime.ogg' , 100, FALSE, SOUND_RANGE_SET(10))
 	update_health_hud()
 	to_chat(src, "<span class='notice'>Reboot complete, neural interface operational.")
