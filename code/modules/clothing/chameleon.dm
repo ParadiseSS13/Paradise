@@ -469,8 +469,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 	)
 
-	var/obj/item/voice_changer/voice_changer
-
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
@@ -482,10 +480,7 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
-	voice_changer = new(src)
-
 /obj/item/clothing/mask/chameleon/Destroy()
-	QDEL_NULL(voice_changer)
 	QDEL_NULL(chameleon_action)
 	return ..()
 
@@ -496,6 +491,23 @@
 /obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/mask/chameleon/voice_change
+	name = "gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow."
+	icon_state = "swat"
+	item_state = "swat"
+
+	var/obj/item/voice_changer/voice_changer
+
+/obj/item/clothing/mask/chameleon/voice_change/Destroy()
+	QDEL_NULL(voice_changer)
+	return ..()
+
+/obj/item/clothing/mask/chameleon/voice_change/Initialize(mapload)
+	. = ..()
+
+	voice_changer = new(src)
 
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"

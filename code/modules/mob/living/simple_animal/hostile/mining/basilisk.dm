@@ -96,7 +96,7 @@
 	light_color = LIGHT_COLOR_LAVA
 	projectiletype = /obj/item/projectile/temp/basilisk/magmawing
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
-	crusher_drop_mod = 60
+	crusher_drop_mod = 100 //These things are extremely rare (1/133 per spawner). You shouldn't have to hope for another stroke of luck to get it's trophy after finding it
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
 	name = "icewing watcher"
@@ -110,7 +110,7 @@
 	projectiletype = /obj/item/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
-	crusher_drop_mod = 30
+	crusher_drop_mod = 100 //These things are extremely rare (1/400 per spawner). You shouldn't have to hope for another stroke of luck to get it's trophy after finding it
 
 /obj/item/projectile/temp/basilisk/magmawing
 	name = "scorching blast"

@@ -18,6 +18,8 @@
 #define STATUS_EFFECT_SHADOW_MEND /datum/status_effect/shadow_mend //Quick, powerful heal that deals damage afterwards. Heals 15 brute/burn every second for 3 seconds.
 #define STATUS_EFFECT_VOID_PRICE /datum/status_effect/void_price //The price of healing yourself with void energy. Deals 3 brute damage every 3 seconds for 30 seconds.
 
+#define STATUS_EFFECT_SHADOW_MEND_DEVIL /datum/status_effect/shadow_mend/devil //Tarot version, hurts others over self
+
 #define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocraticOath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
@@ -36,6 +38,8 @@
 #define STATUS_EFFECT_FORCESHIELD /datum/status_effect/force_shield
 
 #define STATUS_EFFECT_BLOODDRUNK /datum/status_effect/blooddrunk //Stun immunity and greatly reduced damage taken
+
+#define STATUS_EFFECT_BLOODDRUNK_CHARIOT /datum/status_effect/blooddrunk/chariot //adds pacifism
 
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few secodns
 
@@ -61,6 +65,12 @@
 #define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
 
 #define STATUS_EFFECT_BEARSERKER_RAGE /datum/status_effect/bearserker_rage
+
+#define STATUS_EFFECT_XRAY /datum/status_effect/xray // Xray vision for 2 minutes
+
+#define STATUS_EFFECT_BADASS /datum/status_effect/badass // Badass trait for 2 minutes.
+
+#define STATUS_EFFECT_REVERSED_SUN /datum/status_effect/reversed_sun // Weaker eternal darkness, nightvision, but nearsight
 
 /////////////
 // DEBUFFS //
@@ -114,6 +124,8 @@
 
 #define STATUS_EFFECT_PEPPERSPRAYED /datum/status_effect/pepper_spray
 
+#define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
+
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
@@ -166,6 +178,7 @@
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 #define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
+#define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 

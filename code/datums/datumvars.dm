@@ -537,7 +537,10 @@
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_ADMIN|R_MOD, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)))
+	if(!check_rights(R_ADMIN|R_MOD, FALSE) \
+		&& !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)) \
+		&& !((href_list["proc_call"]) && check_rights(R_PROCCALL, FALSE)) \
+	)
 		return // clients with R_VIEWRUNTIMES can still refresh the window/view references/view lists. they cannot edit anything else however.
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
@@ -947,6 +950,14 @@
 					A.reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
+
+	else if(href_list["editreagents"])
+		if(!check_rights(R_DEBUG|R_ADMIN))	
+			return
+
+		var/atom/A = locateUID(href_list["editreagents"])
+
+		try_open_reagent_editor(A)
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return

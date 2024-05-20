@@ -47,6 +47,12 @@
 	desc = "Much meatier than monkey meat."
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 
+/obj/item/food/snacks/meat/kangaroo
+	name = "kangaroo meat"
+	desc = "Extremely muscular and tender meat."
+	list_reagents = list("protein" = 4, "iron" = 5, "vitamin" = 1)
+	tastes = list("a punch in the face" = 1, "fowl" = 3)
+
 /obj/item/food/snacks/meat/monkey
 	//same as plain meat
 
@@ -62,6 +68,11 @@
 	name = "ham"
 	desc = "For when you need to go ham."
 	list_reagents = list("protein" = 3, "porktonium" = 10)
+
+/obj/item/food/snacks/meat/chicken
+	name = "chicken meat"
+	desc = "Cluck cluck!"
+	icon_state = "birdmeat"
 
 /obj/item/food/snacks/meat/meatwheat
 	name = "meatwheat clump"
@@ -124,7 +135,7 @@
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
-	list_reagents = list("protein" = 12, "morphine" = 3, "vitamin" = 2)
+	list_reagents = list("protein" = 12, "methamphetamine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
 /obj/item/food/snacks/monstermeat/xenomeat
@@ -203,6 +214,12 @@
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/snacks/meatsteak/chicken
+	name = "cooked chicken"
+	desc = "Cluck cluck!"
+	icon_state = "birdsteak"
+	tastes = list("chicken" = 1, "meat" = 1)
+
 /obj/item/food/snacks/bacon
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
@@ -273,6 +290,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -283,6 +301,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/wingfangchu
 	name = "wing fang chu"
@@ -293,6 +312,7 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
 	tastes = list("soy" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/goliath_steak
 	name = "goliath steak"
@@ -303,6 +323,7 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
@@ -312,6 +333,7 @@
 	trash = /obj/item/trash/fried_vox
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("quills" = 1, "the shoal" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 //////////////////////
 //		Cubes		//
@@ -542,6 +564,7 @@
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/turkeyslice
 	name = "turkey serving"
@@ -561,6 +584,10 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
+
+/obj/item/food/snacks/organ/Initialize(mapload)
+	. = ..()
+	reagents.add_reagent("nutriment", 5)
 
 /obj/item/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future

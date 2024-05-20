@@ -219,8 +219,17 @@
 
 /////////////////
 
-///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+// /client signals
+
+/// from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
 #define COMSIG_CLIENT_CLICK "atom_client_click"
+/// from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 
 ///from base of area/Entered(): (/area)
 #define COMSIG_ENTER_AREA "enter_area"
@@ -333,6 +342,8 @@
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
 ///called on the mob instead of the mind
 #define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
+///called when the mind is initialized (called every time the mob logins)
+#define COMSIG_MIND_INITIALIZE "mind_initialize"
 
 // /mob signals
 
@@ -708,11 +719,19 @@
 
 // /obj/item/gun signals
 
-///called in /obj/item/gun/process_fire (user, target, params, zone_override)
-#define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
-
+///called in /obj/item/gun/fire_gun (user, target, flag, params)
+#define COMSIG_GUN_TRY_FIRE "gun_try_fire"
+	#define COMPONENT_CANCEL_GUN_FIRE (1<<0)
+///called in /obj/item/gun/afterattack (user, target, flag, params)
+#define COMSIG_MOB_TRY_FIRE "mob_fired_gun"
 ///called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
+/// called in /datum/component/automatic_fire/proc/on_mouse_down: (client/clicker, atom/target, turf/location, control, params)
+#define COMSIG_AUTOFIRE_ONMOUSEDOWN "autofire_onmousedown"
+	#define COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS (1<<0)
+/// called in /datum/component/automatic_fire/proc/process_shot(): (atom/target, mob/living/shooter, allow_akimbo, params)
+#define COMSIG_AUTOFIRE_SHOT "autofire_shot"
+	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
 
 // /obj/item/grenade signals
 
@@ -1044,3 +1063,9 @@
 
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// Used by admin-tooling to remove radiation
+#define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"
+
+/// Sent when bodies transfer between shades/shards and constructs
+#define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"

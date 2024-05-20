@@ -168,13 +168,13 @@
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						active_character.m_colours["tail"] = rand_hex_color()
 				if("underwear")
-					active_character.underwear = random_underwear(active_character.gender, active_character.species)
+					active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("undershirt")
-					active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+					active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("socks")
-					active_character.socks = random_socks(active_character.gender, active_character.species)
+					active_character.socks = random_socks(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("eyes")
 					active_character.e_colour = rand_hex_color()
@@ -226,8 +226,6 @@
 						return
 					if(prev_species != active_character.species)
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						if(NS.has_gender && active_character.gender == PLURAL)
-							active_character.gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
@@ -265,15 +263,15 @@
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.underwear = random_underwear(active_character.gender, active_character.species)
+							active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 
 						SA = GLOB.undershirt_list[active_character.undershirt]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+							active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 
 						SA = GLOB.socks_list[active_character.socks]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.socks = random_socks(active_character.gender, active_character.species)
+							active_character.socks = random_socks(active_character.body_type, active_character.species)
 
 						//reset skin tone and colour
 						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
@@ -579,10 +577,6 @@
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
 							continue
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
 							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
@@ -608,9 +602,10 @@
 					var/list/valid_underwear = list()
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
+						// soon...
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
@@ -624,11 +619,11 @@
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
+							continue
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
@@ -641,11 +636,11 @@
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
+							continue
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
@@ -696,12 +691,12 @@
 
 				if("physique")
 					var/new_physique = tgui_input_list(user, "Choose your descriptor for how built your character is on glance.", "Character Preference", GLOB.character_physiques)
-					if(new_physique)
+					if(new_physique in GLOB.character_physiques)
 						active_character.physique = new_physique
 
 				if("height")
 					var/new_height = tgui_input_list(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference", GLOB.character_heights)
-					if(new_height)
+					if(new_height in GLOB.character_heights)
 						active_character.height = new_height
 
 				if("flavor_text")
@@ -896,23 +891,25 @@
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
-					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
-						if(!newgender)
-							return
-						switch(newgender)
-							if("Male")
-								active_character.gender = MALE
-							if("Female")
-								active_character.gender = FEMALE
-							if("Genderless")
-								active_character.gender = PLURAL
-					else
-						if(active_character.gender == MALE)
-							active_character.gender = FEMALE
-						else
+					var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
+					if(!newgender)
+						return
+					switch(newgender)
+						if("Male")
+
 							active_character.gender = MALE
-					active_character.underwear = random_underwear(active_character.gender)
+						if("Female")
+							active_character.gender = FEMALE
+						if("Genderless")
+							active_character.gender = PLURAL
+
+				if("body_type")
+					if(active_character.body_type == MALE)
+						active_character.body_type = FEMALE
+					else
+						active_character.body_type = MALE
+
+					active_character.underwear = random_underwear(active_character.body_type)
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
@@ -1268,6 +1265,10 @@
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
+				if("preference_toggles")
+					if(href_list["toggle"])
+						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
+						toggle.set_toggles(user.client)
 
 	ShowChoices(user)
-	return 1
+	return TRUE

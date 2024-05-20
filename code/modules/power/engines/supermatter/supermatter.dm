@@ -323,12 +323,12 @@
 	var/image/causality_field = image(icon, null, "causality_field")
 	add_overlay(causality_field)
 
-	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
+	var/speaking = "<span class='reallybig'>[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated.</span>"
 	for(var/mob/M in GLOB.player_list) // for all players
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
-	radio.autosay(speaking, name, null, list(z))
+	radio.autosay(speaking, name, null)
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(!processes) // Stop exploding if you're frozen by an admin, damn you
 			cut_overlay(causality_field, TRUE)
@@ -336,7 +336,7 @@
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
+			radio.autosay("<span class='big'>[safe_alert] Failsafe has been disengaged.</span>", name, null)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -345,15 +345,15 @@
 			sleep(10)
 			continue
 		else if(i > 50)
-			speaking = "[DisplayTimeText(i, TRUE)] remain before causality stabilization."
+			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before causality stabilization.</b>"
 		else
-			speaking = "[i*0.1]..."
-		radio.autosay(speaking, name, null, list(z))
+			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
+		radio.autosay(speaking, name, null)
 		sleep(10)
 
 	explode()
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/explode()
+/obj/machinery/atmospherics/supermatter_crystal/proc/explode(forced_combined_gas = 0, forced_power = 0, forced_gasmix_power_ratio = 0)
 	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
@@ -379,14 +379,14 @@
 			else
 				to_chat(M, "<span class='boldannounceic'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
 
-	if(combined_gas > MOLE_CRUNCH_THRESHOLD)
+	if(max(combined_gas, forced_combined_gas) > MOLE_CRUNCH_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", "supermatter")
 		if(T)
 			var/obj/singularity/S = new(T)
 			S.energy = 800
 			S.consume(src)
 			return //No boom for me sir
-	else if(power > POWER_PENALTY_THRESHOLD)
+	else if(max(power, forced_power) > POWER_PENALTY_THRESHOLD)
 		investigate_log("has spawned additional energy balls.", "supermatter")
 		if(T)
 			var/obj/singularity/energy_ball/E = new(T)
@@ -396,6 +396,8 @@
 //		crystals.runEvent()
 //		return //No boom for me sir
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
+	if(forced_gasmix_power_ratio)
+		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
 	qdel(src)
 
@@ -648,27 +650,27 @@
 
 			//Oh shit it's bad, time to freak out
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Integrity: [get_integrity()]%", name, null, list(z))
+				radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 					has_reached_emergency = TRUE
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
 
 			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("Warning: Hyperstructure has reached dangerous power level.", name, "Engineering", list(z))
+				radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
 				if(powerloss_inhibitor < 0.5)
-					radio.autosay("DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", name, "Engineering", list(z))
+					radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
 
 			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				radio.autosay("Warning: Critical coolant mass reached.", name, "Engineering", list(z))
+				radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()

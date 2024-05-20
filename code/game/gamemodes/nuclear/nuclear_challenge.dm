@@ -1,9 +1,9 @@
 #define CHALLENGE_TELECRYSTALS 1400
-#define CHALLENGE_TIME_LIMIT 6000
+#define CHALLENGE_TIME_LIMIT 10 MINUTES
 #define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
 #define CHALLENGE_SCALE_BONUS 10 // How many TC per scaling bonus
 #define CHALLENGE_MIN_PLAYERS 50
-#define CHALLENGE_SHUTTLE_DELAY 18000 //30 minutes, so the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
+#define CHALLENGE_SHUTTLE_DELAY 30 MINUTES // So the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
 
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
@@ -84,7 +84,7 @@
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE
-	if(length(GLOB.player_list) < CHALLENGE_MIN_PLAYERS)
+	if(length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) < CHALLENGE_MIN_PLAYERS)
 		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
 		return FALSE
 	if(!is_admin_level(user.z))
