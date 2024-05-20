@@ -4,9 +4,9 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = 500
-	oxygen = 8
-	nitrogen = 14
+	temperature = LAVALAND_TEMPERATURE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -134,17 +134,21 @@
 	name = "high-traction floor"
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
-	broken_states = list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
-	burnt_states = list("noslip-scorched1","noslip-scorched2")
 	slowdown = -0.3
+
+/turf/simulated/floor/noslip/get_broken_states()
+	return list("noslip-damaged1", "noslip-damaged2", "noslip-damaged3")
+
+/turf/simulated/floor/plating/asteroid/snow/get_burnt_states()
+	return list("noslip-scorched1", "noslip-scorched2")
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
@@ -230,9 +234,9 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = 14
-	oxygen = 8
-	temperature = 500
+	nitrogen = LAVALAND_NITROGEN
+	oxygen = LAVALAND_OXYGEN
+	temperature = LAVALAND_TEMPERATURE
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"

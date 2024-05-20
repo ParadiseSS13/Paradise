@@ -486,9 +486,9 @@
 		var/mob/M = usr
 		switch(name)
 			if("right hand", "r_hand")
-				M.activate_hand("r")
+				M.activate_hand(HAND_BOOL_RIGHT)
 			if("left hand", "l_hand")
-				M.activate_hand("l")
+				M.activate_hand(HAND_BOOL_LEFT)
 	return TRUE
 
 /atom/movable/screen/swap_hand
@@ -562,3 +562,7 @@
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/healths/stamina
+	icon_state = "stamina_0"
+	screen_loc = ui_stamina

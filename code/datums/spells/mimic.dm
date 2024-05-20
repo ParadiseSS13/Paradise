@@ -26,7 +26,7 @@
 		/atom/movable/lighting_object,
 		/obj/machinery/dna_vault,
 		/obj/machinery/power/bluespace_tap,
-		/obj/structure/sign/barsign,
+		/obj/machinery/barsign,
 		/obj/machinery/atmospherics/unary/cryo_cell,
 		/obj/machinery/gravity_generator
 	)

@@ -14,6 +14,10 @@
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
 	var/metal_type = /obj/item/stack/sheet/metal
 
+/obj/structure/girder/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
+
 /obj/structure/girder/examine(mob/user)
 	. = ..()
 	switch(state)

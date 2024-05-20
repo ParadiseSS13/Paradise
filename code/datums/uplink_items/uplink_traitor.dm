@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -77,6 +77,7 @@
 	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
 	job = list("Mime", "Chef")
 
+// Shaft miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -85,6 +86,15 @@
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
 	job = list("Shaft Miner")
 	surplus = 0 // Requires a KA to even be used.
+
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 25
+	job = list("Shaft Miner")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -305,6 +315,17 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
 
+// Tarot card generator, librarian and Chaplain.
+
+/datum/uplink_item/jobspecific/tarot_generator
+	name = "Enchanted Tarot Card Deck"
+	desc = "A magic tarot card deck \"borrowed\" from a Wizard federation storage unit. \
+	Capable of producing magic tarot cards of the 22 major arcana, and their reversed versions. Each card has a different effect. \
+	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 25 second cooldown, can have up to 3 cards in the world."
+	reference = "tarot"
+	item = /obj/item/tarot_generator
+	cost = 55 //This can do a lot of stuff, but is quite random. As such, higher price.
+	job = list("Chaplain", "Librarian")
 
 //--------------------------//
 // Species Restricted Gear //
@@ -312,7 +333,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
@@ -399,7 +420,7 @@
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -410,7 +431,7 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
@@ -447,7 +468,16 @@
 			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 8
+	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/voice_changer
+	name = "Chameleon Voice Changer Mask"
+	desc = "A syndicate gas mask equipped with chameleon technology and a voice changer for disguising your voice. \
+			Use it to impersonate or obfuscate your identity when talking and make nobody the wiser!"
+	reference = "CVCM"
+	item = /obj/item/clothing/mask/chameleon/voice_change
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit
@@ -527,7 +557,7 @@
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/cyber_implants/sensory_enhancer
 	name = "Qani-Laaca Sensory Computer Autoimplanter"
@@ -576,7 +606,7 @@
 	else if(!AT)
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
 		return
-	else if(ischangeling(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
+	else if(IS_CHANGELING(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
 		return
 
@@ -638,7 +668,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -650,7 +680,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/New()
 	..()
@@ -666,15 +696,15 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
-			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
+			Due to budget cuts, the shoes don't provide protection against slipping."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
-	cost = 20
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
