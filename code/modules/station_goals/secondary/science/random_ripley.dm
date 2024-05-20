@@ -56,9 +56,8 @@
 	return copy
 
 /datum/secondary_goal_progress/random_ripley/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	var/datum/component/label/goal/label = AM.GetComponent(/datum/component/label/goal)
 	// Not labelled for this goal? Ignore.
-	if(!istype(label) || label.label_name != goal_requester)
+	if(!check_personal_crate(AM))
 		return
 	if(!istype(AM, /obj/mecha/working/ripley))
 		return
@@ -71,8 +70,8 @@
 		extra_item.account = SSeconomy.cargo_account
 		extra_item.credits = SSeconomy.credits_per_mech
 		extra_item.reason = "We already got the mech we needed, but we'll take this one at the usual price."
+		extra_item.requests_console_department = "Robotics"
 		manifest.line_items += extra_item
-		send_requests_console_message(extra_item.reason, "Central Command", "Robotics", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 
 	var/remaining_needs = modules.Copy()
@@ -90,9 +89,9 @@
 			var/datum/economy/line_item/wrong_item = new
 			wrong_item.account = SSeconomy.cargo_account
 			wrong_item.credits = SSeconomy.credits_per_mech
-			wrong_item.reason = "That's not the equipment we needed, but it's still a mech"
+			wrong_item.reason = "That's not the equipment we needed, but it's still a mech, so we'll take it at the usual price."
+			wrong_item.requests_console_department = "Robotics"
 			manifest.line_items += wrong_item
-			send_requests_console_message(wrong_item.reason + ", so we sent the usual amount to your supply account.", "Central Command", "Robotics", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_PRIORITY | COMSIG_CARGO_IS_SECURED
 
 	sent = TRUE

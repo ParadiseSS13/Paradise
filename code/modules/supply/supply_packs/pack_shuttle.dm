@@ -40,6 +40,8 @@
 	. = ..()
 	if(SSshuttle.custom_shuttle_ordered)
 		return
+	if(SSshuttle.emergency_locked_in)
+		return
 	if(isnull(template))
 		CRASH("Shuttle pack [src] has no map template to load!")
 	GLOB.major_announcement.Announce("[order.orderedby] has purchased [name] for [cost] credit\s as the emergency shuttle for the shift.", "Shuttle Purchase Receipt")
@@ -54,6 +56,8 @@
 	var/obj/docking_port/mobile/shuttle = SSshuttle.load_template(template)
 	shuttle.shuttle_speed_factor = speed_factor
 	SSshuttle.replace_shuttle(shuttle)
+	SSshuttle.emergency_locked_in = TRUE
+	return TRUE
 
 /// Simple supply pack for easy admin modification
 /datum/supply_packs/abstract/admin_notify/donations
@@ -97,6 +101,36 @@
 	cost = 3250
 	template = /datum/map_template/shuttle/emergency/shadow
 	speed_factor = 2 //Fast enough that it probably won't burn down entirely after the crew looses the plasma
+
+/datum/supply_packs/abstract/shuttle/lance
+	cost = 5000 //please don't order this for funny please sir
+	template = /datum/map_template/shuttle/emergency/lance
+	speed_factor = 1.5 //Don't need to slow down before docking
+	are_you_sure_you_want_to_be_banned = "If you are not an antagonist, and you are ordering this shuttle for no valid reason, you will be banned, or job banned. If you are an antagonist, ahelp for permision, unless you are a hijacker, or you will be antagonist banned. If you are unsure, ahelp now."
+
+/datum/supply_packs/abstract/shuttle/lance/on_order_confirm(datum/supply_order/order)
+	. = ..()
+	if(!.)
+		return
+	if(order.orderedby)
+		for(var/mob/living/carbon/human/H in GLOB.human_list)
+			if(H.name == order.orderedby)
+				new /obj/item/lance_docking_generator(get_turf(H))
+				GLOB.major_announcement.Announce("[order.orderedby] has had a beacon placer teleported to them!", "Shuttle Purchase Receipt")
+				return TRUE
+	GLOB.major_announcement.Announce("We were unable to find an orderer. We have sent the beacon placer to the Cargo Office.", "Shuttle Purchase Receipt")
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(/area/station/supply/office))
+		if(is_blocked_turf(T))
+			continue
+		L.Add(T)
+
+	if(!length(L))
+		GLOB.major_announcement.Announce("We... couldn't find cargo? Well. We'll crash somewhere into your station.", "WELP")
+		return TRUE
+
+	new /obj/item/lance_docking_generator(pick(L))
+	return TRUE
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
 
