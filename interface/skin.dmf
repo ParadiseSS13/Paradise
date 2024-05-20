@@ -17,15 +17,15 @@ menu "menu"
 		command = "SS-Info-Breakdown"
 		category = "&Файл"
 		is-disabled = true
+	elem "profilecode"
+		name = "&Profile Code"
+		command = ".profile"
+		category = "&Файл"
+		is-disabled = true
 	elem "reconnectbutton"
 		name = "&Переподключиться"
 		command = ".reconnect"
 		category = "&Файл"
-	elem "profilecode"
-		name = "&Profile Code"
-		command = ".profile"
-		category = "&File"
-		is-disabled = true
 	elem
 		name = "&Выход"
 		command = ".quit"
