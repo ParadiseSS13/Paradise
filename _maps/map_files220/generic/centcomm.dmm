@@ -39189,8 +39189,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "wIt" = (
-/obj/machinery/barsign,
-/turf/simulated/wall/indestructible/riveted,
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "wIu" = (
 /obj/structure/rack,
@@ -95449,8 +95451,8 @@ tpP
 rRR
 tpP
 jmo
+fyL
 wIt
-que
 que
 que
 que

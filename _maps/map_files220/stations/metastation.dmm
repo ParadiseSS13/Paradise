@@ -339,6 +339,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -1519,9 +1520,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/brig)
 "amI" = (
-/obj/structure/closet{
-	name = "Evidence Closet 3"
-	},
+/obj/structure/closet/secure_closet/evidence,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -2405,9 +2404,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aqQ" = (
-/obj/structure/closet{
-	name = "Evidence Closet 1"
-	},
+/obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -4926,6 +4923,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -5527,6 +5525,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -6285,9 +6284,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aHe" = (
-/obj/machinery/barsign,
-/turf/simulated/wall,
-/area/station/service/bar)
+/obj/effect/turf_decal/tile/bar,
+/obj/machinery/barsign{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/starboard)
 "aHg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -8723,8 +8728,8 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -36743,9 +36748,7 @@
 	},
 /area/station/engineering/gravitygenerator)
 "cAJ" = (
-/obj/structure/closet{
-	name = "Evidence Closet 2"
-	},
+/obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -46729,6 +46732,33 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"erL" = (
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/obj/item/disk/nuclear/training{
+	pixel_x = -5
+	},
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/structure/table,
+/obj/machinery/camera{
+	c_tag = "Defusal Workshop"
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/security/defusal)
 "erM" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Mass Driver";
@@ -47013,13 +47043,25 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "exm" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/station/security/main)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/security/defusal)
 "exI" = (
 /obj/structure/table/glass,
 /obj/item/hand_labeler,
@@ -49786,6 +49828,17 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
+"fLm" = (
+/obj/machinery/syndicatebomb/training,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/light_switch/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/defusal)
 "fLw" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister/nitrogen,
@@ -58141,6 +58194,22 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
+"jIN" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/book/manual/wiki/hacking{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/defusal)
 "jIR" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -62555,6 +62624,20 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/hallway/primary/starboard)
+"lDG" = (
+/obj/structure/table,
+/obj/item/clothing/head/welding{
+	pixel_x = -4;
+	pixel_y = 19
+	},
+/obj/item/multitool{
+	pixel_x = 7;
+	pixel_y = 13
+	},
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/security/defusal)
 "lEb" = (
 /obj/machinery/smartfridge/drying_rack,
 /turf/simulated/floor/plasteel{
@@ -71926,6 +72009,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -71943,8 +72032,8 @@
 	},
 /area/station/security/main)
 "qaA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -71958,6 +72047,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73293,9 +73385,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "qIB" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77741,9 +77831,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "sNG" = (
-/obj/structure/closet{
-	name = "Evidence Closet 4"
-	},
+/obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -78945,6 +79033,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"tnT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/defusal)
 "toD" = (
 /obj/structure/sign/poster/official/random/west,
 /obj/effect/turf_decal/stripes/line{
@@ -79783,9 +79888,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "tNe" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/fore)
+/area/station/security/defusal)
 "tNh" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -83677,9 +83781,7 @@
 	},
 /area/station/science/rnd)
 "vJo" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
+/obj/structure/closet/secure_closet/evidence,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -88509,9 +88611,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "yev" = (
-/obj/structure/closet{
-	name = "Evidence Closet 6"
-	},
+/obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -88566,6 +88666,15 @@
 	icon_state = "black"
 	},
 /area/station/security/permabrig)
+"yfj" = (
+/obj/machinery/nuclearbomb/training,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/defusal)
 "yfv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -120008,11 +120117,11 @@ aaa
 laH
 abq
 apO
-apO
-apO
+tNe
+tNe
 exm
-apO
-apO
+tNe
+tNe
 xyP
 apO
 apO
@@ -120265,10 +120374,10 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
+tNe
+yfj
+tnT
+fLm
 tNe
 oQV
 ajg
@@ -120522,11 +120631,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-ahH
+tNe
+erL
+jIN
+lDG
+tNe
 alW
 akR
 aDY
@@ -120779,11 +120888,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-ahH
+tNe
+tNe
+tNe
+tNe
+tNe
 aDY
 wLB
 cnV
@@ -121863,8 +121972,8 @@ bjp
 bez
 bnr
 boY
-bqA
 aHe
+bsp
 ded
 bEv
 bEv

@@ -34881,21 +34881,11 @@
 /area/station/medical/medbay)
 "cKZ" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/ears/earmuffs{
-	pixel_x = -3;
-	pixel_y = -2
-	},
-/obj/item/clothing/ears/earmuffs{
-	pixel_x = -5;
-	pixel_y = 6
-	},
-/obj/item/paper/firingrange,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 32
 	},
 /obj/item/storage/box/flashbangs{
-	pixel_x = 5;
-	pixel_y = 5
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/range)
@@ -49271,6 +49261,14 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/structure/table/reinforced,
+/obj/item/paper/firingrange{
+	pixel_y = 4
+	},
+/obj/item/clothing/ears/earmuffs{
+	pixel_y = 4
+	},
+/obj/item/clothing/ears/earmuffs,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -51428,6 +51426,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
 /obj/effect/landmark/start/prisoner,
+/obj/item/food/snacks/grown/pineapple{
+	name = "Старый ананас";
+	desc = "Довольно старый ананас. Интересно как он тут оказался и почему он так странно пахнет..."
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -52047,7 +52049,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
 "fkB" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -54052,7 +54054,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "fRf" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -54160,22 +54162,7 @@
 	},
 /area/station/medical/medbay2)
 "fSZ" = (
-/obj/structure/rack,
-/obj/item/target,
-/obj/item/target,
-/obj/item/target,
-/obj/item/target/alien{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/target/alien{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/target/alien{
-	pixel_x = 7;
-	pixel_y = 2
-	},
+/obj/machinery/nuclearbomb/training,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/range)
 "fTi" = (
@@ -58524,10 +58511,17 @@
 /area/station/maintenance/starboardsolar)
 "hpo" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/laser/practice,
-/obj/item/gun/energy/laser/practice{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/clothing/head/welding{
+	pixel_x = 9;
+	pixel_y = 10
+	},
+/obj/item/multitool{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -2;
+	pixel_x = -3
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/range)
@@ -59533,7 +59527,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "hEX" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -61472,7 +61466,7 @@
 	},
 /area/station/service/bar/atrium)
 "iiH" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /obj/item/id_skin/donut,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
@@ -66653,7 +66647,7 @@
 /turf/simulated/wall,
 /area/station/medical/patients_rooms)
 "jNz" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -77675,14 +77669,8 @@
 	},
 /area/station/security/brig)
 "noL" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/grown/pineapple{
-	name = "Старый ананас";
-	desc = "Довольно старый ананас. Интересно как он тут оказался и почему он так странно пахнет..."
-	},
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -80330,6 +80318,30 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
+"oai" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/item/disk/nuclear/training{
+	pixel_x = -5
+	},
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/range)
 "oan" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/stripes/line,
@@ -90837,7 +90849,7 @@
 	},
 /area/station/security/brig)
 "rpF" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -91267,6 +91279,14 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/south,
+/obj/structure/table/reinforced,
+/obj/item/paper/firingrange{
+	pixel_y = 4
+	},
+/obj/item/clothing/ears/earmuffs{
+	pixel_y = 4
+	},
+/obj/item/clothing/ears/earmuffs,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -97725,23 +97745,19 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "tuQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/table/reinforced,
-/obj/item/clothing/ears/earmuffs{
-	pixel_x = -5;
-	pixel_y = 6
+/obj/item/gun/energy/laser/practice,
+/obj/item/gun/energy/laser/practice{
+	pixel_x = 3;
+	pixel_y = 3
 	},
-/obj/item/clothing/ears/earmuffs{
-	pixel_y = 6
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
 	},
-/obj/item/paper/firingrange,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 32
-	},
-/obj/item/storage/box/flashbangs{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/station/security/range)
 "tuT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -100186,7 +100202,7 @@
 	},
 /area/station/maintenance/old_kitchen)
 "ulQ" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -109673,6 +109689,22 @@
 /obj/machinery/light/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/target,
+/obj/item/target,
+/obj/item/target,
+/obj/item/target/alien{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/target/alien{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/target/alien{
+	pixel_x = 7;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -164105,9 +164137,9 @@ off
 iVy
 eqH
 imZ
-imZ
+tuQ
 xnE
-imZ
+tuQ
 imZ
 rvJ
 muX
@@ -164876,10 +164908,10 @@ off
 iVy
 cvz
 cKZ
-hpo
+oai
 fSZ
 hpo
-tuQ
+cKZ
 wuX
 muX
 bed
