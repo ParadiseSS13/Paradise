@@ -398,7 +398,7 @@
 	update_flags |= M.adjustStaminaLoss(-30, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(6 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(7 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
 	return ..() | update_flags
