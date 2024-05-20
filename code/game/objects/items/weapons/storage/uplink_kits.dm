@@ -254,6 +254,8 @@
 		/obj/item/clothing/shoes/laceup, // 0 TC
 		/obj/item/clothing/glasses/monocle, // 0 TC
 		/obj/item/clothing/gloves/color/white, // 0 TC
+		/obj/item/clothing/head/that, // 0 TC
+		/obj/item/storage/secure/briefcase, // 0 TC
 		/// syndie briefcase has 600 credits for 5 TC.
 		/obj/item/stack/spacecash/c10000,
 		/obj/item/stack/spacecash/c10000,
