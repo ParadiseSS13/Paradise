@@ -117,7 +117,7 @@
 /obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
 	if(!selectable)
 		return
-	var/datum/action/innate/mecha/select_module/select_action = new
+	var/datum/action/innate/mecha/select_module/select_action = new()
 	select_action.Grant(chassis.occupant, chassis, src)
 	chassis.select_actions[src] = select_action
 
