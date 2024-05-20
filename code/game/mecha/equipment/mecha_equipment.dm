@@ -128,12 +128,9 @@
 		if(chassis.selected == src)
 			chassis.selected = null
 		update_chassis_page()
-		if(chassis.occupant)
-			remove_targeted_action()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		set_ready_state(1)
-
 
 /obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
 	if(!selectable)
@@ -159,6 +156,3 @@
 /obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
 	if(chassis)
 		chassis.log_message("<i>[src]:</i> [message]")
-
-/obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
-	return
