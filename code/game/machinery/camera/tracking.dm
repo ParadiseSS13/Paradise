@@ -120,7 +120,7 @@
 
 	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
 	if(!doubleclick)
-		sleep(5)
+		sleep(15)
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
