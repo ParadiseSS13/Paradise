@@ -3,7 +3,7 @@
 	id = "medicine"
 	taste_description = "bitterness"
 	harmless = TRUE
-	goal_department = "Medbay"
+	goal_department = "Chemistry"
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
