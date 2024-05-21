@@ -32,10 +32,11 @@
 	if(visualsOnly)
 		return
 
-	if(istype(H.mind))
-		ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
-
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
+
+/datum/outfit/job/chaplain/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
 
 /datum/outfit/job/chaplain/proc/religion_pick(mob/living/carbon/human/user)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(get_turf(user))

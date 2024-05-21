@@ -57,8 +57,9 @@
 			break
 
 // Fix for #383 - C4 deleting fridges with corpses
-/obj/structure/closet/Destroy()
-	dump_contents()
+/obj/structure/closet/Destroy(force)
+	if(!force)
+		dump_contents()
 	return ..()
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)

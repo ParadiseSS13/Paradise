@@ -30,6 +30,8 @@
 	var/window_height = 0
 	var/obj/item/paicard/paicard 			// Inserted pai card.
 	var/allow_pai = TRUE					// Are we even allowed to insert a pai card.
+
+	/// storing bot_name prior to pai and restoring it. MULEBOT uses this for suffix system
 	var/bot_name
 
 	var/disabling_timer_id = null
@@ -116,8 +118,8 @@
 
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
-	/// The type of bot it is, for radio control.
-	var/bot_type = 0
+	/// Type of bot, one of the *_BOT defines.
+	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
 	// This holds text for what the bot is mode doing, reported on the remote bot control interface.
@@ -398,51 +400,63 @@
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
+			return
+		if(emagged)
+			to_chat(user, "<span class='danger'>ERROR</span>")
+		if(open)
+			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 		else
-			if(emagged)
-				to_chat(user, "<span class='danger'>ERROR</span>")
-			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
-			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-	else if(istype(W, /obj/item/paicard))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
+	if(istype(W, /obj/item/paicard))
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
-		else if(allow_pai && !key)
-			if(!locked && !open && !hijacked)
-				var/obj/item/paicard/card = W
-				if(card.pai && card.pai.mind)
-					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-						to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
-						return
-					if(!user.drop_item())
-						return
-					W.forceMove(src)
-					paicard = card
-					user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
-					paicard.pai.mind.transfer_to(src)
-					to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
-					bot_name = name
-					name = paicard.pai.name
-					faction = user.faction
-					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
-				else
-					to_chat(user, "<span class='warning'>[W] is inactive.</span>")
-			else
-				to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
-		else
+			return
+
+		if(!allow_pai || key)
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-	else if(istype(W, /obj/item/hemostat) && paicard)
+			return
+
+		if(locked || open || hijacked)
+			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
+			return
+
+		var/obj/item/paicard/card = W
+		if(!card.pai?.mind)
+			to_chat(user, "<span class='warning'>[W] is inactive.</span>")
+			return
+
+		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
+			to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
+			return
+
+		if(!user.drop_item())
+			return
+
+		W.forceMove(src)
+		paicard = card
+		user.visible_message("[user] inserts [W] into [src]!", "<span class='notice'>You insert [W] into [src].</span>")
+		paicard.pai.mind.transfer_to(src)
+		to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
+		bot_name = name
+		name = paicard.pai.name
+		faction = user.faction
+		add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
+		return
+
+	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
-		else
-			to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-			if(do_after(user, 30 * W.toolspeed, target = src))
-				if(paicard)
-					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
-					ejectpai(user)
-	else
-		return ..()
+			return
+
+		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
+		if(do_after(user, 30 * W.toolspeed, target = src))
+			if(paicard)
+				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
+				ejectpai(user)
+				return
+	return ..()
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -693,7 +707,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	mode = BOT_IDLE
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
-
 
 
 
@@ -1164,3 +1177,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
 	return data
+
+// AI bot access verb TGUI
+/mob/living/simple_animal/bot/proc/get_bot_data()
+	. = list(
+	"name" = name ? name : model, // name is the actual bot name. PAI may change it. Mulebot suffix system uses bot_name // WHY, WHO MADE THIS
+	"model" = model, //
+	"status" = mode, // BOT_IDLE is 0, using mode_name will bsod tgui
+	"location" = get_area(src),
+	"on" = on,
+	"UID" = UID(),
+	)
