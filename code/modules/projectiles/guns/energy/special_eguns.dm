@@ -869,8 +869,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	fire_sound_text = "a strange noise"
 	can_suppress = 0
-	burst_size = 2 // burst has to be stored here
-	can_charge = FALSE
 	selfcharge = TRUE
 	charge_delay = 10
 	restricted_species = list(/datum/species/vox)
@@ -885,7 +883,6 @@
 	projectile_type = /obj/item/projectile/bullet/spike
 	muzzle_flash_effect = null
 	e_cost = 100
-	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
