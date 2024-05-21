@@ -1,10 +1,6 @@
-/datum/orbit_menu
-	var/mob/dead/observer/owner
+GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 
-/datum/orbit_menu/New(mob/dead/observer/new_owner)
-	if(!istype(new_owner))
-		qdel(src)
-	owner = new_owner
+/datum/orbit_menu
 
 /datum/orbit_menu/ui_state(mob/user)
 	return GLOB.observer_state
@@ -33,10 +29,11 @@
 			if(poi == null)
 				. = TRUE
 				return
-			owner.ManualFollow(poi)
+			var/mob/dead/observer/ghost = ui.user
+			ghost.ManualFollow(poi)
 			. = TRUE
 		if("refresh")
-			update_static_data(owner, ui)
+			update_static_data(ui.user, ui)
 			. = TRUE
 
 /datum/orbit_menu/ui_static_data(mob/user)
@@ -47,6 +44,7 @@
 	var/list/response_teams = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
+	var/list/ssd = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
@@ -82,9 +80,12 @@
 				npcs += list(serialized)
 			else if(M.stat == DEAD)
 				dead += list(serialized)
+			else if(!M.client) // this includes mobs which ghosted, but aren't `player_logged`, so that the Alive count is more accurate
+				ssd += list(serialized)
 			else
 				if(length(orbiters) >= 0.2 * length_of_ghosts) // They're important if 20% of observers are watching them
 					highlights += list(serialized)
+				serialized["ssd"] = !M.client
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
@@ -166,6 +167,7 @@
 	data["highlights"] = highlights
 	data["response_teams"] = response_teams
 	data["alive"] = alive
+	data["ssd"] = ssd
 	data["dead"] = dead
 	data["ghosts"] = ghosts
 	data["misc"] = misc

@@ -120,6 +120,7 @@ export const Orbit = (props, context) => {
     response_teams,
     auto_observe,
     dead,
+    ssd,
     ghosts,
     misc,
     npcs,
@@ -146,6 +147,7 @@ export const Orbit = (props, context) => {
       highlights,
       alive,
       ghosts,
+      ssd,
       dead,
       npcs,
       misc,
@@ -237,6 +239,13 @@ export const Orbit = (props, context) => {
         <BasicSection
           title="Ghosts"
           source={ghosts}
+          searchText={searchText}
+          color={'grey'}
+        />
+
+        <BasicSection
+          title="SSD"
+          source={ssd}
           searchText={searchText}
           color={'grey'}
         />
