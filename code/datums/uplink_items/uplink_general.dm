@@ -817,7 +817,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bio_chips/basic_adrenal
 	name = "Basic-Adrenal Bio-chip"
-	desc = "A single-use bio-chip injected into the body and later activated manually to inject a chemical cocktail. This one has a worse healing effect than regular adrenaline. It can be activated up to 1 time for 3/4 of the effect of the original."
+	desc = "A single-use bio-chip injected into the body and later activated manually to inject a chemical cocktail. This one has a worse healing effect than regular adrenaline. It can be activated once for 3/4 of the effect of the original."
 	reference = "BAI"
 	item = /obj/item/bio_chip_implanter/basic_adrenalin
 	cost = 20
