@@ -441,17 +441,7 @@
 		return TRUE
 	return FALSE
 
-// /obj/item/projectile/set_angle(new_angle)
-// 	..()
-// 	Angle = new_angle
-// 	trajectory.set_angle(new_angle)
-// 	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
-// 		last_angle_set_hitscan_store = loc
-// 		var/datum/point/point_cache = new (src)
-// 		point_cache = trajectory.copy_to()
-// 		store_hitscan_collision(point_cache)
-
-/obj/item/projectile/set_angle(new_angle) //wrapper for overrides.
+/obj/item/projectile/set_angle(new_angle)
 	..()
 
 	Angle = new_angle
