@@ -91,7 +91,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/start()
-	return
+	SHOULD_NOT_SLEEP(TRUE)
 
 /**
   * Called when the tick is equal to the announceWhen variable.
@@ -101,7 +101,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/announce(false_alarm = FALSE)
-	return
+	SHOULD_NOT_SLEEP(TRUE)
 
 /**
   * Called on or after the tick counter is equal to startWhen.
@@ -112,7 +112,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/tick()
-	return
+	SHOULD_NOT_SLEEP(TRUE)
 
 /**
   * Called on or after the tick is equal or more than endWhen
@@ -125,7 +125,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/end()
-	return
+	SHOULD_NOT_SLEEP(TRUE)
 
 /**
   * Returns the latest point of event processing.
