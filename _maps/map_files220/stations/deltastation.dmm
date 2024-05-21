@@ -40010,7 +40010,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit/maintenance)
 "diY" = (
 /obj/structure/chair/wood{
@@ -67653,7 +67653,7 @@
 	req_access_txt = "13"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "kdm" = (
 /obj/machinery/power/apc/directional/north,
