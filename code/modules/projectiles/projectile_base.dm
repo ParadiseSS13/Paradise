@@ -162,43 +162,62 @@
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
+	// ===CHUGAFIX=== Document this and figure out how to unfuck the hit_zone situation
+	if(firer_source_atom)
+		SEND_SIGNAL(firer_source_atom, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle, hit_zone, blocked)
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, hit_zone, blocked)
+
+	if(QDELETED(src))
+		return FALSE
+
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16
 	else
 		hitx = target.pixel_x + rand(-8, 8)
 		hity = target.pixel_y + rand(-8, 8)
+
 	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
 		var/turf/simulated/wall/W = target_loca
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
 		W.add_dent(PROJECTILE_IMPACT_WALL_DENT_SHOT, hitx, hity)
-		return 0
+		return FALSE
+
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
+
 	if(!isliving(target))
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
-		return 0
+		return FALSE
+
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
+
 	if(blocked != INFINITY) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
+
 			if(isalien(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+
 			else
 				var/blood_color = "#C80000"
+
 				if(ishuman(target))
 					H = target
 					blood_color = H.dna.species.blood_color
+
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
 				var/turf/step_over = get_step(target_loca, splatter_dir)
@@ -207,6 +226,7 @@
 					shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
 				else
 					target_loca = step_over
+
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
@@ -215,9 +235,11 @@
 						M.bloody_body(H) */
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
+
 		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
+
 		if(suppressed)
 			playsound(loc, hitsound, 5, 1, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
@@ -227,6 +249,7 @@
 				playsound(loc, hitsound, volume, 1, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+
 		if(immolate)
 			L.adjust_fire_stacks(immolate)
 			L.IgniteMob()
@@ -234,6 +257,7 @@
 	var/additional_log_text
 	if(blocked)
 		additional_log_text = " [ARMOUR_VALUE_TO_PERCENTAGE(blocked)]% blocked"
+
 	if(reagents && reagents.reagent_list)
 		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -254,7 +278,7 @@
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
 		return TRUE
 	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
-		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
+		if((border_obstacle.flags & ON_BORDER) && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) == turn(border_obstacle.dir, 180))
 			return TRUE
 
 /obj/item/projectile/proc/vol_by_damage()
@@ -268,7 +292,7 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A, yes)
+/obj/item/projectile/Bump(atom/A, yes) // ===CHUGAFIX=== WHAT THE FUCK DOES YES MEAN?
 	if(!yes) //prevents double bumps.
 		return
 

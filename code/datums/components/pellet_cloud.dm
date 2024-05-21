@@ -75,7 +75,7 @@
 	return ..()
 
 /datum/component/pellet_cloud/RegisterWithParent()
-	//RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(nullspace_parent)) ===CHUGAFIX=== // see below
+	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(nullspace_parent))
 	if(isammocasing(parent))
 		RegisterSignal(parent, COMSIG_FIRE_CASING, PROC_REF(create_casing_pellets))
 	else if(isgrenade(parent))
@@ -99,7 +99,7 @@
 	if(!zone_override)
 		zone_override = shooter.zone_selected
 
-	// things like mouth executions and gunpoints can multiply the damage and wounds of projectiles, so this makes sure those effects are applied to each pellet instead of just one
+	// things like mouth executions and gunpoints can multiply the damage of projectiles, so this makes sure those effects are applied to each pellet instead of just one
 	var/original_damage = shell.BB.damage
 
 	for(var/i in 1 to num_pellets)
@@ -319,15 +319,15 @@
 
 	bodies -= gone
 
-// ===CHUGAFIX=== Really not sure if this is critical or not. Seems to be a bugfix!
-/// Our grenade or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
-// /datum/component/pellet_cloud/proc/nullspace_parent()
-// 	SIGNAL_HANDLER
-
-// 	var/atom/movable/AM = parent
-// 	//AM.moveToNullspace()
-// 	queued_delete = TRUE
-// 	return TRUE
+/// Our grenade or whatever tried deleting itself, so we intervene and nullspace it until we're done here
+/datum/component/pellet_cloud/proc/nullspace_parent()
+	SIGNAL_HANDLER
+	// ===CHUGAFIX=== Rename this if deleting here ends up working fine (also delete the bool)
+	qdel(src)
+	// var/atom/movable/AM = parent
+	// AM.loc = null
+	// queued_delete = TRUE
+	return TRUE
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/on_target_qdel(atom/target)

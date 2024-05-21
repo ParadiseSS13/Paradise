@@ -926,7 +926,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // | EMBED PROCS START |
 // |-------------------|
 
-
+/// Logic that should happen directly before the item embeds should go before the call to parent, and vice versa for after
 /obj/item/proc/embedded(atom/embedded_target, obj/item/organ/external/part)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EMBEDDED, embedded_target, part)

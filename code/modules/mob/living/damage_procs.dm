@@ -74,7 +74,18 @@
 	return 1
 
 
-
+/**
+ * Applies effect effect on a mob according to effecttype
+ *
+ * Arguments
+ * * effect - length of effect, in SECONDS
+ * * effecttype - type of effect according to defines in combat_defines.dm
+ * * blocked - armor value (not percent)
+ *
+ * Returns
+ * * TRUE if effect was applied. Default value.
+ * * FALSE if effect is null or blocked is >= 100
+ */
 /mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	blocked = (100 - blocked) / 100
 	if(!effect || (blocked <= 0))

@@ -140,25 +140,26 @@
  * arrows and harpoons being embeddable even when not let loose by their weapons.
  */
 // ===CHUGAFIX=== this starts working after shrapnel gets ripped up
-// /datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/source, atom/movable/firer, atom/hit, angle, hit_zone)
-// 	SIGNAL_HANDLER	// COMSIG_PROJECTILE_SELF_ON_HIT
+/datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/source, atom/movable/firer, atom/hit, angle, hit_zone, blocked)
+	SIGNAL_HANDLER	// COMSIG_PROJECTILE_SELF_ON_HIT
 
-// 	if(!source.can_embed_into(hit))
-// 		Detach(source)
-// 		return // we don't care
+	if(!source.can_embed_into(hit))
+		Detach(source)
+		return // we don't care
 
-// 	var/obj/item/payload = new payload_type(get_turf(hit))
-// 	if(istype(payload, /obj/item/shrapnel/bullet))
-// 		payload.name = source.name
-// 	SEND_SIGNAL(source, COMSIG_PROJECTILE_ON_SPAWN_EMBEDDED, payload)
-// 	var/mob/living/carbon/C = hit
-// 	var/obj/item/organ/external/limb = C.get_organ(hit_zone)
-// 	if(!limb)
-// 		limb = C.get_organ() // ===CHUGAFIX===
+	var/obj/item/payload = new payload_type(get_turf(hit))
+	if(istype(payload, /obj/item/shrapnel/bullet))
+		payload.name = source.name
+	// ===CHUGAFIX=== This whole situation ends up causing a runtime with caseless if that gets 1 for 1 ported, fixed by https://github.com/tgstation/tgstation/pull/77942
+	SEND_SIGNAL(source, COMSIG_PROJECTILE_ON_SPAWN_EMBEDDED, payload)
+	var/mob/living/carbon/C = hit
+	var/obj/item/organ/external/limb = C.get_organ(hit_zone)
+	if(!limb)
+		limb = C.get_organ() // ===CHUGAFIX===
 
-// 	if(!tryForceEmbed(payload, limb))
-// 		payload.failedEmbed()
-// 	Detach(source)
+	if(!tryForceEmbed(payload, limb))
+		payload.failedEmbed()
+	Detach(source)
 
 /**
  * tryForceEmbed() is called here when we fire COMSIG_EMBED_TRY_FORCE from [/obj/item/proc/tryEmbed]. Mostly, this means we're a piece of shrapnel from a projectile that just impacted something, and we're trying to embed in it.

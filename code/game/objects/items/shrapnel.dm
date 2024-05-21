@@ -1,7 +1,7 @@
 /obj/item/shrapnel // frag grenades
 	name = "shrapnel shard"
-	icon = 'icons/obj/debris.dmi'
-	icon_state = "large"
+	icon = 'icons/obj/shards.dmi'
+	icon_state = "shrapnel1"
 	w_class = WEIGHT_CLASS_TINY
 	flags = DROPDEL
 
@@ -12,20 +12,25 @@
 
 /obj/item/shrapnel/bullet // bullets
 	name = "bullet"
-	icon = 'icons/obj/weapons/guns/ammo.dmi'
+	icon = 'icons/obj/ammo.dmi'
 	icon_state = "s-casing"
 	embedding = null // embedding vars are taken from the projectile itself
 
+/**
+ * Shrapnel projectiles turn into this after trying to embed
+ */
 /obj/item/projectile/bullet/shrapnel
 	name = "flying shrapnel shard"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "magspear"
 	damage = 14
-	range = 20
+	range = 20 // ===CHUGAFIX=== Contra's version had a range of 5 - might want to keep.
 	dismemberment = 5
 	ricochets_max = 2
 	ricochet_chance = 70
 	ricochet_incidence_leeway = 60
 	shrapnel_type = /obj/item/shrapnel
-	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, fall_chance=1)
+	embedding = list(embed_chance = 70, ignore_throwspeed_threshold = TRUE, fall_chance = 1)
 
 /obj/item/projectile/bullet/shrapnel/short_range
 	range = 5
