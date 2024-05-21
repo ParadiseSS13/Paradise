@@ -77,7 +77,7 @@
 /obj/item/flamethrower/attack(mob/living/carbon/M, mob/living/carbon/user)
 	// For lighting cigarettes.
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP || !lit) 
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
 	cig.attackby(src, user, M)
 

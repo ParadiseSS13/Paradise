@@ -28,11 +28,13 @@
 	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user)
-	// For lighting cigarettes.
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP || active || !istype(src, /obj/item/melee/energy/cleaving_saw)) // Because for some reason the cleaving saw is an energy blade.
-		cig.attackby(src, user, target)
-		return
+	// Because for some reason the cleaving saw is an energy blade.
+	if(!istype(src, /obj/item/melee/energy/cleaving_saw))
+		// For lighting cigarettes.
+		var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+		if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP)
+			cig.attackby(src, user, target)
+			return FALSE
 
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))

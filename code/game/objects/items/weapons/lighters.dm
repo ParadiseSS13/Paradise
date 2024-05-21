@@ -264,7 +264,7 @@
 		log_game("[key_name(user)] set [key_name(M)] on fire")
 
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP || !lit) 
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
 	cig.attackby(src, user, M)
 

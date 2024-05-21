@@ -30,6 +30,14 @@
 	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
+/obj/item/storm_staff/attack(mob/living/M, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	// For lighting cigarettes.
+	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP)
+		cig.attackby(src, user, M)
+		return FALSE
+	..()
+
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)

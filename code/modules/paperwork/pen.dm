@@ -213,9 +213,9 @@
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
 	// For lighting cigarettes.
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP || active) 
+	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP) 
 		cig.attackby(src, user, M)
-		return
+		return FALSE
 
 	var/extra_force_applied = FALSE
 	if(active && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
