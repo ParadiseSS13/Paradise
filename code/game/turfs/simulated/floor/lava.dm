@@ -260,12 +260,11 @@
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma/fuming
 
 	temperature = 500
-	toxins = 8
+	toxins = 10
+	agent_b = 0.5
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
-
-	var/datum/gas_mixture/environment = tile.return_air()
 
 /turf/simulated/floor/lava/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
