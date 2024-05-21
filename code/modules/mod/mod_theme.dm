@@ -811,9 +811,8 @@
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
 	allowed_suit_storage = list(
-		/obj/item/gun/energy,
+		/obj/item/gun,
 		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/gun/projectile,
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/melee/baton,
