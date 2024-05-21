@@ -27,6 +27,7 @@
 	*/
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/nutrition/nutrition_display = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0

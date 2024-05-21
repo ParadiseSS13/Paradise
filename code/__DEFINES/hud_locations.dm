@@ -77,11 +77,11 @@
 #define ui_borg_lanugage_menu "EAST-2:26,SOUTH+1:7"
 
 //Upper-middle right (alerts)
-#define ui_alert1 "EAST-1:28,CENTER+5:27"
-#define ui_alert2 "EAST-1:28,CENTER+4:25"
-#define ui_alert3 "EAST-1:28,CENTER+3:23"
-#define ui_alert4 "EAST-1:28,CENTER+2:21"
-#define ui_alert5 "EAST-1:28,CENTER+1:19"
+#define ui_nutrition "EAST-1:28,CENTER+5:27"
+#define ui_alert1 "EAST-1:28,CENTER+4:25"
+#define ui_alert2 "EAST-1:28,CENTER+3:23"
+#define ui_alert3 "EAST-1:28,CENTER+2:21"
+#define ui_alert4 "EAST-1:28,CENTER+1:19"
 
 
 //Gun buttons
@@ -102,7 +102,6 @@
 #define ui_alien_nightvision "EAST-1:28,CENTER+2:25"
 
 //Middle right (status indicators)
-#define ui_nutrition "EAST-1:28,CENTER-3:11"
 #define ui_temp "EAST-1:28,CENTER-2:13"
 #define ui_healthdoll "EAST-1:28,CENTER-1:15"
 #define ui_health "EAST-1:28,CENTER:17"
