@@ -7370,7 +7370,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "aKK" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -17548,7 +17548,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "bnB" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -22404,7 +22404,7 @@
 	},
 /area/station/engineering/smes)
 "bAQ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -26551,7 +26551,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/item/hand_tele,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
@@ -30570,7 +30570,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "cdw" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cdB" = (
@@ -33977,7 +33977,7 @@
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "cqM" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "cqN" = (
@@ -38023,7 +38023,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/cryo)
 "cGy" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -52491,7 +52491,7 @@
 	},
 /area/station/engineering/atmos)
 "gIm" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -73268,7 +73268,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

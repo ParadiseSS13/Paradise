@@ -7922,7 +7922,7 @@
 	d1 = 1;
 	d2 = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;

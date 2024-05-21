@@ -9762,7 +9762,7 @@
 "bhm" = (
 /obj/structure/table,
 /obj/item/hand_tele,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	name = "custom placement"
@@ -21552,7 +21552,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/tech_storage)
 "clm" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -51725,7 +51725,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "jwo" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/station/science/toxins/test)
@@ -80510,7 +80510,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "sCV" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -91080,7 +91080,7 @@
 	},
 /area/station/security/brig)
 "vRR" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},

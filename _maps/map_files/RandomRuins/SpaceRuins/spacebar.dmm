@@ -228,7 +228,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "aZ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "ba" = (

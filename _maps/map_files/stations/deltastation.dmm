@@ -1099,7 +1099,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "ajd" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -33937,7 +33937,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "bSh" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -35281,7 +35281,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "bVp" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall12";
 	location = "hall11"
@@ -43393,7 +43393,7 @@
 	},
 /area/station/hallway/primary/central)
 "crF" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -45242,7 +45242,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cwV" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -79305,7 +79305,7 @@
 	},
 /area/station/hallway/primary/starboard/west)
 "msl" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -79374,7 +79374,7 @@
 	},
 /area/station/medical/reception)
 "mtx" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "mtL" = (
@@ -81478,7 +81478,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "nCh" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -81490,7 +81490,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "nCu" = (
@@ -83371,7 +83371,7 @@
 	},
 /area/station/maintenance/starboard)
 "oIJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "oIN" = (

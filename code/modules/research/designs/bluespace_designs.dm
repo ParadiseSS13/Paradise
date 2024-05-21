@@ -78,7 +78,7 @@
 	req_tech = list("bluespace" = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
-	build_path = /obj/item/radio/beacon
+	build_path = /obj/item/beacon
 	category = list("Bluespace")
 
 /datum/design/brpd
