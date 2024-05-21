@@ -135,7 +135,7 @@
 /obj/machinery/door/window/unrestricted_side(mob/M)
 	var/mob_dir = get_dir(src, M)
 	if(mob_dir == 0) // If the mob is inside the tile
-		mob_dir = reverse_direction(dir) // Set it to the inside direction of the windoor
+		mob_dir = REVERSE_DIR(dir) // Set it to the inside direction of the windoor
 
 	return mob_dir & unres_sides
 
