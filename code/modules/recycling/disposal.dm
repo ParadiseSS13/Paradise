@@ -77,14 +77,30 @@
 /obj/machinery/disposal/Initialize(mapload)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	. = ..()
-	var/atom/L = loc
-	var/datum/gas_mixture/env = new
-	env.copy_from(L.return_air())
-	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
-	air_contents = new
-	air_contents.merge(removed)
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 	trunk_check()
 	update()
+
+/datum/milla_safe/disposal_suck_air
+
+/datum/milla_safe/disposal_suck_air/on_run(obj/machinery/disposal/disposal)
+	var/turf/T = get_turf(disposal)
+	var/datum/gas_mixture/env = get_turf_air(T)
+
+	var/pressure_delta = (SEND_PRESSURE + 1) - disposal.air_contents.return_pressure()
+
+	if(env.temperature() > 0)
+		var/transfer_moles = 0.1 * pressure_delta*disposal.air_contents.volume/(env.temperature() * R_IDEAL_GAS_EQUATION)
+
+		//Actually transfer the gas
+		var/datum/gas_mixture/removed = env.remove(transfer_moles)
+		disposal.air_contents.merge(removed)
+
+	// if full enough, switch to ready mode
+	if(disposal.air_contents.return_pressure() >= SEND_PRESSURE)
+		disposal.mode = 2
+		disposal.update()
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
@@ -425,27 +441,9 @@
 	// otherwise charge
 	change_power_mode(ACTIVE_POWER_USE)
 
-	var/atom/L = loc						// recharging from loc turf
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 
-	var/datum/gas_mixture/env = L.return_air()
-	env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/disposal, take_air), env))
-
-/obj/machinery/disposal/proc/take_air(datum/gas_mixture/env)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
-
-	if(env.temperature() > 0)
-		var/transfer_moles = 0.1 * pressure_delta*air_contents.volume/(env.temperature() * R_IDEAL_GAS_EQUATION)
-
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = env.remove(transfer_moles)
-		air_contents.merge(removed)
-
-	// if full enough, switch to ready mode
-	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = 2
-		update()
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
@@ -716,15 +714,9 @@
 	playsound(loc, 'sound/effects/clang.ogg', 50, 0, 0)
 
 	// called to vent all gas in holder to a location
-/obj/structure/disposalholder/proc/vent_gas(atom/location)
-	if(location)
-		var/datum/gas_mixture/env = location.return_air()
-		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/structure/disposalholder, vent_gas_sync), env))
-
-/obj/structure/disposalholder/proc/vent_gas_sync(datum/gas_mixture/env)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-	env.merge(gas)  // vent all gas to turf
+/obj/structure/disposalholder/proc/vent_gas(turf/location)
+	if(istype(location))
+		location.blind_release_air(gas)
 
 // Disposal pipes
 

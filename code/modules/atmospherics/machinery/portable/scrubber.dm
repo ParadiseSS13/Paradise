@@ -45,31 +45,30 @@
 		. += "scrubber-connector"
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
-	..()
+	var/datum/milla_safe/portable_scrubber_process/milla = new()
+	milla.invoke_async(src)
 
-	if(!on)
+/datum/milla_safe/portable_scrubber_process
+
+/datum/milla_safe/portable_scrubber_process/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
+	if(!scrubber.on)
 		return
-	scrub(loc)
-	if(widenet)
-		var/turf/T = loc
-		if(istype(T))
-			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
-				scrub(tile)
+	if(scrubber.holding_tank)
+		scrubber.scrub(scrubber.holding_tank.air_contents)
+		return
 
-/obj/machinery/atmospherics/portable/scrubber/proc/scrub(turf/simulated/tile)
-	var/datum/gas_mixture/environment
-	if(holding_tank)
-		environment = holding_tank.air_contents
-	else
-		environment = tile.return_air()
+	var/turf/T = get_turf(scrubber)
+	scrubber.scrub(get_turf_air(T))
+	if(scrubber.widenet)
+		for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
+			scrubber.scrub(get_turf_air(tile))
+
+/obj/machinery/atmospherics/portable/scrubber/proc/scrub(datum/gas_mixture/environment)
 	var/transfer_moles = min(1,volume_rate/environment.volume)*environment.total_moles()
 
 	//Take a gas sample
 	var/datum/gas_mixture/removed
-	if(holding_tank)
-		removed = environment.remove(transfer_moles)
-	else
-		removed = loc.remove_air(transfer_moles)
+	removed = environment.remove(transfer_moles)
 
 	//Filter it
 	if(removed)
@@ -90,15 +89,12 @@
 		filtered_out.set_agent_b(removed.agent_b())
 		removed.set_agent_b(0)
 
-	//Remix the resulting gases
+		//Remix the resulting gases
 		air_contents.merge(filtered_out)
 
-		if(holding_tank)
-			environment.merge(removed)
-		else
-			tile.assume_air(removed)
+		environment.merge(removed)
 
-/obj/machinery/atmospherics/portable/scrubber/return_air()
+/obj/machinery/atmospherics/portable/scrubber/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 

@@ -231,14 +231,7 @@
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
 	if(air_transfer.toxins())
 		air_transfer.set_toxins(air_transfer.toxins() * 5)
-	var/datum/gas_mixture/environment = target.get_air()
-	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/flamethrower, default_ignite_sync), environment, air_transfer, target))
-
-/obj/item/flamethrower/proc/default_ignite_sync(datum/gas_mixture/environment, datum/gas_mixture/air_transfer, turf/target)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-	environment.merge(air_transfer)
-	//Burn it based on transfered gas
+	target.blind_release_air(air_transfer)
 	target.hotspot_expose((ptank.air_contents.temperature()*2) + 380, 500)
 
 

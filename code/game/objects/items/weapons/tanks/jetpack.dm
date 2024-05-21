@@ -77,15 +77,8 @@
 		return 0
 
 	var/turf/T = get_turf(user)
-	var/datum/gas_mixture/env = T.return_air()
-	env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank/jetpack, spray_air), T, removed))
+	T.blind_release_air(removed)
 	return 1
-
-/obj/item/tank/jetpack/proc/spray_air(turf/T, datum/gas_mixture/air)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	T.assume_air(air)
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"

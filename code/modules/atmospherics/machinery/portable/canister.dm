@@ -229,63 +229,58 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		holding_tank.forceMove(T)
 		holding_tank = null
 
-	var/datum/gas_mixture/environment = T.get_air()
-	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/portable/canister, canister_break_sync), environment, expelled_gas))
-
-/obj/machinery/atmospherics/portable/canister/proc/canister_break_sync(datum/gas_mixture/environment, datum/gas_mixture/expelled_gas)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	environment.merge(expelled_gas)
+	T.blind_release_air(expelled_gas)
 
 /obj/machinery/atmospherics/portable/canister/process_atmos()
-	if(stat & BROKEN)
+	var/datum/milla_safe/canister_process/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/canister_process
+
+/datum/milla_safe/canister_process/on_run(obj/machinery/atmospherics/portable/canister/canister)
+	if(canister.stat & BROKEN)
 		return
 
-	..()
-
-	if(valve_open)
+	if(canister.valve_open)
 		var/datum/gas_mixture/environment
-		if(holding_tank)
-			environment = holding_tank.air_contents
+		if(canister.holding_tank)
+			environment = canister.holding_tank.air_contents
 		else
-			environment = loc.return_air()
+			var/turf/T = get_turf(canister)
+			environment = get_turf_air(T)
 
 		var/env_pressure = environment.return_pressure()
-		var/pressure_delta = min(release_pressure - env_pressure, (air_contents.return_pressure() - env_pressure)/2)
+		var/pressure_delta = min(canister.release_pressure - env_pressure, (canister.air_contents.return_pressure() - env_pressure)/2)
 		//Can not have a pressure delta that would cause environment pressure > tank pressure
 
 		var/transfer_moles = 0
-		if((air_contents.temperature() > 0) && (pressure_delta > 0))
-			transfer_moles = pressure_delta * environment.volume / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+		if((canister.air_contents.temperature() > 0) && (pressure_delta > 0))
+			transfer_moles = pressure_delta * environment.volume / (canister.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 
 			//Actually transfer the gas
-			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
+			var/datum/gas_mixture/removed = canister.air_contents.remove(transfer_moles)
 
-			if(holding_tank)
-				environment.merge(removed)
-			else
-				loc.assume_air(removed)
-			update_icon()
+			environment.merge(removed)
+			canister.update_icon()
 
 
-	if(air_contents.return_pressure() < 1)
-		can_label = TRUE
+	if(canister.air_contents.return_pressure() < 1)
+		canister.can_label = TRUE
 	else
-		can_label = FALSE
+		canister.can_label = FALSE
 
-/obj/machinery/atmospherics/portable/canister/return_air()
+/obj/machinery/atmospherics/portable/canister/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/atmospherics/portable/canister/proc/return_temperature()
-	var/datum/gas_mixture/GM = return_air()
+	var/datum/gas_mixture/GM = return_obj_air()
 	if(GM && GM.volume>0)
 		return GM.temperature()
 	return
 
 /obj/machinery/atmospherics/portable/canister/proc/return_pressure()
-	var/datum/gas_mixture/GM = return_air()
+	var/datum/gas_mixture/GM = return_obj_air()
 	if(GM && GM.volume>0)
 		return GM.return_pressure()
 	return

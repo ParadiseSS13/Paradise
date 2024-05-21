@@ -1,49 +1,9 @@
-/turf/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
-	qdel(giver)
-	return 0
-
-/turf/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	//Create gas mixture to hold data for passing
-	var/datum/gas_mixture/GM = new
-
-	GM.set_oxygen(oxygen)
-	GM.set_carbon_dioxide(carbon_dioxide)
-	GM.set_nitrogen(nitrogen)
-	GM.set_toxins(toxins)
-	GM.set_sleeping_agent(sleeping_agent)
-	GM.set_agent_b(agent_b)
-
-	GM.set_temperature(temperature)
-
-	return GM
-
-/turf/return_analyzable_air()
-	return return_air()
-
-/turf/remove_air(amount)
-	var/datum/gas_mixture/GM = new
-
-	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
-	if(sum > 0)
-		GM.set_oxygen((oxygen / sum) * amount)
-		GM.set_carbon_dioxide((carbon_dioxide / sum) * amount)
-		GM.set_nitrogen((nitrogen / sum) * amount)
-		GM.set_toxins((toxins / sum) * amount)
-		GM.set_sleeping_agent((sleeping_agent / sum) * amount)
-		GM.set_agent_b((agent_b / sum) * amount)
-
-	GM.set_temperature(temperature)
-
-	return GM
-
 /turf/simulated/Initialize(mapload)
 	. = ..()
 	if(!blocks_air)
-		var/datum/gas_mixture/air = get_air()
-		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, set_initial_air), air))
+		blind_set_air(get_initial_air())
 
-/turf/simulated/proc/set_initial_air(datum/gas_mixture/air)
+/turf/simulated/proc/get_initial_air(datum/gas_mixture/air)
 	if(!blocks_air)
 		air.set_oxygen(oxygen)
 		air.set_carbon_dioxide(carbon_dioxide)
@@ -65,40 +25,6 @@
 	QDEL_NULL(active_hotspot)
 	QDEL_NULL(wet_overlay)
 	return ..()
-
-/turf/simulated/assume_air(datum/gas_mixture/giver)
-	if(!giver)
-		return FALSE
-	if(blocks_air)
-		return ..()
-
-	var/datum/gas_mixture/air = get_air()
-	air.merge(giver)
-
-	return TRUE
-
-/turf/simulated/proc/copy_air_with_tile(turf/simulated/T)
-	if(!istype(T) || T.blocks_air || blocks_air)
-		return
-	var/datum/gas_mixture/air = get_air()
-	air.copy_from(T.get_air())
-
-/turf/simulated/proc/copy_air(datum/gas_mixture/copy)
-	if(!copy || blocks_air)
-		return
-	var/datum/gas_mixture/air = get_air()
-	air.copy_from(copy)
-
-/turf/simulated/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(blocks_air)
-		return ..()
-	return get_air()
-
-/turf/simulated/remove_air(amount)
-	var/datum/gas_mixture/air = get_air()
-	var/datum/gas_mixture/removed = air.remove(amount)
-	return removed
 
 /turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
 	var/delta_temperature = (temperature_archived - model.temperature)

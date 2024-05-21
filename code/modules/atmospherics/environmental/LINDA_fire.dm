@@ -54,45 +54,46 @@
 	..()
 	if(!fake)
 		SSair.hotspots += src
-		var/datum/gas_mixture/env = loc.return_air()
-		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/effect/hotspot, burn_plasma)))
+		var/datum/milla_safe/hotspot_burn_plasma/milla = new()
+		milla.invoke_async(src)
 	dir = pick(GLOB.cardinal)
 
+/datum/milla_safe/hotspot_burn_plasma
+
 /// Burns the air affected by this hotspot. A hotspot is effectively a gas fire that might not cover the entire tile yet. This proc makes that "partial fire" burn, altering the tile as a whole, and potentially setting the entire tile on fire.
-/obj/effect/hotspot/proc/burn_plasma()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	var/turf/simulated/location = loc
+/datum/milla_safe/hotspot_burn_plasma/on_run(obj/effect/hotspot/hotspot)
+	var/turf/simulated/location = get_turf(hotspot)
 	if(!istype(location) || location.blocks_air)
-		return FALSE
+		// We're in the wrong neighborhood.
+		qdel(hotspot)
+		return
 
-	var/datum/gas_mixture/location_air = location.get_air()
-	if(location_air.temperature() >= min(temperature, PLASMA_UPPER_TEMPERATURE))
+	var/datum/gas_mixture/location_air = get_turf_air(location)
+	if(location_air.temperature() >= min(hotspot.temperature, PLASMA_UPPER_TEMPERATURE))
 		// The cell is already hot enough, no need to do more.
-		temperature = location_air.temperature()
-		volume = CELL_VOLUME
-		color = heat2color(temperature)
-		set_light(l_color = color)
+		hotspot.temperature = location_air.temperature()
+		hotspot.volume = CELL_VOLUME
+		hotspot.color = heat2color(temperature)
+		hotspot.set_light(l_color = hotspot.color)
 		return
 
 	if(location_air.toxins() < 0.5 || location_air.oxygen() < 0.5)
 		// Burn what, exactly?
-		qdel(src)
+		qdel(hotspot)
 		return
 
 	var/total = location_air.total_moles()
 	if(location_air.toxins() < 0.01 * total || location_air.oxygen() < 0.01 * total)
 		// The rest of the gas is snuffing out the reaction.
-		qdel(src)
+		qdel(hotspot)
 		return
 
 	// Get some of the surrounding air for the hotspot to burn.
-	var/datum/gas_mixture/burning = location_air.remove_ratio(volume / location_air.volume)
+	var/datum/gas_mixture/burning = location_air.remove_ratio(hotspot.volume / location_air.volume)
 
 	// Temporarily boost the temperature of this air to the hotspot temperature.
 	var/old_temperature = burning.temperature()
-	burning.set_temperature(temperature)
+	burning.set_temperature(hotspot.temperature)
 
 	// Record how much plasma we had initially.
 	var/old_toxins = burning.toxins()
@@ -106,10 +107,10 @@
 	var/thermal_energy = FIRE_PLASMA_ENERGY_RELEASED * fuel_burnt
 
 	// Update the hotspot based on the reaction.
-	temperature = burning.temperature()
-	volume = min(CELL_VOLUME, fuel_burnt * FIRE_GROWTH_RATE)
-	color = heat2color(temperature)
-	set_light(l_color = color)
+	hotspot.temperature = burning.temperature()
+	hotspot.volume = min(CELL_VOLUME, fuel_burnt * FIRE_GROWTH_RATE)
+	hotspot.color = heat2color(temperature)
+	set_light(l_color = hotspot.color)
 
 	// Revert the air's temperature to where it started.
 	burning.set_temperature(old_temperature)
@@ -132,12 +133,13 @@
 		qdel(src)
 		return
 
-	var/datum/gas_mixture/location_air = location.get_air()
+	var/datum/gas_mixture/location_air = location.get_readonly_air()
 	if(location.blocks_air || location_air.toxins() < 0.5 || location_air.oxygen() < 0.5)
 		qdel(src)
 		return
 
-	burn_plasma()
+	var/datum/milla_safe/hotspot_burn_plasma/milla = new()
+	milla.invoke_async(src)
 	if(QDELETED(src))
 		return
 

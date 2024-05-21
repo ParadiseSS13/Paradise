@@ -133,7 +133,7 @@
 		else if(strength >=0.2)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
 	else if(air_contents.temperature() > (T0C + 250))
@@ -144,7 +144,7 @@
 		else if(strength >=0.5)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
 	else if(air_contents.temperature() > (T0C + 100))
@@ -153,11 +153,11 @@
 		if(strength >=1)
 			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
 	else
-		ground_zero.assume_air(air_contents)
+		ground_zero.blind_release_air(air_contents)
 		ground_zero.hotspot_expose(1000, 125)
 
 	if(master)
@@ -169,4 +169,4 @@
 	var/turf/simulated/T = get_turf(src)
 	if(!T)
 		return
-	T.assume_air(removed)
+	T.blind_release_air(removed)

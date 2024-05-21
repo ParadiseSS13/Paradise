@@ -120,7 +120,7 @@
 	if(opacity)
 		has_opaque_atom = TRUE
 
-	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, initialize_milla)))
+	initialize_milla()
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -317,8 +317,6 @@
 	return W
 
 /turf/proc/BeforeChange()
-	var/datum/gas_mixture/G = get_air()
-	temperature = G.temperature()
 	return
 
 /turf/proc/is_safe()
@@ -327,8 +325,8 @@
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
+	initialize_milla()
 	recalculate_atmos_connectivity()
-	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, initialize_milla)))
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
@@ -350,35 +348,31 @@
 	..()
 	RemoveLattice()
 	if(!ignore_air)
-		var/datum/gas_mixture/air = get_air()
-		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, Assimilate_Air), air))
+		var/datum/milla_safe/turf_assimilate_air/milla = new()
+		milla.invoke_async(src)
 
-//////Assimilate Air//////
-/turf/simulated/proc/Assimilate_Air(datum/gas_mixture/air)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/datum/milla_safe/turf_assimilate_air
 
+/datum/milla_safe/turf_assimilate_air/on_run(turf/self)
 	var/datum/gas_mixture/merged = new()
 	var/turf_count = 0
-
-	// Merge together all the neighboring air.
-	for(var/turf/T in GetAtmosAdjacentTurfs())
-		if(!T.blocks_air)
-			var/datum/gas_mixture/copy = new()
-			copy.copy_from(T.get_air())
-			merged.merge(copy)
-			turf_count++
-
-	// Divide the air amount by the number of airs merged to average them.
+	for(var/turf/T in self.atmos_adjacent_turfs)
+		if(isspaceturf(T))
+			turf_count += 1
+			continue
+		if(T.blocks_air)
+			continue
+		merged.merge(get_turf_air(T))
+		turf_count += 1
 	if(turf_count > 0)
+		// Average the contents of the turfs.
 		merged.set_oxygen(merged.oxygen() / turf_count)
 		merged.set_nitrogen(merged.nitrogen() / turf_count)
 		merged.set_carbon_dioxide(merged.carbon_dioxide() / turf_count)
 		merged.set_toxins(merged.toxins() / turf_count)
 		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
 		merged.set_agent_b(merged.agent_b() / turf_count)
-
-	air.copy_from(merged)
+	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf, keep_icon = FALSE)
@@ -620,12 +614,48 @@
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
-/turf/proc/get_air()
+/turf/proc/initialize_milla()
+	var/datum/milla_safe/initialize_turf/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/initialize_turf
+
+/datum/milla_safe/initialize_turf/on_run(turf/T)
+	set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+
+/// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
+/turf/proc/private_unsafe_get_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(isnull(bound_air))
 		SSair.bind_turf(src)
 	return bound_air
 
-/turf/proc/initialize_milla()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-	set_tile_atmos(src, atmos_mode = atmos_mode, environment_id = SSmapping.environments[atmos_environment], innate_heat_capacity = heat_capacity, temperature = temperature)
+/// Gets a read-only version of this tile's air. Do not use if you intend to modify the air later, implement /datum/milla_safe instead.
+/turf/proc/get_readonly_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
+	return air.get_readonly()
+
+/// Blindly releases air to this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_release_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_release/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_release
+
+/datum/milla_safe/turf_blind_release/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).merge(air)
+
+// Blindly sets the air in this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_set_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_set/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_set
+
+/datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).copy_from(air)
+
+/turf/return_analyzable_air()
+	return get_readonly_air()

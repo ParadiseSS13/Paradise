@@ -22,7 +22,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/process_atmos()
 	var/environment_temperature = 0
-	var/datum/gas_mixture/pipe_air = return_air()
+	var/datum/gas_mixture/pipe_air = return_obj_air()
 	if(!pipe_air)
 		return
 
@@ -30,7 +30,7 @@
 	if(T.blocks_air)
 		environment_temperature = T.temperature
 	else
-		var/datum/gas_mixture/environment = T.get_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		environment_temperature = environment.temperature()
 
 	if(abs(environment_temperature-pipe_air.temperature()) > minimum_temperature_difference)

@@ -111,7 +111,7 @@
 			qdel(src)
 
 		if(air_contents)
-			location.assume_air(air_contents)
+			location.blind_release_air(air_contents)
 
 		qdel(src)
 
@@ -133,17 +133,9 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			var/datum/gas_mixture/env = T.return_air()
-			env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, dump_air), air_contents))
+			T.blind_release_air(air_contents)
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
-
-/obj/item/tank/proc/dump_air(datum/gas_mixture/air)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	var/turf/T = get_turf(src)
-	T?.assume_air(air)
 
 /obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
@@ -222,7 +214,7 @@
 /obj/item/tank/return_analyzable_air()
 	return air_contents
 
-/obj/item/tank/assume_air(datum/gas_mixture/giver)
+/obj/item/tank/obj_assume_air(datum/gas_mixture/giver)
 	air_contents.merge(giver)
 
 	check_status()
@@ -279,7 +271,7 @@
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
 				return
-			T.assume_air(air_contents)
+			T.blind_release_air(air_contents)
 			playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 			qdel(src)
 		else
@@ -292,7 +284,7 @@
 			if(!T)
 				return
 			var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
-			T.assume_air(leaked_gas)
+			T.blind_release_air(leaked_gas)
 		else
 			integrity--
 

@@ -18,9 +18,14 @@
 	icon_state = "[prefix]off"
 
 /obj/machinery/atmospherics/unary/thermal_plate/process_atmos()
-	..()
+	var/datum/milla_safe/thermal_plate_process/milla = new()
+	milla.invoke_async(src)
 
-	var/datum/gas_mixture/environment = loc.return_air()
+/datum/milla_safe/thermal_plate_process
+
+/datum/milla_safe/thermal_plate_process/on_run(obj/machinery/atmospherics/unary/thermal_plate/plate)
+	var/turf/T = get_turf(plate)
+	var/datum/gas_mixture/environment = get_turf_air(plate)
 
 	//Get processable air sample and thermal info from environment
 
@@ -28,15 +33,15 @@
 	var/datum/gas_mixture/external_removed = environment.remove(transfer_moles)
 
 	if(!external_removed)
-		return radiate()
+		return plate.radiate()
 
 	if(external_removed.total_moles() < 10)
-		return radiate()
+		return plate.radiate()
 
 	//Get same info from connected gas
 
-	var/internal_transfer_moles = 0.25 * air_contents.total_moles()
-	var/datum/gas_mixture/internal_removed = air_contents.remove(internal_transfer_moles)
+	var/internal_transfer_moles = 0.25 * plate.air_contents.total_moles()
+	var/datum/gas_mixture/internal_removed = plate.air_contents.remove(internal_transfer_moles)
 
 	if(!internal_removed)
 		environment.merge(external_removed)
@@ -52,9 +57,9 @@
 	environment.merge(external_removed)
 
 	internal_removed.set_temperature(final_temperature)
-	air_contents.merge(internal_removed)
+	plate.air_contents.merge(internal_removed)
 
-	parent.update = 1
+	plate.parent.update = 1
 
 	return 1
 

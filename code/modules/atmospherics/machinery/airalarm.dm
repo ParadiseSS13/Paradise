@@ -262,12 +262,13 @@
 	if(!istype(location))
 		return 0
 
-	var/datum/gas_mixture/environment = location.return_air()
-	var/datum/tlv/cur_tlv
-
-	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/alarm, handle_heating_cooling), environment, cur_tlv, location))
+	var/datum/milla_safe/airalarm_heat_cool/milla = new()
+	milla.invoke_async(src)
 
 	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature()/environment.volume
+
+	var/datum/gas_mixture/environment = location.get_readonly_air()
+	var/datum/tlv/cur_tlv
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
@@ -313,49 +314,50 @@
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
 
+/datum/milla_safe/airalarm_heat_cool
 
-/obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/datum/milla_safe/airalarm_heat_cool/on_run(obj/machinery/alarm/alarm)
+	var/turf/location = get_turf(alarm)
+	var/datum/gas_mixture/environment = get_turf_air(location)
 
-	if(!thermostat_state)
+	if(!alarm.thermostat_state)
 		return
-	cur_tlv = TLV["temperature"]
+	var/cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
-	if(environment.temperature() < target_temperature - 2 || environment.temperature() > target_temperature + 2 || regulating_temperature)
+	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
-		if(!cur_tlv.get_danger_level(target_temperature))
-			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
+		if(!cur_tlv.get_danger_level(alarm.target_temperature))
+			var/datum/gas_mixture/gas = environment.remove(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state)
-				regulating_temperature = TRUE
-				visible_message("\The [src] clicks as it starts [environment.temperature() > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
+			if(!alarm.regulating_temperature && alarm.thermostat_state)
+				alarm.regulating_temperature = TRUE
+				visible_message("\The [alarm] clicks as it starts [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
-			if(target_temperature > MAX_TEMPERATURE)
-				target_temperature = MAX_TEMPERATURE
+			if(alarm.target_temperature > MAX_TEMPERATURE)
+				alarm.target_temperature = MAX_TEMPERATURE
 
-			if(target_temperature < MIN_TEMPERATURE)
-				target_temperature = MIN_TEMPERATURE
+			if(alarm.target_temperature < MIN_TEMPERATURE)
+				alarm.target_temperature = MIN_TEMPERATURE
 
 			var/heat_capacity = gas.heat_capacity()
-			var/energy_used = max(abs(heat_capacity * (gas.temperature() - target_temperature) ), MAX_ENERGY_CHANGE)
+			var/energy_used = max(abs(heat_capacity * (gas.temperature() - alarm.target_temperature) ), MAX_ENERGY_CHANGE)
 
 			//Use power.  Assuming that each power unit represents 1000 watts....
-			use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
+			alarm.use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
 
 			//We need to cool ourselves.
 			if(heat_capacity)
-				if(environment.temperature() > target_temperature)
+				if(environment.temperature() > alarm.target_temperature)
 					gas.set_temperature(gas.temperature() - energy_used / heat_capacity)
 				else
 					gas.set_temperature(gas.temperature() + energy_used / heat_capacity)
 
-			if(abs(environment.temperature() - target_temperature) <= 0.5)
-				regulating_temperature = FALSE
-				visible_message("[src] clicks quietly as it stops [environment.temperature() > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
+			if(abs(environment.temperature() - alarm.target_temperature) <= 0.5)
+				alarm.regulating_temperature = FALSE
+				alarm.visible_message("[alarm] clicks quietly as it stops [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
-			location.assume_air(gas)
+			environment.merge(gas)
 
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
@@ -581,7 +583,7 @@
 	if(!istype(location))
 		return
 
-	var/datum/gas_mixture/environment = location.return_air()
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent()
 	var/total = environment.total_moles()
 

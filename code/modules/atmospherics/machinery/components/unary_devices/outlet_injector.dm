@@ -66,7 +66,8 @@ GLOBAL_LIST_EMPTY(air_injectors)
 
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		loc.assume_air(removed)
+		var/turf/T = get_turf(src)
+		T.blind_release_air(removed)
 
 		parent.update = TRUE
 

@@ -58,32 +58,6 @@ What are the archived variables for?
 /datum/gas_mixture/proc/set_dirty()
 	return
 
-/// Runs the callback once MILLA is synchronous. This works on non-bound mixtures, but is pointless unless you're working with bound mixtures as well.
-/datum/gas_mixture/proc/synchronize(datum/callback/CB)
-	if(synchronized)
-		CB.InvokeAsync()
-		return
-
-	waiting_for_sync += CB
-	if(length(waiting_for_sync) == 1)
-		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/gas_mixture, on_sync)))
-
-/// Callback for when MILLA enters synchronous mode.
-/datum/gas_mixture/proc/on_sync()
-	if(update_from_milla())
-		synchronized = TRUE
-		for(var/datum/callback/CB as anything in waiting_for_sync)
-			CB.InvokeAsync()
-	waiting_for_sync.Cut()
-
-/// Immediately synchronizes this mixture with MILLA. Does nothing on non-bound mixtures. On bound mixtures, runtimes if MILLA is not in synchronous mode.
-/datum/gas_mixture/proc/synchronize_now()
-	return
-
-/// Fetches the data for this gas mixture from MILLA. Does nothing on non-bound mixtures.
-/datum/gas_mixture/proc/update_from_milla()
-	return TRUE
-
 /datum/gas_mixture/proc/oxygen()
 	return private_oxygen
 
@@ -746,35 +720,19 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 /datum/gas_mixture/bound_to_turf
 	var/dirty = FALSE
-	synchronized = FALSE
 	var/turf/bound_turf = null
+	var/datum/gas_mixture/readonly = null
 
 /datum/gas_mixture/bound_to_turf/Destroy()
 	bound_turf = null
 	return ..()
 
-/datum/gas_mixture/bound_to_turf/synchronize_now()
-	if(!synchronized)
-		update_from_milla()
-		synchronized = TRUE
-		ASSERT(SSair.is_synchronous)
-
-/datum/gas_mixture/bound_to_turf/update_from_milla()
-	if(isnull(bound_turf))
-		return FALSE
-
-	var/milla[MILLA_TILE_SIZE]
-	get_tile_atmos(bound_turf, milla)
-	copy_from_milla(milla)
-	dirty = FALSE
-	return TRUE
-
 /datum/gas_mixture/bound_to_turf/set_dirty()
-	synchronize_now()
 	dirty = TRUE
 	if(istype(bound_turf, /turf/simulated))
 		var/turf/simulated/S = bound_turf
 		S.update_visuals()
+	ASSERT(SSair.in_milla_safe_code)
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
 	set_dirty()
@@ -804,5 +762,47 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	set_dirty()
 	private_temperature = value
 
-/datum/gas_mixture/bound_to_turf/proc/write()
+/datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
 	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)
+
+/datum/gas_mixture/bound_to_turf/proc/get_readonly()
+	if(isnull(readonly))
+		readonly = new(src)
+	return readonly
+
+/// A gas mixture that should not be modified after creation.
+/datum/gas_mixture/readonly
+
+/datum/gas_mixture/readonly/New(datum/gas_mixture/parent)
+	private_oxygen = parent.private_oxygen
+	private_carbon_dioxide = parent.private_carbon_dioxide
+	private_nitrogen = parent.private_nitrogen
+	private_toxins = parent.private_toxins
+	private_sleeping_agent = parent.private_sleeping_agent
+	private_agent_b = parent.private_agent_b
+
+	private_temperature = parent.private_temperature
+
+/datum/gas_mixture/readonly/set_dirty()
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_oxygen(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_carbon_dioxide(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_nitrogen(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_toxins(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_sleeping_agent(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_agent_b(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_temperature(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")

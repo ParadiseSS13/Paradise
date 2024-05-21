@@ -657,8 +657,9 @@
 	QDEL_NULL(internal_tank)
 	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
-	if(loc)
-		loc.return_air().synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, dump_air), cabin_air))
+	var/turf/T = get_turf(src)
+	if(T)
+		T.blind_release_air(cabin_air)
 	else
 		qdel(cabin_air)
 	cabin_air = null
@@ -669,12 +670,6 @@
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
-
-/obj/mecha/proc/dump_air(datum/gas_mixture/air)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	loc.assume_air(air)
 
 //TODO
 /obj/mecha/emp_act(severity)
@@ -1035,24 +1030,11 @@
 ////////  MARK: Atmospheric stuff
 /////////////////////////////////////
 
-/obj/mecha/proc/get_turf_air()
-	var/turf/T = get_turf(src)
-	if(T)
-		. = T.return_air()
-
-/obj/mecha/remove_air(amount)
-	if(use_internal_tank)
-		return cabin_air.remove(amount)
-	else
-		var/turf/T = get_turf(src)
-		if(T)
-			return T.remove_air(amount)
-
-/obj/mecha/return_air()
+/obj/mecha/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
-	return get_turf_air()
+	return null
 
 /obj/mecha/return_analyzable_air()
 	if(use_internal_tank)
@@ -1060,15 +1042,14 @@
 	return null
 
 /obj/mecha/proc/return_pressure()
-	var/datum/gas_mixture/t_air = return_air()
+	var/datum/gas_mixture/t_air = return_obj_air()
 	if(t_air)
-		. = t_air.return_pressure()
+		return t_air.return_pressure()
 
-//skytodo: //No idea what you want me to do here, mate.
 /obj/mecha/proc/return_temperature()
-	var/datum/gas_mixture/t_air = return_air()
+	var/datum/gas_mixture/t_air = return_obj_air()
 	if(t_air)
-		. = t_air.temperature()
+		return t_air.temperature()
 
 /obj/mecha/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
@@ -1103,7 +1084,7 @@
 	return 1
 
 /obj/mecha/portableConnectorReturnAir()
-	return internal_tank.return_air()
+	return internal_tank.return_obj_air()
 
 /obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
@@ -1461,7 +1442,7 @@
 		if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && prob(5))
 			clearInternalDamage(MECHA_INT_FIRE)
 		if(internal_tank)
-			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+			var/datum/gas_mixture/int_tank_air = internal_tank.return_obj_air()
 			if(int_tank_air.return_pressure() > internal_tank.maximum_pressure && !(internal_damage & MECHA_INT_TANK_BREACH))
 				setInternalDamage(MECHA_INT_TANK_BREACH)
 
@@ -1475,11 +1456,11 @@
 
 	if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 		if(internal_tank)
-			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+			var/datum/gas_mixture/int_tank_air = internal_tank.return_obj_air()
 			var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(0.10)
-			if(loc)
-				var/datum/gas_mixture/environment = loc.return_air()
-				environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, release_gas), environment, leaked_gas))
+			var/turf/T = get_turf(src)
+			if(T)
+				T.blind_release_air(leaked_gas)
 			else
 				qdel(leaked_gas)
 
@@ -1507,7 +1488,7 @@
 	if(!internal_tank)
 		return
 
-	var/datum/gas_mixture/tank_air = internal_tank.return_air()
+	var/datum/gas_mixture/tank_air = internal_tank.return_obj_air()
 
 	var/release_pressure = internal_tank_valve
 	var/cabin_pressure = cabin_air.return_pressure()
@@ -1519,17 +1500,21 @@
 			var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
 			cabin_air.merge(removed)
 	else if(pressure_delta < 0) //cabin pressure higher than release pressure
-		var/datum/gas_mixture/t_air = return_air()
+		var/datum/gas_mixture/tank_air = return_obj_air()
 		pressure_delta = cabin_pressure - release_pressure
-		if(t_air)
-			pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
+		if(tank_air)
+			pressure_delta = min(cabin_pressure - tank_air.return_pressure(), pressure_delta)
 		if(pressure_delta > 0) //if location pressure is lower than cabin pressure
 			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
-			if(t_air)
-				t_air.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, dump_air), removed))
-			else //just delete the cabin gas, we're in space or some shit
-				qdel(removed)
+			if(tank_air)
+				tank_air.merge(removed)
+			else
+				var/turf/T = get_turf(src)
+				if(T)
+					T.blind_release_air(removed)
+				else
+					qdel(removed)
 
 /obj/mecha/proc/update_huds()
 	diag_hud_set_mechhealth()

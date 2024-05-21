@@ -69,6 +69,9 @@ SUBSYSTEM_DEF(air)
 	/// Is MILLA currently in synchronous mode? TRUE if data is fresh and changes can be made, FALSE if data is from last tick and changes cannot be made (because this tick is still processing).
 	var/is_synchronous = TRUE
 
+	/// Are we currently running in a MILLA-safe context, i.e. is is_synchronous *guaranteed* to be TRUE. Nothing outside of this file should change this.
+	var/in_milla_safe_code = FALSE
+
 	/// When did we start the last MILLA tick?
 	var/milla_tick_start = null
 
@@ -127,10 +130,19 @@ SUBSYSTEM_DEF(air)
 	. = ..()
 	var/list/cust = list()
 	cust["hotspots"] = length(hotspots)
+	cust["interesting turfs"] = interesting_tile_count
 	.["cost"] = cost_full.last_complete_ms
 	.["custom"] = cust
 
 /datum/controller/subsystem/air/Initialize()
+	initialize_sleepless()
+
+/datum/controller/subsystem/air/proc/initialize_sleepless()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	in_milla_safe_code = TRUE
+
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
 	setup_allturfs()
@@ -139,6 +151,8 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
+
+	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/Recover()
 	hotspots = SSair.hotspots
@@ -149,13 +163,12 @@ SUBSYSTEM_DEF(air)
 	icon_manager = SSair.icon_manager
 	currentrun = SSair.currentrun
 	currentpart = SSair.currentpart
+	is_synchronous = SSair.is_synchronous
 
 /datum/controller/subsystem/air/fire(resumed = 0)
-	var/timer = 0
-
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	if(!is_synchronous)
-		timer = TICK_USAGE_REAL
+		var/timer = TICK_USAGE_REAL
 
 		while(!is_synchronous)
 			// Sleep for 1ms.
@@ -168,6 +181,15 @@ SUBSYSTEM_DEF(air)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), TRUE)
 
+	fire_sleepless(resumed)
+
+/datum/controller/subsystem/air/proc/fire_sleepless(resumed)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+	in_milla_safe_code = TRUE
+
+	var/timer = TICK_USAGE_REAL
+
 	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
 		timer = TICK_USAGE_REAL
 
@@ -176,6 +198,7 @@ SUBSYSTEM_DEF(air)
 		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 		currentpart = SSAIR_PIPENETS
@@ -188,6 +211,7 @@ SUBSYSTEM_DEF(air)
 		cost_pipenets.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 		currentpart = SSAIR_ATMOSMACHINERY
@@ -200,6 +224,7 @@ SUBSYSTEM_DEF(air)
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 		currentpart = SSAIR_INTERESTING_TILES
@@ -212,6 +237,7 @@ SUBSYSTEM_DEF(air)
 		cost_interesting_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 		currentpart = SSAIR_HOTSPOTS
@@ -224,6 +250,7 @@ SUBSYSTEM_DEF(air)
 		cost_hotspots.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 		currentpart = SSAIR_BOUND_MIXTURES
@@ -236,6 +263,7 @@ SUBSYSTEM_DEF(air)
 		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 		currentpart = SSAIR_MILLA_TICK
@@ -249,10 +277,12 @@ SUBSYSTEM_DEF(air)
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 
 	currentpart = SSAIR_DEFERREDPIPENETS
+	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/proc/build_pipenets(resumed = 0)
 	if(!resumed)
@@ -389,6 +419,9 @@ SUBSYSTEM_DEF(air)
 		T.Initialize_Atmos(times_fired)
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	var/watch = start_watch()
 	log_startup_progress("Writing tiles to MILLA...")
 
@@ -465,23 +498,69 @@ SUBSYSTEM_DEF(air)
 		get_tile_atmos(T, milla_tile)
 	B.copy_from_milla(milla_tile)
 	B.dirty = FALSE
-	B.synchronized = is_synchronous
 	bound_mixtures += B
 
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
-/datum/controller/subsystem/air/proc/synchronize(datum/callback/CB)
+/datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/CB)
 	if(is_synchronous)
-		CB.InvokeAsync()
+		SSair.in_milla_safe_code = TRUE
+		// This is one of two intended places to call this otherwise-unsafe proc.
+		CB.private_unsafe_invoke()
+		SSair.in_milla_safe_code = FALSE
 		return
 
 	waiting_for_sync += CB
 
 /proc/milla_tick_finished()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	SSair.is_synchronous = TRUE
-	for(var/datum/callback/CB as anything in SSair.waiting_for_sync)
-		CB.InvokeAsync()
+	SSair.in_milla_safe_code = TRUE
+	for(var/datum/milla_safe/CB as anything in SSair.waiting_for_sync)
+		// This is one of two intended places to call this otherwise-unsafe proc.
+		CB.private_unsafe_invoke()
 	SSair.waiting_for_sync.Cut()
+	SSair.in_milla_safe_code = FALSE
+
+/// Create a subclass of this and implement `on_run` to manipulate tile air safely.
+/datum/milla_safe
+	var/args = list()
+
+/// All subclasses should implement this.
+/datum/milla_safe/proc/on_run(...)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	CRASH("[src.type] does not implement on_run")
+
+/// Call this to make the subclass run when it's safe to do so. Args will be passed to on_run.
+/datum/milla_safe/proc/invoke_async(...)
+	src.args = args
+	SSair.synchronize(src)
+
+/// Do not call this yourself. This is what is called to run your code from a safe context.
+/datum/milla_safe/proc/private_unsafe_invoke()
+	ASSERT(SSair.in_milla_safe_code)
+	on_run(arglist(args))
+
+/// Fetch the air for a turf. Only use from `on_run`.
+/datum/milla_safe/proc/get_turf_air(turf/T)
+	RETURN_TYPE(/datum/gas_mixture)
+	ASSERT(SSair.in_milla_safe_code)
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	return T.private_unsafe_get_air()
+
+/// Add air to a turf. Only use from `on_run`.
+/datum/milla_safe/proc/add_turf_air(turf/T, datum/gas_mixture/air)
+	var/datum/gas_mixture/turf_air = get_turf_air(T)
+	turf_air.merge(air)
+
+/// Completely replace the air for a turf. Only use from `on_run`.
+/datum/milla_safe/proc/set_turf_air(turf/T, datum/gas_mixture/air)
+	var/datum/gas_mixture/turf_air = get_turf_air(T)
+	turf_air.copy_from(air)
 
 #undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS

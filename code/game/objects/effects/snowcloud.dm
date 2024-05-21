@@ -23,11 +23,8 @@
 	if(isspaceturf(T) || T.density) // Don't want snowclouds or snow on walls
 		qdel(src)
 		return
-	var/turf_hotness
-	if(issimulatedturf(T))
-		var/turf/simulated/S = T
-		var/datum/gas_mixture/G = S.get_air()
-		turf_hotness = G.temperature()
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	var/turf_hotness = G.temperature()
 	if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 		qdel(src)
 		return
@@ -43,11 +40,9 @@
 	var/turf/T = get_turf(src)
 	if(locate(/obj/effect/snow, T))
 		return
-	if(issimulatedturf(T))
-		var/turf/simulated/S = T
-		var/datum/gas_mixture/G = S.get_air()
-		if(prob(75 + G.temperature() - T0C)) //Colder turf = more chance of snow
-			return
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	if(prob(75 + G.temperature() - T0C)) //Colder turf = more chance of snow
+		return
 	new /obj/effect/snow(T)
 
 /obj/effect/snowcloud/proc/try_to_spread_cloud()
@@ -86,13 +81,11 @@
 	if(isspaceturf(T) || T.density) // Don't want snowclouds or snow on walls
 		qdel(src)
 		return
-	else if(issimulatedturf(T))
-		var/turf/simulated/S = T
-		var/datum/gas_mixture/G = S.get_air()
-		if(G.temperature() <= T0C)
-			return
-		if(prob(10 + G.temperature() - T0C))
-			qdel(src)
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	if(G.temperature() <= T0C)
+		return
+	if(prob(10 + G.temperature() - T0C))
+		qdel(src)
 
 /obj/effect/snow/attack_hand(mob/living/carbon/human/user)
 	if(!istype(user)) //Nonhumans don't have the balls to fight in the snow

@@ -103,25 +103,6 @@
 /obj/proc/suicide_act(mob/user)
 	return FALSE
 
-/obj/assume_air(datum/gas_mixture/giver)
-	if(loc)
-		return loc.assume_air(giver)
-	else
-		return null
-
-/obj/remove_air(amount)
-	if(loc)
-		return loc.remove_air(amount)
-	else
-		return null
-
-/obj/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(loc)
-		return loc.return_air()
-	else
-		return null
-
 /obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
@@ -316,3 +297,10 @@
 		C.Weaken(3 SECONDS)
 	else
 		C.KnockDown(3 SECONDS)
+
+/obj/proc/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(isobj(loc))
+		return loc.return_air()
+	else
+		return null
