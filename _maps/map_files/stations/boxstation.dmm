@@ -35948,7 +35948,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office";
+	department = "NT Representative's Office";
 	pixel_y = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -67442,6 +67442,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "kPo" = (

@@ -611,6 +611,7 @@ Difficulty: Medium
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 3
 	rapid = 2
+	crusher_loot = list()
 	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/fish_eggs/babycarp, /obj/effect/temp_visual/cult/portal)
 	butcher_results = list(/obj/item/stack/ore/diamond = 10, /obj/item/stack/sheet/bone = 30)
 	move_force = MOVE_FORCE_NORMAL
