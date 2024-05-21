@@ -48,14 +48,13 @@
 		QDEL_NULL(BB)
 		return 1
 
-	// ===CHUGAFIX=== just fucking copypaste the whole thing in here i HATE THIS FUCKING FILE I HATE PROJECTILES WHAT THE FUCK WAS ANYBODY THINKING
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			BB.prehit(target)
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return 1
-	// ===CHUGAFIX=== curloc == get_turf(fired_from)
+
 	var/modifiers = params2list(params)
 	BB.preparePixelProjectile(target, curloc, modifiers, spread)
 	if(BB)
