@@ -143,6 +143,8 @@
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker!</span>"
 	switch(buildstage)
 		if(0)
 			. += "<span class='notice'>The frame is <b>welded</b> to the wall, but missing <i>circuitry</i>.</span>"
