@@ -48,8 +48,6 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
-	var/hunger_type
-	var/hunger_level
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
