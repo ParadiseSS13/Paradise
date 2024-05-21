@@ -152,7 +152,7 @@
 
 /obj/item/pda/iaa
 	default_cartridge = /obj/item/cartridge/iaa
-	icon_state = "pda-internal-affairs"
+	icon_state = "pda-iaa"
 	ttone = "..."
 	default_pen = /obj/item/pen/multi
 
