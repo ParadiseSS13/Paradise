@@ -26,7 +26,7 @@
 
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/animal.dmi', notify_image)
-		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, action = NOTIFY_FOLLOW)
+		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, PROC_REF(spawn_tear), T), 4 SECONDS)
 
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.

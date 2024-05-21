@@ -453,7 +453,6 @@
 		ghost_sound = 'sound/machines/warning-buzzer.ogg',
 		source = src,
 		action = NOTIFY_FOLLOW,
-		flashwindow = FALSE,
 		title = "IT'S LOOSE",
 		alert_overlay = image(icon='icons/obj/singularity.dmi', icon_state="singularity_s1")
 	)
