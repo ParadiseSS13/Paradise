@@ -248,7 +248,6 @@
 	if(!. && isliving(A))
 		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
 
-
 /turf/simulated/floor/engine/cult/proc/spawn_visual()
 	new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
