@@ -44474,7 +44474,6 @@
 "hmm" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "hmp" = (
@@ -61682,7 +61681,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "mAW" = (
-/obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
 /obj/structure/rack,
 /turf/simulated/floor/plating,

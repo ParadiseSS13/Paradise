@@ -3456,27 +3456,26 @@
 "arV" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "arW" = (
-/obj/machinery/computer/arcade,
+/obj/effect/mob_spawn/human/corpse/skeleton,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "arX" = (
-/obj/machinery/computer/arcade,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/crayon{
+	color = #FF00FF
+	},
+/obj/item/reagent_containers/drinks/bottle/wine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "arY" = (
-/obj/structure/table/wood,
-/obj/item/toy/minimeteor,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/wall,
 /area/station/maintenance/fore2)
 "arZ" = (
 /obj/structure/chair/stool,
@@ -3720,8 +3719,11 @@
 	},
 /area/station/security/checkpoint/secondary)
 "asI" = (
-/obj/item/kirbyplants,
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/maintenance{
+	name = "Maintenance Drone Dispensary"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "asJ" = (
 /obj/structure/chair/stool,
@@ -4165,49 +4167,40 @@
 /turf/space,
 /area/station/maintenance/auxsolarport)
 "atM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/drone_control,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "atO" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/light/small{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "atP" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "atQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "atR" = (
@@ -4439,14 +4432,13 @@
 	},
 /area/station/maintenance/fore2)
 "auw" = (
-/obj/item/kirbyplants,
-/obj/machinery/light/small{
-	dir = 8
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	icon_state = "redyellowfull"
 	},
-/turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aux" = (
-/obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -4649,23 +4641,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/secondary/entry/lounge)
-"avd" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/station/maintenance/fore2)
 "avg" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -4715,7 +4690,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "avm" = (
-/obj/structure/table/wood,
+/obj/structure/rack,
+/obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "avn" = (
@@ -4725,9 +4701,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "avo" = (
-/obj/structure/table/wood,
-/obj/item/lighter/random,
-/turf/simulated/floor/plasteel/dark,
+/obj/item/stack/sheet/metal/fifty,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "avp" = (
 /obj/structure/table/wood,
@@ -5516,6 +5492,11 @@
 "axf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "axg" = (
@@ -7365,6 +7346,11 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aBP" = (
@@ -10392,14 +10378,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aKd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
+/obj/machinery/drone_fabricator,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aKe" = (
@@ -31633,14 +31612,6 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
-"bMp" = (
-/obj/machinery/computer/drone_control{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
-/area/station/engineering/break_room)
 "bMq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -32214,14 +32185,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
 /area/station/turret_protected/aisat)
-"bNT" = (
-/obj/machinery/drone_fabricator,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
-/area/station/engineering/break_room)
 "bNW" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -73591,15 +73554,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "iQb" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/barricade/wooden,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/light/small{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
 "iQj" = (
 /obj/structure/morgue,
@@ -77987,6 +77945,11 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "lyp" = (
@@ -124798,7 +124761,7 @@ bIy
 bGA
 bIy
 blx
-bNT
+bIy
 bGz
 bQk
 bSc
@@ -125312,7 +125275,7 @@ bEW
 bIA
 bIA
 bKp
-bMp
+bMu
 bGz
 bQm
 bjT
@@ -142223,7 +142186,7 @@ aqk
 aob
 arU
 amP
-avd
+aoG
 auv
 avl
 awv
@@ -142480,9 +142443,9 @@ aql
 axm
 axm
 axm
-iQb
 axm
-axm
+asI
+are
 axm
 axt
 ayA
@@ -142736,9 +142699,9 @@ aps
 aqm
 axm
 arV
-asI
+are
 atM
-auw
+apo
 avm
 axm
 axs
@@ -142993,10 +142956,10 @@ aps
 aqn
 are
 arW
-asJ
+axm
 aKd
 aux
-qWs
+asM
 axm
 axu
 ayD
@@ -143250,10 +143213,10 @@ apt
 aqo
 are
 arX
-asK
-atO
-asJ
-avn
+auO
+asM
+iQb
+avo
 are
 axu
 ayD
@@ -143507,10 +143470,10 @@ alN
 axm
 axm
 arY
-apo
-atO
-asM
-avo
+axm
+are
+axm
+axm
 axm
 axu
 ayD
@@ -143764,7 +143727,7 @@ apw
 aqp
 arf
 bPq
-auu
+atO
 atP
 axf
 axf
@@ -145047,7 +145010,7 @@ aof
 apP
 apA
 axm
-amQ
+auw
 asb
 asO
 atS

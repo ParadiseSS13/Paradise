@@ -28,7 +28,7 @@ export const DroneConsole = (props, context) => {
 
 const Fabricator = (props, context) => {
   const { act, data } = useBackend(context);
-  const { drone_fab, fab_power, drone_prod, drone_progress } = data;
+  const { drone_fab, fab_power, active_drones, stored_drones, total_drones } = data;
 
   let FabDetected = () => {
     if (drone_fab) {
@@ -39,15 +39,25 @@ const Fabricator = (props, context) => {
               [ {fab_power ? 'Online' : 'Offline'} ]
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Drone Production">
+          <LabeledList.Item label="Active Drones">
             <ProgressBar
-              value={drone_progress / 100}
-              ranges={{
-                good: [0.7, Infinity],
-                average: [0.4, 0.7],
-                bad: [-Infinity, 0.4],
-              }}
-            />
+              value={active_drones / total_drones}
+              // ranges={{
+              //   good: [0.7, Infinity],
+              //   average: [0.4, 0.7],
+              //   bad: [-Infinity, 0.4],
+              // }}
+            >{active_drones}/{total_drones}</ProgressBar>
+          </LabeledList.Item>
+          <LabeledList.Item label="Stored Drones">
+            <ProgressBar
+              value={stored_drones / total_drones}
+              // ranges={{
+              //   good: [0.7, Infinity],
+              //   average: [0.4, 0.7],
+              //   bad: [-Infinity, 0.4],
+              // }}
+            >{stored_drones}/{total_drones}</ProgressBar>
           </LabeledList.Item>
         </LabeledList>
       );
@@ -72,14 +82,6 @@ const Fabricator = (props, context) => {
   return (
     <Section
       title="Drone Fabricator"
-      buttons={
-        <Button
-          icon="power-off"
-          content={drone_prod ? 'Online' : 'Offline'}
-          color={drone_prod ? 'green' : 'red'}
-          onClick={() => act('toggle_fab')}
-        />
-      }
     >
       {FabDetected()}
     </Section>

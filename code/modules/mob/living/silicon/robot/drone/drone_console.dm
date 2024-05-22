@@ -3,7 +3,7 @@
 	desc = "Used to monitor the station's drone population and the assembler that services them."
 	icon_screen = "power"
 	icon_keyboard = "power_key"
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_MAINT_TUNNELS)
 	circuit = /obj/item/circuitboard/drone_control
 
 	/// The linked fabricator
@@ -44,18 +44,27 @@
 	var/list/data = list()
 	data["drone_fab"] = FALSE
 	data["fab_power"] = null
-	data["drone_prod"] = null
-	data["drone_progress"] = null
+	data["active_drones"] = 0
+	data["stored_drones"] = 0
+	data["total_drones"] = 0
 	if(dronefab)
 		data["drone_fab"] = TRUE
 		data["fab_power"] = dronefab.stat & NOPOWER ? FALSE : TRUE
-		data["drone_prod"] = dronefab.produce_drones
-		data["drone_progress"] = dronefab.drone_progress
+
 	data["selected_area"] = drone_call_area
 	data["ping_cd"] = ping_cooldown > world.time ? TRUE : FALSE
 
 	data["drones"] = list()
+	var/active_drones = 0
+	var/stored_drones = 0
+	var/total_drones = 0
 	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
+		total_drones++
+		if(D.loc == dronefab)
+			stored_drones++
+			continue
+		if(D.client)
+			active_drones++
 		var/area/A = get_area(D)
 		var/turf/T = get_turf(D)
 		var/list/drone_data = list(
@@ -70,6 +79,11 @@
 			pathfinding = D.pathfinding
 		)
 		data["drones"] += list(drone_data)
+
+	if(dronefab)
+		data["active_drones"] = active_drones
+		data["stored_drones"] = stored_drones
+		data["total_drones"] = total_drones
 	return data
 
 /obj/machinery/computer/drone_control/ui_static_data(mob/user)
@@ -85,17 +99,6 @@
 	switch(action)
 		if("find_fab")
 			find_fab(usr)
-
-		if("toggle_fab")
-			if(QDELETED(dronefab))
-				dronefab = null
-				return
-
-			dronefab.produce_drones = !dronefab.produce_drones
-			var/toggle = dronefab.produce_drones ? "enable" : "disable"
-			to_chat(usr, "<span class='notice'>You [toggle] drone production in the nearby fabricator.</span>")
-			message_admins("[key_name_admin(usr)] [toggle]d maintenance drone production from the control console.")
-			log_game("[key_name(usr)] [toggle]d maintenance drone production from the control console.")
 
 		if("set_area")
 			drone_call_area = params["area"]

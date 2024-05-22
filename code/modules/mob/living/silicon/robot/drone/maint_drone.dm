@@ -13,7 +13,7 @@
 	lawupdate = FALSE
 	density = FALSE
 	has_camera = FALSE
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+	req_one_access = list(ACCESS_MAINT_TUNNELS) // Basically anyone can shut them down if they're being annoying
 	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
@@ -158,42 +158,13 @@
 		return
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(stat == DEAD)
-		// Currently not functional, so commenting out until it's fixed to avoid confusion
-			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
-				return
-
-			if(!allowed(I))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
-
-			var/delta = (world.time / 10) - last_reboot
-			if(reboot_cooldown > delta)
-				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
-				return
-
-			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>",
-				"<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
-			last_reboot = world.time / 10
-			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-				if(D.key && D.client)
-					drones++
-			if(drones < config.max_maint_drones)
-				request_player()*/
-			return
-
-		else
-			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
-			if(confirm == ("Yes") && (user in range(3, src)))
+		if(stat != DEAD)
+			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will return it to storage, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
+			if(confirm == "Yes" && (user in range(3, src)))
 				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
 					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
 
-				if(emagged)
-					return
-				if(allowed(I))
+				if(allowed(I) && !emagged)
 					shut_down()
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -241,7 +212,7 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
+	addtimer(CALLBACK(src, PROC_REF(gib)), EMAG_TIMER)
 
 	emagged = TRUE
 	density = TRUE
@@ -290,16 +261,21 @@
 	if(stat == DEAD)
 		return
 
-	if(emagged && !force)
-		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
+	if(emagged)
+		if(force)
+			to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you obediently shut down.</span>")
+			gib()
+			return
+		to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
 		return
 
-	if(!emagged && pathfind_to_dronefab())
+	if(pathfind_to_dronefab())
 		to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you return to your drone fabricator.</span>")
 		return
 
-	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
-	death()
+	to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you obediently shut down.</span>")
+	var/mob/dead/observer/ghost = ghostize(TRUE)
+	ghost?.can_reenter_corpse = FALSE
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
 	clear_supplied_laws(TRUE)
@@ -456,7 +432,8 @@
 
 /mob/living/silicon/robot/drone/proc/pathfind_failed_cleanup(pathfind)
 	set_pathfinding(null)
-	death()
+	var/mob/dead/observer/ghost = ghostize(TRUE)
+	ghost?.can_reenter_corpse = FALSE
 
 /mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
 	set_pathfinding(null)
@@ -467,11 +444,12 @@
 		drone_fab = locate() in range(1, src)
 	if(!drone_fab)
 		return FALSE
-	drone_fab.drone_progress = 100 // recycling!
+	var/mob/dead/observer/ghost = ghostize(TRUE)
+	ghost?.can_reenter_corpse = FALSE // can't just go back in the drone
 
 	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)
-	qdel(src)
+	forceMove(drone_fab)
 	return TRUE
 
 /mob/living/silicon/robot/drone/proc/set_pathfinding(datum/pathfinding_mover/new_pathfind)
@@ -480,5 +458,25 @@
 	pathfinding = new_pathfind
 	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
 	update_icons()
+
+/mob/living/silicon/robot/drone/attack_ghost(mob/user)
+	if(emagged || client || key || pathfinding || stat)
+		return ..()
+
+	if(world.time - user.timeofdeath)
+
+	if(tgui_alert(user, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
+		return
+
+	if(emagged || client || key || pathfinding || stat)
+		to_chat(user, "<span class='warning'>[src] is no longer available.</span>")
+		return
+
+	var/mob/dead/observer/ghost = ghostize(TRUE) // make sure to take care of anyone who left the game, but didnt ghost from the drone
+	ghost?.can_reenter_corpse = FALSE
+	// Take over the body
+	transfer_personality(user.client)
+	forceMove(get_turf(src)) // escape anything like drone storage
+
 
 #undef EMAG_TIMER

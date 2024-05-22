@@ -41006,6 +41006,10 @@
 	icon_state = "wood-broken4"
 	},
 /area/station/maintenance/starboard2)
+"cSb" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/station/maintenance/fore)
 "cSg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49316,6 +49320,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"ftc" = (
+/obj/item/stack/sheet/metal/fifty,
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "ftd" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -58623,6 +58633,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
+"jgQ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "jil" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -63410,9 +63426,6 @@
 	pixel_x = 24;
 	pixel_y = 10
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -64160,6 +64173,13 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/main)
+"lvA" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Maintenance Drone Dispensary"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "lvB" = (
 /obj/item/kirbyplants,
 /obj/machinery/firealarm{
@@ -71725,9 +71745,6 @@
 /turf/simulated/wall,
 /area/station/medical/reception)
 "oIb" = (
-/obj/machinery/computer/drone_control{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -78268,13 +78285,12 @@
 	},
 /area/station/science/break_room)
 "rsq" = (
-/obj/machinery/drone_fabricator,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Monitoring";
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -78431,6 +78447,11 @@
 	icon_state = "darkblue"
 	},
 /area/station/security/armory)
+"ruW" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/glass/fifty,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "ruZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -86078,6 +86099,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/command/office/rd)
+"uLp" = (
+/obj/machinery/computer/drone_control,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "uLx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -90087,6 +90112,11 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/research)
+"wzo" = (
+/obj/machinery/drone_fabricator,
+/obj/machinery/camera/autoname,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "wzx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
@@ -133511,11 +133541,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-aVY
+ajg
+cSb
+cSb
+ajg
+cSb
 dxh
 aWv
 oWE
@@ -133768,10 +133798,10 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
+ajg
+uLp
+jgQ
+ruW
 ajg
 alW
 gNO
@@ -134025,11 +134055,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-ajg
+cSb
+wzo
+aDY
+alW
+lvA
 vpQ
 agg
 xER
@@ -134282,11 +134312,11 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
-aVY
+cSb
+alW
+alW
+ftc
+cSb
 aBM
 loo
 qNN
@@ -134539,10 +134569,10 @@ aaa
 aaa
 aaa
 laH
-aaa
-aaa
-aaa
-aaa
+cSb
+ajg
+ajg
+ajg
 ajg
 tNh
 iSH

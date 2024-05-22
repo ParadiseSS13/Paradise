@@ -264,3 +264,15 @@
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
+
+/datum/supply_packs/engineering/maint_drones
+	name = "Maintenance Drones"
+	contains = list(
+		/mob/living/silicon/robot/drone,
+		/mob/living/silicon/robot/drone,
+		/mob/living/silicon/robot/drone
+		)
+	cost = 400
+	containertype = /obj/structure/largecrate
+	containername = "Maintenance drones crate"
+	department_restrictions = list()
