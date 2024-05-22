@@ -773,10 +773,10 @@
 	if(decaytime > 8 MINUTES)
 		decaylevel = 1
 
-	if(decaytime > 16 MINUTES && decaytime <= 24 MINUTES)
+	if(decaytime > 16 MINUTES)
 		decaylevel = 2
 
-	if(decaytime > 24 MINUTES && decaytime <= 45 MINUTES)
+	if(decaytime > 24 MINUTES)
 		decaylevel = 3
 
 	if(decaytime > 45 MINUTES)
