@@ -719,6 +719,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier)
+	special = TRUE
 	large = TRUE
 
 /obj/item/storage/belt/rapier/populate_contents()
