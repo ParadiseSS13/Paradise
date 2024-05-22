@@ -3466,7 +3466,7 @@
 "arX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/crayon{
-	color = "#FF00FF"
+	color = "#b84b58"
 	},
 /obj/item/reagent_containers/drinks/bottle/wine,
 /turf/simulated/floor/plasteel/dark,
