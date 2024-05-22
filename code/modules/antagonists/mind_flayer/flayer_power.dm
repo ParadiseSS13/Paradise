@@ -96,6 +96,12 @@
 */
 
 /*
+* Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
+*/
+/datum/antagonist/mindflayer/proc/is_path_spell(path)
+	var/spell = new path() //No need to give it an owner since we're just checking the type
+	return isspell(spell)
+/*
  * Mindflayer code relies on on_purchase to grant powers.
  * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec TODO: make Remove()
  */
@@ -105,5 +111,11 @@
 	if(!user || !user.mind || !C)
 		qdel(src)
 		return
-	flayer.add_ability(path, C)
+	var/is_spell = C.is_path_spell(path)
+	if(is_spell)
+		var/datum/spell/flayer/to_add = new path(user)
+		flayer.add_ability(to_add, C)
+		return TRUE
+	var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
+	flayer.add_passive(to_add)
 	return TRUE

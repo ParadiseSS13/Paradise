@@ -10,9 +10,9 @@
 	var/total_swarms_gathered = 0
 	///The current person being drained
 	var/mob/living/carbon/human/harvesting
-	///The list of all purchased powers
+	///The list of all purchased spells
 	var/list/powers = list()
-	/// A list of all powers mindflayers can buy
+	/// A list of all powers and passives mindflayers can buy
 	var/list/ability_list = list()
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
@@ -28,13 +28,15 @@
 	. = ..()
 	if(!length(ability_list))
 		ability_list = get_powers_of_type(FLAYER_PURCHASABLE_POWER)
+		ability_list += get_passives_of_type(FLAYER_PURCHASABLE_POWER)
 
-// This proc adds extra things that the mindflayer should get upon becoming a mindflayer
+// This proc adds extra things, and base abilities that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
 	var/list/innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
-	for(var/power_path in innate_powers)
-		add_ability(power_path, src)
+	for(var/power_path as anything in innate_powers)
+		var/datum/spell/flayer/to_add = new power_path
+		add_ability(to_add, src)
 	owner.current.faction += list("flayer") // In case our robot is mindlessly spawned in somehow, and they won't accidentally kill us
 
 /datum/antagonist/mindflayer/proc/get_swarms()
@@ -66,6 +68,7 @@
 /** TODO Uncomment this when it won't make testing horrible
 	if(!H.ckey || !H.player_ghosted)
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
+		return FALSE
 **/
 	if(brain.damage >= 119)
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
@@ -106,7 +109,7 @@
 	to_chat(owner.current, dat)
 
 /**
- * Gets a list of mind flayer spell and passive typepaths based on the passed in `power_type`. (Thanks for the code SteelSlayer)
+ * Gets a list of mind flayer spell typepaths based on the passed in `power_type`. (Thanks for the code SteelSlayer)
  *
  * Arguments:
  * * power_type - should be a define related to [/datum/spell/flayer/power_type].
@@ -118,79 +121,116 @@
 		if(initial(power.power_type) != power_type)
 			continue
 		powers += power_path
+	return powers
+/**
+ * Gets a list of mind flayer passive typepaths based on the passed in `power_type`.
+ *
+ * Arguments:
+ * * power_type - should be a define related to [/datum/spell/flayer/power_type].
+ */
+/datum/antagonist/mindflayer/proc/get_passives_of_type(passive_type)
+	var/list/passives = list()
 	for(var/passive_path in subtypesof(/datum/mindflayer_passive))
 		var/datum/mindflayer_passive/passive = passive_path
-		if(initial(passive.power_type) != power_type)
+		if(initial(passive.power_type) != passive_type)
 			continue
-		powers += passive_path
-	return powers
+		passives += passive_path
+	return passives
+
+///////////////////////////////////////////////////////////////
+// A BUNCH OF PROCS THAT HANDLE ADDING ABILITIES AND PASSIVES
+/////////////////////////////////////////////////////////////
 
 /**
-* Adds an ability to a mindflayer if they don't already have it, upgrades it if they do. It's needlessly complicated because it automatically sorts spells/passive, and unlocks/upgrades.
+* Adds an ability to a mindflayer if they don't already have it, upgrades it if they do.
 * Arguments:
-* * path - Some path to a passive or spell, either datum/mindflayer_passive or datum/spell
+* * to_add - The spell datum you want to add to the flayer
 * * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
 * * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
-/datum/antagonist/mindflayer/proc/add_ability(path, set_owner = null, upgrade_type)
-	if(!get_ability(path))
-		force_add_ability(path, set_owner)
+/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, set_owner = null, upgrade_type)
+	if(!to_add)
 		return
-	force_upgrade_ability(path, upgrade_type)
-
-/datum/antagonist/mindflayer/proc/force_add_ability(path, set_owner = null)
-	if(!path)
+	if(!has_ability(to_add))
+		force_add_ability(to_add, set_owner)
 		return
-	var/spell = new path(owner)
-	if(isspell(spell))
-		var/datum/spell/flayer/power = spell
-		if(set_owner)
-			power.flayer = src
-		owner.AddSpell(power)
-	if(ispassive(spell)) //Passives always need to have their owners set here
-		var/datum/mindflayer_passive/passive = spell
-		passive.flayer = src
-		passive.owner = owner.current
-		passive.on_apply()
-	powers += spell
-
-/datum/antagonist/mindflayer/proc/force_upgrade_ability(path, upgrade_type)
-	var/spell = get_ability(path)
-	if(isspell(spell))
-		var/datum/spell/flayer/power = spell
-		power.on_purchase_upgrade(upgrade_type)
-	if(ispassive(spell))
-		var/datum/mindflayer_passive/passive = spell
-		passive.on_apply()
-
-/datum/antagonist/mindflayer/proc/remove_all_abilities()
-	for(var/path as anything in powers)
-		remove_ability(path)
-
-/datum/antagonist/mindflayer/proc/remove_ability(path)
-	if(get_ability(path))
-		force_remove_ability(path)
-
-/datum/antagonist/mindflayer/proc/force_remove_ability(path)
-	var/spell = new path(owner)
-	if(istype(spell, /datum/spell))
-		owner.RemoveSpell(spell)
-	if(istype(spell, (/datum/mindflayer_passive)))
-		var/datum/mindflayer_passive/passive = spell
-		passive.on_remove(src)
-		qdel(passive)
-	powers -= spell
+	force_upgrade_ability(to_add, upgrade_type)
 
 /**
-* * Arguments: path - Some path to a passive or spell, either datum/mindflayer_passive or datum/spell
-* * Returns: A matching power in the mind flayer's list of powers
+* Adds a passive to a mindflayer if they don't already have it, upgrades it if they do.
+* Arguments:
+* * to_add - The spell datum you want to add to the flayer
+* * upgrade_type - optional argument if you need to communicate a define to the passive in question
 */
-/datum/antagonist/mindflayer/proc/get_ability(path) // Still gotta test if this works as expected, but I think it does?
-	for(var/power as anything in powers)
-		if(istype(power, path))
-			return power
-	return null
+/datum/antagonist/mindflayer/proc/add_passive(datum/mindflayer_passive/to_add, upgrade_type) //Passives always need to have their owners set
+	if(!to_add)
+		return
+	if(!has_passive(to_add))
+		force_add_passive(to_add)
+		return
+	force_upgrade_ability(to_add, upgrade_type)
+/**
+* Adds an ability to a mindflayer, and sets the owner.
+* Arguments:
+* * to_add - The spell datum you want to add to the flayer
+* * set_owner - if the spells owner needs to be manually set, mostly for innate spells.
+*/
+/datum/antagonist/mindflayer/proc/force_add_ability(datum/spell/flayer/to_add, set_owner = null)
+	if(!to_add)
+		return
+	if(set_owner)
+		to_add.flayer = src
+	owner.AddSpell(to_add)
+	powers += to_add
+/**
+* Adds a passive to a mindflayer, and sets the owner.
+* Arguments:
+* * to_add - The passive datum you want to add to the flayer
+*/
+/datum/antagonist/mindflayer/proc/force_add_passive(datum/mindflayer_passive/to_add)
+	if(!to_add)
+		return
+	to_add.flayer = src
+	to_add.owner = owner.current //Passives always need to have their owners set here
+	to_add.on_apply()
+	powers += to_add
 
+/datum/antagonist/mindflayer/proc/force_upgrade_ability(datum/spell/flayer/to_upgrade, upgrade_type)
+	to_upgrade.on_purchase_upgrade()
+
+/datum/antagonist/mindflayer/proc/force_upgrade_passive(datum/mindflayer_passive/to_upgrade)
+	to_upgrade.on_apply()
+
+/datum/antagonist/mindflayer/proc/remove_all_abilities()
+	for(var/datum/spell/flayer/spell in powers)
+		remove_ability(spell)
+
+/datum/antagonist/mindflayer/proc/remove_all_passives()
+	for(var/datum/mindflayer_passive/passive in powers)
+		remove_passive(passive)
+
+/datum/antagonist/mindflayer/proc/remove_ability(datum/spell/flayer/to_remove)
+	owner.RemoveSpell(to_remove)
+	powers -= to_remove
+
+/datum/antagonist/mindflayer/proc/remove_passive(datum/mindflayer_passive/to_remove)
+	powers -= to_remove
+	qdel(to_remove) //qdel should call destroy, which should call on_remove
+
+/**
+* Checks if a mindflayer has a given spell already
+* * Arguments: to_get - Some datum/spell/flayer to check if a mindflayer has
+* * Returns: TRUE if the mindflayer has the power already, FALSE otherwise
+*/
+/datum/antagonist/mindflayer/proc/has_ability(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
+	return (to_get in powers)
+/**
+* Checks if a mindflayer has a given passive already
+* * Arguments: to_get - Some datum/mindflayer_passive to check if a mindflayer has
+* * Returns: TRUE if the mindflayer has the passive already, FALSE otherwise
+*/
+/datum/antagonist/mindflayer/proc/has_passive(datum/mindflayer_passive/to_get)
+	return (to_get in powers)
 /*
 /datum/hud/proc/remove_mindflayer_hud() TODO: make this remove the mindflayer hud
 	static_inventory -= vampire_blood_display
