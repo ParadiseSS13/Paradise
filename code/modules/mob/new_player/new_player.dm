@@ -188,9 +188,14 @@
 					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 			observer.started_as_observer = 1
 			close_spawn_windows()
-			var/obj/O = locate("landmark*Observer-Start")
+			var/obj/spawn_point
+			if(SSticker.current_state < GAME_STATE_PLAYING)
+				spawn_point = pick(GLOB.roundstart_observer_start)
+			else
+				spawn_point = locate("landmark*Observer-Start")
+
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.forceMove(O.loc)
+			observer.forceMove(get_turf(spawn_point))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
 			observer.icon = client.prefs.active_character.preview_icon

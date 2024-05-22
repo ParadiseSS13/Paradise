@@ -948,5 +948,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MOBSERVE. This is likely a bug and may result in them being stuck outside of their bodies.")
 	cleanup_observe()
 
+/mob/dead/observer/proc/update_dead_radio()
+	if(get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+		GLOB.deadchat_radio.listeners |= src
+	else
+		GLOB.deadchat_radio.listeners -= src
+
 #undef GHOST_CAN_REENTER
 #undef GHOST_IS_OBSERVER

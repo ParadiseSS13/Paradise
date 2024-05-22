@@ -17,7 +17,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	remove_tile(user, FALSE, FALSE)
-	
+
 /turf/simulated/floor/wood/get_broken_states()
 	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
@@ -53,9 +53,9 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = 14
-	oxygen = 8
-	temperature = 500
+	nitrogen = LAVALAND_NITROGEN
+	oxygen = LAVALAND_OXYGEN
+	temperature = LAVALAND_TEMPERATURE
 
 // Grass
 /turf/simulated/floor/grass

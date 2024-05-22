@@ -73,6 +73,12 @@
 	disable_message = "As a ghost, you will now hear all radio chat in the world."
 	blackbox_message = "Toggle GhostRadio"
 
+/datum/preference_toggle/toggle_ghost_radio/set_toggles(client/user)
+	. = ..()
+	if(isobserver(user.mob))
+		var/mob/dead/observer/dead_dude = user.mob
+		dead_dude.update_dead_radio()
+
 /datum/preference_toggle/toggle_admin_radio
 	name = "Admin Radio"
 	description = "Toggle seeing radiochatter from radios and speakers"
@@ -301,7 +307,7 @@
 	disable_message = "You will no longer see runechat."
 	blackbox_message = "Toggle Runechat"
 
-/datum/preference_toggle/toggle_runechat
+/datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Toggle Ghost Death Notifications"
 	description = "Toggle a notification when a player dies"
 	preftoggle_bitflag = PREFTOGGLE_2_DEATHMESSAGE

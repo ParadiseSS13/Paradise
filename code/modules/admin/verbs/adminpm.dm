@@ -86,32 +86,6 @@
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
 
-	//get message text, limit it's length.and clean/escape html
-	if(!msg)
-		set_typing(C, TRUE)
-		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", null, src)
-		set_typing(C, FALSE)
-
-		if(!msg)
-			return
-		if(!C)
-			if(holder)
-				to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>")
-			else
-				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
-			return
-
-	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
-		return
-
-	//clean the message if it's not sent by a high-rank admin
-	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = sanitize_simple(copytext_char(msg, 1, MAX_MESSAGE_LEN))
-		if(!msg)
-			return
-	else
-		msg = admin_pencode_to_html(msg)
-
 	var/send_span
 	var/receive_span
 	var/send_pm_type = " "
@@ -131,6 +105,41 @@
 		message_type = MESSAGE_TYPE_ADMINPM
 		tickets_system = SStickets
 
+	//Check if the mob being PM'd has any open tickets.
+	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
+	if(!length(tickets))
+		// If we didn't find a specific ticket by the target mob, we check for
+		// tickets by the source mob.
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
+				tickets = SSmentor_tickets.checkForTicket(src)
+		else
+			if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
+				tickets = SStickets.checkForTicket(src)
+
+	//get message text, limit it's length.and clean/escape html
+	if(!msg)
+		set_typing(C, TRUE)
+		tickets_system.refresh_tickets(tickets)
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", null, src)
+		set_typing(C, FALSE)
+
+		if(!msg)
+			tickets_system.refresh_tickets(tickets)
+			return
+		if(!C)
+			if(holder)
+				to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>")
+			else
+				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
+			return
+
+	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
+		return
+
+	// Let high-rank admins use advanced pencode.
+	if(check_rights(R_SERVER|R_DEBUG, 0))
+		msg = admin_pencode_to_html(msg)
 
 	if(holder)
 		//PMs sent from admins and mods display their rank
@@ -229,22 +238,6 @@
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
-	//Check if the mob being PM'd has any open tickets.
-	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
-
-	if(length(tickets))
-		tickets_system.addResponse(tickets, src, msg)
-		return
-
-	// If we didn't find a specific ticket by the target mob, we check for
-	// tickets by the source mob.
-	if(message_type == MESSAGE_TYPE_MENTORPM)
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
-			tickets = SSmentor_tickets.checkForTicket(src)
-	else
-		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
-			tickets = SStickets.checkForTicket(src)
-
 	if(length(tickets))
 		tickets_system.addResponse(tickets, src, msg)
 
@@ -293,7 +286,8 @@
 		return
 	var/datum/pm_convo/convo = target.pm_tracker.pms[key]
 	if(!convo)
-		return
+		convo = new /datum/pm_convo(src)
+		target.pm_tracker.pms[key] = convo
 	convo.typing = value
 	if(target.pm_tracker.open && target.pm_tracker.current_title == key)
 		target.pm_tracker.show_ui(target.mob)
