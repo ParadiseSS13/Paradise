@@ -261,6 +261,17 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial_abductor/l
 	parent_organ = "l_arm"
 
+/obj/item/organ/internal/cyberimp/arm/surgical_abductor
+	name = "Alien Surgical Toolset implant"
+	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
+	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
+	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
+
+/obj/item/organ/internal/cyberimp/arm/surgical_abductor/l
+	parent_organ = "l_arm"
+
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal, and highly dangerous cybernetic implant that can project a deadly blade of concentrated enregy."
