@@ -30,7 +30,7 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	var/obj/item/stock_parts/cell/cell
 	var/state = MECHA_MAINT_OFF
-	var/list/log = new
+	var/list/log = list()
 	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 1
