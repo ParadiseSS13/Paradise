@@ -46,11 +46,12 @@
 
 /obj/item/projectile/homing/magic/toolbox/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	var/obj/item/storage/toolbox/T = new /obj/item/storage/toolbox(get_turf(src))
+	var/obj/item/storage/toolbox/T = new /obj/item/storage/toolbox(get_turf(src)) /// ===CHUGAFIX=== this is not the Way To Do This
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/E = pick(H.bodyparts)
-		E.add_embedded_object(T)
+		T.embedding = list(embed_chance = 100)
+//		E.add_embedded_object(T)
 
 /obj/item/projectile/homing/magic/homing_fireball
 	name = "greater bolt of fireball"

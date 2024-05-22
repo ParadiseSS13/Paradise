@@ -834,10 +834,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(status & ORGAN_SPLINTED)
 		victim.splinted_limbs -= src
 
-	for(var/obj/item/I in embedded_objects)
-		UnregisterSignal(I, COMSIG_MOVABLE_MOVED) // Else it gets removed from the embedded list
-		I.forceMove(src)
-		RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
+	for(var/obj/item/embedded in embedded_objects)
+		embedded.forceMove(src) // It'll self remove via signal reaction, just need to move it
 
 	. = ..()
 
@@ -918,26 +916,48 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(data["dna"])
 		sync_colour_to_dna()
 
-/obj/item/organ/external/proc/remove_embedded_object(obj/item/I)
-	embedded_objects -= I
-	UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
+// ===CHUGAFIX=== This shouldn't be needed anymore - make sure that this works!
+// /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
+// 	if(I in embedded_objects)
+// 		return
+// 	embedded_objects += I
+// 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
 
-/obj/item/organ/external/proc/add_embedded_object(obj/item/I)
-	if(I in embedded_objects)
+// ===CHUGAFIX=== The internal helpers need to stay here and the carbon procs need to go into their proper file
+
+/// INTERNAL PROC, DO NOT USE
+/// Properly sets us up to manage an inserted embeded object
+/obj/item/organ/external/proc/_embed_object(obj/item/embed)
+	if(embed in embedded_objects) // go away
 		return
-	embedded_objects += I
-	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
+	// We don't need to do anything with projectile embedding, because it will never reach this point
+	RegisterSignal(embed, COMSIG_ITEM_EMBEDDING_UPDATE, PROC_REF(embedded_object_changed))
+	embedded_objects += embed
 
-//Remove all embedded objects from all limbs on the carbon mob
-/mob/living/carbon/human/proc/remove_all_embedded_objects() // ===CHUGAFIX=== only used in rejuvinate() right now
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/L = X
-		for(var/obj/item/I in L.embedded_objects)
-			L.remove_embedded_object(I)
+/// INTERNAL PROC, DO NOT USE
+/// Cleans up any attachment we have to the embedded object, removes it from our list
+/obj/item/organ/external/proc/_unembed_object(obj/item/unembed)
+	UnregisterSignal(unembed, COMSIG_ITEM_EMBEDDING_UPDATE)
+	embedded_objects -= unembed
 
-/mob/living/carbon/human/proc/has_embedded_objects()
-	. = 0
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/L = X
-		for(var/obj/item/I in L.embedded_objects)
-			return 1
+/obj/item/organ/external/proc/embedded_object_changed(obj/item/embedded_source)
+	SIGNAL_HANDLER
+	return /// ===CHUGAFIX=== leaving this as a stub right now but this should do something
+
+// HUMAN PROCS ===CHUGAFIX=== these really should go somewhere ELSE
+
+/mob/living/carbon/human/proc/remove_embedded_object(obj/item/embedded)
+	SEND_SIGNAL(src, COMSIG_CARBON_EMBED_REMOVAL, embedded)
+
+//Remove all embedded objects from all limbs on the human mob
+/mob/living/carbon/human/proc/remove_all_embedded_objects()
+	for(var/obj/item/organ/external/limb as anything in bodyparts) // ===CHUGAFIX=== make sure this anything cast doesn't cause ISSUES!
+		for(var/obj/item/embedded in limb.embedded_objects)
+			remove_embedded_object(embedded)
+
+/mob/living/carbon/human/proc/has_embedded_objects(include_harmless=FALSE)
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
+		for(var/obj/item/embedded in limb.embedded_objects)
+			if(!include_harmless && embedded.isEmbedHarmless())
+				continue
+			return TRUE

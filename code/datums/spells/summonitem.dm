@@ -83,23 +83,8 @@
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
 						item_to_retrieve = null
 						break
-
-					if(ishuman(M)) //Edge case housekeeping
-						var/mob/living/carbon/human/C = M
-						for(var/X in C.bodyparts)
-							var/obj/item/organ/external/part = X
-							if(item_to_retrieve in part.embedded_objects)
-								part.remove_embedded_object(item_to_retrieve)
-								to_chat(C, "<span class='warning'>[item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
-								if(!C.has_embedded_objects())
-									C.clear_alert("embeddedobject")
-								break
-							if(item_to_retrieve == part.hidden)
-								visible_item = FALSE
-								part.hidden = null
-								to_chat(C, "<span class='warning'>Your [part.name] suddenly feels emptier. How weird!</span>")
-								break
-
+						/// ===CHUGAFIX=== Dumped the edge case handling here because it's handled in the embedded component
+						/// Make sure this still works!
 				else
 					if(istype(item_to_retrieve.loc, /obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
 						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc

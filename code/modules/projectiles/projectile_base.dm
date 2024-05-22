@@ -478,10 +478,24 @@
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
-
+/// ===CHUGAFIX=== this should work right but check anyways!
+/// Make sure to test hitscan still works properly!
 /obj/item/projectile/proc/on_ricochet(atom/A)
 	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
 		return
+
+	var/mob/living/unlucky_sob
+	var/best_angle = ricochet_auto_aim_angle
+	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
+		if(L.stat == DEAD || !isInSight(src, L) || (!ricochet_shoots_firer && L == firer))
+			continue
+		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
+		if(our_angle < best_angle)
+			best_angle = our_angle
+			unlucky_sob = L
+
+	if(unlucky_sob)
+		set_angle(get_angle(src, unlucky_sob.loc))
 
 /obj/item/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))

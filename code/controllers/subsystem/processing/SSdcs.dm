@@ -18,7 +18,6 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 
 	if(initial(eletype.element_flags) & ELEMENT_BESPOKE)
 		element_id = GetIdFromArguments(arguments)
-		to_chat(world, "[element_id]")
 
 	. = elements_by_type[element_id]
 	if(.)

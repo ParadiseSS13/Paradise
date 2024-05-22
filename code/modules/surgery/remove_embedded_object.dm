@@ -63,8 +63,7 @@
 		var/objects = 0
 		for(var/obj/item/I in L.embedded_objects)
 			objects++
-			L.remove_embedded_object(I)
-			I.forceMove(get_turf(H))
+			H.remove_embedded_object(I) // ===CHUGAFIX=== Make sure this works as it should
 		if(!H.has_embedded_objects())
 			H.clear_alert("embeddedobject")
 
