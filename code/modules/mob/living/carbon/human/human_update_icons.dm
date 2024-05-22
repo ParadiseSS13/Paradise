@@ -882,9 +882,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		- /obj/item/nullrod/..
 		- /obj/item/claymore/..
 	*/
-	if(istype(belt, /obj/item/storage/belt))
-		var/obj/item/storage/belt/B = belt
-		overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
 
 
 	if(client && hud_used)
@@ -899,6 +896,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(belt)
 		// Manual checks for outliers (Claymores, null rods, defibs, judobelt)
 		overlay_layer = (istype(belt, /obj/item/judobelt) || istype(belt, /obj/item/defibrillator/compact) || istype(belt, /obj/item/claymore) || istype(belt, /obj/item/nullrod)) ? SPECIAL_BELT_LAYER : BELT_LAYER
+
+		if(istype(belt, /obj/item/storage/belt))
+			var/obj/item/storage/belt/B = belt
+			overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
 
 		var/t_state = belt.item_state
 		if(!t_state)
