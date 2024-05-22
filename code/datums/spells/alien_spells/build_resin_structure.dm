@@ -49,7 +49,7 @@
 	name = "Consume resin structures"
 	desc = "Allows you to rip and tear straight through resin structures."
 	action_icon_state = "alien_resin"
-	hand_path = "/obj/item/melee/touch_attack/alien/consume_resin"
+	hand_path = /obj/item/melee/touch_attack/alien/consume_resin
 	plasma_cost = 10
 	base_cooldown = 5 SECONDS
 

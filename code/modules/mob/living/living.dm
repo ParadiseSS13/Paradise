@@ -235,6 +235,8 @@
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(atoms_share_level(get_turf(src), get_turf(jammer)) && get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
 			return TRUE
+		if(locate(jammer) in src)
+			return TRUE
 	return FALSE
 
 //mob verbs are a lot faster than object verbs

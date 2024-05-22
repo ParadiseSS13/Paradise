@@ -12,6 +12,7 @@
 #define TARGET_INVALID_NOTHEAD			11
 #define TARGET_INVALID_CULTIST			12
 #define TARGET_INVALID_CULT_CONVERTABLE	13
+#define TARGET_INVALID_PARADOX_CLONE	14
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
@@ -38,6 +39,7 @@
 #define SPECIAL_ROLE_MORPH "Morph"
 #define SPECIAL_ROLE_MULTIVERSE "Multiverse Traveller"
 #define SPECIAL_ROLE_NUKEOPS "Syndicate"
+#define SPECIAL_ROLE_PARADOX_CLONE "Paradox Clone"
 #define SPECIAL_ROLE_PYROCLASTIC_SLIME 	"Pyroclastic Anomaly Slime"
 #define SPECIAL_ROLE_REVENANT "Revenant"
 #define SPECIAL_ROLE_DEMON "Demon"
