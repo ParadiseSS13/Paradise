@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/changeling)
+
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category = "changelings"
@@ -439,9 +441,6 @@
 		to_chat(L, "<span class='notice'>The brain is a useless organ to us, we are able to regenerate!</span>")
 	else
 		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
-
-/proc/ischangeling(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
 
 /datum/antagonist/changeling/custom_blurb()
 	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."

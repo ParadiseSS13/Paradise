@@ -74,10 +74,12 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
-	burst_size = 2
-	fire_delay = 2.5
 	shaded_charge = TRUE
 	can_holster = FALSE
+
+/obj/item/gun/energy/disabler/smg/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

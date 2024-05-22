@@ -22,7 +22,6 @@
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
-	has_gender = FALSE
 	bodyflags = SHAVED
 	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
@@ -64,8 +63,8 @@
 
 /datum/species/diona/can_understand(mob/other)
 	if(isnymph(other))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -111,24 +110,22 @@
 		H.adjustBruteLoss(2)
 	..()
 
-/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
-	switch(P.type)
-		if(/obj/item/projectile/energy/floramut)
-			if(prob(15))
-				H.rad_act(rand(30, 80))
-				H.Weaken(10 SECONDS)
-				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
-					randmutb(H)
-					domutcheck(H)
-				else
-					randmutg(H)
-					domutcheck(H)
-			else
-				H.adjustFireLoss(rand(5, 15))
-				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
-		if(/obj/item/projectile/energy/florayield)
-			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
+/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H, def_zone)
+	if(istype(P, /obj/item/projectile/energy/floramut))
+		P.nodamage = TRUE
+		H.Weaken(1 SECONDS)
+		if(prob(80))
+			randmutb(H)
+		else
+			randmutg(H)
+		H.visible_message("[H] writhes for a moment as [H.p_their()] nymphs squirm and mutate.", "All of you squirm uncomfortably for a moment as you feel your genes changing.")
+	else if(istype(P, /obj/item/projectile/energy/florayield))
+		P.nodamage = TRUE
+		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+		if(!organ)
+			organ = H.get_organ("chest")
+		organ.heal_damage(5, 5)
+		H.visible_message("[H] seems invogorated as [P] hits [H.p_their()] [organ.name].", "Your [organ.name] greedily absorbs [P].")
 	return TRUE
 
 /// Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions

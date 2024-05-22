@@ -60,6 +60,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
+	/// List of all the mobs that can hear this radio
+	var/list/listeners = list()
 	/// Areas in which this radio cannot send messages
 	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome, /area/ruin/space/bubblegum_arena)
 
@@ -82,7 +84,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
 
-
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
@@ -97,6 +98,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/Destroy()
 	SStgui.close_uis(wires)
+	listeners.Cut()
 	QDEL_NULL(wires)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -107,7 +109,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	follow_target = null
 	return ..()
 
-
 /obj/item/radio/Initialize()
 	..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
@@ -116,6 +117,31 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
+	if(canhear_range)
+		AddComponent(/datum/component/proximity_monitor, canhear_range)
+
+/obj/item/radio/HasProximity(mob/crosser)
+	if(!istype(crosser) || (crosser in listeners))
+		return
+	listeners += crosser
+	RegisterSignal(crosser, COMSIG_MOVABLE_MOVED, PROC_REF(is_crosser_still_listening))
+	RegisterSignal(crosser, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_listener_list))
+
+/obj/item/radio/proc/is_crosser_still_listening(mob/crosser)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	var/still_listening = FALSE
+	for(var/obj/effect/abstract/proximity_checker/checker in get_turf(crosser))
+		if(checker.monitor.hasprox_receiver == src)
+			still_listening = TRUE
+			break
+	if(still_listening)
+		return
+	remove_from_listener_list(crosser)
+
+/obj/item/radio/proc/remove_from_listener_list(mob/crosser)
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	listeners -= crosser
+	UnregisterSignal(crosser, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
@@ -130,6 +156,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		wires.Interact(user)
 		return
 	ui_interact(user)
+
+/obj/item/radio/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+		return
+
+	ToggleBroadcast()
+	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic!</span>")
+	add_fingerprint(user)
 
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.default_state
@@ -202,13 +236,25 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			if(has_loudspeaker)
 				loudspeaker = !loudspeaker
 				if(loudspeaker)
-					canhear_range = 3
+					update_hear_range(3)
 				else
-					canhear_range = 0
+					update_hear_range(0)
 		else
 			. = FALSE
 	if(.)
 		add_fingerprint(usr)
+
+/obj/item/radio/proc/update_hear_range(new_hear_range)
+	canhear_range = new_hear_range
+	var/datum/component/proximity_monitor/our_prox_component = GetComponent(/datum/component/proximity_monitor)
+	if(!canhear_range)
+		QDEL_NULL(our_prox_component)
+		return
+
+	if(our_prox_component)
+		our_prox_component.set_radius(canhear_range)
+	else
+		AddComponent(/datum/component/proximity_monitor, canhear_range)
 
 /obj/item/radio/proc/list_secure_channels(mob/user)
 	var/list/dat = list()
@@ -252,13 +298,15 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	if(broadcasting)
+		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
-	if(channel && channels && channels.len > 0)
+	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
@@ -274,10 +322,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	if(!connection)
 		return
-	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
-	A.name = from
-	A.role = role
-	A.message = message
 	var/jammed = FALSE
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
@@ -290,7 +334,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.connection = connection
-	tcm.sender = A
+	tcm.sender = src
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
@@ -312,29 +356,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
-	qdel(A)
-
-// Just a dummy mob used for making announcements, so we don't create AIs to do this
-// I'm not sure who thought that was a good idea. -- Crazylemon
-/mob/living/automatedannouncer
-	var/role = ""
-	var/lifetime_timer
-	var/message = ""
-	universal_speak = TRUE
-
-/mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
-	..()
-
-/mob/living/automatedannouncer/Destroy()
-	if(lifetime_timer)
-		deltimer(lifetime_timer)
-		lifetime_timer = null
-	return ..()
-
-/mob/living/automatedannouncer/proc/autocleanup()
-	stack_trace("An announcer somehow managed to outlive the radio! Deleting! (Message: [message])")
-	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
@@ -343,7 +364,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return radio_connection
 
 	// Otherwise, if a channel is specified, look for it.
-	if(channels && channels.len > 0)
+	if(channels && length(channels) > 0)
 		if(message_mode == "department") // Department radio shortcut
 			message_mode = channels[1]
 
@@ -527,7 +548,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-	if(!freq) //recieved on main frequency
+	if(!freq) //received on main frequency
 		if(!listening)
 			return -1
 	else
@@ -555,12 +576,11 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/send_announcement()
 	if(is_listening())
-		return get_mobs_in_view(canhear_range, src)
-
-	return null
+		return listeners
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
@@ -824,3 +844,16 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	return M.say_dead(message)
+
+GLOBAL_DATUM_INIT(deadchat_radio, /obj/item/radio/dchat_radio_handler, new())
+
+/obj/item/radio/dchat_radio_handler
+	name = "Deadchat radio handler. Do not fuck with"
+	canhear_range = 0
+
+/obj/item/radio/dchat_radio_handler/Destroy(force)
+	. = ..()
+	stack_trace("Someone just tried to delete the deadchat handler!")
+	if(!force)
+		return QDEL_HINT_LETMELIVE
+	return ..()

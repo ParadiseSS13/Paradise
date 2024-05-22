@@ -59,7 +59,7 @@
 
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
-	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/stretch/see_through_darkness)
 
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
@@ -329,6 +329,9 @@
 	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
+	mymob.staminas = new /atom/movable/screen/healths/stamina()
+	infodisplay += mymob.staminas
+
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 
@@ -390,7 +393,7 @@
 	if(!mymob)
 		return
 	var/mob/living/carbon/human/H = mymob
-	if(inventory_shown && hud_shown)
+	if(inventory_shown && hud_version == HUD_STYLE_STANDARD)
 		if(H.shoes)
 			H.shoes.screen_loc = ui_shoes
 			H.client.screen += H.shoes
@@ -433,7 +436,7 @@
 	if(!mymob)
 		return
 	var/mob/living/carbon/human/H = mymob
-	if(hud_shown)
+	if(hud_version == HUD_STYLE_STANDARD)
 		if(H.s_store)
 			H.s_store.screen_loc = ui_sstore1
 			H.client.screen += H.s_store
@@ -483,16 +486,3 @@
 			H.r_hand.screen_loc = null
 		if(H.l_hand)
 			H.l_hand.screen_loc = null
-
-
-/mob/living/carbon/human/verb/toggle_hotkey_verbs()
-	set category = "OOC"
-	set name = "Toggle Hotkey Buttons"
-	set desc = "This disables or enables the user interface buttons which can be used with hotkeys."
-
-	if(hud_used.hotkey_ui_hidden)
-		client.screen += hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = FALSE
-	else
-		client.screen -= hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = TRUE

@@ -146,7 +146,7 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !contents.len))
+	if(crit_fail || (!holder && !length(contents)))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -157,7 +157,7 @@
 
 	if(!holder || (holder in src))
 		holder = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)
@@ -248,6 +248,28 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor
+	name = "alien janitorial toolset implant"
+	desc = "A set of alien janitorial tools, designed to be installed on subject's arm."
+	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=3"
+	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt_abductor")
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/surgical_abductor
+	name = "Alien Surgical Toolset implant"
+	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
+	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
+	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
+
+/obj/item/organ/internal/cyberimp/arm/surgical_abductor/l
 	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/esword
@@ -690,7 +712,7 @@
 	set_light(3)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
 			return FALSE
