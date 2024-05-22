@@ -1980,7 +1980,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	shuffle_inplace(possible_cookware)
 
-
 	var/list/available_ingredients = list()
 	var/list/available_reagents = list()
 	for(var/obj/item/item in possible_cookware)
