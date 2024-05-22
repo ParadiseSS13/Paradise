@@ -879,9 +879,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(istype(belt, /obj/item/storage/belt))
 		var/obj/item/storage/belt/B = belt
 		overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
-	else if(istype(belt, /obj/item/judobelt))
-		var/obj/item/judobelt/B = belt
-		overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
+
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
@@ -893,6 +891,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			belt.screen_loc = ui_belt
 
 	if(belt)
+		if(istype(belt, /obj/item/judobelt))
+			overlay_layer = SPECIAL_BELT_LAYER
+
 		var/t_state = belt.item_state
 		if(!t_state)
 			t_state = belt.icon_state
