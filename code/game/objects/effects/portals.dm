@@ -86,7 +86,7 @@
 
 /obj/effect/portal/attack_ghost(mob/dead/observer/O)
 	if(target)
-		O.forceMove(target)
+		O.forceMove(get_turf(target))
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/I)
 	. = TRUE
