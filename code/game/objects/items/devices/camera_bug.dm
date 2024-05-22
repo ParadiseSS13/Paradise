@@ -58,11 +58,13 @@
 	var/obj/machinery/camera/portable/camera
 	var/index = "REPORT THIS TO CODERS"
 	var/camera_tag = "Hidden Camera"
+	var/is_sticky = TRUE
 
 /obj/item/wall_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
 	. = ..()
 	link_to_camera(the_bug)
-	AddComponent(/datum/component/sticky)
+	if(is_sticky)
+		AddComponent(/datum/component/sticky)
 	ADD_TRAIT(src, TRAIT_NO_THROWN_MESSAGE, ROUNDSTART_TRAIT)
 
 /obj/item/wall_bug/Destroy()
@@ -91,25 +93,10 @@
 	name = "Nanobot"
 	desc = "A small droplet of a shimmering metallic slurry."
 	camera_tag = "Surveilance Unit"
+	is_sticky = FALSE
 	///Reference to the creator's antag datum
 	var/datum/antagonist/mindflayer/flayer
 	COOLDOWN_DECLARE(alert_cooldown)
-
-/obj/item/wall_bug/computer_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
-	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
-
-/obj/item/wall_bug/computer_bug/HasProximity(atom/movable/AM)
-	if(!isliving(AM))
-		return
-	if(!COOLDOWN_FINISHED(src, alert_cooldown))
-		return
-	if(!flayer)
-		return
-	var/mob/living/passerby = AM
-	var/area/room = get_area(passerby)
-	COOLDOWN_START(src, alert_cooldown, 2 SECONDS)
-	flayer.send_swarm_message("[passerby] was spotted passing by a hacked webcam in [room.name]")
 
 /obj/item/wall_bug/computer_bug/link_to_camera(obj/item/camera_bug/camera_bug, datum/antagonist/mindflayer/flayer_datum = null)
 	..()
