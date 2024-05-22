@@ -358,11 +358,12 @@
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	flags &= ~NODROP  // Ensure the RCD doesn't stick to the next person's hand.
-	if(afterattack(suicide_tile, user, TRUE))
-		user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
-		user.gib()
-		return OBLITERATION	
-	return SHAME
+	if(!afterattack(suicide_tile, user, TRUE))
+		return SHAME
+	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
+	user.gib()
+	return OBLITERATION	
+	
 
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
