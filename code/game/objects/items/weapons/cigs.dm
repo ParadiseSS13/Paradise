@@ -33,7 +33,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_off = "cigoff"
 	/// What trash item the cigarette makes when it burns out.
 	var/type_butt = /obj/item/cigbutt
-//	var/lastHolder = null
 	/// How long does the cigarette last before going out?
 	var/smoketime = 150
 	/// The cigarette's total reagent capacity.
@@ -79,16 +78,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light("<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight...</span>")
 		return TRUE
 
-	if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask)
-		M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
-		if(M != user)
-			user.visible_message(
-				"<span class='notice'>[user] slips [src] into the mouth of [M].</span>",
-				"<span class='notice'>You slip [src] into the mouth of [M].</span>"
-				)
-		else
-			to_chat(user, "<span class='notice'>You put [src] into your mouth</span>")
-		return
 	return ..()
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
@@ -107,7 +96,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/lighter_interaction(obj/item/I, mob/user, mob/living/carbon/target)
 	if(lit)
-		to_chat(user, "<span class='warning'>[initial(name)] is already lit!</span>")
+		to_chat(user, "<span class='warning'>\The [initial(name)] is already lit!</span>")
 		return FALSE
 
 	if(istype(I, /obj/item/lighter/zippo))
@@ -133,7 +122,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(src, /obj/item/clothing/mask/cigarette/cigar) || istype(src, /obj/item/clothing/mask/cigarette/pipe))
 		// Cigars and pipes are too cultured to allow themselves to be lit by the BARBARIC means below.
 		to_chat(user, "<span class='warning'>[name] straight out <b>REFUSES</b> to be lit by such uncivilized means!</span>")
-		return failed_to_light(I, user)
+		return FALSE
 
 	if(istype(I, /obj/item/lighter))
 		var/obj/item/lighter/Light = I
@@ -239,10 +228,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		
 	if(istype(I, /obj/item/storm_staff))
 		if(target == user)
-			light("<span class='warning'>[user] holds [I] aloft and shoots a tiny bolt of lightning that sets [user.p_their()] [name] alight!</span>")
+			light("<span class='warning'>[user] holds [I] up to [user.p_their()] [name] and shoots a tiny bolt of lightning that sets it alight!</span>")
 		else
 			light("<span class='warning'>[user] points [I] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [name] alight!</span>")
-		playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
+		playsound(target, 'sound/magic/lightningbolt.ogg', 20, TRUE)
 		return TRUE
 
 /obj/item/clothing/mask/cigarette/proc/failed_to_light(obj/item/I, mob/living/user)
@@ -250,8 +239,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return FALSE
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, mob/living/carbon/M, params)
-	// If the cig is being clicked directly, it's the user's cig.
-	if(M == null)
+	// If the cig is being clicked directly, we treat it as the user's cig.
+	if(!ismob(M))
 		M = user
 	if(lighter_interaction(I, user, M) == TRUE)
 		user.update_inv_wear_mask()

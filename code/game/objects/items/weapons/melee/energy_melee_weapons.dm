@@ -1,4 +1,16 @@
+/* CONTENTS:
+* 1. GENERIC ENERGY BLADE
+*
+*
+*
+*
+*/
+//////////////////////////////
+// MARK: GENERIC ENERGY BLADE
+//////////////////////////////
 /obj/item/melee/energy
+	name = "generic energy blade"
+	desc = "If you can see this and didn't spawn it in as an admin, make an issue report on GitHub."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	var/active = FALSE
 	var/force_on = 30 //force when active
@@ -32,7 +44,7 @@
 	if(!istype(src, /obj/item/melee/energy/cleaving_saw))
 		// For lighting cigarettes.
 		var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-		if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP)
+		if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 			cig.attackby(src, user, target)
 			return FALSE
 
@@ -96,6 +108,9 @@
 /obj/item/melee/energy/get_heat()
 	return active * 3500
 
+//////////////////////////////
+// MARK: AXE
+//////////////////////////////
 /obj/item/melee/energy/axe
 	name = "energy axe"
 	desc = "An energised battle axe."
@@ -122,6 +137,9 @@
 	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|FIRELOSS
 
+//////////////////////////////
+// MARK: SWORD
+//////////////////////////////
 /obj/item/melee/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
@@ -152,43 +170,6 @@
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
-	return 0
-
-/obj/item/melee/energy/sword/cyborg
-	var/hitcost = 50
-
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
-	if(R.cell)
-		var/obj/item/stock_parts/cell/C = R.cell
-		if(active && !(C.use(hitcost)))
-			attack_self(R)
-			to_chat(R, "<span class='notice'>It's out of charge!</span>")
-			return
-		..()
-	return
-
-/// Used by medical Syndicate cyborgs
-/obj/item/melee/energy/sword/cyborg/saw
-	name = "energy saw"
-	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	force_on = 30
-	force = 18 //About as much as a spear
-	sharp = TRUE
-	hitsound = 'sound/weapons/circsawhit.ogg'
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "esaw_0"
-	icon_state_on = "esaw_1"
-	hitcost = 75 //Costs more than a standard cyborg esword
-	item_color = null
-	w_class = WEIGHT_CLASS_NORMAL
-	light_color = LIGHT_COLOR_WHITE
-	tool_behaviour = TOOL_SAW
-
-/obj/item/melee/energy/sword/cyborg/saw/New()
-	..()
-	item_color = null
-
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/melee/energy/sword/saber
@@ -259,6 +240,49 @@
 		return -1
 	return TRUE
 
+//////////////////////////////
+// MARK: SAW
+//////////////////////////////
+/// Used by medical Syndicate cyborgs
+/obj/item/melee/energy/sword/cyborg/saw
+	name = "energy saw"
+	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
+	force_on = 30
+	force = 18 //About as much as a spear
+	sharp = TRUE
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "esaw_0"
+	icon_state_on = "esaw_1"
+	hitcost = 75 //Costs more than a standard cyborg esword
+	item_color = null
+	w_class = WEIGHT_CLASS_NORMAL
+	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
+
+/obj/item/melee/energy/sword/cyborg
+	var/hitcost = 50
+
+/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
+	if(R.cell)
+		var/obj/item/stock_parts/cell/C = R.cell
+		if(active && !(C.use(hitcost)))
+			attack_self(R)
+			to_chat(R, "<span class='notice'>It's out of charge!</span>")
+			return
+		..()
+	return
+
+/obj/item/melee/energy/sword/cyborg/saw/New()
+	..()
+	item_color = null
+
+/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	return FALSE
+
+//////////////////////////////
+// MARK: CUTLASS
+//////////////////////////////
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
 	desc = "Arrrr matey."
@@ -266,6 +290,9 @@
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
 
+//////////////////////////////
+// MARK: HARDLIGHT BLADE
+//////////////////////////////
 /obj/item/melee/energy/blade
 	name = "energy blade"
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
@@ -291,6 +318,9 @@
 /obj/item/melee/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return
 
+//////////////////////////////
+// MARK: CLEAVING SAW
+//////////////////////////////
 /obj/item/melee/energy/cleaving_saw
 	name = "cleaving saw"
 	desc = "This saw, effective at drawing the blood of beasts, transforms into a long cleaver that makes use of centrifugal force."

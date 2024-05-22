@@ -200,8 +200,8 @@ CONTENTS:
 	..()
 
 /obj/item/gun/magic/wand/fireball/attack(atom/target, mob/living/user)
-	var/mob/living/carbon/M = target
-	if(istype(target, M))
+	if(iscarbon(target))
+		var/mob/living/M = target
 		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
 		// For lighting cigarettes.
 		if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
@@ -212,6 +212,12 @@ CONTENTS:
 		cig.attackby(src, user, M)
 		return
 	..()
+
+// This is needed to you don't try to perform an execution/suicide when lighting a cigarette.
+/obj/item/gun/magic/wand/fireball/handle_suicide(mob/user, mob/living/carbon/human/target, params)
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
+		. = ..()
 
 /////////////////////////////////////
 // MARK: WAND OF SLIPPING

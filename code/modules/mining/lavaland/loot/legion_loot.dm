@@ -33,7 +33,7 @@
 /obj/item/storm_staff/attack(mob/living/M, mob/living/user)
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
 	// For lighting cigarettes.
-	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP)
+	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 		cig.attackby(src, user, M)
 		return FALSE
 	..()
@@ -67,6 +67,13 @@
 			animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
 
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+		if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP && proximity_flag)
+			return
+
 	. = ..()
 	if(!thunder_charges)
 		to_chat(user, "<span class='warning'>The staff needs to recharge.</span>")
