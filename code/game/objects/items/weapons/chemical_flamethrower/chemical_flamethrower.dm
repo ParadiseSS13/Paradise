@@ -20,6 +20,8 @@
 	var/max_canisters = 1
 	/// All our loaded canisters in a list
 	var/list/canisters = list()
+	/// Is this a type of flamethrower that starts loaded?
+	var/should_start_with_canisters = FALSE
 
 	/// The burn temperature of our currently stored chemical in the canister
 	var/canister_burn_temp = T0C + 300
@@ -30,7 +32,7 @@
 
 /obj/item/chemical_flamethrower/Initialize(mapload)
 	. = ..()
-	if(!length(canisters))
+	if(should_start_with_canisters && !length(canisters))
 		canisters += new /obj/item/chemical_canister
 	update_canister_stats()
 
@@ -120,7 +122,7 @@
 	for(var/turf/simulated/T in turflist)
 		if(iswallturf(T)) // No going through walls
 			break
-		if(!use_ammo(5))
+		if(!use_ammo(3))
 			to_chat(user, "<span class='warning'>You hear a click!</span>")
 			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 			break // Whoops! No ammo!
@@ -179,6 +181,16 @@
 	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires."
 	max_canisters = 2
 
+/obj/item/chemical_flamethrower/extended/nuclear
+	name = "Syndicate extended capacity chemical flamethrower"
+	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires. As black as the ash of your enemies."
+
+/obj/item/chemical_flamethrower/extended/nuclear/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to max_canisters)
+		canisters += new /obj/item/chemical_canister/extended/nuclear
+	update_canister_stats()
+
 /obj/item/chemical_canister
 	name = "chemical canister"
 	desc = "A simple canister of fuel. Does not accept any pyrotechnics except for welding fuel."
@@ -199,12 +211,18 @@
 	var/current_reagent_id
 	/// How many units of the reagent do we need to have it's effects kick in?
 	var/required_volume = 10
+	/// Do we have a locked in reagent type?
+	var/has_filled_reagent = FALSE
 
 /obj/item/chemical_canister/Initialize(mapload)
 	. = ..()
 	create_reagents(50)
 
 /obj/item/chemical_canister/on_reagent_change()
+	if(has_filled_reagent)
+		visible_message("<span class='notice'>[src] doesn't accept any new chemicals!</span>")
+		return
+
 	if(!reagents.get_master_reagent_id() || !(reagents.get_master_reagent_id() in accepted_chemicals))
 		reagents.clear_reagents()
 		visible_message("<span class='notice'>[src] doesn't accept the most present chemical!</span>")
@@ -222,6 +240,7 @@
 		chem_burn_duration = reagent_to_burn.burn_duration
 		chem_burn_temp = reagent_to_burn.burn_temperature
 		fire_applications = reagent_to_burn.fire_stack_applications
+		has_filled_reagent = TRUE
 
 /obj/item/chemical_canister/extended
 	name = "extended capacity chemical canister"
@@ -229,9 +248,15 @@
 	ammo = 200
 	required_volume = 20 // Bigger canister? More reagents needed.
 
+/obj/item/chemical_canister/extended/nuclear
+	accepted_chemicals = list("napalm")
+
+/obj/item/chemical_canister/extended/nuclear/Initialize(mapload)
+	..()
+	reagents.add_reagent("napalm", 30) // Overload it with napalm!
+
 /obj/item/chemical_canister/pyrotechnics
 	name = "extended capacity chemical canister"
 	desc = "A specialized canister designed to accept certain pyrotechnics."
 	ammo = 150
 	accepted_chemicals = list("phlogiston", "phlogiston_dust", "napalm", "fuel", "thermite", "clf3", "plasma")
-
