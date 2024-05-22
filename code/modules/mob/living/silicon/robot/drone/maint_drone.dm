@@ -165,6 +165,7 @@
 					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
 
 				if(allowed(I) && !emagged)
+					timeofdeath = world.time
 					shut_down()
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -460,20 +461,22 @@
 	update_icons()
 
 /mob/living/silicon/robot/drone/attack_ghost(mob/user)
-	if(emagged || client || key || pathfinding || stat)
+	if(emagged || client || key || pathfinding || stat || !isobserver(user))
 		return ..()
 
-	if(world.time - user.timeofdeath)
+	var/mob/dead/observer/user_ghost = user
+	if(!user_ghost.can_join_as_drone())
+		return
 
-	if(tgui_alert(user, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "Are you sure you want to respawn as [src]?", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
 	if(emagged || client || key || pathfinding || stat)
 		to_chat(user, "<span class='warning'>[src] is no longer available.</span>")
 		return
 
-	var/mob/dead/observer/ghost = ghostize(TRUE) // make sure to take care of anyone who left the game, but didnt ghost from the drone
-	ghost?.can_reenter_corpse = FALSE
+	var/mob/dead/observer/old_ghost = ghostize(TRUE) // make sure to take care of anyone who left the game, but didnt ghost from the drone
+	old_ghost?.can_reenter_corpse = FALSE
 	// Take over the body
 	transfer_personality(user.client)
 	forceMove(get_turf(src)) // escape anything like drone storage

@@ -95,24 +95,37 @@
 	if(usr != src)
 		return FALSE //something is terribly wrong
 
+	if(!can_join_as_drone())
+		return
+
+	if(tgui_alert(usr, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
+		return
+
+	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+		if(DF.create_drone(client))
+			return
+
+	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+
+/mob/dead/proc/can_join_as_drone()
 	if(jobban_isbanned(src, "nonhumandept") || jobban_isbanned(src, "Drone"))
 		to_chat(usr, "<span class='warning'>You are banned from playing drones, and cannot spawn as one.</span>")
-		return
+		return FALSE
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
-		return
+		return FALSE
 
 	var/player_age_check = check_client_age(usr.client, 14) // 14 days to play as a drone
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
-		return
+		return FALSE
 
 	var/pt_req = role_available_in_playtime(client, "Drone")
 	if(pt_req)
 		var/pt_req_string = get_exp_format(pt_req)
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. Play another [pt_req_string] to unlock it.</span>")
-		return
+		return FALSE
 
 	var/deathtime = world.time - timeofdeath
 	var/joinedasobserver = FALSE
@@ -120,7 +133,7 @@
 		var/mob/dead/observer/G = src
 		if(!G.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-			return
+			return FALSE
 		if(G.started_as_observer)
 			joinedasobserver = TRUE
 
@@ -137,13 +150,5 @@
 	if(deathtime < 6000 && joinedasobserver == 0)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
-		return
-
-	if(tgui_alert(usr, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
-		return
-
-	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
-		if(DF.create_drone(client))
-			return
-
-	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+		return FALSE
+	return TRUE

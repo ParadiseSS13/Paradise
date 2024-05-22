@@ -124,7 +124,7 @@
 				if(D != usr) // Don't need to bug admins about a suicide
 					message_admins("[key_name_admin(usr)] issued recall order for drone [key_name_admin(D)] from control console.")
 				log_game("[key_name(usr)] issued recall order for [key_name(D)] from control console.")
-				// Yes, I know this proc is called shut_down, I've kept the name the same because emagged drones use it for death
+				D.timeofdeath = world.time
 				D.shut_down()
 
 /obj/machinery/computer/drone_control/proc/find_fab(mob/user)
