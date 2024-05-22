@@ -106,6 +106,7 @@
 	cost = 5000 //please don't order this for funny please sir
 	template = /datum/map_template/shuttle/emergency/lance
 	speed_factor = 1.5 //Don't need to slow down before docking
+	are_you_sure_you_want_to_be_banned = "If you are not an antagonist, and you are ordering this shuttle for no valid reason, you will be banned, or job banned. If you are an antagonist, ahelp for permision, unless you are a hijacker, or you will be antagonist banned. If you are unsure, ahelp now."
 
 /datum/supply_packs/abstract/shuttle/lance/on_order_confirm(datum/supply_order/order)
 	. = ..()

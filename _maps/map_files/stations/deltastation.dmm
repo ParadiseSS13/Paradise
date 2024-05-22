@@ -398,6 +398,10 @@
 /area/station/hallway/secondary/entry/east)
 "aeF" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/requests_console{
+	department = "Psychiatrist";
+	pixel_x = -30
+	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "aeI" = (
@@ -6289,7 +6293,6 @@
 /obj/machinery/requests_console{
 	department = "Janitorial";
 	departmentType = 1;
-	name = "Janitor Requests Console";
 	pixel_y = 29
 	},
 /obj/effect/turf_decal/delivery/hollow,
@@ -9096,7 +9099,6 @@
 /obj/machinery/requests_console{
 	department = "Bar";
 	departmentType = 2;
-	name = "Bar Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -14497,7 +14499,6 @@
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
 	departmentType = 2;
-	name = "Cargo Requests Console";
 	pixel_y = 30
 	},
 /obj/item/storage/firstaid/regular,
@@ -14655,7 +14656,6 @@
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
 	departmentType = 5;
-	name = "Quartermaster Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -18087,7 +18087,6 @@
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
-	name = "Kitchen Requests Console";
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/delivery,
@@ -20495,7 +20494,6 @@
 	announcementConsole = 1;
 	department = "Head of Security's Desk";
 	departmentType = 5;
-	name = "Head of Security Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -24996,7 +24994,6 @@
 /obj/machinery/requests_console{
 	department = "Hydroponics";
 	departmentType = 2;
-	name = "Hydroponics Requests Console";
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/delivery/hollow,
@@ -27048,7 +27045,6 @@
 /obj/machinery/requests_console{
 	department = "Atmospherics";
 	departmentType = 3;
-	name = "Atmospherics Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -27162,7 +27158,7 @@
 	dir = 4
 	},
 /obj/machinery/requests_console{
-	department = "Primary Tool Storage";
+	department = "Tool Storage";
 	name = "Primary Tool Storage Console";
 	pixel_y = 30
 	},
@@ -27740,7 +27736,6 @@
 /obj/machinery/requests_console{
 	department = "AI";
 	departmentType = 5;
-	name = "AI Requests Console";
 	pixel_x = 32;
 	pixel_y = 32
 	},
@@ -30227,7 +30222,6 @@
 /obj/item/stack/sheet/glass,
 /obj/machinery/requests_console{
 	department = "Tech Storage";
-	name = "Tech Storage Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -31234,7 +31228,6 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	name = "Detective Requests Console";
 	pixel_x = 30;
 	department = "Detective";
 	departmentType = 5
@@ -31576,7 +31569,6 @@
 	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
 	departmentType = 7;
-	name = "Chief Engineer Requests Console";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -34130,7 +34122,6 @@
 	announcementConsole = 1;
 	department = "Captain's Desk";
 	departmentType = 5;
-	name = "Captain Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet/black,
@@ -34994,7 +34985,6 @@
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
 	departmentType = 5;
-	name = "Head of Personnel Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
@@ -36821,7 +36811,6 @@
 	announcementConsole = 1;
 	department = "NT Representative";
 	departmentType = 5;
-	name = "NT Representative Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -36864,7 +36853,6 @@
 	announcementConsole = 1;
 	department = "Blueshield";
 	departmentType = 5;
-	name = "Blueshield Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
@@ -39217,6 +39205,10 @@
 /area/station/legal/magistrate)
 "cgk" = (
 /obj/item/kirbyplants,
+/obj/machinery/requests_console{
+	department = "Magistrate";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -39665,7 +39657,7 @@
 "chL" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "IAA Office"
+	department = "Internal Affairs Office"
 	},
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
@@ -39693,7 +39685,6 @@
 /obj/structure/filingcabinet/security,
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
-	name = "Internal Affairs Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
@@ -41501,7 +41492,6 @@
 /obj/machinery/requests_console{
 	department = "Engineering";
 	departmentType = 3;
-	name = "Engineering Requests Console";
 	pixel_y = -30
 	},
 /obj/effect/turf_decal/delivery,
@@ -42238,6 +42228,10 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/machinery/requests_console{
+	department = "Courtroom";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "coQ" = (
@@ -42622,6 +42616,10 @@
 /obj/structure/table/wood,
 /obj/item/storage/bag/books,
 /obj/item/taperecorder,
+/obj/machinery/requests_console{
+	department = "Library";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/library)
 "cpN" = (
@@ -46929,7 +46927,6 @@
 	},
 /obj/machinery/requests_console{
 	department = "EVA";
-	name = "EVA Requests Console";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -51033,6 +51030,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/requests_console{
+	department = "Paramedic";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -53755,7 +53756,6 @@
 /obj/structure/closet/wardrobe/yellow,
 /obj/machinery/requests_console{
 	department = "Locker Room";
-	name = "Locker Room Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -54087,7 +54087,6 @@
 /obj/machinery/requests_console{
 	department = "Xenobiology";
 	departmentType = 2;
-	name = "Xenobiology Requests Console";
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/delivery,
@@ -55183,7 +55182,6 @@
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
-	name = "Research Request Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -57214,9 +57212,8 @@
 	name = "Chemistry Cleaner"
 	},
 /obj/machinery/requests_console{
-	department = "Medbay";
+	department = "Chemistry";
 	departmentType = 1;
-	name = "Chemistry Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -57999,7 +57996,6 @@
 	announcementConsole = 1;
 	department = "Research Director's Desk";
 	departmentType = 7;
-	name = "Research Director Requests Console";
 	pixel_x = -30;
 	pixel_y = -2
 	},
@@ -58835,7 +58831,6 @@
 /obj/machinery/requests_console{
 	department = "Robotics";
 	departmentType = 2;
-	name = "Robotics Requests Console";
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/delivery/hollow,
@@ -65227,9 +65222,8 @@
 "dYd" = (
 /obj/machinery/dna_scannernew,
 /obj/machinery/requests_console{
-	department = "Medbay";
+	department = "Genetics";
 	departmentType = 1;
-	name = "Genetics Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -65479,7 +65473,6 @@
 /obj/machinery/requests_console{
 	department = "Chapel";
 	departmentType = 2;
-	name = "Chapel Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/carpet,
@@ -68283,6 +68276,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/medical/break_room)
+"fyq" = (
+/obj/machinery/requests_console{
+	department = "Expedition"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/expedition)
 "fzd" = (
 /obj/machinery/access_button{
 	autolink_id = "virolab_btn_int";
@@ -69545,7 +69544,6 @@
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
-	name = "Science Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -73899,7 +73897,6 @@
 	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
 	departmentType = 5;
-	name = "Chief Medical Officer Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -78176,7 +78173,6 @@
 /obj/machinery/requests_console{
 	department = "Medbay";
 	departmentType = 1;
-	name = "Medbay Requests Console";
 	pixel_x = 30
 	},
 /obj/structure/table,
@@ -81016,6 +81012,14 @@
 	icon_state = "bar"
 	},
 /area/station/service/kitchen)
+"nnV" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/requests_console{
+	department = "Mining";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/miningdock)
 "nnW" = (
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -81829,7 +81833,6 @@
 /obj/machinery/requests_console{
 	department = "Morgue";
 	departmentType = 5;
-	name = "Morgue Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -81960,7 +81963,6 @@
 	announcementConsole = 1;
 	department = "Bridge";
 	departmentType = 5;
-	name = "Bridge Requests Console";
 	pixel_y = -30;
 	dir = 1
 	},
@@ -82235,7 +82237,6 @@
 /obj/machinery/requests_console{
 	department = "Security";
 	departmentType = 5;
-	name = "Security Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -88978,6 +88979,10 @@
 	c_tag = "Rec Room Aft";
 	dir = 4
 	},
+/obj/machinery/requests_console{
+	department = "Crew Quarters";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -92213,7 +92218,6 @@
 /obj/machinery/requests_console{
 	department = "Warden";
 	departmentType = 7;
-	name = "Warden's Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -98690,7 +98694,6 @@
 /obj/machinery/requests_console{
 	department = "Virology";
 	departmentType = 3;
-	name = "Virology Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -99146,7 +99149,6 @@
 /obj/item/kirbyplants,
 /obj/machinery/requests_console{
 	department = "Arrival Shuttle";
-	name = "Arrival Shuttle Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -141263,7 +141265,7 @@ bIX
 csV
 cxe
 cvK
-cCX
+fyq
 cyr
 czW
 cBw
@@ -144822,7 +144824,7 @@ hYQ
 bgT
 bih
 bjL
-boD
+nnV
 eNt
 boE
 eNt

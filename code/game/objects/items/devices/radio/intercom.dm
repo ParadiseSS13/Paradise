@@ -174,6 +174,11 @@
 	else
 		return ..()
 
+/obj/item/radio/intercom/AltClick(mob/user)
+	. = ..()
+	if(broadcasting)
+		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) ///Allows us to track who spams all these on if they do.
+
 /obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != 1)
 		return
@@ -245,7 +250,7 @@
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
-	if(!loc) // We init a few radios in nullspace to prevent them from needing power. 
+	if(!loc) // We init a few radios in nullspace to prevent them from needing power.
 		return
 	var/area/current_area = get_area(src)
 	if(on)
