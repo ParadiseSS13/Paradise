@@ -44,7 +44,7 @@
 			active = null
 			refresh()
 			return
-		var/datum/gas_mixture/air = T.return_air()
+		var/datum/gas_mixture/air = T.get_readonly_air()
 		if(!air)
 			active = null
 			return

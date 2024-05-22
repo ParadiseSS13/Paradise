@@ -8,7 +8,7 @@
 	if(!isturf(target))
 		return
 
-	var/datum/gas_mixture/GM = target.return_air()
+	var/datum/gas_mixture/GM = target.get_readonly_air()
 	var/burning = 0
 	if(issimulatedturf(target))
 		var/turf/simulated/T = target

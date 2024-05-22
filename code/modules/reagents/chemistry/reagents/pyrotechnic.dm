@@ -424,14 +424,8 @@
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
-	var/CT = cooling_temperature
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		qdel(hotspot)
-
-		var/datum/gas_mixture/environment = T.get_air()
-		environment.synchronize(CALLBACK(T, TYPE_PROC_REF(/turf/simulated, cool_by), environment, 1000, CT))
+	T.quench(1000, cooling_temperature)
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"

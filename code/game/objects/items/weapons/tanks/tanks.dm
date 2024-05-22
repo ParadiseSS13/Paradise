@@ -204,21 +204,12 @@
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/tank/remove_air(amount)
-	return air_contents.remove(amount)
-
-/obj/item/tank/return_air()
+/obj/item/tank/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/return_analyzable_air()
 	return air_contents
-
-/obj/item/tank/obj_assume_air(datum/gas_mixture/giver)
-	air_contents.merge(giver)
-
-	check_status()
-	return 1
 
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
@@ -229,7 +220,7 @@
 
 	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature())
 
-	return remove_air(moles_needed)
+	return air_contents.remove(moles_needed)
 
 /obj/item/tank/process()
 	//Allow for reactions

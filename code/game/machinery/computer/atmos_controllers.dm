@@ -223,7 +223,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			// Cache here to avoid a ton of list lookups
 			var/obj/machinery/atmospherics/air_sensor/AS = AM
 			var/list/sensor_data = sensor_name_data_map[sensor_name]
-			var/datum/gas_mixture/air_sample = AS.return_air()
+			var/turf/T = get_turf(AS)
+			var/datum/gas_mixture/air_sample = T.get_readonly_air()
 
 			// We remove it from the list incase sensor reporting is ever disabled
 			// We only want to show the information available
@@ -269,7 +270,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/list/meter_data = sensor_name_data_map[sensor_name]
 			var/obj/machinery/atmospherics/meter/the_meter = AM
 			if(the_meter.target)
-				var/datum/gas_mixture/meter_env = the_meter.target.return_air()
+				var/datum/gas_mixture/meter_env = the_meter.target.return_obj_air()
 				if(meter_env)
 					meter_data["pressure"] = meter_env.return_pressure()
 					meter_data["temperature"] = meter_env.temperature()

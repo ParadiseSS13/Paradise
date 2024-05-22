@@ -272,7 +272,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return SUPERMATTER_ERROR
-	var/datum/gas_mixture/air = T.return_air()
+	var/datum/gas_mixture/air = T.get_readonly_air()
 	if(!air)
 		return SUPERMATTER_ERROR
 
@@ -402,9 +402,19 @@
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
+	/var/datum/milla_safe/supermatter_process/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/supermatter_process
+
+/datum/milla_safe/supermatter_process/on_run(obj/machinery/atmospherics/supermatter_crystal/supermatter)
+	var/turf/T = get_turf(supermatter)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	supermatter.process_atmos_safely(T, env)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
 	if(!processes) //Just fuck me up bro
 		return
-	var/turf/T = loc
 
 	if(isnull(T))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
@@ -439,9 +449,6 @@
 			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10, channel = CHANNEL_ENGINE)
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
-
-	//Ok, get the air from the turf
-	var/datum/gas_mixture/env = T.return_air()
 
 	var/datum/gas_mixture/removed
 	if(produces_gas)
@@ -1180,8 +1187,8 @@
 		//This gotdamn variable is a boomer and keeps giving me problems
 		var/turf/T = get_turf(target)
 		var/pressure = 1
-		if(T?.return_air())
-			var/datum/gas_mixture/G = T.return_air()
+		var/datum/gas_mixture/G = T?.get_readonly_air()
+		if(G)
 			pressure = max(1, G.return_pressure())
 		//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 		var/new_range = clamp(zap_str / pressure * 10, 2, 7)

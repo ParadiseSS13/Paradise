@@ -418,7 +418,7 @@
 		if(istype(T))
 			var/datum/gas_mixture/air = new()
 			air.set_temperature(TCMB)
-			air.set_sleeping_gas(20)
+			air.set_sleeping_agent(20)
 			air.set_carbon_dioxide(20)
 			T.blind_release_air(air)
 
@@ -449,7 +449,7 @@
 	if(istype(T) && drops_core)
 		var/datum/gas_mixture/air = new()
 		air.set_temperature(TCMB)
-		air.set_sleeping_gas(1000)
+		air.set_sleeping_agent(1000)
 		air.set_carbon_dioxide(1000)
 		T.blind_release_air(air)
 

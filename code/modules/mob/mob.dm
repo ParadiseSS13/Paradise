@@ -91,9 +91,11 @@
 	set category = "Admin"
 	set hidden = 1
 
-	if(!loc) return 0
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	if(!environment)
+		return
 
 	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
 	t+= "<span class='warning'>Temperature: [environment.temperature()] \n</span>"

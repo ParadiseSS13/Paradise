@@ -1500,15 +1500,15 @@
 			var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
 			cabin_air.merge(removed)
 	else if(pressure_delta < 0) //cabin pressure higher than release pressure
-		var/datum/gas_mixture/tank_air = return_obj_air()
+		var/datum/gas_mixture/active_tank_air = return_obj_air()
 		pressure_delta = cabin_pressure - release_pressure
-		if(tank_air)
-			pressure_delta = min(cabin_pressure - tank_air.return_pressure(), pressure_delta)
+		if(active_tank_air)
+			pressure_delta = min(cabin_pressure - active_tank_air.return_pressure(), pressure_delta)
 		if(pressure_delta > 0) //if location pressure is lower than cabin pressure
 			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
-			if(tank_air)
-				tank_air.merge(removed)
+			if(active_tank_air)
+				active_tank_air.merge(removed)
 			else
 				var/turf/T = get_turf(src)
 				if(T)

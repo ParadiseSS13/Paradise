@@ -262,7 +262,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!isturf(T))
 		return
 
-	var/datum/gas_mixture/env = T.return_air()
+	var/datum/gas_mixture/env = T.get_readonly_air()
 
 	var/t = ""
 	t+= "Nitrogen : [env.nitrogen()]\n"

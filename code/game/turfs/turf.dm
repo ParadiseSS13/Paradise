@@ -356,7 +356,7 @@
 /datum/milla_safe/turf_assimilate_air/on_run(turf/self)
 	var/datum/gas_mixture/merged = new()
 	var/turf_count = 0
-	for(var/turf/T in self.atmos_adjacent_turfs)
+	for(var/turf/T in self.GetAtmosAdjacentTurfs())
 		if(isspaceturf(T))
 			turf_count += 1
 			continue

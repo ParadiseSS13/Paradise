@@ -380,7 +380,7 @@ SUBSYSTEM_DEF(air)
 				S.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
-			var/datum/gas_mixture/air = T.get_air()
+			var/datum/gas_mixture/air = T.get_readonly_air()
 			T.hotspot_expose(air.temperature(), CELL_VOLUME)
 			for(var/atom/movable/item in T)
 				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
@@ -404,7 +404,8 @@ SUBSYSTEM_DEF(air)
 		var/datum/gas_mixture/bound_to_turf/mixture = currentrun[length(currentrun)]
 		currentrun.len--
 		if(mixture.dirty)
-			mixture.write()
+			// This is one of two places expected to call this otherwise-unsafe method.
+			mixture.private_unsafe_write()
 		mixture.bound_turf.bound_air = null
 		mixture.bound_turf = null
 		if(MC_TICK_CHECK)
@@ -412,16 +413,10 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
 	for(var/turf/T as anything in turfs_to_init)
 		T.Initialize_Atmos(times_fired)
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
 	var/watch = start_watch()
 	log_startup_progress("Writing tiles to MILLA...")
 
@@ -432,7 +427,10 @@ SUBSYSTEM_DEF(air)
 		var/datum/gas_mixture/bound_to_turf/mixture = cache[length(cache)]
 		cache.len--
 		if(mixture.dirty)
-			mixture.write()
+			in_milla_safe_code = TRUE
+			// This is one of two places expected to call this otherwise-unsafe method.
+			mixture.private_unsafe_write()
+			in_milla_safe_code = FALSE
 		mixture.bound_turf.bound_air = null
 		mixture.bound_turf = null
 
@@ -503,6 +501,9 @@ SUBSYSTEM_DEF(air)
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/CB)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(is_synchronous)
 		SSair.in_milla_safe_code = TRUE
 		// This is one of two intended places to call this otherwise-unsafe proc.

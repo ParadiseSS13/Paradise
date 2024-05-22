@@ -265,9 +265,8 @@
 	var/datum/milla_safe/airalarm_heat_cool/milla = new()
 	milla.invoke_async(src)
 
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature()/environment.volume
-
 	var/datum/gas_mixture/environment = location.get_readonly_air()
+	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature()/environment.volume
 	var/datum/tlv/cur_tlv
 
 	cur_tlv = TLV["pressure"]
@@ -322,7 +321,7 @@
 
 	if(!alarm.thermostat_state)
 		return
-	var/cur_tlv = TLV["temperature"]
+	var/datum/tlv/cur_tlv = alarm.TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
@@ -332,7 +331,7 @@
 				return
 			if(!alarm.regulating_temperature && alarm.thermostat_state)
 				alarm.regulating_temperature = TRUE
-				visible_message("\The [alarm] clicks as it starts [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
+				alarm.visible_message("\The [alarm] clicks as it starts [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(alarm.target_temperature > MAX_TEMPERATURE)
 				alarm.target_temperature = MAX_TEMPERATURE

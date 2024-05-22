@@ -367,8 +367,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, melting [exp_on] and leaking hot air!</span>")
-			var/datum/gas_mixture/env = loc.return_air()
-			env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/r_n_d/experimentor, adjust_temperature), env, 100000, 1000))
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, 100000, 1000)
 			investigate_log("Experimentor has released hot air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -405,8 +405,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, shattering [exp_on] and leaking cold air!</span>")
-			var/datum/gas_mixture/env = loc.return_air()
-			env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/r_n_d/experimentor, adjust_temperature), env, -75000))
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, -75000, 1000, TCMB)
 			investigate_log("Experimentor has released cold air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -513,9 +513,11 @@
 		icon_state = "h_lathe"
 		recentlyExperimented = 0
 
-/obj/machinery/r_n_d/experimentor/proc/adjust_temperature(datum/gas_mixture/env, delta, min_new_temp = 0)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/datum/milla_safe/experimentor_temperature
+
+/datum/milla_safe/experimentor_temperature/on_run(obj/machinery/r_n_d/experimentor/experimentor, delta, min_new_temp)
+	var/turf/T = get_turf(experimentor)
+	var/datum/gas_mixture/env = get_turf_air(T)
 
 	var/transfer_moles = 0.25 * env.total_moles()
 	var/datum/gas_mixture/removed = env.remove(transfer_moles)

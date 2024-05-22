@@ -386,12 +386,7 @@
 		return
 	if(volume >= 3)
 		T.MakeSlippery()
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		qdel(hotspot)
-
-		var/datum/gas_mixture/environment = T.get_air()
-		environment.synchronize(CALLBACK(T, TYPE_PROC_REF(/turf/simulated, cool_by), environment, 2000, 2))
+	T.quench(1000, 2)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"

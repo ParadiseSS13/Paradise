@@ -45,7 +45,7 @@
 		sharer.temperature += heat/sharer.heat_capacity
 
 /turf/simulated/proc/update_visuals()
-	var/datum/gas_mixture/air = get_air()
+	var/datum/gas_mixture/air = get_readonly_air()
 	var/new_overlay_type = tile_graphic(air)
 	if(new_overlay_type == atmos_overlay_type)
 		return
@@ -71,7 +71,7 @@
 	if(blocks_air)
 		return
 	if(!istype(air))
-		air = get_air()
+		air = get_readonly_air()
 	if(air.toxins() > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
@@ -136,7 +136,7 @@
 	recalculate_atmos_connectivity()
 
 	if(!blocks_air)
-		var/datum/gas_mixture/air = get_air()
+		var/datum/gas_mixture/air = new()
 		air.set_oxygen(oxygen)
 		air.set_carbon_dioxide(carbon_dioxide)
 		air.set_nitrogen(nitrogen)
@@ -144,6 +144,7 @@
 		air.set_sleeping_agent(sleeping_agent)
 		air.set_agent_b(agent_b)
 		air.set_temperature(temperature)
+		blind_set_air(air)
 
 /turf/proc/recalculate_atmos_connectivity()
 	// Any proc that wants MILLA to be synchronous should not sleep.

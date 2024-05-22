@@ -864,12 +864,6 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
-/mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
-	if(loc)
-		return loc.remove_air(amount)
-	else
-		return null
-
 /mob/living/simple_animal/bot/mulebot/run_resist()
 	. = ..()
 	if(load)

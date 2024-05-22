@@ -150,8 +150,8 @@
 	if(issimulatedturf(A))
 		var/turf/simulated/T = A
 		if(!T.blocks_air)
-			var/datum/gas_mixture/G = T.get_air()
-			G.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/effect_system/smoke_spread/freezing, chill_air), G, T))
+			var/datum/milla_safe/smoke_spread_chill/milla = new()
+			milla.invoke_async(src, T)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 				V.welded = TRUE
@@ -167,17 +167,17 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/proc/chill_air(datum/gas_mixture/G, turf/simulated/T)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/datum/milla_safe/smoke_spread_chill
 
-	if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-		G.set_temperature(2)
+/datum/milla_safe/smoke_spread_chill/on_run(datum/effect_system/smoke_spread/smoke, turf/T)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	if(get_dist(T, smoke) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+		env.set_temperature(2)
 	for(var/obj/effect/hotspot/H in T)
 		qdel(H)
-		if(G.toxins())
-			G.set_nitrogen(G.nitrogen() + (G.toxins()))
-			G.set_toxins(0)
+		if(env.toxins())
+			env.set_nitrogen(env.nitrogen() + env.toxins())
+			env.set_toxins(0)
 
 /datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = FALSE)
 	..()

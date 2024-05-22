@@ -34,7 +34,8 @@
 		return
 	try_to_snow()
 	try_to_spread_cloud()
-	parent_machine.affect_turf_temperature(T, 0.25 * parent_machine.cooling_speed)
+	var/datum/milla_safe/snow_machine_cooling/milla = new()
+	milla.invoke_async(parent_machine, 0.25 * parent_machine.cooling_speed)
 
 /obj/effect/snowcloud/proc/try_to_snow()
 	var/turf/T = get_turf(src)

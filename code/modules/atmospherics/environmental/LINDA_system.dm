@@ -142,5 +142,4 @@
 		G.set_oxygen(G.oxygen() + MOLES_O2STANDARD * amount)
 		G.set_nitrogen(G.nitrogen() + MOLES_N2STANDARD * amount)
 
-	var/datum/gas_mixture/air = get_air()
-	air.merge(G)
+	blind_release_air(G)

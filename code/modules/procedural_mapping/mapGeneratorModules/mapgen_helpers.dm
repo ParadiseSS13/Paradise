@@ -7,17 +7,11 @@
 	spawnableTurfs = list()
 
 /datum/mapGeneratorModule/bottomLayer/repressurize/generate()
-	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/mapGeneratorModule/bottomLayer/repressurize, generate_sync)))
-
-/datum/mapGeneratorModule/bottomLayer/repressurize/proc/generate_sync()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
 	if(!mother)
 		return
 	var/list/map = mother.map
 	for(var/turf/simulated/T in map)
-		var/datum/gas_mixture/air = T.get_air()
+		var/datum/gas_mixture/air = new()
 		air.set_oxygen(T.oxygen)
 		air.set_nitrogen(T.nitrogen)
 		air.set_carbon_dioxide(T.carbon_dioxide)
@@ -25,6 +19,7 @@
 		air.set_sleeping_agent(T.sleeping_agent)
 		air.set_agent_b(T.agent_b)
 		air.set_temperature(T.temperature)
+		T.blind_set_air(air)
 
 //Only places atoms/turfs on area borders
 /datum/mapGeneratorModule/border

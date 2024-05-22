@@ -39,38 +39,33 @@
 	return ((ppratio * pressure) * CELL_VOLUME) / (temperature * R_IDEAL_GAS_EQUATION)
 
 /datum/buildmode_mode/atmos/handle_selected_region(mob/user, params)
-	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/buildmode_mode/atmos, handle_selected_region_sync), user, params))
-
-/datum/buildmode_mode/atmos/proc/handle_selected_region_sync(mob/user, params)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/ctrl_click = pa.Find("ctrl")
 	if(left_click) //rectangular
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(temperature)
+		air.set_oxygen(ppratio_to_moles(oxygen))
+		air.set_nitrogen(ppratio_to_moles(nitrogen))
+		air.set_toxins(ppratio_to_moles(plasma))
+		air.set_carbon_dioxide(ppratio_to_moles(cdiox))
+		air.set_sleeping_agent(ppratio_to_moles(nitrox))
+		air.set_agent_b(ppratio_to_moles(agentbx))
+
 		for(var/turf/T in block(cornerA,cornerB))
 			if(issimulatedturf(T))
 				// fill the turf with the appropriate gasses
-				// this feels slightly icky
 				var/turf/simulated/S = T
 				if(!S.blocks_air)
-					var/datum/gas_mixture/air = S.get_air()
-					air.set_temperature(temperature)
-					air.set_oxygen(ppratio_to_moles(oxygen))
-					air.set_nitrogen(ppratio_to_moles(nitrogen))
-					air.set_toxins(ppratio_to_moles(plasma))
-					air.set_carbon_dioxide(ppratio_to_moles(cdiox))
-					air.set_sleeping_agent(ppratio_to_moles(nitrox))
-					air.set_agent_b(ppratio_to_moles(agentbx))
+					T.blind_set_air(air)
 			else if(ctrl_click) // overwrite "default" space air
 				T.temperature = temperature
-				T.oxygen = ppratio_to_moles(oxygen)
-				T.nitrogen = ppratio_to_moles(nitrogen)
-				T.toxins = ppratio_to_moles(plasma)
-				T.carbon_dioxide = ppratio_to_moles(cdiox)
-				T.sleeping_agent = ppratio_to_moles(nitrox)
-				T.agent_b = ppratio_to_moles(agentbx)
+				T.oxygen = air.oxygen()
+				T.nitrogen = air.nitrogen()
+				T.toxins = air.toxins()
+				T.carbon_dioxide = air.carbon_dioxide()
+				T.sleeping_agent = air.sleeping_agent()
+				T.agent_b = air.agent_b()
 
 		// admin log
 		log_admin("Build Mode: [key_name(user)] changed the atmos of region [COORD(cornerA)] to [COORD(cornerB)]. T: [temperature], P: [pressure], Ox: [oxygen]%, N2: [nitrogen]%, Plsma: [plasma]%, CO2: [cdiox]%, N2O: [nitrox]%. [ctrl_click ? "Overwrote base space turf gases." : ""]")

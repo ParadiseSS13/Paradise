@@ -103,16 +103,21 @@
 /obj/proc/suicide_act(mob/user)
 	return FALSE
 
-/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
+/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request, datum/gas_mixture/environment)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
 
 	if(breath_request > 0)
-		var/datum/gas_mixture/environment = return_air()
-		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
-		return remove_air(environment.total_moles() * breath_percentage)
+		var/datum/gas_mixture/air = return_obj_air()
+		if(isnull(air))
+			air = environment
+		if(isnull(air))
+			return
+		
+		var/breath_percentage = BREATH_VOLUME / air.return_volume()
+		return air.remove(air.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -301,6 +306,7 @@
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(isobj(loc))
-		return loc.return_air()
+		var/obj/O = loc
+		return O.return_obj_air()
 	else
 		return null

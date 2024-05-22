@@ -55,23 +55,26 @@
 	if(volume >= 3)
 		MakeSlippery()
 
-	var/hotspot = (locate(/obj/effect/hotspot) in src)
-	if(hotspot)
+	quench(1000, 2)
+
+/// Quenches any fire on the turf, and if it does, cools down the turf's air by the given parameters.
+/turf/simulated/proc/quench(datum/gas_mixture/air, delta, divisor)
+	var/found = FALSE
+	for(var/obj/effect/hotspot/hotspot in src)
 		qdel(hotspot)
+		found = TRUE
 
-		var/datum/gas_mixture/air = get_air()
-		air.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf/simulated, cool_by), air, 2000, 2))
+	if(!found)
+		return
 
-/// Not intentionally used, but it gets called if the turf becomes space while the proc is waiting.
-/turf/proc/cool_by(datum/gas_mixture/air, max_delta, max_divisor)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+	var/datum/milla_safe/turf_cool/milla = new()
+	milla.invoke_async(src, delta, divisor)
 
-	return
+/datum/milla_safe/turf_cool
 
-/// Cools down the turf's air by the given parameters.
-/turf/simulated/cool_by(datum/gas_mixture/air, max_delta, max_divisor)
-	air.set_temperature(max(min(air.temperature()-max_delta,air.temperature() / max_divisor), 0))
+/datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
+	var/datum/gas_mixture/air = get_turf_air(T)
+	air.set_temperature(max(min(air.temperature()-delta*divisor,air.temperature() / divisor), TCMB))
 	air.react()
 
 /*

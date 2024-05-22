@@ -25,7 +25,7 @@
 
 /datum/milla_safe/thermal_plate_process/on_run(obj/machinery/atmospherics/unary/thermal_plate/plate)
 	var/turf/T = get_turf(plate)
-	var/datum/gas_mixture/environment = get_turf_air(plate)
+	var/datum/gas_mixture/environment = get_turf_air(T)
 
 	//Get processable air sample and thermal info from environment
 

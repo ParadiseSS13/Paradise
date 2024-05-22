@@ -76,11 +76,29 @@
 		return
 	for(var/turf/TF in range(1, src))
 		if(issimulatedturf(TF))
-			var/turf/simulated/S = TF
-			affect_turf_temperature(S, cooling_speed)
+			var/datum/milla_safe/snow_machine_cooling/milla = new()
+			milla.invoke_async(src, cooling_speed)
 		if(prob(50))
 			continue
 		make_snowcloud(TF)
+
+/datum/milla_safe/snow_machine_cooling
+
+/datum/milla_safe/snow_machine_cooling/on_run(obj/machinery/snow_machine/snowy, modifier)
+	var/turf/T = get_turf(snowy)
+	var/datum/gas_mixture/env = get_turf_air(T)
+
+	if(!issimulatedturf(T) || T.density)
+		return
+
+	var/initial_temperature = env.temperature()
+	if(initial_temperature <= snowy.lower_temperature_limit) //Can we actually cool this?
+		return
+	var/old_thermal_energy = env.thermal_energy()
+	var/amount_cooled = initial_temperature - modifier * 8000 / env.heat_capacity()
+	env.set_temperature(max(amount_cooled, snowy.lower_temperature_limit))
+	var/new_thermal_energy = env.thermal_energy()
+	snowy.power_used_this_cycle += (old_thermal_energy - new_thermal_energy) / 100
 
 /obj/machinery/snow_machine/power_change()
 	if(!..())
@@ -95,36 +113,13 @@
 	else
 		icon_state = "snow_machine_[active ? "on" : "off"]"
 
-/obj/machinery/snow_machine/proc/affect_turf_temperature(turf/T, modifier)
-	if(!issimulatedturf(T) || T.density)
-		return
-	var/turf/simulated/S = T
-	var/datum/gas_mixture/S_air = S.get_air()
-	S_air.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/snow_machine, affect_turf_temperature_sync), S_air, modifier))
-
-/obj/machinery/snow_machine/proc/affect_turf_temperature_sync(datum/gas_mixture/S_air, modifier)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-	var/initial_temperature = S_air.temperature()
-	if(initial_temperature <= lower_temperature_limit) //Can we actually cool this?
-		return
-	var/old_thermal_energy = S_air.thermal_energy()
-	var/amount_cooled = initial_temperature - modifier * 8000 / S_air.heat_capacity()
-	S_air.set_temperature(max(amount_cooled, lower_temperature_limit))
-	recalculate_atmos_connectivity()
-	var/new_thermal_energy = S_air.thermal_energy()
-	power_used_this_cycle += (old_thermal_energy - new_thermal_energy) / 100
-
 /obj/machinery/snow_machine/proc/make_snowcloud(turf/T)
 	if(isspaceturf(T))
 		return
 	if(T.density)
 		return
-	if(issimulatedturf(T))
-		var/turf/simulated/S = T
-		var/datum/gas_mixture/S_air = S.get_air()
-		if(S_air.temperature() > T0C + 1)
-			return
+	if(T.get_readonly_air().temperature() > T0C + 1)
+		return
 	if(locate(/obj/effect/snowcloud, T)) //Ice to see you
 		return
 	if(infinite_snow || !reagents.remove_reagent(reagents.get_master_reagent_id(), 3))

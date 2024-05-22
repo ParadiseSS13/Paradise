@@ -383,10 +383,12 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
+/obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/T = get_turf(src)
+		gas = T.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
 	newgas.set_oxygen(gas.oxygen())
 	newgas.set_carbon_dioxide(gas.carbon_dioxide())

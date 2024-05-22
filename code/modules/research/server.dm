@@ -74,7 +74,8 @@
 	if(prob(3) && plays_sound)
 		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	switch(environment.temperature())
 		if(0 to T0C)
 			health = min(100, health + 1)
@@ -88,18 +89,17 @@
 		var/updateRD = 0
 		files.known_designs = list()
 		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
+			var/datum/tech/tech = files.known_tech[v]
 			// Slowly decrease research if health drops below 0
 			if(prob(1))
 				updateRD++
-				T.level--
+				tech.level--
 		if(updateRD)
 			files.RefreshResearch()
 	if(delay)
 		delay--
 	else
-		var/datum/gas_mixture/env = loc.return_air()
-		env.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/r_n_d/server, produce_heat), env, heat_gen))
+		produce_heat(heat_gen)
 		delay = initial(delay)
 
 /obj/machinery/r_n_d/server/emp_act(severity)
@@ -120,27 +120,32 @@
 	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
 		files.push_data(C.files)
 
-/obj/machinery/r_n_d/server/proc/produce_heat(datum/gas_mixture/env, heat_amt)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
+	var/datum/milla_safe/rnd_server_heat/milla = new()
+	milla.invoke_async(src, heat_amt)
 
-	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.
-		var/turf/simulated/L = loc
-		if(istype(L))
-			if(env.temperature() < (heat_amt+T0C))
+/datum/milla_safe/rnd_server_heat
 
-				var/transfer_moles = 0.25 * env.total_moles()
+/datum/milla_safe/rnd_server_heat/on_run(obj/machinery/r_n_d/server/server, heat)
+	var/turf/T = get_turf(server)
+	var/datum/gas_mixture/env = get_turf_air(T)
 
-				var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(server.stat & (NOPOWER|BROKEN))
+		return
+	if(env.temperature() >= (heat+T0C))
+		return
 
-				if(removed)
+	var/transfer_moles = 0.25 * env.total_moles()
 
-					var/heat_capacity = removed.heat_capacity()
-					if(heat_capacity == 0 || heat_capacity == null)
-						heat_capacity = 1
-					removed.set_temperature(min((removed.temperature()*heat_capacity + heating_power)/heat_capacity, 1000))
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(!removed)
+		return
 
-				env.merge(removed)
+	var/heat_capacity = removed.heat_capacity()
+	if(heat_capacity == 0 || heat_capacity == null)
+		heat_capacity = 1
+	removed.set_temperature(min((removed.temperature()*heat_capacity + server.heating_power)/heat_capacity, 1000))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(exchange_parts(user, O))

@@ -130,15 +130,16 @@
 		member.air_temporary.set_temperature(air.temperature())
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
-	var/datum/gas_mixture/environment = target.get_air()
-	environment.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/pipeline, temperature_interact_sync), environment, target, share_volume, thermal_conductivity))
+	var/datum/milla_safe/pipeline_temperature_interact/milla = new()
+	milla.invoke_async(src, target, share_volume, thermal_conductivity)
 
-/datum/pipeline/proc/temperature_interact_sync(datum/gas_mixture/environment, turf/target, share_volume, thermal_conductivity)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/datum/milla_safe/pipeline_temperature_interact
 
-	var/total_heat_capacity = air.heat_capacity()
-	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.volume)
+/datum/milla_safe/pipeline_temperature_interact/on_run(datum/pipeline/pipeline, turf/target, share_volume, thermal_conductivity)
+	var/datum/gas_mixture/environment = get_turf_air(target)
+
+	var/total_heat_capacity = pipeline.air.heat_capacity()
+	var/partial_heat_capacity = total_heat_capacity*(share_volume/pipeline.air.volume)
 
 	if(issimulatedturf(target))
 		var/turf/simulated/modeled_location = target
@@ -146,19 +147,19 @@
 		if(modeled_location.blocks_air)
 
 			if((modeled_location.heat_capacity>0) && (partial_heat_capacity>0))
-				var/delta_temperature = air.temperature() - modeled_location.temperature
+				var/delta_temperature = pipeline.air.temperature() - modeled_location.temperature
 
 				var/heat = thermal_conductivity*delta_temperature* \
 					(partial_heat_capacity*modeled_location.heat_capacity/(partial_heat_capacity+modeled_location.heat_capacity))
 
-				air.set_temperature(air.temperature() - heat/total_heat_capacity)
+				pipeline.air.set_temperature(pipeline.air.temperature() - heat/total_heat_capacity)
 				modeled_location.temperature += heat/modeled_location.heat_capacity
 
 		else
 			var/delta_temperature = 0
 			var/sharer_heat_capacity = 0
 
-			delta_temperature = (air.temperature() - environment.temperature())
+			delta_temperature = (pipeline.air.temperature() - environment.temperature())
 			sharer_heat_capacity = environment.heat_capacity()
 
 			var/self_temperature_delta = 0
@@ -173,20 +174,20 @@
 			else
 				return 1
 
-			air.set_temperature(air.temperature() + self_temperature_delta)
+			pipeline.air.set_temperature(pipeline.air.temperature() + self_temperature_delta)
 
 			environment.set_temperature(environment.temperature() + sharer_temperature_delta)
 
 
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
-			var/delta_temperature = air.temperature() - target.temperature
+			var/delta_temperature = pipeline.air.temperature() - target.temperature
 
 			var/heat = thermal_conductivity*delta_temperature* \
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
-			air.set_temperature(air.temperature() - heat/total_heat_capacity)
-	update = TRUE
+			pipeline.air.set_temperature(pipeline.air.temperature() - heat/total_heat_capacity)
+	pipeline.update = TRUE
 
 /datum/pipeline/proc/reconcile_air()
 	var/list/datum/gas_mixture/GL = list()

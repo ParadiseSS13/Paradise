@@ -103,7 +103,7 @@
 	var/list/results = list()
 	var/turf/T = get_turf(user.loc)
 	if(!isnull(T))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 
 		var/pressure = environment.return_pressure()
 		var/total_moles = environment.total_moles()

@@ -239,10 +239,8 @@
 	else
 		return 0
 
-/obj/structure/chrono_field/assume_air()
-	return 0
-
-/obj/structure/chrono_field/return_air() //we always have nominal air and temperature
+/obj/structure/chrono_field/return_obj_air()
+	//we always have nominal air and temperature
 	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new
 	GM.set_oxygen(MOLES_O2STANDARD)

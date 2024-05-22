@@ -8,7 +8,7 @@
 	return FALSE
 
 /turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
-	var/datum/gas_mixture/air = get_air()
+	var/datum/gas_mixture/air = get_readonly_air()
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
 	if(!air)
@@ -73,7 +73,7 @@
 		// The cell is already hot enough, no need to do more.
 		hotspot.temperature = location_air.temperature()
 		hotspot.volume = CELL_VOLUME
-		hotspot.color = heat2color(temperature)
+		hotspot.color = heat2color(hotspot.temperature)
 		hotspot.set_light(l_color = hotspot.color)
 		return
 
@@ -109,8 +109,8 @@
 	// Update the hotspot based on the reaction.
 	hotspot.temperature = burning.temperature()
 	hotspot.volume = min(CELL_VOLUME, fuel_burnt * FIRE_GROWTH_RATE)
-	hotspot.color = heat2color(temperature)
-	set_light(l_color = hotspot.color)
+	hotspot.color = heat2color(hotspot.temperature)
+	hotspot.set_light(l_color = hotspot.color)
 
 	// Revert the air's temperature to where it started.
 	burning.set_temperature(old_temperature)
