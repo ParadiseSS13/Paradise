@@ -2062,6 +2062,7 @@
 			ptypes += "Shamebrero"
 			ptypes += "Nugget"
 			ptypes += "Bread"
+			ptypes += "Rod"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2185,7 +2186,6 @@
 				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 				logmsg = "nugget"
-
 			if("Bread")
 				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
 				var/bready = pick(/obj/item/food/snacks/customizable/cook/bread, /obj/item/food/snacks/sliceable/meatbread, /obj/item/food/snacks/sliceable/xenomeatbread, /obj/item/food/snacks/sliceable/spidermeatbread, /obj/item/food/snacks/sliceable/bananabread, /obj/item/food/snacks/sliceable/tofubread, /obj/item/food/snacks/sliceable/bread, /obj/item/food/snacks/sliceable/creamcheesebread, /obj/item/food/snacks/sliceable/banarnarbread, /obj/item/food/snacks/flatbread, /obj/item/food/snacks/baguette)
@@ -2196,6 +2196,13 @@
 				qdel(H)
 				logmsg = "baked"
 				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
+			if("Rod")
+
+				var/starting_turf_x = M.x + rand(10, 15) * pick(1, -1)
+				var/starting_turf_y = M.y + rand(10, 15) * pick(1, -1)
+				var/turf/start = locate(starting_turf_x, starting_turf_y, M.z)
+
+				new /obj/effect/immovablerod/smite(start, M)
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
