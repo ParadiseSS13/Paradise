@@ -18,7 +18,7 @@
 		if(R.getBruteLoss() || R.getFireLoss())
 			R.heal_overall_damage(15, 15)
 			use(1)
-			user.visible_message("<span class='notice'>\The [user] applies some [src] at [R]'s damaged areas.</span>",\
+			user.visible_message("<span class='notice'>[user] applies some [src] at [R]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
