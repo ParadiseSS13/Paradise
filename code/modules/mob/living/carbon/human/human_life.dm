@@ -770,7 +770,7 @@
 	if(decaytime <= 8 MINUTES) 
 		return
 
-	if(decaytime > 8 MINUTES && decaytime <= 16 MINUTES)
+	if(decaytime > 8 MINUTES)
 		decaylevel = 1
 
 	if(decaytime > 16 MINUTES && decaytime <= 24 MINUTES)
