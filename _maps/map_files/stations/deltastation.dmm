@@ -24088,6 +24088,8 @@
 /obj/item/hand_labeler,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "btE" = (
