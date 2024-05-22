@@ -142,3 +142,14 @@
 	if(isspaceturf(T) || T.density)
 		return FALSE
 	return TRUE
+
+/obj/effect/dummy/spell_jaunt/wraith
+
+/obj/effect/dummy/spell_jaunt/wraith/can_move(turf/T)
+	if(!issimulatedturf(T))
+		return TRUE
+
+	var/turf/simulated/turf_to_move = T
+	if(turf_to_move.flags & BLESSED_TILE)
+		return FALSE
+	return TRUE
