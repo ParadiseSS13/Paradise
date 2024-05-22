@@ -26046,12 +26046,6 @@
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bNU" = (
-/obj/machinery/door_control{
-	id = "gateshutter";
-	name = "Expedition Shutter Control";
-	pixel_y = -26;
-	req_access_txt = "62"
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 10;

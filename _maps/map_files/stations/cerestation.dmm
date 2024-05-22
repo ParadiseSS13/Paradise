@@ -3830,6 +3830,7 @@
 "axJ" = (
 /obj/structure/table,
 /obj/item/folder/blue,
+/obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9723,7 +9724,6 @@
 /area/station/command/office/cmo)
 "bhm" = (
 /obj/structure/table,
-/obj/item/hand_tele,
 /obj/item/radio/beacon,
 /obj/item/radio/intercom{
 	pixel_x = -28;
