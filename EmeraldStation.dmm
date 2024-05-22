@@ -3263,6 +3263,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/space)
+"dLJ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/space)
 "dLL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -3737,10 +3743,8 @@
 /turf/simulated/floor/plasteel,
 /area/space)
 "emz" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Hydroponics Pasture"
-	},
-/turf/simulated/floor/grass,
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/floor/carpet,
 /area/space)
 "emE" = (
 /obj/structure/lattice/catwalk/mining,
@@ -4359,6 +4363,18 @@
 "eZb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
+/area/space)
+"eZF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 2
+	},
+/obj/structure/noticeboard{
+	desc = "A board for pinning important notices upon. Probably helpful for keeping track of requests.";
+	name = "requests board";
+	pixel_x = 32
+	},
+/turf/simulated/floor/carpet,
 /area/space)
 "fan" = (
 /obj/machinery/door/airlock/atmos/glass{
@@ -8195,6 +8211,15 @@
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel,
 /area/space)
+"jeb" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/space)
 "jej" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -8416,6 +8441,12 @@
 	},
 /turf/space,
 /area/space)
+"jso" = (
+/obj/machinery/icemachine,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/space)
 "jsM" = (
 /obj/machinery/smartfridge/disks,
 /obj/structure/table,
@@ -8509,9 +8540,10 @@
 /turf/simulated/floor/plasteel,
 /area/space)
 "jzD" = (
-/obj/structure/table,
-/obj/item/storage/bag/plants,
-/turf/simulated/floor/plasteel,
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
 /area/space)
 "jzK" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -10281,6 +10313,11 @@
 	icon_state = "white"
 	},
 /area/space)
+"lBx" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/item/storage/bag/plants,
+/turf/simulated/floor/plasteel,
+/area/space)
 "lBE" = (
 /obj/structure/rack,
 /obj/item/crowbar,
@@ -10519,8 +10556,13 @@
 	},
 /area/space)
 "lQF" = (
-/obj/machinery/icemachine,
-/turf/simulated/floor/plasteel,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
 /area/space)
 "lRC" = (
 /obj/machinery/door/airlock/command{
@@ -11875,6 +11917,12 @@
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/carpet,
 /area/space)
+"nwW" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/space)
 "nxD" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -12057,8 +12105,11 @@
 /turf/simulated/floor/wood,
 /area/space)
 "nGq" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/simulated/floor/plasteel,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/carpet,
 /area/space)
 "nGr" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -13769,6 +13820,12 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/space)
+"pyW" = (
+/mob/living/simple_animal/chicken/clucky,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/space)
 "pzv" = (
 /obj/structure/rack,
 /obj/structure/rack,
@@ -14203,6 +14260,18 @@
 "pZK" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
+/area/space)
+"qas" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = -8;
+	dir = 1
+	},
+/mob/living/simple_animal/pig,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
 /area/space)
 "qbj" = (
 /obj/machinery/r_n_d/experimentor,
@@ -14766,6 +14835,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
+/area/space)
+"qMH" = (
+/mob/living/simple_animal/cow/betsy,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
 /area/space)
 "qMP" = (
 /obj/structure/table/reinforced,
@@ -15969,6 +16044,13 @@
 	},
 /turf/space,
 /area/space)
+"sjB" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/carpet,
+/area/space)
 "ska" = (
 /obj/structure/table,
 /obj/machinery/computer/med_data/laptop{
@@ -16389,6 +16471,10 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
+/area/space)
+"sJM" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/carpet,
 /area/space)
 "sJN" = (
 /obj/structure/chair/sofa/corp/left{
@@ -19703,9 +19789,10 @@
 /turf/simulated/floor/engine,
 /area/space)
 "wvX" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/sop_service,
-/turf/simulated/floor/plasteel,
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
 /area/space)
 "wwa" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -19911,15 +19998,13 @@
 /turf/simulated/floor/carpet/arcade,
 /area/space)
 "wHo" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = -8;
+/obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
+/obj/structure/chair/wood{
+	dir = 4
 	},
+/turf/simulated/floor/carpet,
 /area/space)
 "wHr" = (
 /obj/machinery/hydroponics/constructable{
@@ -21262,6 +21347,12 @@
 "yhK" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Dorms"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"yhR" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Hydroponics Pasture"
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -49760,10 +49851,10 @@ jiY
 eYU
 jiY
 jiY
-lvH
-lvH
-lvH
-lvH
+jiY
+jiY
+gOt
+jiY
 jiY
 npn
 oNB
@@ -50017,10 +50108,10 @@ wSb
 gIw
 kZP
 jiY
-lvH
-lvH
-lvH
-lvH
+nWW
+dzU
+dgE
+efY
 jiY
 oAG
 oNB
@@ -50274,10 +50365,10 @@ aCl
 gIw
 kZP
 jiY
-jiY
-jiY
-gOt
-jiY
+dgE
+dgE
+qMH
+jso
 jiY
 lhS
 dMW
@@ -50531,10 +50622,10 @@ gIw
 gIw
 kZP
 jiY
-nWW
-dzU
+pIt
+osA
 dgE
-efY
+qas
 jiY
 teR
 teR
@@ -50788,10 +50879,10 @@ gDJ
 gIw
 kZP
 jiY
+vkj
 dgE
 dgE
-dgE
-dgE
+tXG
 jiY
 seO
 uLb
@@ -51039,16 +51130,16 @@ oNB
 oNB
 jiY
 jiY
-emz
+jiY
 wJm
 wJm
-wJm
+yhR
 jiY
 jiY
-pIt
-osA
 dgE
-wHo
+dgE
+pyW
+tXG
 jiY
 oNB
 oNB
@@ -51294,18 +51385,18 @@ hcP
 oNB
 oNB
 oNB
+nGq
+sJM
 jiY
-pnM
+wKb
+lBx
 oNB
-oNB
-ghL
-dEz
-vyC
+dAa
 jiY
-vkj
-dgE
-dgE
-tXG
+jiY
+iVy
+jiY
+jiY
 jiY
 oNB
 oNB
@@ -51551,18 +51642,18 @@ hcP
 oNB
 oNB
 oNB
-rUQ
+lQF
+mwg
+emz
 oNB
 oNB
 oNB
 oNB
+lgL
+ezG
 oNB
-oNB
-iVy
-dgE
-dgE
-dgE
-tXG
+weD
+jiY
 jiY
 vGs
 gFK
@@ -51808,17 +51899,17 @@ hcP
 oNB
 oNB
 oNB
-teR
-xIl
+dLJ
+mwg
+jiY
+jiY
+tRe
 oNB
-wvX
 oNB
 oNB
-lgL
-jiY
-jiY
-jiY
-jiY
+oNB
+oNB
+oNB
 jiY
 qkb
 oNB
@@ -52065,17 +52156,17 @@ teR
 oNB
 oNB
 oNB
-teR
-gJF
+dLJ
+nwW
+nwW
+wJm
 oNB
+oNB
+vyC
 tRe
-oNB
-oNB
-oNB
-oNB
-weD
-lQF
-ezG
+tRe
+gJF
+gJF
 jiY
 wKb
 oNB
@@ -52322,14 +52413,14 @@ teR
 oNB
 oNB
 oNB
-teR
-gJF
+mwg
+wvE
+wvE
+wJm
 oNB
+oNB
+dEz
 tRe
-tRe
-oNB
-oNB
-oNB
 oNB
 oNB
 oNB
@@ -52579,14 +52670,14 @@ teR
 oNB
 oNB
 oNB
-teR
-oAG
+mwg
+jzD
+jzD
+wJm
 oNB
-tRe
-tRe
-tRe
-tRe
 oNB
+ghL
+vak
 oNB
 oNB
 oNB
@@ -52836,17 +52927,17 @@ hcP
 oNB
 oNB
 oNB
-teR
-nGq
+wHo
+mwg
+mwg
+eZF
 oNB
 oNB
 oNB
 oNB
 oNB
 oNB
-oNB
-oNB
-vak
+xIl
 teR
 oNB
 oNB
@@ -53093,17 +53184,17 @@ hcP
 oNB
 oNB
 oNB
+nGq
+wvX
+sJM
 jiY
-jiY
-dAa
 oNB
 oNB
 oNB
 oNB
+pnM
 oNB
-oNB
-oNB
-jzD
+oAG
 teR
 tRe
 oNB
@@ -53350,8 +53441,8 @@ oNB
 oNB
 oNB
 oNB
-imB
-jiY
+nGq
+wvX
 jiY
 jiY
 wtQ
@@ -53360,7 +53451,7 @@ wtQ
 wtQ
 jiY
 oNB
-wKb
+weD
 jiY
 tRe
 oNB
@@ -53607,8 +53698,8 @@ oNB
 oNB
 oNB
 oNB
-oNB
-imB
+jeb
+sjB
 jiY
 ucZ
 tzL
@@ -56175,7 +56266,7 @@ xpU
 jnP
 teR
 oNB
-oNB
+mwg
 oNB
 teR
 fbm
