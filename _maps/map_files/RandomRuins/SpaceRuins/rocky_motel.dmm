@@ -1,0 +1,891 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ax" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"bX" = (
+/obj/structure/sink{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"dG" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"eI" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/plate,
+/obj/item/kitchen/utensil/fork,
+/obj/item/kitchen/rollingpin,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"eM" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"eX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"he" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"hn" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"hB" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"hW" = (
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space)
+"ie" = (
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"il" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/ruin/space/powered)
+"iP" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/space,
+/area/ruin/space/powered)
+"kj" = (
+/obj/machinery/kitchen_machine/oven,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"lc" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"lF" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"mD" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"nq" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/dress/sundress,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"nB" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet_unitb";
+	name = "Unit B"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"od" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"qo" = (
+/obj/machinery/shower{
+	dir = 8;
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/structure/curtain/open/shower,
+/obj/item/soap,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"qU" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"rs" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/space/powered)
+"rW" = (
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "motelwindow";
+	pixel_x = -24;
+	active = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"sm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"ta" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"tk" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"tT" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"vl" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"vE" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"AJ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"BW" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/ruin/space/powered)
+"Ci" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"Cx" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/obj/item/toy/plushie/nianplushie,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"CE" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"Ec" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/space)
+"FC" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"FN" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "motelwindow"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"FO" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/ruin/space/powered)
+"Hx" = (
+/turf/simulated/mineral/ancient,
+/area/space)
+"HL" = (
+/turf/space,
+/area/template_noop)
+"HO" = (
+/obj/effect/spawner/airlock/w_to_e{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"Ic" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"Iy" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
+"Jg" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"JZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"Mx" = (
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6
+	},
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"MK" = (
+/obj/structure/table/glass/reinforced,
+/obj/item/food/snacks/grilledcheese{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"Ot" = (
+/obj/item/crowbar,
+/obj/structure/rack,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"Qy" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
+/obj/item/clothing/glasses/regular,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"Rc" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/combat,
+/obj/item/clothing/shoes/cowboy,
+/obj/item/clothing/shoes/black,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"RV" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/suit/jacket/fluff,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/suit/navy,
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/suit/sovietcoat,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"Sv" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"SS" = (
+/obj/structure/safe/floor,
+/obj/item/stack/spacecash/c200,
+/obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/clothing/gloves/ring/plasma,
+/obj/item/banhammer,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"Vc" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"Wu" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space)
+"WT" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "black"
+	},
+/area/ruin/space/powered)
+"Zw" = (
+/obj/structure/table/wood,
+/obj/item/assembly/signaler,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"ZA" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal{
+	lit = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"ZK" = (
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"ZU" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/multi/fountain,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+
+(1,1,1) = {"
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+Hx
+Hx
+Hx
+HL
+HL
+"}
+(2,1,1) = {"
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+Hx
+Hx
+Hx
+Hx
+HL
+"}
+(3,1,1) = {"
+HL
+HL
+HL
+HL
+HL
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+HL
+HL
+HL
+Hx
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(4,1,1) = {"
+HL
+HL
+HL
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(5,1,1) = {"
+HL
+HL
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(6,1,1) = {"
+HL
+HL
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+vE
+vE
+vE
+vE
+vE
+vE
+vE
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+HL
+HL
+"}
+(7,1,1) = {"
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+vE
+nq
+Ot
+vE
+Sv
+he
+Qy
+vE
+vE
+vE
+vE
+Hx
+Hx
+Hx
+HL
+HL
+"}
+(8,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+vE
+Rc
+ZK
+FC
+mD
+mD
+mD
+nB
+AJ
+vl
+vE
+Hx
+Hx
+HL
+HL
+HL
+"}
+(9,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+vE
+RV
+SS
+vE
+Cx
+ax
+mD
+vE
+qo
+lc
+vE
+Hx
+HL
+HL
+HL
+HL
+"}
+(10,1,1) = {"
+HL
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+vE
+vE
+vE
+vE
+vE
+vE
+FC
+vE
+vE
+vE
+vE
+HL
+HL
+HL
+HL
+HL
+"}
+(11,1,1) = {"
+HL
+Hx
+Hx
+vE
+vE
+vE
+vE
+vE
+FO
+hB
+hB
+vE
+bX
+eM
+rW
+ta
+FN
+HL
+HL
+HL
+HL
+HL
+HL
+"}
+(12,1,1) = {"
+Hx
+Hx
+Hx
+vE
+ie
+JZ
+WT
+vE
+qU
+Zw
+BW
+vE
+eI
+eM
+eM
+MK
+FN
+HL
+HL
+HL
+HL
+HL
+HL
+"}
+(13,1,1) = {"
+Hx
+Hx
+Hx
+vE
+Vc
+tT
+dG
+rs
+qU
+qU
+qU
+qU
+eM
+eM
+eM
+tk
+FN
+HL
+HL
+HL
+HL
+HL
+HL
+"}
+(14,1,1) = {"
+HL
+Hx
+Hx
+vE
+CE
+eX
+Ci
+vE
+ZA
+il
+ZU
+vE
+Mx
+kj
+hn
+lF
+vE
+Hx
+HL
+HL
+HL
+HL
+HL
+"}
+(15,1,1) = {"
+HL
+Hx
+Hx
+vE
+vE
+vE
+od
+HO
+vE
+Ic
+vE
+vE
+vE
+vE
+vE
+sm
+vE
+Hx
+HL
+HL
+HL
+HL
+HL
+"}
+(16,1,1) = {"
+HL
+Hx
+Hx
+Hx
+Hx
+vE
+od
+vE
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Ec
+Hx
+Hx
+HL
+HL
+HL
+HL
+HL
+"}
+(17,1,1) = {"
+HL
+HL
+HL
+Hx
+Hx
+vE
+od
+vE
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+hW
+Hx
+Hx
+HL
+HL
+HL
+HL
+HL
+"}
+(18,1,1) = {"
+HL
+HL
+HL
+HL
+Hx
+Iy
+Jg
+Jg
+Hx
+Hx
+HL
+Hx
+Hx
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+"}
+(19,1,1) = {"
+HL
+HL
+HL
+HL
+Hx
+Iy
+Jg
+iP
+Hx
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+"}
+(20,1,1) = {"
+HL
+HL
+HL
+HL
+Hx
+Hx
+Wu
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+HL
+"}
