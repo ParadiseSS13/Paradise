@@ -476,7 +476,7 @@
 		pulse2.anchored = TRUE
 		pulse2.dir = pick(GLOB.cardinal)
 		QDEL_IN(pulse2, 1 SECONDS)
-		var/list/mob/living/carbon/targets = new
+		var/list/mob/living/carbon/targets = list()
 		for(var/mob/living/carbon/C in view(12,src))
 			if(C.stat==2)
 				continue

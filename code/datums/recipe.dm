@@ -97,7 +97,7 @@
 /proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = 1 as num, list/ignored_items = null)
 	if(!exact)
 		exact = -1
-	var/list/datum/recipe/possible_recipes = new
+	var/list/datum/recipe/possible_recipes = list()
 	for(var/datum/recipe/recipe in available_recipes)
 		if(recipe.check_reagents(obj.reagents) == exact && recipe.check_items(obj, ignored_items) == exact)
 			possible_recipes += recipe

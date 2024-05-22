@@ -72,7 +72,7 @@
 	var/list/organ_data = list()
 	var/list/rlimb_data = list()
 
-	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
+	var/list/player_alt_titles = list()		// the default name of a job like "Medical Doctor"
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""

@@ -78,7 +78,7 @@
 	return new /datum/game_mode/extended()
 
 /datum/configuration_section/gamemode_configuration/proc/get_runnable_modes()
-	var/list/datum/game_mode/runnable_modes = new
+	var/list/datum/game_mode/runnable_modes = list()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
 

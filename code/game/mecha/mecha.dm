@@ -30,7 +30,7 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	var/obj/item/stock_parts/cell/cell
 	var/state = 0
-	var/list/log = new
+	var/list/log = list()
 	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 1
@@ -63,7 +63,7 @@
 
 	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 
-	var/list/equipment = new
+	var/list/equipment = list()
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
 	var/turf/crashing = null
@@ -264,7 +264,7 @@
 
 
 //////////////////////////////////
-////////  MARK: Movement procs  
+////////  MARK: Movement procs
 //////////////////////////////////
 
 /obj/mecha/Process_Spacemove(movement_dir = 0)
