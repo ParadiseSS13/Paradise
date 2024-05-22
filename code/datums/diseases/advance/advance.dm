@@ -326,6 +326,20 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		symptoms += S
 	return
 
+// For admin use only. Unconditionally adds a symptom by name.
+/datum/disease/advance/proc/AdminAddSymptom(symptom_name)
+	var/datum/symptom/S = null
+	for(var/datum/symptom/candidate as anything in subtypesof(/datum/symptom))
+		if(initial(candidate.name) == symptom_name)
+			S = candidate
+			break
+
+	if(!S)
+		return FALSE
+
+	symptoms += new S
+	return TRUE
+
 // Simply removes the symptom.
 /datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
 	symptoms -= S
@@ -460,3 +474,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
 	return total_transmittable
+
+/datum/disease/advance/vv_get_dropdown()
+	. = ..()
+	.["Add symptom"] = "?_src_=vars;addsymptom=[UID()]"
