@@ -21,6 +21,7 @@
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_BULKY
 	var/datum/martial_art/judo/style
+	var/special = TRUE
 
 /obj/item/judobelt/Initialize()
 	. = ..()

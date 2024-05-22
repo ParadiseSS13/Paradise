@@ -18,6 +18,9 @@
 	/// Ignores update_weight() if TRUE
 	var/large = FALSE
 
+	/// Belt goes over all suit slots if TRUE
+	var/special = FALSE
+
 /obj/item/storage/belt/proc/update_weight()
 	if(large)
 		return
@@ -325,6 +328,7 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+	special = TRUE
 	can_hold = list(
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
@@ -592,6 +596,7 @@
 	item_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16
+	special = TRUE
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	display_contents_with_number = TRUE
 
