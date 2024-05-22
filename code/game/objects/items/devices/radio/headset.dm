@@ -48,8 +48,6 @@
 
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker!</span>"
 	if(in_range(src, user) && radio_desc)
 		. += "The following channels are available:"
 		. += radio_desc

@@ -16,12 +16,6 @@
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/radio/beacon/AltClick()
-	return
-
-/obj/item/radio/beacon/CtrlShiftClick()
-	return
-
 /obj/item/radio/beacon/emag_act(user as mob)
 	if(!emagged)
 		emagged = TRUE

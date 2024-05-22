@@ -552,6 +552,10 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
+	if(!istype(src, /obj/item/radio/uplink))
+		. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
+		. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker!</span>"
+
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
@@ -763,11 +767,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	listening = TRUE
 	name = "phone"
 	dog_fashion = null
-
-/obj/item/radio/phone/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker!</span>"
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ
