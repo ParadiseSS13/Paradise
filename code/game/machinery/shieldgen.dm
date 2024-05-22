@@ -573,12 +573,10 @@
 		return FALSE
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.is_living && ("syndicate" in pass_info.factions))
+		return TRUE
+	return ..(to_dir, pass_info)
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
 	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.
