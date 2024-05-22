@@ -913,6 +913,7 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
 	use_item_overlays = FALSE
+	special = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -975,6 +976,7 @@
 	storage_slots = 10
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 25
+	special = TRUE
 	can_hold = list(
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
