@@ -69,6 +69,7 @@
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
+				C.adjustCloneLoss(-1)
 				heal_cooldown = world.time + 1.5 SECONDS
 				if(C == summoner)
 					med_hud_set_health()
