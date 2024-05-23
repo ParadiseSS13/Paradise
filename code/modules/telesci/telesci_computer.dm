@@ -362,7 +362,6 @@
 		data["current_max_power"] = crystals + TP.efficiency
 		if(TP.panel_open)
 			data["last_msg"] = "Telepad undergoing physical maintenance operations"
-		else
 	else
 		// This wont even show up, just a safety precaution
 		data["current_max_power"] = 0
