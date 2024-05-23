@@ -275,19 +275,6 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
-/obj/item/weldingtool/abductor
-	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	light_intensity = 0
-	origin_tech = "plasmatech=5;engineering=5;abductor=3"
-	requires_fuel = FALSE
-	refills_over_time = TRUE
-	low_fuel_changes_icon = FALSE
-
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
 	desc = "An upgraded welder based off the industrial welder."
