@@ -1245,7 +1245,9 @@
 				class = "unknown"
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
-
+/**
+*	Handles fullscreen on the client.
+*/
 /client/verb/toggle_fullscreen()
 	set name = "Toggle Fullscreen"
 	set category = "OOC"
@@ -1255,17 +1257,16 @@
 	if (fullscreen)
 		winset(usr, "mainwindow", "titlebar=false")
 		winset(usr, "mainwindow", "can-resize=false")
-		winset(usr, "mainwindow", "is-maximized=false")
+		winset(usr, "mainwindow", "is-maximized=false")  // Ensures the window doesn't get stretched oddly.
 		winset(usr, "mainwindow", "is-maximized=true")
-		winset(usr, "mainwindow", "statusbar=false")
-		winset(usr, "mainwindow", "menu=")
+		winset(usr, "mainwindow", "is-fullscreen=true")
+		winset(usr, "mainwindow", "menu=")				 // Top-Menu bar [DISABLED]
 	else
-		winset(usr, "mainwindow", "is-maximized=false")
 		winset(usr, "mainwindow", "titlebar=true")
 		winset(usr, "mainwindow", "can-resize=true")
-		winset(usr, "mainwindow", "statusbar=true")
+		winset(usr, "mainwindow", "is-fullscreen=false") // Order matters. Fullscreen [OFF] -> Maximize [TRUE]
+		winset(usr, "mainwindow", "is-maximized=true")
 		winset(usr, "mainwindow", "menu=menu")
-
 	fit_viewport()
 
 #undef LIMITER_SIZE
