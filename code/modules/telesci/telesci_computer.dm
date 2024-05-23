@@ -12,11 +12,11 @@
 	/// UID of linked pad
 	var/linked_pad_uid = null
 	/// Temp message to show in the UI
-	var/temp_msg = "Telescience control console initialized."
+	var/temp_msg = "Telescience control console initialized"
 	/// How many teleports left until it becomes uncalibrated
 	var/teles_left
 	/// Data of the last teleport
-	var/datum/projectile_data/last_tele_data = null
+	var/datum/tsci_trajectory_data/last_tele_data = null
 	/// Target Z
 	var/target_z = 0
 	/// Offset of power
@@ -48,7 +48,7 @@
 	recalibrate()
 
 /obj/machinery/computer/telescience/Destroy()
-	eject()
+	eject_crystals()
 	if(inserted_gps)
 		inserted_gps.forceMove(loc)
 		inserted_gps = null
@@ -116,60 +116,6 @@
 
 	ui_interact(user)
 
-
-/*
-/obj/machinery/computer/telescience/interact(mob/user)
-	var/t
-	if(!telepad)
-		in_use = 0     //Yeah so if you deconstruct teleporter while its in the process of shooting it wont disable the console
-		t += "<div class='statusDisplay'>No telepad located. <BR>Please add telepad data.</div><BR>"
-	else
-		if(inserted_gps)
-			t += "<A href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</A>"
-			t += "<A href='byond://?src=[UID()];setMemory=1'>Set GPS memory</A>"
-		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
-		t += "<div class='statusDisplay'>[temp_msg]</div><BR>"
-		t += "<A href='byond://?src=[UID()];setrotation=1'>Set Bearing</A>"
-		t += "<div class='statusDisplay'>[rotation] degrees</div>"
-		t += "<A href='byond://?src=[UID()];setangle=1'>Set Elevation</A>"
-		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
-		t += "<div class='statusDisplay'>"
-
-		for(var/i = 1; i <= length(power_options); i++)
-			if(crystals + telepad.efficiency < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
-				continue
-			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
-				continue
-			t += "<A href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</A>"
-		t += "</div>"
-
-		t += "<A href='byond://?src=[UID()];setz=1'>Set Sector</A>"
-		t += "<div class='statusDisplay'>[z_co ? z_co : "NULL"]</div>"
-
-		t += "<BR><A href='byond://?src=[UID()];send=1'>Send</A>"
-		t += " <A href='byond://?src=[UID()];receive=1'>Receive</A>"
-		t += "<BR><A href='byond://?src=[UID()];recal=1'>Recalibrate Crystals</A> <A href='byond://?src=[UID()];eject=1'>Eject Crystals</A>"
-
-		// Information about the last teleport
-		t += "<BR><div class='statusDisplay'>"
-		if(!last_tele_data)
-			t += "No teleport data found."
-		else
-			t += "Source Location: ([last_tele_data.src_x], [last_tele_data.src_y])<BR>"
-			//t += "Distance: [round(last_tele_data.distance, 0.1)]m<BR>"
-			t += "Time: [round(last_tele_data.time, 0.1)] secs<BR>"
-		t += "</div>"
-
-	var/datum/browser/popup = new(user, "telesci", name, 300, 500)
-	popup.set_content(t)
-	popup.open()
-*/
-
 /obj/machinery/computer/telescience/proc/sparks()
 	var/obj/machinery/telepad/TP = get_linked_pad()
 	if(TP)
@@ -183,23 +129,19 @@
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user, sending)
 	if(teleport_cooldown > world.time)
-		temp_msg = "Telepad is recharging power - Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
-		return
+		temp_msg = "Telepad is recharging power - Please wait [round((teleport_cooldown - world.time) / 10)] seconds"
+		return FALSE
 
 	if(teleporting)
-		temp_msg = "Telepad is in use - Please wait."
-		return
+		temp_msg = "Telepad is in use - Please wait"
+		return FALSE
 
 	var/obj/machinery/telepad/TP = get_linked_pad()
 
 	if(!TP)
-		return
+		return FALSE
 
-	var/true_power = clamp(power + power_offset, 1, 1000)
-	var/true_rotation = rotation + rotation_offset
-	var/true_angle = clamp(angle, 1, 90)
-
-	var/datum/projectile_data/proj_data = projectile_trajectory(TP.x, TP.y, true_rotation, true_angle, true_power)
+	var/datum/tsci_trajectory_data/proj_data = calculate_trajectory()
 	last_tele_data = proj_data
 
 	var/trueX = clamp(round(proj_data.dest_x, 1), 1, world.maxx)
@@ -217,6 +159,7 @@
 		temp_msg = "Powering up bluespace crystals - Please wait"
 
 	addtimer(CALLBACK(src, PROC_REF(finish_tele), user, sending, trueX, trueY), round(proj_data.time) * 10) // We fire this on a timer
+	return TRUE
 
 /obj/machinery/computer/telescience/proc/finish_tele(mob/user, sending, trueX, trueY)
 	var/obj/machinery/telepad/TP = get_linked_pad()
@@ -241,11 +184,11 @@
 
 	do_sparks(5, 1, get_turf(TP))
 
-	temp_msg = "Teleport successful."
+	temp_msg = "Teleport successful"
 	if(teles_left < 10)
-		temp_msg += " - Calibration required soon."
+		temp_msg += " - Calibration required soon"
 	else
-		temp_msg += " - Data printed below."
+		temp_msg += " - Data printed below"
 
 	var/sparks = get_turf(target)
 	do_sparks(5, 1, sparks)
@@ -324,12 +267,12 @@
 	var/obj/machinery/telepad/TP = get_linked_pad()
 	if(!TP)
 		// No telefail - it just sprarks the pad
-		temp_msg = "ERROR - No linked telepad."
+		temp_msg = "ERROR - No linked telepad"
 		SStgui.update_uis(src)
 		return
 
 	if(rotation == null || angle == null || target_z == null)
-		temp_msg = "ERROR - Set a angle, rotation and sector."
+		temp_msg = "ERROR - Set a bearing, elevation and sector"
 		SStgui.update_uis(src)
 		return
 
@@ -341,115 +284,47 @@
 
 	if(angle < 1 || angle > 90)
 		telefail()
-		temp_msg = "ERROR - Elevation is less than 1 or greater than 90."
+		temp_msg = "ERROR - Elevation is less than 1 or greater than 90"
 		SStgui.update_uis(src)
 		return
 
-	// THIS FUCKING THING USES ZLEVEL NUMBERS WHY
 	var/cc_z = level_name_to_num(CENTCOMM)
-	if(target_z == cc_z || target_z < cc_z + 1 || target_z > world.maxz)
+	if(target_z <= cc_z || target_z > world.maxz)
 		telefail()
-		temp_msg = "ERROR - Sector must be greater than or equal to 2, and less than or equal to [world.maxz]."
+		temp_msg = "ERROR - Sector must be greater than [cc_z], and less than or equal to [world.maxz]"
 		SStgui.update_uis(src)
 		return
 
-	var/truePower = clamp(power + power_offset, 1, 1000)
-	var/trueRotation = rotation + rotation_offset
-	var/trueAngle = clamp(angle, 1, 90)
-
-	var/datum/projectile_data/proj_data = projectile_trajectory(TP.x, TP.y, trueRotation, trueAngle, truePower)
+	var/datum/tsci_trajectory_data/proj_data = calculate_trajectory()
 	var/turf/target = locate(clamp(round(proj_data.dest_x, 1), 1, world.maxx), clamp(round(proj_data.dest_y, 1), 1, world.maxy), target_z)
 	var/area/A = get_area(target)
 
 	if(A.tele_proof)
 		telefail()
-		temp_msg = "ERROR - Target destination unreachable due to interference."
+		temp_msg = "ERROR - Target destination unreachable due to interference"
 		SStgui.update_uis(src)
 		return
 
 	if(teles_left > 0)
 		if(!doteleport(user, sending))
 			telefail()
-			temp_msg = "ERROR - Target destination unreachable due to interference."
+			temp_msg = "ERROR - Target destination unreachable due to interference"
 	else
 		telefail()
-		temp_msg = "ERROR - Calibration required."
+		temp_msg = "ERROR - Calibration required"
 
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/telescience/proc/eject()
+/obj/machinery/computer/telescience/proc/eject_crystals()
 	var/to_eject
 	for(var/i in 1 to crystals)
 		to_eject += 1
 
 	crystals = 0
 	power = power_options[1] // Reset this
+	// Yes this means some real ones put in will become artificial after
+	// Lets just pretend this machine ruins the purity of them
 	new /obj/item/stack/ore/bluespace_crystal/artificial(drop_location(), to_eject)
-
-
-/*
-/obj/machinery/computer/telescience/Topic(href, href_list)
-	if(..())
-		return
-	if(!telepad)
-		updateUsrDialog()
-		return
-	if(telepad.panel_open)
-		temp_msg = "Telepad undergoing physical maintenance operations."
-
-	if(href_list["setrotation"])
-		var/new_rot = input("Please input desired bearing in degrees.", name, rotation) as num
-		if(..()) // Check after we input a value, as they could've moved after they entered something
-			return
-		rotation = clamp(new_rot, -900, 900)
-		rotation = round(rotation, 0.01)
-
-	if(href_list["setangle"])
-		var/new_angle = input("Please input desired elevation in degrees.", name, angle) as num
-		if(..())
-			return
-		angle = clamp(round(new_angle, 0.1), 1, 9999)
-
-	if(href_list["setpower"])
-		var/index = href_list["setpower"]
-		index = text2num(index)
-		if(index != null && power_options[index])
-			if(crystals + telepad.efficiency >= index)
-				power = power_options[index]
-
-	if(href_list["setz"])
-		var/new_z = input("Please input desired sector.", name, z_co) as num
-		if(..())
-			return
-		z_co = clamp(round(new_z), 1, 10)
-
-	if(href_list["ejectGPS"])
-		if(inserted_gps)
-			usr.put_in_hands(inserted_gps)
-			inserted_gps = null
-
-	if(href_list["setMemory"])
-		if(last_target && inserted_gps)
-			inserted_gps.locked_location = last_target
-			temp_msg = "Location saved."
-		else
-			temp_msg = "ERROR!<BR>No data was stored."
-
-	if(href_list["send"])
-		teleport(usr, TRUE)
-
-	if(href_list["receive"])
-		teleport(usr, FALSE)
-
-	if(href_list["recal"])
-		recalibrate()
-		sparks()
-		temp_msg = "NOTICE - Calibration successful."
-
-	if(href_list["eject"])
-		eject()
-		temp_msg = "NOTICE - Bluespace crystals ejected."
-*/
 
 /obj/machinery/computer/telescience/proc/recalibrate()
 	teles_left = rand(30, 40)
@@ -476,14 +351,18 @@
 	data["linked_pad"] = (TP != null)
 	data["held_gps"] = (inserted_gps != null)
 	data["last_msg"] = temp_msg
+	data["working"] = teleporting
 	data["power_levels"] = power_options
-
 	data["current_bearing"] = rotation
 	data["current_elevation"] = angle
 	data["current_power"] = power
+	data["max_z"] = world.maxz
 
 	if(TP)
 		data["current_max_power"] = crystals + TP.efficiency
+		if(TP.panel_open)
+			data["last_msg"] = "Telepad undergoing physical maintenance operations"
+		else
 	else
 		// This wont even show up, just a safety precaution
 		data["current_max_power"] = 0
@@ -518,9 +397,124 @@
 	if(..())
 		return
 
-	return
-	// Do stuff
+	. = FALSE
 
+	if(teleporting) // Deny changes mid TP to avoid fuckups
+		return
+
+	switch(action)
+		if("setbear")
+			var/bear = text2num(params["bear"])
+			rotation = clamp(bear, 0, 360) // We are forcing people to do proper maths now
+			rotation = round(rotation, 0.01)
+			return TRUE
+
+		if("setelev")
+			var/elev = text2num(params["elev"])
+			angle = clamp(round(elev, 0.1), 1, 256)
+			return TRUE
+
+		if("setpwr")
+			// This needs the pad
+			var/obj/machinery/telepad/TP = get_linked_pad()
+
+			if(!TP)
+				return
+
+			var/pwr_index = text2num(params["pwr"])
+			if(pwr_index != null && power_options[pwr_index])
+				if((crystals + TP.efficiency) >= pwr_index)
+					power = power_options[pwr_index]
+
+			return TRUE
+
+		if("setz")
+			var/newz = text2num(params["newz"])
+			// Min Z is station
+			var/min_z = level_name_to_num(MAIN_STATION)
+			target_z = clamp(round(newz), min_z, world.maxz)
+			return TRUE
+
+
+		if("eject_gps")
+			if(inserted_gps)
+				usr.put_in_hands(inserted_gps)
+				inserted_gps = null
+				return TRUE
+
+		if("store_to_gps")
+			if(inserted_gps)
+				if(last_tele_data)
+					inserted_gps.locked_location = last_tele_data
+					temp_msg = "Location saved"
+				else
+					temp_msg = "ERROR - No data to store"
+			else
+				temp_msg = "ERROR - No GPS inserted"
+
+			return TRUE
+
+		if("pad_send")
+			teleport(usr, TRUE)
+			return TRUE
+
+		if("pad_receive")
+			teleport(usr, FALSE)
+			return TRUE
+
+		if("recal_crystals")
+			recalibrate()
+			sparks()
+			temp_msg = "NOTICE - Recalibration successful"
+			return TRUE
+
+		if("eject_crystals")
+			eject_crystals()
+			temp_msg = "NOTICE - Bluespace crystals ejected"
+			return TRUE
+
+
+// TSCI MATH STUFF //
+/datum/tsci_trajectory_data
+	var/src_x
+	var/src_y
+	var/time
+	var/distance
+	var/power_x
+	var/power_y
+	var/dest_x
+	var/dest_y
+
+/datum/tsci_trajectory_data/New(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
+	src.src_x = src_x
+	src.src_y = src_y
+	src.time = time
+	src.distance = distance
+	src.power_x = power_x
+	src.power_y = power_y
+	src.dest_x = dest_x
+	src.dest_y = dest_y
+
+/obj/machinery/computer/telescience/proc/calculate_trajectory()
+	var/obj/machinery/telepad/TP = get_linked_pad()
+
+	if(!TP)
+		return null
+
+	var/true_power = clamp(power + power_offset, 1, 1000)
+	var/true_rotation = rotation + rotation_offset
+	var/true_angle = clamp(angle, 1, 90)
+
+	var/power_x = true_power * cos(true_angle)
+	var/power_y = true_power * sin(true_angle)
+	var/time = 2 * (power_y / 10) //10 = g
+
+	var/distance = time * power_x
+
+	var/dest_x = TP.x + distance * sin(true_rotation);
+	var/dest_y = TP.y + distance * cos(true_rotation);
+
+	return new /datum/tsci_trajectory_data(TP.x, TP.y, time, distance, power_x, power_y, dest_x, dest_y)
 
 
 #undef MAX_CRYSTALS

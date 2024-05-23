@@ -10,17 +10,20 @@ import {
 import { Window } from '../layouts';
 
 export const TelescienceConsole = (properties, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const {
     last_msg,
     linked_pad,
     held_gps,
     lastdata,
     power_levels,
+    current_max_power,
     current_power,
     current_bearing,
     current_elevation,
     current_sector,
+    working,
+    max_z,
   } = data;
   const [dummyRot, setDummyRot] = useLocalState(
     context,
@@ -29,9 +32,20 @@ export const TelescienceConsole = (properties, context) => {
   );
 
   return (
-    <Window width={400} height={450}>
+    <Window width={400} height={500}>
       <Window.Content>
-        <Section title="Status">{last_msg}</Section>
+        <Section title="Status">
+          <>
+            {last_msg}
+            {!(lastdata.length > 0) || (
+              <ul>
+                {lastdata.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
+            )}
+          </>
+        </Section>
         <Section title="Telepad Status">
           {linked_pad === 1 ? (
             <LabeledList>
@@ -44,8 +58,10 @@ export const TelescienceConsole = (properties, context) => {
                     step={0.1}
                     minValue={0}
                     maxValue={360}
+                    disabled={working}
                     value={current_bearing}
                     onDrag={(e, value) => setDummyRot(value)}
+                    onChange={(e, value) => act('setbear', { bear: value })}
                   />
                   <Icon ml={1} size={1} name="arrow-up" rotation={dummyRot} />
                 </Box>
@@ -57,7 +73,9 @@ export const TelescienceConsole = (properties, context) => {
                   step={0.1}
                   minValue={0}
                   maxValue={100}
+                  disabled={working}
                   value={current_elevation}
+                  onChange={(e, value) => act('setelev', { elev: value })}
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Power Level">
@@ -66,7 +84,8 @@ export const TelescienceConsole = (properties, context) => {
                     key={p}
                     content={p}
                     selected={current_power === p}
-                    disabled={idx >= current_power - 1} // -1 here, its a BYONDism
+                    disabled={idx >= current_max_power - 1 || working} // -1 here, its a BYONDism
+                    onClick={() => act('setpwr', { pwr: idx + 1 })}
                   />
                 ))}
               </LabeledList.Item>
@@ -76,26 +95,35 @@ export const TelescienceConsole = (properties, context) => {
                   lineHeight={1.5}
                   step={1}
                   minValue={2}
-                  maxValue={10}
+                  maxValue={max_z}
                   value={current_sector}
+                  disabled={working}
+                  onChange={(e, value) => act('setz', { newz: value })}
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Telepad Actions">
-                <Button content="Send" />
-                <Button content="Receive" />
+                <Button
+                  content="Send"
+                  disabled={working}
+                  onClick={() => act('pad_send')}
+                />
+                <Button
+                  content="Receive"
+                  disabled={working}
+                  onClick={() => act('pad_receive')}
+                />
               </LabeledList.Item>
               <LabeledList.Item label="Crystal Maintenance">
-                <Button content="Recalibrate Crystals" />
-                <Button content="Eject Crystals" />
-              </LabeledList.Item>
-              <LabeledList.Item label="Teleportation Info">
-                {lastdata.length > 0 ? (
-                  lastdata.map((element) => {
-                    <p>{element}</p>;
-                  })
-                ) : (
-                  <>Data will be available after pad use</>
-                )}
+                <Button
+                  content="Recalibrate Crystals"
+                  disabled={working}
+                  onClick={() => act('recal_crystals')}
+                />
+                <Button
+                  content="Eject Crystals"
+                  disabled={working}
+                  onClick={() => act('eject_crystals')}
+                />
               </LabeledList.Item>
             </LabeledList>
           ) : (
@@ -105,8 +133,16 @@ export const TelescienceConsole = (properties, context) => {
         <Section title="GPS Actions">
           {held_gps === 1 ? (
             <>
-              <Button disabled={held_gps === 0} content="Eject GPS" />
-              <Button disabled={held_gps === 0} content="Store Coordinates" />
+              <Button
+                disabled={held_gps === 0 || working}
+                content="Eject GPS"
+                onClick={() => act('eject_gps')}
+              />
+              <Button
+                disabled={held_gps === 0 || working}
+                content="Store Coordinates"
+                onClick={() => act('store_to_gps')}
+              />
             </>
           ) : (
             <>Please insert a GPS to store coordinates to it.</>
