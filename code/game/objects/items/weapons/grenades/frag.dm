@@ -88,10 +88,8 @@
 	shrapnel_type = /obj/item/projectile/bullet/shrapnel/mega
 	shrapnel_radius = 12
 
-/obj/item/grenade/frag/detonate(mob/living/lanced_by)
+/obj/item/grenade/frag/detonate()
 	. = ..()
-	if(!.)
-		return
 
 	update_mob()
 	qdel(src)

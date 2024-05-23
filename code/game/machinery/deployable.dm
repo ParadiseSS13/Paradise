@@ -1,6 +1,7 @@
 #define SINGLE "single"
 #define VERTICAL "vertical"
 #define HORIZONTAL "horizontal"
+#define AUTO "automatic"
 
 #define METAL 1
 #define WOOD 2
@@ -8,7 +9,6 @@
 
 #define DROPWALL_UPTIME 1 MINUTES
 
-#define AUTO "automatic"
 
 //Barricades/cover
 
@@ -282,14 +282,14 @@
 	else
 		return ..()
 
-/obj/item/grenade/barrier/dropwall
+/obj/item/grenade/dropwall
 	name = "dropwall shield generator"
 	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind."
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
 	item_state = "grenade"
-	mode = AUTO
+	var/mode = AUTO
 	var/generator_type = /obj/structure/dropwall_generator
 	var/uptime = DROPWALL_UPTIME
 	/// If this is true we do not arm again, due to the sleep
@@ -297,7 +297,16 @@
 	/// Mob who armed it. Needed for the get_dir proc
 	var/armer
 
-/obj/item/grenade/barrier/dropwall/toggle_mode(mob/user)
+/obj/item/grenade/dropwall/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-click to toggle modes.</span>"
+
+/obj/item/grenade/dropwall/AltClick(mob/living/carbon/user)
+	if(!istype(user) || !user.Adjacent(src) || user.incapacitated())
+		return
+	toggle_mode(user)
+
+/obj/item/grenade/dropwall/proc/toggle_mode(mob/user)
 	switch(mode)
 		if(AUTO)
 			mode = NORTH
@@ -312,16 +321,15 @@
 
 	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
 
-/obj/item/grenade/barrier/dropwall/attack_self(mob/user)
+/obj/item/grenade/dropwall/attack_self(mob/user)
 	. = ..()
 	armer = user
 
-
-/obj/item/grenade/barrier/dropwall/end_throw()
+/obj/item/grenade/dropwall/end_throw()
 	if(active)
 		addtimer(CALLBACK(src, PROC_REF(detonate)), 1) //Wait for the throw to fully end
 
-/obj/item/grenade/barrier/dropwall/detonate()
+/obj/item/grenade/dropwall/detonate()
 	. = ..()
 	if(deployed)
 		return
@@ -331,6 +339,9 @@
 	deployed = TRUE
 	armer = null
 	qdel(src)
+
+/obj/item/grenade/dropwall/ui_action_click(mob/user)
+	toggle_mode(user)
 
 /obj/structure/dropwall_generator
 	name = "deployed dropwall shield generator"
@@ -431,9 +442,9 @@
 
 /obj/item/storage/box/syndie_kit/dropwall/populate_contents()
 	for(var/I in 1 to 5)
-		new /obj/item/grenade/barrier/dropwall(src)
+		new /obj/item/grenade/dropwall(src)
 
-/obj/item/grenade/barrier/dropwall/firewall
+/obj/item/grenade/dropwall/firewall
 	name = "firewall shield generator"
 	generator_type = /obj/structure/dropwall_generator/firewall
 

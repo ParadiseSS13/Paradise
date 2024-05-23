@@ -1,3 +1,6 @@
+#define RANDOM_DETONATE_MIN_TIME (1.5 SECONDS)
+#define RANDOM_DETONATE_MAX_TIME (6 SECONDS)
+
 ////////////////////
 //Clusterbang
 ////////////////////
@@ -6,27 +9,41 @@
 	name = "clusterbang"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
-	item_state = "flashbang"
+	//item_state = "flashbang" /// ===CHUGAFIX=== still needed? probably not!
+	/// Base icon_state of the entire
+	var/base_state = "clusterbang"
+	/// The payload type that's delivered by each segment
 	var/payload = /obj/item/grenade/flashbang/cluster
+	/// The spawner that actually spawns each grenade
+	var/payload_spawner = /obj/effect/payload_spawner
+	/// Lower bound of times to roll for spawning a segment
+	var/min_spawned = 4
+	/// Upper bound of times to roll for spawning a segment
+	var/max_spawned = 8
+	/// The chance of a segment spawning on initial detonation
+	var/segment_chance = 35
+
 
 /obj/item/grenade/clusterbuster/detonate()
 	. = ..()
+	if(!.)
+		return
+
 	update_mob()
-	var/numspawned = rand(4,8)
+	var/numspawned = rand(min_spawned, max_spawned)
 	var/again = 0
 
-	for(var/more = numspawned,more > 0,more--)
-		if(prob(35))
+	// Roll for number of segments to spawn
+	for(var/_ in 1 to numspawned)
+		if(prob(segment_chance))
 			again++
 			numspawned--
 
-	for(var/loop = again ,loop > 0, loop--)
-		new /obj/item/grenade/clusterbuster/segment(loc, payload)//Creates 'segments' that launches a few more payloads
+	for(var/loop in 1 to again)
+		new /obj/item/grenade/clusterbuster/segment(loc, src)//Creates 'segments' that launches a few more payloads
 
 	new /obj/effect/payload_spawner(loc, payload, numspawned)//Launches payload
-
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-
 	qdel(src)
 
 
@@ -38,43 +55,56 @@
 	name = "clusterbang segment"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
+	base_state = "clusterbang_segment"
 
-/obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)
+/obj/item/grenade/clusterbuster/segment/Initialize(mapload, obj/item/grenade/clusterbuster/base)
 	. = ..()
-	icon_state = "clusterbang_segment_active"
-	payload = payload_type
+	if(base)
+		name = "[base.name] segment"
+		base_state = "[base.base_state]_segment"
+		icon_state = base_state
+		payload_spawner = base.payload_spawner
+		payload = base.payload
+		min_spawned = base.min_spawned
+		max_spawned = base.max_spawned
+	icon_state = "[base_state]_active"
 	active = TRUE
+
+	// move each spawned segment a random distance away from their initial location
 	walk_away(src, loc, rand(1,4))
-	spawn(rand(15,60))
-		detonate()
+
+	// detonate each segment at a random time in the future
+	addtimer(CALLBACK(src, PROC_REF(detonate)), rand(RANDOM_DETONATE_MIN_TIME, RANDOM_DETONATE_MAX_TIME))
 
 
 /obj/item/grenade/clusterbuster/segment/detonate()
-	. = ..()
-
-	new /obj/effect/payload_spawner(loc, payload, rand(4,8))
-
+	new payload_spawner(loc, payload, rand(min_spawned, max_spawned))
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-
 	qdel(src)
 
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
-/obj/effect/payload_spawner/New(turf/newloc, type, numspawned as num)
-	. = ..()
-	for(var/loop = numspawned ,loop > 0, loop--)
-		var/obj/item/grenade/P = new type(loc)
-		if(istype(P, /obj/item/grenade))
-			P.active = TRUE
-		walk_away(P,loc,rand(1,4))
+/obj/effect/payload_spawner/Initialize(mapload, type, numspawned)
+	..()
 
-		spawn(rand(15,60))
-			if(!QDELETED(P))
-				if(istype(P, /obj/item/grenade))
-					P.detonate()
-			qdel(src)
+	if(type && isnum(numspawned))
+		spawn_payload(type, numspawned)
 
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/payload_spawner/proc/spawn_payload(type, numspawned)
+	for(var/_ in 1 to numspawned)
+		var/obj/item/grenade/grenade = new type(loc)
+
+		if(istype(grenade))
+			grenade.active = TRUE
+			addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, detonate)), rand(RANDOM_DETONATE_MIN_TIME, RANDOM_DETONATE_MAX_TIME))
+
+		walk_away(grenade, loc, rand(1,4))
+
+#undef RANDOM_DETONATE_MIN_TIME
+#undef RANDOM_DETONATE_MAX_TIME
 
 //////////////////////////////////
 //Custom payload clusterbusters

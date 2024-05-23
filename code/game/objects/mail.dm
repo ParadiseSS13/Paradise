@@ -71,7 +71,7 @@
 							/obj/item/restraints/legcuffs/bola/energy,
 							/obj/item/reagent_containers/drinks/coffee,
 							/obj/item/stock_parts/cell/super,
-							/obj/item/grenade/barrier/dropwall,
+							/obj/item/grenade/dropwall,
 							/obj/item/toy/figure/crew/detective,
 							/obj/item/toy/figure/crew/hos,
 							/obj/item/toy/figure/crew/secofficer,

@@ -13,8 +13,6 @@
 	max_integrity = 40
 	///Is this grenade currently armed?
 	var/active = FALSE
-	///Is it a cluster grenade? We dont wanna spam admin logs with these.
-	var/type_cluster = FALSE
 	///How long it takes for a grenade to explode after being armed
 	var/det_time = 5 SECONDS
 	///Will this state what it's det_time is when examined?
@@ -44,21 +42,6 @@
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		detonate()
-	if(!QDELETED(src))
-		qdel(src)
-
-// /obj/item/grenade/proc/clown_check(mob/living/user)
-// 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-// 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
-// 		active = TRUE
-// 		icon_state = initial(icon_state) + "_active"
-// 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-// 		spawn(5)
-// 			if(user)
-// 				user.drop_item()
-// 			prine()
-// 		return FALSE
-// 	return TRUE
 
 /**
  * Checks for various ways to botch priming a grenade.

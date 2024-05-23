@@ -181,7 +181,7 @@
 	cooldown_time = 20 SECONDS
 	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/pyro)
 	/// Path we dispense.
-	var/dispense_type = /obj/item/grenade/barrier/dropwall/firewall
+	var/dispense_type = /obj/item/grenade/dropwall/firewall
 
 /obj/item/mod/module/anomaly_locked/firewall/on_use()
 	. = ..()

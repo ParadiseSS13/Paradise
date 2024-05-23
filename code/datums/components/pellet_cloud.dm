@@ -34,8 +34,6 @@
 	var/list/pellets = list()
 	/// An associated list with the atom hit as the key and how many pellets they've eaten for the value, for printing aggregate messages
 	var/list/targets_hit = list()
-	/// Another associated list for hit bodyparts on carbons so we can track how much wounding potential we have for each bodypart
-	var/list/wound_info_by_part = list()
 	/// For grenades, any /mob/living's the grenade is moved onto, see [/datum/component/pellet_cloud/proc/handle_martyrs]
 	var/list/bodies
 
@@ -70,7 +68,6 @@
 /datum/component/pellet_cloud/Destroy(force)
 	pellets = null
 	targets_hit = null
-	wound_info_by_part = null
 	bodies = null
 	return ..()
 
@@ -92,7 +89,7 @@
  * The arguments really don't matter, while this proc is triggered by COMSIG_FIRE_CASING, it's just a big mess of the state vars we need for doing the stuff over here.
  */
 /datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params, distro, obj/item/projectile/proj)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_FIRE_CASING
 
 	shooter = user
 	var/turf/target_loc = get_turf(target)
@@ -129,15 +126,14 @@
  *
  * Arguments:
  * * O- Our parent, the thing making the shrapnel obviously (grenade)
- * * triggerer- CHUGAFIX
  */
-/datum/component/pellet_cloud/proc/create_blast_pellets(obj/O, mob/living/triggerer)
-	SIGNAL_HANDLER
+/datum/component/pellet_cloud/proc/create_blast_pellets(obj/O)
+	SIGNAL_HANDLER	// COMSIG_GRENADE_DETONATE
 
 	var/atom/A = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
-		INVOKE_ASYNC(src, PROC_REF(handle_martyrs), triggerer) // note that we can modify radius in this proc
+		INVOKE_ASYNC(src, PROC_REF(handle_martyrs)) // note that we can modify radius in this proc
 
 	if(radius < 1)
 		return
@@ -157,18 +153,11 @@
  * We then iterate through the martyrs and reduce the shrapnel magnitude for each mob on top of it, shredding each of them with some of the shrapnel they helped absorb. This can snuff out all of the shrapnel if there's enough bodies
  *
  */
-/datum/component/pellet_cloud/proc/handle_martyrs(mob/living/punishable_triggerer)
+/datum/component/pellet_cloud/proc/handle_martyrs()
 	var/magnitude_absorbed
 	var/list/martyrs = list()
 
 	var/self_harm_radius_mult = 3
-
-	if(punishable_triggerer && prob(60))
-		to_chat(punishable_triggerer, span_userdanger("Your plan to whack someone with a grenade on a stick backfires on you, literally!"))
-		self_harm_radius_mult = 1 // we'll still give the guy who got hit some extra shredding, but not 3*radius
-		pellet_delta += radius
-		for(var/i in 1 to radius)
-			pew(punishable_triggerer) // thought you could be tricky and lance someone with no ill effects!!
 
 	for(var/mob/living/body in get_turf(parent))
 		if(body == shooter)
@@ -205,34 +194,37 @@
 
 ///One of our pellets hit something, record what it was and check if we're done (terminated == num_pellets)
 /datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_PROJECTILE_SELF_ON_HIT
 
 	pellets -= P
 	terminated++
 	hits++
+
 	var/obj/item/organ/external/hit_part
 	var/damage = TRUE
 	if(ishuman(target) && hit_zone)
 		var/mob/living/carbon/human/hit_human = target
 		hit_part = hit_human.get_organ(hit_zone)
+
 		if(hit_part)
 			target = hit_part
-	// else if(isobj(target))
-	// 	var/obj/hit_object = target
-	// 	if(hit_object.damage_deflection > P.damage || !P.damage)	===CHUGAFIX===
-	// 		damage = FALSE
+
+	else if(isobj(target))
+		if(!P.damage)
+			damage = FALSE
 
 	LAZYADDASSOC(targets_hit[target], "hits", 1)
 	LAZYSET(targets_hit[target], "damage", damage)
 	if(targets_hit[target]["hits"] == 1)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
+
 	if(terminated == num_pellets)
 		finalize()
 
 ///One of our pellets disappeared due to hitting their max range (or just somehow got qdel'd), remove it from our list and check if we're done (terminated == num_pellets)
 /datum/component/pellet_cloud/proc/pellet_range(obj/item/projectile/P)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_PROJECTILE_RANGE_OUT
 	pellets -= P
 	terminated++
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
@@ -289,7 +281,7 @@
 
 /// Look alive, we're armed! Now we start watching to see if anyone's covering us
 /datum/component/pellet_cloud/proc/grenade_armed(obj/item/nade)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_GRENADE_ARMED
 
 	if(ismob(nade.loc))
 		shooter = nade.loc
@@ -300,14 +292,14 @@
 
 /// Someone dropped the grenade, so set them to the shooter in case they're on top of it when it goes off
 /datum/component/pellet_cloud/proc/grenade_dropped(obj/item/nade, mob/living/slick_willy)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_ITEM_DROPPED
 
 	shooter = slick_willy
 	grenade_moved()
 
 /// Our grenade has moved, reset var/list/bodies so we're "on top" of any mobs currently on the tile
 /datum/component/pellet_cloud/proc/grenade_moved()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
 
 	LAZYCLEARLIST(bodies)
 	for(var/mob/living/L in get_turf(parent))
@@ -316,23 +308,24 @@
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/grenade_uncrossed(datum/source, atom/movable/gone, direction)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_MOVABLE_UNCROSSED
 
 	bodies -= gone
 
 /// Our grenade or whatever tried deleting itself, so we intervene and nullspace it until we're done here
 /datum/component/pellet_cloud/proc/nullspace_parent()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_PARENT_PREQDELETED
 	// ===CHUGAFIX=== Rename this if deleting here ends up working fine (also delete the bool)
-	qdel(src)
-	// var/atom/movable/AM = parent
-	// AM.loc = null
-	// queued_delete = TRUE
+	message_admins("nullspace_parent() called")
+	//qdel(src)
+	var/atom/movable/AM = parent
+	AM.forceMove(null)
+	queued_delete = TRUE
 	return TRUE
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/on_target_qdel(atom/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_PARENT_QDELETING
 
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	targets_hit -= target

@@ -310,7 +310,7 @@
 	req_tech = list("combat" = 5, "materials" = 5, "engineering" = 5, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1200, MAT_SILVER = 100, MAT_TITANIUM = 100, MAT_PLASMA = 100)
-	build_path = /obj/item/grenade/barrier/dropwall
+	build_path = /obj/item/grenade/dropwall
 	category = list("Weapons")
 
 /datum/design/pyroclaw
