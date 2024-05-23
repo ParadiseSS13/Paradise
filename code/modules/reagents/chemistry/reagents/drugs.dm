@@ -259,13 +259,14 @@
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/pump_up/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-21) // one cycle to get out of stam crit ~2 second
-	M.AdjustParalysis(-2 SECONDS)
-	M.AdjustStunned(-2 SECONDS)
-	M.AdjustWeakened(-2 SECONDS)
-	M.AdjustKnockDown(-2 SECONDS)
-	return ..() | update_flags
+	if(volume > 0.7) // prevent to use is sigs and patches, which fully nulifyed huge comsuption.
+		var/update_flags = STATUS_UPDATE_NONE
+		update_flags |= M.adjustStaminaLoss(-21) // one cycle to get out of stam crit ~2 second
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-2 SECONDS)
+		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
+		return ..() | update_flags
 
 /datum/reagent/pump_up/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
