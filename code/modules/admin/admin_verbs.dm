@@ -172,7 +172,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/profile_code
+	/client/proc/profile_code,
+	/client/proc/debug_atom_init
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
