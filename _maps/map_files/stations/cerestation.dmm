@@ -3893,7 +3893,6 @@
 	announcementConsole = 1;
 	department = "Head of Security's Desk";
 	departmentType = 5;
-	name = "Head of Security Requests Console";
 	pixel_y = -30
 	},
 /obj/machinery/computer/secure_data{
@@ -9904,7 +9903,6 @@
 	},
 /obj/machinery/requests_console{
 	department = "EVA";
-	name = "EVA Requests Console";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -16098,7 +16096,6 @@
 	},
 /obj/machinery/requests_console{
 	department = "Virology";
-	name = "Virology Requests Console";
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -24251,7 +24248,6 @@
 	},
 /obj/machinery/requests_console{
 	department = "Crew Quarters";
-	name = "Crew Quarters Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -24493,9 +24489,8 @@
 /area/space)
 "cEm" = (
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
+	department = "Quartermaster's Desk";
 	departmentType = 5;
-	name = "Quartermaster Requests Console";
 	pixel_x = 30;
 	announcementConsole = 1
 	},
@@ -24581,7 +24576,6 @@
 /obj/machinery/requests_console{
 	department = "Warden";
 	departmentType = 7;
-	name = "Warden's Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -27688,6 +27682,10 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/magistrate,
 /obj/item/pen/multi/gold,
+/obj/machinery/requests_console{
+	department = "Magistrate";
+	pixel_x = 30
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cSQ" = (
@@ -28896,7 +28894,6 @@
 	},
 /obj/machinery/requests_console{
 	department = "Tool Storage";
-	name = "Tool Storage Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -29344,7 +29341,6 @@
 /obj/machinery/requests_console{
 	department = "Bar";
 	departmentType = 2;
-	name = "Bar Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/wood,
@@ -30509,7 +30505,6 @@
 /area/station/science/hallway)
 "dkb" = (
 /obj/machinery/requests_console{
-	name = "Detective Requests Console";
 	pixel_y = -30;
 	department = "Detective";
 	departmentType = 5
@@ -33924,7 +33919,6 @@
 /obj/item/multitool,
 /obj/machinery/requests_console{
 	department = "Tech Storage";
-	name = "Tech Storage Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plating,
@@ -43068,7 +43062,6 @@
 /obj/machinery/requests_console{
 	department = "Janitorial";
 	departmentType = 1;
-	name = "Janitor Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel,
@@ -44348,6 +44341,11 @@
 /area/station/maintenance/storage)
 "hkr" = (
 /obj/item/kirbyplants,
+/obj/machinery/requests_console{
+	department = "Chapel";
+	departmentType = 2;
+	pixel_y = 30
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "hkt" = (
@@ -46618,6 +46616,16 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/storage/secondary)
+"hUK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/requests_console{
+	department = "Mining";
+	departmentType = 5;
+	pixel_x = 30;
+	announcementConsole = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/miningdock)
 "hUN" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -49554,7 +49562,6 @@
 	announcementConsole = 1;
 	department = "Blueshield";
 	departmentType = 5;
-	name = "Blueshield Requests Console";
 	pixel_x = 30
 	},
 /obj/structure/table/wood,
@@ -52798,6 +52805,14 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
+"jMh" = (
+/obj/item/kirbyplants,
+/obj/machinery/requests_console{
+	department = "Psychiatrist";
+	pixel_x = -30
+	},
+/turf/simulated/floor/carpet,
+/area/station/medical/psych)
 "jMr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -53924,6 +53939,13 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"kgy" = (
+/obj/machinery/requests_console{
+	department = "Library";
+	pixel_x = -30
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "kgP" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54974,7 +54996,6 @@
 	announcementConsole = 1;
 	department = "NT Representative";
 	departmentType = 5;
-	name = "NT Representative Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
@@ -62366,7 +62387,6 @@
 /obj/structure/closet/wardrobe/black,
 /obj/machinery/requests_console{
 	department = "Arrival Shuttle";
-	name = "Arrival Shuttle Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -63470,7 +63490,6 @@
 /obj/machinery/requests_console{
 	department = "Medbay";
 	departmentType = 1;
-	name = "Medbay Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -65774,6 +65793,16 @@
 "nTa" = (
 /turf/simulated/mineral/ancient,
 /area/station/hallway/primary/central/east)
+"nTo" = (
+/obj/machinery/requests_console{
+	department = "Expedition";
+	departmentType = 2;
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/expedition)
 "nTJ" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -67759,7 +67788,6 @@
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
-	name = "Kitchen Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -67866,7 +67894,6 @@
 /obj/machinery/requests_console{
 	department = "Engineering";
 	departmentType = 3;
-	name = "Engineering Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -70284,6 +70311,17 @@
 	icon_state = "white"
 	},
 /area/station/science/misc_lab)
+"pqq" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Xenobiology";
+	departmentType = 5;
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplefull"
+	},
+/area/station/science/xenobiology)
 "pqr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -77273,7 +77311,6 @@
 /obj/machinery/requests_console{
 	department = "Morgue";
 	departmentType = 5;
-	name = "Morgue Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -80554,7 +80591,6 @@
 /obj/machinery/requests_console{
 	department = "Hydroponics";
 	departmentType = 2;
-	name = "Hydroponics Requests Console";
 	pixel_y = 30
 	},
 /obj/machinery/hydroponics/constructable,
@@ -83266,7 +83302,6 @@
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
-	name = "Science Requests Console";
 	pixel_x = -30
 	},
 /obj/machinery/r_n_d/circuit_imprinter,
@@ -87017,6 +87052,14 @@
 /obj/structure/falsewall/rock_ancient,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"uJE" = (
+/obj/machinery/requests_console{
+	department = "Courtroom";
+	departmentType = 2;
+	pixel_x = 30
+	},
+/turf/simulated/floor/carpet,
+/area/station/legal/courtroom)
 "uJT" = (
 /turf/simulated/wall,
 /area/station/maintenance/gambling_den)
@@ -87998,9 +88041,8 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/machinery/requests_console{
-	department = "Medbay";
+	department = "Genetics";
 	departmentType = 1;
-	name = "Genetics Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -88993,7 +89035,6 @@
 /obj/item/pen/multi,
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
-	name = "Internal Affairs Requests Console";
 	pixel_x = -30
 	},
 /obj/item/taperecorder,
@@ -93175,7 +93216,6 @@
 /obj/machinery/requests_console{
 	department = "Security";
 	departmentType = 5;
-	name = "Security Requests Console";
 	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -93366,6 +93406,10 @@
 	},
 /area/station/maintenance/gambling_den)
 "wyn" = (
+/obj/machinery/requests_console{
+	department = "Paramedic";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -98146,7 +98190,6 @@
 "xYV" = (
 /obj/machinery/requests_console{
 	department = "Locker Room";
-	name = "Locker Room Requests Console";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel,
@@ -112105,7 +112148,7 @@ xJa
 gbb
 xJa
 gLH
-xhk
+uJE
 bIR
 xhk
 xhk
@@ -113724,7 +113767,7 @@ aEe
 aEe
 aEe
 bLH
-bHZ
+kgy
 qKM
 bRi
 bPj
@@ -120723,7 +120766,7 @@ cGd
 qqa
 muT
 uBC
-uBC
+pqq
 uBC
 cAh
 pon
@@ -138883,7 +138926,7 @@ jVI
 jVI
 jVI
 bzs
-vId
+nTo
 hou
 oVI
 xbO
@@ -145816,7 +145859,7 @@ fMl
 fMl
 aZM
 cMM
-bcO
+jMh
 oFv
 oWH
 poU
@@ -153997,7 +154040,7 @@ uHx
 aFb
 byd
 qbb
-qbb
+hUK
 aJH
 cbR
 aIA
