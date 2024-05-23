@@ -587,7 +587,7 @@ UI STUFF
 				continue
 			var/datum/pm_convo/convo = X.pm_tracker.pms[key]
 			if(convo.typing)
-				dat += "<i><span class='typing'>[C.ckey] is typing</span></i><br />"
+				dat += "<i><span class='typing'>[key] is typing</span></i><br />"
 				found_typing = TRUE
 				break
 		if(found_typing)
