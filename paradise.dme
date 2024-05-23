@@ -93,7 +93,7 @@
 #include "code\__DEFINES\muzzle_flash.dm"
 #include "code\__DEFINES\newscaster_defines.dm"
 #include "code\__DEFINES\particle_defines.dm"
-#include "code\__DEFINES\path.dm"
+#include "code\__DEFINES\path_defines.dm"
 #include "code\__DEFINES\pda.dm"
 #include "code\__DEFINES\pipes.dm"
 #include "code\__DEFINES\power_defines.dm"
