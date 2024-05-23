@@ -168,6 +168,13 @@
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
+/turf/simulated/floor/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"

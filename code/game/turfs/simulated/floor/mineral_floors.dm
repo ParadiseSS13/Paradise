@@ -211,6 +211,13 @@
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
+/turf/simulated/floor/mineral/bananium/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
