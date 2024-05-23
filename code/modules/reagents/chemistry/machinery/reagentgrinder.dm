@@ -21,7 +21,7 @@
 		/obj/item/stack/sheet/metal = list("iron" = 20),
 		/obj/item/stack/rods = list("iron" = 10),
 		/obj/item/stack/sheet/plasteel = list("iron" = 20, "plasma_dust" = 20),
-		/obj/item/stack/sheet/wood = list("carbon" = 20),
+		/obj/item/stack/sheet/wood = list("carbon" = 4),
 		/obj/item/stack/sheet/glass = list("silicon" = 20),
 		/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
@@ -29,10 +29,6 @@
 		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
-
-		/obj/item/grown/nettle/basic = list("wasabi" = 0),
-		/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
-		/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
 
 		// Blender Stuff
 		/obj/item/food/snacks/grown/tomato = list("ketchup" = 0),
@@ -56,7 +52,8 @@
 		/obj/item/food = list(),
 		/obj/item/reagent_containers/pill = list(),
 		/obj/item/reagent_containers/patch = list(),
-		/obj/item/clothing/mask/cigarette = list()
+		/obj/item/clothing/mask/cigarette = list(),
+		/obj/item/grown = list()
 	)
 
 	var/list/juice_items = list (
@@ -439,21 +436,54 @@
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = special_blend[r_id]
 
-			if(amount <= 0)
-				if(amount == 0)
-					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-				else
-					if(O.reagents.has_reagent("nutriment"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents.has_reagent("plantmatter"))
-						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
-						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+
+			if(amount == 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+			else if(amount < 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+			else
+				O.reagents.trans_id_to(beaker, r_id, min(amount, space))
+
+			if(beaker.reagents.holder_full())
+				break
+
+		O.reagents.trans_to(beaker, O.reagents.total_volume)
+
+		if(!O.reagents.total_volume)
+			remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
+	// Inedible Plants
+	for(var/obj/item/grown/O in holdingitems)
+		var/list/special_blend = get_special_blend(O)
+		for(var/r_id in special_blend)
+			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			var/amount = special_blend[r_id]
+
+			if(amount == 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+			else if(amount < 0)
+				if(O.reagents.has_reagent("nutriment"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+				if(O.reagents.has_reagent("plantmatter"))
+					beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
+					O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 			else
 				O.reagents.trans_id_to(beaker, r_id, min(amount, space))
 
@@ -487,26 +517,6 @@
 				break
 			if(beaker.reagents.holder_full())
 				return
-
-	// Plants
-	for(var/obj/item/grown/O in holdingitems)
-		var/list/special_blend = get_special_blend(O)
-		for(var/r_id in special_blend)
-			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-			var/amount = special_blend[r_id]
-
-			if(amount == 0)
-				if(O.reagents.has_reagent(r_id))
-					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
-			else
-				beaker.reagents.add_reagent(r_id, min(amount * efficiency, space))
-
-			if(beaker.reagents.holder_full())
-				break
-
-		remove_object(O)
-		if(beaker.reagents.holder_full())
-			return
 
 	// Slime Extracts
 	for(var/obj/item/slime_extract/O in holdingitems)
