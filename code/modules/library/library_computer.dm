@@ -558,13 +558,13 @@
 				book_data["categories"] += book_category.description //we're displaying the cats onlys, so we don't need the ids
 
 		cached_booklist += list(book_data)
-	num_pages = getmaxpages()
+	num_pages = getmaxpages(async)
 	archive_page_num = clamp(archive_page_num, 1, num_pages)
 
 ///Returns the amount of pages we will need to hold all the book our DB has found
-/obj/machinery/computer/library/proc/getmaxpages()
+/obj/machinery/computer/library/proc/getmaxpages(async = TRUE)
 	//if get_total_books doesn't return anything, just set pages to 1 so we don't break stuff
-	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data))
+	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data, async))
 	var/page_count = round(book_count / LIBRARY_BOOKS_PER_PAGE)
 	//Since 'round' gets the floor value it's likely there will be 1 page more than
 	//the page count amount (almost guaranteed), we check for a remainder because of this
