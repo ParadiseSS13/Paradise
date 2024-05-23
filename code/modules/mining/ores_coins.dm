@@ -243,8 +243,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/gibtonite/examine(mob/user)
 	. = ..()
-	. += "<span class = 'notice'>You can use a mining scanner to stop an activated gibtonite crystal from detonating.</span>"
-	. += "<span class = 'notice'>In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!</span>"
+	. += "<span class='notice'>You can use a mining scanner to stop an activated gibtonite crystal from detonating.</span>"
+	. += "<span class='notice'>In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!</span>"
 
 /obj/item/gibtonite/Initialize(mapload)
 	. = ..()
