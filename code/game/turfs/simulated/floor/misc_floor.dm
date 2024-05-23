@@ -192,9 +192,9 @@
 			return
 
 	if(!. && isliving(A))
-		addtimer(CALLBACK(src, PROC_REF(do_floor_effect)), 2 DECISECONDS)
+		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
 
-/turf/simulated/floor/clockwork/proc/do_floor_effect()
+/turf/simulated/floor/clockwork/proc/spawn_visual()
 	new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()

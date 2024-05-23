@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		bad_connection = is_bad_connection(tcm.connection.frequency, display_freq)
 		new_connection = SSradio.return_frequency(display_freq)
 
-	var/list/radios = list()
+	var/list/radios = list(GLOB.deadchat_radio)
 
 	// --- Broadcast only to intercom devices ---
 
