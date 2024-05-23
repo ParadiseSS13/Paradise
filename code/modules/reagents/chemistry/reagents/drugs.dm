@@ -453,7 +453,7 @@
 	taste_description = "WAAAAGH"
 	var/bonus_damage = 2
 	goal_department = "Science"
-	goal_difficulty = REAGENT_GOAL_HARD
+	goal_difficulty = REAGENT_GOAL_EXCESSIVE
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/L)
 	if(ishuman(L))
