@@ -149,6 +149,13 @@ pub(crate) fn sanitize(my_inactive_tile: &mut Tile, my_tile: &Tile) -> bool {
         my_inactive_tile.thermal_energy = 0.0;
         sanitized = true;
     }
+    if my_inactive_tile.gases.moles() < MINIMUM_NONZERO_MOLES {
+        for i in 0..GAS_COUNT {
+            my_inactive_tile.gases.values[i] = 0.0;
+        }
+        my_inactive_tile.thermal_energy = 0.0;
+        // We don't count this as sanitized because it's expected.
+    }
 
     sanitized
 }

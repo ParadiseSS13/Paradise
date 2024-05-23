@@ -99,3 +99,6 @@ pub(crate) const TEST_TOLERANCE: f32 = 0.00001;
 
 /// Lose this multiple of heat energy per tick if above T20C.
 pub(crate) const SPACE_COOLING_FACTOR: f32 = 0.005;
+
+/// Tiles with less than this much gas will become empty.
+pub(crate) const MINIMUM_NONZERO_MOLES: f32 = 0.1;
