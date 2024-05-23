@@ -1246,6 +1246,28 @@
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
 
+/client/verb/toggle_fullscreen()
+	set name = "Toggle Fullscreen"
+	set category = "OOC"
+
+	fullscreen = !fullscreen
+
+	if (fullscreen)
+		winset(usr, "mainwindow", "titlebar=false")
+		winset(usr, "mainwindow", "can-resize=false")
+		winset(usr, "mainwindow", "is-maximized=false")
+		winset(usr, "mainwindow", "is-maximized=true")
+		winset(usr, "mainwindow", "statusbar=false")
+		winset(usr, "mainwindow", "menu=")
+	else
+		winset(usr, "mainwindow", "is-maximized=false")
+		winset(usr, "mainwindow", "titlebar=true")
+		winset(usr, "mainwindow", "can-resize=true")
+		winset(usr, "mainwindow", "statusbar=true")
+		winset(usr, "mainwindow", "menu=menu")
+
+	fit_viewport()
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT
