@@ -129,7 +129,6 @@
 				L.pulling.forceMove(T)
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
 		A.newtonian_move(A.inertia_dir)
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
