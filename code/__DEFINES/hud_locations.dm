@@ -77,7 +77,6 @@
 #define ui_borg_lanugage_menu "EAST-2:26,SOUTH+1:7"
 
 //Upper-middle right (alerts)
-#define ui_nutrition "EAST-1:28,CENTER+6:29"
 #define ui_alert1 "EAST-1:28,CENTER+5:27"
 #define ui_alert2 "EAST-1:28,CENTER+4:25"
 #define ui_alert3 "EAST-1:28,CENTER+3:23"
@@ -85,9 +84,10 @@
 #define ui_alert5 "EAST-1:28,CENTER+1:19"
 
 //Middle right (status indicators)
-#define ui_healthdoll "EAST-1:28,CENTER-1:15"
-#define ui_health "EAST-1:28,CENTER:17"
 #define ui_internal "EAST-1:28,CENTER+1:19"
+#define ui_health "EAST-1:28,CENTER:17"
+#define ui_healthdoll "EAST-1:28,CENTER-1:15"
+#define ui_nutrition "EAST-2:32,CENTER-1:13"
 #define ui_stamina "EAST-1:28,CENTER-2:15"
 
 //borgs
