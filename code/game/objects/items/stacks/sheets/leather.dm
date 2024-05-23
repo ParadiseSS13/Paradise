@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 				return
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 25, 115))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 				return
 			use(1)
 			D.plates++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 7, 60))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
@@ -294,7 +294,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.drake_hides++
 			D.max_integrity += 50
 			D.obj_integrity += 50
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 45, 175)) // 77.7% melee armor maximum
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 13, 80))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
