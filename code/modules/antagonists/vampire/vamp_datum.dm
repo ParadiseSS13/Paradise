@@ -228,7 +228,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
 		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
-		bloodusable -= 10
+		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
 		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
@@ -278,6 +278,13 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 	owner.current.alpha = 204 // 255 * 0.80
 
+/**
+ * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
+ *
+ * Arguments:
+ ** C: victim [/mob/living/carbon] that is being drained form.
+ ** blood_amount: amount of blood to add to vampire's usable and total pools.
+ */
 /datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
 	if(C)
 		var/unique_suck_id = C.UID()
@@ -292,6 +299,15 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	for(var/datum/spell/S in powers)
 		if(S.action)
 			S.action.UpdateButtons()
+
+/**
+ * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.
+ *
+ * Arguments:
+ ** blood_amount: amount of blood to subtract.
+ */
+/datum/antagonist/vampire/proc/subtract_usable_blood(blood_amount)
+	bloodusable = clamp(bloodusable - blood_amount, 0, bloodtotal)
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
