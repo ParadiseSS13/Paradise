@@ -374,7 +374,9 @@
 	..()
 	if(firestarter && active)
 		target.fire_act()
-		new /obj/effect/hotspot(get_turf(target))
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 
 /obj/item/reagent_containers/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() && !active)

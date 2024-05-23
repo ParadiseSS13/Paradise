@@ -73,8 +73,7 @@
 		// The cell is already hot enough, no need to do more.
 		hotspot.temperature = location_air.temperature()
 		hotspot.volume = CELL_VOLUME
-		hotspot.color = heat2color(hotspot.temperature)
-		hotspot.set_light(l_color = hotspot.color)
+		hotspot.recolor()
 		return
 
 	if(location_air.toxins() < 0.5 || location_air.oxygen() < 0.5)
@@ -109,8 +108,7 @@
 	// Update the hotspot based on the reaction.
 	hotspot.temperature = burning.temperature()
 	hotspot.volume = min(CELL_VOLUME, fuel_burnt * FIRE_GROWTH_RATE)
-	hotspot.color = heat2color(hotspot.temperature)
-	hotspot.set_light(l_color = hotspot.color)
+	hotspot.recolor()
 
 	// Revert the air's temperature to where it started.
 	burning.set_temperature(old_temperature)
@@ -199,6 +197,10 @@
 		DestroyTurf()
 	return ..()
 
+/obj/effect/hotspot/proc/recolor()
+	color = heat2color(temperature)
+	set_light(l_color = color)
+
 /obj/effect/hotspot/proc/DestroyTurf()
 	if(issimulatedturf(loc))
 		var/turf/simulated/T = loc
@@ -246,8 +248,7 @@
 		var/obj/effect/hotspot/fake/H = new(T)
 		H.temperature = temp
 		H.volume = 400
-		H.color = heat2color(H.temperature)
-		H.set_light(l_color = H.color)
+		H.recolor()
 
 		T.hotspot_expose(H.temperature, H.volume)
 		for(var/atom/A in T)
@@ -304,8 +305,7 @@
 			H.temperature = temp - dist * falloff
 			expose_temp = H.temperature
 			H.volume = 400
-			H.color = heat2color(H.temperature)
-			H.set_light(l_color = H.color)
+			H.recolor()
 			existing_hotspot = H
 
 		else if(existing_hotspot.temperature < temp - dist * falloff)
@@ -314,8 +314,7 @@
 			if(expose_temp > prev_temp * 3)
 				need_expose = TRUE
 			existing_hotspot.temperature = temp - dist * falloff
-			existing_hotspot.color = heat2color(existing_hotspot.temperature)
-			existing_hotspot.set_light(l_color = existing_hotspot.color)
+			existing_hotspot.recolor()
 
 		affected[T] = existing_hotspot.temperature
 		if(need_expose && expose_temp)
