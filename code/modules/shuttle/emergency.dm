@@ -195,7 +195,10 @@
 		to_chat(user, "<span class='warning'>You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone.</span>")
 		return
 	if(is_ai && isnull(windows_33_exe))
-		transfer_ai(AI_SHUTTLE_HACK, user, user)
+		var/mob/living/silicon/ai/AI = user
+		if(doomsday_device)
+			return
+		transfer_ai(AI_SHUTTLE_HACK, AI, AI)
 		GLOB.minor_announcement.Announce("Warning! B.A.S.I.C shuttle piloting AI comp-- Comparing notes with the engine system to maximize efficency. Do not be alarmed.")
 		SSshuttle.emergency.setTimer(600)
 		return
