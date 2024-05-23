@@ -153,6 +153,7 @@
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back...")
 	SSshuttle.emergency.aihacked = TRUE
+	authorized.Cut() //In case command was already swiping to early launch or something
 
 /obj/machinery/computer/emergency_shuttle/proc/kill_the_ai()
 	if(windows_33_exe)
@@ -361,6 +362,8 @@
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked(fullcheck = FALSE)
 	if(hijack_status == HIJACKED && !fullcheck) //Don't even bother if it was done via computer.
+		return TRUE
+	if(SSshuttle.emergency.aihacked)
 		return TRUE
 	for(var/mob/living/player in GLOB.player_list)
 		if(!player.mind)
