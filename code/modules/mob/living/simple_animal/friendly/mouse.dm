@@ -36,7 +36,7 @@
 	holder_type = /obj/item/holder/mouse
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
-	var/chew_probability = 1
+	var/chew_probability = 100
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
