@@ -504,10 +504,11 @@ SUBSYSTEM_DEF(air)
 	SHOULD_NOT_SLEEP(TRUE)
 
 	if(is_synchronous)
+		var/was_safe = SSair.in_milla_safe_code
 		SSair.in_milla_safe_code = TRUE
 		// This is one of two intended places to call this otherwise-unsafe proc.
 		CB.private_unsafe_invoke()
-		SSair.in_milla_safe_code = FALSE
+		SSair.in_milla_safe_code = was_safe
 		return
 
 	waiting_for_sync += CB
