@@ -11,29 +11,35 @@
 /area/shuttle/escape)
 "af" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ai" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ak" = (
 /obj/machinery/computer/station_alert,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "al" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "am" = (
@@ -41,11 +47,13 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "an" = (
 /obj/structure/table/wood/poker,
 /obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ao" = (
@@ -55,22 +63,26 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "aq" = (
 /obj/machinery/computer/robotics{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ar" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "as" = (
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "av" = (
@@ -78,6 +90,7 @@
 	name = "Escape Shuttle Cockpit"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "aw" = (
@@ -87,6 +100,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ax" = (
@@ -98,21 +112,25 @@
 	},
 /obj/structure/chair,
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "az" = (
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
 "aA" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
 "aB" = (
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aC" = (
@@ -123,10 +141,12 @@
 	dir = 1
 	},
 /obj/structure/musician/piano,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/chair/stool,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aE" = (
@@ -139,9 +159,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aF" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aG" = (
@@ -149,9 +171,11 @@
 	name = "Escape Shuttle Cell"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aI" = (
@@ -170,23 +194,27 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/chair,
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aM" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
 "aN" = (
 /obj/structure/table/wood,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -209,11 +237,13 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aP" = (
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -222,6 +252,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -246,12 +277,14 @@
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/drinks/shaker,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
 "aV" = (
 /obj/structure/chair/wood/wings,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aW" = (
@@ -259,6 +292,7 @@
 /obj/machinery/chem_dispenser/beer{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -267,10 +301,12 @@
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aY" = (
 /obj/structure/table/wood/poker,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aZ" = (
@@ -278,6 +314,7 @@
 /obj/machinery/chem_dispenser/soda{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -285,12 +322,14 @@
 "bb" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "bc" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "bd" = (
@@ -298,6 +337,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/drinks/shaker,
 /obj/item/clothing/mask/cigarette/cigar,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -306,6 +346,7 @@
 /obj/structure/chair/wood/wings{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "bf" = (
@@ -315,6 +356,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -324,6 +366,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -332,6 +375,7 @@
 /obj/machinery/door/airlock{
 	name = "Toilet"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -340,9 +384,11 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bo" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -353,6 +399,7 @@
 	},
 /obj/machinery/shower,
 /obj/structure/curtain/open/shower,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -360,11 +407,13 @@
 "bq" = (
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
 "br" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bs" = (
@@ -374,12 +423,14 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bt" = (
 /obj/machinery/door/airlock{
 	name = "Unit 1"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -388,6 +439,7 @@
 /obj/machinery/door/airlock{
 	name = "Unit 2"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -396,6 +448,7 @@
 /obj/machinery/door/airlock{
 	name = "Unit 3"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -407,6 +460,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "by" = (
@@ -415,6 +469,7 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bz" = (
@@ -422,18 +477,21 @@
 	dir = 4
 	},
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/shuttle/escape)
 "bA" = (
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/shuttle/escape)
 "bB" = (
 /obj/machinery/recharge_station,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -443,10 +501,12 @@
 	dir = 1;
 	icon_state = "sleeper"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bD" = (
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bG" = (
@@ -467,10 +527,20 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"eV" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/escape)
+"oN" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "Jz" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -513,7 +583,7 @@ ab
 aw
 aE
 aF
-ab
+eV
 aA
 aH
 aX
@@ -521,7 +591,7 @@ aB
 aX
 aH
 aA
-ab
+eV
 bo
 bt
 bz
@@ -539,7 +609,7 @@ ab
 ax
 aF
 aF
-ab
+eV
 aA
 aV
 aY
@@ -547,10 +617,10 @@ bb
 aY
 be
 aA
-ab
+eV
 bo
-ab
-ab
+eV
+eV
 bG
 bL
 "}
@@ -561,11 +631,11 @@ ab
 ac
 ab
 aq
-ab
+eV
 aK
 aF
 aJ
-ab
+eV
 aA
 aV
 aY
@@ -587,11 +657,11 @@ ab
 ak
 ai
 ar
-ab
+eV
 aK
 aF
 aJ
-ab
+eV
 aA
 aH
 aH
@@ -599,10 +669,10 @@ aH
 aH
 aH
 aA
-ab
+eV
 bo
-ab
-ab
+eV
+eV
 bG
 bL
 "}
@@ -613,11 +683,11 @@ ah
 ai
 al
 al
-ab
-ac
+eV
+oN
 aG
-ac
-ac
+oN
+oN
 aA
 aA
 aA
@@ -625,7 +695,7 @@ aA
 aA
 aA
 bh
-ab
+eV
 bo
 bw
 bA
@@ -651,9 +721,9 @@ aA
 aA
 aA
 aA
-ab
+eV
 bp
-ab
+eV
 bB
 ab
 aa
@@ -665,7 +735,7 @@ aj
 ai
 al
 as
-ab
+eV
 az
 aA
 Jz
@@ -677,10 +747,10 @@ Jz
 Jz
 az
 bh
-ab
-ab
-ab
-ab
+eV
+eV
+eV
+eV
 ab
 ab
 "}
@@ -691,7 +761,7 @@ ab
 am
 ao
 al
-ab
+eV
 aA
 aA
 aN
@@ -703,7 +773,7 @@ aN
 aN
 aM
 aA
-ac
+oN
 aO
 bx
 bC
@@ -717,7 +787,7 @@ ab
 ac
 ab
 ar
-ab
+eV
 aB
 aH
 bq
@@ -755,7 +825,7 @@ aA
 aN
 aM
 aA
-ac
+oN
 br
 br
 bC
@@ -781,7 +851,7 @@ bd
 aN
 bf
 aA
-ac
+oN
 bs
 by
 bD

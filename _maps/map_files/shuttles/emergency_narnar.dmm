@@ -13,29 +13,35 @@
 /area/shuttle/escape)
 "ad" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ae" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "af" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ag" = (
 /obj/machinery/computer/communications,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/station_alert,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aj" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ak" = (
@@ -43,6 +49,7 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "al" = (
@@ -52,6 +59,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "am" = (
@@ -61,22 +69,26 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "an" = (
 /obj/machinery/computer/robotics{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ao" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ap" = (
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ar" = (
@@ -91,6 +103,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "at" = (
@@ -105,6 +118,7 @@
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "au" = (
@@ -115,10 +129,12 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "av" = (
 /obj/item/flag/cult,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aw" = (
@@ -128,6 +144,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ax" = (
@@ -141,20 +158,24 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ay" = (
 /obj/machinery/door/airlock/cult/friendly,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "az" = (
 /obj/structure/cult/altar,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aA" = (
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aB" = (
@@ -165,6 +186,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aC" = (
@@ -179,6 +201,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aE" = (
@@ -194,6 +217,7 @@
 /area/shuttle/escape)
 "aF" = (
 /obj/effect/rune,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aG" = (
@@ -205,14 +229,17 @@
 	dir = 8
 	},
 /obj/item/flag/cult,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aH" = (
 /obj/item/candle/eternal,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aI" = (
 /obj/effect/decal/cleanable/blood/writing,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aJ" = (
@@ -222,28 +249,34 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aK" = (
 /obj/effect/rune,
 /mob/living/simple_animal/hostile/construct/wraith,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aL" = (
 /mob/living/simple_animal/hostile/construct/armoured,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aM" = (
 /obj/effect/decal/cleanable/blood/innards,
 /obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aN" = (
 /mob/living/simple_animal/hostile/construct/builder,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aO" = (
 /mob/living/simple_animal/hostile/construct/behemoth,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aP" = (
@@ -253,11 +286,13 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aQ" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/blood/writing,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aS" = (
@@ -265,6 +300,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aU" = (
@@ -275,10 +311,12 @@
 /area/shuttle/escape)
 "aV" = (
 /mob/living/simple_animal/hostile/construct/harvester,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aW" = (
 /obj/structure/dresser,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aX" = (
@@ -299,39 +337,47 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aY" = (
 /obj/effect/decal/cleanable/blood/footprints,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aZ" = (
 /obj/structure/showcase/horrific_experiment,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bc" = (
 /obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bd" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "be" = (
 /obj/structure/table/wood,
 /obj/item/tome,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bf" = (
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bg" = (
@@ -340,6 +386,7 @@
 	icon_state = "sleeper"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bh" = (
@@ -361,6 +408,22 @@
 "bj" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"oG" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/cult,
+/area/shuttle/escape)
+"Bg" = (
+/obj/machinery/door/airlock/cult/friendly,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"Om" = (
+/obj/effect/spawner/window/reinforced{
+	color = "red"
+	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -400,7 +463,7 @@ ab
 as
 ax
 aj
-ab
+oG
 aj
 aG
 aj
@@ -408,7 +471,7 @@ aj
 aj
 aP
 aj
-ab
+oG
 aj
 aj
 aj
@@ -426,7 +489,7 @@ ab
 at
 aj
 aB
-ab
+oG
 aj
 aj
 aj
@@ -434,7 +497,7 @@ aj
 aj
 aj
 aj
-ab
+oG
 aj
 aj
 aj
@@ -448,11 +511,11 @@ ab
 ac
 ab
 an
-ab
+oG
 au
 aj
 aC
-ab
+oG
 aj
 aj
 aj
@@ -460,7 +523,7 @@ aF
 aj
 aj
 aj
-ar
+Bg
 aj
 aj
 be
@@ -474,11 +537,11 @@ ab
 ah
 al
 ao
-ab
-ac
+oG
+Om
 ay
-ac
-ac
+Om
+Om
 aj
 aF
 aH
@@ -486,7 +549,7 @@ aI
 aH
 aF
 aj
-ab
+oG
 aW
 bb
 bf
@@ -500,7 +563,7 @@ ae
 af
 aj
 aj
-ab
+oG
 av
 aj
 aj
@@ -526,7 +589,7 @@ af
 aj
 aj
 aj
-ar
+Bg
 aj
 aj
 aj
@@ -552,7 +615,7 @@ ag
 af
 aj
 ap
-ab
+oG
 av
 aj
 aj
@@ -578,7 +641,7 @@ ab
 ak
 am
 aj
-ab
+oG
 aj
 aj
 aj
@@ -590,7 +653,7 @@ aI
 aH
 aF
 aj
-ac
+Om
 aX
 bc
 bg
@@ -604,7 +667,7 @@ ab
 ac
 ab
 ao
-ab
+oG
 aj
 aj
 aj
@@ -616,7 +679,7 @@ aF
 aj
 aj
 aj
-ar
+Bg
 aY
 bc
 bc
@@ -642,7 +705,7 @@ aj
 aj
 aj
 aj
-ac
+Om
 aY
 bd
 bd
@@ -668,7 +731,7 @@ aj
 aj
 aj
 aj
-ac
+Om
 aZ
 aZ
 aZ

@@ -17,6 +17,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "af" = (
@@ -24,27 +25,33 @@
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ag" = (
 /obj/machinery/computer/robotics,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/crew,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ai" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ak" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "al" = (
@@ -54,11 +61,13 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ap" = (
 /obj/structure/table/wood,
 /obj/item/storage/toolbox/mechanical,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ar" = (
@@ -69,6 +78,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "at" = (
@@ -79,6 +89,7 @@
 	pixel_y = -60
 	},
 /obj/structure/flora/rock/pile/largejungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ax" = (
@@ -88,18 +99,21 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ay" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "az" = (
 /obj/structure/chair/sofa/bamboo/right{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -107,6 +121,7 @@
 "aA" = (
 /obj/structure/flora/grass/jungle,
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aB" = (
@@ -114,16 +129,19 @@
 	dir = 4
 	},
 /obj/structure/flora/grass/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aD" = (
 /obj/machinery/status_display,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/wood,
 /area/shuttle/escape)
 "aF" = (
@@ -131,16 +149,19 @@
 	name = "Escape Shuttle Cockpit"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
 /area/shuttle/escape)
 "aH" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -151,6 +172,7 @@
 	on = 1
 	},
 /obj/structure/chair/sofa/bamboo,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -158,24 +180,28 @@
 "aJ" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
 /area/shuttle/escape)
 "aL" = (
 /obj/structure/bonfire/lit/dense,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aN" = (
 /obj/structure/chair/sofa/bamboo/left{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
 /area/shuttle/escape)
 "aO" = (
 /obj/structure/chair/sofa/bamboo/right,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -188,6 +214,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool/bamboo,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aS" = (
@@ -196,15 +223,18 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aT" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/chair/sofa/bamboo/right,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aV" = (
@@ -217,6 +247,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aW" = (
@@ -227,12 +258,14 @@
 /obj/structure/chair/sofa/bamboo/left{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/stool/bamboo,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -240,14 +273,17 @@
 "aY" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aZ" = (
 /obj/structure/closet/firecloset,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bg" = (
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bi" = (
@@ -263,6 +299,7 @@
 	name = "Escape Shuttle Cell"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -270,6 +307,7 @@
 "bn" = (
 /obj/structure/flora/junglebush,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bo" = (
@@ -284,6 +322,7 @@
 "bp" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -309,11 +348,13 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "by" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bz" = (
@@ -322,6 +363,7 @@
 	},
 /obj/structure/flora/junglebush,
 /mob/living/simple_animal/hostile/retaliate/goat,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bA" = (
@@ -332,12 +374,14 @@
 	dir = 1
 	},
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bB" = (
 /obj/structure/chair/sofa/bamboo/left{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bD" = (
@@ -366,14 +410,17 @@
 	dir = 1
 	},
 /obj/structure/flora/rock/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bG" = (
 /obj/machinery/mech_bay_recharge_port,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bH" = (
 /obj/machinery/computer/mech_bay_power_console,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bI" = (
@@ -388,18 +435,21 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bJ" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bK" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bL" = (
@@ -407,37 +457,45 @@
 	pixel_x = -32
 	},
 /obj/structure/flora/junglebush,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bM" = (
 /obj/structure/flora/rock/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bN" = (
 /obj/structure/flora/rock/pile/largejungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bO" = (
 /obj/structure/flora/junglebush,
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bQ" = (
 /obj/structure/chair/sofa/bamboo/left{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bS" = (
 /obj/structure/mineral_door/wood,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bV" = (
 /obj/structure/reagent_dispensers/watertank,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bX" = (
 /obj/structure/flora/tree/jungle/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bZ" = (
@@ -447,6 +505,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ca" = (
@@ -458,10 +517,12 @@
 /obj/item/crowbar,
 /obj/item/wrench,
 /obj/item/radio,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cc" = (
 /obj/structure/flora/tree/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cd" = (
@@ -470,6 +531,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ce" = (
@@ -483,6 +545,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cf" = (
@@ -490,6 +553,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ci" = (
@@ -504,6 +568,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cj" = (
@@ -511,6 +576,7 @@
 	dir = 8
 	},
 /obj/structure/flora/junglebush,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ck" = (
@@ -520,30 +586,36 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cl" = (
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cm" = (
 /obj/structure/sign/greencross,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/wood,
 /area/shuttle/escape)
 "co" = (
 /obj/machinery/sleeper{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cq" = (
 /obj/machinery/sleeper,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cr" = (
 /obj/structure/chair/sofa/bamboo{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ct" = (
@@ -555,18 +627,22 @@
 	},
 /obj/structure/flora/junglebush,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cu" = (
 /obj/structure/flora/junglebush,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cv" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cw" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cx" = (
@@ -574,10 +650,12 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cy" = (
 /obj/structure/flora/grass/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cz" = (
@@ -591,6 +669,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cA" = (
@@ -600,6 +679,7 @@
 /obj/structure/chair/sofa/bamboo/right{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cB" = (
@@ -609,20 +689,24 @@
 	},
 /obj/item/reagent_containers/drinks/mug/med,
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cC" = (
 /obj/item/flag/med,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cD" = (
 /obj/structure/table/wood,
 /obj/item/storage/backpack/medic,
 /obj/item/storage/belt/medical,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cE" = (
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cF" = (
@@ -633,6 +717,7 @@
 	pixel_y = -30
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cG" = (
@@ -640,6 +725,7 @@
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cH" = (
@@ -656,10 +742,12 @@
 	dir = 1
 	},
 /obj/structure/flora/junglebush,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "eP" = (
 /obj/structure/chair/sofa/bamboo,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "fl" = (
@@ -667,6 +755,7 @@
 	dir = 8
 	},
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "fM" = (
@@ -674,38 +763,45 @@
 	dir = 8
 	},
 /obj/structure/flora/rock/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ga" = (
 /obj/structure/flora/junglebush/large,
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ia" = (
 /obj/structure/flora/grass/jungle,
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "mC" = (
 /obj/structure/chair/sofa/bamboo{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "mM" = (
 /obj/structure/chair/sofa/bamboo/right{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "mP" = (
 /obj/structure/chair/sofa/bamboo/left{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "oA" = (
 /obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -718,76 +814,91 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/retaliate/goat,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "qH" = (
 /obj/structure/chair/sofa/bamboo/left,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "sL" = (
 /obj/structure/chair/sofa/bamboo/right{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "tc" = (
 /obj/structure/bonfire/lit/dense,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
 /area/shuttle/escape)
 "un" = (
 /obj/structure/table/wood,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "vz" = (
 /obj/structure/flora/junglebush,
 /obj/structure/chair/stool/bamboo,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "xd" = (
 /obj/structure/flora/junglebush,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Av" = (
 /mob/living/simple_animal/bunny,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "BA" = (
 /obj/structure/flora/junglebush,
 /mob/living/carbon/human/monkey,
 /obj/structure/flora/rock/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "GI" = (
 /mob/living/carbon/human/monkey,
 /obj/structure/flora/rock/jungle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Hi" = (
 /obj/structure/flora/rock/jungle,
 /obj/structure/mineral_door/wood,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "HY" = (
 /obj/structure/flora/rock/pile/largejungle,
 /obj/structure/flora/junglebush,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "IH" = (
 /obj/structure/flora/rock/jungle,
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "IK" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/chair/stool/bamboo,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Ku" = (
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -795,12 +906,14 @@
 "KD" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Ly" = (
 /obj/structure/chair/sofa/bamboo/right{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "LH" = (
@@ -808,10 +921,12 @@
 	dir = 8
 	},
 /mob/living/simple_animal/bunny,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "LW" = (
 /obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Mb" = (
@@ -823,10 +938,12 @@
 /area/shuttle/escape)
 "NA" = (
 /obj/structure/flora/junglebush/large,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Ok" = (
 /obj/structure/chair/sofa/bamboo/left,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -835,6 +952,7 @@
 /obj/structure/chair/sofa/bamboo{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Rr" = (
@@ -842,29 +960,38 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Sy" = (
 /obj/structure/flora/tree/jungle/small,
 /mob/living/carbon/human/monkey,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "SO" = (
 /obj/structure/flora/grass/jungle,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "TY" = (
 /obj/structure/chair/sofa/bamboo/right{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
 /area/shuttle/escape)
+"Yg" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/wood,
+/area/shuttle/escape)
 "YY" = (
 /obj/structure/flora/junglebush/large,
 /obj/structure/flora/junglebush,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 
@@ -910,7 +1037,7 @@ aG
 aW
 az
 aH
-ab
+Yg
 bM
 bJ
 mP
@@ -1029,12 +1156,12 @@ ae
 aY
 ar
 ay
-ab
+Yg
 aJ
 aX
 aH
 bp
-ab
+Yg
 cy
 IH
 bM
@@ -1060,12 +1187,12 @@ af
 bO
 mM
 bQ
-ab
-ab
+Yg
+Yg
 oA
 bj
-ab
-ab
+Yg
+Yg
 bF
 cu
 bM
@@ -1215,12 +1342,12 @@ ak
 cu
 mP
 aB
-ab
-ab
+Yg
+Yg
 bS
 bS
-ab
-ab
+Yg
+Yg
 aV
 bK
 cu
@@ -1230,10 +1357,10 @@ OB
 OB
 ck
 aZ
-ab
+Yg
 bS
 Hi
-ab
+Yg
 pe
 aV
 ac
@@ -1246,27 +1373,27 @@ al
 ap
 ax
 aC
-ab
+Yg
 aS
 cu
 cy
 by
-ab
-ab
-ab
+Yg
+Yg
+Yg
 bS
 bS
-ab
-ab
-ab
-ab
+Yg
+Yg
+Yg
+Yg
 cm
-ab
+Yg
 cu
 cy
-ab
+Yg
 aD
-ab
+Yg
 ab
 bu
 bw
@@ -1282,7 +1409,7 @@ aU
 GI
 cv
 bz
-ab
+Yg
 bG
 bL
 cy
@@ -1290,7 +1417,7 @@ cu
 bZ
 cd
 cf
-ab
+Yg
 co
 Rr
 cy
@@ -1313,7 +1440,7 @@ eP
 HY
 bM
 bA
-ab
+Yg
 bn
 bM
 cy
@@ -1344,7 +1471,7 @@ qH
 bM
 Sy
 Ly
-ab
+Yg
 bH
 bN
 cu
@@ -1375,7 +1502,7 @@ cH
 cv
 cu
 aV
-ab
+Yg
 bI
 bO
 bV

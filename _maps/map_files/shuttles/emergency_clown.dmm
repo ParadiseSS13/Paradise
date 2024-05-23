@@ -11,32 +11,38 @@
 /area/shuttle/escape)
 "af" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ai" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ak" = (
 /obj/machinery/computer/station_alert,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "am" = (
 /obj/item/toy/snappop/phoenix,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46,6 +52,7 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
@@ -55,10 +62,12 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ap" = (
 /obj/item/toy/snappop,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -70,18 +79,21 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "as" = (
 /obj/machinery/computer/robotics{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "at" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -89,25 +101,30 @@
 "au" = (
 /obj/item/toy/snappop/phoenix,
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "av" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "aw" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "az" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "aB" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aC" = (
@@ -117,11 +134,13 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aF" = (
@@ -132,6 +151,7 @@
 	dir = 1
 	},
 /obj/item/toy/snappop/phoenix,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -140,6 +160,7 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
@@ -149,9 +170,11 @@
 	name = "greentext"
 	},
 /obj/item/reagent_containers/condiment/saltshaker,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aI" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/indestructible/fakedoor,
 /area/shuttle/escape)
 "aK" = (
@@ -160,6 +183,7 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aL" = (
@@ -167,6 +191,7 @@
 	dir = 4;
 	pixel_x = 28
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aP" = (
@@ -195,12 +220,14 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aR" = (
 /obj/structure/bed,
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aS" = (
@@ -216,6 +243,7 @@
 	dir = 8
 	},
 /obj/item/multitool/ai_detect,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aT" = (
@@ -233,12 +261,14 @@
 	},
 /obj/machinery/light/spot,
 /obj/item/toy/snappop/phoenix,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "aV" = (
 /obj/structure/noticeboard,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "aW" = (
@@ -247,6 +277,7 @@
 	hackProof = 1;
 	name = "Shuttle Cargo Hatch"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -264,12 +295,14 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/economy/vending/clothing,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bd" = (
@@ -290,6 +323,7 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "be" = (
@@ -299,16 +333,19 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bf" = (
 /obj/structure/closet/cardboard,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bh" = (
@@ -318,6 +355,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bi" = (
@@ -326,19 +364,23 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bj" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/toy/sword,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bk" = (
 /obj/machinery/economy/vending/autodrobe,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bl" = (
 /obj/machinery/recharge_station,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bm" = (
@@ -346,6 +388,7 @@
 	dir = 1;
 	icon_state = "sleeper"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bo" = (
@@ -372,8 +415,22 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"mE" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"mP" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/indestructible/syndicate,
+/area/shuttle/escape)
 "tH" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/indestructible/opsglass,
+/area/shuttle/escape)
+"BI" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,
@@ -382,6 +439,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 
@@ -430,7 +488,7 @@ aD
 aD
 aS
 am
-ab
+BI
 aw
 bf
 bj
@@ -470,7 +528,7 @@ ab
 ac
 ab
 as
-Dr
+mP
 aB
 aB
 aL
@@ -496,19 +554,19 @@ ab
 ak
 ao
 at
-Dr
+mP
 tH
 aI
 tH
 tH
 am
-ac
-ac
-ac
-ac
+mE
+mE
+mE
+mE
 am
 am
-ab
+BI
 bc
 bg
 bl
@@ -522,7 +580,7 @@ ah
 ai
 am
 au
-ab
+BI
 aD
 aw
 aD
@@ -574,7 +632,7 @@ aj
 ai
 ap
 au
-ab
+BI
 aD
 aD
 aD
@@ -600,19 +658,19 @@ ab
 an
 aq
 av
-ab
-ac
-ac
-ac
-ac
+BI
+mE
+mE
+mE
+mE
 am
-ac
-ac
-ac
-ac
+mE
+mE
+mE
+mE
 am
 am
-ac
+mE
 bd
 bh
 bm
@@ -626,7 +684,7 @@ ab
 ac
 ab
 Uo
-ab
+BI
 aD
 aD
 aD
@@ -664,7 +722,7 @@ am
 am
 am
 am
-ac
+mE
 aw
 aw
 bm
@@ -690,7 +748,7 @@ aD
 aD
 am
 am
-ac
+mE
 be
 bi
 aw

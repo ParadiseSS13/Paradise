@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "af" = (
 /obj/structure/bed/dogbed,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -13,6 +14,7 @@
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "aK" = (
@@ -25,12 +27,14 @@
 	pixel_x = -1;
 	pixel_y = -3
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
 "aZ" = (
 /obj/effect/turf_decal/stripes/red/corner,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bh" = (
@@ -39,6 +43,7 @@
 	dir = 10
 	},
 /obj/structure/window/plasmareinforced,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "bD" = (
@@ -46,6 +51,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -54,6 +60,7 @@
 "bH" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/restraints/handcuffs,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -66,6 +73,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "cv" = (
@@ -75,6 +83,7 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/hyper,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -85,9 +94,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "cH" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -96,13 +107,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "cX" = (
 /obj/structure/window/full/plasmareinforced,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "dw" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -113,6 +127,7 @@
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -120,6 +135,7 @@
 "eJ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "fb" = (
@@ -129,11 +145,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "fi" = (
 /obj/machinery/recharger,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "fE" = (
@@ -154,6 +172,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "ge" = (
@@ -162,6 +181,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -172,15 +192,18 @@
 /obj/machinery/atmospherics/trinary/filter/shadow{
 	invisibility = 99
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "gF" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "gG" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -202,15 +225,18 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "hz" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/dispenser,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ix" = (
 /obj/structure/closet/emcloset,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -223,6 +249,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "jB" = (
@@ -232,22 +259,31 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "jR" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/o2,
 /area/shuttle/escape)
 "kx" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"kD" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
 "kU" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "kY" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/storage/surgical_tray,
 /obj/item/stack/nanopaste,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -255,6 +291,7 @@
 /area/shuttle/escape)
 "ll" = (
 /obj/machinery/computer/security,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -267,11 +304,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "lw" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -282,6 +321,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -291,10 +331,12 @@
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "mw" = (
 /obj/machinery/sleeper,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -310,7 +352,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"mA" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "nq" = (
 /obj/effect/turf_decal/stripes/red/line{
@@ -319,12 +366,14 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "nL" = (
 /obj/machinery/computer/crew{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -337,6 +386,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ow" = (
@@ -346,10 +396,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "oK" = (
 /mob/living/simple_animal/bot/medbot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -358,6 +410,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "pi" = (
@@ -365,9 +418,11 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "qk" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -379,6 +434,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -388,12 +444,14 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "rm" = (
 /obj/machinery/computer/emergency_shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -401,6 +459,7 @@
 /area/shuttle/escape)
 "rS" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -410,12 +469,14 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "sE" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -426,19 +487,28 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
+/area/shuttle/escape)
+"ul" = (
+/obj/structure/window/full/plastitanium,
+/obj/structure/grille,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "uu" = (
 /obj/structure/window/full/plasmareinforced,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "uA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -449,6 +519,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "uL" = (
@@ -457,6 +528,7 @@
 	name = "Cockpit"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "uW" = (
@@ -466,10 +538,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "vv" = (
 /obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "vw" = (
@@ -482,11 +556,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "vx" = (
 /obj/item/defibrillator/loaded,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -504,6 +580,7 @@
 "wj" = (
 /obj/machinery/space_heater,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -515,6 +592,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "wF" = (
@@ -527,6 +605,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "xy" = (
@@ -537,6 +616,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "yg" = (
@@ -546,6 +626,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "yQ" = (
@@ -558,21 +639,25 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "yU" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
 /area/shuttle/escape)
 "zj" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "zs" = (
 /obj/structure/reagent_dispensers/fueltank,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -583,16 +668,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "zI" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ah" = (
 /obj/structure/reagent_dispensers/watertank,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -603,6 +691,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -610,10 +699,12 @@
 /area/shuttle/escape)
 "AS" = (
 /obj/effect/turf_decal/stripes/white/line,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Bm" = (
 /obj/machinery/sleeper,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -622,6 +713,7 @@
 "Bu" = (
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/window/plasmareinforced,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "BB" = (
@@ -633,6 +725,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -640,6 +733,7 @@
 /area/shuttle/escape)
 "BJ" = (
 /mob/living/simple_animal/bot/secbot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Cw" = (
@@ -647,6 +741,7 @@
 /area/template_noop)
 "CD" = (
 /obj/machinery/igniter/shadow,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "CK" = (
@@ -667,6 +762,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Dz" = (
@@ -675,6 +771,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -684,16 +781,19 @@
 /obj/structure/window/full/plastitanium,
 /obj/machinery/door/firedoor/heavy,
 /obj/structure/grille,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "DY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "DZ" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "EM" = (
@@ -703,12 +803,14 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Fn" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -716,9 +818,11 @@
 "Fu" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Fz" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -726,6 +830,7 @@
 /area/shuttle/escape)
 "FT" = (
 /obj/structure/closet/crate/freezer/iv_storage,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -733,6 +838,7 @@
 "FW" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/effect/turf_decal/delivery/red,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Gp" = (
@@ -740,6 +846,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Gs" = (
@@ -747,6 +854,7 @@
 	dir = 4;
 	invisibility = 99
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "Gx" = (
@@ -754,6 +862,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -764,6 +873,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -777,12 +887,14 @@
 	name = "south bump";
 	pixel_y = -30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "GI" = (
 /obj/machinery/computer/station_alert{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -793,6 +905,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -801,6 +914,7 @@
 "GR" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Hh" = (
@@ -809,6 +923,7 @@
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/machinery/alarm/directional/north,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -820,6 +935,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -832,6 +948,7 @@
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "IG" = (
@@ -840,6 +957,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "IR" = (
@@ -848,6 +966,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Jh" = (
@@ -855,6 +974,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -862,6 +982,7 @@
 /area/shuttle/escape)
 "Jw" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -885,11 +1006,13 @@
 /obj/structure/decorative_structures/flammable/lava_land_display{
 	pixel_x = 12
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Lv" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "LA" = (
@@ -903,6 +1026,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "LI" = (
@@ -910,11 +1034,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "LJ" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/megaphone,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -924,6 +1050,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -934,11 +1061,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Nd" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/box/white,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "NI" = (
@@ -946,6 +1075,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "NO" = (
@@ -954,6 +1084,7 @@
 	name = "Escape Shuttle Brig"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Oe" = (
@@ -964,9 +1095,11 @@
 	dir = 1
 	},
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "OL" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -974,12 +1107,14 @@
 /area/shuttle/escape)
 "OU" = (
 /obj/machinery/space_heater,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
 "OX" = (
 /obj/structure/closet/firecloset,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -991,6 +1126,7 @@
 /area/shuttle/escape)
 "Qj" = (
 /obj/structure/closet/emcloset,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -1000,6 +1136,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -1010,12 +1147,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Rk" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "RL" = (
@@ -1025,10 +1164,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "RS" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -1036,6 +1177,7 @@
 "RV" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Sb" = (
@@ -1046,6 +1188,7 @@
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1057,6 +1200,7 @@
 	dir = 6
 	},
 /obj/structure/window/plasmareinforced,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "So" = (
@@ -1064,6 +1208,7 @@
 /obj/item/healthanalyzer,
 /obj/machinery/light,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -1076,6 +1221,7 @@
 /obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -1085,6 +1231,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1098,6 +1245,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "US" = (
@@ -1110,6 +1258,7 @@
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/brute,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -1119,6 +1268,7 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -1132,6 +1282,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Wv" = (
@@ -1139,6 +1290,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Wy" = (
@@ -1147,9 +1299,11 @@
 	},
 /obj/machinery/door/firedoor/heavy,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "WQ" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1159,6 +1313,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/meter,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "Xp" = (
@@ -1182,15 +1337,18 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Yb" = (
 /obj/structure/window/full/plasmareinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Yc" = (
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -1201,10 +1359,12 @@
 	name = "Cockpit"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "YD" = (
 /obj/machinery/economy/vending/medical,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -1217,11 +1377,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Zc" = (
 /obj/item/surgical_drapes,
 /obj/machinery/optable,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -1230,6 +1392,7 @@
 "Zk" = (
 /obj/item/storage/box/handcuffs,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Zq" = (
@@ -1242,6 +1405,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ZN" = (
@@ -1251,6 +1415,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 
@@ -1406,17 +1571,17 @@ US
 "}
 (11,1,1) = {"
 vU
-vU
+mA
 Wy
-vU
+mA
 DN
 DN
-vU
+mA
 DN
 DN
-vU
+mA
 Wy
-vU
+mA
 vU
 "}
 (12,1,1) = {"
@@ -1453,13 +1618,13 @@ US
 vU
 GK
 Rk
-XA
-US
-US
-US
-US
-US
-XA
+kD
+ul
+ul
+ul
+ul
+ul
+kD
 AS
 lD
 vU
@@ -1468,13 +1633,13 @@ vU
 US
 Jw
 Rk
-vU
+mA
 kx
 gF
 Zk
 gF
 zI
-vU
+mA
 AS
 MP
 vU
@@ -1483,13 +1648,13 @@ vU
 US
 Jw
 Rk
-vU
+mA
 kx
 gF
 fi
 gF
 zI
-vU
+mA
 AS
 MP
 US
@@ -1498,13 +1663,13 @@ US
 PX
 AA
 Rk
-vU
+mA
 cF
 gF
 BJ
 gF
 uF
-vU
+mA
 AS
 MP
 vU
@@ -1513,13 +1678,13 @@ vU
 vU
 bD
 Rk
-vU
+mA
 IG
 gF
 gF
 gF
 GC
-vU
+mA
 AS
 MP
 vU
@@ -1528,13 +1693,13 @@ vU
 PX
 AA
 Ux
-vU
+mA
 kx
 gF
 gF
 gF
 zI
-vU
+mA
 IR
 MP
 US
@@ -1543,13 +1708,13 @@ US
 US
 Qj
 Rk
-XA
-US
-US
+kD
+ul
+ul
 NO
-US
-US
-XA
+ul
+ul
+kD
 AS
 lD
 vU
@@ -1603,13 +1768,13 @@ US
 US
 OX
 Rk
-XA
-US
-US
+kD
+ul
+ul
 ee
-US
-US
-XA
+ul
+ul
+kD
 AS
 lD
 vU
@@ -1618,13 +1783,13 @@ vU
 JM
 AA
 Rk
-vU
+mA
 vx
 Fz
 WQ
 dw
 Vg
-vU
+mA
 AS
 MP
 US
@@ -1633,13 +1798,13 @@ US
 vU
 bD
 Rk
-vU
+mA
 qk
 WQ
 WQ
 WQ
 FT
-vU
+mA
 AS
 MP
 US
@@ -1648,13 +1813,13 @@ US
 PX
 AA
 Rk
-vU
+mA
 Sb
 WQ
 oK
 WQ
 So
-vU
+mA
 AS
 MP
 vU
@@ -1663,13 +1828,13 @@ vU
 US
 Jw
 Rk
-vU
+mA
 Jh
 WQ
 WQ
 WQ
 Gx
-vU
+mA
 AS
 MP
 US
@@ -1678,13 +1843,13 @@ US
 US
 Jw
 Ux
-vU
+mA
 Zc
 kY
 mw
 YD
 Bm
-vU
+mA
 IR
 MP
 US
@@ -1693,13 +1858,13 @@ US
 vU
 GK
 Rk
-XA
-US
-US
-US
-US
-US
-XA
+kD
+ul
+ul
+ul
+ul
+ul
+kD
 AS
 lD
 vU
@@ -1737,15 +1902,15 @@ US
 (33,1,1) = {"
 vU
 vU
-US
-US
+ul
+ul
 uL
-vU
-vU
-vU
+mA
+mA
+mA
 Yq
-US
-US
+ul
+ul
 vU
 vU
 "}

@@ -306,6 +306,9 @@
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
 			continue
+		var/turf/T = get_turf(player)
+		if(!(T.flags & ACTUAL_ESCAPE_SHUTTLE_TURF))
+			continue
 		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints/them being golems
 			var/mob/living/carbon/human/H = player
 			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead

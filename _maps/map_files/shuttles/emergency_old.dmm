@@ -11,22 +11,26 @@
 /area/shuttle/escape)
 "af" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ai" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ak" = (
@@ -46,9 +50,11 @@
 /area/shuttle/escape)
 "al" = (
 /obj/machinery/computer/station_alert,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "an" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ao" = (
@@ -56,6 +62,7 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ap" = (
@@ -65,6 +72,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aq" = (
@@ -74,22 +82,26 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "as" = (
 /obj/machinery/computer/robotics{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "at" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "au" = (
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ay" = (
@@ -97,12 +109,14 @@
 	name = "Escape Shuttle Cockpit"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aB" = (
@@ -112,12 +126,14 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aC" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aE" = (
@@ -127,6 +143,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aG" = (
@@ -136,9 +153,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aI" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aL" = (
@@ -152,6 +171,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aM" = (
@@ -164,6 +184,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aN" = (
@@ -178,6 +199,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aQ" = (
@@ -185,6 +207,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/light/spot,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aT" = (
@@ -193,12 +216,14 @@
 	hackProof = 1;
 	name = "Shuttle Cargo Hatch"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aW" = (
@@ -212,23 +237,28 @@
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/closet/crate,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "aZ" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ba" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bb" = (
 /obj/structure/closet/cardboard,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bd" = (
@@ -238,6 +268,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "be" = (
@@ -246,16 +277,19 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bf" = (
 /obj/machinery/mech_bay_recharge_port,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bh" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bj" = (
@@ -281,6 +315,7 @@
 	name = "Escape Shuttle Cell"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ev" = (
@@ -288,6 +323,7 @@
 	dir = 1;
 	icon_state = "sleeper"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "iM" = (
@@ -308,12 +344,18 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"lg" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "lJ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "mk" = (
@@ -324,7 +366,13 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"nG" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "rj" = (
 /obj/machinery/economy/vending/wallmed{
@@ -333,17 +381,21 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "xo" = (
 /obj/machinery/recharge_station,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "zT" = (
 /obj/structure/noticeboard,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "DZ" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "Jw" = (
@@ -387,7 +439,7 @@ ab
 lJ
 aE
 ba
-ab
+lg
 an
 aL
 aA
@@ -395,7 +447,7 @@ aA
 aA
 aN
 an
-ab
+lg
 DZ
 bb
 bf
@@ -413,7 +465,7 @@ ab
 mk
 ba
 ba
-ab
+lg
 an
 an
 an
@@ -435,11 +487,11 @@ ab
 ac
 ab
 as
-ab
+lg
 aZ
 ba
 bh
-ab
+lg
 an
 aC
 aC
@@ -461,19 +513,19 @@ ab
 al
 ap
 at
-ab
+lg
 aZ
 ba
 bh
-ab
+lg
 an
-ac
-ac
-ac
-ac
+nG
+nG
+nG
+nG
 an
 an
-ab
+lg
 aX
 bc
 xo
@@ -487,11 +539,11 @@ ah
 ai
 an
 an
-ab
-ac
+lg
+nG
 db
-ac
-ac
+nG
+nG
 an
 aA
 aA
@@ -539,7 +591,7 @@ aj
 ai
 an
 au
-ab
+lg
 aC
 aC
 aC
@@ -565,19 +617,19 @@ ab
 ao
 aq
 an
-ab
-ac
-ac
-ac
-ac
+lg
+nG
+nG
+nG
+nG
 an
-ac
-ac
-ac
-ac
+nG
+nG
+nG
+nG
 an
 an
-ac
+nG
 iM
 bd
 ev
@@ -591,7 +643,7 @@ ab
 ac
 ab
 at
-ab
+lg
 aA
 aA
 aA
@@ -629,7 +681,7 @@ an
 an
 an
 an
-ac
+nG
 aI
 aI
 ev
@@ -655,7 +707,7 @@ aC
 aC
 an
 an
-ac
+nG
 rj
 be
 aI

@@ -234,6 +234,11 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_emptycourt)
+"aS" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "aT" = (
 /obj/structure/sign/poster/official/random,
 /turf/simulated/wall/indestructible/riveted,
@@ -288,6 +293,7 @@
 	},
 /area/holodeck/source_meetinghall)
 "bc" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -303,6 +309,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -1448,6 +1455,7 @@
 /area/wizard_station)
 "fy" = (
 /obj/machinery/sleeper,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -1525,6 +1533,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -2373,6 +2382,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ir" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -4807,6 +4817,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -4903,6 +4914,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -6509,6 +6521,7 @@
 /area/trader_station/sol)
 "we" = (
 /obj/item/flag/med,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -7983,6 +7996,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Cr" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -8490,6 +8504,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -8531,6 +8546,7 @@
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Ep" = (
@@ -8550,6 +8566,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -8570,6 +8587,7 @@
 /area/centcom/suppy)
 "Et" = (
 /obj/machinery/computer/robotics,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -8597,6 +8615,7 @@
 /area/centcom/specops)
 "Ew" = (
 /obj/machinery/computer/crew,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -8608,6 +8627,7 @@
 /area/centcom/suppy)
 "Ez" = (
 /obj/machinery/computer/emergency_shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -8615,6 +8635,7 @@
 /area/shuttle/escape)
 "EA" = (
 /obj/machinery/computer/communications,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -8627,12 +8648,14 @@
 "EE" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "EF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -8768,12 +8791,14 @@
 "Fn" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
 "Fo" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Fp" = (
@@ -8791,6 +8816,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Fr" = (
@@ -8859,6 +8885,7 @@
 "FB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -8909,6 +8936,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "FK" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -9103,6 +9131,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -9126,6 +9155,7 @@
 	},
 /obj/machinery/recharge_station,
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -9134,6 +9164,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "GA" = (
@@ -9143,6 +9174,7 @@
 	pixel_x = 29;
 	pixel_y = -60
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "GB" = (
@@ -9175,6 +9207,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "GJ" = (
@@ -9187,6 +9220,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -9356,6 +9390,7 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -9399,6 +9434,7 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -9634,6 +9670,7 @@
 /area/centcom/evac)
 "Ik" = (
 /obj/machinery/status_display,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "Il" = (
@@ -9654,6 +9691,7 @@
 	name = "Escape Shuttle Cockpit"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Ip" = (
@@ -9821,15 +9859,18 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "IS" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "IT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "IU" = (
@@ -9838,12 +9879,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
 	},
 /area/shuttle/escape)
 "IV" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -9883,6 +9926,7 @@
 	pixel_x = 32
 	},
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -9922,6 +9966,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -10001,6 +10046,7 @@
 /area/ghost_bar)
 "Jz" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -10051,6 +10097,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -10132,6 +10179,7 @@
 /obj/item/storage/backpack/medic,
 /obj/item/storage/belt/medical,
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -10296,6 +10344,7 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -10381,6 +10430,7 @@
 	pixel_y = -30
 	},
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -10611,6 +10661,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ly" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -10677,6 +10728,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "LL" = (
@@ -10693,17 +10745,20 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "LN" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "LO" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "LP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -10717,11 +10772,13 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "LR" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
 "LS" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -10740,6 +10797,7 @@
 	name = "Emergency Airlock Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "LV" = (
@@ -10755,6 +10813,7 @@
 	},
 /area/centcom/evac)
 "LZ" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -10767,11 +10826,13 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Mb" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/shuttle/escape)
 "Mc" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -11301,6 +11362,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NF" = (
@@ -11308,9 +11370,11 @@
 	name = "Escape Shuttle Cell"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NG" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11322,6 +11386,7 @@
 	},
 /area/ghost_bar)
 "NI" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -11351,6 +11416,7 @@
 	},
 /area/centcom/gamma)
 "NM" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -11428,6 +11494,7 @@
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
@@ -11636,6 +11703,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "OK" = (
@@ -11666,10 +11734,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "OO" = (
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11740,6 +11810,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -11752,6 +11823,7 @@
 /obj/structure/table,
 /obj/item/storage/firstaid,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -11764,6 +11836,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -11783,6 +11856,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -12055,6 +12129,7 @@
 	name = "Escape Shuttle Cockpit"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12226,6 +12301,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "QL" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "QM" = (
@@ -12256,6 +12332,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -12268,6 +12345,7 @@
 /area/holodeck/source_desert)
 "QR" = (
 /obj/machinery/mech_bay_recharge_port,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -12317,10 +12395,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
 "Rc" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
 "Re" = (
 /obj/machinery/computer/mech_bay_power_console,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Rf" = (
@@ -12336,6 +12416,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -12734,6 +12815,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "SG" = (
@@ -12744,6 +12826,7 @@
 /area/shuttle/administration)
 "SJ" = (
 /obj/item/kirbyplants,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "SK" = (
@@ -12761,22 +12844,26 @@
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
 "SP" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
 "SQ" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
 "ST" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -12981,6 +13068,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -13140,6 +13228,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -13202,6 +13291,7 @@
 "UF" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -13245,6 +13335,10 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"UR" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/escape)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -13455,6 +13549,7 @@
 	},
 /area/centcom/evac)
 "VM" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -13467,6 +13562,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -13475,6 +13571,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -13484,6 +13581,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/window/full/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "VS" = (
@@ -13500,9 +13598,11 @@
 /obj/machinery/door/airlock/titanium/glass{
 	name = "Shuttle Cargo Hatch"
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "VU" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -13558,6 +13658,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Wh" = (
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -13601,6 +13702,7 @@
 /area/centcom/specops)
 "Wq" = (
 /obj/structure/reagent_dispensers/watertank,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -13970,6 +14072,7 @@
 /area/centcom/evac)
 "Xm" = (
 /obj/machinery/ai_status_display,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "Xn" = (
@@ -14058,6 +14161,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -14091,6 +14195,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/full/shuttle,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "XI" = (
@@ -14111,6 +14216,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -14131,6 +14237,7 @@
 /obj/item/crowbar,
 /obj/item/wrench,
 /obj/item/radio,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -14430,6 +14537,7 @@
 /area/shuttle/syndicate)
 "YT" = (
 /obj/structure/bed/roller,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -14450,12 +14558,14 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
 "YW" = (
 /obj/structure/extinguisher_cabinet,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "YX" = (
@@ -14465,6 +14575,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -14475,6 +14586,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -14490,6 +14602,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -14613,6 +14726,7 @@
 /area/centcom/specops)
 "Zu" = (
 /obj/structure/sign/greencross,
+/obj/effect/mapping_helpers/valid_shuttle_turf,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "Zv" = (
@@ -49891,7 +50005,7 @@ IR
 LJ
 ND
 LN
-od
+UR
 QL
 SF
 VO
@@ -50148,7 +50262,7 @@ IS
 LN
 LN
 LN
-vy
+aS
 Mb
 LR
 LR
@@ -50405,7 +50519,7 @@ IS
 LN
 LN
 OJ
-vy
+aS
 Mb
 LR
 VP
@@ -50662,7 +50776,7 @@ IS
 LN
 LN
 OJ
-vy
+aS
 Mb
 LR
 VQ
@@ -50914,12 +51028,12 @@ Ef
 Fn
 Gs
 Hl
-od
+UR
 IT
 LO
 LN
 ON
-od
+UR
 Mb
 LR
 VO
@@ -51171,12 +51285,12 @@ Em
 Fo
 Gy
 Gy
-od
-od
-vy
+UR
+UR
+aS
 NF
-od
-od
+UR
+UR
 Mb
 LR
 LR
@@ -51433,7 +51547,7 @@ IU
 LP
 NG
 OO
-vy
+aS
 Mb
 LR
 VP
@@ -52204,7 +52318,7 @@ Je
 LS
 LZ
 OX
-vy
+aS
 Mb
 LR
 LR
@@ -52456,12 +52570,12 @@ EE
 Fo
 GI
 GI
-od
-od
+UR
+UR
 LU
 LU
-od
-od
+UR
+UR
 QP
 SJ
 QL
@@ -52713,27 +52827,27 @@ EF
 FB
 GJ
 Ht
-od
+UR
 Jk
 LZ
 LS
 OZ
-od
-od
-od
+UR
+UR
+UR
 VT
 VT
-od
-od
-od
-od
+UR
+UR
+UR
+UR
 Zu
-vy
+aS
 TS
 TS
-vy
+aS
 Ik
-od
+UR
 od
 Iv
 Zp
@@ -52975,7 +53089,7 @@ Jz
 Mb
 NI
 Pb
-od
+UR
 QR
 SN
 QL
@@ -52983,7 +53097,7 @@ QL
 XL
 YY
 Gw
-od
+UR
 bf
 FK
 VM
@@ -53489,7 +53603,7 @@ Jz
 Mb
 NI
 Pb
-od
+UR
 Re
 SQ
 Wh
@@ -53746,7 +53860,7 @@ JC
 Mc
 NM
 Pe
-od
+UR
 Rf
 ST
 Wq

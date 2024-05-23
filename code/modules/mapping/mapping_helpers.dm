@@ -77,6 +77,15 @@
 	T.flags |= NO_LAVA_GEN
 	..()
 
+/obj/effect/mapping_helpers/valid_shuttle_turf
+	icon_state = "hijack_allowed"
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/mapping_helpers/valid_shuttle_turf/New()
+	var/turf/T = get_turf(src)
+	T.flags |= ACTUAL_ESCAPE_SHUTTLE_TURF
+	..()
+
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE

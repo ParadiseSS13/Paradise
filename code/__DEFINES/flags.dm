@@ -139,6 +139,7 @@
 #define NOJAUNT		(1<<0)
 #define NO_LAVA_GEN	(1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS 	(1<<2)
+#define ACTUAL_ESCAPE_SHUTTLE_TURF	(1<<3) //If you are on this turf, you are considered on the shuttle, and can block hijack.
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_FLAG_OCLOTHING	(1<<0)
