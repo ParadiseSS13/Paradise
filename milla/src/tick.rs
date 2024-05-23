@@ -8,7 +8,7 @@ use std::thread;
 use std::thread::ScopedJoinHandle;
 use thread_priority;
 
-// Runs a single tick of the atmospherics model, multi-threaded by Z level.
+/// Runs a single tick of the atmospherics model, multi-threaded by Z level.
 pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     assert!(thread_priority::ThreadPriority::Min
         .set_for_current()
@@ -66,7 +66,7 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     Ok(())
 }
 
-// Runs a single tick of one Z level's atmospherics model.
+/// Runs a single tick of one Z level's atmospherics model.
 pub(crate) fn tick_z_level(
     buffers: &Buffers,
     active_atmos_lock: &RwLock<ZLevel>,

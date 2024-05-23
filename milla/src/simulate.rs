@@ -4,9 +4,9 @@ use byondapi::map::ByondXYZ;
 use eyre::eyre;
 use scc::Bag;
 
-// Calculates the pressure flow out from this tile to the two neighboring tiles on this axis.
-// For a tile losing air equally in all directions, flow will be zero.
-// For a tile losing air towards positive only, flow will be the air pressure moved.
+/// Calculates the pressure flow out from this tile to the two neighboring tiles on this axis.
+/// For a tile losing air equally in all directions, flow will be zero.
+/// For a tile losing air towards positive only, flow will be the air pressure moved.
 pub(crate) fn calculate_flow(
     maybe_negative_tile: Option<&Tile>,
     tile: &Tile,
@@ -66,8 +66,8 @@ pub(crate) fn calculate_flow(
     flow
 }
 
-// Counts the number of adjacent tiles that can share atmos with this tile, i.e. have no blockers
-// on either tile.
+/// Counts the number of adjacent tiles that can share atmos with this tile, i.e. have no blockers
+/// on either tile.
 #[allow(clippy::if_same_then_else)]
 pub(crate) fn count_connected_dirs(
     z_level: &ZLevel,
@@ -125,6 +125,7 @@ pub(crate) fn count_connected_dirs(
     Ok(connected_dirs)
 }
 
+/// Sanitizes a tile to make sure it's not problematic.
 pub(crate) fn sanitize(my_inactive_tile: &mut Tile, my_tile: &Tile) -> bool {
     let mut sanitized = false;
     for i in 0..GAS_COUNT {
@@ -161,6 +162,7 @@ pub(crate) fn sanitize(my_inactive_tile: &mut Tile, my_tile: &Tile) -> bool {
 }
 
 #[allow(clippy::if_same_then_else)]
+/// Checks a tile to see if it's "interesting" and should be sent to BYOND.
 pub(crate) fn check_interesting(
     x: i32,
     y: i32,
@@ -249,6 +251,7 @@ pub(crate) fn check_interesting(
     Ok(())
 }
 
+/// Is the amount of gas present significant?
 pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
     if tile.gases.values[gas] < REACTION_SIGNIFICANCE_MOLES {
         return false;
@@ -261,6 +264,7 @@ pub(crate) fn is_significant(tile: &Tile, gas: usize) -> bool {
     return true;
 }
 
+/// Perform chemical reactions on the tile.
 pub(crate) fn react(my_inactive_tile: &mut Tile) -> f32 {
     let mut fuel_burnt: f32 = 0.0;
     // Handle reactions
@@ -377,6 +381,7 @@ pub(crate) fn react(my_inactive_tile: &mut Tile) -> f32 {
     fuel_burnt
 }
 
+/// Apply effects caused by the tile's atmos mode.
 pub(crate) fn apply_tile_mode(
     my_tile: &Tile,
     my_inactive_tile: &mut Tile,
@@ -436,7 +441,7 @@ pub(crate) fn apply_tile_mode(
     Ok(())
 }
 
-// Calculates the airflow between two connected tiles.
+/// Shares air between two connected tiles.
 #[allow(clippy::needless_range_loop)]
 pub(crate) fn share_air(
     mine: &Tile,
@@ -473,7 +478,7 @@ pub(crate) fn share_air(
     (delta_gases, delta_thermal_energy)
 }
 
-// Performs superconduction between two superconductivity-connected tiles.
+/// Performs superconduction between two superconductivity-connected tiles.
 pub(crate) fn superconduct(my_tile: &mut Tile, their_tile: &mut Tile, is_east: bool) {
     // Superconduction is scaled to the smaller directional superconductivity setting of the two
     // tiles.

@@ -184,7 +184,6 @@ bitflags! {
 #[derive(Debug, Clone)]
 pub(crate) struct Tile {
     /// Which directions this tile cannot transmit gases in.
-    /// Bitmask, values AIRTIGHT_{NORTH,EAST,SOUTH,WEST}.
     pub(crate) airtight_directions: AirtightDirections,
     /// The gases this tile holds.
     pub(crate) gases: GasSet,
@@ -247,6 +246,7 @@ impl Tile {
     }
 }
 
+/// Converts a tile into BYOND values.
 /// Must match the order in code/__DEFINES/milla.dm
 impl From<&Tile> for Vec<ByondValue> {
     fn from(value: &Tile) -> Self {
@@ -291,6 +291,7 @@ bitflags! {
 pub(crate) struct InterestingTile {
     /// The tile itself.
     pub(crate) tile: Tile,
+    /// Where the tile is.
     pub(crate) coords: ByondXYZ,
     /// A bitmask of reasons this tile is interesting, values are REASON_*.
     pub(crate) reasons: ReasonFlags,
@@ -298,6 +299,7 @@ pub(crate) struct InterestingTile {
     /// For a tile losing air equally in all directions, they will be zero.
     /// For a tile losing air towards positive X only, flow_x will be the air pressure moved.
     pub(crate) flow_x: f32,
+    /// See flow_x.
     pub(crate) flow_y: f32,
 }
 
@@ -415,6 +417,7 @@ impl Buffers {
         }
     }
 
+    /// Ensures that all buffers up to ZLevel `z` exist.
     pub(crate) fn init_to(&self, z: i32) {
         let mut a_levels = self.buffer_a.write().unwrap();
         while z >= a_levels.0.len() as i32 {
@@ -426,7 +429,7 @@ impl Buffers {
         }
     }
 
-    // Fetches the active buffer map, which could be either buffer_a or buffer_b.
+    /// Fetches the active buffer map, which could be either buffer_a or buffer_b.
     pub(crate) fn get_active(&self) -> &RwLock<Model> {
         match self.flipper.load(std::sync::atomic::Ordering::Relaxed) {
             A_IS_ACTIVE => &self.buffer_a,
@@ -434,7 +437,7 @@ impl Buffers {
         }
     }
 
-    // Fetches the inactive buffer map, which could be either buffer_a or buffer_b.
+    /// Fetches the inactive buffer map, which could be either buffer_a or buffer_b.
     pub(crate) fn get_inactive(&self) -> &RwLock<Model> {
         match self.flipper.load(std::sync::atomic::Ordering::Relaxed) {
             A_IS_ACTIVE => &self.buffer_b,
@@ -442,12 +445,13 @@ impl Buffers {
         }
     }
 
-    // Flips wether buffer_a or buffer_b is active.
+    /// Flips wether buffer_a or buffer_b is active.
     pub(crate) fn flip(&self) {
         self.flipper
             .fetch_xor(true, std::sync::atomic::Ordering::Relaxed);
     }
 
+    /// Create an environment for ExposedTo.
     pub(crate) fn create_environment(&self, tile: Tile) -> u8 {
         let mut environments = self.environments.write().unwrap();
         let id = environments.len() as u8;

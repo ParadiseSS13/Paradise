@@ -12,7 +12,7 @@ use eyre::Result;
 use std::thread;
 use std::time::Instant;
 
-// BYOND API for ensuring the buffers are usable.
+/// BYOND API for ensuring the buffers are usable.
 #[byondapi::bind]
 fn initialize(byond_z: ByondValue) {
     logging::setup_panic_handler();
@@ -21,7 +21,8 @@ fn initialize(byond_z: ByondValue) {
     Ok(Default::default())
 }
 
-fn internal_initialize(z: i32) -> Result<(), eyre::Error> {
+/// Ensure that buffers are available.
+pub(crate) fn internal_initialize(z: i32) -> Result<(), eyre::Error> {
     if z >= MAX_Z_LEVELS {
         return Err(eyre!(
             "Suspiciously high Z level {} initialized, update MAX_Z_LEVELS if this is intentional.",
@@ -33,7 +34,7 @@ fn internal_initialize(z: i32) -> Result<(), eyre::Error> {
     Ok(Default::default())
 }
 
-// BYOND API for defining an environment that a tile can be exposed to.
+/// BYOND API for defining an environment that a tile can be exposed to.
 #[byondapi::bind]
 fn create_environment(
     oxygen: ByondValue,
@@ -56,6 +57,7 @@ fn create_environment(
     ) as f32))
 }
 
+/// Define an environment that a tile can be exposed to.
 pub(crate) fn internal_create_environment(
     oxygen: Option<f32>,
     carbon_dioxide: Option<f32>,
@@ -92,7 +94,7 @@ pub(crate) fn internal_create_environment(
     buffers.create_environment(tile)
 }
 
-// BYOND API for setting the atmos details of a tile.
+/// BYOND API for setting the atmos details of a tile.
 #[byondapi::bind]
 fn set_tile(
     turf: ByondValue,
@@ -138,8 +140,8 @@ fn set_tile(
     Ok(Default::default())
 }
 
-// BYOND API for setting the directions a tile is airtight in.
-// Like set_tile, just with a smaller set of fields.
+/// BYOND API for setting the directions a tile is airtight in.
+/// Like set_tile, just with a smaller set of fields.
 #[byondapi::bind]
 fn set_tile_airtight(
     turf: ByondValue,
@@ -173,7 +175,7 @@ fn set_tile_airtight(
     Ok(Default::default())
 }
 
-// Rust version of setting the atmos details of a tile.
+/// Rust version of setting the atmos details of a tile.
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn internal_set_tile(
     x: i32,
@@ -273,7 +275,7 @@ pub(crate) fn internal_set_tile(
     Ok(())
 }
 
-// BYOND API for fetching the atmos details of a tile.
+/// BYOND API for fetching the atmos details of a tile.
 #[byondapi::bind]
 fn get_tile(turf: ByondValue, list: ByondValue) {
     logging::setup_panic_handler();
@@ -284,7 +286,7 @@ fn get_tile(turf: ByondValue, list: ByondValue) {
     Ok(Default::default())
 }
 
-// Rust version of fetching the atmos details of a tile.
+/// Rust version of fetching the atmos details of a tile.
 pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
     let active = buffers.get_active().read().unwrap();
@@ -299,11 +301,11 @@ pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
         .clone())
 }
 
-// BYOND API for getting a list of interesting tiles this tick.
-// There are three kinds:
-// * Turfs that are hot eough to cause fires.
-// * Turfs that just passed the threshold for showing plasma or sleeping gas.
-// * Turfs with strong airflow out.
+/// BYOND API for getting a list of interesting tiles this tick.
+/// There are three kinds:
+/// * Turfs that are hot eough to cause fires.
+/// * Turfs that just passed the threshold for showing plasma or sleeping gas.
+/// * Turfs with strong airflow out.
 #[byondapi::bind]
 fn get_interesting_tiles() {
     logging::setup_panic_handler();
@@ -315,7 +317,7 @@ fn get_interesting_tiles() {
     Ok(byond_interesting_tiles.as_slice().try_into()?)
 }
 
-// BYOND API for getting a single random interesting tile.
+/// BYOND API for getting a single random interesting tile.
 #[byondapi::bind]
 fn get_random_interesting_tile() {
     logging::setup_panic_handler();
@@ -331,7 +333,7 @@ fn get_random_interesting_tile() {
         .try_into()?)
 }
 
-// BYOND API for capping the superconductivity of a tile.
+/// BYOND API for capping the superconductivity of a tile.
 #[byondapi::bind]
 fn reduce_superconductivity(
     turf: ByondValue,
@@ -357,9 +359,9 @@ fn reduce_superconductivity(
     Ok(Default::default())
 }
 
-// Rust version of capping the superconductivity of a tile.
-// We never increase superconductivity, only reduce it, because it represents how much heat flow has
-// been restricted by the tiles and objects on them.
+/// Rust version of capping the superconductivity of a tile.
+/// We never increase superconductivity, only reduce it, because it represents how much heat flow has
+/// been restricted by the tiles and objects on them.
 pub(crate) fn internal_reduce_superconductivity(
     x: i32,
     y: i32,
@@ -399,7 +401,7 @@ pub(crate) fn internal_reduce_superconductivity(
     Ok(())
 }
 
-// BYOND API for resetting the superconductivity of a tile.
+/// BYOND API for resetting the superconductivity of a tile.
 #[byondapi::bind]
 fn reset_superconductivity(turf: ByondValue) {
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
@@ -407,7 +409,7 @@ fn reset_superconductivity(turf: ByondValue) {
     Ok(Default::default())
 }
 
-// Rust version of resetting the superconductivity of a tile.
+/// Rust version of resetting the superconductivity of a tile.
 pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
     let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
     let active = buffers.get_active().read().unwrap();
@@ -431,7 +433,7 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
     Ok(())
 }
 
-// BYOND API for starting an atmos tick.
+/// BYOND API for starting an atmos tick.
 #[byondapi::bind]
 fn spawn_tick_thread() {
     logging::setup_panic_handler();
@@ -449,7 +451,7 @@ fn spawn_tick_thread() {
     Ok(Default::default())
 }
 
-// BYOND API for asking how long the prior tick took.
+/// BYOND API for asking how long the prior tick took.
 #[byondapi::bind]
 fn get_tick_time() {
     logging::setup_panic_handler();
