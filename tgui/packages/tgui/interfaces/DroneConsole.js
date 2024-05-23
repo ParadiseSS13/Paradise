@@ -28,7 +28,8 @@ export const DroneConsole = (props, context) => {
 
 const Fabricator = (props, context) => {
   const { act, data } = useBackend(context);
-  const { drone_fab, fab_power, active_drones, stored_drones, total_drones } = data;
+  const { drone_fab, fab_power, active_drones, stored_drones, total_drones } =
+    data;
 
   let FabDetected = () => {
     if (drone_fab) {
@@ -47,7 +48,9 @@ const Fabricator = (props, context) => {
               //   average: [0.4, 0.7],
               //   bad: [-Infinity, 0.4],
               // }}
-            >{active_drones}/{total_drones}</ProgressBar>
+            >
+              {active_drones}/{total_drones}
+            </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Stored Drones">
             <ProgressBar
@@ -57,7 +60,9 @@ const Fabricator = (props, context) => {
               //   average: [0.4, 0.7],
               //   bad: [-Infinity, 0.4],
               // }}
-            >{stored_drones}/{total_drones}</ProgressBar>
+            >
+              {stored_drones}/{total_drones}
+            </ProgressBar>
           </LabeledList.Item>
         </LabeledList>
       );
@@ -79,13 +84,7 @@ const Fabricator = (props, context) => {
     }
   };
 
-  return (
-    <Section
-      title="Drone Fabricator"
-    >
-      {FabDetected()}
-    </Section>
-  );
+  return <Section title="Drone Fabricator">{FabDetected()}</Section>;
 };
 
 const DroneList = (props, context) => {
