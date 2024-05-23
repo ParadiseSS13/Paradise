@@ -676,7 +676,7 @@
 ///If the provided list is empty, set it to null
 #define UNSETEMPTY(L) if(L && !length(L)) L = null
 ///If the provided key -> list is empty, remove it from the list
-#define ASSOC_UNSETEMPTY(L, K) if (!length(L[K])) L -= K;
+#define ASSOC_UNSETEMPTY(L, K) if(!length(L[K])) L -= K;
 ///Like LAZYCOPY - copies an input list if the list has entries, If it doesn't the assigned list is nulled
 #define LAZYLISTDUPLICATE(L) (L ? L.Copy() : null )
 ///Remove an item from the list, set the list to null if empty
@@ -702,7 +702,7 @@
 ///Sets the item K to the value V, if the list is null it will initialize it
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 ///Sets the length of a lazylist
-#define LAZYSETLEN(L, V) if (!L) { L = list(); } L.len = V;
+#define LAZYSETLEN(L, V) if(!L) { L = list(); } L.len = V;
 ///Adds to the item K the value V, if the list is null it will initialize it
 #define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
 ///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
