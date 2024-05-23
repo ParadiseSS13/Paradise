@@ -290,6 +290,8 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
+		return
 	var/atmos_suitable = 1
 
 	var/areatemp = get_temperature(readonly_environment)

@@ -57,7 +57,8 @@
 		readonly_environment = O.return_obj_air()
 	if(isnull(readonly_environment))
 		var/turf/T = get_turf(src)
-		readonly_environment = T.get_readonly_air()
+		if(!isnull(T))
+			readonly_environment = T.get_readonly_air()
 	handle_environment(readonly_environment)
 
 	handle_fire()
