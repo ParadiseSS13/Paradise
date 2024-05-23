@@ -37573,9 +37573,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/surgery/observation)
-"cuk" = (
-/turf/simulated/wall,
-/area/space)
 "cul" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral,
@@ -38736,16 +38733,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
-"cyz" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/space)
 "cyA" = (
 /obj/structure/rack{
 	dir = 8;
@@ -39522,17 +39509,6 @@
 	icon_state = "white"
 	},
 /area/station/science/hallway)
-"cAR" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/equipment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/space)
 "cAS" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -40310,23 +40286,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
-"cDA" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Access";
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/plasteel,
-/area/space)
 "cDC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40394,13 +40353,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"cDI" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 1
-	},
-/obj/machinery/atmospherics/meter,
-/turf/simulated/wall,
-/area/space)
 "cDJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -84163,12 +84115,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
-"sWV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9
-	},
-/turf/simulated/wall,
-/area/space)
 "sXh" = (
 /obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel{
@@ -89303,18 +89249,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
-"vDh" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "vDR" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/cleaner,
@@ -112613,10 +112547,10 @@ aaa
 aaa
 aaa
 aaa
-cuk
-cuk
-cDI
-sWV
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -112870,10 +112804,10 @@ aaa
 aaa
 aaa
 aaa
-cAR
-cyz
-vDh
-cDA
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
