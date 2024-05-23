@@ -77,6 +77,7 @@
 /obj/machinery/disposal/Initialize(mapload)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	. = ..()
+	air_contents = new()
 	var/datum/milla_safe/disposal_suck_air/milla = new()
 	milla.invoke_async(src)
 	trunk_check()

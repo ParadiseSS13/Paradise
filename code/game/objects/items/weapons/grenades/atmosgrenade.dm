@@ -11,7 +11,7 @@
 /obj/item/grenade/gas/prime()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
-		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/obj/item/grenade/gas, release_air), target_turf))
+		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
 
 /obj/item/grenade/gas/proc/release_air(turf/simulated/target_turf)
 	// Any proc that wants MILLA to be synchronous should not sleep.

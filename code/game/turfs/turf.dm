@@ -354,6 +354,9 @@
 /datum/milla_safe/turf_assimilate_air
 
 /datum/milla_safe/turf_assimilate_air/on_run(turf/self)
+	if(isnull(self))
+		return
+
 	var/datum/gas_mixture/merged = new()
 	var/turf_count = 0
 	for(var/turf/T in self.GetAtmosAdjacentTurfs())
@@ -621,7 +624,8 @@
 /datum/milla_safe/initialize_turf
 
 /datum/milla_safe/initialize_turf/on_run(turf/T)
-	set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+	if(!isnull(T))
+		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
 
 /// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
 /turf/proc/private_unsafe_get_air()

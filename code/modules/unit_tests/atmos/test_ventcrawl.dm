@@ -4,19 +4,18 @@
 	var/obj/structure/table/table = null
 	var/setup_complete = FALSE
 
-/datum/unit_test/ventcrawl/proc/setup_test_area()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
+/datum/milla_safe/ventcrawl_test_setup
 
-	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be synchronous.
+/datum/milla_safe/ventcrawl_test_setup/on_run(datum/unit_test/ventcrawl/test)
+	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be MILLA-safe.
 	var/datum/map_template/template = GLOB.map_templates["test_ventcrawl.dmm"]
-	if(!template.load(run_loc_bottom_left))
+	if(!template.load(test.run_loc_bottom_left))
 		Fail("Failed to load 'test_ventcrawl.dmm'")
 
 	slime = new /mob/living/simple_animal/slime/unit_test_dummy(run_loc_bottom_left)
-	vent = find_spawned_test_object(run_loc_bottom_left, /obj/machinery/atmospherics/unary/vent_pump)
-	table = find_spawned_test_object(get_step(run_loc_bottom_left, EAST), /obj/structure/table)
-	setup_complete = TRUE
+	vent = test.find_spawned_test_object(test.run_loc_bottom_left, /obj/machinery/atmospherics/unary/vent_pump)
+	table = test.find_spawned_test_object(get_step(test.run_loc_bottom_left, EAST), /obj/structure/table)
+	test.setup_complete = TRUE
 
 /datum/unit_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
 	for(var/content in location.contents)
@@ -25,7 +24,8 @@
 	Fail("Couldn't find spawned test object of type: [test_object_type].")
 
 /datum/unit_test/ventcrawl/Run()
-	SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/datum/unit_test/ventcrawl, setup_test_area)))
+	var/datum/milla_safe/ventcrawl_test_setup/milla = new()
+	milla.invoke_async(src)
 	while(!setup_complete)
 		sleep(0.01)
 

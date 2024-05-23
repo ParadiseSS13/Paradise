@@ -527,7 +527,7 @@ SUBSYSTEM_DEF(air)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
-	var/args = list()
+	var/run_args = list()
 
 /// All subclasses should implement this.
 /datum/milla_safe/proc/on_run(...)
@@ -538,13 +538,13 @@ SUBSYSTEM_DEF(air)
 
 /// Call this to make the subclass run when it's safe to do so. Args will be passed to on_run.
 /datum/milla_safe/proc/invoke_async(...)
-	src.args = args
+	run_args = args.Copy()
 	SSair.synchronize(src)
 
 /// Do not call this yourself. This is what is called to run your code from a safe context.
 /datum/milla_safe/proc/private_unsafe_invoke()
 	ASSERT(SSair.in_milla_safe_code)
-	on_run(arglist(args))
+	on_run(arglist(run_args))
 
 /// Fetch the air for a turf. Only use from `on_run`.
 /datum/milla_safe/proc/get_turf_air(turf/T)

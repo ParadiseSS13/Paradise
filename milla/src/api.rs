@@ -200,7 +200,7 @@ pub(crate) fn internal_set_tile(
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
         return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use gas_mixture.synchronize or SSair.synchronize"
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
         ));
     }
     let mut z_level = maybe_z_level.unwrap();
@@ -374,7 +374,7 @@ pub(crate) fn internal_reduce_superconductivity(
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
         return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use gas_mixture.synchronize or SSair.synchronize"
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
         ));
     }
     let mut z_level = maybe_z_level.unwrap();
@@ -414,7 +414,7 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
         return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use gas_mixture.synchronize or SSair.synchronize"
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
         ));
     }
     let mut z_level = maybe_z_level.unwrap();

@@ -3,7 +3,8 @@
 	if(!blocks_air)
 		blind_set_air(get_initial_air())
 
-/turf/simulated/proc/get_initial_air(datum/gas_mixture/air)
+/turf/simulated/proc/get_initial_air()
+	var/datum/gas_mixture/air
 	if(!blocks_air)
 		air.set_oxygen(oxygen)
 		air.set_carbon_dioxide(carbon_dioxide)
@@ -20,6 +21,7 @@
 		air.set_sleeping_agent(0)
 		air.set_agent_b(0)
 		air.set_temperature(0)
+	return air
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
@@ -147,24 +149,27 @@
 		blind_set_air(air)
 
 /turf/proc/recalculate_atmos_connectivity()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-	if(!SSair.is_synchronous)
-		SSair.synchronize(CALLBACK(src, TYPE_PROC_REF(/turf, recalculate_atmos_connectivity)))
+	var/datum/milla_safe/recalculate_atmos_connectivity/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/recalculate_atmos_connectivity
+
+/datum/milla_safe/recalculate_atmos_connectivity/on_run(turf/T)
+	if(isnull(T))
 		return
 
-	if(blocks_air)
-		set_tile_airtight(src, list(TRUE, TRUE, TRUE, TRUE))
+	if(T.blocks_air)
+		set_tile_airtight(T, list(TRUE, TRUE, TRUE, TRUE))
 		// Will be needed when we go back to having solid tile conductivity.
 		//reset_superconductivity(src)
-		reduce_superconductivity(src, list(0, 0, 0, 0))
+		reduce_superconductivity(T, list(0, 0, 0, 0))
 		return
 
 	var/list/atmos_airtight = list(
-		!CanAtmosPass(NORTH, FALSE),
-		!CanAtmosPass(EAST, FALSE),
-		!CanAtmosPass(SOUTH, FALSE),
-		!CanAtmosPass(WEST, FALSE))
+		!T.CanAtmosPass(NORTH, FALSE),
+		!T.CanAtmosPass(EAST, FALSE),
+		!T.CanAtmosPass(SOUTH, FALSE),
+		!T.CanAtmosPass(WEST, FALSE))
 
 	var/list/superconductivity = list(
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
@@ -172,7 +177,7 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 
-	for(var/obj/O in src)
+	for(var/obj/O in T)
 		if(istype(O, /obj/item))
 			// Items can't block atmos.
 			continue
@@ -189,9 +194,9 @@
 		superconductivity[INDEX_SOUTH] = min(superconductivity[INDEX_SOUTH], O.get_superconductivity(SOUTH))
 		superconductivity[INDEX_WEST] = min(superconductivity[INDEX_WEST], O.get_superconductivity(WEST))
 
-	set_tile_airtight(src, atmos_airtight)
-	reset_superconductivity(src)
-	reduce_superconductivity(src, superconductivity)
+	set_tile_airtight(T, atmos_airtight)
+	reset_superconductivity(T)
+	reduce_superconductivity(T, superconductivity)
 
 #undef INDEX_NORTH
 #undef INDEX_EAST
