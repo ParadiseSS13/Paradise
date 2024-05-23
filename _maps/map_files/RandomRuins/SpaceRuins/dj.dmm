@@ -512,7 +512,7 @@
 /area/ruin/space/djstation)
 "bp" = (
 /obj/structure/chair/office/light,
-/mob/living/simple_animal/hostile/russian/ranged,
+/mob/living/simple_animal/hostile/russian/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bq" = (
