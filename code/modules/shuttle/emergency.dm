@@ -196,7 +196,7 @@
 		return
 	if(is_ai && isnull(windows_33_exe))
 		var/mob/living/silicon/ai/AI = user
-		if(doomsday_device)
+		if(AI.doomsday_device)
 			return
 		transfer_ai(AI_SHUTTLE_HACK, AI, AI)
 		GLOB.minor_announcement.Announce("Warning! B.A.S.I.C shuttle piloting AI comp-- Comparing notes with the engine system to maximize efficency. Do not be alarmed.")
