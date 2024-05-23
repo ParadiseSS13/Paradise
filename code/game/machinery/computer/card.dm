@@ -62,8 +62,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 
-/obj/machinery/computer/card/Initialize()
-	..()
+/obj/machinery/computer/card/Initialize(mapload)
+	. = ..()
 	Radio = new /obj/item/radio(src)
 	Radio.listening = FALSE
 	Radio.config(list("Command" = 0))
