@@ -327,7 +327,7 @@
 	// No infiniloops
 	if(call_depth > 10)
 		return
-	if(access)
+	if(access_)
 		access = access_.Copy()
 	no_id = no_id_
 
