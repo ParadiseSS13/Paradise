@@ -1254,7 +1254,7 @@
 
 	fullscreen = !fullscreen
 
-	if (fullscreen)
+	if(fullscreen)
 		winset(usr, "mainwindow", "titlebar=false")
 		winset(usr, "mainwindow", "can-resize=false")
 		winset(usr, "mainwindow", "is-maximized=false")  // Ensures the window doesn't get stretched oddly.
