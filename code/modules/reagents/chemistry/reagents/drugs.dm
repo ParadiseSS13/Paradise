@@ -266,7 +266,7 @@
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 		M.AdjustKnockDown(-2 SECONDS)
-		return ..() | update_flags
+	return ..() | update_flags
 
 /datum/reagent/pump_up/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
