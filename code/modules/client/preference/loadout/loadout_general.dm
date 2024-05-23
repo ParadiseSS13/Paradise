@@ -162,11 +162,6 @@
 	path = /obj/item/paicard
 	cost = 2
 
-/datum/gear/mob_hunt_game
-	display_name = "Nano-Mob Hunter GO! Cartridge"
-	path = /obj/item/cartridge/mob_hunt_game
-	cost = 2
-
 //////////////////////
 //		Mugs		//
 //////////////////////
