@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	ui_interact(user)
 
 /obj/item/radio/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 
 	ToggleBroadcast()
@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	add_fingerprint(user)
 
 /obj/item/radio/CtrlShiftClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 
 	ToggleReception()
