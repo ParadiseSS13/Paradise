@@ -177,7 +177,7 @@
 	var/metal = MFOAM_ALUMINUM
 
 /obj/structure/foamedmetal/Initialize()
-	..()
+	. = ..()
 	recalculate_atmos_connectivity()
 
 /obj/structure/foamedmetal/Destroy()

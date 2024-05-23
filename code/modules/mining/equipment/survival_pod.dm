@@ -277,7 +277,7 @@
 	var/buildstackamount = 5
 
 /obj/structure/fans/Initialize(loc)
-	..()
+	. = ..()
 	recalculate_atmos_connectivity()
 
 /obj/structure/fans/Destroy()

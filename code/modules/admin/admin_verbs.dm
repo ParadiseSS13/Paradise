@@ -174,7 +174,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/raw_gas_scan,
 	/client/proc/teleport_interesting_turf,
 	/client/proc/visualize_interesting_turfs,
-	/client/proc/profile_code
+	/client/proc/profile_code,
+	/client/proc/debug_atom_init
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
