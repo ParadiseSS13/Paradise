@@ -407,6 +407,10 @@
 	icon_state = "black"
 	},
 /area/ruin/space/powered)
+"Sk" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/mineral/plastitanium,
+/area/space)
 "Su" = (
 /obj/structure/chair{
 	dir = 4
@@ -943,7 +947,7 @@ JY
 TT
 XM
 qN
-qN
+Sk
 qN
 Ml
 cN
