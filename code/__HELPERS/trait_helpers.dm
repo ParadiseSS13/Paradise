@@ -237,7 +237,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
 /// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
-#define TRAIT_MOBSERVE "mentor_observe"
+#define TRAIT_MENTOR_OBSERVING "mentor_observe"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -326,7 +326,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
 /// Mentor observing
-#define MOBSERVING "mobserving"
+#define MENTOR_OBSERVING "mobserving"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

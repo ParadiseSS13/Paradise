@@ -355,7 +355,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	// mentors are allowed only if they have the observe trait, which is given on observe.
 	// they should also not be given this proc.
-	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE) || !is_mentor))
+	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MENTOR_OBSERVING) || !is_mentor))
 		return
 
 	do_aghost()
@@ -435,7 +435,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	// un-follow them
 	ghost.cleanup_observe()
 	// if it's a mentor, make sure they go back to their body.
-	if(HAS_TRAIT(mob.mind, TRAIT_MOBSERVE))
+	if(HAS_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING))
 		// handler will handle removing the trait
 		mob.stop_orbit()
 	log_admin("[key_name(src)] has de-activated Aobserve")
@@ -484,9 +484,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	var/mob/dead/observer/ghost = mob
 
 	if(!full_admin)
-		// if they're a mentor and they're alive, add the mobserving trait to ensure that they can only go back to their body.
+		// if they're a me and they're alive, add the MENTOR_OBSERVINGtrait to ensure that they can only go back to their body.
 		// we need to handle this here because when you aghost, your mob gets set to the ghost. Oops!
-		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
+		ADD_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
 		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
 		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
 		log_admin("[key_name(src)] has mobserved out of their body to follow [target].")
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	// just to be safe
 	ghost.cleanup_observe()
 
-	REMOVE_TRAIT(mob.mind, TRAIT_MOBSERVE, MOBSERVING)
+	REMOVE_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
 	UnregisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
 
 	if(!ghost.reenter_corpse())

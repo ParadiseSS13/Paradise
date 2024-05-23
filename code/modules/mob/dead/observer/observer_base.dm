@@ -918,7 +918,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 		// mentor observing grants you this trait, and provides its own signal handler for this
-		if(!HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
+		if(!HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
 			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end), override = TRUE)
 		else
 			if(!check_rights(R_MENTOR, FALSE, src))
@@ -948,8 +948,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBITER_STOP
-	if(HAS_MIND_TRAIT(src, TRAIT_MOBSERVE))
-		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MOBSERVE. This is likely a bug and may result in them being stuck outside of their bodies.")
+	if(HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
+		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MENTOR_OBSERVING. This is likely a bug and may result in them being stuck outside of their bodies.")
 	cleanup_observe()
 
 /mob/dead/observer/proc/update_dead_radio()
