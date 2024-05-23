@@ -45,6 +45,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
 	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
@@ -84,9 +87,6 @@
 	internal_damage_threshold = 20
 	force = 80
 	max_equip = 8
-
-/obj/mecha/combat/marauder/seraph/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /obj/mecha/combat/marauder/seraph/loaded/Initialize(mapload)
 	. = ..()  //Let it equip whatever is needed.
