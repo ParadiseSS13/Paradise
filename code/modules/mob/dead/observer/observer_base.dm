@@ -214,6 +214,10 @@ Works together with spawning an observer, noted above.
 
 	ghost.client?.init_verbs()
 
+	for(var/mob/dead/observer/obs in observers)
+		obs.cleanup_observe()
+
+
 	return ghost
 
 /*
