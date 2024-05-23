@@ -356,7 +356,7 @@
 	if(isliving(construct_from))
 		var/mob/living/living_construct = construct_from
 		src.is_living = TRUE
-		src.can_ventcrawl = HAS_TRAIT(living_construct, VENTCRAWLER_ALWAYS) || HAS_TRAIT(living_construct, VENTCRAWLER_NUDE)
+		src.can_ventcrawl = living_construct.ventcrawler == VENTCRAWLER_ALWAYS || living_construct.ventcrawler == VENTCRAWLER_NUDE
 		src.mob_size = living_construct.mob_size
 		src.incorporeal_move = living_construct.incorporeal_move
 		is_flying = living_construct.flying
