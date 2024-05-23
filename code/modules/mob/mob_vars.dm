@@ -207,7 +207,7 @@
 	var/datum/input_focus = null
 	/// Is our mob currently suiciding? Used for suicide code along with many different revival checks
 	var/suiciding = FALSE
-	/// Used for some screen objects, such as
+	/// Used for some screen objects
 	var/list/screens = list()
 	/// lazy list. contains /atom/movable/screen/alert only,  On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
@@ -246,7 +246,8 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
-
+	/// List of observers currently observing us.
+	var/list/mob/dead/observer/observers = list()
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
