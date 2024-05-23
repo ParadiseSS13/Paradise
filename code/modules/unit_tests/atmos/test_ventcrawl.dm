@@ -10,11 +10,11 @@
 	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be MILLA-safe.
 	var/datum/map_template/template = GLOB.map_templates["test_ventcrawl.dmm"]
 	if(!template.load(test.run_loc_bottom_left))
-		Fail("Failed to load 'test_ventcrawl.dmm'")
+		test.Fail("Failed to load 'test_ventcrawl.dmm'")
 
-	slime = new /mob/living/simple_animal/slime/unit_test_dummy(run_loc_bottom_left)
-	vent = test.find_spawned_test_object(test.run_loc_bottom_left, /obj/machinery/atmospherics/unary/vent_pump)
-	table = test.find_spawned_test_object(get_step(test.run_loc_bottom_left, EAST), /obj/structure/table)
+	test.slime = new /mob/living/simple_animal/slime/unit_test_dummy(test.run_loc_bottom_left)
+	test.vent = test.find_spawned_test_object(test.run_loc_bottom_left, /obj/machinery/atmospherics/unary/vent_pump)
+	test.table = test.find_spawned_test_object(get_step(test.run_loc_bottom_left, EAST), /obj/structure/table)
 	test.setup_complete = TRUE
 
 /datum/unit_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
