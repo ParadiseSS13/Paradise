@@ -315,6 +315,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					// Only add if it wasnt there already
 					radios |= R
 
+	// This is what makes dchat get their radio coverage. Do not remove.
+	radios += GLOB.deadchat_radio
+
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 

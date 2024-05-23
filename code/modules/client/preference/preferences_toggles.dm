@@ -65,12 +65,12 @@
 
 /datum/preference_toggle/toggle_ghost_radio
 	name = "Toggle Ghost Radio"
-	description = "Toggle between hearing all radio chatter, or only from nearby speakers"
+	description = "Toggle between hearing all radio chatter, or only from nobody"
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTRADIO
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
-	enable_message = "As a ghost, you will now only hear from nearby speakers."
-	disable_message = "As a ghost, you will now hear all radio chat in the world."
+	enable_message = "As a ghost, you will now hear all radio chat in the world."
+	disable_message = "As a ghost, you will now hear no radio chat."
 	blackbox_message = "Toggle GhostRadio"
 
 /datum/preference_toggle/toggle_ghost_radio/set_toggles(client/user)
