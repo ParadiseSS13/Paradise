@@ -365,7 +365,6 @@
 	user.gib()
 	return OBLITERATION	
 	
-
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *
