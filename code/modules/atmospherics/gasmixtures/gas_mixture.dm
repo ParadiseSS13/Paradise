@@ -148,7 +148,6 @@ What are the archived variables for?
 	if(!giver)
 		return FALSE
 
-	set_dirty()
 
 	if(abs(private_temperature - giver.private_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/self_heat_capacity = heat_capacity()
@@ -164,13 +163,13 @@ What are the archived variables for?
 	private_sleeping_agent += giver.private_sleeping_agent
 	private_agent_b += giver.private_agent_b
 
+	set_dirty()
 	return TRUE
 
 	/// Only removes the gas if we have more than the amount
 /datum/gas_mixture/proc/boolean_remove(amount)
 	if(amount > total_moles())
 		return FALSE
-	set_dirty()
 	return remove(amount)
 
 	///Proportionally removes amount of gas from the gas_mixture.
@@ -182,7 +181,6 @@ What are the archived variables for?
 	if(amount <= 0)
 		return null
 
-	set_dirty()
 	var/datum/gas_mixture/removed = new
 
 
@@ -202,6 +200,7 @@ What are the archived variables for?
 
 	removed.private_temperature = private_temperature
 
+	set_dirty()
 	return removed
 
 	///Proportionally removes amount of gas from the gas_mixture.
@@ -211,7 +210,6 @@ What are the archived variables for?
 	if(ratio <= 0)
 		return null
 
-	set_dirty()
 	ratio = min(ratio, 1)
 
 	var/datum/gas_mixture/removed = new
@@ -231,12 +229,12 @@ What are the archived variables for?
 	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
 
 	removed.private_temperature = private_temperature
+	set_dirty()
 
 	return removed
 
 	//Copies variables from sample
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
-	set_dirty()
 	private_oxygen = sample.private_oxygen
 	private_carbon_dioxide = sample.private_carbon_dioxide
 	private_nitrogen = sample.private_nitrogen
@@ -245,13 +243,13 @@ What are the archived variables for?
 	private_agent_b = sample.private_agent_b
 
 	private_temperature = sample.private_temperature
+	set_dirty()
 
 	return TRUE
 
 	///Copies all gas info from the turf into the gas list along with temperature
 	///Returns: TRUE if we are mutable, FALSE otherwise
 /datum/gas_mixture/proc/copy_from_turf(turf/model)
-	set_dirty()
 	private_oxygen = model.oxygen
 	private_carbon_dioxide = model.carbon_dioxide
 	private_nitrogen = model.nitrogen
@@ -263,6 +261,7 @@ What are the archived variables for?
 	var/turf/model_parent = model.parent_type
 	if(model.temperature != initial(model.temperature) || model.temperature != initial(model_parent.temperature))
 		private_temperature = model.temperature
+	set_dirty()
 
 	return TRUE
 
@@ -275,7 +274,6 @@ What are the archived variables for?
 	if(private_oxygen_archived == sharer.private_oxygen_archived && private_carbon_dioxide_archived == sharer.private_carbon_dioxide_archived && private_nitrogen_archived == sharer.private_nitrogen_archived &&\
 	private_toxins_archived == sharer.private_toxins_archived && private_sleeping_agent_archived == sharer.private_sleeping_agent_archived && private_agent_b_archived == sharer.private_agent_b_archived && private_temperature_archived == sharer.private_temperature_archived)
 		return 0
-	set_dirty()
 	var/delta_oxygen = QUANTIZE(private_oxygen_archived - sharer.private_oxygen_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = QUANTIZE(private_carbon_dioxide_archived - sharer.private_carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_nitrogen = QUANTIZE(private_nitrogen_archived - sharer.private_nitrogen_archived) / (atmos_adjacent_turfs + 1)
@@ -366,6 +364,7 @@ What are the archived variables for?
 				if(abs(new_sharer_heat_capacity / old_sharer_heat_capacity - 1) < 0.10) // <10% change in sharer heat capacity
 					temperature_share(sharer, OPEN_HEAT_TRANSFER_COEFFICIENT)
 
+	set_dirty()
 	if((delta_temperature > MINIMUM_TEMPERATURE_TO_MOVE) || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
 		var/delta_pressure = private_temperature_archived * (total_moles() + moved_moles) - sharer.private_temperature_archived * (sharer.total_moles() - moved_moles)
 		return delta_pressure * R_IDEAL_GAS_EQUATION / volume
@@ -373,7 +372,6 @@ What are the archived variables for?
 	//Similar to share(...), except the model is not modified
 	//Return: amount of gas exchanged
 /datum/gas_mixture/proc/mimic(turf/model, atmos_adjacent_turfs = 4) //I want this proc to die a painful death
-	set_dirty()
 	var/delta_oxygen = QUANTIZE(private_oxygen_archived - model.oxygen) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = QUANTIZE(private_carbon_dioxide_archived - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
 	var/delta_nitrogen = QUANTIZE(private_nitrogen_archived - model.nitrogen) / (atmos_adjacent_turfs + 1)
@@ -433,6 +431,7 @@ What are the archived variables for?
 
 		temperature_mimic(model, model.thermal_conductivity)
 
+	set_dirty()
 	if((delta_temperature > MINIMUM_TEMPERATURE_TO_MOVE) || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
 		var/delta_pressure = private_temperature_archived * (total_moles() + moved_moles) - model.temperature * (model.oxygen + model.carbon_dioxide + model.nitrogen + model.toxins + model.sleeping_agent + model.agent_b)
 		return delta_pressure * R_IDEAL_GAS_EQUATION / volume
@@ -556,7 +555,6 @@ What are the archived variables for?
 	///Performs various reactions such as combustion or fusion (LOL)
 	///Returns: TRUE if any reaction took place; FALSE otherwise
 /datum/gas_mixture/proc/react(atom/dump_location)
-	set_dirty()
 	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
 
 	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > 900)
@@ -630,6 +628,7 @@ What are the archived variables for?
 		if(fuel_burnt)
 			reacting = TRUE
 
+	set_dirty()
 	return reacting
 
 ///Takes the amount of the gas you want to PP as an argument
@@ -696,6 +695,7 @@ What are the archived variables for?
 			G.private_agent_b = total_agent_b * G.volume / total_volume
 
 			G.private_temperature = temperature
+			G.set_dirty()
 
 
 
@@ -721,7 +721,7 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 /datum/gas_mixture/bound_to_turf
 	var/dirty = FALSE
 	var/turf/bound_turf = null
-	var/datum/gas_mixture/readonly = null
+	var/datum/gas_mixture/readonly/readonly = null
 
 /datum/gas_mixture/bound_to_turf/Destroy()
 	bound_turf = null
@@ -729,38 +729,48 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 /datum/gas_mixture/bound_to_turf/set_dirty()
 	dirty = TRUE
+
+	if(!isnull(readonly))
+		readonly.private_oxygen = private_oxygen
+		readonly.private_carbon_dioxide = private_carbon_dioxide
+		readonly.private_nitrogen = private_nitrogen
+		readonly.private_toxins = private_toxins
+		readonly.private_sleeping_agent = private_sleeping_agent
+		readonly.private_agent_b = private_agent_b
+		readonly.private_temperature = private_temperature
+
 	if(istype(bound_turf, /turf/simulated))
 		var/turf/simulated/S = bound_turf
 		S.update_visuals()
 	ASSERT(SSair.in_milla_safe_code)
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
-	set_dirty()
 	private_oxygen = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_carbon_dioxide(value)
-	set_dirty()
 	private_carbon_dioxide = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_nitrogen(value)
-	set_dirty()
 	private_nitrogen = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
-	set_dirty()
 	private_toxins = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
-	set_dirty()
 	private_sleeping_agent = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
-	set_dirty()
 	private_agent_b = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
-	set_dirty()
 	private_temperature = value
+	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
 	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)

@@ -279,6 +279,8 @@
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1

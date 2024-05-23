@@ -129,11 +129,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"dM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/althland_processing)
 "eH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -243,7 +238,7 @@
 "gF" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "hc" = (
 /obj/structure/disposalpipe/segment,
@@ -385,7 +380,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 2
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "no" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1144,7 +1139,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "Oh" = (
 /obj/structure/table,
@@ -1784,7 +1779,7 @@ BM
 Hz
 bO
 In
-dM
+GV
 ab
 ab
 ab

@@ -11,11 +11,11 @@
 "d" = (
 /obj/item/clothing/head/helmet/space/syndicate/orange,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "e" = (
 /obj/item/clothing/suit/space/syndicate/orange,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "g" = (
 /turf/simulated/floor/plating/asteroid{
@@ -57,31 +57,31 @@
 /obj/item/seeds/reishi,
 /obj/item/seeds/plump,
 /obj/item/seeds/plump,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "n" = (
 /obj/machinery/hydroponics/soil,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "o" = (
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "p" = (
 /obj/structure/rack,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/storage/bag/ore,
 /obj/item/storage/firstaid/regular,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "q" = (
 /obj/structure/glowshroom,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "r" = (
 /obj/structure/rack,
 /obj/item/pickaxe/emergency,
 /obj/item/tank/internals/oxygen,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "s" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -92,7 +92,7 @@
 "u" = (
 /obj/structure/bed/pod,
 /obj/item/bedsheet/black,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "v" = (
 /obj/structure/fans,
@@ -114,12 +114,12 @@
 	dir = 4
 	},
 /obj/structure/tubes,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "A" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/combat/survival,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "B" = (
 /obj/structure/table/survival_pod,
@@ -165,11 +165,11 @@
 /area/ruin/powered)
 "J" = (
 /obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "K" = (
 /obj/effect/baseturf_helper,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "P" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -177,7 +177,7 @@
 /area/lavaland/surface/outdoors)
 "X" = (
 /obj/item/flashlight/lantern,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 
 (1,1,1) = {"

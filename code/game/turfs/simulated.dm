@@ -58,7 +58,7 @@
 	quench(1000, 2)
 
 /// Quenches any fire on the turf, and if it does, cools down the turf's air by the given parameters.
-/turf/simulated/proc/quench(datum/gas_mixture/air, delta, divisor)
+/turf/simulated/proc/quench(delta, divisor)
 	var/found = FALSE
 	for(var/obj/effect/hotspot/hotspot in src)
 		qdel(hotspot)
