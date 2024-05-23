@@ -346,21 +346,22 @@
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/datum/rcd_act/remove_user/act = new()
-		if(act.try_act(suicide_tile, src, user))
-			user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
-			for(var/obj/item/W in user)	// Do not delete all their stuff.
-				user.unEquip(W)			// Dump everything on the floor instead.
-			flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff (held items fall to the floor when dusting).
-			user.dust()
-			return OBLITERATION
-		flags &= ~NODROP // If we got past the above check without dying, remove the superglue from the RCD.
-		return SHAME // Ensure that we do not accidentally perform the other flavour of suicide act.
+		if(!act.try_act(suicide_tile, src, user))
+			flags &= ~NODROP
+			return SHAME
+		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
+		for(var/obj/item/W in user)	// Do not delete all their stuff.
+			user.unEquip(W)			// Dump everything on the floor instead.
+		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff.
+		user.dust()					// (held items fall to the floor when dusting).
+		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	flags &= ~NODROP  // Ensure the RCD doesn't stick to the next person's hand.
 	if(!afterattack(suicide_tile, user, TRUE))
+		flags &= ~NODROP  
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
+	flags &= ~NODROP  
 	user.gib()
 	return OBLITERATION	
 	
