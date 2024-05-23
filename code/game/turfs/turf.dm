@@ -581,7 +581,6 @@
 /turf/AllowDrop()
 	return TRUE
 
-
 // Makes an image of up to 20 things on a turf + the turf
 /turf/proc/photograph(limit = 20)
 	var/image/I = new()
