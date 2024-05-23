@@ -402,7 +402,7 @@
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
-	/var/datum/milla_safe/supermatter_process/milla = new()
+	var/datum/milla_safe/supermatter_process/milla = new()
 	milla.invoke_async(src)
 
 /datum/milla_safe/supermatter_process
