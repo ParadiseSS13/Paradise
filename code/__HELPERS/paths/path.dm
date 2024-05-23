@@ -334,7 +334,7 @@
 	if(isnull(construct_from))
 		return
 
-	caller_uid = UID(construct_from)
+	caller_uid = construct_from.UID()
 	pass_flags = construct_from.pass_flags
 	// TG uses movement type flags
 	// movement_type = construct_from.movement_type
