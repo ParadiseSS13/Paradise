@@ -1,7 +1,27 @@
-#define PLASMA_CHARGE_USE_PER_SECOND 2.5
-#define PLASMA_DISCHARGE_LIMIT 5
-
-// Ion Rifles //
+/* CONTENTS:
+* 1. ION RIFLE
+* 2. ION CARBINE
+* 3. DECLONER
+* 4. FLORAL SOMATORAY
+* 5. METEOR GUN
+* 6. MIND FLAYER
+* 7. ENERGY CROSSBOW
+* 8. PLASMA CUTTER
+* 9. WORMHOLE PROJECTOR
+* 10. CYBORG LMG
+* 11. INSTAGIB RIFLE
+* 12. HONK RIFLE
+* 13. PLASMA PISTOL
+* 14. THE BSG
+* 15. TEMPERATURE GUN
+* 16. MIMIC GUN
+* 17. DETECTIVE ENERGY REVOLVER
+* 18. VOX SPIKETHROWER
+* 19. VORTEX SHOTGUN
+*/
+//////////////////////////////
+// MARK: ION RIFLE
+//////////////////////////////
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
@@ -21,18 +41,17 @@
 
 /obj/item/gun/energy/ionrifle/examine_more(mob/user)
 	. = ..()
-	return list(
-	"The ion rifle is a specialised weapon system developed by Nanotrasen to counteract technological threats. Stored xenon gas is superheated and spun inside a miniaturised \
-	resonating cyclotron to strip away the outer electron shell. This creates a very positively charged slug of ionised xenon gas that is then launched down the barrel of the rifle by a series of electromagnets. \
-	Once the slug hits a target, the magnetic field holding it together collapses, spreading the ions around the immediate area and causing severe damage to unshielded electronic systems caught within the resulting cloud.",
-	"",
-	"It was developed in 2318 in response to the increasing prevalence of combat robots, mech units, and augmented combatants in modern combat engagements. \
-	Whilst unsuccessful in procuring lucrative contracts to manufacture the weapon for the TSF (who pointed out the issue of combatants with electromagnetic shielding), \
-	it was adopted by several corporate outfits that appreciated the ruthless efficiency of the ion rifle against unprotected synthetics.",
-	"",
-	"Whilst it has a niche in combating pulse demon incursions, the real place that the ion rifle has shown its strength is in putting down synthetic rebellions and rogue artificial intelligences. \
-	For a synthetic, nothing sends chills down the spine more than the sight of this weapon."
-	)
+	. = list()
+	. += {"The ion rifle is a specialised weapon system developed by Nanotrasen to counteract technological threats. Stored xenon gas is superheated and spun inside a miniaturised \
+resonating cyclotron to strip away the outer electron shell. This creates a very positively charged slug of ionised xenon gas that is then launched down the barrel of the rifle by a series of electromagnets. \
+Once the slug hits a target, the magnetic field holding it together collapses, spreading the ions around the immediate area and causing severe damage to unshielded electronic systems caught within the resulting cloud.
+
+It was developed in 2318 in response to the increasing prevalence of combat robots, mech units, and augmented combatants in modern combat engagements. \
+Whilst unsuccessful in procuring lucrative contracts to manufacture the weapon for the TSF (who pointed out the issue of combatants with electromagnetic shielding), \
+it was adopted by several corporate outfits that appreciated the ruthless efficiency of the ion rifle against unprotected synthetics.
+
+Whilst it has a niche in combating pulse demon incursions, the real place that the ion rifle has shown its strength is in putting down synthetic rebellions and rogue artificial intelligences. \
+For a synthetic, nothing sends chills down the spine more than the sight of this weapon."}
 
 /obj/item/gun/energy/ionrifle/Initialize(mapload)
 	. = ..()
@@ -42,6 +61,9 @@
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
 
+//////////////////////////////
+// MARK: ION CARBINE
+//////////////////////////////
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient, it packs the exact same punch and capacity in a smaller, easier to transport package."
@@ -54,22 +76,23 @@
 
 /obj/item/gun/energy/ionrifle/carbine/examine_more(mob/user)
 	. = ..()
-	return list(
-	"Recent developments in compact electromagnets, material science, and iterative improvement in various other high energy components has resulted in this brand-new rehashing of the \
-	original Ion Rifle being developed by Nanotrasen R&D: The Ion Carbine! It addresses several of the shortcomings of its centuries-old predecessor. Chiefly among them is the miniaturisation of the vital components, \
-	which has allowed the carbine to be made small enough to fit inside a variety of personal storage spaces, permitting it to be used as a secondary weapon that can be kept out of the way until it is needed. \
-	Improvements to the ergonomics, reduction in weight, and the replacement of the fixed 1x optic with a modular rail system also makes the carbine far more pleasant to use than its predecessor. \
-	All of these improvements come without any trade-offs, such is the march of technology.",
-	"",
-	"The chief impetus for the development of the Ion Carbine was the mass unrest and strike actions by the then-indentured IPC workforce starting in 2525. Whilst the events surrounding this were largely non-violent, \
-	Nanotrasen is aware that things could have gone very differently. With their current pervasive use of indentured AI, robots, and cyborgs, Nanotrasen is also very well aware that history may repeat itself - \
-	and may do so with great destruction. Such an eventuality is absolutely unacceptable to the company.",
-	"",
-	"Nanotrasen also hopes that this improved weapon will be more attractive to markets that have seen low penetration from the original Ion Rifle. As with before, \
-	the golden goose that Nanotrasen wishes eventually to secure is production contracts with the armed forces of the TSF, but they'll happily sell it to anyone else that's buying."
-	)
+	. = list()
+	. += {"Recent developments in compact electromagnets, material science, and iterative improvement in various other high energy components has resulted in this brand-new rehashing of the \
+original Ion Rifle being developed by Nanotrasen R&D: The Ion Carbine! It addresses several of the shortcomings of its centuries-old predecessor. Chiefly among them is the miniaturisation of the vital components, \
+which has allowed the carbine to be made small enough to fit inside a variety of personal storage spaces, permitting it to be used as a secondary weapon that can be kept out of the way until it is needed. \
+Improvements to the ergonomics, reduction in weight, and the replacement of the fixed 1x optic with a modular rail system also makes the carbine far more pleasant to use than its predecessor. \
+All of these improvements come without any trade-offs, such is the march of technology.
 
-// Decloner //
+The chief impetus for the development of the Ion Carbine was the mass unrest and strike actions by the then-indentured IPC workforce starting in 2525. Whilst the events surrounding this were largely non-violent, \
+Nanotrasen is aware that things could have gone very differently. With their current pervasive use of indentured AI, robots, and cyborgs, Nanotrasen is also very well aware that history may repeat itself - \
+and may do so with great destruction. Such an eventuality is absolutely unacceptable to the company.
+
+Nanotrasen also hopes that this improved weapon will be more attractive to markets that have seen low penetration from the original Ion Rifle. As with before, \
+the golden goose that Nanotrasen wishes eventually to secure is production contracts with the armed forces of the TSF, but they'll happily sell it to anyone else that's buying."}
+
+//////////////////////////////
+// MARK: DECLONER
+//////////////////////////////
 /obj/item/gun/energy/decloner
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
@@ -82,12 +105,11 @@
 
 /obj/item/gun/energy/decloner/examine_more(mob/user)
 	. = ..()
-	return list(
-	"The biological demolecularisor - also known as the \"decloner\" by some users - is a specialty weapon from Nanotrasen weapon R&D intended for particularly troublesome organic threats.",
-	"",
-	"It utilises a compact synchrotron specifically tuned to generate a large excess of gamma-wavelength radiation that is released in highly intense bursts. When an organic target is hit by the burst, \
-	it causes damage to the very makeup of their cells, destroying protiens, DNA, and other vital molecular structures. Continued application rapidly results in debilitating damage and death."
-	)
+	. = list()
+	. += {"The biological demolecularisor - also known as the \"decloner\" by some users - is a specialty weapon from Nanotrasen weapon R&D intended for particularly troublesome organic threats.
+
+It utilises a compact synchrotron specifically tuned to generate a large excess of gamma-wavelength radiation that is released in highly intense bursts. When an organic target is hit by the burst, \
+it causes damage to the very makeup of their cells, destroying protiens, DNA, and other vital molecular structures. Continued application rapidly results in debilitating damage and death."}
 
 /obj/item/gun/energy/decloner/update_icon_state()
 	return
@@ -98,7 +120,9 @@
 	if(cell.charge > shot.e_cost)
 		. += "decloner_spin"
 
-// Flora Gun //
+//////////////////////////////
+// MARK: FLORAL SOMATORAY
+//////////////////////////////
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
@@ -119,7 +143,9 @@
 		return FALSE
 	return ..()
 
-// Meteor Gun //
+//////////////////////////////
+// MARK: METEOR GUN
+//////////////////////////////
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
@@ -143,7 +169,9 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
-// Mind Flayer //
+//////////////////////////////
+// MARK: MIND FLAYER
+//////////////////////////////
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
@@ -152,7 +180,9 @@
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 
-// Energy Crossbows //
+//////////////////////////////
+// MARK: ENERGY CROSSBOW
+//////////////////////////////
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists. Knocks down and injects toxins."
@@ -202,7 +232,9 @@
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
-// Plasma Cutters //
+//////////////////////////////
+// MARK: PLASMA CUTTER
+//////////////////////////////
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. Its effectiveness drops dramatically outside of low-pressure environments. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
@@ -230,13 +262,12 @@
 
 /obj/item/gun/energy/plasmacutter/examine_more(mob/user)
 	. = ..()
-	return list(
-	"The plasma cutter is an old and reliable design mining tool designed by the now-defunct Althland mining company for rapid tunnelling, excavation, and ore extraction. \
-	It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance.",
-	"",
-	"It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
-	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
-	)
+	. = list()
+	. += {"The plasma cutter is an old and reliable design mining tool designed by the now-defunct Althland mining company for rapid tunnelling, excavation, and ore extraction. \
+It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance.
+
+It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
+Plasma cutters such as these can be found in use at plasma mining operations throughout known space."}
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
@@ -278,17 +309,18 @@
 
 /obj/item/gun/energy/plasmacutter/adv/examine_more(mob/user)
 	. = ..()
-	return list(
-	"Once Althland was acquired by Nanotrasen, they gained access to all of the company's technologies and patents, most notably, the Plasma Cutter. \
-	NT R&D has been hard at work refining it into a superior design.",
-	"",
-	"This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! \
-	Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well.",
-	"",
-	"These new plasma cutters are not yet in common use, but the massive efficiency gains over their predecessors all but guarantees that they will sell like wildfire."
-	)
+	. = list()
+	. += {"Once Althland was acquired by Nanotrasen, they gained access to all of the company's technologies and patents, most notably, the Plasma Cutter. \
+NT R&D has been hard at work refining it into a superior design.
 
-// Wormhole Projectors //
+This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! \
+Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well.
+
+These new plasma cutters are not yet in common use, but the massive efficiency gains over their predecessors all but guarantees that they will sell like wildfire."}
+
+//////////////////////////////
+// MARK: WORMHOLE PROJECTOR
+//////////////////////////////
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
@@ -345,7 +377,9 @@
 	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
 	return OBLITERATION
 
-/* 3d printer 'pseudo guns' for borgs */
+//////////////////////////////
+// MARK: CYBORG LMG
+//////////////////////////////
 /obj/item/gun/energy/printer
 	name = "cyborg LMG"
 	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
@@ -361,7 +395,9 @@
 /obj/item/gun/energy/printer/emp_act()
 	return
 
-// Instakill Lasers //
+//////////////////////////////
+// MARK: INSTAGIB RIFLE
+//////////////////////////////
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
 	icon_state = "instagib"
@@ -387,7 +423,9 @@
 	item_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
-// HONK Rifle //
+//////////////////////////////
+// MARK: HONK RIFLE
+//////////////////////////////
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
 	desc = "The finest weapon produced by the Martian College of Comedy."
@@ -404,14 +442,18 @@
 
 /obj/item/gun/energy/clown/examine_more(mob/user)
 	. = ..()
-	return list(
-	"Developed by a former pair of designers from Donk Co. and Shellguard Munitions who met each other whilst studying at the Martian College of Comedy, this rifle uses advanced chemical synthesisers \
-	and customised 3D printing technology to fabricate high-yield snap-pops, which are then hurled downrange by a pneumatic ram into unsuspecting bystanders! \
-	Whilst not powerful enough to be harmful, it scares the hell out of them!",
-	"",
-	"The design was an instant hit, and elite clowns all across the Orion sector eagerly added it to their arsenals. What will they think of next?"
-	)
+	. = list()
+	. += {"Developed by a former pair of designers from Donk Co. and Shellguard Munitions who met each other whilst studying at the Martian College of Comedy, this rifle uses advanced chemical synthesisers \
+and customised 3D printing technology to fabricate high-yield snap-pops, which are then hurled downrange by a pneumatic ram into unsuspecting bystanders! \
+Whilst not powerful enough to be harmful, it scares the hell out of them!
 
+The design was an instant hit, and elite clowns all across the Orion sector eagerly added it to their arsenals. What will they think of next?"}
+
+//////////////////////////////
+// MARK: PLASMA PISTOL
+//////////////////////////////
+#define PLASMA_CHARGE_USE_PER_SECOND 2.5
+#define PLASMA_DISCHARGE_LIMIT 5
 /obj/item/gun/energy/plasma_pistol
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire superheated bolts of plasma. Can be overloaded for a high damage, shield-breaking shot."
@@ -440,13 +482,12 @@
 
 /obj/item/gun/energy/plasma_pistol/examine_more(mob/user)
 	. = ..()
-	return list(
-	"The plasma pistol is a departure from Nanotrasen's usual forays into energy weapon design. \
-	Uniquely among its catalogue of experimental weapons, it uses plasma projectiles instead of lasers or other particles to deal damage.",
-	"",
-	"The pistol's frame contains a compact magnetic catapault that launches the plasma at the target, where the extreme heat causes severe burns at the point of impact. When overcharged, a particularly large projectile is \
-	generated, which not only causes increased damage to targets, but also overloads energy shielding thanks to the quantitiy of ionised plasma in the projectile."
-	)
+	. = list()
+	. += {"The plasma pistol is a departure from Nanotrasen's usual forays into energy weapon design. \
+Uniquely among its catalogue of experimental weapons, it uses plasma projectiles instead of lasers or other particles to deal damage.
+
+The pistol's frame contains a compact magnetic catapault that launches the plasma at the target, where the extreme heat causes severe burns at the point of impact. When overcharged, a particularly large projectile is \
+generated, which not only causes increased damage to targets, but also overloads energy shielding thanks to the quantitiy of ionised plasma in the projectile."}
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
@@ -548,7 +589,12 @@
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, 20)
 
+#undef PLASMA_CHARGE_USE_PER_SECOND
+#undef PLASMA_DISCHARGE_LIMIT
 
+//////////////////////////////
+// MARK: THE BSG
+//////////////////////////////
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division."
@@ -585,16 +631,17 @@
 
 /obj/item/gun/energy/bsg/examine_more(mob/user)
 	. = ..()
-	return list(
-	"When a bluespace crystal is correctly charged and agitated, it releases high-energy exotic particles that are very deadly to living beings. \
-	The BSG is the culmination of Nanotrasen's research into portable weaponised bluespace technology.",
-	"",
-	"By using a captive flux anomaly core to supercharge the weapon's bluespace crystal, a massive sphere of condensed energy is released. This sphere will release an energy discharge upon hitting a solid object, \
-	causing extensive damage to flesh and robotic components. As the sphere dischargers, it will also detonate, emitting a powerful pulse of infrared radiation that will cause flash burns on anyone caught within the detonation radius.",
-	"",
-	"Accidental injuries and death during initial testing also caused a protective energy barrier to be added to the design. Using some of the energy of firing, it will create a finely-tuned neutralising bluespace field that protects \
-	the user from the blast wave generated by the weapon's projectile. However, this field will not protect the user from a second BSG, as it is tied to the energy signature of an individual gun's flux anomaly core."
-	)
+	. = list()
+	. += {"When a bluespace crystal is correctly charged and agitated, it releases high-energy exotic particles that are very deadly to living beings. \
+The BSG is the culmination of Nanotrasen's research into portable weaponised bluespace technology.
+
+By using a captive flux anomaly core to supercharge the weapon's bluespace crystal, a massive sphere of condensed energy is released. \
+This sphere will release an energy discharge upon hitting a solid object, causing extensive damage to flesh and robotic components. \
+As the sphere dischargers, it will also detonate, emitting a powerful pulse of infrared radiation that will cause flash burns on anyone caught within the detonation radius.
+
+Accidental injuries and death during initial testing also caused a protective energy barrier to be added to the design. Using some of the energy of firing, \
+it will create a finely-tuned neutralising bluespace field that protects the user from the blast wave generated by the weapon's projectile. \
+However, this field will not protect the user from a second BSG, as it is tied to the energy signature of an individual gun's flux anomaly core."}
 
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
@@ -672,7 +719,9 @@
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division. This is an executive model, and its bluespace crystal will not shatter."
 	admin_model = TRUE
 
-// Temperature Gun //
+//////////////////////////////
+// MARK: TEMPERATURE GUN
+//////////////////////////////
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
 	desc = "A gun that changes the body temperature of its targets, somehow. Use it in-hand to adjust the projectile temperature."	// I give up on trying to come up with an explaination of how this abomonation works. - CRUNCH
@@ -811,7 +860,9 @@
 		if(100 to 200)			. += "100"
 		if(-INFINITY to 100)	. += "0"
 
-// Mimic Gun //
+//////////////////////////////
+// MARK: MIMIC GUN
+//////////////////////////////
 /obj/item/gun/energy/mimicgun
 	name = "mimic gun"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
@@ -828,6 +879,9 @@
 	M.mimic_type = mimic_type
 	..()
 
+//////////////////////////////
+// MARK: DETECTIVE ENERGY REVOLVER
+//////////////////////////////
 /obj/item/gun/energy/detective
 	name = "\improper DL-88 energy revolver"
 	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tac Industries. The fire selector has two settings: 'tracker', and 'disable'."
@@ -854,17 +908,16 @@
 
 /obj/item/gun/energy/detective/examine_more(mob/user)
 	. = ..()
-	return list(
-	"The Dignitas Laser model 88, a laser revolver with a classic design is a 'modern' spin on older .38 revolvers. Designed by Warp-Tac Industries, \
-	it is the successor of the older DL-44 revolver, being tailored for police and security forces.",
-	"",
-	"Developed in response to break-ins at Warp-Tac's corporate offices on Mars, the Model 88 diverged from Warp-Tac's usual lethal weapon designs. Instead, it was crafted to meet police force demands \
-	for non-lethal capture, offering an alternative to the prevalent and commonly distributed disablers in the market. \
-	The DL-88 quickly became the tool of choice for neutralizing suspects without lethal force within Warp-Tac security forces. \
-	Due to this, its effectiveness and design caught the attention of private detective agencies, aligning perfectly with Warp-Tac's targeted marketing of the gun.",
-	"",
-	"Eventually, corporations like Nanotrasen adopted the DL-88 for their detective units, appreciating its cost-effectiveness and the ability to use their own manufactured cells, reducing overall budget expenditures."
-	)
+	. = list()
+	. += {"The Dignitas Laser model 88, a laser revolver with a classic design is a 'modern' spin on older .38 revolvers. Designed by Warp-Tac Industries, \
+it is the successor of the older DL-44 revolver, being tailored for police and security forces.
+
+Developed in response to break-ins at Warp-Tac's corporate offices on Mars, the Model 88 diverged from Warp-Tac's usual lethal weapon designs. Instead, it was crafted to meet police force demands \
+for non-lethal capture, offering an alternative to the prevalent and commonly distributed disablers in the market. \
+The DL-88 quickly became the tool of choice for neutralizing suspects without lethal force within Warp-Tac security forces. \
+Due to this, its effectiveness and design caught the attention of private detective agencies, aligning perfectly with Warp-Tac's targeted marketing of the gun.
+
+Eventually, corporations like Nanotrasen adopted the DL-88 for their detective units, appreciating its cost-effectiveness and the ability to use their own manufactured cells, reducing overall budget expenditures."}
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
@@ -984,7 +1037,9 @@
 	tracking_target_UID = null
 
 
-/// It's like the cyborg LMG, uses energy to make spikes
+//////////////////////////////
+// MARK: VOX SPIKETHROWER
+//////////////////////////////
 /obj/item/gun/energy/spikethrower
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
@@ -1032,10 +1087,9 @@
 	. = ..()
 	. += "<span class='notice'>This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.</span>"
 
-
-#undef PLASMA_CHARGE_USE_PER_SECOND
-#undef PLASMA_DISCHARGE_LIMIT
-
+//////////////////////////////
+// MARK: VORTEX SHOTGUN
+//////////////////////////////
 /obj/item/gun/energy/vortex_shotgun
 	name = "reality vortex wrist mounted shotgun"
 	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
