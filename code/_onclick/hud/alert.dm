@@ -782,7 +782,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "map_vote"
 
 /atom/movable/screen/alert/notify_mapvote/Click()
-	// ehh sure let them click on it if they really want who cares
+	// ehh sure let observers click on it if they really want, who cares
 	usr.client.vote()
 
 //OBJECT-BASED
