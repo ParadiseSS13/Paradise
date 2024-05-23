@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		bad_connection = is_bad_connection(tcm.connection.frequency, display_freq)
 		new_connection = SSradio.return_frequency(display_freq)
 
-	var/list/radios = list()
+	var/list/radios = list(GLOB.deadchat_radio)
 
 	// --- Broadcast only to intercom devices ---
 
@@ -314,9 +314,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
 					// Only add if it wasnt there already
 					radios |= R
-
-	// This is what makes dchat get their radio coverage. Do not remove.
-	radios += GLOB.deadchat_radio
 
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
