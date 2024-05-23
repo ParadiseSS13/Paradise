@@ -253,7 +253,7 @@ Diamond is highly sought after for both aesthetic uses and as a component of man
 
 /obj/item/stack/sheet/mineral/uranium/examine_more(mob/user)
 	. = ..()
-	. =list()
+	. = list()
 	. += {"Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235.
 
 It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."}
