@@ -82,6 +82,7 @@
 	name = "Derelict 3"
 	description = "These hulks were once part of a larger structure, where \
 		the three great \[REDACTED\] were forged."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/derelict4
 	id = "derelict4"

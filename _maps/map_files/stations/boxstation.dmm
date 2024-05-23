@@ -83709,7 +83709,6 @@
 	departmentType = 5;
 	pixel_y = 30
 	},
-/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -93402,11 +93401,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "xHw" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Expedition Maintenance"
-	},
 /obj/structure/barricade/wooden/crude,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

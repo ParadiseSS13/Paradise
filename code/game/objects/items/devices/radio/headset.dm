@@ -292,7 +292,7 @@
 /obj/item/radio/headset/headset_cargo/expedition
 	name = "expedition radio headset"
 	desc = "Headset used by space explorers."
-	icon_state = "exp_headset"
+	icon_state = "mine_headset"
 
 /obj/item/radio/headset/headset_service
 	name = "service radio headset"

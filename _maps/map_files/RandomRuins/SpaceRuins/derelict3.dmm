@@ -36,7 +36,6 @@
 /area/ruin/space/unpowered)
 "w" = (
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon,
-/obj/item/gun/energy/kinetic_accelerator/experimental,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)

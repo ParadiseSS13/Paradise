@@ -59,17 +59,17 @@
 	name = "carp scales"
 	desc = "A collection of scales shed from a corrupted space carp. Their culinary potential could mean untold riches for Nanotrasen."
 	icon_state = "dragon_scales"
-	hitsound = sound('sound/hallucinations/wail.ogg', 20)
-	pickup_sound = sound('sound/hallucinations/im_here2.ogg', 20)
-	drop_sound = sound('sound/hallucinations/look_up2.ogg', 20)
+	hitsound = sound('sound/effects/hit_on_shattered_glass.ogg', 20)
+	pickup_sound = sound('sound/hallucinations/im_here2.ogg', 10)
+	drop_sound = sound('sound/hallucinations/look_up2.ogg', 10)
 
 /obj/item/salvage/ruin/tablet
 	name = "mysterious tablet"
 	desc = "A mysterious and old stone tablet. When you read the text on it, you start getting chills."
 	icon_state = "stone_tablet"
-	hitsound = sound('sound/hallucinations/wail.ogg', 20)
-	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 20)
-	drop_sound = sound('sound/hallucinations/look_up2.ogg', 20)
+	hitsound = sound('sound/effects/break_stone.ogg', 20)
+	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 10)
+	drop_sound = sound('sound/hallucinations/look_up2.ogg', 10)
 
 /// Loot salvage, gained from fighting space simplemobs.
 

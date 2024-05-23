@@ -258,6 +258,7 @@
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
+	origin_tech = "combat=3;magnets=4;syndicate=2"
 
 /obj/item/melee/energy/blade
 	name = "energy blade"

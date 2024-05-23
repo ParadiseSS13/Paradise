@@ -599,6 +599,7 @@
 				/obj/item/clothing/head/soft/expedition = 3,
 				/obj/item/clothing/head/beret/expedition = 3,
 				/obj/item/clothing/suit/jacket/expeditionbomber = 3,
+				/obj/item/mod/skin_applier = 3,
 				/obj/item/clothing/gloves/color/black = 3,
 				/obj/item/clothing/accessory/armband/cargo = 3,
 				/obj/item/clothing/shoes/jackboots = 3,
