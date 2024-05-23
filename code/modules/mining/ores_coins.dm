@@ -3,8 +3,9 @@
 #define GIBTONITE_QUALITY_HIGH 3
 #define PROBABILITY_REFINE_BY_FIRE 50
 #define ORESTACK_OVERLAYS_MAX 10
-/**********************Mineral ores**************************/
-
+//////////////////////////////
+// MARK: ORES
+//////////////////////////////
 /obj/item/stack/ore
 	name = "rock"
 	icon = 'icons/obj/stacks/ores.dmi'
@@ -71,28 +72,9 @@
 			new refined_type(get_turf(loc), amountrefined)
 			qdel(src)
 
-/obj/item/stack/ore/uranium
-	name = "uranium ore"
-	icon_state = "uranium_ore"
-	item_state = "uranium_ore"
-	origin_tech = "materials=5"
-	singular_name = "uranium ore chunk"
-	points = 30
-	refined_type = /obj/item/stack/sheet/mineral/uranium
-	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
-
-/obj/item/stack/ore/iron
-	name = "iron ore"
-	icon_state = "iron_ore"
-	item_state = "iron_ore"
-	origin_tech = "materials=1"
-	singular_name = "iron ore chunk"
-	points = 1
-	refined_type = /obj/item/stack/sheet/metal
-	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
-
 /obj/item/stack/ore/glass
 	name = "sand pile"
+	desc = "A coarse, dust mainly composed of quartz and silica-rich rock. Among its many uses, it can be refined into glass when fired at high tempratures."
 	icon_state = "sand"
 	item_state = "sand"
 	origin_tech = "materials=1"
@@ -101,6 +83,11 @@
 	refined_type = /obj/item/stack/sheet/glass
 	merge_type = /obj/item/stack/ore/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/glass/examine(mob/user)
+	. = ..()
+	. =+ "<span class='notice>You can throw this into people's eyes!</span>"
+	. += "You could add some to a girder to make a false rock wall."
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
 		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
@@ -136,16 +123,38 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt
 	name = "volcanic ash"
-	desc = "Looks like you could shove some on a girder to make a false rock wall."
+	desc = "A coarse, abrasive basaltic dust rich in silica and various elemental oxides. Commonly refined into glass or used as fertiliser."
 	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 
+/obj/item/stack/ore/glass/basalt/examine(mob/user)
+	. = ..()
+	. += "You could throw this into people's eyes!"
+	. += "You could add some to a girder to make a false rock wall."
+
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
+	desc = "Basultic sand mined from an exceptionally old and compacted formation."
 	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
 	singular_name = "ancient sand pile"
+
+/obj/item/stack/ore/glass/basalt/ancient/examine(mob/user)
+	. = ..()
+	. += "You could throw this into people's eyes!"
+	. += "You could add some to a girder to make a false ancient rock wall."
+
+/obj/item/stack/ore/iron
+	name = "iron ore"
+	desc = "Exceptionally common ore that can be refined into iron and steel."
+	icon_state = "iron_ore"
+	item_state = "iron_ore"
+	origin_tech = "materials=1"
+	singular_name = "iron ore chunk"
+	points = 1
+	refined_type = /obj/item/stack/sheet/metal
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
@@ -160,6 +169,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/silver
 	name = "silver ore"
+	desc = "Metal ore rich in precious silver."
 	icon_state = "silver_ore"
 	item_state = "silver_ore"
 	origin_tech = "materials=3"
@@ -179,8 +189,29 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/uranium
+	name = "uranium ore"
+	desc = "Radioactive ore containing significant amounts of natural uranium."
+	icon_state = "uranium_ore"
+	item_state = "uranium_ore"
+	origin_tech = "materials=5"
+	singular_name = "uranium ore chunk"
+	points = 30
+	refined_type = /obj/item/stack/sheet/mineral/uranium
+	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/titanium
+	name = "titanium ore"
+	icon_state = "titanium_ore"
+	item_state = "titanium_ore"
+	singular_name = "titanium ore chunk"
+	points = 50
+	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+	refined_type = /obj/item/stack/sheet/mineral/titanium
+
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
+	desc = "Rock formation containing diamond."
 	icon_state = "diamond_ore"
 	item_state = "diamond_ore"
 	origin_tech = "materials=6"
@@ -211,21 +242,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/stack/ore/titanium
-	name = "titanium ore"
-	icon_state = "titanium_ore"
-	item_state = "titanium_ore"
-	singular_name = "titanium ore chunk"
-	points = 50
-	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
-	refined_type = /obj/item/stack/sheet/mineral/titanium
-
 /obj/item/stack/ore/slag
 	name = "slag"
 	desc = "Completely useless."
 	icon_state = "slag"
 	singular_name = "slag chunk"
 
+//////////////////////////////
+// MARK: GIBTONITE
+//////////////////////////////
 /obj/item/gibtonite
 	name = "gibtonite ore"
 	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under Space Law."
@@ -340,8 +365,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	qdel(src)
 
 
-/*****************************Coin********************************/
-
+//////////////////////////////
+// MARK: COINS
+//////////////////////////////
 /obj/item/coin
 	icon = 'icons/obj/economy.dmi'
 	name = "coin"

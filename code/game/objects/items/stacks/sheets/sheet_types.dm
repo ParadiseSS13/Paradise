@@ -3,6 +3,7 @@
  * Metal
  * Plasteel
  * Wood
+ * Bamboo
  * Cloth
  * Durathread
  * Cardboard
@@ -13,9 +14,9 @@
  * Plastic
  */
 
-/*
- * Metal
- */
+//////////////////////////////
+// MARK: METAL
+//////////////////////////////
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
@@ -169,9 +170,9 @@ Its use is ubiquitous across all post-industrial civilisations and is extensivel
 	recipes = GLOB.metal_recipes
 	return ..()
 
-/*
- * Plasteel
- */
+//////////////////////////////
+// MARK: PLASTEEL
+//////////////////////////////
 GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
@@ -222,9 +223,9 @@ although it is sometimes incorporated into the armour of critical areas. Its hig
 	energy_type = /datum/robot_storage/energy/wood
 	is_cyborg = TRUE
 
-/*
- * Wood
- */
+//////////////////////////////
+// MARK: WOOD
+//////////////////////////////
 GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1),
 	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
@@ -282,9 +283,9 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	recipes = GLOB.wood_recipes
 	return ..()
 
-/*
- * Bamboo
- */
+//////////////////////////////
+// MARK: BAMBOO
+//////////////////////////////
 GLOBAL_LIST_INIT(bamboo_recipes, list(
 	new /datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bamboo spear", /obj/item/spear/bamboo, req_amount = 25, time = 9 SECONDS),
@@ -324,9 +325,9 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo/fifty
 	amount = 50
 
-/*
- * Cloth
- */
+//////////////////////////////
+// MARK: CLOTH
+//////////////////////////////
 GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("cloth clothings", list(
 		new /datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3),
@@ -388,9 +389,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
-/*
- * Durathread
- */
+//////////////////////////////
+// MARK: DURATHREAD
+//////////////////////////////
 
 GLOBAL_LIST_INIT(durathread_recipes, list (
 	new /datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
@@ -440,9 +441,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
 
-/*
- * Cardboard
- */
+//////////////////////////////
+// MARK: CARDBOARD
+//////////////////////////////
 GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
@@ -501,9 +502,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	recipes = GLOB.cardboard_recipes
 	return ..()
 
-/*
- * soil
- */
+//////////////////////////////
+// MARK: SOIL
+//////////////////////////////
 GLOBAL_LIST_INIT(soil_recipes, list (
 	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
@@ -523,9 +524,9 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	recipes = GLOB.soil_recipes
 	return ..()
 
-/*
- * Runed Metal
- */
+//////////////////////////////
+// MARK: RUNED METAL
+//////////////////////////////
 
 GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -590,9 +591,9 @@ Mundane matter turned extraordinary by the dark blessings of those things that l
 	recipes = GLOB.cult_recipes
 	return ..()
 
-/*
- * Brass
- */
+//////////////////////////////
+// MARK: BRASS
+//////////////////////////////
 GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -622,6 +623,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 
 /obj/item/stack/tile/brass/examine_more(mob/user)
 	. = ..()
+	. = list()
 	. += {"Brass describes a class of alloys made primarily from copper and zinc, with colours ranging from yellowish-white, gold, brown, and reddish. \
 It is a highly workable material with good electrical and thermal conductivity, and corrosion resistance.
 
@@ -643,9 +645,9 @@ Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His 
 /obj/item/stack/tile/brass/fifty
 	amount = 50
 
-/*
- * Bones
- */
+//////////////////////////////
+// MARK: BONES
+//////////////////////////////
 /obj/item/stack/sheet/bone
 	name = "bones"
 	icon = 'icons/obj/stacks/organic.dmi'
@@ -660,9 +662,9 @@ Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His 
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
-/*
- * Plastic
- */
+//////////////////////////////
+// MARK: PLASTIC
+//////////////////////////////
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),
@@ -718,6 +720,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/plastic/examine_more(mob/user)
 	. = ..()
+	. = list()
 	. += {"Plastics are a large and diverse range of materials consisting of long-chain polymers, typically based on hydrocarbons, but other chemical groups can be attached to the molecular backbone to achieve specific properties. \
 They are generally characterised as very lightweight, easily mouldable, and versatile. Most plastics either cannot be recycled, or are cost-prohibitive to recycle.
 
