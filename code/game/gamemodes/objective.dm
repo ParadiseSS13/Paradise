@@ -385,8 +385,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block
 	name = "Silicon hijack"
-	explanation_text = "Hijack the shuttle with no loyalist Nanotrasen crew on board and free. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
+	explanation_text = "Hijack the shuttle by alt clicking on the shuttle console. Do not let the crew wipe you off of it! \
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. All that matters is you are not wiped. \
 	Using the doomsday device successfully is also an option."
 	martyr_compatible = FALSE
 	needs_target = FALSE
@@ -396,6 +396,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!M.current || !issilicon(M.current))
 			return FALSE
 	if(SSticker.mode.station_was_nuked)
+		return TRUE
+	if(SSshuttle.emergency.aihacked == TRUE)
 		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
