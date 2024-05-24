@@ -8,10 +8,32 @@ SUBSYSTEM_DEF(late_mapping)
 	flags = SS_NO_FIRE
 	/// List of all maze generators to process
 	var/list/obj/effect/mazegen/generator/maze_generators = list()
+	/// List of all bridge spawners to process
+	var/list/obj/effect/spawner/bridge/bridge_spawners = list()
 
 /datum/controller/subsystem/late_mapping/Initialize()
 	if(length(maze_generators))
+		var/watch = start_watch()
 		log_startup_progress("Generating mazes...")
+
 		for(var/i in maze_generators)
 			var/obj/effect/mazegen/generator/MG = i
 			MG.run_generator()
+
+		var/list/mgcount = length(maze_generators) // Keeping track of this here because we wipe it next line down
+		QDEL_LIST_CONTENTS(maze_generators)
+		var/duration = stop_watch(watch)
+		log_startup_progress("Generated [mgcount] mazes in [duration]s")
+
+	if(length(bridge_spawners))
+		var/watch = start_watch()
+		log_startup_progress("Spawning bridges...")
+
+		for(var/i in bridge_spawners)
+			var/obj/effect/spawner/bridge/BS = i
+			BS.generate_bridge()
+
+		var/list/bscount = length(bridge_spawners) // Keeping track of this here because we wipe it next line down
+		QDEL_LIST_CONTENTS(bridge_spawners)
+		var/duration = stop_watch(watch)
+		log_startup_progress("Spawned [bscount] bridges in [duration]s")

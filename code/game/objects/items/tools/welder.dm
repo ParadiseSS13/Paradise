@@ -42,7 +42,7 @@
 	var/progress_flash_divisor = 10
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
