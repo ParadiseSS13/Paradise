@@ -93,7 +93,6 @@
 
 
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()
-	..()
 	if(!on)
 		return
 

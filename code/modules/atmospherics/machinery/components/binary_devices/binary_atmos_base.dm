@@ -151,7 +151,3 @@
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)
 		to_release.merge(air2.remove(shared_loss))
 		T.blind_release_air(to_release)
-
-/obj/machinery/atmospherics/binary/process_atmos()
-	..()
-	return parent1 && parent2

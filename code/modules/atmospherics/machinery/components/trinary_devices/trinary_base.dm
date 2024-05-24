@@ -208,7 +208,3 @@
 		to_release.merge(air2.remove(shared_loss))
 		to_release.merge(air3.remove(shared_loss))
 		T.blind_release_air(to_release)
-
-/obj/machinery/atmospherics/trinary/process_atmos()
-	..()
-	return parent1 && parent2 && parent3
