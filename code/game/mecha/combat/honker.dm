@@ -46,7 +46,7 @@
 						<b>AirHONK pressure: </b>[tank_pressure]kPa<br>
 						<b>AirHONK temperature: </b>[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C<br>
 						<b>HONK pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>
-						<b>HONK temperature: </b> [cabin_air.return_temperature()]&deg;K|[cabin_air.return_temperature() - T0C]&deg;C<br>
+						<b>HONK temperature: </b> [cabin_air.temperature()]&deg;K|[cabin_air.temperature() - T0C]&deg;C<br>
 						<b>Lights: </b>[lights?"on":"off"]<br>
 						[dna?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='byond://?src=[UID()];reset_dna=1'>Reset</a>\]<br>":null]
 					"}
