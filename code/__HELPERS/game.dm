@@ -200,20 +200,50 @@
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
-	// Returns a list of mobs who can hear any of the radios
+	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
-	for(var/obj/item/radio/R as anything in radios)
-		var/obj/item/radio/borg/BR = R
-		if(istype(BR) && BR.myborg)
-			if(!BR.myborg.is_component_functioning("radio"))
-				continue //No power.
+	for(var/obj/item/radio/R in radios)
+		if(R)
+			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
+			var/obj/item/radio/borg/BR = R
+			if(istype(BR) && BR.myborg)
+				var/mob/living/silicon/robot/borg = BR.myborg
+				var/datum/robot_component/CO = borg.get_component("radio")
+				if(!CO)
+					continue //No radio component (Shouldn't happen)
+				if(!borg.is_component_functioning("radio"))
+					continue //No power.
 
-		for(var/mob/listener as anything in R.listeners)
-			speaker_coverage |= listener
-		
-		if(ismob(R.loc))
-			speaker_coverage |= R.loc
-	return speaker_coverage
+			var/turf/speaker = get_turf(R)
+			if(speaker)
+				for(var/turf/T in hear(R.canhear_range,speaker))
+					var/obj/item/radio/oldR = speaker_coverage[T]
+					if(!istype(oldR))
+						speaker_coverage[T] = R
+						continue
+					if(oldR.canhear_range < R.canhear_range)
+						speaker_coverage[T] = R
+
+	// Try to find all the players who can hear the message
+	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
+		var/mob/M = A
+		if(!M)
+			continue
+		var/turf/ear = get_turf(M)
+		if(!ear)
+			continue
+		// Ghostship is magic: Ghosts can hear radio chatter from anywhere
+		if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+			. |= M
+			continue
+		if(!speaker_coverage[ear])
+			continue
+		var/obj/item/radio/R = speaker_coverage[ear]
+		if(!istype(R) || R.canhear_range > 0)
+			. |= M
+			continue
+		if(is_same_root_atom(M, speaker_coverage[ear]))
+			. |= M
 
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
 	var/turf/T
