@@ -138,12 +138,11 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
 /obj/item/stack/sheet/metal/examine_more(mob/user)
-	..()
-	. = list()
-	. += {"At its core, steel is an alloy of iron and carbon. The addition of a wide range of other elements and the use of various metallurgical processes allows control over nearly every property of the resulting alloy, \
-	from hardness and ductility to corrosion resistance.
-
-Its use is ubiquitous across all post-industrial civilisations and is extensively used within all areas of construction, as well as the manufacture of almost any device that one can care to imagine."}
+	. = ..()
+	. += "At its core, steel is an alloy of iron and carbon. The addition of a wide range of other elements and the use of various metallurgical processes allows control over nearly every property of the resulting alloy, \
+	from hardness and ductility to corrosion resistance."
+	. += ""
+	. += "Its use is ubiquitous across all post-industrial civilisations and is extensively used within all areas of construction, as well as the manufacture of almost any device that one can care to imagine."
 
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_storage/material/metal
@@ -204,13 +203,12 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	table_type = /obj/structure/table/reinforced
 
 /obj/item/stack/sheet/plasteel/examine_more(mob/user)
-	..()
-	. = list()
-	. += {"A high-performance steel superalloy that incorporates a significant quantity of plasma. The plasma forms cross-links with the other constituants of the metal, \
-pulling them in and bonding with them extremely strongly. It is exceptionally tough, heat-resistant, corrosion-resistant, and about 2.5 times as dense as regular steel.
-
-It is used in the constuction of top-grade building and vehicle armour and some specialised tools and weapons. It is too heavy to make starships out of, \
-although it is sometimes incorporated into the armour of critical areas. Its high density also makes it an excellent material for radiation shielding."}
+	. = ..()
+	. += "A high-performance steel superalloy that incorporates a significant quantity of plasma. The plasma forms cross-links with the other constituants of the metal, \
+	pulling them in and bonding with them extremely strongly. It is exceptionally tough, heat-resistant, corrosion-resistant, and about 2.5 times as dense as regular steel."
+	. += ""
+	. += "It is used in the constuction of top-grade building and vehicle armour and some specialised tools and weapons. It is too heavy to make starships out of, \
+	although it is sometimes incorporated into the armour of critical areas. Its high density also makes it an excellent material for radiation shielding."
 
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
@@ -548,11 +546,10 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal/examine_more(mob/user)
-	..()
-	. = list()
-	. += {"There are things lurking in the darkness beyond our comprehension, sealed away by terrible writs. They scheme and plot amongst themselves and with the fools and unwilling converts that serve them in our world.
-
-Mundane matter turned extraordinary by the dark blessings of those things that lie in wait - such as this - is the canvas used to build the works that shall one day tear asunder the veil that shields our world."}
+	. = ..()
+	. += "There are things lurking in the darkness beyond our comprehension, sealed away by terrible writs. They scheme and plot amongst themselves and with the fools and unwilling converts that serve them in our world."
+	. += ""
+	. += "Mundane matter turned extraordinary by the dark blessings of those things that lie in wait - such as this - is the canvas used to build the works that shall one day tear asunder the veil that shields our world."
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
@@ -622,14 +619,13 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	dynamic_icon_state = TRUE
 
 /obj/item/stack/tile/brass/examine_more(mob/user)
-	..()
-	. = list()
-	. += {"Brass describes a class of alloys made primarily from copper and zinc, with colours ranging from yellowish-white, gold, brown, and reddish. \
-It is a highly workable material with good electrical and thermal conductivity, and corrosion resistance.
-
-It is used for ornamental and fashion applications (sometimes as a cheap substitute for gold), musical instruments, some specialised electronics, and spark-free tooling.
-
-Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His followers use it extensively in their works and creations, although it has been a long time since anyone has seen them..."}
+	. = ..()
+	. += "Brass describes a class of alloys made primarily from copper and zinc, with colours ranging from yellowish-white, gold, brown, and reddish. \
+	It is a highly workable material with good electrical and thermal conductivity, and corrosion resistance."
+	. += ""
+	. += "It is used for ornamental and fashion applications (sometimes as a cheap substitute for gold), musical instruments, some specialised electronics, and spark-free tooling."
+	. += ""
+	. += "Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His followers use it extensively in their works and creations, although it has been a long time since anyone has seen them..."
 
 
 /obj/item/stack/tile/brass/narsie_act()
