@@ -202,13 +202,13 @@
 	. = list()
 	// Returns a list of mobs who can hear any of the radios
 	var/list/speaker_coverage = list()
-	for(var/obj/item/radio/R in radios)
+	for(var/obj/item/radio/R as anything in radios)
 		var/obj/item/radio/borg/BR = R
 		if(istype(BR) && BR.myborg)
 			if(!BR.myborg.is_component_functioning("radio"))
 				continue //No power.
 
-		for(var/mob/listener in R.listeners)
+		for(var/mob/listener as anything in R.listeners)
 			speaker_coverage |= listener
 		
 		if(ismob(R.loc))
