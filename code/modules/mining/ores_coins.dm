@@ -87,7 +87,7 @@
 /obj/item/stack/ore/glass/examine(mob/user)
 	. = ..()
 	. += "<span class='notice>You can throw this into people's eyes!</span>"
-	. += "You could add some to a girder to make a false rock wall."
+	. += "<span class='notice>You could add some to a girder to make a false rock wall.</span>"
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
 		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
@@ -130,8 +130,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt/examine(mob/user)
 	. = ..()
-	. += "You could throw this into people's eyes!"
-	. += "You could add some to a girder to make a false rock wall."
+	. += "<span class='notice>You could throw this into people's eyes!</span>"
+	. += <span class='notice>You could add some to a girder to make a false rock wall.</span>"
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
@@ -142,8 +142,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt/ancient/examine(mob/user)
 	. = ..()
-	. += "You could throw this into people's eyes!"
-	. += "You could add some to a girder to make a false ancient rock wall."
+	. += "<span class='notice>You could throw this into people's eyes!</span>"
+	. += "<span class='notice>You could add some to a girder to make a false ancient rock wall.</span>"
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
