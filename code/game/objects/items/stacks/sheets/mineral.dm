@@ -230,8 +230,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."}
 
-
-
 /obj/item/stack/sheet/mineral/diamond/New()
 	..()
 	recipes = GLOB.diamond_recipes
