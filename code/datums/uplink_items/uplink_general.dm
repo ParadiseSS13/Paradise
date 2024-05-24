@@ -457,7 +457,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Will release a plume of smoke that applies tar to a wide area, severely slowing down movement. Make the ultimate getaway!"
 	reference = "TARG"
 	item = /obj/item/grenade/chem_grenade/tar
-	cost = 15
+	cost = 7
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
@@ -642,7 +642,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Comes with 10 uses worth of fluid and cannot be refilled."
 	reference = "TAR"
 	item = /obj/item/reagent_containers/spray/sticky_tar
-	cost = 20
+	cost = 10
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
