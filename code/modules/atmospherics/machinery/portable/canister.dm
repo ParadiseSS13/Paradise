@@ -232,6 +232,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	T.blind_release_air(expelled_gas)
 
 /obj/machinery/atmospherics/portable/canister/process_atmos()
+	..()
 	var/datum/milla_safe/canister_process/milla = new()
 	milla.invoke_async(src)
 

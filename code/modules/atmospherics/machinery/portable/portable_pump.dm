@@ -52,6 +52,7 @@
 	..(severity)
 
 /obj/machinery/atmospherics/portable/pump/process_atmos()
+	..()
 	var/datum/milla_safe/portable_pump_process/milla = new()
 	milla.invoke_async(src)
 

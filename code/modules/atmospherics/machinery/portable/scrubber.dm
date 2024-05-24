@@ -45,6 +45,7 @@
 		. += "scrubber-connector"
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
+	..()
 	var/datum/milla_safe/portable_scrubber_process/milla = new()
 	milla.invoke_async(src)
 
