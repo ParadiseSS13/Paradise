@@ -1,19 +1,18 @@
-/* Glass stack types
- * Contains:
- *		Glass sheets
- *		Reinforced glass sheets
- *		Glass shards - TODO: Move this into code/game/object/item/weapons
- *		Plasma Glass Sheets
- *		Reinforced Plasma Glass Sheets (AKA Holy fuck strong windows)
+/* CONTENTS:
+ *	1. GLASS
+ *	2. REINFORCED GLASS
+ *	3. PLASMA GLASS
+ *	4. REINFORCED PLASMA GLASS
+ *	5. TITANIUM GLASS
+ *	6. PLASTITANIUM GLASS
 
  Todo: Create a unified construct_window(sheet, user, created_window, full_window)
 
  */
 
-/*
- * Glass sheets
- */
-
+//////////////////////////////
+// MARK: GLASS
+//////////////////////////////
 GLOBAL_LIST_INIT(glass_recipes, list (
 	new /datum/stack_recipe("glass shard", /obj/item/shard, time = 0 SECONDS),
 	new /datum/stack_recipe/window("directional window", /obj/structure/window/basic, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
@@ -91,11 +90,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	else
 		return ..()
 
-
-/*
- * Reinforced glass sheets
- */
-
+//////////////////////////////
+// MARK: REINFORCED GLASS
+//////////////////////////////
 GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	new /datum/stack_recipe("glass shard", /obj/item/shard, time = 0 SECONDS),
 	new /datum/stack_recipe/window("windoor frame", /obj/structure/windoor_assembly, 5, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
@@ -153,6 +150,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 /obj/item/stack/sheet/rglass/cyborg/drone
 	energy_type = /datum/robot_storage/energy/rglass
 
+//////////////////////////////
+// MARK: PLASMA GLASS
+//////////////////////////////
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"
 	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
@@ -169,7 +169,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	table_type = /obj/structure/table/glass/plasma
 
 /obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A mixture of silica glass and plasma. The plasma forces the normally amorphous glass to assume a regular crystal structure. The plasma encourges heavy cross-linking, \
 massively improving the strength of the glass whilst also giving it exceptional thermal resistance. The denser molecular structure is also better at blocking radiation.
@@ -202,9 +202,9 @@ Despite plastitanium glass being a structurally more robust material, pure plasm
 	else
 		return ..()
 
-/*
- * Reinforced plasma glass sheets
- */
+//////////////////////////////
+// MARK: REINFORCED PLASMA GLASS
+//////////////////////////////
 
 GLOBAL_LIST_INIT(prglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	table_type = /obj/structure/table/glass/reinforced/plasma
 
 /obj/item/stack/sheet/plasmarglass/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A mixture of silica glass and plasma. The plasma forces the normally amorphous glass to assume a regular crystal structure. The plasma encourges heavy cross-linking, \
 massively improving the strength of the glass whilst also giving it exceptional thermal resistance. The denser molecular structure is also better at blocking radiation.
@@ -249,6 +249,9 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
 	))
 
+//////////////////////////////
+// MARK: TITANIUM GLASS
+//////////////////////////////
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
 	desc = "A glass sheet made out of a titanium-silicate mixture."
@@ -263,7 +266,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	table_type = /obj/structure/table/glass/reinforced/titanium
 
 /obj/item/stack/sheet/titaniumglass/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Titanium-silicate mixes are an old but highly effective technology that produce a relatively lightweight, very strong glass that can withstand a good amount of punishment.
 
@@ -280,6 +283,9 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new /datum/stack_recipe/window("plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
 	))
 
+//////////////////////////////
+// MARK: PLASTITANIUM GLASS
+//////////////////////////////
 /obj/item/stack/sheet/plastitaniumglass
 	name = "plastitanium glass"
 	desc = "A glass sheet made out of a plasma-titanium-silica mixture."
@@ -294,7 +300,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
 
 /obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A mixture of silica glass, and plastitanium. It boasts similar material properties to plastitanium whilst also being optically transparent.
 

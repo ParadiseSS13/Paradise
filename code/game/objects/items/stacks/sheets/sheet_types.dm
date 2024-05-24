@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
 /obj/item/stack/sheet/metal/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"At its core, steel is an alloy of iron and carbon. The addition of a wide range of other elements and the use of various metallurgical processes allows control over nearly every property of the resulting alloy, \
 	from hardness and ductility to corrosion resistance.
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	table_type = /obj/structure/table/reinforced
 
 /obj/item/stack/sheet/plasteel/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A high-performance steel superalloy that incorporates a significant quantity of plasma. The plasma forms cross-links with the other constituants of the metal, \
 pulling them in and bonding with them extremely strongly. It is exceptionally tough, heat-resistant, corrosion-resistant, and about 2.5 times as dense as regular steel.
@@ -548,7 +548,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"There are things lurking in the darkness beyond our comprehension, sealed away by terrible writs. They scheme and plot amongst themselves and with the fools and unwilling converts that serve them in our world.
 
@@ -622,7 +622,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	dynamic_icon_state = TRUE
 
 /obj/item/stack/tile/brass/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Brass describes a class of alloys made primarily from copper and zinc, with colours ranging from yellowish-white, gold, brown, and reddish. \
 It is a highly workable material with good electrical and thermal conductivity, and corrosion resistance.
@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	merge_type = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/sheet/plastic/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Plastics are a large and diverse range of materials consisting of long-chain polymers, typically based on hydrocarbons, but other chemical groups can be attached to the molecular backbone to achieve specific properties. \
 They are generally characterised as very lightweight, easily mouldable, and versatile. Most plastics either cannot be recycled, or are cost-prohibitive to recycle.

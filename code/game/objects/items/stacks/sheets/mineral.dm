@@ -224,7 +224,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	point_value = 25
 
 /obj/item/stack/sheet/mineral/diamond/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Diamond is the hardest known material, made of elemental carbon arranged in a tightly packed cubic crystal structure. It has excellent thermal conductivity, a high refractive index, and is very pretty to look at.
 
@@ -250,7 +250,7 @@ Diamond is highly sought after for both aesthetic uses and as a component of man
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/uranium/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235.
 
@@ -278,7 +278,7 @@ It finds uses in a great number of applications, including medicine, nuclear pow
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today.
 
@@ -334,7 +334,7 @@ This allows, for example, a relatively thin pane of plasma glass to be cool to t
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/gold/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A dense, soft, yellow precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. \
 	It has an exceptionally low reactivity and excellent corrosion resistance, being the most noble of the metallic elements.
@@ -361,7 +361,7 @@ It is widely used in the production of advanced electronics and chemical catalys
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/silver/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A shiny grey precious metal that has been sought after by many species since before they recorded history as a symbol of wealth. \
 It has very high thermal and electrical conductivity, and exhibits antimicrobial properties.
@@ -388,7 +388,7 @@ It is widely used in the production of advanced electronics, chemical catalysts,
 	point_value = 50
 
 /obj/item/stack/sheet/mineral/bananium/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Bananium. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
 	It makes a squeaking sound when something compresses it.
@@ -419,7 +419,7 @@ It is sought after by clowns all across the known galaxy and is used in the crea
 	point_value = 50
 
 /obj/item/stack/sheet/mineral/tranquillite/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"Tranquilite. An extremely rare crystalline material of unknown origin. Various theories of where it originates have been proposed, usually with no evidence to support them. \
 Uniquely, it makes no sounds when bent, broken, smashed, or otherwise manipulated in any way, remaining deathly silent at all times. \
@@ -457,7 +457,7 @@ It is sought after by mimes all across the known galaxy and is used in the creat
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/titanium/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A strong, lightweight metal. Titanium has a strength similar to most steel alloys despite being about 45% less dense, whilst also exhibiting superior corrosion resistance. \
 It is also very good at reflecting energy weapon attacks. Careful where you fire that laser gun!
@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	point_value = 45
 
 /obj/item/stack/sheet/mineral/plastitanium/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += {"A high-performance superalloy of plasma and titanium, plastitanium is exceptionally light and strong, and has excellent thermal and corrosion resistance.
 
@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	table_type = /obj/structure/table/abductor
 
 /obj/item/stack/sheet/mineral/abductor/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
 	. += "An out-of-this-world material used in the construction of exceptionally advanced technologies. Known to be associated strongly with abductors."
 
