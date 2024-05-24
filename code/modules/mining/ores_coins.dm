@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/glass/basalt/examine(mob/user)
 	. = ..()
 	. += "<span class='notice>You could throw this into people's eyes!</span>"
-	. += <span class='notice>You could add some to a girder to make a false rock wall.</span>"
+	. += "<span class='notice>You could add some to a girder to make a false rock wall.</span>"
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
