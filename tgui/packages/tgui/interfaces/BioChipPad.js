@@ -39,6 +39,13 @@ export const BioChipPad = (props, context) => {
                 {implant.name}
               </Box>
               <LabeledList>
+                <LabeledList.Item label="Life">{implant.life}</LabeledList.Item>
+                <LabeledList.Item label="Notes">
+                  {implant.notes}
+                </LabeledList.Item>
+                <LabeledList.Item label="Function">
+                  {implant.function}
+                </LabeledList.Item>
                 {!!gps && (
                   <LabeledList.Item label="Tag">
                     <Input
@@ -58,13 +65,6 @@ export const BioChipPad = (props, context) => {
                     </Button>
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Life">{implant.life}</LabeledList.Item>
-                <LabeledList.Item label="Notes">
-                  {implant.notes}
-                </LabeledList.Item>
-                <LabeledList.Item label="Function">
-                  {implant.function}
-                </LabeledList.Item>
               </LabeledList>
             </>
           ) : contains_case ? (
