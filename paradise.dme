@@ -1513,7 +1513,6 @@
 #include "code\modules\asset_cache\assets\asset_claw_game.dm"
 #include "code\modules\asset_cache\assets\asset_cloning.dm"
 #include "code\modules\asset_cache\assets\asset_common.dm"
-#include "code\modules\asset_cache\assets\asset_crates.dm"
 #include "code\modules\asset_cache\assets\asset_emoji.dm"
 #include "code\modules\asset_cache\assets\asset_jquery.dm"
 #include "code\modules\asset_cache\assets\asset_materials.dm"
