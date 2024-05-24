@@ -183,9 +183,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/mineral/ancient,
 /area/space)
 "qN" = (
@@ -295,9 +292,6 @@
 	},
 /area/ruin/space/powered)
 "Gh" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
