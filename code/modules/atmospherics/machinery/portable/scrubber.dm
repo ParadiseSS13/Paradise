@@ -45,6 +45,8 @@
 		. += "scrubber-connector"
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
+	..()
+
 	if(!on)
 		return
 	scrub(loc)

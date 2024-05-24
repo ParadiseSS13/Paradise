@@ -236,6 +236,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	if(stat & BROKEN)
 		return
 
+	..()
+
 	if(valve_open)
 		var/datum/gas_mixture/environment
 		if(holding_tank)
