@@ -50,10 +50,7 @@
 	if(stat != DEAD)
 		handle_heartattack()
 
-	//Handle temperature/pressure differences between body and environment
-	var/datum/gas_mixture/environment = loc.return_air()
-	if(environment)
-		handle_environment(environment)
+	handle_environment()
 
 	handle_fire()
 
@@ -113,7 +110,8 @@
 /mob/living/proc/handle_random_events()
 	return
 
-/mob/living/proc/handle_environment(datum/gas_mixture/environment)
+/// Handle temperature/pressure differences between body and environment
+/mob/living/proc/handle_environment()
 	return
 
 /mob/living/proc/update_pulling()

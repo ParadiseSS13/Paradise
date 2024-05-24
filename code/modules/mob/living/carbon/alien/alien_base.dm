@@ -72,7 +72,8 @@
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
 
-/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
+/mob/living/carbon/alien/handle_environment()
+	var/datum/gas_mixture/environment = loc.return_air()
 	if(!environment)
 		return
 

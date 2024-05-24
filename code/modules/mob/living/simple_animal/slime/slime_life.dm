@@ -101,7 +101,8 @@
 
 	AIproc = FALSE
 
-/mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
+/mob/living/simple_animal/slime/handle_environment()
+	var/datum/gas_mixture/environment = loc.return_air()
 	if(!environment)
 		return
 

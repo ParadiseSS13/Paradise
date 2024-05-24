@@ -220,7 +220,9 @@
 /datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
 	..()
 	ADD_TRAIT(D, TRAIT_NOBREATH, DOGGO_SPACESUIT)
+	D.remove_atmos_requirements()
 	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	D.apply_atmos_requirements()
 	D.minbodytemp = 0
 
 /datum/dog_fashion/head/fried_vox_empty
