@@ -47,6 +47,7 @@
 	filling_color = "#C4FBFF"
 	list_reagents = list("nutriment" = 4, "banana" = 5, "water" = 5, "vitamin" = 8)
 	tastes = list("a bad joke" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/soup/vegetablesoup
 	name = "vegetable soup"
@@ -317,3 +318,4 @@
 	filling_color = "#FF3C00"
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 2, "protein" = 2)
 	tastes = list("tomato" = 1, "chili" = 1, "meat" = 1, "sad clowns" = 4)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE

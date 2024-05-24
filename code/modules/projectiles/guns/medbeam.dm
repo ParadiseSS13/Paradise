@@ -113,6 +113,8 @@
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
 				E.mend_fracture()
+				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 	else
 		target.adjustBruteLoss(-4)
 		target.adjustFireLoss(-4)
