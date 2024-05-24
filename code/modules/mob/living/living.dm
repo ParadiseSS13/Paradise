@@ -895,7 +895,11 @@
 	var/loc_temp = T0C
 	if(ismecha(loc))
 		var/obj/mecha/M = loc
-		loc_temp = M.return_temperature()
+		var/datum/gas_mixture/cabin = M.return_obj_air()
+		if(cabin)
+			loc_temp = cabin.temperature()
+		else
+			loc_temp = environment.temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature()

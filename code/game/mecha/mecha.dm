@@ -1041,16 +1041,6 @@
 		return cabin_air
 	return null
 
-/obj/mecha/proc/return_pressure()
-	var/datum/gas_mixture/t_air = return_obj_air()
-	if(t_air)
-		return t_air.return_pressure()
-
-/obj/mecha/proc/return_temperature()
-	var/datum/gas_mixture/t_air = return_obj_air()
-	if(t_air)
-		return t_air.temperature()
-
 /obj/mecha/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !istype(new_port) || new_port.connected_device)
