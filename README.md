@@ -1,6 +1,6 @@
 <a href="#"><img src=".github/assets/paradise.png" alt="Paradise Station"></a>
 
-## <p align="center">Welcome to the main repository for the Paradise WyccStation SS220 Station version of [Space Station 13](https://spacestation13.com/).</p>
+##	<p align="center">Добро пожаловать в репозиторий Paradise WyccStation SS220 по игре [Space Station 13](https://spacestation13.com/).</p>
 
 <p align="center">
 	<a href="https://github.com/ss220club/Paradise-SS220/actions?query=workflow%3ACI"><img src="https://github.com/ss220club/Paradise-SS220/workflows/CI/badge.svg" alt="CI"></a>
@@ -40,48 +40,50 @@
 </p>
 
 > [!TIP]
-> Want to contribute for the first time but unsure where to start?<br>
-> Join our Discord and check out the [#coding_chat](https://discord.com/channels/1097181193939730453/1214475261547118612) channel for helpful links and advice!<br>
-> Alternatively, have a look at our community maintained [Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
+> Хочешь впервые внести свой вклад, но не знаешь, с чего начать?<br>
+> Присоединяйся в наш [Дискорд](https://discord.com/invite/ss220), получи роль "Space Station 13", ознакомься с [FAQ](https://discord.com/channels/1097181193939730453/1202404779054202941) нашего трекера и приступай. За координацией, получением роли можно обратиться к Ведущему разработчику!<br>
+> Также ознакомься с [Руководством по разработке](https://wiki.ss220.club/index.php/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5)
 
-# Useful Documents and Links
+# Полезная информация и ссылки
 
 - ### [Dream Maker (DM) Reference](https://www.byond.com/docs/ref/)
 
-This reference site by the creators of BYOND details information on the DM language, the syntax used, functionality of native procs, and a lot more. This is always useful to have on hand when contributing.
+Этот справочный сайт от создателей BYOND содержит подробную информацию о языке DM, используемом синтаксисе, функциональности нативных процедур (proc) и многом другом. Это всегда полезно иметь под рукой, когда вы вносите свой вклад.
 
 - ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
 
-This guide shows you how to leave code comments that comply with "autodocumentation", a system designed to make everyone's lives easier when reading or reviewing code!
+Это руководство покажет вам, как оставлять комментарии к коду, соответствующие "автодокументации" - системе, призванной облегчить всем жизнь при чтении и ревью кода!
 
 - ### [Code of Conduct](./CODE_OF_CONDUCT.md)
 
-All contributors are expected to read our Code of Conduct before they take part in our community.
+Все участники должны ознакомиться с нашим "Кодексом поведения", прежде чем принимать участие в жизни нашего сообщества.
 
 - ### [Contribution Guide](.github/CONTRIBUTING.md)
 
-Not sure how to take part and contribute? This guide gives an overview of how to make comments, pull requests, and open issues.
+Не знаете, как принять участие и внести свой вклад? В этом руководстве дается обзор того, как делать комментарии, открывать Pull Requests и Issues.
 
-This guide also sets out our code standards that we expect all submitted code to adhere to.
+В этом руководстве также изложены наши стандарты [кода](https://github.com/ss220club/Paradise-SS220/blob/master/.github/CONTRIBUTING.md#specifications) и [маппинга](https://github.com/ss220club/Paradise-SS220/blob/master/.github/CONTRIBUTING.md#mapping-standards), соблюдения которых мы ожидаем при рассмотрении ваших изменений.
 
-- ### [Community Maintained Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
+- ### [Community Maintained Guide to Contributing](https://wiki.ss220.club/index.php/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5)
 
-This community maintained guide covers how to set yourself up for success when attempting to contribute to Paracode.
+Этот комьюнити гайд по разработке расскажет вам как подготовить себя на успех к введению новых изменений в билд.
 
 > [!IMPORTANT]
-> Paradise does not provide precompiled binaries, requiring you to build from source to host a local server.<br>
-> Building Paradise is quick and simple, all you need to install is [BYOND](https://www.byond.com/download/).<br>
-> You can learn more in our [Installation Guide](.github/DOWNLOADING.md).
+> Билд Парадайз не предоставляет прекомпилированных бинарных файлов, вы должны пересобирать билд вручную, чтобы запустить свой локальный сервер.<br>
+> Сборка билда Парадайз легка и проста, все что вам нужно, это установить [BYOND](https://www.byond.com/download/).<br>
+> И ознакомиться с руководством [Installation Guide](.github/DOWNLOADING.md).
 
 - ### [TGUI Tutorial](tgui/docs/tutorial-and-examples.md)
 
-TGUI is a user interface framework, built on InfernoJS, for all new player-facing UIs.
+TGUI это фреймворк пользовательского интерфейса, основанный на InfernoJS.
 
-TGUI is very different to most other BYOND user interfaces as it is written entirely in JavaScript with some data passed to and from DreamMaker. If you are looking to get to grips with TGUI, this tutorial is a good starting point. Additional information can also be found [here.](tgui)
+TGUI сильно отличается от большинства других пользовательских интерфейсов BYOND, так как он полностью написан на JavaScript с передачей некоторых данных в DreamMaker и обратно. Если вы хотите освоить TGUI, этот туториал станет хорошей отправной точкой. Дополнительную информацию также можно найти [здесь](tgui).
 
 - ### [Mapping Guide](https://hackmd.io/@tgstation/SyVma0dS5#san7890s-A-Z-Guide-to-Mapping)
 
-Mapping for Paradise station can be daunting to new contributors. Here's a comprehensive quick-start put together by a community member that takes you from A-Z.
+Создание карты для станции билда Парадайз может показаться сложной задачей для новичков (на самом деле это не так). Вот краткое руководство, составленное одним из членов сообщества, которое поможет вам пройти путь от А до Я.
+
+Также стоит знать, что у маппинга как и кодинга есть свои стандарты, с которыми можно ознакомиться [здесь](https://github.com/ss220club/Paradise-SS220/blob/master/.github/CONTRIBUTING.md#mapping-standards). Стандарты покрывают не все ситуации на нашем форке, за дополнительной информацией вы можете обратиться к Ведущему мапперу.
 
 ---
 
