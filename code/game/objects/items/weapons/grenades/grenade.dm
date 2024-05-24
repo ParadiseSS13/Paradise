@@ -140,16 +140,16 @@
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	switch(det_time)
 		if(1)
-			det_time = 10
+			det_time = 1 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
 		if(10)
-			det_time = 30
+			det_time = 3 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
 		if(30)
-			det_time = 50
+			det_time = 5 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
 		if(50)
-			det_time = 1
+			det_time = 0.1 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
 	add_fingerprint(user)
 	return TRUE
@@ -190,8 +190,8 @@
 	///We need to clear the walk_to on grabbing a moving grenade to have it not leap straight out of your hand
 	walk(src, null, null)
 	..()
-
-/obj/item/grenade/Destroy()
-	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-	walk_to(src, 0)
-	return ..()
+// ===CHUGAFIX===
+// /obj/item/grenade/Destroy()
+// 	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
+// 	walk_to(src, 0)
+// 	return ..()

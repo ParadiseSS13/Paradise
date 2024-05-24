@@ -256,23 +256,30 @@
 	for(var/atom/target in targets_hit)
 		var/num_hits = targets_hit[target]["hits"]
 		var/damage = targets_hit[target]["damage"]
+		var/tell_target = isliving(target) // we only want to to_chat an atom with a mind
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+
 		var/obj/item/organ/external/hit_part
 		if(isorgan(target))
 			hit_part = target
 			if(!hit_part.owner) //only bother doing the thing if it was a limb just laying on the ground lol.
 				hit_part = null //so the visible_message later on doesn't generate extra text.
+			else
+				target = hit_part.owner
+				// ===CHUGAFIX=== armor calcs here
 
 		var/limb_hit_text = ""
 		if(hit_part)
 			limb_hit_text = " in the [hit_part.name]"
-
+		// ===CHUGAFIX=== Clean up the tell_target branches later
 		if(num_hits > 1)
 			target.visible_message(span_danger("[target] is hit by [num_hits] [proj_name][plural_s(proj_name)][limb_hit_text][damage ? "" : ", without leaving a mark"]!"))
-			to_chat(target, span_userdanger("You're hit by [num_hits] [proj_name]s[limb_hit_text]!"))
+			if(tell_target)
+				to_chat(target, span_userdanger("You're hit by [num_hits] [proj_name]s[limb_hit_text]!"))
 		else
 			target.visible_message(span_danger("[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!"))
-			to_chat(target, span_userdanger("You're hit by a [proj_name][limb_hit_text]!"))
+			if(tell_target)
+				to_chat(target, span_userdanger("You're hit by a [proj_name][limb_hit_text]!"))
 
 	UnregisterSignal(parent, COMSIG_PARENT_PREQDELETED)
 	if(queued_delete)

@@ -742,12 +742,10 @@
 
 // /obj/item/grenade signals
 
-///called in /obj/item/gun/process_fire (user, target, params, zone_override) ===CHUGAFIX=== Fox copied the incorrect documentation.......................
-#define COMSIG_GRENADE_PRIME "grenade_prime"
-///called in /obj/item/gun/process_fire (user, target, params, zone_override) ===CHUGAFIX=== This is wrong as well!
+///called in /obj/item/grenade/proc/arm_grenade(): (det_time, delayoverride)
 #define COMSIG_GRENADE_ARMED "grenade_armed"
-//from base of /obj/item/grenade/proc/detonate(): ()
-#define COMSIG_GRENADE_DETONATE "grenade_prime"
+///called in /obj/item/grenade/proc/detonate(): ()
+#define COMSIG_GRENADE_DETONATE "grenade_detonate"
 
 
 // /obj/item/projectile signals (sent to the firer)
