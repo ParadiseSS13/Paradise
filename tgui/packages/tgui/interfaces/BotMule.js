@@ -21,11 +21,11 @@ export const BotMule = (props, context) => {
   if (cell) {
     return <MuleMain />;
   } else {
-    return <HasCell />;
+    return <NoCell />;
   }
 };
 
-const HasCell = (props, context) => {
+const NoCell = (props, context) => {
   const { act, data } = useBackend(context);
   const { cell } = data;
   return (
@@ -138,6 +138,19 @@ const MuleLoad = (props, context) => {
   const { noaccess, mode, load, destination, cargo_IMG } = data;
   return (
     <Section fill scrollable>
+      {cargo_IMG !== undefined && (
+        <img
+          src={`data:image/jpeg;base64,${cargo_IMG}`}
+          style={{
+            height: '20%',
+            width: '20%',
+            'float': 'right',
+            'vertical-align': 'middle',
+            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+            'image-rendering': 'pixelated',
+          }}
+        />
+      )}
       <Section title="Delivery Settings">
         <Button
           content={destination ? destination : 'Select Destination'}
@@ -145,18 +158,6 @@ const MuleLoad = (props, context) => {
           disabled={noaccess}
           onClick={() => act('destination')}
         />
-        {cargo_IMG !== undefined && (
-          <img
-            src={`data:image/jpeg;base64,${cargo_IMG}`}
-            style={{
-              height: '20%',
-              width: '20%',
-              'vertical-align': 'middle',
-              '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-              'image-rendering': 'pixelated',
-            }}
-          />
-        )}
       </Section>
       <Section title="Movement Settings">
         <Stack direction="row">
@@ -178,6 +179,15 @@ const MuleLoad = (props, context) => {
             disabled={noaccess}
             color="bad"
             onClick={() => act('stop')}
+          />
+        </Stack>
+        <Stack>
+          <Button
+            icon="stop"
+            content="Unload"
+            disabled={noaccess || load === 'None'}
+            color="bad"
+            onClick={() => act('unload')}
           />
         </Stack>
       </Section>
