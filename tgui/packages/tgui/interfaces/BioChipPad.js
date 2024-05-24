@@ -13,14 +13,13 @@ export const BioChipPad = (props, context) => {
         <Section
           fill
           title="Bio-chip Mini-Computer"
-          buttons =
-          {
+          buttons={
             <Box>
               <Button
-              content="Eject Case"
-              icon="eject"
-              disabled={!contains_case}
-              onClick={() => act('eject_case')}
+                content="Eject Case"
+                icon="eject"
+                disabled={!contains_case}
+                onClick={() => act('eject_case')}
               />
             </Box>
           }
@@ -40,23 +39,25 @@ export const BioChipPad = (props, context) => {
                 {implant.name}
               </Box>
               <LabeledList>
-                {!!gps && (<LabeledList.Item label="Tag">
-                  <Input
-                    width="5.5rem"
-                    value={tag}
-                    onEnter={() => act('tag', { newtag: newTag })}
-                    onInput={(e, value) => setNewTag(value)}
-                  />
-                  <Button
-                    disabled={tag === newTag}
-                    width="20px"
-                    mb="0"
-                    ml="0.25rem"
-                    onClick={() => act('tag', { newtag: newTag })}
-                  >
-                    <Icon name="pen" />
-                  </Button>
-                </LabeledList.Item>)}
+                {!!gps && (
+                  <LabeledList.Item label="Tag">
+                    <Input
+                      width="5.5rem"
+                      value={tag}
+                      onEnter={() => act('tag', { newtag: newTag })}
+                      onInput={(e, value) => setNewTag(value)}
+                    />
+                    <Button
+                      disabled={tag === newTag}
+                      width="20px"
+                      mb="0"
+                      ml="0.25rem"
+                      onClick={() => act('tag', { newtag: newTag })}
+                    >
+                      <Icon name="pen" />
+                    </Button>
+                  </LabeledList.Item>
+                )}
                 <LabeledList.Item label="Life">{implant.life}</LabeledList.Item>
                 <LabeledList.Item label="Notes">
                   {implant.notes}
@@ -71,7 +72,6 @@ export const BioChipPad = (props, context) => {
           ) : (
             <Box>Please insert a bio-chip casing!</Box>
           )}
-
         </Section>
       </Window.Content>
     </Window>
