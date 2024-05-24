@@ -7,6 +7,7 @@
 	implant_state = "implant-nanotrasen"
 	var/warn_cooldown = 0
 	var/obj/item/gps/internal_gps
+	var/gpstag = "TRACK0"
 	var/internal_gps_path = /obj/item/gps/internal/tracking_implant
 
 /obj/item/bio_chip/tracking/Initialize(mapload)
@@ -23,6 +24,8 @@
 	if(!.)
 		return
 	internal_gps = new internal_gps_path(src)
+	if(gpstag)
+		internal_gps.gpstag = gpstag
 
 /obj/item/bio_chip/tracking/removed(mob/target)
 	. = ..()
@@ -30,7 +33,6 @@
 		QDEL_NULL(internal_gps)
 
 /obj/item/gps/internal/tracking_implant
-	gpstag = "TRACK0"
 	local = FALSE
 
 /obj/item/bio_chip_implanter/tracking

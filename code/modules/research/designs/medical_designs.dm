@@ -660,6 +660,16 @@
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
 
+/datum/design/bio_chip_pad
+	name = "Bio-chip Pad"
+	desc = "Used to modify bio-chips."
+	id = "biochip_pad"
+	req_tech = list("materials" = 3, "biotech" = 4, "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	build_path = /obj/item/bio_chip_pad
+	category = list("Medical")
+
 /datum/design/bio_chip_implanter
 	name = "Bio-chip Implanter"
 	desc = "A sterile automatic bio-chip injector."
