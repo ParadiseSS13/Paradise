@@ -339,6 +339,6 @@
 	id = "rocky_motel"
 	suffix = "rocky_motel.dmm"
 	name = "Rocky Motel"
-	description = "A derelict operating base for NT engineering crew."
+	description = "A cozy little home nestled in an asteroid, perfect for one or two people!"
 	allow_duplicates = FALSE
 	cost = 1
