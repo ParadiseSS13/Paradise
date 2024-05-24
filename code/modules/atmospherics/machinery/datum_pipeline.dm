@@ -76,6 +76,7 @@
 	other_airs |= G
 
 /datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
+	update = TRUE
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
 		P.parent = src

@@ -35,7 +35,7 @@
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -149,7 +149,7 @@
 /obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
 	// For lighting other people's cigarettes.
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled) 
+	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled)
 		return ..()
 
 	if(M == user)
