@@ -62,3 +62,8 @@
 		target.adjustHealth(cold_damage_per_tick)
 	else if(target.bodytemperature > max_body_temp)
 		target.adjustHealth(heat_damage_per_tick)
+
+#undef NONCARBON_DEFAULT_MIN_BODY_TEMP
+#undef NONCARBON_DEFAULT_MAX_BODY_TEMP
+#undef NONCARBON_DEFAULT_COLD_DAMAGE
+#undef NONCARBON_DEFAULT_HEAT_DAMAGE
