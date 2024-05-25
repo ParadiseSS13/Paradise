@@ -472,6 +472,6 @@
 	taste_description = "processed sludge"
 
 /datum/reagent/tar_compound/reaction_turf(turf/simulated/loc, volume)
-	if(volume >= 1 && istype(loc, /turf/simulated))
+	if(volume >= 1 && istype(loc))
 		if(!loc.has_tar)
 			new /obj/effect/decal/cleanable/tar(loc)
