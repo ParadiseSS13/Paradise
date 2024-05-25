@@ -704,7 +704,7 @@ GLOBAL_VAR(bomb_set)
 	restricted_to_station = FALSE
 
 /obj/item/disk/nuclear/unrestricted/examine(mob/user)
-	..()
+	. = ..()
 	. += "<span class='boldwarning'>This disk has had its safeties removed.</span>"
 
 /obj/item/disk/nuclear/New()
@@ -835,7 +835,7 @@ GLOBAL_VAR(bomb_set)
 
 
 /obj/item/disk/nuclear/training/examine(mob/user)
-	..()
+	. = ..()
 	. += "<span class='boldwarning'>For training purposes, of course.</span>"
 
 #undef NUKE_INTACT
