@@ -154,7 +154,7 @@
 /obj/item/paper/fluff/ruins/oldstation/protogun
 	name = "\improper NT-EW-P:01 Prototype Energy Gun Report"
 	info = "<b>*Nanotrasen Energy Weapon Prototype 1*</b><br>\
- 	<br>\
+	<br>\
 	The NT-EW-P:01 energy rifle has successfully demonstrated a greater ammunition capacity than contemporary laser arms, and is capable of swapping between different energy projectile types on command, with no incidents.\
 	<br>\
 	The weapon still suffers drawbacks. Its alternative, non-laser fire mode can only fire one round before exhausting the energy cell, the weapon also remains prohibitively expensive. \
