@@ -286,7 +286,6 @@
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
 
-
 /// Sticky tar spray
 /obj/item/reagent_containers/spray/sticky_tar
 	name = "sticky tar applicator"
