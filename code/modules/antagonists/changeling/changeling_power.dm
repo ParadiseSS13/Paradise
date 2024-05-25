@@ -24,7 +24,7 @@
 	var/req_stat = CONSCIOUS
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
-	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
+	/// If this power can be used while the changeling has the `TRAIT_FAKEDEATH` trait.
 	var/bypass_fake_death = FALSE
 
 /*
