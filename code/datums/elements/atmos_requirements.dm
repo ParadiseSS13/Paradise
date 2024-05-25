@@ -15,7 +15,7 @@
 	if(!issimple_animal(target))
 		return ELEMENT_INCOMPATIBLE
 
-	if(!atmos_requirements)
+	if(!atmos_requirements_)
 		stack_trace("[type] added to [target] without any requirements specified.")
 
 	atmos_requirements = atmos_requirements_
