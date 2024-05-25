@@ -171,7 +171,7 @@
 //////////////////////////////
 /obj/item/clothing/gloves/color/black/krav_maga/sec
 	name = "Krav Maga gloves"
-	desc = "These gloves can teach you to perform Krav Maga using nanochips."
+	desc = "These gloves can teach you to perform Krav Maga using nanochips (for as long as you're wearing them)."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 
@@ -209,3 +209,11 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+
+/obj/item/clothing/gloves/color/black/krav_maga/combat/examine_more(mob/user)
+	..()
+	. = list()
+		. += "These gloves are made using similar gloves stolen from Nanotrasen. The Syndicate has extensively dissected several stolen sets of such gloves, but the method of manufacture cannot be gleaned directly from them."
+	. += ""
+	. += "In light of this, Syndicate researchers simply transplanted the working components from the stolen gloves into proper combat gloves and declared it a sufficient upgrade. Because of this method of manufacture, \
+	these gloves are in very short supply - each set requiring one to be stolen from Nanotrasen to make."
