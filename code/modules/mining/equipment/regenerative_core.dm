@@ -29,6 +29,8 @@
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0
 	var/preserved = 0
+	///Is this a hivelord or legion core?
+	var/core_type = "Hivelord"
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
@@ -84,7 +86,7 @@
 			else
 				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?</span>")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
-			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE, core_type)
 			user.drop_item()
 			qdel(src)
 
@@ -115,6 +117,7 @@
 /obj/item/organ/internal/regenerative_core/legion
 	desc = "A strange rock that crackles with power. It can be used to heal completely, but it will rapidly decay into uselessness."
 	icon_state = "legion_soul"
+	core_type = "Legion"
 
 /obj/item/organ/internal/regenerative_core/legion/Initialize(mapload)
 	. = ..()
