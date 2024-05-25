@@ -599,15 +599,15 @@
 
 /obj/item/grenade/chem_grenade/tar/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/beaker_1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/beaker_2 = new(src)
 
-	B1.reagents.add_reagent("sticky_tar", 15)
-	B1.reagents.add_reagent("potassium", 10)
-	B2.reagents.add_reagent("phosphorus", 10)
-	B2.reagents.add_reagent("sugar", 10)
-	beakers += B1
-	beakers += B2
+	beaker_1.reagents.add_reagent("sticky_tar", 15)
+	beaker_1.reagents.add_reagent("potassium", 10)
+	beaker_2.reagents.add_reagent("phosphorus", 10)
+	beaker_2.reagents.add_reagent("sugar", 10)
+	beakers += beaker_1
+	beakers += beaker_2
 	update_icon(UPDATE_ICON_STATE)
 
 #undef EMPTY

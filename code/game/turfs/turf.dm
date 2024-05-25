@@ -408,11 +408,8 @@
 /turf/proc/clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)
 		var/obj/effect/decal/cleanable/blood/B = C
-		var/obj/effect/decal/cleanable/tar/T = C
 		if(istype(B) && B.off_floor)
 			floor_only = FALSE
-		else if(istype(T)) // We need to remove the slowdown from tar instead of just qdeling
-			T.remove_tar()
 		else
 			qdel(C)
 	color = initial(color)
