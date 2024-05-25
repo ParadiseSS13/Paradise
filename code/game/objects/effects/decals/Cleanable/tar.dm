@@ -9,7 +9,7 @@
 	var/old_slowdown
 
 /obj/effect/decal/cleanable/tar/New(turf/simulated/loc)
-	if(!istype(loc, /turf/simulated) || loc.has_tar) // Check if the turf already has tar.
+	if(!istype(loc, /turf/simulated) || loc.has_tar) // Check if the turf already has tar
 		qdel(src)
 		return
 	loc.has_tar = TRUE
