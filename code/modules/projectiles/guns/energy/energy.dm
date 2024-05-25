@@ -25,18 +25,18 @@
 	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/gun/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"A hybrid fire laser gun designed and patentend by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser \
-functions without the need for switching weapons during active threats. This would cause the company to experiment and produce a weapon to fit between Shellguard's own disabler and LG series weapons. \
-This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons.
-
-Its design is an evolution of the disabler pistol frame, featuring a rotating lens within its firing chamber to toggle between non-lethal and lethal shots. \
-Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon composites for a sleeker, modern look. \
-This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons.
-
-In modern times, the EG-7 is staple weapon among corporate security forces thanks to its relatively low price, dual fire modes, and customization potential (despite Shellguard's disclaimer that \
-tampering with the weapon void's its warranty and can potentially damage the gun itself)."}
+	. += "A hybrid fire laser gun designed and patentend by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser \
+	functions without the need for switching weapons during active threats. This would cause the company to experiment and produce a weapon to fit between Shellguard's own disabler and LG series weapons. \
+	This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons."
+	. += ""
+	. += "Its design is an evolution of the disabler pistol frame, featuring a rotating lens within its firing chamber to toggle between non-lethal and lethal shots. \
+	Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon composites for a sleeker, modern look. \
+	This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons."
+	. += ""
+	. += "In modern times, the EG-7 is staple weapon among corporate security forces thanks to its relatively low price, dual fire modes, and customization potential (despite Shellguard's disclaimer that \
+	tampering with the weapon void's its warranty and can potentially damage the gun itself)."
 
 /obj/item/gun/energy/gun/cyborg
 	name = "mounted EG-7 energy gun"
@@ -67,13 +67,13 @@ tampering with the weapon void's its warranty and can potentially damage the gun
 	execution_speed = 4 SECONDS
 
 /obj/item/gun/energy/gun/mini/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The EG-8 is a compacted version of Shellguard Munitions' EG-7 Energy Gun, specifically designed as an easily concealable personal defence weapon. \
-It is is commonly found in the pockets of private individuals and corporate management alike.
-
-The pistol packs the same punch as its bigger brother, but the compact frame has come at the cost of a smaller power cell, making it less suitable for extended engagements. \
-Despite this, it is responsible for thwarting numerous attempted muggings, kidnappings, and assassinations across the Sector ever year."}
+	. += "The EG-8 is a compacted version of Shellguard Munitions' EG-7 Energy Gun, specifically designed as an easily concealable personal defence weapon. \
+	It is is commonly found in the pockets of private individuals and corporate management alike."
+	. += ""
+	. += "The pistol packs the same punch as its bigger brother, but the compact frame has come at the cost of a smaller power cell, making it less suitable for extended engagements. \
+	Despite this, it is responsible for thwarting numerous attempted muggings, kidnappings, and assassinations across the Sector ever year."
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -103,19 +103,19 @@ Despite this, it is responsible for thwarting numerous attempted muggings, kidna
 	can_holster = TRUE
 
 /obj/item/gun/energy/gun/hos/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The X-01 MultiPhase Energy Gun is one of a handful of newly-minted prototypes created by Nanotrasen's weaponry R&D division. \
-The frame is based on that of the custom-made antique laser gun, also found in this facility. \
-Just like the antique laser that inspired it, the X-01 is a testbed for the latest advances in energy weapon technology.
-
-The pistol manages to combine the functions of a disabler, laser, and ion gun into a single pistol-sized package using a unique hybrid optical-electromagnetic projection assembly that can seamlessly \
-transition between the weapon's different firing modes. This assembly is also excruciatingly difficult to manufacture - even the slightest deviation from the design's demanding tolerances \
-results in a non-functional paperweight. Nonetheless, the promises of compact versatility it brings has kept the X-01 project's finances flowing for now.
-
-Unfortunately, the micro-fission reactor used to self-charge the power cell of the antique gun could not be replicated, and so this feature is absent in the X-01's current design. \
-Continued research into the technology is ongoing. Heads of Security throughout the Epsilon Eridani sector have been issued the various X-01 prototypes for field testing, \
-and are to issue a report on their findings after any shift in which they employ the weapon."}
+	. += "The X-01 MultiPhase Energy Gun is one of a handful of newly-minted prototypes created by Nanotrasen's weaponry R&D division. \
+	The frame is based on that of the custom-made antique laser gun, also found in this facility. \
+	Just like the antique laser that inspired it, the X-01 is a testbed for the latest advances in energy weapon technology."
+	. += ""
+	. += "The pistol manages to combine the functions of a disabler, laser, and ion gun into a single pistol-sized package using a unique hybrid optical-electromagnetic projection assembly that can seamlessly \
+	transition between the weapon's different firing modes. This assembly is also excruciatingly difficult to manufacture - even the slightest deviation from the design's demanding tolerances \
+	results in a non-functional paperweight. Nonetheless, the promises of compact versatility it brings has kept the X-01 project's finances flowing for now."
+	. += ""
+	. += "Unfortunately, the micro-fission reactor used to self-charge the power cell of the antique gun could not be replicated, and so this feature is absent in the X-01's current design. \
+	Continued research into the technology is ongoing. Heads of Security throughout the Epsilon Eridani sector have been issued the various X-01 prototypes for field testing, \
+	and are to issue a report on their findings after any shift in which they employ the weapon."
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
@@ -138,15 +138,15 @@ and are to issue a report on their findings after any shift in which they employ
 	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/gun/blueshield/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The EG-14 is Shellguard Munitions' premium offering in the energy weapons market. It is equal to or superior to the EG-7 in every way, boasting the same fire rate, \
-stopping power, and cell capacity, whilst also being better suited as an improvised melee weapon thanks to superior ergonomics and weight distribution - all offered in a pistol-sized form factor.
-
-The revolver's cylinder does indeed rotate with every shot, and it can be spun just like the cylinder of a ballistic revolver - although this has no bearing on the actual functionality of the weapon, \
-and is included purely as a stylistic embellishment.
-
-The price of the EG-14 puts it out of reach of a large portion of the market, but it sells very well among bodyguards and bountyhunters."}
+	. += "The EG-14 is Shellguard Munitions' premium offering in the energy weapons market. It is equal to or superior to the EG-7 in every way, boasting the same fire rate, \
+	stopping power, and cell capacity, whilst also being better suited as an improvised melee weapon thanks to superior ergonomics and weight distribution - all offered in a pistol-sized form factor."
+	. += ""
+	. += "The revolver's cylinder does indeed rotate with every shot, and it can be spun just like the cylinder of a ballistic revolver - although this has no bearing on the actual functionality of the weapon, \
+	and is included purely as a stylistic embellishment."
+	. += ""
+	. += "The price of the EG-14 puts it out of reach of a large portion of the market, but it sells very well among bodyguards and bountyhunters."
 
 //////////////////////////////
 // MARK: PDW-9 PISTOL
@@ -158,12 +158,12 @@ The price of the EG-14 puts it out of reach of a large portion of the market, bu
 	item_state = "gun"
 
 /obj/item/gun/energy/gun/blueshield/pdw9/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The PDW-9 is a ruggedized energy pistol made by Shellguard Munitions as a sidearm for military customers. \
-It utilizes much of the same technology as the EG-14, and is indeed just as effective, but the frills and embellishments have been discarded in favour of a more utilitarian design.
-
-Whilst it can occasionally be found in civilian settings, it's most likely to be seen in the holster of a soldier, mercenary, or elite corporate security."}
+	. += "The PDW-9 is a ruggedized energy pistol made by Shellguard Munitions as a sidearm for military customers. \
+	It utilizes much of the same technology as the EG-14, and is indeed just as effective, but the frills and embellishments have been discarded in favour of a more utilitarian design."
+	. += ""
+	. += "Whilst it can occasionally be found in civilian settings, it's most likely to be seen in the holster of a soldier, mercenary, or elite corporate security."
 
 //////////////////////////////
 // MARK: HYBRID TURRET GUN
@@ -188,15 +188,15 @@ Whilst it can occasionally be found in civilian settings, it's most likely to be
 	. += "<span class='warning'>This weapon has no internal power source. It cannot function without being mounted in a turret frame!</span>"
 
 /obj/item/gun/energy/gun/turret/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The AG(H)-22 is part of a long line of developments in automated weapon emplacement technology, manufactured by Shellguard Munitions for static area defence.
-
-A high-powered laser with an electrode gun bolted onto it to allow a choice of lethal or less-than-lethal response to unauthorised access. Freed from the requirement to be mobile, \
-this weapon and others like it offload many of their operational requirements such as cooling or power to external hardware, dramatically increasing reliability and reducing the technical \
-know-how to make a functioning unit.
-
-Just don't expect to pick one up and be able to shoot it in your hands."}
+	. += "The AG(H)-22 is part of a long line of developments in automated weapon emplacement technology, manufactured by Shellguard Munitions for static area defence."
+	. += ""
+	. += "A high-powered laser with an electrode gun bolted onto it to allow a choice of lethal or less-than-lethal response to unauthorised access. Freed from the requirement to be mobile, \
+	this weapon and others like it offload many of their operational requirements such as cooling or power to external hardware, dramatically increasing reliability and reducing the technical \
+	know-how to make a functioning unit."
+	. += ""
+	. += "Just don't expect to pick one up and be able to shoot it in your hands."
 
 //////////////////////////////
 // MARK: ADVANCED ENERGY GUN
@@ -221,12 +221,12 @@ Just don't expect to pick one up and be able to shoot it in your hands."}
 	. += "<span class='notice'>Known to drive people mad by forcing them to wait for shots to recharge.</span>"
 
 /obj/item/gun/energy/gun/nuclear/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The Advanced Energy Gun project is part of Nanotrasen R&D's attempts to recreate the micro-fission reactor of the Antique Energy Gun.
-
-Intense efforts have been partially successful - Nanotrasen is now capable of creating sufficiently small reactors to fit in a rifle-sized weapon at a reasonable cost of credits and material. \
-However, the ultimate goal of making an affordable recreation at the scale of the original Antique have thus far still failed.
-
-Nonetheless, Nanotrasen Marketing is very pleased with the current product, and hopes that it can soon be sold on the galactic market to customers that wish to employ energy weapons \
-free from the logistical constraints of recharging stations."}
+	. += "The Advanced Energy Gun project is part of Nanotrasen R&D's attempts to recreate the micro-fission reactor of the Antique Energy Gun."
+	. += ""
+	. += "Intense efforts have been partially successful - Nanotrasen is now capable of creating sufficiently small reactors to fit in a rifle-sized weapon at a reasonable cost of credits and material. \
+	However, the ultimate goal of making an affordable recreation at the scale of the original Antique have thus far still failed."
+	. += ""
+	. += "Nonetheless, Nanotrasen Marketing is very pleased with the current product, and hopes that it can soon be sold on the galactic market to customers that wish to employ energy weapons \
+	free from the logistical constraints of recharging stations."

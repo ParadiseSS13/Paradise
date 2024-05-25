@@ -113,16 +113,17 @@
 	. += "<span class='notice'>Despite the passage of time, [src] looks remarkably well-preserved.</span>"
 
 /obj/item/gun/energy/e_gun/old/examine_more(mob/user)
-	. = ..()
+	..()
 	. = list()
-	. += {"The Nanotrasen Energy Weapon Prototype 1, also officially designated \"NT-EW-P:01\", is a unique hand-built weapon that was developed by Nanotrasen's Theta R&D division prior to the station going dark. \
-The computerised schematics have long-since been corrupted, so only this singular example remains.
+	. += "The Nanotrasen Energy Weapon Prototype 1, also officially designated \"NT-EW-P:01\", is a unique hand-built weapon that was developed by Nanotrasen's Theta R&D division prior to the station going dark. \
+	The computerised schematics have long-since been corrupted, so only this singular example remains."
+	. += ""
+	. += "For its time, it was a groundbreaking design, both able to efficiently fire damaging lasers, as well as launch an incapacitating electrical discharge at a target - although the latter mode uncontrollably drained \
+	the gun's battery, an issue that the team hoped to solve in later models."
+	. += ""
+	. += "With the loss of this prototype and the research surrounding it, Nanotrasen lost the race to be the first into the advanced energy weapons market to Shellguard Munitions when they released their EG series. \
+	Since then Nanotrasen has been working tirelessly to close the research gap so it can establish dominance in the market with its extensive line of experimental weapons in development."
 
-For its time, it was a groundbreaking design, both able to efficiently fire damaging lasers, as well as launch an incapacitating electrical discharge at a target - although the latter mode uncontrollably drained \
-the gun's battery, an issue that the team hoped to solve in later models.
-
-With the loss of this prototype and the research surrounding it, Nanotrasen lost the race to be the first into the advanced energy weapons market to Shellguard Munitions when they released their EG series. \
-Since then Nanotrasen has been working tirelessly to close the research gap so it can establish dominance in the market with its extensive line of experimental weapons in development."}
 /obj/item/ammo_casing/energy/electrode/old
 	e_cost = 1000
 
@@ -152,14 +153,14 @@ Since then Nanotrasen has been working tirelessly to close the research gap so i
 
 /obj/item/paper/fluff/ruins/oldstation/protogun
 	name = "\improper NT-EW-P:01 Prototype Energy Gun Report"
-	info = {"<b>*Nanotrasen Energy Weapon Prototype 1*</b>
- 
-The NT-EW-P:01 energy rifle has successfully demonstrated a greater ammunition capacity than contemporary laser arms, and is capable of swapping between different energy projectile types on command, with no incidents.
-
-The weapon still suffers drawbacks. Its alternative, non-laser fire mode can only fire one round before exhausting the energy cell, the weapon also remains prohibitively expensive. \
-Nonetheless, NT Market Research fully believes this weapon will form the backbone of our energy weapon catalogue once these issues can be ironed out.
-
-R&D expects that they should be able to fix the energy drain of the alternate fire mode in the next revision. There are also plans to testbed a so-called \"disabler\" mode further down the line, which may reduce costs."}
+	info = "<b>*Nanotrasen Energy Weapon Prototype 1*</b><br>\
+ 	<br>\
+	The NT-EW-P:01 energy rifle has successfully demonstrated a greater ammunition capacity than contemporary laser arms, and is capable of swapping between different energy projectile types on command, with no incidents.\
+	<br>\
+	The weapon still suffers drawbacks. Its alternative, non-laser fire mode can only fire one round before exhausting the energy cell, the weapon also remains prohibitively expensive. \
+	Nonetheless, NT Market Research fully believes this weapon will form the backbone of our energy weapon catalogue once these issues can be ironed out.<br>\
+	<br>\
+	R&D expects that they should be able to fix the energy drain of the alternate fire mode in the next revision. There are also plans to testbed a so-called \"disabler\" mode further down the line, which may reduce costs."
 
 /obj/item/paper/fluff/ruins/oldstation/protosing
 	name = "\improper Singularity Generator"
