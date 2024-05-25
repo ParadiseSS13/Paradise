@@ -2039,6 +2039,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
+"cqO" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/space)
 "cqY" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	name = "Portable Air Pump Connector"
@@ -2472,10 +2478,17 @@
 	},
 /area/space)
 "cOt" = (
-/obj/machinery/atmospherics/binary/circulator{
-	side = 4
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/access_button{
+	layer = 3.1;
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = 5;
+	pixel_y = -23
+	},
+/turf/simulated/floor/engine,
 /area/space)
 "cOv" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -3343,8 +3356,11 @@
 /turf/simulated/floor/plasteel,
 /area/space)
 "dRz" = (
-/obj/machinery/power/teg,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4;
+	name = "Port to Waste"
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "dSm" = (
 /obj/structure/table,
@@ -4443,15 +4459,8 @@
 	},
 /area/space)
 "fgE" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/mod/construction/broken_core,
-/obj/item/broken_device,
-/obj/item/trash/candy,
-/obj/item/trash/plate,
-/obj/item/trash/liquidfood,
-/obj/item/trash/popcorn,
-/obj/item/trash/semki,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/wall/r_wall,
 /area/space)
 "fgO" = (
 /obj/structure/cable{
@@ -4763,6 +4772,27 @@
 	amount = 20
 	},
 /turf/simulated/floor/wood,
+/area/space)
+"ftN" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/machinery/ignition_switch{
+	id = "gasturbine";
+	pixel_x = -6;
+	pixel_y = -24
+	},
+/obj/machinery/airlock_controller/access_controller{
+	name = "Turbine Access Console";
+	pixel_x = 6;
+	pixel_y = -26;
+	req_access_txt = "12";
+	ext_door_link_id = "turbine_door_ext";
+	int_door_link_id = "turbine_door_int";
+	ext_button_link_id = "turbine_btn_ext";
+	int_button_link_id = "turbine_btn_int"
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "ftO" = (
 /obj/structure/lattice/catwalk,
@@ -6451,6 +6481,12 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel/white,
 /area/space)
+"hil" = (
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "hin" = (
 /obj/effect/spawner/airlock/engineer,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -7059,8 +7095,10 @@
 /turf/simulated/floor/wood,
 /area/space)
 "hQy" = (
-/obj/machinery/atmospherics/binary/circulator,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
 /area/space)
 "hRA" = (
 /obj/structure/table,
@@ -9207,6 +9245,7 @@
 /area/space)
 "kmv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/space)
 "kmF" = (
@@ -9301,6 +9340,18 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
+/area/space)
+"ktM" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/mod/construction/broken_core,
+/obj/item/broken_device,
+/obj/item/trash/candy,
+/obj/item/trash/plate,
+/obj/item/trash/liquidfood,
+/obj/item/trash/popcorn,
+/obj/item/trash/semki,
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
 /area/space)
 "kuf" = (
 /obj/structure/railing{
@@ -9855,6 +9906,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
+"lbA" = (
+/obj/machinery/door/airlock/public/glass{
+	autoclose = 0;
+	heat_proof = 1;
+	id_tag = "turbine_door_int";
+	locked = 1;
+	name = "Turbine Interior Airlock"
+	},
+/turf/simulated/floor/engine,
+/area/space)
 "lcm" = (
 /obj/structure/table,
 /obj/item/flashlight{
@@ -10021,6 +10082,27 @@
 	dir = 9;
 	icon_state = "red"
 	},
+/area/space)
+"llI" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/door_control{
+	id = "auxiliaryturbinevent";
+	name = "Auxiliary Vent";
+	pixel_x = 6;
+	pixel_y = -24;
+	req_access_txt = "32"
+	},
+/obj/machinery/door_control{
+	id = "turbinevent";
+	name = "Turbine Vent";
+	pixel_x = -6;
+	pixel_y = -24;
+	req_access_txt = "32"
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "lmN" = (
 /obj/structure/dresser,
@@ -14274,6 +14356,11 @@
 	icon_state = "showroomfloor"
 	},
 /area/space)
+"qbd" = (
+/obj/machinery/power/turbine,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
+/area/space)
 "qbj" = (
 /obj/machinery/r_n_d/experimentor,
 /turf/simulated/floor/engine,
@@ -14816,6 +14903,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/space)
+"qJS" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "qJY" = (
 /obj/structure/table,
@@ -15748,11 +15841,14 @@
 /turf/space,
 /area/space)
 "rQO" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 2;
-	name = "Port to Waste"
+/obj/machinery/door/airlock/public/glass{
+	autoclose = 0;
+	heat_proof = 1;
+	id_tag = "turbine_door_ext";
+	locked = 1;
+	name = "Turbine Exterior Airlock"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/space)
 "rQV" = (
 /obj/structure/sink{
@@ -16357,6 +16453,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
+"szR" = (
+/obj/machinery/computer/turbine_computer{
+	id = "incineratorturbine";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "sAK" = (
 /obj/machinery/door/airlock/mining,
 /turf/simulated/floor/plasteel,
@@ -16868,8 +16971,14 @@
 /turf/space,
 /area/space)
 "tiU" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/floor/plating/asteroid/ancient/airless,
+/obj/machinery/atmospherics/binary/pump/on,
+/obj/machinery/access_button{
+	autolink_id = "turbine_btn_int";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -8;
+	pixel_y = 24
+	},
+/turf/simulated/floor/engine,
 /area/space)
 "tkB" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
@@ -17157,6 +17266,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/space)
+"tAp" = (
+/obj/machinery/door/poddoor{
+	id_tag = "auxiliaryturbinevent";
+	name = "Auxiliary Turbine Vent"
+	},
+/turf/simulated/floor/engine,
 /area/space)
 "tBr" = (
 /obj/structure/table/glass,
@@ -19032,9 +19148,7 @@
 /turf/simulated/floor/wood,
 /area/space)
 "vIo" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
+/obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/plasteel,
 /area/space)
 "vJi" = (
@@ -19078,6 +19192,14 @@
 	},
 /obj/structure/lattice,
 /turf/space,
+/area/space)
+"vKu" = (
+/obj/machinery/power/compressor{
+	comp_id = "incineratorturbine";
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
 /area/space)
 "vKw" = (
 /obj/structure/table/wood,
@@ -19929,6 +20051,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/space)
+"wAF" = (
+/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
 /area/space)
 "wAH" = (
 /obj/structure/transit_tube/station{
@@ -32003,8 +32131,8 @@ wPA
 wPA
 wPA
 wPA
-mLQ
-mLQ
+wPA
+wPA
 mLQ
 mLQ
 mLQ
@@ -32259,9 +32387,9 @@ wPA
 wPA
 wPA
 wPA
-mLQ
-mLQ
-mLQ
+wPA
+wPA
+wPA
 hcP
 hcP
 hcP
@@ -32516,9 +32644,9 @@ wPA
 wPA
 wPA
 wPA
-mLQ
-mLQ
-mLQ
+wPA
+wPA
+wPA
 hcP
 afT
 vDH
@@ -32774,8 +32902,8 @@ hcP
 hcP
 hcP
 hcP
-mLQ
-mLQ
+jnP
+wPA
 hcP
 kSR
 mhK
@@ -33031,8 +33159,8 @@ pSq
 pSq
 wKP
 eOQ
-tiU
-tiU
+bqn
+bqn
 vch
 xqp
 jDp
@@ -33288,8 +33416,8 @@ pSq
 twp
 wiU
 lyt
-mLQ
-mLQ
+ojW
+jnP
 teR
 vCU
 nwd
@@ -33301,8 +33429,8 @@ iHZ
 wwT
 oNB
 oNB
-oNB
-oNB
+hPa
+pPc
 oNB
 oNB
 oNB
@@ -33545,8 +33673,8 @@ pSq
 pSq
 mNG
 eOQ
-tiU
-tiU
+bqn
+bqn
 vch
 drL
 jDp
@@ -33556,20 +33684,20 @@ laD
 psU
 laD
 psU
-oNB
-oNB
-oNB
-hPa
-pPc
-oNB
+nLz
+ydl
+cuW
+cuW
+ydl
+nmQ
 oNB
 qHX
 teR
 teR
 teR
+tPj
 lvH
-lvH
-lvH
+iSm
 lvH
 wPA
 wPA
@@ -33802,8 +33930,8 @@ hcP
 hcP
 hcP
 hcP
-hcP
-hcP
+jnP
+jnP
 hcP
 oNB
 nwd
@@ -33813,20 +33941,20 @@ qVf
 rtS
 qVf
 rtS
+rwl
+ydl
+mjo
+mjo
+ydl
+iDI
 oNB
-nLz
-ydl
-cuW
-cuW
-ydl
-nmQ
 ooF
 gUT
 teR
 jVh
 lvH
-lvH
-lvH
+ktM
+wPA
 jVh
 wPA
 wPA
@@ -34070,25 +34198,25 @@ hAx
 pOj
 hAx
 pOj
+dRz
 oNB
-rwl
-ydl
-mjo
-mjo
-ydl
-iDI
+tEg
+tEg
 oNB
+gtn
 oNB
+nLz
+qJS
 hcP
-hcP
-tPj
-lvH
-iSm
+wPA
+bAV
 wPA
 wPA
 wPA
 wPA
-hpc
+wPA
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -34327,25 +34455,25 @@ tGf
 frD
 tGf
 frD
-rQO
-vIo
+lbv
 oNB
-tEg
-tEg
+oNB
+oNB
 oNB
 gtn
 oNB
-oNB
-oNB
+gtn
 hcP
-lvH
-fgE
+hcP
+hcP
+hcP
+hcP
 wPA
 wPA
 wPA
-wPA
-wPA
-hpc
+jnP
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -34589,20 +34717,20 @@ ydl
 aCB
 tMY
 gHv
-gHv
-iDI
-oNB
-oNB
-oNB
+hIp
+hil
+llI
+fgE
+cOt
+fgE
+hQy
 hcP
-bAV
-wPA
-wPA
-wPA
-wPA
-wPA
-wPA
-hpc
+hcP
+hcP
+jnP
+jnP
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -34832,8 +34960,8 @@ jnP
 jnP
 hpc
 hpc
-hcP
-hcP
+jiY
+jiY
 bAf
 mBF
 lbv
@@ -34846,20 +34974,20 @@ ydl
 aCB
 lqj
 gHv
-gHv
+cuW
 vIo
-oNB
-oNB
-oNB
-hcP
-wPA
-wPA
-wPA
-wPA
-wPA
-wPA
-wPA
-hpc
+nmQ
+lbA
+wdZ
+rQO
+cqO
+vKu
+qbd
+wAF
+jnP
+jnP
+jnP
+jnP
 ojW
 ojW
 ojW
@@ -35090,33 +35218,33 @@ hpc
 hpc
 wPA
 wPA
-hcP
-hcP
-hcP
-hcP
+jiY
+jiY
+jiY
+jiY
 teR
 teR
 teR
 oPP
 jRZ
+jiY
+jiY
+jiY
+jiY
+szR
+tRe
+ftN
+fgE
+tiU
+gVQ
+ydx
 hcP
 hcP
 hcP
-hcP
-oNB
-oNB
-oNB
-oNB
-oNB
-hcP
-wPA
-wPA
-wPA
-wPA
-wPA
-wPA
-hpc
-hpc
+jnP
+jnP
+jnP
+jnP
 jnP
 jnP
 ojW
@@ -35348,7 +35476,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 vNK
 oNB
 rNo
@@ -35359,20 +35487,20 @@ iHZ
 oNB
 oNB
 oNB
+jiY
+jiY
+jiY
+jiY
 hcP
 hcP
 hcP
-hcP
-hcP
-hcP
-hcP
-wPA
-wPA
-wPA
-wPA
-wPA
-wPA
-hpc
+tAp
+wdZ
+jnP
+jnP
+jnP
+jnP
+jnP
 ojW
 ojW
 ojW
@@ -35605,7 +35733,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 vNK
 oNB
 rNo
@@ -35616,20 +35744,20 @@ iHZ
 oNB
 oNB
 chy
+jiY
+wPA
+wPA
+wPA
+wPA
+wPA
 hcP
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
+hcP
+hcP
+jnP
+jnP
+jnP
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -35862,7 +35990,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 dny
 oNB
 rNo
@@ -36119,7 +36247,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 ggv
 oNB
 oNB
@@ -36376,7 +36504,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 tRe
 oNB
 oNB
@@ -36633,7 +36761,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 gJF
 lVg
 oNB
@@ -36890,7 +37018,7 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 nDO
 lVg
 oNB
@@ -37147,11 +37275,11 @@ hpc
 wPA
 wPA
 wPA
-hcP
-hcP
+jiY
+jiY
 few
-hcP
-hcP
+jiY
+jiY
 pUs
 kzH
 kzH
@@ -37404,11 +37532,11 @@ hpc
 wPA
 wPA
 wPA
-hcP
+jiY
 cjc
 iNc
 awO
-hcP
+jiY
 nXv
 mLQ
 mLQ
@@ -37661,11 +37789,11 @@ hpc
 hpc
 wPA
 wPA
-hcP
+jiY
 pzv
 iNc
 lvH
-hcP
+jiY
 lrv
 mLQ
 mLQ
@@ -37918,18 +38046,18 @@ mLQ
 hpc
 wPA
 wPA
-hcP
+jiY
 mCn
 wgT
 lvH
-hcP
+jiY
 mLQ
 sNt
 lny
 xLr
 mLQ
 mLQ
-hcP
+jiY
 wPA
 wPA
 wPA
@@ -38175,18 +38303,18 @@ mLQ
 hpc
 wPA
 wPA
-hcP
+jiY
 nGK
 xHR
 lvH
-hcP
-hcP
-hcP
-hcP
-hcP
-hcP
-hcP
-hcP
+jiY
+jiY
+jiY
+jiY
+jiY
+jiY
+jiY
+jiY
 wPA
 wPA
 wPA
@@ -38432,13 +38560,13 @@ hpc
 hpc
 wPA
 wPA
-hcP
+jiY
 eCv
 oUk
 egC
 own
 mia
-hcP
+jiY
 wPA
 wPA
 wPA
@@ -38689,13 +38817,13 @@ wPA
 wPA
 wPA
 wPA
-hcP
+jiY
 hxe
 lvH
 lvH
 lvH
 bnR
-hcP
+jiY
 wPA
 wPA
 wPA
@@ -38946,13 +39074,13 @@ wPA
 wPA
 wPA
 wPA
-hcP
-hQy
-dRz
-cOt
+jiY
+jVh
+lvH
+lvH
 jDI
 hju
-hcP
+jiY
 wPA
 wPA
 wPA
@@ -39203,13 +39331,13 @@ wPA
 wPA
 wPA
 wPA
-hcP
-hcP
-hcP
-hcP
-hcP
-hcP
-hcP
+jiY
+jiY
+jiY
+jiY
+jiY
+jiY
+jiY
 wPA
 wPA
 wPA

@@ -11,6 +11,21 @@
 	name = "Atmospherics Distribution Loop"
 	icon_state = "atmos"
 
+/area/station/engineering/atmos/asteroid
+	name = "Asteroid"
+	icon_state = "atmos"
+
+/area/station/engineering/atmos/asteroid_filtering
+	name = "\improper Asteroid Filtering"
+	icon_state = "atmos"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+
+/area/station/engineering/atmos/asteroid_core
+	name = "\improper Asteroid Molten Core"
+	icon_state = "atmos"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	sound_environment = SOUND_AREA_ASTEROID
+
 // general engineering
 /area/station/engineering
 	ambientsounds = ENGINEERING_SOUNDS
