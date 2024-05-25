@@ -30,18 +30,18 @@
 		target.has_tar = FALSE
 		qdel(src)
 
-/obj/effect/decal/cleanable/tar/Crossed(AM as mob|obj)
+/obj/effect/decal/cleanable/tar/Crossed(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 
-/obj/effect/decal/cleanable/tar/attackby(obj/item/P, mob/living/user, params)
-	if(P.get_heat())
+/obj/effect/decal/cleanable/tar/attackby(obj/item/welder, mob/living/user, params)
+	if(welder.get_heat())
 		if(!Adjacent(user)) // To prevent issues as a result of telepathically lighting tar.
 			return
-		playsound(P, 'sound/items/welder.ogg', 50, TRUE)
+		playsound(welder, 'sound/items/welder.ogg', 50, TRUE)
 		if(do_after(user, 3 SECONDS, FALSE, user))
-			user.visible_message("<span class='danger'>[user] burns away [src] with [P]!</span>", "<span class='danger'>You burn away [src]!</span>")
+			user.visible_message("<span class='danger'>[user] burns away [src] with [welder]!</span>", "<span class='danger'>You burn away [src]!</span>")
 			remove_tar()
 

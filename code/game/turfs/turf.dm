@@ -411,7 +411,7 @@
 		var/obj/effect/decal/cleanable/tar/T = C
 		if(istype(B) && B.off_floor)
 			floor_only = FALSE
-		if(istype(T)) // We need to remove the slowdown from tar instead of just qdeling
+		else if(istype(T)) // We need to remove the slowdown from tar instead of just qdeling
 			T.remove_tar()
 		else
 			qdel(C)

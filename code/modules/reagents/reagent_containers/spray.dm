@@ -18,7 +18,6 @@
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
-	var/no_refill = FALSE
 
 /obj/item/reagent_containers/spray/Initialize(mapload)
 	. = ..()
@@ -38,7 +37,7 @@
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 			return
 
-		if(no_refill)
+		if(!is_open_container())
 			to_chat(user, "<span class='notice'>[src] cannot be refilled.</span>")
 			return
 
@@ -300,6 +299,5 @@
 	spray_maxrange = 2
 	spray_currentrange = 2
 	amount_per_transfer_from_this = 10
-	no_refill = TRUE
 	list_reagents = list("sticky_tar" = 100)
 
