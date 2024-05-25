@@ -9,30 +9,25 @@
 	var/old_slowdown
 
 /obj/effect/decal/cleanable/tar/New(turf/simulated/loc)
-	if(!istype(loc, /turf/simulated) || loc.has_tar) // Check if the turf already has tar
-		qdel(src)
-		return
 	loc.has_tar = TRUE
 	target = loc
 	old_slowdown = target.slowdown // Store the original slowdown value
 	target.slowdown += 10 // Apply the slowdown effect to the turf
 	RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(remove_tar))
-
-
 	if(prob(50))
 		icon_state = "tar3"
 	..()
 
 /obj/effect/decal/cleanable/tar/proc/remove_tar(datum/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_COMPONENT_CLEAN_ACT
 	if(target) // Check if the target turf is valid
 		target.slowdown = old_slowdown
 		target.has_tar = FALSE
 		qdel(src)
 
-/obj/effect/decal/cleanable/tar/Crossed(atom/movable/AM)
-	if(isliving(AM))
-		var/mob/living/L = AM
+/obj/effect/decal/cleanable/tar/Crossed(atom/movable/movable_atom)
+	if(isliving(movable_atom))
+		var/mob/living/L = movable_atom
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 
