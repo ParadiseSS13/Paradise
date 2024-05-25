@@ -44,6 +44,9 @@
 	else
 		//Generic cleaning functionality
 		var/obj/effect/decal/cleanable/C = locate() in src
+		if (istype(C, /obj/effect/decal/cleanable/tar)) // Here is not the ideal place for this, but I have spent way too long trying to get it to work elsewhere.
+			var/obj/effect/decal/cleanable/tar/T = C
+			T.remove_tar() // Removes the slodown from the turf.
 		qdel(C)
 		clean_blood()
 		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
