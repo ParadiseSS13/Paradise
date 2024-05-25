@@ -267,7 +267,7 @@
 			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>"
 		else if(signal_result & COMPONENT_DEFIB_FAKEDEATH_ACCEPTED)
 			// as much as I hate that this is here, it has to come after the `Patient is not in a valid state. Operation aborted.` check.
-			REMOVE_TRAIT(owner, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
+			REMOVE_TRAIT(target, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 		else
 			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>" // has a fakedeath like capulettium
 
