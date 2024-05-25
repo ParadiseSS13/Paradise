@@ -613,7 +613,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			qdel(O)
 		else
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
-  
+
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
 	desc = "A nicotine delivery system popularized by folksy backwoodsmen and kept popular in the modern age and beyond by space hipsters."
