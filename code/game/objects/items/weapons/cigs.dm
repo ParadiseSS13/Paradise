@@ -1,3 +1,5 @@
+#define REAGENT_TIME_RATIO 2.5
+
 /*
 CONTENTS:
 1. CIGARETTES
@@ -587,7 +589,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
-/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
+/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
 	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = FALSE
@@ -595,12 +597,22 @@ LIGHTERS ARE IN LIGHTERS.DM
 		item_state = icon_off
 		STOP_PROCESSING(SSobj, src)
 		return
-	if(smoketime <= 0)
-		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
-		reagents.add_reagent("nicotine", chem_volume)
-		smoketime = initial(smoketime)
-		first_puff = TRUE
 
+// Refill or light the pipe
+/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/O = I
+		if(O.dry)
+			if(reagents.total_volume == reagents.maximum_volume)
+				to_chat(user, "<span class='warning'>[src] is full!</span>")
+				return
+			O.reagents.trans_to(src, chem_volume)
+			to_chat(user, "<span class='notice'>You stuff the [O.name] into the pipe.</span>")
+			smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
+			qdel(O)
+		else
+			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+  
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
 	desc = "A nicotine delivery system popularized by folksy backwoodsmen and kept popular in the modern age and beyond by space hipsters."
@@ -608,8 +620,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cobpipeoff"
 	icon_on = "cobpipeon"  //Note - these are in masks.dmi
 	icon_off = "cobpipeoff"
-	smoketime = 800
-	chem_volume = 40
+	smoketime = 0 //there is nothing to smoke initially
+	chem_volume = 160
+	list_reagents = list()
 
 //////////////////////////////
 // MARK: ROLLING
@@ -642,3 +655,5 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 	else
 		..()
+
+#undef REAGENT_TIME_RATIO
