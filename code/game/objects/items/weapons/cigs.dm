@@ -127,8 +127,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return FALSE
 
 	if(istype(I, /obj/item/lighter))
-		var/obj/item/lighter/Light = I
-		if(Light.lit)
+		var/obj/item/lighter/light = I
+		if(light.lit)
 			if(target == user)
 				light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [I].</span>")
 			else
@@ -137,8 +137,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return failed_to_light(I, user)
 
 	if(istype(I, /obj/item/match/unathi))
-		var/obj/item/match/unathi/Liz_Fire = I
-		if(Liz_Fire.lit)
+		var/obj/item/match/unathi/liz_fire = I
+		if(liz_fire.lit)
 			if(target == user)
 				light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
 			else
@@ -150,13 +150,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 					affecting.receive_damage(0, 5)
 					target.UpdateDamageIcon()
 			playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
-			Liz_Fire.matchburnout()
+			liz_fire.matchburnout()
 			return TRUE
 		return failed_to_light(I, user)
 
 	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/Welder = I
-		if(Welder.tool_enabled)
+		var/obj/item/weldingtool/welder = I
+		if(welder.tool_enabled)
 			if(target == user)
 				light("<span class='notice'>[user] casually lights [name] with [I], what a badass.</span>")
 			else
@@ -180,9 +180,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 
 	if(istype(I, /obj/item/pen/edagger) || istype(I, /obj/item/melee/energy))
-		var/obj/item/pen/edagger/Dagger = I
-		var/obj/item/melee/energy/Sword = I
-		if(Dagger.active || Sword.active)
+		var/obj/item/pen/edagger/dagger = I
+		var/obj/item/melee/energy/sword = I
+		if(dagger.active || sword.active)
 			if(target == user)
 				light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. \
 				[user.p_they(TRUE)] lights [user.p_their()] [name] with [I] in the process.</span>")
@@ -193,8 +193,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return failed_to_light(I, user)
 
 	if(istype(I, /obj/item/flamethrower))
-		var/obj/item/flamethrower/Flame = I
-		if(Flame.lit)
+		var/obj/item/flamethrower/flame = I
+		if(flame.lit)
 			if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
 				if(target == user)
 					light("<span class='warning'>[user] confidently lifts up [I] in front of [user.p_their()] face and releases a big puff of flame at [user.p_their()] [name] to light it, like some kind of psychopath!</span>")
@@ -214,8 +214,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return failed_to_light(I, user)
 
 	if(istype(I, /obj/item/gun/magic/wand/fireball))
-		var/obj/item/gun/magic/wand/fireball/Fireball = I
-		if(Fireball.charges)
+		var/obj/item/gun/magic/wand/fireball/fireball = I
+		if(fireball.charges)
 			if(prob(50) || user.mind.assigned_role == "Wizard")
 				if(target == user)
 					light("<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [name] with [I], with only moderate eyebrow singing!?</span>")
@@ -225,7 +225,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 			user.visible_message("<span class='danger'>Unsure which end of [I] is which, [user] fails to light \the [name].</span>")
 			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
-			Fireball.charges--
+			fireball.charges--
 			return FALSE
 		
 	if(istype(I, /obj/item/storm_staff))
@@ -593,12 +593,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = FALSE
+		first_puff = TRUE
 		icon_state = icon_off
 		item_state = icon_off
 		STOP_PROCESSING(SSobj, src)
 		return
 
-// Refill or light the pipe
+// Refill the pipe
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/O = I
