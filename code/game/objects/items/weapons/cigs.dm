@@ -277,7 +277,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/datum/effect_system/reagents_explosion/e = new()
 			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
 			e.start()
-			if(ismob(loc))
+			if(ismob(M))
 				M.unEquip(src, 1)
 			qdel(src)
 			return
@@ -285,7 +285,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/datum/effect_system/reagents_explosion/e = new()
 			e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
 			e.start()
-			if(ismob(loc))
+			if(ismob(M))
 				M.unEquip(src, 1)
 			qdel(src)
 			return
