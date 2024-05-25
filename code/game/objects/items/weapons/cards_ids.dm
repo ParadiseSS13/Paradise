@@ -638,7 +638,7 @@
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
-	desc = "The spare ID of the captain. Keep this secured"
+	desc = "The spare ID of the captain. Keep this secured."
 	icon_state = "gold"
 	item_state = "gold_id"
 	registered_name = "Captain"
