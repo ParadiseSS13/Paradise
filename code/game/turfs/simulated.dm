@@ -6,6 +6,8 @@
 	var/wet = 0
 	/// Used to store the wet turf overlay. Really should just be an object on the turf
 	var/image/wet_overlay = null
+	/// Ensures we don't have 2 instances of sticky tar on the same tile, since the slowdown would stack.
+	var/has_tar = FALSE
 	/*
 	Atmos Vars
 	*/

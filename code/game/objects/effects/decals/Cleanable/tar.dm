@@ -5,11 +5,11 @@
 	icon_state = "tar2"
 	density = FALSE
 	opacity = FALSE
-	var/turf/target
+	var/turf/simulated/target
 	var/old_slowdown
 
-/obj/effect/decal/cleanable/tar/New(turf/loc)
-	if(loc.has_tar) // Check if the turf already has tar
+/obj/effect/decal/cleanable/tar/New(turf/simulated/loc)
+	if(loc.has_tar) // Check if the turf already has tar.
 		qdel(src)
 		return
 	loc.has_tar = TRUE
@@ -43,5 +43,5 @@
 		playsound(P, 'sound/items/welder.ogg', 50, TRUE)
 		if(do_after(user, 3 SECONDS, FALSE, user))
 			user.visible_message("<span class='danger'>[user] burns away [src] with [P]!</span>", "<span class='danger'>You burn away [src]!</span>")
-			remove_tar(P)
+			remove_tar()
 

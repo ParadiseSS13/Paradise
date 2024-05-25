@@ -40,8 +40,6 @@
 
 	var/changing_turf = FALSE
 
-	var/has_tar = FALSE
-
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
@@ -410,8 +408,11 @@
 /turf/proc/clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)
 		var/obj/effect/decal/cleanable/blood/B = C
+		var/obj/effect/decal/cleanable/tar/T = C
 		if(istype(B) && B.off_floor)
 			floor_only = FALSE
+		if(istype(T)) // We need to remove the slowdown from tar instead of just qdeling
+			T.remove_tar()
 		else
 			qdel(C)
 	color = initial(color)
