@@ -8,7 +8,7 @@
 
 /obj/effect/decal/cleanable/tar/Initialize(mapload)
 	..()
-	if (issimulatedturf(loc)) // Ensure the location is a simulated turf
+	if(issimulatedturf(loc)) // Ensure the location is a simulated turf
 		target = src.loc
 		target.slowdown += 10 // Apply the slowdown effect to the turf
 		if(prob(50))
