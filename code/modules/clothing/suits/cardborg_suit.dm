@@ -27,15 +27,14 @@ CONTENTS:
 	species_disguise = "High-tech robot"
 	/// All the borg skins that this can disguise you as.
 	var/list/available_disguises = list("Standard")
-	/// Extended description, currently shared with all the sub-types. Easy to add indvidual ones later if someone decides that.
-	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
-	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be perceived as being an actual robot by other robots, \
-	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
-	The wearer may also hallucinate themselves as being a robot as well."
 
 /obj/item/clothing/head/cardborg/examine_more(mob/user)
 	. = ..()
-	. += extended_desc
+	. += "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
+	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be perceived as being an actual robot by other robots, \
+	cyborgs, and AI systems. The mechanism behind this is not understood, but it is not foolproof, as they may use contextual information and other clues in order to see through the ruse."
+	. += ""
+	. += "The wearer may also hallucinate themselves as being a robot as well."
 
 /obj/item/clothing/head/cardborg/security
 	name = "red cardborg helmet"
@@ -123,14 +122,14 @@ CONTENTS:
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 	species_disguise = "High-tech robot"
-	var/extended_desc = "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
-	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be perceived as being an actual robot by other robots, \
-	cyborgs, and AI systems. The mechanism behind this is not understood, but they may use contextual information and other clues in order to see through the ruse. \
-	The wearer may also hallucinate themselves as being a robot as well."
 
 /obj/item/clothing/suit/cardborg/examine_more(mob/user)
 	. = ..()
-	. += extended_desc
+	. += "For reasons unknown to robotics experts across the galaxy, putting on a costume fashioned out of cardboard with some knobbly bits stuck on, \
+	some buttons drawn on in pen, and moving in a stereotypical 'robotic' fashion causes the wearer to be perceived as being an actual robot by other robots, \
+	cyborgs, and AI systems. The mechanism behind this is not understood, but it is not foolproof, as they may use contextual information and other clues in order to see through the ruse."
+	. += ""
+	. += "The wearer may also hallucinate themselves as being a robot as well."
 
 /obj/item/clothing/suit/cardborg/security
 	name = "red cardborg suit"
