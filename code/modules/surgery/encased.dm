@@ -11,7 +11,9 @@
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/wirecutters = 35 // silly goose
+		/obj/item/chainsaw = 90,	// Chainsaws were actually invented to replace manual bonesaws. Obvously *these* chainsaws aren't exactly designed for that, but then again, neither is a hatchet or a set of wirecutters.
+		/obj/item/butcher_chainsaw = 90,
+		TOOL_WIRECUTTER = 35 	// Silly goose!
 	)
 
 	time = 5.4 SECONDS

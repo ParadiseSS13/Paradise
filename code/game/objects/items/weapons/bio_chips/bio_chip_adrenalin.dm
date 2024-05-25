@@ -19,7 +19,7 @@
 	SEND_SIGNAL(imp_in, COMSIG_LIVING_CLEAR_STUNS)
 
 	imp_in.reagents.add_reagent("synaptizine", 10)
-	imp_in.reagents.add_reagent("omnizine", 10)
+	imp_in.reagents.add_reagent("omnizine_no_addiction", 10)
 	imp_in.reagents.add_reagent("stimulative_agent", 10)
 	if(!uses)
 		qdel(src)
