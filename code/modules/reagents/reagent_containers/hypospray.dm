@@ -1,7 +1,6 @@
-////////////////////////////////////////////////////////////////////////////////
-/// HYPOSPRAY
-////////////////////////////////////////////////////////////////////////////////
-
+//////////////////////////////
+/// MARK: HYPOSPRAY
+//////////////////////////////
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
@@ -103,15 +102,6 @@
 	icon_state = "ert_hypo"
 	list_reagents = list("omnizine" = 30)
 
-/obj/item/reagent_containers/hypospray/CMO
-	name = "advanced hypospray"
-	list_reagents = list("omnizine" = 30)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-
-/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
-
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
@@ -119,7 +109,7 @@
 	possible_transfer_amounts = null
 	icon_state = "combat_hypo"
 	volume = 90
-	ignore_flags = 1 // So they can heal their comrades.
+	ignore_flags = TRUE // So they can heal their comrades.
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -128,7 +118,31 @@
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
-/// This is an empty variant
+//////////////////////////////
+// MARK: CMO HYPO
+//////////////////////////////
+/obj/item/reagent_containers/hypospray/CMO
+	name = "advanced hypospray"
+	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
+	list_reagents = list("omnizine" = 30)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+
+/obj/item/reagent_containers/hypospray/examine_more(mob/user)
+	. = ..()
+	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
+	. += ""
+	. += "This version is primarally distinguished from the original by the lack of safety features - it allows any chemical to be added to it, and it will not announce what those chemicals are during an injection."
+	. += ""
+	. += "They are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
+
+//////////////////////////////
+// MARK: AUTOINJECTOR
+//////////////////////////////
 /obj/item/reagent_containers/hypospray/autoinjector
 	name = "empty autoinjector"
 	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."

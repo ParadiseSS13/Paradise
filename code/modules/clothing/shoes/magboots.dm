@@ -1,6 +1,6 @@
 /obj/item/clothing/shoes/magboots
 	name = "magboots"
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots with a heavy pull, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	var/magboot_state = "magboots"
@@ -76,12 +76,25 @@
 
 /obj/item/clothing/shoes/magboots/advance
 	name = "advanced magboots"
-	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
+	desc = "Experimental magnetic boots. Just as powerful as usual, but without feeling like you're trudging through molasses!"
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/shoes/magboots/advance/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] will not slow you down when active.</span>"
+
+/obj/item/clothing/shoes/magboots/advance/examine_more(mob/user)
+	. = ..()
+	. += "Nanotrasen's advanced magboots are an experimental development on commercially available designs. Using a combination of haptic feedback sensors and predictive algorithms, \
+	the electromagnets in the boots deactivate themselves when they detect the user trying to lift their feet up, whilst also remaining active if unexpected forces act upon the user. \
+	The predictive action occurs in less than 60 milliseconds, making it appear instant from the perspective of the user."
+	. += ""
+	. += "The rapid activation/deactivation action of the magboots allows users to sprint, jump, or perform any other actions they wish as if the boots were not there, \
+	whilst still providing unrivalled traction and grip both in zero-G and full gravity."
 
 /obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
 	. = ..()
@@ -103,6 +116,10 @@
 	origin_tech = null
 	slowdown_active = SHOES_SLOWDOWN
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/shoes/magboots/elite/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] will not slow you down when active.</span>"
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
