@@ -400,6 +400,7 @@
 #define INVESTIGATE_RENAME "renames"
 
 #define INVESTIGATE_BOMB "bombs"
+#define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
 #define SQL_VERSION 56
@@ -702,3 +703,7 @@ do { \
 
 /// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
 #define RESTRICT_TYPE(type) // do nothing
+
+#define INGREDIENT_CHECK_EXACT 1
+#define INGREDIENT_CHECK_FAILURE 0
+#define INGREDIENT_CHECK_SURPLUS -1
