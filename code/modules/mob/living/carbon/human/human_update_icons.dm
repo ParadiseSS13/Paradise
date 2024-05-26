@@ -882,8 +882,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		- /obj/item/nullrod/..
 		- /obj/item/claymore/..
 	*/
-
-
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
 		if(inv)
@@ -902,6 +900,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
 
 		var/t_state = belt.item_state
+		update_observer_view(belt)
 		if(!t_state)
 			t_state = belt.icon_state
 
@@ -916,7 +915,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(BELT_LAYER)
 	apply_overlay(SPECIAL_BELT_LAYER)
-
 
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
