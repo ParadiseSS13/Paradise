@@ -871,9 +871,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			belt.screen_loc = ui_belt
 
 	if(belt)
-		// Manual checks for outliers (Claymores, null rods, defibs, judobelt)
-		overlay_layer = (istype(belt, /obj/item/judobelt) || istype(belt, /obj/item/defibrillator/compact) || istype(belt, /obj/item/claymore) || istype(belt, /obj/item/nullrod)) ? SPECIAL_BELT_LAYER : BELT_LAYER
-
+		// Manual checks for outliers (Claymores, null rods, defibs, judobelt, etc.) - Items that are belts but not storages.
+		var/list/special_belts = list(
+			/obj/item/defibrillator/compact,
+			/obj/item/nullrod,
+			/obj/item/judobelt,
+			/obj/item/claymore)
+		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
 		if(istype(belt, /obj/item/storage/belt))
 			var/obj/item/storage/belt/B = belt
 			overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
@@ -890,7 +894,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[overlay_layer] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -overlay_layer)
 		else
 			overlays_standing[overlay_layer] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -overlay_layer)
-
 
 	apply_overlay(BELT_LAYER)
 	apply_overlay(SPECIAL_BELT_LAYER)
