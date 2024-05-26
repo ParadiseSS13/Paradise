@@ -27,6 +27,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/powered)
+"cN" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 "cT" = (
 /obj/structure/toilet{
 	dir = 4
@@ -227,13 +236,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "zx" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/ruin/space/powered)
 "Aa" = (
 /obj/effect/spawner/window/plastitanium,
@@ -327,10 +330,23 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "HR" = (
-/obj/machinery/power/tracker,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Id" = (
 /obj/structure/falsewall/rock_ancient,
@@ -446,7 +462,10 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "TT" = (
-/turf/simulated/wall,
+/obj/machinery/power/tracker,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
 /area/ruin/space/powered)
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -499,25 +518,6 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/ruin/space/powered)
-"XP" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Ya" = (
 /turf/simulated/mineral/ancient,
@@ -620,7 +620,7 @@ vN
 vN
 vN
 vN
-HR
+TT
 PM
 Ya
 Ya
@@ -645,7 +645,7 @@ vN
 vN
 vN
 XM
-XP
+HR
 Yu
 PM
 Ya
@@ -670,7 +670,7 @@ vN
 vN
 vN
 XM
-XP
+HR
 Yu
 Ya
 Ya
@@ -698,16 +698,16 @@ jf
 pi
 Yu
 Ya
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
+zx
+zx
+zx
+zx
+zx
+zx
+zx
+zx
 Ub
-TT
+zx
 Ya
 Ya
 Ya
@@ -720,20 +720,20 @@ vN
 vN
 PM
 jf
-XP
+HR
 Yu
 Ya
-TT
+zx
 dV
 OA
-TT
+zx
 SL
 qU
 Hy
-TT
+zx
 IZ
-TT
-TT
+zx
+zx
 Ya
 Ya
 Ya
@@ -745,10 +745,10 @@ vN
 Ya
 PM
 jf
-XP
+HR
 Yu
 Ya
-TT
+zx
 oy
 iY
 vk
@@ -758,7 +758,7 @@ WD
 Wa
 YM
 cT
-TT
+zx
 Ya
 Ya
 vN
@@ -773,17 +773,17 @@ oI
 Vl
 Ya
 Ya
-TT
+zx
 lq
 Kh
-TT
+zx
 zs
 LY
 WD
-TT
+zx
 cM
 Zs
-TT
+zx
 Ya
 vN
 vN
@@ -798,17 +798,17 @@ Ya
 Ya
 Ya
 Ya
-TT
-TT
-TT
-TT
-TT
-TT
+zx
+zx
+zx
+zx
+zx
+zx
 vk
-TT
-TT
-TT
-TT
+zx
+zx
+zx
+zx
 vN
 vN
 vN
@@ -819,15 +819,15 @@ vN
 vN
 Ya
 CF
-TT
-TT
-TT
-TT
-TT
+zx
+zx
+zx
+zx
+zx
 gY
 DV
 Vs
-TT
+zx
 kp
 fK
 fK
@@ -844,15 +844,15 @@ vN
 Ya
 Ya
 CF
-TT
+zx
 Ha
 RC
 rt
-TT
+zx
 fH
 ib
 Cq
-TT
+zx
 Tf
 fK
 fK
@@ -869,7 +869,7 @@ vN
 Ya
 Ya
 CF
-TT
+zx
 Hp
 hB
 cx
@@ -894,20 +894,20 @@ vN
 vN
 Ya
 CF
-TT
+zx
 Ze
 Il
 EQ
-TT
+zx
 Gv
 gP
 TQ
-TT
+zx
 Uu
 Qv
 Tb
 Cw
-TT
+zx
 Ya
 vN
 vN
@@ -919,20 +919,20 @@ vN
 vN
 Ya
 CF
-TT
-TT
-TT
+zx
+zx
+zx
 JY
 Ed
-TT
+zx
 kP
-TT
-TT
-TT
-TT
-TT
+zx
+zx
+zx
+zx
+zx
 Gh
-TT
+zx
 Ya
 vN
 vN
@@ -946,9 +946,9 @@ Ya
 gs
 oI
 uO
-TT
 zx
-TT
+cN
+zx
 Ya
 qN
 Sk
@@ -971,9 +971,9 @@ vN
 Ya
 Ya
 CF
-TT
+zx
 JY
-TT
+zx
 Ya
 Aa
 aY
