@@ -9,12 +9,11 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "f" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/status_display{
 	name = "cargo display";
 	pixel_y = 32
 	},
-/turf/simulated/floor/vault,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "g" = (
 /obj/machinery/conveyor{
@@ -78,17 +77,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "o" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/vault,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "r" = (
 /obj/effect/turf_decal{
 	dir = 4
 	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{
@@ -120,24 +115,28 @@
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "I" = (
 /obj/effect/turf_decal{
 	dir = 4
 	},
-/obj/machinery/light/spot,
+/obj/machinery/light/spot{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "R" = (
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/obj/machinery/light/spot,
+/obj/machinery/light/spot{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"U" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 
 (1,1,1) = {"
@@ -156,7 +155,7 @@ v
 "}
 (2,1,1) = {"
 a
-r
+I
 i
 i
 i
@@ -164,8 +163,8 @@ i
 i
 i
 I
-a
-a
+r
+U
 w
 "}
 (3,1,1) = {"
@@ -212,7 +211,7 @@ x
 "}
 (6,1,1) = {"
 a
-H
+R
 e
 e
 e
@@ -220,8 +219,8 @@ j
 e
 e
 R
-a
-a
+H
+U
 y
 "}
 (7,1,1) = {"
