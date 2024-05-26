@@ -598,7 +598,6 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/offence
 
-
 /obj/item/throwing_star/boneshard
 	name = "bone shard"
 	desc = "A serrated shard of bone laden with vicious barbs."
