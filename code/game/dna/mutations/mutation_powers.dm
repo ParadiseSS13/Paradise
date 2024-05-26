@@ -444,12 +444,15 @@
 
 			doHeal(user)
 	else
-		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
+
 		if(ismob(the_item.loc) && isitem(the_item))
 			var/obj/item/eaten = the_item
 			var/mob/the_owner = the_item.loc
-			the_owner.unEquip(eaten, TRUE, TRUE)
+			if(!the_owner.unEquip(eaten, FALSE, TRUE))
+				to_chat(user, "<span class='warning'>You can't eat [the_item], it won't go down your throat!</span>")
+				return
+		user.visible_message("<span class='danger'>[user] eats [the_item].</span>")
+		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			var/obj/item/organ/external/chest/target_place = H.get_organ(BODY_ZONE_CHEST)

@@ -651,6 +651,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		for(var/obj/item/content in org)
 			content.forceMove(T)
 			content.dropped(owner, TRUE)
+			something_else = TRUE
 
 	if(organ_spilled)
 		C.visible_message("<span class='danger'><b>[C]'s internal organs spill out onto the floor!</b></span>")
