@@ -98,9 +98,9 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> to empty it.</span>"
 
-/obj/item/reagent_containers/spray/AltClick(mob/user)
+/obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
