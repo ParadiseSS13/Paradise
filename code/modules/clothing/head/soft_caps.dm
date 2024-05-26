@@ -127,7 +127,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
 		)
 
-
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
 	desc = "It's a grey baseball hat with a purple custodial shield."
