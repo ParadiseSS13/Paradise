@@ -135,7 +135,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/trader_station/sol
-	name = "Jupiter Station 6"
+	name = "Trading Satellite"
 
 /area/ghost_bar
 	name = "Ghost Bar"

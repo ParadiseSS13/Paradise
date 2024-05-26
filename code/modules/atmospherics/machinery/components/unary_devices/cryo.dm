@@ -178,7 +178,6 @@
 	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
-	..()
 	if(!node || !on)
 		return
 
