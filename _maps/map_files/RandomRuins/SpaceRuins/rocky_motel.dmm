@@ -28,13 +28,10 @@
 	},
 /area/ruin/space/powered)
 "cN" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/structure/chair/sofa/right{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "cT" = (
 /obj/structure/toilet{
@@ -133,11 +130,11 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
 "lW" = (
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/structure/disposaloutlet{
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
@@ -329,25 +326,6 @@
 /obj/item/clothing/glasses/regular,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
-"HR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/powered)
 "Id" = (
 /obj/structure/falsewall/rock_ancient,
 /obj/structure/cable{
@@ -462,10 +440,13 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "TT" = (
-/obj/machinery/power/tracker,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -493,10 +474,10 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Vs" = (
-/obj/structure/chair/sofa/right{
-	dir = 4
+/obj/machinery/power/tracker,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
 	},
-/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Wa" = (
 /obj/machinery/door/airlock{
@@ -518,6 +499,25 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
+/area/ruin/space/powered)
+"XP" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Ya" = (
 /turf/simulated/mineral/ancient,
@@ -620,7 +620,7 @@ vN
 vN
 vN
 vN
-TT
+Vs
 PM
 Ya
 Ya
@@ -645,7 +645,7 @@ vN
 vN
 vN
 XM
-HR
+XP
 Yu
 PM
 Ya
@@ -670,7 +670,7 @@ vN
 vN
 vN
 XM
-HR
+XP
 Yu
 Ya
 Ya
@@ -720,7 +720,7 @@ vN
 vN
 PM
 jf
-HR
+XP
 Yu
 Ya
 zx
@@ -745,7 +745,7 @@ vN
 Ya
 PM
 jf
-HR
+XP
 Yu
 Ya
 zx
@@ -826,7 +826,7 @@ zx
 zx
 gY
 DV
-Vs
+cN
 zx
 kp
 fK
@@ -947,7 +947,7 @@ gs
 oI
 uO
 zx
-cN
+TT
 zx
 Ya
 qN
