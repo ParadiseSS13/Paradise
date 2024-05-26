@@ -144,7 +144,7 @@
 	spread_time = 1.2 SECONDS
 	react_mode = FOAM_REACT_ON_DISSIPATE
 	/// Represents the icon state that we'll become when we solidify
-	var/metal = METAL_FOAM_ALUMINUM
+	var/metal_kind = METAL_FOAM_ALUMINUM
 
 /obj/effect/particle_effect/foam/metal/generate_color()
 	return  // metal foam is boring
@@ -154,11 +154,11 @@
 	if(isspaceturf(T) && !istype(T, /turf/space/transit))
 		T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 		var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
-		MF.metal = metal
+		MF.metal_kind = metal_kind
 
 
-	var/obj/structure/foamedmetal/M = new(src.loc)
-	M.metal = metal
+	var/obj/structure/foamedmetal/M = new(loc)
+	M.metal = metal_kind
 	M.update_state()
 
 /obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
