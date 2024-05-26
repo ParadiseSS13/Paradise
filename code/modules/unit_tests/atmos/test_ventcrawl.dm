@@ -27,7 +27,7 @@
 	var/datum/milla_safe/ventcrawl_test_setup/milla = new()
 	milla.invoke_async(src)
 	while(!setup_complete)
-		sleep(0.01)
+		sleep(world.tick_lag)
 
 	// Enter vent
 	vent.AltClick(slime)

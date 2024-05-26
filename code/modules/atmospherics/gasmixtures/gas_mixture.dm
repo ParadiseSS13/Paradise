@@ -742,7 +742,7 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	if(istype(bound_turf, /turf/simulated))
 		var/turf/simulated/S = bound_turf
 		S.update_visuals()
-	ASSERT(SSair.in_milla_safe_code)
+	ASSERT(SSair.is_in_milla_safe_code())
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
 	private_oxygen = value

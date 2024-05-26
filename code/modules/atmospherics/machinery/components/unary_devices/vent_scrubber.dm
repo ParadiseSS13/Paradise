@@ -192,7 +192,7 @@
 
 		scrubber.air_contents.merge(removed)
 
-	if(istype(scrubber.parent))
+	if(!QDELETED(scrubber.parent))
 		scrubber.parent.update = 1
 
 	return 1

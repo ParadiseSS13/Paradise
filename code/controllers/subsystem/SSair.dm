@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(air)
 	var/is_synchronous = TRUE
 
 	/// Are we currently running in a MILLA-safe context, i.e. is is_synchronous *guaranteed* to be TRUE. Nothing outside of this file should change this.
-	var/in_milla_safe_code = FALSE
+	VAR_PRIVATE/in_milla_safe_code = FALSE
 
 	/// When did we start the last MILLA tick?
 	var/milla_tick_start = null
@@ -135,12 +135,6 @@ SUBSYSTEM_DEF(air)
 	.["custom"] = cust
 
 /datum/controller/subsystem/air/Initialize()
-	initialize_sleepless()
-
-/datum/controller/subsystem/air/proc/initialize_sleepless()
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
 	in_milla_safe_code = TRUE
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
@@ -415,6 +409,7 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	for(var/turf/T as anything in turfs_to_init)
 		T.Initialize_Atmos(times_fired)
+		CHECK_TICK
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
@@ -433,6 +428,7 @@ SUBSYSTEM_DEF(air)
 			in_milla_safe_code = FALSE
 		mixture.bound_turf.bound_air = null
 		mixture.bound_turf = null
+		CHECK_TICK
 
 	log_startup_progress("Wrote [count] tiles in [stop_watch(watch)]s.")
 
@@ -449,6 +445,7 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
 		count++
+		CHECK_TICK
 	return count
 
 //this can't be done with setup_atmos_machinery() because
@@ -513,17 +510,23 @@ SUBSYSTEM_DEF(air)
 
 	waiting_for_sync += CB
 
+/datum/controller/subsystem/air/proc/is_in_milla_safe_code()
+	return in_milla_safe_code
+
+/datum/controller/subsystem/air/proc/on_milla_tick_finished()
+	is_synchronous = TRUE
+	in_milla_safe_code = TRUE
+	for(var/datum/milla_safe/CB as anything in waiting_for_sync)
+		// This is one of two intended places to call this otherwise-unsafe proc.
+		CB.private_unsafe_invoke()
+	waiting_for_sync.Cut()
+	in_milla_safe_code = FALSE
+
 /proc/milla_tick_finished()
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
-	SSair.is_synchronous = TRUE
-	SSair.in_milla_safe_code = TRUE
-	for(var/datum/milla_safe/CB as anything in SSair.waiting_for_sync)
-		// This is one of two intended places to call this otherwise-unsafe proc.
-		CB.private_unsafe_invoke()
-	SSair.waiting_for_sync.Cut()
-	SSair.in_milla_safe_code = FALSE
+	SSair.on_milla_tick_finished()
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
