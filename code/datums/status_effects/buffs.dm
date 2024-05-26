@@ -596,12 +596,14 @@
 			H.physiology.brute_mod *= 0.8
 			H.physiology.burn_mod *= 0.8
 			H.physiology.stamina_mod *= 0.8
+		owner.status_flags &= ~CANPUSH
 		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("chainsaw", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/chainsaw_slaying/on_remove()
 	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	owner.status_flags |= CANPUSH
 	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
 		owner.remove_stun_absorption("chainsaw")
 	if(ishuman(owner))
@@ -670,13 +672,13 @@
 	return ..()
 
 /datum/status_effect/drill_payback/on_apply()
-	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
 	return TRUE
 
 /datum/status_effect/drill_payback/proc/payback_phase_2()
 	owner.clear_fullscreen("payback")
-	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 1)
 
 /datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff

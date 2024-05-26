@@ -16,7 +16,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	mob_biotypes = MOB_SPIRIT
-	incorporeal_move = 3
+	incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
@@ -79,7 +79,7 @@
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
 		revealed = 0
-		incorporeal_move = 3
+		incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 		invisibility = INVISIBILITY_REVENANT
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
@@ -223,9 +223,7 @@
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
 	icon_state = "revenant_draining"
-	for(var/i = alpha, i > 0, i -= 10)
-		sleep(0.1)
-		alpha = i
+	animate(src, alpha = 0, time = 3 SECONDS)
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
 	new /obj/item/ectoplasm/revenant(get_turf(src))
 	ghostize()
@@ -275,7 +273,7 @@
 		return
 	revealed = 1
 	invisibility = 0
-	incorporeal_move = 0
+	incorporeal_move = NO_INCORPOREAL_MOVE
 	if(!unreveal_time)
 		to_chat(src, "<span class='revendanger'>You have been revealed!</span>")
 		unreveal_time = world.time + time

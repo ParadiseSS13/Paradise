@@ -358,6 +358,7 @@
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
 	clone.Weaken(4 SECONDS)
+	ADD_TRAIT(clone, TRAIT_NOFIRE, "cloning") // Plasmamen shouldn't catch fire while cloning
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
 /obj/machinery/clonepod/proc/eject_clone(force = FALSE)
@@ -376,6 +377,7 @@
 		patient_mind.transfer_to(clone)
 		clone.grab_ghost()
 		clone.update_revive()
+		REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
 		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 
@@ -393,7 +395,8 @@
 	patient_mind.transfer_to(clone)
 	clone.grab_ghost()
 	clone.update_revive()
-	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+	REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
+	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 
 	reset_cloning()

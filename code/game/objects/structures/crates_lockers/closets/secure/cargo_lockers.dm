@@ -10,7 +10,7 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/head/soft(src)
+	new /obj/item/clothing/head/soft/cargo(src)
 	new /obj/item/storage/bag/mail(src)
 
 /obj/structure/closet/secure_closet/quartermaster

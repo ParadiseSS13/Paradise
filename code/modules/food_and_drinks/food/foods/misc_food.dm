@@ -277,11 +277,13 @@
 	bitesize = 3
 	list_reagents = list("slimejelly" = 5)
 	tastes = list("jelly" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/popcorn
 	name = "popcorn"
 	desc = "Now let's find some cinema."
 	icon_state = "popcorn"
+	gender = PLURAL
 	trash = /obj/item/trash/popcorn
 	var/unpopped = 0
 	filling_color = "#FFFAD4"

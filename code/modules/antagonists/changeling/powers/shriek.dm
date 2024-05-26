@@ -19,7 +19,7 @@
 				var/mob/living/carbon/human/H = M
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
-			if(!M.mind || !ischangeling(M))
+			if(!M.mind || !IS_CHANGELING(M))
 				M.Deaf(30 SECONDS)
 				M.AdjustConfused(40 SECONDS)
 				M.Jitter(100 SECONDS)
@@ -54,6 +54,8 @@
 		L.on = TRUE
 		L.break_light_tube()
 	empulse(get_turf(user), 3, 5, 1)
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /// A more expensive version, used during rounds with cyber rev station trait for balance reasons.
