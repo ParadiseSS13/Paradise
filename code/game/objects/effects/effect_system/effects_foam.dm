@@ -26,8 +26,6 @@
 	/// Whether or not to spread at a range when spreading
 	var/spread_at_range = TRUE
 
-
-
 /obj/effect/particle_effect/foam/Initialize(mapload, loc)
 	. = ..()
 	create_reagents(25)
@@ -91,7 +89,6 @@
 	new_foam.react_mode = react_mode
 	new_foam.max_reagent_filling = max_reagent_filling
 
-
 	// add the new amount of foam
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -116,7 +113,6 @@
 	if(--spread_amount < 0)
 		return
 
-
 	spread()
 
 
@@ -137,7 +133,6 @@
 	if((M.slip("foam", 10 SECONDS) || IS_HORIZONTAL(M)) && reagents)
 		fill_with_reagents(M)
 
-
 /obj/effect/particle_effect/foam/metal
 	name = "metal foam"
 	icon_state = "mfoam"  // finally mentor foam
@@ -155,7 +150,6 @@
 		T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 		var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
 		MF.metal_kind = metal_kind
-
 
 	var/obj/structure/foamedmetal/M = new(loc)
 	M.metal = metal_kind
@@ -229,7 +223,6 @@
 	F.spread_at_range = TRUE
 	F.color = mix_color_from_reagents(F.reagents.reagent_list)
 
-
 /datum/effect_system/foam_spread/metal
 	/// The type of metal that will be formed from this
 	var/metal_type = METAL_FOAM_ALUMINUM
@@ -238,7 +231,6 @@
 /datum/effect_system/foam_spread/metal/set_up(amt, where, datum/reagents/carry, _metal_type = METAL_FOAM_ALUMINUM)
 	. = ..()
 	metal_type = _metal_type
-
 
 /datum/effect_system/foam_spread/metal/setup_reagents()
 	return
