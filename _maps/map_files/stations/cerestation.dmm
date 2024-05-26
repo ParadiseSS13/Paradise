@@ -9441,10 +9441,6 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "bfV" = (
-/obj/machinery/camera{
-	c_tag = "Rehabilitation Dome Lobby South";
-	dir = 1
-	},
 /obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
