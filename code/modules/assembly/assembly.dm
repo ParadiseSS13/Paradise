@@ -20,7 +20,7 @@
 	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/cooldown = FALSE //To prevent spam
+	var/cooldown = 0 //To prevent spam
 	var/wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
