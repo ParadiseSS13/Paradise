@@ -160,18 +160,10 @@ SUBSYSTEM_DEF(mapping)
 			var/turf/T = z_level_turf
 			var/area/A = get_area(T)
 			if(istype(A, /area/ruin/space))
+							// cardboard boxes are blacklisted otherwise deepstorage.dmm ends up hogging all the loot
+				var/list/closet_blacklist = list(/obj/structure/closet/cardboard, /obj/structure/closet/fireaxecabinet, /obj/structure/closet/walllocker/emerglocker, /obj/structure/closet/crate/can, /obj/structure/closet/body_bag, /obj/structure/closet/coffin)
 				for(var/obj/structure/closet/closet in T)
-					if(istype(closet, /obj/structure/closet/cardboard))
-						continue // otherwise deepstorage.dmm ends up hogging all the loot
-					if(istype(closet, /obj/structure/closet/fireaxecabinet))
-						continue
-					if(istype(closet, /obj/structure/closet/walllocker/emerglocker))
-						continue
-					if(istype(closet, /obj/structure/closet/crate/can))
-						continue // no valuable treasures in trash cans
-					if(istype(closet, /obj/structure/closet/body_bag))
-						continue
-					if(istype(closet, /obj/structure/closet/coffin))
+					if(is_type_in_list(closet, closet_blacklist))
 						continue
 
 					seeded_salvage_closets |= closet
