@@ -675,7 +675,7 @@ GLOBAL_VAR(bomb_set)
 // MARK: DAT FUKKEN DISK
 //////////////////////////////
 /obj/item/disk/nuclear
-	name = "\improper Nuclear Authentication Disk"
+	name = "nuclear authentication disk"
 	desc = "A floppy disk containing 1.44 MB of unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 	icon_state = "nucleardisk"
 	max_integrity = 250
@@ -695,11 +695,11 @@ GLOBAL_VAR(bomb_set)
 	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed, should the need arise."
 	. += ""
 	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or malicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
-	and the Nuclear Authentication Disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
+	and the nuclear authentication disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
 	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."
 
 /obj/item/disk/nuclear/unrestricted
-	name = "unrestricted Nuclear Authentication Disk"
+	name = "unrestricted nuclear authentication disk"
 	desc = "A floppy disk containing 1.44 MB of unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 	restricted_to_station = FALSE
 
@@ -826,7 +826,7 @@ GLOBAL_VAR(bomb_set)
 	qdel(src)
 
 /obj/item/disk/nuclear/training
-	name = "training Nuclear Authentication Disk"
+	name = "training nuclear authentication disk"
 	desc = "The code is 11111."
 	icon_state = "trainingdisk"
 	resistance_flags = null

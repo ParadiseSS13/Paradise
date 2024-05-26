@@ -487,8 +487,8 @@
 /obj/item/disk/plantgene/update_name()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		name = "\improper Nuclear Authentication Disk"
-		ui_name = "Nuclear Authentication Disk?"
+		name = "nuclear authentication disk"
+		ui_name = "nuclear authentication disk?"
 		return
 	if(!is_bulk_core && gene)
 		name = "[gene.get_name()] (plant data disk)"
@@ -569,7 +569,7 @@
 		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
-		. += "<span class='warning'>... Wait. This isn't the Nuclear Authentication Disk! It's a clever forgery!</span>"
+		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
 	else
 		. += "<span class='boldwarning'>You should keep this safe...</span>"
 
@@ -584,5 +584,5 @@
 	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed should the need arise."
 	. += ""
 	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or mallicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
-	and the Nuclear Authentication Disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
+	and the nuclear authentication disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
 	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."
