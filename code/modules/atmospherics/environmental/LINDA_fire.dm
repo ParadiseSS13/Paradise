@@ -8,9 +8,11 @@
 	return FALSE
 
 /turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
-	var/datum/gas_mixture/air = get_readonly_air()
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
+		if(!issimulatedturf(src))
+			return FALSE
+	var/datum/gas_mixture/air = get_readonly_air()
 	if(!air)
 		return FALSE
 	if(active_hotspot)
