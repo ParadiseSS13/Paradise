@@ -1,5 +1,8 @@
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(
+		/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing,
+		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat
+	)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -39,6 +42,10 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
+
+//////////////////////////////
+// MARK: BASIC SECURITY
+//////////////////////////////
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -81,20 +88,6 @@
 		return
 	..()
 
-/obj/item/clothing/suit/armor/vest/street_judge
-	name = "judge's security armor"
-	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
-	icon_state = "streetjudgearmor"
-
-/obj/item/clothing/suit/armor/vest/blueshield
-	name = "blueshield's security armor"
-	desc = "An armored vest with the badge of a Blueshield."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
-	)
-	icon_state = "blueshield"
-	item_state = "blueshield"
-
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
 	desc = "A vest drenched in the blood of Greytide. It has seen better days."
@@ -111,8 +104,8 @@
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
 	sprite_sheets = list(
@@ -136,6 +129,47 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/armor/vest/det_suit
+	name = "armor"
+	desc = "An armored vest with a detective's badge on it."
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+	)
+	icon_state = "detective-armor"
+	item_state = "armor"
+	blood_overlay_type = "armor"
+	allowed = list(
+		/obj/item/tank/internals/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight,/obj/item/gun,
+		/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder
+	)
+	resistance_flags = FLAMMABLE
+	dog_fashion = null
+
+//same defense as basic sec armor
+/obj/item/clothing/suit/storage/iaa/blackjacket/armored
+	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
+	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	cold_protection = UPPER_TORSO|LOWER_TORSO
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 35, ACID = 35)
+
+/obj/item/clothing/suit/armor/vest/street_judge
+	name = "judge's security armor"
+	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
+	icon_state = "streetjudgearmor"
+
+/obj/item/clothing/suit/armor/vest/blueshield
+	name = "blueshield's security armor"
+	desc = "An armored vest with the badge of a Blueshield."
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+	)
+	icon_state = "blueshield"
+	item_state = "blueshield"
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -159,9 +193,9 @@
 	desc = "A trenchcoat enhanced with a special lightweight kevlar. The epitome of tactical plainclothes."
 	icon_state = "hostrench_open"
 	item_state = "hostrench_open"
-	flags_inv = 0
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	flags_inv = FALSE
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
@@ -170,7 +204,7 @@
 	desc = "A trenchcoat augmented with a special alloy for some protection and style."
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
-	flags_inv = 0
+	flags_inv = FALSE
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
@@ -195,7 +229,9 @@
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
 
-//Captain
+//////////////////////////////
+// MARK: CAPTAIN
+//////////////////////////////
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
 	desc = "An armored vest reinforced with ceramic plates and pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the station's finest, although it does chafe your nipples."
@@ -269,6 +305,9 @@
 	icon_state = "riot-sec"
 	item_state = "swat_suit"
 
+//////////////////////////////
+// MARK: KNIGHT
+//////////////////////////////
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
@@ -297,16 +336,9 @@
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/bible)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 
-/obj/item/clothing/suit/armor/vest/durathread
-	name = "durathread vest"
-	desc = "A vest made of durathread with strips of leather acting as trauma plates."
-	icon_state = "durathread"
-	item_state = "durathread"
-	strip_delay = 60
-	max_integrity = 200
-	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
-
+//////////////////////////////
+// MARK: ADVANCED SECURITY
+//////////////////////////////
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof vest"
 	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
@@ -323,7 +355,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
-
 
 /obj/item/clothing/suit/armor/bulletproof/sec
 	name = "security bulletproof vest"
@@ -368,23 +399,13 @@
 		return 1
 	return 0
 
-/obj/item/clothing/suit/armor/vest/det_suit
-	name = "armor"
-	desc = "An armored vest with a detective's badge on it."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
-	)
-	icon_state = "detective-armor"
-	item_state = "armor"
-	blood_overlay_type = "armor"
-	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
-	resistance_flags = FLAMMABLE
-	dog_fashion = null
-
-//Reactive armor
+//////////////////////////////
+// MARK: REACTIVE ARMOR
+//////////////////////////////
 /obj/item/clothing/suit/armor/reactive
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
+	/// Is the armor turned on?
 	var/active = FALSE
 	/// Is the armor disabled, and prevented from reactivating temporarly?
 	var/disabled = FALSE
@@ -416,6 +437,14 @@
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
+
+/obj/item/clothing/suit/armor/reactive/examine_more(mob/user)
+	. = ..()
+	. += "Reactive armours are one of the uses that Nanotasen has found for the anomaly cores that can be recovered from the bluespace phenomina that occur in the space in orbit of Lavaland. \
+	The effects of these armours can be unpredictable or undesirable in certain situations, so Nanotrasen advises only activating them when the user is in danger."
+	. += ""
+	. += "Outside of the strange effects caused by the anomaly core, the armour provides no protection against conventional attacks. \
+	Nanotrasen cannot be held liable for injury and/or death due to misuse or proper operation of the reactive armour."
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
@@ -674,60 +703,10 @@
 	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	return INITIALIZE_HINT_QDEL
 
-//All of the armor below is mostly unused
-
-
-/obj/item/clothing/suit/armor/centcomm
-	name = "Cent. Com. armor"
-	desc = "A suit that protects against some damage."
-	icon_state = "centcom"
-	item_state = "centcom"
-	w_class = WEIGHT_CLASS_BULKY
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
-	flags = THICKMATERIAL
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	sprite_sheets = null
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
-
-/obj/item/clothing/suit/armor/heavy
-	name = "heavy armor"
-	desc = "A heavily armored suit that protects against moderate damage."
-	icon_state = "heavy"
-	item_state = "swat_suit"
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
-	w_class = WEIGHT_CLASS_BULKY
-	gas_transfer_coefficient = 0.90
-	flags = THICKMATERIAL
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	slowdown = 3
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	hide_tail_by_species = list("Vox")
-
-/obj/item/clothing/suit/armor/tdome
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags = THICKMATERIAL
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	hide_tail_by_species = list("Vox")
-
-/obj/item/clothing/suit/armor/tdome/red
-	name = "red Thunderdome armor"
-	desc = "Armor worn by the red Thunderdome team."
-	icon_state = "tdred"
-	item_state = "tdred"
-
-/obj/item/clothing/suit/armor/tdome/green
-	name = "green Thunderdome armor"
-	desc = "Armor worn by the green Thunderdome team."
-	icon_state = "tdgreen"
-	item_state = "tdgreen"
-
-//Non-hardsuit ERT armor.
+//////////////////////////////
+// MARK: ERT BASIC
+//////////////////////////////
+// Non-hardsuit, non-modsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
 	name = "emergency response team armor"
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
@@ -771,19 +750,9 @@
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "ertarmor_jan"
 
-//same defense as basic sec armor
-/obj/item/clothing/suit/storage/iaa/blackjacket/armored
-	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
-	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	cold_protection = UPPER_TORSO|LOWER_TORSO
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO|LOWER_TORSO
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 35, ACID = 35)
-
-//LAVALAND!
-
+//////////////////////////////
+// MARK: LAVALAND
+//////////////////////////////
 /obj/item/clothing/suit/hooded/drake
 	name = "drake armour"
 	icon_state = "dragon"
@@ -843,3 +812,66 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
+//////////////////////////////
+// MARK: MISC
+//////////////////////////////
+/obj/item/clothing/suit/armor/vest/durathread
+	name = "durathread vest"
+	desc = "A vest made of durathread with strips of leather acting as trauma plates."
+	icon_state = "durathread"
+	item_state = "durathread"
+	strip_delay = 60
+	max_integrity = 200
+	resistance_flags = FLAMMABLE
+	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
+
+/obj/item/clothing/suit/armor/centcomm
+	name = "Cent. Com. armor"
+	desc = "A suit that protects against some damage."
+	icon_state = "centcom"
+	item_state = "centcom"
+	w_class = WEIGHT_CLASS_BULKY
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
+	flags = THICKMATERIAL
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	sprite_sheets = null
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+
+/obj/item/clothing/suit/armor/heavy
+	name = "heavy armor"
+	desc = "A heavily armored suit that protects against moderate damage."
+	icon_state = "heavy"
+	item_state = "swat_suit"
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	w_class = WEIGHT_CLASS_BULKY
+	gas_transfer_coefficient = 0.90
+	flags = THICKMATERIAL
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	slowdown = 3
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hide_tail_by_species = list("Vox")
+
+/obj/item/clothing/suit/armor/tdome
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags = THICKMATERIAL
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	hide_tail_by_species = list("Vox")
+
+/obj/item/clothing/suit/armor/tdome/red
+	name = "red Thunderdome armor"
+	desc = "Armor worn by the red Thunderdome team."
+	icon_state = "tdred"
+	item_state = "tdred"
+
+/obj/item/clothing/suit/armor/tdome/green
+	name = "green Thunderdome armor"
+	desc = "Armor worn by the green Thunderdome team."
+	icon_state = "tdgreen"
+	item_state = "tdgreen"
