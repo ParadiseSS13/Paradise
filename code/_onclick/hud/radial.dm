@@ -264,8 +264,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(GLOB.radial_menus[uniqueid]) // Calls the close button an already existing radial menu.
 		var/datum/radial_menu/existing_menu = GLOB.radial_menus[uniqueid]
 		existing_menu.finished = TRUE
-		qdel(existing_menu)
-		GLOB.radial_menus -= uniqueid
 		return
 
 	var/datum/radial_menu/menu = new
