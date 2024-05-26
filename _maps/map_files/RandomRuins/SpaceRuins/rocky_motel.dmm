@@ -180,9 +180,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/mineral/ancient,
 /area/ruin/space/powered)
 "qN" = (
@@ -231,14 +228,12 @@
 /area/ruin/space/powered)
 "zx" = (
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
-/obj/machinery/power/solar,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Aa" = (
 /obj/effect/spawner/window/plastitanium,
@@ -301,9 +296,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/wall,
 /area/ruin/space/powered)
 "Gv" = (
@@ -335,23 +327,10 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "HR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/machinery/power/tracker,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Id" = (
 /obj/structure/falsewall/rock_ancient,
@@ -511,7 +490,12 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "XM" = (
-/obj/machinery/power/tracker,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/solar,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -523,7 +507,17 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Ya" = (
 /turf/simulated/mineral/ancient,
@@ -626,7 +620,7 @@ vN
 vN
 vN
 vN
-XM
+HR
 PM
 Ya
 Ya
@@ -650,8 +644,8 @@ Ya
 vN
 vN
 vN
-zx
-HR
+XM
+XP
 Yu
 PM
 Ya
@@ -675,8 +669,8 @@ Ya
 vN
 vN
 vN
-zx
-HR
+XM
+XP
 Yu
 Ya
 Ya
@@ -726,7 +720,7 @@ vN
 vN
 PM
 jf
-HR
+XP
 Yu
 Ya
 TT
@@ -751,7 +745,7 @@ vN
 Ya
 PM
 jf
-HR
+XP
 Yu
 Ya
 TT
@@ -953,7 +947,7 @@ gs
 oI
 uO
 TT
-XP
+zx
 TT
 Ya
 qN
