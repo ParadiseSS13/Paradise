@@ -1292,6 +1292,8 @@
 		winset(usr, "mainwindow", "is-fullscreen=false") // Order matters. Fullscreen [OFF] -> Maximize [TRUE]
 		winset(usr, "mainwindow", "is-maximized=true")
 		winset(usr, "mainwindow", "menu=menu")
+	var/fullscreen_state = fullscreen ? "on" : "off"
+	to_chat(usr, "Toggled fullscreen [fullscreen_state].")
 	fit_viewport()
 
 /client/proc/try_open_reagent_editor(atom/target)
