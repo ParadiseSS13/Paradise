@@ -307,7 +307,6 @@
 				else
 					consume(X)
 
-
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
