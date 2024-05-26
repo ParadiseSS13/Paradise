@@ -411,6 +411,10 @@ SUBSYSTEM_DEF(air)
 		T.Initialize_Atmos(times_fired)
 		CHECK_TICK
 
+/datum/controller/subsystem/air/proc/setup_allturfs_sleepless(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
+	for(var/turf/T as anything in turfs_to_init)
+		T.Initialize_Atmos(times_fired)
+
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
 	log_startup_progress("Writing tiles to MILLA...")
@@ -546,13 +550,13 @@ SUBSYSTEM_DEF(air)
 
 /// Do not call this yourself. This is what is called to run your code from a safe context.
 /datum/milla_safe/proc/private_unsafe_invoke()
-	ASSERT(SSair.in_milla_safe_code)
+	ASSERT(SSair.is_in_milla_safe_code())
 	on_run(arglist(run_args))
 
 /// Fetch the air for a turf. Only use from `on_run`.
 /datum/milla_safe/proc/get_turf_air(turf/T)
 	RETURN_TYPE(/datum/gas_mixture)
-	ASSERT(SSair.in_milla_safe_code)
+	ASSERT(SSair.is_in_milla_safe_code())
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	return T.private_unsafe_get_air()
 
