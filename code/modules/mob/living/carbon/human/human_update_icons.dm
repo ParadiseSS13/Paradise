@@ -867,21 +867,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
-	remove_overlay(SPECIAL_BELT_LAYER)
-	var/overlay_layer = BELT_LAYER
-
-	// Certain belts should go OVER the suit. But not all.
-	/* Items (on the belt slot) that go over the suit:
-		- /obj/item/storage/belt/security/webbing
-		- /obj/item/storage/belt/bandolier
-		- /obj/item/judobelt
-		- /obj/item/storage/belt/chef
-		- /obj/item/storage/belt/mining/..
-		- /obj/item/storage/belt/rapier
-		- /obj/item/defibrillator/compact/..
-		- /obj/item/nullrod/..
-		- /obj/item/claymore/..
-	*/
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
 		if(inv)
@@ -892,29 +877,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			belt.screen_loc = ui_belt
 
 	if(belt)
-		// Manual checks for outliers (Claymores, null rods, defibs, judobelt)
-		overlay_layer = (istype(belt, /obj/item/judobelt) || istype(belt, /obj/item/defibrillator/compact) || istype(belt, /obj/item/claymore) || istype(belt, /obj/item/nullrod)) ? SPECIAL_BELT_LAYER : BELT_LAYER
-
-		if(istype(belt, /obj/item/storage/belt))
-			var/obj/item/storage/belt/B = belt
-			overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
-
-		var/t_state = belt.item_state
 		update_observer_view(belt)
+		var/t_state = belt.item_state
 		if(!t_state)
 			t_state = belt.icon_state
 
 		if(belt.icon_override)
 			t_state = "[t_state]_be"
-			overlays_standing[overlay_layer] = mutable_appearance(belt.icon_override, "[t_state]", layer = -overlay_layer)
+			overlays_standing[BELT_LAYER] = mutable_appearance(belt.icon_override, "[t_state]", layer = -BELT_LAYER)
 		else if(belt.sprite_sheets && belt.sprite_sheets[dna.species.sprite_sheet_name])
-			overlays_standing[overlay_layer] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -overlay_layer)
+			overlays_standing[BELT_LAYER] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -BELT_LAYER)
 		else
-			overlays_standing[overlay_layer] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -overlay_layer)
-
-
+			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -BELT_LAYER)
 	apply_overlay(BELT_LAYER)
-	apply_overlay(SPECIAL_BELT_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
