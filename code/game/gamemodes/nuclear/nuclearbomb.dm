@@ -692,9 +692,9 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/examine_more(mob/user)
 	. = ..()
-	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed should the need arise."
+	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed, should the need arise."
 	. += ""
-	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or mallicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
+	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or malicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
 	and the Nuclear Authentication Disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
 	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."
 

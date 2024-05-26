@@ -78,7 +78,7 @@
 	. += "These engraved knuckledusters are crafted from 20 karat gold alloyed with plasteel, all mined from Lavaland. A symbol of prestige and a reminder of the wealth under the feet of the miners working down there."
 	. += ""
 	. += "Why exactly Nanotrasen chose to make knuckledusters of all things as that prestige symbol is unclear, \
-	but when all the quartermasters were issued with them, no-one complained. Most of them got pretty good at using them, too..."
+	but when all the quartermasters were issued them, no-one complained. Most of them got pretty good at using them, too..."
 
 /obj/item/melee/knuckleduster/admin
 	name = "handheld bone-breaker"

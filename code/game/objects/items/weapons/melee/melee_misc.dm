@@ -46,7 +46,7 @@
 
 /obj/item/melee/rapier/examine_more(mob/user)
 	. = ..()
-	. += "Swords are a traditional ceremonial weapon carried by commanding officers of many armies and navies even long after firearms and laserarms rendered them obsolete. \
+	. += "Swords are a traditional ceremonial weapon carried by commanding officers of many armies and navies, even long after firearms and laserarms rendered them obsolete. \
 	Despite having no roots in such traditions, Nanotrasen participates in them, as these trappings of old tradition help to promote the air of authority the company wishes for its captains to possess."
 	. += ""
 	. += "Whilst not intended to actually be used in combat, these ceremonial rapiers are in-fact quite functional, \
