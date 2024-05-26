@@ -78858,14 +78858,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/hallway)
-"sfr" = (
-/obj/machinery/requests_console{
-	department = "Expedition";
-	departmentType = 2;
-	pixel_x = 30
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/engineering)
 "sft" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -138814,7 +138806,7 @@ aXR
 aXR
 aXR
 aXR
-sfr
+aXR
 aXR
 aXR
 xbO

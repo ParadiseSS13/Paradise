@@ -33453,24 +33453,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
-"cfm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/sw)
 "cfn" = (
 /obj/machinery/light{
 	dir = 4
@@ -34832,6 +34814,10 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "ckw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ckx" = (
@@ -92085,11 +92071,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
-"xaf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom,
-/turf/simulated/wall,
-/area/station/command/office/blueshield)
 "xag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -92237,6 +92218,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/blueshield,
 /obj/machinery/door/window/classic/normal,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "xde" = (
@@ -120329,7 +120314,7 @@ cfi
 cgS
 smS
 cgS
-xaf
+coT
 coT
 cgS
 lNb
@@ -121352,7 +121337,7 @@ iLY
 bZc
 bSi
 cdU
-cfm
+cok
 shN
 qcM
 mNf
