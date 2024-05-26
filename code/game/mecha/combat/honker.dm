@@ -135,3 +135,11 @@
 			if("sadtrombone")
 				playsound(src, 'sound/misc/sadtrombone.ogg', 50)
 	return
+
+/obj/mecha/combat/honker/examine_more(mob/user)
+	. = ..()
+	. += "<i>A cheerful, colorful modification of a Durand chassis, the Honk mech is designed as heavy laughterfield support for producing mass honking casualties. \
+	Built and perfected by some of the most skilled Clowns ever known to the galaxy, with materials and labor provided by Donk Co, the Honk has somehow managed to have its design smuggled aboard almost ever Nanotrasen station, to the imminent laughter (screams) and joy (despair) of it's crew!</i>"
+	. += ""
+	. += "<i>Equipped with a massive HoNkER BlAsT 5000 horn and long range mortars capable of firing both slippery banana peels and dangerous mousetraps, the Honk is well equipped to provide a Clown with everything they need to 'entertain' a station's crew, and to draw the ire of any nearby Security. \
+	Honk!</i>"

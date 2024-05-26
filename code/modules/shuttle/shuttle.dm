@@ -994,6 +994,7 @@
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"
 	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)

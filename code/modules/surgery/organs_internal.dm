@@ -702,7 +702,10 @@
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
-		/obj/item/hatchet = 90
+		/obj/item/hatchet = 90,
+		/obj/item/chainsaw/ = 90,
+		/obj/item/butcher_chainsaw = 90,
+		TOOL_WIRECUTTER = 35
 	)
 
 	time = 5.4 SECONDS
@@ -737,12 +740,15 @@
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
+		/obj/item/kitchen/knife/shiv = 70,
 		/obj/item/shard = 60,
+		TOOL_WIRECUTTER = 35,
 		/obj/item/scissors = 12,
-		/obj/item/butcher_chainsaw = 1,
 		/obj/item/claymore = 6,
 		/obj/item/melee/energy = 6,
-		/obj/item/pen/edagger = 6
+		/obj/item/pen/edagger = 6,
+		/obj/item/chainsaw = 1,
+		/obj/item/butcher_chainsaw = 1
 	)
 
 	time = 1.6 SECONDS
@@ -829,7 +835,8 @@
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
-		TOOL_WELDER = 30
+		TOOL_WELDER = 30,
+		/obj/item/flamethrower = 1
 	)
 
 	time = 2.4 SECONDS
