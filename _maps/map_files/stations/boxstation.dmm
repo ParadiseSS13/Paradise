@@ -75590,7 +75590,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "brown"
 	},
 /area/station/supply/miningdock)
 "oLS" = (

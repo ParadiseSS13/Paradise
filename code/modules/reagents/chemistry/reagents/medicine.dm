@@ -467,6 +467,13 @@
 			M.Weaken(6 SECONDS)
 	return list(effect, update_flags)
 
+/datum/reagent/medicine/omnizine/no_addict
+	id = "omnizine_no_addiction"
+	overdose_threshold = 0
+	addiction_chance = 0
+	addiction_chance_additional = 100
+	addiction_threshold = 0
+
 /datum/reagent/medicine/calomel
 	name = "Calomel"
 	id = "calomel"
@@ -914,7 +921,6 @@
 					return
 
 				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
-					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
