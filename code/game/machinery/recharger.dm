@@ -49,7 +49,7 @@
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
-	if(!istype(A) || !A.powernet.equipment_powered)
+	if(!istype(A) || !A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
 		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
 		return
 
