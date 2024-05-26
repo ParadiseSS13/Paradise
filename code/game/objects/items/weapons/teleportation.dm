@@ -29,7 +29,7 @@
 /obj/item/hand_tele/examine_more(mob/user)
 	. = ..()
 	. += "Conventional teleportation technology requires either inflexible quantum pad setups that can only send users between two fixed locations, \
-	or large immobile portal generators connected to an even larger set of computer equipment for required for safe translation through extradimensional space."
+	or large immobile portal generators connected to an even larger set of computer equipment that is required for safe translation through extradimensional space."
 	. += ""
 	. += "This specialised portable teleporter is an experimental miniaturisation of the latter category. It utilises highly specialised analogue circuitry to perform the bulk of the teleportation calculations, \
 	allowing for a far more compact package than more generalised digital computer technology would allow. Some digital components are present, which handle the user interface and beacon tracking functions. \
