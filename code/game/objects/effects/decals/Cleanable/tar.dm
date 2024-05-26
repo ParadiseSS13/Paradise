@@ -19,6 +19,14 @@
 		target.slowdown -= 10
 		return ..()
 
+/obj/effect/decal/cleanable/tar/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	target.slowdown -= 10
+	target = src.loc
+	target.slowdown += 10
+	if(!issimulatedturf(target))  // We remove slowdown in Destroy(), so we run this check after adding the slowdown.
+		qdel(src)
+
 /obj/effect/decal/cleanable/tar/Crossed(atom/movable/movable_atom)
 	if(isliving(movable_atom))
 		var/mob/living/L = movable_atom

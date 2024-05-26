@@ -474,7 +474,7 @@
 /datum/reagent/tar_compound/reaction_turf(turf/simulated/loc, volume)
 	if(volume < 1 || !issimulatedturf(loc))
 		return
-	var/obj/effect/decal/cleanable/tar/C = locate() in src
+	var/obj/effect/decal/cleanable/tar/C = locate() in loc
 	if(C) // We don't want the slowdown to stack
 		return
 	new /obj/effect/decal/cleanable/tar(loc)
