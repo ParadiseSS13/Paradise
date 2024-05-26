@@ -264,7 +264,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(GLOB.radial_menus[uniqueid]) // Calls the close button an already existing radial menu.
 		menu = GLOB.radial_menus[uniqueid]
 		menu.finished = TRUE
-	GLOB.radial_menus[uniqueid] = menu
+	else
+		GLOB.radial_menus[uniqueid] = menu
 	if(radius)
 		menu.radius = radius
 	if(istype(custom_check))
