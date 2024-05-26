@@ -306,8 +306,6 @@
 					X.singularity_pull(src, current_size)
 				else
 					consume(X)
-			if(TICK_CHECK)
-				return // You've eaten enough. Prevents weirdness like the singulo eating the containment on stage 2
 
 
 /obj/singularity/proc/consume(atom/A)
