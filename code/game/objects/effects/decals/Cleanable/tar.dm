@@ -15,8 +15,9 @@
 			icon_state = "tar3"
 
 /obj/effect/decal/cleanable/tar/Destroy()
-	target.slowdown -= 10
-	return ..()
+	if(target)
+		target.slowdown -= 10
+		return ..()
 
 /obj/effect/decal/cleanable/tar/Crossed(atom/movable/movable_atom)
 	if(isliving(movable_atom))
