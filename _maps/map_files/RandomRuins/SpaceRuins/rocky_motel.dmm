@@ -4,7 +4,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/ruin/space/powered)
 "ci" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -27,9 +27,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/powered)
-"cN" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space)
 "cT" = (
 /obj/structure/toilet{
 	dir = 4
@@ -68,7 +65,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "gP" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
@@ -76,7 +73,7 @@
 	},
 /area/ruin/space/powered)
 "gY" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -104,7 +101,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/ruin/space/powered)
 "kp" = (
 /obj/structure/sink{
 	pixel_y = 25
@@ -115,7 +112,7 @@
 /area/ruin/space/powered)
 "kP" = (
 /obj/machinery/computer/security/telescreen/entertainment,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/ruin/space/powered)
 "lq" = (
 /obj/structure/closet/cabinet,
@@ -134,7 +131,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/ruin/space/powered)
 "nN" = (
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
@@ -155,11 +152,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "ph" = (
 /obj/structure/falsewall/rock_ancient,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "pi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -178,16 +175,19 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "pE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/mineral/ancient,
-/area/space)
+/area/ruin/space/powered)
 "qN" = (
 /turf/simulated/wall/mineral/plastitanium,
-/area/space)
+/area/ruin/space/powered)
 "qU" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/royalblack,
@@ -215,7 +215,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "vk" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/carpet/royalblack,
@@ -230,15 +230,20 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "zx" = (
-/obj/machinery/door/window/classic/normal{
-	name = "Glass Door"
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
 	},
-/turf/simulated/wall/r_wall,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
 /area/ruin/space/powered)
 "Aa" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/powered)
 "Cq" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
@@ -261,7 +266,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "CP" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -269,7 +274,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/powered)
 "DV" = (
 /obj/structure/chair/sofa{
 	dir = 4
@@ -280,7 +285,7 @@
 /obj/effect/spawner/airlock/w_to_e{
 	req_access_txt = 0
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/ruin/space/powered)
 "EQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -288,6 +293,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "black"
 	},
 /area/ruin/space/powered)
@@ -295,7 +301,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall,
 /area/ruin/space/powered)
 "Gv" = (
 /obj/structure/table/wood,
@@ -326,11 +335,24 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "HR" = (
-/obj/machinery/power/tracker,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
-/area/space)
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
 "Id" = (
 /obj/structure/falsewall/rock_ancient,
 /obj/structure/cable{
@@ -342,7 +364,10 @@
 /area/ruin/space/powered)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "black";
+	dir = 4
+	},
 /area/ruin/space/powered)
 "IZ" = (
 /obj/machinery/door/window/classic/normal{
@@ -372,7 +397,7 @@
 "Ml" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/plastitanium,
-/area/space)
+/area/ruin/space/powered)
 "OA" = (
 /obj/item/crowbar,
 /obj/structure/rack,
@@ -404,7 +429,7 @@
 "Sk" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/plastitanium,
-/area/space)
+/area/ruin/space/powered)
 "Su" = (
 /obj/structure/chair{
 	dir = 4
@@ -442,7 +467,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "TT" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/ruin/space/powered)
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -470,13 +495,11 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Vs" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+/obj/structure/chair/sofa/right{
+	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
 "Wa" = (
 /obj/machinery/door/airlock{
 	id_tag = "toilet_unitb";
@@ -488,8 +511,11 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "XM" = (
-/turf/simulated/mineral/ancient,
-/area/space)
+/obj/machinery/power/tracker,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/powered)
 "XP" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -497,18 +523,8 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 "Ya" = (
 /turf/simulated/mineral/ancient,
 /area/ruin/space/powered)
@@ -518,7 +534,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
+/area/ruin/space/powered)
 "YM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -527,12 +543,12 @@
 "Zd" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/ruin/space/powered)
 "Ze" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 5;
 	icon_state = "black"
 	},
 /area/ruin/space/powered)
@@ -574,9 +590,9 @@ vN
 vN
 vN
 vN
-XM
-XM
-XM
+Ya
+Ya
+Ya
 vN
 vN
 "}
@@ -599,10 +615,10 @@ vN
 vN
 vN
 vN
-XM
-XM
-XM
-XM
+Ya
+Ya
+Ya
+Ya
 vN
 "}
 (3,1,1) = {"
@@ -611,84 +627,84 @@ vN
 vN
 vN
 XM
-XM
-XM
-XM
-XM
-XM
-XM
+PM
+Ya
+Ya
+Ya
+Ya
+Ya
 vN
 vN
 vN
-XM
+Ya
 vN
-XM
-XM
-XM
-XM
-XM
-XM
-XM
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
 "}
 (4,1,1) = {"
 vN
 vN
 vN
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
+zx
+HR
+Yu
+PM
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
 "}
 (5,1,1) = {"
 vN
 vN
-XM
-XM
+vN
+zx
 HR
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-XM
-TT
-XM
-XM
-XM
-XM
-XM
-XM
-XM
+Yu
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
+Ya
 "}
 (6,1,1) = {"
 vN
 vN
-XM
+vN
 jf
 pi
 Yu
-XM
-XM
+Ya
+TT
 TT
 TT
 TT
@@ -698,21 +714,21 @@ TT
 TT
 Ub
 TT
-XM
-XM
-XM
-XM
+Ya
+Ya
+Ya
+Ya
 vN
 vN
 "}
 (7,1,1) = {"
 vN
-XM
-XM
+vN
+PM
 jf
-XP
+HR
 Yu
-XM
+Ya
 TT
 dV
 OA
@@ -724,20 +740,20 @@ TT
 IZ
 TT
 TT
-XM
-XM
-XM
+Ya
+Ya
+Ya
 vN
 vN
 "}
 (8,1,1) = {"
-XM
-XM
-XM
+vN
+Ya
+PM
 jf
-XP
+HR
 Yu
-XM
+Ya
 TT
 oy
 iY
@@ -748,21 +764,21 @@ WD
 Wa
 YM
 cT
-zx
-XM
-XM
+TT
+Ya
+Ya
 vN
 vN
 vN
 "}
 (9,1,1) = {"
-XM
-XM
+Ya
+Ya
 CP
 oI
-Vs
-XM
-XM
+Vl
+Ya
+Ya
 TT
 lq
 Kh
@@ -774,7 +790,7 @@ TT
 cM
 Zs
 TT
-XM
+Ya
 vN
 vN
 vN
@@ -782,12 +798,12 @@ vN
 "}
 (10,1,1) = {"
 vN
-XM
+Ya
 CF
-XM
-XM
-XM
-XM
+Ya
+Ya
+Ya
+Ya
 TT
 TT
 TT
@@ -807,7 +823,7 @@ vN
 "}
 (11,1,1) = {"
 vN
-XM
+Ya
 CF
 TT
 TT
@@ -816,7 +832,7 @@ TT
 TT
 gY
 DV
-DV
+Vs
 TT
 kp
 fK
@@ -831,8 +847,8 @@ vN
 vN
 "}
 (12,1,1) = {"
-XM
-XM
+Ya
+Ya
 CF
 TT
 Ha
@@ -856,8 +872,8 @@ vN
 vN
 "}
 (13,1,1) = {"
-XM
-XM
+Ya
+Ya
 CF
 TT
 Hp
@@ -882,7 +898,7 @@ vN
 "}
 (14,1,1) = {"
 vN
-XM
+Ya
 CF
 TT
 Ze
@@ -898,7 +914,7 @@ Qv
 Tb
 Cw
 TT
-XM
+Ya
 vN
 vN
 vN
@@ -907,7 +923,7 @@ vN
 "}
 (15,1,1) = {"
 vN
-XM
+Ya
 CF
 TT
 TT
@@ -923,7 +939,7 @@ TT
 TT
 Gh
 TT
-XM
+Ya
 vN
 vN
 vN
@@ -932,23 +948,23 @@ vN
 "}
 (16,1,1) = {"
 vN
-XM
+Ya
 gs
 oI
 uO
 TT
-JY
+XP
 TT
-XM
+Ya
 qN
 Sk
 qN
 Ml
-cN
-XM
+PM
+Ya
 pE
-XM
-XM
+Ya
+Ya
 vN
 vN
 vN
@@ -958,22 +974,22 @@ vN
 (17,1,1) = {"
 vN
 vN
-XM
-XM
+Ya
+Ya
 CF
 TT
 JY
 TT
-XM
+Ya
 Aa
 aY
 aY
 Zd
-cN
-cN
+PM
+PM
 lW
-XM
-XM
+Ya
+Ya
 vN
 vN
 vN
@@ -984,17 +1000,17 @@ vN
 vN
 vN
 vN
-XM
+Ya
 gs
 Id
 Vl
 PM
-XM
+Ya
 qN
 qN
 qN
 Ml
-cN
+PM
 vN
 vN
 vN
@@ -1010,11 +1026,11 @@ vN
 vN
 vN
 vN
-XM
+Ya
 Ya
 PM
 Px
-XM
+Ya
 vN
 vN
 vN
@@ -1035,8 +1051,8 @@ vN
 vN
 vN
 vN
-XM
-XM
+Ya
+Ya
 ph
 vN
 vN
