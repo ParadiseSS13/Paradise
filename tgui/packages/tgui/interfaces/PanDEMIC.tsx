@@ -5,6 +5,7 @@ import {
   Button,
   Flex,
   LabeledList,
+  NoticeBox,
   Section,
   Stack,
   Table,
@@ -56,6 +57,8 @@ export const PanDEMIC = (props, context) => {
     emptyPlaceholder = <>No container loaded.</>;
   } else if (!beakerContainsBlood) {
     emptyPlaceholder = <>No blood sample found in the loaded container.</>;
+  } else if (beakerContainsBlood && !beakerContainsVirus) {
+    emptyPlaceholder = <>No disease detected in provided blood sample.</>;
   }
 
   return (
@@ -67,11 +70,11 @@ export const PanDEMIC = (props, context) => {
               title="Container Information"
               buttons={<CommonCultureActions />}
             >
-              {emptyPlaceholder}
+              <NoticeBox>{emptyPlaceholder}</NoticeBox>
+              {resistances?.length > 0 && <ResistancesSection />}
             </Section>
           )}
           {!!beakerContainsVirus && <CultureInformationSection />}
-          {resistances?.length > 0 && <ResistancesSection />}
         </Stack>
       </Window.Content>
     </Window>
@@ -245,6 +248,19 @@ const CultureInformationSection = (props, context) => {
   const { selectedStrainIndex, strains } = data;
   const selectedStrain = strains[selectedStrainIndex - 1];
 
+  if (strains.length === 0) {
+    return (
+      <Stack fill vertical>
+        <Section
+          title="Container Information"
+          buttons={<CommonCultureActions />}
+        >
+          <NoticeBox>No disease detected in provided blood sample.</NoticeBox>
+        </Section>
+      </Stack>
+    );
+  }
+
   if (strains.length === 1) {
     return (
       <>
@@ -348,11 +364,7 @@ const ResistancesSection = (props, context) => {
   const { synthesisCooldown, beakerContainsVirus, resistances } = data;
   return (
     <Stack.Item>
-      <Section
-        title="Antibodies"
-        fill
-        buttons={!beakerContainsVirus && <CommonCultureActions />}
-      >
+      <Section title="Antibodies" fill>
         <Stack horizontal wrap>
           {resistances.map((r, i) => (
             <Stack.Item key={i}>
