@@ -164,14 +164,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //	UPLINK ITEMS
 //
 */
-//Work in Progress, job specific antag tools
 
 //Discounts (dynamically filled above)
-
 /datum/uplink_item/discounts
 	category = "Discounted Gear"
 
-// DANGEROUS WEAPONS
+////////////////////////////////////////
+// MARK: DANGEROUS WEAPONS
+////////////////////////////////////////
 
 /datum/uplink_item/dangerous
 	category = "Highly Visible and Dangerous Weapons"
@@ -244,7 +244,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/turret
 	cost = 20
 
-// Ammunition
+////////////////////////////////////////
+// MARK: AMMUNITION
+////////////////////////////////////////
 
 /datum/uplink_item/ammo // Getting these in a discount or surplus is not a good time.
 	category = "Ammunition"
@@ -286,7 +288,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/a357
 	cost = 15
 
-// STEALTHY WEAPONS
+////////////////////////////////////////
+// MARK: STEALTHY WEAPONS
+////////////////////////////////////////
 
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
@@ -384,7 +388,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	can_discount = FALSE
 
-// GRENADES AND EXPLOSIVES
+////////////////////////////////////////
+// MARK: GRENADES AND EXPLOSIVES
+////////////////////////////////////////
 
 /datum/uplink_item/explosives
 	category = "Grenades and Explosives"
@@ -452,7 +458,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
 		cost *= 3
 
-// STEALTHY TOOLS
+////////////////////////////////////////
+// MARK: STEALTHY TOOLS
+////////////////////////////////////////
 
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
@@ -570,7 +578,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/handheld_mirror
 	cost = 5
 
-// DEVICE AND TOOLS
+////////////////////////////////////////
+// MARK: DEVICES AND TOOLS
+////////////////////////////////////////
 
 /datum/uplink_item/device_tools
 	category = "Devices and Tools"
@@ -630,7 +640,75 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/organ_extractor
 	cost = 20
 
-//Space Suits and Hardsuits
+/datum/uplink_item/device_tools/binary
+	name = "Binary Translator Key"
+	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
+	reference = "BITK"
+	item = /obj/item/encryptionkey/binary
+	cost = 25
+	surplus = 75
+
+/datum/uplink_item/device_tools/cipherkey
+	name = "Syndicate Encryption Key"
+	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
+	reference = "SEK"
+	item = /obj/item/encryptionkey/syndicate
+	cost = 10 //Nowhere near as useful as the Binary Key!
+	surplus = 75
+
+/datum/uplink_item/device_tools/hacked_module
+	name = "Hacked AI Upload Module"
+	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
+	reference = "HAI"
+	item = /obj/item/aiModule/syndicate
+	cost = 15
+
+/datum/uplink_item/device_tools/powersink
+	name = "Power Sink"
+	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
+	reference = "PS"
+	item = /obj/item/radio/beacon/syndicate/power_sink
+	cost = 50
+
+/datum/uplink_item/device_tools/singularity_beacon
+	name = "Power Beacon"
+	desc = "When screwed to wiring attached to an electric grid and activated, this large device pulls any \
+			active gravitational singularities. This will not work when the engine is still \
+			in containment. Because of its size, it cannot be carried. Ordering this \
+			sends you a small beacon that will teleport the larger beacon to your location upon activation."
+	reference = "SNGB"
+	item = /obj/item/radio/beacon/syndicate
+	cost = 10
+	surplus = 0
+	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
+	can_discount = FALSE
+
+/datum/uplink_item/device_tools/advpinpointer
+	name = "Advanced Pinpointer"
+	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
+	reference = "ADVP"
+	item = /obj/item/pinpointer/advpinpointer
+	cost = 10
+	can_discount = FALSE
+
+/datum/uplink_item/device_tools/ai_detector
+	name = "Artificial Intelligence Detector" // changed name in case newfriends thought it detected disguised ai's
+	desc = "A functional multitool that turns red when it detects an artificial intelligence watching it or its holder. Knowing when an artificial intelligence is watching you is useful for knowing when to maintain cover."
+	reference = "AID"
+	item = /obj/item/multitool/ai_detect
+	cost = 5
+
+/datum/uplink_item/device_tools/jammer
+	name = "Radio Jammer"
+	desc = "When turned on this device will scramble any outgoing radio communications near you, making them hard to understand."
+	reference = "RJ"
+	item = /obj/item/jammer
+	cost = 20
+
+////////////////////////////////////////
+// MARK: SPACE SUITS AND HARDSUITS
+////////////////////////////////////////
+
 /datum/uplink_item/suits
 	category = "Space Suits and MODsuits"
 	surplus = 10 //I am setting this to 10 as there are a bunch of modsuit parts in here that should be weighted to 10. Suits and modsuits adjusted below.
@@ -713,73 +791,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 10
 
-/datum/uplink_item/device_tools/binary
-	name = "Binary Translator Key"
-	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
-	reference = "BITK"
-	item = /obj/item/encryptionkey/binary
-	cost = 25
-	surplus = 75
-
-/datum/uplink_item/device_tools/cipherkey
-	name = "Syndicate Encryption Key"
-	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
-	reference = "SEK"
-	item = /obj/item/encryptionkey/syndicate
-	cost = 10 //Nowhere near as useful as the Binary Key!
-	surplus = 75
-
-/datum/uplink_item/device_tools/hacked_module
-	name = "Hacked AI Upload Module"
-	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
-	reference = "HAI"
-	item = /obj/item/aiModule/syndicate
-	cost = 15
-
-/datum/uplink_item/device_tools/powersink
-	name = "Power Sink"
-	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
-	reference = "PS"
-	item = /obj/item/radio/beacon/syndicate/power_sink
-	cost = 50
-
-/datum/uplink_item/device_tools/singularity_beacon
-	name = "Power Beacon"
-	desc = "When screwed to wiring attached to an electric grid and activated, this large device pulls any \
-			active gravitational singularities. This will not work when the engine is still \
-			in containment. Because of its size, it cannot be carried. Ordering this \
-			sends you a small beacon that will teleport the larger beacon to your location upon activation."
-	reference = "SNGB"
-	item = /obj/item/radio/beacon/syndicate
-	cost = 10
-	surplus = 0
-	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	can_discount = FALSE
-
-/datum/uplink_item/device_tools/advpinpointer
-	name = "Advanced Pinpointer"
-	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
-	reference = "ADVP"
-	item = /obj/item/pinpointer/advpinpointer
-	cost = 10
-	can_discount = FALSE
-
-/datum/uplink_item/device_tools/ai_detector
-	name = "Artificial Intelligence Detector" // changed name in case newfriends thought it detected disguised ai's
-	desc = "A functional multitool that turns red when it detects an artificial intelligence watching it or its holder. Knowing when an artificial intelligence is watching you is useful for knowing when to maintain cover."
-	reference = "AID"
-	item = /obj/item/multitool/ai_detect
-	cost = 5
-
-/datum/uplink_item/device_tools/jammer
-	name = "Radio Jammer"
-	desc = "When turned on this device will scramble any outgoing radio communications near you, making them hard to understand."
-	reference = "RJ"
-	item = /obj/item/jammer
-	cost = 20
-
-
-// IMPLANTS
+////////////////////////////////////////
+// MARK: IMPLANTS
+////////////////////////////////////////
 
 /datum/uplink_item/bio_chips
 	category = "Bio-chips"
@@ -834,7 +848,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/bio_chip_implanter/stealth
 	cost = 45
 
-// CYBERNETICS
+////////////////////////////////////////
+// MARK: CYBERNETICS
+////////////////////////////////////////
 
 /datum/uplink_item/cyber_implants
 	category = "Cybernetic Implants"
@@ -867,7 +883,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 
 
-// POINTLESS BADASSERY
+////////////////////////////////////////
+// MARK: POINTLESS BADASSERY
+////////////////////////////////////////
 
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
@@ -917,7 +935,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	cost = 3
 
-// BUNDLES AND TELECRYSTALS
+////////////////////////////////////////
+// MARK: BUNDLES AND TELECRYSTALS
+////////////////////////////////////////
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
