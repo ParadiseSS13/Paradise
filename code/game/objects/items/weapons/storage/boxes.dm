@@ -439,8 +439,11 @@
 	icon_state = "pillbox_box"
 
 /obj/item/storage/box/pillbottles/populate_contents()
+	var/list/colors = list(COLOR_NT_RED, COLOR_SUN, COLOR_YELLOW, COLOR_PAKISTAN_GREEN, COLOR_COMMAND_BLUE, COLOR_INDIGO, COLOR_PURPLE)
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
+		P.wrapper_color = colors[(I - 1) % length(colors) + 1]
+		P.apply_wrap()
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -448,8 +451,11 @@
 	icon_state = "patch_box"
 
 /obj/item/storage/box/patch_packs/populate_contents()
+	var/list/colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_VIOLET, COLOR_PURPLE)
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
+		var/obj/item/storage/pill_bottle/patch_pack/P = new /obj/item/storage/pill_bottle/patch_pack(src)
+		P.wrapper_color = colors[(I - 1) % length(colors) + 1]
+		P.apply_wrap()
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
