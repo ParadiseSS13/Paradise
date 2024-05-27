@@ -146,19 +146,22 @@
 			inv_slots[inv.slot_id] = inv
 			inv.update_icon()
 
-/datum/hud/alien/persistent_inventory_update()
+/datum/hud/alien/persistent_inventory_update(mob/viewer)
 	if(!mymob)
 		return
 	var/mob/living/carbon/alien/humanoid/H = mymob
+	var/mob/screenmob = viewer || H
 	if(hud_version != HUD_STYLE_NOHUD)
 		if(H.r_hand)
 			H.r_hand.screen_loc = ui_rhand
-			H.client.screen += H.r_hand
+			screenmob.client.screen += H.r_hand
 		if(H.l_hand)
 			H.l_hand.screen_loc = ui_lhand
-			H.client.screen += H.l_hand
+			screenmob.client.screen += H.l_hand
 	else
 		if(H.r_hand)
 			H.r_hand.screen_loc = null
+			screenmob.client.screen -= H.r_hand
 		if(H.l_hand)
 			H.l_hand.screen_loc = null
+			screenmob.client.screen -= H.l_hand

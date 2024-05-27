@@ -4462,7 +4462,7 @@
 /area/centcom/specops)
 "oQ" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -5873,7 +5873,7 @@
 	dwidth = 4;
 	height = 11;
 	id = "trade_sol_base";
-	name = "docking bay 2 at Jupiter Station";
+	name = "docking bay at Trading Satellite";
 	width = 9
 	},
 /obj/structure/fans/tiny,
@@ -12878,7 +12878,7 @@
 /area/shuttle/transport)
 "Tu" = (
 /obj/machinery/door/airlock/centcom/glass{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)

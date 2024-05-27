@@ -517,7 +517,7 @@
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
 					val = L[key]
-				if(!val)
+				if(isnull(val))
 					val = key
 					key = i
 
@@ -952,7 +952,7 @@
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
 	else if(href_list["editreagents"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	
+		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 
 		var/atom/A = locateUID(href_list["editreagents"])
