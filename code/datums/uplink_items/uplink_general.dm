@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/category = "item category"
 	/// Description of the item in the uplink
 	var/desc = "Item Description"
-	/// Used for surplus crates
+	/// Used for surplus crates. Any unique string will do.
 	var/reference = null
 	/// What is spawned when we purchase this?
 	var/item = null
