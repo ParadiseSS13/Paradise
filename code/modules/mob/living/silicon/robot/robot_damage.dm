@@ -186,7 +186,7 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 			"<span class='notice'>[src]'s lights suddenly go dark and [p_they()] seem to shut down.</span>",
 			"<span class='notice'>A critical neural connection error has occurred. Beginning emergency reboot...</span>"
 		)
-	var/stun_time = rand(10 SECONDS, 15 SECONDS)
+	var/stun_time = rand(13 SECONDS, 18 SECONDS) //Slightly longer than old flash timer
 	Weaken(stun_time)
 	addtimer(CALLBACK(src, PROC_REF(end_emergency_reboot)), stun_time)
 /*
