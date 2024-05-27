@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { Button, Section, Table } from '../../components';
-import { LatheMaterials } from './index';
+import { LatheMaterials } from './LatheMaterials';
 
 // Also handles search results
 export const LatheCategory = (properties, context) => {
