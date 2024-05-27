@@ -720,6 +720,7 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 /datum/gas_mixture/bound_to_turf
 	var/dirty = FALSE
+	var/lastread = 0
 	var/turf/bound_turf = null
 	var/datum/gas_mixture/readonly/readonly = null
 

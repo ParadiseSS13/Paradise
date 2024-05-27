@@ -618,6 +618,14 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
+	if(air.lastread < SSair.times_fired)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(src, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.times_fired
+		air.readonly = null
+		air.dirty = FALSE
+		air.synchronized = FALSE
 	return air.get_readonly()
 
 /// Blindly releases air to this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.

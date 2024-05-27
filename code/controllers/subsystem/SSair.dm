@@ -363,10 +363,12 @@ SUBSYSTEM_DEF(air)
 		// Bind the MILLA tile we got, if needed.
 		if(isnull(T.bound_air))
 			bind_turf(T, milla_tile)
-		else if(!T.bound_air.synchronized)
+		else if(T.bound_air.lastread < times_fired)
 			T.bound_air.copy_from_milla(milla_tile)
+			T.bound_air.lastread = times_fired
+			T.bound_air.readonly = null
 			T.bound_air.dirty = FALSE
-			T.bound_air.synchronized = is_synchronous
+			T.bound_air.synchronized = FALSE
 
 		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
 			var/turf/simulated/S = T
@@ -397,11 +399,11 @@ SUBSYSTEM_DEF(air)
 	while(length(currentrun))
 		var/datum/gas_mixture/bound_to_turf/mixture = currentrun[length(currentrun)]
 		currentrun.len--
+		mixture.synchronized = FALSE
 		if(mixture.dirty)
 			// This is one of two places expected to call this otherwise-unsafe method.
 			mixture.private_unsafe_write()
-		mixture.bound_turf.bound_air = null
-		mixture.bound_turf = null
+			mixture.dirty = FALSE
 		if(MC_TICK_CHECK)
 			last_bound_mixtures = length(bound_mixtures)
 			return
@@ -495,8 +497,10 @@ SUBSYSTEM_DEF(air)
 		milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(T, milla_tile)
 	B.copy_from_milla(milla_tile)
+	B.lastread = src.times_fired
+	B.readonly = null
 	B.dirty = FALSE
-	bound_mixtures += B
+	B.synchronized = FALSE
 
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
@@ -558,7 +562,18 @@ SUBSYSTEM_DEF(air)
 	RETURN_TYPE(/datum/gas_mixture)
 	ASSERT(SSair.is_in_milla_safe_code())
 	// This is one of two intended places to call this otherwise-unsafe proc.
-	return T.private_unsafe_get_air()
+	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
+	if(air.lastread < SSair.times_fired)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(T, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.times_fired
+		air.readonly = null
+		air.dirty = FALSE
+	if(!air.synchronized)
+		air.synchronized = TRUE
+		SSair.bound_mixtures += air
+	return air
 
 /// Add air to a turf. Only use from `on_run`.
 /datum/milla_safe/proc/add_turf_air(turf/T, datum/gas_mixture/air)
