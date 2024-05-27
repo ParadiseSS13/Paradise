@@ -8,6 +8,10 @@
 "c" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/space/unpowered)
+"V" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -83,7 +87,7 @@ a
 a
 a
 a
-a
+V
 a
 a
 a
@@ -158,7 +162,7 @@ c
 a
 a
 a
-a
+V
 a
 a
 a
@@ -220,10 +224,10 @@ a
 a
 a
 a
+V
 a
 a
-a
-a
+V
 a
 a
 a
@@ -254,7 +258,7 @@ a
 (12,1,1) = {"
 a
 a
-a
+V
 a
 a
 c
@@ -322,7 +326,7 @@ a
 a
 a
 a
-a
+V
 a
 a
 a

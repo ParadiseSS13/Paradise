@@ -53,7 +53,7 @@
 	var/blocking_item = "ERR_UNKNOWN"
 
 /obj/docking_port/mobile/supply/Initialize()
-	..()
+	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
 		var/datum/economy/simple_seller/seller = new T
 		simple_sellers += seller
@@ -294,6 +294,7 @@
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 
 	var/list/credit_changes = list()
+	var/list/department_messages = list()
 	for(var/datum/economy/line_item/item in manifest.line_items)
 		if(!credit_changes[item.account])
 			credit_changes[item.account] = 0
@@ -306,6 +307,13 @@
 		else
 			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
 
+		if(item.requests_console_department)
+			if(!department_messages[item.requests_console_department])
+				department_messages[item.requests_console_department] = list()
+			if(!department_messages[item.requests_console_department][item.reason])
+				department_messages[item.requests_console_department][item.reason] = 0
+			department_messages[item.requests_console_department][item.reason]++
+
 	for(var/datum/money_account/account in credit_changes)
 		if(account.account_type == ACCOUNT_TYPE_DEPARTMENT)
 			SSblackbox.record_feedback("tally", "cargo profits", credit_changes[account], "[account.account_name]")
@@ -316,6 +324,15 @@
 			GLOB.station_money_database.credit_account(account, credit_changes[account], "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 		else
 			GLOB.station_money_database.charge_account(account, -credit_changes[account], "Supply Shuttle Fine", "Central Command Supply Master", allow_overdraft = TRUE, supress_log = FALSE)
+
+	for(var/department in department_messages)
+		var/list/rc_message = list()
+		for(var/message_piece in department_messages[department])
+			var/count = ""
+			if(department_messages[department][message_piece] > 1)
+				count = " (x[department_messages[department][message_piece]])"
+			rc_message += "[message_piece][count]"
+		send_requests_console_message(rc_message, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by the Central Command receiving department.", RQ_NORMALPRIORITY)
 
 	SSeconomy.centcom_message += "[msg]<hr>"
 	manifest = new
@@ -791,6 +808,34 @@
 	if(istype(AM.loc, /obj/mecha/working))
 		return COMSIG_CARGO_SELL_SKIP
 
+/datum/economy/simple_seller/explorer_salvage
+	var/list/salvage_counts = list()
+
+/datum/economy/simple_seller/explorer_salvage/begin_sell(obj/docking_port/mobile/supply/S)
+	LAZYCLEARLIST(salvage_counts)
+
+/datum/economy/simple_seller/explorer_salvage/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM, /obj/item/salvage))
+		return COMSIG_CARGO_SELL_NORMAL
+
+/datum/economy/simple_seller/explorer_salvage/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!..())
+		return
+
+	salvage_counts[AM.name]++
+
+/datum/economy/simple_seller/explorer_salvage/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!salvage_counts)
+		return
+	for(var/salvage_name in salvage_counts)
+		var/datum/economy/line_item/item = new
+		item.account = SSeconomy.cargo_account
+		var/count = salvage_counts[salvage_name]
+		item.credits = count * SSeconomy.credits_per_salvage
+		item.reason = "Received [count] haul(s) of [salvage_name]."
+		manifest.line_items += item
+		SSblackbox.record_feedback("nested tally", "cargo salvage sold", count, list(salvage_name, "count"))
+		SSblackbox.record_feedback("nested tally", "cargo salvage sold", item.credits, list(salvage_name, "credits"))
 
 /datum/economy/cargo_shuttle_manifest
 	var/list/items_to_sell = list()
@@ -802,6 +847,7 @@
 
 /datum/economy/line_item
 	var/datum/money_account/account
+	var/requests_console_department
 	var/credits
 	var/reason
 	var/zero_is_good = FALSE

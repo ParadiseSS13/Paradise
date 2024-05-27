@@ -129,6 +129,6 @@
 	personal_item.account = personal_account || department_account
 	personal_item.credits = reward / 3
 	personal_item.reason = message
+	personal_item.requests_console_department = department
 	manifest.line_items += personal_item
 
-	send_requests_console_message(message, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)

@@ -269,6 +269,18 @@
 	K.color = color
 
 
+/obj/item/gun/energy/kinetic_accelerator/pistol
+	name = "proto-kinetic pistol"
+	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
+	icon_state = "kineticgun_p"
+	item_state = "gun"
+	w_class = WEIGHT_CLASS_SMALL
+	max_mod_capacity = 65
+	can_bayonet = FALSE
+	can_flashlight = FALSE
+	can_holster = TRUE
+
+
 //Modkits
 /obj/item/borg/upgrade/modkit
 	name = "kinetic accelerator modification kit"
@@ -439,7 +451,7 @@
 /obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
-	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
 			if(ismineralturf(T) && !is_ancient_rock(T))

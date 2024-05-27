@@ -486,3 +486,24 @@
 		return
 	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
 		F.emag_act()
+
+/obj/item/borg/upgrade/abductor_jani
+	name = "janitorial cyborg abductor upgrade"
+	desc = "An experimental upgrade that replaces a janitorial cyborg's tools with the abductor versions."
+	icon_state = "abductor_mod"
+	origin_tech = "biotech=6;materials=6;abductor=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+	items_to_replace = list(
+		/obj/item/mop/advanced/cyborg = /obj/item/mop/advanced/abductor,
+		/obj/item/soap = /obj/item/soap/syndie/abductor,
+		/obj/item/lightreplacer/cyborg = /obj/item/lightreplacer/bluespace/abductor,
+		/obj/item/melee/flyswatter = /obj/item/melee/flyswatter/abductor
+	)
+	items_to_add = list(
+		/obj/item/reagent_containers/spray/cleaner/safety/abductor
+	)
+	special_rechargables = list(
+		/obj/item/reagent_containers/spray/cleaner/safety/abductor,
+		/obj/item/lightreplacer/bluespace/abductor
+	)

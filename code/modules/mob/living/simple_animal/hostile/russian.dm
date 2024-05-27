@@ -25,7 +25,8 @@
 	faction = list("russian")
 	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
-			/obj/item/kitchen/knife)
+		/obj/item/kitchen/knife,
+		/obj/item/salvage/loot/russian)
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -42,5 +43,6 @@
 
 /mob/living/simple_animal/hostile/russian/ranged/mosin
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged,
-				/obj/item/gun/projectile/shotgun/boltaction)
+				/obj/item/gun/projectile/shotgun/boltaction,
+				/obj/item/salvage/loot/russian)
 	casingtype = /obj/item/ammo_casing/a762
