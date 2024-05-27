@@ -89323,56 +89323,11 @@
 /turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
 "sjl" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/closet/crate/internals,
-/obj/item/clothing/suit/storage/hazardvest/staff,
-/obj/item/clothing/suit/storage/hazardvest/staff,
-/obj/item/clothing/suit/storage/hazardvest/staff,
-/obj/item/clothing/suit/storage/hazardvest/staff,
-/obj/item/clothing/suit/storage/hazardvest/staff,
-/obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 8
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 8
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 8
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 8
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/requests_console{
 	department = "Expedition";
 	pixel_x = -30;
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
