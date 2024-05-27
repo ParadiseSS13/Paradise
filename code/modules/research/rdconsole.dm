@@ -977,6 +977,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef MENU_LATHE
 #undef MENU_IMPRINTER
 #undef MENU_SETTINGS
+#undef MIN_MENU
+#undef MAX_MENU
 #undef SUBMENU_PRINTER_MAIN
 #undef SUBMENU_PRINTER_SEARCH
 #undef SUBMENU_PRINTER_MATERIALS
