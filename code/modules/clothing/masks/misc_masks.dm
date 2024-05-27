@@ -10,8 +10,8 @@
 	/// How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
 	var/resist_time = 0 SECONDS
 	var/mute = MUZZLE_MUTE_ALL
-	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
-	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
+	var/security_lock = FALSE // Requires brig access to remove. FALSE - Remove as normal
+	var/locked = FALSE //Indicates if a mask is locked, should always start as FALSE.
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
@@ -59,32 +59,102 @@
 		return TRUE
 	return FALSE
 
+// /obj/item/clothing/mask/muzzle/tapegag
+// 	name = "tape gag"
+// 	desc = "MHPMHHH!"
+// 	icon_state = "tapegag"
+// 	item_state = null
+// 	w_class = WEIGHT_CLASS_TINY
+// 	resist_time = 30 SECONDS
+// 	mute = MUZZLE_MUTE_MUFFLE
+// 	flags = DROPDEL
+
+// 	sprite_sheets = list(
+// 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+// 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+// 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+// 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+// 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
+// 		)
+
+// /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
+// 	var/obj/item/trash/tapetrash/TT = new
+// 	transfer_fingerprints_to(TT)
+// 	user.transfer_fingerprints_to(TT)
+// 	user.put_in_active_hand(TT)
+// 	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
+// 	user.emote("scream")
+// 	..()
+
 /obj/item/clothing/mask/muzzle/tapegag
-	name = "tape gag"
+	name = "tape piece"
 	desc = "MHPMHHH!"
-	icon_state = "tapegag"
-	item_state = null
+	icon = 'icons/obj/tapes.dmi'
+	icon_state = "tape_piece_worn"
+	item_state = "tapegag"
 	w_class = WEIGHT_CLASS_TINY
-	resist_time = 30 SECONDS
 	mute = MUZZLE_MUTE_MUFFLE
-	flags = DROPDEL
+	resist_time = 30 SECONDS
+	strip_delay = 40
+	///Dertermines whether the tape piece does damage when ripped off of someone.
+	var/harmful_strip = FALSE
+	///The ammount of damage dealt when the tape piece is ripped off of someone.
+	var/stripping_damage = 0
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
-		)
+/obj/item/clothing/mask/muzzle/tapegag/examine(mob/user)
+	. = ..()
+	. += "[span_notice("Use it on someone while not in combat mode to tape their mouth closed!")]"
 
-/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
-	var/obj/item/trash/tapetrash/TT = new
-	transfer_fingerprints_to(TT)
-	user.transfer_fingerprints_to(TT)
-	user.put_in_active_hand(TT)
-	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
-	user.emote("scream")
-	..()
+/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/user)
+	. = ..()
+	if(user.get_item_by_slot(SLOT_FLAG_MASK) != src)
+		return
+	playsound(src, 'sound/items/poster_ripped.ogg', 40, TRUE)
+	//playsound(user, 'sound/items/duct_tape_rip.ogg', 50, TRUE)
+	if(harmful_strip)
+		user.apply_damage(stripping_damage, BRUTE, BODY_ZONE_HEAD)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, emote), "scream")
+		to_chat(user, span_userdanger("You feel a massive pain as hundreds of tiny spikes tear free from your face!"))
+
+/obj/item/clothing/mask/muzzle/tapegag/attack(mob/living/carbon/victim, mob/living/carbon/attacker, params)
+	if(victim.is_mouth_covered(SLOT_FLAG_HEAD))
+		to_chat(attacker, span_notice("[victim]'s mouth is covered."))
+		return
+	//if(!mob_can_equip(victim, SLOT_FLAG_MASK))
+	if(victim.wear_mask)
+		to_chat(attacker, span_notice("[victim] is already wearing somthing on their face."))
+		return
+
+	attacker.visible_message("<span class='warning'>[attacker] is taping [victim]'s mouth closed!</span>",
+	"<span class='notice'>You try to tape [victim == attacker ? "your own" : "[victim]'s"] mouth shut!</span>",
+	"<span class='warning'>You hear tape ripping.</span>")
+
+	to_chat(victim, span_userdanger("[attacker] is attempting to tape your mouth closed!"))
+
+	if(!do_after(attacker, 40, target = victim)) // ===CHUGAFIX=== equip_delay_other = 40
+		return
+	victim.equip_to_slot_if_possible(src, SLOT_FLAG_MASK)
+	update_appearance()
+
+/obj/item/clothing/mask/muzzle/tapegag/super
+	name = "super tape piece"
+	desc = "A piece of tape that can be put over someone's mouth. This one has extra strengh."
+	strip_delay = 80
+
+/obj/item/clothing/mask/muzzle/tapegag/pointy
+	name = "pointy tape piece"
+	desc = "A piece of tape that can be put over someone's mouth. Looks like it will hurt if this is ripped off."
+	icon_state = "tape_piece_spikes_worn"
+	item_state = "tape_piece_spikes"
+	harmful_strip = TRUE
+	stripping_damage = 10
+
+/obj/item/clothing/mask/muzzle/tapegag/pointy/super
+	name = "super pointy tape piece"
+	desc = "A piece of tape that can be put over someone's mouth. This thing could rip your face into a thousand pieces if ripped off."
+	strip_delay = 60
+	stripping_damage = 20
+
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"

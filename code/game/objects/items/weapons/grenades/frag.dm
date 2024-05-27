@@ -77,10 +77,11 @@
 	desc = "Fire in the hole."
 	icon_state = "frag"
 	shrapnel_type = /obj/item/projectile/bullet/shrapnel
-	shrapnel_radius = 4
+	shrapnel_radius = 5
 	ex_heavy = 1
-	ex_light = 3
-	ex_flame = 4
+	ex_light = 5
+	// ex_flame = 4 ===CHUGAFIX=== testing
+	breach = FALSE // don't want a frag to breach floors
 
 /obj/item/grenade/frag/mega
 	name = "FRAG grenade"

@@ -31,18 +31,24 @@
 /datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, remove_pain_mult, impact_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, projectile_payload=/obj/item/shard)
 	. = ..()
 
-	if(!isitem(target) && !isprojectile(target))
+	if(!isitem(target)) // ===CHUGAFIX=== haha make sure this actually works oh my god
 		return ELEMENT_INCOMPATIBLE
 
 	RegisterSignal(target, COMSIG_ELEMENT_ATTACH, PROC_REF(severancePackage))
-	if(isitem(target))
+	if(isprojectile(target))
+		// ===CHUGAFIX=== this is a disgusting hack but inheritance has backed me into a corner here - can't call parent's UpdateEmbedding() on an item/projectile! (fuck)
+		// there has to be some other way around this
+		// if not, get rid of the projectile_payload parameter because it's making me sad
+		var/obj/item/projectile/proj = target
+		if(proj?.shrapnel_type)
+			payload_type = proj.shrapnel_type
+
+		RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
+	else
 		RegisterSignal(target, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(checkEmbed))
 		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examined))
 		RegisterSignal(target, COMSIG_EMBED_TRY_FORCE, PROC_REF(tryForceEmbed))
 		RegisterSignal(target, COMSIG_ITEM_DISABLE_EMBED, PROC_REF(detachFromWeapon))
-	//else
-	//	payload_type = projectile_payload
-	//	RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
 
 	if(!initialized)
 		src.embed_chance = embed_chance

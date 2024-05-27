@@ -30,7 +30,8 @@
 	var/ex_light = 0
 	///how big of a flame explosion radius on prime
 	var/ex_flame = 0
-
+	///whether or not the explosion should breach the floor
+	var/breach = TRUE
 	// dealing with creating a [/datum/component/pellet_cloud] on detonate
 	/// if set, will spew out projectiles of this type
 	var/shrapnel_type
@@ -128,7 +129,7 @@
 
 	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE)
 	if(ex_dev || ex_heavy || ex_light || ex_flame)
-		explosion(src, ex_dev, ex_heavy, ex_light, flame_range = ex_flame)
+		explosion(src, ex_dev, ex_heavy, ex_light, flame_range = ex_flame, breach = breach)
 
 	return TRUE
 

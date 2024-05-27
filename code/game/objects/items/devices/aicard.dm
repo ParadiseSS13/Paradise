@@ -122,7 +122,7 @@
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(!AI)
 		return
-
+	// ===CHUGAFIX=== holy fuck
 	if(!GetComponent(/datum/component/ducttape) && AI.builtInCamera)
 		. += "<span class='notice'>You see a small [AI]'s camera staring at you.</span>"
 		. += "<span class='info'>You can use a <b>tape roll</b> on [src] to tape the camera lens.</span>"

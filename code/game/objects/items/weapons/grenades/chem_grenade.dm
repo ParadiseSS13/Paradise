@@ -96,7 +96,7 @@
 		if(nadeassembly)
 			nadeassembly.attack_self(user)
 			update_icon(UPDATE_ICON_STATE)
-		else if(botch_check(user))
+		else if(!botch_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained].", INVESTIGATE_BOMB)
@@ -108,8 +108,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
-			spawn(det_time)
-				detonate()
+			addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
 
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby

@@ -137,15 +137,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!move_resist)
 		determine_move_resist()
 
-	if(LAZYLEN(embedding))
-		updateEmbedding()
-
 /obj/item/Initialize(mapload)
 	. = ..()
 	for(var/path in actions_types)
 		new path(src, action_icon[path], action_icon_state[path])
+
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
+
+	if(LAZYLEN(embedding))
+		updateEmbedding()
 
 // this proc is used to add text for items with ABSTRACT flag after default examine text
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
@@ -366,25 +367,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src, user)
-	else if(istype(I, /obj/item/stack/tape_roll))
-		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
-			var/obj/item/storage/bag = src
-			if(bag.can_be_inserted(I))
-				return ..()
-		var/obj/item/stack/tape_roll/TR = I
-		var/list/clickparams = params2list(params)
-		var/x_offset = text2num(clickparams["icon-x"])
-		var/y_offset = text2num(clickparams["icon-y"])
-		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
-			return
-		if(TR.use(1))
-			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
-			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
-			anchored = TRUE
-			user.transfer_fingerprints_to(src)
-		else
-			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
 	else
 		return ..()
 
@@ -960,7 +942,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
  * * forced- Do we want this to go through 100%?
  */
 /obj/item/proc/tryEmbed(atom/target, forced=FALSE)
-	if(!istype(target, /obj/item/organ/external) && !iscarbon(target)) // ===CHUGAFIX=== This is where that is_helpers.dm macro goes
+	if(!istype(target, /obj/item/organ/external) && !ishuman(target)) // ===CHUGAFIX=== This is where that is_helpers.dm macro goes
 		return NONE
 	if(!forced && !LAZYLEN(embedding))
 		return NONE

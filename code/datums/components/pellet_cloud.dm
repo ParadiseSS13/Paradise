@@ -231,7 +231,7 @@
 	if(terminated == num_pellets)
 		finalize()
 
-/// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
+/// Minor convenience function for creating each shrapnel piece with circle explosions
 /datum/component/pellet_cloud/proc/pew(atom/target)
 	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
 
