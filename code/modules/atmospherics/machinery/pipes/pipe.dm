@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe
-	var/datum/gas_mixture/ghost_pipeline //used when reconstructing a pipeline that broke
+	var/datum/gas_mixture/ghost_pipeline // used when reconstructing a pipeline that broke
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
