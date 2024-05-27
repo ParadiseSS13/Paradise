@@ -386,7 +386,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SKD"
 	item = /obj/item/melee/knuckleduster/syndie
 	cost = 10
-	can_discount = FALSE
 
 ////////////////////////////////////////
 // MARK: GRENADES AND EXPLOSIVES
