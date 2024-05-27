@@ -433,7 +433,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
 
-/proc/apply_wrapper_color(var/obj/item/storage/pill_bottle/bottle, i)
+/proc/apply_wrapper_color(obj/item/storage/pill_bottle/bottle, i)
 	var/static/list/colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN_BLUE, COLOR_VIOLET, COLOR_PURPLE)
 	bottle.wrapper_color = colors[(i - 1) % length(colors) + 1]
 	bottle.apply_wrap()
