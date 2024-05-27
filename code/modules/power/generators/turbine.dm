@@ -200,7 +200,7 @@
 			compressor.trigger_overheat()
 	else if(compressor.overheat > 0)
 		compressor.overheat -= 2
-	compressor.rpm = 0.9* compressor.rpm + 0.1 * compressor.rpmtarget
+	compressor.rpm = 0.9 * compressor.rpm + 0.1 * compressor.rpmtarget
 
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/transfer_moles = environment.total_moles()/10
@@ -213,10 +213,10 @@
 
 	if(!(compressor.stat & NOPOWER))
 		compressor.use_power(2800)
-		if(compressor.rpm<1000)
+		if(compressor.rpm < 1000)
 			compressor.rpmtarget = 1000
 	else
-		if(compressor.rpm<1000)
+		if(compressor.rpm < 1000)
 			compressor.rpmtarget = 0
 
 	var/new_rpm_threshold
@@ -312,7 +312,7 @@
 
 	// Weird function but it works. Should be something else...
 
-	var/newrpm = ((turbine.compressor.gas_contained.temperature()) * turbine.compressor.gas_contained.total_moles())/4
+	var/newrpm = ((turbine.compressor.gas_contained.temperature()) * turbine.compressor.gas_contained.total_moles()) / 4
 
 	newrpm = max(0, newrpm)
 
@@ -320,7 +320,7 @@
 		turbine.compressor.rpmtarget = newrpm
 
 	if(turbine.compressor.gas_contained.total_moles()>0)
-		var/oamount = min(turbine.compressor.gas_contained.total_moles(), (turbine.compressor.rpm+100)/35000*turbine.compressor.capacity)
+		var/oamount = min(turbine.compressor.gas_contained.total_moles(), (turbine.compressor.rpm + 100) / 35000 * turbine.compressor.capacity)
 		var/datum/gas_mixture/removed = turbine.compressor.gas_contained.remove(oamount)
 		turbine.outturf.blind_release_air(removed)
 

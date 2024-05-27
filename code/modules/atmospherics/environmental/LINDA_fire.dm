@@ -161,7 +161,7 @@
 
 		//Possible spread due to radiated heat
 		if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
-			var/radiated_temperature = temperature*FIRE_SPREAD_RADIOSITY_SCALE
+			var/radiated_temperature = temperature * FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/direction in GLOB.cardinal)
 				var/turf/simulated/T = get_step(location, direction)
 				if(!istype(T))

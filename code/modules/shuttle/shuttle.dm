@@ -480,7 +480,7 @@
 	var/list/L0 = mobile_port.return_ordered_turfs(mobile_port.x, mobile_port.y, mobile_port.z, mobile_port.dir, mobile_port.areaInstance)
 	var/list/L1 = mobile_port.return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
 
-	var/rotation = dir2angle(S1.dir)-dir2angle(mobile_port.dir)
+	var/rotation = dir2angle(S1.dir) - dir2angle(mobile_port.dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
 	rotation = SIMPLIFY_DEGREES(rotation)

@@ -153,7 +153,7 @@
 				var/heat = thermal_conductivity*delta_temperature* \
 					(partial_heat_capacity*modeled_location.heat_capacity/(partial_heat_capacity+modeled_location.heat_capacity))
 
-				pipeline.air.set_temperature(pipeline.air.temperature() - heat/total_heat_capacity)
+				pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
 				modeled_location.temperature += heat/modeled_location.heat_capacity
 
 		else
@@ -184,10 +184,10 @@
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
 			var/delta_temperature = pipeline.air.temperature() - target.temperature
 
-			var/heat = thermal_conductivity*delta_temperature* \
-				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
+			var/heat = thermal_conductivity * delta_temperature * \
+				(partial_heat_capacity * target.heat_capacity / (partial_heat_capacity + target.heat_capacity))
 
-			pipeline.air.set_temperature(pipeline.air.temperature() - heat/total_heat_capacity)
+			pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
 	pipeline.update = TRUE
 
 /datum/pipeline/proc/reconcile_air()

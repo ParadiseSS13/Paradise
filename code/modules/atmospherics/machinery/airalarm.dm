@@ -266,7 +266,7 @@
 	milla.invoke_async(src)
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature()/environment.volume
+	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
 	var/datum/tlv/cur_tlv
 
 	cur_tlv = TLV["pressure"]
@@ -274,19 +274,19 @@
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen()*GET_PP)
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen()*GET_PP)
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide()*GET_PP)
+	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins()*GET_PP)
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins() * GET_PP)
 
 	cur_tlv = TLV["nitrous oxide"]
-	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent()*GET_PP)
+	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent() * GET_PP)
 
 	cur_tlv = TLV["other"]
 	var/other_dangerlevel = cur_tlv.get_danger_level(environment.total_trace_moles() * GET_PP)
@@ -587,30 +587,30 @@
 	var/total = environment.total_moles()
 
 	var/datum/tlv/cur_tlv
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature()/environment.volume
+	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen()*GET_PP)
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
 	var/oxygen_percent = total ? environment.oxygen() / total * 100 : 0
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen()*GET_PP)
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
 	var/nitrogen_percent = total ? environment.nitrogen() / total * 100 : 0
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide()*GET_PP)
+	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
 	var/co2_percent = total ? environment.carbon_dioxide() / total * 100 : 0
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins()*GET_PP)
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins() * GET_PP)
 	var/plasma_percent = total ? environment.toxins() / total * 100 : 0
 
 	cur_tlv = TLV["nitrous oxide"]
-	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent()*GET_PP)
+	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent() * GET_PP)
 	var/sleeping_agent_percent = total ? environment.sleeping_agent() / total * 100 : 0
 
 	cur_tlv = TLV["other"]

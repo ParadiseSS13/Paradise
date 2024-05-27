@@ -187,10 +187,10 @@
 
 			if(heat_capacity)
 				if(removed.temperature() < heater.set_temperature + T0C)
-					removed.set_temperature(min(removed.temperature() + heater.heating_power/heat_capacity, 1000))
+					removed.set_temperature(min(removed.temperature() + heater.heating_power / heat_capacity, 1000))
 				else
-					removed.set_temperature(max(removed.temperature() - heater.heating_power/heat_capacity, TCMB))
-				heater.cell.use(heater.heating_power/20000)
+					removed.set_temperature(max(removed.temperature() - heater.heating_power / heat_capacity, TCMB))
+				heater.cell.use(heater.heating_power / 20000)
 			env.merge(removed)
 		else
 			heater.on = FALSE

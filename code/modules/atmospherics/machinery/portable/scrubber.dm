@@ -65,7 +65,7 @@
 			scrubber.scrub(get_turf_air(tile))
 
 /obj/machinery/atmospherics/portable/scrubber/proc/scrub(datum/gas_mixture/environment)
-	var/transfer_moles = min(1,volume_rate/environment.volume)*environment.total_moles()
+	var/transfer_moles = min(1, volume_rate / environment.volume) * environment.total_moles()
 
 	//Take a gas sample
 	var/datum/gas_mixture/removed

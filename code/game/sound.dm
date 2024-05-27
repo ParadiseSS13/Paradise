@@ -122,7 +122,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 			var/pressure_factor = 1
 			if(pressure < ONE_ATMOSPHERE)
-				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
+				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE) / (ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
 
 			if(distance <= 1)
 				pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound

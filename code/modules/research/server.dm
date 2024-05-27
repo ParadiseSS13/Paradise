@@ -132,7 +132,7 @@
 
 	if(server.stat & (NOPOWER|BROKEN))
 		return
-	if(env.temperature() >= (heat+T0C))
+	if(env.temperature() >= (heat + T0C))
 		return
 
 	var/transfer_moles = 0.25 * env.total_moles()
@@ -144,7 +144,7 @@
 	var/heat_capacity = removed.heat_capacity()
 	if(heat_capacity == 0 || heat_capacity == null)
 		heat_capacity = 1
-	removed.set_temperature(min((removed.temperature()*heat_capacity + server.heating_power)/heat_capacity, 1000))
+	removed.set_temperature(min((removed.temperature() * heat_capacity + server.heating_power) / heat_capacity, 1000))
 	env.merge(removed)
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)

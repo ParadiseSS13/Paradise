@@ -74,7 +74,7 @@
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : "Unknown"
-	var/cabin_pressure = round(cabin_air.return_pressure(),0.01)
+	var/cabin_pressure = round(cabin_air.return_pressure(), 0.01)
 	. = "[report_internal_damage()]"
 	. += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
 	. += "<b>Integrity: </b> [integrity]%<br>"

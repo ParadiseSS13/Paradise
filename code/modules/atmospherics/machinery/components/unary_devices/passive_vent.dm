@@ -27,7 +27,7 @@
 
 /datum/milla_safe/passive_vent_processing/on_run(obj/machinery/atmospherics/unary/passive_vent/vent)
 	if(!vent.node)
-		return 0
+		return FALSE
 
 	var/turf/T = get_turf(vent)
 	if(T.density) //No, you should not be able to get free air from walls

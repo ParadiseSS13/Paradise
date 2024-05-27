@@ -46,7 +46,7 @@
 	var/other_old_temperature = partner.air_contents.temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = partner.air_contents.temperature()*other_air_heat_capacity + air_heat_capacity*air_contents.temperature()
+		var/combined_energy = partner.air_contents.temperature() * other_air_heat_capacity + air_heat_capacity * air_contents.temperature()
 
 		var/new_temperature = combined_energy/combined_heat_capacity
 		air_contents.set_temperature(new_temperature)

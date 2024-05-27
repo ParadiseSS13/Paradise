@@ -263,7 +263,7 @@
 			if(!T)
 				return
 			T.blind_release_air(air_contents)
-			playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			qdel(src)
 		else
 			integrity--

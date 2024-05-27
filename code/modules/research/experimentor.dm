@@ -525,7 +525,7 @@
 		var/heat_capacity = removed.heat_capacity()
 		if(heat_capacity == 0 || heat_capacity == null)
 			heat_capacity = 1
-		removed.set_temperature(max(min_new_temp, (removed.temperature()*heat_capacity + delta)/heat_capacity))
+		removed.set_temperature(max(min_new_temp, (removed.temperature() * heat_capacity + delta) / heat_capacity))
 	env.merge(removed)
 
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)

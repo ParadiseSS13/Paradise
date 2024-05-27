@@ -110,11 +110,11 @@
 
 		if(total_moles)
 			var/o2_level = environment.oxygen()/total_moles
-			var/n2_level = environment.nitrogen()/total_moles
-			var/co2_level = environment.carbon_dioxide()/total_moles
-			var/plasma_level = environment.toxins()/total_moles
-			var/n2o_level = environment.sleeping_agent()/total_moles
-			var/unknown_level =  1-(o2_level+n2_level+co2_level+plasma_level+n2o_level)
+			var/n2_level = environment.nitrogen() / total_moles
+			var/co2_level = environment.carbon_dioxide() / total_moles
+			var/plasma_level = environment.toxins() / total_moles
+			var/n2o_level = environment.sleeping_agent() / total_moles
+			var/unknown_level = 1 - (o2_level + n2_level + co2_level + plasma_level + n2o_level)
 			results = list(
 				list("entry" = "Pressure", "units" = "kPa", "val" = "[round(pressure,0.1)]", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80),
 				list("entry" = "Temperature", "units" = "C", "val" = "[round(environment.temperature()-T0C,0.1)]", "bad_high" = 35, "poor_high" = 25, "poor_low" = 15, "bad_low" = 5),

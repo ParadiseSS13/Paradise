@@ -251,7 +251,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			environment = get_turf_air(T)
 
 		var/env_pressure = environment.return_pressure()
-		var/pressure_delta = min(canister.release_pressure - env_pressure, (canister.air_contents.return_pressure() - env_pressure)/2)
+		var/pressure_delta = min(canister.release_pressure - env_pressure, (canister.air_contents.return_pressure() - env_pressure) / 2)
 		//Can not have a pressure delta that would cause environment pressure > tank pressure
 
 		var/transfer_moles = 0
@@ -276,7 +276,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/proc/return_temperature()
 	var/datum/gas_mixture/GM = return_obj_air()
-	if(GM && GM.volume>0)
+	if(GM && GM.volume > 0)
 		return GM.temperature()
 	return
 

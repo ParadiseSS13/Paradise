@@ -145,8 +145,8 @@
 	var/datum/gas_mixture/environment = get_turf_air(tile)
 
 	if(scrubber.scrubbing)
-		if((scrubber.scrub_O2 && environment.oxygen()>0.001) || (scrubber.scrub_N2 && environment.nitrogen()>0.001) || (scrubber.scrub_CO2 && environment.carbon_dioxide()>0.001) || (scrubber.scrub_Toxins && environment.toxins()>0.001) || (environment.sleeping_agent()) || (environment.agent_b()))
-			var/transfer_moles = min(1, scrubber.volume_rate/environment.volume)*environment.total_moles()
+		if((scrubber.scrub_O2 && environment.oxygen() > 0.001) || (scrubber.scrub_N2 && environment.nitrogen() > 0.001) || (scrubber.scrub_CO2 && environment.carbon_dioxide() > 0.001) || (scrubber.scrub_Toxins && environment.toxins() > 0.001) || (environment.sleeping_agent()) || (environment.agent_b()))
+			var/transfer_moles = min(1, scrubber.volume_rate / environment.volume) * environment.total_moles()
 
 			//Take a gas sample
 			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
@@ -186,7 +186,7 @@
 		if(scrubber.air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
 			return
 
-		var/transfer_moles = environment.total_moles() * (scrubber.volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles() * (scrubber.volume_rate / environment.volume)
 
 		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 

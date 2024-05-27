@@ -98,7 +98,7 @@
 		return FALSE
 	var/turf/T = get_turf(H)
 	var/datum/gas_mixture/current = T.get_readonly_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
