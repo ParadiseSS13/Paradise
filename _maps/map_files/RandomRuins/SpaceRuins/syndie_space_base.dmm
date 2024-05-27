@@ -937,7 +937,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fo" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "fp" = (

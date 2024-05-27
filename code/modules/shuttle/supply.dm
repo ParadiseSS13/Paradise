@@ -53,7 +53,7 @@
 	var/blocking_item = "ERR_UNKNOWN"
 
 /obj/docking_port/mobile/supply/Initialize()
-	..()
+	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
 		var/datum/economy/simple_seller/seller = new T
 		simple_sellers += seller

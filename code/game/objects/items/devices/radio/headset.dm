@@ -26,8 +26,8 @@
 	..()
 	internal_channels.Cut()
 
-/obj/item/radio/headset/Initialize()
-	..()
+/obj/item/radio/headset/Initialize(mapload)
+	. = ..()
 
 	if(ks1type)
 		keyslot1 = new ks1type(src)
