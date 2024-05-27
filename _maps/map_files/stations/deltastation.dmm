@@ -78994,6 +78994,9 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
+"miN" = (
+/turf/space,
+/area/station/security/prisonlockers)
 "miQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -103804,7 +103807,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+miN
 aaa
 aaa
 aaa
