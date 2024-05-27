@@ -43,8 +43,9 @@
 		flayer.send_swarm_message("We cannot upgrade this aspect further.")
 		return FALSE
 	flayer.send_swarm_message("[level ? upgrade_text : gain_text]") //This will only be false when level = 0, when first bought
-	level++
+	level = level + 1
 	cost = initial(cost) * level
+	return TRUE
 
 /datum/mindflayer_passive/proc/on_remove()
 	return
@@ -64,7 +65,7 @@
 
 /datum/mindflayer_passive/armored_plating/on_apply()
 	if(!..())
-		return
+		return FALSE
 	var/owner_armor = owner.dna.species.armor
 	var/temp_armor_value = owner_armor - (5 * (level - 1)) // We store our current armor value here just in case they already have armor
 	armor_value = temp_armor_value + 5 * level
@@ -83,7 +84,7 @@
 
 /datum/mindflayer_passive/fluid_feet/on_apply()
 	if(!..())
-		return
+		return FALSE
 	switch(level)
 		if(POWER_LEVEL_ONE)
 			qdel(owner.GetComponent(/datum/component/footstep))
@@ -104,7 +105,7 @@
 
 /datum/mindflayer_passive/new_crit/on_apply()
 	if(!..())
-		return
+		return FALSE
 	owner.dna.species.dies_at_threshold = FALSE
 
 /datum/mindflayer_passive/badass
@@ -117,7 +118,7 @@
 
 /datum/mindflayer_passive/badass/on_apply()
 	if(!..())
-		return
+		return FALSE
 	ADD_TRAIT(owner, TRAIT_BADASS, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/badass/on_remove()
@@ -133,7 +134,7 @@
 
 /datum/mindflayer_passive/emp_resist/on_apply()
 	if(!..())
-		return
+		return FALSE
 	switch(level)
 		if(1)
 			ADD_TRAIT(owner, TRAIT_EMP_RESIST, UNIQUE_TRAIT_SOURCE(src))
@@ -146,15 +147,14 @@
 
 /datum/mindflayer_passive/insulated
 	name = "Insulated Chassis"
-	purchase_text = "Become immune to basic shocks. At level two, not even Lady Tesla can harm you."
-	upgrade_text = "The insulated material spreads throughout our chassis."
+	purchase_text = "Become immune to basic shocks."
 	gain_text = "The outer layer of our chassis gets slightly thicker."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 1
 
 /datum/mindflayer_passive/shock_resist/on_apply()
 	if(!..())
-		return
+		return FALSE
 	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/shock_resist/on_remove()
@@ -184,16 +184,21 @@
 	cost = 40
 
 /datum/mindflayer_passive/eye_enhancement/on_apply()
-	..()
+	if(!..())
+		return FALSE
 	switch(level)
 		if(1)
 			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
 		if(2)
 			ADD_TRAIT(owner, TRAIT_THERMAL_VISION, UNIQUE_TRAIT_SOURCE(src))
+	var/mob/living/carbon/human/to_enhance = owner //Gotta make sure it calls the right update_sight()
+	to_enhance.update_sight()
 
 /datum/mindflayer_passive/eye_enhancement/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
 	REMOVE_TRAIT(owner, TRAIT_THERMAL_VISION, UNIQUE_TRAIT_SOURCE(src))
+	var/mob/living/carbon/human/to_enhance = owner
+	to_enhance.update_sight()
 
 /datum/mindflayer_passive/drain_speed
 	name = "Swarm Absorbtion Efficiency"
@@ -206,7 +211,7 @@
 
 /datum/mindflayer_passive/drain_speed/on_apply()
 	if(!..())
-		return
+		return FALSE
 	flayer.drain_multiplier++
 
 /datum/mindflayer_passive/drain_speed/on_remove()
@@ -221,7 +226,7 @@
 
 /datum/mindflayer_passive/improved_joints/on_apply()
 	if(!..())
-		return
+		return FALSE
 	ADD_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/improved_joints/on_remove()
