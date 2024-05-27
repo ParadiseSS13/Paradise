@@ -8,7 +8,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/newreference = 1
 	if(!length(uplink_items))
 
-		var/list/last = list()
 		for(var/path in GLOB.uplink_items)
 
 			var/datum/uplink_item/I = new path
@@ -18,9 +17,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				continue
 			if(length(I.excludefrom) && (U.uplink_type in I.excludefrom))
 				continue
-			if(I.last)
-				last += I
-				continue
 
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
@@ -28,12 +24,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			uplink_items[I.category] += I
 			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
-
-		for(var/datum/uplink_item/I in last)
-			if(!uplink_items[I.category])
-				uplink_items[I.category] = list()
-
-			uplink_items[I.category] += I
 
 	for(var/i in 1 to 3)
 		var/datum/uplink_item/I = pick_n_take(sales_items)
@@ -61,30 +51,45 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	return uplink_items
 
-// You can change the order of the list by putting datums before/after one another OR
-// you can use the last variable to make sure it appears last, well have the category appear last.
+// You can change the order of the list by putting datums before/after one another
 
 /datum/uplink_item
+	/// Name of the item in the uplink
 	var/name = "item name"
+	/// What category is the item listed under
 	var/category = "item category"
+	/// Description of the item in the uplink
 	var/desc = "Item Description"
+	/// Used for surplus crates
 	var/reference = null
+	/// What is spawned when we purchase this?
 	var/item = null
+	/// How many TC does this cost?
 	var/cost = 0
-	var/last = 0 // Appear last
+	/// Is what we're spawning abstract?
 	var/abstract = 0
-	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
-	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
+	/// Empty list means it is in all the uplink types. Otherwise place the uplink type here.
+	var/list/uplinktypes = list()
+	/// Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
+	var/list/excludefrom = list()
+	/// Is this job locked?
 	var/list/job = null
 	/// This makes an item on the uplink only show up to the specified species
 	var/list/species = null
-	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	/// Chance of being included in the surplus crate (when pick() selects it)
+	var/surplus = 100
+	/// Can this be sold at a discount?
 	var/can_discount = TRUE
-	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
-	var/hijack_only = FALSE //can this item be purchased only during hijackings?
+	/// Can you only buy so many? -1 allows for infinite purchases
+	var/limited_stock = -1
+	/// Can this item be purchased only during hijackings?
+	var/hijack_only = FALSE
+	/// Can you refund this in the uplink?
 	var/refundable = FALSE
-	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
-	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	/// Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
+	var/refund_path = null
+	/// specified refund amount in case there needs to be a TC penalty for refunds.
+	var/refund_amount
 	/// Our special little snowflakes that have to be spawned in a different way than normal, like a surplus crate spawning a crate or contractor kits
 	var/uses_special_spawn = FALSE
 
@@ -241,9 +246,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 // Ammunition
 
-/datum/uplink_item/ammo
+/datum/uplink_item/ammo // Getting these in a discount or surplus is not a good time.
 	category = "Ammunition"
-	surplus = 40
+	surplus = 0
+	can_discount = FALSE
 
 /datum/uplink_item/ammo/pistol
 	name = "Stechkin - 10mm Magazine"
@@ -251,7 +257,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 3
-	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolap
 	name = "Stechkin - 10mm Armour Piercing Magazine"
@@ -259,7 +264,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
 	cost = 6
-	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolfire
 	name = "Stechkin - 10mm Incendiary Magazine"
@@ -267,7 +271,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 9
-	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Stechkin - 10mm Hollow Point Magazine"
@@ -275,7 +278,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 7
-	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"
@@ -283,7 +285,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 15
-	surplus = 0 // Miserable
 
 // STEALTHY WEAPONS
 
@@ -915,6 +916,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SUIT"
 	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	cost = 3
+
+// BUNDLES AND TELECRYSTALS
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
