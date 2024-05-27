@@ -1480,6 +1480,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2398,6 +2399,48 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
+"hE" = (
+/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Midship)
+"qM" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "meatConvey2"
+	},
+/obj/item/salvage/ruin/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Midship)
+"uK" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/unpowered/BMPship/Midship)
+"uT" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/powered)
+"BC" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/unpowered/BMPship/Midship)
+"Ht" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "meatConvey1"
+	},
+/obj/item/salvage/ruin/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Midship)
 "IM" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/snacks/meat,
@@ -2761,7 +2804,7 @@ aJ
 aJ
 aK
 aK
-aK
+uT
 aK
 aK
 aK
@@ -2813,9 +2856,9 @@ aJ
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aa
@@ -2867,7 +2910,7 @@ aK
 aK
 aK
 aK
-aK
+uT
 aK
 aK
 aa
@@ -3114,8 +3157,8 @@ aD
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3165,8 +3208,8 @@ aD
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3215,9 +3258,9 @@ fA
 aD
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3266,8 +3309,8 @@ gs
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3318,11 +3361,11 @@ gs
 aK
 aK
 aK
+uT
+uT
 aK
 aK
-aK
-aK
-aK
+uT
 aK
 aK
 aK
@@ -3368,12 +3411,12 @@ gs
 bc
 aK
 aK
+uT
+uT
 aK
 aK
-aK
-aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3420,10 +3463,10 @@ aK
 aK
 aK
 aK
+uT
 aK
-aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3469,12 +3512,12 @@ gs
 gs
 aK
 aK
-aK
-aK
-aK
-aK
-aK
-aK
+uT
+uT
+uT
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3522,9 +3565,9 @@ aK
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3564,7 +3607,7 @@ eo
 fn
 dC
 ca
-gb
+hE
 bF
 aK
 aK
@@ -3573,13 +3616,13 @@ aK
 aK
 bc
 aK
+uT
 aK
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3629,9 +3672,9 @@ aK
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3682,8 +3725,8 @@ aK
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3734,7 +3777,7 @@ aK
 aK
 aK
 aK
-aK
+uT
 aK
 aK
 aK
@@ -3862,7 +3905,7 @@ cr
 cJ
 ca
 ca
-ca
+uK
 ca
 dg
 ca
@@ -3915,7 +3958,7 @@ ca
 ca
 dT
 ca
-dg
+BC
 ca
 ca
 dT
@@ -4117,7 +4160,7 @@ ca
 ca
 ca
 dC
-dU
+Ht
 dC
 dg
 ca
@@ -4195,7 +4238,7 @@ aJ
 aJ
 aK
 aK
-aK
+uT
 aK
 aa
 "}
@@ -4224,7 +4267,7 @@ dC
 dg
 ca
 dC
-fr
+qM
 dC
 ca
 ca
@@ -4245,8 +4288,8 @@ aa
 aa
 aa
 aK
-aK
-aK
+uT
+uT
 aK
 aa
 "}
@@ -4297,7 +4340,7 @@ aa
 aa
 aa
 aK
-aK
+uT
 aa
 aa
 "}
