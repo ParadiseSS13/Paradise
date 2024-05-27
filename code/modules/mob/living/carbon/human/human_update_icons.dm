@@ -880,7 +880,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
 		if(istype(belt, /obj/item/storage/belt))
 			var/obj/item/storage/belt/B = belt
-			overlay_layer = B.special ? SPECIAL_BELT_LAYER : BELT_LAYER
+			overlay_layer = B.layer_over_suit ? SPECIAL_BELT_LAYER : BELT_LAYER
 
 		var/t_state = belt.item_state
 		update_observer_view(belt)

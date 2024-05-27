@@ -258,7 +258,7 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	special = TRUE
+	layer_over_suit = TRUE
 	var/datum/martial_art/wrestling/style
 
 /obj/item/storage/belt/champion/wrestling/Initialize()
