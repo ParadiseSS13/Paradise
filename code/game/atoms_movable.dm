@@ -521,9 +521,12 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(mover in buckled_mobs)
+	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
+	if(!density || !height)
 		return TRUE
-	return ..()
+	if(LAZYIN(buckled_mobs, mover))
+		return TRUE
+	return FALSE
 
 /atom/movable/proc/get_spacemove_backup()
 	var/atom/movable/dense_object_backup
