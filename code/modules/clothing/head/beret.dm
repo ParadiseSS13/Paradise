@@ -156,6 +156,19 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
 	)
 
+/obj/item/clothing/head/beret/expedition
+	name = "expedition beret"
+	desc = "A brown beret with a blue Nanotrasen insignia emblazoned on it. Not much good for space protection, but stylish all the same."
+	icon_state = "beret_expedition"
+	item_color = "beret_expedition"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	strip_delay = 6 SECONDS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+		)
+
+
 //Special Roles
 /obj/item/clothing/head/beret/solgov/command
 	name = "\improper Trans-Solar Federation Lieutenant's beret"
