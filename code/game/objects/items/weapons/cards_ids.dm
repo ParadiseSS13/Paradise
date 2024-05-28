@@ -47,6 +47,21 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/emag/magic_key
+	name = "magic key"
+	desc = "It's a magic key, that will open one door!"
+	icon_state = "magic_key"
+	origin_tech = "magnets=2"
+
+/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+	if(!istype(target, /obj/machinery/door))
+		return
+	var/obj/machinery/door/D = target
+	D.locked = FALSE
+	update_icon()
+	. = ..()
+	qdel(src)
+
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"
@@ -335,6 +350,7 @@
 	initial_access = list(ACCESS_SYNDICATE)
 	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
+	untrackable = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -499,7 +515,7 @@
 							var/mob/living/carbon/human/H = user
 							default = H.age
 						var/new_age = tgui_input_number(user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
-						if(!Adjacent(user) || !new_age)
+						if(!Adjacent(user) || isnull(new_age))
 							return
 						age = new_age
 						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
@@ -535,7 +551,7 @@
 
 					if("Money Account")
 						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345, max_value = 9999999)
-						if(!Adjacent(user) || !new_account)
+						if(!Adjacent(user) || isnull(new_account))
 							return
 						associated_account_number = new_account
 						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
@@ -1019,7 +1035,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)

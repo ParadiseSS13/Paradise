@@ -321,6 +321,13 @@
 	throwforce = 22
 	armour_penetration_percentage = 15				//Enhanced armor piercing
 
+//Blatant imitation of spear, but all natural. Also not valid for explosive modification.
+/obj/item/spear/bamboo
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	base_icon_state = "bamboo_spear"
+	icon_state = "bamboo_spear0"
+	throwforce = 22
 
 //GREY TIDE
 /obj/item/spear/grey_tide
@@ -393,13 +400,6 @@
 		mounted_head.forceMove(T)
 		mounted_head = null
 	qdel(src)
-
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-	base_icon_state = "kindanspear"
-	icon_state = "kidanspear0"
-
 
 // DIY CHAINSAW
 /obj/item/chainsaw
@@ -565,7 +565,7 @@
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/singularityhammer/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -634,7 +634,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/mjollnir/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 25, \
 		force_unwielded = force, \

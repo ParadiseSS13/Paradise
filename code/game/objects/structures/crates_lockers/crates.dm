@@ -375,8 +375,8 @@
 	new /obj/item/rcd(src)
 
 /obj/structure/closet/crate/freezer
-	desc = "A freezer."
 	name = "Freezer"
+	desc = "A freezer for keeping food and organs fresh."
 	icon_state = "freezer"
 	icon_opened = "freezer_open"
 	icon_closed = "freezer"
@@ -516,6 +516,12 @@
 	icon_state = "scicrate"
 	icon_opened = "scicrate_open"
 	icon_closed = "scicrate"
+
+/obj/structure/closet/crate/sci/robo
+	desc = "A science crate. Contain various mech parts."
+	icon_state = "scicrate_mech"
+	icon_opened = "scicrate_mech_open"
+	icon_closed = "scicrate_mech"
 
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"

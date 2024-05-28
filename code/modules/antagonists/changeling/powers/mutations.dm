@@ -36,11 +36,12 @@
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[W.name]"))
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
 	SIGNAL_HANDLER
-	if(!ischangeling(owner))
+	if(!IS_CHANGELING(owner))
 		return
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
@@ -582,3 +583,48 @@
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+
+// Bone Shard
+/datum/action/changeling/weapon/bones
+	name = "Bone Shard"
+	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
+	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
+	button_icon_state = "boneshard"
+	chemical_cost = 15
+	dna_cost = 3
+	req_human = TRUE
+	weapon_type = /obj/item/throwing_star/boneshard
+	weapon_name_simple = "bone"
+	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/offence
+
+/obj/item/throwing_star/boneshard
+	name = "bone shard"
+	desc = "A serrated shard of bone laden with vicious barbs."
+	icon_state = "bone_star"
+	throwforce = 15
+	embedded_fall_chance = 5
+	embedded_impact_pain_multiplier = 3
+	embedded_unsafe_removal_pain_multiplier = 6
+	embedded_pain_chance = 10
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list()
+
+/obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	..()
+	if(isliving(hit_atom))
+		name = "bone fragment"
+		desc = "A dull shard of fractured bone. It has little use as a weapon."
+		throwforce = 0
+		embed_chance = 0
+
+/obj/item/throwing_star/boneshard/Initialize(mapload)
+	. = ..()
+	if(!iscarbon(loc))
+		return
+
+	var/mob/living/carbon/C = loc
+	C.throw_mode_on()
+
+	playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+	C.visible_message("<span class='warning'>Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!</span>", "<span class='warning'>We expel shards of bone into our hands.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")

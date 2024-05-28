@@ -20,20 +20,20 @@
 		return json_encode(list("error" = "No client with that name on server"))
 
 	var/sanitized = sanitize(input["msg"])
-	var/message =	"<font color='red'>Discord PM from <b><a href='?discord_msg=1'>[input["sender"]]</a></b>: [sanitized]</font>"
-	var/amessage =  "<font color='#EB4E00'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name_admin(C)]</b>: [sanitized]</font>"
+	var/message =	"<font color='red'>Discord PM from <b><a href='byond://?discord_msg=1'>[input["sender"]]</a></b>: [sanitized]</font>"
+	var/amessage =  "<font color='#EB4E00'>Discord PM from <a href='byond://?discord_msg=1'>[input["sender"]]</a> to <b>[key_name_admin(C)]</b>: [sanitized]</font>"
 
 	// THESE TWO VARS DO VERY DIFFERENT THINGS. DO NOT ATTEMPT TO COMBINE THEM
 	C.received_discord_pm = world.time
 	C.last_discord_pm_time = 0
 
 	SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
-	to_chat(C, message)
+	to_chat(C, message, MESSAGE_TYPE_ADMINPM)
 
 	for(var/client/A in GLOB.admins)
 		// GLOB.admins includes anyone with a holder datum (mentors too). This makes sure only admins see ahelps
 		if(check_rights(R_ADMIN, FALSE, A.mob))
 			if(A != C)
-				to_chat(A, amessage)
+				to_chat(A, amessage, MESSAGE_TYPE_ADMINPM)
 
 	return json_encode(list("success" = "Message Successful"))

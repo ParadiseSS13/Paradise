@@ -18,7 +18,8 @@
 /datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
 		"[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].",
-		"<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>"
+		"<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -30,7 +31,7 @@
 	for(var/obj/item/reagent_containers/pill in target.contents) // Can't give them more than 4 dental implants.
 		dental_implants++
 	if(dental_implants >= 4)
-		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
+		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
 		return SURGERY_STEP_INCOMPLETE
 
 	user.drop_item()
@@ -40,7 +41,7 @@
 	P.name = "Activate Pill ([tool.name])"
 	P.Grant(target)
 
-	user.visible_message("[user] wedges \the [tool] into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(target_zone)].</span>")
+	user.visible_message("[user] wedges \the [tool] into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(target_zone)].</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/action/item_action/hands_free/activate_pill

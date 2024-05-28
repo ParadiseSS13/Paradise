@@ -164,6 +164,21 @@
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
 
+/obj/item/storage/belt/utility/expedition
+	desc = "A belt for holding tools, but with style."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+
+/obj/item/storage/belt/utility/expedition/populate_contents()
+	new /obj/item/screwdriver(src, "blue")
+	new /obj/item/wrench(src)
+	new /obj/item/weldingtool/hugetank(src)
+	new /obj/item/crowbar(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/multitool(src)
+	new /obj/item/stack/cable_coil(src, 30, COLOR_BLUE)
+	update_icon()
+
 /obj/item/storage/belt/medical
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
@@ -456,22 +471,6 @@
 		new /obj/item/grenade/frag(src)
 		new /obj/item/grenade/empgrenade(src) // Two of each
 	new /obj/item/grenade/syndieminibomb(src) // One minibomb
-
-/obj/item/storage/belt/military/abductor
-	name = "agent belt"
-	desc = "A belt used by abductor agents."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "belt"
-	item_state = "security"
-
-/obj/item/storage/belt/military/abductor/full/populate_contents()
-	new /obj/item/screwdriver/abductor(src)
-	new /obj/item/wrench/abductor(src)
-	new /obj/item/weldingtool/abductor(src)
-	new /obj/item/crowbar/abductor(src)
-	new /obj/item/wirecutters/abductor(src)
-	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
 
 /obj/item/storage/belt/military/assault
 	name = "assault belt"

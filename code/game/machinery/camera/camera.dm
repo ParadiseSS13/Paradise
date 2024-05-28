@@ -1,6 +1,6 @@
 /obj/machinery/camera
 	name = "security camera"
-	desc = "It's used to monitor rooms."
+	desc = "Used by security teams and annoying AIs to watch over you."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
 	power_state = ACTIVE_POWER_USE
@@ -36,6 +36,10 @@
 
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	var/list/localMotionTargets = list()
+	var/detectTime = 0
+	var/area/station/ai_monitored/area_motion = null
+	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
 
 /obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()
@@ -50,7 +54,8 @@
 	if(part_of_camera_network)
 		GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
-		LAZYADD(get_area(src).cameras, UID())
+		var/area/our_area = get_area(src)
+		LAZYADD(our_area.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		turn_off(null, FALSE)
 		wires.cut_all()
@@ -68,8 +73,9 @@
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
 	GLOB.cameranet.cameras -= src
-	if(isarea(get_area(src)))
-		LAZYREMOVE(get_area(src).cameras, UID())
+	var/area/our_area = get_area(src)
+	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
+		LAZYREMOVE(our_area.cameras, UID())
 	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
@@ -177,9 +183,9 @@
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
 				if(U.name == "Unknown")
-					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b>[U]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
-					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				AI.last_paper_seen = "<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>"
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
@@ -271,7 +277,8 @@
 		return
 	status = TRUE
 	if(!emp_recover && isturf(loc))
-		LAZYADD(get_area(src).cameras, UID())
+		var/area/our_area = get_area(src)
+		LAZYADD(our_area.cameras, UID())
 
 	if(display_message)
 		if(user)
@@ -289,8 +296,9 @@
 
 	if(!emped)
 		status = FALSE
-		if(isarea(get_area(src)))
-			LAZYREMOVE(get_area(src).cameras, UID())
+		var/area/our_area = get_area(src)
+		if(our_area)
+			LAZYREMOVE(our_area.cameras, UID())
 
 	set_light(0)
 
@@ -390,7 +398,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))

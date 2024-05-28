@@ -64,7 +64,6 @@
 		LOG_MAZE_PROGRESS(calculate_loot_spots(), "Loot Spot Calculation")
 		LOG_MAZE_PROGRESS(apply_loot_modules(), "Loot Modules")
 	log_debug("\[MAZE] Generation of maze at [x],[y],[z] complete within [stop_watch(total_time)]s")
-	qdel(src)
 
 /obj/effect/mazegen/generator/proc/generate_path()
 	// Setup our turf list

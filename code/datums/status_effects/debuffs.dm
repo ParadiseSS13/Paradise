@@ -394,13 +394,13 @@
 /datum/status_effect/pepper_spray/on_apply()
 	. = ..()
 	to_chat(owner, "<span class='danger'>Your throat burns!</span>")
-	owner.AdjustConfused(12 SECONDS)
+	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(40, STAMINA)
 
 /datum/status_effect/pepper_spray/refresh()
 	. = ..()
-	owner.AdjustConfused(12 SECONDS)
+	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(20, STAMINA)
 
@@ -1023,7 +1023,7 @@
 /datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
 	. = ..()
 	source_UID = source.UID()
-	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 1)
+	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 1)
 
 /datum/status_effect/bubblegum_curse/tick()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
@@ -1031,7 +1031,7 @@
 		qdel(src)
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
-		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 2)
+		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 2)
 	if(!coward_checking)
 		if(owner.z != attacker.z)
 			addtimer(CALLBACK(src, PROC_REF(onstation_coward_callback)), 12 SECONDS)
@@ -1322,3 +1322,29 @@
 			desc = "Real winners quit before they reach the ultimate prize."
 
 #undef DEFAULT_MAX_CURSE_COUNT
+
+/datum/status_effect/reversed_high_priestess
+	id = "reversed_high_priestess"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
+
+/datum/status_effect/reversed_high_priestess/tick()
+	. = ..()
+	new /obj/effect/bubblegum_warning(get_turf(owner))
+
+/obj/effect/bubblegum_warning
+	name = "bloody rift"
+	desc = "You feel like even being *near* this is a bad idea"
+	icon = 'icons/obj/biomass.dmi'
+	icon_state = "rift"
+	color = "red"
+
+/obj/effect/bubblegum_warning/Initialize()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
+
+/obj/effect/bubblegum_warning/proc/slap_someone()
+	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
+	qdel(src)

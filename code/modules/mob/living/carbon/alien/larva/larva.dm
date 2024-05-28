@@ -7,6 +7,7 @@
 
 	maxHealth = 25
 	health = 25
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
 	density = FALSE
 
 	var/temperature_resistance = T0C+75
@@ -82,9 +83,6 @@
 
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
-
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE

@@ -4441,6 +4441,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -4573,6 +4574,15 @@
 	icon_state = "darkfull";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"oI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "oJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5200,6 +5210,7 @@
 	},
 /obj/item/coin/antagtoken/syndicate,
 /obj/structure/table,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rk" = (
@@ -6864,10 +6875,8 @@
 "yD" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 24
+/obj/machinery/alarm/monitor/directional/east{
+	locked = 0
 	},
 /obj/item/analyzer,
 /turf/simulated/floor/plasteel{
@@ -12665,6 +12674,7 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -16450,7 +16460,7 @@ Gg
 Gg
 tv
 lm
-Ic
+oI
 cm
 bP
 NU

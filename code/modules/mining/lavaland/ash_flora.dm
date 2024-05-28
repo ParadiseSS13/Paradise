@@ -145,9 +145,7 @@
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
 	. = ..()
-	// min dmg 3, max dmg 6, prob(70)
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
-
 
 /*********
  * Rocks *
@@ -168,6 +166,10 @@
 	harvest_message_med = "You finish mining the rock."
 	harvest_message_high = "You finish mining the rock."
 	delete_on_harvest = TRUE
+
+/obj/structure/flora/ash/rock/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_ROCK, -20, 10)
 
 /obj/structure/flora/ash/rock/style_2
 	icon_state = "basalt2"
@@ -239,7 +241,7 @@
 	maturation = 7
 	production = 4
 	yield = 4
-	potency = 15
+	potency = 50
 	growthstages = 3
 	rarity = 20
 	reagents_add = list("nutriment" = 0.1)

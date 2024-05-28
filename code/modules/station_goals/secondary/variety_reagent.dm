@@ -45,27 +45,22 @@
 	return copy
 
 /datum/secondary_goal_progress/variety_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not a reagent container? Ignore.
-	if(!istype(AM, /obj/item/reagent_containers))
-		return
-
 	// Not in a matching personal crate? Ignore.
 	if(!check_personal_crate(AM))
 		return
 
-	var/obj/item/reagent_containers/container = AM
 	// No reagents? Ignore.
-	if(!container.reagents.reagent_list)
+	if(!AM.reagents?.reagent_list)
 		return
 
-	var/datum/reagent/reagent = container.reagents?.get_master_reagent()
+	var/datum/reagent/reagent = AM.reagents.get_master_reagent()
 
 	// Make sure it's for our department.
 	if(!reagent || reagent.goal_department != department)
 		return
 
 	// Isolated reagents only, please.
-	if(length(container.reagents.reagent_list) != 1)
+	if(length(AM.reagents.reagent_list) != 1)
 		if(!manifest)
 			return COMSIG_CARGO_SELL_WRONG
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "mixed reagents"))
@@ -73,8 +68,8 @@
 		item.account = department_account
 		item.credits = 0
 		item.reason = "That [reagent.name] seems to be mixed with something else. Send it by itself, please."
+		item.requests_console_department = department
 		manifest.line_items += item
-		send_requests_console_message(item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_WRONG
 
 	// No easy reagents allowed.
@@ -86,8 +81,8 @@
 		item.account = department_account
 		item.credits = 0
 		item.reason = "We don't need [reagent.name]. Send something better."
+		item.requests_console_department = department
 		manifest.line_items += item
-		send_requests_console_message(item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_WRONG
 		
 	// Make sure there's enough.
@@ -99,8 +94,8 @@
 		item.account = department_account
 		item.credits = 0
 		item.reason = "That batch of [reagent.name] was too small; send at least [amount_per] units."
+		item.requests_console_department = department
 		manifest.line_items += item
-		send_requests_console_message(item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_WRONG
 
 	if(reagents_sent[reagent.id])
@@ -111,8 +106,8 @@
 		item.account = department_account
 		item.credits = 0
 		item.reason = "You already sent us [reagent.name]."
+		item.requests_console_department = department
 		manifest.line_items += item
-		send_requests_console_message(item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_WRONG
 
 	reagents_sent[reagent.id] = TRUE
@@ -125,9 +120,9 @@
 	item.account = department_account
 	item.credits = 0
 	item.reason = "Received [initial(reagent.name)]."
+	item.requests_console_department = department
 	item.zero_is_good = TRUE
 	manifest.line_items += item
-	send_requests_console_message(item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 	return COMSIG_CARGO_SELL_PRIORITY
 
 /datum/secondary_goal_progress/variety_reagent/check_complete(datum/economy/cargo_shuttle_manifest/manifest)

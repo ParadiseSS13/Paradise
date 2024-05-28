@@ -30,7 +30,7 @@
 	/// Overlay we add to each grabbed atom.
 	var/image/kinesis_icon
 	/// Our mouse movement catcher.
-	var/atom/movable/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
+	var/atom/movable/screen/fullscreen/stretch/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
 	var/datum/looping_sound/kinesis/soundloop
 	///The pixel_X of whatever we were grabbing before hand.
@@ -83,7 +83,7 @@
 	pre_pixel_x = grabbed_atom.pixel_x
 	pre_pixel_y = grabbed_atom.pixel_y
 	beam.chain = beam.Beam(grabbed_atom, icon_state = "kinesis", icon='icons/effects/beam.dmi', time = 100 SECONDS, maxdistance = 15, beam_type = /obj/effect/ebeam, beam_sleep_time = 3)
-	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
+	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/stretch/cursor_catcher/kinesis, 0)
 	kinesis_catcher.assign_to_mob(mod.wearer)
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
@@ -161,12 +161,16 @@
 		return FALSE
 	if(iseffect(target))
 		return FALSE
+	if(locate(mod.wearer) in target)
+		return FALSE
 	var/atom/movable/movable_target = target
 	if(movable_target.anchored)
 		return FALSE
 	if(movable_target.throwing)
 		return FALSE
 	if(movable_target.move_resist >= MOVE_FORCE_OVERPOWERING)
+		return FALSE
+	if(locate(mod.wearer) in movable_target.buckled_mobs)
 		return FALSE
 	if(ismob(movable_target))
 		if(!isliving(movable_target))
@@ -249,7 +253,7 @@
 	complexity = 0
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 
-/atom/movable/screen/fullscreen/cursor_catcher/kinesis
+/atom/movable/screen/fullscreen/stretch/cursor_catcher/kinesis
 	icon = 'icons/mob/screen_kinesis.dmi'
 	icon_state = "kinesis"
 

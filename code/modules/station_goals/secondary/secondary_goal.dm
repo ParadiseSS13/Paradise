@@ -84,6 +84,7 @@
 	else
 		built.send_report(ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name)
 	SSticker.mode.secondary_goals += built
+	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(built.name, "times generated"))
 
 /datum/station_goal/secondary/Topic(href, href_list)
 	if(!check_rights(R_EVENT))
@@ -91,14 +92,24 @@
 
 	if(href_list["announce"])
 		send_report("CentCom", "A task for [department] has been issued by Central Command:")
+		message_admins("[key_name_admin(usr)] sent an announcement for secondary goal [src] ([admin_desc])")
+		log_admin("[key_name_admin(usr)] sent an announcement for secondary goal [src] ([admin_desc])")
 	else if(href_list["remove"])
 		SSticker.mode.secondary_goals -= src
+		message_admins("[key_name_admin(usr)] removed secondary goal [src] ([admin_desc])")
+		log_admin("[key_name_admin(usr)] removed secondary goal [src] ([admin_desc])")
+		tracker.unregister(SSshuttle.supply)
 		qdel(src)
 		usr.client.modify_goals()
 	else if(href_list["mark_complete"])
 		completed = 1
+		tracker.unregister(SSshuttle.supply)
 		usr.client.modify_goals()
+		message_admins("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
+		log_admin("[key_name_admin(usr)] marked secondary goal [src] ([admin_desc]) as complete")
 	else if(href_list["reset_progress"])
 		completed = 0
 		tracker.reset()
 		usr.client.modify_goals()
+		message_admins("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")
+		log_admin("[key_name_admin(usr)] reset progress of secondary goal [src] ([admin_desc])")

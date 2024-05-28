@@ -18,6 +18,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
+"cB" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/syndicate_listening_station/asteroid)
 "du" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -448,6 +451,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
+"Ie" = (
+/obj/structure/spawner/mining/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_listening_station/asteroid)
 "Km" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -551,7 +558,6 @@
 	info = "Nothing of interest to report.";
 	name = "november report"
 	},
-/obj/item/pen,
 /obj/item/tape,
 /obj/item/radio/intercom{
 	freerange = 1;
@@ -559,7 +565,7 @@
 	name = "intercom"
 	},
 /obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
@@ -833,10 +839,10 @@ Zw
 Zw
 Zw
 yn
-yn
+cB
 Zw
 Zw
-yn
+cB
 yn
 yn
 yn
@@ -847,8 +853,8 @@ Zw
 Zw
 yn
 yn
-yn
-yn
+cB
+cB
 yn
 Zw
 Zw
@@ -877,8 +883,8 @@ Zw
 yn
 yn
 Zw
-yn
-yn
+cB
+cB
 yn
 Zw
 yn
@@ -889,9 +895,9 @@ Zw
 Zw
 yn
 yn
-yn
-yn
-yn
+cB
+cB
+cB
 Zw
 Zw
 Zw
@@ -946,7 +952,7 @@ HZ
 yn
 yn
 yn
-yn
+cB
 yn
 AT
 AT
@@ -986,15 +992,15 @@ tk
 HZ
 yn
 yn
-yn
+cB
 yn
 yn
 yn
 AT
 AT
 yn
-yn
-yn
+cB
+cB
 yn
 yn
 yn
@@ -1027,9 +1033,9 @@ yn
 yn
 yn
 yn
+cB
 yn
-yn
-yn
+cB
 yn
 yn
 yn
@@ -1067,6 +1073,8 @@ kJ
 kE
 kJ
 yn
+cB
+cB
 yn
 yn
 yn
@@ -1079,9 +1087,7 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
+cB
 yn
 yn
 yn
@@ -1119,14 +1125,14 @@ yn
 yn
 yn
 yn
+cB
+yn
+cB
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
+cB
+cB
 Zw
 Zw
 Zw
@@ -1165,10 +1171,10 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
+cB
+cB
+cB
+cB
 Zw
 Zw
 Zw
@@ -1209,7 +1215,7 @@ yn
 yn
 yn
 yn
-yn
+cB
 yn
 yn
 Zw
@@ -1248,7 +1254,7 @@ kJ
 kJ
 yn
 yn
-yn
+cB
 yn
 yn
 yn
@@ -1378,7 +1384,7 @@ yn
 yn
 yn
 AT
-AT
+Ie
 AT
 Zw
 Zw
@@ -1544,7 +1550,7 @@ yn
 yn
 yn
 AT
-AT
+Ie
 AT
 Zw
 Zw
@@ -1661,9 +1667,9 @@ kJ
 yn
 yn
 rK
-yn
-yn
-yn
+cB
+cB
+cB
 yn
 yn
 yn
@@ -1704,9 +1710,9 @@ yn
 yn
 rK
 yn
-yn
-yn
-yn
+cB
+cB
+cB
 yn
 yn
 yn
@@ -1747,8 +1753,8 @@ yn
 iL
 yn
 yn
-yn
-yn
+cB
+cB
 yn
 yn
 AT
@@ -1789,7 +1795,7 @@ yn
 Zw
 yn
 yn
-yn
+cB
 Zw
 yn
 AT
@@ -1981,8 +1987,8 @@ Zw
 Zw
 yn
 yn
-yn
-yn
+cB
+cB
 Zw
 Zw
 yn
