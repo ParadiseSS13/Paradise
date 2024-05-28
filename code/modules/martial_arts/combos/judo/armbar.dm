@@ -10,8 +10,9 @@
 	target.visible_message("<span class='warning'>[user] puts [target] into an armbar!</span>", \
 						"<span class='userdanger'>[user] wrestles you into an armbar!</span>")
 	playsound(get_turf(user), 'sound/weapons/slashmiss.ogg', 40, TRUE, -1)
-	target.drop_l_hand()
-	target.drop_r_hand()
+	if(!IS_HORIZONTAL(user))
+		target.drop_l_hand()
+		target.drop_r_hand()
 	target.apply_damage(45, STAMINA)
 	target.apply_status_effect(STATUS_EFFECT_ARMBAR)
 	target.KnockDown(5 SECONDS)
