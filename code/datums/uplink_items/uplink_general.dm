@@ -248,9 +248,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // MARK: AMMUNITION
 ////////////////////////////////////////
 
-/datum/uplink_item/ammo // Getting these in a discount or surplus is not a good time.
+/datum/uplink_item/ammo
 	category = "Ammunition"
-	surplus = 0
+	surplus = 0 // Getting these in a discount or surplus is not a good time.
 	can_discount = FALSE
 
 /datum/uplink_item/ammo/pistol
