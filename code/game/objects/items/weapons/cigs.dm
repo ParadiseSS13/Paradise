@@ -80,6 +80,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light("<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight...</span>")
 		return TRUE
 
+	if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask)
+		user.unEquip(src, TRUE)
+		M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+		if(M != user)
+			user.visible_message(
+				"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
+				"<span class='notice'>You slip [src] into the mouth of [M].</span>"
+					)
+		else
+			to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
+		return TRUE
 	return ..()
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
@@ -278,7 +289,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
 			e.start()
 			if(ismob(M))
-				M.unEquip(src, 1)
+				M.unEquip(src, TRUE)
 			qdel(src)
 			return
 		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
@@ -286,7 +297,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
 			e.start()
 			if(ismob(M))
-				M.unEquip(src, 1)
+				M.unEquip(src, TRUE)
 			qdel(src)
 			return
 		reagents.set_reacting(TRUE)
@@ -355,7 +366,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
-		M.unEquip(src, 1)		//Force the un-equip so the overlays update
+		M.unEquip(src, TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
@@ -642,8 +653,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(target, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/O = target
 		if(O.dry)
-			user.unEquip(target, 1)
-			user.unEquip(src, 1)
+			user.unEquip(target, TRUE)
+			user.unEquip(src, TRUE)
 			var/obj/item/clothing/mask/cigarette/rollie/custom/R = new /obj/item/clothing/mask/cigarette/rollie/custom(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)
