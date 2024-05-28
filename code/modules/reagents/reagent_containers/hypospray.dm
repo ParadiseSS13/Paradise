@@ -123,10 +123,17 @@
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with powerful medical nanomachines, to keep your body in the fight."
 	icon_state = "nanites_hypo"
 	volume = 100
 	list_reagents = list("nanites" = 100)
+
+/obj/item/reagent_containers/hypospray/combat/syndicate_nanites
+	name = "medical nanite injector"
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid field stabilization."
+	volume = 100
+	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30) // i want to let them to inject more/less depending on the situation, while keeping the flags the base combat has
+	list_reagents = list("syndicate_nanites" = 100)
 
 /// This is an empty variant
 /obj/item/reagent_containers/hypospray/autoinjector
