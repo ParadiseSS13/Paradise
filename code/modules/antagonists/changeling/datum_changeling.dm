@@ -81,9 +81,9 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 
 /datum/antagonist/changeling/Destroy()
 	SSticker.mode.changelings -= owner
-	chosen_sting = null
 	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
+	chosen_sting = null
 	return ..()
 
 /datum/antagonist/changeling/greet()
