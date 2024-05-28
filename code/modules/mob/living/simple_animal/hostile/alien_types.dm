@@ -35,6 +35,15 @@
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/xeno/limb, /obj/effect/decal/cleanable/blood/gibs/xeno/core, /obj/effect/decal/cleanable/blood/xeno/splatter, /obj/effect/decal/cleanable/blood/gibs/xeno/body, /obj/effect/decal/cleanable/blood/gibs/xeno/down)
+
+/mob/living/simple_animal/hostile/alien/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/alien/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/voice/hiss4.ogg', 70, TRUE)
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"

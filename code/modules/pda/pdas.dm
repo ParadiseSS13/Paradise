@@ -133,6 +133,9 @@
 /obj/item/pda/shaftminer
 	icon_state = "pda-miner"
 
+/obj/item/pda/explorer
+	icon_state = "pda-exp"
+
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/syndicate/nuclear
 	icon_state = "pda-syndi"

@@ -638,6 +638,8 @@
 					M.buckled.unbuckle_mob(M, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
+					if(L.incorporeal_move || L.status_flags & GODMODE)
+						continue
 					L.stop_pulling()
 					L.visible_message("<span class='warning'>[L] is hit by \
 									a hyperspace ripple!</span>",
@@ -985,6 +987,7 @@
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"
 	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
