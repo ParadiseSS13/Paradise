@@ -216,16 +216,18 @@
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
-		return
+		return FALSE
 	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
-		return
+		return FALSE
 	if(allowed(user))
 		locked = !locked
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		return FALSE
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
