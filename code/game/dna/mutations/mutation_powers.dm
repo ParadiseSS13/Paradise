@@ -562,11 +562,13 @@
 	for(var/atom/movable/hit_thing in turf_to_check)
 		if(isliving(hit_thing))
 			var/mob/living/hit_mob = hit_thing
-			return hit_mob.density
+			if(hit_mob.density)
+				return hit_mob
 
 		if(isobj(hit_thing))
 			var/obj/hit_obj = hit_thing
-			return hit_obj.density
+			if(hit_obj.density)
+				return hit_obj
 
 	return FALSE
 

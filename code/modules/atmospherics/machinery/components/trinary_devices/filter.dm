@@ -94,7 +94,6 @@
 	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
-	..()
 	if(!on)
 		return FALSE
 
