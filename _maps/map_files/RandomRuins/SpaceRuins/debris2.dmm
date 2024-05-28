@@ -118,9 +118,7 @@
 /area/space)
 "H" = (
 /obj/structure/table,
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "I" = (
