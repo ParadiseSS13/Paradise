@@ -31,35 +31,3 @@
 	icon = 'modular_ss220/devices/icons/radio.dmi'
 	icon_state = "walkietalkie_syndie"
 	frequency = SYNDTEAM_FREQ
-
-/*
- *	Radio QoL improvement
- *	So players can Alt+click to enable dynamic and Ctrl+Shift+click to enable speaker
-*/
-/obj/item/radio/headset/examine(mob/user)
-	. = ..()
-	if(in_range(src, user) || loc == user)
-		. += span_info("Alt-click on \the [name] to toggle broadcasting.")
-		. += span_info("Ctrl-Shift-click on \the [src] to toggle speaker.")
-
-/obj/item/radio/headset/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	broadcasting = !broadcasting
-	to_chat(user, span_notice("You toggle broadcasting [broadcasting ? "on" : "off"]."))
-
-/obj/item/radio/headset/CtrlShiftClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	listening = !listening
-	to_chat(user, span_notice("You toggle speaker [listening ? "on" : "off"]."))
