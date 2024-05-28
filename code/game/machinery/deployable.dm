@@ -27,10 +27,6 @@
 	//The list of directions to block a projectile from
 	var/list/directional_list = list()
 
-/obj/structure/barricade/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
-
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		make_debris()

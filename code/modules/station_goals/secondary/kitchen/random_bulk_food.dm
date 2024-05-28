@@ -13,8 +13,6 @@
 		var/obj/item/food/snacks/candidate = S
 		if(initial(candidate.goal_difficulty) == FOOD_GOAL_SKIP)
 			continue
-		if(initial(candidate.goal_difficulty) == FOOD_GOAL_EXCESSIVE)
-			continue
 		valid_food += candidate
 
 	if(!valid_food)
@@ -85,7 +83,6 @@
 		update_item.credits = 0
 		update_item.zero_is_good = TRUE
 		update_item.reason = "Received [sent_this_shipment] servings of [initial(food_type.name)]."
-		update_item.requests_console_department = "Kitchen"
 		manifest.line_items += update_item
 
 	if(sent < needed)

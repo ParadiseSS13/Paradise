@@ -630,10 +630,8 @@
 		randomize_eyes_color()
 	if(S.bodyflags & HAS_SKIN_COLOR)
 		randomize_skin_color()
-	backbag = pick(GLOB.backbaglist)
+	backbag = 2
 	age = rand(S.min_age, S.max_age)
-	physique = pick(GLOB.character_physiques)
-	height = pick(GLOB.character_heights)
 
 
 /datum/character_save/proc/randomize_hair_color(target = "hair")

@@ -29,8 +29,8 @@
 	var/overload_step_energy_drain_min = 100
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	var/obj/item/stock_parts/cell/cell
-	var/state = MECHA_MAINT_OFF
-	var/list/log = list()
+	var/state = 0
+	var/list/log = new
 	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 1
@@ -84,7 +84,7 @@
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
-	var/melee_can_hit = TRUE
+	var/melee_can_hit = 1
 
 	/// How many ion thrusters we got on this bad boy
 	var/thruster_count = 0
@@ -247,9 +247,9 @@
 		if(!melee_can_hit || !isatom(target))
 			return
 		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
+		melee_can_hit = 0
 		spawn(melee_cooldown)
-			melee_can_hit = TRUE
+			melee_can_hit = 1
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
@@ -270,11 +270,11 @@
 /obj/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(.)
-		return TRUE
+		return 1
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
 		step_in = initial(step_in) / thruster_count
 		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
-		return TRUE
+		return 1
 
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
@@ -282,7 +282,7 @@
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return TRUE
+		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
@@ -290,12 +290,12 @@
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
-		return FALSE
+		return 0
 	if(connected_port)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
 			last_message = world.time
-		return FALSE
+		return 0
 	if(state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
 		return
@@ -303,21 +303,21 @@
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return FALSE
+		return 0
 	if(!Process_Spacemove(direction))
-		return FALSE
+		return 0
 	if(!has_charge(step_energy_drain))
-		return FALSE
+		return 0
 	if(defence_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in defence mode.</span>")
 			last_message = world.time
-		return FALSE
+		return 0
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in zoom mode.</span>")
 			last_message = world.time
-		return FALSE
+		return 0
 
 	if(thrusters_active && has_gravity(src))
 		thrusters_active = FALSE
@@ -364,7 +364,7 @@
 	dir = direction
 	if(turnsound)
 		playsound(src,turnsound,40,1)
-	return TRUE
+	return 1
 
 /obj/mecha/proc/mechstep(direction)
 	. = step(src, direction)
@@ -387,25 +387,25 @@
 
 /obj/mecha/Bump(atom/obstacle, bump_allowed)
 	if(throwing) //high velocity mechas in your face!
-		var/breakthrough = FALSE
+		var/breakthrough = 0
 		if(istype(obstacle, /obj/structure/window))
 			qdel(obstacle)
-			breakthrough = TRUE
+			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
 			G.obj_break()
-			breakthrough = TRUE
+			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
 			var/obj/structure/table/T = obstacle
 			qdel(T)
-			breakthrough = TRUE
+			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/rack))
 			new /obj/item/rack_parts(obstacle.loc)
 			qdel(obstacle)
-			breakthrough = TRUE
+			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
 			obstacle.ex_act(1)
@@ -421,7 +421,7 @@
 			L.Weaken(10 SECONDS)
 			L.apply_effect(STUTTER, 10 SECONDS)
 			playsound(src, pick(hit_sound), 50, 0, 0)
-			breakthrough = TRUE
+			breakthrough = 1
 
 		else
 			if(throwing)
@@ -524,7 +524,7 @@
 /obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	. = ..()
 	if(!damage_amount)
-		return FALSE
+		return 0
 	var/booster_deflection_modifier = 1
 	var/booster_damage_modifier = 1
 	if(damage_flag == BULLET || damage_flag == LASER || damage_flag == ENERGY)
@@ -547,7 +547,7 @@
 	if(prob(deflect_chance * booster_deflection_modifier))
 		visible_message("<span class='danger'>[src]'s armour deflects the attack!</span>")
 		log_message("Armor saved.")
-		return FALSE
+		return 0
 	if(.)
 		. *= booster_damage_modifier
 
@@ -729,7 +729,7 @@
 			to_chat(user, "<span class='warning'>Maintenance protocols disabled by operator.</span>")
 
 	else if(istype(W, /obj/item/stack/cable_coil))
-		if(state == MECHA_OPEN_HATCH && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
+		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
 			if(CC.get_amount() > 1)
 				CC.use(2)
@@ -740,7 +740,7 @@
 		return
 
 	else if(istype(W, /obj/item/stock_parts/cell))
-		if(state == MECHA_BATTERY_UNSCREW)
+		if(state==4)
 			if(!cell)
 				if(!user.drop_item())
 					return
@@ -819,16 +819,16 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && pilot_is_mmi()))
+	if(state != 2 && state != 3 && !(state == 4 && pilot_is_mmi()))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(state == MECHA_BOLTS_UP)
-		state = MECHA_OPEN_HATCH
+	if(state == 2)
+		state = 3
 		to_chat(user, "You open the hatch to the power unit")
-	else if(state == MECHA_OPEN_HATCH)
-		state = MECHA_BOLTS_UP
+	else if(state == 3)
+		state = 2
 		to_chat(user, "You close the hatch to the power unit")
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
@@ -841,7 +841,7 @@
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
-	if(!(state == MECHA_OPEN_HATCH && cell) && !(state == MECHA_BATTERY_UNSCREW && cell))
+	if(!(state==3 && cell) && !(state==4 && cell))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -849,27 +849,27 @@
 	if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
-	else if(state == MECHA_OPEN_HATCH && cell)
+	else if(state==3 && cell)
 		cell.forceMove(loc)
 		cell = null
-		state = MECHA_BATTERY_UNSCREW
+		state = 4
 		to_chat(user, "<span class='notice'>You unscrew and pry out the powercell.</span>")
 		log_message("Powercell removed")
-	else if(state == MECHA_BATTERY_UNSCREW && cell)
-		state = MECHA_OPEN_HATCH
+	else if(state==4 && cell)
+		state=3
 		to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 
 /obj/mecha/wrench_act(mob/user, obj/item/I)
-	if(state != MECHA_MAINT_ON && state != MECHA_BOLTS_UP)
+	if(state != 1 && state != 2)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(state == MECHA_MAINT_ON)
-		state = MECHA_BOLTS_UP
+	if(state==1)
+		state = 2
 		to_chat(user, "You undo the securing bolts.")
 	else
-		state = MECHA_MAINT_ON
+		state = 1
 		to_chat(user, "You tighten the securing bolts.")
 
 /obj/mecha/welder_act(mob/user, obj/item/I)
@@ -884,7 +884,7 @@
 	if(repairing)
 		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
 		return
-	if(state == MECHA_MAINT_OFF) // If maint protocols are not active, the state is zero
+	if(state == 0) // If maint protocols are not active, the state is zero
 		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
@@ -902,7 +902,7 @@
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
-		return FALSE
+		return 0
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
 		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
@@ -1068,11 +1068,11 @@
 /obj/mecha/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !istype(new_port) || new_port.connected_device)
-		return FALSE
+		return 0
 
 	//Make sure are close enough for a valid connection
 	if(new_port.loc != loc)
-		return FALSE
+		return 0
 
 	//Perform the connection
 	connected_port = new_port
@@ -1088,14 +1088,14 @@
 
 /obj/mecha/proc/disconnect()
 	if(!connected_port)
-		return FALSE
+		return 0
 
 	connected_port.connected_device = null
 	connected_port = null
 	log_message("Disconnected from gas port.")
 	if(occupant)
 		occupant.clear_alert("mechaport_d")
-	return TRUE
+	return 1
 
 /obj/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
@@ -1137,9 +1137,9 @@
 	if(dna)
 		if(ishuman(user))
 			if(user.dna.unique_enzymes == dna)
-				passed = TRUE
+				passed = 1
 	else if(operation_allowed(user))
-		passed = TRUE
+		passed = 1
 	if(!passed)
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		log_append_to_last("Permission denied.")
@@ -1213,7 +1213,7 @@
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with an ID lock.</span>")
 		return FALSE
 
-	if(do_after(user, 4 SECONDS, target = src))
+	if(do_after(user, 40, target = src))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc,user)
 		else
@@ -1261,8 +1261,8 @@
 		var/mob/living/brain/brain = occupant
 		mob_container = brain.container
 	if(istype(mob_container, /obj/item/mmi))
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 /obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
@@ -1349,34 +1349,34 @@
 		return 0
 	for(var/ID in list(H.get_active_hand(), H.wear_id, H.belt, H.wear_pda))
 		if(check_access(ID, operation_req_access))
-			return TRUE
-	return FALSE
+			return 1
+	return 0
 
 
 /obj/mecha/proc/internals_access_allowed(mob/living/carbon/human/H)
 	for(var/atom/ID in list(H.get_active_hand(), H.wear_id, H.belt, H.wear_pda))
 		if(check_access(ID, internals_req_access))
-			return TRUE
-	return FALSE
+			return 1
+	return 0
 
 
 /obj/mecha/check_access(obj/item/card/id/I, list/access_list)
 	if(!istype(access_list))
-		return TRUE
+		return 1
 	if(!length(access_list)) //no requirements
-		return TRUE
+		return 1
 	I = I?.GetID()
 	if(!istype(I) || !I.access) //not ID or no access
-		return FALSE
+		return 0
 	if(access_list==operation_req_access)
 		for(var/req in access_list)
 			if(!(req in I.access)) //doesn't have this access
-				return FALSE
+				return 0
 	else if(access_list==internals_req_access)
 		for(var/req in access_list)
 			if(req in I.access)
-				return TRUE
-	return TRUE
+				return 1
+	return 1
 
 ///////////////////////
 ///// MARK: Power stuff
@@ -1398,16 +1398,16 @@
 		cell.use(amount)
 		if(occupant)
 			update_cell()
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
 		if(occupant)
 			update_cell()
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 /obj/mecha/proc/update_cell()
 	if(cell)

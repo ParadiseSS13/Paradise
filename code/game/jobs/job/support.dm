@@ -202,9 +202,6 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
-
-/datum/outfit/job/bartender/on_mind_initialize(mob/living/carbon/human/H)
-	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	ADD_TRAIT(H.mind, TRAIT_SLEIGHT_OF_HAND, ROUNDSTART_TRAIT)
 
@@ -239,14 +236,14 @@
 		/obj/item/paper/chef=1,\
 		/obj/item/book/manual/wiki/chef_recipes=1)
 
-/datum/outfit/job/chef/on_mind_initialize(mob/living/carbon/human/H)
-	. = ..()
+/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
 	var/datum/martial_art/cqc/under_siege/justacook = new
-	justacook.teach(H) // requires mind
+	justacook.teach(H)
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
-	ADD_TRAIT(H.mind, TRAIT_KNOWS_COOKING_RECIPES, ROUNDSTART_TRAIT)
-	if(H.mind)
-		H.mind.AddSpell(new /datum/spell/chef/expert_chef)
+
 
 /datum/job/hydro
 	title = "Botanist"
@@ -422,13 +419,11 @@
 	if(visualsOnly)
 		return
 
+	if(H.mind)
+		H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /datum/spell/mime/speak(null))
+		H.mind.miming = 1
 	qdel(H.GetComponent(/datum/component/footstep))
-
-/datum/outfit/job/mime/on_mind_initialize(mob/living/carbon/human/H)
-	. = ..()
-	H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
-	H.mind.AddSpell(new /datum/spell/mime/speak(null))
-	H.mind.miming = TRUE
 
 /datum/job/janitor
 	title = "Janitor"
@@ -493,7 +488,7 @@
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
-	if(visualsOnly)
+	if(!H.mind)
 		return
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]

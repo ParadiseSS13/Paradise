@@ -182,20 +182,12 @@
 				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
 				if(GLOB.configuration.general.roundstart_observer_period == 0)
 					period_human_readable = "before the round started"
-				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see.</span>")
-				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
-					// admins always get aobserve
-					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
 			observer.started_as_observer = 1
 			close_spawn_windows()
-			var/obj/spawn_point
-			if(SSticker.current_state < GAME_STATE_PLAYING)
-				spawn_point = pick(GLOB.roundstart_observer_start)
-			else
-				spawn_point = locate("landmark*Observer-Start")
-
+			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.forceMove(get_turf(spawn_point))
+			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
 			observer.icon = client.prefs.active_character.preview_icon

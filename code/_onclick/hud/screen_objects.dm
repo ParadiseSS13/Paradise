@@ -367,8 +367,6 @@
 	screen_loc = ui_crafting
 
 /atom/movable/screen/craft/Click()
-	if(!isliving(usr))
-		return
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
 
@@ -398,26 +396,24 @@
 	object_overlays.Cut()
 
 /atom/movable/screen/inventory/proc/add_overlays()
-	var/mob/user = hud?.mymob
+	var/mob/user = hud.mymob
 
-	if(!user || !slot_id || user != usr)
-		return
+	if(hud && user && slot_id)
+		var/obj/item/holding = user.get_active_hand()
 
-	var/obj/item/holding = user.get_active_hand()
+		if(!holding || user.get_item_by_slot(slot_id))
+			return
 
-	if(!holding || user.get_item_by_slot(slot_id))
-		return
+		var/image/item_overlay = image(holding)
+		item_overlay.alpha = 92
 
-	var/image/item_overlay = image(holding)
-	item_overlay.alpha = 92
+		if(!user.can_equip(holding, slot_id, disable_warning = TRUE))
+			item_overlay.color = "#ff0000"
+		else
+			item_overlay.color = "#00ff00"
 
-	if(!user.can_equip(holding, slot_id, TRUE))
-		item_overlay.color = "#ff0000"
-	else
-		item_overlay.color = "#00ff00"
-
-	object_overlays += item_overlay
-	add_overlay(object_overlays)
+		object_overlays += item_overlay
+		add_overlay(object_overlays)
 
 /atom/movable/screen/inventory/MouseDrop(atom/over)
 	cut_overlay(object_overlays)

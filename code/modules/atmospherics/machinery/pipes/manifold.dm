@@ -70,6 +70,12 @@
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
 
+/obj/machinery/atmospherics/pipe/manifold/process_atmos()
+	if(!parent)
+		..()
+	else
+		. = PROCESS_KILL
+
 /obj/machinery/atmospherics/pipe/manifold/Destroy()
 	. = ..()
 

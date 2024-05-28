@@ -110,6 +110,7 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos()
+	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 	var/turf/T = loc

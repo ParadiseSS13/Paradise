@@ -179,7 +179,7 @@
 	click_cooldown_override = 2
 	variance = 15
 	randomspread = 1
-	delay = 0
+	delay = 2
 
 /// seperate balancing for cyborg, again
 /obj/item/ammo_casing/energy/disabler/cyborg

@@ -20,23 +20,14 @@
 	var/value = 0
 	var/forcedmutation = FALSE //Will it give the mutation, guaranteed?
 
-/obj/item/dnainjector/Initialize(mapload)
+/obj/item/dnainjector/Initialize()
 	. = ..()
-
-	var/init_block = GetInitBlock()
-	if(init_block)
-		block = init_block
-
 	if(datatype && block)
 		buf = new
 		buf.dna = new
 		buf.types = datatype
 		buf.dna.ResetSE()
 		SetValue(value)
-
-// Override this with a var reference to do setup
-/obj/item/dnainjector/proc/GetInitBlock()
-	return null
 
 /obj/item/dnainjector/Destroy()
 	QDEL_NULL(buf)
@@ -166,8 +157,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/hulkmut/GetInitBlock()
-	return GLOB.hulkblock
+/obj/item/dnainjector/hulkmut/Initialize()
+	block = GLOB.hulkblock
+	..()
 
 /obj/item/dnainjector/antihulk
 	name = "DNA-Injector (Anti-Hulk)"
@@ -176,8 +168,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antihulk/GetInitBlock()
-	return GLOB.hulkblock
+/obj/item/dnainjector/antihulk/Initialize()
+	block = GLOB.hulkblock
+	..()
 
 /obj/item/dnainjector/firemut
 	name = "DNA-Injector (Fire)"
@@ -186,8 +179,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/firemut/GetInitBlock()
-	return GLOB.fireblock
+/obj/item/dnainjector/firemut/Initialize()
+	block = GLOB.fireblock
+	..()
 
 /obj/item/dnainjector/antifire
 	name = "DNA-Injector (Anti-Fire)"
@@ -196,8 +190,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antifire/GetInitBlock()
-	return GLOB.fireblock
+/obj/item/dnainjector/antifire/Initialize()
+	block = GLOB.fireblock
+	..()
 
 /obj/item/dnainjector/telemut
 	name = "DNA-Injector (Tele.)"
@@ -206,8 +201,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/telemut/GetInitBlock()
-	return GLOB.teleblock
+/obj/item/dnainjector/telemut/Initialize()
+	block = GLOB.teleblock
+	..()
 
 /obj/item/dnainjector/telemut/darkbundle
 	name = "DNA injector"
@@ -220,8 +216,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antitele/GetInitBlock()
-	return GLOB.teleblock
+/obj/item/dnainjector/antitele/Initialize()
+	block = GLOB.teleblock
+	..()
 
 /obj/item/dnainjector/nobreath
 	name = "DNA-Injector (Breathless)"
@@ -230,8 +227,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/nobreath/GetInitBlock()
-	return GLOB.breathlessblock
+/obj/item/dnainjector/nobreath/Initialize()
+	block = GLOB.breathlessblock
+	..()
 
 /obj/item/dnainjector/antinobreath
 	name = "DNA-Injector (Anti-Breathless)"
@@ -240,8 +238,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antinobreath/GetInitBlock()
-	return GLOB.breathlessblock
+/obj/item/dnainjector/antinobreath/Initialize()
+	block = GLOB.breathlessblock
+	..()
 
 /obj/item/dnainjector/remoteview
 	name = "DNA-Injector (Remote View)"
@@ -250,8 +249,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/remoteview/GetInitBlock()
-	return GLOB.remoteviewblock
+/obj/item/dnainjector/remoteview/Initialize()
+	block = GLOB.remoteviewblock
+	..()
 
 /obj/item/dnainjector/antiremoteview
 	name = "DNA-Injector (Anti-Remote View)"
@@ -260,8 +260,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antiremoteview/GetInitBlock()
-	return GLOB.remoteviewblock
+/obj/item/dnainjector/antiremoteview/Initialize()
+	block = GLOB.remoteviewblock
+	..()
 
 /obj/item/dnainjector/regenerate
 	name = "DNA-Injector (Regeneration)"
@@ -270,8 +271,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/regenerate/GetInitBlock()
-	return GLOB.regenerateblock
+/obj/item/dnainjector/regenerate/Initialize()
+	block = GLOB.regenerateblock
+	..()
 
 /obj/item/dnainjector/antiregenerate
 	name = "DNA-Injector (Anti-Regeneration)"
@@ -280,8 +282,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antiregenerate/GetInitBlock()
-	return GLOB.regenerateblock
+/obj/item/dnainjector/antiregenerate/Initialize()
+	block = GLOB.regenerateblock
+	..()
 
 /obj/item/dnainjector/morph
 	name = "DNA-Injector (Morph)"
@@ -290,8 +293,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/morph/GetInitBlock()
-	return GLOB.morphblock
+/obj/item/dnainjector/morph/Initialize()
+	block = GLOB.morphblock
+	..()
 
 /obj/item/dnainjector/antimorph
 	name = "DNA-Injector (Anti-Morph)"
@@ -300,8 +304,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antimorph/GetInitBlock()
-	return GLOB.morphblock
+/obj/item/dnainjector/antimorph/Initialize()
+	block = GLOB.morphblock
+	..()
 
 /obj/item/dnainjector/noprints
 	name = "DNA-Injector (No Prints)"
@@ -310,8 +315,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/noprints/GetInitBlock()
-	return GLOB.noprintsblock
+/obj/item/dnainjector/noprints/Initialize()
+	block = GLOB.noprintsblock
+	..()
 
 /obj/item/dnainjector/antinoprints
 	name = "DNA-Injector (Anti-No Prints)"
@@ -320,8 +326,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antinoprints/GetInitBlock()
-	return GLOB.noprintsblock
+/obj/item/dnainjector/antinoprints/Initialize()
+	block = GLOB.noprintsblock
+	..()
 
 /obj/item/dnainjector/insulation
 	name = "DNA-Injector (Shock Immunity)"
@@ -330,8 +337,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/insulation/GetInitBlock()
-	return GLOB.shockimmunityblock
+/obj/item/dnainjector/insulation/Initialize()
+	block = GLOB.shockimmunityblock
+	..()
 
 /obj/item/dnainjector/antiinsulation
 	name = "DNA-Injector (Anti-Shock Immunity)"
@@ -340,8 +348,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antiinsulation/GetInitBlock()
-	return GLOB.shockimmunityblock
+/obj/item/dnainjector/antiinsulation/Initialize()
+	block = GLOB.shockimmunityblock
+	..()
 
 /obj/item/dnainjector/midgit
 	name = "DNA-Injector (Small Size)"
@@ -350,8 +359,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/midgit/GetInitBlock()
-	return GLOB.smallsizeblock
+/obj/item/dnainjector/midgit/Initialize()
+	block = GLOB.smallsizeblock
+	..()
 
 /obj/item/dnainjector/antimidgit
 	name = "DNA-Injector (Anti-Small Size)"
@@ -360,8 +370,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antimidgit/GetInitBlock()
-	return GLOB.smallsizeblock
+/obj/item/dnainjector/antimidgit/Initialize()
+	block = GLOB.smallsizeblock
+	..()
 
 /obj/item/dnainjector/eatmut
 	name = "DNA-Injector (Matter Eater)"
@@ -370,8 +381,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/eatmut/GetInitBlock()
-	return GLOB.eatblock
+/obj/item/dnainjector/eatmut/Initialize()
+	block = GLOB.eatblock
+	return ..()
 
 /obj/item/dnainjector/antieat
 	name = "DNA-Injector (Anti-Matter Eater)"
@@ -380,8 +392,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antieat/GetInitBlock()
-	return GLOB.eatblock
+/obj/item/dnainjector/antieat/Initialize()
+	block = GLOB.eatblock
+	return ..()
 
 /////////////////////////////////////
 /obj/item/dnainjector/antiglasses
@@ -391,8 +404,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antiglasses/GetInitBlock()
-	return GLOB.glassesblock
+/obj/item/dnainjector/antiglasses/Initialize()
+	block = GLOB.glassesblock
+	..()
 
 /obj/item/dnainjector/glassesmut
 	name = "DNA-Injector (Glasses)"
@@ -401,8 +415,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/glassesmut/GetInitBlock()
-	return GLOB.glassesblock
+/obj/item/dnainjector/glassesmut/Initialize()
+	block = GLOB.glassesblock
+	..()
 
 /obj/item/dnainjector/epimut
 	name = "DNA-Injector (Epi.)"
@@ -411,8 +426,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/epimut/GetInitBlock()
-	return GLOB.epilepsyblock
+/obj/item/dnainjector/epimut/Initialize()
+	block = GLOB.epilepsyblock
+	..()
 
 /obj/item/dnainjector/antiepi
 	name = "DNA-Injector (Anti-Epi.)"
@@ -421,8 +437,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antiepi/GetInitBlock()
-	return GLOB.epilepsyblock
+/obj/item/dnainjector/antiepi/Initialize()
+	block = GLOB.epilepsyblock
+	..()
 
 /obj/item/dnainjector/anticough
 	name = "DNA-Injector (Anti-Cough)"
@@ -431,8 +448,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/anticough/GetInitBlock()
-	return GLOB.coughblock
+/obj/item/dnainjector/anticough/Initialize()
+	block = GLOB.coughblock
+	..()
 
 /obj/item/dnainjector/coughmut
 	name = "DNA-Injector (Cough)"
@@ -441,8 +459,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/coughmut/GetInitBlock()
-	return GLOB.coughblock
+/obj/item/dnainjector/coughmut/Initialize()
+	block = GLOB.coughblock
+	..()
 
 /obj/item/dnainjector/clumsymut
 	name = "DNA-Injector (Clumsy)"
@@ -451,8 +470,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/clumsymut/GetInitBlock()
-	return GLOB.clumsyblock
+/obj/item/dnainjector/clumsymut/Initialize()
+	block = GLOB.clumsyblock
+	..()
 
 /obj/item/dnainjector/anticlumsy
 	name = "DNA-Injector (Anti-Clumy)"
@@ -461,8 +481,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/anticlumsy/GetInitBlock()
-	return GLOB.clumsyblock
+/obj/item/dnainjector/anticlumsy/Initialize()
+	block = GLOB.clumsyblock
+	..()
 
 /obj/item/dnainjector/antitour
 	name = "DNA-Injector (Anti-Tour.)"
@@ -471,8 +492,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antitour/GetInitBlock()
-	return GLOB.twitchblock
+/obj/item/dnainjector/antitour/Initialize()
+	block = GLOB.twitchblock
+	..()
 
 /obj/item/dnainjector/tourmut
 	name = "DNA-Injector (Tour.)"
@@ -481,8 +503,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/tourmut/GetInitBlock()
-	return GLOB.twitchblock
+/obj/item/dnainjector/tourmut/Initialize()
+	block = GLOB.twitchblock
+	..()
 
 /obj/item/dnainjector/stuttmut
 	name = "DNA-Injector (Stutt.)"
@@ -491,8 +514,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/stuttmut/GetInitBlock()
-	return GLOB.nervousblock
+/obj/item/dnainjector/stuttmut/Initialize()
+	block = GLOB.nervousblock
+	..()
 
 
 /obj/item/dnainjector/antistutt
@@ -502,8 +526,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antistutt/GetInitBlock()
-	return GLOB.nervousblock
+/obj/item/dnainjector/antistutt/Initialize()
+	block = GLOB.nervousblock
+	..()
 
 /obj/item/dnainjector/blindmut
 	name = "DNA-Injector (Blind)"
@@ -512,8 +537,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/blindmut/GetInitBlock()
-	return GLOB.blindblock
+/obj/item/dnainjector/blindmut/Initialize()
+	block = GLOB.blindblock
+	..()
 
 /obj/item/dnainjector/antiblind
 	name = "DNA-Injector (Anti-Blind)"
@@ -522,8 +548,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antiblind/GetInitBlock()
-	return GLOB.blindblock
+/obj/item/dnainjector/antiblind/Initialize()
+	block = GLOB.blindblock
+	..()
 
 /obj/item/dnainjector/deafmut
 	name = "DNA-Injector (Deaf)"
@@ -532,8 +559,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/deafmut/GetInitBlock()
-	return GLOB.deafblock
+/obj/item/dnainjector/deafmut/Initialize()
+	block = GLOB.deafblock
+	..()
 
 /obj/item/dnainjector/antideaf
 	name = "DNA-Injector (Anti-Deaf)"
@@ -542,8 +570,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antideaf/GetInitBlock()
-	return GLOB.deafblock
+/obj/item/dnainjector/antideaf/Initialize()
+	block = GLOB.deafblock
+	..()
 
 /obj/item/dnainjector/hallucination
 	name = "DNA-Injector (Halluctination)"
@@ -552,8 +581,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/hallucination/GetInitBlock()
-	return GLOB.hallucinationblock
+/obj/item/dnainjector/hallucination/Initialize()
+	block = GLOB.hallucinationblock
+	..()
 
 /obj/item/dnainjector/antihallucination
 	name = "DNA-Injector (Anti-Hallucination)"
@@ -562,8 +592,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antihallucination/GetInitBlock()
-	return GLOB.hallucinationblock
+/obj/item/dnainjector/antihallucination/Initialize()
+	block = GLOB.hallucinationblock
+	..()
 
 /obj/item/dnainjector/h2m
 	name = "DNA-Injector (Human > Monkey)"
@@ -572,8 +603,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/h2m/GetInitBlock()
-	return GLOB.monkeyblock
+/obj/item/dnainjector/h2m/Initialize()
+	block = GLOB.monkeyblock
+	..()
 
 /obj/item/dnainjector/m2h
 	name = "DNA-Injector (Monkey > Human)"
@@ -582,8 +614,9 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/m2h/GetInitBlock()
-	return GLOB.monkeyblock
+/obj/item/dnainjector/m2h/Initialize()
+	block = GLOB.monkeyblock
+	..()
 
 
 /obj/item/dnainjector/comic
@@ -593,8 +626,9 @@
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/comic/GetInitBlock()
-	return GLOB.comicblock
+/obj/item/dnainjector/comic/Initialize()
+	block = GLOB.comicblock
+	..()
 
 /obj/item/dnainjector/anticomic
 	name = "DNA-Injector (Ant-Comic)"
@@ -603,5 +637,6 @@
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/anticomic/GetInitBlock()
-	return GLOB.comicblock
+/obj/item/dnainjector/anticomic/Initialize()
+	block = GLOB.comicblock
+	..()

@@ -39,6 +39,7 @@
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/passive_gate/process_atmos()
+	..()
 	if(!on)
 		return 0
 

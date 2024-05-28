@@ -22,5 +22,4 @@
 				continue
 
 			new loot_path(get_turf(src))
-
-	return INITIALIZE_HINT_QDEL
+	qdel(src)

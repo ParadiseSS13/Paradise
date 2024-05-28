@@ -1,4 +1,4 @@
-import { Component, InfernoNode } from 'inferno';
+import { Component } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -18,13 +18,15 @@ import {
   modalOpen,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
-import { BooleanLike, classes } from 'common/react';
-import { BoxProps } from '../components/Box';
+import { classes } from 'common/react';
+import { createLogger } from '../logging';
+
+const logger = createLogger('ChemMaster');
 
 const transferAmounts = [1, 5, 10];
 
 const analyzeModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+  const { act, data } = useBackend(context);
   const result = modal.args.analysis;
   return (
     <Stack.Item>
@@ -70,74 +72,30 @@ const analyzeModalBodyOverride = (modal, context) => {
   );
 };
 
-interface ProductionItemSprite {
-  id: number;
-  sprite: string;
-}
-
-interface StaticProductionData {
-  name: string;
-  icon: string;
-  max_items_amount: number;
-  max_units_per_item: number;
-  sprites?: ProductionItemSprite[];
-}
-
-interface NonStaticProductionData {
-  set_name?: string;
-  set_items_amount: string;
-  set_sprite?: number;
-  placeholder_name?: string;
-}
-
-type ProductionData = StaticProductionData &
-  NonStaticProductionData & { id: string };
-
-enum TransferMode {
-  ToDisposals = 0,
-  ToBeaker = 1,
-}
-
-interface ReagentData {
-  id: string;
-  name: string;
-  description: string;
-  volume: number;
-}
-
-interface ContainerStyle {
-  color: string;
-  name: string;
-}
-
-interface ChemMasterData {
-  // ui_static
-  maxnamelength: number;
-  static_production_data: Record<string, StaticProductionData>;
-  containerstyles: ContainerStyle[];
-
-  condi: BooleanLike;
-  loaded_pill_bottle: BooleanLike;
-  loaded_pill_bottle_style?: string;
-  beaker: BooleanLike;
-  beaker_reagents: ReagentData[];
-  buffer_reagents: ReagentData[];
-  mode: TransferMode;
-  printing: BooleanLike;
-  modal?: unknown;
-  production_mode: string;
-  production_data: Record<string, NonStaticProductionData>;
-}
-
 export const ChemMaster = (props, context) => {
+  const { data } = useBackend(context);
+  const {
+    condi,
+    beaker,
+    beaker_reagents = [],
+    buffer_reagents = [],
+    mode,
+  } = data;
   return (
     <Window width={575} height={650}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
-          <ChemMasterBeaker />
-          <ChemMasterBuffer />
-          <ChemMasterProduction />
+          <ChemMasterBeaker
+            beaker={beaker}
+            beakerReagents={beaker_reagents}
+            bufferNonEmpty={buffer_reagents.length > 0}
+          />
+          <ChemMasterBuffer mode={mode} bufferReagents={buffer_reagents} />
+          <ChemMasterProduction
+            isCondiment={condi}
+            bufferNonEmpty={buffer_reagents.length > 0}
+          />
           <ChemMasterCustomization />
         </Stack>
       </Window.Content>
@@ -145,10 +103,9 @@ export const ChemMaster = (props, context) => {
   );
 };
 
-const ChemMasterBeaker = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
-  const { beaker, beaker_reagents, buffer_reagents } = data;
-  const bufferNonEmpty = buffer_reagents.length > 0;
+const ChemMasterBeaker = (props, context) => {
+  const { act } = useBackend(context);
+  const { beaker, beakerReagents, bufferNonEmpty } = props;
   return (
     <Stack.Item grow>
       <Section
@@ -176,9 +133,9 @@ const ChemMasterBeaker = (props: {}, context) => {
         {beaker ? (
           <BeakerContents
             beakerLoaded
-            beakerContents={beaker_reagents}
+            beakerContents={beakerReagents}
             buttons={(chemical, i) => (
-              <Box mb={i < beaker_reagents.length - 1 && '2px'}>
+              <Box mb={i < beakerReagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
                   mb="0"
@@ -232,9 +189,9 @@ const ChemMasterBeaker = (props: {}, context) => {
   );
 };
 
-const ChemMasterBuffer = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
-  const { mode, buffer_reagents } = data;
+const ChemMasterBuffer = (props, context) => {
+  const { act } = useBackend(context);
+  const { mode, bufferReagents = [] } = props;
   return (
     <Stack.Item grow>
       <Section
@@ -253,12 +210,12 @@ const ChemMasterBuffer = (props: {}, context) => {
           </Box>
         }
       >
-        {buffer_reagents.length > 0 ? (
+        {bufferReagents.length > 0 ? (
           <BeakerContents
             beakerLoaded
-            beakerContents={buffer_reagents}
+            beakerContents={bufferReagents}
             buttons={(chemical, i) => (
-              <Box mb={i < buffer_reagents.length - 1 && '2px'}>
+              <Box mb={i < bufferReagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
                   mb="0"
@@ -312,10 +269,9 @@ const ChemMasterBuffer = (props: {}, context) => {
   );
 };
 
-const ChemMasterProduction = (props: {}, context) => {
-  const { data } = useBackend<ChemMasterData>(context);
-  const { buffer_reagents } = data;
-  if (buffer_reagents.length === 0) {
+const ChemMasterProduction = (props, context) => {
+  const { act } = useBackend(context);
+  if (!props.bufferNonEmpty && props.isCondiment) {
     return (
       <Stack.Item>
         <Section title="Production">
@@ -334,81 +290,87 @@ const ChemMasterProduction = (props: {}, context) => {
   return (
     <Stack.Item>
       <Section fill title="Production">
-        <ChemMasterProductionTabs />
+        {!props.isCondiment ? (
+          <ChemMasterProductionChemical />
+        ) : (
+          <ChemMasterProductionCondiment />
+        )}
       </Section>
     </Stack.Item>
   );
 };
 
-const ChemMasterProductionTabs = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
-  const { production_mode, production_data, static_production_data } = data;
-  const decideTab = (mode: ChemMasterData['production_mode']) => {
-    let static_data = static_production_data[mode];
-    let nonstatic_data = production_data[mode];
-    if (static_data !== undefined && nonstatic_data !== undefined) {
-      const productionData = {
-        ...static_data,
-        ...nonstatic_data,
-        id: mode,
-      };
-      return <ChemMasterProductionGeneric productionData={productionData} />;
+const ChemMasterProductionChemical = (props, context) => {
+  const { act, data } = useBackend(context);
+  const tabs = [
+    {
+      'name': 'Pills',
+      'icon': 'pills',
+    },
+    {
+      'name': 'Patches',
+      'icon': 'plus-square',
+    },
+    {
+      'name': 'Bottles',
+      'icon': 'wine-bottle',
+    },
+  ];
+  const decideTab = (mode) => {
+    switch (mode) {
+      case 1:
+        return <ChemMasterProductionPills />;
+      case 2:
+        return <ChemMasterProductionPatches />;
+      case 3:
+        return <ChemMasterProductionBottles />;
+      default:
+        return 'UNKNOWN INTERFACE';
     }
-
-    return 'UNKNOWN INTERFACE';
   };
   return (
     <>
       <Tabs>
-        {Object.entries(static_production_data).map(([id, { name, icon }]) => {
+        {tabs.map((t, i) => {
+          i += 1;
           return (
             <Tabs.Tab
-              key={name}
-              icon={icon}
-              selected={production_mode === id}
-              onClick={() =>
-                act('set_production_mode', { production_mode: id })
-              }
+              key={i}
+              icon={t.icon}
+              selected={data.production_mode === i}
+              onClick={() => act('set_production_mode', { mode: i })}
             >
-              {name}
+              {t.name}
             </Tabs.Tab>
           );
         })}
       </Tabs>
-      {decideTab(production_mode)}
+      {decideTab(data.production_mode)}
     </>
   );
 };
 
-interface ChemMasterNameInputProps {
-  placeholder: string;
-  onMouseUp?: (MouseEvent) => void;
-}
-
-class ChemMasterNameInput extends Component<
-  ChemMasterNameInputProps & BoxProps
-> {
+class ChemMasterNameInput extends Component {
   constructor() {
     super();
+
+    this.handleMouseUp = (e) => {
+      const { placeholder, onMouseUp } = this.props;
+
+      // Middle-click button
+      if (e.button === 1) {
+        e.target.value = placeholder;
+        e.target.select();
+      }
+
+      if (onMouseUp) {
+        onMouseUp(e);
+      }
+    };
   }
 
-  handleMouseUp = (e: MouseEvent) => {
-    const { placeholder, onMouseUp } = this.props;
-    const target = e.target as HTMLInputElement;
-
-    // Middle-click button
-    if (e.button === 1) {
-      target.value = placeholder;
-      target.select();
-    }
-
-    if (onMouseUp) {
-      onMouseUp(e);
-    }
-  };
-
   render() {
-    const { data } = useBackend<ChemMasterData>(this.context);
+    const { data } = useBackend(this.context);
     const { maxnamelength } = data;
 
     return (
@@ -421,63 +383,54 @@ class ChemMasterNameInput extends Component<
   }
 }
 
-const ChemMasterProductionCommon = (
-  props: {
-    children: InfernoNode | InfernoNode[];
-    productionData: ProductionData;
-  },
-  context
-) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
-  const { children, productionData } = props;
+const ChemMasterProductionCommon = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    children,
+    maxQuantity,
+    medicineName,
+    placeholderName,
+    productionType,
+    quantity,
+  } = props;
   const { buffer_reagents = [] } = data;
-  const { id, max_items_amount, set_name, set_items_amount, placeholder_name } =
-    productionData;
   return (
     <LabeledList>
       {children}
       <LabeledList.Item label="Quantity">
         <Slider
-          value={set_items_amount}
+          value={quantity}
           minValue={1}
-          maxValue={max_items_amount}
+          maxValue={maxQuantity}
           onChange={(e, value) =>
-            act(`set_items_amount`, {
-              production_mode: id,
-              amount: value,
-            })
+            act(`set_${productionType}_amount`, { amount: value })
           }
         />
       </LabeledList.Item>
-      {set_name !== undefined && set_name !== null && (
-        <LabeledList.Item label="Name">
-          <ChemMasterNameInput
-            fluid
-            value={set_name}
-            placeholder={placeholder_name}
-            onChange={(e, value) =>
-              act(`set_items_name`, {
-                production_mode: id,
-                name: value,
-              })
-            }
-          />
-        </LabeledList.Item>
-      )}
+      <LabeledList.Item label="Name">
+        <ChemMasterNameInput
+          fluid
+          value={medicineName}
+          placeholder={placeholderName}
+          onChange={(e, value) =>
+            act(`set_${productionType}_name`, { name: value })
+          }
+        />
+      </LabeledList.Item>
       <LabeledList.Item>
         <Button
           fluid
           content="Create"
           color="green"
           disabled={buffer_reagents.length <= 0}
-          onClick={() => act(`create_items`, { production_mode: id })}
+          onClick={() => act(`create_${productionType}`)}
         />
       </LabeledList.Item>
     </LabeledList>
   );
 };
 
-const SpriteStyleButton = (props: { icon: string } & BoxProps, context) => {
+const SpriteStyleButton = (props, context) => {
   const { icon, ...restProps } = props;
   return (
     <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
@@ -486,37 +439,107 @@ const SpriteStyleButton = (props: { icon: string } & BoxProps, context) => {
   );
 };
 
-const ChemMasterProductionGeneric = (
-  props: { productionData: ProductionData },
-  context
-) => {
-  const { act } = useBackend<ChemMasterData>(context);
-  const { id: modeId, set_sprite, sprites } = props.productionData;
-  let style_buttons;
-  if (sprites && sprites.length > 0) {
-    style_buttons = sprites.map(({ id, sprite }) => (
-      <SpriteStyleButton
-        key={id}
-        icon={sprite}
-        color="translucent"
-        onClick={() =>
-          act('set_sprite_style', { production_mode: modeId, style: id })
-        }
-        selected={set_sprite === id}
-      />
-    ));
-  }
+const ChemMasterProductionPills = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    maxpills,
+    pillamount,
+    pillname,
+    pillplaceholdername,
+    pillsprite,
+    pillstyles,
+  } = data;
+  const style_buttons = pillstyles.map(({ id, sprite }) => (
+    <SpriteStyleButton
+      key={id}
+      icon={sprite}
+      color="translucent"
+      onClick={() => act('set_pills_style', { style: id })}
+      selected={pillsprite === id}
+    />
+  ));
   return (
-    <ChemMasterProductionCommon productionData={props.productionData}>
-      {style_buttons && (
-        <LabeledList.Item label="Style">{style_buttons}</LabeledList.Item>
-      )}
+    <ChemMasterProductionCommon
+      maxQuantity={maxpills}
+      medicineName={pillname}
+      placeholderName={pillplaceholdername}
+      productionType="pills"
+      quantity={pillamount}
+    >
+      <LabeledList.Item label="Style">{style_buttons}</LabeledList.Item>
     </ChemMasterProductionCommon>
   );
 };
 
-const ChemMasterCustomization = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const ChemMasterProductionPatches = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { maxpatches, patchamount, patchname, patchplaceholdername } = data;
+  return (
+    <ChemMasterProductionCommon
+      maxQuantity={maxpatches}
+      medicineName={patchname}
+      placeholderName={patchplaceholdername}
+      productionType="patches"
+      quantity={patchamount}
+    />
+  );
+};
+
+const ChemMasterProductionBottles = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    bottlesprite,
+    maxbottles,
+    bottleamount,
+    bottlename,
+    bottleplaceholdername,
+    bottlestyles,
+  } = data;
+  const style_buttons = bottlestyles.map(({ id, sprite }) => (
+    <SpriteStyleButton
+      key={id}
+      icon={sprite}
+      color="translucent"
+      onClick={() => act('set_bottles_style', { style: id })}
+      selected={bottlesprite === id}
+    />
+  ));
+  return (
+    <ChemMasterProductionCommon
+      maxQuantity={maxbottles}
+      medicineName={bottlename}
+      placeholderName={bottleplaceholdername}
+      productionType="bottles"
+      quantity={bottleamount}
+    >
+      <LabeledList.Item label="Style">{style_buttons}</LabeledList.Item>
+    </ChemMasterProductionCommon>
+  );
+};
+
+const ChemMasterProductionCondiment = (props, context) => {
+  const { act } = useBackend(context);
+  return (
+    <>
+      <Button
+        icon="box"
+        content="Create condiment pack (10u max)"
+        mb="0.5rem"
+        onClick={() => modalOpen(context, 'create_condi_pack')}
+      />
+      <br />
+      <Button
+        icon="wine-bottle"
+        content="Create bottle (50u max)"
+        mb="0"
+        onClick={() => act('create_condi_bottle')}
+      />
+    </>
+  );
+};
+
+const ChemMasterCustomization = (props, context) => {
+  const { act, data } = useBackend(context);
   const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } =
     data;
 
@@ -579,7 +602,7 @@ const ChemMasterCustomization = (props: {}, context) => {
           <Box color="label">No pill bottle or patch pack loaded.</Box>
         ) : (
           <LabeledList>
-            <LabeledList.Item label="Style">
+            <LabeledList.Item label="Style" style={{ position: 'relative' }}>
               <Button
                 style={{
                   width: style_button_size.width,

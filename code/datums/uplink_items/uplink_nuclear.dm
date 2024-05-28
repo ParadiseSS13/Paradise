@@ -120,7 +120,7 @@
 	refund_path = /obj/item/antag_spawner/nuke_ops
 	cost = 100
 	refundable = TRUE
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/support/reinforcement/assault_borg
 	name = "Syndicate Assault Cyborg"
@@ -347,7 +347,7 @@
 	reference = "C4B"
 	item = /obj/item/storage/backpack/duffel/syndie/c4
 	cost = 40 //20% discount!
-	can_discount = FALSE
+	cant_discount = TRUE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/breaching_charge
@@ -366,7 +366,7 @@
 	reference = "X4B"
 	item = /obj/item/storage/backpack/duffel/syndie/x4
 	cost = 20
-	can_discount = FALSE
+	cant_discount = TRUE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/grenadier
@@ -643,7 +643,7 @@
 	cost = 55
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
@@ -651,7 +651,7 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
@@ -659,11 +659,10 @@
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"
-	item = /obj/item/storage/box/syndie_kit/chameleon/nuke
 	cost = 30
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
