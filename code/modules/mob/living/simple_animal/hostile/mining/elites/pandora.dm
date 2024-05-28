@@ -54,25 +54,25 @@
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"
-	button_icon_state = "singular_shot"
+	button_overlay_icon_state = "singular_shot"
 	chosen_message = "<span class='boldwarning'>You fire a chaser after all mobs in view.</span>"
 	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
 	name = "Magic Box"
-	button_icon_state = "magic_box"
+	button_overlay_icon_state = "magic_box"
 	chosen_message = "<span class='boldwarning'>You are now attacking with a box of magic squares.</span>"
 	chosen_attack_num = MAGIC_BOX
 
 /datum/action/innate/elite_attack/pandora_teleport
 	name = "Line Teleport"
-	button_icon_state = "pandora_teleport"
+	button_overlay_icon_state = "pandora_teleport"
 	chosen_message = "<span class='boldwarning'>You will now teleport to your target.</span>"
 	chosen_attack_num = PANDORA_TELEPORT
 
 /datum/action/innate/elite_attack/aoe_squares
 	name = "AOE Blast"
-	button_icon_state = "aoe_squares"
+	button_overlay_icon_state = "aoe_squares"
 	chosen_message = "<span class='boldwarning'>Your attacks will spawn an AOE blast at your target location.</span>"
 	chosen_attack_num = AOE_SQUARES
 

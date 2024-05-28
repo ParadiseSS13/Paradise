@@ -239,7 +239,7 @@
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
-	button_icon_state = "block"
+	button_overlay_icon_state = "block"
 
 /datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner

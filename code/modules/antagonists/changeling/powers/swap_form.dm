@@ -2,7 +2,7 @@
 	name = "Swap Forms"
 	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
-	button_icon_state = "cling_mindswap"
+	button_overlay_icon_state = "cling_mindswap"
 	chemical_cost = 40
 	dna_cost = 2
 	req_human = TRUE //Monkeys can't grab

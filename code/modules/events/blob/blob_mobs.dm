@@ -207,8 +207,8 @@
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
-	icon_icon = 'icons/mob/guardian.dmi'
-	button_icon_state = "communicate"
+	button_overlay_icon = 'icons/mob/guardian.dmi'
+	button_overlay_icon_state = "communicate"
 
 /datum/action/innate/communicate_overmind_blob/Activate()
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/user = owner

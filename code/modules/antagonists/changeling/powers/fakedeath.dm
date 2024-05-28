@@ -1,7 +1,7 @@
 /datum/action/changeling/fakedeath
 	name = "Regenerative Stasis"
 	desc = "We fall into a stasis, allowing us to regenerate and trick our enemies. Costs 15 chemicals."
-	button_icon_state = "fake_death"
+	button_overlay_icon_state = "fake_death"
 	chemical_cost = 15
 	power_type = CHANGELING_INNATE_POWER
 	req_dna = 1

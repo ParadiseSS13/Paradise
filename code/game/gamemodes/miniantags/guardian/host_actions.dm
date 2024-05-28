@@ -5,8 +5,8 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	icon_icon = 'icons/mob/guardian.dmi'
-	button_icon_state = "base"
+	button_background_icon = 'icons/mob/guardian.dmi'
+	button_overlay_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
 /datum/action/guardian/Grant(mob/M, mob/living/simple_animal/hostile/guardian/G)
@@ -24,7 +24,7 @@
 /datum/action/guardian/communicate
 	name = "Communicate"
 	desc = "Communicate telepathically with your guardian."
-	button_icon_state = "communicate"
+	button_overlay_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(left_click)
 	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
@@ -50,7 +50,7 @@
 /datum/action/guardian/recall
 	name = "Recall Guardian"
 	desc = "Forcibly recall your guardian."
-	button_icon_state = "recall"
+	button_overlay_icon_state = "recall"
 
 /datum/action/guardian/recall/Trigger(left_click)
 	guardian.Recall()
@@ -63,7 +63,7 @@
 /datum/action/guardian/reset_guardian
 	name = "Replace Guardian Player"
 	desc = "Replace your guardian's player with a ghost. This can only be done once."
-	button_icon_state = "reset"
+	button_overlay_icon_state = "reset"
 	var/cooldown_timer
 
 /datum/action/guardian/reset_guardian/IsAvailable()
@@ -108,8 +108,8 @@
 	clothes_req = FALSE
 	base_cooldown = 300 SECONDS
 	action_icon_state = "no_state"
+	action_background_icon = 'icons/mob/guardian.dmi'
 	action_background_icon_state = "reset"
-	action_icon = 'icons/mob/guardian.dmi'
 
 /datum/spell/summon_guardian_beacon/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -131,8 +131,8 @@
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "no_state"
+	action_background_icon = 'icons/mob/guardian.dmi'
 	action_background_icon_state = "reset"
-	action_icon = 'icons/mob/guardian.dmi'
 
 /datum/spell/surveillance_snare/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -162,8 +162,8 @@
 	clothes_req = FALSE
 	base_cooldown = 1 SECONDS
 	action_icon_state = "no_state"
+	action_background_icon = 'icons/mob/guardian.dmi'
 	action_background_icon_state = "communicate"
-	action_icon = 'icons/mob/guardian.dmi'
 
 /datum/spell/choose_battlecry/create_new_targeting()
 	return new /datum/spell_targeting/self

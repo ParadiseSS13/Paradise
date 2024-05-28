@@ -3,7 +3,7 @@
 /datum/action/changeling
 	name = "Prototype Sting"
 	desc = "" // Fluff
-	background_icon_state = "bg_changeling"
+	button_background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
 	/// Datum path used to determine the location and name of the power in changeling evolution menu UI

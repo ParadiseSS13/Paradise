@@ -57,8 +57,8 @@
 /datum/action/innate/gorilla/gorilla_toggle
 	name = "Toggle Stand"
 	desc = "Toggles between crawling and standing up."
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_icon_state = "gorilla_toggle"
+	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_overlay_icon_state = "gorilla_toggle"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/gorilla/gorilla_toggle/Activate()
