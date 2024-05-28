@@ -512,6 +512,7 @@
 /area/ruin/space/djstation)
 "bp" = (
 /obj/structure/chair/office/light,
+/mob/living/simple_animal/hostile/russian/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bq" = (
@@ -793,6 +794,15 @@
 	pixel_y = 35
 	},
 /turf/template_noop,
+/area/ruin/space/djstation)
+"cU" = (
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/plating,
+/area/ruin/space/djstation)
+"wK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 
 (1,1,1) = {"
@@ -1106,8 +1116,8 @@ ae
 aa
 aa
 am
-at
-av
+wK
+cU
 aF
 av
 aM
@@ -1226,7 +1236,7 @@ ae
 ad
 aa
 am
-av
+cU
 aB
 at
 aJ

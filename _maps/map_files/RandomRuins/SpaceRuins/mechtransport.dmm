@@ -340,6 +340,7 @@
 /obj/effect/decal/cleanable/shreds{
 	pixel_y = -10
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "xE" = (
@@ -419,6 +420,10 @@
 	stat = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"Cn" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "CK" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -524,6 +529,10 @@
 	pixel_x = -6
 	},
 /obj/item/pen/multi/syndicate,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 3;
+	pixel_x = 2
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "MA" = (
@@ -543,6 +552,10 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
+"MN" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
 "Nc" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -556,6 +569,7 @@
 	pixel_y = -32;
 	name = "secure supplies blast door control"
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "Nq" = (
@@ -1269,7 +1283,7 @@ MI
 vo
 rK
 bU
-bU
+Cn
 bU
 Af
 vo
@@ -1333,7 +1347,7 @@ vo
 vo
 zX
 bU
-bU
+Cn
 bU
 HK
 vo
@@ -1484,7 +1498,7 @@ oo
 vo
 pJ
 VS
-VS
+MN
 VS
 aW
 aq

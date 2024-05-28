@@ -146,6 +146,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -182,6 +183,7 @@
 /obj/structure/chair/comfy/corp{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "hO" = (
@@ -466,6 +468,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/mob/living/simple_animal/parrot,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
@@ -593,6 +596,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "vq" = (
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -784,6 +788,14 @@
 	dir = 1
 	},
 /area/ruin/space/wreck_cargoship)
+"Fq" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
 "Ge" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
@@ -908,6 +920,7 @@
 /area/ruin/space/wreck_cargoship)
 "Ll" = (
 /obj/effect/decal/cleanable/blood/old,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -1141,6 +1154,10 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"UD" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "UE" = (
@@ -1503,7 +1520,7 @@ ea
 qg
 gE
 Yz
-Vs
+UD
 Sj
 gE
 qg
@@ -1735,7 +1752,7 @@ NI
 NM
 cT
 NM
-NM
+Fq
 qY
 NM
 xX

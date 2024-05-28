@@ -80,6 +80,8 @@
 /atom/proc/attack_ghost(mob/dead/observer/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
+		return FALSE
 	if(user.client)
 		if(user.gas_scan && atmos_scan(user=user, target=src, silent=TRUE))
 			return TRUE

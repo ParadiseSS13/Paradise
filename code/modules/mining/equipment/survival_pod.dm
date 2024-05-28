@@ -263,7 +263,7 @@
 	var/buildstackamount = 5
 
 /obj/structure/fans/Initialize(loc)
-	..()
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/fans/Destroy()

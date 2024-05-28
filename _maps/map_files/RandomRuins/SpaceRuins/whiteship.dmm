@@ -121,7 +121,7 @@
 /area/shuttle/abandoned)
 "qK" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/laser/retro,
+/obj/item/whiteship_port_generator,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ri" = (
@@ -269,6 +269,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "Ct" = (
@@ -284,6 +285,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"Em" = (
+/obj/structure/table/wood/poker,
+/obj/item/gun/energy/laser/retro,
+/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Fr" = (
 /obj/effect/spawner/window/shuttle,
@@ -394,6 +400,13 @@
 /obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"XQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
 "Yr" = (
 /obj/machinery/computer/shuttle/white_ship{
 	dir = 4
@@ -435,8 +448,8 @@ zM
 zM
 zO
 Gs
-SS
-SS
+XQ
+XQ
 qK
 zO
 zM
@@ -545,7 +558,7 @@ zO
 zO
 Pe
 sK
-sK
+Em
 zO
 vB
 vB

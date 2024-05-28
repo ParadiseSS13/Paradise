@@ -35,6 +35,10 @@
 "S" = (
 /turf/template_noop,
 /area/template_noop)
+"X" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 S
@@ -42,7 +46,7 @@ c
 S
 S
 S
-S
+X
 "}
 (2,1,1) = {"
 S

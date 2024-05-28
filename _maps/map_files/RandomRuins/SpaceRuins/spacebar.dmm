@@ -227,10 +227,6 @@
 /obj/item/wirecutters,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
-"aZ" = (
-/obj/item/radio/beacon,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
 "ba" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1
@@ -440,6 +436,10 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/space/powered)
+"jU" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
 "lh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
@@ -502,8 +502,13 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
+"rZ" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space)
 "sq" = (
 /obj/structure/lattice,
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -644,6 +649,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "Cx" = (
@@ -737,6 +743,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
+"Jb" = (
+/obj/item/radio/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
 "JK" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
@@ -818,6 +830,12 @@
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/powered/bar)
+"Mf" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
 "Ni" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table/wood,
@@ -860,6 +878,10 @@
 /obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
+"OE" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space/nearstation)
 "Pr" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -1323,7 +1345,7 @@ ad
 ad
 ad
 ad
-ad
+rZ
 ad
 ad
 ad
@@ -1480,7 +1502,7 @@ br
 br
 br
 br
-ad
+rZ
 ad
 ad
 ad
@@ -1530,7 +1552,7 @@ au
 bo
 br
 br
-br
+OE
 br
 ad
 ad
@@ -1584,7 +1606,7 @@ br
 br
 br
 br
-ad
+rZ
 ad
 ad
 ad
@@ -1739,7 +1761,7 @@ ad
 ad
 ad
 ad
-ad
+rZ
 ad
 ad
 ad
@@ -2184,11 +2206,11 @@ am
 aE
 as
 as
-as
+jU
 aK
 ap
 aO
-aZ
+aO
 aV
 aO
 yC
@@ -2351,7 +2373,7 @@ LU
 lO
 bg
 bk
-bk
+Mf
 bk
 bk
 bk
@@ -2506,7 +2528,7 @@ Is
 bf
 am
 bk
-bk
+Jb
 qZ
 bk
 Ad

@@ -191,6 +191,10 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
+"fu" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
 "fA" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -239,6 +243,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "hB" = (
 /obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "hE" = (
@@ -253,6 +258,11 @@
 	pixel_y = 32
 	},
 /obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"hW" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iO" = (
@@ -408,6 +418,10 @@
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
+"lL" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "lQ" = (
 /obj/machinery/driver_button{
 	id_tag = "constructiondriver0";
@@ -567,7 +581,6 @@
 "pX" = (
 /obj/structure/closet{
 	icon_state = "eng_secure";
-	opened = 1;
 	open_door_sprite = "eng_secure_door";
 	name = "engineer's locker"
 	},
@@ -692,6 +705,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"uV" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "vn" = (
@@ -1125,6 +1142,11 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
+"Km" = (
+/obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
 "LL" = (
 /obj/structure/toilet{
 	dir = 4
@@ -1550,13 +1572,13 @@ LP
 "}
 (2,1,1) = {"
 LP
+lL
 LP
 LP
 LP
 LP
 LP
-LP
-LP
+lL
 LP
 LP
 LP
@@ -1586,9 +1608,9 @@ LP
 LP
 LP
 LP
+lL
 LP
-LP
-LP
+lL
 LP
 LP
 LP
@@ -1780,7 +1802,7 @@ Iz
 hE
 LP
 LP
-LP
+fu
 LP
 LP
 LP
@@ -1974,7 +1996,7 @@ kt
 eP
 fA
 XP
-et
+uV
 et
 Yz
 CP
@@ -2040,7 +2062,7 @@ kZ
 Tw
 YE
 jG
-XP
+hW
 XP
 Ud
 fA
@@ -2308,7 +2330,7 @@ oL
 mW
 NM
 mW
-BR
+Km
 IC
 IC
 ao
@@ -2357,11 +2379,11 @@ LP
 Gi
 LP
 LP
+lL
 LP
 LP
 LP
-LP
-LP
+lL
 LP
 "}
 (26,1,1) = {"
@@ -2427,7 +2449,7 @@ px
 LP
 LP
 LP
-LP
+lL
 LP
 LP
 LP
@@ -2486,7 +2508,7 @@ uQ
 qu
 LP
 LP
-LP
+lL
 LP
 LP
 LP
@@ -2523,7 +2545,7 @@ LP
 LP
 LP
 LP
-LP
+lL
 LP
 LP
 LP

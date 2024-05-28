@@ -112,7 +112,7 @@
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
 	butcher_results = list(/obj/item/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/bone = 2)
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle/ancient
-	crusher_drop_mod = 30
+	crusher_drop_mod = 100 //These things are rare (1/100 per spawner). You shouldn't have to hope for another stroke of luck to get it's trophy after finding it
 	wander = FALSE
 	var/list/cached_tentacle_turfs
 	var/turf/last_location

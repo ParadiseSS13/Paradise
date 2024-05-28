@@ -64,7 +64,7 @@
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
-	location_override = "Teleporter"
+	location_override = "the AI Satellite, or the Captain's Office"
 
 /datum/theft_objective/defib
 	name = "the chief medical officer's advanced compact defibrillator"
@@ -105,6 +105,11 @@
 	typepath = /obj/item/disk/nuclear
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
+
+/datum/theft_objective/nukedisc/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/disk/nuclear/training)) //Haha no
+		return FALSE
+	return TRUE
 
 /datum/theft_objective/reactive
 	name = "any type of reactive armor"

@@ -29,9 +29,9 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can attain when exposed to heat/cold
 	var/temperature_max = 10000
 
-	// How difficult is this food for the kitchen to make?
-	// Affects the quantity of food that is requested by CC.
-	var/goal_difficulty = REAGENT_GOAL_SKIP
+	/// How difficult is this food for the kitchen to make?
+	/// Affects the quantity of food that is requested by CC.
+	var/goal_difficulty = FOOD_GOAL_SKIP
 
 /obj/item/food/Initialize(mapload)
 	. = ..()
