@@ -22,7 +22,7 @@
 /obj/effect/decal/cleanable/tar/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
 	target.slowdown -= 10
-	target = src.loc
+	target = loc
 	target.slowdown += 10
 	if(!issimulatedturf(target))  // We remove slowdown in Destroy(), so we run this check after adding the slowdown.
 		qdel(src)
