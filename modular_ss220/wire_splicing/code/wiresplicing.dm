@@ -16,9 +16,9 @@
 	name = "wiring splicing spawner 30%"
 
 /obj/effect/spawner/wire_splicing/thirty/Initialize(mapload)
+	. = ..()
 	if(prob(70))
 		return INITIALIZE_HINT_QDEL
-	. = ..()
 
 /obj/structure/wire_splicing
 	name = "wire splicing"

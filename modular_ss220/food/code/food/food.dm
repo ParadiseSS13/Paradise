@@ -585,7 +585,7 @@
 	bitesize = 3
 	filling_color = "#5e1706"
 	tastes = list("вишня" = 5, "сладость" = 1, "шоколад" = 1)
-	list_reagents = list("nutriment" = 12, "sugar" = 4, "coco" = 4)
+	list_reagents = list("nutriment" = 12, "sugar" = 4, "cocoa" = 4)
 
 /obj/item/food/snacks/choccherrycakeslice
 	name = "кусочек шоколадно-вишневого торта"
@@ -617,7 +617,7 @@
 	slices_num = 5
 	filling_color = "#5e1706"
 	tastes = list("шоколад" = 3, "сладость" = 2, "яйца" = 1, "ягоды" = 2)
-	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "coco" = 2, "cream" = 3, "sugar" = 3, "berryjucie" = 3)
+	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "cocoa" = 2, "cream" = 3, "sugar" = 3, "berryjuice" = 3)
 
 /obj/item/food/snacks/noelslice
 	name = "кусочек Noël"

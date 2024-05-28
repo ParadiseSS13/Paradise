@@ -45629,7 +45629,7 @@
 "dHU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/machinery/light/small/built/north,
+/obj/machinery/light/small/nightshifted/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "dIa" = (
@@ -59998,7 +59998,6 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/machinery/light/small/built/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "iVU" = (
@@ -74695,6 +74694,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"oqT" = (
+/obj/effect/landmark/damageturf,
+/obj/machinery/light/small/nightshifted/south,
+/turf/simulated/floor/wood/oak,
+/area/station/maintenance/asmaint2)
 "oqZ" = (
 /obj/effect/turf_decal/delivery/blue/partial,
 /turf/simulated/floor/plasteel,
@@ -144807,7 +144811,7 @@ cQk
 cQk
 gZH
 spH
-crj
+oqT
 cuQ
 cuQ
 cuQ

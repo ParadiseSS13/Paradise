@@ -24,8 +24,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	flags_2 = NO_MALF_EFFECT_2
 	var/active = FALSE
 
-/obj/machinery/gateway/Initialize()
-	..()
+/obj/machinery/gateway/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
 

@@ -307,7 +307,7 @@
 /obj/machinery/light/small/nightshifted/east
 	dir = 4
 
-/obj/machinery/light/small/directional/west
+/obj/machinery/light/small/nightshifted/west
 	dir = 8
 
 /obj/machinery/light/small/built

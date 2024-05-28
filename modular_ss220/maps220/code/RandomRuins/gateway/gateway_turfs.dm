@@ -125,8 +125,8 @@
 	nitrogen = 0
 	temperature = TCMB
 
-/turf/simulated/floor/indestructible/transparent_floor/Initialize()
-	..()
+/turf/simulated/floor/indestructible/transparent_floor/Initialize(mapload)
+	. = ..()
 	var/obj/O
 	O = new()
 	O.underlays.Add(src)
