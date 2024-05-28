@@ -290,7 +290,6 @@
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
 
-
 /// Secure Crates: Access locked to Theta crew. Cannot be moved, destroyed,
 /// emagged or EMPed because gamers can't be trusted not to game.
 /obj/structure/closet/crate/secure/oldstation
