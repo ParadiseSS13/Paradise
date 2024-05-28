@@ -5,7 +5,7 @@
 	combo_text_override = "Grab, Disarm, Harm"
 
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!IS_HORIZONTAL(target))
+	if(!IS_HORIZONTAL(target) || !target.has_status_effect(STATUS_EFFECT_ARMBAR))
 		return MARTIAL_COMBO_FAIL
 
 	if(!IS_HORIZONTAL(user))

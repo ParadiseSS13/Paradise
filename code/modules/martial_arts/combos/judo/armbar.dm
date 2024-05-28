@@ -13,6 +13,7 @@
 	target.drop_l_hand()
 	target.drop_r_hand()
 	target.apply_damage(45, STAMINA)
+	target.apply_status_effect(STATUS_EFFECT_ARMBAR)
 	target.KnockDown(5 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Armbar", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
