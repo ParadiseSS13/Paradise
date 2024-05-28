@@ -106,7 +106,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/security/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
@@ -155,7 +155,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor

@@ -415,6 +415,10 @@
 		/obj/item/mod/module/magboot/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/apocryphal/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/apocryphal/officer
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
