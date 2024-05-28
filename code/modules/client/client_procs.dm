@@ -1293,7 +1293,7 @@
 		winset(usr, "mainwindow", "is-maximized=true")
 		winset(usr, "mainwindow", "menu=menu")
 	var/fullscreen_state = fullscreen ? "on" : "off"
-	to_chat(usr, "Toggled fullscreen [fullscreen_state]. To Togglefullscreen; Go to the tab OOC -> Togglefullscreen or press F11")
+	to_chat(usr, "Toggled fullscreen [fullscreen_state]. To Toggle fullscreen; Go to the tab OOC -> Toggle fullscreen or press F11")
 	fit_viewport()
 
 /client/proc/try_open_reagent_editor(atom/target)
