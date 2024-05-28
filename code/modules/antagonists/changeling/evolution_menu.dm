@@ -88,7 +88,6 @@
 		return FALSE
 
 	cling.give_power(new power_type)
-	SSblackbox.record_feedback("nested tally", "changeling_powers_purchased", 1, list("[initial(power.name)]"))
 	return TRUE
 
 /datum/action/changeling/evolution_menu/proc/get_ability_tabs()

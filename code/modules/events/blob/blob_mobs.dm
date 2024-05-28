@@ -84,7 +84,6 @@
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	GLOB.spores_active++
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -152,7 +151,6 @@
 	if(oldguy)
 		oldguy.forceMove(get_turf(src))
 		oldguy = null
-	GLOB.spores_active--
 	return ..()
 
 

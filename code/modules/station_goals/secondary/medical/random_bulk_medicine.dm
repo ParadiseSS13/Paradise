@@ -1,6 +1,6 @@
 /datum/station_goal/secondary/random_bulk_reagent/medchem
 	name = "Random Bulk Medicine"
-	department = "Chemistry"
+	department = "Medbay"
 	abstract = FALSE
 
 /datum/station_goal/secondary/random_bulk_reagent/medchem/randomize_params()

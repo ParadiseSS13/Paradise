@@ -108,7 +108,6 @@
 /area/ruin/space/methlab)
 "v" = (
 /obj/structure/chair,
-/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "w" = (
@@ -123,9 +122,6 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plating,
-/area/ruin/space/methlab)
-"L" = (
-/turf/simulated/mineral/random/high_chance,
 /area/ruin/space/methlab)
 
 (1,1,1) = {"
@@ -166,9 +162,9 @@ a
 a
 b
 b
-L
-L
-L
+b
+b
+b
 b
 b
 b
@@ -233,8 +229,8 @@ e
 j
 p
 t
-L
-L
+b
+b
 b
 b
 b
@@ -244,12 +240,12 @@ a
 a
 b
 b
-L
+b
 f
 m
 b
-L
-L
+b
+b
 b
 b
 a
@@ -259,8 +255,8 @@ a
 (9,1,1) = {"
 b
 b
-L
-L
+b
+b
 f
 n
 j
@@ -276,7 +272,7 @@ a
 b
 b
 b
-L
+b
 g
 i
 j

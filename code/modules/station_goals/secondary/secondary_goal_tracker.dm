@@ -2,7 +2,6 @@
 	var/datum/secondary_goal_progress/real_progress
 	var/datum/secondary_goal_progress/temporary_progress
 	var/datum/station_goal/secondary/goal
-	var/registered = FALSE
 
 /datum/secondary_goal_tracker/New(datum/station_goal/secondary/goal_in, datum/secondary_goal_progress/progress)
 	goal = goal_in
@@ -12,8 +11,6 @@
 /datum/secondary_goal_tracker/proc/reset()
 	real_progress = new real_progress.type(goal)
 	temporary_progress = real_progress.Copy()
-	if(!registered)
-		register(SSshuttle.supply)
 
 /datum/secondary_goal_tracker/proc/register(shuttle)
 	RegisterSignal(shuttle, COMSIG_CARGO_BEGIN_SCAN,		PROC_REF(reset_tempporary_progress))
@@ -22,7 +19,6 @@
 	RegisterSignal(shuttle, COMSIG_CARGO_DO_PRIORITY_SELL,	PROC_REF(update_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_SEND_ERROR,		PROC_REF(update_progress))
 	RegisterSignal(shuttle, COMSIG_CARGO_END_SELL,			PROC_REF(check_for_completion))
-	registered = TRUE
 
 /datum/secondary_goal_tracker/proc/unregister(shuttle)
 	UnregisterSignal(shuttle, COMSIG_CARGO_BEGIN_SCAN)
@@ -31,7 +27,6 @@
 	UnregisterSignal(shuttle, COMSIG_CARGO_DO_PRIORITY_SELL)
 	UnregisterSignal(shuttle, COMSIG_CARGO_SEND_ERROR)
 	UnregisterSignal(shuttle, COMSIG_CARGO_END_SELL)
-	registered = FALSE
 
 // Resets the temporary porgress to match the real progress.
 /datum/secondary_goal_tracker/proc/reset_tempporary_progress(obj/docking_port/mobile/supply/shuttle)
@@ -98,16 +93,12 @@
 	return FALSE
 
 /datum/secondary_goal_progress/proc/check_personal_crate(atom/movable/AM)
-	// Accept stuff that is properly labelled with a hand labeller.
-	var/datum/component/label/goal/label = AM.GetComponent(/datum/component/label/goal)
-	if(istype(label))
-		return !goal_requester || label.label_name == goal_requester
-
-	// Accept stuff in matching personal crates.
 	var/obj/structure/closet/crate/secure/personal/PC = get_atom_on_turf(AM, /obj/structure/closet/crate/secure/personal)
 	if(!istype(PC))
 		return FALSE
-	return !goal_requester || PC.registered_name == goal_requester
+	if(goal_requester && PC.registered_name != goal_requester)
+		return FALSE
+	return TRUE
 
 /datum/secondary_goal_progress/proc/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
 	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "payments made"))
@@ -129,6 +120,6 @@
 	personal_item.account = personal_account || department_account
 	personal_item.credits = reward / 3
 	personal_item.reason = message
-	personal_item.requests_console_department = department
 	manifest.line_items += personal_item
 
+	send_requests_console_message(message, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)

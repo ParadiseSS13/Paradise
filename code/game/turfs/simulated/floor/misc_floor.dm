@@ -4,9 +4,9 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = LAVALAND_TEMPERATURE
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
+	temperature = 500
+	oxygen = 8
+	nitrogen = 14
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -146,9 +146,9 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
+	oxygen = 8
+	nitrogen = 14
+	temperature = 500
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
@@ -192,10 +192,8 @@
 			return
 
 	if(!. && isliving(A))
-		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
-
-/turf/simulated/floor/clockwork/proc/spawn_visual()
-	new /obj/effect/temp_visual/ratvar/floor(src)
+		sleep(2 DECISECONDS)
+		new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
@@ -236,9 +234,9 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = LAVALAND_NITROGEN
-	oxygen = LAVALAND_OXYGEN
-	temperature = LAVALAND_TEMPERATURE
+	nitrogen = 14
+	oxygen = 8
+	temperature = 500
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"

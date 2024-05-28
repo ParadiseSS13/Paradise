@@ -1,5 +1,8 @@
 #!/bin/bash
 set -eo pipefail
 
-wget https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz
-tar -xf DMCompiler_linux-x64.tar.gz
+git clone https://github.com/OpenDreamProject/OpenDream.git OpenDream
+cd OpenDream
+git submodule update --init --recursive
+dotnet restore
+dotnet build -c Release

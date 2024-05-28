@@ -174,16 +174,16 @@
 /mob/proc/hear_sleep(message)
 	var/heard = ""
 	if(prob(15))
-		message = html_decode(strip_html_tags(message))
+		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
 		if(length(messages) > 0)
 			var/R = rand(1, length(messages))
 			var/heardword = messages[R]
 			if(copytext(heardword,1, 1) in punctuation)
-				heardword = html_encode(copytext(heardword, 2))
+				heardword = copytext(heardword,2)
 			if(copytext(heardword,-1) in punctuation)
-				heardword = html_encode(copytext(heardword, 1, length(heardword)))
+				heardword = copytext(heardword,1,length(heardword))
 			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"

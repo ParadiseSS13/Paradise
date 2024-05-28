@@ -414,10 +414,6 @@
 /obj/machinery/smartfridge,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
-"VF" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot,
-/turf/simulated/floor/pod/dark,
-/area/ruin/space/syndicate_druglab)
 "Wd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -690,8 +686,8 @@ sb
 vZ
 xF
 vZ
-yI
-yI
+vZ
+vZ
 vZ
 vZ
 vZ
@@ -724,9 +720,9 @@ sb
 vZ
 vZ
 vZ
-yI
-yI
-yI
+vZ
+vZ
+vZ
 vZ
 vZ
 xF
@@ -773,10 +769,10 @@ vZ
 vZ
 vZ
 vZ
-yI
-yI
-yI
-yI
+vZ
+vZ
+vZ
+vZ
 vZ
 yI
 vZ
@@ -807,12 +803,12 @@ Nr
 Nr
 Nr
 vZ
-yI
-yI
-yI
+vZ
+vZ
+vZ
 xF
-yI
-yI
+vZ
+vZ
 yI
 yI
 sb
@@ -842,12 +838,12 @@ nP
 dL
 Nr
 vZ
-yI
-yI
+vZ
+vZ
 xF
 xF
 ue
-yI
+vZ
 vZ
 vZ
 sb
@@ -877,7 +873,7 @@ tL
 os
 Nr
 Nr
-yI
+vZ
 xF
 ue
 xF
@@ -912,7 +908,7 @@ os
 os
 en
 Nr
-yI
+vZ
 xF
 DG
 qf
@@ -947,8 +943,8 @@ os
 os
 Ue
 Nr
-yI
-yI
+vZ
+vZ
 Gm
 ue
 xF
@@ -983,7 +979,7 @@ tL
 Nr
 Nr
 vZ
-yI
+vZ
 Wd
 vZ
 vZ
@@ -1091,7 +1087,7 @@ ym
 te
 vz
 Nr
-yI
+vZ
 xF
 xF
 xF
@@ -1113,7 +1109,7 @@ vZ
 vZ
 Nr
 BD
-VF
+os
 os
 gU
 SG
@@ -1126,7 +1122,7 @@ gI
 gI
 Oy
 Nr
-yI
+vZ
 xF
 QL
 xF
@@ -1161,7 +1157,7 @@ gI
 gI
 Oy
 Nr
-yI
+vZ
 xF
 xF
 xF

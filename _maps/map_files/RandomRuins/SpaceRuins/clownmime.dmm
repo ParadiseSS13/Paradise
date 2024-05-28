@@ -71,10 +71,6 @@
 /obj/item/stack/ore/tranquillite,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
-"r" = (
-/obj/structure/spawner/mining/hivelord,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
 "s" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -208,15 +204,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"T" = (
-/turf/simulated/mineral/random/high_chance/clown,
-/area/ruin/space/unpowered)
-"Y" = (
-/turf/simulated/mineral/random/high_chance,
-/area/ruin/space/unpowered)
-"Z" = (
-/turf/simulated/mineral/random/low_chance,
-/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -267,8 +254,8 @@ a
 a
 a
 m
-T
-T
+m
+m
 m
 m
 m
@@ -290,8 +277,8 @@ a
 a
 a
 m
-T
-T
+m
+m
 m
 m
 m
@@ -312,10 +299,10 @@ a
 a
 a
 a
-T
-T
-T
-T
+m
+m
+m
+m
 m
 m
 m
@@ -334,13 +321,13 @@ a
 a
 a
 a
-T
-Z
-Z
-Z
-Z
-Z
-Y
+m
+m
+m
+m
+m
+m
+m
 m
 m
 m
@@ -355,14 +342,14 @@ a
 a
 a
 a
-T
-T
-T
-Z
-Z
-Z
-Z
-Z
+m
+m
+m
+m
+m
+m
+m
+m
 m
 m
 m
@@ -377,16 +364,16 @@ a
 a
 a
 n
-T
 m
 m
 m
-Z
-Z
-Z
-Z
-Y
-Y
+m
+m
+m
+m
+m
+m
+m
 m
 m
 m
@@ -405,9 +392,9 @@ m
 m
 m
 m
-Y
-Z
-Z
+m
+m
+m
 m
 m
 m
@@ -426,14 +413,14 @@ m
 m
 m
 m
-Y
-Y
-Y
+m
+m
+m
 m
 m
 m
 n
-r
+n
 a
 a
 a
@@ -448,10 +435,10 @@ m
 m
 m
 m
-Y
 m
-Y
-Y
+m
+m
+m
 m
 m
 n
@@ -541,8 +528,8 @@ m
 m
 m
 m
-T
-T
+m
+m
 m
 m
 m
@@ -563,10 +550,10 @@ m
 J
 b
 m
-T
-T
-T
-T
+m
+m
+m
+m
 m
 m
 "}
@@ -586,8 +573,8 @@ k
 b
 m
 m
-T
-T
+m
+m
 n
 m
 m
@@ -608,8 +595,8 @@ K
 b
 b
 m
-T
-T
+m
+m
 n
 m
 m

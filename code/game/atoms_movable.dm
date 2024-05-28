@@ -199,8 +199,7 @@
 	Moved(old_loc, direction, TRUE)
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) 
-		return FALSE
+	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
@@ -322,7 +321,7 @@
 
 	Moved(old_loc, NONE)
 
-	return TRUE
+	return 1
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
@@ -349,36 +348,36 @@
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
-//return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
-//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
+//Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
+//Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
 /atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
-		return TRUE
+		return 1
 
 	if(pulledby && !pulledby.pulling)
-		return TRUE
+		return 1
 
 	if(throwing)
-		return TRUE
+		return 1
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
-		return TRUE
+		return 1
 
-	return FALSE
+	return 0
 
 /atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
 	if(!loc || Process_Spacemove(0))
 		inertia_dir = 0
-		return FALSE
+		return 0
 
 	inertia_dir = direction
 	if(!direction)
-		return TRUE
+		return 1
 
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
-	return TRUE
+	return 1
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
@@ -398,7 +397,7 @@
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
-		return FALSE
+		return 0
 
 	if(pulledby)
 		pulledby.stop_pulling()
@@ -501,8 +500,8 @@
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
 			buckled_mob.inertia_dir = last_move
-			return FALSE
-	return TRUE
+			return 0
+	return 1
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -522,7 +521,7 @@
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
 	if(mover in buckled_mobs)
-		return TRUE
+		return 1
 	return ..()
 
 /atom/movable/proc/get_spacemove_backup()

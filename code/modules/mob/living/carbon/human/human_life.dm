@@ -767,19 +767,19 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 8 MINUTES) 
+	if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
 		return
 
-	if(decaytime > 8 MINUTES)
+	if(decaytime > 6000 && decaytime <= 12000)//20 minutes for decaylevel2 -- bloated and very stinky
 		decaylevel = 1
 
-	if(decaytime > 16 MINUTES)
+	if(decaytime > 12000 && decaytime <= 18000)//30 minutes for decaylevel3 -- rotting and gross
 		decaylevel = 2
 
-	if(decaytime > 24 MINUTES)
+	if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
 		decaylevel = 3
 
-	if(decaytime > 45 MINUTES)
+	if(decaytime > 27000)
 		decaylevel = 4
 		makeSkeleton()
 		return //No puking over skeletons, they don't smell at all!

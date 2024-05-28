@@ -126,11 +126,6 @@
 /obj/structure/bed,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
-"K" = (
-/obj/structure/table/wood,
-/obj/item/salvage/ruin/tablet,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/ruin/space/powered)
 "Q" = (
 /obj/structure/table/wood,
 /obj/item/blank_tarot_card,
@@ -199,7 +194,7 @@ h
 z
 b
 h
-K
+n
 b
 "}
 (6,1,1) = {"

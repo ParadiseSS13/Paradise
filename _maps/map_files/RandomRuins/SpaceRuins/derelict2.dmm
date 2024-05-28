@@ -34,7 +34,19 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"h" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
 "i" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"j" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "k" = (
@@ -53,7 +65,6 @@
 	dir = 4
 	},
 /obj/effect/decal/remains/human,
-/mob/living/simple_animal/hostile/retaliate/ghost,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "n" = (
@@ -67,7 +78,6 @@
 /obj/item/trash/plate{
 	pixel_x = -10
 	},
-/obj/item/food/snacks/burger/ghost,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "o" = (
@@ -75,7 +85,6 @@
 	dir = 8
 	},
 /obj/effect/decal/remains/human,
-/mob/living/simple_animal/hostile/retaliate/ghost,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "p" = (
@@ -84,12 +93,14 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"w" = (
-/obj/item/salvage/ruin/tablet,
+"q" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
-"E" = (
-/obj/structure/cult/functional/pylon,
+"r" = (
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 
@@ -829,7 +840,7 @@ i
 i
 i
 i
-i
+q
 f
 a
 a
@@ -866,12 +877,12 @@ a
 a
 a
 f
-i
-E
-i
+h
 i
 i
-E
+i
+i
+i
 i
 f
 a
@@ -913,7 +924,7 @@ i
 i
 m
 i
-w
+i
 i
 g
 b
@@ -993,7 +1004,7 @@ d
 d
 g
 i
-w
+i
 i
 o
 i
@@ -1035,12 +1046,12 @@ a
 a
 f
 i
-E
 i
 i
 i
-E
 i
+i
+r
 f
 a
 a
@@ -1077,7 +1088,7 @@ a
 a
 a
 f
-i
+j
 i
 i
 i

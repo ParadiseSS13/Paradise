@@ -111,9 +111,6 @@
 		"Cargo Technician" = "supradio",
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
-		"Explorer" = "supradio",
-		"Salvage Technician" = "supradio",
-		"Scavenger" = "supradio",
 		// Service
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",

@@ -228,6 +228,3 @@
 
 /obj/effect/turf_decal/raven/nine
 	icon_state = "RAVEN9"
-
-/obj/effect/turf_decal/blue_corner
-	icon_state = "darkbluecorners"

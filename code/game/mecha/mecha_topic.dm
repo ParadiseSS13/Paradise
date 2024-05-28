@@ -327,19 +327,19 @@
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)
-			if(state == MECHA_MAINT_OFF)
-				state = MECHA_MAINT_ON
+			if(state==0)
+				state = 1
 				to_chat(user, "The securing bolts are now exposed.")
 				if(occupant)
 					occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
-			else if(state == MECHA_MAINT_ON)
-				state = MECHA_MAINT_OFF
+			else if(state==1)
+				state = 0
 				to_chat(user, "The securing bolts are now hidden.")
 				if(occupant)
 					occupant.clear_alert("locked")
 			output_maintenance_dialog(afilter.getObj("id_card"),user)
 		return
-	if(href_list["set_internal_tank_valve"] && state >= MECHA_MAINT_ON)
+	if(href_list["set_internal_tank_valve"] && state >=1)
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)

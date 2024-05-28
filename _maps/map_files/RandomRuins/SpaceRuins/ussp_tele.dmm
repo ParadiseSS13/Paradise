@@ -170,23 +170,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/derelict/teleporter)
-"D" = (
-/obj/item/salvage/ruin/russian,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/derelict/teleporter)
-"P" = (
-/obj/structure/lattice,
-/mob/living/simple_animal/hostile/carp,
-/turf/template_noop,
-/area/space/nearstation)
-"X" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/template_noop,
-/area/template_noop)
-"Y" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
-/turf/template_noop,
-/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -259,7 +242,7 @@ g
 a
 "}
 (6,1,1) = {"
-X
+a
 a
 a
 a
@@ -283,17 +266,17 @@ l
 m
 m
 y
-D
+f
 g
 "}
 (8,1,1) = {"
 a
-Y
+a
 a
 b
 f
 h
-D
+f
 m
 r
 f
@@ -386,7 +369,7 @@ a
 "}
 (15,1,1) = {"
 a
-X
+a
 a
 b
 b
@@ -443,7 +426,7 @@ a
 (19,1,1) = {"
 a
 b
-P
+b
 b
 b
 b
@@ -466,7 +449,7 @@ a
 a
 a
 a
-X
+a
 "}
 (21,1,1) = {"
 a

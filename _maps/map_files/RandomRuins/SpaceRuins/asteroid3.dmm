@@ -19,17 +19,6 @@
 /obj/item/pickaxe/diamond,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
-"l" = (
-/obj/structure/spawner/mining/basilisk,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
-"u" = (
-/turf/simulated/mineral/random/low_chance,
-/area/ruin/space/unpowered)
-"X" = (
-/obj/structure/spawner/mining/hivelord,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -90,7 +79,7 @@ b
 d
 d
 c
-u
+c
 d
 d
 d
@@ -112,8 +101,8 @@ c
 d
 d
 c
-u
-u
+c
+d
 d
 d
 b
@@ -126,17 +115,17 @@ b
 b
 c
 c
-u
-u
 c
 c
 c
 c
 c
 c
-u
-u
-u
+c
+c
+c
+d
+d
 d
 c
 a
@@ -148,16 +137,16 @@ a
 b
 c
 c
-u
-u
-u
+c
+c
+c
 c
 c
 c
 b
 c
 c
-u
+c
 c
 c
 b
@@ -203,7 +192,7 @@ b
 b
 c
 c
-l
+b
 b
 b
 "}
@@ -218,7 +207,7 @@ c
 c
 c
 b
-X
+b
 e
 b
 b
@@ -287,8 +276,8 @@ c
 c
 c
 c
-u
-u
+c
+c
 c
 d
 d
@@ -303,14 +292,14 @@ a
 b
 d
 d
-u
-u
+c
+c
 c
 d
 c
-u
-u
-u
+c
+c
+c
 c
 c
 b
@@ -325,12 +314,12 @@ a
 b
 d
 d
-u
-u
-u
-u
-u
-u
+c
+c
+c
+c
+c
+c
 c
 c
 b
@@ -348,10 +337,10 @@ b
 c
 c
 c
-u
-u
-u
-u
+c
+c
+c
+c
 c
 c
 c

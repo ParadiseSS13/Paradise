@@ -29,19 +29,10 @@
 /area/ruin/space/unpowered)
 "i" = (
 /obj/machinery/door/airlock,
-/obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "j" = (
 /obj/item/stack/cable_coil,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"P" = (
-/obj/item/salvage/ruin/tablet,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"U" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 
@@ -170,7 +161,7 @@ a
 c
 c
 e
-P
+d
 d
 g
 e
@@ -191,7 +182,7 @@ d
 d
 d
 d
-U
+d
 d
 d
 c
@@ -239,9 +230,9 @@ c
 c
 d
 e
-U
 d
-P
+d
+d
 g
 d
 e

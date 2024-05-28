@@ -50,9 +50,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/unpowered)
-"I" = (
-/turf/simulated/mineral/random/low_chance,
-/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -125,7 +122,7 @@ a
 a
 b
 c
-I
+c
 b
 d
 d
@@ -135,9 +132,9 @@ a
 a
 b
 b
-I
 b
-I
+b
+b
 a
 a
 b
@@ -157,9 +154,9 @@ a
 a
 a
 a
-I
-I
-I
+b
+b
+b
 a
 a
 a
@@ -169,8 +166,8 @@ a
 a
 a
 b
-I
-I
+b
+b
 b
 b
 d
@@ -192,7 +189,7 @@ a
 a
 b
 c
-I
+b
 b
 b
 d
@@ -214,7 +211,7 @@ a
 a
 b
 b
-I
+b
 b
 b
 d
@@ -236,8 +233,8 @@ a
 a
 a
 b
-I
-I
+b
+b
 b
 b
 b
@@ -391,9 +388,9 @@ a
 a
 a
 b
-I
-I
-I
+b
+b
+b
 b
 b
 b
@@ -411,9 +408,9 @@ a
 a
 a
 a
-I
-I
-I
+b
+b
+b
 b
 b
 a

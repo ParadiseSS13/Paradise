@@ -200,10 +200,6 @@
 	machine_name = "CargoDrobe"
 	icon_state = "refill_clothes"
 
-/obj/item/vending_refill/exploredrobe
-	machine_name = "ExploreDrobe"
-	icon_state = "refill_clothes"
-
 /obj/item/vending_refill/chefdrobe
 	machine_name = "ChefDrobe"
 	icon_state = "refill_clothes"

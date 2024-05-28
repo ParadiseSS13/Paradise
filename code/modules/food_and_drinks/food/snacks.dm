@@ -180,8 +180,6 @@
 	. += "<span class='notice'>Alt-click to put something small inside.</span>"
 
 /obj/item/food/snacks/sliceable/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
 	var/obj/item/I = user.get_active_hand()
 	if(!I)
 		return

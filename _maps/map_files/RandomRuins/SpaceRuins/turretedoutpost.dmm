@@ -57,11 +57,10 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "o" = (
-/obj/machinery/porta_turret/syndicate/exterior,
+/obj/machinery/porta_turret,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "p" = (
@@ -132,7 +131,6 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
 	},
-/obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "B" = (

@@ -38,7 +38,6 @@ GLOBAL_LIST_EMPTY(nukedisc_respawn)
 GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
-GLOBAL_LIST_EMPTY(roundstart_observer_start)
 
 //List of preloaded templates
 GLOBAL_LIST_EMPTY(map_templates)

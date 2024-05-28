@@ -12,49 +12,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"f" = (
-/obj/item/grenade/jaunter_grenade,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"g" = (
-/obj/item/salvage/ruin/tablet,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"h" = (
-/obj/item/survivalcapsule/luxury,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"p" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"y" = (
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon,
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"A" = (
-/obj/structure/lattice,
-/mob/living/simple_animal/hostile/carp/megacarp,
-/turf/template_noop,
-/area/space/nearstation)
-"D" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"F" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/template_noop,
-/area/template_noop)
-"H" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"K" = (
-/obj/structure/lattice,
-/mob/living/simple_animal/hostile/carp,
-/turf/template_noop,
-/area/space/nearstation)
 
 (1,1,1) = {"
 a
@@ -152,7 +109,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -282,7 +239,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -300,7 +257,7 @@ d
 b
 b
 b
-h
+b
 b
 c
 a
@@ -341,8 +298,8 @@ a
 d
 d
 d
-f
-D
+b
+b
 b
 c
 a
@@ -371,7 +328,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -401,7 +358,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -522,7 +479,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -578,7 +535,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -652,7 +609,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -682,7 +639,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 "}
@@ -701,7 +658,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -746,7 +703,7 @@ a
 a
 a
 d
-K
+d
 b
 b
 c
@@ -793,7 +750,7 @@ b
 b
 c
 b
-g
+b
 b
 d
 a
@@ -831,11 +788,11 @@ d
 d
 b
 b
-D
+b
 b
 c
 b
-D
+b
 b
 d
 a
@@ -870,7 +827,7 @@ a
 d
 d
 b
-A
+d
 b
 c
 c
@@ -903,7 +860,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 d
@@ -956,9 +913,9 @@ d
 d
 d
 b
-D
 b
-H
+b
+b
 b
 b
 d
@@ -971,7 +928,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -990,7 +947,7 @@ a
 a
 b
 b
-H
+b
 b
 b
 b
@@ -998,7 +955,7 @@ d
 d
 d
 b
-g
+b
 b
 b
 d
@@ -1031,11 +988,11 @@ a
 a
 b
 b
-H
+b
 b
 c
 b
-g
+b
 d
 d
 d
@@ -1043,7 +1000,7 @@ d
 b
 b
 b
-K
+d
 d
 b
 d
@@ -1119,11 +1076,11 @@ c
 c
 c
 c
-p
+b
 b
 d
 d
-y
+b
 d
 d
 d
@@ -1211,14 +1168,14 @@ d
 b
 b
 b
-H
 b
-H
+b
+b
 b
 b
 d
 a
-F
+a
 a
 a
 a
@@ -1244,14 +1201,14 @@ b
 b
 b
 b
-D
+b
 b
 d
 d
 d
 d
 b
-D
+b
 b
 b
 b
@@ -1292,9 +1249,9 @@ d
 d
 d
 b
-p
-D
-g
+b
+b
+b
 b
 c
 b
@@ -1308,7 +1265,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -1326,7 +1283,7 @@ a
 a
 a
 a
-K
+d
 d
 d
 d
@@ -1382,7 +1339,7 @@ c
 b
 c
 b
-D
+b
 b
 a
 a
@@ -1404,14 +1361,14 @@ a
 a
 a
 a
-F
 a
 a
 a
 a
 a
 a
-F
+a
+a
 a
 d
 d
@@ -1458,9 +1415,9 @@ a
 a
 d
 d
-K
 d
-K
+d
+d
 b
 b
 b
@@ -1492,7 +1449,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -1560,7 +1517,7 @@ a
 a
 a
 a
-F
+a
 a
 a
 a
@@ -1583,7 +1540,6 @@ a
 a
 a
 a
-F
 a
 a
 a
@@ -1596,7 +1552,8 @@ a
 a
 a
 a
-F
+a
+a
 a
 a
 a
@@ -1734,5 +1691,5 @@ a
 a
 a
 a
-F
+a
 "}

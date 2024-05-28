@@ -220,15 +220,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aO" = (
-/obj/item/storage/bag/books{
-	pixel_y = 4;
-	pixel_x = 1
-	},
+/obj/item/storage/bag/books,
 /obj/structure/table/wood,
-/obj/item/salvage/ruin/tablet{
-	pixel_x = -5;
-	pixel_y = 4
-	},
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aP" = (

@@ -1480,7 +1480,6 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2399,27 +2398,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
-"lD" = (
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/ruin/unpowered/BMPship/Midship)
-"qk" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/ruin/unpowered/BMPship/Midship)
-"sW" = (
-/turf/simulated/mineral/random/high_chance,
-/area/ruin/powered)
 "IM" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/snacks/meat,
@@ -2429,33 +2407,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
-"PC" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "meatConvey1"
-	},
-/obj/item/salvage/ruin/pirate,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/BMPship/Midship)
 "PP" = (
 /obj/structure/computerframe{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
-"Wd" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "meatConvey2"
-	},
-/obj/item/salvage/ruin/pirate,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/BMPship/Midship)
-"ZU" = (
-/obj/effect/landmark/damageturf,
-/mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/BMPship/Midship)
 
 (1,1,1) = {"
 aa
@@ -2804,7 +2761,7 @@ aJ
 aJ
 aK
 aK
-sW
+aK
 aK
 aK
 aK
@@ -2856,9 +2813,9 @@ aJ
 aK
 aK
 aK
-sW
-sW
-sW
+aK
+aK
+aK
 aK
 aK
 aa
@@ -2910,7 +2867,7 @@ aK
 aK
 aK
 aK
-sW
+aK
 aK
 aK
 aa
@@ -3157,8 +3114,8 @@ aD
 aK
 aK
 aK
-sW
-sW
+aK
+aK
 aK
 aK
 aK
@@ -3208,8 +3165,8 @@ aD
 aK
 aK
 aK
-sW
-sW
+aK
+aK
 aK
 aK
 aK
@@ -3258,9 +3215,9 @@ fA
 aD
 aK
 aK
-sW
-sW
-sW
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3309,8 +3266,8 @@ gs
 aK
 aK
 aK
-sW
-sW
+aK
+aK
 aK
 aK
 aK
@@ -3361,11 +3318,11 @@ gs
 aK
 aK
 aK
-sW
-sW
 aK
 aK
-sW
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3411,12 +3368,12 @@ gs
 bc
 aK
 aK
-sW
-sW
 aK
 aK
-sW
-sW
+aK
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3463,10 +3420,10 @@ aK
 aK
 aK
 aK
-sW
 aK
-sW
-sW
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3512,12 +3469,12 @@ gs
 gs
 aK
 aK
-sW
-sW
-sW
-sW
-sW
-sW
+aK
+aK
+aK
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3565,9 +3522,9 @@ aK
 aK
 aK
 aK
-sW
-sW
-sW
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3607,7 +3564,7 @@ eo
 fn
 dC
 ca
-ZU
+gb
 bF
 aK
 aK
@@ -3616,13 +3573,13 @@ aK
 aK
 bc
 aK
-sW
 aK
 aK
 aK
 aK
-sW
-sW
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3672,9 +3629,9 @@ aK
 aK
 aK
 aK
-sW
-sW
-sW
+aK
+aK
+aK
 aK
 aK
 aK
@@ -3725,8 +3682,8 @@ aK
 aK
 aK
 aK
-sW
-sW
+aK
+aK
 aK
 aK
 aK
@@ -3777,7 +3734,7 @@ aK
 aK
 aK
 aK
-sW
+aK
 aK
 aK
 aK
@@ -3905,7 +3862,7 @@ cr
 cJ
 ca
 ca
-lD
+ca
 ca
 dg
 ca
@@ -3958,7 +3915,7 @@ ca
 ca
 dT
 ca
-qk
+dg
 ca
 ca
 dT
@@ -4160,7 +4117,7 @@ ca
 ca
 ca
 dC
-PC
+dU
 dC
 dg
 ca
@@ -4238,7 +4195,7 @@ aJ
 aJ
 aK
 aK
-sW
+aK
 aK
 aa
 "}
@@ -4267,7 +4224,7 @@ dC
 dg
 ca
 dC
-Wd
+fr
 dC
 ca
 ca
@@ -4288,8 +4245,8 @@ aa
 aa
 aa
 aK
-sW
-sW
+aK
+aK
 aK
 aa
 "}
@@ -4340,7 +4297,7 @@ aa
 aa
 aa
 aK
-sW
+aK
 aa
 aa
 "}

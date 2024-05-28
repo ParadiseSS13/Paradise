@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	can_discount = FALSE
+	cant_discount = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -84,7 +84,7 @@
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
-	job = list("Shaft Miner", "Explorer")
+	job = list("Shaft Miner")
 	surplus = 0 // Requires a KA to even be used.
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
@@ -333,7 +333,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	can_discount = FALSE
+	cant_discount = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
@@ -420,7 +420,7 @@
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -431,7 +431,7 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
@@ -468,16 +468,7 @@
 			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 5
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/stealthy_tools/voice_changer
-	name = "Chameleon Voice Changer Mask"
-	desc = "A syndicate gas mask equipped with chameleon technology and a voice changer for disguising your voice. \
-			Use it to impersonate or obfuscate your identity when talking and make nobody the wiser!"
-	reference = "CVCM"
-	item = /obj/item/clothing/mask/chameleon/voice_change
-	cost = 10
+	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit
@@ -557,7 +548,7 @@
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/cyber_implants/sensory_enhancer
 	name = "Qani-Laaca Sensory Computer Autoimplanter"
@@ -668,7 +659,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -680,7 +671,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/explosives/emp_bomb/New()
 	..()
@@ -696,15 +687,15 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
-			Due to budget cuts, the shoes don't provide protection against slipping."
+			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
-	cost = 10
+	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes

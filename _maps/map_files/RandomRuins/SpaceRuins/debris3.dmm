@@ -96,10 +96,6 @@
 /obj/item/paper,
 /turf/space,
 /area/template_noop)
-"E" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
-/turf/space,
-/area/template_noop)
 "F" = (
 /obj/random/tool,
 /turf/simulated/floor/plating/damaged/airless,
@@ -433,7 +429,7 @@ A
 A
 B
 O
-E
+A
 B
 A
 M
@@ -479,7 +475,7 @@ z
 H
 A
 A
-E
+A
 S
 A
 q

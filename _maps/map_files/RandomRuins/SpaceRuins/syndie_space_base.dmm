@@ -528,7 +528,7 @@
 	id = "syndbaseigniter";
 	pixel_y = 20
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "de" = (
 /obj/machinery/light{
@@ -937,7 +937,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fo" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/remains/human,
+/obj/effect/mob_spawn/human/corpse/skeleton,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "fp" = (
@@ -1064,7 +1064,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "fP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1860,7 +1860,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "kh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2541,7 +2541,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "syndiebase_mix_sensor"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "nI" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -3350,7 +3350,7 @@
 	autolink_id = "syndiebase_mix_out";
 	dir = 8
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "sF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5321,9 +5321,6 @@
 "DX" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/genetics)
-"DY" = (
-/turf/simulated/mineral/random/high_chance,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "DZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7443,7 +7440,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "QB" = (
 /obj/machinery/optable,
@@ -7743,7 +7740,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Su" = (
 /obj/structure/table,
@@ -7991,7 +7988,7 @@
 	autolink_id = "syndiebase_mix_in";
 	dir = 8
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Tp" = (
 /obj/machinery/light{
@@ -13203,7 +13200,7 @@ nv
 Kh
 Jo
 Vl
-DY
+kE
 kE
 kE
 kE
@@ -13275,8 +13272,8 @@ nv
 Vl
 Vl
 Vl
-DY
-DY
+kE
+kE
 kE
 Ri
 Ri
@@ -13346,8 +13343,8 @@ nv
 nv
 qT
 Vl
-DY
-DY
+kE
+kE
 Ri
 kE
 kE
@@ -13399,7 +13396,7 @@ LE
 AD
 Mf
 kE
-DY
+kE
 kE
 Vl
 Vl
@@ -13419,7 +13416,7 @@ nv
 Vl
 Vl
 kE
-DY
+kE
 kE
 kE
 kE
@@ -13471,7 +13468,7 @@ AD
 kE
 AD
 kE
-DY
+kE
 kE
 kE
 Vl
@@ -13492,7 +13489,7 @@ Vl
 kE
 kE
 kE
-DY
+kE
 kE
 Ri
 Ri
@@ -13615,7 +13612,7 @@ kE
 AD
 kE
 kE
-DY
+kE
 kE
 kE
 kE
@@ -13635,7 +13632,7 @@ Vl
 kE
 kE
 kE
-DY
+kE
 kE
 Ri
 Ri
@@ -13687,7 +13684,7 @@ kE
 AD
 Vs
 kE
-DY
+kE
 kE
 kE
 kE
@@ -13705,9 +13702,9 @@ Vl
 Vl
 kE
 kE
-DY
 kE
-DY
+kE
+kE
 Ri
 Ri
 Ri
@@ -13759,11 +13756,11 @@ kE
 kE
 kE
 kE
-DY
-DY
 kE
-DY
-DY
+kE
+kE
+kE
+kE
 kE
 kE
 Vl
@@ -13774,13 +13771,13 @@ Vl
 Vl
 Vl
 kE
-DY
-kE
-DY
 kE
 kE
-DY
-DY
+kE
+kE
+kE
+kE
+kE
 Ri
 Ri
 AV
@@ -13830,13 +13827,13 @@ kE
 kE
 kE
 kE
-DY
-DY
-DY
-DY
 kE
-DY
-DY
+kE
+kE
+kE
+kE
+kE
+kE
 kE
 kE
 kE
@@ -13845,14 +13842,14 @@ Vl
 Vl
 kE
 kE
-DY
-DY
 kE
 kE
 kE
-DY
-DY
-DY
+kE
+kE
+kE
+kE
+kE
 Ri
 Ri
 Ri
@@ -13902,8 +13899,6 @@ Ri
 Ri
 kE
 Ri
-DY
-DY
 kE
 kE
 kE
@@ -13915,13 +13910,15 @@ kE
 kE
 kE
 kE
-DY
-DY
 kE
 kE
 kE
 kE
-DY
+kE
+kE
+kE
+kE
+kE
 Ri
 Ri
 Ri
@@ -13982,9 +13979,9 @@ kE
 kE
 Ri
 kE
-DY
-DY
-DY
+kE
+kE
+kE
 kE
 kE
 kE
@@ -13993,7 +13990,7 @@ kE
 kE
 Ri
 kE
-DY
+kE
 Ri
 Ri
 Ri

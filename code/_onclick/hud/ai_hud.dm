@@ -1,27 +1,20 @@
 /atom/movable/screen/ai
 	icon = 'icons/mob/screen_ai.dmi'
 
-/atom/movable/screen/ai/Click()
-	if(isobserver(usr) || usr.incapacitated())
-		return TRUE
-
 /atom/movable/screen/ai/aicore
 	name = "AI core"
 	icon_state = "ai_core"
 
 /atom/movable/screen/ai/aicore/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.view_core()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.view_core()
 
 /atom/movable/screen/ai/camera_list
 	name = "Show Camera List"
 	icon_state = "camera"
 
 /atom/movable/screen/ai/camera_list/Click()
-	if(..())
-		return
 	var/mob/living/silicon/ai/AI = usr
 	var/camera = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.get_camera_list())
 	AI.ai_camera_list(camera)
@@ -31,60 +24,53 @@
 	icon_state = "track"
 
 /atom/movable/screen/ai/camera_track/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	var/target_name = tgui_input_list(AI, "Choose a target you want to track", "Tracking", AI.trackable_mobs())
-	if(target_name)
-		AI.ai_camera_track(target_name)
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		var/target_name = tgui_input_list(AI, "Choose a target you want to track", "Tracking", AI.trackable_mobs())
+		if(target_name)
+			AI.ai_camera_track(target_name)
 
 /atom/movable/screen/ai/camera_light
 	name = "Toggle Camera Light"
 	icon_state = "camera_light"
 
 /atom/movable/screen/ai/camera_light/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.toggle_camera_light()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.toggle_camera_light()
 
 /atom/movable/screen/ai/crew_monitor
 	name = "Crew Monitoring Console"
 	icon_state = "crew_monitor"
 
 /atom/movable/screen/ai/crew_monitor/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.subsystem_crew_monitor()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.subsystem_crew_monitor()
 
 /atom/movable/screen/ai/crew_manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"
 
 /atom/movable/screen/ai/crew_manifest/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.ai_roster()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.ai_roster()
 
 /atom/movable/screen/ai/alerts
 	name = "Show Alerts"
 	icon_state = "alerts"
 
 /atom/movable/screen/ai/alerts/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.ai_alerts()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.ai_alerts()
 
 /atom/movable/screen/ai/announcement
 	name = "Make Announcement"
 	icon_state = "announcement"
 
 /atom/movable/screen/ai/announcement/Click()
-	if(..())
-		return
 	var/mob/living/silicon/ai/AI = usr
 	AI.announcement()
 
@@ -93,18 +79,15 @@
 	icon_state = "call_shuttle"
 
 /atom/movable/screen/ai/call_shuttle/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.ai_call_shuttle()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.ai_call_shuttle()
 
 /atom/movable/screen/ai/state_laws
 	name = "Law Manager"
 	icon_state = "state_laws"
 
 /atom/movable/screen/ai/state_laws/Click()
-	if(..())
-		return
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.subsystem_law_manager()
@@ -114,48 +97,42 @@
 	icon_state = "pda_send"
 
 /atom/movable/screen/ai/pda_msg_send/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.aiPDA.cmd_send_pdamesg()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.aiPDA.cmd_send_pdamesg()
 
 /atom/movable/screen/ai/pda_msg_show
 	name = "PDA - Show Message Log"
 	icon_state = "pda_receive"
 
 /atom/movable/screen/ai/pda_msg_show/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.aiPDA.cmd_show_message_log()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.aiPDA.cmd_show_message_log()
 
 /atom/movable/screen/ai/image_take
 	name = "Take Image"
 	icon_state = "take_picture"
 
 /atom/movable/screen/ai/image_take/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.aiCamera.toggle_camera_mode()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.aiCamera.toggle_camera_mode()
 
 /atom/movable/screen/ai/image_view
 	name = "View Images"
 	icon_state = "view_images"
 
 /atom/movable/screen/ai/image_view/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.aiCamera.viewpictures()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.aiCamera.viewpictures()
 
 /atom/movable/screen/ai/sensors
 	name = "Toggle Sensor Augmentation"
 	icon_state = "ai_sensor"
 
 /atom/movable/screen/ai/sensors/Click()
-	if(..())
-		return
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.sensor_mode()

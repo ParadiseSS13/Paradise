@@ -34,17 +34,8 @@
 /obj/item/stack/cable_coil/cut,
 /turf/space,
 /area/space)
-"k" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
-/turf/space,
-/area/space)
 "l" = (
 /obj/item/stack/cable_coil/cut,
-/turf/space,
-/area/space)
-"m" = (
-/obj/structure/lattice,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
 /turf/space,
 /area/space)
 "o" = (
@@ -304,7 +295,7 @@ X
 X
 y
 E
-k
+X
 E
 Y
 X
@@ -392,7 +383,7 @@ X
 X
 I
 v
-m
+v
 X
 v
 t

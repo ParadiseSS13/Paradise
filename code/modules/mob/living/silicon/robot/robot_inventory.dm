@@ -15,7 +15,6 @@
 
 	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-	observer_screen_update(O, add = FALSE)
 	if(client)
 		client.screen -= O
 	contents -= O
@@ -79,7 +78,6 @@
 		set_actions(O)
 	else
 		to_chat(src, "You need to disable a module first!")
-	observer_screen_update(O, add = TRUE)
 	check_module_damage(FALSE)
 	update_icons()
 
@@ -118,7 +116,7 @@
 		return 0
 
 /mob/living/silicon/robot/drop_item()
-	var/obj/item/gripper/G = get_active_hand()
+	var/obj/item/gripper_engineering/G = get_active_hand()
 	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
 		return TRUE // The gripper is special because it has a normal item inside that we can drop.
@@ -252,25 +250,3 @@
 		hands.icon_state = "nomod"
 	else
 		hands.icon_state = lowertext(module.module_type)
-
-
-/**
- * Updates the observers's screens with cyborg itemss.
- * Arguments
- * * item_module - the item being added or removed from the screen
- * * add - whether or not the item is being added, or removed.
- */
-/mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_module, add = TRUE)
-	if(!length(observers))
-		return
-	for(var/mob/dead/observe in observers)
-		if(observe.client && observe.client.eye == src)
-			if(add)
-				observe.client.screen += item_module
-			else
-				observe.client.screen -= item_module
-		else
-			observers -= observe
-			if(!length(observers))
-				observers = null
-				break

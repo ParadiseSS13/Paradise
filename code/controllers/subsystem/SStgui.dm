@@ -187,7 +187,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs updated.
  */
-/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object, full_update = FALSE)
+/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object)
 	var/count = 0
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
@@ -196,10 +196,7 @@ SUBSYSTEM_DEF(tgui)
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
 		if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
-			if(full_update)
-				ui.send_full_update(null, TRUE)
-			else
-				ui.process(force = TRUE)
+			ui.process(force = TRUE)
 			count++
 	return count
 

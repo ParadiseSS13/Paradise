@@ -306,10 +306,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
-"Cp" = (
-/obj/structure/spawner/mining/basilisk,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/syndicate_listening_station/asteroid)
 "Cw" = (
 /obj/structure/filingcabinet,
 /obj/item/paper{
@@ -566,9 +562,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
-"Ud" = (
-/turf/simulated/mineral/random/high_chance,
-/area/ruin/space/syndicate_listening_station/asteroid)
 "UM" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Engineering"
@@ -839,10 +832,10 @@ Zw
 Zw
 Zw
 yn
-Ud
+yn
 Zw
 Zw
-Ud
+yn
 yn
 yn
 yn
@@ -853,8 +846,8 @@ Zw
 Zw
 yn
 yn
-Ud
-Ud
+yn
+yn
 yn
 Zw
 Zw
@@ -883,8 +876,8 @@ Zw
 yn
 yn
 Zw
-Ud
-Ud
+yn
+yn
 yn
 Zw
 yn
@@ -895,9 +888,9 @@ Zw
 Zw
 yn
 yn
-Ud
-Ud
-Ud
+yn
+yn
+yn
 Zw
 Zw
 Zw
@@ -952,7 +945,7 @@ HZ
 yn
 yn
 yn
-Ud
+yn
 yn
 AT
 AT
@@ -992,15 +985,15 @@ tk
 HZ
 yn
 yn
-Ud
+yn
 yn
 yn
 yn
 AT
 AT
 yn
-Ud
-Ud
+yn
+yn
 yn
 yn
 yn
@@ -1033,9 +1026,9 @@ yn
 yn
 yn
 yn
-Ud
 yn
-Ud
+yn
+yn
 yn
 yn
 yn
@@ -1073,8 +1066,6 @@ kJ
 kE
 kJ
 yn
-Ud
-Ud
 yn
 yn
 yn
@@ -1087,7 +1078,9 @@ yn
 yn
 yn
 yn
-Ud
+yn
+yn
+yn
 yn
 yn
 yn
@@ -1125,14 +1118,14 @@ yn
 yn
 yn
 yn
-Ud
-yn
-Ud
 yn
 yn
 yn
-Ud
-Ud
+yn
+yn
+yn
+yn
+yn
 Zw
 Zw
 Zw
@@ -1171,10 +1164,10 @@ yn
 yn
 yn
 yn
-Ud
-Ud
-Ud
-Ud
+yn
+yn
+yn
+yn
 Zw
 Zw
 Zw
@@ -1215,7 +1208,7 @@ yn
 yn
 yn
 yn
-Ud
+yn
 yn
 yn
 Zw
@@ -1254,7 +1247,7 @@ kJ
 kJ
 yn
 yn
-Ud
+yn
 yn
 yn
 yn
@@ -1384,7 +1377,7 @@ yn
 yn
 yn
 AT
-Cp
+AT
 AT
 Zw
 Zw
@@ -1550,7 +1543,7 @@ yn
 yn
 yn
 AT
-Cp
+AT
 AT
 Zw
 Zw
@@ -1667,9 +1660,9 @@ kJ
 yn
 yn
 rK
-Ud
-Ud
-Ud
+yn
+yn
+yn
 yn
 yn
 yn
@@ -1710,9 +1703,9 @@ yn
 yn
 rK
 yn
-Ud
-Ud
-Ud
+yn
+yn
+yn
 yn
 yn
 yn
@@ -1753,8 +1746,8 @@ yn
 iL
 yn
 yn
-Ud
-Ud
+yn
+yn
 yn
 yn
 AT
@@ -1795,7 +1788,7 @@ yn
 Zw
 yn
 yn
-Ud
+yn
 Zw
 yn
 AT
@@ -1987,8 +1980,8 @@ Zw
 Zw
 yn
 yn
-Ud
-Ud
+yn
+yn
 Zw
 Zw
 yn

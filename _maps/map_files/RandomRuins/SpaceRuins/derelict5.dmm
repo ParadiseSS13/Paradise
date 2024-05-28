@@ -4,10 +4,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"bc" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/template_noop,
-/area/template_noop)
 "bO" = (
 /mob/living/simple_animal/hostile/skeleton,
 /turf/simulated/floor/plasteel,
@@ -52,19 +48,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"gc" = (
-/obj/structure/spawner/mining/basilisk,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
 "hG" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"hL" = (
-/turf/simulated/mineral/random/high_chance,
-/area/ruin/space/unpowered)
-"is" = (
-/turf/simulated/mineral/random/high_chance/clown,
 /area/ruin/space/unpowered)
 "iS" = (
 /obj/structure/door_assembly,
@@ -273,10 +259,6 @@
 "Se" = (
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
-"Sk" = (
-/obj/structure/spawner/mining/hivelord,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
 "SX" = (
 /obj/structure/table,
 /obj/item/food/snacks/beans{
@@ -412,7 +394,7 @@ TT
 TT
 TT
 TT
-bc
+TT
 TT
 TT
 TT
@@ -427,7 +409,7 @@ VS
 VS
 TT
 TT
-bc
+TT
 TT
 "}
 (3,1,1) = {"
@@ -464,8 +446,8 @@ TT
 TT
 TT
 TT
-hL
-hL
+VS
+VS
 VS
 TT
 TT
@@ -479,7 +461,7 @@ TT
 TT
 TT
 TT
-bc
+TT
 TT
 TT
 TT
@@ -542,7 +524,7 @@ TT
 TT
 TT
 TT
-bc
+TT
 TT
 TT
 TT
@@ -595,7 +577,7 @@ TT
 TT
 TT
 TT
-hL
+VS
 TT
 "}
 (7,1,1) = {"
@@ -669,23 +651,23 @@ TT
 TT
 VS
 VS
-hL
+VS
 TT
 TT
 TT
 TT
 TT
 TT
-bc
 TT
-bc
+TT
+TT
 TT
 TT
 "}
 (9,1,1) = {"
 TT
 TT
-bc
+TT
 TT
 TT
 TT
@@ -711,7 +693,7 @@ TT
 TT
 VS
 VS
-hL
+VS
 TT
 TT
 TT
@@ -733,10 +715,10 @@ TT
 TT
 TT
 Qx
-hL
-hL
 Qx
-hL
+Qx
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -763,7 +745,7 @@ TT
 TT
 TT
 TT
-bc
+TT
 TT
 "}
 (11,1,1) = {"
@@ -794,7 +776,7 @@ TT
 TT
 TT
 TT
-hL
+VS
 VS
 VS
 VS
@@ -822,10 +804,10 @@ Qx
 Qx
 Qx
 Qx
-hL
 Qx
 Qx
-hL
+Qx
+Qx
 Qx
 Qx
 WA
@@ -860,15 +842,15 @@ TT
 Qx
 Qx
 Qx
-hL
-hL
 Qx
 Qx
-hL
 Qx
 Qx
-hL
-hL
+Qx
+Qx
+Qx
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -954,8 +936,8 @@ Se
 Pq
 Se
 Qx
-hL
-hL
+Qx
+Qx
 Qx
 Qx
 WA
@@ -985,8 +967,8 @@ TT
 TT
 Qx
 Qx
-hL
-hL
+Qx
+Qx
 Qx
 Pq
 aN
@@ -996,7 +978,7 @@ vg
 kb
 Pq
 LZ
-hL
+Qx
 Qx
 Qx
 Qx
@@ -1027,7 +1009,7 @@ TT
 TT
 TT
 Qx
-hL
+Qx
 Qx
 Qx
 Se
@@ -1082,7 +1064,7 @@ Se
 vE
 KU
 Se
-hL
+Qx
 Qx
 Qx
 WA
@@ -1124,7 +1106,7 @@ Se
 zN
 xs
 Qx
-hL
+Qx
 Qx
 Qx
 Qx
@@ -1147,14 +1129,14 @@ TT
 (20,1,1) = {"
 TT
 TT
-bc
+TT
 TT
 TT
 TT
 TT
 Qx
 Qx
-hL
+Qx
 Qx
 Se
 ph
@@ -1196,7 +1178,7 @@ TT
 TT
 Qx
 Qx
-hL
+Qx
 Qx
 Qx
 ZP
@@ -1213,7 +1195,7 @@ Qx
 Qx
 Qx
 WA
-Sk
+WA
 WA
 WA
 WA
@@ -1251,8 +1233,8 @@ vE
 kO
 Se
 Qx
-hL
-hL
+Qx
+Qx
 Qx
 WA
 WA
@@ -1265,8 +1247,8 @@ WA
 WA
 WA
 Qx
-hL
-hL
+Qx
+Qx
 Qx
 TT
 "}
@@ -1303,7 +1285,7 @@ WA
 WA
 WA
 WA
-gc
+WA
 WA
 WA
 Qx
@@ -1390,8 +1372,8 @@ WA
 WA
 Qx
 Qx
-hL
-hL
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -1408,8 +1390,8 @@ TT
 Qx
 Qx
 Qx
-hL
-hL
+Qx
+Qx
 Gx
 zN
 zN
@@ -1433,7 +1415,7 @@ Qx
 Qx
 Qx
 Qx
-hL
+Qx
 Qx
 Qx
 Qx
@@ -1451,7 +1433,7 @@ TT
 Qx
 Qx
 Qx
-hL
+Qx
 Qx
 zN
 Wy
@@ -1463,8 +1445,8 @@ Se
 Qx
 Qx
 Qx
-is
-is
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -1502,12 +1484,12 @@ Se
 nb
 zN
 Qx
-hL
 Qx
 Qx
-hL
-hL
-is
+Qx
+Qx
+Qx
+Qx
 Qx
 Se
 fi
@@ -1519,7 +1501,7 @@ Qx
 Qx
 Qx
 Qx
-hL
+Qx
 Qx
 "}
 (29,1,1) = {"
@@ -1544,12 +1526,12 @@ Se
 Se
 Pq
 Qx
-hL
-is
 Qx
 Qx
-hL
-is
+Qx
+Qx
+Qx
+Qx
 Qx
 Pq
 zN
@@ -1561,7 +1543,7 @@ Pq
 Qx
 Qx
 Qx
-hL
+Qx
 Qx
 "}
 (30,1,1) = {"
@@ -1581,17 +1563,17 @@ Qx
 Qx
 Qx
 Qx
-hL
-hL
 Qx
 Qx
 Qx
-hL
 Qx
 Qx
-is
 Qx
-is
+Qx
+Qx
+Qx
+Qx
+Qx
 Qx
 Se
 vE
@@ -1628,12 +1610,12 @@ Qx
 Qx
 Qx
 Qx
-hL
-is
 Qx
 Qx
-hL
-is
+Qx
+Qx
+Qx
+Qx
 Qx
 Pq
 sd
@@ -1643,7 +1625,7 @@ rc
 vE
 Se
 Qx
-hL
+Qx
 Qx
 Qx
 Qx
@@ -1670,12 +1652,12 @@ Qx
 Qx
 Qx
 Qx
-hL
 Qx
 Qx
-hL
-hL
-is
+Qx
+Qx
+Qx
+Qx
 Qx
 Se
 Qx
@@ -1684,8 +1666,8 @@ Pq
 Se
 Pq
 Se
-hL
-hL
+Qx
+Qx
 Qx
 Qx
 TT
@@ -1695,8 +1677,8 @@ TT
 TT
 VS
 VS
-hL
-hL
+VS
+VS
 TT
 TT
 TT
@@ -1715,8 +1697,8 @@ Qx
 Qx
 Qx
 Qx
-is
-is
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -1736,8 +1718,8 @@ TT
 TT
 TT
 TT
-hL
-hL
+VS
+VS
 VS
 TT
 TT
@@ -1751,7 +1733,6 @@ Qx
 Qx
 Qx
 Qx
-hL
 Qx
 Qx
 Qx
@@ -1765,8 +1746,9 @@ Qx
 Qx
 Qx
 Qx
-hL
-hL
+Qx
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -1796,16 +1778,16 @@ Qx
 Qx
 Qx
 Qx
-hL
 Qx
 Qx
 Qx
-hL
 Qx
 Qx
 Qx
-hL
-hL
+Qx
+Qx
+Qx
+Qx
 Qx
 Qx
 Qx
@@ -1845,7 +1827,7 @@ Qx
 Qx
 Qx
 Qx
-hL
+Qx
 Qx
 Qx
 Qx
@@ -1913,7 +1895,7 @@ TT
 TT
 TT
 TT
-bc
+TT
 TT
 TT
 TT

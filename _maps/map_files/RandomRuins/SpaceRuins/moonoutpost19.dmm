@@ -4441,7 +4441,6 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
-/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -9022,15 +9021,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
-"HN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/salvage/ruin/nanotrasen,
-/turf/simulated/floor/plating,
-/area/ruin/space/moonbase19)
 "HO" = (
 /obj/machinery/door/airlock/highsecurity{
 	req_access_txt = "271";
@@ -12674,7 +12664,6 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -16460,7 +16449,7 @@ Gg
 Gg
 tv
 lm
-HN
+Ic
 cm
 bP
 NU

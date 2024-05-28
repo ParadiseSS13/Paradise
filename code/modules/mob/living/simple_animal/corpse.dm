@@ -41,25 +41,6 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
-/obj/effect/mob_spawn/human/corpse/syndicatequartermaster
-	name = "Syndicate Quartermaster"
-	mob_name = "Syndicate Quartermaster"
-	hair_style = "bald"
-	facial_hair_style = "shaved"
-	id_job = "Operative"
-	id_access_list = list(ACCESS_SYNDICATE)
-	outfit = /datum/outfit/syndicatequartermastercorpse
-
-/datum/outfit/syndicatequartermastercorpse
-	name = "Corpse of a Syndicate Quartermaster"
-	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/mod/control/pre_equipped/traitor_elite
-	r_pocket = /obj/item/tank/internals/emergency_oxygen
-	id = /obj/item/card/id
 
 /obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE
@@ -79,19 +60,20 @@
 /datum/outfit/piratecorpse
 	name = "Corpse of a Pirate"
 	uniform = /obj/item/clothing/under/costume/pirate
-	suit = /obj/item/clothing/suit/space/eva
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
-	head = /obj/item/clothing/head/helmet/space/eva
-	back = /obj/item/tank/jetpack/carbondioxide
+	head = /obj/item/clothing/head/bandana
+
 
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
 	name = "Pirate Gunner"
 	mob_name = "Pirate Gunner"
-	outfit = /datum/outfit/piratecorpse
+	outfit = /datum/outfit/piratecorpse/ranged
 
 /datum/outfit/piratecorpse/ranged
 	name = "Corpse of a Pirate Gunner"
+	suit = /obj/item/clothing/suit/pirate_black
+	head = /obj/item/clothing/head/pirate
 
 
 /obj/effect/mob_spawn/human/corpse/russian

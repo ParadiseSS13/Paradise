@@ -40,7 +40,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/access/any/supply/expedition
+/obj/effect/mapping_helpers/airlock/access/any/command/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/access/any/command/hop
@@ -259,7 +259,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/access/all/supply/expedition
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/access/all/command/hop

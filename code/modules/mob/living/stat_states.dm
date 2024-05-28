@@ -19,10 +19,8 @@
 
 	if(updating)
 		update_sight()
-		update_blind_effects(TRUE)
+		update_blind_effects()
 		set_typing_indicator(FALSE)
-		if(hud_used && client)
-			hud_used.show_hud(HUD_STYLE_ACTIONHUD)
 
 	return TRUE
 
@@ -42,9 +40,7 @@
 
 	if(updating)
 		update_sight()
-		update_blind_effects(force_clear_sleeping = TRUE)
-		if(hud_used && client)
-			hud_used.show_hud(HUD_STYLE_STANDARD)
+		update_blind_effects()
 
 	return TRUE
 
@@ -75,7 +71,7 @@
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
-		reload_fullscreen()
+		hud_used?.reload_fullscreen()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 
