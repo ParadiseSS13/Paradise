@@ -760,7 +760,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
 	reference = "ADVP"
 	item = /obj/item/pinpointer/advpinpointer
-	cost = 20
+	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/device_tools/ai_detector
 	name = "Artificial Intelligence Detector" // changed name in case newfriends thought it detected disguised ai's
@@ -810,19 +811,27 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/bio_chip_implanter/traitor
 	cost = 50
 
-/datum/uplink_item/bio_chips/proto_adrenal
-	name = "Proto-Adrenal Bio-chip"
-	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
-	reference = "PAI"
-	item = /obj/item/bio_chip_implanter/proto_adrenalin
-	cost = 18
-
 /datum/uplink_item/bio_chips/adrenal
 	name = "Adrenal Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
 	item = /obj/item/bio_chip_implanter/adrenalin
 	cost = 40
+
+/datum/uplink_item/bio_chips/basic_adrenal
+	name = "Basic-Adrenal Bio-chip"
+	desc = "A single-use bio-chip injected into the body and later activated manually to inject a chemical cocktail. This one has a worse healing effect than regular adrenaline. It can be activated once for 3/4 of the effect of the original."
+	reference = "BAI"
+	item = /obj/item/bio_chip_implanter/basic_adrenalin
+	cost = 20
+	can_discount = FALSE
+
+/datum/uplink_item/bio_chips/proto_adrenal
+	name = "Proto-Adrenal Bio-chip"
+	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
+	reference = "PAI"
+	item = /obj/item/bio_chip_implanter/proto_adrenalin
+	cost = 10
 
 /datum/uplink_item/bio_chips/stealthimplant
 	name = "Stealth Bio-chip"
