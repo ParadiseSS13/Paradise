@@ -471,10 +471,10 @@
 	harmless = FALSE
 	taste_description = "processed sludge"
 
-/datum/reagent/tar_compound/reaction_turf(turf/simulated/loc, volume)
-	if(volume < 1 || !issimulatedturf(loc))
+/datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)
+	if(volume < 1 || !issimulatedturf(T))
 		return
-	var/obj/effect/decal/cleanable/tar/C = locate() in loc
+	var/obj/effect/decal/cleanable/tar/C = locate() in T
 	if(C) // We don't want the slowdown to stack
 		return
-	new /obj/effect/decal/cleanable/tar(loc)
+	new /obj/effect/decal/cleanable/tar(T)

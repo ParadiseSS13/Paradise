@@ -38,5 +38,6 @@
 		return
 	playsound(welder, 'sound/items/welder.ogg', 50, TRUE)
 	if(do_after(user, 3 SECONDS, FALSE, user))
-		user.visible_message("<span class='danger'>[user] burns away [src] with [welder]!</span>", "<span class='danger'>You burn away [src]!</span>")
-		qdel(src)
+		if(welder.get_heat() && Adjacent(user))
+			user.visible_message("<span class='danger'>[user] burns away [src] with [welder]!</span>", "<span class='danger'>You burn away [src]!</span>")
+			qdel(src)
