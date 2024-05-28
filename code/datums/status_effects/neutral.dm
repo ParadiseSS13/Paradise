@@ -69,6 +69,20 @@
 	user.remove_status_effect(type)
 	highfived.remove_status_effect(type)
 
+/datum/status_effect/high_five/proc/wiz_effect(mob/living/carbon/user, mob/living/carbon/highfived)
+	user.status_flags |= GODMODE
+	highfived.status_flags |= GODMODE
+	explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+	// explosions have a spawn so this makes sure that we don't get gibbed
+	addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, highfived), 0.3 SECONDS) // I want to be sure this lasts long enough, with lag.
+	add_attack_logs(user, highfived, "caused a wizard [id] explosion")
+
+/datum/status_effect/high_five/proc/post_start()
+	return
+
+/datum/status_effect/high_five/proc/regular_effect(mob/living/carbon/user, mob/living/carbon/highfived)
+	user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[highfived.name]</b> [success]</span>")
+
 /datum/status_effect/high_five/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
@@ -82,25 +96,23 @@
 			continue
 		if(is_wiz && iswizard(C))
 			user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[C.name]</b> [critical_success]</span>")
-			user.status_flags |= GODMODE
-			C.status_flags |= GODMODE
-			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
-			// explosions have a spawn so this makes sure that we don't get gibbed
-			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
-			add_attack_logs(user, C, "caused a wizard [id] explosion")
+			wiz_effect(user, C)
 			both_wiz = TRUE
 		user.do_attack_animation(C, no_effect = TRUE)
 		C.do_attack_animation(user, no_effect = TRUE)
 		playsound(user, sound_effect, 80)
 		if(!both_wiz)
-			user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
+			regular_effect(user, C)
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
 			return FALSE
+		// We can return to break out of the loop here so we don't auto-remove (which causes the timer on the wizard highfive to break)
+		// This is safe because we only pass the continue if we don't have the status effect
 		return TRUE // DO NOT AUTOREMOVE
 
 	owner.custom_emote(EMOTE_VISIBLE, request)
 	owner.create_point_bubble_from_path(item_path, FALSE)
+	post_start()
 
 /datum/status_effect/high_five/on_timeout()
 	owner.visible_message("[owner] [get_missed_message()]")
@@ -143,6 +155,96 @@
 	)
 
 	return pick(missed_messages)
+
+/datum/status_effect/high_five/rps
+	id = "rps"
+	critical_success = "both play rock -- THEY'RE GOING IN FOR THE FISTBUMP!"
+	success = "play rock-paper-scissors!"
+	sound_effect = 'sound/effects/glassknock.ogg'
+	request = "wants to play rock-paper-scissors!"
+	item_path = /obj/item/claymore  // it's time to d-d-d-d-d-d-d-duel!
+	/// The move that you'll be making.
+	var/move
+
+/datum/status_effect/high_five/rps/get_missed_message()
+	var/list/missed_messages = list(
+		"just seems to be practicing against [owner.p_themselves()]. [owner.p_are(TRUE)] [owner.p_they()] losing?",
+		"seems more interested in a thumb war."
+	)
+
+	return pick(missed_messages)
+
+/datum/status_effect/high_five/rps/proc/get_move_status(my_move, their_move)
+	if(my_move == their_move)
+		return RPS_EMOTE_TIE
+	switch(my_move)
+		if(RPS_EMOTE_ROCK)
+			return their_move == RPS_EMOTE_SCISSORS ? RPS_EMOTE_WE_WIN : RPS_EMOTE_THEY_WIN
+
+		if(RPS_EMOTE_PAPER)
+			return their_move == RPS_EMOTE_ROCK ? RPS_EMOTE_WE_WIN : RPS_EMOTE_THEY_WIN
+
+		if(RPS_EMOTE_SCISSORS)
+			return their_move == RPS_EMOTE_PAPER ? RPS_EMOTE_WE_WIN : RPS_EMOTE_THEY_WIN
+
+		else
+			CRASH("Unknown emote rock type")
+
+/datum/status_effect/high_five/rps/post_start()
+	playsound(owner, 'sound/effects/glassknock.ogg', 50, FALSE)
+
+/datum/status_effect/high_five/rps/regular_effect(mob/living/carbon/user, mob/living/carbon/highfived)
+	var/datum/status_effect/high_five/rps/their_status_effect = highfived.has_status_effect(type)
+	var/outcome = get_move_status(move, their_status_effect.move)
+	var/outcome_msg
+	switch(outcome)
+		if(RPS_EMOTE_TIE)
+			outcome_msg = "It's a tie!"
+		if(RPS_EMOTE_WE_WIN)
+			outcome_msg = "[user] wins!"
+		if(RPS_EMOTE_THEY_WIN)
+			outcome_msg = "[highfived] wins!"
+
+	user.visible_message(
+		"<span class='notice'>[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>.</span>",
+		"<span class='notice'>[highfived] plays <b>[their_status_effect.move]</b>.</span>",
+		"<span class='notice'>It sounds like rock-paper-scissors.</span>"
+	)
+
+	user.visible_message(
+		"<span class='warning'>[outcome_msg]</span>",
+		blind_message = "<span class='notice'>It sounds like [pick(user, highfived)] won!</span>"  // you're blind how are you supposed to know
+	)
+
+/datum/status_effect/high_five/rps/on_creation(mob/living/new_owner, made_move)
+	if(made_move)
+		if(!(made_move in list(RPS_EMOTE_ROCK, RPS_EMOTE_PAPER, RPS_EMOTE_SCISSORS)))
+			stack_trace("RPS emote was given an invalid move type on creation.")
+		else
+			move = made_move
+
+	return ..()
+
+/datum/status_effect/high_five/rps/on_apply()
+	if(!isnull(move))
+		to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.</span>")
+		return ..()  // we already have the move, probably from the emote passing it in
+
+	move = get_rock_paper_scissors_move(owner)
+	if(move == null)
+		return FALSE  // make it auto-remove itself
+
+	to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.</span>")
+	return ..()
+
+
+/proc/get_rock_paper_scissors_move(mob/living/carbon/user)
+	var/list/move_icons = list(
+		RPS_EMOTE_SCISSORS = image(icon = 'icons/obj/items.dmi', icon_state = "bscissor"),
+		RPS_EMOTE_PAPER = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
+		RPS_EMOTE_ROCK = image(icon = 'icons/obj/toy.dmi', icon_state = "pet_rock")
+	)
+	return show_radial_menu(user, user, move_icons)
 
 /// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
 /// although there is a maximum amount of bonus time that can be active at any given time.
@@ -218,26 +320,11 @@
 	tick_interval = 4
 	/// The number of people the gun has locked on to. Caps at 10 for sanity.
 	var/locks = 0
-	/// What direction the owner was in when using the scope.
-	var/owner_dir = 0
-
-/datum/status_effect/lwap_scope/on_creation(mob/living/new_owner, stored_dir = 0)
-	owner_dir = stored_dir
-	return ..()
 
 /datum/status_effect/lwap_scope/tick()
 	locks = 0
-	var/turf/owner_turf = get_turf(owner)
-	var/scope_turf
-	for(var/turf/T in RANGE_EDGE_TURFS(7, owner_turf))
-		if(get_dir(owner, T) != owner_dir)
-			continue
-		if(T in range(owner, 6))
-			continue
-		scope_turf = T
-		break
-	if(scope_turf)
-		for(var/mob/living/L in range(10, scope_turf))
+	for(var/atom/movable/screen/fullscreen/stretch/cursor_catcher/scope/our_scope in owner.client.screen)
+		for(var/mob/living/L in range(10, our_scope.given_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
 			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment

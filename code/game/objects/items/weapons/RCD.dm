@@ -1,7 +1,3 @@
-
-#define MATTER_100 100
-#define MATTER_500 500
-
 #define TAB_AIRLOCK_TYPE	1
 #define TAB_AIRLOCK_ACCESS	2
 
@@ -9,6 +5,211 @@
 #define MODE_AIRLOCK	"Airlocks"
 #define MODE_WINDOW		"Windows"
 #define MODE_DECON		"Deconstruction"
+
+/// A generic action for an RCD.
+/datum/rcd_act
+	/// How much compressed matter this action costs.
+	var/cost = 0
+	/// How long this action takes.
+	var/delay = 0
+	/// The message (if any) to send the user when the action starts.
+	var/start_message
+	/// The effect (if any) to create when the action starts.
+	var/obj/effect/start_effect_type
+	/// The effect (if any) to create when the action completes.
+	var/obj/effect/end_effect_type
+	/// The mode the RCD must be in.
+	var/mode
+
+/// Attempt the action. This should not need to be overridden.
+/datum/rcd_act/proc/try_act(atom/A, obj/item/rcd/rcd, mob/user)
+	if(!can_act(A, rcd))
+		return FALSE
+	// We don't use the sound effect from use_tool because RCDs have a different sound effect for the start and end.
+	playsound(get_turf(rcd), 'sound/machines/click.ogg', 50, TRUE)
+	if(!rcd.tool_use_check(user, cost))
+		return FALSE
+	if(start_message)
+		to_chat(user, start_message)
+	var/obj/effect/start_effect
+	if(start_effect_type)
+		start_effect = new start_effect_type(get_turf(A))
+	if(!rcd.use_tool(A, user, delay, cost))
+		if(!QDELETED(start_effect))
+			qdel(start_effect)
+		return FALSE
+	if(start_effect)
+		qdel(start_effect)
+	// If time elapsed, check our preconditions again.
+	if(delay && !can_act(A, rcd))
+		return FALSE
+	if(end_effect_type)
+		new end_effect_type(get_turf(A))
+	playsound(get_turf(rcd), 'sound/items/deconstruct.ogg', 50, TRUE)
+	act(A, rcd, user)
+	return TRUE
+
+/// Test to see if the act is possible. You should usually override this.
+/datum/rcd_act/proc/can_act(atom/A, obj/item/rcd/rcd)
+	SHOULD_CALL_PARENT(TRUE)
+	return rcd.mode == mode
+
+/// Perform the act. You should usually override this.
+/datum/rcd_act/proc/act(atom/A, obj/item/rcd/rcd, mob/user)
+	return
+
+/datum/rcd_act/place_floor
+	mode = MODE_TURF
+	cost = 1
+	start_message = "Building floor..."
+	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
+
+/datum/rcd_act/place_floor/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return isspaceturf(A) || istype(A, /obj/structure/lattice)
+
+/datum/rcd_act/place_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/floor/plating)
+
+/datum/rcd_act/place_wall
+	mode = MODE_TURF
+	cost = 3
+	start_message = "Building wall..."
+	delay = 2 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/short
+	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
+
+/datum/rcd_act/place_wall/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return isfloorturf(A)
+
+/datum/rcd_act/place_wall/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/wall)
+
+/datum/rcd_act/place_airlock
+	mode = MODE_AIRLOCK
+	cost = 10
+	start_message = "Building airlock..."
+	delay = 5 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect
+	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
+
+/datum/rcd_act/place_airlock/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return isfloorturf(A) && !(/obj/machinery/door/airlock in A.contents)
+
+/datum/rcd_act/place_airlock/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/obj/machinery/door/airlock/T = new rcd.door_type(A)
+	if(T.glass)
+		T.polarized_glass = rcd.electrochromic
+	T.name = rcd.door_name
+	T.autoclose = TRUE
+	if(rcd.one_access)
+		T.req_one_access = rcd.selected_accesses.Copy()
+	else
+		T.req_access = rcd.selected_accesses.Copy()
+
+/datum/rcd_act/place_window
+	mode = MODE_WINDOW
+	cost = 2
+	start_message = "Building window..."
+	delay = 2 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/short
+	end_effect_type = /obj/effect/temp_visual/rcd_effect/end
+
+/datum/rcd_act/place_window/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return isfloorturf(A) && !(/obj/structure/grille in A.contents)
+
+/datum/rcd_act/place_window/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/turf/act_on= A
+	for(var/obj/structure/window/window_to_delete in act_on)
+		qdel(window_to_delete)
+	new /obj/structure/grille(act_on)
+	new /obj/structure/window/full/reinforced(act_on)
+	act_on.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+
+/datum/rcd_act/remove_floor
+	mode = MODE_DECON
+	cost = 5
+	start_message = "Deconstructing floor..."
+	delay = 5 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
+
+/datum/rcd_act/remove_floor/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return isfloorturf(A)
+
+/datum/rcd_act/remove_floor/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(act_on.baseturf)
+
+/datum/rcd_act/remove_wall
+	mode = MODE_DECON
+	cost = 5
+	start_message = "Deonstructing wall..."
+	delay = 5 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
+
+/datum/rcd_act/remove_wall/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	if(isreinforcedwallturf(A) && !rcd.canRwall)
+		return FALSE
+	if(istype(A, /turf/simulated/wall/indestructible))
+		return FALSE
+	return iswallturf(A)
+
+/datum/rcd_act/remove_wall/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/turf/act_on = get_turf(A)
+	act_on.ChangeTurf(/turf/simulated/floor/plating)
+
+/datum/rcd_act/remove_airlock
+	mode = MODE_DECON
+	cost = 20
+	start_message = "Deconstructing airlock..."
+	delay = 5 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
+
+/datum/rcd_act/remove_airlock/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return istype(A, /obj/machinery/door/airlock)
+
+/datum/rcd_act/remove_airlock/act(atom/A, obj/item/rcd/rcd, mob/user)
+	qdel(A)
+
+/datum/rcd_act/remove_window
+	mode = MODE_DECON
+	cost = 2
+	start_message = "Deconstructing window..."
+	delay = 2 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse_short
+
+/datum/rcd_act/remove_window/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return istype(A, /obj/structure/window)
+
+/datum/rcd_act/remove_window/act(atom/A, obj/item/rcd/rcd, mob/user)
+	var/turf/act_on = get_turf(A)
+	qdel(A)
+	for(var/obj/structure/grille/grill_to_destroy in act_on)
+		qdel(grill_to_destroy)
+
+/datum/rcd_act/remove_user
+	mode = MODE_DECON
+	cost = 5
+	start_message = "Deconstructing user..."
+	delay = 5 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
@@ -25,7 +226,6 @@
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
 	flags_2 = NO_MAT_REDEMPTION_2
 	req_access = list(ACCESS_ENGINE)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
@@ -37,7 +237,7 @@
 	/// The current amount of matter stored.
 	var/matter = NONE
 	/// The max amount of matter that can be stored.
-	var/max_matter = MATTER_100
+	var/max_matter = 100
 	/// The RCD's current build mode.
 	var/mode = MODE_TURF
 	/// If the RCD can deconstruct reinforced walls.
@@ -50,6 +250,7 @@
 	var/door_name = "Airlock"
 	/// If the glass airlock is polarized.
 	var/electrochromic = FALSE
+	/// If the airlock will be created with glass so it can be seen through.
 	var/airlock_glass = FALSE
 	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
 	var/one_access = TRUE
@@ -65,9 +266,16 @@
 	var/static/list/door_types_ui_list = list()
 	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/door_accesses_list = list()
+	/// The list of potential RCD actions.
+	var/static/list/possible_actions
 
 /obj/item/rcd/Initialize()
 	. = ..()
+	if(!length(possible_actions))
+		possible_actions = list()
+		for(var/action_type in subtypesof(/datum/rcd_act))
+			possible_actions += new action_type()
+
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -131,6 +339,32 @@
 	GLOB.rcd_list -= src
 	return ..()
 
+/obj/item/rcd/suicide_act(mob/living/user)
+	user.Immobilize(10 SECONDS) // You cannot move.
+	flags |= NODROP				// You cannot drop. You commit to die.
+	var/turf/suicide_tile = get_turf(src)
+	if(mode == MODE_DECON)
+		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		var/datum/rcd_act/remove_user/act = new()
+		if(!act.try_act(suicide_tile, src, user))
+			flags &= ~NODROP
+			return SHAME
+		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
+		for(var/obj/item/W in user)	// Do not delete all their stuff.
+			user.unEquip(W)			// Dump everything on the floor instead.
+		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff.
+		user.dust()					// (held items fall to the floor when dusting).
+		return OBLITERATION
+
+	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(!afterattack(suicide_tile, user, TRUE))
+		flags &= ~NODROP  
+		return SHAME
+	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
+	flags &= ~NODROP  
+	user.gib()
+	return OBLITERATION	
+	
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *
@@ -364,214 +598,6 @@
 		else
 			return FALSE
 
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_TURF`.
- *
- * Creates either a plating, or a wall, depending on the turf that already exists at the location.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_turf(atom/A, mob/user)
-	if(isspaceturf(A) || istype(A, /obj/structure/lattice))
-		if(useResource(1, user))
-			to_chat(user, "Building Floor...")
-			playsound(loc, usesound, 50, 1)
-			var/turf/AT = get_turf(A)
-			new/obj/effect/temp_visual/rcd_effect/end(get_turf(A))
-			AT.ChangeTurf(/turf/simulated/floor/plating)
-			return TRUE
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(isfloorturf(A))
-		if(checkResource(3, user))
-			to_chat(user, "Building Wall...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/short/E = new(get_turf(A))
-			if(do_after(user, 2 SECONDS * toolspeed, target = A))
-				if(!isfloorturf(A))
-					return FALSE
-				if(!useResource(3, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				new/obj/effect/temp_visual/rcd_effect/end(get_turf(A))
-				AT.ChangeTurf(/turf/simulated/wall)
-				return TRUE
-			qdel(E)
-			return FALSE
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for wall construction!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_AIRLOCK`.
- *
- * Creates an `door_type` airlock at the given location `A`, and assigns it accesses from `selected_accesses`.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
-	if(isfloorturf(A))
-		if(checkResource(10, user))
-			to_chat(user, "Building Airlock...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/E = new(get_turf(A))
-			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				if(locate(/obj/machinery/door/airlock) in A.contents)
-					return FALSE
-				if(!useResource(10, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				new/obj/effect/temp_visual/rcd_effect/end(get_turf(A))
-				var/obj/machinery/door/airlock/T = new door_type(A)
-				if(T.glass)
-					T.polarized_glass = electrochromic
-				T.name = door_name
-				T.autoclose = TRUE
-				if(one_access)
-					T.req_one_access = selected_accesses.Copy()
-				else
-					T.req_access = selected_accesses.Copy()
-				return FALSE
-			qdel(E)
-			return FALSE
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for airlock construction!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_DECON`.
- *
- * Deconstrcts the target atom `A`.
- * Valid atoms are: basic walls, reinforced walls (if `canRwall` is `TRUE`), airlocks, and windows.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_decon(atom/A, mob/user)
-	if(iswallturf(A))
-		if(isreinforcedwallturf(A) && !canRwall)
-			return FALSE
-		if(istype(A, /turf/simulated/wall/indestructible))
-			return FALSE
-		if(checkResource(5, user))
-			to_chat(user, "Deconstructing Wall...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
-			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				if(!useResource(5, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/floor/plating)
-				return TRUE
-			qdel(E)
-			return FALSE
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(isfloorturf(A))
-		if(checkResource(5, user))
-			to_chat(user, "Deconstructing Floor...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
-			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				if(!useResource(5, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(AT.baseturf)
-				return TRUE
-			qdel(E)
-			return FALSE
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(istype(A, /obj/machinery/door/airlock))
-		if(checkResource(20, user))
-			to_chat(user, "Deconstructing Airlock...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
-			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				if(!useResource(20, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				qdel(A)
-				return TRUE
-			qdel(E)
-			return FALSE
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(istype(A, /obj/structure/window))
-		if(!checkResource(2, user))
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
-		to_chat(user, "Deconstructing window...")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		var/obj/effect/temp_visual/rcd_effect/reverse_short/E = new(get_turf(A))
-		if(!do_after(user, 20 * toolspeed, target = A))
-			qdel(E)
-			return FALSE
-		if(!useResource(2, user))
-			return FALSE
-		playsound(loc, usesound, 50, 1)
-		var/turf/T1 = get_turf(A)
-		QDEL_NULL(A)
-		for(var/obj/structure/grille/G in T1.contents)
-			qdel(G)
-		return TRUE
-	return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_WINDOW`.
- *
- * Constructs a grille and 4 reinforced window panes at the given location `A`.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_window(atom/A, mob/user)
-	if(isfloorturf(A))
-		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
-		if(!checkResource(2, user))
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
-		to_chat(user, "Constructing window...")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		var/obj/effect/temp_visual/rcd_effect/short/E = new(get_turf(A))
-		if(!do_after(user, 20 * toolspeed, target = A))
-			qdel(E)
-			return FALSE
-		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
-		if(!useResource(2, user))
-			return FALSE
-		playsound(loc, usesound, 50, 1)
-		new/obj/effect/temp_visual/rcd_effect/end(get_turf(A))
-		new /obj/structure/grille(A)
-		for(var/obj/structure/window/W in A)
-			qdel(W)
-		new /obj/structure/window/full/reinforced(A)
-		var/turf/AT = A
-		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
-		return TRUE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
-
 /obj/item/rcd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return FALSE
@@ -580,31 +606,29 @@
 	if(!is_type_in_list(A, allowed_targets))
 		return FALSE
 
-	switch(mode)
-		if(MODE_TURF)
-			. = mode_turf(A, user)
-		if(MODE_AIRLOCK)
-			. = mode_airlock(A, user)
-		if(MODE_DECON)
-			. = mode_decon(A, user)
-		if(MODE_WINDOW)
-			. = mode_window(A, user)
-		else
-			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
-			. = 0
+	for(var/datum/rcd_act/act in possible_actions)
+		if(act.can_act(A, src))
+			. = act.try_act(A, src, user)
+			update_icon(UPDATE_OVERLAYS)
+			SStgui.update_uis(src)
+			return
+
+	if(mode == MODE_DECON)
+		to_chat(user, "<span class='warning'>You can't deconstruct that!</span>")
+	else
+		to_chat(user, "<span class='warning'>Location unsuitable for construction.</span>")
 
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
+	return FALSE
 
 /**
- * Called in each of the four build modes after an object is successfully built.
- *
- * Subtracts the amount of matter used from `matter`.
+ * Attempts to use matter from the RCD.
  *
  * Arguments:
- * * amount - the amount of matter that was used.
+ * * amount - the amount of matter to use
  */
-/obj/item/rcd/proc/useResource(amount, mob/user)
+/obj/item/rcd/use(amount)
 	if(matter < amount)
 		return FALSE
 	matter -= amount
@@ -617,7 +641,7 @@
  * Arguments:
  * * amount - an amount of matter to check for
  */
-/obj/item/rcd/proc/checkResource(amount, mob/user)
+/obj/item/rcd/tool_use_check(mob/user, amount)
 	. = matter >= amount
 	if(!. && user)
 		to_chat(user, no_ammo_message)
@@ -639,13 +663,13 @@
 /obj/item/rcd/borg/syndicate
 	power_use_multiplier = 80
 
-/obj/item/rcd/borg/useResource(amount, mob/user)
-	if(!isrobot(user))
+/obj/item/rcd/borg/use(amount)
+	var/mob/living/silicon/robot/R = usr
+	if(!istype(R))
 		return FALSE
-	var/mob/living/silicon/robot/R = user
 	return R.cell.use(amount * power_use_multiplier)
 
-/obj/item/rcd/borg/checkResource(amount, mob/user)
+/obj/item/rcd/borg/tool_use_check(mob/user, amount)
 	if(!isrobot(user))
 		return FALSE
 	var/mob/living/silicon/robot/R = user
@@ -675,8 +699,8 @@
 	name = "combat RCD"
 	icon_state = "crcd"
 	item_state = "crcd"
-	max_matter = MATTER_500
-	matter = MATTER_500
+	max_matter = 500
+	matter = 500
 	canRwall = TRUE
 
 /obj/item/rcd_ammo
@@ -700,9 +724,6 @@
 
 /obj/item/rcd_ammo/large
 	ammoamt = 100
-
-#undef MATTER_100
-#undef MATTER_500
 
 #undef TAB_AIRLOCK_TYPE
 #undef TAB_AIRLOCK_ACCESS

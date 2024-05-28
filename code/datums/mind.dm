@@ -515,7 +515,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<meta charset='UTF-8'><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<html><meta charset='UTF-8'><head><title>[name]</title></head><body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='byond://?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Factions and special roles:")
@@ -592,6 +592,7 @@
 	out.Add(gen_objective_text(admin = TRUE))
 	out.Add("<a href='byond://?src=[UID()];obj_add=1'>Add objective</a><br>")
 	out.Add("<a href='byond://?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
+	out.Add("</body></html>")
 	usr << browse(out.Join("<br>"), "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
@@ -1786,6 +1787,7 @@
 
 //Initialisation procs
 /mob/proc/mind_initialize()
+	SHOULD_CALL_PARENT(TRUE)
 	if(mind)
 		mind.key = key
 	else
@@ -1797,6 +1799,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	SEND_SIGNAL(src, COMSIG_MIND_INITIALIZE)
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
