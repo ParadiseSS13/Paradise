@@ -362,8 +362,10 @@
 		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
-	if(!produces_slime)
-		return
+	if(produces_slime)
+		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
+
+/obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		//Make it hot and burny for the new slime
