@@ -137,7 +137,7 @@
 				if("plantmatter")
 					biomass += min(R.volume * proportion, biomass_capacity - biomass)
 
-			B.reagents.remove_reagent(R.id, R.volume*proportion)
+			B.reagents.remove_reagent(R.id, R.volume * proportion)
 
 		if(proportion == 1)
 			to_chat(user, "<span class='info'>You empty [B] into [src].</span>")
@@ -192,7 +192,7 @@
 		potassium -= used_potassium
 
 	if(saltpetre / 4 >= 1)
-		new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre/4))
+		new /obj/item/stack/sheet/saltpetre_crystal(loc, round(saltpetre / 4))
 		saltpetre -= round(saltpetre)
 
 	conversion_amount = min(conversion_amount, compost_capacity - compost)
