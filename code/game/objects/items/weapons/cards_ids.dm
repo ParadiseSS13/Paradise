@@ -350,6 +350,7 @@
 	initial_access = list(ACCESS_SYNDICATE)
 	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
+	untrackable = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
