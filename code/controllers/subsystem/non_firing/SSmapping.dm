@@ -139,6 +139,59 @@ SUBSYSTEM_DEF(mapping)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
 
+/datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
+	log_startup_progress("Seeding space salvage...")
+	var/space_salvage_timer = start_watch()
+	var/seeded_salvage_surfaces = list()
+	var/seeded_salvage_closets = list()
+
+	var/list/small_salvage_items = list(
+		/obj/item/salvage/ruin/brick,
+		/obj/item/salvage/ruin/nanotrasen,
+		/obj/item/salvage/ruin/carp,
+		/obj/item/salvage/ruin/tablet,
+		/obj/item/salvage/ruin/pirate,
+		/obj/item/salvage/ruin/russian
+	)
+
+	for(var/z_level in space_z_levels)
+		var/list/turf/z_level_turfs = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
+		for(var/z_level_turf in z_level_turfs)
+			var/turf/T = z_level_turf
+			var/area/A = get_area(T)
+			if(istype(A, /area/ruin/space))
+							// cardboard boxes are blacklisted otherwise deepstorage.dmm ends up hogging all the loot
+				var/list/closet_blacklist = list(/obj/structure/closet/cardboard, /obj/structure/closet/fireaxecabinet, /obj/structure/closet/walllocker/emerglocker, /obj/structure/closet/crate/can, /obj/structure/closet/body_bag, /obj/structure/closet/coffin)
+				for(var/obj/structure/closet/closet in T)
+					if(is_type_in_list(closet, closet_blacklist))
+						continue
+
+					seeded_salvage_closets |= closet
+				for(var/obj/structure/table/table in T)
+					if(locate(/obj/machinery) in T)
+						continue // Machinery on tables tend to take up all the visible space
+					seeded_salvage_surfaces |= table
+
+	var/max_salvage_attempts = rand(10, 15)
+	while(max_salvage_attempts > 0 && length(seeded_salvage_closets) > 0)
+		var/obj/structure/closet/C = pick_n_take(seeded_salvage_closets)
+		var/salvage_item_type = pick(small_salvage_items)
+		var/obj/salvage_item = new salvage_item_type(C)
+		salvage_item.pixel_x = rand(-5, 5)
+		salvage_item.pixel_y = rand(-5, 5)
+		max_salvage_attempts -= 1
+
+	max_salvage_attempts = rand(10, 15)
+	while(max_salvage_attempts > 0 && length(seeded_salvage_surfaces) > 0)
+		var/obj/T = pick_n_take(seeded_salvage_surfaces)
+		var/salvage_item_type = pick(small_salvage_items)
+		var/obj/salvage_item = new salvage_item_type(T.loc)
+		salvage_item.pixel_x = rand(-5, 5)
+		salvage_item.pixel_y = rand(-5, 5)
+		max_salvage_attempts -= 1
+
+	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
+
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
 	// load in extra levels of space ruins
@@ -156,8 +209,10 @@ SUBSYSTEM_DEF(mapping)
 	// Note that this budget is not split evenly accross all zlevels
 	log_startup_progress("Seeding ruins...")
 	var/seed_ruins_timer = start_watch()
-	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
+	var/space_z_levels = levels_by_trait(SPAWN_RUINS)
+	seedRuins(space_z_levels, rand(20, 30), /area/space, GLOB.space_ruins_templates)
 	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+	seed_space_salvage(space_z_levels)
 
 // Loads in the station
 /datum/controller/subsystem/mapping/proc/loadStation()

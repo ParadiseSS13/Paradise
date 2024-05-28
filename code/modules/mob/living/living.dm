@@ -118,6 +118,8 @@
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
 		if(isstructure(M.pulling) || isstructure(pulling))
 			return TRUE
+	//Let us check if the person has riot equipment. We should not move past them or push them, unless they are on *walk* intent. This is so officers batoning on help can't me moved past.
+	var/riot_equipment_used = (M.r_hand?.GetComponent(/datum/component/parry) || M.l_hand?.GetComponent(/datum/component/parry))
 
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
@@ -125,7 +127,7 @@
 		if(length(M.grabbed_by) && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
+		else if(((M.restrained() || M.a_intent == INTENT_HELP) && !(riot_equipment_used && M.m_intent == MOVE_INTENT_RUN)) && (restrained() || a_intent == INTENT_HELP))
 			mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
@@ -156,7 +158,7 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand?.GetComponent(/datum/component/parry) || M.l_hand?.GetComponent(/datum/component/parry))
+	if(riot_equipment_used)
 		return TRUE
 
 //Called when we bump into an obj
@@ -276,7 +278,7 @@
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
 
-	visible_message("<b>[src]</b> points to [pointed_object]")
+	visible_message("<b>[src]</b> points to [pointed_object].")
 	return TRUE
 
 /mob/living/verb/succumb()
@@ -598,9 +600,6 @@
 	if(.)
 		step_count++
 		pull_pulled(old_loc, pullee, movetime)
-
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
-		pulledby.stop_pulling()
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)

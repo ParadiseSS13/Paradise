@@ -2090,3 +2090,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/is_color_dark(color, threshold = 25)
 	var/hsl = rgb2num(color, COLORSPACE_HSL)
 	return hsl[3] < threshold
+
+/**
+ * This proc takes a list of types, and returns them in the format below.
+ * [type] = amount of type in list.
+ * Useful for recipes.
+ */
+/proc/type_list_to_counted_assoc_list(list/origin_list)
+	var/list/return_list = list()
+	for(var/datum/path as anything in origin_list)
+		if(isdatum(path))
+			path = path.type
+		if(!return_list[path])
+			return_list[path] = 0
+		return_list[path] += 1
+	return return_list

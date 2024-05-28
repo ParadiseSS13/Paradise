@@ -145,7 +145,6 @@
 
 GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
 GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
-GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loader))
 
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
@@ -156,12 +155,8 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 	init_list = list()
 	var/watch = start_watch()
 	listclearnulls(our_atoms)
-	var/list/late_maps = typecache_filter_list(our_atoms, GLOB.maploader_typecache)
 	var/list/pipes = typecache_filter_list(our_atoms, GLOB.atmos_machine_typecache)
 	var/list/cables = typecache_filter_list(our_atoms, GLOB.cable_typecache)
-	// If we don't carefully add dirt around the map templates, bad stuff happens
-	// so we separate them out here
-	our_atoms -= late_maps
 	SSatoms.InitializeAtoms(our_atoms, FALSE)
 	log_debug("Primary initialization finished in [stop_watch(watch)]s.")
 	our_atoms.Cut()
@@ -169,8 +164,6 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 		do_pipes(pipes)
 	if(length(cables))
 		do_cables(cables)
-	if(length(late_maps))
-		do_late_maps(late_maps)
 
 /datum/space_level/proc/do_pipes(list/pipes)
 	var/watch = start_watch()
@@ -188,14 +181,4 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 	log_debug("Building powernets on z-level '[zpos]'!")
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
-	log_debug("Took [stop_watch(watch)]s")
-
-/datum/space_level/proc/do_late_maps(list/late_maps)
-	var/watch = start_watch()
-	log_debug("Loading map templates on z-level '[zpos]'!")
-	GLOB.space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
-	for(var/atom/movable/AM in late_maps)
-		AM.Initialize()
-	late_maps.Cut()
-	GLOB.space_manager.remove_dirt(zpos)
 	log_debug("Took [stop_watch(watch)]s")

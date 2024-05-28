@@ -27,6 +27,10 @@
 		viewing_alternate_appearances = null
 	LAssailant = null
 	runechat_msg_location = null
+	if(length(observers))
+		for(var/mob/dead/observe as anything in observers)
+			observe.reset_perspective(null)
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -600,7 +604,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(.)
 		// Allows sharing HUDs with ghosts
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
