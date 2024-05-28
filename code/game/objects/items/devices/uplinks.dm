@@ -405,6 +405,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	hidden_uplink = new(src)
 	icon_state = "radio"
 
+/obj/item/radio/uplink/AltClick()
+	return
+
+/obj/item/radio/uplink/CtrlShiftClick()
+	return
+
+/obj/item/radio/uplink/show_examine_hotkeys()
+	return list()
+
 /obj/item/radio/uplink/attack_self(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)

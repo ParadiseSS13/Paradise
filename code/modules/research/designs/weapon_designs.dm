@@ -196,6 +196,7 @@
 	name = "WT-550 PDW Uranium Ammo Box (4.6x30mm TX)"
 	desc = "A box of 20 uranium tipped rounds for the WT-550 PDW."
 	id = "box_oldsmg_tx"
+	req_tech = list("combat" = 3, "materials" = 2, "syndicate" = 3)
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")

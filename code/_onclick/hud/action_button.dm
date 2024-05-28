@@ -16,6 +16,8 @@
 	var/id
 	/// UID of the last thing we hovered over. Used for managing action button dragging.
 	var/last_hovered_ref
+	/// Whether or not this should be shown to observers
+	var/shown_to_observers = FALSE
 	/// Whether or not this button is locked, preventing it from being dragged.
 	var/locked = FALSE
 
@@ -32,8 +34,14 @@
 	return ..()
 
 /atom/movable/screen/movable/action_button/proc/can_use(mob/user)
+	if(isobserver(user))
+		var/mob/dead/observer/dead_mob = user
+		if(dead_mob.mob_observed) // Observers can only click on action buttons if they're not observing something
+			return FALSE
 	if(!linked_action)
 		return TRUE
+	if(linked_action.owner != user)
+		return FALSE
 	return !isnull(linked_action.viewers[user.hud_used])
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
@@ -60,7 +68,8 @@
 		last_hovered.MouseExited(over_location, over_control, params)
 		closeToolTip(usr)
 	last_hovered_ref = UID(over_object)
-	over_object.MouseEntered(over_location, over_control, params)
+	if(!isnull(over_object))
+		over_object.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	last_hovered_ref = null
@@ -113,6 +122,8 @@
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
 
 /atom/movable/screen/movable/action_button/Click(location, control, params)
+	if(!can_use(usr))
+		return FALSE
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
@@ -577,5 +588,48 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			action.ShowTo(mymob)
 			button = action.viewers[src]
 		position_action(button, button.location)
+
+
+/**
+ * Show (most) of the another mob's action buttons to this mob
+ *
+ * Used for observers viewing another mob's screen
+ */
+/mob/proc/show_other_mob_action_buttons(mob/take_from)
+	if(!hud_used || !client)
+		return
+
+	for(var/datum/action/action as anything in take_from.actions)
+		if(!action.show_to_observers)
+			continue
+		action.GiveAction(src)
+	RegisterSignal(take_from, COMSIG_MOB_GRANTED_ACTION, PROC_REF(on_observing_action_granted), override = TRUE)
+	RegisterSignal(take_from, COMSIG_MOB_REMOVED_ACTION, PROC_REF(on_observing_action_removed), override = TRUE)
+
+/**
+ * Hide another mob's action buttons from this mob
+ *
+ * Used for observers viewing another mob's screen
+ */
+/mob/proc/hide_other_mob_action_buttons(mob/take_from)
+	for(var/datum/action/action as anything in take_from.actions)
+		action.HideFrom(src)
+	UnregisterSignal(take_from, list(COMSIG_MOB_GRANTED_ACTION, COMSIG_MOB_REMOVED_ACTION))
+
+/// Signal proc for [COMSIG_MOB_GRANTED_ACTION] - If we're viewing another mob's action buttons,
+/// we need to update with any newly added buttons granted to the mob.
+/mob/proc/on_observing_action_granted(mob/living/source, datum/action/action)
+	SIGNAL_HANDLER  // COMSIG_MOB_GRANTED_ACTION
+
+	if(!action.show_to_observers)
+		return
+	action.GiveAction(src)
+
+/// Signal proc for [COMSIG_MOB_REMOVED_ACTION] - If we're viewing another mob's action buttons,
+/// we need to update with any removed buttons from the mob.
+/mob/proc/on_observing_action_removed(mob/living/source, datum/action/action)
+	SIGNAL_HANDLER  // COMSIG_MOB_REMOVED_ACTION
+
+	action.HideFrom(src)
 
 #undef AB_MAX_COLUMNS

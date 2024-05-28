@@ -638,6 +638,8 @@
 					M.buckled.unbuckle_mob(M, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
+					if(L.incorporeal_move || L.status_flags & GODMODE)
+						continue
 					L.stop_pulling()
 					L.visible_message("<span class='warning'>[L] is hit by \
 									a hyperspace ripple!</span>",
@@ -808,6 +810,8 @@
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
+	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or LateInitialize (variable)
+	var/find_destinations_in_late_init = FALSE
 
 /obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
@@ -817,6 +821,12 @@
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
+	if(find_destinations_in_late_init && mapload) // We only care about this in mapload, if its mid round its fine
+		return INITIALIZE_HINT_LATELOAD
+
+	connect()
+
+/obj/machinery/computer/shuttle/LateInitialize()
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
@@ -952,27 +962,7 @@
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
-
-/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	return ..()
-
-// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
-/obj/machinery/computer/shuttle/white_ship/LateInitialize()
-	Initialize()
-
-/obj/machinery/computer/shuttle/engineering
-	name = "Engineering Shuttle Console"
-	desc = "Used to call and send the engineering shuttle."
-	shuttleId = "engineering"
-	possible_destinations = "engineering_home;engineering_away"
-
-/obj/machinery/computer/shuttle/science
-	name = "Science Shuttle Console"
-	desc = "Used to call and send the science shuttle."
-	shuttleId = "science"
-	possible_destinations = "science_home;science_away"
+	find_destinations_in_late_init = TRUE
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
@@ -997,6 +987,7 @@
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"
 	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)

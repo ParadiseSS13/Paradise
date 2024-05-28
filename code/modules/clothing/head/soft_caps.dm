@@ -117,6 +117,16 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head/softcap.dmi'
 		)
 
+/obj/item/clothing/head/soft/expedition
+	name = "expedition cap"
+	desc = "It's a baseball hat in the brown and blue markings of the expedition team."
+	icon_state = "expeditionsoft"
+	item_color = "expedition"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
+		)
+
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
 	desc = "It's a grey baseball hat with a purple custodial shield."

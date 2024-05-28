@@ -489,7 +489,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
-	icon_state = "razorwire_weapon"
+	icon_state = "razorwire"
 	item_state = "razorwire"
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
@@ -498,6 +498,24 @@
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
+	///List of skins for the razorwire.
+	var/list/razorwire_skin_options = list()
+
+/obj/item/melee/razorwire/Initialize(mapload)
+	. = ..()
+	var/random_colour = pick("razorwire", "razorwire_teal", "razorwire_yellow", "razorwire_purple", "razorwire_green")
+	icon_state = random_colour
+	item_state = random_colour
+	update_icon()
+	razorwire_skin_options["Reliable Red"] = "razorwire"
+	razorwire_skin_options["Troubling Teal"] = "razorwire_teal"
+	razorwire_skin_options["Yearning Yellow"] = "razorwire_yellow"
+	razorwire_skin_options["Plasma Purple"] = "razorwire_purple"
+	razorwire_skin_options["Great Green"] = "razorwire_green"
+
+/obj/item/melee/razorwire/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
 /obj/item/melee/razorwire/examine_more(mob/user)
 	. = ..()
@@ -511,6 +529,35 @@
 	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.</i>"
 	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
 	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
+
+/obj/item/melee/razorwire/AltClick(mob/user)
+	..()
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(loc == user)
+		reskin(user)
+
+/obj/item/melee/razorwire/proc/reskin(mob/M)
+	var/list/skins = list()
+	for(var/I in razorwire_skin_options)
+		skins[I] = image(icon, icon_state = razorwire_skin_options[I])
+	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
+
+	if(choice && reskin_radial_check(M))
+		icon_state = razorwire_skin_options[choice]
+		item_state = razorwire_skin_options[choice]
+		update_icon()
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+
+/obj/item/melee/razorwire/proc/reskin_radial_check(mob/user)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!src || !H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/razorwire
 	name = "razorwire spool implant"

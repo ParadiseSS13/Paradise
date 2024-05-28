@@ -84,7 +84,7 @@
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
-	job = list("Shaft Miner")
+	job = list("Shaft Miner", "Explorer")
 	surplus = 0 // Requires a KA to even be used.
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
