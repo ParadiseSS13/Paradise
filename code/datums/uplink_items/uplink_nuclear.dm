@@ -1,6 +1,8 @@
 // NUCLEAR AGENT ONLY GEAR
 
-// DANGEROUS WEAPONS
+////////////////////////////////////////
+// MARK: DANGEROUS WEAPONS
+////////////////////////////////////////
 
 /datum/uplink_item/dangerous/aps
 	name = "Stechkin APS Pistol"
@@ -89,7 +91,9 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
-// SUPPORT AND MECHAS
+////////////////////////////////////////
+// MARK: SUPPORT AND MECHAS
+////////////////////////////////////////
 
 /datum/uplink_item/support
 	category = "Support and Mechanized Exosuits"
@@ -150,7 +154,9 @@
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	cost = 125
 
-// AMMUNITION
+////////////////////////////////////////
+// MARK: AMMUNITION
+////////////////////////////////////////
 
 /datum/uplink_item/ammo/aps
 	name = "Stechkin APS - 10mm Magazine"
@@ -337,9 +343,9 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
-// STEALTHY WEAPONS
-
-// EXPLOSIVES
+////////////////////////////////////////
+// MARK: EXPLOSIVES
+////////////////////////////////////////
 
 /datum/uplink_item/explosives/c4bag
 	name = "Bag of C-4 explosives"
@@ -387,7 +393,15 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 35
 
-// STEALTHY TOOLS
+////////////////////////////////////////
+// MARK: STEALTHY WEAPONS
+////////////////////////////////////////
+
+// There's no nukie only stealthy weapons right now, but if you want to add one, put it here.
+
+////////////////////////////////////////
+// MARK: STEALTHY TOOLS
+////////////////////////////////////////
 
 /datum/uplink_item/stealthy_tools/clownkit
 	name = "Honk Brand Infiltration Kit"
@@ -398,7 +412,9 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
-// DEVICES AND TOOLS
+////////////////////////////////////////
+// MARK: DEVICES AND TOOLS
+////////////////////////////////////////
 
 /datum/uplink_item/device_tools/diamond_drill
 	name = "Amplifying Diamond Tipped Thermal Safe Drill"
@@ -486,7 +502,9 @@
 	cost = 75
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// SPACE SUITS
+////////////////////////////////////////
+// MARK: SPACE SUITS
+////////////////////////////////////////
 
 /datum/uplink_item/suits/elite_nukie
 	name = "Elite Syndicate MODsuit"
@@ -509,7 +527,9 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// IMPLANTS
+////////////////////////////////////////
+// MARK: IMPLANTS
+////////////////////////////////////////
 
 /datum/uplink_item/bio_chips/krav_implant
 	name = "Krav Maga Implant"
@@ -582,7 +602,9 @@
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// BUNDLES
+////////////////////////////////////////
+// MARK: BUNDLES
+////////////////////////////////////////
 
 /datum/uplink_item/bundles_TC/bulldog
 	name = "Bulldog Bundle"
@@ -628,10 +650,9 @@
 	cost = 90 // normally 115
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-
-// ---------------------------------
-// PRICES OVERRIDE FOR TRAITOR ITEMS
-// ---------------------------------
+////////////////////////////////////////
+// MARK: PRICES OVERRIDE FOR TRAITOR ITEMS
+////////////////////////////////////////
 
 /datum/uplink_item/stealthy_weapons/cqc/nuke
 	reference = "NCQC"
@@ -679,9 +700,9 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// ---------------------------------
-// NUKIE ONLY POINTLESS BADASSERY
-// ---------------------------------
+////////////////////////////////////////
+// MARK: NUKIE ONLY POINTLESS BADASSERY
+////////////////////////////////////////
 
 /datum/uplink_item/badass/confettidrum
 	name = "Bulldog - 12g party Magazine"
