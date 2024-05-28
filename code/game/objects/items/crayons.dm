@@ -303,6 +303,7 @@
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing spray paint."
 	icon_state = "spraycan_cap"
+	slot_flags = SLOT_FLAG_BELT
 	var/capped = TRUE
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
