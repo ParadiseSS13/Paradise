@@ -65,14 +65,14 @@ GLOBAL_LIST_INIT(service_positions, list(
 	"Internal Affairs Agent",
 	"Chaplain",
 	"Clown",
-	"Mime",
-	"Explorer"
+	"Mime"
 ))
 
 GLOBAL_LIST_INIT(supply_positions, list(
 	"Quartermaster",
 	"Cargo Technician",
-	"Shaft Miner"
+	"Shaft Miner",
+	"Explorer"
 ))
 
 /// Roles that include any semblence of security, mostly for jobbans
