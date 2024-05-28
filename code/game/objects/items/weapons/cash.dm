@@ -1,8 +1,8 @@
 /obj/item/stack/spacecash
 	name = "1 Credit"
 	desc = "Money money money."
-	icon = 'icons/goonstation/objects/money.dmi'
-	icon_state = "cashgreen"
+	icon = 'icons/obj/money.dmi'
+	icon_state = "cash"
 	hitsound = "swing_hit"
 	force = 1
 	throwforce = 1
@@ -38,18 +38,18 @@
 
 /obj/item/stack/spacecash/update_icon_state()
 	name = "[amount] Credit[amount > 1 ? "s" : ""]"
-	if(amount >= 1 && amount < 10)
-		icon_state = "cashgreen"
-	else if(amount >= 10 && amount < 50)
-		icon_state = "spacecash"
-	else if(amount >= 50 && amount < 500)
-		icon_state = "cashblue"
+	if(amount >= 1 && amount < 50)
+		icon_state = "cash"
+	else if(amount >= 50 && amount < 100)
+		icon_state = "cash2"
+	else if(amount >= 100 && amount < 500)
+		icon_state = "cash3"
 	else if(amount >= 500 && amount < 1000)
-		icon_state = "cashindi"
-	else if(amount >= 1000 && amount <= 10000)
-		icon_state = "cashpurp"
+		icon_state = "cash4"
+	else if(amount >= 1000 && amount < 10000)
+		icon_state = "cash5"
 	else
-		icon_state = "cashrbow"
+		icon_state = "cash6"
 
 /obj/item/stack/spacecash/c5
 	amount = 5

@@ -2590,6 +2590,18 @@
 "gd" = (
 /turf/simulated/wall,
 /area/mine/outpost/mechbay)
+"ge" = (
+/obj/structure/grille/broken,
+/obj/structure/grille/broken,
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "gf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5123,6 +5135,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"sa" = (
+/obj/item/mounted/frame/intercom,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "sg" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -5320,6 +5339,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"tC" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/flashlight/flare,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "tE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7583,6 +7608,14 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"GL" = (
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "GM" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/structure/sign/poster/official/random{
@@ -7646,6 +7679,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Hg" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/lavaland/surface/outdoors)
 "Hh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8248,6 +8287,10 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"Lf" = (
+/obj/structure/door_assembly/door_assembly_silver,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "Lh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -9184,6 +9227,14 @@
 /obj/structure/firelock_frame,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"RU" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "RZ" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -10166,6 +10217,9 @@
 /obj/structure/bed/dogbed/brad,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"XM" = (
+/turf/simulated/wall/mineral/titanium,
+/area/lavaland/surface/outdoors)
 "XP" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away2";
@@ -10455,6 +10509,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"Zp" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "Zs" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -12443,9 +12505,9 @@ an
 an
 an
 an
-an
-an
-an
+KQ
+Aw
+Aw
 an
 an
 an
@@ -12461,8 +12523,8 @@ an
 an
 an
 an
-an
-an
+Aw
+Aw
 an
 an
 an
@@ -12478,8 +12540,8 @@ an
 an
 an
 an
-an
-an
+Aw
+Aw
 an
 an
 an
@@ -12700,9 +12762,9 @@ an
 an
 an
 an
-an
-an
-an
+ab
+ab
+ab
 an
 an
 an
@@ -12957,9 +13019,9 @@ an
 an
 an
 an
-an
-an
-an
+Hg
+Lf
+Hg
 an
 an
 an
@@ -13214,9 +13276,9 @@ an
 an
 an
 an
-an
-an
-an
+XM
+tC
+RU
 an
 an
 an
@@ -13471,9 +13533,9 @@ an
 an
 an
 an
-an
-an
-an
+GL
+sa
+XM
 an
 an
 an
@@ -13728,8 +13790,8 @@ an
 an
 an
 an
-an
-an
+Zp
+ge
 an
 an
 an
