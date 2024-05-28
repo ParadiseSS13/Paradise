@@ -238,7 +238,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(HAS_TRAIT(M, TRAIT_RESPAWNABLE))
-		ghostize(1)
+		if(isdrone(M))//We do not punish maint drones for leaving early, *but* we don't want them ghosting, finding damage, respawning / rentering over and over.
+			var/mob/dead/observer/ghost = ghostize(FALSE)	// FALSE parameter stops them re-entering their body
+			ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+			return
+		ghostize(TRUE)
 		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
@@ -267,11 +271,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(warningmsg)
 		// Not respawnable
-		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		var/mob/dead/observer/ghost = ghostize(FALSE)	// FALSE parameter stops them re-entering their body
 		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	else
 		// Respawnable
-		ghostize(1)
+		ghostize(TRUE)
 
 	// If mob in cryopod, despawn mob
 	if(P)
@@ -951,12 +955,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
 		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MENTOR_OBSERVING. This is likely a bug and may result in them being stuck outside of their bodies.")
 	cleanup_observe()
-
-/mob/dead/observer/proc/update_dead_radio()
-	if(get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
-		GLOB.deadchat_radio.listeners |= src
-	else
-		GLOB.deadchat_radio.listeners -= src
 
 #undef GHOST_CAN_REENTER
 #undef GHOST_IS_OBSERVER

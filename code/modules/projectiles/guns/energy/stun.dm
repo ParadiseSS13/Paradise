@@ -76,6 +76,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
 	shaded_charge = TRUE
 	can_holster = FALSE
+	fire_delay = 0
 
 /obj/item/gun/energy/disabler/smg/Initialize(mapload)
 	. = ..()
