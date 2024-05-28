@@ -921,7 +921,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		pointed_object += " inside [target_atom.loc]"
 
 	if(pointer_mob.a_intent == INTENT_HELP || !ismob(target_atom))
-		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src]")
+		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src].")
 		return TRUE
 
 	target_atom.visible_message("<span class='danger'>[pointer_mob] points [src] at [pointed_object]!</span>",

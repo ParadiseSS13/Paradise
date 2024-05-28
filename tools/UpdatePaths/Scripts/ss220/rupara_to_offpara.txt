@@ -9,7 +9,7 @@
 /area/security/armory : /area/station/security/armory
 /area/security/securearmory : /area/station/security/armory/secure
 /area/civilian/vacantoffice : /area/station/public/vacant_office
-/area/gateway : /area/station/service/expedition
+/area/gateway : /area/station/supply/expedition
 
 /turf/simulated/floor/engine/insulated : /turf/simulated/floor/engine{@OLD}
 /turf/simulated/floor/engine/insulated/vacuum : /turf/simulated/floor/engine/vacuum{@OLD}

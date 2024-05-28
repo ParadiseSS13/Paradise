@@ -187,7 +187,10 @@
 				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
 				if(GLOB.configuration.general.roundstart_observer_period == 0)
 					period_human_readable = "before the round started"
-				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see.</span>")
+				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+					// admins always get aobserve
+					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/spawn_point

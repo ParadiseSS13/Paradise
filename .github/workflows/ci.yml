@@ -2,10 +2,10 @@ name: CI
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
   merge_group:
 
 jobs:
@@ -49,6 +49,7 @@ jobs:
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
+          python tools/ci/check_map_sizes.py
           # python tools/ci/verify_sql_version.py # SS220 REMOVAL
           # python tools/ci/no_duplicate_definitions.py # SS220 REMOVAL
           python -m tools.ci.check_icon_conflicts
@@ -134,9 +135,9 @@ jobs:
     name: Windows RUSTG Validation
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.8.2' # Script was made for 3.8.2
-        architecture: 'x86' # This MUST be x86
-    - run: python tools/ci/validate_rustg_windows.py
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.2' # Script was made for 3.8.2
+          architecture: 'x86' # This MUST be x86
+      - run: python tools/ci/validate_rustg_windows.py

@@ -11880,7 +11880,7 @@
 /area/station/legal/lawoffice)
 "aSA" = (
 /turf/simulated/wall/r_wall,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aSC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -12041,7 +12041,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aTx" = (
 /obj/machinery/gateway{
 	dir = 8
@@ -12049,7 +12049,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aTy" = (
 /obj/machinery/gateway{
 	dir = 1
@@ -12057,7 +12057,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aTA" = (
 /obj/structure/table/glass,
 /obj/item/seeds/apple,
@@ -12394,7 +12394,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aUG" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -12414,7 +12414,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aUI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -12670,7 +12670,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aVs" = (
 /obj/structure/table/wood,
 /obj/item/instrument/piano_synth,
@@ -14174,7 +14174,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bao" = (
 /obj/machinery/status_display/directional/north,
 /obj/structure/table/wood,
@@ -15931,7 +15931,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bgL" = (
 /obj/machinery/light/directional/east,
 /obj/machinery/gateway{
@@ -15941,7 +15941,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bgM" = (
 /obj/structure/table/glass,
 /obj/item/cultivator,
@@ -16142,12 +16142,12 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bhI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-r"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bhK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -16192,7 +16192,7 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bhQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -16840,7 +16840,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "blg" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -17079,7 +17079,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bml" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -34109,7 +34109,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cGU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -34131,7 +34131,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cGW" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "scibomb_vent";
@@ -34166,7 +34166,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cHa" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -35733,7 +35733,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cMB" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed{
@@ -39317,7 +39317,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cYO" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -39399,7 +39399,7 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cZb" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -41972,11 +41972,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/any/command/expedition,
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "diw" = (
 /obj/item/flag/nt,
 /obj/machinery/camera{
@@ -45629,7 +45629,7 @@
 "dHU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/machinery/light/small/built/north,
+/obj/machinery/light/small/nightshifted/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "dIa" = (
@@ -46832,7 +46832,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-m"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "efn" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag{
@@ -54843,7 +54843,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "gZg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59374,7 +59374,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "iIA" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
@@ -59998,7 +59998,6 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/machinery/light/small/built/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "iVU" = (
@@ -66595,7 +66594,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "lwj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -73128,7 +73127,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "nMG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -74695,6 +74694,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"oqT" = (
+/obj/effect/landmark/damageturf,
+/obj/machinery/light/small/nightshifted/south,
+/turf/simulated/floor/wood/oak,
+/area/station/maintenance/asmaint2)
 "oqZ" = (
 /obj/effect/turf_decal/delivery/blue/partial,
 /turf/simulated/floor/plasteel,
@@ -80644,7 +80648,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "qvr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83635,7 +83639,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "rBN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -94254,7 +94258,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-l"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "vtW" = (
 /mob/living/simple_animal/hostile/killertomato{
 	desc = "Прирученный ботаниками томат-убийца. Не подпускать к Сане.";
@@ -100589,7 +100593,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "xKi" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -100718,7 +100722,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "xLR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -144807,7 +144811,7 @@ cQk
 cQk
 gZH
 spH
-crj
+oqT
 cuQ
 cuQ
 cuQ

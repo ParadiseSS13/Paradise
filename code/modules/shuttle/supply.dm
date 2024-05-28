@@ -53,7 +53,7 @@
 	var/blocking_item = "ERR_UNKNOWN"
 
 /obj/docking_port/mobile/supply/Initialize()
-	..()
+	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
 		var/datum/economy/simple_seller/seller = new T
 		simple_sellers += seller
@@ -808,6 +808,34 @@
 	if(istype(AM.loc, /obj/mecha/working))
 		return COMSIG_CARGO_SELL_SKIP
 
+/datum/economy/simple_seller/explorer_salvage
+	var/list/salvage_counts = list()
+
+/datum/economy/simple_seller/explorer_salvage/begin_sell(obj/docking_port/mobile/supply/S)
+	LAZYCLEARLIST(salvage_counts)
+
+/datum/economy/simple_seller/explorer_salvage/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM, /obj/item/salvage))
+		return COMSIG_CARGO_SELL_NORMAL
+
+/datum/economy/simple_seller/explorer_salvage/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!..())
+		return
+
+	salvage_counts[AM.name]++
+
+/datum/economy/simple_seller/explorer_salvage/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!salvage_counts)
+		return
+	for(var/salvage_name in salvage_counts)
+		var/datum/economy/line_item/item = new
+		item.account = SSeconomy.cargo_account
+		var/count = salvage_counts[salvage_name]
+		item.credits = count * SSeconomy.credits_per_salvage
+		item.reason = "Received [count] haul(s) of [salvage_name]."
+		manifest.line_items += item
+		SSblackbox.record_feedback("nested tally", "cargo salvage sold", count, list(salvage_name, "count"))
+		SSblackbox.record_feedback("nested tally", "cargo salvage sold", item.credits, list(salvage_name, "credits"))
 
 /datum/economy/cargo_shuttle_manifest
 	var/list/items_to_sell = list()

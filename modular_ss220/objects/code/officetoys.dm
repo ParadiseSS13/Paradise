@@ -151,8 +151,8 @@
 	icon_state = "newtoncradle"
 	var/datum/looping_sound/newtonballs/soundloop
 
-/obj/item/toy/desk/newtoncradle/Initialize()
-	..()
+/obj/item/toy/desk/newtoncradle/Initialize(mapload)
+	. = ..()
 	soundloop = new(list(src), FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
@@ -169,8 +169,8 @@
 	icon_state = "fan"
 	var/datum/looping_sound/fanblow/soundloop
 
-/obj/item/toy/desk/fan/Initialize()
-	..()
+/obj/item/toy/desk/fan/Initialize(mapload)
+	. = ..()
 	soundloop = new(list(src), FALSE)
 
 /obj/item/toy/desk/fan/attack_self(mob/user)

@@ -423,7 +423,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/Initialize()
-	..()
+	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)

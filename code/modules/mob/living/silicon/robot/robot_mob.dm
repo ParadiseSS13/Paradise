@@ -27,10 +27,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
 
-	/// Used to determine whether the robot has the module menu shown or not.
-	var/shown_robot_modules = FALSE
-	var/atom/movable/screen/robot_modules_background
-
 	// 3 Modules can be activated at any one time.
 	var/obj/item/robot_module/module = null
 	var/module_active = null
@@ -171,11 +167,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", 1)
 
 	wires = new(src)
-
-	robot_modules_background = new()
-	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer 20, UI should be just below it.
-	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
 	rename_character(null, get_default_name())
@@ -664,9 +655,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
-
-	shown_robot_modules = 0
-	client?.screen -= robot_modules_background
 	client?.screen -= hud_used.module_store_icon
 	uneq_all()
 	SStgui.close_user_uis(src)
@@ -698,6 +686,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	armor = getArmor(arglist(initial(armor)))
 
 	status_flags |= CANPUSH
+
+	hud_used.update_robot_modules_display()
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
