@@ -211,7 +211,7 @@
 	/// How fast does the keyring open an airlock. It is not set here so that it can be set via the user's role.
 	var/hack_speed
 	/// Stores the last airlock opened, opens faster on repeated use
-	var/last_airlock
+	var/last_airlock_uid
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
@@ -235,7 +235,7 @@
 		return
 	busy = TRUE
 	var/mob/living/carbon/human/H = user
-	if(H.mind.assigned_role == "Janitor" && last_airlock && last_airlock == D)
+	if(H.mind.assigned_role == "Janitor" && last_airlock_uid == D.UID())
 		to_chat(user, "<span class='notice'>You recognise the [D] and look for the key you used...</span>")
 		hack_speed = 5 SECONDS
 	else
@@ -247,7 +247,7 @@
 	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(D.check_access(ID))
-			last_airlock = D
+			last_airlock_uid = D.UID()
 		. = ..()
 	busy = FALSE
 
