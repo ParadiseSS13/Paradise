@@ -131,9 +131,9 @@
 "gp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/item/clothing/suit/jacket/cargobomber,
-/obj/item/clothing/suit/jacket/cargobomber,
-/obj/item/clothing/suit/jacket/cargobomber,
+/obj/item/clothing/suit/jacket/bomber/cargo,
+/obj/item/clothing/suit/jacket/bomber/cargo,
+/obj/item/clothing/suit/jacket/bomber/cargo,
 /obj/item/clothing/under/rank/cargo/tech,
 /obj/item/clothing/under/rank/cargo/tech,
 /obj/item/clothing/under/rank/cargo/tech,

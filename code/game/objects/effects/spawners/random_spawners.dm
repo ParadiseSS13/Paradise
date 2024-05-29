@@ -290,7 +290,7 @@
 		/obj/item/mod/module/visor/night = 1,
 		/obj/item/clothing/gloves/color/black/thief = 1,
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 1,
-		/obj/item/clothing/suit/jacket/syndicatebomber = 1,
+		/obj/item/clothing/suit/jacket/bomber/syndicate = 1,
 		/obj/item/mod/module/holster/hidden = 1,
 		/obj/item/storage/firstaid/tactical = 1,
 		/obj/item/clothing/under/syndicate/silicon_cham = 1,
