@@ -16,8 +16,8 @@
 	slot_flags = SLOT_FLAG_BELT
 	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
 	var/can_pierce_hardsuits = FALSE
-	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_PUNCTURE_IMMUNE.
-	var/ignore_anti_piercing = FALSE
+	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
+	var/ignore_hypospray_immunity = FALSE
 	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
 	/// List of OSHA-approved medicines.
@@ -35,7 +35,7 @@
 		return
 
 	var/mob/living/carbon/human/H = M
-	if(HAS_TRAIT(H.wear_suit, TRAIT_PUNCTURE_IMMUNE) && !ignore_anti_piercing)	// This check is here entirely to stop goobers injecting nukies with meme chems
+	if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
 		to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
 		return
 
@@ -102,7 +102,7 @@
 		return TRUE
 
 //////////////////////////////
-// MARK: HYPOS VARIANTS
+// MARK: HYPO VARIANTS
 //////////////////////////////
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
@@ -123,7 +123,7 @@
 	icon_state = "combat_hypo"
 	volume = 90
 	can_pierce_hardsuits = TRUE // So they can heal their comrades.
-	ignore_anti_piercing = TRUE
+	ignore_hypospray_immunity = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -159,7 +159,7 @@
 	possible_transfer_amounts = null
 	volume = 10
 	can_pierce_hardsuits = TRUE //so you can medipen through hardsuits
-	ignore_anti_piercing = TRUE
+	ignore_hypospray_immunity = TRUE
 	container_type = DRAWABLE
 	flags = null
 
