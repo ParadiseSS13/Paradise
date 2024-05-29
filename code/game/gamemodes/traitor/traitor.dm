@@ -79,19 +79,12 @@
 			traitors -= traitor_mind
 			continue
 		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
+			traitor_datum.objective_holder.assigned_targets = list()
 			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
-				objective.delayed_objective = FALSE
-				objective.target = null
-
-				var/datum/objective/steal/possible_steal_objective = objective
-				if(istype(possible_steal_objective))
-					possible_steal_objective.steal_target = null
-
-				traitor_datum.objective_holder.assigned_targets = list()
-				objective.find_target()
-
-				SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
+				objective.force_reset_target()
 				objective.update_explanation_text()
+
+			SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
 
 		var/list/messages = traitor_mind.prepare_announce_objectives()
 		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))

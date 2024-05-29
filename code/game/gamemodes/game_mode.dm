@@ -276,9 +276,8 @@
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					candidates -= player
+			if(player.assigned_role in restricted_jobs)
+				candidates -= player
 
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
@@ -296,7 +295,6 @@
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.client && !(locate(player) in SSafk.afk_players))
 			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
-//				if(player_old_enough_antag(player.client, role))
 				players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
@@ -313,8 +311,7 @@
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
+			if(player.assigned_role in restricted_jobs)
 					candidates -= player
 	return candidates
 
