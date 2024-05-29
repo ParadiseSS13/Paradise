@@ -59,7 +59,6 @@
 		location = surgery_location
 	if(!surgery_bodypart)
 		return
-	surgical_dressing = _surgical_dressing
 	organ_to_manipulate = surgery_bodypart
 	if(cancel_on_organ_change)
 		if(requires_bodypart)
