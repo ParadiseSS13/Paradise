@@ -69,7 +69,12 @@
 				/obj/item/clothing/mask/bandana/red = 40,
 				/obj/item/clothing/mask/balaclava = 60,
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
+<<<<<<< HEAD
 				/obj/item/clothing/suit/jacket/bomber/sec = 75,
+=======
+				/obj/item/clothing/suit/jacket/secbomber = 75,
+				/obj/item/clothing/suit/greatcoat/sec = 75,
+>>>>>>> cfb82080d9 (drobse)
 				/obj/item/clothing/suit/armor/secjacket = 75,
 				/obj/item/clothing/suit/armor/secponcho = 75,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 75,
@@ -406,8 +411,7 @@
 					/obj/item/clothing/shoes/black = 3,
 					/obj/item/storage/backpack/robotics = 2,
 					/obj/item/storage/backpack/satchel_robo = 2,
-					/obj/item/storage/backpack/duffel/robotics = 2,
-					/obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil = 2)
+					/obj/item/storage/backpack/duffel/robotics = 2)
 
 	contraband = list(/obj/item/toy/figure/crew/roboticist = 1,
 					/obj/item/toy/figure/crew/borg = 1)
