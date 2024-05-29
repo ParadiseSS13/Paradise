@@ -862,7 +862,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step
-			if(istype(I, /obj/item/wrench) && !anchored)
+			if(iswrench(I) && !anchored)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
 				anchored = TRUE
@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
 				return
 
-			else if(istype(I, /obj/item/wrench))
+			else if(iswrench(I))
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
 				anchored = FALSE
@@ -896,7 +896,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 
 		if(2)
-			if(istype(I, /obj/item/wrench))
+			if(iswrench(I))
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
 				build_step = 3
@@ -929,7 +929,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				qdel(I) //delete the gun :( qdel
 				return
 
-			else if(istype(I, /obj/item/wrench))
+			else if(iswrench(I))
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You remove the turret's metal armor bolts.</span>")
 				build_step = 2

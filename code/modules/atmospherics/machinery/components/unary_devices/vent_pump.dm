@@ -13,6 +13,7 @@
 	layer_offset = GAS_SCRUBBER_OFFSET
 
 	can_unwrench = TRUE
+	can_unwrench_while_on = TRUE
 	var/open = FALSE
 
 	var/area/initial_loc
@@ -189,11 +190,6 @@
 		else
 			to_chat(user, "The vent is welded.")
 		return TRUE
-
-	if(iswrench(W))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return TRUE
 
 	return ..()
 

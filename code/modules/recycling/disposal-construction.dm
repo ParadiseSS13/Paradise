@@ -138,6 +138,8 @@
 // weldingtool: convert to real pipe
 
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
+	var/ispipe = is_pipe()
+	var/nicetype = get_nice_name()
 	if(anchored)
 		anchored = FALSE
 		if(ispipe)
@@ -158,11 +160,18 @@
 	update()
 	return TRUE
 
+/obj/structure/disposalconstruct/proc/is_pipe()
+	switch(ptype)
+		// lewtodo: this sucks
+		if(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)
+			return FALSE
+		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
+			return TRUE
+		else
+			return TRUE
 
-/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalconstruct/proc/get_nice_name()
 	var/nicetype = "pipe"
-	var/ispipe = 0 // Indicates if we should change the level of this pipe
-	src.add_fingerprint(user)
 	switch(ptype)
 		if(PIPE_DISPOSALS_BIN)
 			nicetype = "disposal bin"
@@ -172,10 +181,13 @@
 			nicetype = "delivery chute"
 		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
 			nicetype = "sorting pipe"
-			ispipe = 1
-		else
-			nicetype = "pipe"
-			ispipe = 1
+	return nicetype
+
+/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+	var/nicetype = get_nice_name()
+	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
+	src.add_fingerprint(user)
+
 
 	var/turf/T = src.loc
 	if(T.intact)
