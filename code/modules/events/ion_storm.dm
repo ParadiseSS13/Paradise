@@ -538,7 +538,7 @@
 		"Yous speaksies like voxxies, yaya?",
 		"The word \"it\" is painful to you.",
 		"The station needs elected officials.",
-		"You are a spokesperson for Wetskrell.nt.",
+		"You are a spokesperson for WetSkrell.sol.",
 		"Do not respond to questions of any kind.",
 		"You are in verbose mode, speak profusely.",
 		"[random_player] has not paid their taxes.",

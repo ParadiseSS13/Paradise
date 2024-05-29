@@ -81,11 +81,11 @@
 					// Intentional errors here, please do not fix.
 					"Greetings sir, I regretfully to inform you that as I lay dying here due to my lack ofheirs I have chosen you to recieve the full sum of my lifetime savings of 1.5 billion credits")
 				if(6)
-					sender = pick("Nanotrasen Morale Divison","Feeling Lonely?","Bored?","www.wetskrell.nt")
-					message = pick("The Nanotrasen Morale Division wishes to provide you with quality entertainment sites.",\
-					"WetSkrell.nt is a xenophillic website endorsed by NT for the use of male crewmembers among it's many stations and outposts.",\
-					"Wetskrell.nt only provides the higest quality of male entertaiment to Nanotrasen Employees.",\
-					"Simply enter your Nanotrasen Bank account system number and pin. With three easy steps this service could be yours!")
+					sender = pick("Federation Communications Office","Feeling Lonely?","Bored?","Under the weather?","www.WetSkrell.sol")
+					message = pick("The Federation Communications Office, in partnership with the 5th PSYOP division, wishes to provide you with quality entertainment sites.",\
+					"WetSkrell.sol is a xenophillic website endorsed by the TSF for use by civilians and citizens across the Federation.",\
+					"WetSkrell.sol exists to provide top-quality entertainment and companionship to all Federation residents.",\
+					"Simply enter your account system number and pin from any supported banking service. With three easy steps this service could be yours!")
 				if(7)
 					sender = pick("You have won free tickets!","Click here to claim your prize!","You are the 1000th vistor!","You are our lucky grand prize winner!")
 					message = pick("You have won tickets to the newest ACTION JAXSON MOVIE!",\

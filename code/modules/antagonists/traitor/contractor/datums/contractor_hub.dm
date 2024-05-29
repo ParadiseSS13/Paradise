@@ -142,7 +142,7 @@
 						"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [creds] creds. Enjoy!",
 						"Thank you for your initial investment of 500 credits! We have credited your account with [creds] as a token of appreciation.",
 						"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [creds] credits.",
-						"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
+						"Your refund request for your WetSkrell.sol subscription has been received. We have credited your account with [creds] credits.",
 					)
 	var/transaction_person
 	if(prob(50))
