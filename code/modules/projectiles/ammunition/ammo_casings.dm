@@ -315,7 +315,6 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	materials = list(MAT_METAL=250)
 
-
 /obj/item/ammo_casing/shotgun/confetti
 	name = "confettishot"
 	desc = "A 12 gauge shell loaded with... confetti?"
