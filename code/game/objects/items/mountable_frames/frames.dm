@@ -12,15 +12,13 @@
 	///The requirements for this frame to be placed, uses bit flags
 	var/mount_requirements = 0
 
-/obj/item/mounted/frame/attackby(obj/item/W, mob/user)
-	..()
-	if(istype(W, /obj/item/wrench))
-		var/turf/user_turf = get_turf(user)
-		if(metal_sheets_refunded)
-			new /obj/item/stack/sheet/metal(user_turf, metal_sheets_refunded)
-		if(glass_sheets_refunded)
-			new /obj/item/stack/sheet/glass(user_turf, glass_sheets_refunded)
-		qdel(src)
+/obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/I)
+	var/turf/user_turf = get_turf(user)
+	if(metal_sheets_refunded)
+		new /obj/item/stack/sheet/metal(user_turf, metal_sheets_refunded)
+	if(glass_sheets_refunded)
+		new /obj/item/stack/sheet/glass(user_turf, glass_sheets_refunded)
+	qdel(src)
 
 /obj/item/mounted/frame/try_build(turf/on_wall, mob/user)
 	if(!..())

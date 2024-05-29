@@ -565,15 +565,13 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_gsensor/attackby(obj/item/W, mob/user)
-	if(!istype(W, /obj/item/wrench))
-		return ..()
-
+/obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
 	var/obj/machinery/atmospherics/air_sensor/AS = new /obj/machinery/atmospherics/air_sensor(loc)
 	AS.bolts = FALSE
-	playsound(get_turf(src), W.usesound, 50, 1)
+	I.play_tool_sound(src, 50)
 	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
+	return TRUE
 
 /obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_DELETE_MODE)

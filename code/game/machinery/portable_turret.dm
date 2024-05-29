@@ -331,52 +331,60 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/porta_turret/wrench_act(mob/living/user, obj/item/I)
+	if(enabled || raised)
+		to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
+		return
+	if(wrenching)
+		to_chat(user, "<span class='warning'>Someone is already [anchored ? "un" : ""]securing the turret!</span>")
+		return
+	if(!anchored && isinspace())
+		to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
+		return
+
+	user.visible_message( \
+			"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
+			"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>" \
+		)
+
+	wrenching = TRUE
+	if(I.use_tool(src, user, 2 SECONDS, volume = 50))
+		//This code handles moving the turret around. After all, it's a portable turret!
+		playsound(loc, I.usesound, 100, 1)
+		anchored = !anchored
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
+	wrenching = FALSE
+
+	return TRUE
+
+/obj/machinery/porta_turret/tool_act(mob/living/user, obj/item/I, tool_type)
+	if(!(stat & BROKEN) || syndicate)
+		return FALSE
+	return ..()
+
+/obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
+	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
+		return
+	if(prob(70))
+		to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
+		if(installation)
+			var/obj/item/gun/energy/Gun = new installation(loc)
+			Gun.cell.charge = gun_charge
+			Gun.update_icon()
+		if(prob(50))
+			new /obj/item/stack/sheet/metal(loc, rand(1,4))
+		if(prob(50))
+			new /obj/item/assembly/prox_sensor(loc)
+	else
+		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
+	qdel(src) // qdel
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
-		if(I.tool_behaviour == TOOL_CROWBAR)
-			//If the turret is destroyed, you can remove it with a crowbar to
-			//try and salvage its components
-			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-			if(do_after(user, 20 * I.toolspeed, target = src))
-				if(prob(70))
-					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
-					if(installation)
-						var/obj/item/gun/energy/Gun = new installation(loc)
-						Gun.cell.charge = gun_charge
-						Gun.update_icon()
-					if(prob(50))
-						new /obj/item/stack/sheet/metal(loc, rand(1,4))
-					if(prob(50))
-						new /obj/item/assembly/prox_sensor(loc)
-				else
-					to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
-				qdel(src) // qdel
-
-	else if((istype(I, /obj/item/wrench)))
-		if(enabled || raised)
-			to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
-			return
-		if(wrenching)
-			to_chat(user, "<span class='warning'>Someone is already [anchored ? "un" : ""]securing the turret!</span>")
-			return
-		if(!anchored && isinspace())
-			to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
-			return
-
-		user.visible_message( \
-				"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
-				"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>" \
-			)
-
-		wrenching = TRUE
-		if(do_after(user, 50 * I.toolspeed, target = src))
-			//This code handles moving the turret around. After all, it's a portable turret!
-			playsound(loc, I.usesound, 100, 1)
-			anchored = !anchored
-			update_icon(UPDATE_ICON_STATE)
-			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
-		wrenching = FALSE
+		return
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(HasController())
