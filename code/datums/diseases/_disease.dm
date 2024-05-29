@@ -71,6 +71,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
+	/// Allow the virus to infect and process while the affected_mob is dead
 	var/allow_dead = FALSE
 
 /datum/disease/Destroy()

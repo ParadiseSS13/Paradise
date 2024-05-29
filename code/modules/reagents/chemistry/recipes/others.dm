@@ -501,9 +501,12 @@
 	result_amount = 1
 	required_reagents = list("blood" = 1, "diphenhydramine" = 1)
 	mix_message = "The mixture into a dark green paste."
+	/// The cure level of the reagent, level 4 cure requires level 3 cure, which requires level 2 cure, etc
 	var/cure_level = 1
+	/// The amount of reagents to pick from get_possible_cures()
 	var/amt_req_cures = 1
-	var/required_symptom
+	/// A virus symptom required to complete this chemical reaction
+	var/datum/symptom/required_symptom
 
 /datum/chemical_reaction/zombie/New()
 	. = ..()

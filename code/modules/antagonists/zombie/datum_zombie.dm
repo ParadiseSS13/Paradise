@@ -81,7 +81,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	if(!new_body.HasDisease(/datum/disease/zombie))
 		owner.remove_antag_datum(/datum/antagonist/zombie)
 		return
-	. = ..()
+	return ..()
 
 /datum/antagonist/zombie/give_objectives()
 	add_antag_objective(/datum/objective/zombie)

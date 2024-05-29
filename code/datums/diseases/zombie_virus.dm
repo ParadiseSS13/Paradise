@@ -138,4 +138,4 @@
 	qdel(affected_mob.GetComponent(/datum/component/zombie_regen))
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
-	. = ..()
+	return ..()

@@ -34,7 +34,7 @@
 
 /datum/spell/zombie_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj.item/zombie_claw))
+	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj/item/zombie_claw))
 		return ..()
 
 /datum/spell/zombie_claws/create_new_targeting()
