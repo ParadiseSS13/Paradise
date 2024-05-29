@@ -232,7 +232,7 @@
 		M.drop_r_hand()
 		return TRUE
 
-/obj/effect/particle_effect/smoke/changeling/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/effect/particle_effect/smoke/changeling/CanPass(atom/movable/mover, turf/target, height = 0)
 	if(height == 0)
 		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
