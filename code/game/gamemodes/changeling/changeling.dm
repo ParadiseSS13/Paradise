@@ -109,4 +109,3 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	for(var/datum/action/changeling/power in acquired_powers)
 		if(power.type == path)
 			return power
-	return null
