@@ -279,7 +279,7 @@
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
-	attack_verb = list("slapped", "draped")
+	attack_verb = list("slapped")
 	/// How effective this is at preventing infections during surgeries.
 	var/surgery_effectiveness = 0.9
 
@@ -291,6 +291,7 @@
 /obj/item/surgical_drapes/improvised
 	name = "improvised drapes"
 	desc = "Hastily-sliced fabric that seems like it'd be useful for surgery. Probably better than the shirt off your back."
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
+	icon_state = "empty-sandbags"
 	origin_tech = null
 	surgery_effectiveness = 0.67
-	// lutodo: find a good icon
