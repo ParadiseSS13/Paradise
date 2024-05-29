@@ -126,7 +126,7 @@
 	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
 		mindoor.door_barricaded += 1
 
-/obj/structure/barricade/wooden/deconstruct(disassembled)
+/obj/structure/barricade/wooden/Destroy()
 	for(var/obj/machinery/door/door in get_turf(loc))
 		door.door_barricaded -= 1
 	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))

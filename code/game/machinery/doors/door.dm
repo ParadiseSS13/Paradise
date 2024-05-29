@@ -48,7 +48,7 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
-	//Are we barricaded? Stops the door from opening if so
+	/// Are we barricaded? Stops the door from opening if so
 	var/door_barricaded = 0
 
 /obj/machinery/door/Initialize(mapload)
