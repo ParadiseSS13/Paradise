@@ -279,4 +279,9 @@
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
-	attack_verb = list("slapped")
+	attack_verb = list("slapped", "draped")
+
+/obj/item/surgical_drapes/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/surgery_initiator/cloth, null, 0.9)

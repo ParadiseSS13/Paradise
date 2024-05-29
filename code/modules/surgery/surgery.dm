@@ -44,6 +44,10 @@
 	var/abstract = FALSE
 	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
 	var/cancel_on_organ_change = TRUE
+	/// Whether the surgery was started with drapes.
+	var/started_with_drapes = FALSE
+	/// How likely it should be for the surgery to cause infection: 0-1
+	var/germ_prevention_quality = 0
 
 
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
@@ -440,9 +444,9 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(can_infect && affected)
+		if(can_infect && affected && !prob(surgery.germ_prevention_quality))
 			spread_germs_to_organ(affected, user, tool)
-	if(ishuman(user) && !isalien(target) && prob(60))
+	if(ishuman(user) && !isalien(target) && prob(60) && !surgery.started_with_drapes)
 		var/mob/living/carbon/human/H = user
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
@@ -484,7 +488,7 @@
  * * user - The user who's manipulating the organ.
  * * tool - The tool the user is using to mess with the organ.
  */
-/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool)
+/datum/surgery_step/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool, datum/surgery/surgery)
 	if(!istype(user) || !istype(target_organ) || target_organ.is_robotic() || target_organ.sterile)
 		return
 
@@ -502,7 +506,7 @@
  * * E - An external organ being operated on.
  * * tool - The tool performing the operation.
  */
-/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
+/datum/surgery_step/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool, datum/surgery/surgery)
 	if(!is_external_organ(E))
 		return
 	if(!E.owner)

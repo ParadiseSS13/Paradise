@@ -36,8 +36,8 @@
 /datum/surgery_step/generic/cut_open/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has made an incision on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You have made an incision on [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
@@ -47,8 +47,8 @@
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(10)
@@ -91,8 +91,8 @@
 /datum/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(10)
