@@ -294,7 +294,7 @@
 
 /obj/item/mod/control/pre_equipped/nuclear/Initialize(mapload, new_theme, new_skin, new_core, new_access)
 	. = ..()
-	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(chestplate, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/elite
 	theme = /datum/mod_theme/elite
@@ -315,7 +315,7 @@
 
 /obj/item/mod/control/pre_equipped/elite/Initialize(mapload, new_theme, new_skin, new_core, new_access)
 	. = ..()
-	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(chestplate, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/prototype
 	theme = /datum/mod_theme/prototype
