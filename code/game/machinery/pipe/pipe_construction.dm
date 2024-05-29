@@ -543,7 +543,7 @@
 		return TRUE
 
 	new /obj/machinery/atmospherics/meter(loc)
-	W.play_tool_sound(src)
+	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
 	return TRUE
