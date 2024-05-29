@@ -261,8 +261,8 @@
 	main_typepath = /datum/gear/uniform/cargo
 
 /datum/gear/uniform/cargo/delivery
-	display_name = "Uniform, delivery boy"
-	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	display_name = "Cargo uniform, delivery"
+	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/uniform/sec
