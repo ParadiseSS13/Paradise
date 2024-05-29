@@ -14,9 +14,11 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_FLAG_BELT
-	/// If true, the hypospray can inject through hardsuits/modsuits.
+	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
 	var/can_pierce_hardsuits = FALSE
-	/// If true, the hypospray will reject any chemicals not on the safe_chem_list.
+	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_PUNCTURE_IMMUNE.
+	var/ignore_anti_piercing = FALSE
+	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
 	/// List of OSHA-approved medicines.
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol", "omnizine",
@@ -30,6 +32,11 @@
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 	if(!iscarbon(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+	if(HAS_TRAIT(H.wear_suit, TRAIT_PUNCTURE_IMMUNE) && !ignore_anti_piercing)	// This check is here entirely to stop goobers injecting nukies with meme chems
+		to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
 		return
 
 	if(reagents.total_volume && (can_pierce_hardsuits || M.can_inject(user, TRUE))) // can_pierce_hardsuits should be checked first or there will be an error message.
@@ -110,16 +117,17 @@
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
-	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. It has a proprietary adapter allowing it to inject through the ports of Syndicate-made hardsuits."
 	amount_per_transfer_from_this = 15
 	possible_transfer_amounts = null
 	icon_state = "combat_hypo"
 	volume = 90
 	can_pierce_hardsuits = TRUE // So they can heal their comrades.
+	ignore_anti_piercing = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing. It can interface with the injection ports on any type of hardsuit."
 	icon_state = "nanites_hypo"
 	volume = 100
 	list_reagents = list("nanites" = 100)
@@ -130,7 +138,8 @@
 /obj/item/reagent_containers/hypospray/CMO
 	name = "advanced hypospray"
 	list_reagents = list("omnizine" = 30)
-	can_pierce_hardsuits = TRUE 
+	volume = 100
+	can_pierce_hardsuits = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
@@ -150,6 +159,7 @@
 	possible_transfer_amounts = null
 	volume = 10
 	can_pierce_hardsuits = TRUE //so you can medipen through hardsuits
+	ignore_anti_piercing = TRUE
 	container_type = DRAWABLE
 	flags = null
 
