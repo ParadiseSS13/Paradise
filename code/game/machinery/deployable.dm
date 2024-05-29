@@ -90,7 +90,7 @@
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
-	layer = 5
+	layer = DOOR_HELPER_LAYER
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/sheet/wood) && user.a_intent == INTENT_HELP)
@@ -122,15 +122,15 @@
 /obj/structure/barricade/wooden/Initialize(mapload)
 	. = ..()
 	for(var/obj/machinery/door/door in get_turf(loc))
-		door.door_barricaded = TRUE
+		door.door_barricaded += 1
 	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
-		mindoor.door_barricaded = TRUE
+		mindoor.door_barricaded += 1
 
 /obj/structure/barricade/wooden/deconstruct(disassembled)
 	for(var/obj/machinery/door/door in get_turf(loc))
-		door.door_barricaded = FALSE
+		door.door_barricaded -= 1
 	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
-		mindoor.door_barricaded = FALSE
+		mindoor.door_barricaded -= 1
 	. = ..()
 
 /obj/structure/barricade/wooden/crude

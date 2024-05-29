@@ -22,7 +22,7 @@
 	var/open_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
-	var/door_barricaded = FALSE
+	var/door_barricaded = 0 //Is our door barricaded?
 
 /obj/structure/mineral_door/Initialize()
 	. = ..()
@@ -67,7 +67,7 @@
 	return !density
 
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)
-	if(is_operating || door_barricaded)
+	if(is_operating || door_barricaded >= 1)
 		return
 	if(isliving(user))
 		var/mob/living/M = user
@@ -127,7 +127,7 @@
 		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
-		if(door_barricaded)
+		if(door_barricaded >= 1)
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
 		if((/mob) in get_turf(src))
