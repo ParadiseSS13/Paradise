@@ -73,8 +73,10 @@
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
-///from base of atom/examine(): (/mob)
+///from base of atom/examine(): (examining_user, examine_list)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
+///from base of atom/examine_more(): (examining_user, examine_list)
+#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
 	//Positions for overrides list

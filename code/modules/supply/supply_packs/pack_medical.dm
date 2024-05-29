@@ -154,7 +154,8 @@
 					/obj/item/bonegel,
 					/obj/item/retractor,
 					/obj/item/bonesetter,
-					/obj/item/circular_saw)
+					/obj/item/circular_saw,
+					/obj/item/surgical_drapes)
 	cost = 400
 	containertype = /obj/structure/closet/crate/secure
 	containername = "surgery crate"

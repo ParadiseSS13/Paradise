@@ -122,6 +122,7 @@
 							/obj/item/clothing/glasses/sunglasses,
 							/obj/item/food/snacks/fortunecookie,
 							/obj/item/scalpel/laser/laser1,
+							/obj/item/surgical_drapes,
 							/obj/item/toy/figure/crew/cmo,
 							/obj/item/toy/figure/crew/chemist,
 							/obj/item/toy/figure/crew/geneticist,

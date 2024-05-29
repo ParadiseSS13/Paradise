@@ -50,10 +50,16 @@
 /datum/component/surgery_initiator/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE_MORE, PROC_REF(on_parent_examine_more))
 
 /datum/component/surgery_initiator/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
+	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE_MORE)
+
+/datum/component/surgery_initiator/proc/on_parent_examine_more(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE_MORE
+	examine_list += "<span class='notice'>You can use this on someone who is laying down to begin surgery on them.</span>"
 
 /// Keep tabs on the attached item's sharpness.
 /// This component gets added in atoms when they're made sharp as well.

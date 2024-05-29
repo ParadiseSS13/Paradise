@@ -12,7 +12,7 @@
 /obj/item/clothing/under/suit/Initialize(mapload)
 	. = ..()
 	// better than nothing! ghetto surgery time
-	AddComponent(/datum/component/surgery_initiator/cloth, null, 0.25)
+	AddComponent(/datum/component/surgery_initiator/cloth, null, 0.1)
 
 /obj/item/clothing/under/suit/black
 	name = "black suit"
