@@ -46,7 +46,7 @@
 					/obj/item/circuitboard/mecha/ripley/main,
 					/obj/item/circuitboard/mecha/ripley/peripherals,
 					/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/stack/sheet/plasteel/fiveteen)
+					/obj/item/stack/sheet/plasteel/fifteen)
 	cost = 350
 	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper APLU \"Ripley\" construction crate"
