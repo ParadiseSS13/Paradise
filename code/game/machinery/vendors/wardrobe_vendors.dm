@@ -32,6 +32,7 @@
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/mask/gas/sechailer/swat = 2,
 					/obj/item/clothing/suit/jacket/bomber/sec = 2,
+					/obj/item/clothing/suit/greatcoat/sec = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
 					/obj/item/clothing/suit/armor/secponcho = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
@@ -405,7 +406,8 @@
 					/obj/item/clothing/shoes/black = 3,
 					/obj/item/storage/backpack/robotics = 2,
 					/obj/item/storage/backpack/satchel_robo = 2,
-					/obj/item/storage/backpack/duffel/robotics = 2)
+					/obj/item/storage/backpack/duffel/robotics = 2,
+					/obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil = 2)
 
 	contraband = list(/obj/item/toy/figure/crew/roboticist = 1,
 					/obj/item/toy/figure/crew/borg = 1)
