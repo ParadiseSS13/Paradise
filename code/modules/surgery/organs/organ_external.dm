@@ -744,7 +744,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	status |= ORGAN_INT_BLEEDING
 	custom_pain("You feel something rip in your [name]!")
-	playsound(owner, 'sound/effects/blood1.ogg', 170, 1)
+	playsound(owner, 'sound/effects/blood1.ogg', 170, TRUE)
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())
