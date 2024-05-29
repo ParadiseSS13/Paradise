@@ -240,7 +240,6 @@
 		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
 		animate(offset = 0, time = duration)
 
-
 /datum/tarot
 	/// Name used for the card
 	var/name = "XXII - The Unknown."
