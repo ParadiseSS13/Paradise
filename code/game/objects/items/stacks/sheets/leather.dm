@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
-	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
+	desc = "Pieces of a goliath's rocky hide, these might be able to make your miner equipment such as suits, plasmaman helmets, borgs and Ripley class exosuits a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "goliath_hide"
 	item_state = "goliath_hide"
@@ -198,41 +198,78 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating(MELEE) < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+		if(current_armor.getRating(MELEE) < 75)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
-		if(D.hides < 3)
+		if(D.hides < HIDES_COVERED_FULL && !D.plates && !D.drake_hides)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
 			D.hides++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
-			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 	else if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
 		if(istype(R.module, /obj/item/robot_module/miner))
 			var/datum/armor/current_armor = R.armor
-			if(current_armor.getRating(MELEE) < 60)
-				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+			if(current_armor.getRating(MELEE) < 75)
+				if(!use(1))
+					to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+					return
+				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-				use(1)
 			else
 				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
 		else
 			to_chat(user, "<span class='warning'>[R]'s armor can not be improved!</span>")
 
+/obj/item/stack/sheet/animalhide/armor_plate
+	name = "armor plate"
+	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "armor_plate"
+	item_state = "armor_plate"
+	singular_name = "armor plate"
+	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
+
+/obj/item/stack/sheet/animalhide/armor_plate/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.plates < PLATES_COVERED_FULL && !D.hides && !D.drake_hides)
+			if(!use(1))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
+			D.plates++
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 7, 60))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
+		else
+			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+
+/obj/item/stack/sheet/animalhide/armor_plate/attackby(obj/item/W, mob/user, params)
+	return // no steel leather for ya
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
-	desc = "The strong, scaled hide of an ash drake."
+	desc = "The strong, scaled hide of an ash drake. Can be attached to the mech itself, greatly enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "dragon_hide"
 	item_state = "dragon_hide"
@@ -242,9 +279,29 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	layer = MOB_LAYER
 	dynamic_icon_state = TRUE
 
+/obj/item/stack/sheet/animalhide/ashdrake/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.drake_hides < DRAKE_HIDES_COVERED_FULL && !D.hides && !D.plates)
+			if(!use(3))
+				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
+				return
+			D.drake_hides++
+			D.max_integrity += 50
+			D.obj_integrity += 50
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 13, 80))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
+		else
+			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+
 //Step one - dehairing.
 
-/obj/item/stack/sheet/animalhide/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
 		if(do_after(user, 50 * W.toolspeed, target = src))

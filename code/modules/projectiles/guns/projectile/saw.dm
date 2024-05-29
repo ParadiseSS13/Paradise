@@ -12,9 +12,15 @@
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = FALSE
+	actions_types = list()
 	can_suppress = FALSE
-	burst_size = 3
-	fire_delay = 1
+	burst_size = 1
+	spread = 7
+	fire_delay = 0
+
+/obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open

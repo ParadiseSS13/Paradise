@@ -11,6 +11,18 @@
 "d" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/space/unpowered)
+"t" = (
+/obj/structure/spawner/mining/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"R" = (
+/obj/structure/spawner/mining/goliath,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"V" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -105,7 +117,7 @@ a
 a
 a
 b
-b
+t
 b
 c
 c
@@ -367,7 +379,7 @@ b
 (17,1,1) = {"
 a
 a
-a
+V
 b
 a
 a
@@ -388,8 +400,8 @@ a
 "}
 (18,1,1) = {"
 a
-a
-a
+V
+V
 b
 b
 a
@@ -400,7 +412,7 @@ a
 b
 b
 b
-b
+R
 b
 b
 b
@@ -413,7 +425,7 @@ a
 a
 a
 a
-a
+V
 a
 a
 a

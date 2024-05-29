@@ -565,7 +565,7 @@
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/singularityhammer/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -634,7 +634,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/mjollnir/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 25, \
 		force_unwielded = force, \

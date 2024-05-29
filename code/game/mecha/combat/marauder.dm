@@ -1,5 +1,5 @@
 /obj/mecha/combat/marauder
-	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
+	desc = "Heavy-duty combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "Marauder"
 	icon_state = "marauder"
 	initial_icon = "marauder"
@@ -45,9 +45,20 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
+/obj/mecha/combat/marauder/examine_more(mob/user)
+	. = ..()
+	. += "<i>The newest combat mech developed by Defiance Arms, the Marauder is now their mainline offering in the galactic arms market. \
+	Based on the earlier Durand chassis, the Marauder is a high-tech weapon of war and destruction, fulfilling the spearhead role of Defiance's earlier design while supporting more firepower than ever before.</i>"
+	. += ""
+	. += "<i>The Marauder is rarely seen in civilian hands; instead, it is marketed towards military and mercenary forces. \
+	Recently, Defiance has opened sales to more customers; This includes Nanotrasen, who uses it to equip their ERT dvision.</i>"
+
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
-	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
+	desc = "Heavy-duty combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
 	icon_state = "ares"
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
@@ -72,8 +83,17 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/ares/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and marketed as the final word in biohazard containment and protection. \
+	Heavily armed and armored, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
+	. += ""
+	. += "<i>Defiance does not sell the license for the Ares to be produced, and as such, it is rarer than most combat mechs, but is more commonly seen among civilian markets compared to their mainline Marauder chassis. \
+	Nanotrases supports a small stable of Ares battlemechs to be used in times of dire emergency.</i>"
+
 /obj/mecha/combat/marauder/seraph
-	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
+	desc = "Heavy-duty command-type exosuit. This is a custom model, utilized only by high-ranking personnel."
 	name = "Seraph"
 	icon_state = "seraph"
 	initial_icon = "seraph"
@@ -84,9 +104,6 @@
 	internal_damage_threshold = 20
 	force = 80
 	max_equip = 8
-
-/obj/mecha/combat/marauder/seraph/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /obj/mecha/combat/marauder/seraph/loaded/Initialize(mapload)
 	. = ..()  //Let it equip whatever is needed.
@@ -110,8 +127,17 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/seraph/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>In the field, Nanotrasen teams often needed a command and control unit that could assist where comms failed, and thus, they created a retrofit of the Marauder. \
+	This new Seraph variant would serve as a command model, with enhanced comms and command capabilities, but would otherwise be incredibly rare.</i>"
+	. += ""
+	. += "<i>Due to the rarity of the Seraph, it can be assumed that things are well and truly fucked if one is seen operating. \
+	Deployed only in the direst of emergencies, it will inevitably be the lynchpin of any defense or assault.</i>"
+
 /obj/mecha/combat/marauder/mauler
-	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
+	desc = "Heavy-duty combat exosuit, modified with illegal technology and weapons."
 	name = "Mauler"
 	icon_state = "mauler"
 	initial_icon = "mauler"
@@ -137,3 +163,12 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
+
+/obj/mecha/combat/marauder/mauler/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>A bulky, brutish combat mech painted a deep, matte black, highlighted with a menacing red; the Mauler is an illegal retrofit of Defiance's Marauder chassis. \
+	Armed to the teeth with various weapons and armored more thickly than some main battle tanks, this mechanical monstrosity is incredibly rare, and little is known about who makes them or why they exist.</i>"
+	. += ""
+	. += "<i>The few confirmed sightings have recently been in the hands of the Gorlex Marauders, a group of hostile pirates with suspected ties to the Syndicate. \
+	The Mauler poses a severe threat to any force and should never be taken lightly.</i>"
