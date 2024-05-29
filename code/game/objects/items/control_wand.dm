@@ -237,17 +237,14 @@
 	var/mob/living/carbon/human/H = user
 	if(H.mind.assigned_role == "Janitor" && last_airlock && last_airlock == D)
 		to_chat(user, "<span class='notice'>You recognise the [D] and look for the key you used...</span>")
-		playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 		hack_speed = 5 SECONDS
 	else
 		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D]...</span>")
-		playsound(src, 'sound/items/keyring_unlock.ogg', 50)
-
 		if(H.mind.assigned_role != "Janitor")
 			hack_speed = rand(30, 60) SECONDS
 		else
 			hack_speed = rand(5, 20) SECONDS
-
+	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(D.check_access(ID))
 			last_airlock = D
