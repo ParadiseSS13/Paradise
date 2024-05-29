@@ -595,7 +595,7 @@
 
 /datum/construction/reversible/mecha/firefighter
 	result = "/obj/mecha/working/ripley/firefighter"
-	taskpath = /datum/job_objective/make_ripley
+	taskpath = /datum/job_objective/make_firefighter
 	steps = list(
 		//1
 		list(

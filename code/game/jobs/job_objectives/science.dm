@@ -35,9 +35,18 @@
 //RIPLEY's
 /datum/job_objective/make_ripley
 	objective_name = "Construct a Ripley Mech"
-	description = "Construct a Ripley Mech for station usage"
+	description = "Construct a Ripley Mech for engineering usage. Dont forget about engineering mods!"
+	gives_payout = TRUE
+	completion_payment = 150
+
+/datum/job_objective/make_ripley/check_for_completion()
+	return completed
+
+/datum/job_objective/make_firefighter
+	objective_name = "Construct a Firefighter Mech"
+	description = "Construct a Firefighter Mech for shaft miners usage. You got payed more for constructing that than Ripley."
 	gives_payout = TRUE
 	completion_payment = 200
 
-/datum/job_objective/make_ripley/check_for_completion()
+/datum/job_objective/make_firefighter/check_for_completion()
 	return completed
