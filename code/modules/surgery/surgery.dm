@@ -49,7 +49,6 @@
 	/// How likely it should be for the surgery to cause infection: 0-1
 	var/germ_prevention_quality = 0
 
-
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
@@ -60,6 +59,7 @@
 		location = surgery_location
 	if(!surgery_bodypart)
 		return
+	surgical_dressing = _surgical_dressing
 	organ_to_manipulate = surgery_bodypart
 	if(cancel_on_organ_change)
 		if(requires_bodypart)
@@ -446,14 +446,20 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected && !prob(surgery.germ_prevention_quality))
 			spread_germs_to_organ(affected, user, tool)
-	if(ishuman(user) && !isalien(target) && prob(60) && !surgery.started_with_drapes)
+	if(ishuman(user) && !isalien(target) && prob(60))
+		var/bloodspread = SEND_SIGNAL(surgery, COMSIG_SURGERY_BLOOD_SPLASH, user, target, target_zone, tool)
+
 		var/mob/living/carbon/human/H = user
+
+		if(bloodspread == COMPONENT_BLOOD_SPLASH_HANDLED)
+			return
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
+				target.visible_message("<span class='notice'>Blood splashes onto [user]'s hands.</span>")
 				H.bloody_hands(target, 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
+				target.visible_message("<span class='notice'>A spray of blood coats [user].</span>")
 				H.bloody_body(target)
-	return
 
 /**
  * Finish a surgery step, performing anything that runs on the tail-end of a successful surgery.

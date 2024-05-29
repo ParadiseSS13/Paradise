@@ -310,6 +310,9 @@
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 
+
+	RegisterSignal(procedure, COMSIG_SURGERY_BLOOD_SPLASH, PROC_REF(on_blood_splash))
+
 	procedure.germ_prevention_quality = germ_prevention_quality
 
 	show_starting_message(user, target, procedure)
@@ -327,6 +330,15 @@
 		"<span class='notice'>[user] holds [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery.</span>",
 		"<span class='notice'>You hold [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name].</span>",
 	)
+
+/datum/component/surgery_initiator/proc/on_prevent_germs()
+	SIGNAL_HANDLER  //
+	return
+
+/datum/component/surgery_initiator/proc/on_blood_splash()
+	SIGNAL_HANDLER  // COMSIG_SURGERY_BLOOD_SPLASH
+	return
+
 
 /datum/component/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
@@ -376,3 +388,10 @@
 		playsound(src, surgery_start_sound, 50, TRUE, FALSE)
 
 	return TRUE
+
+/datum/component/surgery_initiator/cloth/on_blood_splash(datum/surgery, mob/user, mob/target, zone, obj/item/tool)
+	if(prob(90 * germ_prevention_quality))
+		target.visible_message("<span class='notice'>Blood splashes onto the dressing.</span>")
+		var/obj/item/I = parent  // safety: this component can only go onto an item
+		I.add_mob_blood(target)
+		return COMPONENT_BLOOD_SPLASH_HANDLED
