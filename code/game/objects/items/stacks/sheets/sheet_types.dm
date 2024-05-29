@@ -715,13 +715,13 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	merge_type = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/sheet/plastic/examine_more(mob/user)
-	..()
-	. = list()
-	. += {"Plastics are a large and diverse range of materials consisting of long-chain polymers, typically based on hydrocarbons, but other chemical groups can be attached to the molecular backbone to achieve specific properties. \
-They are generally characterised as very lightweight, easily mouldable, and versatile. Most plastics either cannot be recycled, or are cost-prohibitive to recycle.
-
-Despite the extensive uses of plastics, they are not as ubiquitous as other materials (especially steel). This is due to a combination of environmental regulations, established market patterns, \
-and the operational requirements for many space-based installations to employ easily recycled materials to conserve limited supplies."}
+	. = ..()
+	. += "Plastics are a large and diverse range of materials consisting of long-chain polymers, typically based on hydrocarbons, \
+	but other chemical groups can be attached to the molecular backbone to achieve specific properties. \
+	They are generally characterised as very lightweight, easily mouldable, and versatile. Most plastics either cannot be recycled, or are cost-prohibitive to recycle."
+	. += ""
+	. += "Despite the extensive uses of plastics, they are not as ubiquitous as other materials (especially steel). This is due to a combination of environmental regulations, \
+	established market patterns, and the operational requirements for many space-based installations to employ easily recycled materials to conserve limited supplies."
 
 /obj/item/stack/sheet/plastic/New()
 	recipes = GLOB.plastic_recipes
