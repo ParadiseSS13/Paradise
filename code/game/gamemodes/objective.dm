@@ -165,14 +165,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
 
 /datum/objective/proc/force_reset_target()
-	objective.delayed_objective = FALSE
-	objective.target = null
+	delayed_objective = FALSE
+	target = null
 
-	var/datum/objective/steal/possible_steal_objective = objective
+	var/datum/objective/steal/possible_steal_objective = src
 	if(istype(possible_steal_objective))
 		possible_steal_objective.steal_target = null
 
-	objective.find_target()
+	find_target()
 
 /datum/objective/assassinate
 	name = "Assassinate"

@@ -312,7 +312,7 @@
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
 			if(player.assigned_role in restricted_jobs)
-					candidates -= player
+				candidates -= player
 	return candidates
 
 /datum/game_mode/proc/latespawn(mob)
