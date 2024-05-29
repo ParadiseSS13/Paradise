@@ -35,7 +35,7 @@
 //RIPLEY's
 /datum/job_objective/make_ripley
 	objective_name = "Construct a Working Class Mech"
-	description = "Construct a Ripley or Firefighter Mech for station usage. Dont forget about modules!"
+	description = "Construct a Ripley or Firefighter Mech for station usage. Don't forget about modules!"
 	gives_payout = TRUE
 	completion_payment = 200
 
