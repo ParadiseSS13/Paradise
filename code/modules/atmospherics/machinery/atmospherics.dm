@@ -344,6 +344,10 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
 
+/obj/machinery/atmospherics/extinguish_light(force)
+	set_light(0)
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
 	if(!pipe_color_check(new_color))
