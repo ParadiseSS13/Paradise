@@ -37,7 +37,6 @@
 #define ARCH_MAXDROP "max_drop_amount"				//each item's max drop amount
 
 //Ouch my toes!
-// ===CHUGAFIX=== Might need to go in another PR but I couldn't resist
 #define CALTROP_BYPASS_SHOES (1 << 0)
 #define CALTROP_IGNORE_WALKERS (1 << 1)
 #define CALTROP_SILENT (1 << 2)

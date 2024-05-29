@@ -19,7 +19,7 @@
 	var/mob/firer = null//Who shot it
 	var/atom/firer_source_atom = null //the gun or object this came from
 	var/obj/item/ammo_casing/ammo_casing = null
-	var/suppressed = FALSE	//Attack message
+	var/suppressed = SUPPRESSED_NONE	//Attack message
 	var/yo = null
 	var/xo = null
 	var/current = null
@@ -240,7 +240,9 @@
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 
-		if(suppressed)
+		if(suppressed == SUPPRESSED_VERY)
+			playsound(loc, hitsound, 5, 1, -1)
+		else if(suppressed == SUPPRESSED_QUIET)
 			playsound(loc, hitsound, 5, 1, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
@@ -478,7 +480,6 @@
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
-/// ===CHUGAFIX=== this should work right but check anyways!
 /// Make sure to test hitscan still works properly!
 /obj/item/projectile/proc/on_ricochet(atom/A)
 	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)

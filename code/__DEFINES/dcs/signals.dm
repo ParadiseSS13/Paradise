@@ -647,7 +647,7 @@
 #define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 ///from base of obj/item/embedded(): (atom/target, obj/item/bodypart/part)
 #define COMSIG_ITEM_EMBEDDED "item_embedded"
-///from base of datum/component/embedded/safeRemove(): (mob/living/carbon/victim)
+///from base of datum/component/embedded/safe_remove(): (mob/living/carbon/victim)
 #define COMSIG_ITEM_UNEMBEDDED "item_unembedded"
 /// from base of obj/item/failedEmbed()
 #define COMSIG_ITEM_FAILED_EMBED "item_failed_embed"
@@ -767,11 +767,11 @@
 ///from the base of /obj/item/ammo_casing/ready_proj() : (atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
 #define COMSIG_CASING_READY_PROJECTILE "casing_ready_projectile"
 
-///from [/obj/item/proc/tryEmbed] sent when trying to force an embed (mainly for projectiles and eating glass)
+///from [/obj/item/proc/try_embed] sent when trying to force an embed (mainly for projectiles and eating glass)
 #define COMSIG_EMBED_TRY_FORCE "item_try_embed"
 	#define COMPONENT_EMBED_SUCCESS (1<<1)
 
-// FROM [/obj/item/proc/updateEmbedding] sent when an item's embedding properties are changed : ()
+// FROM [/obj/item/proc/update_embedding] sent when an item's embedding properties are changed : ()
 #define COMSIG_ITEM_EMBEDDING_UPDATE "item_embedding_update"
 
 ///sent to the projectile when spawning the item (shrapnel) that may be embedded: (new_item)

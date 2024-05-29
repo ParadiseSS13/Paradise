@@ -485,7 +485,7 @@
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
-	suppressed = TRUE
+	suppressed = SUPPRESSED_QUIET
 	needs_permit = FALSE //its just a cane beepsky.....
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_crutch_efficiency()

@@ -45,7 +45,7 @@
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
-	if(!BB)
+	if(!BB) // ===CHUGAFIX=== this is where pellet cloud for fire_casing goes
 		BB = new projectile_type(src, params)
 	return
 

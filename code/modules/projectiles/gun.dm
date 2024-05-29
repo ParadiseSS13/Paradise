@@ -20,7 +20,7 @@
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
-	var/suppressed = FALSE					//whether or not a message is displayed when fired
+	var/suppressed = SUPPRESSED_NONE					//whether or not a message is displayed when fired
 	var/can_suppress = FALSE
 	var/can_unsuppress = TRUE
 	var/recoil = 0						//boom boom shake the room

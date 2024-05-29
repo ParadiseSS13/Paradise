@@ -84,7 +84,7 @@
 						item_to_retrieve = null
 						break
 						/// ===CHUGAFIX=== Dumped the edge case handling here because it's handled in the embedded component
-						/// Make sure this still works!
+						/// Make sure this still works! edit: it doesn't work
 				else
 					if(istype(item_to_retrieve.loc, /obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
 						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc

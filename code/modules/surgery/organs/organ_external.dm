@@ -916,13 +916,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(data["dna"])
 		sync_colour_to_dna()
 
-// ===CHUGAFIX=== This shouldn't be needed anymore - make sure that this works!
-// /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
-// 	if(I in embedded_objects)
-// 		return
-// 	embedded_objects += I
-// 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
-
 // ===CHUGAFIX=== The internal helpers need to stay here and the carbon procs need to go into their proper file
 
 /// INTERNAL PROC, DO NOT USE
@@ -958,6 +951,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 /mob/living/carbon/human/proc/has_embedded_objects(include_harmless=FALSE)
 	for(var/obj/item/organ/external/limb as anything in bodyparts)
 		for(var/obj/item/embedded in limb.embedded_objects)
-			if(!include_harmless && embedded.isEmbedHarmless())
+			if(!include_harmless && embedded.is_embed_harmless())
 				continue
 			return TRUE

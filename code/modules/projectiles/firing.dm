@@ -1,5 +1,5 @@
+/// ===CHUGAFIX=== document this
 /obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
-	// ===CHUGAFIX=== this is straight ripped from the tg proc i wonder if it's going to break everything? :D
 	distro += variance
 	var/targloc = get_turf(target)
 	ready_proj(target, user, quiet, zone_override, firer_source_atom)
@@ -20,13 +20,13 @@
 
 	var/next_delay = click_cooldown_override || CLICK_CD_RANGE
 	user.changeNext_move(next_delay)
-	// ===CHUGAFIX=== this is straight ripped from the tg proc i wonder if it's going to break everything? :D
 	user.newtonian_move(get_dir(target, user))
-	update_appearance() // ===CHUGAFIX=== Was update_icon(), this is probably going to break but we have update_appearance() so :)
+	update_appearance()
 	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, params, distro, thrown_proj)
 
 	return TRUE
 
+/// ===CHUGAFIX=== document this
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom)
 	if(!BB)
 		return

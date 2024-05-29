@@ -153,6 +153,7 @@
  * We then iterate through the martyrs and reduce the shrapnel magnitude for each mob on top of it, shredding each of them with some of the shrapnel they helped absorb. This can snuff out all of the shrapnel if there's enough bodies
  *
  */
+// ===CHUGAFIX=== adjacency isn't working properly here and I don't know why
 /datum/component/pellet_cloud/proc/handle_martyrs()
 	var/magnitude_absorbed
 	var/list/martyrs = list()
@@ -241,7 +242,7 @@
 	P.firer_source_atom = parent
 	P.firer = parent // don't hit ourself that would be really annoying
 	P.permutated = list(parent.UID() = TRUE) // don't hit the target we hit already with the flak
-	P.suppressed = TRUE // set the projectiles to make no message so we can do our own aggregate message
+	P.suppressed = SUPPRESSED_VERY // set the projectiles to make no message so we can do our own aggregate message
 	P.preparePixelProjectile(target, parent)
 	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
@@ -266,7 +267,7 @@
 				hit_part = null //so the visible_message later on doesn't generate extra text.
 			else
 				target = hit_part.owner
-				// ===CHUGAFIX=== armor calcs here
+				// ===CHUGAFIX=== might be useful to aggregate and snowflake the wound roll here because IB and bonebreaks are going to be almost guaranteed for >2 pellets.
 
 		var/limb_hit_text = ""
 		if(hit_part)
@@ -322,10 +323,11 @@
 /// Our grenade or whatever tried deleting itself, so we intervene and nullspace it until we're done here
 /datum/component/pellet_cloud/proc/nullspace_parent()
 	SIGNAL_HANDLER	// COMSIG_PARENT_PREQDELETED
-	// ===CHUGAFIX=== Rename this if deleting here ends up working fine (also delete the bool)
 	message_admins("nullspace_parent() called")
-	//qdel(src)
 	var/atom/movable/AM = parent
+	// ===CHUGAFIX=== this is a tragic way to do this, but it seems like it's necessary
+	// This gets called quite frequently because shrapnel grenades qdel themselves right after sending their detonation signal
+	// I'm not sure if there's a better solution
 	AM.forceMove(null)
 	queued_delete = TRUE
 	return TRUE

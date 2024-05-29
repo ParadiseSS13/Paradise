@@ -120,7 +120,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=4;syndicate=5"
-	suppressed = TRUE
+	suppressed = SUPPRESSED_QUIET
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
 	unique_rename = FALSE
@@ -143,7 +143,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=4;magnets=4;syndicate=2"
-	suppressed = FALSE
+	suppressed = SUPPRESSED_NONE
 	can_holster = FALSE // it's large after all
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	empty_state = "crossbowlarge_empty"
@@ -938,7 +938,7 @@
 	icon_state = "magspear"
 	hitsound = 'sound/weapons/sear.ogg' //Gets a bit spamy, suppressed is needed to suffer less
 	hitsound_wall = null
-	suppressed = TRUE
+	suppressed = SUPPRESSED_QUIET
 
 /obj/item/projectile/energy/vortex_blast/prehit(atom/target)
 	. = ..()

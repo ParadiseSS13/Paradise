@@ -77,7 +77,7 @@
 	src.pain_stam_pct = pain_stam_pct
 	src.weapon = I
 
-	if(!weapon.isEmbedHarmless())
+	if(!weapon.is_embed_harmless())
 		harmful = TRUE
 
 	weapon.embedded(parent, part)
@@ -86,8 +86,8 @@
 
 	limb._embed_object(weapon)
 	weapon.forceMove(victim)
-	RegisterSignals(weapon, list(COMSIG_MOVABLE_MOVED), PROC_REF(weaponDeleted))
-	victim.visible_message(span_danger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!"), \
+	RegisterSignals(weapon, list(COMSIG_MOVABLE_MOVED), PROC_REF(weapon_deleted))
+	victim.visible_message(span_danger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!"),
 		span_userdanger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!"))
 
 	var/damage = weapon.throwforce
@@ -96,11 +96,14 @@
 		playsound(victim,'sound/weapons/bladeslice.ogg', 40)
 		weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
 		damage += weapon.w_class * impact_pain_mult
-
 	if(damage > 0)
-		// ===CHUGAFIX=== do we just have to use apply damage here?? this is insane!
-		//var/armor = victim.run_armor_check(limb.body_zone, MELEE, "Your armor has protected your [limb.name].", "Your armor has softened a hit to your [limb.name].",I.armour_penetration)
-		limb.receive_damage((1 - pain_stam_pct) * damage, sharp = I.sharp) // ==CHUGAFIX== This needs to go in but I don't know how to shove armor calculations into receive damage. WHY DO WE DO ARMOR CALCULATIONS IN
+		var/armor = victim.run_armor_check(limb.body_zone,
+					MELEE,
+					"Your armor has protected your [limb.name].",
+					"Your armor has softened a hit to your [limb.name].",
+					I.armour_penetration_percentage)
+
+		victim.apply_damage((1 - pain_stam_pct) * damage, def_zone = limb.body_zone, blocked = armor, sharp = I.sharp)
 		victim.adjustStaminaLoss(pain_stam_pct * damage)
 
 /datum/component/embedded/Destroy()
@@ -114,10 +117,10 @@
 	return ..()
 
 /datum/component/embedded/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(jostleCheck))
-	RegisterSignal(parent, COMSIG_CARBON_EMBED_RIP, PROC_REF(ripOut))
-	RegisterSignal(parent, COMSIG_CARBON_EMBED_REMOVAL, PROC_REF(safeRemove))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(checkTweeze))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(jostle_check))
+	RegisterSignal(parent, COMSIG_CARBON_EMBED_RIP, PROC_REF(rip_out))
+	RegisterSignal(parent, COMSIG_CARBON_EMBED_REMOVAL, PROC_REF(safe_remove))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(check_tweeze))
 	RegisterSignal(parent, COMSIG_MAGIC_RECALL, PROC_REF(magic_pull))
 
 /datum/component/embedded/UnregisterFromParent()
@@ -152,7 +155,7 @@
 		fall_chance_current *= 0.2
 
 	if(prob(fall_chance_current))
-		fallOut()
+		fall_out()
 
 ////////////////////////////////////////
 ////////////BEHAVIOR PROCS//////////////
@@ -160,7 +163,7 @@
 
 
 /// Called every time a carbon with a harmful embed moves, rolling a chance for the item to cause pain. The chance is halved if the carbon is crawling or walking.
-/datum/component/embedded/proc/jostleCheck()
+/datum/component/embedded/proc/jostle_check()
 	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
 
 	var/mob/living/carbon/human/victim = parent
@@ -176,19 +179,19 @@
 
 
 /// Called when then item randomly falls out of a carbon. This handles the damage and descriptors, then calls safe_remove()
-/datum/component/embedded/proc/fallOut()
+/datum/component/embedded/proc/fall_out()
 	var/mob/living/carbon/human/victim = parent
 
 	if(harmful)
 		var/damage = weapon.w_class * remove_pain_mult
-		limb.receive_damage(brute=(1-pain_stam_pct) * damage)
+		limb.receive_damage(brute = (1-pain_stam_pct) * damage)
 		victim.adjustStaminaLoss(pain_stam_pct * damage)
 	victim.visible_message(span_danger("[weapon] falls [harmful ? "out" : "off"] of [victim.name]'s [limb.name]!"), span_userdanger("[weapon] falls [harmful ? "out" : "off"] of your [limb.name]!"))
-	safeRemove()
+	safe_remove()
 
 
 /// Called when a carbon with an object embedded/stuck to them inspects themselves and clicks the appropriate link to begin ripping the item out. This handles the ripping attempt, descriptors, and dealing damage, then calls safe_remove()
-/datum/component/embedded/proc/ripOut(datum/source, obj/item/I, obj/item/organ/external/limb)
+/datum/component/embedded/proc/rip_out(datum/source, obj/item/I, obj/item/organ/external/limb)
 	SIGNAL_HANDLER	// COMSIG_CARBON_EMBED_RIP
 
 	if(I != weapon || src.limb != limb)
@@ -209,9 +212,9 @@
 		damaging_removal(victim, I, limb)
 
 	victim.visible_message(span_notice("[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("You successfully remove [weapon] from your [limb.name]."))
-	safeRemove(victim)
+	safe_remove(victim)
 
-/// Proc that actually does the damage associated with ripping something out of yourself. Call this before safeRemove.
+/// Proc that actually does the damage associated with ripping something out of yourself. Call this before safe_remove.
 /datum/component/embedded/proc/damaging_removal(mob/living/carbon/human/victim, obj/item/removed, obj/item/organ/external/limb, ouch_multiplier = 1)
 	var/damage = weapon.w_class * remove_pain_mult * ouch_multiplier
 	limb.receive_damage((1 - pain_stam_pct) * damage, sharp = TRUE)
@@ -220,7 +223,7 @@
 
 /// This proc handles the final step and actual removal of an embedded/stuck item from a carbon, whether or not it was actually removed safely.
 /// If you want the thing to go into someone's hands rather than the floor, pass them in to_hands
-/datum/component/embedded/proc/safeRemove(mob/to_hands)
+/datum/component/embedded/proc/safe_remove(mob/to_hands)
 	SIGNAL_HANDLER	// COMSIG_CARBON_EMBED_REMOVAL
 
 	var/mob/living/carbon/human/victim = parent
@@ -238,7 +241,7 @@
 	qdel(src)
 
 /// Something deleted or moved our weapon while it was embedded, how rude!
-/datum/component/embedded/proc/weaponDeleted()
+/datum/component/embedded/proc/weapon_deleted()
 	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
 
 	var/mob/living/carbon/human/victim = parent
@@ -250,7 +253,7 @@
 	qdel(src)
 
 /// The signal for listening to see if someone is using a hemostat on us to pluck out this object
-/datum/component/embedded/proc/checkTweeze(mob/living/carbon/human/victim, obj/item/possible_tweezers, mob/user)
+/datum/component/embedded/proc/check_tweeze(mob/living/carbon/human/victim, obj/item/possible_tweezers, mob/user)
 	SIGNAL_HANDLER	// COMSIG_PARENT_ATTACKBY
 
 	if(!istype(victim) || (possible_tweezers.tool_behaviour != TOOL_HEMOSTAT && possible_tweezers.tool_behaviour != TOOL_WIRECUTTER) || user.zone_selected != limb.body_zone)
@@ -261,17 +264,17 @@
 
 	if(ishuman(victim)) // check to see if the limb is actually exposed
 		var/mob/living/carbon/human/victim_human = victim
-		if(!victim_human.can_inject(user, TRUE)) // ===CHUGAFIX=== should be fine now?
+		if(!victim_human.can_inject(user, TRUE))
 			return TRUE
 
-	INVOKE_ASYNC(src, PROC_REF(tweezePluck), possible_tweezers, user)
+	INVOKE_ASYNC(src, PROC_REF(tweeze_pluck), possible_tweezers, user)
 	return COMPONENT_NO_AFTERATTACK
 
 /**
  * ===CHUGAFIX=== untested
  */
 /// The actual action for pulling out an embedded object with a hemostat
-/datum/component/embedded/proc/tweezePluck(obj/item/possible_tweezers, mob/user)
+/datum/component/embedded/proc/tweeze_pluck(obj/item/possible_tweezers, mob/user)
 	var/mob/living/carbon/human/victim = parent
 	var/self_pluck = (user == victim)
 	// quality of the tool we're using
@@ -301,10 +304,11 @@
 	if(!tweezer_safe)
 		// sure it still hurts but it sucks less
 		damaging_removal(victim, weapon, limb, (0.4 * possible_tweezers.w_class))
-	safeRemove(user)
+	safe_remove(user)
 
 
 /// Called when an object is ripped out of someone's body by magic or other abnormal means
+// ===CHUGAFIX=== this isn't being called for some reason
 /datum/component/embedded/proc/magic_pull(datum/source, mob/living/caster, obj/marked_item)
 	SIGNAL_HANDLER	// COMSIG_MAGIC_RECALL
 
@@ -320,7 +324,7 @@
 	limb.receive_damage((1-pain_stam_pct) * damage * 1.5, sharp=TRUE) // Performs exit wounds and flings the user to the caster if nearby
 	//victim.cause_wound_of_type_and_severity(WOUND_PIERCE, limb, WOUND_SEVERITY_MODERATE) ===CHUGAFIX=== this would be extremely funny
 	victim.adjustStaminaLoss(pain_stam_pct * damage)
-	//playsound(get_turf(victim), 'sound/effects/wounds/blood2.ogg', 50, TRUE) ===CHUGAFIX=== this also sounds great
+	playsound(get_turf(victim), 'sound/effects/blood2.ogg', 50, TRUE)
 
 	var/dist = get_dist(caster, victim) //Check if the caster is close enough to yank them in
 	if(dist < 7)

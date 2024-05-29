@@ -67,8 +67,7 @@
 	playsound(src, 'sound/machines/twobeep.ogg', 50)
 	detonator.update_icon()
 
-/// ===CHUGAFIX=== this WILL fuck up this item so PLEASE test it - what =is arm_grenade() even supposed to do here!?
-/obj/item/grenade/plastic/miningcharge/proc/prime() // ===CHUGAFIX=== sin
+/obj/item/grenade/plastic/miningcharge/proc/prime()
 	addtimer(CALLBACK(src, PROC_REF(detonate)), 3 SECONDS)
 
 /obj/item/grenade/plastic/miningcharge/detonate()

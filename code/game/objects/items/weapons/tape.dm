@@ -137,7 +137,7 @@
 			return .
 
 		target.embedding = conferred_embed
-		target.updateEmbedding()
+		target.update_embedding()
 		to_chat(user, span_notice("You finish wrapping [target] with [src]."))
 		target.name = "[prefix] [target.name]"
 

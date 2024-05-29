@@ -99,5 +99,5 @@
 	origin_tech = "combat=6;syndicate=2"
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
-	suppressed = TRUE
+	suppressed = SUPPRESSED_QUIET
 	execution_speed = 4 SECONDS

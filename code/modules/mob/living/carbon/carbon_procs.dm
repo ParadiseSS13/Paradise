@@ -328,7 +328,10 @@
 		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
-			status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+			if(I.is_embed_harmless())
+				status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>"
+			else
+				status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
 		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"

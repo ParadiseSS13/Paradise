@@ -50,8 +50,11 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/E = pick(H.bodyparts)
-		T.embedding = EMBED_POINTY_SUPERIOR
-		T.tryEmbed(target = E, forced = TRUE)
+		T.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult = 1, pain_chance = 5)
+		T.update_embedding()
+		T.try_embed(target = E, forced = TRUE)
+		T.embedding = list()
+		T.update_embedding()
 
 /obj/item/projectile/homing/magic/homing_fireball
 	name = "greater bolt of fireball"

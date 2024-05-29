@@ -191,8 +191,3 @@
 	///We need to clear the walk_to on grabbing a moving grenade to have it not leap straight out of your hand
 	walk(src, null, null)
 	..()
-// ===CHUGAFIX===
-// /obj/item/grenade/Destroy()
-// 	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-// 	walk_to(src, 0)
-// 	return ..()

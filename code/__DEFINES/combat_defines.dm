@@ -175,3 +175,11 @@
 #define AUTOFIRE_STAT_ALERT	(1<<1)
 /// Gun is shooting.
 #define AUTOFIRE_STAT_FIRING (1<<2)
+
+// /obj/item/projectile chat suppression
+/// to_chat to receiver and visible_message to bystanders
+#define SUPPRESSED_NONE 0
+/// to_chat to receiver
+#define SUPPRESSED_QUIET 1
+/// No message at all
+#define SUPPRESSED_VERY 2

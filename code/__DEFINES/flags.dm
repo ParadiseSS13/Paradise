@@ -58,7 +58,6 @@
 // LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
 #define LAVA_PROTECT_2				(1<<11)
 #define OVERLAY_QUEUED_2			(1<<12)
-// ===CHUGAFIX=== JUST CRAM IT IN THERE!!! PLENTY OF ROOM!!!
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY 				(1<<13)
 /// If the thing can reflect matter (bullets/bomb shrapnel)

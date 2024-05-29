@@ -31,16 +31,16 @@
 /datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, remove_pain_mult, impact_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, projectile_payload=/obj/item/shard)
 	. = ..()
 
-	if(!isitem(target)) // ===CHUGAFIX=== haha make sure this actually works oh my god
+	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
 	RegisterSignal(target, COMSIG_ELEMENT_ATTACH, PROC_REF(severancePackage))
 	if(isprojectile(target))
-		// ===CHUGAFIX=== this is a disgusting hack but inheritance has backed me into a corner here - can't call parent's UpdateEmbedding() on an item/projectile! (fuck)
+		// ===CHUGAFIX=== this is a disgusting hack but inheritance has backed me into a corner here - can't call parent's update_embedding() on an item/projectile! (fuck)
 		// there has to be some other way around this
 		// if not, get rid of the projectile_payload parameter because it's making me sad
 		var/obj/item/projectile/proj = target
-		if(proj?.shrapnel_type)
+		if(proj.shrapnel_type)
 			payload_type = proj.shrapnel_type
 
 		RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
@@ -132,7 +132,7 @@
 /datum/element/embed/proc/examined(obj/item/I, mob/user, list/examine_list)
 	SIGNAL_HANDLER	// COMSIG_PARENT_EXAMINE
 
-	if(I.isEmbedHarmless())
+	if(I.is_embed_harmless())
 		examine_list += "[I] feels sticky, and could probably get stuck to someone if thrown properly!"
 	else
 		examine_list += "[I] has a fine point, and could probably embed in someone if thrown properly!"
@@ -145,7 +145,6 @@
  * That's awful, and it'll limit us to drop-deletable shrapnels in the worry of stuff like
  * arrows and harpoons being embeddable even when not let loose by their weapons.
  */
-// ===CHUGAFIX=== this starts working after shrapnel gets ripped up
 /datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/source, atom/movable/firer, atom/hit, angle, hit_zone, blocked)
 	SIGNAL_HANDLER	// COMSIG_PROJECTILE_SELF_ON_HIT
 
@@ -161,14 +160,14 @@
 	var/mob/living/carbon/C = hit
 	var/obj/item/organ/external/limb = C.get_organ(hit_zone)
 	if(!limb)
-		limb = C.get_organ() // ===CHUGAFIX===
+		limb = C.get_organ()
 
 	if(!tryForceEmbed(payload, limb))
 		payload.failedEmbed()
 	Detach(source)
 
 /**
- * tryForceEmbed() is called here when we fire COMSIG_EMBED_TRY_FORCE from [/obj/item/proc/tryEmbed]. Mostly, this means we're a piece of shrapnel from a projectile that just impacted something, and we're trying to embed in it.
+ * tryForceEmbed() is called here when we fire COMSIG_EMBED_TRY_FORCE from [/obj/item/proc/try_embed]. Mostly, this means we're a piece of shrapnel from a projectile that just impacted something, and we're trying to embed in it.
  *
  * The reason for this extra mucking about is avoiding having to do an extra hitby(), and annoying the target by impacting them once with the projectile, then again with the shrapnel, and possibly
  * AGAIN if we actually embed. This way, we save on at least one message.
@@ -183,7 +182,7 @@
 	SIGNAL_HANDLER	// COMSIG_EMBED_TRY_FORCE
 
 	var/obj/item/organ/external/limb
-	var/mob/living/carbon/human/victim // ===CHUGAFIX=== BODYPARTS ARE ONLY DEFINED ON THE HUMAN LEVEL OMG
+	var/mob/living/carbon/human/victim
 
 	if(iscarbon(target))
 		victim = target
@@ -207,7 +206,7 @@
 	if(throwingdatum?.speed > embedding_item.throw_speed)
 		actual_chance += (throwingdatum.speed - embedding_item.throw_speed) * EMBED_CHANCE_SPEED_BONUS
 
-	if(embedding_item.isEmbedHarmless()) // all the armor in the world won't save you from a kick me sign
+	if(embedding_item.is_embed_harmless()) // all the armor in the world won't save you from a kick me sign
 		return prob(actual_chance)
 
 	var/armor = max(victim.run_armor_check(hit_zone, BULLET), victim.run_armor_check(hit_zone, BOMB)) * 0.5 // we'll be nice and take the better of bullet and bomb armor, halved
@@ -215,14 +214,11 @@
 		return prob(actual_chance)
 
 	/**
-	 * ===CHUGAFIX=== i can't do math right now i don't even know if i want to keep this
+	 * ===CHUGAFIX=== having a 'weak against armor' system would be pretty cool but it's just too much overhead right now. expand on this later.
 	 */
-	//Keep this above 1, as it is a multiplier for the pen_mod for determining actual embed chance.
-	// var/penetrative_behaviour = embedding_item.weak_against_armour ? ARMOR_WEAKENED_MULTIPLIER : 1
-	// var/pen_mod = -(armor * penetrative_behaviour) // if our shrapnel is weak into armor, then we restore our armor to the full value.
-	// actual_chance += pen_mod // doing the armor pen as a separate calc just in case this ever gets expanded on
-	// if(actual_chance <= 0)
-	// 	victim.visible_message(span_danger("[embedding_item] bounces off [victim]'s armor, unable to embed!"), span_notice("[embedding_item] bounces off your armor, unable to embed!"))
-	// 	return FALSE
+	actual_chance -= armor // doing the armor pen as a separate calc just in case this ever gets expanded on
+	if(actual_chance <= 0)
+		victim.visible_message(span_danger("[embedding_item] bounces off [victim]'s armor, unable to embed!"), span_notice("[embedding_item] bounces off your armor, unable to embed!"))
+		return FALSE
 
 	return prob(actual_chance)

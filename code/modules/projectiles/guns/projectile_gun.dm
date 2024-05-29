@@ -156,7 +156,7 @@
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class
-			suppressed = FALSE
+			suppressed = SUPPRESSED_NONE
 			update_icon()
 			return
 	..()
