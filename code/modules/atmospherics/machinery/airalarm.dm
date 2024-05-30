@@ -7,21 +7,23 @@
 	var/max2
 
 /datum/tlv/New(_min2 as num, _min1 as num, _max1 as num, _max2 as num)
-	min2 = _min2
-	min1 = _min1
-	max1 = _max1
-	max2 = _max2
+    min2 = _min2 == -1 ? null : _min2
+    min1 = _min1 == -1 ? null : _min1
+    max1 = _max1 == -1 ? null : _max1
+    max2 = _max2 == -1 ? null : _max2
+
 
 /datum/tlv/proc/get_danger_level(curval as num)
-	if(max2 >=0 && curval>max2)
-		return ATMOS_ALARM_DANGER
-	if(min2 >=0 && curval<min2)
-		return ATMOS_ALARM_DANGER
-	if(max1 >=0 && curval>max1)
-		return ATMOS_ALARM_WARNING
-	if(min1 >=0 && curval<min1)
-		return ATMOS_ALARM_WARNING
-	return ATMOS_ALARM_NONE
+    if(max2 != null && curval > max2)
+        return ATMOS_ALARM_DANGER
+    if(min2 != null && curval < min2)
+        return ATMOS_ALARM_DANGER
+    if(max1 != null && curval > max1)
+        return ATMOS_ALARM_WARNING
+    if(min1 != null && curval < min1)
+        return ATMOS_ALARM_WARNING
+    return ATMOS_ALARM_NONE
+
 
 /datum/tlv/proc/CopyFrom(datum/tlv/other)
 	min2 = other.min2
@@ -922,7 +924,7 @@
 						message_admins("[key_name_admin(usr)] attempted to href edit vars on [src]!!!")
 						return
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
+					var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, -1, round_value = FALSE)
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
 					if(newval < 0)
