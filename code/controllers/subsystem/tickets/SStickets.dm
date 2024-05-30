@@ -574,9 +574,9 @@ UI STUFF
 	for(var/key in C?.pm_tracker.pms)
 		var/datum/pm_convo/convo = C.pm_tracker.pms[key]
 		if(convo.typing)
-			dat += "<i><span class='typing'>[T.client_ckey] is typing</span></i><br />"
-			break
+			dat += "<i><span class='typing'>[key] is typing</span></i><br />"
 
+	var/found_typing = FALSE
 	for(var/client/X in GLOB.admins)
 		if(ckey(X.ckey) == ckey(T.client_ckey))
 			continue
@@ -587,8 +587,11 @@ UI STUFF
 				continue
 			var/datum/pm_convo/convo = X.pm_tracker.pms[key]
 			if(convo.typing)
-				dat += "<i><span class='typing'>[X.ckey] is typing</span></i><br />"
+				dat += "<i><span class='typing'>[key] is typing</span></i><br />"
+				found_typing = TRUE
 				break
+		if(found_typing)
+			break
 
 	dat += "<br />"
 	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
