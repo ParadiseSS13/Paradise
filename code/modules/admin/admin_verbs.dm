@@ -403,7 +403,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/admin_observe()
 	set name = "Aobserve"
 	set category = "Admin"
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MOD)) // SS220 edit - removed R_MENTOR
 		return
 
 	if(isnewplayer(mob))
