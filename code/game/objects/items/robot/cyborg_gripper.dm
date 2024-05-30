@@ -84,7 +84,7 @@
 			gripped_item = contents[1]
 			return
 		// If the gripper thinks it has something but it actually doesn't, we fix this.
-		if(gripped_item && !contents.len)
+		if(gripped_item && !length(contents))
 			gripped_item = null
 			return
 
