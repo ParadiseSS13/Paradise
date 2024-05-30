@@ -142,7 +142,7 @@
 			to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
 			user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
 			return
-		else if (S.get_amount() < 2)
+		else if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You ran out of wood during construction.</span>")
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
