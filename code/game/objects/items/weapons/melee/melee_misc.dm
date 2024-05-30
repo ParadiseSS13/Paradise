@@ -191,7 +191,6 @@
 		deductcharge(burn_hitcost)
 		return ..()
 
-
 // Returning false results in no attack animation, returning true results in an animation.
 /obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
@@ -238,7 +237,6 @@
 #undef SECSWORD_OFF
 #undef SECSWORD_STUN
 #undef SECSWORD_BURN
-
 
 // Traitor Sword
 /obj/item/melee/snakesfang
