@@ -35,7 +35,7 @@
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -149,7 +149,7 @@
 /obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
 	// For lighting other people's cigarettes.
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled) 
+	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled)
 		return ..()
 
 	if(M == user)
@@ -273,19 +273,6 @@
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
-	low_fuel_changes_icon = FALSE
-
-/obj/item/weldingtool/abductor
-	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	light_intensity = 0
-	origin_tech = "plasmatech=5;engineering=5;abductor=3"
-	requires_fuel = FALSE
-	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/hugetank

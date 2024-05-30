@@ -43,6 +43,8 @@
 	var/list/announce_beacons = list()
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
+	/// If this variable is filled, this grants the user a special TGUI confirmation prompt about ordering this shuttle, before they can place the order. Similar to bag of holding.
+	var/are_you_sure_you_want_to_be_banned
 
 /datum/supply_packs/New()
 	. = ..()

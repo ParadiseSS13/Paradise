@@ -1,5 +1,5 @@
 /datum/event/anomaly/anomaly_grav
-	name = "Anomaly: Gravitational"
+	name = "Anomaly event"
 	startWhen = 3
 	announceWhen = 20
 	anomaly_path = /obj/effect/anomaly/grav

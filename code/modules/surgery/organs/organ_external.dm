@@ -243,6 +243,8 @@
 
 	// See if bones need to break
 	check_fracture(brute)
+	// check if we need to inflict internal bleeding
+	check_for_internal_bleeding(brute)
 	// See if we need to inflict severe burns
 	check_for_burn_wound(burn)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
@@ -273,7 +275,6 @@
 	if((brute_dam + burn_dam + brute + burn) < max_limb_damage)
 		brute_dam += brute
 		burn_dam += burn
-		check_for_internal_bleeding(brute)
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
@@ -287,7 +288,6 @@
 				can_inflict = max(0, can_inflict - brute)
 				//How much brute damage is left to inflict
 				brute = max(0, brute - temp)
-				check_for_internal_bleeding(brute)
 
 			if(burn > 0 && can_inflict)
 				//Inflict all burn damage we can
@@ -497,7 +497,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > 30 && prob(damage))
+	if(damage > 15 && local_damage > min_broken_damage && prob(damage))
 		cause_internal_bleeding()
 
 /obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
@@ -744,6 +744,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	status |= ORGAN_INT_BLEEDING
 	custom_pain("You feel something rip in your [name]!")
+	playsound(owner, 'sound/effects/blood1.ogg', 170, TRUE)
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())

@@ -112,7 +112,8 @@
 		adminckey = query_find_note_del.item[3]
 	qdel(query_find_note_del)
 
-	var/datum/db_query/query_del_note = SSdbcore.NewQuery("DELETE FROM notes WHERE id=:note_id", list(
+	var/datum/db_query/query_del_note = SSdbcore.NewQuery("UPDATE notes SET deleted=1, deletedby=:ckey WHERE id=:note_id", list(
+		"ckey" = usr.ckey,
 		"note_id" = note_id
 	))
 	if(!query_del_note.warn_execute())
@@ -193,7 +194,7 @@
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
 			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id, automated
-			FROM notes WHERE ckey=:targetkey ORDER BY timestamp"}, list(
+			FROM notes WHERE ckey=:targetkey AND deleted=0 ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
 		if(!query_get_notes.warn_execute())

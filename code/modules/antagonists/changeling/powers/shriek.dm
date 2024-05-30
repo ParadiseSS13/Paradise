@@ -54,6 +54,8 @@
 		L.on = TRUE
 		L.break_light_tube()
 	empulse(get_turf(user), 3, 5, 1)
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /// A more expensive version, used during rounds with cyber rev station trait for balance reasons.

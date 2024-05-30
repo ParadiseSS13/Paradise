@@ -660,6 +660,42 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 
+/obj/item/paper/nuclear_guide_operating
+	name = "nuclear guide : 'Operating the Nuclear Device'"
+	info = "<b>ARMING THE NUCLEAR DEVICE</b><hr /> \
+		1. Insert the NAD. <br> \
+		2. Enter the code provided by Central Command. For this training device, the code is 11111.<br> \
+		3. (Optional) Set a specific timer for detonation. Default and minimum is 2 minutes.<br> \
+		4. Disable the safety.<br> \
+		5. Arm the nuclear device.<br> \
+		6. Take out the NAD to ensure the device stays armed.<hr /> \
+		<b>DISARMING THE NUCLEAR DEVICE</b><hr /> \
+		Follow step 1 and 2, then hit the disarm. If you have the NAD but don't know the code, refer to the Defusing guide. If you have neither, refer to the Spacing guide."
+
+/obj/item/paper/nuclear_guide_defusing
+	name = "nuclear guide : 'Defusing the Nuclear Device'"
+	info = "<b>DEFUSING THE NUCLEAR DEVICE</b><hr /> \
+		<b>IF YOU DON'T HAVE THE NAD :</b> Refer to the Spacing guide, you cannot defuse the nuclear device.<hr /> \
+		1. Insert the NAD. <br> \
+		2. Use a SCREWDRIVER and open the device's panel.<br> \
+		3. CUT the CONTROL wire using WIRECUTTERS to short out the control panel and bypass it.<br>\
+		4. PULSE the DISARM wire using a MULTITOOL to stop the bomb's timer.<hr /> \
+		<b>WARNING</b> : Nuclear devices deployed by hostile operatives will likely have unlabelled wires.<br> \
+		PULSING or CUTTING the DETONATOR wire will prematurely detonate the bomb if the timer is active.<br> \
+		Depending on the timer left on the bomb, try your luck or refer to the Spacing guide."
+
+/obj/item/paper/nuclear_guide_spacing
+	name = "nuclear guide : 'Spacing the Nuclear Device'"
+	info = "<b>SPACING THE NUCLEAR DEVICE</b><hr /> \
+	To be used on assets of hostile operatives only. Any loss of NT nuclear devices following this guide will be charged as Grand Theft per Space Law.<hr /> \
+	1. Ensure the device's access panel is closed. Use a screwdriver to close it if it isn't. <br> \
+	2. Use a WELDING TOOL to cut the anchoring bolt covers.<br> \
+	3. Use a CROWBAR to pry the bolts open.<br> \
+	4. Use a WELDING TOOL to cut the anchoring system sealant.<br> \
+	5. Use a WRENCH to unwrench the anchoring bolts.<br> \
+	6. Use a CROWBAR to pry the nuclear device off its anchors.<br> \
+	7. DRAG the nuclear device to the closest opening to SPACE, and PUSH it away from the station."
+
 /obj/item/paper/central_command
 	name = "paper"
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
