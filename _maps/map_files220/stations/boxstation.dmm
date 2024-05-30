@@ -12189,6 +12189,7 @@
 	dir = 1
 	},
 /obj/machinery/chem_dispenser,
+/obj/machinery/status_display/directional/north,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "aTT" = (
@@ -21444,7 +21445,7 @@
 /obj/item/eftpos{
 	pixel_x = 9
 	},
-/obj/structure/sign/poster/official/science{
+/obj/structure/disaster_counter/chemistry{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -23438,7 +23439,6 @@
 	dir = 9
 	},
 /obj/machinery/chem_heater,
-/obj/machinery/status_display/directional/west,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "bPf" = (
@@ -24496,6 +24496,9 @@
 	pixel_x = 5
 	},
 /obj/machinery/light/directional/west,
+/obj/structure/sign/poster/official/science{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteyellow"
@@ -97838,6 +97841,7 @@
 	dir = 8
 	},
 /obj/machinery/chem_dispenser,
+/obj/machinery/status_display/directional/west,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "wGj" = (

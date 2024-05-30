@@ -7154,10 +7154,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
-"aFg" = (
-/obj/structure/sign/fire,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/engine/supermatter)
 "aFi" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable/yellow{
@@ -34834,6 +34830,9 @@
 /obj/machinery/chem_dispenser,
 /obj/structure/reagent_dispensers/fueltank/chem/east,
 /obj/item/reagent_containers/glass/beaker/large,
+/obj/structure/disaster_counter/chemistry{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "cKY" = (
@@ -77449,6 +77448,9 @@
 "nmA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
+/obj/structure/disaster_counter/scichem{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "nmK" = (
@@ -97225,6 +97227,9 @@
 "tnN" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
+/obj/structure/disaster_counter/toxins{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "tnO" = (
@@ -107348,6 +107353,9 @@
 	},
 /obj/machinery/atmospherics/meter{
 	autolink_id = "sm_sen_hot"
+	},
+/obj/structure/disaster_counter/supermatter{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -136054,7 +136062,7 @@ aik
 sqD
 ksd
 ayM
-aFg
+ayM
 wBz
 aHh
 aIF
