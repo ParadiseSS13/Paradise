@@ -41,6 +41,8 @@
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
+		if(T.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
+			continue
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["[T] - (New Player)"] = T
