@@ -452,6 +452,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "bu" = (
@@ -619,7 +620,7 @@
 "bW" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/transit_tube/horizontal,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/ancientstation/betanorth)
 "bX" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -637,7 +638,7 @@
 /obj/effect/turf_decal/arrows/black{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "bZ" = (
 /obj/machinery/door/poddoor{
@@ -814,7 +815,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "cx" = (
 /obj/machinery/light/small{
@@ -1828,7 +1829,11 @@
 "fi" = (
 /obj/item/apc_electronics,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "red"
+	},
 /area/ruin/ancientstation/thetacorridor)
 "fj" = (
 /obj/structure/cable{
@@ -1980,6 +1985,7 @@
 	name = "Engineering External Access";
 	req_one_access_txt = "271"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "fB" = (
@@ -1991,6 +1997,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "fC" = (
@@ -2268,9 +2275,6 @@
 "fX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/machinery/door_timer{
-	name = "Charlie station holding cell"
-	},
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/ruin/ancientstation/sec)
@@ -2311,7 +2315,10 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/ruin/ancientstation/thetacorridor)
 "gb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2328,7 +2335,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "gc" = (
 /mob/living/simple_animal/hostile/carp,
@@ -2478,18 +2485,25 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/sec)
 "gw" = (
-/obj/structure/table,
 /obj/machinery/light/small,
-/obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
 /area/ruin/ancientstation/thetacorridor)
 "gx" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "red"
+	},
 /area/ruin/ancientstation/thetacorridor)
 "gy" = (
 /obj/effect/spawner/window/reinforced,
@@ -3032,9 +3046,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "271"
-	},
+/obj/machinery/door/airlock/security,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "hF" = (
@@ -3118,6 +3130,7 @@
 	name = "Engineering External Access";
 	req_one_access_txt = "271"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/engi)
 "hM" = (
@@ -3279,7 +3292,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "red"
+	},
 /area/ruin/ancientstation/thetacorridor)
 "ie" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -3864,7 +3880,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "jy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
@@ -3975,26 +3990,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jR" = (
@@ -4014,6 +4023,9 @@
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	name = "prototype display case"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
@@ -4035,11 +4047,17 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "prototype display case"
+	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "jX" = (
 /obj/structure/table/reinforced,
 /obj/item/salvage/ruin/nanotrasen,
+/obj/machinery/door/window/reinforced/reversed{
+	name = "prototype display case"
+	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "jZ" = (
@@ -4053,18 +4071,6 @@
 "kb" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/ancientstation)
-"kc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4107,7 +4113,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "kk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
 "kl" = (
@@ -4246,37 +4254,13 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "kI" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/alive/old/sec{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/alive/old/sec,
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation)
-"kJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/alive/old/sci,
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation)
-"kK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/alive/old/eng,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kL" = (
@@ -4781,6 +4765,17 @@
 /obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"mB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/proto)
 "nc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -4788,14 +4783,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
-"ny" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
-	id = "prototype_vault";
-	name = "prototype vault blast doors";
-	desc = "A heavy duty blast door that opens mechanically. It was hermetically sealed when the crew went into cryostasis."
-	},
-/turf/simulated/floor/engine,
-/area/ruin/ancientstation/proto)
+"nv" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible/riveted,
+/area/template_noop)
 "nF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4808,6 +4799,14 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
+"op" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/alive/old/sci,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "qj" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/indestructible/riveted,
@@ -4834,11 +4833,9 @@
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/e_gun/old,
 /obj/machinery/light,
-/turf/simulated/floor/engine,
-/area/ruin/ancientstation/proto)
-"rq" = (
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "prototype display case"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
@@ -4848,31 +4845,33 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "rU" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
 	id = "prototype_vault";
 	name = "prototype vault blast doors";
 	desc = "A heavy duty blast door that opens mechanically. It was hermetically sealed when the crew went into cryostasis."
 	},
 /turf/simulated/floor/engine,
-/area/ruin/ancientstation/proto)
+/area/ruin/ancientstation/powered)
 "sp" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
-"sF" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
+"sI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/alive/old/eng,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/proto)
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "tY" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/fluff/ruins/oldstation/protohealth,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "prototype display case"
+	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "uk" = (
@@ -4931,13 +4930,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/sec)
 "BB" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	name = "Theta prototype vault lockdown button";
-	id = "prototype_vault"
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -4977,20 +4971,36 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
-"Fe" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/engine,
-/area/ruin/ancientstation/proto)
-"Gx" = (
-/obj/structure/window/reinforced,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
-	id = "prototype_vault";
-	name = "prototype vault blast doors";
-	desc = "A heavy duty blast door that opens mechanically. It was hermetically sealed when the crew went into cryostasis."
+"Fr" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
 	},
 /turf/simulated/floor/engine,
+/area/ruin/ancientstation/proto)
+"FP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/showcase/machinery/oldpod{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
+"Gk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	name = "Theta prototype vault lockdown button";
+	id = "prototype_vault"
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "GT" = (
 /obj/structure/cable/yellow{
@@ -5012,6 +5022,12 @@
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
+"Jn" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/ancientstation/proto)
 "Jo" = (
 /obj/machinery/light{
 	dir = 4
@@ -5020,6 +5036,13 @@
 /area/ruin/ancientstation/proto)
 "Ld" = (
 /obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/proto)
+"Lm" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "Lu" = (
@@ -5050,7 +5073,10 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "NO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "NS" = (
@@ -5069,10 +5095,22 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"OB" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "theta RnD server enclosure"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/ancientstation/proto)
 "OI" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"Qi" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "Rc" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
@@ -5089,6 +5127,12 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
+"RD" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/proto)
 "Sh" = (
 /obj/structure/table/reinforced,
 /obj/item/healthanalyzer/advanced{
@@ -5096,28 +5140,54 @@
 	name = "prototype health analyzer"
 	},
 /obj/machinery/light,
+/obj/machinery/door/window/reinforced/reversed{
+	name = "prototype display case";
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "Sv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "holding cell"
+	name = "prototype display case"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
+"Td" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/turf/simulated/floor/engine,
+/area/ruin/ancientstation/proto)
 "TF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/ancientstation/betanorth)
 "Ut" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/thetacorridor)
+"UR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/showcase/machinery/oldpod{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "UW" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/fluff/ruins/oldstation/protosuit,
+/obj/machinery/door/window/reinforced/normal{
+	name = "prototype display case"
+	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "VA" = (
@@ -5161,6 +5231,10 @@
 "XM" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/fluff/ruins/oldstation/protogun,
+/obj/machinery/door/window/reinforced/reversed{
+	name = "prototype display case";
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "XS" = (
@@ -5184,6 +5258,13 @@
 /area/ruin/ancientstation/atmo)
 "Yu" = (
 /turf/simulated/floor/engine,
+/area/ruin/ancientstation/powered)
+"YH" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "Zi" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -5544,8 +5625,8 @@ ab
 ab
 ab
 bf
-be
-be
+Qi
+Qi
 cw
 bf
 dJ
@@ -5592,9 +5673,9 @@ uQ
 ab
 aa
 bf
-be
+Qi
 bY
-be
+Qi
 bf
 eB
 aV
@@ -6670,7 +6751,7 @@ jd
 jq
 jy
 jN
-kc
+aL
 km
 dd
 az
@@ -6861,10 +6942,10 @@ iJ
 bC
 bA
 bC
-jP
+UR
+op
 bC
-kJ
-bC
+UR
 jP
 bC
 AP
@@ -6957,10 +7038,10 @@ iL
 dV
 jr
 dV
-jQ
+FP
+sI
 dV
-kK
-dV
+FP
 jQ
 kG
 AP
@@ -7054,9 +7135,9 @@ bC
 bA
 bC
 kI
-bC
 jP
 bC
+UR
 jP
 bC
 AP
@@ -8254,11 +8335,11 @@ jk
 qj
 qz
 UW
-Gx
+rU
 jT
 jC
-sF
-Ld
+ZR
+YH
 rU
 tY
 qz
@@ -8306,7 +8387,7 @@ Yu
 jT
 ZR
 ZR
-Ld
+Lm
 Yu
 Sh
 qz
@@ -8375,7 +8456,7 @@ ah
 ap
 ap
 bn
-bx
+bw
 bR
 ew
 fy
@@ -8400,13 +8481,13 @@ jF
 Xw
 qm
 kr
-ZR
-ZR
 OI
 LG
+RD
+OB
+Jn
 qz
-kE
-aa
+nv
 aa
 aa
 "}
@@ -8448,13 +8529,13 @@ Em
 Ut
 jG
 ks
-NO
+Gk
 NO
 BB
-LG
+Td
+Fr
 qz
-kE
-aa
+nv
 aa
 aa
 "}
@@ -8542,12 +8623,12 @@ lh
 qj
 qz
 jW
-ny
+rU
 jT
 ZR
 ZR
 Ld
-ny
+rU
 qZ
 qz
 kE
@@ -8590,12 +8671,12 @@ fq
 qj
 qz
 jX
-Fe
-jT
+Yu
+mB
 Jo
 Dg
 Ld
-rq
+Yu
 XM
 qz
 kE
