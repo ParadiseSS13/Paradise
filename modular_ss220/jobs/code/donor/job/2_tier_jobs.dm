@@ -228,8 +228,8 @@
 				shoes = /obj/item/clothing/shoes/laceup
 				head = /obj/item/clothing/head/mailman
 			if("Доставщик")
-				uniform = /obj/item/clothing/under/rank/cargo/deliveryboy
-				head = /obj/item/clothing/head/soft/deliverysoft
+				uniform = /obj/item/clothing/under/rank/cargo/tech/delivery
+				head = /obj/item/clothing/head/soft/cargo
 
 
 /datum/job/donor/wrestler
