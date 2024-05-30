@@ -26,6 +26,10 @@
 	name = "Research Division"
 	icon_state = "sci"
 
+/area/station/science/lobby
+	name = "Research Division Lobby"
+	icon_state = "sci"
+
 /area/station/science/break_room
 	name = "\improper Science Break Room"
 	icon_state = "scibreak"
