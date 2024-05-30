@@ -7,22 +7,22 @@
 	var/max2
 
 /datum/tlv/New(_min2 as num, _min1 as num, _max1 as num, _max2 as num)
-    min2 = _min2 == -1 ? null : _min2
-    min1 = _min1 == -1 ? null : _min1
-    max1 = _max1 == -1 ? null : _max1
-    max2 = _max2 == -1 ? null : _max2
+	min2 = _min2 == -1 ? null : _min2
+	min1 = _min1 == -1 ? null : _min1
+	max1 = _max1 == -1 ? null : _max1
+	max2 = _max2 == -1 ? null : _max2
 
 
 /datum/tlv/proc/get_danger_level(curval as num)
-    if(max2 != null && curval > max2)
-        return ATMOS_ALARM_DANGER
-    if(min2 != null && curval < min2)
-        return ATMOS_ALARM_DANGER
-    if(max1 != null && curval > max1)
-        return ATMOS_ALARM_WARNING
-    if(min1 != null && curval < min1)
-        return ATMOS_ALARM_WARNING
-    return ATMOS_ALARM_NONE
+	if(max2 != null && curval > max2)
+		return ATMOS_ALARM_DANGER
+	if(min2 != null && curval < min2)
+		return ATMOS_ALARM_DANGER
+	if(max1 != null && curval > max1)
+		return ATMOS_ALARM_WARNING
+	if(min1 != null && curval < min1)
+		return ATMOS_ALARM_WARNING
+	return ATMOS_ALARM_NONE
 
 
 /datum/tlv/proc/CopyFrom(datum/tlv/other)
