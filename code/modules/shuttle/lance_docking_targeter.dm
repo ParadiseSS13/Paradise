@@ -27,7 +27,7 @@
 		to_chat(user, "<span class='warning'>You'll want this to dock on the station.</span>")
 		return
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-	var/dir_choice = tgui_input_list(user, "Select the new docking area orientation.", "Dock Orientation", dir_choices)
+	var/dir_choice = tgui_input_list(user, "Which direction should the shuttle approach from?", "Dock Orientation", dir_choices)
 	if(!dir_choice)
 		return
 

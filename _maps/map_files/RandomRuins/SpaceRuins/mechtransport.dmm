@@ -340,6 +340,7 @@
 /obj/effect/decal/cleanable/shreds{
 	pixel_y = -10
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "xE" = (
@@ -381,6 +382,10 @@
 /area/ruin/space/mech_transport)
 "zy" = (
 /obj/effect/decal/remains/human,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/mech_transport)
+"zM" = (
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "zP" = (
@@ -524,6 +529,10 @@
 	pixel_x = -6
 	},
 /obj/item/pen/multi/syndicate,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 3;
+	pixel_x = 2
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "MA" = (
@@ -556,6 +565,7 @@
 	pixel_y = -32;
 	name = "secure supplies blast door control"
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "Nq" = (
@@ -712,6 +722,10 @@
 	pixel_x = 6
 	},
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/mech_transport)
+"Yq" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Zn" = (
 /obj/machinery/light_switch{
@@ -1269,7 +1283,7 @@ MI
 vo
 rK
 bU
-bU
+Yq
 bU
 Af
 vo
@@ -1333,7 +1347,7 @@ vo
 vo
 zX
 bU
-bU
+Yq
 bU
 HK
 vo
@@ -1484,7 +1498,7 @@ oo
 vo
 pJ
 VS
-VS
+zM
 VS
 aW
 aq
