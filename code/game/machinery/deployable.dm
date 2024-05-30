@@ -144,19 +144,19 @@
 //Barricade repairs
 /obj/structure/barricade/wooden/crude/attackby(obj/item/stack/sheet/wood/S, mob/user, params)
 	if((istype(S, /obj/item/stack/sheet/wood/)) && user.a_intent == INTENT_HELP)
-		if(src.obj_integrity >= max_integrity)
+		if(obj_integrity >= max_integrity)
 			to_chat(user,"<span class='notice'>[src] is fully intact.</span>")
 			return
-		to_chat(user, "<span class='notice'> You start repairing \the [src]...</span>")
+		to_chat(user, "<span class='notice'> You start repairing [src]...</span>")
 		if(do_after(user, 2 SECONDS, target = src))
 			S.use(1)
-			to_chat(user, "<span class='notice'> You repair \the [src].</span>")
+			to_chat(user, "<span class='notice'> You repair [src].</span>")
 			user.visible_message("<span class='notice'> [user] repairs \the [src].</span>")
-			src.obj_integrity = src.max_integrity
+			obj_integrity = max_integrity
 			transfer_fingerprints_to(src)
 		return
-	else
-		return ..()
+
+	return ..()
 
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."

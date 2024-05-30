@@ -232,13 +232,13 @@
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
 		if((/mob) in get_turf(src))
-			to_chat(user, "<span class='warning'>There's someone blocking \the [src]!</span>")
+			to_chat(user, "<span class='warning'>There's someone blocking [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
 		if(do_after_once(user, 2 SECONDS, target = src))
 			S.use(2)
-			to_chat(user, "<span class='notice'>You barricade \the [src] shut.</span>")
-			user.visible_message("<span class='notice'>[user] barricades \the [src] shut.</span>")
+			to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+			user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 			transfer_fingerprints_to(newbarricade)
 	else
