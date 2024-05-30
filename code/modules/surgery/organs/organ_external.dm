@@ -489,7 +489,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"[src] feels like it's burning from the inside out!",
 				"[src] seems to be turning a nasty color.",
 			)
-			to_chat(user, "<span class='danger'>[pick(messages)]</span>")
+			to_chat(owner, "<span class='danger'>[pick(messages)]</span>")
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		if(vital)
