@@ -22,7 +22,7 @@
 	var/open_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
-	 /// Is our door barricaded?
+	/// Is our door barricaded?
 	var/door_barricaded = FALSE
 
 /obj/structure/mineral_door/Initialize()
@@ -135,16 +135,19 @@
 			to_chat(user, "<span class='warning'>There's someone blocking [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start barricading [src]...</span>")
-		if(do_after_once(user, 4 SECONDS, target = src))
+		if(do_after_once(user, 4 SECONDS, target = src) && S.get_amount() > 2)
 			S.use(2)
-			to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
-			user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
 			var/obj/structure/barricade/wooden/crude/newbarricade = new(loc)
 			transfer_fingerprints_to(newbarricade)
+			to_chat(user, "<span class='notice'>You barricade [src] shut.</span>")
+			user.visible_message("<span class='notice'>[user] barricades [src] shut.</span>")
 			return
+		else if (S.get_amount() < 2)
+			to_chat(user, "<span class='warning'>You ran out of wood during construction.</span>")
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
-	return ..()
+	else
+		return ..()
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
