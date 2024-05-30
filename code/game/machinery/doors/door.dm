@@ -49,7 +49,7 @@
 	var/polarized_on
 
 	/// Are we barricaded? Stops the door from opening if so
-	var/door_barricaded = 0
+	var/door_barricaded = FALSE
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -93,7 +93,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(operating || emagged || door_barricaded >= 1)
+	if(operating || emagged || door_barricaded)
 		return
 	if(ismob(AM))
 		var/mob/B = AM

@@ -68,7 +68,7 @@
 	return !density
 
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)
-	if(is_operating || door_barricaded >= 1)
+	if(is_operating || door_barricaded)
 		return
 	if(isliving(user))
 		var/mob/living/M = user
@@ -128,7 +128,7 @@
 		if(S.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least 2 planks of wood to barricade this!</span>")
 			return
-		if(door_barricaded >= 1)
+		if(door_barricaded)
 			to_chat(user, "<span class='warning'>There's already a barricade here!</span>")
 			return
 		if((/mob) in get_turf(src))

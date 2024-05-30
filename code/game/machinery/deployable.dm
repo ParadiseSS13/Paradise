@@ -122,15 +122,15 @@
 /obj/structure/barricade/wooden/Initialize(mapload)
 	. = ..()
 	for(var/obj/machinery/door/door in get_turf(loc))
-		door.door_barricaded += 1
+		door.door_barricaded = TRUE
 	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
-		mindoor.door_barricaded += 1
+		mindoor.door_barricaded = TRUE
 
 /obj/structure/barricade/wooden/Destroy()
 	for(var/obj/machinery/door/door in get_turf(loc))
-		door.door_barricaded -= 1
+		door.door_barricaded = FALSE
 	for(var/obj/structure/mineral_door/mindoor in get_turf(loc))
-		mindoor.door_barricaded -= 1
+		mindoor.door_barricaded = FALSE
 	. = ..()
 
 /obj/structure/barricade/wooden/crude
