@@ -644,6 +644,11 @@
 	registered_name = "Syndicate Operative"
 	access = list(ACCESS_SYNDICATE)
 
+/obj/item/card/id/syndi_scan_only/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
+
 /obj/item/card/id/syndi_scan_only/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity)
 		return
@@ -652,7 +657,7 @@
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
 				to_chat(user, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
-				access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
+				access |= I.access // Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
