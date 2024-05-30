@@ -85,7 +85,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		if(check_rights(R_PERMISSIONS, 0))
+		if(check_rights(R_PERMISSIONS, FALSE))
 			body += "\[<A href='byond://?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
 		else if(M.client.holder && M.client.holder.fakekey && M.client.holder.big_brother)
 			body += "\[Player\] "
