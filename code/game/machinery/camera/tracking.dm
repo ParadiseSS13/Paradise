@@ -120,7 +120,7 @@
 
 	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
 	if(!doubleclick)
-		sleep(15) // Gives antags a brief window to get out of dodge before the eye of sauron decends upon them when someone yells ;HALP
+		sleep(1.5 SECONDS) // Gives antags a brief window to get out of dodge before the eye of sauron decends upon them when someone yells ;HALP
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
