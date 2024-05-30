@@ -1176,7 +1176,6 @@
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_fluff.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_freedom.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_gorilla_rampage.dm"
-#include "code\game\objects\items\weapons\bio_chips\bio_chip_health.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_krav_maga.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_mindshield.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_pad.dm"

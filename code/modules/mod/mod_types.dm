@@ -358,6 +358,10 @@
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt //Defence and flaming hot offence. Good for reflective blob, xenos, antagonists with guns
 
+/obj/item/mod/control/pre_equipped/responsory/security/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
 	additional_module = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt, /obj/item/mod/module/firefighting_tank) //This can only end well.
@@ -365,6 +369,10 @@
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
 	additional_module = /obj/item/mod/module/defibrillator
+
+/obj/item/mod/control/pre_equipped/responsory/medic/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
@@ -415,6 +423,10 @@
 		/obj/item/mod/module/magboot/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/apocryphal/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/apocryphal/officer
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
@@ -430,7 +442,6 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/power_kick, //If you are not drop kicking a xenomorph, what are you doing as an DS commander?
 	)
-
 
 /obj/item/mod/control/pre_equipped/corporate
 	theme = /datum/mod_theme/corporate
