@@ -228,7 +228,7 @@ CONTENTS:
 	var/list/skin_to_truncate = splittext(selected_borg_disguise, "-")
 	var/truncated_skin = trim(skin_to_truncate[1])	// Slice off the suffix of the skin variant's name so it matches the name of the eyes it is supposed to pair with.
 	if(truncated_skin in borgs_with_shared_eyes)
-		selected_borg_eyes += truncated_skin
+		selected_borg_eyes = truncated_skin
 	else
 		selected_borg_eyes = selected_borg_disguise	// Otherwise the eyes are already bespoke for the skin so we just match them.
 	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = selected_borg_disguise, loc = H)	// Now you're a robot!
