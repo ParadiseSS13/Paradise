@@ -1,7 +1,3 @@
-#define SECSWORD_OFF 0
-#define SECSWORD_STUN 1
-#define SECSWORD_BURN 2
-
 /obj/item/melee
 	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
@@ -67,6 +63,12 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
+
+	///Mode Defines
+	#define SECSWORD_OFF 0
+	#define SECSWORD_STUN 1
+	#define SECSWORD_BURN 2
+
 	var/base_icon = "secsword"
 	var/stam_damage = 35 // 3 hits to stamcrit
 	var/burn_damage = 10
@@ -232,6 +234,11 @@
 	if(cell.charge < (amount)) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = SECSWORD_OFF
 		update_icon()
+
+#undef SECSWORD_OFF
+#undef SECSWORD_STUN
+#undef SECSWORD_BURN
+
 
 // Traitor Sword
 /obj/item/melee/snakesfang
