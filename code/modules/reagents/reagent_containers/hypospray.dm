@@ -130,7 +130,7 @@
 
 /obj/item/reagent_containers/hypospray/combat/syndicate_nanites
 	name = "medical nanite injector"
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid field stabilization."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanomachines for rapid field stabilization."
 	volume = 100
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30) // i want to let them to inject more/less depending on the situation, while keeping the flags the base combat has
 	list_reagents = list("syndicate_nanites" = 100)
