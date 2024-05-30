@@ -84,6 +84,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
+	if(!S && ismachineperson(M) && user.a_intent == INTENT_HELP)
+		to_chat(user, "<span class='notice'>[M.p_they(TRUE)] [M.p_are()] missing that limb!</span>")
+		return
+
 	if(!S?.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
 	if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
