@@ -68,14 +68,14 @@
 	if(!istype(next) || !istype(current))
 		return //not happening.
 	if(!turf_check(next, current))
-		to_chat(user, "<span class='warning'>\The [movable_parent] can not go onto [next]!</span>")
+		to_chat(user, "<span class='warning'>\The [movable_parent] cannot go onto [next]!</span>")
 		return
 	if(!Process_Spacemove(direction) || !isturf(movable_parent.loc))
 		return
 
 	step(movable_parent, direction)
 	last_move_diagonal = ((direction & (direction - 1)) && (movable_parent.loc == next))
-	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal? 2 : 1) * vehicle_move_delay)
+	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal ? 2 : 1) * vehicle_move_delay)
 
 	if(QDELETED(src))
 		return
@@ -173,7 +173,3 @@
 		override_allow_spacemove = TRUE
 		return
 	override_allow_spacemove = FALSE
-
-
-
-

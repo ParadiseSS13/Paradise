@@ -280,4 +280,3 @@
 		return
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-

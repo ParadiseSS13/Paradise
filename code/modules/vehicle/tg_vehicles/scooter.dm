@@ -14,7 +14,7 @@
 /obj/tgvehicle/scooter/wrench_act(mob/living/user, obj/item/I)
 	..()
 	to_chat(user, "<span class='notice'>You begin to remove the handlebars...</span>")
-	if(!I.use_tool(src, user, 40, volume=50))
+	if(!I.use_tool(src, user, 40, volume = 50))
 		return TRUE
 	var/obj/tgvehicle/scooter/skateboard/improvised/skater = new(drop_location())
 	new /obj/item/stack/rods(drop_location(), 2)
@@ -94,7 +94,7 @@
 		return
 
 	next_crash = world.time + 10
-	rider.adjustStaminaLoss(instability*6)
+	rider.adjustStaminaLoss(instability * 6)
 	playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
 	if(!iscarbon(rider) || rider.getStaminaLoss() >= 100 || grinding || iscarbon(bumped_thing))
 		var/atom/throw_target = get_edge_target_turf(rider, pick(NORTH, SOUTH, EAST, WEST))

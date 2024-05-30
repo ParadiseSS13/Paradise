@@ -356,13 +356,13 @@
 		return 1
 
 	if(pulledby && !pulledby.pulling)
-		return 1
+		return TRUE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
 		return 1
