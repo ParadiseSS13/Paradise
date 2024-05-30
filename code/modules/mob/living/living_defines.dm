@@ -100,6 +100,9 @@
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
 
+	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
+	var/advanced_bullet_dodge_chance = 0
+
 	/*
 	Taste Vars
 	*/
