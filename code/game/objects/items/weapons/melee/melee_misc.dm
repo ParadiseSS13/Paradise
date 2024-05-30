@@ -105,20 +105,21 @@
 		cell = new(src)
 
 /obj/item/melee/secsword/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = I
-		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
-			return
-		if(C.maxcharge < stam_hitcost)
-			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
-			return
-		if(!user.unEquip(I))
-			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
-		update_icon(UPDATE_ICON_STATE)
+	if(!istype(I, /obj/item/stock_parts/cell))
+		return
+	var/obj/item/stock_parts/cell/C = I
+	if(cell)
+		to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+		return
+	if(C.maxcharge < stam_hitcost)
+		to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
+		return
+	if(!user.unEquip(I))
+		return
+	I.forceMove(src)
+	cell = I
+	to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
