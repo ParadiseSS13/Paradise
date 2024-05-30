@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
-/obj/item/stack/cable_coil/New(location, length = null, paramcolor = null)
+/obj/item/stack/cable_coil/New(location, length, paramcolor)
 	. = ..()
 	if(paramcolor)
 		color = paramcolor
