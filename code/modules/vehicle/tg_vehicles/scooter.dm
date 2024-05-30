@@ -113,7 +113,7 @@
 			return
 		rider.throw_at(throw_target, 3, 2)
 		var/head_slot = rider.get_item_by_slot(SLOT_HUD_HEAD)
-		if(!head_slot || !(istype(head_slot ,/obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
+		if(!head_slot || !(istype(head_slot, /obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
 		visible_message("<span class='danger'>[src] crashes into [bumped_thing], sending [rider] flying!</span>")
@@ -200,7 +200,7 @@
 /obj/tgvehicle/scooter/skateboard/pro
 	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. Looks a lot more stable than the average board."
-	icon_state = "skateboard2"
+	icon_state = "skateboardpro"
 	board_item_type = /obj/item/melee/skateboard/pro
 	instability = 6
 
@@ -323,8 +323,8 @@
 /obj/item/melee/skateboard/pro
 	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
-	icon_state = "skateboard2_held"
-	item_state = "skateboard2"
+	icon_state = "skateboardpro_held"
+	item_state = "skateboardpro"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/pro
 
 /obj/item/melee/skateboard/hoverboard

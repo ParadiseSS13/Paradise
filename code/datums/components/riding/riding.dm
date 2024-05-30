@@ -77,7 +77,7 @@
 
 /// This proc is called when a rider unbuckles, whether they chose to or not. If there's no more riders, this will be the riding component's death knell.
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/rider, force = FALSE)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVABLE_UNBUCKLE
 
 	handle_unbuckle(rider)
 
@@ -91,7 +91,7 @@
 
 /// This proc is called when a rider buckles, allowing for offsets to be set properly
 /datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVABLE_BUCKLE
 
 	var/atom/movable/movable_parent = parent
 	handle_vehicle_layer(movable_parent.dir)
@@ -103,7 +103,7 @@
 
 /// This proc is called when the rider attempts to grab the thing they're riding, preventing them from doing so.
 /datum/component/riding/proc/on_rider_try_pull(mob/living/rider_pulling, atom/movable/target, force)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_LIVING_TRY_PULL
 	if(target == parent)
 		var/mob/living/ridden = parent
 		to_chat(ridden, "<span class='warning'>You can't pull [target]!</span>")
@@ -125,7 +125,7 @@
 
 /// This is called after the ridden atom is successfully moved and is used to handle icon stuff
 /datum/component/riding/proc/vehicle_moved(datum/source, oldloc, dir, forced)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVABLE_MOVED
 
 	var/atom/movable/movable_parent = parent
 	if(isnull(dir))
@@ -140,7 +140,7 @@
 
 /// Turning is like moving
 /datum/component/riding/proc/vehicle_turned(datum/source, _old_dir, new_dir)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_DIR_CHANGE
 
 	vehicle_moved(source, null, new_dir)
 
@@ -242,13 +242,13 @@
 
 /// Every time the driver tries to move, this is called to see if they can actually drive and move the vehicle (via relaymove)
 /datum/component/riding/proc/driver_move(atom/movable/movable_parent, mob/living/user, direction)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_RIDDEN_DRIVER_MOVE
 	SHOULD_CALL_PARENT(TRUE)
 	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
 
 /// So we can check all occupants when we bump a door to see if anyone has access
 /datum/component/riding/proc/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVABLE_BUMP
 	if(!istype(possible_bumped_door))
 		return
 	for(var/occupant in movable_parent.buckled_mobs)
@@ -274,7 +274,7 @@
 	return TRUE
 
 /datum/component/riding/proc/force_unbuckle(atom/movable/source, mob/living/living_hitter)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_ATTACK_HAND
 
 	if(living_hitter in source.buckled_mobs)
 		return

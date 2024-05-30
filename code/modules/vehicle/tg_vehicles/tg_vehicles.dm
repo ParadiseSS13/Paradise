@@ -19,8 +19,6 @@
 	var/max_occupants = 1
 	////Maximum amount of drivers
 	var/max_drivers = 1
-	var/movedelay = 2
-	var/lastmove = 0
 	/**
 	  * If the driver needs a certain item in hand (or inserted, for vehicles) to drive this. For vehicles, this must be duplicated on their riding component subtype
 	  * [/datum/component/riding/var/keytype] variable because only a few specific checks are handled here with this var, and the majority of it is on the riding component
@@ -30,7 +28,7 @@
 	///The inserted key, needed on some vehicles to start the engine
 	var/obj/item/key/inserted_key
 	/// Whether the vehicle is currently able to move
-	var/canmove = TRUE
+	var/can_move = TRUE
 	var/list/autogrant_actions_passenger //plain list of typepaths
 	var/list/autogrant_actions_controller //assoc list "[bitflag]" = list(typepaths)
 	var/list/mob/occupant_actions //assoc list mob = list(type = action datum assigned to mob)
@@ -140,7 +138,7 @@
 	return
 
 /obj/tgvehicle/relaymove(mob/living/user, direction)
-	if(!canmove)
+	if(!can_move)
 		return FALSE
 	if(is_driver(user))
 		return relaydrive(user, direction)
@@ -223,7 +221,7 @@
 	if(!is_occupant(user))
 		to_chat(user, "<span class='warning'>You must be riding the [src] to remove [src]'s key!</span>")
 		return
-	to_chat(user, "<span class='notice'>You remove \the [inserted_key] from \the [src].</span>")
+	to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
 	inserted_key.forceMove(drop_location())
 	user.put_in_hands(inserted_key)
 	inserted_key = null

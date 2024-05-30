@@ -23,36 +23,36 @@
 	if(user.incapacitated())
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
-			user.visible_message("<span class='danger'>[user] falls off \the [vehicle_parent].</span>",\
-			"<span class='danger'>You slip off \the [vehicle_parent] as your body slumps!</span>")
+			user.visible_message("<span class='danger'>[user] falls off [vehicle_parent].</span>",\
+			"<span class='danger'>You slip off [vehicle_parent] as your body slumps!</span>")
 			user.Stun(3 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>You cannot operate \the [vehicle_parent] right now!</span>")
+			to_chat(user, "<span class='warning'>You cannot operate [vehicle_parent] right now!</span>")
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
 	if(ride_check_flags & RIDER_NEEDS_LEGS && HAS_TRAIT(user, TRAIT_FLOORED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
-			user.visible_message("<span class='danger'>[user] falls off \the [vehicle_parent].</span>",\
-			"<span class='danger'>You fall off \the [vehicle_parent] while trying to operate it while unable to stand!</span>")
+			user.visible_message("<span class='danger'>[user] falls off [vehicle_parent].</span>",\
+			"<span class='danger'>You fall off [vehicle_parent] while trying to operate it while unable to stand!</span>")
 			user.Stun(3 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>You can't seem to manage that while unable to stand up enough to move \the [vehicle_parent]...</span>")
+			to_chat(user, "<span class='warning'>You can't seem to manage that while unable to stand up enough to move [vehicle_parent]...</span>")
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
 	if(ride_check_flags & RIDER_NEEDS_ARMS && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			INVOKE_ASYNC(vehicle_parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), user, TRUE)
-			user.visible_message("<span class='danger'>[user] falls off \the [vehicle_parent].</span>",\
-			"<span class='danger'>You fall off \the [vehicle_parent] while trying to operate it without being able to hold on!</span>")
+			user.visible_message("<span class='danger'>[user] falls off [vehicle_parent].</span>",\
+			"<span class='danger'>You fall off [vehicle_parent] while trying to operate it without being able to hold on!</span>")
 			user.Stun(3 SECONDS)
 
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(user, "<span class='warning'>You can't seem to hold onto \the [vehicle_parent] to move it...</span>")
+			to_chat(user, "<span class='warning'>You can't seem to hold onto [vehicle_parent] to move it...</span>")
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
@@ -68,7 +68,7 @@
 	if(!istype(next) || !istype(current))
 		return //not happening.
 	if(!turf_check(next, current))
-		to_chat(user, "<span class='warning'>\The [movable_parent] cannot go onto [next]!</span>")
+		to_chat(user, "<span class='warning'>[movable_parent] cannot go onto [next]!</span>")
 		return
 	if(!Process_Spacemove(direction) || !isturf(movable_parent.loc))
 		return
@@ -115,7 +115,7 @@
 		board.can_slow_down = can_slow_down
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/on_examine(datum/source, mob/user, list/examine_list)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_PARENT_EXAMINE
 	examine_list += "<span class='notice>Going nice and slow at walk speed will prevent crashing into things.</span>"
 
 /datum/component/riding/vehicle/scooter/skateboard/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
@@ -131,7 +131,7 @@
 		UnregisterSignal(rider, COMSIG_MOVE_INTENT_TOGGLED)
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/toggle_move_delay(mob/living/rider)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVE_INTENT_TOGGLED
 	vehicle_move_delay = initial(vehicle_move_delay)
 	if(rider.m_intent == MOVE_INTENT_WALK)
 		vehicle_move_delay += 0.6
@@ -152,13 +152,13 @@
 
 ///Makes sure that the vehicle is grav-less if capable of zero-g movement. Forced gravity will honestly screw this.
 /datum/component/riding/vehicle/scooter/skateboard/hover/proc/check_grav(datum/source, turf/gravity_turf, list/gravs)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_HAS_GRAVITY
 	if(override_allow_spacemove)
 		gravs += 0
 
 ///Makes sure the vehicle isn't drifting while it can be maneuvered.
 /datum/component/riding/vehicle/scooter/skateboard/hover/proc/check_drifting(datum/source, movement_dir, continuous_move)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVABLE_SPACEMOVE
 	if(override_allow_spacemove)
 		return COMSIG_MOVABLE_STOP_SPACEMOVE
 

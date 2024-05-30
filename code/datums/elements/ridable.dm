@@ -40,7 +40,7 @@
 
 /// Someone is buckling to this movable, which is literally the only thing we care about (other than speed potions)
 /datum/element/ridable/proc/check_mounting(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOVABLE_PREBUCKLE
 	INVOKE_ASYNC(src, PROC_REF(check_mounting_async_edition), target_movable, potential_rider, force, ride_check_flags)
 
 /datum/element/ridable/proc/check_mounting_async_edition(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
@@ -52,7 +52,7 @@
 		ride_check_flags &= ~RIDER_NEEDS_ARM
 		ride_check_flags |= RIDER_NEEDS_ARMS
 
-	if(arms_needed && !equip_buckle_inhands(potential_rider, arms_needed, target_movable)) // can be either 1 (cyborg riding) or 2 (human piggybacking) hands
+	if(arms_needed && !equip_buckle_inhands(potential_rider, arms_needed, target_movable))
 		potential_rider.visible_message("<span class='warning'>[potential_rider] can't get a grip on [target_movable] because [potential_rider.p_their()] hands are full!</span>", "<span class='warning'>You can't get a grip on [target_movable] because your hands are full!</span>")
 		return COMPONENT_BLOCK_BUCKLE
 
@@ -62,12 +62,6 @@
 		return COMPONENT_BLOCK_BUCKLE
 
 	var/mob/living/target_living = target_movable
-
-	// need to see if !equip_buckle_inhands() checks are enough to skip any needed incapac/restrain checks
-	// CARRIER_NEEDS_ARM shouldn't apply if the ridden isn't even a living mob
-	if((ride_check_flags & CARRIER_NEEDS_ARM) && !equip_buckle_inhands(target_living, 1, target_living, potential_rider)) // hardcode 1 hand for now
-		target_living.visible_message("<span class='warning'>[target_living] can't get a grip on [potential_rider] because [target_living.p_their()] hands are full!</span>", "<span class='warning'>You can't get a grip on [potential_rider] because your hands are full!</span>")
-		return COMPONENT_BLOCK_BUCKLE
 
 	target_living.AddComponent(riding_component_type, potential_rider, force, ride_check_flags, potion_boost = potion_boosted)
 
