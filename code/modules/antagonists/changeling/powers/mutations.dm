@@ -218,21 +218,21 @@
 				var/obj/structure/table/T = target
 				T.deconstruct(FALSE)
 				return
-			S.attack_generic(user, 80, BRUTE, "melee", 0)
+			S.attack_generic(user, 40, BRUTE, "melee", 0)
 
 	else if(istype(target, /obj/machinery) && !istype(target, /obj/machinery/door))
 		var/obj/machinery/M = target
-		M.attack_generic(user, 100, BRUTE, "melee", 0)
+		M.attack_generic(user, 50, BRUTE, "melee", 0)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(60)
+		wall.take_damage(30)
 		user.do_attack_animation(wall)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/airlock/door = target
-		door.take_damage(50, sound_effect = FALSE)
+		door.take_damage(30, sound_effect = FALSE)
 
 	else if(isliving(target) && target != user)
 		var/mob/living/M = target
@@ -243,7 +243,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-			if(O.brute_dam >= 40 && prob(70)) // increased bone breaking chance is a feature. btw we have only 10 damage...
+			if(O.brute_dam >= 40 && prob(60)) // increased bone breaking chance is a feature. btw we have only 10 damage...
 				O.fracture()
 
 /obj/item/melee/arm_blade/fleshy_maul/customised_abstract_text(mob/living/carbon/owner)
