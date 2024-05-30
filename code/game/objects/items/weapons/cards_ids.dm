@@ -350,6 +350,7 @@
 	initial_access = list(ACCESS_SYNDICATE)
 	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
+	untrackable = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -1034,7 +1035,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)

@@ -120,7 +120,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return ..()
 
 /obj/effect/immovablerod/smite/Move()
-	var/atom/oldloc = loc
 	. = ..()
 	if(get_turf(src) == get_turf(end))
 		// our exit condition: get outta there kowalski

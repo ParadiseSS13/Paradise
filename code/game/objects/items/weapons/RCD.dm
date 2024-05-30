@@ -204,6 +204,13 @@
 	for(var/obj/structure/grille/grill_to_destroy in act_on)
 		qdel(grill_to_destroy)
 
+/datum/rcd_act/remove_user
+	mode = MODE_DECON
+	cost = 5
+	start_message = "Deconstructing user..."
+	delay = 5 SECONDS
+	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
+
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
@@ -243,6 +250,7 @@
 	var/door_name = "Airlock"
 	/// If the glass airlock is polarized.
 	var/electrochromic = FALSE
+	/// If the airlock will be created with glass so it can be seen through.
 	var/airlock_glass = FALSE
 	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
 	var/one_access = TRUE
@@ -331,6 +339,32 @@
 	GLOB.rcd_list -= src
 	return ..()
 
+/obj/item/rcd/suicide_act(mob/living/user)
+	user.Immobilize(10 SECONDS) // You cannot move.
+	flags |= NODROP				// You cannot drop. You commit to die.
+	var/turf/suicide_tile = get_turf(src)
+	if(mode == MODE_DECON)
+		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		var/datum/rcd_act/remove_user/act = new()
+		if(!act.try_act(suicide_tile, src, user))
+			flags &= ~NODROP
+			return SHAME
+		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
+		for(var/obj/item/W in user)	// Do not delete all their stuff.
+			user.unEquip(W)			// Dump everything on the floor instead.
+		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff.
+		user.dust()					// (held items fall to the floor when dusting).
+		return OBLITERATION
+
+	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(!afterattack(suicide_tile, user, TRUE))
+		flags &= ~NODROP  
+		return SHAME
+	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
+	flags &= ~NODROP  
+	user.gib()
+	return OBLITERATION	
+	
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *

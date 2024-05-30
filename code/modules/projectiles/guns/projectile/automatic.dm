@@ -336,6 +336,7 @@
 	can_suppress = FALSE
 	burst_size = 1
 	execution_speed = 5 SECONDS
+	fire_delay = 0
 
 /obj/item/gun/projectile/automatic/lasercarbine/Initialize(mapload)
 	. = ..()

@@ -257,6 +257,10 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	// TODO: Remove with 516
+	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
+		winset(src, "", "browser-options=byondstorage")
+
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
@@ -1168,6 +1172,14 @@
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	eye = new_eye
+
+/client/proc/clear_screen()
+	for(var/object in screen)
+		screen -= object
 
 /client/verb/reload_graphics()
 	set category = "Special Verbs"

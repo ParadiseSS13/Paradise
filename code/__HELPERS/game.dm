@@ -164,6 +164,8 @@
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= M
+			for(var/mob/dead/observer/ghost in M.observers)
+				L |= ghost
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
 		if(isobj(A) || ismob(A))
