@@ -79,7 +79,6 @@
 	air3.volume = 300
 
 /obj/machinery/atmospherics/trinary/mixer/process_atmos()
-	..()
 	if(!on)
 		return 0
 

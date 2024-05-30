@@ -126,39 +126,21 @@
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper, /obj/item/ammo_casing/energy/laser/sniper/pierce)
-	zoomable = TRUE
-	zoom_amt = 7
 	shaded_charge = TRUE
-	/// Is the scope fully online or not?
-	var/scope_active = FALSE
-	var/stored_dir
 	execution_speed = 8 SECONDS
 
-/obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
+/obj/item/gun/energy/lwap/Initialize(mapload)
 	. = ..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	stored_dir = H.dir
-	if(scope_active && !zoomed)
-		select_fire(H)
-		H.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
-		scope_active = FALSE
-		return
-	if(zoomed && do_after(user, 3 SECONDS, target = src))
-		if(zoomed && !scope_active) //We check after to be sure.
-			scope_active = TRUE
-			to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
-			select_fire(H)
-			H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE, stored_dir)
-		return
-	if(zoomed)
-		zoom(user, FALSE) //Moved while scope was booting, so we unzoom
+	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, movement_cancels_scope = TRUE)
 
-/obj/item/gun/energy/lwap/on_mob_move(dir, mob/user)
-	if(scope_active)
-		to_chat(user, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
-		zoom(user, FALSE)
+/obj/item/gun/energy/lwap/on_scope_success(mob/living/user)
+	to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
+	select_fire(user)
+	user.apply_status_effect(STATUS_EFFECT_LWAPSCOPE)
+
+/obj/item/gun/energy/lwap/on_scope_end(mob/living/user)
+	select_fire(user)
+	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 
 /obj/item/gun/energy/lwap/attack_self()
 	return //no manual ammo changing.
@@ -273,7 +255,7 @@
 	return
 
 /// Special version given by the Safety Override upgrade and as a standard module for ERT engiborgs.
-/obj/item/gun/energy/emitter/cyborg/proto	
+/obj/item/gun/energy/emitter/cyborg/proto
 	name = "mobile proto-emitter"
 	desc = "An emitter removed from its base and attached to a laser cannon frame. This one operates on unoptimised software, reducing its effectiveness."
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg/proto)

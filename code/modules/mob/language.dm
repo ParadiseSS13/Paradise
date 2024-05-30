@@ -342,7 +342,7 @@
 	exclaim_verbs = list("imparts")
 	colour = "abductor"
 	key = "^"
-	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN
+	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN | HIVEMIND_RUNECHAT
 	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)

@@ -179,6 +179,11 @@
 	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
 	mask_type = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/expedition
+	name = "explorer modsuit storage unit"
+	mask_type = /obj/item/clothing/mask/gas/explorer
+	suit_type = /obj/item/mod/control/pre_equipped/standard/explorer
+	req_access = list(ACCESS_EXPEDITION)
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
@@ -301,8 +306,9 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
-/obj/machinery/suit_storage_unit/Destroy()
-	dump_contents()
+/obj/machinery/suit_storage_unit/Destroy(force)
+	if(!force)
+		dump_contents()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()

@@ -7,7 +7,8 @@
 	maxHealth = 100
 	base_icon = "griefsky"
 	window_name = "Automatic Security Unit v3.0"
-
+	bot_type = GRIEF_BOT
+	model = "Griefsky"
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword/saber
 	var/block_chance = 50   //block attacks

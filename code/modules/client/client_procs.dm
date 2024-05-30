@@ -257,6 +257,10 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	// TODO: Remove with 516
+	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
+		winset(src, "", "browser-options=byondstorage")
+
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
@@ -456,6 +460,7 @@
 	display_job_bans(TRUE)
 	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
 		winset(src, "debugmcbutton", "is-disabled=false")
+		winset(src, "profilecode", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -1167,6 +1172,14 @@
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	eye = new_eye
+
+/client/proc/clear_screen()
+	for(var/object in screen)
+		screen -= object
 
 /client/verb/reload_graphics()
 	set category = "Special Verbs"
@@ -1257,6 +1270,17 @@
 				class = "unknown"
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
+
+/client/proc/try_open_reagent_editor(atom/target)
+	var/target_UID = target.UID()
+	var/datum/reagents_editor/editor
+	// editors is static, it can be accessed using a null reference
+	editor = editor.editors[target_UID]
+	if(!editor)
+		editor = new /datum/reagents_editor(target)
+		editor.editors[target_UID] = editor
+
+	editor.ui_interact(mob)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -567,10 +567,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			if(hud_used.inventory_shown)			//if the inventory is open ...
-				w_uniform.screen_loc = ui_iclothing //...draw the item in the inventory screen
-			client.screen += w_uniform				//Either way, add the item to the HUD
+		update_hud_uniform(w_uniform)
 
 		var/t_color = w_uniform.item_color
 		if(!t_color)
@@ -644,9 +641,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(wear_id)
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			wear_id.screen_loc = ui_id
-			client.screen += wear_id
+		update_hud_id(wear_id)
 
 		if(w_uniform && w_uniform:displays_id)
 			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
@@ -660,10 +655,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(gloves)
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			if(hud_used.inventory_shown)			//if the inventory is open ...
-				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
-			client.screen += gloves					//Either way, add the item to the HUD
+		update_hud_gloves(gloves)
 
 		var/t_state = gloves.item_state
 		if(!t_state)	t_state = gloves.icon_state
@@ -702,10 +694,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(glasses)
 		var/mutable_appearance/new_glasses
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			if(hud_used.inventory_shown)			//if the inventory is open ...
-				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
-			client.screen += glasses				//Either way, add the item to the HUD
+		update_hud_glasses(glasses)
 
 		if(glasses.icon_override)
 			new_glasses = mutable_appearance(glasses.icon_override, "[glasses.icon_state]", layer = -GLASSES_LAYER)
@@ -744,10 +733,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(l_ear || r_ear)
 		if(l_ear)
-			if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-				if(hud_used.inventory_shown)			//if the inventory is open ...
-					l_ear.screen_loc = ui_l_ear			//...draw the item in the inventory screen
-				client.screen += l_ear					//Either way, add the item to the HUD
+			update_hud_l_ear(l_ear)
 
 			var/t_type = l_ear.item_state
 			if(!t_type)
@@ -761,10 +747,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
 
 		if(r_ear)
-			if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-				if(hud_used.inventory_shown)			//if the inventory is open ...
-					r_ear.screen_loc = ui_r_ear			//...draw the item in the inventory screen
-				client.screen += r_ear					//Either way, add the item to the HUD
+			update_hud_r_ear(r_ear)
 
 			var/t_type = r_ear.item_state
 			if(!t_type)
@@ -786,10 +769,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(shoes)
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			if(hud_used.inventory_shown)			//if the inventory is open ...
-				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
-			client.screen += shoes					//Either way, add the item to the HUD
+		update_hud_shoes(shoes)
 
 		if(!wear_suit || !(wear_suit.flags_inv & HIDESHOES))
 			var/mutable_appearance/standing
@@ -822,9 +802,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(s_store)
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			s_store.screen_loc = ui_sstore1
-			client.screen += s_store
+		update_hud_s_store(s_store)
 
 		var/t_state = s_store.item_state
 		if(!t_state)
@@ -844,6 +822,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(head)
+		update_hud_head(head)
 		var/mutable_appearance/standing
 		if(head.sprite_sheets && head.sprite_sheets[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.sprite_sheet_name], "[head.icon_state]", layer = -HEAD_LAYER)
@@ -867,6 +846,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
+	remove_overlay(SPECIAL_BELT_LAYER)
+	var/overlay_layer = BELT_LAYER
+
+	// Certain belts should go OVER the suit. But not all.
+	/* Items (on the belt slot) that go over the suit:
+		- /obj/item/storage/belt/security/webbing
+		- /obj/item/storage/belt/bandolier
+		- /obj/item/judobelt
+		- /obj/item/storage/belt/chef
+		- /obj/item/storage/belt/mining/..
+		- /obj/item/storage/belt/rapier
+		- /obj/item/defibrillator/compact/..
+		- /obj/item/nullrod/..
+		- /obj/item/claymore/..
+	*/
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
 		if(inv)
@@ -877,19 +871,32 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			belt.screen_loc = ui_belt
 
 	if(belt)
+		// Manual checks for outliers (Claymores, null rods, defibs, judobelt, etc.) - Items that are belts but not storages.
+		var/list/special_belts = list(
+			/obj/item/defibrillator/compact,
+			/obj/item/nullrod,
+			/obj/item/judobelt,
+			/obj/item/claymore)
+		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
+		if(istype(belt, /obj/item/storage/belt))
+			var/obj/item/storage/belt/B = belt
+			overlay_layer = B.layer_over_suit ? SPECIAL_BELT_LAYER : BELT_LAYER
+
 		var/t_state = belt.item_state
+		update_observer_view(belt)
 		if(!t_state)
 			t_state = belt.icon_state
 
 		if(belt.icon_override)
 			t_state = "[t_state]_be"
-			overlays_standing[BELT_LAYER] = mutable_appearance(belt.icon_override, "[t_state]", layer = -BELT_LAYER)
+			overlays_standing[overlay_layer] = mutable_appearance(belt.icon_override, "[t_state]", layer = -overlay_layer)
 		else if(belt.sprite_sheets && belt.sprite_sheets[dna.species.sprite_sheet_name])
-			overlays_standing[BELT_LAYER] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -BELT_LAYER)
+			overlays_standing[overlay_layer] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -overlay_layer)
 		else
-			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -BELT_LAYER)
-	apply_overlay(BELT_LAYER)
+			overlays_standing[overlay_layer] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -overlay_layer)
 
+	apply_overlay(BELT_LAYER)
+	apply_overlay(SPECIAL_BELT_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
@@ -899,10 +906,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
-		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-			if(hud_used.inventory_shown)					//if the inventory is open ...
-				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
-			client.screen += wear_suit						//Either way, add the item to the HUD
+		update_hud_wear_suit(wear_suit)
 
 		var/mutable_appearance/standing
 		if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.sprite_sheet_name])
@@ -950,12 +954,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(l_store)
-				client.screen += l_store
 				l_store.screen_loc = ui_storage1
+				if(hud_used.hud_shown)
+					client.screen += l_store
+				update_observer_view(l_store)
 
 			if(r_store)
-				client.screen += r_store
 				r_store.screen_loc = ui_storage2
+				if(hud_used.hud_shown)
+					client.screen += r_store
+					r_store.screen_loc = ui_storage2
+				update_observer_view(r_store)
 
 /mob/living/carbon/human/update_inv_wear_pda()
 	if(client && hud_used)
@@ -964,8 +973,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 		if(wear_pda)
-			client.screen += wear_pda
-			wear_pda.screen_loc = ui_pda
+			update_hud_wear_pda(wear_pda)
 
 /mob/living/carbon/human/update_inv_wear_mask()
 	..()
@@ -975,6 +983,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
+		update_hud_wear_mask(wear_mask)
 		if(!(SLOT_HUD_WEAR_MASK in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			if(!istype(head_organ))
@@ -1009,6 +1018,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(BACK_LAYER)
 	if(back)
+		update_hud_back(back)
 		//determine the icon to use
 		var/t_state = back.item_state
 		if(!t_state)
@@ -1045,6 +1055,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(R_HAND_LAYER)
 	if(r_hand)
+		show_hand_to_observers(r_hand, left = FALSE)
 		var/t_state = r_hand.item_state
 		if(!t_state)
 			t_state = r_hand.icon_state
@@ -1064,6 +1075,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(L_HAND_LAYER)
 	if(l_hand)
+		show_hand_to_observers(l_hand, left = TRUE)
 		var/t_state = l_hand.item_state
 		if(!t_state)
 			t_state = l_hand.icon_state
@@ -1080,25 +1092,105 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //human HUD updates for items in our inventory
 
-//update whether our head item appears on our hud.
-/mob/living/carbon/human/update_hud_head(obj/item/I)
-	if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-		if(hud_used.inventory_shown)
-			I.screen_loc = ui_head
-		client.screen += I
+/mob/living/carbon/human/proc/show_hand_to_observers(obj/item/worn_item, left = TRUE)
+	if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
+		worn_item.screen_loc = ui_hand_position(left ? 1 : 2)
+		client.screen += worn_item
+		if(length(observers))
+			for(var/mob/dead/observe in observers)
+				if(observe.client && observe.client.eye == src)
+					observe.client.screen += worn_item
+				else
+					observers -= observe
+					if(!length(observers))
+						observers = null
+						break
 
-//update whether our mask item appears on our hud.
-/mob/living/carbon/human/update_hud_wear_mask(obj/item/I)
-	if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-		if(hud_used.inventory_shown)
-			I.screen_loc = ui_mask
-		client.screen += I
 
-//update whether our back item appears on our hud.
-/mob/living/carbon/human/update_hud_back(obj/item/I)
-	if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
-		I.screen_loc = ui_back
-		client.screen += I
+/mob/living/carbon/human/update_hud_wear_mask(obj/item/worn_item)
+	worn_item.screen_loc = ui_mask
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+
+/mob/living/carbon/human/proc/update_hud_uniform(obj/item/worn_item)
+	worn_item.screen_loc = ui_iclothing
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_id(obj/item/worn_item)
+	worn_item.screen_loc = ui_id
+	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
+		client.screen += worn_item
+	update_observer_view(worn_item)
+
+/mob/living/carbon/human/proc/update_hud_wear_pda(obj/item/worn_item)
+	worn_item.screen_loc = ui_pda
+	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
+		client.screen += worn_item
+	update_observer_view(worn_item)
+
+/mob/living/carbon/human/proc/update_hud_gloves(obj/item/worn_item)
+	worn_item.screen_loc = ui_gloves
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_glasses(obj/item/worn_item)
+	worn_item.screen_loc = ui_glasses
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_l_ear(obj/item/worn_item)
+	worn_item.screen_loc = ui_l_ear
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_r_ear(obj/item/worn_item)
+	worn_item.screen_loc = ui_r_ear
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_shoes(obj/item/worn_item)
+	worn_item.screen_loc = ui_shoes
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_s_store(obj/item/worn_item)
+	worn_item.screen_loc = ui_sstore1
+	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_wear_suit(obj/item/worn_item)
+	worn_item.screen_loc = ui_oclothing
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_belt(obj/item/worn_item)
+	belt.screen_loc = ui_belt
+	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/update_hud_head(obj/item/worn_item)
+	worn_item.screen_loc = ui_head
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/update_hud_back(obj/item/worn_item)
+	worn_item.screen_loc = ui_back
+	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_wing_layer()
 	remove_overlay(WING_UNDERLIMBS_LAYER)

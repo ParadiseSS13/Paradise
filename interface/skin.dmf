@@ -21,6 +21,11 @@ menu "menu"
 		command = "SS-Info-Breakdown"
 		category = "&File"
 		is-disabled = true
+	elem "profilecode"
+		name = "&Profile Code"
+		command = ".profile"
+		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"

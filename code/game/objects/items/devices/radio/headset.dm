@@ -26,8 +26,8 @@
 	..()
 	internal_channels.Cut()
 
-/obj/item/radio/headset/Initialize()
-	..()
+/obj/item/radio/headset/Initialize(mapload)
+	. = ..()
 
 	if(ks1type)
 		keyslot1 = new ks1type(src)
@@ -287,6 +287,11 @@
 /obj/item/radio/headset/headset_cargo/mining
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."
+	icon_state = "mine_headset"
+
+/obj/item/radio/headset/headset_cargo/expedition
+	name = "expedition radio headset"
+	desc = "Headset used by space explorers."
 	icon_state = "mine_headset"
 
 /obj/item/radio/headset/headset_service

@@ -21,6 +21,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sugar" = 5, "vitamin" = 5, "banana" = 15)
 	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 1, "sad clowns" = 1, "ice-cream" = 1)
+	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/snacks/frozen/clowncakeslice
 	name = "clown cake slice"
@@ -155,6 +156,7 @@
 	trash = /obj/item/reagent_containers/drinks/sillycup
 	list_reagents = list("water" = 10, "ice" = 5)
 	tastes = list("cold water" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/frozen/snowcone/apple
 	name = "apple snowcone"

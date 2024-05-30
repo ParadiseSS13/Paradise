@@ -67,22 +67,14 @@
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
 
-	//Zooming
-	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
-	var/zoomed = FALSE //Zoom toggle
-	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
-	var/datum/action/toggle_scope_zoom/azoom
-
 /obj/item/gun/Initialize(mapload)
 	. = ..()
-	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
 	QDEL_NULL(chambered)
-	QDEL_NULL(azoom)
 	QDEL_NULL(gun_light)
 	return ..()
 
@@ -153,6 +145,10 @@
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
 	if(firing_burst)
+		return
+	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
+		return
+	if(SEND_SIGNAL(src, COMSIG_MOB_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
 		return
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
@@ -414,11 +410,6 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 
-/obj/item/gun/dropped(mob/user)
-	..()
-	zoom(user,FALSE)
-	if(azoom)
-		azoom.Remove(user)
 
 /obj/item/gun/AltClick(mob/user)
 	..()
@@ -485,93 +476,8 @@
 
 	process_fire(target, user, 1, params)
 
-/////////////
-// ZOOMING //
-/////////////
+/obj/item/gun/proc/on_scope_success()
+	return
 
-/datum/action/toggle_scope_zoom
-	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
-	button_icon_state = "sniper_zoom"
-	var/obj/item/gun/gun = null
-
-/datum/action/toggle_scope_zoom/Destroy()
-	gun = null
-	return ..()
-
-/datum/action/toggle_scope_zoom/Trigger(left_click)
-	gun.zoom(owner)
-
-/datum/action/toggle_scope_zoom/IsAvailable()
-	. = ..()
-	if(!. && gun)
-		gun.zoom(owner, FALSE)
-
-/datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
-	..()
-
-/obj/item/gun/proc/zoom(mob/living/user, forced_zoom)
-	if(!user || !user.client)
-		return
-
-	switch(forced_zoom)
-		if(FALSE)
-			zoomed = FALSE
-		if(TRUE)
-			zoomed = TRUE
-		else
-			zoomed = !zoomed
-
-	if(zoomed)
-		var/_x = 0
-		var/_y = 0
-		switch(user.dir)
-			if(NORTH)
-				_y = zoom_amt
-			if(EAST)
-				_x = zoom_amt
-			if(SOUTH)
-				_y = -zoom_amt
-			if(WEST)
-				_x = -zoom_amt
-
-		user.client.pixel_x = world.icon_size*_x
-		user.client.pixel_y = world.icon_size*_y
-	else
-		user.client.pixel_x = 0
-		user.client.pixel_y = 0
-
-
-//Proc, so that gun accessories/scopes/etc. can easily add zooming.
-/obj/item/gun/proc/build_zooming()
-	if(azoom)
-		return
-
-	if(zoomable)
-		azoom = new()
-		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
-
-/**
- * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
- *
- * This happens if the mob picks up the gun, or equips it to any of their slots.
- * If the slot is anything other than either of their hands (such as the back slot), un-zoom them, and `Remove` the zoom action button from the mob.
- * Otherwise, `Grant` the mob the zoom action button.
- *
- * Arguments:
- * * source - the gun that got equipped, which is `src`.
- * * user - the mob equipping the gun.
- * * slot - the slot the gun is getting equipped to.
- */
-/obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
-	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
-		// If its not in their hands, un-zoom, and remove the zoom action button.
-		zoom(user, FALSE)
-		azoom.Remove(user)
-		return FALSE
-
-	// The gun is equipped in their hands, give them the zoom ability.
-	azoom.Grant(user)
+/obj/item/gun/proc/on_scope_end()
+	return

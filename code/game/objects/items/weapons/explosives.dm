@@ -13,14 +13,19 @@
 	var/obj/item/assembly/nadeassembly = null
 	var/assemblyattacher
 	var/notify_admins = TRUE
+	/// C4 overlay to put on target
+	var/mutable_appearance/plastic_overlay
+	/// Target of the overlay, not neccicarly the thing the C4 is attached to!
+	var/atom/plastic_overlay_target
 
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
-	image_overlay = image('icons/obj/grenade.dmi', "[item_state]2")
+	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
 	target = null
+	plastic_overlay_target = null
 	return ..()
 
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
@@ -74,7 +79,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
-	if(do_after(user, 5 SECONDS * toolspeed, target = AM))
+	if(do_after(user, 1.5 SECONDS * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
 		target = AM
@@ -84,7 +89,26 @@
 			message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse", 0, 1)
 			log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
-		AddComponent(/datum/component/persistent_overlay, image_overlay, target)
+		plastic_overlay.layer = HIGH_OBJ_LAYER
+		if(isturf(target) || istype(target, /obj/machinery/door))
+			plastic_overlay_target = new /obj/effect/plastic(get_turf(user))
+		else
+			plastic_overlay_target = target
+		if(isliving(target))
+			plastic_overlay.layer = ABOVE_ALL_MOB_LAYER
+		if(plastic_overlay_target != target)
+			switch(plastic_overlay_target.x - target.x)
+				if(-1)
+					plastic_overlay.pixel_x += 32
+				if(1)
+					plastic_overlay.pixel_x -= 32
+			switch(plastic_overlay_target.y - target.y)
+				if(-1)
+					plastic_overlay.pixel_y += 32
+				if(1)
+					plastic_overlay.pixel_y -= 32
+		plastic_overlay_target.add_overlay(plastic_overlay)
+
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
 			addtimer(CALLBACK(src, PROC_REF(prime)), det_time SECONDS)
@@ -146,6 +170,10 @@
 
 /obj/item/grenade/plastic/c4/prime()
 	var/turf/location
+	if(plastic_overlay_target && !QDELETED(plastic_overlay_target))
+		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
+		if(istype(plastic_overlay_target, /obj/effect/plastic))
+			qdel(plastic_overlay_target)
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
@@ -211,6 +239,10 @@
 
 /obj/item/grenade/plastic/c4/thermite/prime()
 	var/turf/location
+	if(plastic_overlay_target && !QDELETED(plastic_overlay_target))
+		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
+		if(istype(plastic_overlay_target, /obj/effect/plastic))
+			qdel(plastic_overlay_target)
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
@@ -235,3 +267,7 @@
 		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 	qdel(src)
+
+//Used so the effect is visable for overlay purposes, but not show on right click with a broken sprite
+/obj/effect/plastic
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
