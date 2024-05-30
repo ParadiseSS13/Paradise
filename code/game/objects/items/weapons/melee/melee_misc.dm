@@ -51,13 +51,10 @@
 	desc = "This nanite-honed blade comes with a battery in the hilt, to add an electric shock to every swing."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	var/base_icon = "secsword"
 	icon_state = "secsword0"
 	item_state = "secsword0"
 	flags = CONDUCT
 	force = 15
-	var/stam_damage = 35 // 3 hits to stamcrit
-	var/burn_damage = 10
 	throwforce = 5
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
@@ -66,6 +63,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
+	var/base_icon = "secsword"
+	var/stam_damage = 35 // 3 hits to stamcrit
+	var/burn_damage = 10
 	/// How much power does it cost to stun someone
 	var/stam_hitcost = 1000
 	/// How much power does it cost to burn someone
