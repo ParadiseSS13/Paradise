@@ -179,7 +179,7 @@
 
 	for(var/possible_result in recipe.result)
 		var/atom/movable/craft_result = new possible_result (get_turf(user.loc))
-		craft_result.CheckParts(parts, recipe)
+		craft_result.CheckParts(parts)
 		if(isitem(craft_result))
 			user.put_in_hands(craft_result)
 
