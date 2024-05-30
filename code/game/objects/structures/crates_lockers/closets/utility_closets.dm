@@ -90,7 +90,7 @@
 
 /obj/structure/closet/toolcloset/populate_contents()
 	if(prob(40))
-		new /obj/item/clothing/suit/storage/hazardvest(src)
+		new /obj/item/clothing/suit/storage/hazardvest/staff(src)
 	if(prob(70))
 		new /obj/item/flashlight(src)
 	if(prob(70))

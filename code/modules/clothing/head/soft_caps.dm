@@ -100,22 +100,10 @@
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"
-	desc = "It's a baseball hat in a tasteless yellow colour."
+	desc = "It's a brown baseball hat with a grey cargo technician shield."
 	icon_state = "cargosoft"
 	item_color = "cargo"
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
-
-/obj/item/clothing/head/soft/deliverysoft
-	name = "delivery boy cap"
-	desc = "It's a baseball hat that is part of the delivery boy uniform."
-	icon_state = "deliverysoft"
-	item_color = "delivery"
-	dog_fashion = /datum/dog_fashion/head/softcap
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head/softcap.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head/softcap.dmi'
-		)
 
 /obj/item/clothing/head/soft/expedition
 	name = "expedition cap"
@@ -123,9 +111,6 @@
 	icon_state = "expeditionsoft"
 	item_color = "expedition"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
-		)
 
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
