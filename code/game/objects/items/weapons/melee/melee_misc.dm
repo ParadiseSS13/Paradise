@@ -1,3 +1,7 @@
+#define SECSWORD_OFF 0
+#define SECSWORD_STUN 1
+#define SECSWORD_BURN 2
+
 /obj/item/melee
 	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
@@ -73,8 +77,7 @@
 	/// the initial cooldown tracks the time between stamina damage. tracks the world.time when the baton is usable again.
 	var/cooldown = 3.5 SECONDS
 	var/obj/item/stock_parts/cell/high/cell = null
-	/// Sword state 0 - off, 1 - stam, 2 - burn
-	var/state = 0
+	var/state = SECSWORD_OFF
 
 /obj/item/melee/secsword/examine(mob/user)
 	. = ..()
@@ -119,7 +122,7 @@
 	I.forceMove(src)
 	cell = I
 	to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 
 /obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -132,38 +135,37 @@
 	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
 	cell.update_icon()
 	cell = null
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 
 /obj/item/melee/secsword/attack_self(mob/user)
 	if(!cell)
-		state = 0
-	else
-		state++
-	if(state > 2)
-		state = 0
-	if(state == 0)
-		if(!cell)
-			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
-		else
-			to_chat(user, "<span class='warning'>[src]'s edge is now turned off.</span>")
-	else if(state == 1)
+		to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+		return
+
+	if(state == SECSWORD_OFF)
 		if(cell.charge < stam_hitcost)
-			state = 0
+			state = SECSWORD_OFF
 			to_chat(user, "<span class='notice'>[src] does not have enough charge to stun!</span>")
+
 		else
-			to_chat(user, "<span class='notice'>[src]'s edge is now set to stun.</span>")
-	else
+			state = SECSWORD_STUN
+			to_chat(user, "<span class='warning'>[src]'s edge is now set to stun.</span>")
+	else if(state == SECSWORD_STUN)
 		if(cell.charge < burn_hitcost)
-			state = 0
+			state = SECSWORD_OFF
 			to_chat(user, "<span class='notice'>[src] does not have enough charge to burn!</span>")
 		else
-			to_chat(user, "<span class='notice'>[src]'s edge is now set to burn.</span>")
+			state = SECSWORD_BURN
+			to_chat(user, "<span class='warning'>[src]'s edge is now set to burn.</span>")
+	else
+		state = SECSWORD_OFF
+		to_chat(user, "<span class='notice'>[src]'s edge is now turned off.</span>")
 	update_icon()
 	add_fingerprint(user)
 
 /obj/item/melee/secsword/attack(mob/M, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		if(state == 1 && sword_stun(user, user, skip_cooldown = TRUE))
+		if(state == SECSWORD_STUN && sword_stun(user, user, skip_cooldown = TRUE))
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
@@ -171,9 +173,9 @@
 		to_chat(user, "<span class='warning'>The sword feels off balance in your hand due to your judo training!</span>")
 		return
 
-	if(state == 0) // Off or no battery
+	if(state == SECSWORD_OFF) // Off or no battery
 		return ..()
-	else if(state == 1) // Stamina
+	else if(state == SECSWORD_STUN) // Stamina
 		if(issilicon(M)) // Can't stun borgs and AIs
 			return ..()
 		if(!isliving(M))
@@ -183,7 +185,7 @@
 		return ..()
 	else //Burn
 		var/mob/living/L = M
-		L.apply_damage(burn_damage, BURN)
+		L.apply_damage(burn_damage, SECSWORD_BURN)
 		deductcharge(burn_hitcost)
 		return ..()
 
@@ -225,11 +227,11 @@
 	cell.use(amount)
 	if(cell.rigged)
 		cell = null
-		state = 0
-		update_icon(UPDATE_ICON_STATE)
+		state = SECSWORD_OFF
+		update_icon()
 	if(cell.charge < (amount)) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
-		state = 0
-		update_icon(UPDATE_ICON_STATE)
+		state = SECSWORD_OFF
+		update_icon()
 
 // Traitor Sword
 /obj/item/melee/snakesfang
