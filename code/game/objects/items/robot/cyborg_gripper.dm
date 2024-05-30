@@ -173,7 +173,7 @@
 // MARK:	UNIVERSAL GRIPPER
 ////////////////////////////////
 /// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
-/obj/item/gripper/universal		
+/obj/item/gripper/universal
 	name = "cyborg gripper"
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
 	// It's UNIVERSAL so it has all functions enabled.
