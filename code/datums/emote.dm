@@ -147,16 +147,16 @@
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
- * * params - Parameters added after the emote.
+ * * emote_arg - String parameter added after the emote.
  * * type_override - Override to the current emote_type.
  * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
  *
  * Returns TRUE if it was able to run the emote, FALSE otherwise.
  */
-/datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
+/datum/emote/proc/run_emote(mob/user, emote_arg, type_override, intentional = FALSE)
 	. = TRUE
 	var/msg = select_message_type(user, message, intentional)
-	if(params && message_param)
+	if(emote_arg && message_param)
 		// In this case, we did make some changes to the message that will be used, and we want to add the postfix on with the new parameters.
 		// This is applicable to things like mimes, who this lets have a target on their canned emote responses.
 		// Note that we only do this if we would otherwise have a message param, meaning there should be some target by default.
@@ -164,17 +164,17 @@
 		if(message_param == EMOTE_PARAM_USE_POSTFIX || (msg != message && message_postfix))
 			if(!message_postfix)
 				CRASH("Emote was specified to use postfix but message_postfix is empty.")
-			msg = select_param(user, params, "[remove_ending_punctuation(msg)] [message_postfix]", msg)
+			msg = select_param(user, emote_arg, "[remove_ending_punctuation(msg)] [message_postfix]", msg)
 		else if(msg == message)
 			// In this case, we're not making any substitutions in select_message_type, but we do have some params we want to sub in.
-			msg = select_param(user, params, message_param, message)
+			msg = select_param(user, emote_arg, message_param, message)
 
 		// If this got propogated up, jump out.
 		if(msg == EMOTE_ACT_STOP_EXECUTION)
 			return TRUE
 
 		if(isnull(msg))
-			to_chat(user, "<span class='warning'>'[params]' isn't a valid parameter for [key].</span>")
+			to_chat(user, "<span class='warning'>'[emote_arg]' isn't a valid parameter for [key].</span>")
 			return TRUE
 
 	msg = replace_pronoun(user, msg)
@@ -209,11 +209,11 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>")
+					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
+				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
@@ -230,13 +230,13 @@
  * Try to run an emote, checking can_run_emote once before executing the emote itself.
  *
  * * user - User of the emote
- * * params - Params of the emote to be passed to run_emote
+ * * params - An optional extra argument included after the emote key.
  * * type_override - emote type to override the existing one with, if given.
  * * intentional - Whether or not the emote was triggered intentionally (if false, the emote was forced by code).
  *
  * Returns TRUE if the emote was able to be run (or failed successfully), or FALSE if the emote is unusable.
  */
-/datum/emote/proc/try_run_emote(mob/user, params, type_override, intentional = FALSE)
+/datum/emote/proc/try_run_emote(mob/user, emote_arg, type_override, intentional = FALSE)
 	// You can use this signal to block execution of emotes from components/other sources.
 	var/sig_res = SEND_SIGNAL(user, COMSIG_MOB_PREEMOTE, key, intentional)
 	switch(sig_res)
@@ -245,9 +245,18 @@
 		if(COMPONENT_BLOCK_EMOTE_SILENT)
 			return TRUE
 
-	. = run_emote(user, params, type_override, intentional)
+	. = run_emote(user, emote_arg, type_override, intentional)
 
 	// safeguard in case these get modified
+	reset_emote()
+
+/**
+ * Reset the emote back to its original state.
+ * Necessary if you've made modifications to the emote itself over the course of its
+ * execution, as emotes are singletons, and changes would be reflected on every usage of the emote.
+ */
+/datum/emote/proc/reset_emote()
+	SHOULD_CALL_PARENT(TRUE)
 	message = initial(message)
 	message_param = initial(message_param)
 
@@ -280,13 +289,13 @@
 		runechat_text = "[copytext(text, 1, 101)]..."
 	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
-	for(var/mob/O in can_see)
+	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
 			for(var/obj/item/holder/H in O.contents)
-				H.show_message(text, EMOTE_VISIBLE)
+				H.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 			for(var/mob/living/M in O.contents)
-				M.show_message(text, EMOTE_VISIBLE)
+				M.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
@@ -421,6 +430,9 @@
  */
 /datum/emote/proc/select_param(mob/user, params, substitution, base_message)
 
+	if(target_behavior == EMOTE_TARGET_BHVR_IGNORE)
+		return base_message
+
 	if(target_behavior == EMOTE_TARGET_BHVR_RAW)
 		return replacetext(substitution, "%t", params)
 
@@ -521,6 +533,11 @@
 		var/mob/living/sender = user
 		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
+		if(isbrain(sender))
+			var/mob/living/brain/B = user
+			if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+				var/obj/item/mmi/robotic_brain/robobrain = B.container
+				return !robobrain.silenced
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
@@ -631,7 +648,7 @@
 			if(!ghost.client)
 				continue
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
-				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
+				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 	visible_message(text)
 

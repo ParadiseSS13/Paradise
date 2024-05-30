@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	. = ..()
 	if(warming_up)
 		. += "+a[warming_up]"
-	if(fields.len)
+	if(length(fields))
 		. += "+on"
 	if(power_level)
 		. += "+p[power_level]"
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 
 /obj/machinery/field/generator/proc/calc_power()
-	var/power_draw = 2 + fields.len
+	var/power_draw = 2 + length(fields)
 
 	if(draw_power(round(power_draw/2, 1)))
 		check_power_level()
@@ -333,11 +333,11 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
-	if(fields.len)
+	if(length(fields))
 		..()
 
 /obj/machinery/field/generator/bump_field(atom/movable/AM as mob|obj)
-	if(fields.len)
+	if(length(fields))
 		..()
 
 #undef FG_UNSECURED

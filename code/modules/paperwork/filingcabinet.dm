@@ -11,7 +11,7 @@
  */
 /obj/structure/filingcabinet
 	name = "filing cabinet"
-	desc = "A large cabinet with drawers."
+	desc = "A large cabinet with drawers for holding only the finest papers, photos, and folders."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "filingcabinet"
 	density = TRUE
@@ -38,7 +38,7 @@
 
 
 /obj/structure/filingcabinet/Initialize(mapload)
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
 			I.loc = src

@@ -199,7 +199,7 @@
 	var/datum/spell_handler/vampire/V = custom_handler
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
-	vampire.bloodusable -= blood_cost
+	vampire.subtract_usable_blood(blood_cost)
 	start_turf = null
 	should_recharge_after_cast = FALSE
 
@@ -250,7 +250,6 @@
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
 	clothes_req = FALSE
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_pool"

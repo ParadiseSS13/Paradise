@@ -53,7 +53,7 @@
 	return statements
 
 /datum/ai_laws/proc/sort_laws()
-	if(sorted_laws.len)
+	if(length(sorted_laws))
 		return
 
 	if(zeroth_law)
@@ -65,7 +65,7 @@
 	var/index = 1
 	for(var/datum/ai_law/inherent_law in inherent_laws)
 		inherent_law.index = index++
-		if(supplied_laws.len < inherent_law.index || !istype(supplied_laws[inherent_law.index], /datum/ai_law))
+		if(length(supplied_laws) < inherent_law.index || !istype(supplied_laws[inherent_law.index], /datum/ai_law))
 			sorted_laws += inherent_law
 
 	for(var/datum/ai_law/AL in supplied_laws)
@@ -77,11 +77,11 @@
 	if(change_zeroth)
 		S.sync_zeroth(zeroth_law, zeroth_law_borg)
 
-	if(full_sync || ion_laws.len)
+	if(full_sync || length(ion_laws))
 		S.laws.clear_ion_laws()
-	if(full_sync || inherent_laws.len)
+	if(full_sync || length(inherent_laws))
 		S.laws.clear_inherent_laws()
-	if(full_sync || supplied_laws.len)
+	if(full_sync || length(supplied_laws))
 		S.laws.clear_supplied_laws()
 
 	for(var/datum/ai_law/law in ion_laws)
@@ -130,7 +130,7 @@
 
 	var/new_law = new/datum/ai_law/ion(law)
 	ion_laws += new_law
-	if(state_ion.len < ion_laws.len)
+	if(length(state_ion) < length(ion_laws))
 		state_ion += 1
 
 	sorted_laws.Cut()
@@ -145,7 +145,7 @@
 
 	var/new_law = new/datum/ai_law/inherent(law)
 	inherent_laws += new_law
-	if(state_inherent.len < inherent_laws.len)
+	if(length(state_inherent) < length(inherent_laws))
 		state_inherent += 1
 
 	sorted_laws.Cut()
@@ -154,22 +154,22 @@
 	if(!law)
 		return
 
-	if(supplied_laws.len >= number)
+	if(length(supplied_laws) >= number)
 		var/datum/ai_law/existing_law = supplied_laws[number]
 		if(existing_law && existing_law.law == law)
 			return
 
-	if(supplied_laws.len >= number && supplied_laws[number])
+	if(length(supplied_laws) >= number && supplied_laws[number])
 		delete_law(supplied_laws[number])
 
-	while(src.supplied_laws.len < number)
+	while(length(src.supplied_laws) < number)
 		src.supplied_laws += ""
-		if(state_supplied.len < supplied_laws.len)
+		if(length(state_supplied) < length(supplied_laws))
 			state_supplied += 1
 
 	var/new_law = new/datum/ai_law/supplied(law, number)
 	supplied_laws[number] = new_law
-	if(state_supplied.len < supplied_laws.len)
+	if(length(state_supplied) < length(supplied_laws))
 		state_supplied += 1
 
 	sorted_laws.Cut()
@@ -203,7 +203,7 @@
 	var/index = laws.Find(law)
 	if(index)
 		laws -= law
-		for(index, index < state.len, index++)
+		for(index, index < length(state), index++)
 			state[index] = state[index+1]
 	sorted_laws.Cut()
 

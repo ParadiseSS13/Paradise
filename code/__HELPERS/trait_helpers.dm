@@ -181,7 +181,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 #define TRAIT_EMOTE_MUTE		"emote_mute"
-#define TRAIT_PUNCTURE_IMMUNE	"punctureimmune" //prevents RSG syringes from piercing your clothing
+#define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -223,14 +223,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
+#define TRAIT_SCOPED "user_scoped"
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
 #define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown
+#define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
 #define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
 #define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
+#define TRAIT_KNOWS_COOKING_RECIPES "knows_cooking_recipes"
+
+/// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
+/// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
+#define TRAIT_MENTOR_OBSERVING "mentor_observe"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -269,6 +276,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
+
+///An /obj that should not increase the "depth" of the search for adjacency,
+///e.g. a storage container or a modsuit.
+#define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
 
 //
 // common trait sources
@@ -314,6 +325,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLO_CIGAR "holo_cigar"
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
+/// Mentor observing
+#define MENTOR_OBSERVING "mobserving"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -360,6 +373,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_RADIOACTIVE_NEBULA "station_trait_radioactive_nebula"
 #define STATION_TRAIT_FORESTED "station_trait_forested"
 #define STATION_TRAIT_VENDING_SHORTAGE "station_trait_vending_shortage"
+#define STATION_TRAIT_MESSY "station_trait_messy"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
@@ -368,6 +382,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
-//***** TURF TRAITS *****//
+//***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"

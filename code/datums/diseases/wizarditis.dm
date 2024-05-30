@@ -58,6 +58,8 @@
 
 /datum/disease/wizarditis/proc/spawn_wizard_clothes()
 	var/mob/living/carbon/human/H = affected_mob
+	if(!istype(H))
+		return // Woe, wizard xeno upon ye
 
 	// Which slots can we replace?
 	var/list/eligible_slot_IDs = new

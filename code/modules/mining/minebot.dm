@@ -195,7 +195,7 @@
 		O.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
-	if(!contents.len)
+	if(!length(contents))
 		if(message)
 			to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")
 		return

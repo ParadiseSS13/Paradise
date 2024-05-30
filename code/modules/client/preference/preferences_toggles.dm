@@ -1,361 +1,528 @@
-//toggles
-/client/verb/toggle_ghost_ears()
-	set name = "GhostEars"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggle Between seeing all mob speech, and only speech of nearby mobs"
-	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTEARS
-	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "see all speech in the world" : "only see speech from nearby mobs"].")
-	prefs.save_preferences(src)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle GhostEars") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggle_ghost_sight()
-	set name = "GhostSight"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggle Between seeing all mob emotes, and only emotes of nearby mobs"
-	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTSIGHT
-	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "see all emotes in the world" : "only see emotes from nearby mobs"].")
-	prefs.save_preferences(src)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle GhostSight") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggle_ghost_radio()
-	set name = "GhostRadio"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggle between hearing all radio chatter, or only from nearby speakers"
-	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
-	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "hear all radio chat in the world" : "only hear from nearby speakers"].")
-	prefs.save_preferences(src)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle GhostRadio")
-
-/client/proc/toggle_hear_radio()
-	set name = "RadioChatter"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggle seeing radiochatter from radios and speakers"
-	if(!check_rights(R_ADMIN))
-		return
-	prefs.toggles ^= PREFTOGGLE_CHAT_RADIO
-	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle RadioChatter") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggle_ai_voice_annoucements()
-	set name = "AI Voice Announcements"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggle hearing AI annoucements in voice form or in text form"
-	prefs.sound ^= SOUND_AI_VOICE
-	prefs.save_preferences(src)
-	to_chat(usr, "[(prefs.sound & SOUND_AI_VOICE) ? "You will now hear AI announcements." : "AI annoucements will now be converted to text."] ")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle AI Voice") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/toggleadminhelpsound()
-	set name = "Admin Bwoinks"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggle hearing a notification when admin PMs are received"
-	if(!check_rights(R_ADMIN))
-		return
-	prefs.sound ^= SOUND_ADMINHELP
-	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.sound & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Admin Bwoinks") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/togglementorhelpsound()
-	set name = "Mentorhelp Bwoinks"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggle hearing a notification when mentorhelps are received"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
-	prefs.sound ^= SOUND_MENTORHELP
-	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.sound & SOUND_MENTORHELP) ? "now" : "no longer"] hear a sound when mentorhelps arrive.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Mentor Bwoinks") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/deadchat() // Deadchat toggle is usable by anyone.
-	set name = "Deadchat"
-	set category = "Preferences.Show/Hide"
-	set desc ="Toggles seeing deadchat"
-	prefs.toggles ^= PREFTOGGLE_CHAT_DEAD
-	prefs.save_preferences(src)
-
-	if(src.holder)
-		to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_CHAT_DEAD) ? "now" : "no longer"] see deadchat.")
-	else
-		to_chat(src, "As a ghost, you will [(prefs.toggles & PREFTOGGLE_CHAT_DEAD) ? "now" : "no longer"] see deadchat.")
-
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/toggleprayers()
-	set name = "Prayers"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggles seeing prayers"
-	prefs.toggles ^= PREFTOGGLE_CHAT_PRAYER
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_CHAT_PRAYER) ? "now" : "no longer"] see prayerchat.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Prayers") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggleprayernotify()
-	set name = "Prayer Notification Sound"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing when prayers are made"
-	prefs.sound ^= SOUND_PRAYERNOTIFY
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.sound & SOUND_PRAYERNOTIFY) ? "now" : "no longer"] hear when prayers are made.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Prayer Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/togglescoreboard()
-	set name = "End Round Scoreboard"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggles displaying end of round scoreboard"
-	prefs.toggles ^= PREFTOGGLE_DISABLE_SCOREBOARD
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_SCOREBOARD) ? "no longer" : "now"] see the end of round scoreboard.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Scoreboard") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggletitlemusic()
-	set name = "LobbyMusic"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing the GameLobby music"
-	prefs.sound ^= SOUND_LOBBY
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_LOBBY)
-		to_chat(src, "You will now hear music in the game lobby.")
-		if(isnewplayer(usr))
-			usr.client.playtitlemusic()
-	else
-		to_chat(src, "You will no longer hear music in the game lobby.")
-		usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Lobby Music") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/togglemidis()
-	set name = "Midis"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing sounds uploaded by admins"
-	prefs.sound ^= SOUND_MIDI
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_MIDI)
-		to_chat(src, "You will now hear any sounds uploaded by admins.")
-	else
-		usr.stop_sound_channel(CHANNEL_ADMIN)
-
-		to_chat(src, "You will no longer hear sounds uploaded by admins; any currently playing midis have been disabled.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle MIDIs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/listen_ooc()
-	set name = "OOC (Out of Character)"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggles seeing OutOfCharacter chat"
-	prefs.toggles ^= PREFTOGGLE_CHAT_OOC
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_CHAT_OOC) ? "now" : "no longer"] see messages on the OOC channel.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-/client/verb/listen_looc()
-	set name = "LOOC (Local Out of Character)"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggles seeing Local OutOfCharacter chat"
-	prefs.toggles ^= PREFTOGGLE_CHAT_LOOC
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_CHAT_LOOC) ? "now" : "no longer"] see messages on the LOOC channel.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-/client/verb/Toggle_Soundscape() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
-	set name = "Ambience"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing ambient sound effects"
-	prefs.sound ^= SOUND_AMBIENCE
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_AMBIENCE)
-		to_chat(src, "You will now hear ambient sounds.")
-	else
-		to_chat(src, "You will no longer hear ambient sounds.")
-		usr.stop_sound_channel(CHANNEL_AMBIENCE)
-	update_ambience_pref()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/Toggle_Parallax_Dark() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
-	set name = "Parallax in darkness"
-	set category = "Preferences.Show/Hide"
-	set desc = "If enabled, drawing parallax if you see in dark instead of black tiles."
-	prefs.toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
-	prefs.save_preferences(src)
-	if(prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
-		to_chat(src, "You will now see parallax in dark with nightvisions.")
-	else
-		to_chat(src, "You will no longer see parallax in dark with nightvisions.")
-	usr.hud_used?.update_parallax_pref()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Parallax Darkness") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
-	set name = "White Noise"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing ambient white noise"
-	prefs.sound ^= SOUND_BUZZ
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_BUZZ)
-		to_chat(src, "You will now hear ambient white noise.")
-	else
-		to_chat(src, "You will no longer hear ambient white noise.")
-		usr.stop_sound_channel(CHANNEL_BUZZ)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Whitenoise") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-/client/verb/Toggle_Heartbeat() //to toggle off heartbeat sounds, in case they get too annoying
-	set name = "Heartbeat"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing heart beating sound effects"
-	prefs.sound ^= SOUND_HEARTBEAT
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_HEARTBEAT)
-		to_chat(src, "You will now hear heartbeat sounds.")
-	else
-		to_chat(src, "You will no longer hear heartbeat sounds.")
-		usr.stop_sound_channel(CHANNEL_HEARTBEAT)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Hearbeat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-// This needs a toggle because you people are awful and spammed terrible music
-/client/verb/toggle_instruments()
-	set name = "Instruments"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing musical instruments like the violin and piano"
-	prefs.sound ^= SOUND_INSTRUMENTS
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_INSTRUMENTS)
-		to_chat(src, "You will now hear people playing musical instruments.")
-	else
-		to_chat(src, "You will no longer hear musical instruments.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Instruments") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggle_input()
-	set name = "TGUI Input"
-	set category = "Preferences.Toggle"
-	set desc = "Switches inputs between the TGUI and the standard one"
-	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "no longer" : "now"] use TGUI Inputs.")
-
-/client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
-	set name = "Dance Machine"
-	set category = "Preferences.Hear/Silence"
-	set desc = "Toggles hearing and dancing to the radiant dance machine"
-	prefs.sound ^= SOUND_DISCO
-	prefs.save_preferences(src)
-	if(prefs.sound & SOUND_DISCO)
-		to_chat(src, "You will now hear and dance to the radiant dance machine.")
-	else
-		to_chat(src, "You will no longer hear or dance to the radiant dance machine.")
-		usr.stop_sound_channel(CHANNEL_JUKEBOX)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Dance Machine") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/setup_character()
 	set name = "Game Preferences"
-	set category = "Preferences"
-	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
+	set category = "Special Verbs"
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
 
-/client/verb/toggle_ghost_pda()
-	set name = "GhostPDA"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggle seeing PDA messages as an observer."
-	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
-	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
-	prefs.save_preferences(src)
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ghost PDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+// Preference toggles
+/datum/preference_toggle
+	/// Name of the preference toggle. Don't set this if you don't want it to appear in game
+	var/name
+	/// Bitflag this datum will set to
+	var/preftoggle_bitflag
+	/// Category of the toggle
+	var/preftoggle_category
+	/// What toggles to set this to?
+	var/preftoggle_toggle
+	/// Description of what the pref setting does
+	var/description
+	/// Message to display when this toggle is enabled
+	var/enable_message
+	/// Message to display when this toggle is disabled
+	var/disable_message
+	/// Message for the blackbox, legacy verbs so we can't just use the name
+	var/blackbox_message
+	/// Rights required to be able to use this pref option
+	var/rights_required
+
+/datum/preference_toggle/proc/set_toggles(client/user)
+	var/datum/preferences/our_prefs = user.prefs
+	switch(preftoggle_toggle)
+		if(PREFTOGGLE_SPECIAL)
+			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
+		if(PREFTOGGLE_TOGGLE1)
+			our_prefs.toggles ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+		if(PREFTOGGLE_TOGGLE2)
+			our_prefs.toggles2 ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+		if(PREFTOGGLE_SOUND)
+			our_prefs.sound ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
+	our_prefs.save_preferences(user)
+
+/datum/preference_toggle/toggle_ghost_ears
+	name = "Toggle Hearing All Speech as a Ghost"
+	description = "Toggle Between seeing all mob speech, and only speech of nearby mobs"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTEARS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
+	enable_message = "As a ghost, you will now only see speech from nearby mobs."
+	disable_message = "As a ghost, you will now see all speech in the world."
+	blackbox_message = "Toggle GhostEars"
+
+/datum/preference_toggle/toggle_ghost_sight
+	name = "Toggle Ghost Emote Viewing"
+	description = "Toggle Between seeing all mob emotes, and only emotes of nearby mobs"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTSIGHT
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
+	enable_message = "As a ghost, you will now only see speech from nearby mobs."
+	disable_message = "As a ghost, you will now see all emotes in the world."
+	blackbox_message = "Toggle GhostSight"
+
+/datum/preference_toggle/toggle_ghost_radio
+	name = "Toggle Ghost Radio"
+	description = "Toggle between hearing all radio chatter, or only from nearby speakers"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTRADIO
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
+	enable_message = "As a ghost, you will now only hear from nearby speakers."
+	disable_message = "As a ghost, you will now hear all radio chat in the world."
+	blackbox_message = "Toggle GhostRadio"
+
+/datum/preference_toggle/toggle_admin_radio
+	name = "Admin Radio"
+	description = "Toggle seeing radiochatter from radios and speakers"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_RADIO
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "You will no longer see radio chatter from radios or speakers."
+	disable_message = "You will now see radio chatter from radios or speakers."
+	blackbox_message = "Toggle RadioChatter"
+
+/datum/preference_toggle/toggle_ai_voice_annoucements
+	name = "AI Voice Announcements"
+	description = "Toggle hearing AI annoucements in voice form or in text form"
+	preftoggle_bitflag = SOUND_AI_VOICE
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear AI announcements."
+	disable_message = "You will now hear AI announcements."
+	blackbox_message = "Toggle AI Voice"
+
+/datum/preference_toggle/toggle_admin_pm_sound
+	name = "Admin PM sound"
+	description = "Toggle hearing a notification when admin PMs are received"
+	preftoggle_bitflag = SOUND_ADMINHELP
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "You will now hear a sound when adminhelp is sent."
+	disable_message = "You will no longer hear a sound when adminhelp is sent."
+	blackbox_message = "Toggle Admin Bwoinks"
+
+/datum/preference_toggle/toggle_mentor_pm_sound
+	name = "Mentor PM sound"
+	description = "Toggle hearing a notification when mentor PMs are received"
+	preftoggle_bitflag = SOUND_MENTORHELP
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_MENTOR
+	enable_message = "You will now hear a sound when mentorhelp is sent."
+	disable_message = "You will no longer hear a sound when mentorhelp is sent."
+	blackbox_message = "Toggle Mentor Bwoinks"
+
+/datum/preference_toggle/toggle_deadchat_visibility
+	name = "Toggle Deadchat visibility"
+	description = "Toggles Dchat's visibility"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_DEAD
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see deadchat."
+	disable_message = "You will no longer see deadchat."
+	blackbox_message = "Toggle Deadchat"
+
+/datum/preference_toggle/end_of_round_scoreboard
+	name = "Toggle the End of Round Scoreboard"
+	description = "Prevents you from seeing the end of round scoreboard"
+	preftoggle_bitflag = PREFTOGGLE_DISABLE_SCOREBOARD
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see the end of round scoreboard."
+	disable_message = "You will no longer see see the end of round scoreboard."
+	blackbox_message = "Toggle Scoreboard"
+
+/datum/preference_toggle/title_music
+	name = "Toggle Lobby Music"
+	description = "Toggles hearing the GameLobby music"
+	preftoggle_bitflag = SOUND_LOBBY
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear music in the game lobby."
+	disable_message = "You will no longer hear music in the game lobby."
+	blackbox_message = "Toggle Lobby Music"
+
+/datum/preference_toggle/title_music/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.sound & SOUND_LOBBY)
+		if(isnewplayer(usr))
+			user.playtitlemusic()
+	else
+		usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+
+/datum/preference_toggle/toggle_admin_midis
+	name = "Toggle Admin Midis"
+	description = "Toggles hearing sounds uploaded by admins"
+	preftoggle_bitflag = SOUND_MIDI
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear any sounds uploaded by admins."
+	disable_message = "You will no longer hear sounds uploaded by admins; any currently playing midis have been disabled."
+	blackbox_message = "Toggle MIDIs"
+
+/datum/preference_toggle/toggle_admin_midis/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.sound & ~SOUND_LOBBY)
+		usr.stop_sound_channel(CHANNEL_ADMIN)
+
+/datum/preference_toggle/toggle_ooc
+	name = "Toggle OOC chat"
+	description = "Toggles seeing OutOfCharacter chat"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_OOC
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see the OOC channel."
+	disable_message = "You will no longer see the OOC channel."
+	blackbox_message = "Toggle OOC"
+
+/datum/preference_toggle/toggle_looc
+	name = "Toggle LOOC chat"
+	description = "Toggles seeing Local OutOfCharacter chat"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_LOOC
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see the LOOC channel."
+	disable_message = "You will no longer see the LOOC channel."
+	blackbox_message = "Toggle LOOC"
+
+/datum/preference_toggle/toggle_ambience
+	name = "Toggle Ambient sounds"
+	description = "Toggles hearing ambient sound effects"
+	preftoggle_bitflag = SOUND_AMBIENCE
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You now hear ambient sounds."
+	disable_message = "Ambience is now silenced."
+	blackbox_message = "Toggle Ambience"
+
+/datum/preference_toggle/toggle_ambience/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.sound & ~SOUND_AMBIENCE)
+		usr.stop_sound_channel(CHANNEL_AMBIENCE)
+	user.update_ambience_pref()
+
+/datum/preference_toggle/toggle_parallax_in_darkness
+	name = "Toggle Parallax in darkness"
+	description = "Toggles seeing space tiles instead of blank tiles"
+	preftoggle_bitflag = PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see parallax in dark with nightvision."
+	disable_message = "You will no longer see parallax in dark with nightvision."
+	blackbox_message = "Toggle Parallax Darkness"
+
+/datum/preference_toggle/toggle_parallax_in_darkness/set_toggles(client/user)
+	. = ..()
+	usr.hud_used?.update_parallax_pref()
+
+/datum/preference_toggle/toggle_white_noise
+	name = "Toggle White Noise"
+	description = "Toggles hearing White Noise"
+	preftoggle_bitflag = SOUND_BUZZ
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear ambient white noise."
+	disable_message = "You will no longer hear ambient white noise."
+	blackbox_message = "Toggle Whitenoise"
+
+/datum/preference_toggle/toggle_white_noise/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.sound & ~SOUND_BUZZ)
+		usr.stop_sound_channel(CHANNEL_BUZZ)
+
+/datum/preference_toggle/toggle_heartbeat_noise
+	name = "Toggle Heartbeat noise"
+	description = "Toggles hearing heartbeat sounds"
+	preftoggle_bitflag = SOUND_HEARTBEAT
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear heartbeat sounds."
+	disable_message = "You will no longer hear heartbeat sounds."
+	blackbox_message = "Toggle Hearbeat"
+
+/datum/preference_toggle/toggle_heartbeat_noise/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.sound & ~SOUND_HEARTBEAT)
+		usr.stop_sound_channel(CHANNEL_HEARTBEAT)
+
+/datum/preference_toggle/toggle_instruments
+	name = "Toggle Instruments"
+	description = "Toggles hearing musical instruments like the violin and piano"
+	preftoggle_bitflag = SOUND_INSTRUMENTS
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear people playing musical instruments."
+	disable_message = "You will no longer hear musical instruments."
+	blackbox_message = "Toggle Instruments"
+
+/datum/preference_toggle/toggle_disco
+	name = "Toggle Disco Machine Music"
+	description = "Toggles hearing musical instruments like the violin and piano"
+	preftoggle_bitflag = SOUND_DISCO
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear and dance to the radiant dance machine."
+	disable_message = "You will no longer hear or dance to the radiant dance machine."
+	blackbox_message = "Toggle Dance Machine"
+
+/datum/preference_toggle/toggle_disco/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.sound & ~SOUND_DISCO)
+		usr.stop_sound_channel(CHANNEL_JUKEBOX)
+
+/datum/preference_toggle/toggle_ghost_pda
+	name = "Toggle Ghost PDA messages"
+	description = "Toggle seeing PDA messages as an observer"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTPDA
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
+	enable_message = "As a ghost, you will now see all PDA messages."
+	disable_message = "As a ghost, you will no longer see PDA messages."
+	blackbox_message = "Toggle Ghost PDA"
 
 /client/verb/silence_current_midi()
 	set name = "Silence Current Midi"
-	set category = "Preferences"
+	set category = "Special Verbs"
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "The current admin midi has been silenced")
 
+/datum/preference_toggle/toggle_runechat
+	name = "Toggle Runechat"
+	description = "Toggle seeing Runechat messages"
+	preftoggle_bitflag = PREFTOGGLE_2_RUNECHAT
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see runechat."
+	disable_message = "You will no longer see runechat."
+	blackbox_message = "Toggle Runechat"
 
-/client/verb/toggle_runechat()
-	set name = "Runechat"
-	set category = "Preferences.Toggle"
-	set desc = "Toggle runechat messages"
-	prefs.toggles2 ^= PREFTOGGLE_2_RUNECHAT
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) ? "now see" : "no longer see"] floating chat messages.")
+/datum/preference_toggle/toggle_ghost_death_notifs
+	name = "Toggle Ghost Death Notifications"
+	description = "Toggle a notification when a player dies"
+	preftoggle_bitflag = PREFTOGGLE_2_DEATHMESSAGE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
+	enable_message = "You will now see a notification in deadchat when a player dies."
+	disable_message = "You will no longer see a notification in deadchat when a player dies."
+	blackbox_message = "Toggle Death Notifications"
 
-/client/verb/toggle_death_messages()
-	set name = "Death Notifications"
-	set category = "Preferences.Toggle"
-	set desc = "Toggle player death notifications"
-	prefs.toggles2 ^= PREFTOGGLE_2_DEATHMESSAGE
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) ? "now" : "no longer"] see a notification in deadchat when a player dies.")
+/datum/preference_toggle/toggle_reverb
+	name = "Toggle Reverb"
+	description = "Toggles Reverb on specific sounds"
+	preftoggle_bitflag = PREFTOGGLE_2_REVERB_DISABLE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now get reverb on some in game sounds."
+	disable_message = "You will no longer get reverb on some in game sounds."
+	blackbox_message = "Toggle reverb"
 
-/client/verb/toggle_reverb()
-	set name = "Reverb"
-	set category = "Preferences.Toggle"
-	set desc = "Toggle ingame reverb effects"
-	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
+/datum/preference_toggle/toggle_white_runechat
+	name = "Toggle Runechat Colour Forcing"
+	description = "Forces your runechat color to white"
+	preftoggle_bitflag = PREFTOGGLE_2_FORCE_WHITE_RUNECHAT
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Your runechat messages are forced to be white."
+	disable_message = "Your runechat messages are no longer forced to be white."
+	blackbox_message = "Toggle runechat color"
 
-/client/verb/toggle_forced_white_runechat()
-	set name = "Runechat Colour Forcing"
-	set category = "Preferences.Toggle"
-	set desc = "Toggles forcing your runechat colour to white"
-	prefs.toggles2 ^= PREFTOGGLE_2_FORCE_WHITE_RUNECHAT
-	prefs.save_preferences(src)
-	to_chat(src, "Your runechats will [(prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT) ? "now" : "no longer"] be forced to be white.")
+/datum/preference_toggle/toggle_simple_stat_panel
+	name = "Toggle item outlines"
+	description = "Toggles seeing item outlines on hover"
+	preftoggle_bitflag = PREFTOGGLE_2_SEE_ITEM_OUTLINES
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "You no longer see item outlines when hovering over an item with your mouse."
+	disable_message = "You now see item outlines when hovering over an item with your mouse."
+	blackbox_message = "Toggle item outlines"
 
-/client/verb/toggle_item_outlines()
-	set name = "Item Outlines"
-	set category = "Preferences.Toggle"
-	set desc = "Toggles seeing item outlines on hover."
-	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
-	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
+/datum/preference_toggle/toggle_item_tooltips
+	name = "Toggle item tooltips"
+	description = "Toggles textboxes with the item descriptions after hovering on them in your inventory"
+	preftoggle_bitflag = PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "You no longer see item tooltips."
+	disable_message = "You now see item tooltips."
+	blackbox_message = "Toggle item tooltips"
 
-/client/verb/toggle_item_tooltips()
-	set name = "Hover-over Item Tooltips"
-	set category = "Preferences.Toggle"
-	set desc = "Toggles textboxes with the item descriptions after hovering on them in your inventory."
-	prefs.toggles2 ^= PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS) ? "no longer" : "now"] see item tooltips when you hover over items on your HUD.")
+/datum/preference_toggle/toggle_anonmode
+	name = "Toggle Anonymous Mode"
+	description = "Toggles showing your key in various parts of the game (deadchat, end round, etc)"
+	preftoggle_bitflag = PREFTOGGLE_2_ANON
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Your key will no longer be shown in certain events (end round reports, deadchat, etc)."
+	disable_message = "Your key will now will be shown in certain events (end round reports, deadchat, etc)."
+	blackbox_message = "Toggle Anon mode"
 
-/mob/verb/toggle_anonmode()
-	set name = "Anonymous Mode"
-	set category = "Preferences.Toggle"
-	set desc = "Toggles showing your key in various parts of the game (deadchat, end round, etc)."
-	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
-	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
-	client.prefs.save_preferences(src)
+/datum/preference_toggle/toggle_disco_dance
+	name = "Toggle Disco Machine Dancing"
+	description = "Toggles automatic dancing from the radiant dance machine"
+	preftoggle_bitflag = PREFTOGGLE_2_DANCE_DISCO
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "You will now dance to the radiant dance machine."
+	disable_message = "You will no longer dance to the radiant dance machine."
+	blackbox_message = "Toggle disco machine dancing"
 
-/client/verb/toggle_dance()
-	set name = "Disco Machine Dancing"
-	set category = "Preferences.Toggle"
-	set desc = "Toggles automatic dancing from the radiant dance machine"
-	prefs.toggles2 ^= PREFTOGGLE_2_DANCE_DISCO
-	prefs.save_preferences(src)
-	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO) ? "now" : "no longer"] dance to the radiant dance machine.")
+/datum/preference_toggle/toggle_typing_indicator
+	name = "Toggle Typing Indicator"
+	description = "Hides the typing indicator"
+	preftoggle_bitflag = PREFTOGGLE_SHOW_TYPING
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "You will no longer display a typing indicator."
+	disable_message = "You will now display a typing indicator."
+	blackbox_message = "Toggle Typing Indicator (Speech)"
 
-/client/verb/manage_adminsound_mutes()
-	set name = "Manage Admin Sound Mutes"
-	set category = "Preferences"
-	set desc = "Manage admins that you wont hear played audio from"
+/datum/preference_toggle/toggle_typing_indicator/set_toggles(client/user)
+	. = ..()
+	if(user.prefs.toggles & PREFTOGGLE_SHOW_TYPING)
+		if(istype(usr))
+			usr.set_typing_indicator(FALSE)
+			usr.set_thinking_indicator(FALSE)
 
-	if(!length(prefs.admin_sound_ckey_ignore))
+/datum/preference_toggle/toggle_tgui_input_lists
+	name = "Toggle TGUI Input"
+	description = "Switches input lists between the TGUI and the standard one"
+	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_INPUT
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now use TGUI Input."
+	disable_message = "You will no longer use TGUI Input."
+	blackbox_message = "Toggle TGUI Input"
+
+/datum/preference_toggle/toggle_admin_logs
+	name = "Toggle Admin Log Messages"
+	description = "Disables admin log messages"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_NO_ADMINLOGS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "Admin logs disabled."
+	disable_message = "Admin logs re-enabled."
+	blackbox_message = "Admin logs toggled"
+
+/datum/preference_toggle/toggle_mhelp_notification
+	name = "Toggle Mentor Ticket Messages"
+	description = "Disables mentor ticket notifications"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_MENTOR | R_ADMIN
+	enable_message = "You now won't get mentor ticket messages."
+	disable_message = "You now will get mentor ticket messages."
+	blackbox_message = "Mentor ticket notification toggled"
+
+/datum/preference_toggle/toggle_ahelp_notification
+	name = "Toggle Admin Ticket Messages"
+	description = "Disables admin ticket notifications"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_NO_TICKETLOGS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "You now won't get admin ticket messages."
+	disable_message = "You now will get admin ticket messages."
+	blackbox_message = "Admin ticket notification toggled"
+
+/datum/preference_toggle/toggle_debug_logs
+	name = "Toggle Debug Log Messages"
+	description = "Disables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
+	preftoggle_bitflag = PREFTOGGLE_CHAT_DEBUGLOGS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_VIEWRUNTIMES | R_DEBUG
+	enable_message = "You now won't get debug logs."
+	disable_message = "You now will get debug logs."
+	blackbox_message = "Debug logs toggled"
+
+/datum/preference_toggle/toggle_mctabs
+	name = "Toggle MC tab"
+	description = "Toggles MC tab visibility"
+	preftoggle_bitflag = PREFTOGGLE_2_MC_TAB
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_VIEWRUNTIMES | R_DEBUG
+	enable_message = "You'll now see subsystem information in the verb panel."
+	disable_message = "You'll no longer see subsystem information in the verb panel."
+	blackbox_message = "MC tabs toggled"
+
+/datum/preference_toggle/special_toggle
+	preftoggle_toggle = PREFTOGGLE_SPECIAL
+
+/datum/preference_toggle/special_toggle/set_toggles(client/user)
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
+	user.prefs.save_preferences(user)
+
+/datum/preference_toggle/special_toggle/toggle_adminsound_mutes
+	name = "Manage Admin Sound Mutes"
+	description = "Manage admins that you wont hear played audio from"
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	blackbox_message = "MC tabs toggled"
+
+/datum/preference_toggle/special_toggle/toggle_adminsound_mutes/set_toggles(client/user)
+	if(!length(user.prefs.admin_sound_ckey_ignore))
 		to_chat(usr, "You have no admins with muted sounds.")
 		return
 
-	var/choice  = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in prefs.admin_sound_ckey_ignore
+	var/choice = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in user.prefs.admin_sound_ckey_ignore
 	if(!choice)
 		return
 
-	prefs.admin_sound_ckey_ignore -= choice
+	user.prefs.admin_sound_ckey_ignore -= choice
 	to_chat(usr, "You will now hear sounds from <code>[choice]</code> again.")
-	prefs.save_preferences(src)
+	return ..()
 
-/client/proc/toggle_mctabs()
-	set name = "MC Tab"
-	set category = "Preferences.Show/Hide"
-	set desc = "Shows or hides the MC tab."
-	prefs.toggles2 ^= PREFTOGGLE_2_MC_TAB
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TAB) ? "now" : "no longer"] see the MC tab on the top right.")
+/datum/preference_toggle/special_toggle/set_ooc_color
+	name = "Set Your OOC Color"
+	description = "Pick a custom OOC color"
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	blackbox_message = "Set Own OOC"
+
+/datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)
+	var/new_ooccolor = input(usr, "Please select your OOC color.", "OOC color", user.prefs.ooccolor) as color|null
+	if(new_ooccolor)
+		user.prefs.ooccolor = new_ooccolor
+		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
+	else
+		user.prefs.ooccolor = initial(user.prefs.ooccolor)
+		to_chat(usr, "Your OOC color has been reset.")
+	return ..()
+
+/datum/preference_toggle/special_toggle/set_attack_logs
+	name = "Change Attack Log settings"
+	description = "Changes what attack logs you see, ranges from all attacklogs to no attacklogs"
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	blackbox_message = "changed attack log settings"
+
+/datum/preference_toggle/special_toggle/set_attack_logs/set_toggles(client/user)
+	var/static/list/attack_log_settings = list("All attack logs" = ATKLOG_ALL, "Almost all attack logs" = ATKLOG_ALMOSTALL, "Most attack logs" = ATKLOG_MOST, "Few attack logs" = ATKLOG_FEW, "No attack logs" = ATKLOG_NONE)
+	var/input = input(usr, "Please select your Attack Log settings.") as null|anything in attack_log_settings
+	if(!input)
+		return
+	var/attack_log_type = attack_log_settings[input]
+	switch(attack_log_type)
+		if(ATKLOG_ALL)
+			user.prefs.atklog = ATKLOG_ALL
+			to_chat(usr, "Your attack logs preference is now: show ALL attack logs")
+		if(ATKLOG_ALMOSTALL)
+			user.prefs.atklog = ATKLOG_ALMOSTALL
+			to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
+		if(ATKLOG_MOST)
+			user.prefs.atklog = ATKLOG_MOST
+			to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides player v. NPC combat, and certain areas like lavaland syndie base and thunderdome)")
+		if(ATKLOG_FEW)
+			user.prefs.atklog = ATKLOG_FEW
+			to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
+		if(ATKLOG_NONE)
+			user.prefs.atklog = ATKLOG_NONE
+			to_chat(usr, "Your attack logs preference is now: show NO attack logs")
+	return ..()

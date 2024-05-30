@@ -117,7 +117,6 @@
 
 	action_icon_state = "demonic_grasp"
 
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
@@ -259,6 +258,7 @@
 	user.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispel), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	INVOKE_ASYNC(src, PROC_REF(arena_trap), get_turf(target))  //Gets another arena trap queued up for when this one runs out.
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispel))
 	arena_checks(get_turf(target), user)
 
@@ -266,7 +266,6 @@
 	if(!spell_active || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check), user)  //Checks to see if our fighters died.
-	INVOKE_ASYNC(src, PROC_REF(arena_trap), target_turf)  //Gets another arena trap queued up for when this one runs out.
 	addtimer(CALLBACK(src, PROC_REF(arena_checks), target_turf, user), 5 SECONDS)
 
 /datum/spell/vampire/arena/proc/arena_trap(turf/target_turf)

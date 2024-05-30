@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					continue
 			else//not invisable, not a spookyghost add it.
 				var/disguised = null
-				if(user.viewing_alternate_appearances && user.viewing_alternate_appearances.len && ishuman(A) && A.alternate_appearances && A.alternate_appearances.len) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
+				if(user.viewing_alternate_appearances && length(user.viewing_alternate_appearances) && ishuman(A) && A.alternate_appearances && length(A.alternate_appearances)) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
 					for(var/datum/alternate_appearance/alt_appearance in user.viewing_alternate_appearances)
 						if(alt_appearance.owner == A) //If it turns out they are, don't blow their cover. That'd be rude.
 							atoms.Add(image(alt_appearance.img, A.loc, layer = 4, dir = A.dir)) //Render their disguise.
@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)
 	var/center_offset = (size-1)/2 * 32 + 1
-	for(var/i; i <= sorted.len; i++)
+	for(var/i; i <= length(sorted); i++)
 		var/atom/A = sorted[i]
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
-	if(saved_pictures.len >= max_storage)
+	if(length(saved_pictures) >= max_storage)
 		to_chat(user, "<span class='notice'>Maximum photo storage capacity reached.</span>")
 		return
 	to_chat(user, "Picture saved.")
@@ -664,7 +664,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/proc/sort_atoms_by_layer(list/atoms)
 	// Comb sort icons based on levels
 	var/list/result = atoms.Copy()
-	var/gap = result.len
+	var/gap = length(result)
 	var/swapped = 1
 	while(gap > 1 || swapped)
 		swapped = 0
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
 		if(gap < 1)
 			gap = 1
-		for(var/i = 1; gap + i <= result.len; i++)
+		for(var/i = 1; gap + i <= length(result); i++)
 			var/atom/l = result[i]		//Fucking hate
 			var/atom/r = result[gap+i]	//how lists work here
 			if(l.layer > r.layer)		//no "result[i].layer" for me

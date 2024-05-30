@@ -130,6 +130,29 @@
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
 		update_icon()
 
+/mob/living/simple_animal/bot/honkbot/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	if(locked || !open)
+		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
+		return FALSE
+
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	remote_disabled = TRUE
+	locked = TRUE
+	open = FALSE
+	bot_reset()
+	turn_on()
+	if(user)
+		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
+		add_attack_logs(user, src, "Cmagged")
+	show_laws()
+
+/mob/living/simple_animal/bot/honkbot/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>Yellow ooze seems to be seeping from the case...</span>"
+
 /mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
 	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
@@ -180,34 +203,57 @@
 		sensor_blink()
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
+/mob/living/simple_animal/bot/honkbot/proc/cuff_callback(mob/living/carbon/C)
+	mode = BOT_ARREST
+	sleep(1 SECONDS)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
+	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",
+						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	if(!do_after(src, 6 SECONDS, target = C) || !on)
+		mode = BOT_IDLE
+		return
+	if(!C.handcuffed)
+		C.handcuffed = new /obj/item/restraints/handcuffs/twimsts(C)
+		C.update_handcuffed()
+	C.SetDeaf(0)
+	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
+	mode = BOT_IDLE
+
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
-	if(!spam_flag)
-		playsound(src, 'sound/items/AirHorn.ogg', 100, TRUE, -1) //HEEEEEEEEEEEENK!!
-		sensor_blink()
-	if(!spam_flag)
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
-				return
-			C.SetStuttering(40 SECONDS) //stammer
-			C.Deaf(5 SECONDS) //far less damage than the H.O.N.K.
-			C.Jitter(100 SECONDS)
-			C.Weaken(10 SECONDS)
-			if(client) //prevent spam from players..
-				spam_flag = TRUE
-			if(!emagged) //HONK once, then leave
-				threatlevel -= 6
-				target = oldtarget_name
-			else // you really don't want to hit an emagged honkbot
-				threatlevel = 6 // will never let you go
-			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
-			add_attack_logs(src, C, "honked by [src]")
-			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
-					"<span class='userdanger'>[src] has honked you!</span>")
-		else
-			C.Stuttering(40 SECONDS)
-			C.Stun(20 SECONDS)
-			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
+	if(spam_flag)
+		return
+	playsound(src, 'sound/items/AirHorn.ogg', 100, TRUE, -1) //HEEEEEEEEEEEENK!!
+	sensor_blink()
+
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		var/area/location = get_area(src)
+		speak("Arresting level 4 scumbag <b>[C]</b> in [location].", radio_channel)
+
+	if(!ishuman(C))
+		C.Stuttering(40 SECONDS)
+		C.Stun(20 SECONDS)
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
+		return
+	var/mob/living/carbon/human/H = C
+	if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
+		return
+	C.SetStuttering(40 SECONDS) //stammer
+	C.Deaf(5 SECONDS) //far less damage than the H.O.N.K.
+	C.Jitter(100 SECONDS)
+	C.Weaken(10 SECONDS)
+	if(client) //prevent spam from players..
+		spam_flag = TRUE
+	if(!emagged) //HONK once, then leave
+		threatlevel -= 6
+		target = oldtarget_name
+	else // you really don't want to hit an emagged honkbot
+		threatlevel = 6 // will never let you go
+	addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
+	add_attack_logs(src, C, "honked by [src]")
+	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",
+			"<span class='userdanger'>[src] has honked you!</span>")
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
@@ -237,9 +283,9 @@
 					honk_attack(target)
 				else
 					if(threatlevel >= 6)
+						target_lastloc = target.loc
 						stun_attack(target)
 						anchored = FALSE
-						target_lastloc = target.loc
 				return
 
 			try_chasing_target(target)
@@ -278,6 +324,8 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			threatlevel = 6
 		if(threatlevel < 4)
 			if(emagged) // actually emagged
 				bike_horn()
@@ -292,8 +340,13 @@
 		target = C
 		oldtarget_name = C.name
 		bike_horn()
-		speak("Honk!")
-		visible_message("<b>[src]</b> starts chasing [C.name]!")
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			speak("Level 4 infraction alert!")
+			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
+			visible_message("<b>[src]</b> points at [C.name]!")
+		else
+			speak("Honk!")
+			visible_message("<b>[src]</b> starts chasing [C.name]!")
 		mode = BOT_HUNT
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE

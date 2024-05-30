@@ -22,7 +22,7 @@
 
 	for(var/obj/machinery/camera/C in L)
 		var/list/tempnetwork = C.network & src.network
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
 
 	track.cameras = T
@@ -195,7 +195,7 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for(var/i = L.len, i > 0, i--)
+	for(var/i = length(L), i > 0, i--)
 		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]

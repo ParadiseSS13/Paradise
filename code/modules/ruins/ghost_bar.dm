@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(occupants_by_key)
+
 /obj/effect/mob_spawn/human/alive/ghost_bar
 	name = "ghastly rejuvenator"
 	mob_name = "ghost bar occupant"
@@ -55,7 +57,7 @@
 		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
 	if(!H.shoes)
 		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
-	equip_item(H, /obj/item/stack/spacecash/c100, SLOT_HUD_LEFT_STORE)
+	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_STORE)
 
 	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
 	our_id.assignment = assignedrole
@@ -83,11 +85,21 @@
 		implant.insert(H)
 	log_game("[ckey] has entered the ghost bar")
 	playsound(src, 'sound/machines/wooden_closet_open.ogg', 50)
+	var/mob/old_mob = GLOB.occupants_by_key["[H.ckey]"]
+	if(old_mob)
+		qdel(old_mob)
+	GLOB.occupants_by_key["[H.ckey]"] = H
+	RegisterSignal(H, COMSIG_PARENT_QDELETING, PROC_REF(clear_references_to_owner))
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
 	H.equip_or_collect(I, slot, TRUE)
+	H.speaks_ooc = TRUE
 	return I
+
+/obj/effect/mob_spawn/human/alive/ghost_bar/proc/clear_references_to_owner(mob/mob_to_obliterate)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	GLOB.occupants_by_key -= mob_to_obliterate.ckey
 
 /obj/structure/ghost_bar_cryopod
 	name = "returning sarcophagus"

@@ -2,8 +2,6 @@
 GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/toggleadminhelpsound,
-	/client/proc/togglementorhelpsound,
 	/client/proc/cmd_mentor_check_new_players,
 	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	))
@@ -13,9 +11,9 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
-	/client/proc/colorooc,				/*allows us to set a custom colour for everything we say in ooc*/
-	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
+	/client/proc/admin_observe,			/*allows us to freely observe mobs */
+	/client/proc/admin_observe_target,			/*and gives it to us on right click*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -35,8 +33,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
-	/client/proc/toggleprayers,			/*toggles prayers on/off*/
-	/client/proc/toggle_hear_radio,     /*toggles whether we hear the radio*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
 	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
@@ -49,9 +45,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
-	/client/proc/toggleattacklogs,
-	/client/proc/toggleadminlogs,
-	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
@@ -140,8 +133,6 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
-	/client/proc/set_ooc,
-	/client/proc/reset_ooc,
 	/client/proc/set_next_map,
 	/client/proc/manage_queue,
 	/client/proc/add_queue_server_bypass
@@ -155,7 +146,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_debug_del_sing,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
-	/client/proc/toggledebuglogs,
 	/client/proc/cmd_display_del_log,
 	/client/proc/cmd_display_del_log_simple,
 	/client/proc/check_bomb_impacts,
@@ -182,7 +172,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/toggle_mctabs
+	/client/proc/profile_code,
+	/client/proc/debug_atom_init
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -208,14 +199,17 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
-	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/admin_observe,
+	/client/proc/admin_observe_target,
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
-	/client/proc/toggleMentorTicketLogs,
+	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
+	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
@@ -226,9 +220,7 @@ GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
-	/client/proc/toggleticketlogs,
 	/client/proc/openMentorTicketUI,
-	/client/proc/toggleMentorTicketLogs,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets
 ))
@@ -240,12 +232,12 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
+	/client/proc/allow_browser_inspect, // XSS prevention
 ))
 GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
 	/client/proc/cmd_display_del_log,
 	/client/proc/cmd_display_del_log_simple,
-	/client/proc/toggledebuglogs,
 	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
@@ -253,7 +245,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
 	/client/proc/timer_log,
-	/client/proc/toggle_mctabs
+	/client/proc/profile_code
 ))
 
 /client/proc/add_admin_verbs()
@@ -354,13 +346,22 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/admin_ghost()
-	set category = "Admin"
-	set name = "Aghost"
+/client/proc/mentor_ghost()
+	var/is_mentor = check_rights(R_MENTOR, FALSE)
+	var/is_full_admin = check_rights(R_ADMIN|R_MOD, FALSE)
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!is_mentor && !is_full_admin)
+		to_chat(src, "<span class='warning'>You aren't allowed to use this!</span>")
 		return
 
+	// mentors are allowed only if they have the observe trait, which is given on observe.
+	// they should also not be given this proc.
+	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MENTOR_OBSERVING) || !is_mentor))
+		return
+
+	do_aghost()
+
+/client/proc/do_aghost()
 	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
@@ -386,6 +387,134 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/admin_ghost()
+	set category = "Admin"
+	set name = "Aghost"
+
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+
+	do_aghost()
+
+/// Allow an admin to observe someone.
+/// mentors are allowed to use this verb while living, but with some stipulations:
+/// if they attempt to do anything that would stop their orbit, they will immediately be returned to their body.
+/client/proc/admin_observe()
+	set name = "Aobserve"
+	set category = "Admin"
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+		return
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	var/mob/target
+
+	target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
+	if(isnull(target))
+		return
+	if(target == src)
+		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>[target] is a ghost, and cannot be observed.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is in the lobby, and cannot be observed.</span>")
+		return
+
+	admin_observe_target(target)
+
+/client/proc/cleanup_admin_observe(mob/dead/observer/ghost)
+	if(!istype(ghost) || !ghost.mob_observed)
+		return FALSE
+
+	// un-follow them
+	ghost.cleanup_observe()
+	// if it's a mentor, make sure they go back to their body.
+	if(HAS_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING))
+		// handler will handle removing the trait
+		mob.stop_orbit()
+	log_admin("[key_name(src)] has de-activated Aobserve")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+	return TRUE
+
+/// targeted form of admin_observe: this should only appear in the right-click menu.
+/client/proc/admin_observe_target(mob/target as mob in GLOB.mob_list)
+	set name = "\[Admin\] Aobserve"
+	set category = null
+
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR, mob))
+		return
+
+	var/full_admin = check_rights(R_ADMIN|R_MOD, FALSE, mob)
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is currently in the lobby.</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		return
+
+	if(cleanup_admin_observe(mob))
+		return
+
+	if(isnull(target) || target == src)
+		// let the default one find the target if there isn't one
+		admin_observe()
+		return
+
+	// observers don't need to ghost, so we don't need to worry about adding any traits
+	if(isobserver(mob))
+		var/mob/dead/observer/ghost = mob
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+		ghost.do_observe(target)
+		return
+
+	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
+	do_aghost()
+	var/mob/dead/observer/ghost = mob
+
+	if(!full_admin)
+		// if they're a me and they're alive, add the MENTOR_OBSERVINGtrait to ensure that they can only go back to their body.
+		// we need to handle this here because when you aghost, your mob gets set to the ghost. Oops!
+		ADD_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
+		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
+		log_admin("[key_name(src)] has mobserved out of their body to follow [target].")
+	else
+		log_admin("[key_name(src)] is aobserving [target].")
+
+
+	ghost.do_observe(target)
+
+/client/proc/on_mentor_observe_end(atom/movable/us, atom/movable/orbited)
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBITER_STOP
+	if(!isobserver(mob))
+		log_and_message_admins("A mentor somehow managed to end observing while not being a ghost. Please investigate and notify coders.")
+		return
+	var/mob/dead/observer/ghost = mob
+
+	// just to be safe
+	ghost.cleanup_observe()
+
+	REMOVE_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+	UnregisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
+
+	if(!ghost.reenter_corpse())
+		// tell everyone since this is kinda nasty.
+		log_debug("Mentor [key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		log_and_message_admins("[key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, and you should probably ahelp.</span>")
 
 /client/proc/invisimin()
 	set name = "Invisimin"
@@ -520,8 +649,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			holder.big_brother = 1
+			if(isobserver(mob))
+				mob.invisibility = 90
+				mob.see_invisible = 90
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
+		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
@@ -546,16 +678,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			explosion(epicenter, 3, 5, 7, 5)
 		if("Custom Bomb")
 			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
-			if(devastation_range == null)
+			if(isnull(devastation_range))
 				return
 			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
-			if(heavy_impact_range == null)
+			if(isnull(heavy_impact_range))
 				return
 			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
-			if(light_impact_range == null)
+			if(isnull(light_impact_range))
 				return
 			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
-			if(flash_range == null)
+			if(isnull(flash_range))
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
@@ -870,7 +1002,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.")
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
@@ -878,91 +1010,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		SSjobs.FreeRole(job, force = TRUE)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
-
-/client/proc/toggleattacklogs()
-	set name = "Attack Log Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(prefs.atklog == ATKLOG_ALL)
-		prefs.atklog = ATKLOG_ALMOSTALL
-		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
-	else if(prefs.atklog == ATKLOG_ALMOSTALL)
-		prefs.atklog = ATKLOG_MOST
-		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides player v. NPC combat, and certain areas like lavaland syndie base and thunderdome)")
-	else if(prefs.atklog == ATKLOG_MOST)
-		prefs.atklog = ATKLOG_FEW
-		to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
-	else if(prefs.atklog == ATKLOG_FEW)
-		prefs.atklog = ATKLOG_NONE
-		to_chat(usr, "Your attack logs preference is now: show NO attack logs")
-	else if(prefs.atklog == ATKLOG_NONE)
-		prefs.atklog = ATKLOG_ALL
-		to_chat(usr, "Your attack logs preference is now: show ALL attack logs")
-	else
-		prefs.atklog = ATKLOG_ALL
-		to_chat(usr, "Your attack logs preference is now: show ALL attack logs (your preference was set to an invalid value, it has been reset)")
-
-	prefs.save_preferences(src)
-
-
-/client/proc/toggleadminlogs()
-	set name = "Admin Log Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_NO_ADMINLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS)
-		to_chat(usr, "You now won't get admin log messages.")
-	else
-		to_chat(usr, "You now will get admin log messages.")
-
-/client/proc/toggleMentorTicketLogs()
-	set name = "Mentor Ticket Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_MENTOR|R_ADMIN))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS)
-		to_chat(usr, "You now won't get mentor ticket messages.")
-	else
-		to_chat(usr, "You now will get mentor ticket messages.")
-
-/client/proc/toggleticketlogs()
-	set name = "Admin Ticket Messgaes"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_NO_TICKETLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)
-		to_chat(usr, "You now won't get admin ticket messages.")
-	else
-		to_chat(usr, "You now will get admin ticket messages.")
-
-/client/proc/toggledebuglogs()
-	set name = "Debug Log Messages"
-	set category = "Preferences.Toggle"
-
-	if(!check_rights(R_VIEWRUNTIMES | R_DEBUG))
-		return
-
-	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS)
-		to_chat(usr, "You now will get debug log messages")
-	else
-		to_chat(usr, "You now won't get debug log messages")
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
 	set name = "\[Admin\] Man Up"
@@ -1056,6 +1103,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Debug"
 
 	src.stat_panel.send_message("create_debug")
+
+/client/proc/profile_code()
+	set name = "Profile Code"
+	set category = "Debug"
+
+	winset(usr, null, "command=.profile")
 
 /client/proc/export_current_character()
 	set name = "Export Character DMI/JSON"

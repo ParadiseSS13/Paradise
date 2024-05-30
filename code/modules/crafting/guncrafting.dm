@@ -93,6 +93,12 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	outcome = /obj/item/gun/energy/plasma_pistol
 
+/obj/item/weaponcrafting/gunkit/sparker
+	name = "\improper SPRK-12 pistol parts kit"
+	desc = "A suitcase containing the necessary gun parts to transform a mini energy gun into a SPRK-12 pistol. Double or nothing!"
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	outcome = /obj/item/gun/energy/sparker
+
 /obj/item/weaponcrafting/gunkit/u_ionsilencer
 	name = "u-ion silencer parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard disabler into a silenced and lethal disabling weapon. Look officer, he has no wounds from me!"
@@ -114,13 +120,21 @@
 	if(!gunkit_to_use.outcome)
 		to_chat(user, "<span class='warning'>That gunkit can not be used to craft a weapon.</span>")
 		return
+
 	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(!do_after(user, 5 SECONDS, target = user))
 		return
 	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	var/obj/item/gun_produced = new gunkit_to_use.outcome
-	user.unEquip(src)
-	user.put_in_hands(gun_produced)
+	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) //Snowflake checking, but I don't want a person with a self assembling kit to be robbed
+		var/obj/item/gun_produceda = new gunkit_to_use.outcome
+		var/obj/item/gun_producedb = new gunkit_to_use.outcome
+		user.unEquip(src)
+		user.put_in_hands(gun_produceda)
+		user.put_in_hands(gun_producedb)
+	else
+		var/obj/item/gun_produced = new gunkit_to_use.outcome
+		user.unEquip(src)
+		user.put_in_hands(gun_produced)
 	qdel(gunkit_to_use)
 	qdel(src)
 

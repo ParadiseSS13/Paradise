@@ -145,18 +145,17 @@
 /obj/item/projectile/energy/floramut
 	name = "alpha somatoray"
 	icon_state = "energy"
-	damage = 0
-	damage_type = TOX
-	nodamage = 1
+	damage = 3
+	damage_type = CLONE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
 /obj/item/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
-	damage = 0
-	damage_type = TOX
-	nodamage = 1
+	damage = 3
+	damage_type = CLONE
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
 /obj/item/projectile/energy/mindflayer

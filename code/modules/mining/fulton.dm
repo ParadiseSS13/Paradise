@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(EP.beacon_network in beacon_networks)
 			possible_beacons += EP
 
-	if(!possible_beacons.len)
+	if(!length(possible_beacons))
 		to_chat(user, "There are no extraction beacons in existence!")
 		return
 

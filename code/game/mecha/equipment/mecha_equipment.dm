@@ -47,7 +47,7 @@
 	if(chassis.selected == src)
 		txt += "<b>[name]</b>"
 	else if(selectable)
-		txt += "<a href='?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
+		txt += "<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
 	else
 		txt += "[name]"
 
@@ -99,7 +99,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(istype(M))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
 			return TRUE
 	return FALSE
 

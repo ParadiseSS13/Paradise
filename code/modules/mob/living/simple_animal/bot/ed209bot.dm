@@ -285,12 +285,11 @@
 				back_to_hunt()
 				return
 
-			if(no_handcuffs) // should we not cuff?
+			if(!(iscarbon(target) && target.canBeHandcuffed()))
 				back_to_idle()
 				return
 
-			if(!(iscarbon(target) && target.canBeHandcuffed()))
-				back_to_idle()
+			if(no_handcuffs) // should we not cuff?
 				return
 
 			if(currently_cuffing)
@@ -482,7 +481,7 @@
 			if(C.stat==2)
 				continue
 			targets += C
-		if(targets.len)
+		if(length(targets))
 			if(prob(50))
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
@@ -496,7 +495,7 @@
 					else
 						shootAt(toshoot)
 			else if(prob(50))
-				if(targets.len)
+				if(length(targets))
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
 						target = toarrest

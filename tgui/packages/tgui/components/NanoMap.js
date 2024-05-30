@@ -118,7 +118,8 @@ export class NanoMap extends Component {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      '-ms-interpolation-mode': 'nearest-neighbor',
+      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+      'image-rendering': 'pixelated',
     };
 
     return (

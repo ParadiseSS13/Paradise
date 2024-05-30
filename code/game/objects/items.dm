@@ -179,12 +179,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	// actions clear themselves from the list on cut
-	if(islist(actions))
-		for(var/datum/action/A as anything in actions)
-			qdel(A)
-		if(!isnull(actions))
-			actions.Cut()
+	QDEL_LIST_CONTENTS(actions)
 
 	master = null
 	return ..()
@@ -234,7 +229,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
 
 
-		if(materials.len)
+		if(length(materials))
 			msg += "<span class='notice'>Extractable materials:<BR>"
 			for(var/mat in materials)
 				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
@@ -401,12 +396,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
-	if(signal_result != 0)
-		if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return signal_result
-	return FALSE
+	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
+	if(!signal_result)
+		return FALSE
+	if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+	return signal_result
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
@@ -508,7 +503,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 //the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to 1 if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = 0)
+/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(!M)
 		return 0
 
@@ -918,10 +913,17 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		pointed_object += " inside [target_atom.loc]"
 
 	if(pointer_mob.a_intent == INTENT_HELP || !ismob(target_atom))
-		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src]")
+		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src].")
 		return TRUE
 
 	target_atom.visible_message("<span class='danger'>[pointer_mob] points [src] at [pointed_object]!</span>",
 									"<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
 	SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
 	return TRUE
+
+/obj/item/proc/canStrip(mob/stripper, mob/owner)
+	SHOULD_BE_PURE(TRUE)
+	return !(flags & NODROP) && !(flags & ABSTRACT)
+
+/obj/item/proc/should_stack_with(obj/item/other)
+	return type == other.type && name == other.name

@@ -12,7 +12,7 @@
 	var/mob/living/carbon/human/human_user = user
 
 	if(!species_custom_messages || (human_user.mind?.miming && !species_custom_mime_messages))
-		return .
+		return
 
 	var/custom_message
 	if(user.mind?.miming)
@@ -375,6 +375,8 @@
 	cooldown = 5 SECONDS
 	/// Status effect to apply when this emote is used. Should be a subtype
 	var/status = STATUS_EFFECT_HIGHFIVE
+	/// title override, used for the re-use message.
+	var/action_name
 
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
@@ -382,12 +384,17 @@
 	if(user_carbon.restrained())
 		return FALSE
 
+/datum/emote/living/carbon/human/highfive/proc/set_status(mob/living/carbon/user)
+	return user.apply_status_effect(status)
+
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
 	if(user_carbon.has_status_effect(status))
-		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
+		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [!isnull(action_name) ? action_name : key].")
 		return TRUE
-	user_carbon.apply_status_effect(status)
+	var/datum/result = set_status(user)
+	if(QDELETED(result))
+		return TRUE
 
 	return ..()
 
@@ -400,6 +407,39 @@
 	key = "handshake"
 	key_third_person = "handshakes"
 	status = STATUS_EFFECT_HANDSHAKE
+
+/datum/emote/living/carbon/human/highfive/rps
+	key = "rps"
+	param_desc = "r,p,s"
+	hands_use_check = TRUE
+	status = STATUS_EFFECT_RPS
+	action_name = "play rock-paper-scissors with"
+	target_behavior = EMOTE_TARGET_BHVR_IGNORE
+	/// If the user used parameters, the move that will be made.
+	var/move
+
+/datum/emote/living/carbon/human/highfive/rps/run_emote(mob/user, emote_arg, type_override, intentional)
+	switch(lowertext(emote_arg))
+		if("r", "rock")
+			move = RPS_EMOTE_ROCK
+		if("p", "paper")
+			move = RPS_EMOTE_PAPER
+		if("s", "scissors")
+			move = RPS_EMOTE_SCISSORS
+
+		// if it's an invalid emote param, just fall through and let them select
+
+	return ..()
+
+/datum/emote/living/carbon/human/highfive/rps/set_status(mob/living/carbon/user)
+	if(!isnull(move))
+		// if they supplied a valid parameter, use that for the move
+		return user.apply_status_effect(status, move)
+	return user.apply_status_effect(status)
+
+/datum/emote/living/carbon/human/highfive/rps/reset_emote()
+	..()
+	move = initial(move)
 
 /datum/emote/living/carbon/human/snap
 	key = "snap"
@@ -452,7 +492,6 @@
 	param_desc = "number(0-10)"
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
-
 
 /////////
 // Species-specific emotes

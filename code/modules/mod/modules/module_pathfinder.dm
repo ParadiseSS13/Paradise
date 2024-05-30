@@ -40,7 +40,7 @@
 		to_chat(user, "<span class='warning'>Unable to implant [target]!</span>")
 		return
 	if(target == user)
-		to_chat(user, "<span class='notice>'You implant yourself with [implant].</span>")
+		to_chat(user, "<span class='notice'>You implant yourself with [implant].</span>")
 	else
 		target.visible_message("<span class='notice'>[user] implants [target].</span>", "<span class='notice'>[user] implants you with [implant].</span>")
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
@@ -119,7 +119,7 @@
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		to_chat(H, "<span class='warning'>No viable path found!</span>")
 		return FALSE
-	to_chat(H, "<span class='notice>Suit on route!</span>")
+	to_chat(H, "<span class='notice'>Suit on route!</span>")
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 	module.mod.add_overlay(jet_icon)
 	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))

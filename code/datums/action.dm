@@ -16,10 +16,15 @@
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// Map of huds viewing a button with our action -> their button
 	var/list/viewers = list()
+	/// Whether or not this will be shown to observers
+	var/show_to_observers = TRUE
 
 
 /datum/action/New(Target)
 	target = Target
+
+/datum/action/proc/should_draw_cooldown()
+	return !IsAvailable()
 
 /datum/action/proc/clear_ref(datum/ref)
 	SIGNAL_HANDLER
@@ -46,6 +51,8 @@
 		Remove(owner)
 	owner = M
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 	GiveAction(M)
 
 /datum/action/proc/Remove(mob/remove_from)
@@ -54,12 +61,15 @@
 			continue
 		HideFrom(hud.mymob)
 
-	LAZYREMOVE(remove_from?.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	remove_from?.actions -= src // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 	// owner = null
 
 	if(isnull(owner))
 		return
+
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
 
 	if(target == owner)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
@@ -74,6 +84,8 @@
 
 /datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
 
@@ -117,7 +129,8 @@
 		return
 	if(!status_only)
 		button.name = name
-		button.desc = desc
+		if(desc)
+			button.desc = "[desc] [initial(button.desc)]"
 		if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
 			var/list/settings = owner.hud_used.get_action_buttons_icons()
 			if(button.icon != settings["bg_icon"])
@@ -132,7 +145,7 @@
 
 		ApplyIcon(button, force)
 
-	if(!IsAvailable())
+	if(should_draw_cooldown())
 		apply_unavailable_effect(button)
 	else
 		return TRUE
@@ -142,7 +155,7 @@
 	var/datum/hud/our_hud = viewer.hud_used
 	if(viewers[our_hud]) // Already have a copy of us? go away
 		return
-	LAZYOR(viewer.actions, src) // Move this in
+	viewer.actions |= src // Move this in
 	ShowTo(viewer)
 
 //Adds our action button to the screen of a player
@@ -168,7 +181,7 @@
 /datum/action/proc/HideFrom(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
 	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
-	LAZYREMOVE(viewer.actions, src)
+	viewer.actions -= src
 	if(button)
 		button.clean_up_keybinds(viewer)
 		qdel(button)
@@ -193,7 +206,7 @@
 		if(action == src) // This could be us, which is dumb
 			continue
 		var/atom/movable/screen/movable/action_button/button = action.viewers[owner.hud_used]
-		if(action.name == name && button.id)
+		if(action.name == name && button?.id)
 			bitfield |= button.id
 
 	bitfield = ~bitfield // Flip our possible ids, so we can check if we've found a unique one
@@ -566,7 +579,6 @@
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
 
-
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
@@ -652,6 +664,10 @@
 	S.action = null
 	return ..()
 
+/datum/action/spell_action/should_draw_cooldown()
+	var/datum/spell/S = target
+	return S.cooldown_handler.should_draw_cooldown()
+
 /datum/action/spell_action/Trigger(left_click)
 	if(!..())
 		return FALSE
@@ -672,7 +688,7 @@
 	var/datum/spell/spell = target
 
 	if(owner)
-		return spell.can_cast(owner)
+		return spell.can_cast(owner, show_message = TRUE)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
@@ -691,7 +707,7 @@
 	// Make a holder for the charge text
 	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
 	count_down_holder.plane = FLOAT_PLANE + 1.1
-	var/text = S.cooldown_handler.statpanel_info()
+	var/text = S.cooldown_handler.cooldown_info()
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
 

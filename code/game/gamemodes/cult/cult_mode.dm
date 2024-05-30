@@ -1,6 +1,3 @@
-/datum/game_mode
-	var/datum/team/cult/cult_team
-
 /datum/game_mode/proc/get_cult_team()
 	if(!cult_team)
 		new /datum/team/cult() // assignment happens in create_team()

@@ -680,6 +680,9 @@
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 
+/obj/structure/window/full/plasmabasic/BlockSuperconductivity()
+	return TRUE
+
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
@@ -700,6 +703,9 @@
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
+
+/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
+	return TRUE
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"

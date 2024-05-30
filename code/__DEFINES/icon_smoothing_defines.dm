@@ -57,10 +57,12 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_CARPET_CYAN S_TURF(13)
 #define SMOOTH_GROUP_CARPET_GREEN S_TURF(14)
 #define SMOOTH_GROUP_CARPET_ROYALBLACK S_TURF(15)
-#define SMOOTH_GROUP_CARPET_ROYALBLUE S_TURF(17)
+#define SMOOTH_GROUP_CARPET_ROYALBLUE S_TURF(16)
 #define SMOOTH_GROUP_CARPET_RED S_TURF(17)
 #define SMOOTH_GROUP_CARPET_ORANGE S_TURF(18)
 #define SMOOTH_GROUP_CARPET_PURPLE S_TURF(19)
+
+#define SMOOTH_GROUP_BAMBOO S_TURF(20)					///turf/simulated/floor/bamboo
 
 #define SMOOTH_GROUP_SIMULATED_TURFS S_TURF(24)			///turf/simulated
 #define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(25)			///turf/simulated/wall/material
@@ -91,6 +93,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_IRON_WALLS S_OBJ(9)				///turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron
 #define SMOOTH_GROUP_ABDUCTOR_WALLS S_OBJ(10)			///turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor
 #define SMOOTH_GROUP_TITANIUM_WALLS S_OBJ(11)			///turf/simulated/wall/mineral/titanium, /obj/structure/falsewall/titanium
+#define SMOOTH_GROUP_ASTEROID_WALLS S_OBJ(12)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
 #define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(13)		///turf/simulated/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
 #define SMOOTH_GROUP_SURVIVAL_TIANIUM_POD S_OBJ(14)		///turf/simulated/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod
 #define SMOOTH_GROUP_HIERO_WALL S_OBJ(15)				///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
@@ -98,7 +101,6 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_REGULAR_WALLS S_OBJ(17)			///turf/simulated/wall, /obj/structure/falsewall
 #define SMOOTH_GROUP_REINFORCED_WALLS S_OBJ(18)			///turf/simulated/wall/r_wall, /obj/structure/falsewall/reinforced
 #define SMOOTH_GROUP_CULT_WALLS S_OBJ(19)				///turf/simulated/wall/cult
-#define SMOOTH_GROUP_ASTEROID_WALLS S_OBJ(12)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
 
 #define SMOOTH_GROUP_WINDOW_FULLTILE S_OBJ(21)			///turf/simulated/indestructible/fakeglass, /obj/structure/window/full/basic, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced
 #define SMOOTH_GROUP_WINDOW_FULLTILE_BRASS S_OBJ(22)	///obj/structure/window/brass/fulltile

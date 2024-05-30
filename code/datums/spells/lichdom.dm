@@ -13,21 +13,11 @@
 	var/marked_item_uid
 	var/mob/living/current_body
 	var/resurrections = 0
-	var/existence_stops_round_end = FALSE
 
 	action_icon_state = "skeleton"
 
 /datum/spell/lichdom/create_new_targeting()
 	return new /datum/spell_targeting/self
-
-/datum/spell/lichdom/Destroy()
-	for(var/datum/mind/M in SSticker.mode.wizards) //Make sure no other bones are about
-		for(var/datum/spell/S in M.spell_list)
-			if(istype(S,/datum/spell/lichdom) && S != src)
-				return ..()
-	if(existence_stops_round_end)
-		GLOB.configuration.gamemode.disable_certain_round_early_end = FALSE
-	return ..()
 
 /datum/spell/lichdom/cast(list/targets, mob/user = usr)
 	for(var/mob/M in targets)
@@ -89,7 +79,6 @@
 	lich.Weaken(stun_time)
 	user.mind.transfer_to(lich)
 	equip_lich(lich)
-	RegisterSignal(lich, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_revivability_handler))
 
 	current_body = lich
 	cooldown_handler.recharge_duration += 1 MINUTES
@@ -134,12 +123,7 @@
 		H.unEquip(H.head)
 		equip_lich(H)
 
-	RegisterSignal(target, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_revivability_handler))
-	RegisterSignal(current_body, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_revivability_handler))
 	to_chat(user, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
-
-	existence_stops_round_end = TRUE
-	GLOB.configuration.gamemode.disable_certain_round_early_end = TRUE
 
 /datum/spell/lichdom/proc/is_revive_possible()
 	var/obj/item/marked_item = locateUID(marked_item_uid)
@@ -152,23 +136,6 @@
 	if(body_turf.z != item_turf.z)
 		return FALSE
 	return TRUE
-
-/datum/spell/lichdom/proc/check_revivability_handler()
-	SIGNAL_HANDLER
-
-	// There are other liches about, so round may still continue
-	for(var/datum/mind/M in SSticker.mode.wizards)
-		for(var/datum/spell/lichdom/S in M.spell_list)
-			if(S == src)
-				continue
-			// Other lich can still revive
-			if(S.is_revive_possible())
-				return
-			// Other lich is still alive
-			if(!QDELETED(S.current_body) && S.current_body.stat != DEAD)
-				return
-
-	GLOB.configuration.gamemode.disable_certain_round_early_end = is_revive_possible()
 
 /datum/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)

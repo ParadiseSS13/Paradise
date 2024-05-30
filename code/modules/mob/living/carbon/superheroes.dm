@@ -1,8 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/superheroes = list()
-	var/list/datum/mind/supervillains = list()
-	var/list/datum/mind/greyshirts = list()
-
 /datum/superheroes
 	var/name
 	var/desc
@@ -34,7 +29,7 @@
 		singlemutcheck(H, mutation, MUTCHK_FORCED)
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
-	if(default_spells.len)
+	if(length(default_spells))
 		for(var/spell in default_spells)
 			var/datum/spell/S = spell
 			if(!S)
@@ -161,7 +156,7 @@
 	return T
 
 /datum/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(SSticker.mode.greyshirts.len >= 3)
+	if(length(SSticker.mode.greyshirts) >= 3)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
 		return FALSE

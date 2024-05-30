@@ -158,19 +158,24 @@ td {
 	pointer-events: none;
 }
 
-.link {
-	display: inline;
+.link,
+.listedturf_link {
 	background: none;
 	border: none;
-	padding: 7px 14px;
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 	font-size: 13px;
+}
+
+.link {
+	display: inline;
+	padding: 7px 14px;
 	margin: 2px 2px;
 }
 
-.link:hover {
+.link:hover,
+.listedturf_link:hover {
 	text-decoration: underline;
 }
 
@@ -225,7 +230,8 @@ body.dark {
 	color: #b2c4dd;
 }
 
-.dark .link {
+.dark .link,
+.dark .listedturf_link{
 	color: #abc6ec;
 }
 
@@ -268,7 +274,8 @@ body.ntos {
 	color: #b2c4dd;
 }
 
-.ntos .link {
+.ntos .link,
+.ntos .listedturf_link{
 	color: #abc6ec;
 }
 
@@ -311,7 +318,8 @@ body.paradise {
 	color: #dec5bd;
 }
 
-.paradise .link {
+.paradise .link,
+.paradise .listedturf_link{
 	color: #edc1b2;
 }
 
@@ -354,6 +362,7 @@ body.syndicate {
 	color: #debdbd;
 }
 
-.syndicate .link {
+.syndicate .link,
+.syndicate .listedturf_link {
 	color: #edb2b2;
 }

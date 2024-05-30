@@ -271,7 +271,7 @@
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
-	if(!cores.len)
+	if(!length(cores))
 		to_chat(src, "No deactivated AI cores were found.")
 
 	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores

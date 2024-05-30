@@ -37,7 +37,7 @@
 		return
 
 	var/list/L = get_destinations(user)
-	if(!L.len)
+	if(!length(L))
 		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)

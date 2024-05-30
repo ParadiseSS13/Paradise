@@ -26,8 +26,8 @@ SUBSYSTEM_DEF(spacedrift)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 
-	while(currentrun.len)
-		var/atom/movable/AM = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/atom/movable/AM = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!AM)
 			processing -= AM

@@ -48,6 +48,9 @@
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(atom/A, params)
+	if(QDELETED(A))
+		return
+
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return

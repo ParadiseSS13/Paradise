@@ -153,7 +153,7 @@
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(!objective_items.len)
+	if(!length(objective_items))
 		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
@@ -228,9 +228,15 @@
 		/obj/item/autopsy_scanner,
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
-		/obj/item/rcd,
-		/obj/item/rpd,
-		/obj/item/mod/control
+		/obj/item/mod/control,
+		/obj/item/stamp,
+		/obj/item/melee/knuckleduster/nanotrasen,
+		/obj/item/melee/rapier,
+		/obj/item/storage/belt/rapier,
+		/obj/item/nuke_core,
+		/obj/item/nuke_core_container,
+		/obj/item/documents,
+		/obj/item/clothing/gloves/color/black/krav_maga
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -249,7 +255,8 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
+	var/area/our_area = get_area(src)
+	for(var/obj/machinery/computer/cryopod/C in our_area)
 		if(C.type == console_type)
 			control_computer = C
 			break
@@ -383,7 +390,7 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
 		if(R.fields["name"] == occupant.real_name)
@@ -426,7 +433,7 @@
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
 				if(announce_rank)
-					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+					announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 				else
 					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
@@ -585,10 +592,10 @@
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	log_admin("[key_name(E)] entered a stasis pod.")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
-	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
 
@@ -605,6 +612,9 @@
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()
 	return //Sorta gamey, but we don't really want these to be destroyed.
+
+/obj/machinery/cryopod/force_eject_occupant(mob/target)
+	go_out()
 
 /obj/machinery/cryopod/offstation
 	// Won't announce when used for cryoing.
@@ -660,7 +670,7 @@
 
 /proc/cryo_ssd(mob/living/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
-		return 0
+		return FALSE
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
@@ -671,15 +681,15 @@
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
-	if(free_cryopods.len)
+	if(length(free_cryopods))
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
 			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40, create_sparks = FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))

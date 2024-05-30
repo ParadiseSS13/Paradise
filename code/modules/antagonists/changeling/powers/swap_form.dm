@@ -23,7 +23,7 @@
 	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS))
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return FALSE
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
 		return FALSE
 	return TRUE

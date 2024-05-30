@@ -96,15 +96,15 @@
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
-		the_disk = locate()
+		the_disk = locate() in GLOB.nad_list
 
 /obj/item/pinpointer/proc/scanbomb()
 	if(!syndicate)
 		if(!the_bomb)
-			the_bomb = locate()
+			the_bomb = locate() in GLOB.nuke_list
 	else
 		if(!the_s_bomb)
-			the_s_bomb = locate()
+			the_s_bomb = locate() in GLOB.syndi_nuke_list
 
 /obj/item/pinpointer/proc/point_at_target(atom/target)
 	if(!target)
@@ -488,7 +488,7 @@
 		names[name] = H
 		name_counts[name] = 1
 
-	if(!names.len)
+	if(!length(names))
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 

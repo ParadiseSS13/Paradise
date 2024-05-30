@@ -236,7 +236,7 @@
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		var/area/area = get_area(src)
 		if(area)
-			message_admins("SMES deleted at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
+			message_admins("SMES deleted at (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			log_game("SMES deleted at ([area.name])")
 			investigate_log("<font color='red'>deleted</font> at ([area.name])","singulo")
 	if(terminal)

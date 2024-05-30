@@ -12,17 +12,21 @@
 	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
 
 /datum/action/changeling/sting/Destroy(force, ...)
-	if(cling.owner.current && cling.owner.current.middleClickOverride == click_override) // this is a very scuffed way of doing this honestly
-		cling.owner.current.middleClickOverride = null
 	QDEL_NULL(click_override)
 	if(cling.chosen_sting == src)
-		cling.chosen_sting = null
+		unset_sting()
 	return ..()
 
 /datum/action/changeling/sting/Trigger(left_click)
 	if(!cling.chosen_sting)
 		set_sting()
 	else
+		unset_sting()
+
+/datum/action/changeling/sting/Remove(mob/remove_from)
+	. = ..()
+	// Check that cling exists because in certain scenarios, it may have been deleted in Destroy() first.
+	if(cling?.chosen_sting == src)
 		unset_sting()
 
 /datum/action/changeling/sting/proc/set_sting()
@@ -57,7 +61,7 @@
 	if(ismachineperson(target))
 		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
 		return FALSE
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		sting_feedback(user, target)
 		take_chemical_cost()
 		return FALSE
@@ -67,7 +71,7 @@
 	if(!target)
 		return
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return TRUE

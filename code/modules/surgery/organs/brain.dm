@@ -101,7 +101,7 @@
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
 
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		decoy_brain = TRUE
 
 	if(!brain_already_exists)
@@ -148,7 +148,7 @@
 		to_chat(owner, "<span class='warning'>Your head feels foggy.</span>")
 	else if(prob(4))
 		owner.vomit()
-		to_chat(owner, "<span class='warning>'You feel nauseous.</span>")
+		to_chat(owner, "<span class='warning'>'You feel nauseous.</span>")
 
 /obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
 	if(prob(4))
@@ -158,17 +158,17 @@
 		owner.EyeBlurry(15 SECONDS)
 		to_chat(owner, "<span class='warning'>Your vision unfocuses.</span>")
 	else if(prob(3))
-		owner.Drowsy(20 SECONDS)
-		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
+		owner.Slur(60 SECONDS)
+		owner.Stuttering(60 SECONDS)
+		to_chat(owner, "<span class='warning'>You can't form your words properly.</span>")
 
 /obj/item/organ/internal/brain/proc/handle_severe_brain_damage()
 	if(prob(5))
 		owner.Hallucinate(60 SECONDS)
 		to_chat(owner, "<span class='warning'>You start losing your grip on reality.</span>")
-	else if(prob(10))
-		owner.Slur(60 SECONDS)
-		owner.Stuttering(60 SECONDS)
-		to_chat(owner, "<span class='warning'>You can't form your words properly.</span>")
+	else if(prob(3))
+		owner.Drowsy(20 SECONDS)
+		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
 	else if(prob(2))
 		owner.Stun(5 SECONDS)
 		to_chat(owner, "<span class='warning'>You stare forward in a stupor.</span>")

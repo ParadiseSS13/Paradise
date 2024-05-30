@@ -3,6 +3,7 @@
 
 /obj/machinery/iv_drip
 	name = "\improper IV drip"
+	desc = "Simply attach a bloodbag and puncture the patient with a needle, they'll have more blood in no time."
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
 	anchored = FALSE
@@ -92,7 +93,7 @@
 /obj/machinery/iv_drip/Move(NewLoc, direct)
 	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
-		return .
+		return
 	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
 
 #undef IV_TAKING

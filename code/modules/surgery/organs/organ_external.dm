@@ -185,6 +185,7 @@
 			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
 		return TRUE
+	return ..()
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -242,6 +243,8 @@
 
 	// See if bones need to break
 	check_fracture(brute)
+	// check if we need to inflict internal bleeding
+	check_for_internal_bleeding(brute)
 	// See if we need to inflict severe burns
 	check_for_burn_wound(burn)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
@@ -253,7 +256,7 @@
 	// High brute damage or sharp objects may damage internal organs
 	if(internal_organs && (brute_dam >= max_limb_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
 		// Damage an internal organ
-		if(internal_organs && internal_organs.len)
+		if(internal_organs && length(internal_organs))
 			var/obj/item/organ/internal/I = pick(internal_organs)
 			I.receive_damage(brute * 0.5)
 
@@ -272,7 +275,6 @@
 	if((brute_dam + burn_dam + brute + burn) < max_limb_damage)
 		brute_dam += brute
 		burn_dam += burn
-		check_for_internal_bleeding(brute)
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
@@ -286,7 +288,6 @@
 				can_inflict = max(0, can_inflict - brute)
 				//How much brute damage is left to inflict
 				brute = max(0, brute - temp)
-				check_for_internal_bleeding(brute)
 
 			if(burn > 0 && can_inflict)
 				//Inflict all burn damage we can
@@ -303,9 +304,9 @@
 				for(var/organ in children)
 					if(organ)
 						possible_points += organ
-			if(forbidden_limbs.len)
+			if(length(forbidden_limbs))
 				possible_points -= forbidden_limbs
-			if(possible_points.len)
+			if(length(possible_points))
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
 				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
@@ -463,7 +464,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/internal/I in internal_organs)
 				if(I.germ_level < germ_level)
 					candidate_organs |= I
-			if(candidate_organs.len)
+			if(length(candidate_organs))
 				target_organ = pick(candidate_organs)
 
 		if(target_organ)
@@ -496,7 +497,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > 30 && prob(damage))
+	if(damage > 15 && local_damage > min_broken_damage && prob(damage))
 		cause_internal_bleeding()
 
 /obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
@@ -743,6 +744,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	status |= ORGAN_INT_BLEEDING
 	custom_pain("You feel something rip in your [name]!")
+	playsound(owner, 'sound/effects/blood1.ogg', 170, TRUE)
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())

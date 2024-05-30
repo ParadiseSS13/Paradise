@@ -1,5 +1,3 @@
-//TODO: Flash range does nothing currently
-
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
 #define DEVASTATION_PROB 30 //The probability modifier for devistation, maths!
 #define HEAVY_IMPACT_PROB 5 //ditto
@@ -74,6 +72,10 @@
 				var/turf/M_turf = get_turf(M)
 				if(M_turf && M_turf.z == z0)
 					var/dist = get_dist(M_turf, epicenter)
+					if(isliving(M) && dist <= flash_range)
+						var/mob/living/to_flash = M
+						var/is_very_close_to_the_explosion = flash_range > (dist * 2)
+						to_flash.flash_eyes(is_very_close_to_the_explosion * 2, is_very_close_to_the_explosion, is_very_close_to_the_explosion) // Gets past sunglasses
 					var/baseshakeamount
 					if(orig_max_distance - dist > 0)
 						baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)
@@ -107,14 +109,12 @@
 					if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 						addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 
-		if(heavy_impact_range > 1)
-			var/datum/effect_system/explosion/E
-			if(smoke)
-				E = new /datum/effect_system/explosion/smoke
-			else
-				E = new
-			E.set_up(epicenter)
-			E.start()
+		if(devastation_range > 0)
+			new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
+		else if(heavy_impact_range > 0)
+			new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, FALSE)
+		else if(light_impact_range > 0)
+			new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
 
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
@@ -275,6 +275,44 @@
 	for(var/turf/T in wipe_colours)
 		T.color = null
 		T.maptext = ""
+
+/**
+ * Creates an explosion of shrapnel at a turf.
+ * - /turf/epicenter - where the explosion occurs
+ * - shrapnel_number - the amount of shrapnel to create
+ * - /obj/item/projectile/shrapnel_type - the type of shrapnel bullets to shoot
+ * - chance_to_hit_same_turf - the probability to hit someone on the same turf, doubled for someone lying down
+ */
+/proc/create_shrapnel(turf/epicenter, shrapnel_number = 10, obj/item/projectile/shrapnel_type = /obj/item/projectile/bullet/shrapnel, chance_to_hit_same_turf = 50)
+	epicenter = get_turf(epicenter)
+	if(!epicenter || !shrapnel_number || !shrapnel_type)
+		return
+	shrapnel_number = min(shrapnel_number, 200) // calm down badmins, no crashing the server
+
+	var/angle_increment = 360 / shrapnel_number
+	var/mob/living/mob_standing_on_turf
+	var/mob/living/mob_lying_on_turf
+
+	for(var/mob/living/M in epicenter) //find a mob at the epicenter. Non-prone mobs take priority
+		if(!IS_HORIZONTAL(M) && !mob_standing_on_turf)
+			mob_standing_on_turf = M
+		else if(!mob_lying_on_turf)
+			mob_lying_on_turf = M
+
+	for(var/i in 1 to shrapnel_number)
+		var/obj/item/projectile/Shrapnel = new shrapnel_type(epicenter)
+
+		// You can't just stand over a shrapnel explosion to avoid it
+		if(mob_standing_on_turf && prob(chance_to_hit_same_turf))
+			Shrapnel.Bump(mob_standing_on_turf, TRUE)
+			continue
+		// If you dive on it, you're even more likely to get hit
+		if(mob_lying_on_turf && prob(2 * chance_to_hit_same_turf))
+			Shrapnel.Bump(mob_lying_on_turf, TRUE)
+			continue
+
+		var/angle = i * angle_increment + rand(-angle_increment / 2, angle_increment / 2)
+		Shrapnel.fire(angle)
 
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB

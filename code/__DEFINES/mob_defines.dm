@@ -173,10 +173,10 @@
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN 	(1<<3)
 
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
-#define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
-#define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
+#define DEFAULT_ITEM_STRIP_DELAY		4 SECONDS  //time taken to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY		2 SECONDS  //time taken to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
 
@@ -263,8 +263,6 @@
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
-
 #define iscameramob(A)	(istype((A), /mob/camera))
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
@@ -300,6 +298,7 @@
 #define HEALTH_HUD_OVERRIDE_HEALTHY 3
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
+#define FLASH_PROTECTION_EXTRA_SENSITIVE -2
 #define FLASH_PROTECTION_SENSITIVE -1
 #define FLASH_PROTECTION_NONE 0
 #define FLASH_PROTECTION_FLASH 1
@@ -359,3 +358,9 @@
 #define TS_TIER_3 3
 #define TS_TIER_4 4
 #define TS_TIER_5 5
+
+/* Defines used for `incorporeal_move` */
+#define NO_INCORPOREAL_MOVE				0
+#define INCORPOREAL_MOVE_NORMAL			1
+#define INCORPOREAL_MOVE_NINJA			2
+#define INCORPOREAL_MOVE_HOLY_BLOCK		3

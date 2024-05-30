@@ -10,10 +10,10 @@ SUBSYSTEM_DEF(title)
 
 	for(var/S in provisional_title_screens)
 		var/list/L = splittext(S,"+")
-		if(L.len == 1 && L[1] != "blank.png")
+		if(length(L) == 1 && L[1] != "blank.png")
 			title_screens += S
 
-		else if(L.len > 1)
+		else if(length(L) > 1)
 			if(use_rare_screens && lowertext(L[1]) == "rare")
 				title_screens += S
 
@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(title)
 		if(length(title_screens) > 1)
 			for(var/S in title_screens)
 				var/list/L = splittext(S,".")
-				if(L.len != 2 || L[1] != "default")
+				if(length(L) != 2 || L[1] != "default")
 					continue
 				title_screens -= S
 				break

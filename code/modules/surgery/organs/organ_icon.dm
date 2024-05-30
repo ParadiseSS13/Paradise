@@ -5,7 +5,7 @@
 	child_icons.Cut()
 	// This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/organ in contents)
-		if(organ.children && organ.children.len)
+		if(organ.children && length(organ.children))
 			for(var/obj/item/organ/external/child in organ.children)
 				overlays += child.mob_icon
 				child_icons += child.mob_icon
@@ -151,7 +151,7 @@
 	return mob_icon //Don't need to blend the above into this as it's handled in human/update_icons(). The overlays are for rendering stuff on disembodied heads.
 
 /obj/item/organ/external/proc/get_icon_state(skeletal)
-	var/gender
+	var/body
 	var/icon_file
 	var/new_icon_state
 	if(!dna)
@@ -159,18 +159,17 @@
 		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
 	else
 		if(gendered_icon)
-			switch(dna.GetUITriState(DNA_UI_GENDER))
+			switch(dna.GetUITriState(DNA_UI_BODY_TYPE))
 				if(DNA_GENDER_FEMALE)
-					gender = "f"
-				if(DNA_GENDER_MALE)
-					gender = "m"
+					body = "f"
 				else
-					gender = "f"	//Default to "f" (per line 162). Using a pick("m", "f") will make different body parts different genders for the same character.
+					body = "m"
+
 		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 
-		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
+		new_icon_state = "[icon_name][body ? "_[body]" : ""]"
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'

@@ -110,7 +110,6 @@
 //Toggle night vision: lets the revenant toggle its night vision
 /datum/spell/night_vision/revenant
 	base_cooldown = 0
-	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
@@ -119,7 +118,6 @@
 /datum/spell/revenant_transmit
 	name = "Transmit"
 	desc = "Telepathically transmits a message to the target."
-	panel = "Revenant Abilities"
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "r_transmit"
@@ -145,7 +143,6 @@
 	name = "Spell"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
-	panel = "Revenant Abilities (Locked)"
 	/// How long it reveals the revenant in deciseconds
 	var/reveal = 8 SECONDS
 	/// How long it stuns the revenant in deciseconds
@@ -163,6 +160,9 @@
 		name = "[initial(name)] ([unlock_amount]E)"
 	else
 		name = "[initial(name)] ([cast_amount]E)"
+	action.name = name
+	action.desc = desc
+	action.UpdateButtons()
 
 /datum/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
@@ -189,7 +189,6 @@
 			return FALSE
 		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
-		panel = "Revenant Abilities"
 		locked = FALSE
 		cooldown_handler.revert_cast()
 		return FALSE

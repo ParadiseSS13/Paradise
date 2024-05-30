@@ -302,6 +302,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/canister/attack_ghost(mob/user)
+	if(..())
+		return
 	return ui_interact(user)
 
 /obj/machinery/atmospherics/portable/canister/attack_hand(mob/user)
@@ -383,12 +385,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 					logmsg = "Valve was <b>opened</b> by [key_name(ui.user)], starting a transfer into the air.<br>"
 
 					if(air_contents.toxins > 0)
-						message_admins("[key_name_admin(ui.user)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains plasma in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(ui.user)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of plasma")
 
 					if(air_contents.sleeping_agent > 0)
-						message_admins("[key_name_admin(ui.user)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains N2O in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(ui.user)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of N2O")
 

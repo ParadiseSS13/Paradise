@@ -21,6 +21,11 @@ menu "menu"
 		command = "SS-Info-Breakdown"
 		category = "&File"
 		is-disabled = true
+	elem "profilecode"
+		name = "&Profile Code"
+		command = ".profile"
+		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"
@@ -341,7 +346,7 @@ window "outputwindow"
 		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
 		is-flat = true
 		button-type = pushbox
-	elem "browseroutput"
+	elem "chat_panel"
 		type = BROWSER
 		pos = 0,0
 		size = 640x456

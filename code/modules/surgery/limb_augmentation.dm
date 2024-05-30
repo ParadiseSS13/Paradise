@@ -32,7 +32,8 @@
 			var/obj/item/organ/external/affected = target.get_organ(target_zone)
 			user.visible_message(
 				"[user] starts augmenting [affected] with [tool].",
-				"You start augmenting [affected] with [tool]."
+				"You start augmenting [affected] with [tool].",
+				chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 			return ..()
 	to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
@@ -45,7 +46,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",
-		"<span class='notice'>You augment [affected] with [tool].</span>"
+		"<span class='notice'>You augment [affected] with [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	if(L.part)

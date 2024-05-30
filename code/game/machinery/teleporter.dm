@@ -93,8 +93,8 @@
 		data["teleporterhub"] = null
 		data["calibrated"] = null
 	data["regime"] = regime
-	var/area/targetarea = get_area(target)
-	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
+	var/area/target_area = get_area(target)
+	data["target"] = target_area ? sanitize(target_area.name) : "None"
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
@@ -246,7 +246,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 	var/list/S = power_station.linked_stations
-	if(!S.len)
+	if(!length(S))
 		return L
 	for(var/obj/machinery/teleport/station/R in S)
 		var/turf/T = get_turf(R)
@@ -633,7 +633,7 @@
 	var/obj/item/multitool/M = I
 	if(!panel_open)
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
-			if(linked_stations.len < efficiency)
+			if(length(linked_stations) < efficiency)
 				linked_stations.Add(M.buffer)
 				M.buffer = null
 				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>")
