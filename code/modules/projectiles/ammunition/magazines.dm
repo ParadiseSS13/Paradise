@@ -629,4 +629,4 @@
 	name = "\improper C-Foam canister"
 	desc = "A canister containing inert foam for the C-Foam launcher."
 	icon_state = "c20r45"
-	ammo_type = /obj/item/ammo_casing/caseless
+	ammo_type = /obj/item/ammo_casing/caseless/c_foam

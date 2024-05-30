@@ -48,6 +48,9 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
+	/// How many levels of foam do we have on us? Capped at 5
+	var/foam_level = 0
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
@@ -90,7 +93,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(operating || emagged)
+	if(operating || emagged || foam_level)
 		return
 	if(ismob(AM))
 		var/mob/B = AM
@@ -142,6 +145,9 @@
 		return
 	add_fingerprint(user)
 
+	if(foam_level)
+		return
+
 	if(density && !emagged)
 		if(allowed(user))
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -164,8 +170,12 @@
 	if(isterrorspider(user))
 		return
 
+	if(foam_level)
+		return
+
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE
+
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		if(!V.bloodusable)
@@ -201,7 +211,7 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged)
+	if(operating || emagged || foam_level)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
@@ -528,9 +538,9 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-	
+
 	QDEL_LIST_CONTENTS(fillers)
-	
+
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
@@ -571,3 +581,21 @@
 
 	for(var/obj/airlock_filler_object/filler as anything in fillers)
 		filler.set_opacity(opacity)
+
+/obj/machinery/door/proc/foam_up(amount)
+	if(!foam_level)
+		new /obj/structure/barricade/foam(get_turf(src))
+		foam_level++
+		return
+
+	if(foam_level == 5)
+		return
+
+	for(var/obj/structure/barricade/foam/blockage in loc.contents)
+		blockage.foam_level = min(++blockage.foam_level, 5)
+		// The last level will increase the integrity by 50 instead of 25
+		if(foam_level == 4)
+			blockage.obj_integrity += 50
+		else
+			blockage.obj_integrity += 25
+		foam_level++

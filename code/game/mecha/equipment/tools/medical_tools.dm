@@ -527,7 +527,7 @@
 	if(!action_checks(target))
 		return
 	if(isobj(target))
-		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
+		if(!isairlock(target))//early return if we're not trying to open a door
 			return
 		var/obj/machinery/door/D = target	//the door we want to open
 		D.try_to_crowbar(chassis.occupant, src)//use the door's crowbar function
