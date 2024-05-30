@@ -52,7 +52,7 @@
 	return TRUE
 
 /obj/machinery/economy/merch/proc/attempt_transaction(datum/merch_item/merch, mob/user)
-	if(cash_stored >= merch.cost)
+	if(cash_transaction >= merch.cost)
 		if(pay_with_cash(merch.cost, "Purchase of [merch.name]", name, user, account_database.vendor_account))
 			give_change(user)
 			return TRUE
