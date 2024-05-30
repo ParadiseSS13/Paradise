@@ -625,16 +625,17 @@
 
 /datum/status_effect/breaching_and_cleaving/on_apply()
 	. = ..()
+	if(!ishuman(owner))
+		return
 	if(.)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.physiology.armor.modifyRating(0 , 30, 30, 30, 0, 0, 50)
-			H.physiology.stamina_mod *= 0.8
+		var/mob/living/carbon/human/H = owner
+		H.physiology.armor.modifyRating(0, 30, 30, 30, 0, 0, 50)
+		H.physiology.stamina_mod *= 0.8
 
 /datum/status_effect/breaching_and_cleaving/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.armor.modifyRating(0 , -30, -30, -30, 0, 0, -50)
+		H.physiology.armor.modifyRating(0, -30, -30, -30, 0, 0, -50)
 		H.physiology.stamina_mod /= 0.8
 
 /datum/status_effect/hope
