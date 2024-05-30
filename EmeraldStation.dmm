@@ -606,6 +606,10 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/rnd)
+"aAN" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "aCl" = (
 /obj/structure/table,
 /turf/simulated/floor/grass,
@@ -651,6 +655,10 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
+"aDx" = (
+/obj/item/clothing/under/rank/medical/nurse,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "aDy" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -2196,6 +2204,9 @@
 /obj/effect/landmark/start/detective,
 /turf/simulated/floor/plasteel,
 /area/station/security/detective)
+"bPF" = (
+/turf/space,
+/area/station/maintenance/aft2)
 "bPJ" = (
 /obj/structure/sink{
 	dir = 4;
@@ -2476,6 +2487,11 @@
 	icon_state = "dark"
 	},
 /area/station/security/range)
+"cbA" = (
+/obj/structure/bed/roller,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "cbS" = (
 /obj/machinery/door/airlock/glass{
 	name = "Prison"
@@ -2674,6 +2690,11 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
+"cmh" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "cmq" = (
 /obj/structure/rack{
 	dir = 8;
@@ -3270,6 +3291,10 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
+"cGr" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "cGD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
@@ -3934,6 +3959,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"dls" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "dlx" = (
 /obj/machinery/computer/message_monitor,
 /turf/simulated/floor/engine,
@@ -4490,6 +4521,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/chemistry)
+"dIP" = (
+/obj/effect/spawner/window/reinforced,
+/turf/space,
+/area/station/maintenance/aft2)
 "dJy" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Chamber Observation"
@@ -6509,6 +6544,17 @@
 	},
 /turf/space,
 /area/station/maintenance/starboardsolar)
+"fpL" = (
+/obj/structure/table,
+/obj/item/storage/backpack/duffel/medical,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner";
+	pixel_x = -9;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "fpO" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos/transit)
@@ -8820,6 +8866,12 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay2)
+"hda" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "hdn" = (
 /obj/machinery/computer/teleporter,
 /turf/simulated/floor/plasteel{
@@ -9194,6 +9246,7 @@
 "hpE" = (
 /obj/item/clown_recorder,
 /obj/item/grown/bananapeel/traitorpeel,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/lubed,
 /area/station/maintenance/aft)
 "hpO" = (
@@ -9275,6 +9328,12 @@
 /obj/structure/closet/crate/hydroponics/prespawned,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
+"hum" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "hux" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -13397,6 +13456,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology)
+"kFs" = (
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "kFD" = (
 /turf/simulated/wall,
 /area/station/engineering/control)
@@ -13422,6 +13485,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/range)
+"kHI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "kHZ" = (
 /turf/simulated/wall,
 /area/station/engineering/tech_storage)
@@ -14434,6 +14507,10 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/medical/virology)
+"luT" = (
+/obj/structure/chair/wheelchair,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "luX" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -14457,6 +14534,10 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
+"lvF" = (
+/obj/machinery/atmospherics/unary/cryo_cell,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "lvH" = (
 /turf/simulated/floor/plating,
 /area/space)
@@ -14896,6 +14977,8 @@
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/item/reagent_containers/spray/cyborg_lube,
+/obj/item/clothing/gloves/color/rainbow/clown,
+/obj/item/gun/energy/clown,
 /turf/simulated/floor/lubed,
 /area/station/maintenance/aft)
 "lMw" = (
@@ -15051,6 +15134,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"lTE" = (
+/obj/structure/bed,
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/item/clothing/under/rank/medical/nursesuit,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "lUW" = (
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
@@ -15285,6 +15375,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"mep" = (
+/obj/structure/closet/body_bag,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "meA" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
@@ -19691,6 +19787,10 @@
 	pixel_y = 16;
 	pixel_x = 8
 	},
+/obj/item/coin/clown{
+	pixel_x = -6;
+	pixel_y = 10
+	},
 /obj/item/food/snacks/burger/clown,
 /turf/simulated/floor/lubed,
 /area/station/maintenance/aft)
@@ -19712,6 +19812,13 @@
 "pzS" = (
 /turf/simulated/wall,
 /area/station/security/armory/secure)
+"pAk" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "pAm" = (
 /obj/structure/table,
 /turf/simulated/floor/carpet/cyan,
@@ -20272,6 +20379,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"pVM" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "pVZ" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 2;
@@ -20516,6 +20627,7 @@
 /obj/structure/sign/poster/contraband/clown{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qib" = (
@@ -21544,6 +21656,14 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"rcA" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/item/roller{
+	pixel_x = -2;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "rcS" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/space,
@@ -22707,6 +22827,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"rZj" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Portable Air Pump Connector"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "saa" = (
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/plasteel,
@@ -23606,6 +23732,10 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"sMc" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "sMs" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
@@ -23702,6 +23832,10 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"sRI" = (
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "sRJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -26289,6 +26423,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/prison/cell_block)
+"uTB" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "uTG" = (
 /obj/structure/table/wood,
 /obj/item/card/id/captains_spare,
@@ -67545,7 +67684,7 @@ cLp
 mpT
 xaN
 xaN
-xaN
+aIj
 aIj
 jnP
 jnP
@@ -67802,8 +67941,8 @@ mpT
 mpT
 xaN
 xaN
-xaN
 aIj
+bPF
 jnP
 jnP
 jnP
@@ -68059,8 +68198,8 @@ cLp
 mpT
 xaN
 xaN
-xaN
 aIj
+bPF
 jnP
 jnP
 jnP
@@ -68316,8 +68455,8 @@ mpT
 mpT
 xaN
 xaN
-xaN
 aIj
+bPF
 jnP
 jnP
 jnP
@@ -68573,8 +68712,8 @@ aNo
 mpT
 xaN
 xaN
-xaN
 aIj
+bPF
 jnP
 jnP
 jnP
@@ -68830,7 +68969,7 @@ rQa
 mpT
 xaN
 xaN
-xaN
+aIj
 aIj
 jnP
 jnP
@@ -69077,7 +69216,7 @@ xaN
 xaN
 xaN
 xaN
-xaN
+aIj
 xaN
 mpT
 mpT
@@ -69844,8 +69983,8 @@ xaN
 aIj
 aIj
 aIj
-xaN
-xaN
+kFs
+sRI
 aIj
 aIj
 nCK
@@ -70099,12 +70238,12 @@ aIj
 xaN
 xaN
 aIj
+sMc
+dls
+cGr
 xaN
-xaN
-xaN
-xaN
-xaN
-xaN
+fpL
+hum
 nCK
 ooy
 vtB
@@ -70356,12 +70495,12 @@ xaN
 xaN
 xaN
 aIj
+cmh
+kHI
+luT
 xaN
-xaN
-xaN
-xaN
-xaN
-xaN
+aDx
+cbA
 nCK
 vbE
 xyV
@@ -70613,12 +70752,12 @@ xaN
 xaN
 xaN
 aIj
+lvF
+uTB
+aAN
+rcA
 xaN
-xaN
-xaN
-xaN
-xaN
-xaN
+mep
 nCK
 tzp
 gmb
@@ -70870,12 +71009,12 @@ xaN
 xaN
 xaN
 aIj
+rZj
+hda
 xaN
 xaN
-xaN
-xaN
-xaN
-xaN
+lTE
+pAk
 nCK
 nCK
 nCK
@@ -71128,10 +71267,10 @@ xaN
 xaN
 aIj
 aIj
-aIj
-xaN
-xaN
-aIj
+dIP
+pVM
+pVM
+dIP
 aIj
 aIj
 xaN
