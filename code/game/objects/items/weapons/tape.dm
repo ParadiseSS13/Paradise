@@ -93,6 +93,21 @@
 	///The tape type you get when ripping off a piece of tape.
 	var/obj/tape_gag = /obj/item/clothing/mask/muzzle/tapegag
 
+/obj/item/stack/sticky_tape/Initialize(mapload)
+	. = ..()
+
+/obj/item/stack/sticky_tape/update_icon_state()
+	var/amount = get_amount()
+	if((amount <= 2) && (amount > 0))
+		icon_state = "taperoll"
+	if((amount <= 4) && (amount > 2))
+		icon_state = "taperoll-2"
+	if((amount <= 6) && (amount > 4))
+		icon_state = "taperoll-3"
+	if(amount > 6)
+		icon_state = "taperoll-4"
+	else
+		icon_state = "taperoll-4"
 
 /obj/item/stack/sticky_tape/attack_hand(mob/user, list/modifiers)
 	var/obj/item/held_item = user.get_inactive_hand()

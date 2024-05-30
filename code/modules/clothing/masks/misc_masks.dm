@@ -89,40 +89,42 @@
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape piece"
 	desc = "MHPMHHH!"
-	icon = 'icons/obj/tapes.dmi'
-	icon_state = "tape_piece_worn"
+	// icon = 'icons/obj/tapes.dmi'
+	// icon_override = 'icons/obj/tapes.dmi'
+	// icon_state = "tape_piece_worn"
+	// item_state = "tape_piece"
+	icon_state = "tapegag"
 	item_state = "tapegag"
 	w_class = WEIGHT_CLASS_TINY
 	mute = MUZZLE_MUTE_MUFFLE
 	resist_time = 30 SECONDS
-	strip_delay = 40
+	strip_delay = 50
 	///Dertermines whether the tape piece does damage when ripped off of someone.
 	var/harmful_strip = FALSE
 	///The ammount of damage dealt when the tape piece is ripped off of someone.
 	var/stripping_damage = 0
 
-/obj/item/clothing/mask/muzzle/tapegag/examine(mob/user)
-	. = ..()
-	. += "[span_notice("Use it on someone while not in combat mode to tape their mouth closed!")]"
-
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/user)
-	. = ..()
-	if(user.get_item_by_slot(SLOT_FLAG_MASK) != src)
+	..()
+	if(user.get_item_by_slot(SLOT_HUD_WEAR_MASK) != src)
 		return
-	playsound(src, 'sound/items/poster_ripped.ogg', 40, TRUE)
-	//playsound(user, 'sound/items/duct_tape_rip.ogg', 50, TRUE)
+	playsound(user, 'sound/items/duct_tape_rip.ogg', 50, TRUE) // or src idk
 	if(harmful_strip)
 		user.apply_damage(stripping_damage, BRUTE, BODY_ZONE_HEAD)
-		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, emote), "scream")
+		user.emote("scream") // CHUGAFIX this doesnt evoke because they're not unmuzzled yet
 		to_chat(user, span_userdanger("You feel a massive pain as hundreds of tiny spikes tear free from your face!"))
 
-/obj/item/clothing/mask/muzzle/tapegag/attack(mob/living/carbon/victim, mob/living/carbon/attacker, params)
-	if(victim.is_mouth_covered(SLOT_FLAG_HEAD))
+/obj/item/clothing/mask/muzzle/tapegag/attack(mob/living/carbon/human/victim, mob/living/carbon/human/attacker, params)
+	if(victim.is_mouth_covered())
 		to_chat(attacker, span_notice("[victim]'s mouth is covered."))
 		return
-	//if(!mob_can_equip(victim, SLOT_FLAG_MASK))
+
 	if(victim.wear_mask)
-		to_chat(attacker, span_notice("[victim] is already wearing somthing on their face."))
+		to_chat(attacker, span_notice("[victim] is already wearing something on their face."))
+		return
+
+	if(!victim.check_has_mouth())
+		to_chat(attacker, "[victim.p_they(TRUE)] [victim.p_have()] no mouth to tape over!")
 		return
 
 	attacker.visible_message("<span class='warning'>[attacker] is taping [victim]'s mouth closed!</span>",
@@ -131,10 +133,15 @@
 
 	to_chat(victim, span_userdanger("[attacker] is attempting to tape your mouth closed!"))
 
-	if(!do_after(attacker, 40, target = victim)) // ===CHUGAFIX=== equip_delay_other = 40
+	if(!do_after(attacker, 5 SECONDS, target = victim)) // ===CHUGAFIX=== equip_delay_other = 50
 		return
-	victim.equip_to_slot_if_possible(src, SLOT_FLAG_MASK)
-	update_appearance()
+
+	if(victim.wear_mask)
+		to_chat(attacker, "<span class='notice'>[victim == attacker ? attacker : victim]'s mouth is already covered!</span>")
+		return
+	attacker.unEquip(src, force = TRUE)
+	victim.equip_to_slot(src, SLOT_HUD_WEAR_MASK)
+	add_fingerprint(attacker)
 
 /obj/item/clothing/mask/muzzle/tapegag/super
 	name = "super tape piece"
