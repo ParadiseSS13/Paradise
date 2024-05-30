@@ -80,7 +80,10 @@
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
-	. += "<span class='notice'>Can be recharged with a recharger</span>"
+		if(round(cell.percent() < 100))
+			. += "<span class='notice'>Can be recharged with a recharger</span>"
+	else
+		. += "<span class='notice'>The powercell has been removed!</span>"
 
 /obj/item/melee/secsword/update_icon_state()
 	if(!cell)
