@@ -19,9 +19,6 @@
 	var/lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	var/direction
 	var/causes_coughing = FALSE
-	
-/obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
-	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 
 /obj/effect/particle_effect/smoke/Initialize(mapload)
 	..()
@@ -37,6 +34,10 @@
 	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE))
 	GLOB.smokes_active--
 	return ..()
+
+/obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
+	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
+
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	STOP_PROCESSING(SSobj, src)
