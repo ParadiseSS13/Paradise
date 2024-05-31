@@ -903,6 +903,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return FALSE
 
 /obj/add_blood(list/blood_dna, b_color)
+	blood_color = b_color
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, b_color)
