@@ -222,3 +222,18 @@
 
 /area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
+
+// Emerald Station
+
+/area/station/maintenance/dorms
+	name = "Dorms Maintenance"
+	icon_state = "dorms_maint"
+/area/station/maintenance/dorms/port
+	name = "Dorms Port Maintenance"
+	icon_state = "dorms_maint_port"
+/area/station/maintenance/dorms/starboard
+	name = "Dorms Starboard Maintenance"
+	icon_state = "dorms_maint_starboard"
+/area/station/maintenance/dorms/aft
+	name = "Dorms Aft Maintenance"
+	icon_state = "dorms_maint_aft"
