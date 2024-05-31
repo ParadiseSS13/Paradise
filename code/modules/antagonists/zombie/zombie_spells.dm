@@ -133,8 +133,14 @@
 		return
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 		return FALSE
+
 	if(target.reagents.has_reagent("zombiecure1") || target.reagents.has_reagent("spaceacillin"))
 		return
+
+	var/obj/item/organ/external/affecting = get_organ(user.zone_selected) // Head, or Chest.
+	if(affecting.is_robotic())
+		return // We don't want people to be infected via zombie claws if they're augmented or have robotic limbs. Bites are handled differently.
+
 	if(prob(3 * target.getarmor(user.zone_selected, MELEE)) || prob(50)) // more than 33.34 melee armor will always protect you! Or just get lucky B)
 		return // Armor blocks zombies trying to eat your brains!
 
