@@ -296,6 +296,12 @@
 	taste_description = "blood"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
+/datum/reagent/medicine/heal_on_apply/synthflesh/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	var/mob/living/carbon/human/H = M
 	if(ishuman(H) && HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT)
@@ -933,7 +939,7 @@
 						H.decaylevel = 0
 						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
-							// 15% * H.decaylevel (1 to 4) 
+							// 15% * H.decaylevel (1 to 4)
 							// Min of 0%, Max of 60%
 							if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
 								// side effects may include: Organ failure
