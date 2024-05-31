@@ -269,6 +269,12 @@
 	..()
 	reagents.add_reagent("haloperidol", 15)
 
+/obj/item/projectile/bullet/dart/syringe/holy
+
+/obj/item/projectile/bullet/dart/syringe/holy/New()
+	..()
+	reagents.add_reagent("holywater", 10)
+
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"
