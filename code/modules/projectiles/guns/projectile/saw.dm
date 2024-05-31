@@ -16,6 +16,7 @@
 	can_suppress = FALSE
 	burst_size = 1
 	spread = 7
+	fire_delay = 0
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()
