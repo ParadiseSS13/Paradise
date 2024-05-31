@@ -242,7 +242,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(location)
 		location.hotspot_expose(700, 5)
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
-		var/units_to_smoke = (first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			for(var/datum/reagent/R in reagents.reagent_list)
