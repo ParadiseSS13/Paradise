@@ -48,7 +48,7 @@
 //Security Sword
 /obj/item/melee/secsword
 	name = "securiblade"
-	desc = "This nanite-honed blade comes with a battery in the hilt, to add an electric shock to every swing."
+	desc = "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "secsword0"
@@ -89,6 +89,18 @@
 			. += "<span class='notice'>Can be recharged with a recharger</span>"
 	else
 		. += "<span class='notice'>The powercell has been removed!</span>"
+
+/obj/item/melee/secsword/examine_more(mob/user)
+	. = ..()
+	. += "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
+	. += ""
+	. += "The Securiblade is a simple blade of lightweight silver plasteel, honed to a nano-thin edge and with a simple \
+	power pack built into the hilt. A multi-purpose option for the NT Officer with a flair for the impractical, the \
+	Securiblade serves just as well as a regular sword, as it does a stun weapon or even an energized, heated combat tool."
+	. += ""
+	. += "While not the most popular option among the officers of Nanotrasen’s security forces, it has still been valued for the multiple \
+	options it presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, \
+	heated blade that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it."
 
 /obj/item/melee/secsword/update_icon_state()
 	if(!cell)
