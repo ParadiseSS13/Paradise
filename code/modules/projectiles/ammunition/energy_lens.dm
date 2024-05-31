@@ -292,6 +292,11 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
 
+/obj/item/ammo_casing/energy/cmag
+	projectile_type = /obj/item/projectile/beam/cmagged
+	fire_sound = 'sound/weapons/gunshots/pew.ogg'
+	select_name = "honklaser"
+
 /obj/item/ammo_casing/energy/emitter
 	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN

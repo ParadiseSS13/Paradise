@@ -347,3 +347,10 @@
 	new /obj/effect/particle_effect/sparks(get_turf(src))
 	return ..()
 
+/obj/item/projectile/beam/cmagged
+	name = "\improper HONK LASER"
+	icon_state = "honkbeam"
+	light_color = LIGHT_COLOR_YELLOW
+	hitsound = 'sound/items/bikehorn.ogg'
+	hitsound_wall = 'sound/items/squeaktoy.ogg'
+	damage = 0

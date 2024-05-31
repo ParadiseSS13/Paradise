@@ -141,6 +141,9 @@
 	var/muzzle_strength = chambered?.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		fire_sound = 'sound/weapons/gunshots/pew.ogg'
+
 	if(suppressed)
 		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
@@ -201,7 +204,7 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && !HAS_TRAIT(src, TRAIT_CMAGGED) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
