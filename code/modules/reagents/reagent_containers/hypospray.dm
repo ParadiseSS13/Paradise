@@ -224,3 +224,45 @@
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure
+	name = "Parent viral hypospray"
+	desc = "Don't spawn this one. It's the parent."
+	icon_state = "zombiepen"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	container_type = null //No sucking out the reagent
+	list_reagents = list("zombiecure1" = 15) //just in case an admin spawns and gives it to the crew without checking, might be slightly useful
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
+	if(..())
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1) //Sucker for sounds, also gets zombies attention.
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure
+	name = "Parent viral hypospray"
+	desc = "Don't spawn this one. It's the parent."
+	icon_state = "zombiepen"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	container_type = null //No sucking out the reagent
+	list_reagents = list("zombiecure1" = 15) //just in case an admin spawns and gives it to the crew without checking, might be slightly useful
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure1
+	name = "\improper Anti-Plague Sequence Alpha autoinjector"
+	desc = "A small autoinjector containing 15, units of Anti-Plague Sequence Alpha. Prevents infection, cures level 1 infection."
+	list_reagents = list("zombiecure1" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
+	name = "\improper Anti-Plague Sequence Beta autoinjector"
+	desc = "A small autoinjector containing 15, units of Anti-Plague Sequence Beta. Weakens zombies, heals low infections."
+	list_reagents = list("zombiecure2" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3
+	name = "\improper Anti-Plague Sequence Gamma autoinjector"
+	desc = "A small autoinjector containing 15, units of Anti-Plague Sequence Gamma. Lowers zombies healing. Heals stage 5 and slows stage 6 infections."
+	list_reagents = list("zombiecure3" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4
+	name = "\improper Anti-Plague Sequence Omega autoinjector"
+	desc = "A small autoinjector containing 15, units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
+	list_reagents = list("zombiecure4" = 15)
