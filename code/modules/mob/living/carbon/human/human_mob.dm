@@ -1270,6 +1270,9 @@
 	if(default_language)
 		return default_language
 
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
+		return GLOB.all_languages["Zombie"]
+
 	if(!dna.species)
 		return null
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
@@ -2036,3 +2039,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using \a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
 		qdel(recipe)
 	to_chat(src, chat_box_examine(message.Join("<br>")))
+
+/mob/living/carbon/human/proc/get_unarmed_attack()
+	var/datum/antagonist/zombie/zombie = mind?.has_antag_datum(/datum/antagonist/zombie)
+	if(!istype(zombie))
+		return dna.species.unarmed
+	return zombie.claw_attack
+

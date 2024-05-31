@@ -655,10 +655,6 @@ h2.alert {
   color: #7c4848;
 }
 
-.zombie {
-  color: #ff0000;
-}
-
 .soghun {
   color: #228b22;
 }
@@ -758,6 +754,16 @@ h2.alert {
   color: #a60000;
   font-weight: bold;
   font-size: 200%;
+}
+
+.zombie {
+  color: #7c4848;
+}
+
+.zombielarge {
+  color: #7c4848;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .interface {
