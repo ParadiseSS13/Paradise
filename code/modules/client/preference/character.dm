@@ -5,6 +5,8 @@
 /datum/character_save
 	var/real_name							//our character's name
 	var/be_random_name = FALSE				//whether we are a random name every round
+	var/ai_name								//the default name for an AI
+	var/cyborg_name							//the default name for a borg
 	var/gender = MALE						//gender of character (well duh)
 	var/body_type = MALE					//body sprite variant
 	var/age = 30							//age of character
@@ -110,6 +112,18 @@
 // Fuckery to prevent null characters
 /datum/character_save/New()
 	real_name = random_name(gender, species)
+	ai_name = pick(GLOB.ai_names)
+	cyborg_name = get_cyborg_name()
+
+/datum/character_save/proc/get_cyborg_name()
+	var/braintype
+	if(cyborg_brain_type == MMI_BORG)
+		braintype = "Android"
+	else if(cyborg_brain_type == POSITRONIC_BORG)
+		braintype = "Cyborg"
+	else
+		braintype = "Robot"
+	return "Default [braintype]-[num2text(rand(1, 999))]"
 
 /datum/character_save/proc/save(client/C)
 	var/organ_list
@@ -140,6 +154,8 @@
 				SET
 					OOC_Notes=:metadata,
 					real_name=:real_name,
+					ai_name=:ai_name,
+					cyborg_name=:cyborg_name,
 					name_is_always_random=:be_random_name,
 					gender=:gender,
 					body_type=:body_type,
@@ -202,6 +218,8 @@
 						// OH GOD SO MANY PARAMETERS
 						"metadata" = metadata,
 						"real_name" = real_name,
+						"ai_name" = ai_name,
+						"cyborg_name" = cyborg_name,
 						"be_random_name" = be_random_name,
 						"gender" = gender,
 						"body_type" = body_type,
@@ -298,7 +316,8 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type,
+			ai_name, cyborg_name)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -325,13 +344,16 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type,
+			:ai_name, :cyborg_name)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
 		"slot" = slot_number,
 		"metadata" = metadata,
 		"name" = real_name,
+		"ai_name" = ai_name,
+		"cyborg_name" = cyborg_name,
 		"be_random_name" = be_random_name,
 		"gender" = gender,
 		"body_type" = body_type,
@@ -481,6 +503,8 @@
 	height = query.item[57]
 	cyborg_brain_type = query.item[58]
 	body_type = query.item[59]
+	ai_name = query.item[60]
+	cyborg_name = query.item[61]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]

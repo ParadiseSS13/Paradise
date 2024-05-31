@@ -200,7 +200,7 @@
 								var/mob/new_player/N = user
 								N.new_player_panel_proc()
 						else
-							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
 
 				if("age")
 					var/new_age = tgui_input_number(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference", active_character.age, S.max_age, S.min_age)
@@ -862,6 +862,23 @@
 					if(!(brain_type in GLOB.borg_brain_choices))
 						return
 					active_character.cyborg_brain_type = brain_type
+				if("ai_name")
+					var/raw_name = clean_input("Choose your AI name:", "Character Preference", null, user)
+					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
+						var/new_ai_name = reject_bad_name(raw_name, 1)
+						if(new_ai_name)
+							active_character.ai_name = new_ai_name
+						else
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
+				if("cyborg_name")
+					var/raw_name = clean_input("Choose your cyborg name:", "Character Preference", null, user)
+					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
+						var/new_cyborg_name = reject_bad_name(raw_name, 1)
+						if(new_cyborg_name)
+							active_character.cyborg_name = new_cyborg_name
+						else
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
+
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
