@@ -12,8 +12,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && !is_vamp)
+	if(ishuman(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
@@ -32,8 +31,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && !is_vamp)
+	if(ishuman(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			if(prob(50))

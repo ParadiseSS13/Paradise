@@ -51,6 +51,33 @@
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, def_zone)
 
+/// Tries to dodge incoming bullets if we aren't disabled for any reasons. Advised to overide with advanced effects, this is as basic example admins can apply.
+/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
+		return NONE
+	if(source.stat != CONSCIOUS)
+		return NONE
+	if(!prob(advanced_bullet_dodge_chance))
+		return NONE
+
+	source.visible_message(
+		"<span class='danger'>[source] [pick("dodges","jumps out of the way of","evades","dives out of the way of")] [hitting_projectile]!</span>",
+		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+	)
+	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	var/dir_to_avoid = angle2dir_cardinal(hitting_projectile.Angle)
+	var/list/potential_first_directions = list(NORTH, SOUTH, EAST, WEST)
+	potential_first_directions -= dir_to_avoid
+	step(source, pick(potential_first_directions))
+	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
+	// If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
+	if(prob(50))
+		addtimer(VARSET_CALLBACK(src, advanced_bullet_dodge_chance, advanced_bullet_dodge_chance), 0.25 SECONDS) // Returns fast enough for multiple laser shots.
+		advanced_bullet_dodge_chance = 0
+	return ATOM_PREHIT_FAILURE
+
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 

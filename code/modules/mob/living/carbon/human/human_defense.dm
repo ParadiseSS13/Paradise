@@ -641,7 +641,8 @@ emp_act
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
 		..(user, TRUE)
-		playsound(loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+		var/datum/unarmed_attack/unarmed = user.get_unarmed_attack()
+		playsound(loc, unarmed.attack_sound, 25, TRUE, -1)
 		var/message = "[user] has [hulk_verb]ed [src]!"
 		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
 		adjustBruteLoss(15)
