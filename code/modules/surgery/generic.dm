@@ -14,11 +14,13 @@
 		/obj/item/kitchen/knife = 90,
 		/obj/item/kitchen/knife/shiv = 70,
 		/obj/item/shard = 60,
+		TOOL_WIRECUTTER = 35,
 		/obj/item/scissors = 12,
-		/obj/item/butcher_chainsaw = 1,
 		/obj/item/claymore = 6,
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
+		/obj/item/chainsaw = 1,
+		/obj/item/butcher_chainsaw = 1
 	)
 
 	time = 1.6 SECONDS
@@ -162,7 +164,8 @@
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
-		TOOL_WELDER = 30
+		TOOL_WELDER = 30,
+		/obj/item/flamethrower = 1 // You make do with what ya got...
 	)
 
 	time = 2.4 SECONDS
@@ -251,11 +254,14 @@
 
 /datum/surgery_step/generic/amputate
 	name = "amputate limb"
-
 	allowed_tools = list(
 		TOOL_SAW = 100,
+		/obj/item/chainsaw = 100,	// It's pretty good at doing this outside of surgery tbh...
+		/obj/item/butcher_chainsaw = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/melee/arm_blade = 75
+		/obj/item/melee/arm_blade = 75,
+		/obj/item/claymore = 75,
+		/obj/item/melee/energy = 75
 	)
 
 	time = 10 SECONDS

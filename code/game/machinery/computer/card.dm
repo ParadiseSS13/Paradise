@@ -34,7 +34,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/ntspecops/solgovspecops,
 		/datum/job/assistant,
 		/datum/job/syndicateofficer,
-		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
 	var/list/blacklisted_partial = list(
@@ -62,8 +61,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 
-/obj/machinery/computer/card/Initialize()
-	..()
+/obj/machinery/computer/card/Initialize(mapload)
+	. = ..()
 	Radio = new /obj/item/radio(src)
 	Radio.listening = FALSE
 	Radio.config(list("Command" = 0))

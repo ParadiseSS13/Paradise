@@ -532,7 +532,7 @@
 	var/target_area = /area/mine/unexplored
 
 /obj/docking_port/stationary/random/Initialize()
-	..()
+	. = ..()
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T

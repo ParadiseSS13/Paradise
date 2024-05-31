@@ -16,6 +16,8 @@
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// Map of huds viewing a button with our action -> their button
 	var/list/viewers = list()
+	/// Whether or not this will be shown to observers
+	var/show_to_observers = TRUE
 
 
 /datum/action/New(Target)
@@ -49,6 +51,8 @@
 		Remove(owner)
 	owner = M
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 	GiveAction(M)
 
 /datum/action/proc/Remove(mob/remove_from)
@@ -63,6 +67,9 @@
 
 	if(isnull(owner))
 		return
+
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
 
 	if(target == owner)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)

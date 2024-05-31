@@ -56,6 +56,8 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_plasma = 10
 	/// credits gained per research design sold
 	var/credits_per_design = 20
+	/// points gained per salvage sold
+	var/credits_per_salvage = 100
 	/// credits gained per working mech sold
 	var/credits_per_mech = 100
 	/// credits gained for each secondary goal completed

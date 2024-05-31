@@ -177,7 +177,7 @@
 	var/metal = MFOAM_ALUMINUM
 
 /obj/structure/foamedmetal/Initialize()
-	..()
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/foamedmetal/Destroy()

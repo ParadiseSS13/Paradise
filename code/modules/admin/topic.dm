@@ -1567,13 +1567,14 @@
 		usr.client.cmd_admin_robotize(H)
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/M = locateUID(href_list["makeanimal"])
 		if(isnewplayer(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>")
 			return
-		if(alert(usr, "Confirm make animal?", null, "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm make animal?", "Confirm Choice", list("Yes", "No")) != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)
@@ -1612,6 +1613,17 @@
 		usr.client.cmd_admin_toggle_block(H,block)
 		show_player_panel(H)
 		//H.regenerate_icons()
+
+	else if(href_list["adminobserve"])
+		if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+			return
+		var/client/C = usr.client
+		var/mob/M = locateUID(href_list["adminobserve"])
+
+		if(!ismob(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+		C.admin_observe_target(M)
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
@@ -3586,3 +3598,5 @@
 		var/mob/dead/observer/O = target
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
+	else if(ismob(target))
+		. += "|[ADMIN_OBS(target, "OBS")]"
