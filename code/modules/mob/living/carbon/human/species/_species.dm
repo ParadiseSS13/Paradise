@@ -1068,6 +1068,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return HD?.hair_colour
 
 /datum/species/proc/handle_harm_antag(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return
 	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
 		var/obj/item/grab/grabby = user.get_inactive_hand()
 		if(istype(grabby))
@@ -1078,8 +1080,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 				to_chat(user, "<span class='warning zombie'>We need a better grip on [target] to bite them!</span>")
 				return TRUE
 
-			if(target.wear_suit && HAS_TRAIT(target.wear_suit, TRAIT_PUNCTURE_IMMUNE))
-				to_chat(user, "<span class='warning zombie'>Our bite is blocked by [target.wear_suit]!</span>")
+			if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+				to_chat(user, "<span class='warning zombie'>Our bite fails to pierce [target]!</span>")
 				return FALSE
 
 			user.visible_message("<span class='danger'>[user] violently bites [target]!</span>")
