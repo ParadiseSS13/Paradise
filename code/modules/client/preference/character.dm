@@ -630,8 +630,10 @@
 		randomize_eyes_color()
 	if(S.bodyflags & HAS_SKIN_COLOR)
 		randomize_skin_color()
-	backbag = 2
+	backbag = pick(GLOB.backbaglist)
 	age = rand(S.min_age, S.max_age)
+	physique = pick(GLOB.character_physiques)
+	height = pick(GLOB.character_heights)
 
 
 /datum/character_save/proc/randomize_hair_color(target = "hair")
@@ -1186,15 +1188,17 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_EXPLORER)
-				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "orange_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "workboots"), ICON_UNDERLAY)
+				clothes_s = new /icon('icons/mob/clothing/under/cargo.dmi', "expedition_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
+				if(prob(1))
+					clothes_s.Blend(new /icon('icons/mob/clothing/under/syndicate.dmi', "tactifool_s"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "explorerpack"), ICON_OVERLAY)
 					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-explorer"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_medsci_high)

@@ -54,8 +54,6 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
-	..()
-
 	injecting = FALSE
 
 	if(!on || stat & NOPOWER)
