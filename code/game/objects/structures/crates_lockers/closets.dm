@@ -94,7 +94,7 @@
 
 /obj/structure/closet/extinguish_light(force)
 	for(var/atom/A in contents)
-		A.extinguish_light()
+		A.extinguish_light(force)
 
 /obj/structure/closet/proc/open()
 	if(opened)
