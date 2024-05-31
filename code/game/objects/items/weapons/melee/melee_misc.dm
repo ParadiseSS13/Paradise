@@ -95,12 +95,12 @@
 	. += "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
 	. += ""
 	. += "The Securiblade is a simple blade of lightweight silver plasteel, honed to a nano-thin edge and with a simple \
-	power pack built into the hilt. A multi-purpose option for the NT Officer with a flair for the impractical, the \
-	Securiblade serves just as well as a regular sword, as it does a stun weapon or even an energized, heated combat tool."
+	power pack built into the hilt. A multi-purpose option for the NT Officer with a flair for impracticality, the \
+	Securiblade serves just as well as a regular sword, as it does a stun weapon or even an energized, heated blade."
 	. += ""
-	. += "While not the most popular option among the officers of Nanotrasen’s security forces, it has still been valued for the multiple \
-	options it presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, \
-	heated blade that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it."
+	. += "While not the most popular option among the officers of Nanotrasen’s security forces, the Securiblade has still been valued for the multiple options it \
+	presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, heated blade \
+	that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it. Rest assured, the Securiblade is a reliable tool in the hands of a skilled officer."
 
 /obj/item/melee/secsword/update_icon_state()
 	if(!cell)
@@ -253,7 +253,7 @@
 // Traitor Sword
 /obj/item/melee/snakesfang
 	name = "snakesfang"
-	desc = "Sometimes, you do want to bring a knife to a gunfight."
+	desc = "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "snakesfang"
@@ -269,10 +269,22 @@
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
 
+/obj/item/melee/snakesfang/examine_more(mob/user)
+	. = ..()
+	. += "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
+	. += ""
+	. += "The MK-IV Enhanced Combat Blade, more colloquially known as the ‘Snakesfang’, is a vicious yet stylish weapon designed \
+	by a relatively unknown weapons forge with known ties to the Syndicate. With a wide, curved blade and dual points \
+	resembling the fangs of the organization’s serpent motif, the Snakesfang is a statement like no other."
+	. += ""
+	. += "While the benefits of its unique design are dubious at best, the Snakesfang is undoubtedly a perilous weapon, with a hardened \
+	plastitanium edge that can cause untold harm to a soft target. In the right hands, it can be a terrifying weapon to behold, \
+	and it’s said that blood runs down the blade in just the right way, to drip artfully from the twin ‘fangs’ at its apex."
+
 // Unathi Sword
 /obj/item/melee/breach_cleaver
 	name = "breach cleaver"
-	desc = "This sharpened chunk of steel is too big and too heavy to be called a sword."
+	desc = "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "breach_cleaver"
@@ -300,7 +312,19 @@
 	if(isAntag(user))
 		. += "<span class='warning'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
-			and harm intent deals heavy damage</span>"
+			and harm intent deals heavy damage.</span>"
+
+/obj/item/melee/breach_cleaver/examine_more(mob/user)
+	. = ..()
+	. += "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
+	. += ""
+	. += "The Unathi Breach Cleaver is a weapon the scaled, warlike race favours for its impressive weight and myriad combat applications. \
+	The pinnacle of Moghes' combat technology, it combines all of this knowledge into a massive, heavy slab of alloyed metal that most \
+	species find difficult to lift, let alone use in any sort of fight."
+	. += ""
+	. += "Actually a little lightweight for its size, a Breach Cleaver is unmatched in combat utility as a weapon, a tool for getting into\
+	places and as a slab of armour for the wielder. The leather of the Kar'oche beast, a predator native to Moghes, binds the hilt, \
+	allowing it to be gripped securely by its warrior. The wide blade is often etched with scenes depicting military victories or great hunts."
 
 /obj/item/melee/breach_cleaver/update_icon_state()
 	icon_state = "[base_icon_state]0"
