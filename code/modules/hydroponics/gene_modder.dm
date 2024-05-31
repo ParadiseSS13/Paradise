@@ -134,7 +134,7 @@
 	else if(istype(I, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
 		return ..()
-	else if(istype(I, /obj/item/disk/plantgene) || I.type == /obj/item/storage/box || type2parent(I.type) == /obj/item/storage/box)
+	else if(istype(I, /obj/item/disk/plantgene) || istype(I, /obj/item/storage/box))
 		add_disk(I, user)
 	else
 		return ..()
@@ -153,7 +153,7 @@
 	if(length(contents) >= disk_capacity)
 		to_chat(user, "<span class='warning'>[src] cannot hold any more disks!</span>")
 		return
-	if(new_disk.type == /obj/item/storage/box || type2parent(new_disk.type) == /obj/item/storage/box)
+	if(istype(new_disk, /obj/item/storage/box))
 		var/has_disks = FALSE
 		for(var/obj/item/disk/plantgene/D in new_disk.contents)
 			if(length(contents) >= disk_capacity)
@@ -276,22 +276,22 @@
 	data["reagent_disks"] = list()
 
 	for(var/i in 1 to length(contents))
-		if(contents[i].type == /obj/item/disk/plantgene)
+		if(istype(contents[i], /obj/item/disk/plantgene))
 			var/obj/item/disk/plantgene/D = contents[i]
 			if(!D.gene && !D.is_bulk_core)
 				empty_disks++
 			else if(D.is_bulk_core)
 				stats.Add(list(list("display_name" = D.ui_name, "index" = i, "stat" = "All", "ready" = D.seeds_needed <= D.seeds_scanned, "read_only" = D.read_only)))
-			else if(type2parent(D.gene.type) == /datum/plant_gene/core)
+			else if(istype(D.gene, /datum/plant_gene/core))
 				var/datum/plant_gene/core/C = D.gene
 				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name, "read_only" = D.read_only)))
-			else if(type2parent(D.gene.type) == /datum/plant_gene/trait || type2parent(D.gene.type) == /datum/plant_gene/trait/plant_type)
+			else if(istype(D.gene, /datum/plant_gene/trait))
 				var/insertable = D.gene?.can_add(seed)
 				traits.Add(list(list("display_name" = D.gene.name, "index" = i, "can_insert" = insertable, "read_only" = D.read_only)))
-			else if(D.gene.type == /datum/plant_gene/reagent)
+			else if(istype(D.gene, /datum/plant_gene/reagent))
 				var/datum/plant_gene/reagent/R = D.gene
 				var/insertable = R?.can_add(seed)
-				reagents.Add(list(list("display_name" = R.name +" "+ num2text(R.rate*100) +"%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
+				reagents.Add(list(list("display_name" = R.name + " " + num2text(R.rate*100) +"%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
 	if(length(stats))
 		data["stat_disks"] = stats
 	if(length(traits))
@@ -387,9 +387,9 @@
 
 		if("insert")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
-			if(D.gene && (type2parent(D.gene.type) == /datum/plant_gene/trait || type2parent(D.gene.type) == /datum/plant_gene/trait/plant_type || D.gene.type == /datum/plant_gene/reagent) && D.gene.can_add(seed))
+			if(D.gene && (istype(D.gene, /datum/plant_gene/trait) || istype(D.gene, /datum/plant_gene/reagent)) && D.gene.can_add(seed))
 				seed.genes += D.gene.Copy()
-				if(D.gene.type ==  /datum/plant_gene/reagent)
+				if(istype(D.gene, /datum/plant_gene/reagent))
 					seed.reagents_from_genes()
 				update_genes()
 				repaint_seed()
