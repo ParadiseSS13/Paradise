@@ -19,7 +19,7 @@
 
 /obj/item/clothing/accessory/armband/cargo
 	name = "cargo armband"
-	desc = "An armband, worn by the crew to display which department they're assigned to. This one is brown."
+	desc = "An armband, worn by the crew to display which department they're assigned to. This one is brown with a black strip."
 	icon_state = "cargo"
 	item_color = "cargo"
 

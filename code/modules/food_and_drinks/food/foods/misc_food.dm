@@ -264,6 +264,7 @@
 	M.reagents.add_reagent("salglu_solution", 15)
 	M.reagents.add_reagent("salbutamol", 15)
 	M.reagents.add_reagent("methamphetamine", 15)
+	M.reagents.add_reagent("mannitol", 15)
 
 
 //////////////////////
