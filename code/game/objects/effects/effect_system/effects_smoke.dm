@@ -19,20 +19,20 @@
 	var/lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	var/direction
 	var/causes_coughing = FALSE
-
+	
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 
-/obj/effect/particle_effect/smoke/New(loc, contains_chemicals = FALSE)
+/obj/effect/particle_effect/smoke/Initialize(mapload)
 	..()
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
 	GLOB.smokes_active++
 	lifetime += rand(-1, 1)
-	if(contains_chemicals)
-		create_reagents(10)
+	create_reagents(10)
 
 /obj/effect/particle_effect/smoke/Destroy()
+	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE))
 	GLOB.smokes_active--
