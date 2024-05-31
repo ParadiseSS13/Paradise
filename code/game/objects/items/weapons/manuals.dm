@@ -543,7 +543,7 @@
 							<li>Chlorine Trifluoride</li>
 							<li>Sorium</li>
 							<li>"????" Reagent</li>
-							<li>A	ranesp</li>
+							<li>Aranesp</li>
 						</ul>
 					</li>
 				</ul>
