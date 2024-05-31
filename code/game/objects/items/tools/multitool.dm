@@ -57,9 +57,9 @@
 		to_chat(user, "<span class='warning'>No APC detected.</span>")
 		return
 	if(get_turf(src) == get_turf(apc)) // we're standing on top of it
-		to_chat(user, "<span class='notice'>APC detected 0 units [dir2text(apc.dir)].</span>")
+		to_chat(user, "<span class='notice'>APC detected 0 meters [dir2text(apc.dir)].</span>")
 		return
-	to_chat(user, "<span class='notice'>APC detected [get_dist(src, apc)] units [dir2text(get_dir(src, apc))].</span>")
+	to_chat(user, "<span class='notice'>APC detected [get_dist(src, apc)] meters [dir2text(get_dir(src, apc))].</span>")
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
