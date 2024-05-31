@@ -38,8 +38,9 @@
 	icon_state = "twimsts"
 
 /obj/item/trash/popcorn
-	name = "Popcorn"
+	name = "popcorn"
 	icon_state = "popcorn"
+	gender = PLURAL
 
 /obj/item/trash/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"

@@ -25,7 +25,6 @@
 	air_contents.volume = 50
 
 /obj/machinery/atmospherics/unary/oxygen_generator/process_atmos()
-	..()
 	if(!on)
 		return 0
 

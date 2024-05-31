@@ -185,6 +185,8 @@
 	var/mob/living/carbon/human/human = user
 	if(human.mind?.miming || !istype(human))
 		return
+	if(HAS_TRAIT(human, TRAIT_I_WANT_BRAINS))
+		return 'sound/voice/zombie_scream.ogg'
 	if(human.gender == FEMALE)
 		return human.dna.species.female_scream_sound
 	else
@@ -234,7 +236,7 @@
 			volume_decrease = 95
 	sound_volume -= volume_decrease
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
-	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(H.dna.species.max_age), ignore_walls = !isnull(user.mind))
+	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/carbon/human/shake
 	key = "shake"
