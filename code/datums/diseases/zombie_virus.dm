@@ -31,6 +31,8 @@
 	if(!..())
 		return FALSE
 	if(HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS) || affected_mob.mind?.has_antag_datum(/datum/antagonist/zombie))
+		if(affected_mob.reagents.has_reagent("zombiecure4"))
+			return
 		handle_rot(TRUE)
 		stage = 7
 		return FALSE
