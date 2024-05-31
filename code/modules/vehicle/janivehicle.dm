@@ -11,7 +11,12 @@
 	/// Does it clean the tile under it?
 	var/floorbuffer = FALSE
 
+/obj/vehicle/janicart/Initialize(mapload)
+	. = ..()
+	GLOB.janitorial_equipment += src
+
 /obj/vehicle/janicart/Destroy()
+	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
 	return ..()
 
@@ -37,13 +42,6 @@
 /obj/item/key/janitor
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon_state = "keyjanitor"
-
-/obj/item/janiupgrade
-	name = "floor buffer upgrade"
-	desc = "An upgrade for mobile janicarts."
-	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "upgrade"
-	origin_tech = "materials=3;engineering=4"
 
 /datum/action/floor_buffer
 	name = "Toggle Floor Buffer"
@@ -106,7 +104,7 @@
 		mybag = I
 		update_icon(UPDATE_OVERLAYS)
 		return
-	if(istype(I, /obj/item/janiupgrade))
+	if(istype(I, /obj/item/borg/upgrade/floorbuffer))
 		if(buffer_installed)
 			to_chat(user, fail_msg)
 			return

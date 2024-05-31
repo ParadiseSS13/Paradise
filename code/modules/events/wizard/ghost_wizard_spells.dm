@@ -1,10 +1,12 @@
-/datum/event/wizard/ghost //The spook is real
+/// The spook is real
+/datum/event/wizard/ghost
 
 /datum/event/wizard/ghost/start()
 	var/msg = "<span class='warning'>You suddenly feel extremely obvious...</span>"
 	set_observer_default_invisibility(0, msg)
 
-/datum/event/wizard/ghost_mute //The spook is silent
+/// The spook is silent
+/datum/event/wizard/ghost_mute
 
 /datum/event/wizard/ghost_mute/start()
 	GLOB.dsay_enabled = FALSE

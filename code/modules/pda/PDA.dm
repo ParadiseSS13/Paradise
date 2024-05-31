@@ -76,7 +76,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// The slot where you can store a pen
 	var/obj/item/held_pen
 	var/retro_mode = 0
-
+	/// What pen is loaded in the PDA
+	var/obj/item/pen/default_pen = /obj/item/pen
 
 /*
  *	The Actual PDA
@@ -90,7 +91,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	add_pen(new /obj/item/pen(src))
+	add_pen(new default_pen(src))
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -123,7 +124,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && can_use())
+	if((!is_screen_atom(over_object)) && can_use())
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
@@ -311,9 +312,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 			add_pen(C)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	else if(istype(C, /obj/item/nanomob_card))
-		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
-			cartridge.attackby(C, user, params)
 
 /obj/item/pda/proc/add_pen(obj/item/P)
 	P.forceMove(src)
@@ -381,11 +379,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = input("Please enter new ringtone", name, ttone) as text
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
 	new_tone = trim(new_tone)
+
 	if(!in_range(src, user) || loc != user)
 		close(user)
 		return FALSE
+
 	if(!new_tone)
 		return FALSE
 
@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "The PDA softly beeps.")
 		close(user)
 		return TRUE
-	ttone = sanitize(copytext(new_tone, 1, 20))
+	ttone = new_tone
 	return TRUE
 
 /obj/item/pda/process()

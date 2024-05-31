@@ -35,6 +35,15 @@
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/xeno/limb, /obj/effect/decal/cleanable/blood/gibs/xeno/core, /obj/effect/decal/cleanable/blood/xeno/splatter, /obj/effect/decal/cleanable/blood/gibs/xeno/body, /obj/effect/decal/cleanable/blood/gibs/xeno/down)
+
+/mob/living/simple_animal/hostile/alien/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/alien/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/voice/hiss4.ogg', 70, TRUE)
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
@@ -164,3 +173,14 @@
 /mob/living/simple_animal/hostile/alien/maid/can_clean()
 	return TRUE
 
+/mob/living/simple_animal/hostile/alien/lavaland
+	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/hostile/alien/drone/lavaland
+	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/hostile/alien/sentinel/lavaland
+	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/hostile/alien/queen/large/lavaland
+	maxbodytemp = INFINITY

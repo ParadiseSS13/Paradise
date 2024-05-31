@@ -44,7 +44,7 @@
 		target_turf.air_update_turf()
 
 /mob/living/simple_animal/hostile/guardian/gaseous/ToggleMode()
-	var/picked_gas = input("Select a gas to expel.", "Gas Producer") as null|anything in possible_gases
+	var/picked_gas = tgui_input_list(src, "Select a gas to expel.", "Gas Producer", possible_gases)
 	if(!picked_gas)
 		moles_of_gas = null
 		to_chat(src, "<span class='notice'>You stopped expelling gas.</span>")

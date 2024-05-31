@@ -18,10 +18,12 @@ export const createPage = (obj) => {
   }
 
   return {
-    id: createUuid(),
     name: 'New Tab',
+    id: createUuid(),
+    isMain: false,
     acceptedTypes: acceptedTypes,
     unreadCount: 0,
+    hideUnreadCount: false,
     createdAt: Date.now(),
     ...obj,
   };
@@ -34,6 +36,7 @@ export const createMainPage = () => {
   }
   return createPage({
     name: 'Main',
+    isMain: true,
     acceptedTypes,
   });
 };

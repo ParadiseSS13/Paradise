@@ -254,15 +254,10 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station{
-	keep_preset_name = 1;
-	name = "Hallway APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "aM" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	id_tag = "bayint1";
@@ -370,9 +365,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "airlock"
-	},
+/obj/machinery/door/airlock/medical/glass,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -584,9 +577,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "br" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/y{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
@@ -646,23 +638,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bB" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "glass airlock"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/onehalf/drone_bay)
-"bC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -683,9 +663,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "bF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
@@ -868,9 +847,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/abandonedbridge)
 "cp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -1145,20 +1123,6 @@
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
-"df" = (
-/obj/structure/lattice,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "dg" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
@@ -1186,26 +1150,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/abandonedbridge)
 "dl" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "onehalf bridge";
-	name = "bridge blast door"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/ruin/space/onehalf/abandonedbridge)
-"dm" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1280,6 +1224,10 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"gL" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "jQ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -1290,27 +1238,22 @@
 /obj/item/healthanalyzer,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/machinery/power/apc/off_station{
-	dir = 4;
-	keep_preset_name = 1;
-	name = "Crew Quarters APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/onehalf/dorms_med)
+"kV" = (
+/obj/item/stack/rods,
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space/nearstation)
 "xr" = (
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	keep_preset_name = 1;
-	name = "Mining Drone Bay APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1331,12 +1274,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	keep_preset_name = 1;
-	name = "Bridge APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 
@@ -1507,7 +1445,7 @@ bw
 bK
 ak
 aa
-cv
+kV
 aa
 aa
 aa
@@ -1554,7 +1492,7 @@ aa
 cx
 aw
 aa
-aa
+gL
 cv
 dg
 aa
@@ -1573,7 +1511,7 @@ bw
 bO
 aj
 aa
-aa
+gL
 cE
 cv
 cR
@@ -1701,7 +1639,7 @@ aD
 aq
 aX
 bm
-bC
+bn
 bT
 aa
 cn
@@ -1820,7 +1758,7 @@ Ab
 cr
 cW
 ch
-dm
+dl
 ac
 aa
 "}
@@ -1929,7 +1867,7 @@ ai
 ai
 ai
 cZ
-df
+ai
 ai
 af
 aa

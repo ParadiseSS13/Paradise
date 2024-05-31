@@ -17,7 +17,7 @@
 	name = "invasive camera utility"
 	desc = "How did this get here?! Please report this as a bug to github"
 	power_state = NO_POWER_USE
-	requires_power = FALSE
+	interact_offline = TRUE
 	silent_console = TRUE
 
 /obj/item/camera_bug/Initialize(mapload)
@@ -50,7 +50,7 @@
 	integrated_console.network = list("ERT")
 
 /obj/item/wall_bug
-	name = "\improper small camera"
+	name = "small camera"
 	desc = "A camera with a sticky backside."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "wall_bug"
@@ -62,10 +62,11 @@
 	. = ..()
 	link_to_camera(the_bug)
 	AddComponent(/datum/component/sticky)
+	ADD_TRAIT(src, TRAIT_NO_THROWN_MESSAGE, ROUNDSTART_TRAIT)
 
 /obj/item/wall_bug/Destroy()
 	QDEL_NULL(camera)
-	. = ..()
+	return ..()
 
 /obj/item/wall_bug/examine(mob/user)
 	. = ..()

@@ -11,6 +11,7 @@
  * Brass (clockwork cult)
  * Bones
  * Plastic
+ * Saltpetre Crystal
  */
 
 /*
@@ -113,6 +114,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
 	new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
+	new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 	null
 ))
@@ -136,13 +138,18 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
 /obj/item/stack/sheet/metal/cyborg
-	energy_type = /datum/robot_energy_storage/metal
+	energy_type = /datum/robot_storage/material/metal
 	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/metal/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
+	var/mob/living/silicon/robot/robot = user
+	if(!istype(robot.module, /obj/item/robot_module/drone))
+		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+
+/obj/item/stack/sheet/metal/cyborg/drone
+	energy_type = /datum/robot_storage/energy/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -196,7 +203,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	return ..()
 
 /obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood
+	energy_type = /datum/robot_storage/energy/wood
 	is_cyborg = TRUE
 
 /*
@@ -209,12 +216,12 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 	new /datum/stack_recipe("firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
+	new /datum/stack_recipe("notice board", /obj/item/mounted/noticeboard, 5, time = 5 SECONDS),
 	null,
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe_list("wood structures", list(
 		new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -227,11 +234,6 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 5, one_per_turf = TRUE, on_floor = TRUE),
-		)),
-	new /datum/stack_recipe_list("bamboo benches", list(
-		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo bench (right)", /obj/structure/chair/sofa/bamboo/right, 2, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	null,
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -266,6 +268,48 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	return ..()
 
 /*
+ * Bamboo
+ */
+GLOBAL_LIST_INIT(bamboo_recipes, list(
+	new /datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("bamboo spear", /obj/item/spear/bamboo, req_amount = 25, time = 9 SECONDS),
+	new /datum/stack_recipe("blow gun", /obj/item/gun/syringe/blowgun, req_amount = 10, time = 7 SECONDS),
+	new /datum/stack_recipe("rice hat", /obj/item/clothing/head/rice_hat, req_amount = 10, time = 7 SECONDS),
+	null,
+	new /datum/stack_recipe("bamboo mat piece", /obj/item/stack/tile/bamboo, req_amount = 1, res_amount = 4, max_res_amount = 20),
+	new /datum/stack_recipe_list("tatami mats", list(
+		new /datum/stack_recipe("green tatami", /obj/item/stack/tile/bamboo/tatami, req_amount = 1, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("purple tatami", /obj/item/stack/tile/bamboo/tatami/purple, req_amount = 1, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("black tatami", /obj/item/stack/tile/bamboo/tatami/black, req_amount = 1, res_amount = 4, max_res_amount = 20),
+		)),
+	null,
+	new /datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, req_amount = 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe_list("bamboo benches", list(
+		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bamboo bench (right)", /obj/structure/chair/sofa/bamboo/right, req_amount = 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+		)),
+	))
+
+/obj/item/stack/sheet/bamboo
+	name = "bamboo cuttings"
+	desc = "Finely cut bamboo sticks."
+	singular_name = "cut bamboo stick"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-bamboo"
+	item_state = "sheet-bamboo"
+	resistance_flags = FLAMMABLE
+	sheettype = "bamboo"
+	merge_type = /obj/item/stack/sheet/bamboo
+
+/obj/item/stack/sheet/bamboo/New(loc, amount=null)
+	recipes = GLOB.bamboo_recipes
+	return ..()
+
+/obj/item/stack/sheet/bamboo/fifty
+	amount = 50
+
+/*
  * Cloth
  */
 GLOBAL_LIST_INIT(cloth_recipes, list (
@@ -278,7 +322,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("cloth handwraps", /obj/item/clothing/gloves/handwraps, 2),
 		new /datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1),
 		new /datum/stack_recipe("white gloves", /obj/item/clothing/gloves/color/white, 3),
-		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/mime, 2),
+		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/white, 2),
 		new /datum/stack_recipe("white beanie", /obj/item/clothing/head/beanie, 2),
 	)),
 	null,
@@ -294,6 +338,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("mail bag", /obj/item/storage/bag/mail, 4),
+		new /datum/stack_recipe("construction bag", /obj/item/storage/bag/construction, 4),
+		new /datum/stack_recipe("money bag", /obj/item/storage/bag/money, 3),
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
@@ -424,7 +470,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	else
 		. = ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
+/// BubbleWrap
+/obj/item/stack/sheet/cardboard
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
@@ -470,7 +517,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	))
 
@@ -486,11 +533,11 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
-	icon_state = SSticker.cultdat?.runed_metal_icon_state
-	item_state = SSticker.cultdat?.runed_metal_item_state
+	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
+	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
 	if(usr.holy_check())
@@ -590,6 +637,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty),
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3),
+	new /datum/stack_recipe("spray bottle", /obj/item/reagent_containers/spray/empty, 6),
 	null,
 	new /datum/stack_recipe_list("first-aid kits", list(
 		new /datum/stack_recipe("first-aid kit", /obj/item/storage/firstaid/regular, 4),
@@ -645,3 +693,16 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/*
+ * Saltpetre crystal
+ */
+
+/obj/item/stack/sheet/saltpetre_crystal
+	name = "saltpetre crystal"
+	desc = "A bunch of saltpetre crystals. Can be ground to get liquid saltpetre that can be used to dope hydroponics trays and soil plots."
+	singular_name = "saltpetre crystal"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-saltpetre"
+	item_state = "sheet-saltpetre"
+	origin_tech = "materials=1;biotech=1"

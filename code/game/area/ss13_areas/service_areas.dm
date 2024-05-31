@@ -12,10 +12,6 @@
 	icon_state = "bar"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
-/area/station/service/bar/atrium
-	name = "Atrium"
-	icon_state = "bar"
-
 /area/station/service/theatre
 	name = "\improper Theatre"
 	icon_state = "Theatre"
@@ -45,7 +41,6 @@
 
 /area/station/service/clown/secret
 	name = "\improper Top Secret Clown HQ"
-	requires_power = FALSE
 
 /area/station/service/mime
 	name = "\improper Mime's Office"
@@ -63,10 +58,4 @@
 /area/station/service/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
-	sound_environment = SOUND_AREA_STANDARD_STATION
-
-/area/station/service/expedition
-	name = "\improper Expedition room"
-	icon_state = "expedition"
-	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION

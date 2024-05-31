@@ -20,6 +20,14 @@
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
+/mob/living/simple_animal/hostile/blob/Initialize(mapload)
+	. = ..()
+	GLOB.blob_minions |= src
+
+/mob/living/simple_animal/hostile/blob/Destroy()
+	GLOB.blob_minions -= src
+	return ..()
+
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
@@ -76,6 +84,7 @@
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
+	GLOB.spores_active++
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -143,6 +152,7 @@
 	if(oldguy)
 		oldguy.forceMove(get_turf(src))
 		oldguy = null
+	GLOB.spores_active--
 	return ..()
 
 
@@ -231,7 +241,7 @@
 	flick("blobbernaut_death", src)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
-	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
+	var/message = tgui_input_text(usr, "Announce to the overmind", "Blob Telepathy")
 	var/rendered
 	var/follow_text
 	if(message)

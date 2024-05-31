@@ -97,7 +97,7 @@
 	parent_rune.attack_hand(user)
 
 /obj/machinery/shield/cult/barrier/attack_animal(mob/living/simple_animal/user)
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		parent_rune.attack_animal(user)
 	else
 		..()
@@ -140,6 +140,7 @@
 	var/list/deployed_shields = list()
 	var/is_open = FALSE //Whether or not the wires are exposed
 	var/locked = FALSE
+	var/shield_range = 2
 
 /obj/machinery/shieldgen/Destroy()
 	QDEL_LIST_CONTENTS(deployed_shields)
@@ -155,7 +156,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	anchored = TRUE
 
-	for(var/turf/target_tile in range(2, src))
+	for(var/turf/target_tile in range(shield_range, src))
 		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
@@ -294,6 +295,18 @@
 
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
+
+/obj/machinery/shieldgen/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	if(active)
+		shields_down()
+		addtimer(CALLBACK(src, PROC_REF(shields_up)), 1 SECONDS)//Lets docking finish, prevents placing shields on shuttle tiles.
+
+/obj/machinery/shieldgen/raven
+	name = "military shield generator"
+	desc = "Military grade shield generators used to protect spaceships from incoming fire."
+	shield_range = 4
+	anchored = TRUE
 
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
 #define MAX_STORED_POWER 500
@@ -540,7 +553,7 @@
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(isprojectile(mover))
 			return prob(10)
 		else
 			return !density
@@ -556,7 +569,7 @@
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
 			return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return FALSE
 	return ..(mover, target, height)
 
@@ -602,3 +615,5 @@
 /obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()
+
+#undef MAX_STORED_POWER

@@ -568,7 +568,8 @@
 	)
 	result = /obj/item/food/snacks/toastedsandwich
 
-/datum/recipe/oven/turkey  // Magic
+/// Magic
+/datum/recipe/oven/turkey
 	items = list(
 		/obj/item/food/snacks/meat,
 		/obj/item/food/snacks/meat,

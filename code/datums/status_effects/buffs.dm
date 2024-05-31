@@ -4,18 +4,18 @@
 	id = "his_grace"
 	duration = -1
 	tick_interval = 4
-	alert_type = /obj/screen/alert/status_effect/his_grace
+	alert_type = /atom/movable/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
 	/// Attached His Grace toolbox
 	var/obj/item/his_grace/toolbox
 
-/obj/screen/alert/status_effect/his_grace
+/atom/movable/screen/alert/status_effect/his_grace
 	name = "His Grace"
 	desc = "His Grace hungers, and you must feed Him."
 	icon_state = "his_grace"
 	alerttooltipstyle = "hisgrace"
 
-/obj/screen/alert/status_effect/his_grace/MouseEntered(location, control, params)
+/atom/movable/screen/alert/status_effect/his_grace/MouseEntered(location, control, params)
 	desc = initial(desc)
 	var/datum/status_effect/his_grace/HG = attached_effect
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
@@ -61,9 +61,14 @@
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
 	duration = 3 SECONDS
-	alert_type = /obj/screen/alert/status_effect/shadow_mend
+	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
+	/// If this is true, the status effect will try to apply the debuff to others, rather than the user
+	var/devil = FALSE
 
-/obj/screen/alert/status_effect/shadow_mend
+/datum/status_effect/shadow_mend/devil
+	devil = TRUE
+
+/atom/movable/screen/alert/status_effect/shadow_mend
 	name = "Shadow Mend"
 	desc = "Shadowy energies wrap around your wounds, sealing them at a price. After healing, you will slowly lose health every three seconds for thirty seconds."
 	icon_state = "shadow_mend"
@@ -78,20 +83,35 @@
 	owner.adjustFireLoss(-15)
 
 /datum/status_effect/shadow_mend/on_remove()
-	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
-	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
-	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	if(!devil)
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+		return
 
+	var/found_someone = FALSE
+
+	for(var/mob/living/L in oview(9, owner))
+		found_someone = TRUE
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	if(found_someone)
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+	else
+		owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
 /datum/status_effect/void_price
 	id = "void_price"
 	duration = 30 SECONDS
 	tick_interval = 3 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/void_price
+	alert_type = /atom/movable/screen/alert/status_effect/void_price
 	var/price = 3 //This is how much hp you lose per tick. Each time the buff is refreshed, it increased by 1. Healing too much in a short period of time will cause your swift demise
 
-/obj/screen/alert/status_effect/void_price
+/atom/movable/screen/alert/status_effect/void_price
 	name = "Void Price"
 	desc = "Black tendrils cinch tightly against you, digging wicked barbs into your flesh."
 	icon_state = "shadow_mend"
@@ -108,10 +128,17 @@
 	id = "blooddrunk"
 	duration = 10
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
+	/// If this is the chariot subtype, which grants pacifism while the effect is active.
+	var/chariot = FALSE
 
-/obj/screen/alert/status_effect/blooddrunk
+/datum/status_effect/blooddrunk/chariot
+	duration = 10 SECONDS
+	chariot = TRUE
+	blooddrunk_damage_mod_remove = 6
+
+/atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
 	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
 	icon_state = "blooddrunk"
@@ -120,6 +147,8 @@
 	. = ..()
 	if(.)
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
+		if(chariot)
+			ADD_TRAIT(owner, TRAIT_PACIFISM, "blooddrunk")
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			var/blooddrunk_damage_mod_add = 1 / blooddrunk_damage_mod_remove // Damage is multiplied by this at the start of the status effect. Don't modify this one directly.
@@ -144,10 +173,11 @@
 		H.physiology.stamina_mod *= blooddrunk_damage_mod_remove
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.remove_stun_absorption("blooddrunk")
 
-/obj/screen/alert/status_effect/dash
+/atom/movable/screen/alert/status_effect/dash
 	name = "Dash"
 	desc = "Your have the ability to dash!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -157,16 +187,16 @@
 	id = "dash"
 	duration = 5 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/dash
+	alert_type = /atom/movable/screen/alert/status_effect/dash
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
 	duration = 30 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blood_swell
+	alert_type = /atom/movable/screen/alert/status_effect/blood_swell
 	var/bonus_damage_applied = FALSE
 
-/obj/screen/alert/status_effect/blood_swell
+/atom/movable/screen/alert/status_effect/blood_swell
 	name = "Blood Swell"
 	desc = "Your body has been infused with crimson magics, your resistance to attacks has greatly increased!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -183,7 +213,7 @@
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+	if(V?.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
 		H.physiology.melee_bonus += 10
 		H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
@@ -206,9 +236,9 @@
 	id = "vampire_gladiator"
 	duration = 30 SECONDS
 	tick_interval = 1 SECONDS
-	alert_type = /obj/screen/alert/status_effect/vampire_gladiator
+	alert_type = /atom/movable/screen/alert/status_effect/vampire_gladiator
 
-/obj/screen/alert/status_effect/vampire_gladiator
+/atom/movable/screen/alert/status_effect/vampire_gladiator
 	name = "Gladiatorial Resilience"
 	desc = "Roused by the thrill of the fight, your body has become more resistant to breaking!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -408,7 +438,7 @@
 			if(!heal_points)
 				return
 
-/obj/screen/alert/status_effect/regenerative_core
+/atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
 	desc = "You can move faster than your broken body could normally handle!"
 	icon_state = "regenerative_core"
@@ -418,7 +448,7 @@
 	id = "Regenerative Core"
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /obj/screen/alert/status_effect/regenerative_core
+	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
@@ -551,9 +581,9 @@
 	id = "chainsaw_slaying"
 	duration = 5 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/chainsaw
+	alert_type = /atom/movable/screen/alert/status_effect/chainsaw
 
-/obj/screen/alert/status_effect/chainsaw
+/atom/movable/screen/alert/status_effect/chainsaw
 	name = "Revved up!"
 	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
 	icon_state = "chainsaw"
@@ -566,12 +596,14 @@
 			H.physiology.brute_mod *= 0.8
 			H.physiology.burn_mod *= 0.8
 			H.physiology.stamina_mod *= 0.8
+		owner.status_flags &= ~CANPUSH
 		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("chainsaw", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/chainsaw_slaying/on_remove()
 	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	owner.status_flags |= CANPUSH
 	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
 		owner.remove_stun_absorption("chainsaw")
 	if(ishuman(owner))
@@ -585,9 +617,9 @@
 	duration = -1
 	tick_interval = 2 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /obj/screen/alert/status_effect/hope
+	alert_type = /atom/movable/screen/alert/status_effect/hope
 
-/obj/screen/alert/status_effect/hope
+/atom/movable/screen/alert/status_effect/hope
 	name = "Hope."
 	desc = "A ray of hope beyond dispair."
 	icon_state = "hope"
@@ -640,13 +672,13 @@
 	return ..()
 
 /datum/status_effect/drill_payback/on_apply()
-	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
 	return TRUE
 
 /datum/status_effect/drill_payback/proc/payback_phase_2()
 	owner.clear_fullscreen("payback")
-	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 1)
 
 /datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
@@ -735,6 +767,10 @@
 	SIGNAL_HANDLER
 	if(!(attacker.a_intent in list(INTENT_DISARM, INTENT_HARM)))
 		return
+	if(!victim.AmountParalyzed())
+		stack_trace("/datum/status_effect/rev_protection was on [victim] despite them not being paralyzed. This status effect should last the same amount of time as them being paralyzed.")
+		qdel(src)
+		return
 	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
 		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
 		attacker.changeNext_move(CLICK_CD_MELEE)
@@ -752,9 +788,9 @@
 	id = "bearserker rage"
 	duration = 5 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
-	alert_type = /obj/screen/alert/status_effect/bearserker_rage
+	alert_type = /atom/movable/screen/alert/status_effect/bearserker_rage
 
-/obj/screen/alert/status_effect/bearserker_rage
+/atom/movable/screen/alert/status_effect/bearserker_rage
 	name = "Bearserker Rage"
 	desc = "<span class='danger'>Blood flows between your fingers, and Foh'Sie roars; \"MORE BLOOD!\"</span>"
 	icon_state = "bearserker"
@@ -772,3 +808,70 @@
 		var/mob/living/carbon/human/H = owner
 		H.physiology.stamina_mod /= 0.75
 		add_attack_logs(owner, owner, "lost bearserker rage resistances", ATKLOG_ALL)
+
+/datum/status_effect/xray
+	id = "xray"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 2 MINUTES
+	tick_interval = 0
+
+/datum/status_effect/xray/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, "XRAY_BUFF")
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "XRAY_BUFF")
+	owner.update_sight()
+
+/datum/status_effect/xray/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_XRAY_VISION, "XRAY_BUFF")
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "XRAY_BUFF")
+	owner.update_sight()
+
+/datum/status_effect/badass
+	id = "badass"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 2 MINUTES
+	tick_interval = 0
+
+/datum/status_effect/badass/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_BADASS, "BADDASS_BUFF")
+
+/datum/status_effect/badass/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_BADASS, "BADDASS_BUFF")
+
+/datum/status_effect/reversed_sun
+	id = "reversed_sun"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 1 MINUTES
+	tick_interval = 0.2 SECONDS
+
+/datum/status_effect/reversed_sun/on_apply()
+	. = ..()
+	owner.become_nearsighted("REVERSED_SUN")
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
+	owner.update_sight()
+	owner.set_light(7, -5, "#ddd6cf")
+
+/datum/status_effect/reversed_sun/on_remove()
+	. = ..()
+	owner.remove_light()
+	owner.cure_nearsighted("REVERSED_SUN")
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "REVERSED_SUN")
+	owner.update_sight()
+
+/datum/status_effect/reversed_sun/tick()
+	for(var/atom/movable/AM in oview(8, owner))
+		if(isliving(AM))
+			var/mob/living/L = AM
+			if(L.affects_vampire(owner))
+				L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
+			continue
+		if(istype(AM, /obj/item/projectile))
+			var/obj/item/projectile/P = AM
+			if(P.flag == ENERGY || P.flag == LASER)
+				P.damage *= 0.85

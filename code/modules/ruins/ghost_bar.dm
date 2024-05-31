@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(occupants_by_key)
+
 /obj/effect/mob_spawn/human/alive/ghost_bar
 	name = "ghastly rejuvenator"
 	mob_name = "ghost bar occupant"
@@ -12,7 +14,7 @@
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
-	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes")
+	if(tgui_alert(user, "Would you like to use one of your saved characters in your character creator?", "Ghost Bar", list("Yes", "No")) == "Yes")
 		var/list/our_characters_names = list()
 		var/list/our_character_saves = list()
 		for(var/index in 1 to length(user.client.prefs.character_saves))
@@ -55,7 +57,7 @@
 		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
 	if(!H.shoes)
 		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
-	equip_item(H, /obj/item/stack/spacecash/c100, SLOT_HUD_LEFT_STORE)
+	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_STORE)
 
 	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
 	our_id.assignment = assignedrole
@@ -83,11 +85,21 @@
 		implant.insert(H)
 	log_game("[ckey] has entered the ghost bar")
 	playsound(src, 'sound/machines/wooden_closet_open.ogg', 50)
+	var/mob/old_mob = GLOB.occupants_by_key["[H.ckey]"]
+	if(old_mob)
+		qdel(old_mob)
+	GLOB.occupants_by_key["[H.ckey]"] = H
+	RegisterSignal(H, COMSIG_PARENT_QDELETING, PROC_REF(clear_references_to_owner))
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
 	H.equip_or_collect(I, slot, TRUE)
+	H.speaks_ooc = TRUE
 	return I
+
+/obj/effect/mob_spawn/human/alive/ghost_bar/proc/clear_references_to_owner(mob/mob_to_obliterate)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	GLOB.occupants_by_key -= mob_to_obliterate.ckey
 
 /obj/structure/ghost_bar_cryopod
 	name = "returning sarcophagus"
@@ -99,12 +111,16 @@
 	if(!istype(mob_to_delete) || !istype(user) || !Adjacent(user))
 		return
 	if(mob_to_delete.client)
-		if(alert(mob_to_delete , "Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)",, "Yes", "No") == "No")
+		if(tgui_alert(mob_to_delete, "Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)", "Ghost Bar", list("Yes", "No")) != "Yes")
 			return
 	mob_to_delete.visible_message("<span class='notice'>[mob_to_delete.name] climbs into [src]...</span>")
 	playsound(src, 'sound/machines/wooden_closet_close.ogg', 50)
 	qdel(mob_to_delete)
 
 /proc/dust_if_respawnable(mob/M)
+	if(isdrone(M))
+		var/mob/living/silicon/robot/drone/drone = M
+		drone.shut_down(TRUE)
+		return
 	if(HAS_TRAIT_FROM(M, TRAIT_RESPAWNABLE, GHOST_ROLE))
 		M.dust()

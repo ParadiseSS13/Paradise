@@ -23,7 +23,7 @@
 
 /obj/item/tank/jetpack/on_mob_move(direction, mob/user)
 	if(on)
-		var/turf/T = get_step(src, GetOppositeDir(direction))
+		var/turf/T = get_step(src, reverse_direction(direction))
 		if(!has_gravity(T))
 			new /obj/effect/particle_effect/ion_trails(T, direction)
 
@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)

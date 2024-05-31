@@ -26,7 +26,7 @@
 
 /obj/effect/particle_effect/water/proc/extinguish_move(turf/target)
 	for(var/counter in 1 to 5)
-		if(!step_towards(src, target))
+		if(!step_towards(src, target) && counter != 1)
 			return
 		var/turf/current_turf = get_turf(src)
 		reagents.reaction(current_turf)

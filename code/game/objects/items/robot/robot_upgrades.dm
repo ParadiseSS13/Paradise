@@ -7,7 +7,7 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	/// Whether or not the cyborg needs to have a chosen module before they can recieve this upgrade.
+	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
 	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
 	var/module_type = null
@@ -81,7 +81,7 @@
 	return TRUE
 
 /*******************/
-/****	COMMON	****/
+// MARK: COMMON
 /*******************/
 
 /obj/item/borg/upgrade/reset
@@ -104,7 +104,10 @@
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	if(!new_heldname)
+		return
+	heldname = new_heldname
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
@@ -199,7 +202,7 @@
 		icon_state = "selfrepair_[on ? "on" : "off"]"
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	else
 		icon_state = "cyborg_upgrade5"
 
@@ -261,25 +264,11 @@
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
 
-	for(var/obj/item/borg/upgrade/floorbuffer/U in R.contents)
-		if(R.floorbuffer)
-			R.floorbuffer = FALSE
-			R.speed -= U.buffer_speed
-
-	for(var/datum/action/innate/robot_magpulse/magpulse in R.module_actions)
-		if(magpulse.active)
-			REMOVE_TRAIT(R, TRAIT_MAGPULSE, "innate boots")
-			to_chat(R, "You turn your magboots off.")
-			R.speed -= magpulse.slowdown_active
-			magpulse.button_icon_state = initial(magpulse.button_icon_state)
-			magpulse.active = FALSE
-
-	R.speed = -1 // Gotta go fast.
-
+	R.speed -= 1 // Gotta go fast.
 	return TRUE
 
 /***********************/
-/****	SECURITY	****/
+// MARK: Security
 /***********************/
 
 /obj/item/borg/upgrade/disablercooler
@@ -305,7 +294,7 @@
 	return TRUE
 
 /*******************/
-/****	MINING	****/
+// MARK: Mining
 /*******************/
 
 /obj/item/borg/upgrade/ddrill
@@ -344,7 +333,7 @@
 	return TRUE
 
 /***********************/
-/****	ENGINEER	****/
+// MARK: Engineer
 /***********************/
 
 /obj/item/borg/upgrade/rcd
@@ -371,14 +360,15 @@
 	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
-/****	JANITOR		****/
+// MARK: Janitor
 /***********************/
 
 /obj/item/borg/upgrade/floorbuffer
-	name = "janitor cyborg floor buffer upgrade"
-	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs."
+	name = "janitorial floor buffer upgrade"
+	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs and mobile janicarts."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "upgrade"
+	origin_tech = "materials=3;engineering=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	/// How much speed the cyborg loses while the buffer is active
@@ -421,7 +411,7 @@
 	)
 
 /***********************/
-/****	SYNDIE		****/
+// MARK: Syndicate
 /***********************/
 
 /obj/item/borg/upgrade/syndicate
@@ -449,7 +439,7 @@
 	)
 
 /***********************/
-/****	ABDUCTOR	****/
+// MARK: Abductor
 /***********************/
 
 /obj/item/borg/upgrade/abductor_engi
@@ -496,3 +486,24 @@
 		return
 	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
 		F.emag_act()
+
+/obj/item/borg/upgrade/abductor_jani
+	name = "janitorial cyborg abductor upgrade"
+	desc = "An experimental upgrade that replaces a janitorial cyborg's tools with the abductor versions."
+	icon_state = "abductor_mod"
+	origin_tech = "biotech=6;materials=6;abductor=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+	items_to_replace = list(
+		/obj/item/mop/advanced/cyborg = /obj/item/mop/advanced/abductor,
+		/obj/item/soap = /obj/item/soap/syndie/abductor,
+		/obj/item/lightreplacer/cyborg = /obj/item/lightreplacer/bluespace/abductor,
+		/obj/item/melee/flyswatter = /obj/item/melee/flyswatter/abductor
+	)
+	items_to_add = list(
+		/obj/item/reagent_containers/spray/cleaner/safety/abductor
+	)
+	special_rechargables = list(
+		/obj/item/reagent_containers/spray/cleaner/safety/abductor,
+		/obj/item/lightreplacer/bluespace/abductor
+	)

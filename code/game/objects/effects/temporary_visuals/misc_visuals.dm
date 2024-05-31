@@ -80,14 +80,14 @@
 
 /obj/effect/temp_visual/dir_setting/wraith/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.wraith_jaunt_in_animation
+	icon_state = GET_CULT_DATA(wraith_jaunt_in_animation, initial(icon_state))
 
 /obj/effect/temp_visual/dir_setting/wraith/out
 	icon_state = "phase_shift"
 
 /obj/effect/temp_visual/dir_setting/wraith/out/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.wraith_jaunt_out_animation
+	icon_state = GET_CULT_DATA(wraith_jaunt_out_animation, initial(icon_state))
 
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
@@ -102,6 +102,15 @@
 /obj/effect/temp_visual/wizard/out
 	icon_state = "liquify"
 	duration = 12
+
+/obj/effect/temp_visual/corpse_explosion
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "corpse_explosion"
+	pixel_x = -16
+	pixel_y = -16
+	light_range = 5
+	light_color = "#f7dce3"
+	duration = 13
 
 /obj/effect/temp_visual/monkeyify
 	icon = 'icons/mob/mob.dmi'
@@ -130,17 +139,19 @@
 	desc = "It's a decoy!"
 	duration = 15
 
-/obj/effect/temp_visual/decoy/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	alpha = initial(alpha)
 	if(mimiced_atom)
 		name = mimiced_atom.name
 		appearance = mimiced_atom.appearance
+		invisibility = mimiced_atom.invisibility
+		alpha = mimiced_atom.alpha
 		setDir(mimiced_atom.dir)
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/fading/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/decoy/fading/threesecond
@@ -200,7 +211,8 @@
 	icon_state = "mummy_revive"
 	duration = 20
 
-/obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
+/// color is white by default, set to whatever is needed
+/obj/effect/temp_visual/heal
 	name = "healing glow"
 	icon_state = "heal"
 	duration = 15
@@ -219,16 +231,12 @@
 	layer = ABOVE_MOB_LAYER
 	duration = 4
 
-/obj/effect/temp_visual/explosion
+/obj/effect/temp_visual/pka_explosion
 	name = "explosion"
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "explosion"
+	icon_state = "explosionfast"
 	pixel_x = -32
 	pixel_y = -32
-	duration = 8
-
-/obj/effect/temp_visual/explosion/fast
-	icon_state = "explosionfast"
 	duration = 4
 
 /obj/effect/temp_visual/heart
@@ -354,6 +362,14 @@
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6
+
+/obj/effect/temp_visual/impact_effect/chaos
+	icon_state = "shieldsparkles"
+	duration = 6
+
+/obj/effect/temp_visual/impact_effect/chaos/Initialize(mapload)
+	. = ..()
+	icon_state = pick("shieldsparkles", "purplesparkles", "bloodsparkles", "snowcloud")
 
 /obj/effect/temp_visual/bsg_kaboom
 	name = "bluespace explosion"
@@ -498,3 +514,9 @@
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
+
+/obj/effect/temp_visual/warning
+	name = "warning"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "warning"
+	duration = 3 SECONDS

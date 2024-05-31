@@ -18,8 +18,6 @@
 	icon_state = "[prefix]off"
 
 /obj/machinery/atmospherics/unary/thermal_plate/process_atmos()
-	..()
-
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	//Get processable air sample and thermal info from environment
@@ -76,3 +74,5 @@
 	parent.update = 1
 
 	return 1
+
+#undef RADIATION_CAPACITY

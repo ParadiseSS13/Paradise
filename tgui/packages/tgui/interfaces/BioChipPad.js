@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Section, Box, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const ImplantPad = (props, context) => {
+export const BioChipPad = (props, context) => {
   const { act, data } = useBackend(context);
   const { implant, contains_case } = data;
 

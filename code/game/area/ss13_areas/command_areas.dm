@@ -72,7 +72,3 @@
 /area/station/command/customs
 	name = "Customs"
 	icon_state = "checkpoint1"
-
-/area/station/command/customs2
-	name = "Customs"
-	icon_state = "security"

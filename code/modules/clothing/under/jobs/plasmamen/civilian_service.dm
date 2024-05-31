@@ -5,6 +5,13 @@
 	item_state = "cargo_envirosuit"
 	item_color = "cargo_envirosuit"
 
+/obj/item/clothing/under/plasmaman/expedition
+	name = "expedition envirosuit"
+	desc = "An airtight brown and blue suit designed for operations in Space by plasmamen.."
+	icon_state = "expedition_envirosuit"
+	item_state = "expedition_envirosuit"
+	item_color = "expedition_envirosuit"
+
 /obj/item/clothing/under/plasmaman/mining
 	name = "mining plasma envirosuit"
 	desc = "An airtight khaki suit designed for operations on Lavaland by plasmamen."
@@ -112,3 +119,10 @@
 	icon_state = "bs_envirosuit"
 	item_state = "bs_envirosuit"
 	item_color = "bs_envirosuit"
+
+/obj/item/clothing/under/plasmaman/coke
+	name = "coke envirosuit"
+	desc = "An envirosuit designed by Space Cola Co for plasmamen."
+	icon_state = "coke_envirosuit"
+	item_state = "coke_envirosuit"
+	item_color = "coke_envirosuit"

@@ -31,14 +31,17 @@
 	name = "Tajaran Muzzle and Inner Ears"
 	icon_state = "muzinears"
 
-/datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
+/// Companion marking for Tajaran Belly 2.
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj
 	name = "Tajaran Muzzle 2"
 	icon_state = "muzzle2"
 
-/datum/sprite_accessory/body_markings/head/tajara/points_taj //Companion marking for Tajaran Points.
+/// Companion marking for Tajaran Points.
+/datum/sprite_accessory/body_markings/head/tajara/points_taj
 	name = "Tajaran Points Head"
 	icon_state = "points"
 
-/datum/sprite_accessory/body_markings/head/tajara/patchy_taj //Companion marking for Tajaran Patches.
+/// Companion marking for Tajaran Patches.
+/datum/sprite_accessory/body_markings/head/tajara/patchy_taj
 	name = "Tajaran Patches Head"
 	icon_state = "patch"

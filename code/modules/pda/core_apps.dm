@@ -41,7 +41,7 @@
 						if(1)		// Configure pAI device
 							pda.pai.attack_self(usr)
 						if(2)		// Eject pAI device
-							var/turf/T = get_turf_or_move(pda.loc)
+							var/turf/T = get_turf(pda.loc)
 							if(T)
 								pda.pai.forceMove(T)
 								pda.pai = null
@@ -73,12 +73,12 @@
 
 	switch(action)
 		if("Edit")
-			var/n = input("Please enter message", name, note) as message
+			var/n = tgui_input_text(usr, "Please enter message", name, note, multiline = TRUE, encode = FALSE)
+			if(isnull(n))
+				return
+
 			if(pda.loc == usr)
-				// TGUI will auto-reject supplied HTML
-				// However, the admin var-edit window will not
-				// SANITISATION IS IMPORTANT. DO NOT NEGLECT.
-				note = adminscrub(n)
+				note = n
 			else
 				pda.close(usr)
 

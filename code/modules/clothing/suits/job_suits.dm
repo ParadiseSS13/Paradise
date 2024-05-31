@@ -194,19 +194,42 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
-//Engineering
+//Hazard vests
 /obj/item/clothing/suit/storage/hazardvest
 	name = "hazard vest"
-	desc = "A high-visibility vest used in work zones."
-	icon_state = "hazard"
-	item_state = "hazard"
+	desc = "A high-visibility vest used in work zones. Designed for general use."
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_state = "hazard_base"
+	item_state = 'icons/mob/clothing/suits/utility.dmi'
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
 	blood_overlay_type = "armor"
 	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi'
 		)
+
+/obj/item/clothing/suit/storage/hazardvest/staff
+	name = "staff hazard vest"
+	desc = "A high-visibilty vest used in work zones. Designed to easily identify station staff from visitors."
+	icon_state = "hazard_staff"
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/rcs, /obj/item/destTagger)
+
+/obj/item/clothing/suit/storage/hazardvest/qm
+	name = "warehouse supervisor hazard vest"
+	desc = "A high-visibilty vest used in work zones. Designed to easily identify the supply supervisor."
+	icon_state = "hazard_qm"
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcs, /obj/item/destTagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster)
+
+/obj/item/clothing/suit/storage/hazardvest/ce
+	name = "foreman hazard vest"
+	desc = "A high-visibility vest used in work zones. Designed to easily identify the engineering supervisor."
+	icon_state = "hazard_ce"
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/destTagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/iaa
@@ -272,6 +295,29 @@
 	icon_state = "hopcoat"
 	item_state = "hopcoat"
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
+	)
+
+//Quartermaster
+/obj/item/clothing/suit/mantle/qm
+	name = "quartermaster's mantle"
+	desc = "An armored shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
+	icon_state = "qmmantle"
+	item_state = "qmmantle"
+	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+
+/obj/item/clothing/suit/qmcoat
+	name = "quartermaster's coat"
+	desc = "A brown trenchcoat to show the station you mean business. Has armor woven within the fabric."
+	icon_state = "qmcoat"
+	item_state = "qmcoat"
+	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',

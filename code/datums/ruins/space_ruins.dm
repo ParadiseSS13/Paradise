@@ -82,6 +82,7 @@
 	name = "Derelict 3"
 	description = "These hulks were once part of a larger structure, where \
 		the three great \[REDACTED\] were forged."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/derelict4
 	id = "derelict4"
@@ -124,10 +125,9 @@
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
-	name = "CF Corsair"
-	description = "Well, when is it getting here? I have bills to pay; very \
-		well-armed clients who want their shipments as soon as possible! I \
-		don't care, just find it!"
+	name = "Cybersun Exosuit Factory Ship"
+	description = "A crashed mobile mech factory under security lockdown."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/onehalf
 	id = "onehalf"
@@ -147,7 +147,8 @@
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
 	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
-	cost = 2
+	always_place = TRUE
+	cost = 0
 
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
@@ -246,8 +247,8 @@
 /datum/map_template/ruin/space/whiteship
 	id = "whiteship"
 	suffix = "whiteship.dmm"
-	name = "NT Medical Ship"
-	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
+	name = "NEV Limulus"
+	description = "A small expeditionary ship for use in local space exploration and salvaging."
 	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost

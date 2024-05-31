@@ -52,52 +52,49 @@
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	return take_patient(O, user)
 
-/// Updates `patient` to be a carbon mob occupying the table, and returns it
-/obj/machinery/optable/proc/update_patient()
-	if(patient in buckled_mobs)
-		return patient // Current patient is still here, no need to look
-
-	patient = null
-
-	if(length(buckled_mobs))
-		for(var/mob/living/carbon/C in buckled_mobs)
-			patient = C
-
-			if(length(injected_reagents))
-				to_chat(C, "<span class='danger'>You feel a series of tiny pricks!</span>")
-
-			break
-
-	if(!no_icon_updates)
-		if(patient && patient.pulse)
-			icon_state = "table2-active"
-		else
-			icon_state = "table2-idle"
-
-	return patient
+/obj/machinery/optable/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	if(M == patient)
+		patient = null
+		update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
 	if((!ishuman(user) && !isrobot(user)) || !istype(new_patient))
 		return
-	if(update_patient())
-		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
+	if(patient in buckled_mobs)
+		to_chat(user, "<span class='notice'>The table is already occupied!</span>")
 		return
 
 	// Attempt to settle the patient in
 	if(!user_buckle_mob(new_patient, user, check_loc = FALSE))
 		return // User is incapacitated, patient is already buckled to something else, etc.
 
-	update_patient()
+	patient = new_patient
+
+	if(length(injected_reagents))
+		to_chat(new_patient, "<span class='danger'>You feel a series of tiny pricks!</span>")
+
+	update_appearance(UPDATE_ICON_STATE)
+
 	return TRUE
 
 /obj/machinery/optable/process()
-	update_patient()
 
 	if(!length(injected_reagents) || !patient || patient.stat == DEAD)
 		return
 
+	update_appearance(UPDATE_ICON_STATE)
+
 	for(var/chemical in injected_reagents)
 		patient.reagents.check_and_add(chemical, reagent_target_amount, inject_amount)
+
+/obj/machinery/optable/update_icon_state()
+	if(no_icon_updates)
+		return
+	if(patient?.pulse)
+		icon_state = "table2-active"
+	else
+		icon_state = "table2-idle"
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE

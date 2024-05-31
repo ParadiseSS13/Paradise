@@ -106,6 +106,11 @@
 	path = /obj/item/clothing/suit/jacket/miningbomber
 	allowed_roles = list("Quartermaster", "Shaft Miner")
 
+/datum/gear/suit/bomber/job/expedition
+	display_name = "Bomber jacket, expedition"
+	path = /obj/item/clothing/suit/jacket/expeditionbomber
+	allowed_roles = list("Quartermaster", "Explorer")
+
 /datum/gear/suit/bomber/job/engi
 	display_name = "Bomber jacket, engineering"
 	path = /obj/item/clothing/suit/jacket/engibomber
@@ -199,6 +204,11 @@
 /datum/gear/suit/rdponcho
 	display_name = "Poncho, red"
 	path = /obj/item/clothing/suit/poncho/red
+
+/datum/gear/suit/secponcho
+	display_name = "Poncho, security"
+	path = /obj/item/clothing/suit/armor/secponcho
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/tphoodie
 	display_name = "Hoodie, Tharsis Polytech"

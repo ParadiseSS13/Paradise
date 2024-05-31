@@ -23,9 +23,9 @@
 		return
 	switch(severity)
 		if(1)
-			owner?.adjustStaminaLoss(20)
+			owner?.apply_damage(20, STAMINA)
 		if(2)
-			owner?.adjustStaminaLoss(10)
+			owner?.apply_damage(10, STAMINA)
 	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
 
 /obj/item/organ/external/groin
@@ -187,7 +187,7 @@
 
 	. = ..()
 
-/obj/item/organ/external/hand/necrotize(update_sprite)
+/obj/item/organ/external/hand/necrotize(update_sprite, ignore_vital_death = FALSE)
 	. = ..()
 	update_hand_missing()
 

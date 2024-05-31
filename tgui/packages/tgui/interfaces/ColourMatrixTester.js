@@ -1,13 +1,12 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Section, NumberInput } from '../components';
+import { NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const ColourMatrixTester = (props, context) => {
   const { act, data } = useBackend(context);
   const { colour_data } = data;
 
-  const matrix_entries = [
+  const matrixEntries = [
     [
       { name: 'RR', idx: 0 },
       { name: 'RG', idx: 1 },
@@ -35,32 +34,36 @@ export const ColourMatrixTester = (props, context) => {
   ];
 
   return (
-    <Window width={350} height={170}>
+    <Window width={360} height={190}>
       <Window.Content>
-        <Section title="Modify Matrix">
-          {matrix_entries.map((k) => (
-            <Box key={k} textAlign="center">
-              {k.map((k2) => (
-                <Fragment key={k2.name}>
-                  {k2.name}&nbsp;
-                  <NumberInput
-                    value={colour_data[k2.idx]}
-                    step={0.05}
-                    minValue={-5}
-                    maxValue={5}
-                    onDrag={(e, value) =>
-                      act('setvalue', {
-                        /* +1 to account for BYOND lists */
-                        idx: k2.idx + 1,
-                        value: value,
-                      })
-                    }
-                  />
-                </Fragment>
-              ))}
-            </Box>
-          ))}
-        </Section>
+        <Stack fill vertical>
+          <Section fill title="Modify Matrix">
+            {matrixEntries.map((k) => (
+              <Stack key={k} textAlign="center" textColor="label">
+                {k.map((k2) => (
+                  <Stack.Item key={k2.name} grow mt={1}>
+                    {k2.name}:&nbsp;
+                    <NumberInput
+                      width={4}
+                      value={colour_data[k2.idx]}
+                      step={0.05}
+                      minValue={-5}
+                      maxValue={5}
+                      stepPixelSize={5}
+                      onChange={(e, value) =>
+                        act('setvalue', {
+                          /* +1 to account for BYOND lists */
+                          idx: k2.idx + 1,
+                          value: value,
+                        })
+                      }
+                    />
+                  </Stack.Item>
+                ))}
+              </Stack>
+            ))}
+          </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

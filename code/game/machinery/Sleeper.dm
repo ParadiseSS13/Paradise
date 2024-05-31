@@ -32,7 +32,7 @@
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
 	if(occupant)
-		if(occupant.is_dead())
+		if(occupant.stat == DEAD)
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
@@ -502,6 +502,7 @@
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
+		QDEL_LIST_CONTENTS(L.grabbed_by)
 		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)

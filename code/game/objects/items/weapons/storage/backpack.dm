@@ -23,14 +23,14 @@
 		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(in_range(user, src))
-		playsound(src.loc, "rustle", 50, 1, -5)
+	if(Adjacent(user))
+		playsound(src.loc, "rustle", 50, TRUE, -5)
 		return ..()
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
 	. = ..()
-	if(in_range(user, src))
+	if(Adjacent(user))
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
@@ -65,7 +65,7 @@
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "No", "Yes")
+		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
@@ -74,7 +74,7 @@
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 				singulo.energy = 300 //To give it a small boost
-				message_admins("[key_name_admin(user)] detonated a bag of holding <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				message_admins("[key_name_admin(user)] detonated a bag of holding <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				log_game("[key_name(user)] detonated a bag of holding")
 				qdel(src)
 			else
@@ -112,7 +112,7 @@
 /obj/item/storage/backpack/clown/syndie/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
-	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/mask/chameleon/voice_change(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
 	new /obj/item/storage/box/survival(src)
@@ -454,7 +454,7 @@
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
-/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, mob/user, prevent_warning, bypass_zip = FALSE)
 	if(bypass_zip)
 		return ..()
 
@@ -600,7 +600,8 @@
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone(src)
 
-/obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
+/// for maint spawns
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
 
@@ -719,7 +720,8 @@
 		/obj/item/warp_cube/red = 1,
 		/obj/item/reagent_containers/drinks/everfull = 2,
 		/obj/item/clothing/suit/space/hardsuit/wizard = 2,
-		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
+		/obj/item/immortality_talisman = 1, //spells recharge when invincible
+		/obj/item/tarot_generator/wizard = 2)
 	var/obj/item/pickeda = pick(list_a)
 	value += list_a[pickeda]
 	new pickeda(src)

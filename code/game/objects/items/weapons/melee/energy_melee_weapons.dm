@@ -1,5 +1,5 @@
 /obj/item/melee/energy
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
@@ -41,8 +41,8 @@
 		force -= faction_bonus_force
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
-						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
+						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
@@ -55,7 +55,7 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = attack_verb_on
 		if(icon_state_on)
 			icon_state = icon_state_on
@@ -71,7 +71,7 @@
 		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
@@ -111,7 +111,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/sword
@@ -159,7 +159,8 @@
 		..()
 	return
 
-/obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
+/// Used by medical Syndicate cyborgs
+/obj/item/melee/energy/sword/cyborg/saw
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
@@ -239,7 +240,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -253,9 +254,11 @@
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
 	desc = "Arrrr matey."
+	force_on = 20
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
+	origin_tech = "combat=3;magnets=4;syndicate=2"
 
 /obj/item/melee/energy/blade
 	name = "energy blade"
@@ -338,7 +341,7 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = attack_verb_on
 		if(icon_state_on)
 			icon_state = icon_state_on
@@ -354,7 +357,7 @@
 		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)

@@ -45,6 +45,14 @@
 		/obj/item/mod/module/flashlight,
 	)
 
+/obj/item/mod/control/pre_equipped/standard/explorer
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/welding,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/jetpack
+	)
+
 /obj/item/mod/control/pre_equipped/engineering
 	theme = /datum/mod_theme/engineering
 	applied_modules = list(
@@ -119,7 +127,8 @@
 		/obj/item/mod/module/sphere_transform,
 	)
 
-/obj/item/mod/control/pre_equipped/mining/vendor //visit robotics.
+/// visit robotics.
+/obj/item/mod/control/pre_equipped/mining/vendor
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
@@ -130,7 +139,8 @@
 	)
 
 
-/obj/item/mod/control/pre_equipped/mining/asteroid //The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
+/// The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
+/obj/item/mod/control/pre_equipped/mining/asteroid
 	applied_skin = "asteroid"
 
 /obj/item/mod/control/pre_equipped/medical
@@ -348,6 +358,10 @@
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt //Defence and flaming hot offence. Good for reflective blob, xenos, antagonists with guns
 
+/obj/item/mod/control/pre_equipped/responsory/security/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
 	additional_module = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt, /obj/item/mod/module/firefighting_tank) //This can only end well.
@@ -355,6 +369,10 @@
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
 	additional_module = /obj/item/mod/module/defibrillator
+
+/obj/item/mod/control/pre_equipped/responsory/medic/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
@@ -368,7 +386,8 @@
 	insignia_type = /obj/item/mod/module/insignia/chaplain
 	additional_module = /obj/item/mod/module/injector
 
-/obj/item/mod/control/pre_equipped/responsory/inquisitory //Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
+/// Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
+/obj/item/mod/control/pre_equipped/responsory/inquisitory
 	applied_skin = "inquisitory"
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
@@ -404,6 +423,10 @@
 		/obj/item/mod/module/magboot/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/apocryphal/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/apocryphal/officer
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
@@ -419,7 +442,6 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/power_kick, //If you are not drop kicking a xenomorph, what are you doing as an DS commander?
 	)
-
 
 /obj/item/mod/control/pre_equipped/corporate
 	theme = /datum/mod_theme/corporate

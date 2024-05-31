@@ -2,6 +2,8 @@
 	name = "Crew monitor"
 	var/is_advanced = FALSE
 	var/viewing_current_z_level
+	/// If true, we'll see everyone, regardless of their suit sensors.
+	var/ignore_sensors = FALSE
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -17,11 +19,14 @@
 
 	switch(action)
 		if("track")
+			var/mob/living/carbon/human/H = locate(params["track"]) in GLOB.human_list
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				var/mob/living/carbon/human/H = locate(params["track"]) in GLOB.human_list
 				if(hassensorlevel(H, SUIT_SENSOR_TRACKING))
 					AI.ai_actual_track(H)
+			if(isobserver(usr))
+				var/mob/dead/observer/ghost = usr
+				ghost.ManualFollow(H)
 		if("switch_level")
 			if(!is_advanced)
 				return
@@ -53,7 +58,9 @@
 	data["viewing_current_z_level"] = viewing_current_z_level
 
 	data["isAI"] = isAI(user)
-	data["crewmembers"] = GLOB.crew_repository.health_data(viewing_current_z_level)
+	data["isObserver"] = isobserver(user)
+	data["ignoreSensors"] = ignore_sensors
+	data["crewmembers"] = GLOB.crew_repository.health_data(viewing_current_z_level, ignore_sensors)
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
 
 	return data
@@ -62,9 +69,16 @@
 	var/list/data = list()
 
 	data["is_advanced"] = is_advanced
-
 	data["possible_levels"] = list()
-	for(var/z in 1 to world.maxz)
-		data["possible_levels"] |= z
+	for(var/zl in GLOB.space_manager.z_list)
+		data["possible_levels"] |= zl
 
 	return data
+
+/datum/ui_module/crew_monitor/ghost
+	name = "Crew monitor (Observer)"
+	is_advanced = TRUE
+	ignore_sensors = TRUE
+
+/datum/ui_module/crew_monitor/ghost/ui_state(mob/user)
+	return GLOB.observer_state

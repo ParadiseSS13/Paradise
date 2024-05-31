@@ -40,7 +40,7 @@
 	var/hot_message = "your face burning and a searing heat"
 	var/heat_level_1_threshold = 360
 	var/heat_level_2_threshold = 400
-	var/heat_level_3_threshold = 1000
+	var/heat_level_3_threshold = 460
 	var/heat_level_1_damage = HEAT_GAS_DAMAGE_LEVEL_1
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
@@ -52,7 +52,7 @@
  */
 
 /datum/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	if((H.status_flags & GODMODE))
+	if(H.status_flags & GODMODE)
 		return
 
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -65,13 +65,13 @@
 			H.adjustOxyLoss(5)
 
 		if(safe_oxygen_min)
-			H.throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else if(safe_toxins_min)
-			H.throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else if(safe_co2_min)
-			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else if(safe_nitro_min)
-			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		return FALSE
 
 
@@ -95,7 +95,7 @@
 		if(O2_pp > safe_oxygen_max)
 			var/ratio = (breath.oxygen / safe_oxygen_max / safe_oxygen_max) * 10
 			H.apply_damage_type(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
-			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+			H.throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 		else
 			H.clear_alert("too_much_oxy")
 
@@ -103,7 +103,7 @@
 	if(safe_oxygen_min)
 		if(O2_pp < safe_oxygen_min)
 			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen)
-			H.throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.oxygen
@@ -121,7 +121,7 @@
 		if(N2_pp > safe_nitro_max)
 			var/ratio = (breath.nitrogen / safe_nitro_max) * 10
 			H.apply_damage_type(clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
-			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
+			H.throw_alert("too_much_nitro", /atom/movable/screen/alert/too_much_nitro)
 		else
 			H.clear_alert("too_much_nitro")
 
@@ -129,7 +129,7 @@
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
-			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.nitrogen
@@ -152,7 +152,7 @@
 				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 					H.apply_damage_type(15, co2_damage_type)
-				H.throw_alert("too_much_co2", /obj/screen/alert/too_much_co2)
+				H.throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2)
 			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
 				H.emote("cough")
 
@@ -164,7 +164,7 @@
 	if(safe_co2_min)
 		if(CO2_pp < safe_co2_min)
 			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide)
-			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.carbon_dioxide
@@ -183,7 +183,7 @@
 		if(Toxins_pp > safe_toxins_max)
 			var/ratio = (breath.toxins / safe_toxins_max) * 10
 			H.apply_damage_type(clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type)
-			H.throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+			H.throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 		else
 			H.clear_alert("too_much_tox")
 
@@ -192,7 +192,7 @@
 	if(safe_toxins_min)
 		if(Toxins_pp < safe_toxins_min)
 			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins)
-			H.throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.toxins
@@ -329,8 +329,46 @@
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
 	cold_damage_types = list(BRUTE = 0.5, BURN = 0.25)
 
+	heat_level_1_threshold = 310
+	heat_level_2_threshold = 340
+	heat_level_3_threshold = 400
+
+/datum/organ/lungs/tajaran
+	cold_level_1_threshold = 240
+	cold_level_2_threshold = 180
+	cold_level_3_threshold = 100
+
+	heat_level_1_threshold = 340
+	heat_level_2_threshold = 380
+	heat_level_3_threshold = 440
+
+/datum/organ/lungs/unathi
+	cold_level_1_threshold = 280
+	cold_level_2_threshold = 220
+	cold_level_3_threshold = 140
+
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
+
 /datum/organ/lungs/ashwalker
 	safe_oxygen_min = 4 // 4x as efficient as regular Unathi, can comfortably breathe on lavaland
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
+
+	cold_level_1_threshold = 280
+	cold_level_2_threshold = 220
+	cold_level_3_threshold = 140
+
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
+
+/datum/organ/lungs/slime
+	cold_level_1_threshold = 280
+	cold_level_2_threshold = 240
+	cold_level_3_threshold = 200
 
 /datum/organ/lungs/advanced_cyber/New(obj/item/organ/internal/link_em)
 	. = ..()

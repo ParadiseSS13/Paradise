@@ -201,38 +201,43 @@
 		addstack.use(amount)
 		SStgui.update_uis(src)
 		return
-	else if(!active)
-		if(istype(O, /obj/item/wrench))
-
-			if(!anchored)
-				connect_to_network()
-				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
-			else
-				disconnect_from_network()
-				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
-
-			playsound(src.loc, O.usesound, 50, 1)
-			anchored = !anchored
-
-		else if(istype(O, /obj/item/storage/part_replacer) && panel_open)
+	if(!active)
+		if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
-			return
-		else if(istype(O, /obj/item/crowbar) && panel_open)
-			default_deconstruction_crowbar(user, O)
-	else
-		return ..()
+		return
+	return ..()
+
+/obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)
+	if(active || !panel_open)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/I)
 	if(active)
 		return
-
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
 	panel_open = !panel_open
-	I.play_tool_sound(src)
 	if(panel_open)
 		to_chat(user, "<span class='notice'>You open the access panel.</span>")
 	else
 		to_chat(user, "<span class='notice'>You close the access panel.</span>")
-	return TRUE
+
+/obj/machinery/power/port_gen/pacman/wrench_act(mob/living/user, obj/item/I)
+	if(active)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	if(!anchored)
+		connect_to_network()
+		to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+	else
+		disconnect_from_network()
+		to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+	anchored = !anchored
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
@@ -369,3 +374,7 @@
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
 	explosion(loc, 3, 6, 12, 16, 1)
 	qdel(src)
+
+#undef SHEET_VOLUME
+#undef TEMPERATURE_DIVISOR
+#undef TEMPERATURE_CHANGE_MAX

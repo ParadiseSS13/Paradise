@@ -3,30 +3,26 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/clownplanet)
 "ac" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/clownplanet)
 "ad" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
 "ae" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
@@ -75,9 +71,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -129,9 +124,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -172,9 +166,8 @@
 /area/ruin/powered/clownplanet)
 "ao" = (
 /obj/structure/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
@@ -189,9 +182,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -253,23 +245,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
-"av" = (
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/lubed,
-/area/ruin/powered/clownplanet)
 "aw" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -284,9 +259,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -302,9 +276,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -320,18 +293,10 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/lubed,
-/area/ruin/powered/clownplanet)
-"aA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/wall/r_wall,
 /area/ruin/powered/clownplanet)
 "aB" = (
 /obj/structure/disposalpipe/segment{
@@ -365,9 +330,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -390,9 +354,8 @@
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
 "aE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
@@ -427,9 +390,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -448,9 +410,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -549,9 +510,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -608,9 +568,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
@@ -630,9 +589,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
 "aV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -640,9 +598,8 @@
 	},
 /area/ruin/powered/clownplanet)
 "aW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -711,9 +668,8 @@
 /turf/simulated/floor/light,
 /area/ruin/powered/clownplanet)
 "bd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -724,9 +680,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -760,9 +715,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/clownplanet)
@@ -778,16 +732,14 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
 "bk" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
@@ -803,16 +755,14 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
 "bm" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -905,9 +855,8 @@
 /area/ruin/powered/clownplanet)
 "bu" = (
 /obj/effect/decal/cleanable/blood/oil,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/clownplanet)
@@ -937,9 +886,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/clownplanet)
@@ -955,7 +903,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
 "by" = (
@@ -1149,9 +1097,8 @@
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
 "sL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/light,
 /area/ruin/powered/clownplanet)
@@ -1171,9 +1118,8 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/clownplanet)
 "HG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/light,
 /area/ruin/powered/clownplanet)
@@ -1245,9 +1191,8 @@
 /turf/simulated/floor/noslip/lavaland,
 /area/ruin/powered/clownplanet)
 "VH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/clownplanet)
@@ -1406,9 +1351,9 @@ ye
 ye
 ye
 ab
-aA
+EG
 ab
-aA
+EG
 ye
 cc
 cc
@@ -1443,7 +1388,7 @@ VH
 aH
 ay
 aS
-aA
+EG
 ye
 cc
 cc
@@ -1476,7 +1421,7 @@ ah
 af
 aI
 af
-av
+qo
 aL
 ye
 cc
@@ -1509,7 +1454,7 @@ ap
 am
 ah
 af
-aA
+EG
 aL
 aL
 cc
@@ -1539,7 +1484,7 @@ ye
 ye
 ae
 af
-av
+qo
 am
 aL
 aX
@@ -1607,7 +1552,7 @@ ye
 ac
 ag
 af
-av
+qo
 aL
 am
 aL
@@ -1718,7 +1663,7 @@ aL
 aL
 bi
 ch
-aA
+EG
 cc
 cc
 cc
@@ -1787,7 +1732,7 @@ ay
 as
 an
 aC
-av
+qo
 cc
 dK
 bQ
@@ -1811,16 +1756,16 @@ cc
 ye
 cu
 ah
-aA
+EG
 ah
-av
+qo
 ah
 af
 af
 au
 bk
 aC
-av
+qo
 bj
 ch
 bN
@@ -1851,7 +1796,7 @@ aL
 an
 aO
 af
-av
+qo
 bl
 bo
 ay
@@ -1886,9 +1831,9 @@ WZ
 WZ
 qo
 aC
-av
+qo
 bp
-aA
+EG
 bv
 cc
 bL
@@ -1957,7 +1902,7 @@ bb
 bm
 aL
 bu
-aA
+EG
 bB
 bB
 cc

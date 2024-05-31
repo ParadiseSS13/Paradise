@@ -3,6 +3,7 @@
 ***********************************************************************/
 /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
+	var/powerneeded // Percentage of power remaining required to run item
 
 /obj/item/borg/stun
 	name = "electrically-charged arm"

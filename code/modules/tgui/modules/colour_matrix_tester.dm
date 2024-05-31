@@ -22,11 +22,11 @@
 /datum/ui_module/colour_matrix_tester/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/ui_module/colour_matrix_tester/ui_interact(mob/user, datum/tgui/ui = null)
+/datum/ui_module/colour_matrix_tester/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ColourMatrixTester", name)
-		ui.autoupdate = TRUE
+		ui.autoupdate = FALSE
 		ui.open()
 
 /datum/ui_module/colour_matrix_tester/ui_data(mob/user)
@@ -40,7 +40,7 @@
 
 	switch(action)
 		if("setvalue")
-			target_matrix[text2num(params["idx"])] = text2num(params["value"])
+			target_matrix[params["idx"]] = params["value"]
 			target_datum:color = target_matrix // Force apply
 
 	return TRUE

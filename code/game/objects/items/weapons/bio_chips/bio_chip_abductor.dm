@@ -14,6 +14,9 @@
 
 /obj/item/bio_chip/abductor/activate()
 	if(cooldown == total_cooldown)
+		if(imp_in.has_status_effect(STATUS_EFFECT_ABDUCTOR_COOLDOWN))
+			to_chat(imp_in, "<span class='warning'>The teleporter will not activate yet to prevent potential damage!</span>")
+			return
 		home.Retrieve(imp_in, 1)
 		cooldown = 0
 		START_PROCESSING(SSobj, src)

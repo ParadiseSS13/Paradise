@@ -18,12 +18,13 @@
   */
 /obj/machinery/computer/library
 	name = "Library Computer"
-	anchored = TRUE
-	density = TRUE
+	desc = "Used by dusty librarians for their dusty books."
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "library"
 	icon_keyboard = null
-	icon_screen = "computer_on"
-	icon = 'icons/obj/library.dmi'
-	icon_state = "computer"
+	density = TRUE
+	anchored = TRUE
 
 	//We define a required access only to lock library specific actions like ordering/managing books to librarian access+
 	req_one_access = list(ACCESS_LIBRARY)
@@ -474,7 +475,7 @@
 			return FALSE
 
 /obj/machinery/computer/library/proc/select_book(obj/item/book/B)
-	if(B.carved == TRUE)
+	if(B.carved)
 		return
 	user_data.selected_book.title = B.title ? B.title : "No Title"
 	user_data.selected_book.author = B.author ? B.author : "No Author"
@@ -557,13 +558,13 @@
 				book_data["categories"] += book_category.description //we're displaying the cats onlys, so we don't need the ids
 
 		cached_booklist += list(book_data)
-	num_pages = getmaxpages()
+	num_pages = getmaxpages(async)
 	archive_page_num = clamp(archive_page_num, 1, num_pages)
 
 ///Returns the amount of pages we will need to hold all the book our DB has found
-/obj/machinery/computer/library/proc/getmaxpages()
+/obj/machinery/computer/library/proc/getmaxpages(async = TRUE)
 	//if get_total_books doesn't return anything, just set pages to 1 so we don't break stuff
-	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data))
+	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data, async))
 	var/page_count = round(book_count / LIBRARY_BOOKS_PER_PAGE)
 	//Since 'round' gets the floor value it's likely there will be 1 page more than
 	//the page count amount (almost guaranteed), we check for a remainder because of this
@@ -589,6 +590,10 @@
 		new /obj/item/storage/bible/syndi(loc)
 		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
 		print_cooldown = world.time + PRINTING_COOLDOWN
+		return TRUE
+
+/obj/machinery/computer/library/syndie
+	req_one_access = list(ACCESS_SYNDICATE)
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL

@@ -42,3 +42,8 @@ SUBSYSTEM_DEF(queue)
 		data[QUEUE_DATA_FILE_PERSISTENT_KEY] = persist_queue
 		var/json_data = json_encode(data)
 		text2file(json_data, QUEUE_DATA_FILE)
+
+#undef QUEUE_DATA_FILE
+#undef QUEUE_DATA_FILE_THRESHOLD_KEY
+#undef QUEUE_DATA_FILE_ENABLED_KEY
+#undef QUEUE_DATA_FILE_PERSISTENT_KEY

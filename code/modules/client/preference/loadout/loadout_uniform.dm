@@ -183,9 +183,14 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
+/datum/gear/uniform/skirt/job/expedition
+	display_name = "Skirt, expedition"
+	path = /obj/item/clothing/under/rank/cargo/expedition/skirt
+	allowed_roles = list("Quartermaster", "Explorer")
+
 /datum/gear/uniform/skirt/job/qm
-	display_name = "Skirt, QM"
-	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
+	display_name = "Skirt, quartermaster"
+	path = /obj/item/clothing/under/rank/cargo/qm/skirt
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/uniform/skirt/job/warden
@@ -212,6 +217,11 @@
 	display_name = "Skirt, mime"
 	path = /obj/item/clothing/under/rank/civilian/mime/skirt
 	allowed_roles = list("Mime")
+
+/datum/gear/uniform/skirt/job/janitor
+	display_name = "Skirt, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/skirt
+	allowed_roles = list("Janitor")
 
 /datum/gear/uniform/skirt/job/head_of_personnel
 	display_name = "Skirt, hop"
@@ -251,8 +261,8 @@
 	main_typepath = /datum/gear/uniform/cargo
 
 /datum/gear/uniform/cargo/delivery
-	display_name = "Uniform, delivery boy"
-	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	display_name = "Cargo uniform, delivery"
+	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/uniform/sec

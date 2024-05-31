@@ -133,8 +133,14 @@
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	resistance_flags = NONE
+
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 
 /obj/item/clothing/suit/hastur
@@ -173,7 +179,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero
@@ -182,7 +188,7 @@
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
@@ -221,35 +227,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
-
-/obj/item/clothing/suit/cardborg
-	name = "cardborg suit"
-	desc = "An ordinary cardboard box with holes cut in the sides."
-	icon_state = "cardborg"
-	item_state = "cardborg"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	flags_inv = HIDEJUMPSUIT
-	species_disguise = "High-tech robot"
-	dog_fashion = /datum/dog_fashion/back
-
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
-	..()
-	if(slot == SLOT_HUD_OUTER_SUIT)
-		disguise(user)
-
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("standard_borg_disguise")
-
-/obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
-	if(istype(H))
-		if(!borghead)
-			borghead = H.head
-		if(istype(borghead, /obj/item/clothing/head/cardborg)) //why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
-			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
-			I.override = 1
-			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
-			H.add_alt_appearance("standard_borg_disguise", I, GLOB.silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
 
 /obj/item/clothing/suit/snowman
 	name = "snowman outfit"
@@ -305,9 +282,62 @@
 	icon_state = "carp_casual"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon
+	name = "space carp poncho"
+	desc = "A poncho fashioned from the scales of a corrupted space carp, it still smells."
+	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
+	flags = STOPSPRESSUREDMAGE
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood/dragon
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == SLOT_HUD_OUTER_SUIT)
+		user.faction += "carp"
+		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
+		playsound(loc, 'sound/weapons/bite.ogg', 35, TRUE)
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/dropped(mob/user)
+	. = ..()
+	if(user)
+		user.faction -= "carp"
+		to_chat(user, "<span class='cult'>A sudden calm fills the gnashing void of your mind- you're alone now.</span>")
+
+/mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
+	if(..())
+		return TRUE
+
+	if(istype(wear_suit, /obj/item/clothing/suit/hooded/carp_costume/dragon))
+		return TRUE
+	//Do we have a working jetpack?
+	var/obj/item/tank/jetpack/thrust
+	if(istype(back, /obj/item/tank/jetpack))
+		thrust = back
+	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
+		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
+		thrust = C.jetpack
+	else if(ismodcontrol(back))
+		var/obj/item/mod/control/C = back
+		thrust = locate(/obj/item/mod/module/jetpack) in C
+	if(thrust)
+		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
+			return TRUE
+	if(dna.species.spec_Process_Spacemove(src))
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/head/hooded/carp_hood/dragon
+	name = "space carp hood"
+	desc = "Fashioned from the maw of a carp, this outfit makes you feel like a fish out of water."
+	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	flags = STOPSPRESSUREDMAGE
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/hooded/salmon_costume
 	name = "salmon suit"
@@ -325,7 +355,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/suit/hooded/bee_costume // It's Hip!
+/// It's Hip!
+/obj/item/clothing/suit/hooded/bee_costume
 	name = "bee costume"
 	desc = "Bee the true Queen!"
 	icon_state = "bee"
@@ -344,14 +375,16 @@
 	flags_inv = HIDEEARS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-/obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
+/// OH MY GOD WHAT HAVE YOU DONE!?!?!?
+/obj/item/clothing/suit/bloated_human
 	name = "bloated human suit"
 	desc = "A horribly bloated suit made from human skins."
 	icon_state = "lingspacesuit"
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/suit/draculacoat // Bleh!
+/// Bleh!
+/obj/item/clothing/suit/draculacoat
 	name = "transylvanian coat"
 	desc = "<i>What is a spessman? A miserable little pile of secrets.</i>"
 	icon_state = "draculacoat"
@@ -756,6 +789,9 @@
 	actions_types = list()
 	adjust_flavour = null
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy,/obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/energy/detective)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -923,6 +959,13 @@
 	allowed = list(/obj/item/pickaxe, /obj/item/t_scanner/adv_mining_scanner, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/shovel, /obj/item/storage/bag/ore)
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
+/obj/item/clothing/suit/jacket/expeditionbomber
+	name = "expedition bomber jacket"
+	desc = "A stylish jacket for station-side explorers. Won't do much to protect you from space."
+	icon_state = "bomberexpedition"
+	item_state = "bomberexpedition"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/t_scanner/adv_mining_scanner, /obj/item/shovel, /obj/item/pickaxe, /obj/item/storage/bag/ore, /obj/item/gps)
+
 /obj/item/clothing/suit/jacket/hydrobomber
 	name = "hydroponics bomber jacket"
 	desc = "A stylish choice for the workers of the hydroponics lab."
@@ -978,6 +1021,9 @@
 	actions_types = list()
 	adjust_flavour = null
 	resistance_flags = NONE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/motojacket
 	name = "leather motorcycle jacket"
@@ -1001,6 +1047,9 @@
 	icon_state = "leathercoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/officercoat
 	name = "clown officer's coat"
@@ -1073,7 +1122,7 @@
 	usr.update_inv_wear_suit()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/suit/lordadmiral
 	name = "lord admiral's coat"

@@ -30,6 +30,7 @@
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/rcd/preloaded(src)
 	new /obj/item/organ/internal/cyberimp/brain/wire_interface(src)
+	new /obj/item/storage/bag/construction(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -87,11 +88,12 @@
 	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/clothing/under/rank/engineering/engineer(src)
 	new /obj/item/clothing/under/rank/engineering/engineer/skirt(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/staff(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/cartridge/engineering(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/storage/bag/construction(src)
 
 
 /obj/structure/closet/secure_closet/atmos_personal
@@ -112,7 +114,7 @@
 	new /obj/item/extinguisher(src)
 	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/grenade/gas/oxygen(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/staff(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/holosign_creator/atmos(src)

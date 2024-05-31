@@ -74,15 +74,6 @@
 
 	if(isliving(loc))
 		var/mob/living/M = loc
-		var/turf/T = M.loc
-		if(isturf(T))
-			if(!M.moved_recently && M.last_move)
-				M.moved_recently = 1
-				step(M, M.last_move)
-				sleep(50)
-				if(M)
-					M.moved_recently = 0
-
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, M)
 

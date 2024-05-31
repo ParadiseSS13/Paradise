@@ -35,7 +35,7 @@
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -145,6 +145,20 @@
 	if(!proximity || isturf(target)) // We don't want to take away fuel when we hit something far away
 		return
 	remove_fuel(0.5)
+
+/obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
+	// For lighting other people's cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled)
+		return ..()
+
+	if(M == user)
+		cig.attackby(src, user)
+		return
+
+	cig.light("<span class='notice'>[user] holds out [src] out for [M], and casually lights [cig]. What a badass.</span>")
+	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+	M.update_inv_wear_mask()
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
@@ -261,19 +275,6 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
-/obj/item/weldingtool/abductor
-	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	light_intensity = 0
-	origin_tech = "plasmatech=5;engineering=5;abductor=3"
-	requires_fuel = FALSE
-	refills_over_time = TRUE
-	low_fuel_changes_icon = FALSE
-
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
 	desc = "An upgraded welder based off the industrial welder."
@@ -304,3 +305,5 @@
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+#undef GET_FUEL

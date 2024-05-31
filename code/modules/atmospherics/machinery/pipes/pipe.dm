@@ -6,8 +6,6 @@
 	power_state = NO_POWER_USE
 	can_unwrench = TRUE
 	damage_deflection = 12
-	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
-
 	can_be_undertile = TRUE
 
 	//Buckling
@@ -35,7 +33,7 @@
 			qdel(meter)
 
 	// if we're somehow by ourself
-	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
+	if(parent && !QDELETED(parent) && length(parent.members) == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
 
@@ -48,20 +46,8 @@
 	. = ..()
 	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		atmosanalyzer_scan(parent.air, user)
-		return
-	return ..()
-
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
-
-/obj/machinery/atmospherics/pipe/proc/check_pressure(pressure)
-	//Return 1 if parent should continue checking other pipes
-	//Return null if parent should stop checking other pipes. Recall: qdel(src) will by default return null
-
-	return 1
 
 /obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
 	if(air_temporary)
@@ -73,6 +59,11 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	if(!parent)
 		return 0
+	return parent.air
+
+/obj/machinery/atmospherics/pipe/return_analyzable_air()
+	if(!parent)
+		return null
 	return parent.air
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)

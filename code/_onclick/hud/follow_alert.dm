@@ -1,4 +1,4 @@
-/obj/screen/alert/augury
+/atom/movable/screen/alert/augury
 	name = "Something interesting!"
 	desc = "Click to follow."
 	/// The atom being followed
@@ -19,7 +19,7 @@
  * * follow_target: The atom to start out following. Can be null, in which case change_targets() should be used at some point.
  * * alert_overlay_override: If follow_target is provided (or not), use this for the alert image.
  */
-/obj/screen/alert/augury/Initialize(mapload, atom/movable/follow_target, image/alert_overlay_override)
+/atom/movable/screen/alert/augury/Initialize(mapload, atom/movable/follow_target, image/alert_overlay_override)
 	. = ..()
 	src.follow_target = follow_target
 
@@ -37,7 +37,7 @@
 		alert_overlay_override.plane = FLOAT_PLANE
 		overlays += alert_overlay_override
 
-/obj/screen/alert/augury/Click(location, control, params)
+/atom/movable/screen/alert/augury/Click(location, control, params)
 	. = ..()
 	if(!usr || !usr.client || !isobserver(usr))
 		return
@@ -48,7 +48,7 @@
 		to_chat(usr, "<span class='notice'>You are now auto-following [thing_followed]. Click again to stop.</span>")
 		add_follower(usr)
 
-/obj/screen/alert/augury/Destroy(force)
+/atom/movable/screen/alert/augury/Destroy(force)
 	for(var/atom/movable/follower in followers)  // in case something was nulled
 		follower.stop_orbit()
 
@@ -68,7 +68,7 @@
 /// Executed when the parent is deleted.
 /// Don't immediately kill ourselves, since it's possible that we might want to move somewhere else
 /// (for example, after a meteor strike)
-/obj/screen/alert/augury/proc/on_following_qdel(atom/movable/A)
+/atom/movable/screen/alert/augury/proc/on_following_qdel(atom/movable/A)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	for(var/atom/movable/follower in followers)
 		follower.stop_orbit()
@@ -86,7 +86,7 @@
  * Arguments:
  * * next_to - The next atom to follow.
  */
-/obj/screen/alert/augury/proc/change_targets(atom/movable/next_to)
+/atom/movable/screen/alert/augury/proc/change_targets(atom/movable/next_to)
 	// unregister first so we aren't bombarded when changing orbits
 	if(isnull(next_to))
 		return
@@ -100,15 +100,15 @@
 
 	RegisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_follower_on_stop_orbit))
 
-/obj/screen/alert/augury/proc/add_follower(atom/movable/follower)
+/atom/movable/screen/alert/augury/proc/add_follower(atom/movable/follower)
 	followers |= follower
 	follower.orbit(follow_target)
 
-/obj/screen/alert/augury/proc/remove_follower(atom/movable/follower)
+/atom/movable/screen/alert/augury/proc/remove_follower(atom/movable/follower)
 	followers -= follower
 	follower.stop_orbit()
 
-/obj/screen/alert/augury/proc/get_next_target()
+/atom/movable/screen/alert/augury/proc/get_next_target()
 	if(!length(next_targets))
 		return
 
@@ -121,27 +121,27 @@
 	return target
 
 /// Called when someone stops orbiting our followed object, so they can actually get out of the loop.
-/obj/screen/alert/augury/proc/remove_follower_on_stop_orbit(atom/movable/followed, atom/movable/follower)
+/atom/movable/screen/alert/augury/proc/remove_follower_on_stop_orbit(atom/movable/followed, atom/movable/follower)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
 	if(locateUID(follower.orbiting_uid) != follow_target)
 		remove_follower(follower)  // don't try to stop the orbit again
 
 /// Meteor alert.
 /// Appears during a meteor storm and allows for auto-following of debris.
-/obj/screen/alert/augury/meteor
+/atom/movable/screen/alert/augury/meteor
 	name = "Meteors incoming!"
 	desc = "Click to automatically follow debris, and click again to stop."
 
-/obj/screen/alert/augury/meteor/Initialize(mapload)
+/atom/movable/screen/alert/augury/meteor/Initialize(mapload)
 	var/image/meteor_img = image(icon = 'icons/obj/meteor.dmi', icon_state = "flaming")
 	. = ..(mapload, alert_overlay_override = meteor_img)
 	START_PROCESSING(SSfastprocess, src)
 
-/obj/screen/alert/augury/meteor/Destroy(force)
+/atom/movable/screen/alert/augury/meteor/Destroy(force)
 	. = ..()
 	STOP_PROCESSING(SSfastprocess, src)
 
-/obj/screen/alert/augury/meteor/process()
+/atom/movable/screen/alert/augury/meteor/process()
 	var/overridden = FALSE
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
 		if(!is_station_level(M.z))

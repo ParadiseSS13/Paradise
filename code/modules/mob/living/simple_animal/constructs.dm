@@ -36,50 +36,21 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
-		name = "[construct_type] ([rand(1, 1000)])"
-		real_name = construct_type
-		icon_living = construct_type
-		icon_state = construct_type
-	else
-		name = "[SSticker.cultdat.get_name(construct_type)] ([rand(1, 1000)])"
-		real_name = SSticker.cultdat.get_name(construct_type)
-		icon_living = SSticker.cultdat.get_icon(construct_type)
-		icon_state = SSticker.cultdat.get_icon(construct_type)
+	name = "[GET_CULT_DATA(get_name(construct_type), construct_type)] ([rand(1, 1000)])"
+	real_name = GET_CULT_DATA(get_name(construct_type), construct_type)
+	icon_living = GET_CULT_DATA(get_icon(construct_type), construct_type)
+	icon_state = GET_CULT_DATA(get_icon(construct_type), construct_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
-
-/mob/living/simple_animal/hostile/construct/Destroy()
-	remove_held_body()
-	return ..()
+	set_light(2, 3, l_color = GET_CULT_DATA(construct_glow, LIGHT_COLOR_BLOOD_MAGIC))
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
-	if(held_body) // Null check for empty bodies
-		held_body.forceMove(get_turf(src))
-		SSticker.mode.add_cult_immunity(held_body)
-		if(ismob(held_body)) // Check if the held_body is a mob
-			held_body.key = key
-		else if(istype(held_body, /obj/item/organ/internal/brain)) // Check if the held_body is a brain
-			var/obj/item/organ/internal/brain/brain = held_body
-			if(brain.brainmob) // Check if the brain has a brainmob
-				brain.brainmob.key = key // Set the key to the brainmob
-				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
-		held_body.cancel_camera()
+	// we also drop our heldbody from the /construct_held_body component, as well as our cult/wiz construct antag datums
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
-	. = ..()
-
-/mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
-	held_body = body
-	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
-
-/mob/living/simple_animal/hostile/construct/proc/remove_held_body()
-	SIGNAL_HANDLER
-	held_body = null
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -123,7 +94,7 @@
 
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
-		throw_alert("holy_fire", /obj/screen/alert/holy_fire, override = TRUE)
+		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
 		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
 			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
@@ -142,6 +113,7 @@
 	desc = "A possessed suit of armour driven by the will of the restless dead"
 	icon_state = "behemoth"
 	icon_living = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	maxHealth = 250
 	health = 250
 	response_harm   = "harmlessly punches"
@@ -157,12 +129,13 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
+	construct_spells = list(/datum/spell/night_vision, /datum/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls.</b>"
 
-/mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/armoured/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
@@ -184,6 +157,7 @@
 	desc = "A wicked bladed shell contraption piloted by a bound spirit"
 	icon_state = "floating"
 	icon_living = "floating"
+	hud_type = /datum/hud/construct/wraith
 	maxHealth = 75
 	health = 75
 	melee_damage_lower = 25
@@ -191,14 +165,16 @@
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "wraith"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	construct_spells = list(/datum/spell/night_vision, /datum/spell/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
-/mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/wraith/hostile
 	AIStatus = AI_ON
 
-/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum //Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+/// Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum
 	mob_size =	MOB_SIZE_LARGE
 
 /////////////////////////////Artificer/////////////////////////
@@ -211,6 +187,7 @@
 	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
 	icon_state = "artificer"
 	icon_living = "artificer"
+	hud_type = /datum/hud/construct/builder
 	maxHealth = 50
 	health = 50
 	response_harm = "viciously beats"
@@ -224,13 +201,13 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
+	construct_spells = list(/datum/spell/night_vision,
+							/datum/spell/projectile/magic_missile/lesser,
+							/datum/spell/aoe/conjure/construct/lesser,
+							/datum/spell/aoe/conjure/build/wall,
+							/datum/spell/aoe/conjure/build/floor,
+							/datum/spell/aoe/conjure/build/pylon,
+							/datum/spell/aoe/conjure/build/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -276,7 +253,8 @@
 	retreat_distance = initial(retreat_distance)
 	minimum_distance = initial(minimum_distance)
 
-/mob/living/simple_animal/hostile/construct/builder/hostile //actually hostile, will move around, hit things, heal other constructs
+/// actually hostile, will move around, hit things, heal other constructs
+/mob/living/simple_animal/hostile/construct/builder/hostile
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
@@ -303,10 +281,12 @@
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
 	construct_type = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	var/energy = 0
 	var/max_energy = 1000
 
-/mob/living/simple_animal/hostile/construct/behemoth/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/behemoth/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
@@ -319,6 +299,7 @@
 	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
+	hud_type = /datum/hud/construct/harvester
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 20
@@ -327,10 +308,10 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/smoke/disable)
+	construct_spells = list(/datum/spell/night_vision,
+							/datum/spell/aoe/conjure/build/wall,
+							/datum/spell/aoe/conjure/build/floor,
+							/datum/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
@@ -340,7 +321,8 @@
 	return TRUE
 
 
-/mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/harvester/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 

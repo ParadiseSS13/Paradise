@@ -3,7 +3,7 @@
 //*********//
 
 /mob/living/simple_animal/hostile/panther
-	name = "\improper panther"
+	name = "panther"
 	desc = "A long sleek, black cat with sharp teeth and claws."
 	icon = 'icons/mob/alienqueen.dmi'
 	icon_state = "panther"

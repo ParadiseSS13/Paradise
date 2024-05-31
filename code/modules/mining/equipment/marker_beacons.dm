@@ -27,10 +27,12 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	max_amount = 100
 	var/picked_color = "random"
 
-/obj/item/stack/marker_beacon/ten //miners start with 10 of these
+/// miners start with 10 of these
+/obj/item/stack/marker_beacon/ten
 	amount = 10
 
-/obj/item/stack/marker_beacon/thirty //and they're bought in stacks of 1, 10, or 30
+/// and they're bought in stacks of 1, 10, or 30
+/obj/item/stack/marker_beacon/thirty
 	amount = 30
 
 /obj/item/stack/marker_beacon/Initialize(mapload)

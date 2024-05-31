@@ -1,5 +1,3 @@
-#define CIRC_LEFT WEST
-#define CIRC_RIGHT EAST
 
 /obj/item/pipe
 	name = "pipe"
@@ -33,9 +31,6 @@
 
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
 			pipe_type = PIPE_HE_STRAIGHT + is_bent
-
-		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/insulated))
-			pipe_type = PIPE_INSULATED_STRAIGHT + is_bent
 
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/simple/hidden/supply))
 			pipe_type = PIPE_SUPPLY_STRAIGHT + is_bent
@@ -146,7 +141,7 @@
 			flipped = TRUE
 
 		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-		if(istype(circP) && circP.side == CIRC_RIGHT)
+		if(istype(circP) && circP.side == CIRCULATOR_SIDE_RIGHT)
 			flipped = TRUE
 
 	else
@@ -197,7 +192,7 @@
 		icon_state = "m_[icon_state]"
 
 	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-	if(istype(circP) && circP.side == CIRC_RIGHT)
+	if(istype(circP) && circP.side == CIRCULATOR_SIDE_RIGHT)
 		icon_state = "m_[icon_state]"
 
 	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
@@ -208,7 +203,6 @@
 	return pipe_type in list( \
 		PIPE_SIMPLE_BENT, \
 		PIPE_HE_BENT, \
-		PIPE_INSULATED_BENT, \
 		PIPE_SUPPLY_BENT, \
 		PIPE_SCRUBBERS_BENT)
 
@@ -241,7 +235,7 @@
 	if(is_bent_pipe() && (dir in GLOB.cardinal))
 		dir = dir | turn(dir, 90)
 
-	else if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
+	else if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir == 2)
 			dir = 1
 
@@ -265,12 +259,12 @@
 	var/acw = turn(direct, 90)
 
 	switch(pipe_type)
-		if(PIPE_SIMPLE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_JUNCTION,\
+		if(PIPE_SIMPLE_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_JUNCTION,\
 			PIPE_PUMP, PIPE_VOLUME_PUMP, PIPE_PASSIVE_GATE, PIPE_MVALVE, PIPE_DVALVE, PIPE_DP_VENT,
 			PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL)
 			return dir|flip
 
-		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
+		if(PIPE_SIMPLE_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
 			return dir //dir|acw
 
 		if(PIPE_CONNECTOR,  PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
@@ -332,7 +326,7 @@
 
 //Helper to clean up dir
 /obj/item/pipe/proc/fixdir()
-	if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
+	if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir == 2)
 			dir = 1
 
@@ -468,7 +462,7 @@
 		if(PIPE_CIRCULATOR) //circulator
 			var/obj/machinery/atmospherics/binary/circulator/C = new(loc)
 			if(flipped)
-				C.side = CIRC_RIGHT
+				C.side = CIRCULATOR_SIDE_RIGHT
 
 			if(pipename)
 				C.name = pipename
@@ -481,10 +475,6 @@
 				S.name = pipename
 
 			S.on_construction(dir, pipe_dir, color)
-
-		if(PIPE_INSULATED_STRAIGHT, PIPE_INSULATED_BENT)
-			var/obj/machinery/atmospherics/pipe/simple/insulated/P = new(loc)
-			P.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/C = new(loc)

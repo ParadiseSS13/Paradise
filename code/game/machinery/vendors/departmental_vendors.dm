@@ -142,17 +142,22 @@
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,
+					/obj/item/reagent_containers/glass/bottle/nutrient/mut = 15,
 					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,
 					/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,
+					/obj/item/reagent_containers/dropper = 5,
+					/obj/item/storage/bag/plants/seed_sorting_tray = 3,
 					/obj/item/storage/bag/plants = 5,
 					/obj/item/cultivator = 3,
 					/obj/item/shovel/spade = 3,
 					/obj/item/plant_analyzer = 4)
 
-	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,
-					/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	contraband = list(/obj/item/reagent_containers/glass/bottle/ash = 10,
+					/obj/item/reagent_containers/glass/bottle/saltpetre = 2,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 2,
+					/obj/item/reagent_containers/glass/bottle/mutagen = 2)
 
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
@@ -175,6 +180,7 @@
 	products = list(/obj/item/seeds/aloe = 3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
+					/obj/item/seeds/bamboo = 3,
 					/obj/item/seeds/banana = 3,
 					/obj/item/seeds/berry = 3,
 					/obj/item/seeds/cabbage = 3,
@@ -184,16 +190,17 @@
 					/obj/item/seeds/chili = 3,
 					/obj/item/seeds/cocoapod = 3,
 					/obj/item/seeds/coffee = 3,
-					/obj/item/seeds/comfrey =3,
+					/obj/item/seeds/comfrey = 3,
 					/obj/item/seeds/corn = 3,
 					/obj/item/seeds/cotton = 3,
-					/obj/item/seeds/nymph =3,
+					/obj/item/seeds/nymph = 3,
 					/obj/item/seeds/eggplant = 3,
 					/obj/item/seeds/garlic = 3,
-					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/glowshroom = 3,
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
 					/obj/item/seeds/lemon = 3,
+					/obj/item/seeds/lettuce = 3,
 					/obj/item/seeds/lime = 3,
 					/obj/item/seeds/mint = 3,
 					/obj/item/seeds/olive = 3,
@@ -219,13 +226,13 @@
 					/obj/item/seeds/whitebeet = 3)
 
 	contraband = list(/obj/item/seeds/cannabis = 3,
-					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/amanita = 3,
 					/obj/item/seeds/fungus = 3,
-					/obj/item/seeds/liberty = 2,
-					/obj/item/seeds/nettle = 2,
-					/obj/item/seeds/plump = 2,
-					/obj/item/seeds/reishi = 2,
-					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/liberty = 3,
+					/obj/item/seeds/nettle = 3,
+					/obj/item/seeds/plump = 3,
+					/obj/item/seeds/reishi = 3,
+					/obj/item/seeds/starthistle = 3,
 					/obj/item/seeds/random = 2)
 
 	refill_canister = /obj/item/vending_refill/hydroseeds

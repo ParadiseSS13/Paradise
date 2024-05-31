@@ -1,4 +1,5 @@
-/datum/painter/pipe/window // Yes, this is a pipe painter subtype.
+/// Yes, this is a pipe painter subtype.
+/datum/painter/pipe/window
 	module_name = "window painter"
 	module_state = "window_painter"
 	var/static/list/paintable_windows = list(

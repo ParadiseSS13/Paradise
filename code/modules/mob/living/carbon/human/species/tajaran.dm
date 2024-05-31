@@ -51,6 +51,10 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+	autohiss_basic_map = list(
+			"r" = list("rr", "rrr", "rrrr")
+		)
+	autohiss_exempt = list("Siik'tajr")
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

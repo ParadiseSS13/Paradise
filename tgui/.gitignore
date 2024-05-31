@@ -15,6 +15,7 @@ package-lock.json
 ## Build artifacts
 /public/.tmp/**/*
 /coverage
+/public/*.map
 
 ## Previously ignored locations that are kept to avoid confusing git
 ## while transitioning to a new project structure.

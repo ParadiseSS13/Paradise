@@ -21,7 +21,7 @@
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 25, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		target.throw_at(throw_target, 1, 8, user)
-		target.adjustStaminaLoss(40)
+		target.apply_damage(40, STAMINA)
 		target.adjustBrainLoss(10)
 		target.Silence(3 SECONDS)
 		add_attack_logs(user, target, "Kicked in the head with martial-art [src] : Kick", ATKLOG_ALL)

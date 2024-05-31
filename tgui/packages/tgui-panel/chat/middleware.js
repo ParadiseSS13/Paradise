@@ -20,6 +20,8 @@ import {
   changeScrollTracking,
   clearChat,
   loadChat,
+  moveChatPageLeft,
+  moveChatPageRight,
   rebuildChat,
   toggleAcceptedType,
   updateMessageCount,
@@ -32,7 +34,7 @@ import { chatRenderer } from './renderer';
 import { selectChat, selectCurrentChatPage } from './selectors';
 
 // List of blacklisted tags
-const FORBID_TAGS = ['a', 'iframe', 'link', 'video'];
+const blacklisted_tags = ['a', 'iframe', 'link', 'video'];
 
 const saveChatToStorage = async (store) => {
   const state = selectChat(store.getState());
@@ -61,7 +63,7 @@ const loadChatFromStorage = async (store) => {
     for (let message of messages) {
       if (message.html) {
         message.html = DOMPurify.sanitize(message.html, {
-          FORBID_TAGS,
+          FORBID_TAGS: blacklisted_tags,
         });
       }
     }
@@ -152,7 +154,9 @@ export const chatMiddleware = (store) => {
       type === changeChatPage.type ||
       type === addChatPage.type ||
       type === removeChatPage.type ||
-      type === toggleAcceptedType.type
+      type === toggleAcceptedType.type ||
+      type === moveChatPageLeft.type ||
+      type === moveChatPageRight.type
     ) {
       next(action);
       const page = selectCurrentChatPage(store.getState());
@@ -176,7 +180,6 @@ export const chatMiddleware = (store) => {
         settings.highlightSettings,
         settings.highlightSettingById
       );
-
       return;
     }
     if (type === 'roundrestart') {

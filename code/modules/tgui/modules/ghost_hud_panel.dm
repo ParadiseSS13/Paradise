@@ -66,8 +66,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
 			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.is_roundstart_observer() && GLOB.configuration.general.restrict_antag_hud_rejoin && !ghost.has_ahudded())
-				var/response = alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", "Yes", "No")
-				if(response == "No")
+				var/response = tgui_alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", list("Yes", "No"))
+				if(response != "Yes")
 					return FALSE
 
 				ghost.can_reenter_corpse = FALSE
@@ -81,6 +81,9 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 			GLOB.antag_hud_users |= ghost.ckey
 
+			if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE))
+				// admins always get aobserve
+				add_verb(ghost, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 
 			ghost.antagHUD = TRUE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)

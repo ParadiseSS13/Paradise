@@ -326,7 +326,7 @@
 	return T.straight_table_check(direction)
 
 /obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
 		return
 
 	if(!flipped)
@@ -621,7 +621,8 @@
 	if(!total_override)
 		..()
 
-/obj/structure/table/wood/poker //No specialties, Just a mapping object.
+/// No specialties, Just a mapping object.
+/obj/structure/table/wood/poker
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon = 'icons/obj/smooth_structures/tables/poker_table.dmi'
@@ -798,10 +799,10 @@
 
 	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
-		return .
+		return
 
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
-		return .
+		return
 
 	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
 

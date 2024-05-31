@@ -283,7 +283,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
 "br" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bx" = (
@@ -428,9 +428,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "lM" = (
@@ -453,6 +453,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/pod,
+/area/ruin/powered/beach)
+"qe" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "qT" = (
 /obj/machinery/shower{
@@ -490,10 +496,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/beach/sand,
-/area/ruin/powered/beach)
-"Ds" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "Ec" = (
 /obj/machinery/door/airlock/sandstone{
@@ -546,9 +548,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "TW" = (
@@ -1087,8 +1089,8 @@ aC
 aC
 aC
 JF
-Ds
-bE
+aj
+qe
 bE
 bE
 bE

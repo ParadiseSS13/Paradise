@@ -1,22 +1,28 @@
 /datum/controller
 	var/name
-	// The object used for the clickable stat() button.
-	var/obj/effect/statclick/statclick
 
 /datum/controller/proc/Initialize()
+	return
 
 //cleanup actions
 /datum/controller/proc/Shutdown()
+	return
 
 //when we enter dmm_suite.load_map
 /datum/controller/proc/StartLoadingMap()
+	return
 
 //when we exit dmm_suite.load_map
 /datum/controller/proc/StopLoadingMap()
+	return
 
 /datum/controller/proc/Recover()
+	return
 
-/datum/controller/proc/stat_entry()
+/datum/controller/proc/stat_entry(msg)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
+	return msg
 
 /**
  * Standardized method for tracking startup times.

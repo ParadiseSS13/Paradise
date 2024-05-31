@@ -32,7 +32,7 @@
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "l" = (

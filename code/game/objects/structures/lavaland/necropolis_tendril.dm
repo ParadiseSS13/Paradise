@@ -42,6 +42,14 @@ GLOBAL_LIST_EMPTY(tendrils)
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
+/obj/structure/spawner/lavaland/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
+
+/obj/structure/spawner/lavaland/bullet_act(obj/item/projectile/P)
+	. = ..()
+	if(P.firer)
+		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/lavaland/Destroy()
 	GLOB.tendrils -= src

@@ -8,7 +8,8 @@
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "tiger"
 
-/datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
+/// Tattoos applied post-round startup with tattoo guns in item_defines.dm
+/datum/sprite_accessory/body_markings/tattoo
 	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "none"
 
@@ -17,7 +18,8 @@
 	icon_state = "campbell"
 	species_allowed = null
 
-/datum/sprite_accessory/body_markings/tattoo/tiger_body // Yep, this is repeated. To be fixed later
+/// Yep, this is repeated. To be fixed later
+/datum/sprite_accessory/body_markings/tattoo/tiger_body
 	name = "Tiger-stripe Tattoo"
 	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "tiger"

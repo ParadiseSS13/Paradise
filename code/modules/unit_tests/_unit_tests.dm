@@ -2,6 +2,9 @@
 //Keep this sorted alphabetically
 
 #ifdef UNIT_TESTS
+#include "atmos\test_ventcrawl.dm"
+#include "games\test_cards.dm"
+#include "jobs\test_job_globals.dm"
 #include "aicard_icons.dm"
 #include "announcements.dm"
 #include "areas_apcs.dm"
@@ -9,6 +12,7 @@
 #include "config_sanity.dm"
 #include "crafting_lists.dm"
 #include "emotes.dm"
+#include "init_sanity.dm"
 #include "log_format.dm"
 #include "map_templates.dm"
 #include "map_tests.dm"

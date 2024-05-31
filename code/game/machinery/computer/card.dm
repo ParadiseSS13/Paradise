@@ -21,6 +21,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/mode = 0
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
 	var/obj/item/radio/Radio
+	var/reset_timer
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -33,7 +34,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/ntspecops/solgovspecops,
 		/datum/job/assistant,
 		/datum/job/syndicateofficer,
-		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
 	var/list/blacklisted_partial = list(
@@ -61,8 +61,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 
-/obj/machinery/computer/card/Initialize()
-	..()
+/obj/machinery/computer/card/Initialize(mapload)
+	. = ..()
 	Radio = new /obj/item/radio(src)
 	Radio.listening = FALSE
 	Radio.config(list("Command" = 0))
@@ -137,6 +137,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			scan.forceMove(get_turf(src))
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		SStgui.update_uis(src)
 		return
 	else if(modify)
 		to_chat(user, "<span class='notice'>You remove \the [modify] from \the [src].</span>")
@@ -146,6 +147,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.forceMove(get_turf(src))
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		SStgui.update_uis(src)
 	else
 		to_chat(user, "There is nothing to remove from the console.")
 
@@ -186,7 +188,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job.job_banned_gamemode) // you cannot open a slot for more sec/legal after revs win
 			return FALSE
-		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
+		if((job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100)))
 			return FALSE
 		if(opened_positions[job.title] < 0)
 			return TRUE
@@ -225,7 +227,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
-		if(SSjobs.prioritized_jobs.len >= 3)
+		if(length(SSjobs.prioritized_jobs) >= 3)
 			return FALSE
 		if(job.total_positions <= job.current_positions)
 			return FALSE
@@ -310,10 +312,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/ui_state(mob/user)
 	return GLOB.default_state
 
+/obj/machinery/computer/card/proc/change_ui_autoupdate(value, mob/user)
+	var/datum/tgui/ui = SStgui.try_update_ui(user, src)
+	reset_timer = null
+	if(ui)
+		ui.set_autoupdate(value)
+
 /obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CardComputer",  name)
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta && !reset_timer)
+			ui.set_autoupdate(FALSE)
+		else
+			reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, user), delta SECONDS)
 		ui.open()
 
 /obj/machinery/computer/card/ui_data(mob/user)
@@ -471,7 +484,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
 			if(t1 == "Custom")
-				var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
+				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
 				if(temp_t && scan && modify)
 					var/oldrank = modify.getRankAndAssignment()
@@ -529,7 +542,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 				visible_message("<span class='warning'>[src]: Heads may only demote members of their own department.</span>")
 				return FALSE
-			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			var/reason = sanitize(copytext_char(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
 				return FALSE
 			var/list/access = list()
@@ -544,8 +557,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
+			SSjobs.slot_job_transfer(modify.rank, "Assistant")
 			modify.access = access
-			modify.rank = "Assistant"
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
@@ -556,7 +569,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				visible_message("<span class='warning'>[src]: Only the Captain or HOP may completely terminate the employment of a crew member.</span>")
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
-			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
+			var/reason = sanitize(copytext_char(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !has_idchange_access() || !modify)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()
@@ -567,6 +580,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			var/datum/job/job = SSjobs.GetJob(modify.rank)
+			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
+				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
@@ -582,6 +598,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			if(opened_positions[edit_job_target] >= 0)
 				GLOB.time_last_changed_position = world.time / 10
+				change_ui_autoupdate(TRUE, usr)
+				reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, usr), GLOB.time_last_changed_position SECONDS)
+
 			j.total_positions++
 			opened_positions[edit_job_target]++
 			log_game("[key_name(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".")
@@ -599,13 +618,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
 				GLOB.time_last_changed_position = world.time / 10
+				change_ui_autoupdate(TRUE, usr)
+				reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, usr), (GLOB.time_last_changed_position + 1) SECONDS)
 			j.total_positions--
 			opened_positions[edit_job_target]--
 			log_game("[key_name(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
-			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			var/reason = sanitize(copytext_char(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !scan)
 				return FALSE
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -623,7 +644,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(R.fields["id"] == E.fields["id"])
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command", list(z))
+								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command")
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
 								log_game("[key_name(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".")
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
@@ -653,10 +674,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("account") // card account number
-			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
-			if(!scan || !modify)
+			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 9999999, 1000000)
+			if(isnull(account_num) || !scan || !modify)
 				return FALSE
-			modify.associated_account_number = clamp(round(account_num), 1000000, 9999999) //force a 7 digit number
+			modify.associated_account_number = account_num
 			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
 		if("skin")
@@ -791,3 +812,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = COLOR_YELLOW
 	req_access = list(ACCESS_CE)
 	circuit = /obj/item/circuitboard/card/minor/ce
+
+#undef IDCOMPUTER_SCREEN_TRANSFER
+#undef IDCOMPUTER_SCREEN_SLOTS
+#undef IDCOMPUTER_SCREEN_ACCESS
+#undef IDCOMPUTER_SCREEN_RECORDS
+#undef IDCOMPUTER_SCREEN_DEPT

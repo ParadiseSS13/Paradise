@@ -43,6 +43,7 @@
 		qdel(ticket)
 	tickets.Cut()
 	update_icon()
+	return TRUE
 
 /obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()

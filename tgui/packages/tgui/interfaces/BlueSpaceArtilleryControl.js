@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, ProgressBar } from '../components';
+import { Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const BlueSpaceArtilleryControl = (props, context) => {
@@ -25,44 +25,48 @@ export const BlueSpaceArtilleryControl = (props, context) => {
     );
   }
   return (
-    <Window width={400} height={125}>
+    <Window width={400} height={150}>
       <Window.Content>
-        <Section fill>
-          <LabeledList>
-            {data.notice && (
-              <LabeledList.Item label="Alert" color="red">
-                {data.notice}
-              </LabeledList.Item>
-            )}
-            {alertStatus}
-            <LabeledList.Item label="Target">
-              <Button
-                icon="crosshairs"
-                content={data.target ? data.target : 'None'}
-                onClick={() => act('recalibrate')}
-              />
-            </LabeledList.Item>
-            {data.ready === 1 && !!data.target && (
-              <LabeledList.Item label="Firing">
-                <Button
-                  icon="skull"
-                  content="FIRE!"
-                  color="red"
-                  onClick={() => act('fire')}
-                />
-              </LabeledList.Item>
-            )}
-            {!data.connected && (
-              <LabeledList.Item label="Maintenance">
-                <Button
-                  icon="wrench"
-                  content="Complete Deployment"
-                  onClick={() => act('build')}
-                />
-              </LabeledList.Item>
-            )}
-          </LabeledList>
-        </Section>
+        <Stack fill vertical>
+          <Stack.Item grow>
+            <Section fill scrollable>
+              <LabeledList>
+                {data.notice && (
+                  <LabeledList.Item label="Alert" color="red">
+                    {data.notice}
+                  </LabeledList.Item>
+                )}
+                {alertStatus}
+                <LabeledList.Item label="Target">
+                  <Button
+                    icon="crosshairs"
+                    content={data.target ? data.target : 'None'}
+                    onClick={() => act('recalibrate')}
+                  />
+                </LabeledList.Item>
+                {data.ready === 1 && !!data.target && (
+                  <LabeledList.Item label="Firing">
+                    <Button
+                      icon="skull"
+                      content="FIRE!"
+                      color="red"
+                      onClick={() => act('fire')}
+                    />
+                  </LabeledList.Item>
+                )}
+                {!data.connected && (
+                  <LabeledList.Item label="Maintenance">
+                    <Button
+                      icon="wrench"
+                      content="Complete Deployment"
+                      onClick={() => act('build')}
+                    />
+                  </LabeledList.Item>
+                )}
+              </LabeledList>
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

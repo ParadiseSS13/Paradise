@@ -95,13 +95,13 @@
 		return
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
-	if(isturf(A) || isturf(A.loc))
-		if(A.Adjacent(src)) // see adjacent.dm
-			W.melee_attack_chain(src, A, params)
-			return
-		else
-			W.afterattack(A, src, 0, params)
-			return
+	if(can_reach(A, W))
+		W.melee_attack_chain(src, A, params)
+		return
+	W.afterattack(A, src, 0, params)
+	return
+
+/mob/living/silicon/robot/MiddleShiftControlClickOn(atom/A)
 	return
 
 //Ctrl+Middle click cycles through modules
@@ -121,14 +121,19 @@
 // for non-doors/apcs
 /mob/living/silicon/robot/ShiftClickOn(atom/A)
 	A.BorgShiftClick(src)
+
 /mob/living/silicon/robot/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
+
 /mob/living/silicon/robot/AltClickOn(atom/A)
 	A.BorgAltClick(src)
+
 /mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)
+
 /mob/living/silicon/robot/AltShiftClickOn(atom/A)
 	A.BorgAltShiftClick(src)
+
 /mob/living/silicon/robot/ShiftMiddleClickOn(atom/A)
 	A.BorgShiftMiddleClick(src)
 

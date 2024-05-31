@@ -88,11 +88,11 @@
 
 /area/station/engineering/solar/aft
 	name = "\improper Aft Solar Array"
-	icon_state = "aft"
+	icon_state = "Asolars"
 
 /area/station/engineering/solar/starboard
 	name = "\improper Starboard Solar Array"
-	icon_state = "ASsolars"
+	icon_state = "Ssolars"
 
 /area/station/engineering/solar/starboard/aft
 	name = "\improper Aft Starboard Solar Array"

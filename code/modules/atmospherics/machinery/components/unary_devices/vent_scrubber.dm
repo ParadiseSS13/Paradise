@@ -90,7 +90,7 @@
 			if(node)
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
-				add_underlay(T,, dir)
+				add_underlay(T, null, dir)
 			var/icon/frame = icon('icons/atmos/vent_scrubber.dmi', "frame")
 			underlays += frame
 
@@ -100,8 +100,6 @@
 	check_turfs()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
-	..()
-
 	if(widenet)
 		check_turfs()
 

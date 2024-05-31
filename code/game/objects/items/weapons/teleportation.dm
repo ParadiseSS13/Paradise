@@ -56,7 +56,7 @@
 		if(A.tele_proof)
 			continue // Telescience-proofed areas require a beacon.
 		turfs += T
-	if(turfs.len)
+	if(length(turfs))
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
 	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))

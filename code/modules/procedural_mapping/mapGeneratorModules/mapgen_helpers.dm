@@ -25,7 +25,7 @@
 
 //Only places atoms/turfs on area borders
 /datum/mapGeneratorModule/border
-	clusterCheckFlags = CLUSTER_CHECK_NONE
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_NONE
 
 /datum/mapGeneratorModule/border/generate()
 	if(!mother)

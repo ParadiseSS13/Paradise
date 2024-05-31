@@ -1,32 +1,28 @@
-/obj/screen/bot
+/atom/movable/screen/bot
 	icon = 'icons/mob/screen_bot.dmi'
 
-/obj/screen/bot/radio
+/atom/movable/screen/bot/radio
 	name = "radio"
 	icon_state = "radio"
 	screen_loc = ui_bot_radio
 
-/obj/screen/bot/radio/Click()
+/atom/movable/screen/bot/radio/Click()
 	if(isbot(usr))
 		var/mob/living/simple_animal/bot/B = usr
 		B.Radio.interact(usr)
 
-/mob/living/simple_animal/bot/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/bot(src)
-
 /datum/hud/bot/New(mob/owner)
 	..()
-	var/obj/screen/using
+	var/atom/movable/screen/using
 
-	using = new /obj/screen/bot/radio()
+	using = new /atom/movable/screen/bot/radio()
 	static_inventory += using
 
-	mymob.healths = new /obj/screen/healths/bot()
+	mymob.healths = new /atom/movable/screen/healths/bot()
 	mymob.healths.screen_loc = ui_borg_health
 	infodisplay += mymob.healths
 
-	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin = new /atom/movable/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen_bot.dmi'
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)

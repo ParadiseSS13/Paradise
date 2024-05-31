@@ -290,3 +290,13 @@
 	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
 	build_path = /obj/item/clothing/shoes/magboots/gravity
 	category = list("Equipment")
+
+/datum/design/bolterwrench
+	name = "Door Bolt Wrench"
+	desc = "A large wrench designed to interlock with an airlock's bolting mechanisms, allowing it to lift the bolts regardless of power."
+	id = "bolter_wrench"
+	req_tech = list("materials" = 6, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000)
+	build_path = /obj/item/wrench/bolter
+	category = list("Equipment")

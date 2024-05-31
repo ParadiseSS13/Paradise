@@ -15,11 +15,11 @@
 #define TGUI_TELEMETRY_RESPONSE_WINDOW 30 SECONDS
 
 /// Time of telemetry request
-/datum/tgui_panel/var/telemetry_requested_at
+/* check_grep:ignore */ /datum/tgui_panel/var/telemetry_requested_at
 /// Time of telemetry analysis completion
-/datum/tgui_panel/var/telemetry_analyzed_at
+/* check_grep:ignore */ /datum/tgui_panel/var/telemetry_analyzed_at
 /// List of previous client connections
-/datum/tgui_panel/var/list/telemetry_connections
+/* check_grep:ignore */ /datum/tgui_panel/var/list/telemetry_connections
 
 /**
  * private
@@ -67,9 +67,9 @@
 			return
 		var/list/row = telemetry_connections[i]
 		// Check for a malformed history object
-		if(!row || row.len < 3 || (!row["ckey"] || !row["address"] || !row["computer_id"]))
+		if(!row || length(row) < 3 || (!row["ckey"] || !row["address"] || !row["computer_id"]))
 			return
-		if(world.IsBanned(row["ckey"], row["address"], row["computer_id"]))
+		if(world.IsBanned(row["ckey"], row["address"], row["computer_id"], FALSE, FALSE, FALSE, FALSE, FALSE))
 			found = row
 			break
 		CHECK_TICK
@@ -78,3 +78,6 @@
 		var/msg = "[key_name(client)] has a banned account in connection history! (Matched: [found["ckey"]], [found["address"]], [found["computer_id"]])"
 		message_admins(msg)
 		log_admin(msg)
+
+#undef TGUI_TELEMETRY_MAX_CONNECTIONS
+#undef TGUI_TELEMETRY_RESPONSE_WINDOW

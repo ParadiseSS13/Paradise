@@ -56,3 +56,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
 
 GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
+
+#define GLOBAL_SPARK_LIMIT 500
+/// Counter for the current amount of sparks
+GLOBAL_VAR_INIT(sparks_active, 0)

@@ -7,12 +7,12 @@
 	requires_power = FALSE
 	valid_territory = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	parallax_movedir = NORTH
+	parallax_move_direction = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/arrival/pre_game
 	icon_state = "shuttle2"
@@ -42,13 +42,13 @@
 	name = "\improper Escape Pod Three"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/pod_4
 	name = "\improper Escape Pod Four"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
@@ -89,7 +89,8 @@
 /area/shuttle/escape_pod3/transit
 	icon_state = "shuttle"
 
-/area/shuttle/escape_pod5 //Pod 4 was lost to meteors
+/// Pod 4 was lost to meteors
+/area/shuttle/escape_pod5
 	name = "\improper Escape Pod Five"
 	nad_allowed = TRUE
 
@@ -109,7 +110,7 @@
 /area/shuttle/transport
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/transport1
 	icon_state = "shuttle"
@@ -149,7 +150,7 @@
 /area/shuttle/specops
 	name = "\improper Special Ops Shuttle"
 	icon_state = "shuttlered"
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/specops/centcom
 	name = "\improper Special Ops Shuttle"
@@ -163,7 +164,7 @@
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
-	parallax_movedir = SOUTH
+	parallax_move_direction = SOUTH
 
 /area/shuttle/syndicate_elite/mothership
 	name = "\improper Syndicate Elite Shuttle"
@@ -177,7 +178,7 @@
 	name = "\improper Syndicate SIT Shuttle"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
-	parallax_movedir = SOUTH
+	parallax_move_direction = SOUTH
 
 /area/shuttle/assault_pod
 	name = "Steel Rain"
@@ -186,7 +187,7 @@
 /area/shuttle/administration
 	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered"
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/administration/centcom
 	name = "\improper Nanotrasen Vessel Centcom"
@@ -253,7 +254,7 @@
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
-	parallax_movedir = EAST
+	parallax_move_direction = EAST
 
 /area/shuttle/freegolem
 	name = "Free Golem Ship"

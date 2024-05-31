@@ -155,16 +155,18 @@
 				user.visible_message("[user] installs the electronics into the windoor assembly.", "You start to install electronics into the windoor assembly...")
 				user.drop_item()
 				W.forceMove(src)
+				var/obj/item/airlock_electronics/new_electronics = W
 
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * new_electronics.toolspeed, target = src) && !new_electronics.is_installed)
 					if(!src || electronics)
-						W.forceMove(loc)
+						new_electronics.forceMove(loc)
 						return
 					to_chat(user, "<span class='notice'>You install the windoor electronics.</span>")
 					name = "near finished windoor assembly"
-					electronics = W
+					electronics = new_electronics
+					electronics.is_installed = TRUE
 				else
-					W.forceMove(loc)
+					new_electronics.forceMove(loc)
 
 			else if(is_pen(W))
 				var/t = rename_interactive(user, W)
@@ -247,6 +249,7 @@
 	ae = electronics
 	electronics = null
 	ae.forceMove(loc)
+	ae.is_installed = FALSE
 
 /obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != WIRED_ASSEMBLY)

@@ -12,11 +12,22 @@
 	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
+	if(tgui_alert(user, "Are you sure you wish to do this? This action cannot be undone.", "Sting", list("Yes", "No")) != "Yes")
 		return
 	..()
 
-/datum/action/changeling/headslug/sting_action(mob/user)
+/datum/action/changeling/headslug/sting_action(mob/living/user)
+	user.Weaken(30 SECONDS)
+	user.do_jitter_animation(1000, -1) // jitter until they are gibbed
+	user.visible_message("<span class='danger'>A loud crack erupts from [user], followed by a hiss.</span>")
+	playsound(get_turf(user), "bonebreak", 75, TRUE)
+	playsound(get_turf(user), 'sound/machines/hiss.ogg', 75, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(become_headslug), user), 5 SECONDS)
+	var/matrix/M = user.transform
+	M.Scale(1.8, 1.2)
+	animate(user, time = 5 SECONDS, transform = M, easing = SINE_EASING)
+
+/datum/action/changeling/headslug/proc/become_headslug(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
 

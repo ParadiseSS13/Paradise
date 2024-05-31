@@ -102,7 +102,9 @@ Finally, let's make a React Component for your interface. This is also
 a source of confusion for new developers. If you got some basic javascript
 and HTML knowledge, that should ease the learning process, although we
 recommend getting yourself introduced to
-[React and JSX](https://reactjs.org/docs/introducing-jsx.html).
+
+- [Markup and JSX](https://react.dev/learn/writing-markup-with-jsx)
+- [JavaScript and JSX](https://react.dev/learn/javascript-in-jsx-with-curly-braces)
 
 A React component is not a regular HTML template. A component is a
 javascript function, which accepts a `props` object (that contains

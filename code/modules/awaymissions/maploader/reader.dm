@@ -98,18 +98,18 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/list/gridLines = splittext(dmmRegex.group[6], "\n")
 
 				var/leadingBlanks = 0
-				while(leadingBlanks < gridLines.len && gridLines[++leadingBlanks] == "")
+				while(leadingBlanks < length(gridLines) && gridLines[++leadingBlanks] == "")
 				if(leadingBlanks > 1)
 					gridLines.Cut(1, leadingBlanks) // Remove all leading blank lines.
 
-				if(!gridLines.len) // Skip it if only blank lines exist.
+				if(!length(gridLines)) // Skip it if only blank lines exist.
 					continue
 
-				if(gridLines.len && gridLines[gridLines.len] == "")
-					gridLines.Cut(gridLines.len) // Remove only one blank line at the end.
+				if(length(gridLines) && gridLines[length(gridLines)] == "")
+					gridLines.Cut(length(gridLines)) // Remove only one blank line at the end.
 
 				bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)
-				ycrd += gridLines.len - 1 // Start at the top and work down
+				ycrd += length(gridLines) - 1 // Start at the top and work down
 
 				if(!shouldCropMap && ycrd > world.maxy)
 					if(!measureOnly)
@@ -253,7 +253,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	// The next part of the code assumes there's ALWAYS an /area AND a /turf on a given tile
 
 	// first instance the /area and remove it from the members list
-	index = members.len
+	index = length(members)
 
 	var/turf/crds = locate(xcrd, ycrd, zcrd)
 	if(members[index] != /area/template_noop)
@@ -285,7 +285,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
-		var/mlen = members.len - 1
+		var/mlen = length(members) - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
 			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
@@ -432,7 +432,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/json_ready = 0
 
 /datum/dmm_suite/preloader/proc/setup(list/the_attributes, path)
-	if(the_attributes.len)
+	if(length(the_attributes))
 		json_ready = 0
 		if("map_json_data" in the_attributes)
 			json_ready = 1

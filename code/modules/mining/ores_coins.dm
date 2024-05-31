@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
 		return
 	C.EyeBlurry(12 SECONDS)
-	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
+	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
@@ -317,11 +317,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(src.loc,2,4,9,adminlog = notify_admins)
+				explosion(loc, 2, 4, 9, adminlog = notify_admins)
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(src.loc,1,2,5,adminlog = notify_admins)
+				explosion(loc, 1, 2, 5, adminlog = notify_admins)
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(src.loc,-1,1,3,adminlog = notify_admins)
+				explosion(loc, -1, 1, 3, adminlog = notify_admins)
 			qdel(src)
 
 

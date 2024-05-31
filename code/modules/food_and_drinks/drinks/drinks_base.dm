@@ -45,7 +45,7 @@
 			"<span class='notice'>You hear what sounds like gulping.</span>")
 		chugging = TRUE
 		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
-			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
+			chugger.drink(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
 				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
@@ -156,7 +156,8 @@
 	materials = list(MAT_METAL=400)
 	volume = 25
 
-/obj/item/reagent_containers/drinks/trophy/bronze_cup/toolbox_win //2023 toolbox tournament 3rd place went to paradise station.
+/// 2023 toolbox tournament 3rd place went to paradise station.
+/obj/item/reagent_containers/drinks/trophy/bronze_cup/toolbox_win
 	name = "3rd place toolbox tournament 2567"
 	desc = "Awarded to centcomms elite toolbox warriors raising money for the GBS research institute."
 	icon_state = "reward_cup"

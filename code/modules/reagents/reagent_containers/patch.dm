@@ -12,22 +12,36 @@
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE
 
-/obj/item/reagent_containers/patch/attack(mob/living/carbon/M, mob/user, def_zone)
-	return apply(M, user)
+/obj/item/reagent_containers/patch/attack(mob/living/carbon/C, mob/user)
+	return apply(C, user)
 
 /obj/item/reagent_containers/patch/attack_self(mob/user)
 	return apply(user, user)
 
-/obj/item/reagent_containers/patch/proc/apply(mob/living/carbon/M, mob/user)
-	if(!istype(M))
+/obj/item/reagent_containers/patch/proc/apply(mob/living/carbon/C, mob/user)
+	if(!istype(C))
 		return FALSE
-	if(M.eat(src, user))
-		if(user.get_active_hand() == src)
-			user.drop_item() // Only drop if they're holding the patch directly
-		forceMove(M)
-		LAZYADD(M.processing_patches, src)
-		return TRUE
-	return FALSE
+
+	if(ismachineperson(C))
+		to_chat(user, "<span class='warning'>[user == C ? "You" : C] can't use [src]!</span>")
+		return FALSE
+
+	if(user == C)
+		to_chat(user, "<span class='notice'>You apply [src].</span>")
+	else
+		if(!instant_application)
+			C.visible_message("<span class='warning'>[user] attempts to force [C] to apply [src].</span>")
+			if(!do_after(user, 3 SECONDS, TRUE, C, TRUE))
+				return FALSE
+
+		C.forceFedAttackLog(src, user)
+		C.visible_message("<span class='warning'>[user] forces [C] to apply [src].</span>")
+
+	if(user.get_active_hand() == src)
+		user.drop_item() // Only drop if they're holding the patch directly
+	forceMove(C)
+	LAZYADD(C.processing_patches, src)
+	return TRUE
 
 /obj/item/reagent_containers/patch/styptic
 	name = "brute patch"

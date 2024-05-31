@@ -1,4 +1,5 @@
-/obj/item/storage/bag/dice //Thankfully no longer a pill bottle.
+/// Thankfully no longer a pill bottle.
+/obj/item/storage/bag/dice
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
@@ -32,7 +33,8 @@
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
-/obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/// depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/obj/item/dice
 	name = "die"
 	desc = "A die with six sides. Basic and serviceable."
 	icon = 'icons/obj/dice.dmi'
@@ -148,7 +150,7 @@
 /obj/item/dice/d20/fate/diceroll(mob/user)
 	. = ..()
 	if(!used)
-		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		if(!ishuman(user) || !user.mind || iswizard(user))
 			to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
 			return
 
@@ -161,7 +163,7 @@
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
-	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+	if(!ishuman(user) || !user.mind || iswizard(user))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
 		user.unEquip(src)
 
@@ -207,8 +209,7 @@
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
 			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
-			var/throw_dir = GLOB.cardinal
-			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
+			var/atom/throw_target = get_edge_target_turf(user, pick(GLOB.cardinal))
 			user.throw_at(throw_target, 200, 4)
 		if(8)
 			//Fueltank Explosion
@@ -301,7 +302,7 @@
 				dust_if_respawnable(C)
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
-			var/obj/effect/proc_holder/spell/summonmob/S = new
+			var/datum/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
 		if(17)

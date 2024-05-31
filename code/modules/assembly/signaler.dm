@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	item_state = "signaler"
 	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	origin_tech = "magnets=1;bluespace=1"
-	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
+	wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE | ASSEMBLY_WIRE_RADIO_PULSE | ASSEMBLY_WIRE_RADIO_RECEIVE
 	secured = TRUE
 	bomb_name = "remote-control bomb"
 	/// Are we set to receieve a signal?

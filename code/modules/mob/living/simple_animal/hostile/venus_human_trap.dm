@@ -1,6 +1,7 @@
 
 
-/obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
+/// inheriting basic attack/damage stuff from alien structures
+/obj/structure/alien/resin/flower_bud_enemy
 	name = "flower bud"
 	desc = "A large pulsating plant..."
 	icon = 'icons/effects/spacevines.dmi'
@@ -89,7 +90,7 @@
 					step(L,get_dir(L,src)) //reel them in
 					L.Weaken(6 SECONDS) //you can't get away now~
 
-		if(grasping.len < max_grasps)
+		if(length(grasping) < max_grasps)
 			grasping:
 				for(var/mob/living/L in view(grasp_range, src))
 					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)

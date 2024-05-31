@@ -29,7 +29,7 @@
 
 	if(listening)
 		if(findtext(msg, "</span>"))
-			recorded = strip_html_properly(msg)
+			recorded = strip_html_tags(msg)
 		else
 			recorded = msg
 		recorded_type = type

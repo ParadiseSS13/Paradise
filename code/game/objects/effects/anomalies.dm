@@ -232,23 +232,40 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	///Do we teleport everything around us to a beacon when despawning?
 	var/mass_teleporting = TRUE
+	///Do we have a smaller mob and object grab range, and 4 seconds of mercy?
+	var/supermatter_spawned = FALSE
+	///What is the range we will grab mobs to teleport from
+	var/mob_range = 4
+	///What is the range we will grab objects to teleport from
+	var/other_range = 4
+	///Used by supermatter anomalies. If fully active, behaves like normal. Otherwise, will not teleport people, to keep them being telefragged into the SM
+	var/fully_active = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
 
-/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE, _supermatter_spawned = FALSE)
 	. = ..()
 	mass_teleporting = _mass_teleporting
+	supermatter_spawned = _supermatter_spawned
+	if(supermatter_spawned)
+		mob_range = 1
+		other_range = 3
+		fully_active = FALSE
+		addtimer(VARSET_CALLBACK(src, fully_active, TRUE), 4 SECONDS)
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
+	if(!fully_active)
+		return
 	..()
-	for(var/mob/living/M in range(4, src))
-		do_teleport(M, locate(M.x, M.y, M.z), 4, do_effect = drops_core)
-	for(var/obj/O in range (4, src))
+	for(var/mob/living/M in range(mob_range, src))
+		do_teleport(M, locate(M.x, M.y, M.z), 4, do_effect = drops_core || supermatter_spawned)
+	for(var/obj/O in range (other_range, src))
 		if(!O.anchored && O.invisibility == 0 && prob(50))
-			do_teleport(O, locate(O.x, O.y, O.z), 6, do_effect = drops_core )
+			do_teleport(O, locate(O.x, O.y, O.z), 6, do_effect = drops_core || supermatter_spawned)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
-	if(isliving(AM))
+	if(isliving(AM) && fully_active)
 		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8)
 
 /obj/effect/anomaly/bluespace/detonate()

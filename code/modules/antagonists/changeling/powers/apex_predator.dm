@@ -10,7 +10,7 @@
 /datum/action/changeling/apex_predator/sting_action(mob/user)
 	var/list/target_by_name = list()
 	for(var/mob/living/carbon/human/possible_target as anything in GLOB.human_list)
-		if((!possible_target.mind || possible_target.z != user.z))
+		if(!possible_target.mind || possible_target.z != user.z)
 			continue
 		target_by_name[possible_target.real_name] = possible_target
 

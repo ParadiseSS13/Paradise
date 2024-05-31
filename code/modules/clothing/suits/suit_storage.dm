@@ -8,33 +8,56 @@
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
 	pockets.max_combined_w_class = 4
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/suit/storage/Destroy()
 	QDEL_NULL(pockets)
 	return ..()
 
 /obj/item/clothing/suit/storage/attack_hand(mob/user as mob)
-	if(pockets.handle_attack_hand(user))
+	if(pockets?.handle_attack_hand(user))
 		..(user)
 
 /obj/item/clothing/suit/storage/MouseDrop(obj/over_object as obj)
-	if(pockets.handle_mousedrop(usr, over_object))
+	if(pockets?.handle_mousedrop(usr, over_object))
 		..(over_object)
+
+/obj/item/clothing/suit/storage/equipped(mob/user, slot)
+	..()
+	pockets?.update_viewers()
+
+/obj/item/clothing/suit/storage/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	pockets?.update_viewers()
+
+/obj/item/clothing/suit/storage/AltClick(mob/user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		pockets?.open(user)
+		add_fingerprint(user)
+		return
+	if(isobserver(user))
+		pockets?.show_to(user)
+
+/obj/item/clothing/suit/storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		pockets.show_to(user)
+	return ..()
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	return pockets.attackby(W, user, params)
+	return pockets?.attackby(W, user, params)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()
-	pockets.emp_act(severity)
+	pockets?.emp_act(severity)
 
 /obj/item/clothing/suit/storage/hear_talk(mob/M, list/message_pieces)
-	pockets.hear_talk(M, message_pieces)
+	pockets?.hear_talk(M, message_pieces)
 	..()
 
 /obj/item/clothing/suit/storage/hear_message(mob/M, msg)
-	pockets.hear_message(M, msg)
+	pockets?.hear_message(M, msg)
 	..()
 
 /obj/item/clothing/suit/storage/proc/return_inv()
@@ -53,7 +76,7 @@
 
 /obj/item/clothing/suit/storage/serialize()
 	var/list/data = ..()
-	data["pockets"] = pockets.serialize()
+	data["pockets"] = pockets?.serialize()
 	return data
 
 /obj/item/clothing/suit/storage/deserialize(list/data)

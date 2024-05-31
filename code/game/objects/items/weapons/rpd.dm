@@ -33,6 +33,7 @@
 	var/pipe_category = RPD_ATMOS_PIPING //For TGUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
 	var/whatpipe = PIPE_SIMPLE_STRAIGHT //What kind of atmos pipe is it?
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
+	var/whatttube = PIPE_TRANSIT_TUBE
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
 	var/ranged = FALSE
@@ -43,6 +44,7 @@
 	var/list/mainmenu = list(
 		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
 		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Transit", "mode" = RPD_TRANSIT_MODE, "icon" = "subway"),
 		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "sync-alt"),
 		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "arrows-alt-h"),
 		list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
@@ -125,17 +127,36 @@
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
 	activate_rpd(TRUE)
 
+/obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
+	if(!can_dispense_pipe(whatttube, PIPETYPE_TRANSIT))
+		CRASH("Failed to spawn [get_pipe_name(whatttube, PIPETYPE_TRANSIT)] - possible tampering detected")
+
+	for(var/datum/pipes/transit/T in GLOB.construction_pipe_list)
+		if(T.pipe_id == whatttube)
+			var/obj/structure/transit_tube_construction/S = new T.construction_type(dest)
+			if(!istype(S))
+				CRASH("found [S] when constructing transit tube but expected /obj/structure/transit_tube_construction")
+
+			S.dir = iconrotation ? iconrotation : user.dir
+
+			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
+			activate_rpd(TRUE)
+
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
+	for(var/obj/structure/transit_tube_construction/tube in T)
+		tube.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
+	for(var/obj/structure/transit_tube_construction/tube in T)
+		tube.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
@@ -154,6 +175,9 @@
 		if(!D.anchored)
 			QDEL_NULL(D)
 			eaten = TRUE
+	for(var/obj/structure/transit_tube_construction/C in T)
+		QDEL_NULL(C)
+		eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		activate_rpd()
@@ -197,6 +221,7 @@
 	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
+	data["whatttube"] = whatttube
 	return data
 
 /obj/item/rpd/ui_act(action, list/params)
@@ -212,6 +237,8 @@
 			whatpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatdpipe")
 			whatdpipe = isnum(params[action]) ? params[action] : text2num(params[action])
+		if("whatttube")
+			whatttube = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("pipe_category")
 			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")
@@ -275,7 +302,7 @@
 	if(target != T)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
-		if(target.rpd_act(user, src) == TRUE)
+		if(target.rpd_act(user, src))
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
 			if(ranged)
@@ -286,7 +313,7 @@
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
 
 	for(var/obj/O in T)
-		if(O.rpd_blocksusage() == TRUE)
+		if(O.rpd_blocksusage())
 			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
 			return
 
@@ -303,8 +330,14 @@
 	T.rpd_act(user, src)
 
 /obj/item/rpd/attack_obj(obj/O, mob/living/user)
-	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
-		return
+	if(user.a_intent != INTENT_HARM)
+		if(istype(O, /obj/machinery/atmospherics/pipe))
+			return
+		else if(istype(O, /obj/structure/disposalconstruct))
+			return
+		else if(istype(O, /obj/structure/transit_tube_construction))
+			return
+
 	return ..()
 
 #undef RPD_COOLDOWN_TIME

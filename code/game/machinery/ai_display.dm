@@ -8,13 +8,9 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	anchored = TRUE
 	density = FALSE
 
-	var/spookymode = FALSE
-
 	/// Current mode
 	var/mode = AI_DISPLAY_MODE_BLANK
 
-	/// Target icon state
-	var/picture_state
 	/// Current emotion, used to calculate an icon state
 	var/emotion = "Neutral"
 
@@ -50,9 +46,16 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	if(stat & (NOPOWER | BROKEN))
 		return FALSE
 
-	spookymode = TRUE
-	update_icon()
+	addtimer(CALLBACK(src, PROC_REF(un_spookify), mode), 2 SECONDS)
+	mode = null
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
+
+/obj/machinery/ai_status_display/proc/un_spookify(our_real_state)
+	mode = our_real_state
+	if(stat & (NOPOWER | BROKEN))
+		return FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/ai_status_display/update_overlays()
 	. = ..()

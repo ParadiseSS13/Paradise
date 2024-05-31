@@ -1,13 +1,3 @@
-//Languages!
-#define LANGUAGE_HUMAN		1
-#define LANGUAGE_ALIEN		2
-#define LANGUAGE_DOG		4
-#define LANGUAGE_CAT		8
-#define LANGUAGE_BINARY		16
-#define LANGUAGE_OTHER		32768
-
-#define LANGUAGE_UNIVERSAL	65535
-
 //Language flags.
 #define WHITELISTED 1  		// Language is available if the speaker is whitelisted.
 #define RESTRICTED 2   		// Language can only be accquired by spawning or an admin.
@@ -18,6 +8,7 @@
 #define NO_STUTTER 256		// No stuttering, slurring, or other speech problems
 #define NOBABEL 512			// Not granted by book of babel. Typically antag languages.
 #define NOLIBRARIAN 1024	// Flag for banning the Librarian from certain languages. (actual 1984)
+#define HIVEMIND_RUNECHAT (1<<11) // Flag for letting hivemind languages have a runechat appear over the head of the recipient
 
 //Auto-accent level defines.
 #define AUTOHISS_OFF 0

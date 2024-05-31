@@ -54,7 +54,7 @@
 			return
 
 		var/list/cardaccess = W:access
-		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
+		if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return
 
@@ -62,7 +62,7 @@
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return 0
 
-		var/choice = alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", "Authorize", "Repeal", "Abort")
+		var/choice = tgui_alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
 		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
 			return 0
 
@@ -74,10 +74,10 @@
 			if("Authorize")
 				if(!authorized.Find(W:registered_name))
 					authorized += W:registered_name
-					if(auth_need - authorized.len > 0)
+					if(auth_need - length(authorized) > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-						GLOB.minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
+						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until shuttle is launched early")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
 						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
@@ -86,10 +86,10 @@
 
 			if("Repeal")
 				if(authorized.Remove(W:registered_name))
-					GLOB.minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
+					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed until shuttle is launched early")
 
 			if("Abort")
-				if(authorized.len)
+				if(length(authorized))
 					GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
 					authorized.Cut()
 
@@ -101,6 +101,7 @@
 		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = TRUE
+		return TRUE
 
 
 /obj/machinery/computer/emergency_shuttle/proc/increase_hijack_stage()
@@ -202,6 +203,7 @@
 	travelDir = 0
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
+
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	///State of the emergency shuttles hijack status.
 	var/hijack_status = NOT_BEGUN
@@ -227,17 +229,17 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(SSshuttle.emergencyCallTime/divisor, 1)
+		return round((SSshuttle.emergencyCallTime / shuttle_speed_factor) / divisor, 1)
 
 	var/dtime = world.time - timer
 	switch(mode)
 		if(SHUTTLE_ESCAPE)
-			dtime = max(SSshuttle.emergencyEscapeTime - dtime, 0)
+			dtime = max((SSshuttle.emergencyEscapeTime / shuttle_speed_factor) - dtime, 0)
 		if(SHUTTLE_DOCKED)
 			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
 		else
 
-			dtime = max(SSshuttle.emergencyCallTime - dtime, 0)
+			dtime = max((SSshuttle.emergencyCallTime / shuttle_speed_factor) - dtime, 0)
 	return round(dtime/divisor, 1)
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
@@ -272,7 +274,7 @@
 			new_sound = sound('sound/AI/cshuttle.ogg')
 		)
 
-/obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
+/obj/docking_port/mobile/emergency/cancel(area/signalOrigin, byCC = FALSE)
 	if(!canRecall)
 		return
 
@@ -287,7 +289,7 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 	GLOB.major_announcement.Announce(
-		"The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]",
+		"The emergency shuttle has been recalled[byCC ? " by Central Command." : SSshuttle.emergencyLastCallLoc ? ". Recall signal traced. Results can be viewed on any communications console." : "." ]",
 		new_title = "Priority Announcement",
 		new_sound = sound('sound/AI/eshuttle_recall.ogg')
 	)
@@ -339,13 +341,27 @@
 
 	// The emergency shuttle doesn't work like others so this
 	// ripple check is slightly different
-	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
-		var/destination
+	if(!length(ripples) && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+		var/obj/docking_port/stationary/destination
 		if(mode == SHUTTLE_CALL)
 			destination = SSshuttle.getDock("emergency_home")
 		else if(mode == SHUTTLE_ESCAPE)
 			destination = SSshuttle.getDock("emergency_away")
+		if(lance_docking && !destination)
+			destination = random_docking_go()
 		create_ripples(destination)
+		if(lance_docking && is_station_level(destination.z))
+			var/list/L2 = list()
+			switch(destination.dir)
+				if(NORTH)
+					L2 = block(locate(destination.x-9, destination.y+36, destination.z), locate(destination.x+9, 255, destination.z))
+				if(SOUTH)
+					L2 = block(locate(destination.x-9, 1, destination.z), locate(destination.x+9, destination.y-36, destination.z))
+				if(EAST)
+					L2 = block(locate(destination.x+36, destination.y-9, destination.z), locate(255, destination.y+9, destination.z))
+				if(WEST)
+					L2 = block(locate(1, destination.y-9, destination.z), locate(destination.x-36, destination.y+9, destination.z))
+			create_lance_ripples(L2, destination)
 
 	switch(mode)
 		if(SHUTTLE_RECALL)
@@ -372,14 +388,6 @@
 						new_title = "Priority Announcement",
 						new_sound = sound('sound/AI/cshuttle_dock.ogg')
 					)
-/*
-				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
-				for(var/datum/gang/G in ticker.mode.gangs)
-					if(isnum(G.dom_timer))
-						G.dom_attempts = 0
-					else
-						G.dom_attempts = min(1,G.dom_attempts)
-*/
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && length(SSshuttle.hostile_environments))
@@ -449,6 +457,55 @@
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
 
+/obj/docking_port/mobile/emergency/proc/random_docking_go()
+	var/cycles = 1000
+	var/stop = FALSE
+	for(var/cycle in 1 to cycles)
+		// DRUNK DIALLING WOOOOOOOOO
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = 2
+		var/random_dir = pick(NORTH, SOUTH, EAST, WEST)
+		var/obj/docking_port/stationary/lance/port = new(locate(x, y, z))
+		port.dir = random_dir
+		if(isspaceturf(get_turf(port)))
+			qdel(port, force = TRUE)
+			continue
+
+		var/min_x = -1
+		var/min_y = -1
+		var/max_x = -1
+		var/max_y = -1
+
+		var/list/ordered_turfs = port.return_ordered_turfs()
+		for(var/turf/T in ordered_turfs)
+			if(stop)
+				break
+			min_x = min_x < 0 ? T.x : min(min_x, T.x)
+			min_y = min_y < 0 ? T.y : min(min_y, T.y)
+			max_x = max_x < 0 ? T.x : max(max_x, T.x)
+			max_y = max_y < 0 ? T.y : max(max_y, T.y)
+			for(var/obj/O in T.contents)
+				if(istype(O, /obj/machinery/atmospherics/supermatter_crystal) || istype(O, /obj/singularity))
+					qdel(port, force = TRUE)
+					stop = TRUE
+					break
+		if(stop)
+			stop = FALSE
+			continue
+		if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
+			qdel(port, force = TRUE)
+			continue
+		if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
+			qdel(port, force = TRUE)
+			continue
+		port.register()
+		return port
+
+/obj/docking_port/mobile/emergency/proc/create_lance_ripples(list/L2, obj/docking_port/stationary/S1)
+	for(var/turf/T in L2)
+		ripples += new /obj/effect/temp_visual/ripple/lance_crush(T)
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"
@@ -475,7 +532,7 @@
 	var/target_area = /area/mine/unexplored
 
 /obj/docking_port/stationary/random/Initialize()
-	..()
+	. = ..()
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T

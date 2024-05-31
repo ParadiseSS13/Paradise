@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/traitor)
 
 // Syndicate Traitors.
 /datum/antagonist/traitor
@@ -15,6 +16,8 @@
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
 	var/give_uplink = TRUE
+	blurb_r = 200
+	blurb_a = 0.75
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -283,3 +286,6 @@
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
+
+/datum/antagonist/traitor/custom_blurb()
+	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"

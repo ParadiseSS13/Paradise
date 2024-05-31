@@ -333,7 +333,7 @@
 		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
 		return
 	message_sent = TRUE
-	var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
+	var/input = tgui_input_text(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement. Transmission does not guarantee a response. This function may only be used ONCE.", "Send Message")
 	if(!input)
 		message_sent = FALSE
 		return
@@ -451,8 +451,8 @@
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = R
-	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
-	return(L[desc])
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
+	return L[desc]
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
 	if(portal_enabled && !myportal)
@@ -595,3 +595,7 @@
 		qdel(B)
 		raise_alert("Sentry bot removed via emergency recall.")
 	playsound(user, sound_yes, 50, 0)
+
+#undef DEPOT_VISITOR_START
+#undef DEPOT_VISITOR_END
+#undef DEPOT_VISITOR_ADD

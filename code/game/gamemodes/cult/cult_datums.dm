@@ -74,9 +74,6 @@
 	var/airlock_unruned_icon_file = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
 	var/airlock_unruned_overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
 
-	/// Are cultist mirror shields active yet?
-	var/mirror_shields_active = FALSE
-
 
 /datum/cult_info/fire
 	name = "Cult of Kha'Rin"

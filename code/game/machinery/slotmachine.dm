@@ -146,6 +146,7 @@
 	emagged = TRUE
 	to_chat(user, "<span class='notice'>You engage the reverse-gripping mechanism on the machine's handle.</span>")
 	log_game("[key_name(user)] emagged [src]")
+	return TRUE
 
 /// The spinning and throwing away is handled here, with a possible call to winning
 /obj/machinery/economy/slot_machine/proc/emagged_spinning(mob/living/user)

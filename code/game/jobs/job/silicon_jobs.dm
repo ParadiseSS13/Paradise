@@ -14,11 +14,10 @@
 
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)
-		return 0
+		return FALSE
 
 /datum/job/ai/is_position_available()
-	return (GLOB.empty_playable_ai_cores.len != 0)
-
+	return (length(GLOB.empty_playable_ai_cores) != 0)
 
 /datum/job/cyborg
 	title = "Cyborg"
@@ -36,5 +35,5 @@
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)
-		return 0
+		return FALSE
 	return H.Robotize()

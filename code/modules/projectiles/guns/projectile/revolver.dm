@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/revolver
-	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	name = "\improper .357 magnum revolver"
+	desc = "A powerful revolver commonly used by the Syndicate. Uses .357 magnum ammo."
 	materials = list()
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -112,8 +112,9 @@
 	user.bleed(BLOOD_VOLUME_NORMAL)
 	user.death() // Just in case
 
-/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
-	name = "\improper finger gun"
+/// Summoned by the Finger Gun spell, from advanced mimery traitor item
+/obj/item/gun/projectile/revolver/fingergun
+	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
 	force = 0
@@ -129,7 +130,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
-	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+	var/datum/spell/mime/fingergun/parent_spell
 
 /obj/item/gun/projectile/revolver/fingergun/Destroy()
 	if(parent_spell)
@@ -181,8 +182,8 @@
 	recoil = 8
 
 /obj/item/gun/projectile/revolver/nagant
-	name = "nagant revolver"
-	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
+	name = "\improper Nagant revolver"
+	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
 	can_suppress = TRUE
@@ -310,13 +311,21 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
+/obj/item/gun/projectile/revolver/capgun/chaosprank
+	name = "\improper .357 revolver"
+
+/obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, "<span class='chaosbad'>[src] vanishes in a puff of smoke!</span>")
+	playsound(src, 'sound/items/bikehorn.ogg')
+	qdel(src)
+
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
 /////////////////////////////
 
 /obj/item/gun/projectile/revolver/doublebarrel
-	name = "double-barreled shotgun"
-	desc = "A true classic."
+	name = "\improper CM150 double-barreled shotgun"
+	desc = "A true classic, by Starstrike Arms."
 	icon_state = "dbshotgun"
 	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
@@ -333,6 +342,7 @@
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_reskin = TRUE
+	var/can_sawoff = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/Initialize(mapload)
 	. = ..()
@@ -346,6 +356,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
+	if(!can_sawoff)
+		return ..()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
 		if(W.active)
@@ -363,6 +375,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
+
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
@@ -372,10 +385,38 @@
 		CB.update_icon()
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
+
+	if(sleight_of_handling(user))
+		return
+
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
+		to_chat(user, "<span class='notice'>You break open [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+
+/obj/item/gun/projectile/revolver/doublebarrel/proc/sleight_of_handling(mob/living/carbon/human/user)
+	if(!istype(get_area(user), /area/station/service/bar))
+		return FALSE
+	if(!istype(user) || !HAS_MIND_TRAIT(user, TRAIT_SLEIGHT_OF_HAND))
+		return FALSE
+	if(!istype(user.belt, /obj/item/storage/belt/bandolier))
+		return FALSE
+	var/obj/item/storage/belt/bandolier/our_bandolier = user.belt
+
+	var/loaded_shells = 0
+	for(var/obj/item/ammo_casing/shotgun/shell in our_bandolier)
+		if(loaded_shells == magazine.max_ammo)
+			break
+
+		our_bandolier.remove_from_storage(shell)
+		magazine.give_round(shell)
+		chamber_round()
+
+		loaded_shells++
+
+	if(loaded_shells)
+		to_chat(user, "<span class='notice'>You quickly load [loaded_shells] shell\s from your bandolier into [src].</span>")
+	return TRUE
 
 // IMPROVISED SHOTGUN //
 

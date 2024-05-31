@@ -1,4 +1,5 @@
 root: true
+extends: prettier
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2020
@@ -17,11 +18,10 @@ plugins:
 settings:
   import/resolver:
     node:
-      extensions: ['.js','.jsx','.ts','.tsx']
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
   react:
     version: '16.10'
 rules:
-
   ## Possible Errors
   ## ----------------------------------------
 
@@ -764,7 +764,7 @@ rules:
   # react/jsx-wrap-multilines: error
 
 overrides:
-  - files: [ "*.ts", "*.mts", "*.cts", "*.tsx" ]
+  - files: ['*.ts', '*.mts', '*.cts', '*.tsx']
     rules:
       # https://typescript-eslint.io/linting/troubleshooting/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
       no-undef: off

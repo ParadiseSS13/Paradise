@@ -153,8 +153,7 @@
 /obj/effect/landmark/damageturf,
 /obj/item/kirbyplants/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
-	item_state = "plant-dead";
-	name = "potted plant"
+	item_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 6;
@@ -166,14 +165,28 @@
 /turf/simulated/wall,
 /area/ruin/space/derelict/teleporter)
 "B" = (
-/obj/machinery/power/apc/off_station{
-	name = "Worn-out APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/derelict/teleporter)
+"I" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"M" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
+"R" = (
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/derelict/teleporter)
+"U" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space/nearstation)
 
 (1,1,1) = {"
 a
@@ -246,7 +259,7 @@ g
 a
 "}
 (6,1,1) = {"
-a
+I
 a
 a
 a
@@ -270,17 +283,17 @@ l
 m
 m
 y
-f
+R
 g
 "}
 (8,1,1) = {"
 a
-a
+M
 a
 b
 f
 h
-f
+R
 m
 r
 f
@@ -373,7 +386,7 @@ a
 "}
 (15,1,1) = {"
 a
-a
+I
 a
 b
 b
@@ -430,7 +443,7 @@ a
 (19,1,1) = {"
 a
 b
-b
+U
 b
 b
 b
@@ -453,7 +466,7 @@ a
 a
 a
 a
-a
+I
 "}
 (21,1,1) = {"
 a

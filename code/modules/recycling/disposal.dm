@@ -6,12 +6,10 @@
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
-/// How frequently disposals can make sounds, to prevent huge sound stacking
-#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
 /obj/machinery/disposal
 	name = "disposal unit"
-	desc = "A pneumatic waste disposal unit. Alt-click to manually eject its contents."
+	desc = "A pneumatic waste disposal unit, or a basketball hoop if you're bored. Alt-click to manually eject its contents."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
 	anchored = TRUE
@@ -103,7 +101,7 @@
 		var/obj/item/storage/S = I
 		if(!S.removal_allowed_check(user))
 			return
-		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
 			for(var/obj/item/O in S.contents)
@@ -142,7 +140,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(mode==0) // It's off but still not unscrewed
@@ -156,7 +154,7 @@
 	if(mode != required_mode_to_deconstruct)
 		return
 	. = TRUE
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(!I.tool_use_check(user, 0))
@@ -221,6 +219,7 @@
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
+	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 
 	for(var/mob/C in viewers(src))
@@ -380,7 +379,7 @@
 		return
 
 	// 	check for items in disposal - occupied light
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		. += "dispover-full"
 		underlays += emissive_appearance(icon, "dispover-full")
 
@@ -404,7 +403,7 @@
 
 	flush_count++
 	if(flush_count >= flush_every_ticks)
-		if(contents.len)
+		if(length(contents))
 			if(mode == 2)
 				spawn(0)
 					flush()
@@ -525,12 +524,12 @@
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
+		if(isprojectile(I))
 			return
-		if(prob(75) || (istype(mover.throwing.thrower) && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)))
+		if(prob(75) || (istype(mover.throwing.thrower) && (HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS) || HAS_TRAIT(mover.throwing.thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
 			I.forceMove(src)
 			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] lands in \the [src].", 3)
+				M.show_message("[I] lands in [src].", 3)
 			update()
 		else
 			for(var/mob/M in viewers(src))
@@ -546,7 +545,7 @@
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
@@ -1446,9 +1445,9 @@
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
 
-	if(mode == FALSE)
+	if(!mode)
 		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
-	else if(mode == TRUE)
+	else if(mode)
 		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)
 	mode = !mode
@@ -1510,3 +1509,5 @@
 		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)
+
+#undef SEND_PRESSURE

@@ -101,7 +101,7 @@
 			if(node)
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
-				add_underlay(T,, dir)
+				add_underlay(T, null, dir)
 			var/icon/frame = icon('icons/atmos/vent_pump.dmi', "frame")
 			underlays += frame
 
@@ -110,7 +110,6 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos()
-	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 	var/turf/T = loc
@@ -255,3 +254,7 @@
 	if(initial_loc)
 		initial_loc.vents -= src
 	return ..()
+
+#undef EXTERNAL_PRESSURE_BOUND
+#undef INTERNAL_PRESSURE_BOUND
+#undef PRESSURE_CHECKS
