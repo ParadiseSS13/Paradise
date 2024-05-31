@@ -32,11 +32,6 @@
 		heal_overall_damage(0, -amount, updating_health)
 	return STATUS_UPDATE_HEALTH
 
-/mob/living/silicon/robot/adjustStaminaLoss(amount, updating)
-	if(rebooting) //There's no active operating system to overload
-		return
-	..()
-
 /mob/living/silicon/robot/update_stamina()
 	if(rebooting)
 		return
@@ -187,17 +182,25 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 			"<span class='notice'>A critical neural connection error has occurred. Beginning emergency reboot...</span>"
 		)
 	var/stun_time = rand(13 SECONDS, 18 SECONDS) //Slightly longer than old flash timer
+	setStaminaLoss(0) //Have you tried turning it off and on again?
 	Weaken(stun_time)
 	addtimer(CALLBACK(src, PROC_REF(end_emergency_reboot)), stun_time)
 /*
 Finishes the stamcrit process. If the borg doesn't have a power source for the reboot, they die.
 */
 /mob/living/silicon/robot/proc/end_emergency_reboot()
-	rebooting = FALSE
-	setStaminaLoss(0) //Have you tried turning it off and on again?
 	if(!has_power_source()) //Can't turn itself back on
+		rebooting = FALSE
 		death()
 		return
+	if(getStaminaLoss()) //If someone has been chain-flashing a borg then the ride never ends
+		var/restun_time = rand(7 SECONDS, 10 SECONDS)
+		to_chat(src, "<span class='warning'>Error: Continual sensor overstimulation resulted in faulty reboot. Retrying in [restun_time / 10] seconds.</span>")
+		setStaminaLoss(0) //Just keep trying to turn it off and on again, surely it'll work eventually
+		Weaken(restun_time)
+		addtimer(CALLBACK(src, PROC_REF(end_emergency_reboot)), restun_time)
+		return
+	rebooting = FALSE
 	if(!stat)
 		return
 	playsound(src, 'sound/machines/reboot_chime.ogg' , 100, FALSE, SOUND_RANGE_SET(10))
