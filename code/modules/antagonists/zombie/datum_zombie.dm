@@ -28,6 +28,12 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	owner.RemoveSpell(/datum/spell/zombie_claws)
 	return ..()
 
+/datum/antagonist/zombie/add_owner_to_gamemode()
+	SSticker.mode.zombies |= owner
+
+/datum/antagonist/zombie/remove_owner_from_gamemode()
+	SSticker.mode.zombies -= owner
+
 /datum/antagonist/zombie/greet()
 	var/list/messages = list()
 	. = messages

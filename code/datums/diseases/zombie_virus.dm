@@ -31,11 +31,13 @@
 	if(!..())
 		return FALSE
 	if(HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS) || affected_mob.mind?.has_antag_datum(/datum/antagonist/zombie))
+		SSticker.mode.zombie_infected -= affected_mob
 		if(affected_mob.reagents.has_reagent("zombiecure4"))
 			return
 		handle_rot(TRUE)
 		stage = 7
 		return FALSE
+	SSticker.mode.zombie_infected |= affected_mob
 	switch(stage)
 		if(1) // cured by lvl 1 cure
 			if(prob(4))
