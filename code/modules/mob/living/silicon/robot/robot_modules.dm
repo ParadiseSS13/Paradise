@@ -398,7 +398,7 @@
 
 //Preload Syringes
 /obj/item/gun/syringemalf/Initialize(mapload)
-	..()
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 	process_chamber()
 
@@ -674,7 +674,6 @@
 		/obj/item/shovel,
 		/obj/item/weldingtool/mini,
 		/obj/item/extinguisher/mini,
-		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg

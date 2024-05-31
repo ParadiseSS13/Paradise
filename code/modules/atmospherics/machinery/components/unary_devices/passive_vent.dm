@@ -20,7 +20,6 @@
 	air_contents.volume = volume
 
 /obj/machinery/atmospherics/unary/passive_vent/process_atmos()
-	..()
 	if(!node)
 		return 0
 

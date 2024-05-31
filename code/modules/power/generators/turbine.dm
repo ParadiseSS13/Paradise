@@ -18,7 +18,7 @@
 // S    CT    *		 T - Turbine
 // * ^ *  * V *		 D - Doors with firedoor
 // **|***D**|**      ^ - Fuel feed (Not vent, but a gas outlet)
-//   |      |        V - Suction vent (Like the ones in atmos
+//   |      |        V - Suction vent (Like the ones in atmos)
 //
 
 #define OVERDRIVE 4
@@ -407,8 +407,10 @@
 
 /obj/machinery/computer/turbine_computer/Initialize()
 	..()
-	spawn(10)
-		locate_machinery()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/turbine_computer/LateInitialize()
+	locate_machinery()
 
 /obj/machinery/computer/turbine_computer/proc/disconnect()
 	//this disconnects the computer from the turbine, good for resets.
