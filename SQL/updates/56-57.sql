@@ -1,4 +1,4 @@
-# Updating SQL from 55 to 56 - MrRomainzZ
+# Updating SQL from 56 to 57 - MrRomainzZ
 # Add light settings to player preferences
 
 ALTER TABLE `player`
