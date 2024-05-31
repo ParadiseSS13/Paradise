@@ -101,7 +101,7 @@
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
 
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		decoy_brain = TRUE
 
 	if(!brain_already_exists)
@@ -120,7 +120,7 @@
 	if(owner)
 		owner.adjustBrainLoss(amount)
 
-/obj/item/organ/internal/brain/necrotize(update_sprite = TRUE) //Brain also has special handling for when it necrotizes
+/obj/item/organ/internal/brain/necrotize(update_sprite = TRUE, ignore_vital_death = FALSE) //Brain also has special handling for when it necrotizes
 	damage = max_damage
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)

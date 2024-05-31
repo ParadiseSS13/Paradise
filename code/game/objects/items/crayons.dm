@@ -1,9 +1,10 @@
+#define CRAYON_MESSAGE_MAX_LENGTH 16
+#define CARDBORG_HEAD 1
+#define CARDBORG_BODY 2
+
 /*
  * Crayons
  */
-
-#define CRAYON_MESSAGE_MAX_LENGTH 16
-
 /obj/item/toy/crayon
 	name = "crayon"
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
@@ -303,6 +304,7 @@
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing spray paint."
 	icon_state = "spraycan_cap"
+	slot_flags = SLOT_FLAG_BELT
 	var/capped = TRUE
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
@@ -333,6 +335,9 @@
 	if(capped)
 		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
 		return
+	if(istype(target, /obj/item/clothing/head/cardborg) || istype(target, /obj/item/clothing/suit/cardborg))	// Spraypainting your cardborg suit for more fashion options.
+		cardborg_recolor(target, user)
+		return
 	if(iscarbon(target))
 		if(uses - 10 > 0)
 			uses = uses - 10
@@ -361,4 +366,43 @@
 	I.color = colour
 	. += I
 
+/obj/item/toy/crayon/spraycan/proc/cardborg_recolor(obj/target, mob/user)
+	var/is_cardborg_head = CARDBORG_BODY
+	if(istype(target, /obj/item/clothing/head/cardborg))    // Differentiating between head and body.
+		is_cardborg_head = CARDBORG_HEAD
+	var/selected_disguise
+	var/static/list/disguise_options = list(
+		"Standard" = image('icons/mob/robots.dmi', "Standard"),
+		"Security" = image('icons/mob/robots.dmi', "security-radial"),
+		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
+		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
+		"Service" = image('icons/mob/robots.dmi', "serv-radial"),
+		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
+		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
+		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
+		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
+		)
+	selected_disguise = show_radial_menu(user, target, disguise_options, require_near = TRUE, radius = 42)
+
+	if(!selected_disguise)
+		return
+	var/static/list/disguise_spraypaint_items = list(
+		"Standard" = list(/obj/item/clothing/head/cardborg, /obj/item/clothing/suit/cardborg),
+		"Security" = list(/obj/item/clothing/head/cardborg/security, /obj/item/clothing/suit/cardborg/security),
+		"Engineering" = list(/obj/item/clothing/head/cardborg/engineering, /obj/item/clothing/suit/cardborg/engineering),
+		"Mining" = list(/obj/item/clothing/head/cardborg/mining, /obj/item/clothing/suit/cardborg/mining),
+		"Service" = list(/obj/item/clothing/head/cardborg/service, /obj/item/clothing/suit/cardborg/service),
+		"Medical" = list(/obj/item/clothing/head/cardborg/medical, /obj/item/clothing/suit/cardborg/medical),
+		"Janitor" = list(/obj/item/clothing/head/cardborg/janitor, /obj/item/clothing/suit/cardborg/janitor),
+		"Hunter" = list(/obj/item/clothing/head/cardborg/xeno, /obj/item/clothing/suit/cardborg/xeno),
+		"Death Bot" = list(/obj/item/clothing/head/cardborg/deathbot, /obj/item/clothing/suit/cardborg/deathbot)
+	)
+	selected_disguise = disguise_spraypaint_items[selected_disguise][is_cardborg_head]
+	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	user.unEquip(target)
+	user.put_in_hands(new selected_disguise())	// Spawn the desired cardborg item.
+	qdel(target)								// Get rid of the old one.
+
 #undef CRAYON_MESSAGE_MAX_LENGTH
+#undef CARDBORG_HEAD
+#undef CARDBORG_BODY

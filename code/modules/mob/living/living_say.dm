@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return name
 
 /mob/living/whisper(message as text)
-	message = trim_strip_html_properly(message)
+	message = trim_strip_html_tags(message)
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)

@@ -142,7 +142,7 @@
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)
 
-/obj/item/organ/internal/necrotize(update_sprite)
+/obj/item/organ/internal/necrotize(update_sprite, ignore_vital_death = FALSE)
 	for(var/organ_tag in organ_datums) // let the organ datums handle first
 		var/datum/organ/dead_organ = organ_datums[organ_tag]
 		dead_organ.on_necrotize()

@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
@@ -531,7 +531,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(ismecha(A))
 			var/obj/mecha/ME = A
-			assess_and_assign(ME.occupant, targets, secondarytargets)
+			if(isliving(ME.occupant))
+				assess_and_assign(ME.occupant, targets, secondarytargets)
 
 		else if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
@@ -860,7 +861,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 1
 				return
 
-			else if(istype(I, /obj/item/crowbar) && !anchored)
+			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/metal( loc, 5)
@@ -954,7 +955,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return
 
 		if(7)
-			if(istype(I, /obj/item/crowbar))
+			if(I.tool_behaviour == TOOL_CROWBAR)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)

@@ -739,12 +739,12 @@
 	if(crit_fail)
 		return
 	if(owner.maxHealth == owner.health)
-		owner.adjust_nutrition(-0.5)
+		owner.adjust_nutrition(-0.25)
 		return //Passive damage scanning
 
 	owner.adjustBruteLoss(-0.5, robotic = TRUE)
 	owner.adjustFireLoss(-0.5, robotic = TRUE)
-	owner.adjust_nutrition(-4) //Very power inefficent. Hope you got an APC nearby.
+	owner.adjust_nutrition(-2) //Very power inefficent. Hope you got an APC nearby.
 
 /obj/item/organ/internal/cyberimp/chest/ipc_repair/emp_act(severity)
 	if(!owner || emp_proof || crit_fail)

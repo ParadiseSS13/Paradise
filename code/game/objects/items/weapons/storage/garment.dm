@@ -30,8 +30,8 @@
 /obj/item/storage/bag/garment/captain/populate_contents()
 	new /obj/item/clothing/head/caphat(src)
 	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/head/caphat/beret(src)
-	new /obj/item/clothing/head/caphat/beret/white(src)
+	new /obj/item/clothing/head/beret/captain(src)
+	new /obj/item/clothing/head/beret/captain/white(src)
 	new /obj/item/clothing/head/crown/fancy(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
@@ -53,7 +53,7 @@
 
 /obj/item/storage/bag/garment/head_of_personnel/populate_contents()
 	new /obj/item/clothing/head/hop(src)
-	new /obj/item/clothing/head/hop/beret(src)
+	new /obj/item/clothing/head/beret/hop(src)
 	new /obj/item/clothing/suit/mantle/armor/hop(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/suit/hopcoat(src)
@@ -76,7 +76,7 @@
 
 /obj/item/storage/bag/garment/head_of_security/populate_contents()
 	new /obj/item/clothing/head/HoS(src)
-	new /obj/item/clothing/head/HoS/beret(src)
+	new /obj/item/clothing/head/beret/hos(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/alt(src)
 	new /obj/item/clothing/suit/mantle/armor(src)
@@ -134,7 +134,7 @@
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/suit/mantle/chief_engineer(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/ce(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/glasses/meson/sunglasses(src)
@@ -204,11 +204,11 @@
 	new /obj/item/clothing/under/rank/cargo/qm/whimsy(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/head/qm(src)
-	new /obj/item/clothing/head/qm/beret(src)
+	new /obj/item/clothing/head/beret/qm(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/clothing/suit/qmcoat(src)
 	new /obj/item/clothing/suit/mantle/qm(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/qm(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
@@ -298,4 +298,15 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/shoes/black(src)
 
+/obj/item/storage/bag/garment/explorer
+	name = "explorer's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the explorer."
 
+/obj/item/storage/bag/garment/explorer/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/expedition(src)
+	new /obj/item/clothing/under/rank/cargo/expedition/overalls(src)
+	new /obj/item/clothing/head/soft/expedition(src)
+	new /obj/item/clothing/head/beret/expedition(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/mask/gas/explorer(src)

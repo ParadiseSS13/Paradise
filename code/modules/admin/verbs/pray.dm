@@ -34,7 +34,7 @@
 
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
-			to_chat(X, msg)
+			to_chat(X, msg, MESSAGE_TYPE_ADMINPM)
 			if(X.prefs.sound & SOUND_PRAYERNOTIFY)
 				SEND_SOUND(X, sound('sound/items/PDA/ambicha4-short.ogg'))
 	to_chat(usr, "Your prayers have been received by the gods.")
