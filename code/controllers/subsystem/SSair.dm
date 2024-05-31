@@ -554,13 +554,17 @@ SUBSYSTEM_DEF(air)
 
 /// Do not call this yourself. This is what is called to run your code from a safe context.
 /datum/milla_safe/proc/private_unsafe_invoke()
-	ASSERT(SSair.is_in_milla_safe_code())
+	soft_assert_safe()
 	on_run(arglist(run_args))
+
+/// Used internally to check that we're running safely, but without breaking things worse if we aren't.
+/datum/milla_safe/proc/soft_assert_safe()
+	ASSERT(SSair.is_in_milla_safe_code())
 
 /// Fetch the air for a turf. Only use from `on_run`.
 /datum/milla_safe/proc/get_turf_air(turf/T)
 	RETURN_TYPE(/datum/gas_mixture)
-	ASSERT(SSair.is_in_milla_safe_code())
+	soft_assert_safe()
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
 	if(air.lastread < SSair.times_fired)
