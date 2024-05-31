@@ -38,7 +38,6 @@
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 
-
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	STOP_PROCESSING(SSobj, src)
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
