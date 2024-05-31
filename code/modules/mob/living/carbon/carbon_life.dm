@@ -249,11 +249,8 @@
 	..()
 	if(stam_regen_start_time <= world.time)
 		if(staminaloss)
-			setStaminaLoss(0, FALSE)
-			update_stamina()
+			setStaminaLoss(0)
 			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
-			update_stamina_hud()
-			update_health_hud()
 
 	// Keep SSD people asleep
 	if(player_logged)
