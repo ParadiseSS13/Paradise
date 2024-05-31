@@ -433,11 +433,6 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
 
-/proc/apply_wrapper_color(obj/item/storage/pill_bottle/bottle, i)
-	var/static/list/colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN_BLUE, COLOR_VIOLET, COLOR_PURPLE)
-	bottle.wrapper_color = colors[(i - 1) % length(colors) + 1]
-	bottle.apply_wrap()
-
 /obj/item/storage/box/pillbottles
 	name = "box of pill bottles"
 	desc = "It has pictures of pill bottles on its front."
@@ -446,7 +441,7 @@
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
 		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
-		apply_wrapper_color(P, I)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -456,7 +451,7 @@
 /obj/item/storage/box/patch_packs/populate_contents()
 	for(var/I in 1 to 7)
 		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
-		apply_wrapper_color(P, I)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
