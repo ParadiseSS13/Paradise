@@ -281,6 +281,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///e.g. a storage container or a modsuit.
 #define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
 
+//****** ATOM/MOVABLE TRAITS *****//
+/// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
+#define TRAIT_CURRENTLY_Z_MOVING "currently_z_moving" // please dont adminbus this
+
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
