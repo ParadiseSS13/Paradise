@@ -36,7 +36,7 @@
 	if(is_component_functioning("power cell"))
 		low_power_mode = FALSE
 		return
-	adjustStaminaLoss(1)
+	adjustStaminaLoss(3)
 
 /mob/living/silicon/robot/proc/enter_low_power_mode()
 	low_power_mode = TRUE
