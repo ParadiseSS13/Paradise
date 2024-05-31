@@ -239,7 +239,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(HAS_TRAIT(M, TRAIT_RESPAWNABLE))
 		if(isdrone(M))//We do not punish maint drones for leaving early, *but* we don't want them ghosting, finding damage, respawning / rentering over and over.
-			var/mob/dead/observer/ghost = ghostize(FALSE)	// FALSE parameter stops them re-entering their body
+			var/mob/dead/observer/ghost = ghostize(TRUE) // Keep them respawnable
+			ghost.can_reenter_corpse = FALSE // but keep them out of their old body
 			ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
 			return
 		ghostize(TRUE)
