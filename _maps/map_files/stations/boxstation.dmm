@@ -30371,11 +30371,11 @@
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
 "bTg" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -85710,11 +85710,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tJA" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/structure/disposalpipe/segment/corner{
+/obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
