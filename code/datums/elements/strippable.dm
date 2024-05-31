@@ -379,7 +379,7 @@
 		return
 
 	var/mob/living/user = ui.user
-	if(!isliving(ui.user) || HAS_TRAIT(user, TRAIT_CANT_STRIP))
+	if(!isliving(ui.user) || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return
 
 	. = TRUE

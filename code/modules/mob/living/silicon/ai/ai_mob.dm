@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_CANT_STRIP, "ai_trait")
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src

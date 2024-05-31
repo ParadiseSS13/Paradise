@@ -559,6 +559,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+		fracture()
 		return
 
 	if(!disintegrate)

@@ -39,7 +39,7 @@
 			alpha = 255
 			range = 13
 			incorporeal_move = NO_INCORPOREAL_MOVE
-			REMOVE_TRAIT(src, TRAIT_CANT_STRIP, "holopara_trait")
+			ADD_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
@@ -51,7 +51,7 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = INCORPOREAL_MOVE_NORMAL
-			ADD_TRAIT(src, TRAIT_CANT_STRIP, "holopara_trait") // spiritual pickpocketting is forbidden
+			REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC) //spiritual pickpocketting is forbidden
 			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
 			toggle = TRUE
 	else
