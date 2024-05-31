@@ -19214,7 +19214,6 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

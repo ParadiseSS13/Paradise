@@ -2910,7 +2910,6 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pF" = (
 /obj/structure/table,
-/obj/machinery/smartfridge/disks,
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
