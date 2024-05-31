@@ -1574,6 +1574,7 @@
 						zomb.cure() // experimental B). Won't save you from the dead organs.
 					for(var/obj/item/organ/O as anything in (H.internal_organs + H.bodyparts))
 						O.germ_level = 0
+					update_flags |= M.adjustCloneLoss(-4 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 60 clone one-use heal for 10 TC seems fair
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
