@@ -11,7 +11,7 @@ GLOBAL_DATUM_INIT(strippable_state, /datum/ui_state/strippable_state, new)
 	if(!ismob(src_object))
 		return UI_CLOSE
 	. = user.default_can_use_topic(src_object)
-	if(!HAS_TRAIT(user, TRAIT_CAN_STRIP))
+	if(HAS_TRAIT(user, TRAIT_CANT_STRIP))
 		. = min(., UI_UPDATE)
 	var/mob/M = src_object
 	if(!isturf(M.loc))

@@ -249,7 +249,7 @@
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
-	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_CANT_STRIP, "bot_trait")
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return // We use a different hud

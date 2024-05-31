@@ -83,17 +83,19 @@
 	if(zomboid.buckled) //Unbuckle the mob and clear the alerts.
 		zomboid.buckled.unbuckle_mob(src, force = TRUE)
 
-	var/datum/organ/heart/heart = zomboid.get_int_organ_datum(ORGAN_DATUM_HEART)
-	var/heart_type = zomboid.dna?.species?.has_organ["heart"]
-	if(!heart && heart_type)
-		var/obj/item/organ/internal/new_heart = new heart_type()
-		new_heart.insert(zomboid)
+	// var/datum/organ/heart/heart = zomboid.get_int_organ_datum(ORGAN_DATUM_HEART)
+	// var/heart_type = zomboid.dna?.species?.has_organ["heart"]
+	// if(!heart && heart_type)
+	// 	var/obj/item/organ/internal/new_heart = new heart_type()
+	// 	new_heart.insert(zomboid)
 
-	var/datum/organ/lungs/lungs = zomboid.get_int_organ_datum(ORGAN_DATUM_LUNGS)
-	var/lung_type = zomboid.dna?.species?.has_organ["lungs"]
-	if(!lungs && lung_type)
-		var/obj/item/organ/internal/new_lungs = new lung_type()
-		new_lungs.insert(zomboid)
+	// var/datum/organ/lungs/lungs = zomboid.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	// var/lung_type = zomboid.dna?.species?.has_organ["lungs"]
+	// if(!lungs && lung_type)
+	// 	var/obj/item/organ/internal/new_lungs = new lung_type()
+	// 	new_lungs.insert(zomboid)
+
+	zomboid.check_and_regenerate_organs()
 
 	zomboid.set_heartattack(FALSE)
 	zomboid.restore_blood()
