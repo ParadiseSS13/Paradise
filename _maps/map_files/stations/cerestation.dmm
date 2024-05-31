@@ -60264,9 +60264,6 @@
 	},
 /area/station/command/office/rd)
 "lZX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Blueshield";
@@ -60278,19 +60275,11 @@
 /obj/item/reagent_containers/drinks/drinkingglass,
 /obj/item/reagent_containers/drinks/drinkingglass,
 /obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Blueshield";
 	departmentType = 5;
 	pixel_x = 30
-	},
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
