@@ -145,7 +145,6 @@
 		for(var/datum/disease/zombie/zomb in target.viruses)
 			zomb.stage = max(zomb.stage, infection_stage)
 
-
 /obj/item/zombie_claw/attack_self(mob/user)
 	. = ..()
 	qdel(src)

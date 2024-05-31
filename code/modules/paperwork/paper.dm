@@ -766,7 +766,6 @@
 
 	info = info_builder.Join("")
 
-
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""

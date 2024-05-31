@@ -688,10 +688,11 @@
 
 /mob/living/remove_language(rem_language)
 	. = ..()
-	if(.)
-		var/datum/language/L = GLOB.all_languages[rem_language]
-		if(default_language == L)
-			default_language = null
+	if(!.)
+		return
+	var/datum/language/L = GLOB.all_languages[rem_language]
+	if(default_language == L)
+		default_language = null
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
@@ -798,6 +799,5 @@
 	if(prob(90) || !length(input))
 		return "[pick(syllables)][terminator]"
 	return "[copytext_char(input, 1, min(7, length(input)))][terminator]"
-
 
 #undef SCRAMBLE_CACHE_LEN
