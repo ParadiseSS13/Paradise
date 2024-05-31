@@ -18,6 +18,9 @@
 	/// Ignores update_weight() if TRUE
 	var/large = FALSE
 
+	/// Belt goes over all suit slots if TRUE
+	var/layer_over_suit = FALSE
+
 /obj/item/storage/belt/proc/update_weight()
 	if(large)
 		return
@@ -340,6 +343,7 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+	layer_over_suit = TRUE
 	can_hold = list(
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
@@ -591,6 +595,7 @@
 	item_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16
+	layer_over_suit = TRUE
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	display_contents_with_number = TRUE
 
@@ -729,6 +734,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier)
+	layer_over_suit = TRUE
 	large = TRUE
 
 /obj/item/storage/belt/rapier/populate_contents()
@@ -922,6 +928,7 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
 	use_item_overlays = FALSE
+	layer_over_suit = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -984,6 +991,7 @@
 	storage_slots = 10
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 25
+	layer_over_suit = TRUE
 	can_hold = list(
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
