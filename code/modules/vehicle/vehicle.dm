@@ -153,6 +153,8 @@
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.bullet_act(Proj)
+		return
+	return ..()
 
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
