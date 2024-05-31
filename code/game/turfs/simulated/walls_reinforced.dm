@@ -211,7 +211,7 @@
 
 	if(istype(I, /obj/item/zombie_claw))
 		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
-		if(do_after(user, 120 SECONDS * I.toolspeed, target = src))
+		if(do_after(user, 2 MINUTES * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE

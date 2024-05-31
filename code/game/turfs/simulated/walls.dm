@@ -473,7 +473,7 @@
 
 	else if(istype(I, /obj/item/zombie_claw))
 		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
-		if(do_after(user, isdiamond ? 120 SECONDS * I.toolspeed : 60 SECONDS * I.toolspeed, target = src)) // 120/60 seconds by default
+		if(do_after(user, isdiamond ? 2 MINUTES * I.toolspeed : 1 MINUTES * I.toolspeed, target = src)) // 120/60 seconds by default
 			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] claws through [src]!</span>","<span class='warning'>You hear the grinding of metal and bone.</span>")
