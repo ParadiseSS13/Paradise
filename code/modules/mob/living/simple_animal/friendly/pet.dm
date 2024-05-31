@@ -10,7 +10,7 @@
 /mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/newspaper))
 		var/obj/item/newspaper/N = O  // Cast O to a newspaper object
-		if (N.rolled)  // Check if the newspaper is rolled up
+		if(N.rolled)  // Check if the newspaper is rolled up
 			if(!stat)
 				user.visible_message("<span class='notice'>[user] baps [name] on the nose with the rolled up [O].</span>")
 				spawn(0)
