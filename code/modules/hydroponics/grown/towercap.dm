@@ -29,9 +29,6 @@
 	reagents_add = list("iron" = 0.5)
 	rarity = 20
 
-
-
-
 /obj/item/grown/log
 	seed = /obj/item/seeds/tower
 	name = "tower-cap log"
