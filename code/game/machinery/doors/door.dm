@@ -599,5 +599,5 @@
 			blockage.max_integrity += 50
 		else
 			blockage.obj_integrity += 25
-			blockage.obj_integrity += 25
+			blockage.max_integrity += 25
 		foam_level++
