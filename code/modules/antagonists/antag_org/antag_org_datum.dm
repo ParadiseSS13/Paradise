@@ -1,5 +1,5 @@
  /**
-  * The lore organisation antagonists are attached to. Influences objectives, steal targets, and discounted items for the antag. Is meant to be a self contained system.
+  * The lore organisation antagonists are attached to. Influences objectives and steal targets.
   */
 /datum/antag_org
 	/// Organisation's name

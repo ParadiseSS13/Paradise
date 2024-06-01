@@ -85,9 +85,11 @@
 /datum/antag_org/syndicate/gorlex
 	name = "Gorlex Marauders"
 	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+	forced_objective = /datum/objective/hijack
 	chaos_level = ORG_CHAOS_HIJACK
 
 /datum/antag_org/syndicate/waffle
 	name = "Waffle Company"
 	intro_desc = "(TODO - LORE) You are a Waffle Company operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+	forced_objective = /datum/objective/hijack
 	chaos_level = ORG_CHAOS_HIJACK
