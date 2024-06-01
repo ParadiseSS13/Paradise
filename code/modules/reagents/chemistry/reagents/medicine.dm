@@ -935,8 +935,8 @@
 					M.adjustFireLoss(rand(0, 15))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						H.decaylevel = 0
 						var/necrosis_prob = 15 * H.decaylevel
+						H.decaylevel = 0
 						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
 							// 15% * H.decaylevel (1 to 4)
