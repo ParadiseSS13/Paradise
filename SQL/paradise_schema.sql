@@ -83,6 +83,8 @@ CREATE TABLE `characters` (
   `cyborg_brain_type` ENUM('MMI', 'Robobrain', 'Positronic') NOT NULL DEFAULT 'MMI',
   `ai_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cyborg_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `core_display` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hologram` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

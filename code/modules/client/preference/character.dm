@@ -108,6 +108,9 @@
 	var/h_grad_alpha = 255
 	/// Custom emote text ("name" = "emote text")
 	var/list/custom_emotes = list()
+	/// AI and borg prefeances
+	var/core_display = "ai"
+	var/hologram = "holo1"
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -212,6 +215,8 @@
 					hair_gradient_alpha=:h_grad_alpha,
 					custom_emotes=:custom_emotes,
 					cyborg_brain_type=:cyborg_brain_type,
+					core_display=:core_display,
+					hologram=:hologram,
 					body_type=:body_type
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
@@ -276,6 +281,8 @@
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
 						"cyborg_brain_type" = cyborg_brain_type,
+						"core_display" = core_display,
+						"hologram" = hologram,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -317,7 +324,7 @@
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
 			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type,
-			ai_name, cyborg_name)
+			ai_name, cyborg_name, core_display, hologram)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -345,7 +352,7 @@
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
 			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type,
-			:ai_name, :cyborg_name)
+			:ai_name, :cyborg_name, :core_display, :hologram)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -409,7 +416,9 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
-		"cyborg_brain_type" = cyborg_brain_type
+		"cyborg_brain_type" = cyborg_brain_type,
+		"core_display" = core_display,
+		"hologram" = hologram
 	))
 
 	if(!query.warn_execute())
@@ -505,6 +514,8 @@
 	body_type = query.item[59]
 	ai_name = query.item[60]
 	cyborg_name = query.item[61]
+	core_display = query.item[62]
+	hologram = query.item[63]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]

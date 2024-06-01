@@ -165,8 +165,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	density = TRUE
 	loc = loc
 
-	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
-
 	proc_holder_list = new()
 
 	if(L)
@@ -265,6 +263,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return aiRadio
 
 /mob/living/silicon/ai/proc/on_mob_init()
+	pick_icon(client.prefs.active_character.core_display)
+	ai_hologram_change(client.prefs.active_character.hologram)
+
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
 	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
@@ -403,7 +404,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	. = ..()
 	update_hat_icons()
 
-/mob/living/silicon/ai/proc/pick_icon()
+/mob/living/silicon/ai/proc/pick_icon(game_pref_choice)
 	set category = "AI Commands"
 	set name = "Set AI Core Display"
 	if(stat || aiRestorePowerRoutine)
@@ -412,62 +413,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(ckey in GLOB.configuration.custom_sprites.ai_core_ckeys)
 			custom_sprite = TRUE
 
-	var/display_choices = list(
-		"Monochrome",
-		"Blue",
-		"Clown",
-		"Inverted",
-		"Text",
-		"Smiley",
-		"Angry",
-		"Dorf",
-		"Matrix",
-		"Bliss",
-		"Firewall",
-		"Green",
-		"Red",
-		"Static",
-		"Triumvirate",
-		"Triumvirate Static",
-		"Red October",
-		"Sparkles",
-		"ANIMA",
-		"President",
-		"NT",
-		"NT2",
-		"Rainbow",
-		"Angel",
-		"Heartline",
-		"Hades",
-		"Helios",
-		"Syndicat Meow",
-		"Too Deep",
-		"Goon",
-		"Murica",
-		"Fuzzy",
-		"Glitchman",
-		"House",
-		"Database",
-		"Alien",
-		"Tiger",
-		"Fox",
-		"Vox",
-		"Lizard",
-		"Dark Matter",
-		"Cheese",
-		"Rainbow Slime",
-		"Void Donut",
-		"NAD Burn",
-		"Borb",
-		"Bee",
-		"Catamari"
-		)
+	var/display_choices = GLOB.core_display_choices
 	if(custom_sprite)
 		display_choices += "Custom"
 
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
-	icontype = tgui_input_list(usr, "Select an icon!", "AI", display_choices)
+	if(game_pref_choice)
+		icontype = game_pref_choice
+	else
+		icontype = tgui_input_list(usr, "Select an icon!", "AI", display_choices)
 	icon = 'icons/mob/ai.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
 	switch(icontype)
 		if("Custom")
@@ -978,9 +933,21 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return flat_icon
 
+/proc/get_holo_icon_category(icon_name) //This is for character creation, so we don't check for crewmembers
+	switch(icon_name)
+		if("Bear", "Carp", "Chicken", "Corgi", "Cow", "Crab", "Deer", "Fox", "Goat", "Goose",
+			"Kitten", "Kitten2", "Pig", "Poly", "Pug", "Seal", "Spider", "Turkey", "Shantak",
+			"Bunny", "Hellhound", "Lightgeist", "Cockroach", "Mecha-Cat", "Mecha-Fairy",
+			"Mecha-Fox", "Mecha-Monkey", "Mecha-Mouse", "Mecha-Snake", "Roller-Mouse",
+			"Roller-Monkey")
+			return "Animal"
+		if("default", "floating face", "xeno queen", "eldritch", "ancient machine", "angel",
+			"borb", "biggest fan", "cloudkat", "donut", "frost phoenix", "engi bot", "drone",
+			"boxbot")
+			return "Unique"
 
 //I am the icon meister. Bow fefore me.	//>fefore
-/mob/living/silicon/ai/proc/ai_hologram_change()
+/mob/living/silicon/ai/proc/ai_hologram_change(game_pref_hologram)
 	set name = "Change Hologram"
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
@@ -992,7 +959,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			custom_hologram = TRUE
 
 	var/input
-	switch(tgui_alert(usr, "Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?", "Change Hologram", list("Crew Member", "Unique", "Animal")))
+	var/holo_icontype = ""
+	if(game_pref_hologram)
+		holo_icontype = get_holo_icon_category(game_pref_hologram)
+	else
+		holo_icontype = tgui_alert(usr, "Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?", "Change Hologram", list("Crew Member", "Unique", "Animal"))
+	switch(holo_icontype)
 		if("Crew Member")
 			var/personnel_list[] = list()
 
@@ -1009,41 +981,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				alert("No suitable records found. Aborting.")
 
 		if("Animal")
-			var/icon_list[] = list(
-				"Bear",
-				"Carp",
-				"Chicken",
-				"Corgi",
-				"Cow",
-				"Crab",
-				"Deer",
-				"Fox",
-				"Goat",
-				"Goose",
-				"Kitten",
-				"Kitten2",
-				"Pig",
-				"Poly",
-				"Pug",
-				"Seal",
-				"Spider",
-				"Turkey",
-				"Shantak",
-				"Bunny",
-				"Hellhound",
-				"Lightgeist",
-				"Cockroach",
-				"Mecha-Cat",
-				"Mecha-Fairy",
-				"Mecha-Fox",
-				"Mecha-Monkey",
-				"Mecha-Mouse",
-				"Mecha-Snake",
-				"Roller-Mouse",
-				"Roller-Monkey"
-			)
-
-			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
+			var/icon_list[] = GLOB.hologram_animals
+			if(game_pref_hologram)
+				input = game_pref_hologram
+			else
+				input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1111,26 +1053,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk3"))
 
 		else
-			var/icon_list[] = list(
-				"default",
-				"floating face",
-				"xeno queen",
-				"eldritch",
-				"ancient machine",
-				"angel",
-				"borb",
-				"biggest fan",
-				"cloudkat",
-				"donut",
-				"frost phoenix",
-				"engi bot",
-				"drone",
-				"boxbot"
-			)
+			var/icon_list[] = GLOB.hologram_unique
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
-
-			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
+			if(game_pref_hologram)
+				input = game_pref_hologram
+			else
+				input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)

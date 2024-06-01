@@ -878,7 +878,16 @@
 							active_character.cyborg_name = new_cyborg_name
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
-
+				if("core_display")
+					var/input = tgui_input_list(user, "Choose a default look for your AI core.", "Character Preference", GLOB.core_display_choices)
+					active_character.core_display = input
+				if("hologram")
+					var/input = tgui_input_list(user, "Would you like to select a hologram based on an animal or a unique avatar?", "Change Hologram", list("Unique", "Animal"))
+					if(input == "Animal")
+						input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", GLOB.hologram_animals)
+					else
+						input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", GLOB.hologram_unique)
+					active_character.hologram = input
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
