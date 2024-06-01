@@ -462,3 +462,28 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE
+
+/*
+ *	Treasure bag
+ */
+
+/obj/item/storage/bag/expedition
+	name = "treasure satchel"
+	desc = "A satchel for storing scavenged salvage. There be treasure."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "satchel" // placeholder
+	origin_tech = "engineering=2"
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 15
+	max_combined_w_class = 60
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/salvage)
+
+/obj/item/storage/bag/expedition/robust
+	name = "robust treasure satchel"
+	desc = "We heard you liked booty so we put booty in your booty so ye could carry more booty."
+	storage_slots = 30
+	max_combined_w_class = 120
+	origin_tech = "materials=3;engineering=3"
+	icon_state = "satchel_bspace" // placeholder

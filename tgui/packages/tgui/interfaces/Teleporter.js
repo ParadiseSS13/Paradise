@@ -47,6 +47,7 @@ export const Teleporter = (props, context) => {
                       <Dropdown
                         width={18.2}
                         selected={target}
+                        disabled={calibrating}
                         options={Object.keys(targetsTeleport)}
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
@@ -62,6 +63,7 @@ export const Teleporter = (props, context) => {
                       <Dropdown
                         width={18.2}
                         selected={target}
+                        disabled={calibrating}
                         options={Object.keys(targetsTeleport)}
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
