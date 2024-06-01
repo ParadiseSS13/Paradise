@@ -68,6 +68,14 @@
 	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
+	for(var/datum/disease/zombie/zombie_infection in U.viruses)
+		zombie_infection.stage = min(zombie_infection.stage, round(7 - (V.bloodtotal/100))) // 700 max usable blood can cleanse any zombie infection
+		if(zombie_infection.stage <= 0)
+			zombie_infection.cure()
+			to_chat(user, "<span class='notice'>You cleanse the plague from your system.</span>")
+		else
+			to_chat(user, "<span class='warning'>You weaken the plague in your system, but you don't have enough blood to completely remove it.</span>")
+
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)

@@ -58,7 +58,7 @@
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)
 		else
-			if(IS_CHANGELING(src))
+			if(IS_CHANGELING(src) || HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 				// if a changeling has no brain, they have no brain damage.
 				return 0
 
