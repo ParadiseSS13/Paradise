@@ -820,7 +820,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	needs_target = FALSE
 	completed = TRUE
 	explanation_text = "Kill the crew"
-  
+
 /datum/objective/zombie
 	explanation_text = "Hunger grows within us, we need to feast on the brains of the uninfected. Scratch, bite, and spread the plague."
 	needs_target = FALSE
