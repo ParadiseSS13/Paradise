@@ -353,10 +353,6 @@
 
 /datum/organ/lungs/ashwalker
 	safe_oxygen_min = 4 // 4x as efficient as regular Unathi, can comfortably breathe on lavaland
-	heat_level_1_threshold = 505
-	heat_level_2_threshold = 540
-	heat_level_3_threshold = 600
-
 	cold_level_1_threshold = 280
 	cold_level_2_threshold = 220
 	cold_level_3_threshold = 140

@@ -472,7 +472,6 @@
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
-	taste_description = "beer"
 	taste_description = "piss water"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)

@@ -258,7 +258,6 @@
 	response_help = "waves away"
 	response_disarm = "brushes aside"
 	response_harm = "disrupts"
-	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
 	harm_intent_damage = 1
@@ -277,7 +276,6 @@
 	universal_understand = TRUE
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
-	flying = TRUE
 	minbodytemp = 0
 	maxbodytemp = 1500
 	environment_smash = 0
