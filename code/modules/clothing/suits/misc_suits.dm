@@ -881,6 +881,12 @@
 	put_on_delay = 40
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	//End of inheritance from Security armour.
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
+	)
 
 
 /obj/item/clothing/suit/jacket
