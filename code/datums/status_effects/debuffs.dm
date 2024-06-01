@@ -1382,3 +1382,5 @@
 	// Our max slow is 50 seconds
 	foam_level = min(foam_level + 1, 5)
 	/* TODO: if sprites, add code here so the overlays will update depending on the foam level */
+	if(foam_level == 5)
+		owner.Paralyse(4 SECONDS)
