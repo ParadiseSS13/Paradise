@@ -306,7 +306,7 @@
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb= list("smacks", "whacks", "slams", "smashes")
+	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
 
