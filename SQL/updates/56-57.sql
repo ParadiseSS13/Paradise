@@ -12,6 +12,6 @@ SET `ip_int` = INET_ATON(`ip`);
 # Deletes the old `ip` column from the table
 ALTER TABLE `connection_log` DROP COLUMN `ip`;
 
-# Updates the name of the temporay column to take place of our new one
+# Updates the name of the temporary column to take place of the original
 ALTER TABLE `connection_log`
 CHANGE COLUMN `ip_int` `ip` INT UNSIGNED NOT NULL;
