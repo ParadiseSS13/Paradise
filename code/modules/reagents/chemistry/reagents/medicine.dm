@@ -936,7 +936,7 @@
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						H.decaylevel = 0
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
+						var/necrosis_prob = 15 * H.decaylevel
 						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
 							// 15% * H.decaylevel (1 to 4)
