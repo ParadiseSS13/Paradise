@@ -454,7 +454,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/targrenade
 	name = "Sticky Tar Grenade"
 	desc = "A grenade filled with aerosols and sticky tar. \
-			Will release a plume of smoke that applies tar to a wide area, severely slowing down movement. Make the ultimate getaway!"
+			Will release a plume of smoke that applies tar to a wide area, severely slowing down movement. Makes for the ultimate getaway!"
 	reference = "TARG"
 	item = /obj/item/grenade/chem_grenade/tar
 	cost = 7
