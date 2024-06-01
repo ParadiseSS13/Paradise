@@ -33,7 +33,7 @@
 
 /datum/objective/assassinateonce/animal_abuser
 	name = "Assassinate animal abuser once"
-	target_jobs = list("Cargo Technician", "Bartender", "Chef", "Botanist", "Geneticist", "Scientist", "Virologist")
+	target_jobs = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Bartender", "Chef", "Botanist", "Geneticist", "Virologist")
 
 /datum/objective/assassinateonce/animal_abuser/update_explanation_text()
 	..()

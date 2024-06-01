@@ -82,9 +82,38 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	return ..()
 
-/datum/antagonist/traitor/select_organisation() //TODO : Dynamic pick based on player pref, amount of sec, amount of antags
-	var/org_type = pick(subtypesof(/datum/antag_org/syndicate))
-	organisation = new org_type(src)
+/datum/antagonist/traitor/select_organisation()
+	var/list/sec_list = check_active_security_force()
+	var/active_sec = sec_list[2] //amount of active members of security
+	var/hunter_chance //chance of hunter traitor
+	var/mild_chance //chance of mild traitor
+	var/regular_chance //chance of regular traitor
+	var/hijack_chance //chance of hijack traitor
+
+	if(active_sec < 2)
+		hunter_chance = 25
+		mild_chance = 35
+		regular_chance = 35
+		hijack_chance = 5
+	else if(active_sec < 4)
+		hunter_chance = 20
+		mild_chance = 30
+		regular_chance = 40
+		hijack_chance = 10
+	else
+		hunter_chance = 15
+		mild_chance = 25
+		regular_chance = 50
+		hijack_chance = 10
+
+	var/chaos = pick(prob(hunter_chance);ORG_CHAOS_HUNTER, prob(mild_chance);ORG_CHAOS_MILD, prob(regular_chance);ORG_CHAOS_AVERAGE, prob(hijack_chance);ORG_CHAOS_HIJACK)
+	var/org_list = shuffle(subtypesof(/datum/antag_org/syndicate))
+	for(var/T in org_list)
+		var/datum/antag_org/O = new T(src)
+		if(O.chaos_level == chaos)
+			organisation = O
+			break
+		qdel(O)
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
@@ -110,12 +139,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a full set of randomized human traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	// Hijack objective.
-	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		add_antag_objective(/datum/objective/hijack)
-		organisation = new /datum/antag_org/syndicate/gorlex
-		return // Hijack should be their only objective (normally), so return.
-
 	var/iteration = 0
 	var/can_succeed_if_dead = TRUE
 	for(var/objective in owner.get_all_objectives())
@@ -128,6 +151,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(organisation && organisation.forced_objective)
 		add_antag_objective(organisation.forced_objective)
 		iteration++
+
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+		return //Hijackers only get hijack.
 
 	// Will give objectives from our org or random objectives.
 	while(iteration < GLOB.configuration.gamemode.traitor_objectives_amount)
