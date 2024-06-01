@@ -65,3 +65,16 @@ GLOBAL_LIST(contractors)
 #define IS_CHANGELING(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/changeling))
 
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
+
+/**
+ * Antag organisations
+ */
+
+/// Antag hunting antag. Might help security overall.
+#define ORG_CHAOS_HUNTER -1
+/// Will steal items/kill low importance crew, usually not much trouble
+#define ORG_CHAOS_MILD 0
+/// Your average tator, will be an issue
+#define ORG_CHAOS_AVERAGE 1
+/// Hijack or hijack-tier antagonists.
+#define ORG_CHAOS_HIJACK 2

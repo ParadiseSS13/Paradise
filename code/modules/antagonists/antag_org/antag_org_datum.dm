@@ -1,16 +1,6 @@
  /**
   * The lore organisation antagonists are attached to. Influences objectives, steal targets, and discounted items for the antag. Is meant to be a self contained system.
   */
-
-/// Antag hunting antag. Might help security overall.
-#define ORG_CHAOS_HUNTER -1
-/// Will steal items/kill low importance crew, usually not much trouble
-#define ORG_CHAOS_MILD 0
-/// Your average tator, will be an issue
-#define ORG_CHAOS_AVERAGE 1
-/// Hijack or hijack-tier antagonists.
-#define ORG_CHAOS_HIJACK 2
-
 /datum/antag_org
 	/// Organisation's name
 	var/name = "Generic Bad Guys"
