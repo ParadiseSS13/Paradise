@@ -1366,13 +1366,13 @@
 	. = ..()
 	foam_overlay = mutable_appearance('icons/mob/sprite_accessories/nucleation/nucleation_face.dmi', "betaburns_s")
 	owner.add_overlay(foam_overlay)
-	owner.next_move_modifier *= 2
+	owner.next_move_modifier *= 1.5
 	owner.Slowed(10 SECONDS, 1.5)
 
 /datum/status_effect/c_foamed/Destroy()
 	if(owner)
 		owner.cut_overlay(foam_overlay)
-		owner.next_move_modifier /= 2
+		owner.next_move_modifier /= 1.5
 
 	QDEL_NULL(foam_overlay)
 	return ..()
