@@ -362,6 +362,8 @@
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
+	if(src in pulling.contents)
+		return
 	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
 	if(get_dist(target_turf, loc) > 1) // Make sure the turf we are trying to pull to is adjacent to the user.
 		return // We do not use Adjacent() here because it checks if there are dense objects in the way, making it impossible to move an object to the side if we're blocked on both sides.
