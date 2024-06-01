@@ -22169,7 +22169,6 @@
 "bpG" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
-/obj/item/wrench,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -23286,6 +23285,7 @@
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
 /obj/item/stack/packageWrap,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -40738,10 +40738,6 @@
 	name = "Kitchen Shutters";
 	dir = 2
 	},
-/obj/item/eftpos/register{
-	dir = 1;
-	pixel_y = 5
-	},
 /obj/structure/table/reinforced,
 /obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 1
@@ -54533,30 +54529,6 @@
 	icon_state = "grimy"
 	},
 /area/station/hallway/secondary/entry/lounge)
-"eDk" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/autoname{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "kitchenbar";
-	name = "Kitchen Shutters"
-	},
-/obj/item/eftpos/register{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "eDs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -72304,6 +72276,16 @@
 	icon_state = "blackcorner"
 	},
 /area/station/security/permabrig)
+"nlp" = (
+/obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 4
+	},
+/obj/item/wrench,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "nlK" = (
 /obj/machinery/light{
 	dir = 8
@@ -131987,7 +131969,7 @@ hEW
 wmU
 hEW
 wmU
-eDk
+hEW
 gxs
 bdT
 bdT
@@ -132240,7 +132222,7 @@ biU
 boN
 bdT
 bmh
-bof
+nlp
 bpL
 bof
 bof

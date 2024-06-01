@@ -19294,6 +19294,7 @@
 /obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/food/snacks/dough,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19329,10 +19330,10 @@
 	},
 /area/station/hallway/primary/fore/east)
 "bhQ" = (
-/obj/item/food/snacks/dough,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19340,7 +19341,13 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/food/snacks/mint,
+/obj/item/food/snacks/mint{
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20785,9 +20792,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blo" = (
-/obj/item/toy/figure/crew/chef,
+/obj/item/toy/figure/crew/chef{
+	pixel_x = -1;
+	pixel_y = 3
+	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/clothing/suit/chef,
+/obj/item/kitchen/knife{
+	pixel_x = -9;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blq" = (
@@ -21586,10 +21601,11 @@
 /turf/simulated/wall,
 /area/station/service/kitchen)
 "bnc" = (
-/obj/item/clothing/suit/chef,
-/obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnd" = (
@@ -21606,11 +21622,11 @@
 /turf/simulated/wall,
 /area/station/supply/lobby)
 "bne" = (
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/item/kitchen/knife,
 /obj/effect/turf_decal/delivery,
 /obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnf" = (
@@ -70926,28 +70942,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
-"hhu" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/windoor/autoname{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "kitchenhall";
-	name = "Kitchen Shutters"
-	},
-/obj/item/eftpos/register{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/service/kitchen)
 "hhz" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -73796,7 +73790,6 @@
 	name = "Kitchen Shutters";
 	dir = 1
 	},
-/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -138994,7 +138987,7 @@ aYZ
 rVB
 pzT
 pzT
-hhu
+pzT
 aYZ
 bna
 rnb
