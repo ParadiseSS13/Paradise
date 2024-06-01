@@ -17,7 +17,7 @@
 /obj/effect/decal/cleanable/tar/Destroy()
 	if(target)
 		target.slowdown -= 10
-		return ..()
+	return ..()
 
 /obj/effect/decal/cleanable/tar/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
