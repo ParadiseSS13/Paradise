@@ -90,19 +90,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/regular_chance //chance of regular traitor
 	var/hijack_chance //chance of hijack traitor
 
-	if(active_sec < 2)
-		hunter_chance = 25
-		mild_chance = 35
-		regular_chance = 35
-		hijack_chance = 5
-	else if(active_sec < 4)
-		hunter_chance = 20
+	if(active_sec < 2) //Make traitors a bit nicer if there's only one or no sec active
+		hunter_chance = 30
 		mild_chance = 30
-		regular_chance = 40
+		regular_chance = 30
 		hijack_chance = 10
 	else
-		hunter_chance = 15
-		mild_chance = 25
+		hunter_chance = 20
+		mild_chance = 20
 		regular_chance = 50
 		hijack_chance = 10
 
