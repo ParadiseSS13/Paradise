@@ -130,8 +130,7 @@
 	var/atom/movable/movable_parent = parent
 	if(isnull(dir))
 		dir = movable_parent.dir
-	for(var/m in movable_parent.buckled_mobs)
-		var/mob/buckled_mob = m
+	for(var/mob/buckled_mob in movable_parent.buckled_mobs)
 		ride_check(buckled_mob)
 	if(QDELETED(src))
 		return // runtimed with piggy's without this, look into this more
@@ -158,9 +157,8 @@
 	if(!AM.has_buckled_mobs())
 		return
 
-	for(var/m in AM.buckled_mobs)
+	for(var/mob/living/buckled_mob in AM.buckled_mobs)
 		passindex++
-		var/mob/living/buckled_mob = m
 		var/list/offsets = get_offsets(passindex)
 		buckled_mob.setDir(dir)
 		dir_loop:

@@ -225,8 +225,8 @@
 		vehicle.grinding = TRUE
 		vehicle.icon_state = "[initial(vehicle.icon_state)]-grind"
 		addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, grind)), 2)
-	for(var/obj/machinery/atmospherics/pipe/P in landing_turf.contents)
-		if(P.invisibility == 0 && (landing_turf.layer == 1.7 || P.layer == 2.47))
+	for(var/obj/machinery/atmospherics/P in landing_turf.contents)
+		if(P.invisibility == 0 && (landing_turf.layer == PLATING_LAYER || P.layer >= GAS_PIPE_VISIBLE_LAYER))
 			vehicle.grinding = TRUE
 			vehicle.icon_state = "[initial(vehicle.icon_state)]-grind"
 			addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, grind)), 2)

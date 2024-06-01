@@ -145,8 +145,8 @@
 	skater.pass_flags = old_pass
 	pass_flags = old_v_pass
 	var/piping_hot = FALSE
-	for(var/obj/machinery/atmospherics/pipe/P in loc.contents)
-		if(P.invisibility == 0 && (loc.layer == 1.7 || P.layer == 2.47))
+	for(var/obj/machinery/atmospherics/P in loc.contents)
+		if(P.invisibility == 0 && (loc.layer == PLATING_LAYER || P.layer >= GAS_PIPE_VISIBLE_LAYER))
 			piping_hot = TRUE
 			break
 	if(!(locate(/obj/structure/table) in loc.contents) && !(locate(/obj/structure/railing) in loc.contents) && !piping_hot)
@@ -174,7 +174,7 @@
 	for(var/mob/living/carbon/victim in location)
 		if(victim.body_position == LYING_DOWN)
 			playsound(location, 'sound/items/trayhit2.ogg', 40)
-			victim.apply_damage(damage = 25, damagetype = BRUTE, def_zone = list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg"))
+			victim.apply_damage(damage = 25, damagetype = BRUTE, def_zone = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 			victim.Weaken(1.5 SECONDS)
 			skater.adjustStaminaLoss(instability)
 			victim.visible_message("<span class='danger'>[victim] straight up gets grinded into the ground by [skater]'s [src]! Radical!</span>")
@@ -214,6 +214,10 @@
 	instability = 3
 	icon_state = "hoverboard_red"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_BREAK_GLASS_TABLES, ROUNDSTART_TRAIT)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)

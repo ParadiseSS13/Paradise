@@ -477,6 +477,7 @@
 
 	return TRUE
 
+/// This proc is recursive, and calls itself to constantly set the glide size of an atom/movable
 /atom/movable/proc/set_glide_size(target = 8)
 	glide_size = target
 
