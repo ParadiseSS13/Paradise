@@ -249,6 +249,7 @@
 #define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
+/// Checks if the target is any kind of silicon. isAI(), isrobot(), isdrone(), and ispAI() can be used for more specific checks.
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
