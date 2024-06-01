@@ -325,7 +325,7 @@
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You are too far away!</span>")
 		return
-	if (!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
 	if(!switchMode)
