@@ -25512,6 +25512,7 @@
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -48951,9 +48952,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/eftpos/register{
-	dir = 8
-	},
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

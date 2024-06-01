@@ -22169,6 +22169,7 @@
 "bpG" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/wrench,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -23277,7 +23278,6 @@
 /obj/item/reagent_containers/condiment/enzyme{
 	layer = 5
 	},
-/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -23285,7 +23285,7 @@
 "bsT" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
-/obj/item/eftpos/register,
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -40729,22 +40729,25 @@
 	},
 /area/station/supply/miningdock)
 "cEU" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/autoname{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "kitchenhall";
 	name = "Kitchen Shutters";
 	dir = 2
+	},
+/obj/item/eftpos/register{
+	dir = 1;
+	pixel_y = 5
+	},
+/obj/structure/table/reinforced,
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -54530,6 +54533,30 @@
 	icon_state = "grimy"
 	},
 /area/station/hallway/secondary/entry/lounge)
+"eDk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/classic/normal{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters"
+	},
+/obj/item/eftpos/register{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "eDs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -86048,6 +86075,28 @@
 	},
 /turf/simulated/floor/noslip,
 /area/station/engineering/control)
+"tRp" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/classic/reversed{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters";
+	dir = 2
+	},
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "tRs" = (
 /obj/machinery/door/airlock/maintenance{
 	locked = 1
@@ -131938,7 +131987,7 @@ hEW
 wmU
 hEW
 wmU
-hEW
+eDk
 gxs
 bdT
 bdT
@@ -133996,7 +134045,7 @@ buv
 bof
 bof
 bof
-hrA
+tRp
 bzf
 nuq
 uZL

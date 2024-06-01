@@ -42595,7 +42595,7 @@
 /area/station/medical/morgue)
 "gGj" = (
 /obj/structure/table,
-/obj/item/kitchen/knife,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "gGB" = (
@@ -42964,6 +42964,9 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
+/obj/item/eftpos/register{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/service/kitchen)
 "gMb" = (
@@ -50935,7 +50938,6 @@
 /area/station/service/library)
 "jlp" = (
 /obj/structure/table,
-/obj/item/eftpos/register,
 /obj/item/eftpos,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -75096,7 +75098,6 @@
 	pixel_y = -24
 	},
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -87050,6 +87051,21 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/service/bar)
+"uHk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "kitchen2"
+	},
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/item/eftpos/register,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "uHx" = (
 /turf/simulated/mineral/ancient,
 /area/station/supply/miningdock)
@@ -119411,7 +119427,7 @@ vaT
 qoN
 onO
 bjr
-mgI
+uHk
 mrt
 juY
 mrt

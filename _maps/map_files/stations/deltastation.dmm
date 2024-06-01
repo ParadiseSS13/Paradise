@@ -18074,6 +18074,7 @@
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19257,6 +19258,9 @@
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 8;
 	name = "kitchen ingredient storage"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
@@ -20781,12 +20785,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blo" = (
-/obj/item/clipboard,
 /obj/item/toy/figure/crew/chef,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/eftpos/register{
-	dir = 1
-	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
@@ -70926,6 +70926,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
+"hhu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
+/obj/item/eftpos/register{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/kitchen)
 "hhz" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -73764,7 +73786,6 @@
 /area/station/hallway/secondary/entry/west)
 "iUZ" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/peppermill,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
@@ -73775,6 +73796,7 @@
 	name = "Kitchen Shutters";
 	dir = 1
 	},
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -81016,8 +81038,6 @@
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
-/obj/item/reagent_containers/drinks/britcup,
-/obj/item/reagent_containers/condiment/saltshaker,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/structure/table/reinforced,
@@ -83338,6 +83358,13 @@
 	id_tag = "kitchenbar";
 	name = "Kitchen Shutters";
 	dir = 1
+	},
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/drinks/britcup{
+	pixel_x = -9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -138967,7 +138994,7 @@ aYZ
 rVB
 pzT
 pzT
-pzT
+hhu
 aYZ
 bna
 rnb
