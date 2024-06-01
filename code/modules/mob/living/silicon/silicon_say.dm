@@ -99,7 +99,7 @@
 		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
 		for(var/mob/M in viewers(T.loc))
-			M.show_message(rendered, EMOTE_VISIBLE)
+			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.

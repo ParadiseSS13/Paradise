@@ -81,6 +81,7 @@
 	target = null
 	oldloc = null
 	area_locked = null
+	update_icon()
 
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "You corrupt [name]'s cleaning software."
@@ -173,6 +174,7 @@
 	oldloc = loc
 
 /mob/living/simple_animal/bot/cleanbot/proc/assign_area()
+	auto_patrol = FALSE // Don't want autopatrol if we are area locked
 	if(area_locked)
 		area_locked = null
 	else
@@ -228,7 +230,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
 	if(..())
 		return
-	if(topic_denied(usr))
+	if(action != "area" && topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
 		return
 	add_fingerprint(usr)

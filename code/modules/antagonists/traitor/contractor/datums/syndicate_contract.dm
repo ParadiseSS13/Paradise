@@ -419,6 +419,7 @@
 			H.equip_to_appropriate_slot(mask)
 			tank.toggle_internals(H, TRUE)
 
+	M.reagents.add_reagent("mutadone", 1) // 1u of mutadone for the Hulk:tm: experience
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?

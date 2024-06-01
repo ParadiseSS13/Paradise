@@ -2,4 +2,4 @@
 #Add a choice for what type of brain borgs want to have
 
 ALTER TABLE `characters`
-	ADD COLUMN `cyborg_brain_type` VARCHAR(11) NOT NULL DEFAULT 'MMI' AFTER `height`;
+	ADD COLUMN `cyborg_brain_type` ENUM('MMI', 'Robobrain', 'Positronic') NOT NULL DEFAULT 'MMI' AFTER `height`;

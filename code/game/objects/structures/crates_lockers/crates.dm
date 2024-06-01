@@ -517,6 +517,12 @@
 	icon_opened = "scicrate_open"
 	icon_closed = "scicrate"
 
+/obj/structure/closet/crate/sci/robo
+	desc = "A science crate. Contain various mech parts."
+	icon_state = "scicrate_mech"
+	icon_opened = "scicrate_mech_open"
+	icon_closed = "scicrate_mech"
+
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."

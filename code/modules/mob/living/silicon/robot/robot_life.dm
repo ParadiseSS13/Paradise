@@ -11,7 +11,6 @@
 	if(.)
 		handle_robot_hud_updates()
 		handle_robot_cell()
-		process_locks()
 		update_items()
 
 
@@ -120,16 +119,6 @@
 		module_state_2:screen_loc = ui_inv2
 	if(module_state_3)
 		module_state_3:screen_loc = ui_inv3
-
-/mob/living/silicon/robot/proc/process_locks()
-	if(weapon_lock)
-		uneq_all()
-		weaponlock_time --
-		if(weaponlock_time <= 0)
-			if(src.client)
-				to_chat(src, "<span class='warning'><B>Weapon Lock Timed Out!</span>")
-			weapon_lock = FALSE
-			weaponlock_time = 120
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

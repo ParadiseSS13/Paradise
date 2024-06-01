@@ -109,7 +109,7 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
-	if(!scanned.ckey || !scanned.client || ischangeling(scanned))
+	if(!scanned.ckey || !scanned.client || IS_CHANGELING(scanned))
 		return SCANNER_NO_SOUL
 	if(scanned.suiciding || !scanned.get_int_organ(/obj/item/organ/internal/brain))
 		return SCANNER_BRAIN_ISSUE

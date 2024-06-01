@@ -72,7 +72,6 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/pump/process_atmos()
-	..()
 	if((stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 

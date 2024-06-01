@@ -277,6 +277,9 @@
 	/// A lazy list of user mobs to a list of strip menu keys that they're interacting with
 	var/list/interactions
 
+	/// Associated list of "[icon][icon_state]" = base64 representation of icon. Used for PERFORMANCE.
+	var/static/list/base64_cache = list()
+
 /datum/strip_menu/New(atom/movable/owner, datum/element/strippable/strippable)
 	. = ..()
 	src.owner = owner
@@ -341,7 +344,10 @@
 
 		LAZYINITLIST(result)
 
-		result["icon"] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
+		var/key = "[item.icon],[item.icon_state]"
+		if(!(key in base64_cache))
+			base64_cache[key] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
+		result["icon"] = base64_cache[key]
 		result["name"] = item.name
 
 		var/real_alts = item_data.get_alternate_actions(owner, user)

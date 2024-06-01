@@ -1,6 +1,9 @@
-/datum/hud/proc/create_parallax()
-	var/client/C = mymob.client
-	if(!apply_parallax_pref())
+/datum/hud/proc/create_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
+		return
+	var/client/C = screenmob.client
+	if(!apply_parallax_pref(screenmob))
 		return
 	// this is needed so it blends properly with the space plane and blackness plane.
 	var/atom/movable/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
@@ -34,16 +37,20 @@
 
 	C.screen |= (C.parallax_layers + C.parallax_static_layers_tail)
 
-/datum/hud/proc/remove_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/remove_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
 	C.parallax_layers = null
 	var/atom/movable/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
 	S.color = null
 	S.appearance_flags &= ~NO_CLIENT_COLOR
 
-/datum/hud/proc/apply_parallax_pref()
-	var/client/C = mymob.client
+/datum/hud/proc/apply_parallax_pref(mob/viewmob)
+	var/mob/screen_mob = viewmob || mymob
+	var/client/C = screen_mob.client
+	if(!istype(C))
+		return FALSE
 	if(C.prefs)
 		var/pref = C.prefs.parallax
 		if(isnull(pref))
@@ -72,16 +79,22 @@
 	C.parallax_layers_max = 4
 	return TRUE
 
-/datum/hud/proc/update_parallax_pref()
-	remove_parallax()
-	create_parallax()
-	update_parallax()
+/datum/hud/proc/update_parallax_pref(mob/viewmob)
+	var/mob/screen_mob = viewmob || mymob
+	if(!screen_mob.client)
+		return
+	remove_parallax(screen_mob)
+	create_parallax(screen_mob)
+	update_parallax(screen_mob)
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
 // Well, it would if our shuttle code had dynamic areas
-/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
+/datum/hud/proc/set_parallax_movedir(mob/viewmob, new_parallax_movedir, skip_windups)
 	. = FALSE
-	var/client/C = mymob.client
+	var/mob/screen_mob = viewmob || mymob
+	var/client/C = screen_mob.client
+	if(!istype(C))
+		return
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
@@ -157,8 +170,9 @@
 		animate(L, transform = L.transform, time = 0, loop = -1, flags = ANIMATION_END_NOW)
 		animate(transform = matrix(), time = T)
 
-/datum/hud/proc/update_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/update_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	var/turf/posobj = get_turf(C.eye)
 	if(!posobj)
 		return
@@ -167,9 +181,9 @@
 	// Update the movement direction of the parallax if necessary (for shuttles)
 	var/area/shuttle/SA = areaobj
 	if(!SA || !SA.moving)
-		set_parallax_movedir(0)
+		set_parallax_movedir(screenmob, 0)
 	else
-		set_parallax_movedir(SA.parallax_move_direction)
+		set_parallax_movedir(screenmob, SA.parallax_move_direction)
 
 	var/force
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
@@ -193,7 +207,7 @@
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
-		L.update_status(mymob)
+		L.update_status(screenmob)
 		if(L.view_sized != C.view)
 			L.update_o(C.view)
 

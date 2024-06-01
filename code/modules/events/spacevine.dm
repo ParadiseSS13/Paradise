@@ -81,8 +81,9 @@
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
-	broken_states = list()
 
+/turf/simulated/floor/vines/get_broken_states()
+	return list()
 
 //All of this shit is useless for vines
 
@@ -395,6 +396,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
+	unbuckle_time = 5 SECONDS
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -510,10 +512,14 @@
 	wither()
 
 /obj/structure/spacevine/Crossed(mob/crosser, oldloc)
-	if(isliving(crosser))
-		for(var/SM_type in mutations)
-			var/datum/spacevine_mutation/SM = mutations[SM_type]
-			SM.on_cross(src, crosser)
+	if(!isliving(crosser))
+		return
+	for(var/SM_type in mutations)
+		var/datum/spacevine_mutation/SM = mutations[SM_type]
+		SM.on_cross(src, crosser)
+
+	if(prob(30 * energy))
+		entangle(crosser)
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/SM_type in mutations)

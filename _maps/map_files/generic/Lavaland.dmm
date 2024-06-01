@@ -3314,6 +3314,12 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/airlock)
+"iU" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/lavaland/surface/outdoors)
 "iW" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5760,6 +5766,14 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"wb" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "wd" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -6320,6 +6334,12 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
+"zm" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/flashlight/flare,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "zn" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
@@ -7819,6 +7839,10 @@
 "IC" = (
 /turf/simulated/wall,
 /area/mine/outpost/hallway/east)
+"ID" = (
+/obj/structure/door_assembly/door_assembly_silver,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "IE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/sign/poster/official/help_others{
@@ -7983,6 +8007,18 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"JD" = (
+/obj/structure/grille/broken,
+/obj/structure/grille/broken,
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
 /area/lavaland/surface/outdoors)
 "JF" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -8443,6 +8479,14 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/west)
+"MQ" = (
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "MS" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -8952,6 +8996,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/laborcamp/security)
+"PZ" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
+/area/lavaland/surface/outdoors)
 "Qa" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -9759,6 +9811,13 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
+"VE" = (
+/obj/item/mounted/frame/intercom,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "VF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
@@ -9926,6 +9985,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
+"Wy" = (
+/turf/simulated/wall/mineral/titanium,
+/area/lavaland/surface/outdoors)
 "WD" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -12443,9 +12505,9 @@ an
 an
 an
 an
-an
-an
-an
+KQ
+Aw
+Aw
 an
 an
 an
@@ -12461,8 +12523,8 @@ an
 an
 an
 an
-an
-an
+Aw
+Aw
 an
 an
 an
@@ -12478,8 +12540,8 @@ an
 an
 an
 an
-an
-an
+Aw
+Aw
 an
 an
 an
@@ -12700,9 +12762,9 @@ an
 an
 an
 an
-an
-an
-an
+ab
+ab
+ab
 an
 an
 an
@@ -12957,9 +13019,9 @@ an
 an
 an
 an
-an
-an
-an
+iU
+ID
+iU
 an
 an
 an
@@ -13214,9 +13276,9 @@ an
 an
 an
 an
-an
-an
-an
+Wy
+zm
+PZ
 an
 an
 an
@@ -13471,9 +13533,9 @@ an
 an
 an
 an
-an
-an
-an
+MQ
+VE
+Wy
 an
 an
 an
@@ -13728,8 +13790,8 @@ an
 an
 an
 an
-an
-an
+wb
+JD
 an
 an
 an

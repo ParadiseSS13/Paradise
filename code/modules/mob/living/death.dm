@@ -64,13 +64,14 @@
 	if(mind && suiciding)
 		mind.suicided = TRUE
 	reset_perspective(null)
-	hud_used?.reload_fullscreen()
+	reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
 	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT) // immobilized is superfluous as moving when dead ghosts you.
 	update_damage_hud()
 	update_health_hud()
+	update_stamina_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 

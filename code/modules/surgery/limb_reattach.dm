@@ -117,7 +117,8 @@
 
 	user.visible_message(
 		"[user] starts attaching [E.name] to [target]'s [E.amputation_point].",
-		"You start attaching [E.name] to [target]'s [E.amputation_point]."
+		"You start attaching [E.name] to [target]'s [E.amputation_point].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -125,7 +126,8 @@
 	var/obj/item/organ/external/E = tool
 	user.visible_message(
 		"<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",
-		"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>"
+		"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	attach_limb(user, target, E)
 	return SURGERY_STEP_CONTINUE
@@ -134,7 +136,8 @@
 	var/obj/item/organ/external/E = tool
 	user.visible_message(
 		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>"
+		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY
@@ -194,7 +197,8 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].",
-		"You start connecting tendons and muscle in [target]'s [E.amputation_point]."
+		"You start connecting tendons and muscle in [target]'s [E.amputation_point].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -202,7 +206,8 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",
-		"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>"
+		"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	E.properly_attached = TRUE
 	target.update_body()
@@ -214,7 +219,8 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>"
+		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY
@@ -235,7 +241,8 @@
 
 	user.visible_message(
 		"[user] starts attaching \the [tool] to [target].",
-		"You start attaching \the [tool] to [target]."
+		"You start attaching \the [tool] to [target].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -243,7 +250,8 @@
 	var/obj/item/robot_parts/L = tool
 	user.visible_message(
 		"<span class='notice'>[user] has attached \the [tool] to [target].</span>",
-		"<span class='notice'>You have attached \the [tool] to [target].</span>"
+		"<span class='notice'>You have attached \the [tool] to [target].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	if(L.part)
@@ -273,7 +281,8 @@
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
 		"<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>"
+		"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY

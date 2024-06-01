@@ -9,6 +9,7 @@ RESTRICT_TYPE(/datum/antagonist/mindslave/thrall)
 	SSticker.mode.vampire_enthralled += owner
 
 /datum/antagonist/mindslave/thrall/remove_owner_from_gamemode()
+	owner.current.create_log(CONVERSION_LOG, "Deconverted from thrall")
 	SSticker.mode.vampire_enthralled -= owner
 
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
