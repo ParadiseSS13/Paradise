@@ -1862,3 +1862,32 @@
 	mutated = TRUE
 
 	return ..()
+
+/datum/reagent/consumable/ethanol/lager
+	name = "Lager"
+	id = "lager"
+	description = "A pale beer commonly drank by football hooligans"
+	color = "#664300"
+	alcohol_perc = 0.4
+	drink_icon = "lagerglass"
+	drink_name = "Starlink Lager"
+	drink_desc = "A pale beer that's the cause of many a soccer-related fight"
+	taste_description = "an own goal"
+
+/datum/reagent/consumable/ethanol/stout
+	name = "Stout"
+	id = "stout"
+	description = "A pitch black beer, high in iron content"
+	color = "#000000"
+	alcohol_perc = 0.4
+	drink_icon = "stoutglass"
+	drink_name = "Stout"
+	drink_desc = "A pitch black beer from Ireland, high in iron content"
+	taste_description = "the luck of the Irish"
+
+/datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && (H.blood_volume < BLOOD_VOLUME_NORMAL))
+			H.blood_volume += 0.4
+	return ..()

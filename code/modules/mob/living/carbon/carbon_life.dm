@@ -209,7 +209,7 @@
 		if(prob(D.infectivity))
 			D.spread()
 
-		if(stat != DEAD)
+		if(stat != DEAD || D.allow_dead)
 			D.stage_act()
 
 //remember to remove the "proc" of the child procs of these.
