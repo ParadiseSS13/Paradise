@@ -832,7 +832,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // Access and Job stuff
 
-/obj/item/proc/get_job_name() //Used in secHUD icon generation
+/// Used in secHUD icon generation
+/obj/item/proc/get_job_name()
 	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
 	var/rankName = get_ID_rank(if_no_id = "Unknown")
 
@@ -840,22 +841,36 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
 	var/soviet = get_all_soviet_jobs()
+	var/special = get_all_special_jobs()
 
-	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
-		return "Centcom"
+	// Return with the NT logo if it is a Centcom job
+	if((assignmentName in centcom) || (rankName in centcom))
+		return "centcom"
 
-	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
+	// Return with the SolGov logo if it is a SolGov job
+	if((assignmentName in solgov) || (rankName in solgov))
 		return "solgov"
 
-	if((assignmentName in soviet) || (rankName in soviet)) //Return with the U.S.S.P logo if it is a Soviet job
+	// Return with the U.S.S.P logo if it is a Soviet job
+	if((assignmentName in soviet) || (rankName in soviet))
 		return "soviet"
 
-	if(assignmentName in job_icons) //Check if the job has a hud icon
+	// For roles that can't be assigned to any category and require custom icon
+	if(assignmentName in special)
 		return assignmentName
+
+	if(rankName in special)
+		return rankName
+
+	// Check if the job has a hud icon
+	if(assignmentName in job_icons)
+		return assignmentName
+
 	if(rankName in job_icons)
 		return rankName
 
-	return "Unknown" //Return unknown if none of the above apply
+	// Return unknown hud if none of the above apply
+	return "unknown"
 
 /obj/item/proc/get_ID_assignment(if_no_id = "No id")
 	var/obj/item/card/id/id = GetID()
