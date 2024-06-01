@@ -234,7 +234,7 @@
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	icon_state = "[initial(icon_state)][length(contents)]"
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/user as mob)
+/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M, mob/living/user)
 	if(!ismob(M))
 		return
 
@@ -260,7 +260,7 @@
 	else
 		..()
 
-/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W as obj, stop_messages = FALSE)
+/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W, stop_messages = FALSE)
 	if(istype(W, /obj/item/match))
 		var/obj/item/match/M = W
 		if(M.lit)
