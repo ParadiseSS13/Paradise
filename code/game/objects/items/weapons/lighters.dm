@@ -90,7 +90,7 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/lighter/attack(mob/living/M, mob/living/user)
 	if(lit && M.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
 		log_game("[key_name(user)] set [key_name(M)] on fire")
