@@ -865,7 +865,7 @@
 
 /obj/item/clothing/suit/greatcoat/sec
 	name = "security greatcoat"
-	desc = "GLORY TO ARSTOSKHA!!"
+	desc = "A wool lined coat made from rugged materials that altogether make up to be a comfortable coat.\ GLORY TO ARSTOSKHA!!"
 	icon_state = "secgreatcoat"
 	item_state = "secgreatcoat"
 	w_class = WEIGHT_CLASS_NORMAL
