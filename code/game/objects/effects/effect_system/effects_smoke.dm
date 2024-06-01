@@ -21,7 +21,7 @@
 	var/causes_coughing = FALSE
 
 /obj/effect/particle_effect/smoke/Initialize(mapload)
-	..()
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
 	GLOB.smokes_active++
@@ -125,7 +125,7 @@
 	lifetime = 16 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height = 0)
 	if(!height)
 		return TRUE
 	if(istype(mover, /obj/item/projectile/beam))
