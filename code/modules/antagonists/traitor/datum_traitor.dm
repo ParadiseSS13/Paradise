@@ -108,12 +108,12 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	var/chaos = pick(prob(hunter_chance);ORG_CHAOS_HUNTER, prob(mild_chance);ORG_CHAOS_MILD, prob(regular_chance);ORG_CHAOS_AVERAGE, prob(hijack_chance);ORG_CHAOS_HIJACK)
 	var/org_list = shuffle(subtypesof(/datum/antag_org/syndicate))
-	for(var/T in org_list)
-		var/datum/antag_org/O = new T(src)
-		if(O.chaos_level == chaos)
-			organisation = O
+	for(var/org_type in org_list)
+		var/datum/antag_org/org = new org_type(src)
+		if(org.chaos_level == chaos)
+			organisation = org
 			break
-		qdel(O)
+		qdel(org)
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
