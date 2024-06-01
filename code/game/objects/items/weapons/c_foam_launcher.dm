@@ -31,3 +31,6 @@
 	if(isairlock(target))
 		var/obj/machinery/door/airlock = target
 		airlock.foam_up(1)
+	if(iscarbon(target)) // For that funny xeno foam action
+		var/mob/living/carbon/sticky = target
+		sticky.foam_up()

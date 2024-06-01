@@ -76,3 +76,6 @@
 	if(!affecting) //bruh where's your chest
 		return FALSE
 	apply_damage(damage, BRUTE, affecting)
+
+/mob/living/carbon/proc/foam_up(amount)
+	apply_status_effect(STATUS_EFFECT_C_FOAMED)
