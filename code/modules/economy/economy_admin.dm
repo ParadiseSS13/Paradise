@@ -36,13 +36,13 @@
 	switch(action)
 		if("payroll_modification")
 			var/list/accounts_to_modify = list()
-			var/num_input = input(ui.user, "Amount (If for more than 4-5 people, Keep this between +/-$100 for the love of god)", "How much to modify by?") as null|num
+			var/num_input = tgui_input_number(ui.user, "Enter an amount. If for more than 4 people, keep around +/-$100 for the love of god!", "Input Amount")
 			if(!num_input)
 				return
 
 			var/message_input = ""
 			if(params["mod_type"] != "global")
-				message_input = input(ui.user, "Add message (Max 50 Characters):", "If you wish the owner(s) of the account(s) to receive a message, please specify") as null|message
+				message_input = tgui_input_text(ui.user, "Enter a message for the account holders (optional).", "Input Message", max_length = 50)
 			switch(params["mod_type"])
 				if("global")
 					if(num_input > 0)
@@ -51,7 +51,7 @@
 						SSeconomy.global_paycheck_deduction += -num_input
 					log_and_message_admins("has modified the global payroll by [num_input].")
 				if("department")
-					var/department_input = input(ui.user, "Department", "Which Department Account?") in (GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
+					var/department_input = tgui_input_list(ui.user, "Which department account?", "Select Department", GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
 					if(!department_input)
 						return
 					var/datum/money_account/department_account = GLOB.station_money_database.get_account_by_department(department_input)
@@ -60,7 +60,7 @@
 					accounts_to_modify += department_account
 					log_and_message_admins("has modified the payroll of the [department_input] department by [num_input].")
 				if("department_members")
-					var/department_input = input(ui.user, "Department", "Members from Which Department?") in (GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
+					var/department_input = tgui_input_list(ui.user, "Members from which department?", "Select Department", GLOB.station_departments - list(DEPARTMENT_ASSISTANT, DEPARTMENT_SILICON))
 					var/datum/station_department/department = get_department_from_name(department_input)
 					if(!department)
 						return
@@ -69,30 +69,32 @@
 							accounts_to_modify += member.member_account
 					log_and_message_admins("has modified the payroll of the [department_input] department's members by [num_input].")
 				if("crew_member")
-					var/account_input = input(ui.user, "Account Number", "Please Specify Account Number.") as null|num
-					var/datum/money_account/account = GLOB.station_money_database.find_user_account(account_input, FALSE)
-					if(!account)
+					var/account_input = tgui_input_list(ui.user, "Which crew member account?", "Select Crew Member", GLOB.station_money_database.get_all_user_accounts())
+					if(!account_input)
 						return
+					var/datum/money_account/account = GLOB.station_money_database.get_account_from_name(account_input)
 					accounts_to_modify += account
-					log_and_message_admins("has modified the payroll of [account.account_number] by [num_input].")
+					log_and_message_admins("has modified the payroll of [account_input] by [num_input].")
 			if(!length(accounts_to_modify))
 				return
 			var/sanitized = copytext(trim(sanitize(message_input)), 1, MAX_MESSAGE_LEN)
-			for(var/datum/money_account/account as anything in accounts_to_modify)
+			for(var/datum/money_account/account in accounts_to_modify)
 				account.modify_payroll(num_input, TRUE, sanitized)
 		if("delay_payroll")
-			var/num_input = input(ui.user, "Amount", "Delay payroll by how many minutes?") as null|num
+			var/num_input = tgui_input_number(ui.user, "Delay payroll by how many minutes?", "Input Amount")
 			if(isnull(num_input))
 				return
 			SSeconomy.next_paycheck_delay += num_input * (60 SECONDS)
+			log_and_message_admins("has delayed the payroll by [num_input].")
 		if("accelerate_payroll")
-			var/num_input = input(ui.user, "Amount", "Accelerate payroll by how many minutes?") as null|num
+			var/num_input = tgui_input_number(ui.user, "Acclerate payroll by how many minutes?", "Input Amount")
 			if(isnull(num_input))
 				return
 			SSeconomy.next_paycheck_delay -= num_input * (60 SECONDS)
+			log_and_message_admins("has accelerated the payroll by [num_input].")
 		if("set_payroll")
-			var/num_input = input(ui.user, "Amount", "Set payroll delay to how many minutes?") as null|num
+			var/num_input = tgui_input_number(ui.user, "Set payroll delay to how many minutes?", "Input Amount")
 			if(isnull(num_input))
 				return
 			SSeconomy.next_paycheck_delay = world.time + (num_input * 60 SECONDS)
-
+			log_and_message_admins("has set the payroll delay to [num_input].")

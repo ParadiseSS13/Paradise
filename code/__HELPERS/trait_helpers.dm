@@ -150,8 +150,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PACIFISM			"pacifism"
 #define TRAIT_IGNORESLOWDOWN	"ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
-#define TRAIT_GOTTAGOFAST		"gottagofast"
-#define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast"
+#define TRAIT_GOTTAGOFAST		"gottagofast" // -1 slowdown. Trait given by meth and similar substances for running fast.
+#define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast" // -0.5 slowdown. Trait given by nuka cola and umbrae shade, for a slight speed/
+#define TRAIT_GOTTAGOSLOW		"gottagoslow" // +1 slowdown. Trait given by being a zombie.
 #define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
@@ -181,7 +182,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 #define TRAIT_EMOTE_MUTE		"emote_mute"
-#define TRAIT_PUNCTURE_IMMUNE	"punctureimmune" //prevents RSG syringes from piercing your clothing
+#define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -227,12 +228,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
 #define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown
 #define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
+#define TRAIT_I_WANT_BRAINS "mob_zombie" // A general trait for tracking if the mob is a zombie.
+#define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
+#define TRAIT_SLOW_GRABBER "slow_grabber" // Adds a 1.5 * CLICK_CD_MELEE delay to upgrading into a aggressive grab.
+#define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
 #define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
 #define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
+#define TRAIT_KNOWS_COOKING_RECIPES "knows_cooking_recipes"
+
+/// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
+/// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
+#define TRAIT_MENTOR_OBSERVING "mentor_observe"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -276,6 +286,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///e.g. a storage container or a modsuit.
 #define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
 
+//****** ATOM/MOVABLE TRAITS *****//
+/// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
+#define TRAIT_CURRENTLY_Z_MOVING "currently_z_moving" // please dont adminbus this
+
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
@@ -290,6 +304,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_TRAIT "cult"
 #define INNATE_TRAIT "innate"
 #define VAMPIRE_TRAIT "vampire"
+#define ZOMBIE_TRAIT "zombie"
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
@@ -320,6 +335,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLO_CIGAR "holo_cigar"
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
+/// Mentor observing
+#define MENTOR_OBSERVING "mobserving"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

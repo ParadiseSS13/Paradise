@@ -208,10 +208,10 @@ SLIME SCANNER
 			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 	if(H.undergoing_cardiac_arrest())
-		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
-		if(heart && !(heart.status & ORGAN_DEAD))
+		var/datum/organ/heart/heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(heart && !(heart.linked_organ.status & ORGAN_DEAD))
 			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>"
-		else if(heart && (heart.status & ORGAN_DEAD))
+		else if(heart && (heart.linked_organ.status & ORGAN_DEAD))
 			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font>"
 		else if(!heart)
 			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"

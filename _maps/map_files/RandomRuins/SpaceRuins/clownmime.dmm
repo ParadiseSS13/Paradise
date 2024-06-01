@@ -81,6 +81,9 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
+"v" = (
+/turf/simulated/mineral/random/high_chance/clown,
+/area/ruin/space/unpowered)
 "x" = (
 /obj/effect/mob_spawn/human/corpse/clown,
 /turf/simulated/floor/plasteel/airless,
@@ -204,6 +207,16 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"U" = (
+/turf/simulated/mineral/random/low_chance,
+/area/ruin/space/unpowered)
+"Y" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered)
+"Z" = (
+/obj/structure/spawner/mining/hivelord,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -254,8 +267,8 @@ a
 a
 a
 m
-m
-m
+v
+v
 m
 m
 m
@@ -277,8 +290,8 @@ a
 a
 a
 m
-m
-m
+v
+v
 m
 m
 m
@@ -299,10 +312,10 @@ a
 a
 a
 a
-m
-m
-m
-m
+v
+v
+v
+v
 m
 m
 m
@@ -321,13 +334,13 @@ a
 a
 a
 a
-m
-m
-m
-m
-m
-m
-m
+v
+U
+U
+U
+U
+U
+Y
 m
 m
 m
@@ -342,14 +355,14 @@ a
 a
 a
 a
-m
-m
-m
-m
-m
-m
-m
-m
+v
+v
+v
+U
+U
+U
+U
+U
 m
 m
 m
@@ -364,16 +377,16 @@ a
 a
 a
 n
+v
 m
 m
 m
-m
-m
-m
-m
-m
-m
-m
+U
+U
+U
+U
+Y
+Y
 m
 m
 m
@@ -392,9 +405,9 @@ m
 m
 m
 m
-m
-m
-m
+Y
+U
+U
 m
 m
 m
@@ -413,14 +426,14 @@ m
 m
 m
 m
-m
-m
-m
+Y
+Y
+Y
 m
 m
 m
 n
-n
+Z
 a
 a
 a
@@ -435,10 +448,10 @@ m
 m
 m
 m
+Y
 m
-m
-m
-m
+Y
+Y
 m
 m
 n
@@ -528,8 +541,8 @@ m
 m
 m
 m
-m
-m
+v
+v
 m
 m
 m
@@ -550,10 +563,10 @@ m
 J
 b
 m
-m
-m
-m
-m
+v
+v
+v
+v
 m
 m
 "}
@@ -573,8 +586,8 @@ k
 b
 m
 m
-m
-m
+v
+v
 n
 m
 m
@@ -595,8 +608,8 @@ K
 b
 b
 m
-m
-m
+v
+v
 n
 m
 m

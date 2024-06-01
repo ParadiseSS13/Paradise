@@ -106,6 +106,7 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 			return FALSE
 		else if(gripped_item && !contents.len)
 			gripped_item = null
+		return TRUE
 
 	//Check that we're not pocketing a mob.
 	else if(isitem(target))
@@ -116,7 +117,7 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 			I.forceMove(src)
 			gripped_item = I
 			return TRUE
-		
+
 		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
 		return FALSE
 
@@ -160,7 +161,7 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 // MARK:	UNIVERSAL GRIPPER
 ////////////////////////////////
 /// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
-/obj/item/gripper/universal		
+/obj/item/gripper/universal
 	name = "cyborg gripper"
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
 	// It's UNIVERSAL so it has all functions enabled.

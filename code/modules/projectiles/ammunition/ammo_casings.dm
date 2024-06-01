@@ -306,6 +306,15 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	materials = list(MAT_METAL=250)
 
+/obj/item/ammo_casing/shotgun/holy
+	name = "holy water darts"
+	desc = "A 12 gauge dart shell loaded with holy water."
+	icon_state = "hshell"
+	projectile_type = /obj/item/projectile/bullet/dart/syringe/holy
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	materials = list(MAT_METAL=250)
+
 /obj/item/ammo_casing/shotgun/confetti
 	name = "confettishot"
 	desc = "A 12 gauge shell loaded with... confetti?"
