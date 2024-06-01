@@ -1367,6 +1367,7 @@
 	foam_overlay = mutable_appearance('icons/mob/sprite_accessories/nucleation/nucleation_face.dmi', "betaburns_s")
 	owner.add_overlay(foam_overlay)
 	owner.next_move_modifier *= 2
+	owner.Slowed(10 SECONDS, 1.5)
 
 /datum/status_effect/c_foamed/Destroy()
 	if(owner)
@@ -1378,9 +1379,8 @@
 
 /datum/status_effect/c_foamed/tick()
 	. = ..()
-	if(foam_level <= 0)
+	if(--foam_level <= 0)
 		qdel(src)
-	foam_level--
 
 /datum/status_effect/c_foamed/refresh()
 	. = ..()
