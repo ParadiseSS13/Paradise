@@ -482,6 +482,7 @@
 	layer = DOOR_HELPER_LAYER
 	// The integrity goes up with 25 per level, with an extra 25 when going from 4 to 5
 	obj_integrity = 25
+	max_integrity = 25
 	/// What level is the foam at?
 	var/foam_level = 1
 

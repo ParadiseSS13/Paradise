@@ -596,6 +596,8 @@
 		// The last level will increase the integrity by 50 instead of 25
 		if(foam_level == 4)
 			blockage.obj_integrity += 50
+			blockage.max_integrity += 50
 		else
+			blockage.obj_integrity += 25
 			blockage.obj_integrity += 25
 		foam_level++

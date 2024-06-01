@@ -1355,10 +1355,21 @@
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 10 SECONDS
 	var/foam_level = 1
+	var/mutable_appearance/foam_overlay
 
 /datum/status_effect/c_foamed/on_apply()
 	. = ..()
-	owner.overlays += image('icons/mob/sprite_accessories/nucleation/nucleation_face.dmi', icon_state = "betaburns_s")
+	foam_overlay = mutable_appearance('icons/mob/sprite_accessories/nucleation/nucleation_face.dmi', "betaburns_s")
+	owner.add_overlay(foam_overlay)
+	owner.next_move_modifier *= 2
+
+/datum/status_effect/c_foamed/Destroy()
+	if(owner)
+		owner.cut_overlay(foam_overlay)
+		owner.next_move_modifier /= 2
+
+	QDEL_NULL(foam_overlay)
+	return ..()
 
 /datum/status_effect/c_foamed/tick()
 	. = ..()
@@ -1370,3 +1381,4 @@
 	. = ..()
 	// Our max slow is 50 seconds
 	foam_level = min(foam_level + 1, 5)
+	/* TODO: if sprites, add code here so the overlays will update depending on the foam level */
