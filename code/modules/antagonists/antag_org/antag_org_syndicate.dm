@@ -1,4 +1,4 @@
-/// Base syndicate org datum, can't be rolled/seen
+/// Base syndicate org datum
 /datum/antag_org/syndicate
 	name = "Generic Syndicate Corp"
 	chaos_level = ORG_CHAOS_AVERAGE
@@ -13,18 +13,12 @@
 	objectives = list(/datum/objective/steal)
 	chaos_level = ORG_CHAOS_MILD
 
-/datum/antag_org/syndicate/arc //Mostly targets on-station Cargo/Service
+/datum/antag_org/syndicate/arc //Only targets on-station Cargo/Service/Genetics/Virologist
 	name = "Animal Rights Consortium"
 	intro_desc = "(TODO - LORE) You are a member of the Animal Rights Consortium, here to protest the cruel treatment of animals by megacorporations like Nanotrasen. \
 		Teach those animal abusers a lesson!"
 	objectives = list(/datum/objective/assassinateonce/animal_abuser)
 	chaos_level = ORG_CHAOS_MILD //Violent but never needs to permakill
-
-/datum/antag_org/syndicate/waffle //Mainly assassinations with occasional theft
-	name = "Waffle Company"
-	intro_desc = "(TODO - LORE) You are a Waffle Company agent, sent here to advance Syndicate interests. Get the job done and done right."
-	focus = 80
-	objectives = list(/datum/objective/assassinate)
 
 /datum/antag_org/syndicate/cybersun //Mostly target Command/Security
 	name = "Cybersun Incorporated - The Inner Circle"
@@ -67,12 +61,6 @@
 	name = "Steal Item (Electra Dynamics)"
 	steal_list = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit)
 
-/datum/antag_org/syndicate/gorlex //Hijack only org
-	name = "Gorlex Marauders"
-	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
-	forced_objective = /datum/objective/hijack
-	chaos_level = ORG_CHAOS_HIJACK
-
 /datum/antag_org/syndicate/assassins //Targets one syndicate agent and one non-mindshielded crewmember.
 	name = "(TODO - LORE) Assassin's Guild"
 	intro_desc = "(TODO - LORE) You are an assassin. Targets are a syndicate agent and some guy we picked at random for the funny. Get to work."
@@ -92,3 +80,14 @@
 /datum/objective/steal/faid
 	name = "Steal Item (FAID)"
 	steal_list = list(/datum/theft_objective/blueprints, /datum/theft_objective/steal/documents)
+
+/// Hijack only orgs
+/datum/antag_org/syndicate/gorlex
+	name = "Gorlex Marauders"
+	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+	chaos_level = ORG_CHAOS_HIJACK
+
+/datum/antag_org/syndicate/waffle
+	name = "Waffle Company"
+	intro_desc = "(TODO - LORE) You are a Waffle Company operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+	chaos_level = ORG_CHAOS_HIJACK

@@ -83,25 +83,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/select_organisation()
-	var/list/sec_list = check_active_security_force()
-	var/active_sec = sec_list[2] //amount of active members of security
-	var/hunter_chance //chance of hunter traitor
-	var/mild_chance //chance of mild traitor
-	var/regular_chance //chance of regular traitor
-	var/hijack_chance //chance of hijack traitor
-
-	if(active_sec < 2) //Make traitors a bit nicer if there's only one or no sec active
-		hunter_chance = 30
-		mild_chance = 30
-		regular_chance = 30
-		hijack_chance = 10
-	else
-		hunter_chance = 20
-		mild_chance = 20
-		regular_chance = 50
-		hijack_chance = 10
-
-	var/chaos = pick(prob(hunter_chance);ORG_CHAOS_HUNTER, prob(mild_chance);ORG_CHAOS_MILD, prob(regular_chance);ORG_CHAOS_AVERAGE, prob(hijack_chance);ORG_CHAOS_HIJACK)
+	var/chaos = pick(prob(ORG_PROB_HUNTER);ORG_CHAOS_HUNTER, prob(ORG_PROB_MILD);ORG_CHAOS_MILD, prob(ORG_PROB_AVERAGE);ORG_CHAOS_AVERAGE, prob(ORG_PROB_HIJACK);ORG_CHAOS_HIJACK)
 	var/org_list = shuffle(subtypesof(/datum/antag_org/syndicate))
 	for(var/org_type in org_list)
 		var/datum/antag_org/org = new org_type(src)
@@ -194,6 +176,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  */
 /datum/antagonist/traitor/finalize_antag()
 	var/list/messages = list()
+	if(organisation)
+		antag_memory += "<b>Organisation</b>: [organisation.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
 	if(isAI(owner.current))

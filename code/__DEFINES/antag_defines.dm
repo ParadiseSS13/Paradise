@@ -78,3 +78,8 @@ GLOBAL_LIST(contractors)
 #define ORG_CHAOS_AVERAGE 1
 /// Hijack or hijack-tier antagonists.
 #define ORG_CHAOS_HIJACK 2
+
+#define ORG_PROB_HUNTER 10
+#define ORG_PROB_MILD 20
+#define ORG_PROB_AVERAGE 60
+#define ORG_PROB_HIJACK 10
