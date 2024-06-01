@@ -229,15 +229,15 @@
 			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
 			return
 
-			var/obj/item/wirerod/W = new /obj/item/wirerod
-			if(!remove_item_from_storage(user))
-				user.unEquip(src)
-			user.put_in_hands(W)
-			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
-			if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
-				return
-			qdel(src)
+		var/obj/item/wirerod/W = new /obj/item/wirerod
+		if(!remove_item_from_storage(user))
+			user.unEquip(src)
+		user.put_in_hands(W)
+		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
+		if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
 			return
+		qdel(src)
+		return
 
 	if(istype(I, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = I
