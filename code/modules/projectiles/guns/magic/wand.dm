@@ -200,18 +200,18 @@ CONTENTS:
 	..()
 
 /obj/item/gun/magic/wand/fireball/attack(atom/target, mob/living/user)
-	if(iscarbon(target))
-		var/mob/living/M = target
-		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-		// For lighting cigarettes.
-		if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
-			if(target == user)	// Do not blow yourself up!
-				return
-			return ..()	// Blow everyone else up!
+	if(!iscarbon(target))
+		return ..()
 
-		cig.attackby(src, user, M)
-		return
-	..()
+	// For lighting cigarettes.
+	var/mob/living/M = target
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
+		if(target == user)	// Do not blow yourself up!
+			return
+		return ..()	// Blow everyone else up!
+
+	cig.attackby(src, user, M)
 
 // This is needed to you don't try to perform an execution/suicide when lighting a cigarette.
 /obj/item/gun/magic/wand/fireball/handle_suicide(mob/user, mob/living/carbon/human/target, params)

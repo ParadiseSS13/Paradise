@@ -141,6 +141,7 @@
 //////////////////////////////
 // MARK: SWORD
 //////////////////////////////
+// Base variant.
 /obj/item/melee/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
@@ -171,8 +172,30 @@
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
-	return 0
+	return FALSE
 
+// Borg variant.
+/obj/item/melee/energy/sword/cyborg
+	var/hitcost = 50
+
+/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
+	if(R.cell)
+		var/obj/item/stock_parts/cell/C = R.cell
+		if(active && !(C.use(hitcost)))
+			attack_self(R)
+			to_chat(R, "<span class='notice'>It's out of charge!</span>")
+			return
+		..()
+	return
+
+/obj/item/melee/energy/sword/cyborg/saw/New()
+	..()
+	item_color = null
+
+/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	return FALSE
+
+// Syndicate energy sword.
 /obj/item/melee/energy/sword/saber
 
 /obj/item/melee/energy/sword/saber/blue
@@ -260,26 +283,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
 	tool_behaviour = TOOL_SAW
-
-/obj/item/melee/energy/sword/cyborg
-	var/hitcost = 50
-
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
-	if(R.cell)
-		var/obj/item/stock_parts/cell/C = R.cell
-		if(active && !(C.use(hitcost)))
-			attack_self(R)
-			to_chat(R, "<span class='notice'>It's out of charge!</span>")
-			return
-		..()
-	return
-
-/obj/item/melee/energy/sword/cyborg/saw/New()
-	..()
-	item_color = null
-
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	return FALSE
 
 //////////////////////////////
 // MARK: CUTLASS
