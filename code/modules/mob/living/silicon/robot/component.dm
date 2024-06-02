@@ -58,7 +58,7 @@
 
 	brute_damage += brute
 	electronics_damage += electronics
-	current_slowdown_factor = clamp((current_slowdown_factor + ((brute_damage + electronics_damage) / 100)), min_slowdown_factor, max_slowdown_factor)
+	current_slowdown_factor = clamp((current_slowdown_factor + ((brute + electronics) / 100)), min_slowdown_factor, max_slowdown_factor)
 	if(brute_damage + electronics_damage >= max_damage)
 		break_component()
 
@@ -71,10 +71,11 @@
 
 	if(owner && updating_health)
 		owner.updatehealth("component '[src]' heal damage")
-
-	current_slowdown_factor = clamp((current_slowdown_factor - ((brute_damage + electronics_damage) / 100)), min_slowdown_factor, max_slowdown_factor)
-	brute_damage = max(0, brute_damage - brute)
-	electronics_damage = max(0, electronics_damage - electronics)
+	var/burn_damage_healed = clamp(electronics, 0, electronics_damage)
+	var/brute_damage_healed = clamp(brute, 0, brute_damage)
+	current_slowdown_factor = clamp((current_slowdown_factor - ((burn_damage_healed + brute_damage_healed) / 100)), min_slowdown_factor, max_slowdown_factor)
+	brute_damage -= brute_damage_healed
+	electronics_damage -= burn_damage_healed
 	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/is_powered()
