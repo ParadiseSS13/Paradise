@@ -29990,6 +29990,10 @@
 /area/station/supply/miningdock)
 "cqB" = (
 /obj/machinery/suit_storage_unit/expedition,
+/obj/machinery/camera{
+	c_tag = "Expedition Room";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -70695,7 +70699,6 @@
 "mRf" = (
 /obj/item/bedsheet/hop,
 /obj/structure/bed,
-/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "mRJ" = (
@@ -82368,7 +82371,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/hop,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/wood/oak,
 /area/station/command/office/hop)
 "qVK" = (
 /obj/structure/cable{
@@ -85322,7 +85325,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/mining,
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "shz" = (
