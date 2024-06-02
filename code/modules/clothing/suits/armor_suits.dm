@@ -279,6 +279,7 @@
 	item_state = "knight_green"
 	slowdown = 1
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
