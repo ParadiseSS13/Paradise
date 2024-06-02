@@ -43,10 +43,6 @@
 				M.reagents.del_reagent("holywater")
 				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return FALSE
-	else
-		var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
-		if(S)
-			S.trigger()
 	. = ..()
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)

@@ -45,11 +45,13 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
-	if(!IS_CULTIST(target))
-		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
-		if(S)
-			S.trigger()
-	..()
+	. = ..()
+	if(IS_CULTIST(target) || . == FALSE)
+		return
+
+	var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(S)
+		S.trigger()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
@@ -580,35 +582,40 @@
 
 /obj/item/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
-	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(IS_CULTIST(L))
-			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(!L.restrained() && L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
-			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
-		else if(!..())
-			if(L.null_rod_check())
-				return
-			var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
-			if(S)
-				S.trigger()
-			else
-				L.KnockDown(10 SECONDS)
-				L.apply_damage(60, STAMINA)
-				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-				L.flash_eyes(1, TRUE)
-				if(issilicon(L))
-					L.emp_act(EMP_HEAVY)
-				else if(iscarbon(L))
-					L.Silence(6 SECONDS)
-					L.Stuttering(16 SECONDS)
-					L.CultSlur(20 SECONDS)
-					L.Jitter(16 SECONDS)
-			break_spear(T)
-	else
+	if(!isliving(hit_atom))
 		..()
+		return
+
+	var/mob/living/L = hit_atom
+	if(IS_CULTIST(L))
+		playsound(src, 'sound/weapons/throwtap.ogg', 50)
+		if(!L.restrained() && L.put_in_active_hand(src))
+			L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+		else
+			L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+		return
+
+	if(..())
+		return
+
+	if(L.null_rod_check())
+		return
+	var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(S)
+		S.trigger()
+	else
+		L.KnockDown(10 SECONDS)
+		L.apply_damage(60, STAMINA)
+		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+		L.flash_eyes(1, TRUE)
+		if(issilicon(L))
+			L.emp_act(EMP_HEAVY)
+		else if(iscarbon(L))
+			L.Silence(6 SECONDS)
+			L.Stuttering(16 SECONDS)
+			L.CultSlur(20 SECONDS)
+			L.Jitter(16 SECONDS)
+	break_spear(T)
 
 /obj/item/cult_spear/proc/break_spear(turf/T)
 	if(!T)
@@ -622,6 +629,9 @@
 
 /obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
+	if(. == FALSE)
+		return
+
 	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
 		S.trigger()
