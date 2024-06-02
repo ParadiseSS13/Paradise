@@ -23,14 +23,15 @@
 				E.custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3, 5))
 			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
-<<<<<<< HEAD
-				if(custom_pain("You feel burnt skin sloughing off your flesh!"))
-					custom_emote(EMOTE_VISIBLE, "grunts in pain!")
-=======
 				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
->>>>>>> master
+				if(!HAS_TRAIT(src, TRAIT_NOPAIN) && world.time >= next_pain_time) //No pain, no gain
+					message_admins("Sanity check for salved wounds")
+					if(prob(65)) //More likely for a non-audible emote to prevent spam
+						custom_emote(EMOTE_VISIBLE, "clutches the charred flesh on [p_their()] [E.name]!")
+					else
+						emote("hiss", intentional = FALSE)
+					next_pain_time = world.time + 10 SECONDS
 				E.germ_level++
-
 
 	//handle_stance()
 	handle_grasp()

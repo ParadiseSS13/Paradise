@@ -31,6 +31,31 @@
 			return TRUE
 	return ..()
 
+/datum/emote/living/carbon/human/hiss
+	key = "hiss"
+	key_third_person = "hisses"
+	message = "hisses."
+	message_mime = "hisses silently."
+	message_param = "hisses at %t."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("weak hissing", "irritated")
+
+/datum/emote/living/carbon/human/hiss/get_sound(mob/living/user)
+	var/mob/living/carbon/human/H = user
+	if(H.mind?.miming || !istype(H))
+		return
+	else
+		return H.dna.species.hiss_sound
+
+/datum/emote/living/carbon/human/hiss/select_message_type(mob/user, msg, intentional) //Only used when emote forced by burn wounds
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(intentional == FALSE)
+		if(H.mind?.miming)
+			return "grimaces as their skin peels off!"
+		else
+			return "hisses as their skin peels off!"
+
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"
 	message = "is strumming the air and headbanging like a safari chimp."
@@ -695,18 +720,6 @@
 	message = "rumbles."
 	message_param = "rumbles at %t."
 
-/datum/emote/living/carbon/human/hiss
-	key = "hiss"
-	key_third_person = "hisses"
-	message = "hisses."
-	message_param = "hisses at %t."
-	species_type_whitelist_typecache = list(/datum/species/unathi)
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	age_based = TRUE
-	// Credit to Jamius (freesound.org) for the sound.
-	sound = "sound/effects/unathihiss.ogg"
-	muzzled_noises = list("weak hissing")
-
 /datum/emote/living/carbon/human/creak
 	key = "creak"
 	key_third_person = "creaks"
@@ -793,15 +806,6 @@
 	volume = 80
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
-/datum/emote/living/carbon/human/hiss/tajaran
-	message_mime = "hisses silently."
-	species_type_whitelist_typecache = list(/datum/species/tajaran)
-	sound = "sound/effects/tajaranhiss.ogg"
-	volume = 80
-	muzzled_noises = list("irritated")
-	// catHisses1.wav by Zabuhailo. Edited.
-	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"
