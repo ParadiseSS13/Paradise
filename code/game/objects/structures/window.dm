@@ -8,6 +8,8 @@
 	anchored = TRUE
 	flags = ON_BORDER
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.5
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
