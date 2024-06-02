@@ -29100,7 +29100,7 @@
 /turf/simulated/wall,
 /area/station/service/hydroponics)
 "bZw" = (
-/obj/item/flag/nt,
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
