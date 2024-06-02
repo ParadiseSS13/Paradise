@@ -1013,10 +1013,6 @@
 /area/ruin/space/powered)
 "xa" = (
 /obj/structure/chair/stool,
-/obj/item/gps/ruin{
-	pixel_x = 32;
-	gpstag = "####"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "xb" = (
@@ -1656,6 +1652,12 @@
 "Iw" = (
 /obj/structure/table,
 /obj/machinery/light_construct/directional/west,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_x = -5
+	},
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_x = 5
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Ix" = (
@@ -2028,7 +2030,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Qb" = (
-/obj/structure/door_assembly/door_assembly_ext,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Qd" = (
@@ -2116,7 +2118,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "RF" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "RM" = (

@@ -43,14 +43,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"dj" = (
-/obj/structure/table,
-/obj/item/gps/ruin{
-	pixel_x = 32;
-	gpstag = "####"
-	},
-/turf/simulated/floor/mineral/plastitanium/red/airless,
-/area/ruin/space/unpowered/unpowered_structures)
 "dE" = (
 /obj/structure/grille/broken,
 /obj/effect/landmark/damageturf,
@@ -355,6 +347,7 @@
 "zG" = (
 /obj/structure/table,
 /obj/structure/lattice,
+/obj/item/salvage/loot/syndicate,
 /turf/template_noop,
 /area/template_noop)
 "zT" = (
@@ -1546,7 +1539,7 @@ Ly
 Ly
 VC
 VC
-dj
+OI
 Ui
 hp
 VC

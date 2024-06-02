@@ -209,6 +209,13 @@
 	planetary_atmos = 1
 	},
 /area/awaymission/caves)
+"aX" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
+/area/awaymission/caves)
 "aY" = (
 /obj/item/stock_parts/micro_laser,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -226,6 +233,7 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light/small/directional/east,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
 	icon_state = "darkredalt"
@@ -517,6 +525,7 @@
 "ck" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/crowbar,
+/obj/item/salvage/ruin/brick,
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "cm" = (
@@ -699,6 +708,10 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
+"dd" = (
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
 "dh" = (
 /obj/structure/statue{
 	icon_state = "angelseen";
@@ -1376,10 +1389,25 @@
 /area/awaymission/caves/build/reqpower_build)
 "gl" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/fancy/crayons{
-	pixel_y = 10
+/obj/item/salvage/ruin/tablet{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/salvage/ruin/tablet{
+	pixel_y = 10;
+	pixel_x = -6
 	},
 /turf/simulated/floor/wood/lavaland_air,
+/area/awaymission/caves)
+"gm" = (
+/obj/structure/stone_tile/slab/cracked{
+	icon_state = "cracked_surrounding_tile2"
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
 /area/awaymission/caves)
 "gq" = (
 /obj/effect/turf_decal/delivery,
@@ -1417,6 +1445,10 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
+"gB" = (
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plasteel,
+/area/awaymission/caves/build)
 "gC" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/lavaland_air{
@@ -1532,6 +1564,11 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
+"hp" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/brick,
+/turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves)
 "ht" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -2113,6 +2150,10 @@
 /area/awaymission/caves/build/reqpower_build)
 "kc" = (
 /obj/structure/table/reinforced,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel/dark{
 	dir = 10;
@@ -2982,6 +3023,11 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
+"oN" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
 "oP" = (
 /obj/machinery/door/airlock/mining,
 /turf/simulated/floor/wood/lavaland_air,
@@ -2999,6 +3045,7 @@
 "oR" = (
 /obj/item/stack/rods,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
 "oS" = (
@@ -3111,6 +3158,13 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves)
+"ps" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/brick,
+/turf/simulated/floor/wood/lavaland_air{
+	icon_state = "wood-broken3"
+	},
+/area/awaymission/caves)
 "pt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3197,6 +3251,13 @@
 	icon_state = "dark"
 	},
 /area/awaymission/caves/build/reqpower_build)
+"pY" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
+/area/awaymission/caves)
 "pZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/lavaland_air,
@@ -3687,6 +3748,12 @@
 /obj/item/storage/backpack/satchel/explorer,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
+"sO" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/landmark/damageturf,
+/obj/item/salvage/ruin/brick,
+/turf/simulated/floor/plating/lavaland_air,
+/area/awaymission/caves)
 "sP" = (
 /obj/structure/stone_tile/slab/cracked{
 	icon_state = "cracked_center1"
@@ -3787,6 +3854,7 @@
 	desc = " Документы ''СОВЕРШЕННО СЕКРЕТНО'', напечатанные на защищенной от копирования бумаге.  В них описываются ужасные эксперименты, проводимые в секретной лаборатории под эгидой Транс-Солнечной Федерации.";
 	name = "SolGov secret documents"
 	},
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -4246,6 +4314,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light_construct/small/south,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "vE" = (
@@ -5424,6 +5493,7 @@
 	id = "packageSort2"
 	},
 /obj/machinery/light_construct/small/east,
+/obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "BF" = (
@@ -5710,6 +5780,12 @@
 	},
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
+	},
+/area/awaymission/caves)
+"Df" = (
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "necro1"
 	},
 /area/awaymission/caves)
 "Dj" = (
@@ -6105,6 +6181,7 @@
 	dir = 10
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
 	icon_state = "darkredalt"
@@ -6478,6 +6555,14 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
+"Hk" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/brick,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "dark"
+	},
+/area/awaymission/caves/build/reqpower_build)
 "Hl" = (
 /obj/machinery/light_construct/small/north,
 /turf/simulated/floor/plasteel/lavaland_air{
@@ -6523,6 +6608,14 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
+"Hx" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
 /area/awaymission/caves)
 "HA" = (
 /obj/structure/girder/reinforced,
@@ -6842,6 +6935,7 @@
 /area/awaymission/caves)
 "Jf" = (
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredcornersalt";
 	dir = 1
@@ -7747,6 +7841,14 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
+"Od" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/awaymission/caves/build)
 "Oi" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/generic,
@@ -8824,6 +8926,7 @@
 /obj/item/staff/broom,
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "TQ" = (
@@ -8840,6 +8943,7 @@
 "TV" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -8887,6 +8991,7 @@
 /obj/structure/rack/skeletal_bar/left,
 /obj/item/clothing/suit/hooded/cultrobes,
 /obj/effect/spawner/random_spawners/blood_often,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
 	},
@@ -9462,6 +9567,7 @@
 	opened = 1
 	},
 /obj/structure/stone_tile/slab,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
 	},
@@ -9521,6 +9627,7 @@
 /obj/structure/rack/skeletal_bar/right,
 /obj/item/clothing/suit/hooded/cultrobes,
 /obj/effect/spawner/random_spawners/blood_often,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
 	},
@@ -17756,7 +17863,7 @@ va
 ZJ
 kG
 gq
-tW
+Od
 ts
 gq
 gq
@@ -18223,7 +18330,7 @@ PJ
 tW
 ts
 tW
-tW
+Od
 kG
 mc
 ZJ
@@ -19372,7 +19479,7 @@ mC
 FJ
 NS
 nR
-sd
+gB
 qx
 HM
 rp
@@ -23530,7 +23637,7 @@ If
 Rq
 CM
 UH
-yw
+sO
 Ur
 UH
 Ih
@@ -25849,7 +25956,7 @@ qi
 EI
 gc
 gc
-Ow
+ps
 zA
 qi
 qi
@@ -37402,7 +37509,7 @@ tQ
 eo
 as
 je
-Rk
+Hk
 iW
 as
 as
@@ -38449,9 +38556,9 @@ cj
 GF
 GF
 Vt
-GF
+aX
 Gh
-GF
+aX
 GF
 GF
 FF
@@ -38913,9 +39020,9 @@ iw
 GF
 GF
 GF
-GF
+aX
 Fl
-GF
+aX
 GF
 GF
 GF
@@ -39624,7 +39731,7 @@ ZJ
 mz
 ZJ
 ZJ
-ZJ
+dd
 ZJ
 mz
 ZJ
@@ -41022,7 +41129,7 @@ XK
 kf
 kf
 UP
-kf
+Df
 Bg
 GF
 GF
@@ -41654,7 +41761,7 @@ bO
 bO
 gc
 Jg
-UM
+hp
 Hf
 EI
 Uy
@@ -41957,9 +42064,9 @@ GF
 ZJ
 nx
 mz
-ja
+Hx
 be
-ja
+Hx
 mz
 BH
 BH
@@ -44328,7 +44435,7 @@ LU
 LU
 mz
 mz
-ET
+pY
 mz
 ZJ
 ET
@@ -45261,7 +45368,7 @@ wC
 IK
 wC
 HX
-qa
+gm
 mz
 mz
 TK
@@ -45903,7 +46010,7 @@ BH
 BH
 ZJ
 Xq
-vI
+oN
 Xq
 ZJ
 mz

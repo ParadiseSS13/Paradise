@@ -22632,6 +22632,8 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/machinery/light_switch/east,
+/obj/structure/table,
+/obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -26072,7 +26074,6 @@
 	icon_state = "2-8"
 	},
 /obj/item/radio/beacon,
-/obj/item/hand_tele,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "bPy" = (

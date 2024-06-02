@@ -1073,6 +1073,11 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
+"zK" = (
+/obj/machinery/atmospherics/unary/vent_pump,
+/obj/item/salvage/loot/syndicate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
 "zL" = (
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/mineral/plastitanium,
@@ -1208,6 +1213,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "FQ" = (
+/obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "FS" = (
@@ -1643,10 +1649,6 @@
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_y = 9
-	},
-/obj/item/gps/ruin{
-	pixel_y = -32;
-	gpstag = "####"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -2701,7 +2703,7 @@ iB
 jb
 JH
 UL
-bo
+zK
 Yy
 nE
 bh

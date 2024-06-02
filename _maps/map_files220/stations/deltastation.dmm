@@ -25250,6 +25250,9 @@
 /obj/machinery/status_display/directional/south,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/toy/figure/crew/borg{
+	pixel_x = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -25258,8 +25261,7 @@
 "bXN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/directional/south,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/borg,
+/obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -25270,6 +25272,7 @@
 /obj/machinery/ai_status_display/south,
 /obj/item/folder/blue,
 /obj/item/folder/yellow,
+/obj/item/clipboard,
 /obj/item/aicard,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28877,7 +28880,6 @@
 "ckB" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/table,
-/obj/item/hand_tele,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"

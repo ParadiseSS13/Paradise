@@ -9,6 +9,13 @@
 	dir = 8
 	},
 /area/awaymission/space_battle/engine)
+"ab" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/item/salvage/loot/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/awaymission/space_battle/syndicate/syndicate2)
 "ac" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee{
@@ -322,6 +329,7 @@
 	color = "#444444"
 	},
 /mob/living/simple_animal/hostile/viscerator,
+/obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/awaymission/space_battle/syndicate)
 "aZ" = (
@@ -494,6 +502,11 @@
 	},
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/space_battle/cruiser)
+"bw" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/plasteel,
+/area/awaymission/space_battle/sec_storage)
 "bx" = (
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating,
@@ -1240,6 +1253,7 @@
 /area/awaymission/space_battle/syndicate/syndicate1)
 "ec" = (
 /obj/structure/table/reinforced,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
 	dir = 6
@@ -2737,6 +2751,11 @@
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate)
+"iv" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/salvage/ruin/pirate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/awaymission/space_battle/syndicate/syndicate2)
 "iw" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -2764,6 +2783,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
+/area/awaymission/space_battle/syndicate/syndicate1)
+"iB" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/machinery/light/directional/east,
+/obj/item/salvage/loot/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "iC" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3142,6 +3169,15 @@
 	},
 /turf/space,
 /area/awaymission/space_battle/syndicate/syndicate6)
+"jB" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/item/salvage/ruin/brick,
+/turf/simulated/floor/plating,
+/area/awaymission/space_battle/hallway3)
 "jC" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium,
@@ -4138,6 +4174,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/space_battle/engine)
+"mF" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/item/salvage/loot/pirate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/awaymission/space_battle/syndicate/syndicate1)
 "mG" = (
 /obj/item/stack/rods,
 /obj/effect/landmark/damageturf,
@@ -4209,6 +4252,10 @@
 /area/awaymission/space_battle)
 "na" = (
 /obj/structure/table/reinforced,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
@@ -4687,6 +4734,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway6)
+"os" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/mineral/plastitanium,
+/area/awaymission/space_battle/syndicate/syndicate2)
 "ou" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -4767,10 +4819,13 @@
 /turf/simulated/floor/engine,
 /area/awaymission/space_battle/hallway3)
 "oN" = (
-/obj/structure/toilet,
 /obj/machinery/door_control/bolt_control/north{
 	id = "t2"
 	},
+/obj/item/salvage/ruin/brick{
+	pixel_y = -5
+	},
+/obj/structure/toilet,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway3)
 "oO" = (
@@ -5499,6 +5554,7 @@
 "rl" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/directional/south,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -5522,6 +5578,11 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate1)
+"ro" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/salvage/ruin/russian,
+/turf/simulated/floor/mineral/plastitanium,
+/area/awaymission/space_battle/syndicate/syndicate2)
 "rp" = (
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel/dark,
@@ -5941,6 +6002,7 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 32
 	},
+/obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "sI" = (
@@ -6620,6 +6682,13 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
+"uR" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/salvage/ruin/carp,
+/turf/simulated/floor/plasteel{
+	icon_state = "blueyellowfull"
+	},
+/area/awaymission/space_battle/kitchen)
 "uS" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -8248,6 +8317,7 @@
 "zX" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "zY" = (
@@ -10883,6 +10953,7 @@
 "HU" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/small/directional/east,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "HV" = (
@@ -12163,6 +12234,10 @@
 /area/awaymission/space_battle/syndicate)
 "LS" = (
 /obj/structure/table/reinforced,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark{
@@ -12326,6 +12401,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
+/obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "Mr" = (
@@ -12711,6 +12787,9 @@
 /area/space)
 "NC" = (
 /obj/structure/table/reinforced,
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
 	dir = 5
@@ -12797,6 +12876,13 @@
 	},
 /turf/space,
 /area/space)
+"NK" = (
+/obj/structure/table/reinforced,
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plasteel{
+	icon_state = "blue"
+	},
+/area/awaymission/space_battle/bridge)
 "NL" = (
 /obj/structure/table/reinforced{
 	color = "#444444"
@@ -12847,6 +12933,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -13159,6 +13246,11 @@
 	},
 /turf/simulated/floor/fakespace,
 /area/awaymission/space_battle/sec_storage)
+"OW" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/salvage/ruin/pirate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/awaymission/space_battle/syndicate/syndicate2)
 "OX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -13686,6 +13778,13 @@
 /turf/simulated/floor/mineral/plastitanium/red{
 	icon_state = "titanium_white"
 	},
+/area/awaymission/space_battle/syndicate)
+"QA" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/item/salvage/loot/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "QB" = (
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee_space{
@@ -14320,6 +14419,14 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
+"SF" = (
+/obj/item/salvage/ruin/nanotrasen{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "dark_diagonal"
+	},
+/area/awaymission/space_battle/server)
 "SG" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/coffin/sarcophagus,
@@ -15104,6 +15211,13 @@
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/turret1)
+"Vh" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/item/salvage/loot/pirate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/awaymission/space_battle/syndicate)
 "Vi" = (
 /obj/item/wirecutters,
 /turf/simulated/floor/plasteel{
@@ -15457,6 +15571,17 @@
 	},
 /turf/simulated/wall/indestructible/syndishuttle,
 /area/awaymission/space_battle/syndicate/syndicate6)
+"Wj" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/salvage/ruin/pirate,
+/turf/simulated/floor/plasteel,
+/area/awaymission/space_battle/sec_storage)
+"Wk" = (
+/obj/item/salvage/ruin/brick,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/awaymission/space_battle/hallway6)
 "Wl" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/mineral/plastitanium/red{
@@ -15655,6 +15780,7 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/rollingpin,
 /obj/item/kitchen/knife,
+/obj/item/food/snacks/carpmeat,
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellowfull"
 	},
@@ -38621,7 +38747,7 @@ aL
 wu
 uP
 US
-BZ
+mF
 mA
 xG
 Na
@@ -39135,7 +39261,7 @@ yG
 uF
 uF
 US
-Tc
+iB
 mA
 uF
 uF
@@ -41260,8 +41386,8 @@ ql
 WM
 Eo
 wy
-Zy
-wE
+bw
+Wj
 Ej
 qD
 Jw
@@ -41516,9 +41642,9 @@ Xh
 kD
 oz
 wE
-Zy
+bw
 zX
-Zy
+bw
 Ej
 bG
 VV
@@ -42542,9 +42668,9 @@ zr
 zr
 GA
 Jo
-Zy
+bw
 HU
-Zy
+bw
 Ej
 qD
 fP
@@ -48704,7 +48830,7 @@ CB
 Fb
 VC
 Rx
-Zt
+uR
 Kw
 Zt
 MV
@@ -48977,7 +49103,7 @@ SN
 Fw
 sm
 Fw
-zV
+SF
 Ic
 VC
 qQ
@@ -49402,7 +49528,7 @@ aY
 wF
 hy
 QL
-Zg
+Vh
 Zg
 JA
 yG
@@ -50415,7 +50541,7 @@ Ee
 pW
 pW
 Zg
-Zg
+QA
 uL
 LM
 QL
@@ -50670,7 +50796,7 @@ kv
 QL
 fi
 Zg
-Zg
+QA
 Zg
 Be
 uL
@@ -50774,7 +50900,7 @@ JE
 JE
 mb
 JE
-na
+NK
 VC
 VC
 VC
@@ -51185,8 +51311,8 @@ QL
 LM
 Mx
 Mx
-Zg
-Zg
+QA
+QA
 uL
 LM
 QL
@@ -52230,7 +52356,7 @@ ov
 Qm
 QL
 sH
-Zg
+QA
 JA
 yG
 yG
@@ -54375,7 +54501,7 @@ Mn
 VC
 VC
 cb
-uY
+jB
 cf
 VC
 LA
@@ -59503,7 +59629,7 @@ cM
 VF
 Lu
 or
-po
+Wk
 Mn
 yG
 Dg
@@ -62762,9 +62888,9 @@ nz
 Ks
 BN
 pG
-Od
+os
 xg
-Od
+os
 dN
 Ks
 hf
@@ -63019,9 +63145,9 @@ BN
 Ks
 BN
 pG
-xg
+iv
 Od
-xg
+iv
 oD
 Ks
 Ks
@@ -63276,7 +63402,7 @@ Ts
 Ks
 ZJ
 ac
-Od
+os
 LB
 BB
 Rg
@@ -64562,7 +64688,7 @@ lu
 Tv
 zn
 jC
-xg
+iv
 vH
 AF
 lp
@@ -64820,7 +64946,7 @@ Mt
 zn
 jC
 Od
-xg
+iv
 SG
 yN
 Sf
@@ -65079,7 +65205,7 @@ jC
 xg
 oC
 ej
-Od
+OW
 YG
 oC
 Ks
@@ -65333,11 +65459,11 @@ gu
 Mt
 zn
 jC
-Od
+os
+ro
+os
 xg
-Od
-xg
-Od
+os
 xg
 lu
 BN
@@ -65601,7 +65727,7 @@ BN
 BN
 xV
 eZ
-aB
+ab
 RL
 BN
 xV
@@ -66104,12 +66230,12 @@ Ql
 li
 zn
 jC
-xg
+ro
 Od
-xg
+ro
 Od
-xg
-Od
+ro
+OW
 lu
 BN
 BN
@@ -66618,8 +66744,8 @@ GU
 li
 zn
 jC
-xg
-Od
+ro
+os
 Kc
 uW
 Kc
@@ -68159,8 +68285,8 @@ Ts
 Ks
 ZJ
 pG
-Od
-xg
+os
+iv
 yx
 cS
 Ks
@@ -68417,7 +68543,7 @@ Ks
 BN
 pG
 xg
-Od
+os
 AF
 oD
 Ks
@@ -68674,8 +68800,8 @@ Ks
 BN
 pG
 kI
-xg
-Od
+ro
+os
 dN
 Ks
 VP

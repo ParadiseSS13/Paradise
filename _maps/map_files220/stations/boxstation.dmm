@@ -43920,6 +43920,7 @@
 "dpx" = (
 /obj/structure/table,
 /obj/machinery/status_display/directional/south,
+/obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71325,7 +71326,6 @@
 "nds" = (
 /obj/machinery/light/directional/north,
 /obj/structure/table,
-/obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
