@@ -237,7 +237,7 @@
 
 /obj/item/gun/energy/lwap/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY)
+	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/energy/lwap/on_scope_success(mob/living/user)
 	to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
