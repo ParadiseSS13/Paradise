@@ -9,7 +9,11 @@
 * Can hold items and human size things, no other draggables
 * Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 */
-#define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
+#define SEND_PRESSURE 0.05 * ONE_ATMOSPHERE
+#define DISPOSALS_UNSCREWED -1
+#define DISPOSALS_OFF 0
+#define DISPOSALS_RECHARGING 1
+#define DISPOSALS_CHARGED 2
 
 /obj/machinery/disposal
 	name = "disposal unit"
@@ -28,8 +32,8 @@
 
 	/// Internal gas reservoir.
 	var/datum/gas_mixture/air_contents
-	/// 0 = OFF, 1 = Recharging, 2 = Charged.
-	var/mode = 1
+	/// -1 = Unscrewed, 0 = OFF, 1 = Recharging, 2 = Charged.
+	var/mode = DISPOSALS_RECHARGING
 	/// Has the flush handle been pulled?
 	var/flush = FALSE
 	/// The attached pipe trunk.
@@ -48,8 +52,8 @@
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/T = locate() in loc
 	if(!T)
-		mode = 0
-		flush = 0
+		mode = DISPOSALS_OFF
+		flush = FALSE
 	else
 		mode = initial(mode)
 		flush = initial(flush)
@@ -116,9 +120,9 @@
 		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
 			user.visible_message(
-				"<span class='notice'>[user] empties \the [S] into [src].</span>",
-				"<span class='notice'>You empty \the [S] into [src].</span>",
-				"<span class='notice'>You hear someone emptying something full of smaller objects out into \a [src].</span>"
+				"<span class='notice'>[user] empties [S] into the disposal unit.</span>",
+				"<span class='notice'>You empty [S] into disposal unit.</span>",
+				"<span class='notice'>You hear someone emptying something full of smaller objects out into a disposal unit.</span>"
 				)
 			for(var/obj/item/O in S.contents)
 				S.remove_from_storage(O, src)
@@ -135,9 +139,9 @@
 			return
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
-			"<span class='notice'>[user] places [gripper.gripped_item] into [src].</span>", 
-			"<span class='notice'>You place [gripper.gripped_item] into [src].</span>",
-			"<span class='notice'>You hear someone dropping something into \a [src].</span>"
+			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>", 
+			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
+			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 			)
 		return
 
@@ -146,11 +150,11 @@
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
 			for(var/mob/V in viewers(user))
-				V.show_message("[user] starts putting [GM] into the disposal.", 3)
+				V.show_message("[user] starts putting [GM] into the disposal unit.", 3)
 			if(do_after(user, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
-					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
+					C.show_message("<span class='warning'>[GM] has been placed in the disposal unit by [user].</span>", 3)
 				qdel(G)
 				add_attack_logs(user, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
@@ -160,9 +164,9 @@
 
 	I.forceMove(src)
 	user.visible_message(
-		"<span class='notice'>[user] places [I] into [src].</span>",
-		"<span class='notice'>You place [I] into [src].</span>",
-		"<span class='notice'>You hear someone dropping something into \a [src].</span>"
+		"<span class='notice'>[user] places [I] into the disposal unit.</span>",
+		"<span class='notice'>You place [I] into the disposal unit.</span>",
+		"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 		)
 	update()
 
@@ -170,30 +174,38 @@
 
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
-	if(mode>0) // It's on
+	if(mode> DISPOSALS_OFF) // It's on
+		to_chat(user, "<span class='warning'>You need to turn the disposal unit off first!</span>")
 		return
+
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	
 	if(length(contents) > 0)
-		to_chat(user, "Eject the items first!")
+		to_chat(user, "<span class='warning'>You need to empty the contents of the disposal unit first!</span>")
 		return
-	if(mode==0) // It's off but still not unscrewed
-		mode=-1 // Set it to doubleoff l0l
-	else if(mode==-1)
-		mode=0
+	
+	if(mode == DISPOSALS_OFF) // It's off but still not unscrewed
+		mode= DISPOSALS_UNSCREWED
+	else if(mode == DISPOSALS_UNSCREWED)
+		mode= DISPOSALS_OFF
 	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
 	update()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
-	if(mode != required_mode_to_deconstruct)
+	if(mode != DISPOSALS_UNSCREWED)
+		to_chat(user, "<span class='warning'>You need to unscrew the disposal unit first!</span>")
 		return
+
 	. = TRUE
 	if(length(contents) > 0)
-		to_chat(user, "Eject the items first!")
+		to_chat(user, "<span class='warning'>You need to empty the contents of the disposal unit first!</span>")
 		return
+
 	if(!I.tool_use_check(user, 0))
 		return
+
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
@@ -206,8 +218,8 @@
 
 /obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
 	target.visible_message(
-		"<span class='warning'>[attacker] shoves [target] inside of [src]!</span>",
-		"<span class='userdanger'>[attacker] shoves you inside of [src]!</span>",
+		"<span class='warning'>[attacker] shoves [target] inside of the disposal unit!</span>",
+		"<span class='userdanger'>[attacker] shoves you inside of the disposal unit!</span>",
 		"<span class='warning'>You hear the sound of something being thrown in the trash.</span>"
 	)
 	target.forceMove(src)
@@ -329,11 +341,11 @@
 	if(..())
 		return
 	if(usr.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside!</span>")
 		return
 
-	if(mode==-1 && action != "eject") // If the mode is -1, only allow ejection
-		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
+	if(mode== DISPOSALS_UNSCREWED && action != "eject") // If the mode is DISPOSALS_UNSCREWED, only allow ejection
+		to_chat(usr, "<span class='warning'>The disposal unit's power is disabled!</span>")
 		return
 
 	if(stat & BROKEN)
@@ -346,18 +358,18 @@
 
 	if(isturf(src.loc))
 		if(action == "pumpOn")
-			mode = 1
+			mode = DISPOSALS_RECHARGING
 			update()
 		if(action == "pumpOff")
-			mode = 0
+			mode = DISPOSALS_OFF
 			update()
 
 		if(!issilicon(usr))
 			if(action == "engageHandle")
-				flush = 1
+				flush = TRUE
 				update()
 			if(action == "disengageHandle")
-				flush = 0
+				flush = FALSE
 				update()
 
 			if(action == "eject")
@@ -391,8 +403,8 @@
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
 	if(stat & BROKEN)
-		mode = 0
-		flush = 0
+		mode = DISPOSALS_OFF
+		flush = FALSE
 
 	update_icon()
 
@@ -412,7 +424,7 @@
 	if(flush)
 		. += "dispover-handle"
 
-	if(stat & (NOPOWER|BROKEN) || mode == -1)
+	if(stat & (NOPOWER|BROKEN) || mode == DISPOSALS_UNSCREWED)
 		return
 
 	// 	check for items in disposal - occupied light
@@ -422,12 +434,12 @@
 
 	// charging and ready light
 	switch(mode)
-		if(-1)
+		if(DISPOSALS_UNSCREWED)
 			. += "dispover-unscrewed"
-		if(1)
+		if(DISPOSALS_RECHARGING)
 			. += "dispover-charge"
 			underlays += emissive_appearance(icon, "dispover-charge")
-		if(2)
+		if(DISPOSALS_CHARGED)
 			. += "dispover-ready"
 			underlays += emissive_appearance(icon, "dispover-ready")
 
@@ -441,7 +453,7 @@
 	flush_count++
 	if(flush_count >= flush_every_ticks)
 		if(length(contents))
-			if(mode == 2)
+			if(mode == DISPOSALS_CHARGED)
 				spawn(0)
 					flush()
 		flush_count = 0
@@ -456,7 +468,7 @@
 
 	change_power_mode(IDLE_POWER_USE)
 
-	if(mode != 1)		// if off or ready, no need to charge
+	if(mode != DISPOSALS_RECHARGING)		// if off or ready, no need to charge
 		return
 
 	// otherwise charge
@@ -478,7 +490,7 @@
 
 	// if full enough, switch to ready mode
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = 2
+		mode = DISPOSALS_CHARGED
 		update()
 	return
 
@@ -517,8 +529,8 @@
 	flushing = 0
 	// now reset disposal state
 	flush = 0
-	if(mode == 2)	// if was ready,
-		mode = 1	// switch to charging
+	if(mode == DISPOSALS_CHARGED)	// if was ready,
+		mode = DISPOSALS_RECHARGING	// switch to charging
 	update()
 	return
 
@@ -587,11 +599,18 @@
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
 
+#undef DISPOSALS_UNSCREWED
+#undef DISPOSALS_OFF
+#undef DISPOSALS_RECHARGING
+#undef DISPOSALS_CHARGED
+
+////////////////////////////////////////
+// MARK: Disposal holder
+////////////////////////////////////////
 // virtual disposal object
 // travels through pipes in lieu of actual items
 // contents will be items flushed by the disposal
 // this allows the gas flushed to be tracked
-
 /obj/structure/disposalholder
 	invisibility = INVISIBILITY_MAXIMUM
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
