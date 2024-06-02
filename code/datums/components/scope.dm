@@ -14,10 +14,10 @@
 	var/time_to_scope
 	/// Do we let the user scope and click on the middle of their screen?
 	var/allow_middle_click = FALSE
-	/// Do we have the scope cancel on move?
-	var/movement_cancels_scope = FALSE
+	/// Flags for scoping. Check `code\__DEFINES\flags.dm`
+	var/flags
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, allow_middle_click = FALSE, movement_cancels_scope = FALSE)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, allow_middle_click = FALSE, flags)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.range_modifier = range_modifier
@@ -25,7 +25,7 @@
 	src.item_action_type = item_action_type
 	src.time_to_scope = time_to_scope
 	src.allow_middle_click = allow_middle_click
-	src.movement_cancels_scope = movement_cancels_scope
+	src.flags = flags
 
 
 /datum/component/scope/Destroy(force)
@@ -156,13 +156,16 @@
 	if(HAS_TRAIT(user, TRAIT_SCOPED))
 		to_chat(user, "<span class='warning'>You are already zoomed in!</span>")
 		return
+	if((flags & SCOPE_TURF_ONLY) && !isturf(user.loc))
+		to_chat(user, "<span class='warning'>There is not enough space to zoom in!</span>")
+		return
 	if(time_to_scope)
 		if(!do_after_once(user, time_to_scope, target = parent))
 			return
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
 	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/stretch/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
-	if(movement_cancels_scope)
+	if(flags & SCOPE_MOVEMENT_CANCELS)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	if(allow_middle_click)
 		RegisterSignal(tracker, COMSIG_CLICK, PROC_REF(generic_click))
