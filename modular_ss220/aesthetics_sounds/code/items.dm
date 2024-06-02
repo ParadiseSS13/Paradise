@@ -83,6 +83,22 @@
 	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/ring.ogg'
 	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/ring.ogg'
 
+/* ACCESSORIES */
+
+/obj/item/clothing/accessory/holster
+	var/sound_holster = 'modular_ss220/aesthetics_sounds/sound/handling/holsterin.ogg'
+	var/sound_unholster = 'modular_ss220/aesthetics_sounds/sound/handling/holsterout.ogg'
+
+/obj/item/clothing/accessory/holster/holster(obj/item/I, mob/user as mob)
+	. = ..()
+	var/obj/item/gun/W = I
+	if(isgun(I) && can_holster(W) && user.canUnEquip(W, 0))
+		playsound(user.loc, sound_holster, 20, 1)
+
+/obj/item/clothing/accessory/holster/unholster(mob/user as mob)
+	. = ..()
+	playsound(user.loc, sound_unholster, 20, 1)
+
 /obj/item/clothing/accessory/holobadge
 	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/accessory.ogg'
 	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/accessory.ogg'
