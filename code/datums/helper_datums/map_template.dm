@@ -93,8 +93,7 @@
 
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
-	placement = locate(max(min_x,1), max(min_y,1), placement.z)
-	return block(placement, locate(min(max_x, world.maxx), min(max_y, world.maxy), placement.z))
+	return block(max(min_x, 1), max(min_y, 1), placement.z, min(max_x, world.maxx), min(max_y, world.maxy), placement.z)
 
 /datum/map_template/proc/fits_in_map_bounds(turf/T, centered = 0)
 	var/turf/placement = T
@@ -107,9 +106,9 @@
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
 	if(min_x < 1 || min_y < 1 || max_x > world.maxx || max_y > world.maxy)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 
 /proc/preloadTemplates(path = "_maps/map_files/templates/") //see master controller setup

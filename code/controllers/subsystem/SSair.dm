@@ -316,7 +316,7 @@ SUBSYSTEM_DEF(air)
 		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
 			add_to_active(S)
 
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
+/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(1, 1, 1, world.maxx, world.maxy, world.maxz))
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
 		if(T.blocks_air)
