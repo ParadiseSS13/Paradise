@@ -582,13 +582,15 @@
 	for(var/obj/airlock_filler_object/filler as anything in fillers)
 		filler.set_opacity(opacity)
 
+#define MAX_FOAM_LEVEL 5
+// Adds foam to the airlock, which will block it from being opened
 /obj/machinery/door/proc/foam_up(amount)
 	if(!foam_level)
 		new /obj/structure/barricade/foam(get_turf(src))
 		foam_level++
 		return
 
-	if(foam_level == 5)
+	if(foam_level == MAX_FOAM_LEVEL)
 		return
 
 	for(var/obj/structure/barricade/foam/blockage in loc.contents)
@@ -601,3 +603,5 @@
 			blockage.obj_integrity += 25
 			blockage.max_integrity += 25
 		foam_level++
+
+#undef MAX_FOAM_LEVEL
