@@ -67,7 +67,7 @@
 	if(r)
 		r.droplimb(0, DROPLIMB_SHARP)
 
-/obj/item/stack/cyborg_mine //Malf module
+/obj/item/stack/caution/proximity_sign/malf //Malf module
 	name = "proximity mine dispenser"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"

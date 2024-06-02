@@ -1172,7 +1172,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign)))
+	/obj/structure/sign, /obj/machinery/barsign)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
@@ -2082,3 +2082,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/is_color_dark(color, threshold = 25)
 	var/hsl = rgb2num(color, COLORSPACE_HSL)
 	return hsl[3] < threshold
+
+/**
+ * This proc takes a list of types, and returns them in the format below.
+ * [type] = amount of type in list.
+ * Useful for recipes.
+ */
+/proc/type_list_to_counted_assoc_list(list/origin_list)
+	var/list/return_list = list()
+	for(var/datum/path as anything in origin_list)
+		if(isdatum(path))
+			path = path.type
+		if(!return_list[path])
+			return_list[path] = 0
+		return_list[path] += 1
+	return return_list

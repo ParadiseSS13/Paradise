@@ -285,12 +285,11 @@
 				back_to_hunt()
 				return
 
-			if(no_handcuffs) // should we not cuff?
+			if(!(iscarbon(target) && target.canBeHandcuffed()))
 				back_to_idle()
 				return
 
-			if(!(iscarbon(target) && target.canBeHandcuffed()))
-				back_to_idle()
+			if(no_handcuffs) // should we not cuff?
 				return
 
 			if(currently_cuffing)

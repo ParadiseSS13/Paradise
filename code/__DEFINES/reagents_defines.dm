@@ -34,7 +34,13 @@
 #define BLOOD_TYPE_FAKE_BLOOD	"Vh Null"
 
 /// Used for secondary goals.
+/// TOO easy, not accepted for variety goals.
 #define REAGENT_GOAL_SKIP 0
+/// Easy reagent, ask for a lot for single goals.
 #define REAGENT_GOAL_EASY 1
+/// Normal reagent, ask for a middling amount for single goals.
 #define REAGENT_GOAL_NORMAL 2
+/// Hard reagent, ask for a little for single goals.
 #define REAGENT_GOAL_HARD 3
+/// TOO hard, accepted for variety goals, but never used for single goals.
+#define REAGENT_GOAL_EXCESSIVE 4

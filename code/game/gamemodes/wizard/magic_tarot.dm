@@ -389,11 +389,9 @@
 	card_icon = "wheel_of_fortune"
 
 /datum/tarot/wheel_of_fortune/activate(mob/living/target)
-	var/list/static/bad_vendors = list(
-		/obj/machinery/economy/vending/liberationstation,
-		/obj/machinery/economy/vending/toyliberationstation,
-		/obj/machinery/economy/vending/wallmed
-	)
+	var/list/static/bad_vendors = typesof(/obj/machinery/economy/vending/liberationstation)\
+								+ typesof(/obj/machinery/economy/vending/toyliberationstation)\
+								+ typesof(/obj/machinery/economy/vending/wallmed) // Future proofing in case we add more subtypes of disallowed vendors
 	var/turf/target_turf = get_turf(target)
 	var/vendorpath = pick(subtypesof(/obj/machinery/economy/vending) - bad_vendors)
 	new vendorpath(target_turf)

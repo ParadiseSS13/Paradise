@@ -9,7 +9,7 @@
 	var/dye_color = "#FFFFFF"
 
 /obj/machinery/dye_generator/Initialize()
-	..()
+	. = ..()
 	power_change()
 
 /obj/machinery/dye_generator/deconstruct(disassembled = TRUE)

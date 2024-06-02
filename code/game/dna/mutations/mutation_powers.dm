@@ -394,6 +394,9 @@
 		return
 
 	var/atom/movable/the_item = targets[1]
+	if(!user.Adjacent(the_item))
+		to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+		return FALSE
 	if(ishuman(the_item))
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
@@ -412,15 +415,14 @@
 			revert_cast()
 			return FALSE
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
-		var/oldloc = H.loc
-		if(!do_mob(user,H,EAT_MOB_DELAY))
+		if(!do_mob(user, H, EAT_MOB_DELAY))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)
 				return
-			if(H.loc != oldloc)
-				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
-				return
+			if(!user.Adjacent(the_item))
+				to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+				return FALSE
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 
@@ -476,6 +478,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_jump"
+	var/leap_distance = 10
 
 /datum/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -508,15 +511,25 @@
 		user.layer = 9
 
 		user.flying = TRUE
-		for(var/i=0, i<10, i++)
+		for(var/i in 1 to leap_distance)
+			var/turf/hit_turf = get_step(user, user.dir)
+			var/atom/hit_atom = get_blocking_atom(hit_turf)
+			if(hit_atom)
+				hit_atom.hit_by_thrown_mob(user, damage = 10)
+				break
+
 			step(user, user.dir)
-			if(i < 5) user.pixel_y += 8
-			else user.pixel_y -= 8
+			if(i < 6)
+				user.pixel_y += 8
+			else
+				user.pixel_y -= 8
 			sleep(1)
+
 		user.flying = prevFlying
+		user.pixel_y = 0 // In case leap was varedited to be longer or shorter
 
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
-			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
+			user.visible_message("<span class='danger'><b>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
 			user.AdjustStunned(10 SECONDS)
@@ -538,6 +551,26 @@
 			sleep(1)
 		container.pixel_x = 0
 		container.pixel_y = 0
+
+/datum/spell/leap/proc/get_blocking_atom(turf/turf_to_check)
+	if(!turf_to_check)
+		return FALSE
+
+	if(turf_to_check.density)
+		return turf_to_check
+
+	for(var/atom/movable/hit_thing in turf_to_check)
+		if(isliving(hit_thing))
+			var/mob/living/hit_mob = hit_thing
+			if(hit_mob.density)
+				return hit_mob
+
+		if(isobj(hit_thing))
+			var/obj/hit_obj = hit_thing
+			if(hit_obj.density)
+				return hit_obj
+
+	return FALSE
 
 ////////////////////////////////////////////////////////////////////////
 
