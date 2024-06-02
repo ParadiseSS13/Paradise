@@ -2,11 +2,10 @@
 	set name = "Bloom Edit"
 	set category = "Debug"
 
-	if(!check_rights(R_VAREDIT))
+	if(!check_rights(R_DEBUG))
 		return
-	if(!holder.edit_bloom)
-		holder.edit_bloom = new /datum/bloom_edit(src)
-	holder.edit_bloom.ui_interact(usr)
+	var/datum/bloom_edit/editor = new()
+	editor.ui_interact(usr)
 
 	message_admins("[key_name(src)] opened Bloom Edit panel.")
 	log_admin("[key_name(src)] opened Bloom Edit panel.")
@@ -65,6 +64,8 @@
 		if("update_lamps")
 			for(var/obj/machinery/light/L in GLOB.machines)
 				if(L.glow_overlay || L.exposure_overlay)
+					// But I'll try anyway
+					L.update_light()
 					// We would use L.update_light() here, but it doesn't work, so we do this instead.
 					L.set_light(0)
 					L.update(FALSE, TRUE, FALSE)
