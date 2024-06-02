@@ -11,7 +11,7 @@
 						"<span class='userdanger'>[user] throws you over [user.p_their()] shoulder, slamming you into the ground!</span>")
 	playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 40, TRUE, -1)
 	target.SpinAnimation(10, 1)
-	target.apply_damage(200, STAMINA)
+	target.apply_damage(120, STAMINA)
 	target.KnockDown(15 SECONDS)
 	target.SetConfused(10 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Wheel Throw", ATKLOG_ALL)

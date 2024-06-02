@@ -369,8 +369,8 @@
 
 	if(try_wallmount(I, user, params))
 		return
-	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper_engineering))
+	// The cyborg gripper does a separate attackby, so bail from this one
+	if(istype(I, /obj/item/gripper))
 		return
 
 	return ..()

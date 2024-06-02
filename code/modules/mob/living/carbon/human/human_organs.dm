@@ -48,6 +48,8 @@
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
 		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached)
+			if(E?.status & ORGAN_DEAD && HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				continue
 			if(E && !E.properly_attached && life_tick % 24 == 0)
 				to_chat(src, "<span class='danger'>Your [E] is hanging on by a thread! You need someone to surgically attach it for you!</span>")
 			// let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs.

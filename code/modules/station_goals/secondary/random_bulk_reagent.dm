@@ -17,6 +17,10 @@
 		if(initial(candidate.goal_department) != department)
 			continue
 		if(initial(candidate.goal_difficulty) == REAGENT_GOAL_SKIP)
+			// Too easy, don't want.
+			continue
+		if(initial(candidate.goal_difficulty) == REAGENT_GOAL_EXCESSIVE)
+			// Too hard, don't ask for.
 			continue
 		valid_reagents += candidate
 
@@ -84,6 +88,7 @@
 	item.account = department_account
 	item.credits = 0
 	item.reason = "Received [amount] units of [initial(reagent_type.name)]."
+	item.requests_console_department = department
 	item.zero_is_good = TRUE
 	manifest.line_items += item
 

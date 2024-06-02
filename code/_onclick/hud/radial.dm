@@ -239,6 +239,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 				return
 			else
 				next_check = world.time + check_delay
+		// if you're wondering why your radial menus aren't clickable while debugging:
+		// it's probably the stoplag call here, try it again without any breakpoints
 		stoplag(1)
 
 /datum/radial_menu/Destroy()
@@ -258,8 +260,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		return
 	if(!uniqueid)
 		uniqueid = "defmenu_[user.UID()]_[anchor.UID()]"
-
-	if(GLOB.radial_menus[uniqueid])
+	if(GLOB.radial_menus[uniqueid]) // Calls the close button an already existing radial menu.
+		var/datum/radial_menu/existing_menu = GLOB.radial_menus[uniqueid]
+		existing_menu.finished = TRUE
 		return
 
 	var/datum/radial_menu/menu = new
